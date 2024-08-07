@@ -21,7 +21,7 @@ function Cards({
   counter,
   setCounter
 }) {
-  const [specific, setSpecific] = useState(false)
+  // const [specific, setSpecific] = useState(false)
   const shadowColorArray = [
     'lightblue', 
     'lightcoral',
@@ -43,65 +43,65 @@ function Cards({
   // }  
   const alpha = Array.from(Array(26)).map((e, i) => i + 65);
   const letters = alpha.map((x) => String.fromCharCode(x));
-  if (letters.indexOf(String(msgObj.id[0]).toUpperCase())%2 === 0) {
-  }
-  shadowColor = shadowColorArray[letters.indexOf(String(msgObj.id[0]).toUpperCase())%shadowColorArray.length];
-  // console.log(letters);
+  // const nums = Array.from(Array(10), (e, i) => i);
+  const numbers = Array.from({ length: 10 }, (e, i) => `${i}`)
+  const mergedArray = letters.concat(numbers)
+  shadowColor = shadowColorArray[mergedArray.indexOf(String(msgObj.id[0]).toUpperCase())%shadowColorArray.length];
 
   return (
     <div className='p-5 max-w-60 min-w-20'>
-    <Card
-      sx={{
-        boxShadow: `1.9px 1.9px 1.9px 1.9px ${shadowColor}`
-      }}
-    >
-      <CardActionArea 
-        // onClick={() => setSpecific({
-        //   msgObj: msgObj,
-        //   isOwner: isOwner,
-        //   num: num,
-        //   points: points
-        // })}
+      <Card
+        sx={{
+          boxShadow: `1.9px 1.9px 1.9px 1.9px ${shadowColor}`
+        }}
       >
-        <Link 
-          to='/postings/specific'
-          state = {{
-            msgObj: msgObj,
-            isOwner: isOwner,
-            num: num,
-            points: points
-            // isLoggedIn: isLoggedIn,
-            // uid: userObj.uid,
-            // displayName: userObj.displayName,
-            // setValue: setValue
-            // setCounter: setCounter
-          }}
+        <CardActionArea 
+          // onClick={() => setSpecific({
+          //   msgObj: msgObj,
+          //   isOwner: isOwner,
+          //   num: num,
+          //   points: points
+          // })}
         >
-        <CardMedia
-          sx={{ height: 140 }}
-          image={staticImg}
-        />
-        <CardContent>
-          <div className='flex justify-center'>
-            {msgObj.text.choose === 1 && <Chip label='빌리기' />}
-            {msgObj.text.choose === 2 && <Chip label='빌려주기' />}
-            {isOwner && 
-              <Chip label='내가 작성함' />
-            }
-          </div>
-          <div className='flex flex-col justify-center'>
-              <div className='flex justify-center'>{msgObj.text.count} {msgObj.text.counter} {msgObj.text.counting !== '' && msgObj.text.counting}</div>
-              <div className='flex justify-center'>{msgObj.text.clock.year}.{msgObj.text.clock.month}.{msgObj.text.clock.day} {msgObj.text.clock.hour}:{msgObj.text.clock.minute} 부터</div>
-              <div className='flex justify-center'>{msgObj.text.clock.year}.{msgObj.text.clock.month}.{msgObj.text.clock.day} {msgObj.text.clocker.hour}:{msgObj.text.clocker.minute} 까지</div>
-          </div>
-        </CardContent>
-        </Link>
-        <CardActions className='flex justify-center'>
-          <Btn msgObj={msgObj} isOwner={isOwner} uid={userObj.uid} displayName={userObj.displayName} isLoggedIn={isLoggedIn} num={num} points={points} setValue={setValue} counter={counter} setCounter={setCounter} />
-        </CardActions>
-      </CardActionArea>
-    </Card>
-        </div>
+          <Link 
+            to='/postings/specific'
+            state = {{
+              msgObj: msgObj,
+              isOwner: isOwner,
+              num: num,
+              points: points
+              // isLoggedIn: isLoggedIn,
+              // uid: userObj.uid,
+              // displayName: userObj.displayName,
+              // setValue: setValue
+              // setCounter: setCounter
+            }}
+          >
+          <CardMedia
+            sx={{ height: 140 }}
+            image={staticImg}
+          />
+          <CardContent>
+            <div className='flex justify-center'>
+              {msgObj.text.choose === 1 && <Chip label='빌리기' />}
+              {msgObj.text.choose === 2 && <Chip label='빌려주기' />}
+              {isOwner && 
+                <Chip label='내가 작성함' />
+              }
+            </div>
+            <div className='flex flex-col justify-center'>
+                <div className='flex justify-center'>{msgObj.text.count} {msgObj.text.counter} {msgObj.text.counting !== '' && msgObj.text.counting}</div>
+                <div className='flex justify-center'>{msgObj.text.clock.year}.{msgObj.text.clock.month}.{msgObj.text.clock.day} {msgObj.text.clock.hour}:{msgObj.text.clock.minute} 부터</div>
+                <div className='flex justify-center'>{msgObj.text.clock.year}.{msgObj.text.clock.month}.{msgObj.text.clock.day} {msgObj.text.clocker.hour}:{msgObj.text.clocker.minute} 까지</div>
+            </div>
+          </CardContent>
+          </Link>
+          <CardActions className='flex justify-center'>
+            <Btn msgObj={msgObj} isOwner={isOwner} uid={userObj.uid} displayName={userObj.displayName} isLoggedIn={isLoggedIn} num={num} points={points} setValue={setValue} counter={counter} setCounter={setCounter} />
+          </CardActions>
+        </CardActionArea>
+      </Card>
+    </div>
   );
 }
 
