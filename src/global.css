@@ -1,0 +1,65 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@font-face {
+	font-family: 'maruburi';
+	src: url('src/assets/fonts/OTF/MaruBuri-Bold.otf') format('opentype')
+}
+.SwipeableViews {
+  scrollbar-width: none;
+}
+
+body {
+  font-family: maruburi;
+  background: #cbd5df;
+}
+/* .btns {
+	text-decoration: none;
+	color: black;
+} */
+
+.dark body {
+  color: #ddd;
+  background: #1a202c;
+}
+/* .mode {
+  color: #fff;
+  text-align: center;
+  display: block;
+  font-size: 20px;
+} */
+/* .naving {
+  position: fixed;
+  left: 30%;
+  width: 100%;
+} */
+
+.ranking-1 {
+  background-color: green;
+}
+.ranking-2 {
+  background-color: green;
+}
+.ranking-3 {
+  background-color: green;
+}
+.ranking-4 {
+  background-color: green;
+}
+.ranking-5 {
+  background-color: green;
+}
+.ranking-6 {
+  background-color: green;
+}
+.pagings {
+  padding-top: 60px;
+}
+
+.navigationChecked {
+  background: rgba(0, 0, 0, 0.7);
+  font-size: 25px;
+  color: #fff;
+  text-align: center;
+  display: block;
+}
