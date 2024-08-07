@@ -20,7 +20,7 @@ function App() {
   // const [count, setCount] = useState(0)
   const [init, setInit] = useState<boolean>(false)
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false)
-  const [userObj, setUserObj] = useState<object>({})
+  const [userObj, setUserObj] = useState(null)
   const [newAccount, setNewAccount] = useState<object>({account: false, round: 0})
   const [mode, setMode] = useState(localStorage.getItem('theme'))
 
@@ -31,6 +31,7 @@ function App() {
         setUserObj(user)
       } else {
         setIsLoggedIn(false)
+        setUserObj(null)
       }
       setInit(true)
     })
