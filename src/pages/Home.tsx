@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-// import { doc, onSnapshot, query } from 'firebase/firestore';
 import Menu from 'src/pages/Menu'
 import Notice from 'src/pages/Notice'
 import Auth from 'src/pages/Auth'

@@ -15,21 +15,23 @@ function Navigation({ scroll, setScroll, isLoggedIn, userObj, setUserObj, setVal
   const [points, setPoints] = useState<number>(0)
 
   useEffect(() => {
-    onSnapshot(query(doc(dbservice, `members/${userObj.uid}`)), (snapshot) => {
+    if (userObj) {
+      onSnapshot(query(doc(dbservice, `members/${userObj.uid}`)), (snapshot) => {
         if (isLoggedIn) {
-            const number = snapshot.data().points
-            setPoints(number)
+          const number = snapshot.data().points
+          setPoints(number)
         }
-    })
+      })
+    }
   }, [])
-  const checkbox = (event) => {
+  const checkbox = () => {
     setCheck(false)
     setScroll(0)
   }
 
-  const logOut = (event) => {
+  const logOut = () => {
     onLogOutClick()
-    checkbox(event)
+    checkbox()
     setValue(1)
     // setUserObj(null)
   }
@@ -74,38 +76,37 @@ function Navigation({ scroll, setScroll, isLoggedIn, userObj, setUserObj, setVal
       {isLoggedIn &&
         <nav
           className='w-full'
-          // className={navigation[0]}
         >
           <div className='flex'>
             <div className='p-5'>
-              <div className='flex justify-center'>좋은 날씨네요 {userObj.displayName} 님</div>
-              {isLoggedIn && <div className='flex justify-center'>내 포인트: {points}</div>}
+              <div>좋은 날씨네요 {userObj.displayName} 님</div>
+              {isLoggedIn && <div>내 포인트: {points}</div>}
             </div>
             <Modes colors={colors} setColors={setColors} setMode={setMode}/>
           </div>
           <h1
           // className='nav-padding'
           >
-            <Link className='text-2xl	px-20' to='/postings/' onClick={(event) => checkbox(event)}>메인 페이지</Link>
+            <Link className='text-2xl	px-5' to='/postings/' onClick={(event) => checkbox(event)}>메인 페이지</Link>
           </h1>
           <h1>
-            <Link className='text-2xl	px-20' to='/postings/profile' onClick={(event) => checkbox(event)}>{userObj.displayName}의 프로필</Link>
+            <Link className='text-2xl	px-5' to='/postings/profile' onClick={(event) => checkbox(event)}>{userObj.displayName}의 프로필</Link>
           </h1>
           <h1>
-            <Link className='text-2xl	px-20' to='/postings/ranking' onClick={(event) => checkbox(event)}>유저 랭킹</Link>
+            <Link className='text-2xl	px-5' to='/postings/ranking' onClick={(event) => checkbox(event)}>유저 랭킹</Link>
           </h1>
           <h1>
-            <a className='text-2xl px-20' href='mailto:ckd_qja@naver.com' target="_blank">신고하기</a>
+            <a className='text-2xl px-5' href='mailto:ckd_qja@naver.com' target="_blank">신고하기</a>
           </h1>
           <h1>
-            <a className='text-2xl px-20' href='https://open.kakao.com/o/sT7ptgQd' target="_blank">단체방</a>
+            <a className='text-2xl px-5' href='https://open.kakao.com/o/sT7ptgQd' target="_blank">단체방</a>
           </h1>
           <h1>
-            <Link className='text-2xl px-20' to="/postings/" onClick={(event) => {
-              logOut(event)
+            <Link className='text-2xl px-5' to="/postings/" onClick={(event) => {
+              logOut()
             }}>로그아웃</Link>
           </h1>
-          <Snackbars />
+          {/* <Snackbars /> */}
         </nav>
       }
       {!isLoggedIn &&
@@ -113,19 +114,23 @@ function Navigation({ scroll, setScroll, isLoggedIn, userObj, setUserObj, setVal
           className='w-full'
           // className={navigation[0]}
         >
-          <Modes setMode={setMode}/>
-          <h1
-          // className='nav-padding'
-          >
-            <Link to='/postings/' onClick={(event) => checkbox(event)}>메인 페이지</Link>
+          <div className='flex border-b border-light-3 dark:border-dark-3'>
+          <div className='p-5'>
+            <div className='flex justify-center'>좋은 날씨네요</div>
+            <div className='flex justify-center'>로그인을 해 주세요</div>
+          </div>
+            <Modes colors={colors} setColors={setColors} setMode={setMode}/>
+          </div>
+          {/* <h1>
+            <Link className='text-2xl	px-5' to='/postings/' onClick={(event) => checkbox(event)}>메인 페이지</Link>
           </h1>
           <h1>
-            <Link to='/postings/' onClick={(event) => {
+            <Link className='text-2xl	px-5' to='/postings/' onClick={(event) => {
               checkbox(event)
               setValue(1)
             }}>로그인/회원가입</Link>
-          </h1>
-          <h1>
+          </h1> */}
+          <h1 className='text-2xl px-5 pt-5'>
             <a href='mailto:ckd_qja@naver.com' target="_blank">신고하기</a>
           </h1>
         </nav>
