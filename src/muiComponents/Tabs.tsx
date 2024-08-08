@@ -34,45 +34,50 @@ function a11yProps(index) {
 }
 
 export default function ToggleTabs({ num, valuing, setValuing }) {
-  const [value, setValue] = useState(0);
+  // const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
-    setValue(newValue);
-    if (num === 1) {
-      if(newValue === 1) {
-        setValuing(4)
-      } else {
-        setValuing(0)
-      }
+    if (valuing<2) {
+      setValuing(newValue);
+    } else {
+      setValuing(newValue+3);
     }
-    if (num === 2) {
-      if(newValue === 1) {
-        setValuing(3)
-      } else {
-        setValuing(1)
-      }
-    }
+    // if (num === 1) {
+    //   if(newValue === 1) {
+    //     setValuing(4)
+    //   } else {
+    //     setValuing(0)
+    //   }
+    // }
+    // if (num === 2) {
+    //   if(newValue === 1) {
+    //     setValuing(3)
+    //   } else {
+    //     setValuing(1)
+    //   }
+    // }
   };
-  useEffect(() => {
-    if (valuing === 1) {
-      setValue(0)
-    }
-  })
-  useEffect(() => {
-    if (valuing === 3) {
-      setValue(1)
-    }
-  })
-  useEffect(() => {
-    if (valuing === 0) {
-      setValue(0)
-    }
-  })
-  useEffect(() => {
-    if (valuing === 4) {
-      setValue(1)
-    }
-  })
+  
+  // useEffect(() => {
+  //   if (valuing === 1) {
+  //     setValue(0)
+  //   }
+  // })
+  // useEffect(() => {
+  //   if (valuing === 3) {
+  //     setValue(1)
+  //   }
+  // })
+  // useEffect(() => {
+  //   if (valuing === 0) {
+  //     setValue(0)
+  //   }
+  // })
+  // useEffect(() => {
+  //   if (valuing === 4) {
+  //     setValue(1)
+  //   }
+  // })
 
   return (
     <Box>
@@ -80,14 +85,22 @@ export default function ToggleTabs({ num, valuing, setValuing }) {
         // borderBottom: 0, 
         // borderColor: 'divider' 
         }}>
+        {valuing<2 &&
         <Tabs
-          // textColor="secondary"
-          // indicatorColor="secondary"
-          value={value} onChange={handleChange} aria-label="basic tabs example">
+          value={valuing} onChange={handleChange} aria-label="basic tabs example"
+        >
           <Tab label="빌리기" {...a11yProps(0)} />
           <Tab label="빌려주기" {...a11yProps(1)} />
-          {/* <Tab label="Item Three" {...a11yProps(2)} /> */}
         </Tabs>
+        }
+        {valuing>=2 &&
+        <Tabs
+        value={valuing-3} onChange={handleChange} aria-label="basic tabs example"
+        >
+          <Tab label="빌리기" {...a11yProps(0)} />
+          <Tab label="빌려주기" {...a11yProps(1)} />
+        </Tabs>
+        }
       </Box>
       {/* <CustomTabPanel value={value} index={0}>
       Borrow

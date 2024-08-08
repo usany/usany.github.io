@@ -82,9 +82,6 @@ const Router = ({ isLoggedIn, userObj, setUserObj, newAccount, setNewAccount, se
         <BrowserRouter>
             <div className={sides[0] + ' location'}>
                 <div className='flex flex-row'>
-                    <ClickAwayListener onClickAway={() => {
-                        setCheck(false)
-                    }}>
                         <div id='navigationSelectorOne' className='w-10 pt-5'>
                             <Navigation scroll={scroll} setScroll={setScroll} isLoggedIn={isLoggedIn} userObj={userObj} setUserObj={setUserObj} setValue={setValue} check={check} setCheck={setCheck} setMode={setMode}/>
                             <div className='flex'>
@@ -95,23 +92,26 @@ const Router = ({ isLoggedIn, userObj, setUserObj, newAccount, setNewAccount, se
                                     document.getElementsByClassName('location')[0].style.top = `-${prevScrollPos}px`
                                 }} />
                                 :
-                                <Avatar sx={{ bgcolor: blue[500] }} onClick={() => setCheck(!check)} />
+                                <Avatar sx={{ bgcolor: blue[500] }} onClick={() => {
+                                    setCheck(!check)
+                                    setScroll(prevScrollPos)
+                                    document.getElementsByClassName('location')[0].style.top = `-${prevScrollPos}px`
+                                }} />
                             }
-                            {value === 0 && 
+                            {isLoggedIn && value === 0 && 
                                 <ToggleTabs num={1} valuing={value} setValuing={setValue}/>
                             }
-                            {value === 4 && 
+                            {isLoggedIn && value === 1 && 
                                 <ToggleTabs num={1} valuing={value} setValuing={setValue}/>
                             }
-                            {value === 1 && 
+                            {isLoggedIn && value === 3 && 
                                 <ToggleTabs num={2} valuing={value} setValuing={setValue}/>
                             }
-                            {value === 3 && 
+                            {isLoggedIn && value === 4 && 
                                 <ToggleTabs num={2} valuing={value} setValuing={setValue}/>
                             }
                             </div>
                         </div>
-                    </ClickAwayListener>
                     <div id='navigationSelectorTwo' className='w-full h-15'></div>
                 </div>
                 <div id='contentSelector'>

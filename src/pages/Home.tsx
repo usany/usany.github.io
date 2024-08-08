@@ -40,7 +40,7 @@ function Home({ isLoggedIn, userObj, value, newAccount, setNewAccount, setValue,
                 {value === 2 && 
                     <Menu isLoggedIn={isLoggedIn} userObj={userObj} counter={counter} setCounter={setCounter} setValue={setValue} />
                 }
-                {[0, 4].indexOf(value) !== -1 && 
+                {[0, 1].indexOf(value) !== -1 && 
                     <div>
                     <SwipeableViews
                         index={value}
@@ -58,10 +58,10 @@ function Home({ isLoggedIn, userObj, value, newAccount, setNewAccount, setValue,
                     </SwipeableViews>
                     </div>
                 }
-                {[1, 3].indexOf(value) !== -1 && 
+                {[3, 4].indexOf(value) !== -1 && 
                     <div>
                     <SwipeableViews
-                        index={value-1}
+                        index={value-3}
                         onIndexChange={setValue}
                         num={2}
                         // initial={[1, 3]}

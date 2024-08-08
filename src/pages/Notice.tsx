@@ -49,7 +49,7 @@ function Notice({ isLoggedIn, userObj, valuing, setValue, counter, setCounter })
                         )
                     }
                 })}
-                {valuing === 4 && messages.map((msg) => {
+                {valuing !== 1 && messages.map((msg) => {
                     if (msg.text.choose === 2 && msg.round === 1) {
                         return(
                             <Message key={msg.id} msgObj={msg} isOwner={msg.creatorId === userObj.uid} userObj={userObj} isLoggedIn={isLoggedIn} setValue={setValue} counter={counter} setCounter={setCounter}/>

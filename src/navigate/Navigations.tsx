@@ -37,10 +37,10 @@ function Navigations({ sides, counter, isLoggedIn, value, setValue, scroll, setS
                     }}
                 >
                     <BottomNavigationAction label={'빌리기'} icon={<ChevronLeft />}/>
-                    <BottomNavigationAction label={'빌리기 목록'} icon={<Checklist />}/>
-                    <BottomNavigationAction label={'내 상태'} icon={<Badges counter={counter}/>}/>
-                    <BottomNavigationAction label={'빌려주기 목록'} icon={<ChecklistRtl />}/>
                     <BottomNavigationAction label={'빌려주기'} icon={<ChevronRight/>}/>
+                    <BottomNavigationAction label={'내 상태'} icon={<Badges counter={counter}/>}/>
+                    <BottomNavigationAction label={'빌리기 목록'} icon={<Checklist />}/>
+                    <BottomNavigationAction label={'빌려주기 목록'} icon={<ChecklistRtl />}/>
                 </BottomNavigation>
             }
             {!isLoggedIn && 
