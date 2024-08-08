@@ -6,7 +6,7 @@ import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import { doc, onSnapshot, query } from 'firebase/firestore';
 
 const onLogOutClick = () => auth.signOut();
-function Navigation({ scroll, setScroll, isLoggedIn, userObj, setUserObj, setValue, check, setCheck, setMode }) {
+function Navigation({ setScroll, isLoggedIn, userObj, setValue, check, setCheck, setMode }) {
   const [colors, setColors] = useState(localStorage.getItem("theme"));
   const [color, setColor] = useState('#e2e8f0');
   const [backgroundColor, setBackgroundColor] = useState('#e2e8f0');
