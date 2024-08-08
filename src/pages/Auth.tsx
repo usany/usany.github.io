@@ -8,7 +8,7 @@ import Dialogs from 'src/muiComponents/Dialogs';
 import SignInDialogs from 'src/muiComponents/SignInDialogs';
 import Motions from 'src/muiComponents/Motions';
 
-function Auth({ newAccount, setNewAccount }) {
+function Auth({ newAccount, setNewAccount, setValue }) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
@@ -47,6 +47,7 @@ function Auth({ newAccount, setNewAccount }) {
       console.log(error)
       setError(error.message)
     }
+    setValue(2)
   }
 
   const onChange = (event) => {

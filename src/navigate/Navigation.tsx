@@ -35,7 +35,6 @@ function Navigation({ scroll, setScroll, isLoggedIn, userObj, setUserObj, setVal
     setValue(1)
     // setUserObj(null)
   }
-
   const navigation = []
   if (check) {
     navigation.push(
@@ -77,23 +76,26 @@ function Navigation({ scroll, setScroll, isLoggedIn, userObj, setUserObj, setVal
         <nav
           className='w-full'
         >
-          <div className='flex'>
+          <div className='flex border-b border-light-3 dark:border-dark-3'>
             <div className='p-5'>
               <div>좋은 날씨네요 {userObj.displayName} 님</div>
               {isLoggedIn && <div>내 포인트: {points}</div>}
+              {/* <div className='flex justify-end'>
+                <Link to='/postings/profile' onClick={() => checkbox()}>내 프로필</Link>
+              </div> */}
             </div>
+            <div className='flex border-b border-light-3 dark:border-dark-3'></div>
             <Modes colors={colors} setColors={setColors} setMode={setMode}/>
           </div>
-          <h1
-          // className='nav-padding'
+          {/* <h1
           >
-            <Link className='text-2xl	px-5' to='/postings/' onClick={(event) => checkbox(event)}>메인 페이지</Link>
+            <Link className='text-2xl	px-5' to='/postings/' onClick={() => checkbox()}>메인 페이지</Link>
+          </h1> */}
+          <h1 className='text-2xl	px-5 pt-5'>
+            <Link to='/postings/profile' onClick={() => checkbox()}>{userObj.displayName}의 프로필</Link>
           </h1>
-          <h1>
-            <Link className='text-2xl	px-5' to='/postings/profile' onClick={(event) => checkbox(event)}>{userObj.displayName}의 프로필</Link>
-          </h1>
-          <h1>
-            <Link className='text-2xl	px-5' to='/postings/ranking' onClick={(event) => checkbox(event)}>유저 랭킹</Link>
+          <h1 className='text-2xl	px-5'>
+            <Link to='/postings/ranking' onClick={() => checkbox()}>유저 랭킹</Link>
           </h1>
           <h1>
             <a className='text-2xl px-5' href='mailto:ckd_qja@naver.com' target="_blank">신고하기</a>
@@ -102,7 +104,7 @@ function Navigation({ scroll, setScroll, isLoggedIn, userObj, setUserObj, setVal
             <a className='text-2xl px-5' href='https://open.kakao.com/o/sT7ptgQd' target="_blank">단체방</a>
           </h1>
           <h1>
-            <Link className='text-2xl px-5' to="/postings/" onClick={(event) => {
+            <Link className='text-2xl px-5' to="/postings/" onClick={() => {
               logOut()
             }}>로그아웃</Link>
           </h1>

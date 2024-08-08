@@ -11,23 +11,26 @@ import Badges from 'src/muiComponents/Badges'
 import Paper from '@mui/material/Paper'
 
 function Navigations({ sides, counter, isLoggedIn, value, setValue, scroll, setScroll }) {
+    // const [colors, setColors] = useState(localStorage.getItem("theme"));
+    // const [color, setColor] = useState('#e2e8f0');
+    const [backgroundColor, setBackgroundColor] = useState('#e2e8f0');
+
+    useEffect(() => {
+        if (localStorage.getItem("theme") === 'dark') {
+        setBackgroundColor('#2d3848')
+        } else {
+        setBackgroundColor('#e2e8f0')
+        }
+    })
+
     const navigate = useNavigate()
     // const ref = useRef(counter)
 
-    // let badge
-    // useEffect(() => {
-    //     badge = counter
-    //     ref.current = counter
-    //     console.log(ref)
-    //     console.log(badge)
-    // })
-
     return (
-        // <Paper sx={{bgcolor: 'rgba(0, 0, 0, 0.1)'}} className={sides} elevation={5}>
         <div className={sides} >
             {isLoggedIn &&
                 <BottomNavigation
-                    // sx={{bgcolor: 'rgba(0, 0, 0, 0.1)'}}    
+                    sx={{bgcolor: {backgroundColor}}}    
                     showLabels
                     value={value}
                     onChange={(event, newValue) => {
@@ -45,11 +48,13 @@ function Navigations({ sides, counter, isLoggedIn, value, setValue, scroll, setS
             }
             {!isLoggedIn && 
                 <BottomNavigation
+                    sx={{bgcolor: {backgroundColor}}}    
                     showLabels
                     value={value}
                     onChange={(event, newValue) => {
                         setValue(newValue)
                         setScroll(0)
+                        navigate('/postings/')
                     }}
                 >
                     <BottomNavigationAction label={'빌리기 목록'} icon={<Checklist />}/>

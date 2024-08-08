@@ -41,6 +41,11 @@ const Router = ({ isLoggedIn, userObj, setUserObj, newAccount, setNewAccount, se
             // ref.current.scrollIntoView({ behavior: 'smooth' })
         }
     })
+    useEffect(() => {
+        if (value !== 0 && !value) {
+            setValue(1)
+        }
+    })
     const sides = []
     if (check === false) {
         sides.push(
@@ -82,22 +87,24 @@ const Router = ({ isLoggedIn, userObj, setUserObj, newAccount, setNewAccount, se
         <BrowserRouter>
             <div className={sides[0] + ' location'}>
                 <div className='flex flex-row'>
-                        <div id='navigationSelectorOne' className='w-10 pt-5'>
+                        <div id='navigationSelectorOne' className='pt-1'>
                             <Navigation scroll={scroll} setScroll={setScroll} isLoggedIn={isLoggedIn} userObj={userObj} setUserObj={setUserObj} setValue={setValue} check={check} setCheck={setCheck} setMode={setMode}/>
                             <div className='flex'>
-                            {userObj ?
-                                <Avatar alt={userObj.displayName} sx={{ bgcolor: blue[500] }} src='./src' onClick={() => {
-                                    setCheck(!check)
-                                    setScroll(prevScrollPos)
-                                    document.getElementsByClassName('location')[0].style.top = `-${prevScrollPos}px`
-                                }} />
-                                :
-                                <Avatar sx={{ bgcolor: blue[500] }} onClick={() => {
-                                    setCheck(!check)
-                                    setScroll(prevScrollPos)
-                                    document.getElementsByClassName('location')[0].style.top = `-${prevScrollPos}px`
-                                }} />
-                            }
+                                <div className='px-5 pt-1'>
+                                    {userObj ?
+                                        <Avatar alt={userObj.displayName} sx={{ bgcolor: blue[500] }} src='./src' onClick={() => {
+                                            setCheck(!check)
+                                            setScroll(prevScrollPos)
+                                            document.getElementsByClassName('location')[0].style.top = `-${prevScrollPos}px`
+                                        }} />
+                                        :
+                                        <Avatar sx={{ bgcolor: blue[500] }} onClick={() => {
+                                            setCheck(!check)
+                                            setScroll(prevScrollPos)
+                                            document.getElementsByClassName('location')[0].style.top = `-${prevScrollPos}px`
+                                        }} />
+                                    }
+                                </div>
                             {isLoggedIn && value === 0 && 
                                 <ToggleTabs num={1} valuing={value} setValuing={setValue}/>
                             }
@@ -109,6 +116,9 @@ const Router = ({ isLoggedIn, userObj, setUserObj, newAccount, setNewAccount, se
                             }
                             {isLoggedIn && value === 4 && 
                                 <ToggleTabs num={2} valuing={value} setValuing={setValue}/>
+                            }
+                            {!isLoggedIn && 
+                                <div className='pt-5 min-w-36' onClick={() => setValue(1)}>로그인을 해 주세요</div>
                             }
                             </div>
                         </div>

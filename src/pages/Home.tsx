@@ -30,7 +30,7 @@ function Home({ isLoggedIn, userObj, value, newAccount, setNewAccount, setValue,
             setValue(2)
         } 
     })
-    
+    // console.log(value)
     return (
         <div>
             {isLoggedIn && 
@@ -83,7 +83,7 @@ function Home({ isLoggedIn, userObj, value, newAccount, setNewAccount, setValue,
                         <Notice isLoggedIn={isLoggedIn} userObj={userObj} valuing={1} setValue={setValue}/>
                     }
                     {value === 1 &&
-                        <Auth newAccount={newAccount} setNewAccount={setNewAccount} userObj={userObj} valuing={value}/>
+                        <Auth newAccount={newAccount} setNewAccount={setNewAccount} userObj={userObj} valuing={value} setValue={setValue}/>
                     }
                     {value === 2 &&
                         <Notice isLoggedIn={isLoggedIn} userObj={userObj} valuing={4} setValue={setValue}/>
