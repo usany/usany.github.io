@@ -94,7 +94,6 @@ export function SwipeableViews({
           //   currentPage = currentPage+3
           // }
         }
-          // const currentPage = Math.round(currentTarget.scrollLeft / pageWidth);
         onIndexChange(currentPage);
       }, 100);
     },
