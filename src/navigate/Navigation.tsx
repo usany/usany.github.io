@@ -1,10 +1,8 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
-import { ClickAwayListener } from '@mui/base/ClickAwayListener';
+import { auth, dbservice } from 'src/baseApi/serverbase'
 import Modes from 'src/Modes'
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
-import Snackbars from 'src/muiComponents/Snackbars'
 import { doc, onSnapshot, query } from 'firebase/firestore';
 
 const onLogOutClick = () => auth.signOut();
@@ -108,13 +106,11 @@ function Navigation({ scroll, setScroll, isLoggedIn, userObj, setUserObj, setVal
               logOut()
             }}>로그아웃</Link>
           </h1>
-          {/* <Snackbars /> */}
         </nav>
       }
       {!isLoggedIn &&
         <nav
           className='w-full'
-          // className={navigation[0]}
         >
           <div className='flex border-b border-light-3 dark:border-dark-3'>
           <div className='p-5'>
