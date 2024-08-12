@@ -8,10 +8,16 @@ function Notice({ isLoggedIn, userObj, valuing, setValue, counter, setCounter })
 
   useEffect(() => {
     onSnapshot(query(collection(dbservice, 'num'), orderBy('creatorClock', 'desc')), (snapshot) => {
-        const newArray = snapshot.docs.map((document) => ({
-            id: document.id,
-            ...document.data(),
-        }));
+        const newArray = snapshot.docs.map((document) => {
+            // console.log(document.data().text.clocker.gmt)
+            // if (document.data().text.clocker.gmt === undefined || document.data().text.clocker.gmt > Date.now()) {
+            // }
+            return ({
+                id: document.id,
+                ...document.data(),
+            })
+        });
+        // console.log(newArray)
         setMessages(newArray)
     })
   }, [])
@@ -43,14 +49,15 @@ function Notice({ isLoggedIn, userObj, valuing, setValue, counter, setCounter })
         }
         <div className='flex justify-center flex-wrap'>
                 {valuing === 1 && messages.map((msg) => {
-                    if (msg.text.choose === 1 && msg.round === 1) {
+                    // console.log(msg.text.clocker.gmt)
+                    if (msg.text.choose === 1 && msg.round === 1 && msg.text.clocker.gmt.seconds*1000 + Date.now()) {
                         return(
                             <Message key={msg.id} msgObj={msg} isOwner={msg.creatorId === userObj.uid} userObj={userObj} isLoggedIn={isLoggedIn} setValue={setValue} counter={counter} setCounter={setCounter}/>
                         )
                     }
                 })}
                 {valuing !== 1 && messages.map((msg) => {
-                    if (msg.text.choose === 2 && msg.round === 1) {
+                    if (msg.text.choose === 2 && msg.round === 1 && (msg.text.clocker.gmt === undefined || msg.text.clocker.gmt.seconds*1000 + Date.now())) {
                         return(
                             <Message key={msg.id} msgObj={msg} isOwner={msg.creatorId === userObj.uid} userObj={userObj} isLoggedIn={isLoggedIn} setValue={setValue} counter={counter} setCounter={setCounter}/>
                         )
