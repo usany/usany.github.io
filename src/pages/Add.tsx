@@ -3,6 +3,7 @@ import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
 import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnapshot, deleteDoc, updateDoc } from 'firebase/firestore';
 import Lotties from 'src/lottiesAnimation/Lotties'
 import Pickers from 'src/muiComponents/Pickers'
+import ItemSelects from 'src/muiComponents/ItemSelects'
 import Selects from 'src/muiComponents/Selects'
 import AddSteppers from 'src/muiComponents/AddSteppers'
 import Button from '@mui/material/Button';
@@ -11,6 +12,7 @@ import Snackbar from '@mui/material/Snackbar';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import dayjs from 'dayjs';
+import Select from '@mui/material/Select';
 
 function Add({ userObj, valuing }: {userObj: object, valuing: number}) {
   const [addSteps, setAddSteps] = useState(0);
@@ -19,6 +21,7 @@ function Add({ userObj, valuing }: {userObj: object, valuing: number}) {
   const [display, setDisplay] = useState(null)
 //   const [count, setCount] = useState('');
 //   const [counter, setCounter] = useState(0);
+  const [item, setItem] = useState<string>('');
   const [locationInput, setLocationInput] = useState<string>('');
   const [locationOne, setLocationOne] = useState<string>('');
   const [locationTwo, setLocationTwo] = useState<string>('');
@@ -33,6 +36,23 @@ function Add({ userObj, valuing }: {userObj: object, valuing: number}) {
         setTimeout(() => setProcess(false) , 5000)
     }
   })
+  const changeItem = (event) => {
+    event.preventDefault()
+    const {
+        target: {value},
+    } = event;
+    // setLocationOne(value);
+    setItem(value)
+    setLocationOne('');
+    setLocationTwo('');
+    setLocationThree('');
+    if (value.trim() !== '') {
+        setAddSteps(1)
+    } else {
+        setAddSteps(0)
+    }
+    setEnableButton(true)
+  }
   const changeLocationInput = (event) => {
     event.preventDefault()
     const {
@@ -43,9 +63,9 @@ function Add({ userObj, valuing }: {userObj: object, valuing: number}) {
     setLocationTwo('');
     setLocationThree('');
     if (value.trim() !== '') {
-        setAddSteps(1)
+        setAddSteps(2)
     } else {
-        setAddSteps(0)
+        setAddSteps(1)
     }
     setEnableButton(true)
   }
@@ -57,7 +77,7 @@ function Add({ userObj, valuing }: {userObj: object, valuing: number}) {
     setLocationOne(value);
     setLocationTwo('');
     setLocationThree('');
-    setAddSteps(0)
+    setAddSteps(1)
     setEnableButton(true)
   }
   const changeRoom = (event) => {
@@ -68,11 +88,11 @@ function Add({ userObj, valuing }: {userObj: object, valuing: number}) {
     setLocationTwo(value);
     setLocationThree('');
     if (locationOne !== '중도' && locationOne !== '직접 입력') {
-        setAddSteps(1)
+        setAddSteps(2)
     } else if (locationOne === '중도' && (['1열(1F)', '2열(2F)', '3열(2F)', '4열(4F)', '집중열(1F)'].indexOf(value) === -1)) {
-        setAddSteps(1)
+        setAddSteps(2)
     } else {
-        setAddSteps(0)
+        setAddSteps(1)
     }
     setEnableButton(true)
   }
@@ -82,7 +102,7 @@ function Add({ userObj, valuing }: {userObj: object, valuing: number}) {
           target: {value},
       } = event;
       setLocationThree(value);
-      setAddSteps(1)
+      setAddSteps(2)
       setEnableButton(true)
   }
 
@@ -159,18 +179,18 @@ function Add({ userObj, valuing }: {userObj: object, valuing: number}) {
       } else {
           alert('내용을 입력해 주세요')
       }
-      setAddSteps(2)
+      setAddSteps(3)
       setEnableButton(false)
   }
   console.log(display)
   const onChangeFrom = (event) => {
     setFrom({gmt: event.$d, year: event.$y, month: event.$M+1, day:event.$D, hour: event.$H, minute: event.$m})
-    setAddSteps(1)
+    setAddSteps(2)
     setEnableButton(true)
   }
   const onChangeTo = (event) => {
     setTo({gmt: event.$d, year: event.$y, month: event.$M+1, day:event.$D, hour: event.$H, minute: event.$m})
-    setAddSteps(1)
+    setAddSteps(2)
     setEnableButton(true)
 }
     if (cardId) {
@@ -184,30 +204,25 @@ function Add({ userObj, valuing }: {userObj: object, valuing: number}) {
   return (
     <div className='flex flex-col'>
         <div>
-            {valuing === 0 &&
-                // <div className='flex justify-center border border-sky-500'>
-                //     빌리기 카드 등록
-                // </div>
-                <div className='flex text-2xl p-5'>
-                    빌리기 카드 등록
-                </div>
-            }
-            {valuing === 1 &&
-                // <div className='flex justify-center border border-sky-500'>
-                //     빌려주기 카드 등록
-                // </div>
-                <div className='flex text-2xl p-5'>
-                    빌려주기 카드 등록
-                </div>
-            }
+            <div className='flex text-2xl p-5'>
+                {valuing === 0 ? '빌리기 ' : '빌려주기 '} 카드 등록
+            </div>
         </div>
         <div className='flex justify-end start-0 end-0'>
-            <AddSteppers steps={addSteps}/>
+            <AddSteppers steps={addSteps} valuing={valuing}/>
         </div>
         {/* {valuing !== null && */}
             <div>
                 <div className='flex text-base px-5 pt-5'>
-                    1. 장소 입력
+                    1. 무엇을 {valuing === 0 ? '빌리세요?' : '빌려주세요?'}
+                </div>
+                <div className='flex px-5'>
+                    <ItemSelects item={item} setItem={setItem} changeItem={changeItem}/>
+                </div>
+                {addSteps > 0 && 
+                <div>
+                <div className='flex text-base px-5 pt-5'>
+                    2. 장소 입력
                 </div>
                 <div className='flex px-5'>
                     <Selects 
@@ -223,10 +238,12 @@ function Add({ userObj, valuing }: {userObj: object, valuing: number}) {
                         </div>
                     }
                 </div>
-                {addSteps > 0 &&
+                </div>
+                }
+                {addSteps > 1 &&
                     <div>
                         <div className='flex text-base px-5 pt-5'>
-                            2. 시간 입력
+                            3. 시간 입력
                         </div>
                         <div className='flex flex-col px-5'>
                             <Pickers onChange={onChangeFrom} label={"이 때부터"}  />
@@ -240,7 +257,7 @@ function Add({ userObj, valuing }: {userObj: object, valuing: number}) {
                         {!enableButton && 
                             <div>
                                 <div className='flex text-base px-5 pt-5'>
-                                    3. 등록 완료
+                                    4. 등록 완료
                                 </div>
                                 <div className='flex text-base px-5'>
                                     (등록 카드는 내 상태, 게시판에서 확인할 수 있습니다)

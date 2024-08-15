@@ -4,6 +4,7 @@ import Home from 'src/pages/Home'
 import Profile from 'src/pages/Profile'
 import Ranking from 'src/pages/Ranking'
 import Specific from 'src/pages/Specific'
+import Header from 'src/navigate/Header'
 import Navigation from 'src/navigate/Navigation'
 import Navigations from 'src/navigate/Navigations'
 import Avatar from '@mui/material/Avatar';
@@ -49,14 +50,14 @@ const Router = ({ isLoggedIn, userObj, setUserObj, newAccount, setNewAccount, se
     const sides = []
     if (check === false) {
         sides.push(
-            'flex flex-col location'
+            'flex flex-col'
         )
         sides.push(
             'border border-sky-500 rounded-t fixed bottom-0 start-0 end-0'
         )
     } else {
         sides.push(
-            'fixed flex flex-col location'
+            'fixed flex flex-col'
         )
         sides.push(
             'fixed border border-sky-500 rounded-t bottom-0 start-0 end-0'
@@ -72,12 +73,12 @@ const Router = ({ isLoggedIn, userObj, setUserObj, newAccount, setNewAccount, se
             // user has scrolled up
             document.querySelector('#navigationSelectorOne')?.classList.add('fixed', 'top-0', 'z-20', 'bg-light-3', 'dark:bg-dark-3')
             document.querySelector('#navigationSelectorTwo')?.classList.add('fixed', 'top-0', 'z-10', 'bg-light-3', 'dark:bg-dark-3')
-            document.querySelector('#contentSelector')?.classList.add('pagings')
+            document.querySelector('#contentSelector')?.classList.add('pt-60px')
         } else {
             // user has scrolled down
             document.querySelector('#navigationSelectorOne')?.classList.remove('fixed', 'top-0', 'z-20', 'bg-light-3', 'dark:bg-dark-3')
             document.querySelector('#navigationSelectorTwo')?.classList.remove('fixed', 'top-0', 'z-10', 'bg-light-3', 'dark:bg-dark-3')
-            document.querySelector('#contentSelector')?.classList.remove('pagings')
+            document.querySelector('#contentSelector')?.classList.remove('pt-60px')
         }
         // update previous scroll position
         prevScrollPos = currentScrollPos;
@@ -85,46 +86,20 @@ const Router = ({ isLoggedIn, userObj, setUserObj, newAccount, setNewAccount, se
 
     return (
         <BrowserRouter>
-            <div className={sides[0] + ' location'}>
-                <div className='flex flex-row'>
-                        <div id='navigationSelectorOne' className='pt-1'>
-                            <Navigation scroll={scroll} setScroll={setScroll} isLoggedIn={isLoggedIn} userObj={userObj} setUserObj={setUserObj} setValue={setValue} check={check} setCheck={setCheck} setMode={setMode}/>
-                            <div className='flex'>
-                                <div className='px-5 pt-1'>
-                                    {userObj ?
-                                        <Avatar alt={userObj.displayName} sx={{ bgcolor: blue[500] }} src='./src' onClick={() => {
-                                            setCheck(!check)
-                                            setScroll(prevScrollPos)
-                                            document.getElementsByClassName('location')[0].style.top = `-${prevScrollPos}px`
-                                        }} />
-                                        :
-                                        <Avatar sx={{ bgcolor: blue[500] }} onClick={() => {
-                                            setCheck(!check)
-                                            setScroll(prevScrollPos)
-                                            document.getElementsByClassName('location')[0].style.top = `-${prevScrollPos}px`
-                                        }} />
-                                    }
-                                </div>
-                            {isLoggedIn && value === 0 && 
-                                <ToggleTabs num={1} valuing={value} setValuing={setValue}/>
-                            }
-                            {isLoggedIn && value === 1 && 
-                                <ToggleTabs num={1} valuing={value} setValuing={setValue}/>
-                            }
-                            {isLoggedIn && value === 3 && 
-                                <ToggleTabs num={2} valuing={value} setValuing={setValue}/>
-                            }
-                            {isLoggedIn && value === 4 && 
-                                <ToggleTabs num={2} valuing={value} setValuing={setValue}/>
-                            }
-                            {!isLoggedIn && 
-                                <div className='pt-5 min-w-36' onClick={() => setValue(1)}>로그인을 해 주세요</div>
-                            }
-                            </div>
-                        </div>
-                    <div id='navigationSelectorTwo' className='w-full h-15'></div>
-                </div>
-                <div id='contentSelector'>
+            <div className={sides[0]}>
+                <Header 
+                    scroll={scroll}
+                    setScroll={setScroll} 
+                    isLoggedIn={isLoggedIn} 
+                    userObj={userObj} 
+                    setUserObj={setUserObj} 
+                    setValue={setValue} 
+                    check={check} setCheck={setCheck} setMode={setMode} prevScrollPos={prevScrollPos} value={value}
+                />
+                <div 
+                    id='contentSelector'
+                    // className='pt-60px'
+                >
                     <Routes>
                         {
                             isLoggedIn ? (

@@ -83,8 +83,8 @@ function Cards({
           />
           <CardContent>
             <div className='flex justify-center'>
-              {msgObj.text.choose === 1 && <Chip label='빌리기' />}
-              {msgObj.text.choose === 2 && <Chip label='빌려주기' />}
+              {msgObj.text.choose === 1 && <Chip label='우산 / 빌리기' />}
+              {msgObj.text.choose === 2 && <Chip label='우산 / 빌려주기' />}
               {isOwner && 
                 <Chip label='내가 작성함' />
               }
