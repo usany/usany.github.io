@@ -19,7 +19,7 @@ const WeatherView = () => {
     }
     const getCurrentWeather = async () => {
         await fetch(
-            `http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&APPID=${APIKEY}&units=metric`
+            `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&APPID=${APIKEY}&units=metric`
         )
         .then((response) => {
             console.log(response)
