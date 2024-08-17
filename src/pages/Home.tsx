@@ -9,7 +9,7 @@ import Add from 'src/pages/Add'
 // import Navigation from 'src/navigate/Navigation'
 import { SwipeableViews } from "src/navigate/SwipeableViews";
 
-function Home({ isLoggedIn, userObj, value, newAccount, setNewAccount, setValue, counter, setCounter }) {
+function Home({ isLoggedIn, userObj, value, newAccount, setNewAccount, setValue, counter, setCounter, tmpCounter }) {
     // const [style, setStyle] = useState<React.CSSProperties>({});
     // const [childStyle, setChildStyle] = useState<React.CSSProperties>({});
     // const [points, setPoints] = useState<number>(0)
@@ -38,7 +38,7 @@ function Home({ isLoggedIn, userObj, value, newAccount, setNewAccount, setValue,
                 {/* <div className='flex justify-center'>좋은 날씨네요 {userObj.displayName} 님</div>
                 {isLoggedIn && <div className='flex justify-center'>내 포인트: {points}</div>} */}
                 {value === 2 && 
-                    <Menu isLoggedIn={isLoggedIn} userObj={userObj} counter={counter} setCounter={setCounter} setValue={setValue} />
+                    <Menu isLoggedIn={isLoggedIn} userObj={userObj} counter={counter} setCounter={setCounter} setValue={setValue} tmpCounter={tmpCounter} />
                 }
                 {[0, 1].indexOf(value) !== -1 && 
                     <div>

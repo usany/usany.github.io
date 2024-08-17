@@ -10,7 +10,7 @@ import BeachAccess from '@mui/icons-material/BeachAccess'
 import Badges from 'src/muiComponents/Badges'
 import Paper from '@mui/material/Paper'
 
-function Navigations({ sides, counter, isLoggedIn, value, setValue, scroll, setScroll }) {
+function Navigations({ sides, counter, isLoggedIn, value, setValue, scroll, setScroll, tmpCounter }) {
     // const [colors, setColors] = useState(localStorage.getItem("theme"));
     // const [color, setColor] = useState('#e2e8f0');
     const [backgroundColor, setBackgroundColor] = useState('#e2e8f0');
@@ -27,7 +27,7 @@ function Navigations({ sides, counter, isLoggedIn, value, setValue, scroll, setS
     // const ref = useRef(counter)
 
     return (
-        <div className={sides} >
+        <div className='w-screen fixed border border-sky-500 rounded-t bottom-0 start-0 end-0'>
             {isLoggedIn &&
                 <BottomNavigation
                     sx={{bgcolor: {backgroundColor}}}    
@@ -41,7 +41,7 @@ function Navigations({ sides, counter, isLoggedIn, value, setValue, scroll, setS
                 >
                     <BottomNavigationAction label={'빌리기'} icon={<ChevronLeft />}/>
                     <BottomNavigationAction label={'빌려주기'} icon={<ChevronRight/>}/>
-                    <BottomNavigationAction label={'내 상태'} icon={<Badges counter={counter}/>}/>
+                    <BottomNavigationAction label={'내 상태'} icon={<Badges counter={counter} tmpCounter={tmpCounter}/>}/>
                     <BottomNavigationAction label={'빌리기 목록'} icon={<Checklist />}/>
                     <BottomNavigationAction label={'빌려주기 목록'} icon={<ChecklistRtl />}/>
                 </BottomNavigation>

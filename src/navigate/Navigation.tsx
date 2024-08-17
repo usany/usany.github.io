@@ -69,6 +69,7 @@ function Navigation({ setScroll, isLoggedIn, userObj, setValue, check, setCheck,
       open={check}
       onClose={toggle(false)}
       onOpen={toggle(true)}
+      aria-hidden="false"
     >
       {isLoggedIn &&
         <nav

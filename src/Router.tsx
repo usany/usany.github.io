@@ -14,6 +14,7 @@ import ToggleTabs from 'src/muiComponents/Tabs'
 // import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 // import Snackbars from 'src/muiComponents/Snackbars'
 
+const tmpCounter = []
 const Router = ({ isLoggedIn, userObj, setUserObj, newAccount, setNewAccount, setMode } :{
     isLoggedIn: boolean,
     userObj: object,
@@ -26,7 +27,7 @@ const Router = ({ isLoggedIn, userObj, setUserObj, newAccount, setNewAccount, se
     const [value, setValue] = useState<number>(2);
     const [check, setCheck] = useState<boolean>(false)
     const [scroll, setScroll] = useState<number>(0)
-    
+    // const tmpCounter = []
     useEffect(() => {
         if (!check) {
             setTimeout(() => window.scrollTo({
@@ -49,19 +50,19 @@ const Router = ({ isLoggedIn, userObj, setUserObj, newAccount, setNewAccount, se
     })
     const sides = []
     if (check === false) {
-        sides.push(
-            'flex flex-col'
-        )
-        sides.push(
-            'border border-sky-500 rounded-t fixed bottom-0 start-0 end-0'
-        )
+        // sides.push(
+        //     'flex flex-col'
+        // )
+        // sides.push(
+        //     'border border-sky-500 rounded-t fixed bottom-0 start-0 end-0'
+        // )
     } else {
         sides.push(
-            'fixed flex flex-col'
+            'fixed'
         )
-        sides.push(
-            'fixed border border-sky-500 rounded-t bottom-0 start-0 end-0'
-        )
+        // sides.push(
+        //     'fixed border border-sky-500 rounded-t bottom-0 start-0 end-0'
+        // )
     }
 
     // keep track of previous scroll position
@@ -73,20 +74,25 @@ const Router = ({ isLoggedIn, userObj, setUserObj, newAccount, setNewAccount, se
             // user has scrolled up
             document.querySelector('#navigationSelectorOne')?.classList.add('fixed', 'top-0', 'z-20', 'bg-light-3', 'dark:bg-dark-3')
             document.querySelector('#navigationSelectorTwo')?.classList.add('fixed', 'top-0', 'z-10', 'bg-light-3', 'dark:bg-dark-3')
-            document.querySelector('#contentSelector')?.classList.add('pt-60px')
+            document.querySelector('#contentSelector')?.classList.add('pt-16')
         } else {
             // user has scrolled down
             document.querySelector('#navigationSelectorOne')?.classList.remove('fixed', 'top-0', 'z-20', 'bg-light-3', 'dark:bg-dark-3')
             document.querySelector('#navigationSelectorTwo')?.classList.remove('fixed', 'top-0', 'z-10', 'bg-light-3', 'dark:bg-dark-3')
-            document.querySelector('#contentSelector')?.classList.remove('pt-60px')
+            document.querySelector('#contentSelector')?.classList.remove('pt-16')
         }
         // update previous scroll position
         prevScrollPos = currentScrollPos;
     });
 
+    // useEffect(() => {
+    //     if (check) {
+    //         document.getElementsByClassName('location')[0].style.top = `-${prevScrollPos}px`
+    //     }
+    // })
     return (
         <BrowserRouter>
-            <div className={sides[0]}>
+            <div className={sides[0] + ' flex flex-col location'}>
                 <Header 
                     scroll={scroll}
                     setScroll={setScroll} 
@@ -98,13 +104,12 @@ const Router = ({ isLoggedIn, userObj, setUserObj, newAccount, setNewAccount, se
                 />
                 <div 
                     id='contentSelector'
-                    // className='pt-60px'
                 >
                     <Routes>
                         {
                             isLoggedIn ? (
                                 <Route>
-                                    <Route path='/postings/' Component={() => <Home isLoggedIn={isLoggedIn} userObj={userObj} setUserObj={setUserObj} value={value} newAccount={newAccount} setNewAccount={setNewAccount} setValue={setValue} counter={counter} setCounter={setCounter} check={check} setCheck={setCheck} />} />
+                                    <Route path='/postings/' Component={() => <Home isLoggedIn={isLoggedIn} userObj={userObj} setUserObj={setUserObj} value={value} newAccount={newAccount} setNewAccount={setNewAccount} setValue={setValue} counter={counter} setCounter={setCounter} check={check} setCheck={setCheck} tmpCounter={tmpCounter} />} />
                                     <Route path='/postings/profile' Component={() => <Profile isLoggedIn={isLoggedIn} userObj={userObj} setUserObj={setUserObj} value={value} newAccount={newAccount} setNewAccount={setNewAccount} setValue={setValue} counter={counter} setCounter={setCounter} check={check} setCheck={setCheck} />} />
                                     <Route path='/postings/ranking' Component={() => <Ranking isLoggedIn={isLoggedIn} userObj={userObj} setUserObj={setUserObj} value={value} newAccount={newAccount} setNewAccount={setNewAccount} setValue={setValue} counter={counter} setCounter={setCounter} check={check} setCheck={setCheck} />} />
                                     <Route path='/postings/specific' Component={() => <Specific isLoggedIn={isLoggedIn} userObj={userObj} setUserObj={setUserObj} value={value} newAccount={newAccount} setNewAccount={setNewAccount} setValue={setValue} counter={counter} setCounter={setCounter} check={check} setCheck={setCheck} />} />
@@ -118,7 +123,7 @@ const Router = ({ isLoggedIn, userObj, setUserObj, newAccount, setNewAccount, se
                         }
                     </Routes>
                 </div>
-                <Navigations scroll={scroll} setScroll={setScroll} sides={sides[1]} counter={counter} isLoggedIn={isLoggedIn} value={value} setValue={setValue} />
+                <Navigations scroll={scroll} setScroll={setScroll} sides={sides[1]} counter={counter} isLoggedIn={isLoggedIn} value={value} setValue={setValue} tmpCounter={tmpCounter}/>
             </div>
         </BrowserRouter>
     )

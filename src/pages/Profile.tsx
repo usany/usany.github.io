@@ -4,6 +4,7 @@ import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
 import { updateProfile, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { collection, query, where, orderBy, addDoc, getDocs, doc, onSnapshot, updateDoc } from 'firebase/firestore';
 import Button from '@mui/material/Button';
+import { formGroupClasses } from '@mui/material';
 // import styled from 'styled-components'
 
 // const NavBtn = styled.button`
@@ -22,30 +23,65 @@ function Profile({ isLoggedIn, userObj, setUserObj, value, setValue, side, setSi
   const [messages, setMessages] = useState([])
   const [newDisplayName, setNewDisplayName] = useState('')
   const [num, setNum] = useState(null)
+  const [profileChangeConfirmed, setProfileChangeConfirmed] = useState(null)
 
   const onSubmit = async (event) => {
     event.preventDefault()
     if (newDisplayName === '') {
       alert('입력이 필요합니다')
     } else {
+      const tmp = query(collection(dbservice, `members`))
+      const querySnapshot = await getDocs(tmp);
+      let profileConfirmed = true
+      // console.log(querySnapshot)
+      querySnapshot.forEach((doc) => {
+        if (newDisplayName === doc.data().displayName) {
+          alert('중복 확인이 필요합니다')
+          profileConfirmed = false
+        }
+      });
+      // if (profileConfirmed) {
+      //   setProfileChangeConfirmed(true)
+      // } else {
+      //   setProfileChangeConfirmed(false)
+      // }
+      if (!profileConfirmed) {
+        alert('중복 확인을 완료해 주세요')
+      } else {
       const data = await doc(dbservice, `members/${userObj.uid}`)
       console.log(userObj.uid)
       await updateDoc(data, {displayName: newDisplayName});
       await updateProfile(userObj, {
         displayName: newDisplayName
       }).then(() => {
-        window.location.reload(true)
+        // window.location.reload(true)
+        alert('교체 완료')
       }).catch((error) => {
         console.log('error')
       })
+      }
     }
   }
   
-  const onChange = (event) => {
+  const onChange = async (event) => {
     const {
       target: { value },
     } = event
     setNewDisplayName(value)
+    const tmp = query(collection(dbservice, `members`))
+    const querySnapshot = await getDocs(tmp);
+    let profileConfirmed = true
+    // console.log(querySnapshot)
+    querySnapshot.forEach((doc) => {
+      if (value === doc.data().displayName) {
+        profileConfirmed = false
+      }
+    });
+    if (profileConfirmed) {
+      setProfileChangeConfirmed(true)
+    } else {
+      setProfileChangeConfirmed(false)
+    }
   }
   
   const getMessage = async () => {
@@ -79,7 +115,6 @@ function Profile({ isLoggedIn, userObj, setUserObj, value, setValue, side, setSi
     getMessages()
   })
   
-
   useEffect(() => {
     onSnapshot(query(doc(dbservice, `members/${userObj.uid}`)), (snapshot) => {
         const number = snapshot.data().points
@@ -98,6 +133,28 @@ function Profile({ isLoggedIn, userObj, setUserObj, value, setValue, side, setSi
     setValue(5)
   })
 
+  const confirmProfile = async (newDisplayName) => {
+    const tmp = query(collection(dbservice, `members`))
+    const querySnapshot = await getDocs(tmp);
+    let profileConfirmed = true
+    querySnapshot.forEach((doc) => {
+      if (newDisplayName === doc.data().displayName) {
+        profileConfirmed = false
+      }
+    });
+    if (profileConfirmed) {
+      setProfileChangeConfirmed(true)
+    } else {
+      setProfileChangeConfirmed(false)
+    }
+    // })
+    // console.log(
+    //   get(query(collection(dbservice, `members`)))
+    // )
+    // Array(query(collection(dbservice, `members`))).map((member) => {
+    //   console.log(member)
+    // })
+  }
   return (  
     <div>
       <div className={side}>
@@ -105,10 +162,30 @@ function Profile({ isLoggedIn, userObj, setUserObj, value, setValue, side, setSi
       <form id='profile' onSubmit={onSubmit}>
         <div className='flex justify-center'>
           <input className='form-control' placeholder='유저 이름' value={newDisplayName} type='text' onChange={onChange} />
+          {/* <Button variant='outlined' form='profile' onClick={() => confirmProfile(newDisplayName)}>중복 확인</Button> */}
         </div>
-        <div className='flex justify-center'>
+        {profileChangeConfirmed ? 
+          <div className='flex justify-center'>
+            <div>
+              다행히 중복되지 않네요
+            </div>
+            <div>
+              <Button variant='outlined' form='profile' type='submit'>유저 이름 바꾸기</Button>
+            </div>
+          </div>
+          :
+          <div className='flex justify-center'>
+            <div>
+              아쉽게도 중복되네요
+            </div>
+            <div className='flex justify-center'>
+              <Button variant='outlined' form='profile' type='submit' disabled>유저 이름 바꾸기</Button>
+            </div>
+          </div>
+        }
+        {/* <div className='flex justify-center'>
           <Button variant='outlined' form='profile' type='submit'>유저 이름 바꾸기</Button>
-        </div>
+        </div> */}
       </form>
       <div className='flex justify-center'>
         내 포인트: {num}

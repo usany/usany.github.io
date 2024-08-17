@@ -3,7 +3,8 @@ import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
 import { collection, query, where, orderBy, addDoc, getDocs, doc, onSnapshot, deleteDoc, updateDoc } from 'firebase/firestore';
 import Message from 'src/pages/Message'
 
-function Menu({ isLoggedIn, userObj, counter, setCounter, setValue }) {
+// let tmpCounter = []
+function Menu({ isLoggedIn, userObj, counter, setCounter, setValue, tmpCounter }) {
     // const [choose, setChoose] = useState(true);
     const [messages, setMessages] = useState<Array<object>>([]);
 
@@ -20,15 +21,20 @@ function Menu({ isLoggedIn, userObj, counter, setCounter, setValue }) {
     }, [])
 
     const onCounting = (msg) => {
-        setCounter([
-            ...counter,
-            msg.id
-        ])
+        // setCounter([
+        //     ...counter,
+        //     msg.id
+        // ])
+        tmpCounter.push(msg.id)
     }
     
     // const onClick = () => {
     //     setChoose(true)
     // }
+
+    useEffect(() => {
+        setCounter(tmpCounter)
+    })
   
     return (
         <div className='flex justify-center flex-col pb-5'>
@@ -49,7 +55,7 @@ function Menu({ isLoggedIn, userObj, counter, setCounter, setValue }) {
                                         if (counter.indexOf(msg.id) === -1) {
                                             onCounting(msg)
                                         }
-                                        return(<Message key={msg.id} msgObj={msg} isOwner={msg.creatorId === userObj.uid} userObj={userObj} isLoggedIn={isLoggedIn} counter={counter} setCounter={setCounter} setValue={setValue}/>)
+                                        return(<Message key={msg.id} msgObj={msg} isOwner={msg.creatorId === userObj.uid} userObj={userObj} isLoggedIn={isLoggedIn} counter={counter} setCounter={setCounter} setValue={setValue} />)
                                     }
                                 }
                             })}
@@ -64,7 +70,7 @@ function Menu({ isLoggedIn, userObj, counter, setCounter, setValue }) {
                                             if (counter.indexOf(msg.id) === -1) {
                                                 onCounting(msg)
                                             }
-                                            return(<Message key={msg.id} msgObj={msg} isOwner={msg.creatorId === userObj.uid} userObj={userObj} isLoggedIn={isLoggedIn} counter={counter} setCounter={setCounter} setValue={setValue}/>)
+                                            return(<Message key={msg.id} msgObj={msg} isOwner={msg.creatorId === userObj.uid} userObj={userObj} isLoggedIn={isLoggedIn} counter={counter} setCounter={setCounter} setValue={setValue} />)
                                         }
                                     }
                                 })}

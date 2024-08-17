@@ -26,13 +26,13 @@ const Header = ({ scroll, setScroll, isLoggedIn, userObj, setUserObj, setValue, 
                                 <Avatar alt={userObj.displayName} sx={{ bgcolor: blue[500] }} src='./src' onClick={() => {
                                     setCheck(!check)
                                     setScroll(prevScrollPos)
-                                    document.getElementsByClassName('location')[0].style.top = `-${prevScrollPos}px`
+                                    // document.getElementsByClassName('location')[0].style.top = `-${prevScrollPos}px`
                                 }} />
                                 :
                                 <Avatar sx={{ bgcolor: blue[500] }} onClick={() => {
                                     setCheck(!check)
                                     setScroll(prevScrollPos)
-                                    document.getElementsByClassName('location')[0].style.top = `-${prevScrollPos}px`
+                                    // document.getElementsByClassName('location')[0].style.top = `-${prevScrollPos}px`
                                 }} />
                             }
                         </div>
@@ -54,7 +54,7 @@ const Header = ({ scroll, setScroll, isLoggedIn, userObj, setUserObj, setValue, 
                     }
                     </div>
                     <div>
-                    <WeatherView />
+                        <WeatherView />
                     </div>
                     </div>
                 </div>
