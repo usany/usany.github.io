@@ -43,7 +43,6 @@ function SignInDialogs({move, handleClose }) {
       })
       // if (newAccount.account) {
       //   data = await createUserWithEmailAndPassword(auth, email, password)
-        
       //   await setDoc(doc(dbservice, 'members', `${data.user.uid}`), {
       //     uid: data.user.uid,
       //     displayName: data.user.uid,
