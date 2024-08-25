@@ -10,7 +10,7 @@ import BeachAccess from '@mui/icons-material/BeachAccess'
 import Badges from 'src/muiComponents/Badges'
 import Paper from '@mui/material/Paper'
 
-function Navigations({ sides, counter, isLoggedIn, value, setValue, scroll, setScroll, tmpCounter }) {
+function Navigations({ bottomNavigation, setBottomNavigation, sides, counter, isLoggedIn, value, setValue, scroll, setScroll, tmpCounter }) {
     // const [colors, setColors] = useState(localStorage.getItem("theme"));
     // const [color, setColor] = useState('#e2e8f0');
     const [backgroundColor, setBackgroundColor] = useState('#e2e8f0');
@@ -32,27 +32,29 @@ function Navigations({ sides, counter, isLoggedIn, value, setValue, scroll, setS
                 <BottomNavigation
                     sx={{bgcolor: {backgroundColor}}}    
                     showLabels
-                    value={value}
+                    value={bottomNavigation}
                     onChange={(event, newValue) => {
-                        setValue(newValue)
+                        setBottomNavigation(newValue)
                         setScroll(0)
                         navigate('/postings/')
                     }}
                 >
-                    <BottomNavigationAction label={'빌리기'} icon={<ChevronLeft />}/>
-                    <BottomNavigationAction label={'빌려주기'} icon={<ChevronRight/>}/>
+                    <BottomNavigationAction label={'등록'} icon={<ChevronLeft />}/>
+                    {/* <BottomNavigationAction label={'빌리기'} icon={<ChevronLeft />}/>
+                    <BottomNavigationAction label={'빌려주기'} icon={<ChevronRight/>}/> */}
                     <BottomNavigationAction label={'내 상태'} icon={<Badges counter={counter} tmpCounter={tmpCounter}/>}/>
-                    <BottomNavigationAction label={'빌리기 목록'} icon={<Checklist />}/>
-                    <BottomNavigationAction label={'빌려주기 목록'} icon={<ChecklistRtl />}/>
+                    <BottomNavigationAction label={'게시판'} icon={<Checklist />}/>
+                    {/* <BottomNavigationAction label={'빌리기 목록'} icon={<Checklist />}/>
+                    <BottomNavigationAction label={'빌려주기 목록'} icon={<ChecklistRtl />}/> */}
                 </BottomNavigation>
             }
             {!isLoggedIn && 
                 <BottomNavigation
                     sx={{bgcolor: {backgroundColor}}}    
                     showLabels
-                    value={value}
+                    value={bottomNavigation}
                     onChange={(event, newValue) => {
-                        setValue(newValue)
+                        setBottomNavigation(newValue)
                         setScroll(0)
                         navigate('/postings/')
                     }}

@@ -57,11 +57,10 @@ body {
 .pagings {
   padding-top: 60px;
 }
-
-.navigationChecked {
+/* .navigationChecked {
   background: rgba(0, 0, 0, 0.7);
   font-size: 25px;
   color: #fff;
   text-align: center;
   display: block;
-}
+} */

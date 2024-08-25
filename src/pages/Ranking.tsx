@@ -10,7 +10,7 @@ import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import { blue } from '@mui/material/colors';
 
-function Ranking({ isLoggedIn, userObj, setUserObj, value, setValue, side, setSide, sideNavigation, setSideNavigation, check, setCheck, counter }) {
+function Ranking({ isLoggedIn, userObj, setUserObj, value, setValue, side, setSide, sideNavigation, setSideNavigation, check, setCheck, counter, setBottomNavigation }) {
   const [rank, setRank] = useState([])
   const [ranker, setRanker] = useState([])
 
@@ -41,7 +41,7 @@ function Ranking({ isLoggedIn, userObj, setUserObj, value, setValue, side, setSi
   }, [])
   
   useEffect(() => {
-    setValue(5)
+    setBottomNavigation(5)
   })
 
   return (

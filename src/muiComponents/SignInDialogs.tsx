@@ -5,46 +5,66 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
+import { auth, onSocialClick, dbservice } from 'src/baseApi/serverbase'
+import { updateProfile, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { doc, setDoc } from 'firebase/firestore';
+import {supabase} from 'src/baseApi/base';
 
 function SignInDialogs({move, handleClose }) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   
+  async function signUpNewUser(email, password) {
+    const { data, error } = await supabase.auth.signUp({
+      email: email,
+      password: password,
+      // options: {
+      //   emailRedirectTo: 'https://example.com/welcome',
+      // },
+    })
+  }  
   const onSubmit = async (event) => {
     event.preventDefault()
     try {
       let data: object;
-      if (newAccount.account) {
-        data = await createUserWithEmailAndPassword(auth, email, password)
-        
-        await setDoc(doc(dbservice, 'members', `${data.user.uid}`), {
-          uid: data.user.uid,
-          displayName: data.user.uid,
-          points: 0,
-          round: newAccount.round
-        })
-        await updateProfile(data.user, {
-          displayName: data.user.uid
-        }).catch((error) => {
-          console.log('error')
-        })
-        setNewAccount({
-          ...newAccount,
-          round: setNewAccount.round+1
-        })
-      } else {
-        data = await signInWithEmailAndPassword(auth, email, password)
-      }
-      console.log(data)
-      setNewAccount({
-        ...newAccount,
-        account: false
+      data = await createUserWithEmailAndPassword(auth, email, password)
+      
+      await setDoc(doc(dbservice, 'members', `${data.user.uid}`), {
+        uid: data.user.uid,
+        displayName: data.user.uid,
+        points: 0,
+        // round: newAccount.round
       })
+      await updateProfile(data.user, {
+        displayName: data.user.uid
+      }).catch((error) => {
+        console.log('error')
+      })
+      // if (newAccount.account) {
+      //   data = await createUserWithEmailAndPassword(auth, email, password)
+        
+      //   await setDoc(doc(dbservice, 'members', `${data.user.uid}`), {
+      //     uid: data.user.uid,
+      //     displayName: data.user.uid,
+      //     points: 0,
+      //     round: newAccount.round
+      //   })
+      //   await updateProfile(data.user, {
+      //     displayName: data.user.uid
+      //   }).catch((error) => {
+      //     console.log('error')
+      //   })
+      // } else {
+      //   data = await signInWithEmailAndPassword(auth, email, password)
+      // }
+      console.log(data)
     } catch (error) {
       console.log(error)
       setError(error.message)
     }
+    signUpNewUser(email, password)
+    handleClose()
   }
 
   const onChange = (event) => {
@@ -71,7 +91,7 @@ function SignInDialogs({move, handleClose }) {
                       <TextField label="비밀번호" value={password} onChange={onChange} variant="outlined" name='password' type='password' fullWidth required />
                   </div>
                   <div className='flex flex-col justify-center pt-2.5'>
-                      <Button variant='outlined' form='auth' type='submit'>회원가입</Button>
+                      <Button variant='outlined' form='signIn' type='submit'>회원가입</Button>
                       <span>{error}</span>
                   </div>
               </form>

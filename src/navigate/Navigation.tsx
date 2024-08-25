@@ -33,16 +33,16 @@ function Navigation({ setScroll, isLoggedIn, userObj, setValue, check, setCheck,
     setValue(1)
     // setUserObj(null)
   }
-  const navigation = []
-  if (check) {
-    navigation.push(
-      'navigationChecked fixed top-0 bottom-0 left-0 z-10 w-2/3'
-    )
-  } else {
-    navigation.push(
-      'fixed top-0 bottom-0 overflow-hidden -left-full'
-    )
-  }
+  // const navigation = []
+  // if (check) {
+  //   navigation.push(
+  //     'navigationChecked fixed top-0 bottom-0 left-0 z-10 w-2/3'
+  //   )
+  // } else {
+  //   navigation.push(
+  //     'fixed top-0 bottom-0 overflow-hidden -left-full'
+  //   )
+  // }
 
   const toggle = (choose) => () => {
     setCheck(choose)

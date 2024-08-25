@@ -14,7 +14,7 @@ import ToggleTabs from 'src/muiComponents/Tabs'
 // import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 // import Snackbars from 'src/muiComponents/Snackbars'
 
-const Header = ({ scroll, setScroll, isLoggedIn, userObj, setUserObj, setValue, check, setCheck, setMode, prevScrollPos, value, }) => {
+const Header = ({ bottomNavigation, setBottomNavigation, scroll, setScroll, isLoggedIn, userObj, setUserObj, setValue, check, setCheck, setMode, prevScrollPos, value, profileColor }) => {
     
     return (
         <div className='flex flex-row'>
@@ -23,7 +23,7 @@ const Header = ({ scroll, setScroll, isLoggedIn, userObj, setUserObj, setValue, 
                     <div className='flex justify-between w-screen'>
                         <div className='px-5 pt-1'>
                             {userObj ?
-                                <Avatar alt={userObj.displayName} sx={{ bgcolor: blue[500] }} src='./src' onClick={() => {
+                                <Avatar alt={userObj.displayName} sx={{ bgcolor: profileColor }} src='./src' onClick={() => {
                                     setCheck(!check)
                                     setScroll(prevScrollPos)
                                     // document.getElementsByClassName('location')[0].style.top = `-${prevScrollPos}px`
@@ -37,18 +37,18 @@ const Header = ({ scroll, setScroll, isLoggedIn, userObj, setUserObj, setValue, 
                             }
                         </div>
                         <div>
-                    {isLoggedIn && value === 0 && 
+                    {isLoggedIn && bottomNavigation === 0 && 
+                        <ToggleTabs valuing={value} setValuing={setValue}/>
+                    }
+                    {/* {isLoggedIn && value === 0 && 
                         <ToggleTabs num={1} valuing={value} setValuing={setValue}/>
+                    } */}
+                    {isLoggedIn && bottomNavigation === 2 && 
+                        <ToggleTabs valuing={value} setValuing={setValue}/>
                     }
-                    {isLoggedIn && value === 1 && 
-                        <ToggleTabs num={1} valuing={value} setValuing={setValue}/>
-                    }
-                    {isLoggedIn && value === 3 && 
+                    {/* {isLoggedIn && value === 2 && 
                         <ToggleTabs num={2} valuing={value} setValuing={setValue}/>
-                    }
-                    {isLoggedIn && value === 4 && 
-                        <ToggleTabs num={2} valuing={value} setValuing={setValue}/>
-                    }
+                    } */}
                     {!isLoggedIn && 
                         <div className='pt-5 min-w-36' onClick={() => setValue(1)}>로그인을 해 주세요</div>
                     }

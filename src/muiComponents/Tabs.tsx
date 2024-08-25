@@ -33,14 +33,14 @@ function a11yProps(index) {
   };
 }
 
-export default function ToggleTabs({ num, valuing, setValuing }) {
+export default function ToggleTabs({ valuing, setValuing }) {
   // const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
     if (valuing<2) {
       setValuing(newValue);
     } else {
-      setValuing(newValue+3);
+      setValuing(newValue);
     }
     // if (num === 1) {
     //   if(newValue === 1) {
@@ -95,7 +95,7 @@ export default function ToggleTabs({ num, valuing, setValuing }) {
         }
         {valuing>=2 &&
         <Tabs
-        value={valuing-3} onChange={handleChange} aria-label="basic tabs example"
+        value={valuing} onChange={handleChange} aria-label="basic tabs example"
         >
           <Tab label="빌리기" {...a11yProps(0)} />
           <Tab label="빌려주기" {...a11yProps(1)} />

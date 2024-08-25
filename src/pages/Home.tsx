@@ -9,7 +9,7 @@ import Add from 'src/pages/Add'
 // import Navigation from 'src/navigate/Navigation'
 import { SwipeableViews } from "src/navigate/SwipeableViews";
 
-function Home({ isLoggedIn, userObj, value, newAccount, setNewAccount, setValue, counter, setCounter, tmpCounter }) {
+function Home({ isLoggedIn, userObj, value, newAccount, setNewAccount, setValue, counter, setCounter, tmpCounter, bottomNavigation, setBottomNavigation }) {
     // const [style, setStyle] = useState<React.CSSProperties>({});
     // const [childStyle, setChildStyle] = useState<React.CSSProperties>({});
     // const [points, setPoints] = useState<number>(0)
@@ -25,11 +25,6 @@ function Home({ isLoggedIn, userObj, value, newAccount, setNewAccount, setValue,
     //         }
     //     })
     // }, [])
-    useEffect(() => {
-        if (value >= 5) {
-            setValue(2)
-        } 
-    })
     // console.log(value)
     return (
         <div>
@@ -37,10 +32,10 @@ function Home({ isLoggedIn, userObj, value, newAccount, setNewAccount, setValue,
             <div>
                 {/* <div className='flex justify-center'>좋은 날씨네요 {userObj.displayName} 님</div>
                 {isLoggedIn && <div className='flex justify-center'>내 포인트: {points}</div>} */}
-                {value === 2 && 
+                {bottomNavigation === 1 && 
                     <Menu isLoggedIn={isLoggedIn} userObj={userObj} counter={counter} setCounter={setCounter} setValue={setValue} tmpCounter={tmpCounter} />
                 }
-                {[0, 1].indexOf(value) !== -1 && 
+                {[0].indexOf(bottomNavigation) !== -1 && 
                     <div>
                     <SwipeableViews
                         index={value}
@@ -58,12 +53,12 @@ function Home({ isLoggedIn, userObj, value, newAccount, setNewAccount, setValue,
                     </SwipeableViews>
                     </div>
                 }
-                {[3, 4].indexOf(value) !== -1 && 
+                {[2].indexOf(bottomNavigation) !== -1 && 
                     <div>
                     <SwipeableViews
-                        index={value-3}
+                        index={value}
                         onIndexChange={setValue}
-                        num={2}
+                        num={1}
                         // initial={[1, 3]}
                     >
                         <div>
@@ -79,13 +74,13 @@ function Home({ isLoggedIn, userObj, value, newAccount, setNewAccount, setValue,
             }
             {!isLoggedIn &&
                 <>
-                    {value === 0 &&
+                    {bottomNavigation === 0 &&
                         <Notice isLoggedIn={isLoggedIn} userObj={userObj} valuing={1} setValue={setValue}/>
                     }
-                    {value === 1 &&
+                    {bottomNavigation === 1 &&
                         <Auth newAccount={newAccount} setNewAccount={setNewAccount} userObj={userObj} valuing={value} setValue={setValue}/>
                     }
-                    {value === 2 &&
+                    {bottomNavigation === 2 &&
                         <Notice isLoggedIn={isLoggedIn} userObj={userObj} valuing={4} setValue={setValue}/>
                     }
                 </>

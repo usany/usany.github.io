@@ -220,25 +220,25 @@ function Add({ userObj, valuing }: {userObj: object, valuing: number}) {
                     <ItemSelects item={item} setItem={setItem} changeItem={changeItem}/>
                 </div>
                 {addSteps > 0 && 
-                <div>
-                <div className='flex text-base px-5 pt-5'>
-                    2. 장소 입력
-                </div>
-                <div className='flex px-5'>
-                    <Selects 
-                        locationOne={locationOne} 
-                        locationTwo={locationTwo} 
-                        locationThree={locationThree} 
-                        changeBuilding={changeBuilding} changeRoom={changeRoom} changeSeat={changeSeat}
-                        setAddSteps={setAddSteps}
-                    />
-                    {locationOne === '직접 입력' && 
-                        <div className='pt-7'>
-                            <input className='dark:bg-black border' onChange={changeLocationInput} required autoFocus/>
+                    <div>
+                        <div className='flex text-base px-5 pt-5'>
+                            2. 장소 입력
                         </div>
-                    }
-                </div>
-                </div>
+                        <div className='flex px-5'>
+                            <Selects 
+                                locationOne={locationOne} 
+                                locationTwo={locationTwo} 
+                                locationThree={locationThree} 
+                                changeBuilding={changeBuilding} changeRoom={changeRoom} changeSeat={changeSeat}
+                                setAddSteps={setAddSteps}
+                            />
+                            {locationOne === '직접 입력' && 
+                                <div className='pt-7'>
+                                    <input className='dark:bg-black border' onChange={changeLocationInput} required autoFocus/>
+                                </div>
+                            }
+                        </div>
+                    </div>
                 }
                 {addSteps > 1 &&
                     <div>
@@ -249,12 +249,11 @@ function Add({ userObj, valuing }: {userObj: object, valuing: number}) {
                             <Pickers onChange={onChangeFrom} label={"이 때부터"}  />
                             <Pickers onChange={onChangeTo} label={"이 때까지"} />
                         </div>
-                        {enableButton && 
+                        {enableButton ? 
                             <form className='flex justify-center pt-5' id='selection' onSubmit={submit}>
                                 <Button variant='outlined' form='selection' type='submit'>등록하기</Button>
                             </form>
-                        }
-                        {!enableButton && 
+                        :
                             <div>
                                 <div className='flex text-base px-5 pt-5'>
                                     4. 등록 완료

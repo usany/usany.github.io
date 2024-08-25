@@ -14,7 +14,7 @@ import { formGroupClasses } from '@mui/material';
 //   display: flex;
 //   justify-content: center;
 // `
-function Profile({ isLoggedIn, userObj, setUserObj, value, setValue, side, setSide, sideNavigation, setSideNavigation, check, setCheck, counter, setCounter }) {
+function Profile({ isLoggedIn, userObj, setUserObj, value, setValue, side, setSide, sideNavigation, setSideNavigation, check, setCheck, counter, setCounter, setBottomNavigation }) {
   // const [email, setEmail] = useState('')
   // const [password, setPassword] = useState('')
   // const [newAccount, setNewAccount] = useState(false)
@@ -24,6 +24,7 @@ function Profile({ isLoggedIn, userObj, setUserObj, value, setValue, side, setSi
   const [newDisplayName, setNewDisplayName] = useState('')
   const [num, setNum] = useState(null)
   const [profileChangeConfirmed, setProfileChangeConfirmed] = useState(null)
+  const [attachment, setAttachment] = useState('')
 
   const onSubmit = async (event) => {
     event.preventDefault()
@@ -130,7 +131,7 @@ function Profile({ isLoggedIn, userObj, setUserObj, value, setValue, side, setSi
   }, [])
 
   useEffect(() => {
-    setValue(5)
+    setBottomNavigation(5)
   })
 
   const confirmProfile = async (newDisplayName) => {
@@ -155,10 +156,37 @@ function Profile({ isLoggedIn, userObj, setUserObj, value, setValue, side, setSi
     //   console.log(member)
     // })
   }
+  const onFileChange = (event) => {
+    // console.log(event.target.files);
+    const {
+        target: { files },
+    } = event;
+    const theFile = files[0];
+    const reader = new FileReader();
+    reader.onloadend = (finishedEvent) => {
+        console.log(finishedEvent);
+        const {
+            currentTarget: { result },
+        } = finishedEvent;
+        setAttachment(result);
+    }
+    console.log(theFile)
+    reader.readAsDataURL(theFile)
+  }
+  const onClearAttachment = () => setAttachment('')
   return (  
     <div>
       <div className={side}>
+      <div className='flex justify-center'>
+        <input type='file' onChange={onFileChange}/>
+      </div>
       <div className='flex justify-center'>제 유저 이름은 {userObj.displayName}</div>
+      {attachment &&
+        <div className='flex justify-center'>
+          <img src={attachment} width='50px' height='50px' alt='alt' />
+          <button className='factoryClear' onClick={onClearAttachment}>Clear</button>
+        </div>
+      }
       <form id='profile' onSubmit={onSubmit}>
         <div className='flex justify-center'>
           <input className='form-control' placeholder='유저 이름' value={newDisplayName} type='text' onChange={onChange} />
@@ -174,8 +202,8 @@ function Profile({ isLoggedIn, userObj, setUserObj, value, setValue, side, setSi
             </div>
           </div>
           :
-          <div className='flex justify-center'>
-            <div>
+          <div className='flex flex-col justify-center'>
+            <div className='flex justify-center'>
               아쉽게도 중복되네요
             </div>
             <div className='flex justify-center'>
