@@ -77,7 +77,6 @@ function SignInDialogs({move, handleClose }) {
     }
   }
 
-    
     return (
         <Dialog fullWidth={true} open={move} onClose={handleClose}>
             <DialogContent>
