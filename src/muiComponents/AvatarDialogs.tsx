@@ -6,7 +6,7 @@ import Button from '@mui/material/Button';
 import Avatar from '@mui/material/Avatar';
 
 function AvatarDialogs({ userObj, profileColor, setProfileColor, changeProfile, handleClose }) {
-    const [color, setColor] = useState('ffffff')
+    const [color, setColor] = useState('#ffffff')
     return (
         <Dialog open={changeProfile} onClose={handleClose}>
             <DialogContent>
