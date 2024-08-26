@@ -1,10 +1,14 @@
 import { useState, useEffect } from 'react'
 import Message from 'src/pages/Message'
+import AvatarDialogs from 'src/muiComponents/AvatarDialogs'
 import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
 import { updateProfile, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { collection, query, where, orderBy, addDoc, getDocs, doc, onSnapshot, updateDoc } from 'firebase/firestore';
 import Button from '@mui/material/Button';
-import { formGroupClasses } from '@mui/material';
+// import { formGroupClasses } from '@mui/material';
+import Badge from '@mui/material/Badge';
+import Avatar from '@mui/material/Avatar';
+import Checklist from '@mui/icons-material/Checklist'
 // import styled from 'styled-components'
 
 // const NavBtn = styled.button`
@@ -14,7 +18,7 @@ import { formGroupClasses } from '@mui/material';
 //   display: flex;
 //   justify-content: center;
 // `
-function Profile({ isLoggedIn, userObj, setUserObj, value, setValue, side, setSide, sideNavigation, setSideNavigation, check, setCheck, counter, setCounter, setBottomNavigation }) {
+function Profile({ profileColor, setProfileColor, isLoggedIn, userObj, setUserObj, value, setValue, side, setSide, sideNavigation, setSideNavigation, check, setCheck, counter, setCounter, setBottomNavigation }) {
   // const [email, setEmail] = useState('')
   // const [password, setPassword] = useState('')
   // const [newAccount, setNewAccount] = useState(false)
@@ -25,7 +29,7 @@ function Profile({ isLoggedIn, userObj, setUserObj, value, setValue, side, setSi
   const [num, setNum] = useState(null)
   const [profileChangeConfirmed, setProfileChangeConfirmed] = useState(null)
   const [attachment, setAttachment] = useState('')
-
+  const [changeProfile, setChangeProfile] = useState(false)
   const onSubmit = async (event) => {
     event.preventDefault()
     if (newDisplayName === '') {
@@ -173,26 +177,76 @@ function Profile({ isLoggedIn, userObj, setUserObj, value, setValue, side, setSi
     console.log(theFile)
     reader.readAsDataURL(theFile)
   }
-  const onClearAttachment = () => setAttachment('')
+  const onClearAttachment = () => {
+    setAttachment('')
+    const fileInput = document.getElementById('img')
+    fileInput.value = null
+  }
+  const handleClose = () => {
+    setChangeProfile(false)
+  }
   return (  
     <div>
       <div className={side}>
-      <div className='flex justify-center'>
-        <input type='file' onChange={onFileChange}/>
+      <div className='flex justify-center pt-5'>
+        <Badge
+          overlap="circular"
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+          badgeContent={
+            <button onClick={() => {
+              setChangeProfile(true)
+            }}>
+              <div className='p-1 bg-transparent border-dashed border-2'>
+                {/* <label for='img'><Checklist /></label> */}
+              </div>
+            </button>
+          }
+        >
+          {/* <Avatar alt="Travis Howard" src="/static/images/avatar/2.jpg" /> */}
+          <Avatar alt={userObj.displayName} sx={{ fontSize:'100px', width: '200px', height: '200px', bgcolor: profileColor }} src='./src' onClick={() => {
+              // setCheck(!check)
+              // setScroll(prevScrollPos)
+              // document.getElementsByClassName('location')[0].style.top = `-${prevScrollPos}px`
+          }} />
+        </Badge>
+        <input id='img' type='file' onChange={onFileChange} hidden />
+          <AvatarDialogs userObj={userObj} profileColor={profileColor} setProfileColor={setProfileColor} changeProfile={changeProfile} handleClose={handleClose} />
       </div>
-      <div className='flex justify-center'>제 유저 이름은 {userObj.displayName}</div>
       {attachment &&
         <div className='flex justify-center'>
           <img src={attachment} width='50px' height='50px' alt='alt' />
           <button className='factoryClear' onClick={onClearAttachment}>Clear</button>
         </div>
       }
+      <div className='flex justify-center'>제 유저 이름은 {userObj.displayName}</div>
       <form id='profile' onSubmit={onSubmit}>
         <div className='flex justify-center'>
-          <input className='form-control' placeholder='유저 이름' value={newDisplayName} type='text' onChange={onChange} />
-          {/* <Button variant='outlined' form='profile' onClick={() => confirmProfile(newDisplayName)}>중복 확인</Button> */}
+          <div className='flex flex-col'>
+            유저 이름 바꾸기:&emsp;
+            {profileChangeConfirmed ? 
+          <div className='flex justify-center'>
+            <div>
+              다행히 중복되지 않네요
+            </div>
+          </div>
+          :
+          <div className='flex flex-col justify-center'>
+            <div className='flex justify-center'>
+              아쉽게도 중복되네요
+            </div>
+          </div>
+        }
+          </div>
+          <div className='flex flex-col'>
+            <input className='form-control' placeholder='유저 이름' value={newDisplayName} type='text' onChange={onChange} />
+            {profileChangeConfirmed ? 
+                <Button variant='outlined' form='profile' type='submit'>유저 이름 바꾸기</Button>
+            :
+                <Button variant='outlined' form='profile' type='submit' disabled>유저 이름 바꾸기</Button>
+            }
+          </div>
         </div>
-        {profileChangeConfirmed ? 
+        {/* {profileChangeConfirmed ? 
           <div className='flex justify-center'>
             <div>
               다행히 중복되지 않네요
@@ -210,7 +264,7 @@ function Profile({ isLoggedIn, userObj, setUserObj, value, setValue, side, setSi
               <Button variant='outlined' form='profile' type='submit' disabled>유저 이름 바꾸기</Button>
             </div>
           </div>
-        }
+        } */}
         {/* <div className='flex justify-center'>
           <Button variant='outlined' form='profile' type='submit'>유저 이름 바꾸기</Button>
         </div> */}
