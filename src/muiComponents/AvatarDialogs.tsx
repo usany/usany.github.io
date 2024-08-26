@@ -50,7 +50,7 @@ function AvatarDialogs({ userObj, profileColor, setProfileColor, changeProfile, 
             <DialogActions>
             <Button variant='outlined' onClick={() => {
                 handleClose()
-                setProfileColor()
+                setProfileColor(color)
             }}>저장</Button>
             <Button variant='outlined' onClick={handleClose} autoFocus>
                 닫기
