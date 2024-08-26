@@ -6,7 +6,7 @@ import Button from '@mui/material/Button';
 import Avatar from '@mui/material/Avatar';
 
 function AvatarDialogs({ userObj, profileColor, setProfileColor, changeProfile, handleClose }) {
-    // const [color, setColor] = useState('ffffff')
+    const [color, setColor] = useState('ffffff')
     return (
         <Dialog open={changeProfile} onClose={handleClose}>
             <DialogContent>
@@ -31,9 +31,9 @@ function AvatarDialogs({ userObj, profileColor, setProfileColor, changeProfile, 
       'profile-orange': '#ff9800',
       'profile-deeporange': '#ff5722', */}
             <div className='flex px-1'>
-                <div className='w-10 bg-profile-red' onClick={() => setProfileColor('#f44336')}>&emsp;</div>
-                <div className='w-10 bg-profile-pink' onClick={() => setProfileColor('#e91e63')}>&emsp;</div>
-                <div className='w-10 bg-profile-deeppurple' onClick={() => setProfileColor('#f44336')}>&emsp;</div>
+                <div className='w-10 bg-profile-red' onClick={() => setColor('#f44336')}>&emsp;</div>
+                <div className='w-10 bg-profile-pink' onClick={() => setColor('#e91e63')}>&emsp;</div>
+                <div className='w-10 bg-profile-deeppurple' onClick={() => setColor('#f44336')}>&emsp;</div>
                 <div className='w-10 bg-profile-indigo' onClick={() => setProfileColor('#f44336')}>&emsp;</div>
                 <div className='w-10 bg-profile-blue' onClick={() => setProfileColor('#f44336')}>&emsp;</div>
                 <div className='w-10 bg-profile-lightblue' onClick={() => setProfileColor('#f44336')}>&emsp;</div>
