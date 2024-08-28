@@ -203,12 +203,7 @@ function Profile({ profileColor, setProfileColor, isLoggedIn, userObj, setUserOb
             </button>
           }
         >
-          {/* <Avatar alt="Travis Howard" src="/static/images/avatar/2.jpg" /> */}
-          <Avatar alt={userObj.displayName} sx={{ fontSize:'100px', width: '200px', height: '200px', bgcolor: profileColor }} src='./src' onClick={() => {
-              // setCheck(!check)
-              // setScroll(prevScrollPos)
-              // document.getElementsByClassName('location')[0].style.top = `-${prevScrollPos}px`
-          }} />
+          <Avatar alt={userObj.displayName} sx={{ fontSize:'100px', width: '200px', height: '200px', bgcolor: profileColor }} src='./src'/>
         </Badge>
         <label for='img'>label</label>
         <input id='img' type='file' onChange={onFileChange} hidden />
