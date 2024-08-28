@@ -180,7 +180,7 @@ function Profile({ profileColor, setProfileColor, isLoggedIn, userObj, setUserOb
   }
   const onClearAttachment = () => {
     setAttachment('')
-    const fileInput = document.getElementById('img')
+    const fileInput = document.getElementById('img') || {value:null}
     fileInput.value = null
   }
   const handleClose = () => {
