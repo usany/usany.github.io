@@ -32,9 +32,10 @@ function SignInDialogs({move, handleClose }) {
       
       await setDoc(doc(dbservice, 'members', `${data.user.uid}`), {
         uid: data.user.uid,
-        displayName: data.user.uid,
-        points: 0,
-        // round: newAccount.round
+          displayName: data.user.uid,
+          points: 0,
+          profileColor: '#2196f3',
+          profileImage: null,
       })
       await updateProfile(data.user, {
         displayName: data.user.uid

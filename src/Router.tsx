@@ -13,6 +13,8 @@ import { blue } from '@mui/material/colors';
 import ToggleTabs from 'src/muiComponents/Tabs'
 // import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 // import Snackbars from 'src/muiComponents/Snackbars'
+import { doc, onSnapshot, query } from 'firebase/firestore';
+import { auth, dbservice } from 'src/baseApi/serverbase'
 
 const tmpCounter = []
 const Router = ({ isLoggedIn, userObj, setUserObj, newAccount, setNewAccount, setMode } :{
@@ -45,6 +47,16 @@ const Router = ({ isLoggedIn, userObj, setUserObj, newAccount, setNewAccount, se
             // ref.current.scrollIntoView({ behavior: 'smooth' })
         }
     })
+    useEffect(() => {
+        if (userObj) {
+            onSnapshot(query(doc(dbservice, `members/${userObj.uid}`)), (snapshot) => {
+                if (isLoggedIn) {
+                    const userColor = snapshot.data().profileColor
+                    setProfileColor(userColor)
+                }
+            })
+        }
+    })
     const sides = []
     if (check === false) {
         // sides.push(
@@ -61,7 +73,7 @@ const Router = ({ isLoggedIn, userObj, setUserObj, newAccount, setNewAccount, se
         //     'fixed border border-sky-500 rounded-t bottom-0 start-0 end-0'
         // )
     }
-
+    
     // keep track of previous scroll position
     let prevScrollPos = window.scrollY;
     window.addEventListener('scroll', function () {
@@ -110,7 +122,7 @@ const Router = ({ isLoggedIn, userObj, setUserObj, newAccount, setNewAccount, se
                             isLoggedIn ? (
                                 <Route>
                                     <Route path='/postings/' Component={() => <Home isLoggedIn={isLoggedIn} userObj={userObj} setUserObj={setUserObj} value={value} newAccount={newAccount} setNewAccount={setNewAccount} setValue={setValue} counter={counter} setCounter={setCounter} check={check} setCheck={setCheck} tmpCounter={tmpCounter} bottomNavigation={bottomNavigation} setBottomNavigation={setBottomNavigation} />} />
-                                    <Route path='/postings/profile' Component={() => <Profile isLoggedIn={isLoggedIn} userObj={userObj} setUserObj={setUserObj} value={value} newAccount={newAccount} setNewAccount={setNewAccount} setValue={setValue} counter={counter} setCounter={setCounter} check={check} setCheck={setCheck} setBottomNavigation={setBottomNavigation} profileColor={profileColor} setProfileColor={setProfileColor}/>} />
+                                    <Route path='/postings/profile' Component={() => <Profile isLoggedIn={isLoggedIn} userObj={userObj} setUserObj={setUserObj} value={value} newAccount={newAccount} setNewAccount={setNewAccount} setValue={setValue} counter={counter} setCounter={setCounter} check={check} setCheck={setCheck} bottomNavigation={bottomNavigation} setBottomNavigation={setBottomNavigation} profileColor={profileColor} setProfileColor={setProfileColor}/>} />
                                     <Route path='/postings/ranking' Component={() => <Ranking isLoggedIn={isLoggedIn} userObj={userObj} setUserObj={setUserObj} value={value} newAccount={newAccount} setNewAccount={setNewAccount} setValue={setValue} counter={counter} setCounter={setCounter} check={check} setCheck={setCheck} setBottomNavigation={setBottomNavigation} />} />
                                     <Route path='/postings/specific' Component={() => <Specific isLoggedIn={isLoggedIn} userObj={userObj} setUserObj={setUserObj} value={value} newAccount={newAccount} setNewAccount={setNewAccount} setValue={setValue} counter={counter} setCounter={setCounter} check={check} setCheck={setCheck} />} />
                                 </Route>
@@ -123,7 +135,7 @@ const Router = ({ isLoggedIn, userObj, setUserObj, newAccount, setNewAccount, se
                         }
                     </Routes>
                 </div>
-                <Navigations bottomNavigation={bottomNavigation} setBottomNavigation={setBottomNavigation} scroll={scroll} setScroll={setScroll} sides={sides[1]} counter={counter} isLoggedIn={isLoggedIn} value={value} setValue={setValue} tmpCounter={tmpCounter}/>
+                <Navigations profileColor={profileColor} bottomNavigation={bottomNavigation} setBottomNavigation={setBottomNavigation} scroll={scroll} setScroll={setScroll} sides={sides[1]} counter={counter} isLoggedIn={isLoggedIn} value={value} setValue={setValue} tmpCounter={tmpCounter}/>
             </div>
         </BrowserRouter>
     )

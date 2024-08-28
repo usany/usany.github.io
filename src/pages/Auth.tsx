@@ -33,6 +33,8 @@ function Auth({ newAccount, setNewAccount, setValue }) {
           uid: data.user.uid,
           displayName: data.user.uid,
           points: 0,
+          profileColor: '#2196f3',
+          profileImage: null,
         })
         await updateProfile(data.user, {
           displayName: data.user.uid

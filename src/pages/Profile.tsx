@@ -10,6 +10,7 @@ import Badge from '@mui/material/Badge';
 import Avatar from '@mui/material/Avatar';
 import Checklist from '@mui/icons-material/Checklist'
 // import styled from 'styled-components'
+import BeachAccess from '@mui/icons-material/BeachAccess'
 
 // const NavBtn = styled.button`
 //   border: dashed;
@@ -18,7 +19,7 @@ import Checklist from '@mui/icons-material/Checklist'
 //   display: flex;
 //   justify-content: center;
 // `
-function Profile({ profileColor, setProfileColor, isLoggedIn, userObj, setUserObj, value, setValue, side, setSide, sideNavigation, setSideNavigation, check, setCheck, counter, setCounter, setBottomNavigation }) {
+function Profile({ profileColor, setProfileColor, isLoggedIn, userObj, setUserObj, value, setValue, side, setSide, sideNavigation, setSideNavigation, check, setCheck, counter, setCounter, bottomNavigation, setBottomNavigation }) {
   // const [email, setEmail] = useState('')
   // const [password, setPassword] = useState('')
   // const [newAccount, setNewAccount] = useState(false)
@@ -123,7 +124,7 @@ function Profile({ profileColor, setProfileColor, isLoggedIn, userObj, setUserOb
   useEffect(() => {
     onSnapshot(query(doc(dbservice, `members/${userObj.uid}`)), (snapshot) => {
         const number = snapshot.data().points
-        console.log(number)
+        // console.log(number)
         setNum(number)
     })
   }, [])
@@ -197,7 +198,7 @@ function Profile({ profileColor, setProfileColor, isLoggedIn, userObj, setUserOb
               setChangeProfile(true)
             }}>
               <div className='p-1 bg-transparent border-dashed border-2'>
-                {/* <label for='img'><Checklist /></label> */}
+                <BeachAccess />
               </div>
             </button>
           }
@@ -209,6 +210,7 @@ function Profile({ profileColor, setProfileColor, isLoggedIn, userObj, setUserOb
               // document.getElementsByClassName('location')[0].style.top = `-${prevScrollPos}px`
           }} />
         </Badge>
+        <label for='img'>label</label>
         <input id='img' type='file' onChange={onFileChange} hidden />
           <AvatarDialogs userObj={userObj} profileColor={profileColor} setProfileColor={setProfileColor} changeProfile={changeProfile} handleClose={handleClose} />
       </div>

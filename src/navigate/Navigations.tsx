@@ -9,12 +9,13 @@ import ChecklistRtl from '@mui/icons-material/ChecklistRtl'
 import BeachAccess from '@mui/icons-material/BeachAccess'
 import Badges from 'src/muiComponents/Badges'
 import Paper from '@mui/material/Paper'
+import { styled } from '@mui/system';
 
-function Navigations({ bottomNavigation, setBottomNavigation, sides, counter, isLoggedIn, value, setValue, scroll, setScroll, tmpCounter }) {
+function Navigations({ profileColor, bottomNavigation, setBottomNavigation, sides, counter, isLoggedIn, value, setValue, scroll, setScroll, tmpCounter }) {
     // const [colors, setColors] = useState(localStorage.getItem("theme"));
     // const [color, setColor] = useState('#e2e8f0');
     const [backgroundColor, setBackgroundColor] = useState('#e2e8f0');
-
+      
     useEffect(() => {
         if (localStorage.getItem("theme") === 'dark') {
         setBackgroundColor('#2d3848')
@@ -50,7 +51,7 @@ function Navigations({ bottomNavigation, setBottomNavigation, sides, counter, is
             }
             {!isLoggedIn && 
                 <BottomNavigation
-                    sx={{bgcolor: {backgroundColor}}}    
+                    sx={{bgcolor: backgroundColor, color: profileColor}}    
                     showLabels
                     value={bottomNavigation}
                     onChange={(event, newValue) => {
