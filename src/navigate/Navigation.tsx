@@ -4,6 +4,21 @@ import { auth, dbservice } from 'src/baseApi/serverbase'
 import Modes from 'src/Modes'
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import { doc, onSnapshot, query } from 'firebase/firestore';
+import CommentIcon from '@mui/icons-material/Comment';
+import IconButton from '@mui/material/IconButton';
+import InboxIcon from '@mui/icons-material/Inbox';
+import DraftsIcon from '@mui/icons-material/Drafts';
+import SendIcon from '@mui/icons-material/Send';
+import StarBorder from '@mui/icons-material/StarBorder';
+import ImageIcon from '@mui/icons-material/Image';
+import WorkIcon from '@mui/icons-material/Work';
+import FolderIcon from '@mui/icons-material/Folder';
+import DeleteIcon from '@mui/icons-material/Delete';
+import Settings from '@mui/icons-material/Settings';
+import People from '@mui/icons-material/People';
+import PermMedia from '@mui/icons-material/PermMedia';
+import Dns from '@mui/icons-material/Dns';
+import Public from '@mui/icons-material/Public';
 
 const onLogOutClick = () => auth.signOut();
 function Navigation({ setScroll, isLoggedIn, userObj, setValue, check, setCheck, setMode }) {
@@ -56,7 +71,10 @@ function Navigation({ setScroll, isLoggedIn, userObj, setValue, check, setCheck,
       setBackgroundColor('#e2e8f0')
     }
   })
-
+  const element = {
+    uid: userObj.uid,
+    displayName: userObj.displayName
+  }
   return (
     <SwipeableDrawer
       PaperProps={{
@@ -91,19 +109,29 @@ function Navigation({ setScroll, isLoggedIn, userObj, setValue, check, setCheck,
             <Link className='text-2xl	px-5' to='/postings/' onClick={() => checkbox()}>메인 페이지</Link>
           </h1> */}
           <h1 className='text-2xl	px-5 pt-5'>
-            <Link to='/postings/profile' onClick={() => checkbox()}>{userObj.displayName}의 프로필</Link>
+            <Link to='/postings/profile' 
+              state={{element: element}}
+              onClick={() => checkbox()}
+            >
+              <span className='px-3'><InboxIcon /></span>
+              {userObj.displayName} 프로필
+            </Link>
           </h1>
           <h1 className='text-2xl	px-5'>
+            <span className='px-3'><DraftsIcon /></span>
             <Link to='/postings/ranking' onClick={() => checkbox()}>유저 랭킹</Link>
           </h1>
-          <h1>
-            <a className='text-2xl px-5' href='mailto:ckd_qja@naver.com' target="_blank">신고하기</a>
+          <h1 className='text-2xl	px-5'>
+            <span className='px-3'><ImageIcon /></span>
+            <a href='mailto:ckd_qja@naver.com' target="_blank">신고하기</a>
           </h1>
-          <h1>
-            <a className='text-2xl px-5' href='https://open.kakao.com/o/sT7ptgQd' target="_blank">단체방</a>
+          <h1 className='text-2xl px-5'>
+            <span className='px-3'><WorkIcon /></span>
+            <a href='https://open.kakao.com/o/sT7ptgQd' target="_blank">단체방</a>
           </h1>
-          <h1>
-            <Link className='text-2xl px-5' to="/postings/" onClick={() => {
+          <h1 className='text-2xl px-5'>
+            <span className='px-3'><Public /></span>
+            <Link to="/postings/" onClick={() => {
               logOut()
             }}>로그아웃</Link>
           </h1>

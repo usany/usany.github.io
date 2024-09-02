@@ -60,7 +60,7 @@ function Btn({ msgObj, isOwner, uid, displayName, isLoggedIn, num, points, setVa
         <>
           {msgObj.round === 1 && 
             <div className='flex flex-col justify-center'>
-              <Button variant='outlined' onClick={() => onClick('delete') } endIcon={<DeleteIcon />}>지우기</Button>
+              <Button variant='outlined' onClick={() => onClick('delete') } startIcon={<DeleteIcon />}>지우기</Button>
             </div>
           }
           {msgObj.round === 2 &&
@@ -69,7 +69,7 @@ function Btn({ msgObj, isOwner, uid, displayName, isLoggedIn, num, points, setVa
                 onClick('confirm')
               )
             }}
-            endIcon={<SendIcon />}>승낙 메시지 확인</Button>
+            startIcon={<SendIcon />}>승낙 메시지 확인</Button>
           }
           {msgObj.round === 3 &&
             <div className='flex justify-center'>
@@ -79,7 +79,7 @@ function Btn({ msgObj, isOwner, uid, displayName, isLoggedIn, num, points, setVa
                   onClick('returning')
                 )
                 }}
-                endIcon={<SendIcon />}>반납하기</Button>
+                startIcon={<SendIcon />}>반납하기</Button>
               }
               {msgObj.text.choose == 2 && 
               <Button variant='outlined' disabled>{msgObj.connectedName} 님이 빌리는 중</Button>}
@@ -92,7 +92,7 @@ function Btn({ msgObj, isOwner, uid, displayName, isLoggedIn, num, points, setVa
               {msgObj.text.choose == 2 && 
               <Button variant='outlined' 
               onClick={() => onClick('confirm return')} 
-              endIcon={<SendIcon />}>반납 완료 확인</Button>}
+              startIcon={<SendIcon />}>반납 완료 확인</Button>}
             </div>
           }
         </>
@@ -106,7 +106,7 @@ function Btn({ msgObj, isOwner, uid, displayName, isLoggedIn, num, points, setVa
                   onClick('supporting')
                 )
               }}
-              endIcon={<SendIcon />}>승낙하기</Button>
+              startIcon={<SendIcon />}>승낙하기</Button>
               <Dialogs move={move} handleClose={handleClose} setValue={setValue}/>
             </div>
           }
@@ -120,7 +120,7 @@ function Btn({ msgObj, isOwner, uid, displayName, isLoggedIn, num, points, setVa
                   onClick('stop supporting')
                 )
               }}
-              endIcon={<SendIcon />}>취소</Button>
+              startIcon={<SendIcon />}>취소</Button>
             </div>
           }
           {msgObj.round === 3 &&
@@ -133,7 +133,7 @@ function Btn({ msgObj, isOwner, uid, displayName, isLoggedIn, num, points, setVa
                   onClick('returning')
                 )
                 }}
-              endIcon={<SendIcon />}>반납하기</Button>
+              startIcon={<SendIcon />}>반납하기</Button>
               }
             </div>
           }

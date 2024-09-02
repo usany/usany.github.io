@@ -13,6 +13,7 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import dayjs from 'dayjs';
 import Select from '@mui/material/Select';
+import TextField from '@mui/material/TextField';
 
 function Add({ userObj, valuing }: {userObj: object, valuing: number}) {
   const [addSteps, setAddSteps] = useState(0);
@@ -203,10 +204,8 @@ function Add({ userObj, valuing }: {userObj: object, valuing: number}) {
     }
   return (
     <div className='flex flex-col'>
-        <div>
-            <div className='flex text-2xl p-5'>
-                {valuing === 0 ? '빌리기 ' : '빌려주기 '} 카드 등록
-            </div>
+        <div className='flex text-2xl p-5'>
+            {valuing === 0 ? '빌리기 ' : '빌려주기 '} 카드 등록
         </div>
         <div className='flex justify-end start-0 end-0'>
             <AddSteppers steps={addSteps} valuing={valuing}/>
@@ -234,7 +233,8 @@ function Add({ userObj, valuing }: {userObj: object, valuing: number}) {
                             />
                             {locationOne === '직접 입력' && 
                                 <div className='pt-7'>
-                                    <input className='dark:bg-black border' onChange={changeLocationInput} required autoFocus/>
+                                    {/* <input className='dark:bg-black border' onChange={changeLocationInput} required autoFocus/> */}
+                                    <TextField onChange={changeLocationInput} required autoFocus/>
                                 </div>
                             }
                         </div>

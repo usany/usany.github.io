@@ -21,7 +21,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const dbservice = getFirestore(app);
-const storage = getStorage();
+const storage = getStorage(app, 'gs://remake-36fe0.appspot.com');
 
 const onSocialClick = async (event) => {
     const {
@@ -45,6 +45,8 @@ const onSocialClick = async (event) => {
         const token = credential.accessToken;
         // The signed-in user info.
         const user = result.user;
+        console.log('result '+result)
+        console.log('user '+user)
         // IdP data available using getAdditionalUserInfo(result)
         // ...
     }).catch((error) => {

@@ -7,13 +7,27 @@ import Avatar from '@mui/material/Avatar';
 import BeachAccess from '@mui/icons-material/BeachAccess'
 import { doc, deleteDoc, updateDoc } from 'firebase/firestore';
 import { auth, dbservice } from 'src/baseApi/serverbase'
+import { storage } from "src/baseApi/serverbase";
+import { getStorage, ref, uploadBytes } from "firebase/storage";
 
 function AvatarDialogs({ userObj, profileColor, setProfileColor, changeProfile, handleClose }) {
     const [selectedColor, setSelectedColor] = useState(null)
+    const [attachment, setAttachment] = useState(null)
+    const [attachmentFile, setAttachmentFile] = useState(null)
+    
     const onClick = () => {
         const data = doc(dbservice, `members/${userObj.uid}`)
-        updateDoc(data, {profileColor: selectedColor});
-        setProfileColor(selectedColor)
+        if (selectedColor) {   
+            updateDoc(data, {profileColor: selectedColor});
+            setProfileColor(selectedColor)
+        }
+        if (attachment) {   
+            // console.log(attachment.child('screen'))
+            const storageRef = ref(storage, userObj.uid);
+            uploadBytes(storageRef, attachmentFile).then((snapshot) => {
+                console.log('Uploaded a blob or file!');
+            });
+        }
     }
     const switchColor = (newColor) => {
         setSelectedColor(newColor)
@@ -25,12 +39,53 @@ function AvatarDialogs({ userObj, profileColor, setProfileColor, changeProfile, 
     })
     const color = selectedColor || profileColor
     // console.log(color)
+    const onFileChange = (event) => {
+        // console.log(event.target.files);
+        const {
+            target: { files },
+        } = event;
+        const theFile = files[0];
+        const reader = new FileReader();
+        reader.onloadend = (finishedEvent) => {
+            console.log(finishedEvent);
+            const {
+                currentTarget: { result },
+            } = finishedEvent;
+            setAttachment(result);
+        }
+        console.log(theFile)
+        reader.readAsDataURL(theFile)
+        setAttachmentFile(theFile)
+      }
+      const onClearAttachment = () => {
+        setAttachment(null)
+        setAttachmentFile(null)
+        const fileInput = document.getElementById('file') || {value:null}
+        fileInput.value = null
+      }
+    
     return (
         <Dialog open={changeProfile} onClose={handleClose}>
             <DialogContent>
-                프로필 변경
-                <Avatar alt={userObj.displayName} sx={{ fontSize:'100px', width: '200px', height: '200px', bgcolor: color }} src='./src' onClick={() => {
+                <div>
+                    프로필 변경
+                </div>
+                <div className='flex'>
+                <Avatar alt={userObj.displayName} sx={{ fontSize:'100px', width: '200px', height: '200px', bgcolor: color }} src={attachment || './src'} onClick={() => {
                 }} />
+                <div className='flex-col px-5 content-center'>
+                    <div className='flex'>
+                        <label for='file'>내 파일 업로드</label>
+                    </div>
+                    <input id='file' type='file' onChange={onFileChange} hidden />
+                    {attachment &&
+                        <div className='flex justify-center pt-5'>
+                        {/* <img src={attachment} width='50px' height='50px' alt='alt' /> */}
+                            <button className='factoryClear' onClick={onClearAttachment}>업로드 파일 삭제</button>
+                        </div>
+                    }
+                </div>
+                </div>
             </DialogContent>
             {/* 'profile-red': '#f44336',
       'profile-pink': '#e91e63',
@@ -74,7 +129,11 @@ function AvatarDialogs({ userObj, profileColor, setProfileColor, changeProfile, 
                 handleClose()
                 onClick()
             }}>저장</Button>
-            <Button variant='outlined' onClick={handleClose} autoFocus>
+            <Button variant='outlined' onClick={() => {
+                handleClose()
+                setSelectedColor(null)
+                setAttachment(null)
+            }} autoFocus>
                 닫기
             </Button>
             </DialogActions>

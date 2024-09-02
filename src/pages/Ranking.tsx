@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
-import { collection, query, where, orderBy, addDoc, getDocs, doc, onSnapshot, deleteDoc, updateDoc } from 'firebase/firestore';
+import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnapshot, deleteDoc, updateDoc } from 'firebase/firestore';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import Divider from '@mui/material/Divider';
@@ -9,21 +9,37 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import { blue } from '@mui/material/colors';
+import CommentIcon from '@mui/icons-material/Comment';
+import IconButton from '@mui/material/IconButton';
+import InboxIcon from '@mui/icons-material/Inbox';
+import DraftsIcon from '@mui/icons-material/Drafts';
+import SendIcon from '@mui/icons-material/Send';
+import StarBorder from '@mui/icons-material/StarBorder';
+import ImageIcon from '@mui/icons-material/Image';
+import WorkIcon from '@mui/icons-material/Work';
+import FolderIcon from '@mui/icons-material/Folder';
+import DeleteIcon from '@mui/icons-material/Delete';
+import Settings from '@mui/icons-material/Settings';
+import People from '@mui/icons-material/People';
+import PermMedia from '@mui/icons-material/PermMedia';
+import Dns from '@mui/icons-material/Dns';
+import Public from '@mui/icons-material/Public';
+import { Link } from 'react-router-dom'
 
-function Ranking({ isLoggedIn, userObj, setUserObj, value, setValue, side, setSide, sideNavigation, setSideNavigation, check, setCheck, counter, setBottomNavigation }) {
+function Ranking({ isLoggedIn, userObj, setUserObj, value, setValue, side, setSide, sideNavigation, setSideNavigation, check, setCheck, counter, setBottomNavigation, profileColor }) {
   const [rank, setRank] = useState([])
   const [ranker, setRanker] = useState([])
 
   useEffect(() => {
     onSnapshot(query(collection(dbservice, 'members'), orderBy('points', 'desc')), (snapshot) => {
         const newArray = snapshot.docs.map((document) => ({
-            id: document.id,
+            uid: document.uid,
             ...document.data(),
         }));
         setRank(newArray)
         const newArrayLength = newArray.length
         newArray.map((document, index) => {
-          if (document.id === userObj.uid) {
+          if (document.uid === userObj.uid) {
             newArray[index].rank = index+1
             setRanker([newArray[index]])
           }
@@ -46,6 +62,22 @@ function Ranking({ isLoggedIn, userObj, setUserObj, value, setValue, side, setSi
 
   return (
     <div className='flex flex-col pb-20'>
+      <InboxIcon />
+      <DraftsIcon />
+      <SendIcon />
+      <StarBorder />
+      <ImageIcon />
+      <WorkIcon />
+      <FolderIcon />
+      <DeleteIcon />
+      <Settings />
+      <People />
+      <PermMedia />
+      <Dns />
+      <Public />
+      <div className='flex text-2xl p-5'>
+          유저 랭킹
+      </div>
       <div className='flex'>
         <div className='flex flex-col justify-center px-5'>
           내 랭킹
@@ -67,7 +99,7 @@ function Ranking({ isLoggedIn, userObj, setUserObj, value, setValue, side, setSi
                         {index+1}
                       </div>
                       <ListItemAvatar>
-                        <Avatar alt={element.displayName} sx={{ bgcolor: blue[500] }} src="./src" />
+                        <Avatar alt={element.displayName} sx={{ bgcolor: element.profileColor || blue[500] }} src="./src" />
                       </ListItemAvatar>
                       <div className='flex flex-col overflow-hidden'>
                         <div>
@@ -76,6 +108,26 @@ function Ranking({ isLoggedIn, userObj, setUserObj, value, setValue, side, setSi
                         <div>
                           {element.points}
                         </div>
+                      </div>
+                      <div>
+                      <IconButton aria-label="comment">
+                          <Link to='/postings/profile'
+                            state = {{
+                              // msgObj: msgObj,
+                              // isOwner: isOwner,
+                              // num: num,
+                              // points: points,
+                              element: element,
+                              // isLoggedIn: isLoggedIn,
+                              // uid: userObj.uid,
+                              // displayName: userObj.displayName,
+                              // setValue: setValue
+                              // setCounter: setCounter
+                            }}
+                          >
+                            <CommentIcon />
+                          </Link>
+                        </IconButton>
                       </div>
                       {/* <ListItemText
                         primary={element.displayName}
@@ -101,15 +153,21 @@ function Ranking({ isLoggedIn, userObj, setUserObj, value, setValue, side, setSi
             )
           })} */}
         </List>
-      <div className='flex'>
-        <div className='flex flex-col justify-center px-5'>
-          유저 랭킹
+      <div className='flex justify-between w-screen'>
+        <div className='flex'>
+          <div className='flex flex-col justify-center px-5'>
+            유저 랭킹
+          </div>
+          <div className='flex-col'>
+            <div>유저 이름</div> 
+            <div>포인트</div> 
+          </div>
         </div>
-        <div className='flex-col'>
-          <div>유저 이름</div> 
-          <div>포인트</div> 
+        <div className='flex flex-col justify-center px-5'>
+          프로필
         </div>
       </div>
+      <div>
         <List sx={{ width: '100%', 
           // maxWidth: 360,
           bgcolor: 'background.paper' }}>
@@ -117,19 +175,22 @@ function Ranking({ isLoggedIn, userObj, setUserObj, value, setValue, side, setSi
                 return(
                   <div key={index} className={'flex ranking-'+String(index+1)}>
                     <ListItem>
-                      <div className='px-5'>
-                        {/* {rank.indexOf(element)+1} */}
-                        {index+1}
-                      </div>
-                      <ListItemAvatar>
-                        <Avatar alt={element.displayName} sx={{ bgcolor: blue[500] }} src="./src" />
-                      </ListItemAvatar>
-                      <div className='flex flex-col overflow-hidden'>
-                        <div>
-                          {element.displayName}
+                      <div className='flex justify-between w-screen'>
+                      <div className='flex'>
+                        <div className='px-5'>
+                          {/* {rank.indexOf(element)+1} */}
+                          {index+1}
                         </div>
-                        <div>
-                          {element.points}
+                        <ListItemAvatar>
+                          <Avatar alt={element.displayName} sx={{ bgcolor: element.profileColor || blue[500] }} src="./src" />
+                        </ListItemAvatar>
+                        <div className='flex flex-col overflow-hidden'>
+                          <div>
+                            {element.displayName}
+                          </div>
+                          <div>
+                            {element.points}
+                          </div>
                         </div>
                       </div>
                       {/* <ListItemText
@@ -145,12 +206,34 @@ function Ranking({ isLoggedIn, userObj, setUserObj, value, setValue, side, setSi
                             </Typography>
                         }
                       /> */}
+                      <div>
+                        <IconButton aria-label="comment">
+                          <Link to='/postings/profile'
+                            state = {{
+                              // msgObj: msgObj,
+                              // isOwner: isOwner,
+                              // num: num,
+                              // points: points,
+                              element: element,
+                              // isLoggedIn: isLoggedIn,
+                              // uid: userObj.uid,
+                              // displayName: userObj.displayName,
+                              // setValue: setValue
+                              // setCounter: setCounter
+                            }}
+                          >
+                            <CommentIcon />
+                          </Link>
+                        </IconButton>
+                      </div>
+                      </div>
                     </ListItem>
                     <Divider variant="inset" component="li" />
                   </div>
                 )
           })}
         </List>
+        </div>
     </div>  
   )
 }

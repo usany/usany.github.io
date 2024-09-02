@@ -79,10 +79,10 @@ function Selects({ locationOne, locationTwo, locationThree, changeBuilding, chan
                     <MenuItem value={'문과대'}>문과대</MenuItem>
                     <MenuItem value={'의과대'}>의과대</MenuItem>
                     <MenuItem value={'치과병원'}>치과병원</MenuItem>
-                    <MenuItem value={'직접입력'}>직접입력</MenuItem>
+                    <MenuItem value={'직접 입력'}>직접 입력</MenuItem>
                 </Select>
             </FormControl>
-            {locationOne !== '' && locationOne !== '직접입력' &&
+            {locationOne !== '' && locationOne !== '직접 입력' &&
                 <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
                     <InputLabel 
                     // id="demo-simple-select-standard-label1"

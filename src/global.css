@@ -37,22 +37,13 @@ body {
 } */
 
 .ranking-1 {
-  background-color: green;
+  background-color: #2e8b57;
 }
 .ranking-2 {
-  background-color: green;
+  background-color: #5e8b58;
 }
 .ranking-3 {
-  background-color: green;
-}
-.ranking-4 {
-  background-color: green;
-}
-.ranking-5 {
-  background-color: green;
-}
-.ranking-6 {
-  background-color: green;
+  background-color: #7e8b57;
 }
 .pagings {
   padding-top: 60px;
