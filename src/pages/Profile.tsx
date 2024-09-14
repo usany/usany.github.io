@@ -3,13 +3,11 @@ import Message from 'src/pages/Message'
 import AvatarDialogs from 'src/muiComponents/AvatarDialogs'
 import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
 import { updateProfile, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
-import { collection, query, where, orderBy, addDoc, getDocs, doc, onSnapshot, updateDoc } from 'firebase/firestore';
+import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnapshot, updateDoc, setDoc } from 'firebase/firestore';
 import Button from '@mui/material/Button';
-// import { formGroupClasses } from '@mui/material';
 import Badge from '@mui/material/Badge';
 import Avatar from '@mui/material/Avatar';
 import Checklist from '@mui/icons-material/Checklist'
-// import styled from 'styled-components'
 import BeachAccess from '@mui/icons-material/BeachAccess'
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
@@ -19,18 +17,7 @@ import { BrowserRouter, Routes, Route, useNavigate, Link, useLocation } from 're
 import TextField from '@mui/material/TextField';
 import { blue } from '@mui/material/colors';
 
-// const NavBtn = styled.button`
-//   border: dashed;
-// `
-// const SignBtn = styled.div`
-//   display: flex;
-//   justify-content: center;
-// `
 function Profile({ profileColor, setProfileColor, isLoggedIn, userObj, setUserObj, value, setValue, side, setSide, sideNavigation, setSideNavigation, check, setCheck, counter, setCounter, bottomNavigation, setBottomNavigation, userUid }) {
-  // const [email, setEmail] = useState('')
-  // const [password, setPassword] = useState('')
-  // const [newAccount, setNewAccount] = useState(false)
-  // const [error, setError] = useState('')
   const [borrowRegisteredMessage, setBorrowRegisteredMessage] = useState([])
   const [borrowMessage, setBorrowMessage] = useState([])
   const [lendRegisteredMessage, setLendRegisteredMessage] = useState([])
@@ -40,8 +27,148 @@ function Profile({ profileColor, setProfileColor, isLoggedIn, userObj, setUserOb
   const [profileChangeConfirmed, setProfileChangeConfirmed] = useState(null)
   const [attachment, setAttachment] = useState('')
   const [changeProfile, setChangeProfile] = useState(false)
-  const [userProfile, setUserProfile] = useState(null)
+  const [followerNum, setFollowerNum] = useState(null)
   const {state} = useLocation()
+  const [myFollowerNumber, setMyFollowerNumber] = useState(null)
+  const [myFollowingNumber, setMyFollowingNumber] = useState(null)
+  const [myFollowerList, setMyFollowerList] = useState([])
+  const [myFollowingList, setMyFollowingList] = useState([])
+  const [otherFollowerNumber, setOtherFollowerNumber] = useState(null)
+  const [otherFollowingNumber, setOtherFollowingNumber] = useState(null)
+  const [otherFollowerList, setOtherFollowerList] = useState([])
+  const [otherFollowingList, setOtherFollowingList] = useState([])
+  // const [followers, setFollowers] = useState([])
+  // const [followings, setFollowings] = useState([])
+  const [followersName, setFollowersName] = useState([])
+  const [followingsName, setFollowingsName] = useState([])
+  // const [checkAllies, setCheckAllies] = useState(false)
+  const [userFollowersList, setUserFollowersList] = useState([])
+  const [followButton, setFollowButton] = useState(true)
+  useEffect(() => {
+    const userFollowCollection = async () => {
+      const docRef = doc(dbservice, `members/${userObj.uid}`)
+      const docSnap = await getDoc(docRef)
+      const followingsList = docSnap.data().followings || []
+      if (followingsList.indexOf(state.element.uid) !== -1) {
+        setFollowButton(false)
+      }
+      const followersCollection = []
+      // console.log(docSnap.data())
+      followingsList.forEach(async (element) => {
+        const docRef = doc(dbservice, `members/${element}`)
+        const docSnap = await getDoc(docRef)
+        const follower = docSnap.data().uid
+        followersCollection.push(follower)
+        if (userFollowersList.indexOf(follower) === -1) {
+          setUserFollowersList([...userFollowersList, follower])
+        }
+      })
+    }
+    userFollowCollection()
+  })
+  useEffect(() => {
+    const alliesCollection = async () => {
+      const docRef = doc(dbservice, `members/${state.element.uid}`)
+      const docSnap = await getDoc(docRef)
+      const followersList = docSnap.data().followers || []
+      const followingsList = docSnap.data().followings || []
+      const followersCollection = []
+      const followingsCollection = []
+  
+      followersList.forEach(async (element) => {
+        const docRef = doc(dbservice, `members/${element}`)
+        const docSnap = await getDoc(docRef)
+        const follower = docSnap.data().uid
+        followersCollection.push(follower)
+        setFollowersName([...followersCollection, follower])
+      })
+      followingsList.forEach(async (element) => {
+        const docRef = doc(dbservice, `members/${element}`)
+        const docSnap = await getDoc(docRef)
+        const following = docSnap.data().uid
+        followingsCollection.push(following)
+        setFollowingsName([...followingsCollection, following])
+      })
+    }
+    alliesCollection()
+  }, [])
+
+  useEffect(() => {
+    onSnapshot(query(doc(dbservice, `members/${state.element.uid}`)), (snapshot) => {
+      const element = snapshot.data().followerNum
+      setFollowerNum(element)
+    })
+  }, [])
+  // useEffect(() => {
+  //   if (userObj.uid === state.element.uid) {
+  //     const allies = async () => {
+  //       const myDocRef = doc(dbservice, `members/${userObj.uid}`)
+  //       const myDocSnap = await getDoc(myDocRef)
+  //       const myFollowerNum = myDocSnap.data().followerNum
+  //       const myFollowingNum = myDocSnap.data().followingNum
+  //       const myFollowerList = myDocSnap.data().followers
+  //       const myFollowingList = myDocSnap.data().followings
+  //       const followerNum = myFollowerNum || 0
+  //       const followingNum = myFollowingNum || 0
+  //       const followerList = myFollowerList || []
+  //       const followingList = myFollowingList || []
+  //       console.log(myDocSnap.data())
+  //       setMyFollowerNumber(followerNum)
+  //       setMyFollowerList(followerList)
+  //       setMyFollowingNumber(followingNum)
+  //       setMyFollowingList(followingList)
+  //     }
+  //     allies()
+  //   }
+  // }, [])
+  useEffect(() => {
+    const allies = async () => {
+      const myDocRef = doc(dbservice, `members/${userObj.uid}`)
+      const myDocSnap = await getDoc(myDocRef)
+      const otherUserDocRef = doc(dbservice, `members/${state.element.uid}`)
+      const otherUserDocSnap = await getDoc(otherUserDocRef)  
+      const myFollowerNum = myDocSnap.data().followerNum
+      const myFollowingNum = myDocSnap.data().followingNum
+      const myFollowerList = myDocSnap.data().followers
+      const myFollowingList = myDocSnap.data().followings
+      const otherUserFollowerNum = otherUserDocSnap.data().followerNum
+      const otherUserFollowingNum = otherUserDocSnap.data().followingNum
+      const otherUserFollowerList = otherUserDocSnap.data().followers
+      const otherUserFollowingList = otherUserDocSnap.data().followings
+      const followerNum = myFollowerNum || 0
+      const followingNum = myFollowingNum || 0
+      const followerList = myFollowerList || []
+      const followingList = myFollowingList || []
+      const otherFollowerNum = otherUserFollowerNum || 0
+      const otherFollowingNum = otherUserFollowingNum || 0
+      const otherFollowerList = otherUserFollowerList || []
+      const otherFollowingList = otherUserFollowingList || []
+      console.log(myFollowingList)
+      setMyFollowerNumber(followerNum)
+      setMyFollowerList(followerList)
+      setMyFollowingNumber(followingNum)
+      setMyFollowingList(followingList)
+      setOtherFollowerNumber(otherFollowerNum)
+      setOtherFollowerList(otherFollowerList)
+      setOtherFollowingNumber(otherFollowingNum)
+      setOtherFollowingList(otherFollowingList)
+    }
+    allies()
+    // if (userObj.uid !== state.element.uid) {
+    //   const followerNum = state.element.followerNum || 0
+    //   const followingNum = state.element.followingNum || 0
+    //   const followerList = state.element.followers || []
+    //   const followingList = state.element.followings || []
+    //   if (otherFollowerNumber === null) {
+    //     setOtherFollowerNumber(followerNum)
+    //     setOtherFollowerList(followerList)
+    //   }
+    //   if (otherFollowingNumber === null) { 
+    //     setOtherFollowingNumber(followingNum)
+    //     setOtherFollowingList(followingList)
+    //   }
+    // }
+  }, [])
 
   const onSubmit = async (event) => {
     event.preventDefault()
@@ -148,7 +275,7 @@ function Profile({ profileColor, setProfileColor, isLoggedIn, userObj, setUserOb
   }, [])
   useEffect(() => {
     getLendMessage()
-  , []})
+  }, [])
   
   useEffect(() => {
     onSnapshot(query(doc(dbservice, `members/${userObj.uid}`)), (snapshot) => {
@@ -216,7 +343,111 @@ function Profile({ profileColor, setProfileColor, isLoggedIn, userObj, setUserOb
     setChangeProfile(false)
   }
   const user = state.element.displayName
-  console.log(user)
+  // console.log(user)
+
+  const followUser = async (uid) => {
+    const myDocRef = doc(dbservice, `members/${userObj.uid}`)
+    const myDocSnap = await getDoc(myDocRef)
+    const otherUserDocRef = doc(dbservice, `members/${state.element.uid}`)
+    const otherUserDocSnap = await getDoc(otherUserDocRef)
+    const myFollowerNum = myDocSnap.data().followerNum
+    const myFollowingNum = myDocSnap.data().followingNum
+    const otherUserFollowerNum = otherUserDocSnap.data().followerNum
+    const otherUserFollowingNum = otherUserDocSnap.data().followingNum
+    // const myData = query(collection(dbservice, 'members'), where('creatorId', '==', state.element.uid), where('round', '==', 5), where('text.choose', '==', 1), orderBy('creatorClock', 'asc'))
+    const myFollowers = myDocSnap.data().followers || []
+    const myFollowings = myDocSnap.data().followings || []
+    const otherFollowers = otherUserDocSnap.data().followers || []
+    const otherFollowings = otherUserDocSnap.data().followings || []
+    console.log(myFollowingList)
+    if (myFollowingNum) {
+      if (myFollowingList.indexOf(state.element.uid) === -1) {
+        await updateDoc(myDocRef, {
+          followingNum: myFollowingNum+1,
+          followings: [...myFollowings, state.element.uid]
+        })
+        setMyFollowingNumber(myFollowingNum+1)
+        setMyFollowingList([...myFollowings, state.element.uid])
+      }
+    } else {
+      await updateDoc(myDocRef, {
+        followingNum: 1,
+        followings: [state.element.uid]
+      })
+      setMyFollowingNumber(1)
+      setMyFollowingList([state.element.uid])
+    }
+    if (otherUserFollowerNum) {
+      if (otherFollowerList.indexOf(userObj.uid) === -1) { 
+        await updateDoc(otherUserDocRef, {
+          followerNum: otherUserFollowerNum+1,
+          followers: [...otherFollowers, userObj.uid]
+        })
+        setOtherFollowerNumber(otherFollowerNumber+1)
+        setOtherFollowerList([...otherFollowers, userObj.uid])
+      }
+    } else {
+      await updateDoc(otherUserDocRef, {
+        followerNum: 1,
+        followers: [userObj.uid]
+      })
+      setOtherFollowerNumber(1)
+      setOtherFollowerList([userObj.uid])
+    }
+    setFollowButton(false)
+  }
+  const unfollowUser = async (uid) => {
+    const myDocRef = doc(dbservice, `members/${userObj.uid}`)
+    const myDocSnap = await getDoc(myDocRef)
+    const otherUserDocRef = doc(dbservice, `members/${state.element.uid}`)
+    const otherUserDocSnap = await getDoc(otherUserDocRef)
+    const myFollowerNum = myDocSnap.data().followerNum
+    const myFollowingNum = myDocSnap.data().followingNum
+    const otherUserFollowerNum = otherUserDocSnap.data().followerNum
+    const otherUserFollowingNum = otherUserDocSnap.data().followingNum
+    // const myData = query(collection(dbservice, 'members'), where('creatorId', '==', state.element.uid), where('round', '==', 5), where('text.choose', '==', 1), orderBy('creatorClock', 'asc'))
+    const myFollowers = myDocSnap.data().followers || []
+    const myFollowings = myDocSnap.data().followings || []
+    const otherFollowers = otherUserDocSnap.data().followers || []
+    const otherFollowings = otherUserDocSnap.data().followings || []
+    console.log(myFollowingList)
+    console.log(myFollowingList.indexOf(state.element.uid))
+    if (myFollowingNum) {
+      if (myFollowingList.indexOf(state.element.uid) !== -1) {
+        await updateDoc(myDocRef, {
+          followingNum: myFollowingNum-1,
+          followings: myFollowings.filter((element) => element !== state.element.uid)
+        })
+        setMyFollowerNumber(myFollowingNum-1)
+        setMyFollowerList(myFollowings.filter((element) => element !== state.element.uid))
+      }
+    }
+    // else {
+    //   await updateDoc(myDocRef, {
+    //     followingNum: 1,
+    //     followings: [state.element.uid]
+    //   })
+    // }
+    if (otherUserFollowerNum) {
+      if (otherFollowerList.indexOf(userObj.uid) !== -1) { 
+        await updateDoc(otherUserDocRef, {
+          followerNum: otherUserFollowerNum-1,
+          followers: otherFollowers.filter((element) => element !== userObj.uid)
+        })
+        setOtherFollowerNumber(otherFollowerNumber-1)
+        setOtherFollowerList(otherFollowers.filter((element) => element !== userObj.uid))
+      }
+    }
+    setFollowButton(true)
+    // else {
+    //   await updateDoc(otherUserDocRef, {
+    //     followerNum: 1,
+    //     followers: [userObj.uid]
+    //   })
+    // }
+  }
+  // console.log(userFollowersList)
+
   return (
     <div>
       {state.element.uid === userObj.uid ?
@@ -280,7 +511,32 @@ function Profile({ profileColor, setProfileColor, isLoggedIn, userObj, setUserOb
             }
           </div>
         </div>
-        <div className='flex justify-center'>follower: 0 following: 0</div>
+        <div className='flex justify-center'>
+          <Link to='/postings/allies' 
+            state={{
+              uid: userObj.uid, 
+              displayName: userObj.displayName,
+              followerList: myFollowerList, 
+              allies: 'followers',
+              alliesCollection: followersName,
+              }}>
+            <div className='border border-solid px-5'>
+              follower: {myFollowerNumber} 
+            </div>
+          </Link>
+          <Link to='/postings/allies' 
+            state={{
+              uid: userObj.uid, 
+              displayName: userObj.displayName,
+              followingsList: myFollowingList, 
+              allies: 'followings',
+              alliesCollection: followingsName,
+            }}>
+            <div className='border border-solid px-5'>
+              following: {myFollowingNumber}
+            </div>
+          </Link>
+        </div>
         {/* {profileChangeConfirmed ? 
           <div className='flex justify-center'>
             <div>
@@ -411,10 +667,49 @@ function Profile({ profileColor, setProfileColor, isLoggedIn, userObj, setUserOb
         <Avatar alt={state.element.displayName} sx={{ fontSize:'100px', width: '200px', height: '200px', bgcolor: state.element?.profileColor || blue[500] }} src='./src'/>
       </div>
       <div className='flex justify-center'>유저 이름: {state.element.displayName}</div>
-      <div className='flex justify-center'>follower: 0 following: 0</div>
       <div className='flex justify-center'>
-        <Button variant='outlined'>follow {state.element.displayName}</Button>
-        <Button variant='outlined'>send message</Button>
+        <Link to='/postings/allies' 
+          state={{
+            uid: state.element.uid, 
+            displayName: state.element.displayName,
+            followerList: myFollowerList, 
+            allies: 'followers',
+            alliesCollection: followersName,
+            }}>
+          <div className='border border-solid px-5'>
+            follower: {otherFollowerNumber} 
+          </div>
+        </Link>
+        <Link to='/postings/allies' 
+          state={{
+            uid: state.element.uid, 
+            displayName: state.element.displayName,
+            followerList: myFollowerList, 
+            allies: 'followers',
+            alliesCollection: followersName,
+            }}>
+          <div className='border border-solid px-5'>
+            following: {otherFollowingNumber} 
+          </div>
+        </Link>
+      </div>
+      <div className='flex justify-center'>
+        {followButton ?
+        <Button variant='outlined' sx={{overflow: 'hidden'}} onClick={() => {
+          followUser(state.element.uid)
+          // setChangeFollowerNum(true)
+        }}>
+          follow {state.element.displayName}
+        </Button>
+        :
+        <Button variant='outlined' sx={{overflow: 'hidden'}} onClick={() => {
+          unfollowUser(state.element.uid)
+          // setChangeFollowerNum(true)
+        }}>
+          unfollow {state.element.displayName}
+        </Button>
+        }
+        <Button variant='outlined' sx={{overflow: 'hidden'}}>send message</Button>
       </div>
       <div className='flex justify-center'>
         <Card

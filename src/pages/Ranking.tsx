@@ -25,19 +25,25 @@ import PermMedia from '@mui/icons-material/PermMedia';
 import Dns from '@mui/icons-material/Dns';
 import Public from '@mui/icons-material/Public';
 import { Link } from 'react-router-dom'
+import TextField from '@mui/material/TextField';
 
 function Ranking({ isLoggedIn, userObj, setUserObj, value, setValue, side, setSide, sideNavigation, setSideNavigation, check, setCheck, counter, setBottomNavigation, profileColor }) {
   const [rank, setRank] = useState([])
   const [ranker, setRanker] = useState([])
-
+  const [userSearch, setUserSearch] = useState('')
+  const onChangeUserSearch = (event) => {
+    const { target: { value } } = event
+    setUserSearch(value)
+  }
   useEffect(() => {
     onSnapshot(query(collection(dbservice, 'members'), orderBy('points', 'desc')), (snapshot) => {
         const newArray = snapshot.docs.map((document) => ({
-            uid: document.uid,
+            // uid: document.uid,
             ...document.data(),
         }));
         setRank(newArray)
         const newArrayLength = newArray.length
+        // console.log(newArray)
         newArray.map((document, index) => {
           if (document.uid === userObj.uid) {
             newArray[index].rank = index+1
@@ -62,7 +68,7 @@ function Ranking({ isLoggedIn, userObj, setUserObj, value, setValue, side, setSi
 
   return (
     <div className='flex flex-col pb-20'>
-      <InboxIcon />
+      {/* <InboxIcon />
       <DraftsIcon />
       <SendIcon />
       <StarBorder />
@@ -74,10 +80,103 @@ function Ranking({ isLoggedIn, userObj, setUserObj, value, setValue, side, setSi
       <People />
       <PermMedia />
       <Dns />
-      <Public />
+      <Public /> */}
       <div className='flex text-2xl p-5'>
+        <div>
           유저 랭킹
+        </div>
+        <div className='px-5'>
+          <TextField label='유저 이름' onChange={onChangeUserSearch}/>
+        </div>
       </div>
+      <div className='flex justify-start text-2xl w-screen'>
+          <div className='flex w-5/6'>빌리기 카드 목록</div>
+          {/* <div className='flex w-screen justify-end px-10' onClick={handleClickChangeFilter}>
+              <Settings onClick={handleClickChangeFilter}/>
+          </div> */}
+      </div>
+      {userSearch ?
+      <List sx={{ width: '100%', 
+        // maxWidth: 360,
+        bgcolor: 'background.paper' }}>
+          {rank.map((element, index) => {
+            let userNameConfirm = true
+            for (let number = 0; number < userSearch.length; number++) {
+              if (element.displayName[number] !== userSearch[number]) {
+                userNameConfirm = false
+                console.log(userNameConfirm)
+              }
+            }
+            if (userNameConfirm) {
+            return(
+              <div key={index} className={'flex ranking-'+String(index+1)}>
+                  <ListItem>
+                    <div className='px-5'>
+                      {/* {rank.indexOf(element)+1} */}
+                      {index+1}
+                    </div>
+                    <ListItemAvatar>
+                      <Avatar alt={element.displayName} sx={{ bgcolor: element.profileColor || blue[500] }} src="./src" />
+                    </ListItemAvatar>
+                    <div className='flex flex-col overflow-hidden'>
+                      <div>
+                        {element.displayName}
+                      </div>
+                      <div>
+                        {element.points}
+                      </div>
+                    </div>
+                    <div>
+                    <div 
+                      className='flex'
+                    >
+                    <IconButton aria-label="comment">
+                        <Link to='/postings/profile'
+                          state = {{
+                            // msgObj: msgObj,
+                            // isOwner: isOwner,
+                            // num: num,
+                            // points: points,
+                            element: element,
+                            // isLoggedIn: isLoggedIn,
+                            // uid: userObj.uid,
+                            // displayName: userObj.displayName,
+                            // setValue: setValue
+                            // setCounter: setCounter
+                          }}
+                        >
+                          <CommentIcon />
+                        </Link>
+                      </IconButton>
+                      </div>
+                    </div>
+                    {/* <ListItemText
+                      primary={element.displayName}
+                      secondary={
+                          <Typography
+                            sx={{ display: 'inline' }}
+                            component="span"
+                            variant="body2"
+                            color="text.primary"
+                          >
+                            {element.points}
+                          </Typography>
+                      }
+                    /> */}
+                  </ListItem>
+                  <Divider variant="inset" component="li" />
+                </div>
+            )
+          }
+          })}
+        {/* <div>{ranker[1].rank}</div> */}
+        {/* {ranker.map((element, index) => {
+          return (
+          )
+        })} */}
+      </List>
+      :
+      <div>
       <div className='flex'>
         <div className='flex flex-col justify-center px-5'>
           내 랭킹
@@ -110,6 +209,9 @@ function Ranking({ isLoggedIn, userObj, setUserObj, value, setValue, side, setSi
                         </div>
                       </div>
                       <div>
+                      <div 
+                        className='flex'
+                      >
                       <IconButton aria-label="comment">
                           <Link to='/postings/profile'
                             state = {{
@@ -128,6 +230,7 @@ function Ranking({ isLoggedIn, userObj, setUserObj, value, setValue, side, setSi
                             <CommentIcon />
                           </Link>
                         </IconButton>
+                        </div>
                       </div>
                       {/* <ListItemText
                         primary={element.displayName}
@@ -177,13 +280,15 @@ function Ranking({ isLoggedIn, userObj, setUserObj, value, setValue, side, setSi
                     <ListItem>
                       <div className='flex justify-between w-screen'>
                       <div className='flex'>
-                        <div className='px-5'>
+                        <div className='flex flex-col justify-center px-5'>
                           {/* {rank.indexOf(element)+1} */}
                           {index+1}
                         </div>
+                        <div className='flex flex-col justify-center'>
                         <ListItemAvatar>
                           <Avatar alt={element.displayName} sx={{ bgcolor: element.profileColor || blue[500] }} src="./src" />
                         </ListItemAvatar>
+                        </div>
                         <div className='flex flex-col overflow-hidden'>
                           <div>
                             {element.displayName}
@@ -234,6 +339,8 @@ function Ranking({ isLoggedIn, userObj, setUserObj, value, setValue, side, setSi
           })}
         </List>
         </div>
+        </div>
+        }
     </div>  
   )
 }

@@ -46,7 +46,7 @@ const onSocialClick = async (event) => {
         // The signed-in user info.
         const user = result.user;
         console.log('result '+result)
-        console.log('user '+user)
+        console.log('user '+user.email)
         // IdP data available using getAdditionalUserInfo(result)
         // ...
     }).catch((error) => {

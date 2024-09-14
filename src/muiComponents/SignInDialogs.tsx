@@ -36,6 +36,8 @@ function SignInDialogs({move, handleClose }) {
           points: 0,
           profileColor: '#2196f3',
           profileImage: null,
+          followerNum: 0,
+          followingNum: 0,
       })
       await updateProfile(data.user, {
         displayName: data.user.uid

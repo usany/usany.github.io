@@ -13,7 +13,7 @@ import Cards from 'src/muiComponents/Cards';
 // import Avatar from '@mui/material/Avatar';
 // import { blue } from '@mui/material/colors';
 
-function Message({ msgObj, isOwner, userObj, isLoggedIn, counter, setCounter, setValue }) {
+function Message({ msgObj, isOwner, userObj, isLoggedIn, counter, setCounter, setValue, selectedValueOne, selectedValueTwo, selectedValueThree }) {
   const [num, setNum] = useState(null)
   const [points, setPoints] = useState(null)
 

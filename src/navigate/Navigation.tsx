@@ -72,8 +72,8 @@ function Navigation({ setScroll, isLoggedIn, userObj, setValue, check, setCheck,
     }
   })
   const element = {
-    uid: userObj.uid,
-    displayName: userObj.displayName
+    uid: userObj?.uid,
+    displayName: userObj?.displayName,
   }
   return (
     <SwipeableDrawer
