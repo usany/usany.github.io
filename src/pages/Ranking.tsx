@@ -43,22 +43,12 @@ function Ranking({ isLoggedIn, userObj, setUserObj, value, setValue, side, setSi
         }));
         setRank(newArray)
         const newArrayLength = newArray.length
-        // console.log(newArray)
         newArray.map((document, index) => {
           if (document.uid === userObj.uid) {
             newArray[index].rank = index+1
             setRanker([newArray[index]])
           }
         })
-        // if (newArray[newArrayLength-1].id === userObj.uid) {
-        //   console.log(newArray)
-        //   const rankerArray = [{
-        //     id: userObj.id,
-        //     ...document.data(),
-        //     newArrayLength
-        //   }]
-        //   setRanker(rankerArray)
-        // }
     })
   }, [])
   
@@ -68,19 +58,6 @@ function Ranking({ isLoggedIn, userObj, setUserObj, value, setValue, side, setSi
 
   return (
     <div className='flex flex-col pb-20'>
-      {/* <InboxIcon />
-      <DraftsIcon />
-      <SendIcon />
-      <StarBorder />
-      <ImageIcon />
-      <WorkIcon />
-      <FolderIcon />
-      <DeleteIcon />
-      <Settings />
-      <People />
-      <PermMedia />
-      <Dns />
-      <Public /> */}
       <div className='flex text-2xl p-5'>
         <div>
           유저 랭킹
