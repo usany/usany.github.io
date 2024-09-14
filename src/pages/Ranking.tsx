@@ -68,9 +68,6 @@ function Ranking({ isLoggedIn, userObj, setUserObj, value, setValue, side, setSi
       </div>
       <div className='flex justify-start text-2xl w-screen'>
           <div className='flex w-5/6'>빌리기 카드 목록</div>
-          {/* <div className='flex w-screen justify-end px-10' onClick={handleClickChangeFilter}>
-              <Settings onClick={handleClickChangeFilter}/>
-          </div> */}
       </div>
       {userSearch ?
       <List sx={{ width: '100%', 
