@@ -10,9 +10,7 @@ import Allies from 'src/pages/Allies'
 import Contact from 'src/pages/Contact'
 import Chatting from 'src/pages/Chatting'
 import Header from 'src/navigate/Header'
-import Navigation from 'src/navigate/Navigation'
 import Navigations from 'src/navigate/Navigations'
-import Avatar from '@mui/material/Avatar';
 import { blue } from '@mui/material/colors';
 // import { ClickAwayListener } from '@mui/base/ClickAwayListener';
 import ToggleTabs from 'src/muiComponents/Tabs'
