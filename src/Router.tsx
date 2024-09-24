@@ -7,6 +7,8 @@ import Points from 'src/pages/Points'
 import Specific from 'src/pages/Specific'
 import Actions from 'src/pages/Actions'
 import Allies from 'src/pages/Allies'
+import Contact from 'src/pages/Contact'
+import Chatting from 'src/pages/Chatting'
 import Header from 'src/navigate/Header'
 import Navigation from 'src/navigate/Navigation'
 import Navigations from 'src/navigate/Navigations'
@@ -18,6 +20,8 @@ import ToggleTabs from 'src/muiComponents/Tabs'
 // import Snackbars from 'src/muiComponents/Snackbars'
 import { doc, onSnapshot, query } from 'firebase/firestore';
 import { auth, dbservice } from 'src/baseApi/serverbase'
+import Box from '@mui/material/Box';
+import LinearProgress from '@mui/material/LinearProgress';
 
 const tmpCounter = []
 const Router = ({ isLoggedIn, userObj, setUserObj, newAccount, setNewAccount, setMode } :{
@@ -34,6 +38,8 @@ const Router = ({ isLoggedIn, userObj, setUserObj, newAccount, setNewAccount, se
     const [check, setCheck] = useState<boolean>(false)
     const [scroll, setScroll] = useState<number>(0)
     const [profileColor, setProfileColor] = useState('#2196f3')
+    const [displayName, setDisplayName] = useState('')
+
     // const tmpCounter = []
     useEffect(() => {
         if (!check) {
@@ -50,6 +56,20 @@ const Router = ({ isLoggedIn, userObj, setUserObj, newAccount, setNewAccount, se
             // ref.current.scrollIntoView({ behavior: 'smooth' })
         }
     })
+    // useEffect(() => {
+    //     const checkUsername = async () => {
+    //       const values = (await supabase
+    //         .from('practices')
+    //         .select()
+    //         .eq('id', userObj.id)).data?.map((element) => element.username)[0]
+    //         setDisplayName(
+    //           values
+    //         )
+    //     }
+    //     if (userObj) {
+    //       checkUsername()
+    //     }
+    //   }, [userObj])
     useEffect(() => {
         if (userObj) {
             onSnapshot(query(doc(dbservice, `members/${userObj.uid}`)), (snapshot) => {
@@ -60,6 +80,20 @@ const Router = ({ isLoggedIn, userObj, setUserObj, newAccount, setNewAccount, se
             })
         }
     })
+    useEffect(() => {
+        const checkUsername = async () => {
+          const values = (await supabase
+            .from('practices')
+            .select()
+            .eq('id', userObj.id)).data?.map((element) => element.username)[0]
+            setDisplayName(
+              values
+            )
+        }
+        if (userObj) {
+          checkUsername()
+        }
+      }, [userObj])
     const sides = []
     if (check === false) {
         // sides.push(
@@ -102,9 +136,53 @@ const Router = ({ isLoggedIn, userObj, setUserObj, newAccount, setNewAccount, se
     //         document.getElementsByClassName('location')[0].style.top = `-${prevScrollPos}px`
     //     }
     // })
+    useEffect(() => {
+        let refresh = false
+        const pullToRefresh = document.querySelector('.pull-to-refresh');
+        let touchstartY = 0;
+        document.addEventListener('touchstart', e => {
+          touchstartY = e.touches[0].clientY;
+        });
+        document.addEventListener('touchmove', e => {
+          const touchY = e.touches[0].clientY;
+          const touchDiff = touchY - touchstartY;
+          if (touchDiff > 0 && window.scrollY === 0) {
+            if (touchDiff > 500) {
+                pullToRefresh.classList.add('visible');
+                refresh = true
+            } 
+            else {
+                pullToRefresh.classList.remove('visible');
+                refresh = false
+            }
+            // e.preventDefault();
+            // refresh = true
+            // if (touchDiff > 0) {
+            //     refresh = true
+            // }
+            // if (touchDiff <= 0) {
+            //     refresh = false
+            // }
+          }
+        });
+        document.addEventListener('touchend', e => {
+            if (refresh) {
+                if (pullToRefresh.classList.contains('visible')) {
+                    pullToRefresh.classList.remove('visible');
+                    window.location.reload();
+                }
+            }
+        });
+    })
     return (
         <BrowserRouter>
             <div className={sides[0] + ' flex flex-col location'}>
+            <div className="pull-to-refresh">
+                {/* <span>Loading</span> */}
+                <Box sx={{ width: '100%' }}>
+                    <LinearProgress />
+                </Box>
+            </div>
                 <Header
                     bottomNavigation={bottomNavigation}
                     setBottomNavigation={setBottomNavigation}
@@ -131,7 +209,8 @@ const Router = ({ isLoggedIn, userObj, setUserObj, newAccount, setNewAccount, se
                                     <Route path='/postings/actions' Component={() => <Actions isLoggedIn={isLoggedIn} userObj={userObj} setUserObj={setUserObj} value={value} newAccount={newAccount} setNewAccount={setNewAccount} setValue={setValue} counter={counter} setCounter={setCounter} check={check} setCheck={setCheck} />} />
                                     <Route path='/postings/allies' Component={() => <Allies isLoggedIn={isLoggedIn} userObj={userObj} setUserObj={setUserObj} value={value} newAccount={newAccount} setNewAccount={setNewAccount} setValue={setValue} counter={counter} setCounter={setCounter} check={check} setCheck={setCheck} />} />
                                     <Route path='/postings/points' Component={() => <Points isLoggedIn={isLoggedIn} userObj={userObj} setUserObj={setUserObj} value={value} newAccount={newAccount} setNewAccount={setNewAccount} setValue={setValue} counter={counter} setCounter={setCounter} check={check} setCheck={setCheck} />} />
-                                    <Route path='/postings/chats' Component={() => <Specific isLoggedIn={isLoggedIn} userObj={userObj} setUserObj={setUserObj} value={value} newAccount={newAccount} setNewAccount={setNewAccount} setValue={setValue} counter={counter} setCounter={setCounter} check={check} setCheck={setCheck} />} />
+                                    <Route path='/postings/contact' Component={() => <Contact displayName={userObj.displayName} isLoggedIn={isLoggedIn} userObj={userObj} setUserObj={setUserObj} value={value} newAccount={newAccount} setNewAccount={setNewAccount} setValue={setValue} counter={counter} setCounter={setCounter} check={check} setCheck={setCheck} />} />
+                                    <Route path='/postings/chatting' Component={() => <Chatting isLoggedIn={isLoggedIn} userObj={userObj} setUserObj={setUserObj} value={value} newAccount={newAccount} setNewAccount={setNewAccount} setValue={setValue} counter={counter} setCounter={setCounter} check={check} setCheck={setCheck} />} />
                                 </Route>
                             ) : (
                                 <Route>
@@ -140,7 +219,7 @@ const Router = ({ isLoggedIn, userObj, setUserObj, newAccount, setNewAccount, se
                                     <Route path='/postings/actions' Component={() => <Actions isLoggedIn={isLoggedIn} userObj={userObj} setUserObj={setUserObj} value={value} newAccount={newAccount} setNewAccount={setNewAccount} setValue={setValue} counter={counter} setCounter={setCounter} check={check} setCheck={setCheck} />} />
                                     <Route path='/postings/allies' Component={() => <Allies isLoggedIn={isLoggedIn} userObj={userObj} setUserObj={setUserObj} value={value} newAccount={newAccount} setNewAccount={setNewAccount} setValue={setValue} counter={counter} setCounter={setCounter} check={check} setCheck={setCheck} />} />
                                     <Route path='/postings/points' Component={() => <Points isLoggedIn={isLoggedIn} userObj={userObj} setUserObj={setUserObj} value={value} newAccount={newAccount} setNewAccount={setNewAccount} setValue={setValue} counter={counter} setCounter={setCounter} check={check} setCheck={setCheck} />} />
-                                    <Route path='/postings/chats' Component={() => <Specific isLoggedIn={isLoggedIn} userObj={userObj} setUserObj={setUserObj} value={value} newAccount={newAccount} setNewAccount={setNewAccount} setValue={setValue} counter={counter} setCounter={setCounter} check={check} setCheck={setCheck} />} />
+                                    {/* <Route path='/postings/chats' Component={() => <Specific isLoggedIn={isLoggedIn} userObj={userObj} setUserObj={setUserObj} value={value} newAccount={newAccount} setNewAccount={setNewAccount} setValue={setValue} counter={counter} setCounter={setCounter} check={check} setCheck={setCheck} />} /> */}
                                 </Route>
                             )
                         }

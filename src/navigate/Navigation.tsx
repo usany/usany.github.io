@@ -121,13 +121,21 @@ function Navigation({ setScroll, isLoggedIn, userObj, setValue, check, setCheck,
             <span className='px-3'><DraftsIcon /></span>
             <Link to='/postings/ranking' onClick={() => checkbox()}>유저 랭킹</Link>
           </h1>
-          <h1 className='text-2xl	px-5'>
+          {/* <h1 className='text-2xl	px-5'>
             <span className='px-3'><ImageIcon /></span>
             <a href='mailto:ckd_qja@naver.com' target="_blank">신고하기</a>
+          </h1> */}
+          <h1 className='text-2xl	px-5'>
+            <span className='px-3'><ImageIcon /></span>
+            <Link to='/postings/contact' onClick={() => checkbox()}>신고하기</Link>
           </h1>
-          <h1 className='text-2xl px-5'>
+          {/* <h1 className='text-2xl px-5'>
             <span className='px-3'><WorkIcon /></span>
             <a href='https://open.kakao.com/o/sT7ptgQd' target="_blank">단체방</a>
+          </h1> */}
+          <h1 className='text-2xl px-5'>
+            <span className='px-3'><WorkIcon /></span>
+            <Link to='/postings/chatting' onClick={() => checkbox()}>단체방</Link>
           </h1>
           <h1 className='text-2xl px-5'>
             <span className='px-3'><Public /></span>

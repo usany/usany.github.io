@@ -5,7 +5,7 @@ import Dialogs from 'src/muiComponents/Dialogs';
 import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';
 import SendIcon from '@mui/icons-material/Send';
-
+import { webSocket, onClick } from 'src/webSocket.tsx'
 function Btn({ msgObj, isOwner, uid, displayName, isLoggedIn, num, points, setValue, counter, setCounter }) {
   const [move, setMove] = useState(false)
 
@@ -13,7 +13,7 @@ function Btn({ msgObj, isOwner, uid, displayName, isLoggedIn, num, points, setVa
     const data = doc(dbservice, `num/${msgObj.id}`)
     deleteDoc(data)
   }
-
+  console.log(msgObj)
   const onClick = (action) => {
     const data = doc(dbservice, `num/${msgObj.id}`)
     if (action === 'delete') {
@@ -30,23 +30,29 @@ function Btn({ msgObj, isOwner, uid, displayName, isLoggedIn, num, points, setVa
       if (msgObj.text.choose == 1) {
         updateDoc(point, {points: num-msgObj.point});
         updateDoc(connectedPoint, {points: points+msgObj.point});
+        webSocket.emit('confirm return', { sendingToken: 'cMKqnki-Feo7tMzDdKx-8L:APA91bF7iwhQSTQ4Ewv9rDWImAyEi0vwKvg6QHwqrJqDc3AB0vWEID7B1VKgT1q8By-G9VSdmXxfvADyz0ROOjA5ewtV_O87Ai66uUeIwZzIP5eREuhFJfZ-ZFD_ptwR-BsB0a3QAaYD', creatorId: msgObj.creatorId, creatorName: msgObj.displayName, connectedId: uid, connectedName: displayName, })
       } else {
         updateDoc(point, {points: num+msgObj.point});
         updateDoc(connectedPoint, {points: points-msgObj.point});
+        webSocket.emit('confirm return', { sendingToken: 'cMKqnki-Feo7tMzDdKx-8L:APA91bF7iwhQSTQ4Ewv9rDWImAyEi0vwKvg6QHwqrJqDc3AB0vWEID7B1VKgT1q8By-G9VSdmXxfvADyz0ROOjA5ewtV_O87Ai66uUeIwZzIP5eREuhFJfZ-ZFD_ptwR-BsB0a3QAaYD', creatorId: msgObj.creatorId, creatorName: msgObj.displayName, connectedId: uid, connectedName: displayName, })
       }
     } else if (action === 'confirm') {
       updateDoc(data, {round: 3});
+      webSocket.emit('confirm', { sendingToken: 'cMKqnki-Feo7tMzDdKx-8L:APA91bF7iwhQSTQ4Ewv9rDWImAyEi0vwKvg6QHwqrJqDc3AB0vWEID7B1VKgT1q8By-G9VSdmXxfvADyz0ROOjA5ewtV_O87Ai66uUeIwZzIP5eREuhFJfZ-ZFD_ptwR-BsB0a3QAaYD', creatorId: msgObj.creatorId, creatorName: msgObj.displayName, connectedId: uid, connectedName: displayName, })
     } else if (action === 'returning') {
       updateDoc(data, {round: 4});
+      webSocket.emit('returning', { sendingToken: 'cMKqnki-Feo7tMzDdKx-8L:APA91bF7iwhQSTQ4Ewv9rDWImAyEi0vwKvg6QHwqrJqDc3AB0vWEID7B1VKgT1q8By-G9VSdmXxfvADyz0ROOjA5ewtV_O87Ai66uUeIwZzIP5eREuhFJfZ-ZFD_ptwR-BsB0a3QAaYD', creatorId: msgObj.creatorId, creatorName: msgObj.displayName, connectedId: uid, connectedName: displayName, })
     } else if (action === 'supporting') {
       if (isLoggedIn) { 
         updateDoc(data, {round: 2, connectedId: uid, connectedName: displayName});
+        webSocket.emit('supporting', { sendingToken: 'cMKqnki-Feo7tMzDdKx-8L:APA91bF7iwhQSTQ4Ewv9rDWImAyEi0vwKvg6QHwqrJqDc3AB0vWEID7B1VKgT1q8By-G9VSdmXxfvADyz0ROOjA5ewtV_O87Ai66uUeIwZzIP5eREuhFJfZ-ZFD_ptwR-BsB0a3QAaYD', creatorId: msgObj.creatorId, creatorName: msgObj.displayName, connectedId: uid, connectedName: displayName, })
       } else {
         setMove(true)
       }
     } else if (action === 'stop supporting') {
       if (isLoggedIn) { 
         updateDoc(data, {round: 1, connectedId: null, connectedName: null});
+        webSocket.emit('stop supporting', { sendingToken: 'cMKqnki-Feo7tMzDdKx-8L:APA91bF7iwhQSTQ4Ewv9rDWImAyEi0vwKvg6QHwqrJqDc3AB0vWEID7B1VKgT1q8By-G9VSdmXxfvADyz0ROOjA5ewtV_O87Ai66uUeIwZzIP5eREuhFJfZ-ZFD_ptwR-BsB0a3QAaYD', creatorId: msgObj.creatorId, creatorName: msgObj.displayName, connectedId: uid, connectedName: displayName, })
       }
     }
   }

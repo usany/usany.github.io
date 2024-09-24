@@ -1,6 +1,7 @@
 import { getAuth, GoogleAuthProvider, GithubAuthProvider, signInWithPopup, createUserWithEmailAndPassword, signInWithEmailAndPassword  } from "firebase/auth";
 import { getFirestore, collection, addDoc } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
+import { getMessaging } from "firebase/messaging";
 
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
@@ -22,6 +23,7 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const dbservice = getFirestore(app);
 const storage = getStorage(app, 'gs://remake-36fe0.appspot.com');
+const messaging = getMessaging(app);
 
 const onSocialClick = async (event) => {
     const {
@@ -66,4 +68,4 @@ const onSocialClick = async (event) => {
     });
 }
 
-export {auth, onSocialClick, dbservice, storage}
+export {auth, onSocialClick, dbservice, storage, messaging}
