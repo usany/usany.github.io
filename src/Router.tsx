@@ -40,6 +40,7 @@ const Router = ({ isLoggedIn, userObj, setUserObj, newAccount, setNewAccount, se
     const [profileColor, setProfileColor] = useState('#2196f3')
     const [displayName, setDisplayName] = useState('')
     // const tmpCounter = []
+    
     useEffect(() => {
         if (!check) {
             setTimeout(() => window.scrollTo({
