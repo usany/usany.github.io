@@ -39,7 +39,6 @@ const Router = ({ isLoggedIn, userObj, setUserObj, newAccount, setNewAccount, se
     const [scroll, setScroll] = useState<number>(0)
     const [profileColor, setProfileColor] = useState('#2196f3')
     const [displayName, setDisplayName] = useState('')
-
     // const tmpCounter = []
     useEffect(() => {
         if (!check) {
