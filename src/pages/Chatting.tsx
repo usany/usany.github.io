@@ -7,8 +7,7 @@ import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
 import { Link } from 'react-router-dom'
 import ChattingDialogs from 'src/muiComponents/ChattingDialogs'
 
-const webSocket = io("http://localhost:5000");
-
+// const webSocket = io("http://localhost:5000");
 function Chatting({ userObj }) {
   const messagesEndRef = useRef(null);
   const [userId, setUserId] = useState("");

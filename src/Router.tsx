@@ -78,20 +78,20 @@ const Router = ({ isLoggedIn, userObj, setUserObj, newAccount, setNewAccount, se
             })
         }
     })
-    useEffect(() => {
-        const checkUsername = async () => {
-          const values = (await supabase
-            .from('practices')
-            .select()
-            .eq('id', userObj.id)).data?.map((element) => element.username)[0]
-            setDisplayName(
-              values
-            )
-        }
-        if (userObj) {
-          checkUsername()
-        }
-      }, [userObj])
+    // useEffect(() => {
+    //     const checkUsername = async () => {
+    //       const values = (await supabase
+    //         .from('practices')
+    //         .select()
+    //         .eq('id', userObj.id)).data?.map((element) => element.username)[0]
+    //         setDisplayName(
+    //           values
+    //         )
+    //     }
+    //     if (userObj) {
+    //       checkUsername()
+    //     }
+    //   }, [userObj])
     const sides = []
     if (check === false) {
         // sides.push(

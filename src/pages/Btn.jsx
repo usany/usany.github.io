@@ -6,6 +6,8 @@ import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';
 import SendIcon from '@mui/icons-material/Send';
 import { webSocket, onClick } from 'src/webSocket.tsx'
+
+// const webSocket = io("http://localhost:5000");
 function Btn({ msgObj, isOwner, uid, displayName, isLoggedIn, num, points, setValue, counter, setCounter }) {
   const [move, setMove] = useState(false)
 
@@ -16,6 +18,8 @@ function Btn({ msgObj, isOwner, uid, displayName, isLoggedIn, num, points, setVa
   console.log(msgObj)
   const onClick = (action) => {
     const data = doc(dbservice, `num/${msgObj.id}`)
+    const toUser = doc(dbservice, `members/${msgObj.creatorId}`)
+    console.log(toUser)
     if (action === 'delete') {
       deleteDoc(data)
       const [msgObj, ...newCounter] = counter

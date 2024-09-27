@@ -4,9 +4,11 @@ import { collection, query, where, orderBy, addDoc, getDocs, doc, onSnapshot, de
 import Message from 'src/pages/Message'
 import { getToken } from "firebase/messaging";
 import { io } from "socket.io-client";
+import { webSocket, onClick } from 'src/webSocket.tsx'
 
 // 2
-const webSocket = io("https://service-ceni.onrender.com");
+// const webSocket = io("https://service-ceni.onrender.com");
+// const webSocket = io("http://localhost:5000");
 
 // let tmpCounter = []
 function Menu({ isLoggedIn, userObj, counter, setCounter, setValue, tmpCounter }) {
@@ -26,6 +28,12 @@ function Menu({ isLoggedIn, userObj, counter, setCounter, setValue, tmpCounter }
                 if (token) {
                     console.log('Token generated:', token);
                     // Send this token to your server to store it for later use
+                    // webSocket.on('messagingToken', token)
+                    // return (
+                    //     webSocket.off('messagingToken', token)
+                    // )
+                    const myDoc = doc(dbservice, `members/${userObj.uid}`)
+                    updateDoc(myDoc, {messagingToken: token});
                 } else {
                     console.log('No registration token available.');
                 }

@@ -39,6 +39,7 @@ function Auth({ newAccount, setNewAccount, setValue }) {
           followingNum: 0,
           followers: [],
           followings: [],
+          messagingToken: null
         })
         await updateProfile(data.user, {
           displayName: data.user.uid
