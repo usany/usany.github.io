@@ -88,7 +88,7 @@ function Chatting({ userObj }) {
       // { msg: message, type: "me", userUid: userObj.uid, id: userObj.displayName, messageClock: messageClock }
     };
     webSocket.emit("message", sendData);
-    if (msg) {
+    if (message) {
       // if (!conversation) {
       //   onForm()
       // } else {
