@@ -5,19 +5,19 @@ import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnap
 import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
 import { Link, useLocation } from 'react-router-dom'
 import PiazzaDialogs from 'src/muiComponents/PiazzaDialogs'
+import { webSocket, onClick } from 'src/webSocket.tsx'
 
-const webSocket = io("http://localhost:5000");
-
+// const webSocket = io("http://localhost:5000");
 function Piazza({ userObj }) {
   const messagesEndRef = useRef(null);
   const [userId, setUserId] = useState("");
-  const [isLogin, setIsLogin] = useState(true);
+  // const [isLogin, setIsLogin] = useState(true);
   const [msg, setMsg] = useState("");
   const [msgList, setMsgList] = useState([]);
   const [changeMessage, setChangeMessage] = useState(true)
   const [privateTarget, setPrivateTarget] = useState("");
   // 1
-  const [roomNumber, setRoomNumber] = useState("1");
+  // const [roomNumber, setRoomNumber] = useState("1");
   const [user, setUser] = useState(null)
   const [selectUser, setSelectUser] = useState(false)
   useEffect(() => {
@@ -119,7 +119,6 @@ function Piazza({ userObj }) {
   //       messageTitle: messageTitle,
   //       message: message
   //     })
-  //     alert('등록되었습니다')
   //     setMessageTitle('')
   //     setMessage('')
   //     setChange(true)
@@ -150,10 +149,7 @@ function Piazza({ userObj }) {
       const messageRef = collection(dbservice, 'chats_group')
       const messagesCollection = query(messageRef, orderBy('messageClock'))
       const messages = await getDocs(messagesCollection);
-      // console.log(messagesCollection)
-      // console.log('practice')
       messages.forEach((doc) => {
-        // console.log(doc.data())
         const message = doc.data().message
         const userUid = doc.data().userUid
         const userName = doc.data().userName
@@ -174,7 +170,6 @@ function Piazza({ userObj }) {
       //   messageListMembers(state.conversation)
       // }
     }
-    // console.log('practice')
       // onSnapshot(query(doc(dbservice, 'groups')), (snapshot) => {
         //     const number = snapshot.data().points
         //     setNum(number)
@@ -189,8 +184,6 @@ function Piazza({ userObj }) {
   //     })
   //   }
   // })
-  // console.log(userObj)
-  // console.log(msgList)
   return (
     <div className="app-container">
       <div className="wrap">

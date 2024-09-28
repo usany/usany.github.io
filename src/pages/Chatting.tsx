@@ -3,8 +3,9 @@ import { io } from "socket.io-client";
 import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnapshot, deleteDoc, updateDoc } from 'firebase/firestore';
 import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
 import { Link, useLocation } from 'react-router-dom'
+import { webSocket, onClick } from 'src/webSocket.tsx'
 
-const webSocket = io("http://localhost:5000");
+// const webSocket = io("http://localhost:5000");
 function Chatting({ userObj }) {
   const messagesEndRef = useRef(null);
   const [userId, setUserId] = useState("");
