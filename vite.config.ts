@@ -88,6 +88,7 @@ export default defineConfig({
       type: 'module',
     },
   })],
+  // base: '/postings/',
   base: '/postings/',
   build: {
     outDir: 'dist'

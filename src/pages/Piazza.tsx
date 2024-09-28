@@ -22,20 +22,25 @@ function Piazza({ userObj }) {
   const [selectUser, setSelectUser] = useState(false)
   useEffect(() => {
     if (!webSocket) return;
-    function sMessageCallback(msg) {
-      const { data, id, target } = msg;
+    function sMessageCallback(message) {
+      const { msg, userUid, id, target, messageClock, conversation } = message;
+      console.log(msg)
       setMsgList((prev) => [
         ...prev,
         {
-          msg: data,
+          msg: msg,
           type: target ? "private" : "other",
+          userUid: userUid,
           id: id,
+          messageClock: messageClock,
+          conversation: null
         },
+        // { msg: message, type: "me", userUid: userObj.uid, id: userObj.displayName, messageClock: messageClock }
       ]);
     }
-    webSocket.on("sMessage", sMessageCallback);
+    webSocket.on("sMessagePiazza", sMessageCallback);
     return () => {
-      webSocket.off("sMessage", sMessageCallback);
+      webSocket.off("sMessagePiazza", sMessageCallback);
     };
   }, []);
 
@@ -74,12 +79,33 @@ function Piazza({ userObj }) {
   // };
   const onSendSubmitHandler = (e) => {
     e.preventDefault();
+    const message = msg
+    const userUid = userObj.uid
+    const userName = userObj.displayName
+    const messageClock = Date.now()
     const sendData = {
-      data: msg,
-      id: userId,
+      msg: message,
+      userUid: userUid,
+      id: userName,
+      messageClock: messageClock,
       target: privateTarget,
+      conversation: null
+      // { msg: message, type: "me", userUid: userObj.uid, id: userObj.displayName, messageClock: messageClock }
     };
-    webSocket.emit("message", sendData);
+    if (sendData) {
+      webSocket.emit("message", sendData);
+      // const { data, uid, id, target } = sendData;
+      // setMsgList((prev) => [
+      //   ...prev,
+      //   {
+      //     msg: data,
+      //     type: target ? "private" : "other",
+      //     id: id,
+      //   },
+      // ]);
+      onForm()
+    }
+    setMsg("");
     // if (msg) {
     //   setMsgList((prev) => [...prev, { msg: msg, type: "me", id: userObj.displayName }]);
     //   if (!state.conversation) {
@@ -89,7 +115,6 @@ function Piazza({ userObj }) {
     //   }
     //   onFormConversation()
     // }
-    setMsg("");
   };
   const onChangeMsgHandler = (e) => {
     setMsg(e.target.value);
@@ -126,6 +151,25 @@ function Piazza({ userObj }) {
   //     console.log(error)
   //   }
   // }
+  const onForm = async () => {
+    try {
+      const message = msg
+      const userUid = userObj.uid
+      const userName = userObj.displayName
+      const messageClock = Date.now()
+      await addDoc(collection(dbservice, 'chats_group'), {
+        userUid: userUid,
+        userName: userName,
+        message: message,
+        messageClock: messageClock
+      })
+      if (message){
+        setMsgList((prev) => [...prev, { msg: message, type: "me", userUid: userObj.uid, id: userObj.displayName, messageClock: messageClock, conversation: null }]);
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
   // const onFormConversation = async () => {
   //   const message = msg
   //   try {
@@ -156,7 +200,7 @@ function Piazza({ userObj }) {
         const messageClock = doc.data().messageClock
         // doc.data() is never undefined for query doc snapshots
         // console.log(doc.id, " => ", doc.data());
-        messagesArray.push({ msg: message, type: "me", userUid: userUid, id: userName, messageClock: messageClock })
+        messagesArray.push({ msg: message, type: "me", userUid: userUid, id: userName, messageClock: messageClock, conversation: null })
         setMsgList(messagesArray);
         // setMsgList((prev) => [...prev, { msg: message, type: "me", userUid: userUid, id: userName, messageClock: messageClock }]);
       });

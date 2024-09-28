@@ -20,20 +20,23 @@ function Chatting({ userObj }) {
   console.log(conversation)
   useEffect(() => {
     if (!webSocket) return;
-    function sMessageCallback(msg) {
-      const { data, id, target } = msg;
+    function sMessageCallback(message) {
+      const { msg, userUid, id, target, messageClock, conversation } = message;
       setMsgList((prev) => [
         ...prev,
         {
-          msg: data,
+          msg: msg,
+          userUid: userUid,
           type: target ? "private" : "other",
           id: id,
+          messageClock: messageClock,
+          conversation: conversation
         },
       ]);
     }
-    webSocket.on("sMessage", sMessageCallback);
+    webSocket.on(`sMessage${conversation}`, sMessageCallback);
     return () => {
-      webSocket.off("sMessage", sMessageCallback);
+      webSocket.off(`sMessage${conversation}`, sMessageCallback);
     };
   }, []);
 
@@ -71,10 +74,18 @@ function Chatting({ userObj }) {
   // };
   const onSendSubmitHandler = (e) => {
     e.preventDefault();
+    const message = msg
+    const userUid = userObj.uid
+    const userName = userObj.displayName
+    const messageClock = Date.now()
     const sendData = {
-      data: msg,
-      id: userId,
-      // target: privateTarget,
+      msg: message,
+      userUid: userUid,
+      id: userName,
+      messageClock: messageClock,
+      target: privateTarget,
+      conversation: conversation
+      // { msg: message, type: "me", userUid: userObj.uid, id: userObj.displayName, messageClock: messageClock }
     };
     webSocket.emit("message", sendData);
     if (msg) {
@@ -129,7 +140,9 @@ function Chatting({ userObj }) {
         message: message,
         messageClock: messageClock
       })
-      setMsgList((prev) => [...prev, { msg: message, type: "me", userUid: userObj.uid, id: userObj.displayName, messageClock: messageClock }]);
+      if (message) {
+        setMsgList((prev) => [...prev, { msg: message, type: "me", userUid: userObj.uid, id: userObj.displayName, messageClock: messageClock, conversation: conversation }]);
+      }
     } catch (error) {
       console.log(error)
     }
