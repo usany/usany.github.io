@@ -81,13 +81,13 @@ function Piazza({ userObj }) {
     };
     webSocket.emit("message", sendData);
     // if (msg) {
-      // setMsgList((prev) => [...prev, { msg: msg, type: "me", id: userObj.displayName }]);
-      // if (!state.conversation) {
-      //   onForm()
-      // } else {
-      //   onFormConversation()
-      // }
-      // onFormConversation()
+    //   setMsgList((prev) => [...prev, { msg: msg, type: "me", id: userObj.displayName }]);
+    //   if (!state.conversation) {
+    //     onForm()
+    //   } else {
+    //     onFormConversation()
+    //   }
+    //   onFormConversation()
     // }
     setMsg("");
   };
@@ -167,12 +167,12 @@ function Piazza({ userObj }) {
     }
     if (changeMessage) { 
       messageList()
+      setChangeMessage(false)
       // if (!state.conversation) {
       //   messageList()
       // } else {
       //   messageListMembers(state.conversation)
       // }
-      setChangeMessage(false)
     }
     // console.log('practice')
       // onSnapshot(query(doc(dbservice, 'groups')), (snapshot) => {
