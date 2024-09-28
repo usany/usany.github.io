@@ -80,15 +80,15 @@ function Piazza({ userObj }) {
       target: privateTarget,
     };
     webSocket.emit("message", sendData);
-    if (msg) {
+    // if (msg) {
       // setMsgList((prev) => [...prev, { msg: msg, type: "me", id: userObj.displayName }]);
       // if (!state.conversation) {
       //   onForm()
       // } else {
       //   onFormConversation()
       // }
-      onFormConversation()
-    }
+      // onFormConversation()
+    // }
     setMsg("");
   };
   const onChangeMsgHandler = (e) => {
