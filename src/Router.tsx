@@ -8,6 +8,7 @@ import Specific from 'src/pages/Specific'
 import Actions from 'src/pages/Actions'
 import Allies from 'src/pages/Allies'
 import Contact from 'src/pages/Contact'
+import Piazza from 'src/pages/Piazza'
 import Chatting from 'src/pages/Chatting'
 import Header from 'src/navigate/Header'
 import Navigations from 'src/navigate/Navigations'
@@ -208,7 +209,8 @@ const Router = ({ isLoggedIn, userObj, setUserObj, newAccount, setNewAccount, se
                                     <Route path='/postings/allies' Component={() => <Allies isLoggedIn={isLoggedIn} userObj={userObj} setUserObj={setUserObj} value={value} newAccount={newAccount} setNewAccount={setNewAccount} setValue={setValue} counter={counter} setCounter={setCounter} check={check} setCheck={setCheck} />} />
                                     <Route path='/postings/points' Component={() => <Points isLoggedIn={isLoggedIn} userObj={userObj} setUserObj={setUserObj} value={value} newAccount={newAccount} setNewAccount={setNewAccount} setValue={setValue} counter={counter} setCounter={setCounter} check={check} setCheck={setCheck} />} />
                                     <Route path='/postings/contact' Component={() => <Contact displayName={userObj.displayName} isLoggedIn={isLoggedIn} userObj={userObj} setUserObj={setUserObj} value={value} newAccount={newAccount} setNewAccount={setNewAccount} setValue={setValue} counter={counter} setCounter={setCounter} check={check} setCheck={setCheck} />} />
-                                    <Route path='/postings/chatting' Component={() => <Chatting isLoggedIn={isLoggedIn} userObj={userObj} setUserObj={setUserObj} value={value} newAccount={newAccount} setNewAccount={setNewAccount} setValue={setValue} counter={counter} setCounter={setCounter} check={check} setCheck={setCheck} />} />
+                                    <Route path='/postings/piazza' Component={() => <Piazza userObj={userObj}/>} />
+                                    <Route path='/postings/chatting' Component={() => <Chatting userObj={userObj} />} />
                                 </Route>
                             ) : (
                                 <Route>

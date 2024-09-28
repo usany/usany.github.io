@@ -135,7 +135,7 @@ function Navigation({ setScroll, isLoggedIn, userObj, setValue, check, setCheck,
           </h1> */}
           <h1 className='text-2xl px-5'>
             <span className='px-3'><WorkIcon /></span>
-            <Link to='/postings/chatting' onClick={() => checkbox()}>단체방</Link>
+            <Link to='/postings/piazza' onClick={() => checkbox()}>단체방</Link>
           </h1>
           <h1 className='text-2xl px-5'>
             <span className='px-3'><Public /></span>

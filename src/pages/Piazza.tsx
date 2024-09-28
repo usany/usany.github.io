@@ -1,22 +1,25 @@
 import { useRef, useEffect, useState } from "react";
+import "./Chatting.css";
 import { io } from "socket.io-client";
 import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnapshot, deleteDoc, updateDoc } from 'firebase/firestore';
 import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
 import { Link, useLocation } from 'react-router-dom'
+import PiazzaDialogs from 'src/muiComponents/PiazzaDialogs'
 
 const webSocket = io("http://localhost:5000");
-function Chatting({ userObj }) {
+
+function Piazza({ userObj }) {
   const messagesEndRef = useRef(null);
   const [userId, setUserId] = useState("");
+  const [isLogin, setIsLogin] = useState(true);
   const [msg, setMsg] = useState("");
   const [msgList, setMsgList] = useState([]);
   const [changeMessage, setChangeMessage] = useState(true)
   const [privateTarget, setPrivateTarget] = useState("");
+  // 1
+  const [roomNumber, setRoomNumber] = useState("1");
   const [user, setUser] = useState(null)
   const [selectUser, setSelectUser] = useState(false)
-  const {state} = useLocation()
-  const conversation = state.conversation
-  console.log(conversation)
   useEffect(() => {
     if (!webSocket) return;
     function sMessageCallback(msg) {
@@ -36,23 +39,23 @@ function Chatting({ userObj }) {
     };
   }, []);
 
-  // useEffect(() => {
-  //   if (!webSocket) return;
-  //   function sLoginCallback(msg) {
-  //     setMsgList((prev) => [
-  //       ...prev,
-  //       {
-  //         msg: `${msg} joins the chat`,
-  //         type: "welcome",
-  //         id: "",
-  //       },
-  //     ]);
-  //   }
-  //   webSocket.on("sLogin", sLoginCallback);
-  //   return () => {
-  //     webSocket.off("sLogin", sLoginCallback);
-  //   };
-  // }, []);
+  useEffect(() => {
+    if (!webSocket) return;
+    function sLoginCallback(msg) {
+      setMsgList((prev) => [
+        ...prev,
+        {
+          msg: `${msg} joins the chat`,
+          type: "welcome",
+          id: "",
+        },
+      ]);
+    }
+    webSocket.on("sLogin", sLoginCallback);
+    return () => {
+      webSocket.off("sLogin", sLoginCallback);
+    };
+  }, []);
   useEffect(() => {
     scrollToBottom();
   }, [msgList]);
@@ -60,6 +63,7 @@ function Chatting({ userObj }) {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
+  // 2
   // const onSubmitHandler = (e) => {
   //   e.preventDefault();
   //   webSocket.emit("login", { userId: userId, roomNumber: roomNumber });
@@ -73,11 +77,12 @@ function Chatting({ userObj }) {
     const sendData = {
       data: msg,
       id: userId,
-      // target: privateTarget,
+      target: privateTarget,
     };
     webSocket.emit("message", sendData);
     if (msg) {
-      // if (!conversation) {
+      // setMsgList((prev) => [...prev, { msg: msg, type: "me", id: userObj.displayName }]);
+      // if (!state.conversation) {
       //   onForm()
       // } else {
       //   onFormConversation()
@@ -95,18 +100,41 @@ function Chatting({ userObj }) {
     const userElement = userDoc.data()
     setUser(userElement)
     setSelectUser(true)
+    // setUser(userDoc)
+    // const { id } = e.target.dataset;
+    // setPrivateTarget((prev) => (prev === id ? "" : id));
   };
-  // const handleClose = () => {
-  //   setSelectUser(false)
+  const handleClose = () => {
+    setSelectUser(false)
+  }
+  // 3
+  // const onRoomChangeHandler = (e) => {
+  //   setRoomNumber(e.target.value);
+  // };
+  // const onSubmitMessage = async () => {
+  //   try {
+  //     const newMessage = await addDoc(collection(dbservice, 'violations'), {
+  //       userUid: userObj.id,
+  //       userName: displayName,
+  //       messageTitle: messageTitle,
+  //       message: message
+  //     })
+  //     alert('등록되었습니다')
+  //     setMessageTitle('')
+  //     setMessage('')
+  //     setChange(true)
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
   // }
-  // const onForm = async () => {
+  // const onFormConversation = async () => {
   //   const message = msg
   //   try {
   //     const userUid = userObj.uid
   //     const userName = userObj.displayName
   //     const messageClock = Date.now()
-  //     const newMessage = await addDoc(collection(dbservice, 'chats_group'), {
-  //       // userUid: userUid,
+  //     const newMessage = await addDoc(collection(dbservice, `chats_${state.conversation}`), {
+  //       userUid: userUid,
   //       userName: userName,
   //       message: message,
   //       messageClock: messageClock
@@ -116,79 +144,71 @@ function Chatting({ userObj }) {
   //     console.log(error)
   //   }
   // }
-  const onFormConversation = async () => {
-    const message = msg
-    try {
-      const userUid = userObj.uid
-      const userName = userObj.displayName
-      const messageClock = Date.now()
-      await addDoc(collection(dbservice, `chats_${conversation}`), {
-        userUid: userUid,
-        userName: userName,
-        message: message,
-        messageClock: messageClock
-      })
-      setMsgList((prev) => [...prev, { msg: message, type: "me", userUid: userObj.uid, id: userObj.displayName, messageClock: messageClock }]);
-    } catch (error) {
-      console.log(error)
-    }
-  }
   useEffect(() => {
-    // const messageList = async () => {
-    //   const messageRef = collection(dbservice, 'chats_group')
-    //   const messagesCollection = query(messageRef, orderBy('messageClock'))
-    //   const messages = await getDocs(messagesCollection);
-    //   messages.forEach((doc) => {
-    //     const message = doc.data().message
-    //     const userUid = doc.data().userUid
-    //     const userName = doc.data().userName
-    //     const messageClock = doc.data().messageClock
-    //     setMsgList((prev) => [...prev, { msg: message, type: "me", userUid: userUid, id: userName, messageClock: messageClock }]);
-    //   });
-    // }
-    const messageListMembers = async (conversation) => {
-      const messageRef = collection(dbservice, `chats_${conversation}`)
+    const messageList = async () => {
+      const messagesArray = []
+      const messageRef = collection(dbservice, 'chats_group')
       const messagesCollection = query(messageRef, orderBy('messageClock'))
       const messages = await getDocs(messagesCollection);
-      const messagesArray = []
+      // console.log(messagesCollection)
+      // console.log('practice')
       messages.forEach((doc) => {
+        // console.log(doc.data())
         const message = doc.data().message
         const userUid = doc.data().userUid
         const userName = doc.data().userName
         const messageClock = doc.data().messageClock
+        // doc.data() is never undefined for query doc snapshots
+        // console.log(doc.id, " => ", doc.data());
         messagesArray.push({ msg: message, type: "me", userUid: userUid, id: userName, messageClock: messageClock })
-        setMsgList(messagesArray)
+        setMsgList(messagesArray);
         // setMsgList((prev) => [...prev, { msg: message, type: "me", userUid: userUid, id: userName, messageClock: messageClock }]);
       });
     }
     if (changeMessage) { 
-      // if (!conversation) {
+      messageList()
+      // if (!state.conversation) {
       //   messageList()
       // } else {
-      //   messageListMembers(conversation)
+      //   messageListMembers(state.conversation)
       // }
-      messageListMembers(conversation)
       setChangeMessage(false)
     }
-  }, [changeMessage, conversation])
-  console.log(msgList)
+    // console.log('practice')
+      // onSnapshot(query(doc(dbservice, 'groups')), (snapshot) => {
+        //     const number = snapshot.data().points
+        //     setNum(number)
+    //   }
+    // )
+  }, [changeMessage])
+  // useEffect(() => {
+  //   if (msgObj.connectedId !== null) {
+  //     onSnapshot(query(doc(dbservice, `members/${msgObj.connectedId}`)), (snapshot) => {
+  //       const element = snapshot.data().points
+  //       setPoints(element)
+  //     })
+  //   }
+  // })
+  // console.log(userObj)
+  // console.log(msgList)
   return (
     <div className="app-container">
       <div className="wrap">
+      {/* {!state.conversation ? */}
           <div className="chat-box">
             <h3>
-              개인 대화
+              단체 대화
             </h3>
             <ul className="chat">
               {msgList.map((v, i) => {
                 if (v.type === "welcome") {
-                  // return (
-                  //   <li className="welcome">
-                  //   <div className="line" />
-                  //   <div>{v.msg}</div>
-                  //   <div className="line" />
-                  // </li>
-                  // )
+                  return (
+                    <li className="welcome">
+                    <div className="line" />
+                    <div>{v.msg}</div>
+                    <div className="line" />
+                  </li>
+                  )
                 } else {
                   let userDirection
                   if (v.userUid === userObj.uid) {
@@ -241,6 +261,9 @@ function Chatting({ userObj }) {
               <li ref={messagesEndRef} />
             </ul>
             <form className="send-form" onSubmit={onSendSubmitHandler}>
+              {/* {privateTarget && (
+                <div className="private-target">{privateTarget}</div>
+              )} */}
               <input
                 placeholder="Enter your message"
                 onChange={onChangeMsgHandler}
@@ -249,9 +272,30 @@ function Chatting({ userObj }) {
               <button type="submit">send</button>
             </form>
           </div>
+          <PiazzaDialogs selectUser={selectUser} user={user} handleClose={handleClose} userObj={userObj} setMsgList={setMsgList} setChangeMessage={setChangeMessage}/>
+        {/* {isLogin ? (
+        ) : (
+          <div className="login-box">
+            <div className="login-title">
+              <div>IOChat</div>
+            </div>
+            <form className="login-form" onSubmit={onSubmitHandler}>
+              <select onChange={onRoomChangeHandler}>
+                <option value="1">Room 1</option>
+                <option value="2">Room 2</option>
+              </select>
+              <input
+                placeholder="Enter your ID"
+                onChange={onChangeUserIdHandler}
+                value={userId}
+              />
+              <button type="submit">Login</button>
+            </form>
+          </div>
+        )} */}
       </div>
     </div>
   );
 }
 
-export default Chatting;
+export default Piazza;
