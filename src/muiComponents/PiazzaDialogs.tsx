@@ -38,7 +38,6 @@ function PiazzaDialogs({ selectUser, user, handleClose, userObj, setMsgList, set
     //     } = event
     //     setSelectedValueThree(value)
     // }
-    // console.log(selectedValueOne)
     useEffect(() => {
         if (selectUser) {
             if (user?.uid < userObj.uid) {
