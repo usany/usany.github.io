@@ -15,8 +15,8 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { Link } from 'react-router-dom'
 
-function ChattingDialogs({ selectUser, user, handleClose, userObj }) {
-    const [selection, setSelection] = useState(false)
+function ChattingDialogs({ selectUser, user, handleClose, userObj, setMsgList, setChangeMessage }) {
+    const [conversation, setConversation] = useState(null)
     // const changeSelectedValueOne = (event) => {
     //     event.preventDefault()
     //     const {
@@ -39,6 +39,16 @@ function ChattingDialogs({ selectUser, user, handleClose, userObj }) {
     //     setSelectedValueThree(value)
     // }
     // console.log(selectedValueOne)
+    useEffect(() => {
+        if (selectUser) {
+            if (user?.uid < userObj.uid) {
+                setConversation(user?.uid[0]+user?.uid[1]+user?.uid[2]+user?.uid[3]+user?.uid[4]+user?.uid[5]+userObj.uid[0]+userObj.uid[1]+userObj.uid[2]+userObj.uid[3]+userObj.uid[4]+userObj.uid[5])
+            } else {
+                setConversation(userObj.uid[0]+userObj.uid[1]+userObj.uid[2]+userObj.uid[3]+userObj.uid[4]+userObj.uid[5]+user?.uid[0]+user?.uid[1]+user?.uid[2]+user?.uid[3]+user?.uid[4]+user?.uid[5])
+            }
+        }
+    }, [selectUser])
+    console.log(user)
     return (
         <Dialog open={selectUser} onClose={handleClose}>
             <DialogContent>
@@ -90,18 +100,25 @@ function ChattingDialogs({ selectUser, user, handleClose, userObj }) {
             </FormControl> */}
             </DialogContent>
             <DialogActions>
-            <Button variant='outlined' onClick={() => {
-                handleClose()
-            }}>
                 <Link to='/postings/profile'
                 state={{element: user}}
                 >
-                    프로필 확인
-                </Link>
-            </Button>
-            {userObj.uid !== user?.uid && <Button variant='outlined' onClick={() => {
+            <Button variant='outlined' onClick={() => {
                 handleClose()
-            }}>개인 대화</Button>}
+            }}>
+                    프로필 확인
+            </Button>
+                </Link>
+            {/* {userObj.uid !== user?.uid && <Button variant='outlined' onClick={() => {
+                setMsgList([])
+                setChangeMessage(true)
+                handleClose()
+            }}>
+                <Link to='/postings/chatting' 
+                state={{conversation: conversation, displayName: user?.displayName}}>
+                    개인 대화
+                </Link>
+                </Button>} */}
             <Button variant='outlined' onClick={() => {
                 handleClose()
             }}>

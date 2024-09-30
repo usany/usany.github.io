@@ -8,7 +8,7 @@ import PiazzaDialogs from 'src/muiComponents/PiazzaDialogs'
 import { webSocket, onClick } from 'src/webSocket.tsx'
 
 // const webSocket = io("http://localhost:5000");
-function Piazza({ userObj }) {
+function Piazza({ userObj, setBottomNavigation }) {
   const messagesEndRef = useRef(null);
   const [userId, setUserId] = useState("");
   // const [isLogin, setIsLogin] = useState(true);
@@ -64,6 +64,9 @@ function Piazza({ userObj }) {
   useEffect(() => {
     scrollToBottom();
   }, [msgList]);
+  useEffect(() => {
+    setBottomNavigation(5)
+  })
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
@@ -82,7 +85,8 @@ function Piazza({ userObj }) {
     const message = msg
     const userUid = userObj.uid
     const userName = userObj.displayName
-    const messageClock = Date.now()
+    // const messageClock = Date.now()
+    const messageClock = new Date().toString()
     const sendData = {
       msg: message,
       userUid: userUid,
@@ -92,6 +96,8 @@ function Piazza({ userObj }) {
       conversation: null
       // { msg: message, type: "me", userUid: userObj.uid, id: userObj.displayName, messageClock: messageClock }
     };
+    // const year = new Date().toString()
+    // console.log(year)
     if (sendData) {
       webSocket.emit("message", sendData);
       // const { data, uid, id, target } = sendData;
@@ -156,14 +162,15 @@ function Piazza({ userObj }) {
       const message = msg
       const userUid = userObj.uid
       const userName = userObj.displayName
-      const messageClock = Date.now()
-      await addDoc(collection(dbservice, 'chats_group'), {
-        userUid: userUid,
-        userName: userName,
-        message: message,
-        messageClock: messageClock
-      })
+      // const messageClock = Date.now()
+      const messageClock = new Date().toString()
       if (message){
+        await addDoc(collection(dbservice, 'chats_group'), {
+          userUid: userUid,
+          userName: userName,
+          message: message,
+          messageClock: messageClock
+        })
         setMsgList((prev) => [...prev, { msg: message, type: "me", userUid: userObj.uid, id: userObj.displayName, messageClock: messageClock, conversation: null }]);
       }
     } catch (error) {
@@ -229,13 +236,17 @@ function Piazza({ userObj }) {
   //   }
   // })
   return (
+    <div>
+      <div className='flex text-2xl p-5'>
+        단체 대화
+      </div>
     <div className="app-container">
       <div className="wrap">
       {/* {!state.conversation ? */}
           <div className="chat-box">
-            <h3>
+            {/* <h3>
               단체 대화
-            </h3>
+            </h3> */}
             <ul className="chat">
               {msgList.map((v, i) => {
                 if (v.type === "welcome") {
@@ -302,11 +313,12 @@ function Piazza({ userObj }) {
                 <div className="private-target">{privateTarget}</div>
               )} */}
               <input
-                placeholder="Enter your message"
+                placeholder="메세지를 작성해 주세요"
                 onChange={onChangeMsgHandler}
                 value={msg}
+                autoFocus
               />
-              <button type="submit">send</button>
+              <button type="submit">전송</button>
             </form>
           </div>
           <PiazzaDialogs selectUser={selectUser} user={user} handleClose={handleClose} userObj={userObj} setMsgList={setMsgList} setChangeMessage={setChangeMessage}/>
@@ -331,6 +343,7 @@ function Piazza({ userObj }) {
           </div>
         )} */}
       </div>
+    </div>
     </div>
   );
 }

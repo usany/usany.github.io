@@ -4,9 +4,10 @@ import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnap
 import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
 import { Link, useLocation } from 'react-router-dom'
 import { webSocket, onClick } from 'src/webSocket.tsx'
+import ChattingDialogs from 'src/muiComponents/ChattingDialogs'
 
 // const webSocket = io("http://localhost:5000");
-function Chatting({ userObj }) {
+function Chatting({ userObj, setBottomNavigation }) {
   const messagesEndRef = useRef(null);
   const [userId, setUserId] = useState("");
   const [msg, setMsg] = useState("");
@@ -58,6 +59,9 @@ function Chatting({ userObj }) {
   //   };
   // }, []);
   useEffect(() => {
+    setBottomNavigation(5)
+  })
+  useEffect(() => {
     scrollToBottom();
   }, [msgList]);
   const scrollToBottom = () => {
@@ -77,7 +81,8 @@ function Chatting({ userObj }) {
     const message = msg
     const userUid = userObj.uid
     const userName = userObj.displayName
-    const messageClock = Date.now()
+    // const messageClock = Date.now()
+    const messageClock = new Date().toString()
     const sendData = {
       msg: message,
       userUid: userUid,
@@ -108,6 +113,9 @@ function Chatting({ userObj }) {
     setUser(userElement)
     setSelectUser(true)
   };
+  const handleClose = () => {
+    setSelectUser(false)
+  }
   // const handleClose = () => {
   //   setSelectUser(false)
   // }
@@ -133,7 +141,8 @@ function Chatting({ userObj }) {
     try {
       const userUid = userObj.uid
       const userName = userObj.displayName
-      const messageClock = Date.now()
+      // const messageClock = Date.now()
+      const messageClock = new Date().toString()
       await addDoc(collection(dbservice, `chats_${conversation}`), {
         userUid: userUid,
         userName: userName,
@@ -147,6 +156,7 @@ function Chatting({ userObj }) {
       console.log(error)
     }
   }
+
   useEffect(() => {
     // const messageList = async () => {
     //   const messageRef = collection(dbservice, 'chats_group')
@@ -186,13 +196,18 @@ function Chatting({ userObj }) {
     }
   }, [changeMessage, conversation])
   console.log(msgList)
+  console.log(state)
   return (
+    <div>
+      <div className='flex text-2xl p-5'>
+        개인 대화 {state.displayName}
+      </div>
     <div className="app-container">
       <div className="wrap">
           <div className="chat-box">
-            <h3>
-              개인 대화
-            </h3>
+            {/* <h3>
+              개인 대화 with {state.displayName}
+            </h3> */}
             <ul className="chat">
               {msgList.map((v, i) => {
                 if (v.type === "welcome") {
@@ -256,14 +271,16 @@ function Chatting({ userObj }) {
             </ul>
             <form className="send-form" onSubmit={onSendSubmitHandler}>
               <input
-                placeholder="Enter your message"
+                placeholder="메세지를 작성해 주세요"
                 onChange={onChangeMsgHandler}
                 value={msg}
               />
-              <button type="submit">send</button>
+              <button type="submit">전송</button>
             </form>
           </div>
+          <ChattingDialogs selectUser={selectUser} user={user} handleClose={handleClose} userObj={userObj} setMsgList={setMsgList} setChangeMessage={setChangeMessage}/>
       </div>
+    </div>
     </div>
   );
 }

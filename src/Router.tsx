@@ -209,8 +209,8 @@ const Router = ({ isLoggedIn, userObj, setUserObj, newAccount, setNewAccount, se
                                     <Route path='/postings/allies' Component={() => <Allies isLoggedIn={isLoggedIn} userObj={userObj} setUserObj={setUserObj} value={value} newAccount={newAccount} setNewAccount={setNewAccount} setValue={setValue} counter={counter} setCounter={setCounter} check={check} setCheck={setCheck} />} />
                                     <Route path='/postings/points' Component={() => <Points isLoggedIn={isLoggedIn} userObj={userObj} setUserObj={setUserObj} value={value} newAccount={newAccount} setNewAccount={setNewAccount} setValue={setValue} counter={counter} setCounter={setCounter} check={check} setCheck={setCheck} />} />
                                     <Route path='/postings/contact' Component={() => <Contact displayName={userObj.displayName} isLoggedIn={isLoggedIn} userObj={userObj} setUserObj={setUserObj} value={value} newAccount={newAccount} setNewAccount={setNewAccount} setValue={setValue} counter={counter} setCounter={setCounter} check={check} setCheck={setCheck} />} />
-                                    <Route path='/postings/piazza' Component={() => <Piazza userObj={userObj}/>} />
-                                    <Route path='/postings/chatting' Component={() => <Chatting userObj={userObj} />} />
+                                    <Route path='/postings/piazza' Component={() => <Piazza userObj={userObj} setBottomNavigation={setBottomNavigation} />} />
+                                    <Route path='/postings/chatting' Component={() => <Chatting userObj={userObj} setBottomNavigation={setBottomNavigation} />} />
                                 </Route>
                             ) : (
                                 <Route>

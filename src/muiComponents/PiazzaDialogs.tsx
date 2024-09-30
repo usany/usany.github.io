@@ -48,7 +48,6 @@ function PiazzaDialogs({ selectUser, user, handleClose, userObj, setMsgList, set
             }
         }
     }, [selectUser])
-    
     return (
         <Dialog open={selectUser} onClose={handleClose}>
             <DialogContent>
@@ -100,25 +99,27 @@ function PiazzaDialogs({ selectUser, user, handleClose, userObj, setMsgList, set
             </FormControl> */}
             </DialogContent>
             <DialogActions>
-            <Button variant='outlined' onClick={() => {
-                handleClose()
-            }}>
-                <Link to='/postings/profile'
-                state={{element: user}}
-                >
+            <Link to='/postings/profile'
+            state={{element: user}}
+            >
+                <Button variant='outlined' onClick={() => {
+                    handleClose()
+                }}>
                     프로필 확인
-                </Link>
-            </Button>
-            {userObj.uid !== user?.uid && <Button variant='outlined' onClick={() => {
-                setMsgList([])
-                setChangeMessage(true)
-                handleClose()
-            }}>
-                <Link to='/postings/chatting' 
-                state={{conversation: conversation}}>
+                </Button>
+            </Link>
+            {userObj.uid !== user?.uid && 
+            <Link to='/postings/chatting' 
+            state={{conversation: conversation, displayName: user?.displayName}}>
+                <Button variant='outlined' onClick={() => {
+                    setMsgList([])
+                    setChangeMessage(true)
+                    handleClose()
+                }}>
                     개인 대화
-                </Link>
-                </Button>}
+                </Button>
+            </Link>
+                }
             <Button variant='outlined' onClick={() => {
                 handleClose()
             }}>
