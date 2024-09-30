@@ -100,15 +100,15 @@ function ChattingDialogs({ selectUser, user, handleClose, userObj, setMsgList, s
             </FormControl> */}
             </DialogContent>
             <DialogActions>
-                <Link to='/postings/profile'
-                state={{element: user}}
-                >
-            <Button variant='outlined' onClick={() => {
-                handleClose()
-            }}>
-                    프로필 확인
-            </Button>
-                </Link>
+            <Link to='/postings/profile'
+            state={{element: user}}
+            >
+                <Button variant='outlined' onClick={() => {
+                    handleClose()
+                }}>
+                        프로필 확인
+                </Button>
+            </Link>
             {/* {userObj.uid !== user?.uid && <Button variant='outlined' onClick={() => {
                 setMsgList([])
                 setChangeMessage(true)
