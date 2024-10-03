@@ -16,8 +16,6 @@ export default defineConfig({
     manifest: {
       name: "khusan umbrella app",
       short_name: "khusan umbrella",
-      // start_url: "/",
-      // scope: "/",
       start_url: "/",
       scope: "/",
       display: "standalone",
@@ -90,7 +88,6 @@ export default defineConfig({
       type: 'module',
     },
   })],
-  // base: '/',
   base: '/',
   build: {
     outDir: 'dist'
