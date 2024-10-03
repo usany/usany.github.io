@@ -105,7 +105,7 @@ function Ranking({ isLoggedIn, userObj, setUserObj, value, setValue, side, setSi
                       className='flex'
                     >
                     <IconButton aria-label="comment">
-                        <Link to='/postings/profile'
+                        <Link to='/profile'
                           state = {{
                             // msgObj: msgObj,
                             // isOwner: isOwner,
@@ -187,7 +187,7 @@ function Ranking({ isLoggedIn, userObj, setUserObj, value, setValue, side, setSi
                         className='flex'
                       >
                       <IconButton aria-label="comment">
-                          <Link to='/postings/profile'
+                          <Link to='/profile'
                             state = {{
                               // msgObj: msgObj,
                               // isOwner: isOwner,
@@ -287,7 +287,7 @@ function Ranking({ isLoggedIn, userObj, setUserObj, value, setValue, side, setSi
                       /> */}
                       <div>
                         <IconButton aria-label="comment">
-                          <Link to='/postings/profile'
+                          <Link to='/profile'
                             state = {{
                               // msgObj: msgObj,
                               // isOwner: isOwner,

@@ -98,7 +98,7 @@ function Navigation({ setScroll, isLoggedIn, userObj, setValue, check, setCheck,
               <div>좋은 날씨네요 {userObj.displayName} 님</div>
               {isLoggedIn && <div>내 포인트: {points}</div>}
               {/* <div className='flex justify-end'>
-                <Link to='/postings/profile' onClick={() => checkbox()}>내 프로필</Link>
+                <Link to='/profile' onClick={() => checkbox()}>내 프로필</Link>
               </div> */}
             </div>
             <div className='flex border-b border-light-3 dark:border-dark-3'></div>
@@ -106,10 +106,10 @@ function Navigation({ setScroll, isLoggedIn, userObj, setValue, check, setCheck,
           </div>
           {/* <h1
           >
-            <Link className='text-2xl	px-5' to='/postings/' onClick={() => checkbox()}>메인 페이지</Link>
+            <Link className='text-2xl	px-5' to='/' onClick={() => checkbox()}>메인 페이지</Link>
           </h1> */}
           <h1 className='text-2xl	px-5 pt-5'>
-            <Link to='/postings/profile' 
+            <Link to='/profile' 
               state={{element: element}}
               onClick={() => checkbox()}
             >
@@ -119,7 +119,7 @@ function Navigation({ setScroll, isLoggedIn, userObj, setValue, check, setCheck,
           </h1>
           <h1 className='text-2xl	px-5'>
             <span className='px-3'><DraftsIcon /></span>
-            <Link to='/postings/ranking' onClick={() => checkbox()}>유저 랭킹</Link>
+            <Link to='/ranking' onClick={() => checkbox()}>유저 랭킹</Link>
           </h1>
           {/* <h1 className='text-2xl	px-5'>
             <span className='px-3'><ImageIcon /></span>
@@ -127,7 +127,7 @@ function Navigation({ setScroll, isLoggedIn, userObj, setValue, check, setCheck,
           </h1> */}
           <h1 className='text-2xl	px-5'>
             <span className='px-3'><ImageIcon /></span>
-            <Link to='/postings/contact' onClick={() => checkbox()}>신고하기</Link>
+            <Link to='/contact' onClick={() => checkbox()}>신고하기</Link>
           </h1>
           {/* <h1 className='text-2xl px-5'>
             <span className='px-3'><WorkIcon /></span>
@@ -135,11 +135,11 @@ function Navigation({ setScroll, isLoggedIn, userObj, setValue, check, setCheck,
           </h1> */}
           <h1 className='text-2xl px-5'>
             <span className='px-3'><WorkIcon /></span>
-            <Link to='/postings/piazza' onClick={() => checkbox()}>단체방</Link>
+            <Link to='/piazza' onClick={() => checkbox()}>단체방</Link>
           </h1>
           <h1 className='text-2xl px-5'>
             <span className='px-3'><Public /></span>
-            <Link to="/postings/" onClick={() => {
+            <Link to="/" onClick={() => {
               logOut()
             }}>로그아웃</Link>
           </h1>
@@ -157,17 +157,17 @@ function Navigation({ setScroll, isLoggedIn, userObj, setValue, check, setCheck,
             <Modes colors={colors} setColors={setColors} setMode={setMode}/>
           </div>
           {/* <h1>
-            <Link className='text-2xl	px-5' to='/postings/' onClick={(event) => checkbox(event)}>메인 페이지</Link>
+            <Link className='text-2xl	px-5' to='/' onClick={(event) => checkbox(event)}>메인 페이지</Link>
           </h1>
           <h1>
-            <Link className='text-2xl	px-5' to='/postings/' onClick={(event) => {
+            <Link className='text-2xl	px-5' to='/' onClick={(event) => {
               checkbox(event)
               setValue(1)
             }}>로그인/회원가입</Link>
-          </h1> */}
+          </h1>
           <h1 className='text-2xl px-5 pt-5'>
             <a href='mailto:ckd_qja@naver.com' target="_blank">신고하기</a>
-          </h1>
+          </h1> */}
         </nav>
       }
     </SwipeableDrawer>

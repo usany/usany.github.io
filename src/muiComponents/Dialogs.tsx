@@ -15,7 +15,7 @@ function Dialogs({move, handleClose, setValue}) {
                 handleClose()
                 setValue(1)
             }}>
-                <Link to='/postings/'>로그인 페이지</Link>
+                <Link to='/'>로그인 페이지</Link>
             </Button>
             <Button variant='outlined' onClick={handleClose} autoFocus>
                 닫기

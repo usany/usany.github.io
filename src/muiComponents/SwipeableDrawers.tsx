@@ -22,16 +22,16 @@ function SwipeableDrawers({ check, setCheck, isLoggedIn, scroll, setScroll, isLo
   //       {isLoggedIn && 
   //         <nav>
   //           <h1>
-  //             <div to='/postings/' onClick={(event) => checkbox(event)}>메인 페이지</div>
+  //             <div to='/' onClick={(event) => checkbox(event)}>메인 페이지</div>
   //           </h1>
   //           <h1>
-  //             <div to='/postings/profile' onClick={(event) => checkbox(event)}>의 프로필</div>
+  //             <div to='/profile' onClick={(event) => checkbox(event)}>의 프로필</div>
   //           </h1>
   //           <h1>
-  //             <div to='/postings/ranking' onClick={(event) => checkbox(event)}>유저 랭킹</div>
+  //             <div to='/ranking' onClick={(event) => checkbox(event)}>유저 랭킹</div>
   //           </h1>
   //           <h1>
-  //             <div to="/postings/" onClick={(event) => {
+  //             <div to="/" onClick={(event) => {
   //               logOut(event)
   //             }}>로그아웃</div>
   //           </h1>
@@ -40,16 +40,16 @@ function SwipeableDrawers({ check, setCheck, isLoggedIn, scroll, setScroll, isLo
   //       {!isLoggedIn && 
   //         <nav>
   //           <h1>
-  //             <div to='/postings/' onClick={(event) => checkbox(event)}>메인 페이지</div>
+  //             <div to='/' onClick={(event) => checkbox(event)}>메인 페이지</div>
   //           </h1>
   //           <h1>
-  //             <div to='/postings/' onClick={(event) => {
+  //             <div to='/' onClick={(event) => {
   //               checkbox(event)
   //               setValue(1)
   //             }}>로그인/회원가입</div>
   //           </h1>
   //           <h1>
-  //             <div to="/postings/contact" onClick={(event) => checkbox(event)}>신고하기</div>
+  //             <div to="/contact" onClick={(event) => checkbox(event)}>신고하기</div>
   //           </h1>
   //         </nav>
   //       }

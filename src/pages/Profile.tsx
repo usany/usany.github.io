@@ -512,7 +512,7 @@ function Profile({ profileColor, setProfileColor, isLoggedIn, userObj, setUserOb
           </div>
         </div>
         <div className='flex justify-center'>
-          <Link to='/postings/allies' 
+          <Link to='/allies' 
             state={{
               uid: userObj.uid, 
               displayName: userObj.displayName,
@@ -524,7 +524,7 @@ function Profile({ profileColor, setProfileColor, isLoggedIn, userObj, setUserOb
               follower: {myFollowerNumber} 
             </div>
           </Link>
-          <Link to='/postings/allies' 
+          <Link to='/allies' 
             state={{
               uid: userObj.uid, 
               displayName: userObj.displayName,
@@ -575,7 +575,7 @@ function Profile({ profileColor, setProfileColor, isLoggedIn, userObj, setUserOb
           // })}
         >
           <Link 
-            to='/postings/points'
+            to='/points'
             state={{
               user: user,
               points: num,
@@ -598,7 +598,7 @@ function Profile({ profileColor, setProfileColor, isLoggedIn, userObj, setUserOb
         <CardActionArea
         >
           <Link 
-            to='/postings/actions'
+            to='/actions'
             state={{
               user: user,
               actions: 'completedLend', 
@@ -620,7 +620,7 @@ function Profile({ profileColor, setProfileColor, isLoggedIn, userObj, setUserOb
         <CardActionArea
         >
           <Link 
-            to='/postings/actions'
+            to='/actions'
             state={{
               user: user,
               actions: 'completedBorrow', 
@@ -668,7 +668,7 @@ function Profile({ profileColor, setProfileColor, isLoggedIn, userObj, setUserOb
       </div>
       <div className='flex justify-center'>유저 이름: {state.element.displayName}</div>
       <div className='flex justify-center'>
-        <Link to='/postings/allies' 
+        <Link to='/allies' 
           state={{
             uid: state.element.uid, 
             displayName: state.element.displayName,
@@ -680,7 +680,7 @@ function Profile({ profileColor, setProfileColor, isLoggedIn, userObj, setUserOb
             follower: {otherFollowerNumber} 
           </div>
         </Link>
-        <Link to='/postings/allies' 
+        <Link to='/allies' 
           state={{
             uid: state.element.uid, 
             displayName: state.element.displayName,
@@ -717,7 +717,7 @@ function Profile({ profileColor, setProfileColor, isLoggedIn, userObj, setUserOb
         <CardActionArea 
         >
           <Link 
-            to='/postings/points'
+            to='/points'
             state={{
               user: user,
               points: num,
@@ -740,7 +740,7 @@ function Profile({ profileColor, setProfileColor, isLoggedIn, userObj, setUserOb
         <CardActionArea 
         >
           <Link 
-            to='/postings/actions'
+            to='/actions'
             state={{
               user: user,
               actions: 'completedLend', 
@@ -762,7 +762,7 @@ function Profile({ profileColor, setProfileColor, isLoggedIn, userObj, setUserOb
         <CardActionArea
         >
           <Link 
-            to='/postings/actions'
+            to='/actions'
             state={{
               user: user,
               actions: 'completedBorrow', 

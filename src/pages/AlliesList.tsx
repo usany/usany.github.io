@@ -75,7 +75,7 @@ function AlliesList({ profileColor, setProfileColor, isLoggedIn, userObj, setUse
                       </div>
                       <div>
                       <IconButton aria-label="comment">
-                          <Link to='/postings/profile'
+                          <Link to='/'
                             state = {{
                               // msgObj: msgObj,
                               // isOwner: isOwner,

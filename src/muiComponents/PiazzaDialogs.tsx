@@ -98,7 +98,7 @@ function PiazzaDialogs({ selectUser, user, handleClose, userObj, setMsgList, set
             </FormControl> */}
             </DialogContent>
             <DialogActions>
-            <Link to='/postings/profile'
+            <Link to='/profile'
             state={{element: user}}
             >
                 <Button variant='outlined' onClick={() => {
@@ -108,7 +108,7 @@ function PiazzaDialogs({ selectUser, user, handleClose, userObj, setMsgList, set
                 </Button>
             </Link>
             {userObj.uid !== user?.uid && 
-            <Link to='/postings/chatting' 
+            <Link to='/chatting' 
             state={{conversation: conversation, displayName: user?.displayName}}>
                 <Button variant='outlined' onClick={() => {
                     setMsgList([])

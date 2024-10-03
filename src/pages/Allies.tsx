@@ -152,7 +152,7 @@ function Allies({ profileColor, setProfileColor, isLoggedIn, userObj, setUserObj
                       </div>
                       <div>
                         <IconButton aria-label="comment">
-                          <Link to='/postings/profile'
+                          <Link to='/'
                             state = {{
                               // msgObj: msgObj,
                               // isOwner: isOwner,
@@ -200,7 +200,7 @@ function Allies({ profileColor, setProfileColor, isLoggedIn, userObj, setUserObj
                       </div>
                       <div>
                         <IconButton aria-label="comment">
-                          <Link to='/postings/profile'
+                          <Link to='/'
                             state = {{
                               // msgObj: msgObj,
                               // isOwner: isOwner,

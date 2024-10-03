@@ -37,7 +37,7 @@ function Navigations({ profileColor, bottomNavigation, setBottomNavigation, side
                     onChange={(event, newValue) => {
                         setBottomNavigation(newValue)
                         setScroll(0)
-                        navigate('/postings/')
+                        navigate('/')
                     }}
                 >
                     <BottomNavigationAction label={'등록'} icon={<ChevronLeft />}/>
@@ -57,7 +57,7 @@ function Navigations({ profileColor, bottomNavigation, setBottomNavigation, side
                     onChange={(event, newValue) => {
                         setBottomNavigation(newValue)
                         setScroll(0)
-                        navigate('/postings/')
+                        navigate('/')
                     }}
                 >
                     <BottomNavigationAction label={'빌리기 목록'} icon={<Checklist />}/>

@@ -100,7 +100,7 @@ function ChattingDialogs({ selectUser, user, handleClose, userObj, setMsgList, s
             </FormControl> */}
             </DialogContent>
             <DialogActions>
-            <Link to='/postings/profile'
+            <Link to='/profile'
             state={{element: user}}
             >
                 <Button variant='outlined' onClick={() => {
@@ -114,7 +114,7 @@ function ChattingDialogs({ selectUser, user, handleClose, userObj, setMsgList, s
                 setChangeMessage(true)
                 handleClose()
             }}>
-                <Link to='/postings/chatting' 
+                <Link to='/chatting' 
                 state={{conversation: conversation, displayName: user?.displayName}}>
                     개인 대화
                 </Link>

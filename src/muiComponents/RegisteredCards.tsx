@@ -58,7 +58,7 @@ function RegisteredCards({
         {/* <CardActionArea 
         > */}
           {/* <Link 
-            to='/postings/specific'
+            to='/specific'
             state = {{
               msgObj: msgObj,
               isOwner: isOwner,

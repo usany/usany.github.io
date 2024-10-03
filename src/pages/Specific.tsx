@@ -62,7 +62,7 @@ function Specific({
 
   useEffect(() => {
     if (!isLoggedIn && userObj !== null) {
-      navigate('/postings/')
+      navigate('/')
     }
   })
   // useEffect(() => {
