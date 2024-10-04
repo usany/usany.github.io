@@ -45,7 +45,7 @@ function Navigation({ setScroll, isLoggedIn, userObj, setValue, check, setCheck,
   const logOut = () => {
     onLogOutClick()
     checkbox()
-    setValue(1)
+    setValue(2)
     // setUserObj(null)
   }
   // const navigation = []

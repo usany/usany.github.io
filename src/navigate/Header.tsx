@@ -14,8 +14,8 @@ import ToggleTabs from 'src/muiComponents/Tabs'
 // import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 // import Snackbars from 'src/muiComponents/Snackbars'
 
-const Header = ({ bottomNavigation, setBottomNavigation, scroll, setScroll, isLoggedIn, userObj, setUserObj, setValue, check, setCheck, setMode, prevScrollPos, value, profileColor }) => {
-    
+const Header = ({ bottomNavigation, scroll, setScroll, isLoggedIn, userObj, setUserObj, setValue, check, setCheck, setMode, prevScrollPos, value, profileColor }) => {
+    console.log(value)
     return (
         <div className='flex flex-row'>
                 <div id='navigationSelectorOne' className='pt-1'>

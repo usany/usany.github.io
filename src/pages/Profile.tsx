@@ -17,7 +17,7 @@ import { BrowserRouter, Routes, Route, useNavigate, Link, useLocation } from 're
 import TextField from '@mui/material/TextField';
 import { blue } from '@mui/material/colors';
 
-function Profile({ profileColor, setProfileColor, isLoggedIn, userObj, setUserObj, value, setValue, side, setSide, sideNavigation, setSideNavigation, check, setCheck, counter, setCounter, bottomNavigation, setBottomNavigation, userUid }) {
+function Profile({ profileColor, setProfileColor, userObj, setBottomNavigation }) {
   const [borrowRegisteredMessage, setBorrowRegisteredMessage] = useState([])
   const [borrowMessage, setBorrowMessage] = useState([])
   const [lendRegisteredMessage, setLendRegisteredMessage] = useState([])
@@ -455,7 +455,7 @@ function Profile({ profileColor, setProfileColor, isLoggedIn, userObj, setUserOb
       <div className='flex text-2xl p-5'>
           {userObj.displayName} 프로필
       </div>
-      <div className={side}>
+      <div>
       <div className='flex justify-center pt-5'>
         <Badge
           overlap="circular"
@@ -662,7 +662,7 @@ function Profile({ profileColor, setProfileColor, isLoggedIn, userObj, setUserOb
       <div className='flex text-2xl p-5'>
         {state.element.displayName} 프로필
       </div>
-      <div className={side}>
+      <div>
       <div className='flex justify-center pt-5'>
         <Avatar alt={state.element.displayName} sx={{ fontSize:'100px', width: '200px', height: '200px', bgcolor: state.element?.profileColor || blue[500] }} src='./src'/>
       </div>

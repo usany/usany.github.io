@@ -5,6 +5,7 @@ import Message from 'src/pages/Message'
 import { getToken } from "firebase/messaging";
 import { io } from "socket.io-client";
 import { webSocket, onClick } from 'src/webSocket.tsx'
+import MessageStacks from 'src/muiComponents/MessageStacks'
 
 // 2
 // const webSocket = io("https://service-ceni.onrender.com");
@@ -21,6 +22,7 @@ function Menu({ isLoggedIn, userObj, counter, setCounter, setValue, tmpCounter }
     const [privateTarget, setPrivateTarget] = useState('');
     const [roomNumber, setRoomNumber] = useState(1);
     const [button, setButton] = useState(false)
+    const [chats, setChats] = useState([])
     useEffect(() => {
         const requestPermission = async () => {
             try {
@@ -118,33 +120,42 @@ function Menu({ isLoggedIn, userObj, counter, setCounter, setValue, tmpCounter }
             <div>
                 <div className='flex justify-center'>
                     <div className='w-6/12 flex flex-col border border-sky-500 rounded'>
-                        <div className='flex justify-center'>등록 카드</div>
-                        <div className='flex justify-center flex-wrap'>
-                            {messages.map((msg) => {
-                                if(msg.creatorId === userObj.uid) {
-                                    if(msg.round !== 5) {
-                                        if (counter.indexOf(msg.id) === -1) {
-                                            onCounting(msg)
-                                        }
-                                        return(<Message key={msg.id} msgObj={msg} isOwner={msg.creatorId === userObj.uid} userObj={userObj} isLoggedIn={isLoggedIn} counter={counter} setCounter={setCounter} setValue={setValue} />)
-                                    }
-                                }
-                            })}
-                        </div>
-                    </div>
-                    <div className='w-6/12 flex flex-col border border-sky-500 rounded'>
-                        <div className='flex justify-center'>승낙 카드</div>
-                            <div className='flex justify-center flex-wrap'>
-                                {messages.map((msg) => {
-                                    if(msg.connectedId === userObj.uid) {
-                                        if (msg.round !== 5) {
+                        <div className='flex justify-center'>진행 카드</div>
+                        <div>
+                            {!messages.length ? 
+                                <div className='flex justify-center pt-20'>진행 카드가 없습니다</div> :
+                                <div className='flex justify-center flex-wrap'>
+                                    {messages.map((msg) => {
+                                        if(msg.round !== 5) {
                                             if (counter.indexOf(msg.id) === -1) {
                                                 onCounting(msg)
                                             }
                                             return(<Message key={msg.id} msgObj={msg} isOwner={msg.creatorId === userObj.uid} userObj={userObj} isLoggedIn={isLoggedIn} counter={counter} setCounter={setCounter} setValue={setValue} />)
                                         }
-                                    }
-                                })}
+                                    })}
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div className='w-6/12 flex flex-col border border-sky-500 rounded'>
+                        {/* <div className='flex justify-center'>받은 메세지</div> */}
+                            <div>
+                                {chats.length ? <div className='flex justify-center pt-20'>받은 메세지가 없습니다</div> :
+                                <div className='flex justify-center flex-wrap'>
+                                    <div className='flex justify-center'>받은 메세지</div>
+                                    {/* {messages.map((msg) => {
+                                        if(msg.connectedId === userObj.uid) {
+                                            if (msg.round !== 5) {
+                                                if (counter.indexOf(msg.id) === -1) {
+                                                    onCounting(msg)s
+                                                }
+                                                return(<Message key={msg.id} msgObj={msg} isOwner={msg.creatorId === userObj.uid} userObj={userObj} isLoggedIn={isLoggedIn} counter={counter} setCounter={setCounter} setValue={setValue} />)
+                                            }
+                                        }
+                                    })} */}
+                                    <MessageStacks />
+                                </div>
+                            }
                             </div>
                     </div>
                 </div>

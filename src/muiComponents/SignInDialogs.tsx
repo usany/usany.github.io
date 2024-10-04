@@ -8,22 +8,22 @@ import TextField from '@mui/material/TextField';
 import { auth, onSocialClick, dbservice } from 'src/baseApi/serverbase'
 import { updateProfile, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc } from 'firebase/firestore';
-import {supabase} from 'src/baseApi/base';
+// import {supabase} from 'src/baseApi/base';
 
 function SignInDialogs({move, handleClose }) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   
-  async function signUpNewUser(email, password) {
-    const { data, error } = await supabase.auth.signUp({
-      email: email,
-      password: password,
-      // options: {
-      //   emailRedirectTo: 'https://example.com/welcome',
-      // },
-    })
-  }  
+  // async function signUpNewUser(email, password) {
+  //   const { data, error } = await supabase.auth.signUp({
+  //     email: email,
+  //     password: password,
+  //     options: {
+  //       emailRedirectTo: 'https://example.com/welcome',
+  //     },
+  //   })
+  // }  
   const onSubmit = async (event) => {
     event.preventDefault()
     try {
@@ -65,7 +65,7 @@ function SignInDialogs({move, handleClose }) {
       console.log(error)
       setError(error.message)
     }
-    signUpNewUser(email, password)
+    // signUpNewUser(email, password)
     handleClose()
   }
 

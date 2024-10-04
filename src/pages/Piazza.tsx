@@ -5,10 +5,13 @@ import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnap
 import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
 import { Link, useLocation } from 'react-router-dom'
 import PiazzaDialogs from 'src/muiComponents/PiazzaDialogs'
+import PiazzaSwitch from 'src/muiComponents/PiazzaSwitch'
 import { webSocket, onClick } from 'src/webSocket.tsx'
+// import Switch, { SwitchProps } from '@mui/material/Switch';
+// import { styled } from '@mui/material/styles';
 
 // const webSocket = io("http://localhost:5000");
-function Piazza({ userObj, setBottomNavigation }) {
+function Piazza({ userObj, setBottomNavigation, setPiazzaSwitch }) {
   const messagesEndRef = useRef(null);
   const [userId, setUserId] = useState("");
   // const [isLogin, setIsLogin] = useState(true);
@@ -235,10 +238,17 @@ function Piazza({ userObj, setBottomNavigation }) {
   //     })
   //   }
   // })
+  
   return (
     <div>
       <div className='flex text-2xl p-5'>
-        단체 대화
+        <div className='w-screen'>
+          단체 대화
+        </div>
+        <div className='flex w-2/3 pt-1 justify-end'>
+          <PiazzaSwitch setPiazzaSwitch={setPiazzaSwitch}/>
+          {/* switch */}
+        </div>
       </div>
     <div className="app-container">
       <div className="wrap">

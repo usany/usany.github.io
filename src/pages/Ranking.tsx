@@ -27,7 +27,7 @@ import Public from '@mui/icons-material/Public';
 import { Link } from 'react-router-dom'
 import TextField from '@mui/material/TextField';
 
-function Ranking({ isLoggedIn, userObj, setUserObj, value, setValue, side, setSide, sideNavigation, setSideNavigation, check, setCheck, counter, setBottomNavigation, profileColor }) {
+function Ranking({ userObj, setBottomNavigation }) {
   const [rank, setRank] = useState([])
   const [ranker, setRanker] = useState([])
   const [userSearch, setUserSearch] = useState('')

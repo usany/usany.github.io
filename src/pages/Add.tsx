@@ -176,14 +176,15 @@ function Add({ userObj, valuing }: {userObj: object, valuing: number}) {
                 id: card.id,
                 ...cardObject.data()
             })
+            setAddSteps(3)
+            setEnableButton(false)
         }
-      } else {
-          alert('내용을 입력해 주세요')
-      }
-      setAddSteps(3)
-      setEnableButton(false)
+    } else {
+        alert('내용을 입력해 주세요')
+    }
+    // setAddSteps(3)
+    // setEnableButton(false)
   }
-  console.log(display)
   const onChangeFrom = (event) => {
     setFrom({gmt: event.$d, year: event.$y, month: event.$M+1, day:event.$D, hour: event.$H, minute: event.$m})
     setAddSteps(2)

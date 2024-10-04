@@ -25,7 +25,7 @@ function Home({ isLoggedIn, userObj, value, newAccount, setNewAccount, setValue,
     //         }
     //     })
     // }, [])
-    // console.log(value)
+    console.log(value)
     return (
         <div>
             {isLoggedIn && 

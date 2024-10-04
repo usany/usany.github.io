@@ -15,7 +15,7 @@ function Btn({ msgObj, isOwner, uid, displayName, isLoggedIn, num, points, setVa
     const data = doc(dbservice, `num/${msgObj.id}`)
     deleteDoc(data)
   }
-  console.log(msgObj)
+  // console.log(msgObj)
   const onClick = async (action) => {
     const data = doc(dbservice, `num/${msgObj.id}`)
     const toUserRef = doc(dbservice, `members/${msgObj.creatorId}`)
