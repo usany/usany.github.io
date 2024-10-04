@@ -51,11 +51,6 @@ const onClick = () => {
 }
 function PiazzaSwitch({ setPiazzaSwitch }) {
   return (
-    // <div>
-    //   <Brightness4Icon />
-    //   <Switch {...label} />
-    //   <Brightness7Icon />
-    // </div>
     <div className='flex flex-col'>
       <div className='text-sm'>단체 대화 알림 받기</div>
       {/* <div className='text-sm'>알림 받기</div> */}
