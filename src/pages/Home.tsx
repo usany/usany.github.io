@@ -9,7 +9,7 @@ import Add from 'src/pages/Add'
 // import Navigation from 'src/navigate/Navigation'
 import { SwipeableViews } from "src/navigate/SwipeableViews";
 
-function Home({ isLoggedIn, userObj, value, newAccount, setNewAccount, setValue, counter, setCounter, tmpCounter, bottomNavigation, setBottomNavigation }) {
+function Home({ isLoggedIn, userObj, value, newAccount, setNewAccount, setValue, counter, setCounter, tmpCounter, bottomNavigation, setBottomNavigation, piazzaSwitch }) {
     // const [style, setStyle] = useState<React.CSSProperties>({});
     // const [childStyle, setChildStyle] = useState<React.CSSProperties>({});
     // const [points, setPoints] = useState<number>(0)
@@ -25,6 +25,11 @@ function Home({ isLoggedIn, userObj, value, newAccount, setNewAccount, setValue,
     //         }
     //     })
     // }, [])
+    useEffect(() => {
+        if (bottomNavigation === 5) {
+            setBottomNavigation(1)
+        }
+    })
     console.log(value)
     return (
         <div>
@@ -33,7 +38,7 @@ function Home({ isLoggedIn, userObj, value, newAccount, setNewAccount, setValue,
                 {/* <div className='flex justify-center'>좋은 날씨네요 {userObj.displayName} 님</div>
                 {isLoggedIn && <div className='flex justify-center'>내 포인트: {points}</div>} */}
                 {bottomNavigation === 1 && 
-                    <Menu isLoggedIn={isLoggedIn} userObj={userObj} counter={counter} setCounter={setCounter} setValue={setValue} tmpCounter={tmpCounter} />
+                    <Menu isLoggedIn={isLoggedIn} userObj={userObj} counter={counter} setCounter={setCounter} setValue={setValue} tmpCounter={tmpCounter} piazzaSwitch={piazzaSwitch} />
                 }
                 {[0].indexOf(bottomNavigation) !== -1 && 
                     <div>

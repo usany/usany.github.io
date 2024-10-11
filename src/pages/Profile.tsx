@@ -44,6 +44,8 @@ function Profile({ profileColor, setProfileColor, userObj, setBottomNavigation }
   // const [checkAllies, setCheckAllies] = useState(false)
   const [userFollowersList, setUserFollowersList] = useState([])
   const [followButton, setFollowButton] = useState(true)
+  const [conversation, setConversation] = useState('')
+  console.log(state)
   useEffect(() => {
     const userFollowCollection = async () => {
       const docRef = doc(dbservice, `members/${userObj.uid}`)
@@ -447,7 +449,13 @@ function Profile({ profileColor, setProfileColor, userObj, setBottomNavigation }
     // }
   }
   // console.log(userFollowersList)
-
+  useEffect(() => {
+    if (state.element.uid < userObj.uid) {
+      setConversation(state.element.uid[0]+state.element.uid[1]+state.element.uid[2]+state.element.uid[3]+state.element.uid[4]+state.element.uid[5]+userObj.uid[0]+userObj.uid[1]+userObj.uid[2]+userObj.uid[3]+userObj.uid[4]+userObj.uid[5])
+    } else {
+      setConversation(userObj.uid[0]+userObj.uid[1]+userObj.uid[2]+userObj.uid[3]+userObj.uid[4]+userObj.uid[5]+state.element.uid[0]+state.element.uid[1]+state.element.uid[2]+state.element.uid[3]+state.element.uid[4]+state.element.uid[5])
+    }
+  }, [])
   return (
     <div>
       {state.element.uid === userObj.uid ?
@@ -709,7 +717,9 @@ function Profile({ profileColor, setProfileColor, userObj, setBottomNavigation }
           unfollow {state.element.displayName}
         </Button>
         }
-        <Button variant='outlined' sx={{overflow: 'hidden'}}>send message</Button>
+        <Link to='/chatting' state={{conversation: conversation, displayName: state.element.displayName, userUid: userObj.uid, chattingUid: state.element.uid}}>
+          <Button variant='outlined' sx={{overflow: 'hidden'}}>send message</Button>
+        </Link>
       </div>
       <div className='flex justify-center'>
         <Card

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { auth, onSocialClick, dbservice } from 'src/baseApi/serverbase'
 import { updateProfile, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc } from 'firebase/firestore';
@@ -90,9 +90,8 @@ function Auth({ setValue }) {
   //     })
   //   }
   // }
-  
   const toggleAccount = () => setNewAccount(!newAccount)
-  
+  const motions = useMemo(() => <Motions />, [])
   return (  
     <div className='p-5'>
       <div className='flex justify-start text-2xl'>
@@ -139,7 +138,7 @@ function Auth({ setValue }) {
       <div className='p-10'>
         <SignInDialogs move={newAccount} handleClose={toggleAccount}/>
       </div>
-      <Motions />
+      {motions}
     </div>
   )
 }

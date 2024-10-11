@@ -109,7 +109,7 @@ function PiazzaDialogs({ selectUser, user, handleClose, userObj, setMsgList, set
             </Link>
             {userObj.uid !== user?.uid && 
             <Link to='/chatting' 
-            state={{conversation: conversation, displayName: user?.displayName}}>
+            state={{conversation: conversation, displayName: user?.displayName, userUid: userObj.uid, chattingUid: user?.uid}}>
                 <Button variant='outlined' onClick={() => {
                     setMsgList([])
                     setChangeMessage(true)

@@ -18,7 +18,6 @@ function Chatting({ userObj, setBottomNavigation }) {
   const [selectUser, setSelectUser] = useState(false)
   const {state} = useLocation()
   const conversation = state.conversation
-  console.log(conversation)
   useEffect(() => {
     if (!webSocket) return;
     function sMessageCallback(message) {
@@ -68,14 +67,6 @@ function Chatting({ userObj, setBottomNavigation }) {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
-  // const onSubmitHandler = (e) => {
-  //   e.preventDefault();
-  //   webSocket.emit("login", { userId: userId, roomNumber: roomNumber });
-  //   setIsLogin(true);
-  // };
-  // const onChangeUserIdHandler = (e) => {
-  //   setUserId(e.target.value);
-  // };
   const onSendSubmitHandler = (e) => {
     e.preventDefault();
     const message = msg
@@ -89,17 +80,15 @@ function Chatting({ userObj, setBottomNavigation }) {
       id: userName,
       messageClock: messageClock,
       target: privateTarget,
-      conversation: conversation
+      conversation: conversation,
+      conversationUid: state.chattingUid,
+      conversationName: state.displayName
       // { msg: message, type: "me", userUid: userObj.uid, id: userObj.displayName, messageClock: messageClock }
     };
-    webSocket.emit("message", sendData);
     if (message) {
-      // if (!conversation) {
-      //   onForm()
-      // } else {
-      //   onFormConversation()
-      // }
+      webSocket.emit("message", sendData);
       onFormConversation()
+      onMembersConversation()
     }
     setMsg("");
   };
@@ -141,16 +130,57 @@ function Chatting({ userObj, setBottomNavigation }) {
     try {
       const userUid = userObj.uid
       const userName = userObj.displayName
-      // const messageClock = Date.now()
+      const messageClockNumber = Date.now()
       const messageClock = new Date().toString()
-      await addDoc(collection(dbservice, `chats_${conversation}`), {
-        userUid: userUid,
-        userName: userName,
-        message: message,
-        messageClock: messageClock
-      })
+      let userOne
+      let userTwo
+      if (state.userUid < state.chattingUid) {
+        userOne = state.userUid
+        userTwo = state.chattingUid
+      } else {
+        userOne = state.chattingUid
+        userTwo = state.userUid
+      }
       if (message) {
+        await addDoc(collection(dbservice, `chats_${conversation}`), {
+          userUid: userUid,
+          userName: userName,
+          message: message,
+          messageClock: messageClock,
+          messageClockNumber: messageClockNumber,
+          userOne: userOne,
+          userTwo: userTwo
+        })
         setMsgList((prev) => [...prev, { msg: message, type: "me", userUid: userObj.uid, id: userObj.displayName, messageClock: messageClock, conversation: conversation }]);
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  console.log(state)
+  const onMembersConversation = async () => {
+    const message = msg
+    try {
+      const userUid = userObj.uid
+      const chattingUid = state.chattingUid
+      // const userName = userObj.displayName
+      // const messageClockNumber = Date.now()
+      // const messageClock = new Date().toString()
+      const myDocRef = doc(dbservice, `members/${userUid}`)
+      const myDocSnap = await getDoc(myDocRef)
+      const myConversation = myDocSnap.data().conversation || []
+      const userDocRef = doc(dbservice, `members/${chattingUid}`)
+      const userDocSnap = await getDoc(userDocRef)
+      const userConversation = userDocSnap.data().conversation || []
+      if (myConversation.indexOf(conversation) === -1) {
+        await updateDoc(myDocRef, {
+          conversation: [...myConversation, conversation]
+        })
+      }
+      if (userConversation.indexOf(conversation) === -1) { 
+        await updateDoc(userDocRef, {
+          conversation: [...userConversation, conversation]
+        })
       }
     } catch (error) {
       console.log(error)
@@ -172,7 +202,7 @@ function Chatting({ userObj, setBottomNavigation }) {
     // }
     const messageListMembers = async (conversation) => {
       const messageRef = collection(dbservice, `chats_${conversation}`)
-      const messagesCollection = query(messageRef, orderBy('messageClock'))
+      const messagesCollection = query(messageRef, orderBy('messageClockNumber'))
       const messages = await getDocs(messagesCollection);
       const messagesArray = []
       messages.forEach((doc) => {
@@ -180,7 +210,8 @@ function Chatting({ userObj, setBottomNavigation }) {
         const userUid = doc.data().userUid
         const userName = doc.data().userName
         const messageClock = doc.data().messageClock
-        messagesArray.push({ msg: message, type: "me", userUid: userUid, id: userName, messageClock: messageClock })
+        const messageClockNumber = doc.data().messageClockNumber
+        messagesArray.push({ msg: message, type: "me", userUid: userUid, id: userName, messageClock: messageClock, messageClockNumber: messageClockNumber })
         setMsgList(messagesArray)
         // setMsgList((prev) => [...prev, { msg: message, type: "me", userUid: userUid, id: userName, messageClock: messageClock }]);
       });
@@ -195,8 +226,8 @@ function Chatting({ userObj, setBottomNavigation }) {
       setChangeMessage(false)
     }
   }, [changeMessage, conversation])
-  console.log(msgList)
-  console.log(state)
+  // console.log(msgList)
+  // console.log(state)
   return (
     <div>
       <div className='flex text-2xl p-5'>

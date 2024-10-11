@@ -1,3 +1,4 @@
+import { useRef, useReducer, useEffect, useState, useMemo } from "react";
 import Switch from '@mui/material/Switch';
 // import FormGroup from '@mui/material/FormGroup';
 // import FormControlLabel from '@mui/material/FormControlLabel';
@@ -38,24 +39,46 @@ const MessageSwitch = styled(Switch)(({ theme }) => ({
   },
 }));
 
-const onClick = () => {
-  // if (colors === 'light') {
-  //     setColors('dark')
-  //     setMode('dark')
-  //     localStorage.setItem("theme", 'dark');
-  // } else {
-  //     setColors('light')
-  //     setMode('light')
-  //     localStorage.setItem("theme", 'light');
-  // }
-}
-function PiazzaSwitch({ setPiazzaSwitch }) {
+function PiazzaSwitch({ piazzaSwitch }) {
+  const [switches, setSwitches] = useState('')
+  useEffect(() => {
+    if (!switches) {
+      const piazza = window.localStorage.getItem('piazza')
+      setSwitches(piazza)    
+    }
+  })
+  const onClick = (piazzaSwitch) => {
+    if (piazzaSwitch.current === 'true') {
+      window.localStorage.setItem('piazza', 'false')
+      // setPiazzaSwitch('false')
+      piazzaSwitch.current = 'false'
+      // setPiazzaCheck('false')
+      setSwitches('false')
+    } else {
+      window.localStorage.setItem('piazza', 'true')
+      // setPiazzaSwitch('true'
+      piazzaSwitch.current = 'true'
+      // setPiazzaCheck('true')
+      setSwitches('true')
+    }
+    // if (colors === 'light') {
+    //     setColors('dark')
+    //     setMode('dark')
+    //     localStorage.setItem("theme", 'dark');
+    // } else {
+    //     setColors('light')
+    //     setMode('light')
+    //     localStorage.setItem("theme", 'light');
+    // }
+  }
+  console.log(switches)
   return (
     <div className='flex flex-col'>
       <div className='text-sm'>단체 대화 알림 받기</div>
       {/* <div className='text-sm'>알림 받기</div> */}
       <div className='flex justify-end'>
-        <MessageSwitch onClick={() => onClick(setPiazzaSwitch)} inputProps={{ 'aria-label': 'ant design' }} />
+        <MessageSwitch onClick={() => onClick(piazzaSwitch)} inputProps={{ 'aria-label': 'ant design' }} checked={switches === 'true'}/>
+        {/* <MessageSwitch /> */}
       </div>
     </div>
   );

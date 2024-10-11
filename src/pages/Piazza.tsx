@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, useMemo } from "react";
 import "./Chatting.css";
 import { io } from "socket.io-client";
 import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnapshot, deleteDoc, updateDoc } from 'firebase/firestore';
@@ -11,7 +11,7 @@ import { webSocket, onClick } from 'src/webSocket.tsx'
 // import { styled } from '@mui/material/styles';
 
 // const webSocket = io("http://localhost:5000");
-function Piazza({ userObj, setBottomNavigation, setPiazzaSwitch }) {
+function Piazza({ userObj, setBottomNavigation, piazzaSwitch, newMessage, setNewMessage }) {
   const messagesEndRef = useRef(null);
   const [userId, setUserId] = useState("");
   // const [isLogin, setIsLogin] = useState(true);
@@ -23,10 +23,13 @@ function Piazza({ userObj, setBottomNavigation, setPiazzaSwitch }) {
   // const [roomNumber, setRoomNumber] = useState("1");
   const [user, setUser] = useState(null)
   const [selectUser, setSelectUser] = useState(false)
+  const [stage, setStage] = useState(false)
+  const [piazzaCheck, setPiazzaCheck] = useState(window.localStorage.getItem('piazza'))
+  
   useEffect(() => {
     if (!webSocket) return;
     function sMessageCallback(message) {
-      const { msg, userUid, id, target, messageClock, conversation } = message;
+      const { msg, userUid, id, target, messageClock, messageClockNumber, conversation } = message;
       console.log(msg)
       setMsgList((prev) => [
         ...prev,
@@ -36,10 +39,12 @@ function Piazza({ userObj, setBottomNavigation, setPiazzaSwitch }) {
           userUid: userUid,
           id: id,
           messageClock: messageClock,
+          messageClockNumber: messageClockNumber,
           conversation: null
         },
         // { msg: message, type: "me", userUid: userObj.uid, id: userObj.displayName, messageClock: messageClock }
       ]);
+      setNewMessage(true)
     }
     webSocket.on("sMessagePiazza", sMessageCallback);
     return () => {
@@ -88,12 +93,13 @@ function Piazza({ userObj, setBottomNavigation, setPiazzaSwitch }) {
     const message = msg
     const userUid = userObj.uid
     const userName = userObj.displayName
-    // const messageClock = Date.now()
+    const messageClockNumber = Date.now()
     const messageClock = new Date().toString()
     const sendData = {
       msg: message,
       userUid: userUid,
       id: userName,
+      messageClockNumber: messageClockNumber,
       messageClock: messageClock,
       target: privateTarget,
       conversation: null
@@ -101,7 +107,7 @@ function Piazza({ userObj, setBottomNavigation, setPiazzaSwitch }) {
     };
     // const year = new Date().toString()
     // console.log(year)
-    if (sendData) {
+    if (sendData && message) {
       webSocket.emit("message", sendData);
       // const { data, uid, id, target } = sendData;
       // setMsgList((prev) => [
@@ -165,14 +171,15 @@ function Piazza({ userObj, setBottomNavigation, setPiazzaSwitch }) {
       const message = msg
       const userUid = userObj.uid
       const userName = userObj.displayName
-      // const messageClock = Date.now()
       const messageClock = new Date().toString()
+      const messageClockNumber = Date.now()
       if (message){
         await addDoc(collection(dbservice, 'chats_group'), {
           userUid: userUid,
           userName: userName,
           message: message,
-          messageClock: messageClock
+          messageClock: messageClock,
+          messageClockNumber: messageClockNumber 
         })
         setMsgList((prev) => [...prev, { msg: message, type: "me", userUid: userObj.uid, id: userObj.displayName, messageClock: messageClock, conversation: null }]);
       }
@@ -201,16 +208,17 @@ function Piazza({ userObj, setBottomNavigation, setPiazzaSwitch }) {
     const messageList = async () => {
       const messagesArray = []
       const messageRef = collection(dbservice, 'chats_group')
-      const messagesCollection = query(messageRef, orderBy('messageClock'))
+      const messagesCollection = query(messageRef, orderBy('messageClockNumber'))
       const messages = await getDocs(messagesCollection);
       messages.forEach((doc) => {
         const message = doc.data().message
         const userUid = doc.data().userUid
         const userName = doc.data().userName
         const messageClock = doc.data().messageClock
+        const messageClockNumber = doc.data().messageClockNumber
         // doc.data() is never undefined for query doc snapshots
         // console.log(doc.id, " => ", doc.data());
-        messagesArray.push({ msg: message, type: "me", userUid: userUid, id: userName, messageClock: messageClock, conversation: null })
+        messagesArray.push({ msg: message, type: "me", userUid: userUid, id: userName, messageClockNumber: messageClockNumber, messageClock: messageClock, conversation: null })
         setMsgList(messagesArray);
         // setMsgList((prev) => [...prev, { msg: message, type: "me", userUid: userUid, id: userName, messageClock: messageClock }]);
       });
@@ -218,6 +226,7 @@ function Piazza({ userObj, setBottomNavigation, setPiazzaSwitch }) {
     if (changeMessage) { 
       messageList()
       setChangeMessage(false)
+      // setNewMessage(false)
       // if (!state.conversation) {
       //   messageList()
       // } else {
@@ -238,6 +247,42 @@ function Piazza({ userObj, setBottomNavigation, setPiazzaSwitch }) {
   //     })
   //   }
   // })
+  // console.log(piazzaSwitch.current)
+  const onClick = (piazzaSwitch) => {
+    if (piazzaSwitch.current === 'true') {
+      window.localStorage.setItem('piazza', 'false')
+      // setPiazzaSwitch('false')
+      piazzaSwitch.current = 'false'
+      // setPiazzaCheck('false')
+      setStage(false)
+    } else {
+      window.localStorage.setItem('piazza', 'true')
+      // setPiazzaSwitch('true'
+      piazzaSwitch.current = 'true'
+      // setPiazzaCheck('true')
+      setStage(true)
+    }
+    console.log(piazzaSwitch.current)
+    // if (colors === 'light') {
+    //     setColors('dark')
+    //     setMode('dark')
+    //     localStorage.setItem("theme", 'dark');
+    // } else {
+    //     setColors('light')
+    //     setMode('light')
+    //     localStorage.setItem("theme", 'light');
+    // }
+  }
+  // useEffect(() => {
+  //   if (piazzaCheck === 'true') {
+  //     setPiazzaSwitch('true')
+  //   } else {
+  //     setPiazzaSwitch('false')
+  //   }
+  // }, [piazzaCheck])
+  // console.log(piazzaCheck)
+  // console.log(piazzaSwitch)
+  // console.log(piazzaSwitch)
   
   return (
     <div>
@@ -246,7 +291,8 @@ function Piazza({ userObj, setBottomNavigation, setPiazzaSwitch }) {
           단체 대화
         </div>
         <div className='flex w-2/3 pt-1 justify-end'>
-          <PiazzaSwitch setPiazzaSwitch={setPiazzaSwitch}/>
+          <PiazzaSwitch piazzaSwitch={piazzaSwitch} onClick={() => onClick(piazzaSwitch)} />
+          {/* <PiazzaSwitch onClick={() => onClick(piazzaSwitch, setPiazzaSwitch)} /> */}
           {/* switch */}
         </div>
       </div>
