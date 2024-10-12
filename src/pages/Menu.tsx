@@ -137,14 +137,14 @@ function Menu({ isLoggedIn, userObj, counter, setCounter, setValue, tmpCounter, 
                             {!messages.length ? 
                                 <div className='flex justify-center pt-20'>진행 카드가 없습니다</div> :
                                 <div className='flex justify-center flex-wrap'>
-                                    {/* {messages.map((msg) => {
+                                    {messages.map((msg) => {
                                         if(msg.round !== 5) {
                                             if (counter.indexOf(msg.id) === -1) {
                                                 onCounting(msg)
                                             }
                                             return(<Message key={msg.id} msgObj={msg} isOwner={msg.creatorId === userObj.uid} userObj={userObj} isLoggedIn={isLoggedIn} counter={counter} setCounter={setCounter} setValue={setValue} />)
                                         }
-                                    })} */}
+                                    })}
                                 </div>
                             }
                         </div>
