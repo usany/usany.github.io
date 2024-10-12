@@ -127,7 +127,6 @@ function Menu({ isLoggedIn, userObj, counter, setCounter, setValue, tmpCounter, 
             </div> */}
             <div className='flex justify-start text-2xl p-5'>
                 내 상태
-                {/* <div onClick={onClick}>message</div> */}
             </div>
             <div>
                 <div className='flex justify-center'>
