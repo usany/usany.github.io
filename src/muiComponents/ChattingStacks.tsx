@@ -36,6 +36,8 @@ function ChattingStacks({ userObj }) {
   // const [myMessages, setMyMessage] = useState([])
   const [myConversations, setMyConversations] = useState([])
   const [conversations, setConversations] = useState([])
+  const [newMessages, setNewMessages] = useState(true)
+
   useEffect(() => {
     const myChatting = async () => {
       const myDocRef = doc(dbservice, `members/${userObj.uid}`)
@@ -44,10 +46,11 @@ function ChattingStacks({ userObj }) {
       setMyConversations(myConversation)
     }
     setChattingMessage(true)
-    if (!chattingMessage) {
+    if (!chattingMessage && newMessages) {
       myChatting()
+      setNewMessages(false)
     }
-  })
+  }, [newMessages])
   useEffect(() => {
     const myChattings = () => {
       myConversations.map(async (element, index) => {
@@ -87,10 +90,10 @@ function ChattingStacks({ userObj }) {
   useEffect(() => {
     if (!webSocket) return;
     function sMessageCallback(message) {
-      const { msg, userUid, id, target, messageClock, conversation, conversationUid, conversationName } = message;
+      const { msg, userUid, id, target, messageClock, messageClockNumber, conversation, conversationUid, conversationName } = message;
       console.log(msg)
       const location = conversations.map((element) => element.conversation).indexOf(conversation)
-      const replaceObj = {conversation: conversation, username: id, message: msg, conversationUid: userUid, userDisplayName: id}
+      const replaceObj = {conversation: conversation, username: id, message: msg, conversationUid: userUid, userDisplayName: id, messageClockNumber: messageClockNumber}
       // {conversation: element, username: documentObj.userName, message: documentObj.message, 
       //   conversationUid: conversationUid,
       //   userDisplayName: userDisplayName
@@ -98,6 +101,15 @@ function ChattingStacks({ userObj }) {
       console.log(replaceObj)
       console.log(conversations)
       console.log(conversations.splice(location, 1, replaceObj))
+      const newConversations = conversations.splice(location, 1, replaceObj)
+      newConversations.sort((elementOne, elementTwo) => {
+        if (elementOne.messageClockNumber < elementTwo.messageClockNumber) {
+          return -1
+        } else {
+          return 1
+        }
+      })
+      console.log(newConversations)
       setConversations(conversations.splice(location, 1, replaceObj))
       // setPiazzaMessage(
       //   {

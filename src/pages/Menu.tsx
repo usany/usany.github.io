@@ -119,7 +119,18 @@ function Menu({ isLoggedIn, userObj, counter, setCounter, setValue, tmpCounter, 
     //     webSocket.emit("button", { name: 'John Doe', age: 30 });
     //     setButton(true);
     // }
-    
+    const playlistId = '0g51VswTtsWRTIQToh5oNe';
+
+{/* <iframe
+  title="Spotify Embed: Recommendation Playlist "
+  src={`https://open.spotify.com/embed/playlist/0g51VswTtsWRTIQToh5oNe?utm_source=generator&theme=0`}
+  width="100%"
+  height="100%"
+  style={{ minHeight: '360px' }}
+  frameBorder="0"
+  allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+  loading="lazy"
+/> */}
     return (
         <div className='flex justify-center flex-col pb-5'>
             {/* <div className='flex justify-center border border-sky-500'>

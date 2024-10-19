@@ -210,7 +210,7 @@ function Chatting({ userObj, setBottomNavigation }) {
         const userUid = doc.data().userUid
         const userName = doc.data().userName
         const messageClock = doc.data().messageClock
-        const messageClockNumber = doc.data().messageClockNumber
+        const messageClockNumber = doc.data().messageClockNumber || 0
         messagesArray.push({ msg: message, type: "me", userUid: userUid, id: userName, messageClock: messageClock, messageClockNumber: messageClockNumber })
         setMsgList(messagesArray)
         // setMsgList((prev) => [...prev, { msg: message, type: "me", userUid: userUid, id: userName, messageClock: messageClock }]);
