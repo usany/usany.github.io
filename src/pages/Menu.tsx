@@ -13,7 +13,7 @@ import ChattingStacks from 'src/muiComponents/ChattingStacks'
 // const webSocket = io("http://localhost:5000");
 
 // let tmpCounter = []
-function Menu({ isLoggedIn, userObj, counter, setCounter, setValue, tmpCounter, piazzaSwitch }) {
+function Menu({ isLoggedIn, userObj, counter, setCounter, setValue, tmpCounter, piazzaSwitch, newMessage, setNewMessage }) {
     // const [choose, setChoose] = useState(true);
     const [messages, setMessages] = useState<Array<object>>([]);
     const [userId, setUserId] = useState("");
@@ -26,14 +26,11 @@ function Menu({ isLoggedIn, userObj, counter, setCounter, setValue, tmpCounter, 
     const [chats, setChats] = useState([])
     const [piazzaOn, setPiazzaOn] = useState('')
     const [piazzaMessages, setPiazzaMessages] = useState([])
-    
+    const [newMessages, setNewMessages] = useState(0)
     useEffect(() => {
         setPiazzaOn(piazzaSwitch.current)
         // if (piazzaSwitch.current !== piazzaOn) {
         // }
-    }, [])
-    useEffect(() => {
-        if (piazzaOn === 'true') {}
     }, [])
     useEffect(() => {
         const requestPermission = async () => {
@@ -178,7 +175,7 @@ function Menu({ isLoggedIn, userObj, counter, setCounter, setValue, tmpCounter, 
                                     {piazzaOn === 'true' && 
                                         <MessageStacks />
                                     }
-                                    <ChattingStacks userObj={userObj}/>
+                                    <ChattingStacks userObj={userObj} newMessage={newMessage} setNewMessage={setNewMessage} newMessages={newMessages} setNewMessages={setNewMessages}/>
                                 </div>
                             }
                             </div>

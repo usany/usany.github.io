@@ -30,13 +30,13 @@ const username = `Truncation`;
 const message = `Truncation should be conditionally applicable on this long line of text
  as this is a much longer line than what the container can support.`;
 
-function ChattingStacks({ userObj }) {
+function ChattingStacks({ userObj, newMessage, setNewMessage, newMessages, setNewMessages }) {
   const [chattingMessage, setChattingMessage] = useState(false)
   // const [newMessages, setNewMessage] = useState(false)
   // const [myMessages, setMyMessage] = useState([])
   const [myConversations, setMyConversations] = useState([])
   const [conversations, setConversations] = useState([])
-  const [newMessages, setNewMessages] = useState(true)
+  const [newChatting, setNewChatting] = useState(0)
 
   useEffect(() => {
     const myChatting = async () => {
@@ -46,11 +46,12 @@ function ChattingStacks({ userObj }) {
       setMyConversations(myConversation)
     }
     setChattingMessage(true)
-    if (!chattingMessage && newMessages) {
+    if (!chattingMessage || newMessage) {
       myChatting()
-      setNewMessages(false)
+      // setNewMessages(false)
+      setNewMessage(false)
     }
-  }, [newMessages])
+  }, [newMessage])
   useEffect(() => {
     const myChattings = () => {
       myConversations.map(async (element, index) => {
@@ -100,17 +101,29 @@ function ChattingStacks({ userObj }) {
       // }
       console.log(replaceObj)
       console.log(conversations)
-      console.log(conversations.splice(location, 1, replaceObj))
-      const newConversations = conversations.splice(location, 1, replaceObj)
-      newConversations.sort((elementOne, elementTwo) => {
-        if (elementOne.messageClockNumber < elementTwo.messageClockNumber) {
-          return -1
-        } else {
-          return 1
-        }
-      })
-      console.log(newConversations)
-      setConversations(conversations.splice(location, 1, replaceObj))
+      // console.log(conversations.splice(location, 1, replaceObj))
+      // const newConversations = conversations.splice(location, 1, replaceObj)
+      // console.log(conversations)
+      // newConversations.sort((elementOne, elementTwo) => {
+      //   if (elementOne.messageClockNumber < elementTwo.messageClockNumber) {
+      //     return -1
+      //   } else {
+      //     return 1
+      //   }
+      // })
+      // console.log(newConversations)
+      let conversationsCollection = [...conversations]
+      // console.log(conversationsCollection === conversations)
+      if (location === -1) {
+        conversationsCollection = [replaceObj, ...conversationsCollection]
+        // setConversations(conversations)
+      } else {
+        conversationsCollection.splice(location, 1, replaceObj)
+        // setConversations(conversations)
+      }
+      setConversations(conversationsCollection)
+      // setNewChatting(newChatting+1)
+      console.log(newMessages)
       // setPiazzaMessage(
       //   {
       //     message: msg,
@@ -125,8 +138,54 @@ function ChattingStacks({ userObj }) {
       };
     })
   }, [conversations]);
+  useEffect(() => {
+    if (!webSocket) return;
+    function sNewMessageCallback(message) {
+      const { msg, userUid, id, target, messageClock, messageClockNumber, conversation, conversationUid, conversationName } = message;
+      console.log(msg)
+      const location = conversations.map((element) => element.conversation).indexOf(conversation)
+      const replaceObj = {conversation: conversation, username: id, message: msg, conversationUid: userUid, userDisplayName: id, messageClockNumber: messageClockNumber}
+      // {conversation: element, username: documentObj.userName, message: documentObj.message, 
+      //   conversationUid: conversationUid,
+      //   userDisplayName: userDisplayName
+      // }
+      console.log(replaceObj)
+      console.log(conversations)
+      // console.log(conversations.splice(location, 1, replaceObj))
+      // const newConversations = conversations.splice(location, 1, replaceObj)
+      // newConversations.sort((elementOne, elementTwo) => {
+      //   if (elementOne.messageClockNumber < elementTwo.messageClockNumber) {
+      //     return -1
+      //   } else {
+      //     return 1
+      //   }
+      // })
+      // console.log(newConversations)
+      let conversationsCollection = [...conversations]
+      if (location === -1) {
+        console.log('location')
+        conversationsCollection = [replaceObj, ...conversationsCollection]
+        // setConversations(conversations)
+      } else {
+        console.log('locations')
+        conversationsCollection.splice(location, 1, replaceObj)
+        // setConversations(conversations)
+      }
+      setConversations(conversationsCollection)
+      // setNewMessages(newMessages+1)
+      // setPiazzaMessage(
+      //   {
+      //     message: msg,
+      //     username: id,
+      //   }
+      // );
+    }
+    webSocket.on(`sNewMessage`, sNewMessageCallback);
+    return () => {
+      webSocket.off(`sNewMessage`, sNewMessageCallback);
+    };
+  });
   console.log(conversations)
-  // console.log('practice')
   return (
     <>
       {conversations.map((element, index) => {

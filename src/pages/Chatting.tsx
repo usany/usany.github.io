@@ -7,7 +7,7 @@ import { webSocket, onClick } from 'src/webSocket.tsx'
 import ChattingDialogs from 'src/muiComponents/ChattingDialogs'
 
 // const webSocket = io("http://localhost:5000");
-function Chatting({ userObj, setBottomNavigation }) {
+function Chatting({ userObj, setBottomNavigation, newMessage, setNewMessage }) {
   const messagesEndRef = useRef(null);
   const [userId, setUserId] = useState("");
   const [msg, setMsg] = useState("");
@@ -33,6 +33,13 @@ function Chatting({ userObj, setBottomNavigation }) {
           conversation: conversation
         },
       ]);
+    }
+    if (msgList.length === 0) {
+      console.log('msgList')
+      webSocket.on(`sNewMessage`, sMessageCallback);
+      return () => {
+        webSocket.off(`sNewMessage`, sMessageCallback);
+      };
     }
     webSocket.on(`sMessage${conversation}`, sMessageCallback);
     return () => {
@@ -72,13 +79,14 @@ function Chatting({ userObj, setBottomNavigation }) {
     const message = msg
     const userUid = userObj.uid
     const userName = userObj.displayName
-    // const messageClock = Date.now()
+    const messageClockNumber = Date.now()
     const messageClock = new Date().toString()
     const sendData = {
       msg: message,
       userUid: userUid,
       id: userName,
       messageClock: messageClock,
+      messageClockNumber: messageClockNumber,
       target: privateTarget,
       conversation: conversation,
       conversationUid: state.chattingUid,
@@ -86,7 +94,13 @@ function Chatting({ userObj, setBottomNavigation }) {
       // { msg: message, type: "me", userUid: userObj.uid, id: userObj.displayName, messageClock: messageClock }
     };
     if (message) {
-      webSocket.emit("message", sendData);
+      if (msgList.length !== 0) {
+        webSocket.emit("message", sendData);
+        console.log('message')
+      } else {
+        webSocket.emit("messageNew", sendData);
+        console.log('messageNew')
+      }
       onFormConversation()
       onMembersConversation()
     }
@@ -176,6 +190,7 @@ function Chatting({ userObj, setBottomNavigation }) {
         await updateDoc(myDocRef, {
           conversation: [...myConversation, conversation]
         })
+        setNewMessage(true)
       }
       if (userConversation.indexOf(conversation) === -1) { 
         await updateDoc(userDocRef, {
@@ -225,7 +240,7 @@ function Chatting({ userObj, setBottomNavigation }) {
       messageListMembers(conversation)
       setChangeMessage(false)
     }
-  }, [changeMessage, conversation])
+  }, [])
   // console.log(msgList)
   // console.log(state)
   return (
