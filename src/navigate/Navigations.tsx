@@ -8,10 +8,8 @@ import Checklist from '@mui/icons-material/Checklist'
 import ChecklistRtl from '@mui/icons-material/ChecklistRtl'
 import BeachAccess from '@mui/icons-material/BeachAccess'
 import Badges from 'src/muiComponents/Badges'
-import Paper from '@mui/material/Paper'
-import { styled } from '@mui/system';
 
-function Navigations({ profileColor, bottomNavigation, setBottomNavigation, counter, isLoggedIn, value, setValue, scroll, setScroll, tmpCounter }) {
+function Navigations({ bottomNavigation, setBottomNavigation, counter, userObj, setScroll, tmpCounter }) {
     // const [colors, setColors] = useState(localStorage.getItem("theme"));
     // const [color, setColor] = useState('#e2e8f0');
     const [backgroundColor, setBackgroundColor] = useState('#e2e8f0');
@@ -25,11 +23,10 @@ function Navigations({ profileColor, bottomNavigation, setBottomNavigation, coun
     })
 
     const navigate = useNavigate()
-    // const ref = useRef(counter)
 
     return (
         <div className='w-screen fixed border border-sky-500 rounded-t bottom-0 start-0 end-0'>
-            {isLoggedIn &&
+            {userObj &&
                 <BottomNavigation
                     sx={{bgcolor: {backgroundColor}}}    
                     showLabels
@@ -49,9 +46,9 @@ function Navigations({ profileColor, bottomNavigation, setBottomNavigation, coun
                     <BottomNavigationAction label={'빌려주기 목록'} icon={<ChecklistRtl />}/> */}
                 </BottomNavigation>
             }
-            {!isLoggedIn && 
+            {!userObj && 
                 <BottomNavigation
-                    sx={{bgcolor: backgroundColor, color: profileColor}}    
+                    sx={{bgcolor: backgroundColor}}    
                     showLabels
                     value={bottomNavigation}
                     onChange={(event, newValue) => {

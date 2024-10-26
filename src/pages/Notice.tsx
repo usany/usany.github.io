@@ -5,7 +5,7 @@ import Message from 'src/pages/Message'
 import FilterDialogs from 'src/muiComponents/FilterDialogs'
 import Settings from '@mui/icons-material/Settings';
 
-function Notice({ isLoggedIn, userObj, valuing, setValue, counter, setCounter }) {
+function Notice({ userObj, valuing, setValue, counter, setCounter }) {
   const [messages, setMessages] = useState<Array<object>>([]);
   const [changeFilter, setChangeFilter] = useState(false);
   const [selectedValueOne, setSelectedValueOne] = useState(null);
@@ -85,7 +85,7 @@ function Notice({ isLoggedIn, userObj, valuing, setValue, counter, setCounter })
                     messages.map((msg) => {
                         if (msg.text.choose === 1 && msg.round === 1) {
                             return(
-                                <Message key={msg.id} msgObj={msg} isOwner={msg.creatorId === userObj.uid} userObj={userObj} isLoggedIn={isLoggedIn} setValue={setValue} counter={counter} setCounter={setCounter}/>
+                                <Message key={msg.id} msgObj={msg} isOwner={msg.creatorId === userObj.uid} userObj={userObj} setValue={setValue} counter={counter} setCounter={setCounter}/>
                             )
                         }
                     })
@@ -113,7 +113,7 @@ function Notice({ isLoggedIn, userObj, valuing, setValue, counter, setCounter })
                     if (msg.text.choose === 1 && msg.round === 1 && msg.text.clocker.gmt.seconds*1000 + Date.now()) {
                         if (selectedValueTwo === '전체' || selectedValueTwo === msg.text.count || !selectedValueTwo) {
                             return(
-                                <Message key={msg.id} msgObj={msg} isOwner={msg.creatorId === userObj.uid} userObj={userObj} isLoggedIn={isLoggedIn} setValue={setValue} counter={counter} setCounter={setCounter} selectedValueOne={selectedValueOne} selectedValueTwo={selectedValueTwo} selectedValueThree={selectedValueThree} />
+                                <Message key={msg.id} msgObj={msg} isOwner={msg.creatorId === userObj.uid} userObj={userObj} setValue={setValue} counter={counter} setCounter={setCounter} selectedValueOne={selectedValueOne} selectedValueTwo={selectedValueTwo} selectedValueThree={selectedValueThree} />
                             )
                         }
                     }
@@ -122,7 +122,7 @@ function Notice({ isLoggedIn, userObj, valuing, setValue, counter, setCounter })
                     if (msg.text.choose === 2 && msg.round === 1 && (msg.text.clocker.gmt === undefined || msg.text.clocker.gmt.seconds*1000 + Date.now())) {
                         if (selectedValueTwo === '전체' || selectedValueTwo === msg.text.count || !selectedValueTwo) {
                             return(
-                                <Message key={msg.id} msgObj={msg} isOwner={msg.creatorId === userObj.uid} userObj={userObj} isLoggedIn={isLoggedIn} setValue={setValue} counter={counter} setCounter={setCounter} selectedValueOne={selectedValueOne} selectedValueTwo={selectedValueTwo} selectedValueThree={selectedValueThree} />
+                                <Message key={msg.id} msgObj={msg} isOwner={msg.creatorId === userObj.uid} userObj={userObj} setValue={setValue} counter={counter} setCounter={setCounter} selectedValueOne={selectedValueOne} selectedValueTwo={selectedValueTwo} selectedValueThree={selectedValueThree} />
                             )
                         }
                     }

@@ -67,18 +67,6 @@ function Switches({ onClick }) {
         label=""
       />
     </FormGroup>
-  //   <FormGroup>
-  //   <FormControlLabel
-  //     control={
-  //       window.localStorage.theme === 'dark' ? 
-  //       <MaterialUISwitch checked={true} /> 
-  //       :
-  //       <MaterialUISwitch checked={false} />
-  //     }
-  //     label=""
-  //     onChange={onClick}
-  //   />
-  // </FormGroup>
   );
 }
 

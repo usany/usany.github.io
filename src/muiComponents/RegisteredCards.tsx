@@ -14,7 +14,6 @@ function RegisteredCards({
   msgObj,
   isOwner,
   // userObj,
-  // isLoggedIn,
   // num,
   // points,
   // setValue,
@@ -86,7 +85,7 @@ function RegisteredCards({
           </CardContent>
           {/* </Link> */}
           {/* <CardActions className='flex justify-center'>
-            <Btn msgObj={msgObj} isOwner={isOwner} uid={userObj.uid} displayName={userObj.displayName} isLoggedIn={isLoggedIn} num={num} points={points} setValue={setValue} counter={counter} setCounter={setCounter} />
+            <Btn msgObj={msgObj} isOwner={isOwner} uid={userObj.uid} displayName={userObj.displayName} num={num} points={points} setValue={setValue} counter={counter} setCounter={setCounter} />
           </CardActions> */}
         {/* </CardActionArea> */}
       </Card>

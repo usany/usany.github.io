@@ -12,12 +12,8 @@ import { CardActionArea, CardActions } from '@mui/material';
 import Chip from '@mui/material/Chip';
 
 function Specific({ 
-    isLoggedIn,
     userObj,
-    setUserObj, 
     value, 
-    newAccount,
-    setNewAccount,
     setValue,
     counter,
     setCounter, 
@@ -59,15 +55,6 @@ function Specific({
           })
         }
       })
-
-  useEffect(() => {
-    if (!isLoggedIn && userObj !== null) {
-      navigate('/')
-    }
-  })
-  // useEffect(() => {
-  //   setStepper(state.msgObj.round-1)
-  // })
   
   const onClick = () => {
     navigate(-1)
@@ -163,12 +150,12 @@ function Specific({
       <div className='flex justify-center'>
       {deleted === false && userObj !== null &&
         <div className='flex justify-center'>
-          <Btn msgObj={msgObj} isOwner={msgObj.creatorId === userObj.uid} uid={userObj.uid} displayName={userObj.displayName} isLoggedIn={isLoggedIn} num={num} value={value} points={points} setValue={setValue} counter={counter} setCounter={setCounter} />
+          <Btn msgObj={msgObj} isOwner={msgObj.creatorId === userObj.uid} uid={userObj.uid} displayName={userObj.displayName} userObj={userObj} num={num} value={value} points={points} setValue={setValue} counter={counter} setCounter={setCounter} />
         </div>
       }
       {deleted === false && userObj === null &&
         <div className='flex justify-center'>
-          <Btn msgObj={msgObj} isOwner={false} uid={null} displayName={null} isLoggedIn={isLoggedIn} num={num} value={value} points={points} setValue={setValue} counter={counter} setCounter={setCounter} />
+          <Btn msgObj={msgObj} isOwner={false} uid={null} displayName={null} userObj={userObj} num={num} value={value} points={points} setValue={setValue} counter={counter} setCounter={setCounter} />
         </div>
       }
       {deleted === true && 

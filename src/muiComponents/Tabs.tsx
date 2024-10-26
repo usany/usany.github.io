@@ -42,20 +42,6 @@ export default function ToggleTabs({ valuing, setValuing }) {
     } else {
       setValuing(newValue);
     }
-    // if (num === 1) {
-    //   if(newValue === 1) {
-    //     setValuing(4)
-    //   } else {
-    //     setValuing(0)
-    //   }
-    // }
-    // if (num === 2) {
-    //   if(newValue === 1) {
-    //     setValuing(3)
-    //   } else {
-    //     setValuing(1)
-    //   }
-    // }
   };
   
   // useEffect(() => {
@@ -81,9 +67,7 @@ export default function ToggleTabs({ valuing, setValuing }) {
 
   return (
     <Box>
-      <Box sx={{ paddingX: '10px', 
-        // borderBottom: 0, 
-        // borderColor: 'divider' 
+      <Box sx={{ paddingX: '10px'
         }}>
         {valuing<2 &&
         <Tabs
@@ -102,15 +86,6 @@ export default function ToggleTabs({ valuing, setValuing }) {
         </Tabs>
         }
       </Box>
-      {/* <CustomTabPanel value={value} index={0}>
-      Borrow
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={1}>
-      Lend
-      </CustomTabPanel> */}
-      {/* <CustomTabPanel value={value} index={2}>
-        Item Three
-      </CustomTabPanel> */}
     </Box>
   );
 }

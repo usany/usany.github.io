@@ -7,9 +7,7 @@ function Badges({ counter, tmpCounter }) {
     useEffect(() => {
         setInterval(() => {
             setNum(tmpCounter.length), 1000
-            // console.log(tmpCounter.length)
         })
-        // tmpCounterLength = counter.length
     })
     return (
         <Badge badgeContent={num} color="primary">

@@ -1,15 +1,15 @@
-import { useState, useEffect } from 'react'
+// import { useState, useEffect } from 'react'
 // import Lottie from 'react-lottie'
 // import rain from './assets/Animation.json'
-import { LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
-import { DemoContainer, DemoItem } from '@mui/x-date-pickers/internals/demo';
-import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+// import { LocalizationProvider } from '@mui/x-date-pickers';
+// import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+// import { DemoContainer, DemoItem } from '@mui/x-date-pickers/internals/demo';
+// import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+// import TextField from '@mui/material/TextField';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import TextField from '@mui/material/TextField';
 
 const locationsCollection = {
     cl : ['1열(1F)', '2열(2F)', '3열(2F)', '4열(4F)', '집중열(1F)', '1층 책상', '1층 세미나실', '매점(2F)', '카페(1F)', '중앙자료실 책상(3F)', '참고열람실 책상(4F)', '정기간행물 책상(4F)'],

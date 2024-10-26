@@ -1,7 +1,5 @@
 import { useRef, useReducer, useEffect, useState, useMemo } from "react";
 import Switch from '@mui/material/Switch';
-// import FormGroup from '@mui/material/FormGroup';
-// import FormControlLabel from '@mui/material/FormControlLabel';
 import { styled } from '@mui/material/styles';
 // import Brightness4Icon from '@mui/icons-material/Brightness4';
 // import Brightness7Icon from '@mui/icons-material/Brightness7';

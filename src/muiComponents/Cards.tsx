@@ -9,27 +9,26 @@ import Btn from 'src/pages/Btn';
 import Chip from '@mui/material/Chip';
 import staticImg from 'src/assets/pwa-512x512.png';
 // import { Fragment } from 'react/jsx-runtime';
-import CommentIcon from '@mui/icons-material/Comment';
-import IconButton from '@mui/material/IconButton';
-import InboxIcon from '@mui/icons-material/Inbox';
-import DraftsIcon from '@mui/icons-material/Drafts';
-import SendIcon from '@mui/icons-material/Send';
-import StarBorder from '@mui/icons-material/StarBorder';
-import ImageIcon from '@mui/icons-material/Image';
-import WorkIcon from '@mui/icons-material/Work';
-import FolderIcon from '@mui/icons-material/Folder';
-import DeleteIcon from '@mui/icons-material/Delete';
-import Settings from '@mui/icons-material/Settings';
-import People from '@mui/icons-material/People';
-import PermMedia from '@mui/icons-material/PermMedia';
-import Dns from '@mui/icons-material/Dns';
-import Public from '@mui/icons-material/Public';
+// import CommentIcon from '@mui/icons-material/Comment';
+// import IconButton from '@mui/material/IconButton';
+// import InboxIcon from '@mui/icons-material/Inbox';
+// import DraftsIcon from '@mui/icons-material/Drafts';
+// import SendIcon from '@mui/icons-material/Send';
+// import StarBorder from '@mui/icons-material/StarBorder';
+// import ImageIcon from '@mui/icons-material/Image';
+// import WorkIcon from '@mui/icons-material/Work';
+// import FolderIcon from '@mui/icons-material/Folder';
+// import DeleteIcon from '@mui/icons-material/Delete';
+// import Settings from '@mui/icons-material/Settings';
+// import People from '@mui/icons-material/People';
+// import PermMedia from '@mui/icons-material/PermMedia';
+// import Dns from '@mui/icons-material/Dns';
+// import Public from '@mui/icons-material/Public';
 
 function Cards({ 
   msgObj,
   isOwner,
   userObj,
-  isLoggedIn,
   num,
   points,
   setValue,
@@ -56,9 +55,9 @@ function Cards({
   // if (/[a-z]/.exec(String(msgObj.id[0]).toLowerCase()) === String(msgObj.id[0]).toLowerCase()) {
   //   shadowColor = 'green';
   // }  
+  // const nums = Array.from(Array(10), (e, i) => i);
   const alpha = Array.from(Array(26)).map((e, i) => i + 65);
   const letters = alpha.map((x) => String.fromCharCode(x));
-  // const nums = Array.from(Array(10), (e, i) => i);
   const numbers = Array.from({ length: 10 }, (e, i) => `${i}`)
   const mergedArray = letters.concat(numbers)
   shadowColor = shadowColorArray[mergedArray.indexOf(String(msgObj.id[0]).toUpperCase())%shadowColorArray.length];
@@ -70,14 +69,7 @@ function Cards({
           boxShadow: `1.9px 1.9px 1.9px 1.9px ${shadowColor}`
         }}
       >
-        <CardActionArea 
-          // onClick={() => setSpecific({
-          //   msgObj: msgObj,
-          //   isOwner: isOwner,
-          //   num: num,
-          //   points: points
-          // })}
-        >
+        <CardActionArea>
           <Link 
             to='/specific'
             state = {{
@@ -85,11 +77,6 @@ function Cards({
               isOwner: isOwner,
               num: num,
               points: points
-              // isLoggedIn: isLoggedIn,
-              // uid: userObj.uid,
-              // displayName: userObj.displayName,
-              // setValue: setValue
-              // setCounter: setCounter
             }}
           >
           <CardMedia
@@ -98,11 +85,8 @@ function Cards({
           />
           <CardContent>
             <div className='flex justify-center'>
-              {/* <div className='flex'>
-                <Chip label='우산 / 빌리기' /> */}
-                {msgObj.text.choose === 1 && <Chip label='우산 빌리기' />}
-                {msgObj.text.choose === 2 && <Chip label='우산 빌려주기' />}
-              {/* </div> */}
+              {msgObj.text.choose === 1 && <Chip label='우산 빌리기' />}
+              {msgObj.text.choose === 2 && <Chip label='우산 빌려주기' />}
               {isOwner && 
                 <Chip label='내 카드' />
               }
@@ -116,7 +100,7 @@ function Cards({
           </Link>
         </CardActionArea>
         <CardActions className='flex justify-center'>
-          <Btn msgObj={msgObj} isOwner={isOwner} uid={userObj.uid} displayName={userObj.displayName} isLoggedIn={isLoggedIn} num={num} points={points} setValue={setValue} counter={counter} setCounter={setCounter} />
+          <Btn msgObj={msgObj} isOwner={isOwner} uid={userObj.uid} displayName={userObj.displayName} userObj={userObj} num={num} points={points} setValue={setValue} counter={counter} setCounter={setCounter} />
         </CardActions>
       </Card>
     </div>

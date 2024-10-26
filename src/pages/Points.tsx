@@ -1,20 +1,18 @@
 import { useState, useEffect } from 'react'
-import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
-import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnapshot, deleteDoc, updateDoc } from 'firebase/firestore';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import Divider from '@mui/material/Divider';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
-import Typography from '@mui/material/Typography';
-import { blue } from '@mui/material/colors';
 import CommentIcon from '@mui/icons-material/Comment';
+import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import { BrowserRouter, Routes, Route, useNavigate, Link, useLocation } from 'react-router-dom'
+import { blue } from '@mui/material/colors';
 import Button from '@mui/material/Button';
 
-function Points({ isLoggedIn, userObj, setUserObj, value, setValue, side, setSide, sideNavigation, setSideNavigation, check, setCheck, counter, setBottomNavigation, profileColor }) {
+function Points({ setCheck }) {
   const {state} = useLocation()
   const navigate = useNavigate()
 

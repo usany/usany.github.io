@@ -1,7 +1,5 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
 import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -44,22 +42,6 @@ function SignInDialogs({move, handleClose }) {
       }).catch((error) => {
         console.log('error')
       })
-      // if (newAccount.account) {
-      //   data = await createUserWithEmailAndPassword(auth, email, password)
-      //   await setDoc(doc(dbservice, 'members', `${data.user.uid}`), {
-      //     uid: data.user.uid,
-      //     displayName: data.user.uid,
-      //     points: 0,
-      //     round: newAccount.round
-      //   })
-      //   await updateProfile(data.user, {
-      //     displayName: data.user.uid
-      //   }).catch((error) => {
-      //     console.log('error')
-      //   })
-      // } else {
-      //   data = await signInWithEmailAndPassword(auth, email, password)
-      // }
       console.log(data)
     } catch (error) {
       console.log(error)

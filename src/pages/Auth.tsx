@@ -13,7 +13,6 @@ function Auth({ setValue }) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
-  const [signIn, setSignIn] = useState(false)
   const [newAccount, setNewAccount] = useState(false)
   async function signInWithEmail(email, password) {
     const { data, error } = await supabase.auth.signInWithPassword({

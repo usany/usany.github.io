@@ -8,7 +8,7 @@ import SendIcon from '@mui/icons-material/Send';
 import { webSocket, onClick } from 'src/webSocket.tsx'
 
 // const webSocket = io("http://localhost:5000");
-function Btn({ msgObj, isOwner, uid, displayName, isLoggedIn, num, points, setValue, counter, setCounter }) {
+function Btn({ msgObj, isOwner, uid, displayName, userObj, num, points, setValue, counter, setCounter }) {
   const [move, setMove] = useState(false)
 
   const onDeleteClick = () => {
@@ -49,14 +49,14 @@ function Btn({ msgObj, isOwner, uid, displayName, isLoggedIn, num, points, setVa
       updateDoc(data, {round: 4});
       webSocket.emit('returning', { choose: msgObj.text.choose, sendingToken: messagingToken, creatorId: msgObj.creatorId, creatorName: msgObj.displayName, connectedId: uid, connectedName: displayName, })
     } else if (action === 'supporting') {
-      if (isLoggedIn) { 
+      if (userObj) { 
         updateDoc(data, {round: 2, connectedId: uid, connectedName: displayName});
         webSocket.emit('supporting', { choose: msgObj.text.choose, sendingToken: messagingToken, creatorId: msgObj.creatorId, creatorName: msgObj.displayName, connectedId: uid, connectedName: displayName, })
       } else {
         setMove(true)
       }
     } else if (action === 'stop supporting') {
-      if (isLoggedIn) { 
+      if (userObj) { 
         updateDoc(data, {round: 1, connectedId: null, connectedName: null});
         webSocket.emit('stop supporting', { choose: msgObj.text.choose, sendingToken: messagingToken, creatorId: msgObj.creatorId, creatorName: msgObj.displayName, connectedId: uid, connectedName: displayName, })
       }

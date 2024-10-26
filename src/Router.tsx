@@ -43,13 +43,14 @@ const Router = ({ isLoggedIn, userObj, setUserObj, setMode, bottomNavigation, se
             }), 15);
         }
     })
+    
     useEffect(() => {
         if (!(piazzaSwitch.current)) {
             localStorage.setItem("piazza", 'false');
             piazzaSwitch.current = 'false'
         }
     })
-    console.log(profileColor)
+    
     useLayoutEffect(() => {
         const setProfile = async () => {
             const docRef = doc(dbservice, `members/${userObj?.uid}`)
@@ -136,18 +137,7 @@ const Router = ({ isLoggedIn, userObj, setUserObj, setMode, bottomNavigation, se
     })
 
     const storage = getStorage();
-    const storageRef = ref(storage, 'screen.jpg');
-    // const [counter, setCounter] = useState<number[]>([]);
-    // const [value, setValue] = useState<number>(0);
-    // const [check, setCheck] = useState<boolean>(false)
-    // const [scroll, setScroll] = useState<number>(0)
-    // const [profileColor, setProfileColor] = useState<string | null>(null)
-    // const piazzaSwitch = useRef<string | null>(localStorage.getItem('piazza'))
-    // const [newMessage, setNewMessage] = useState<boolean>(false)
-    // const returnInArray = <T,>(value: T): T[] => {
-    //     return [value];
-    // };
-      
+    const storageRef = ref(storage, 'screen.jpg');      
     // const handleCounter = (newState: number[]) => setCounter(newState)
     // const handleValue = (newState: number) => setValue(newState)
     // const handleCheck = (newState: boolean) => setCheck(newState)
@@ -191,28 +181,24 @@ const Router = ({ isLoggedIn, userObj, setUserObj, setMode, bottomNavigation, se
                                     <Route path='/' Component={() => <Home isLoggedIn={isLoggedIn} userObj={userObj} value={value} setValue={(newState: number) => setValue(newState)} counter={counter} setCounter={setCounter} tmpCounter={tmpCounter} bottomNavigation={bottomNavigation} setBottomNavigation={setBottomNavigation} piazzaSwitch={piazzaSwitch} newMessage={newMessage} setNewMessage={setNewMessage} />} />
                                     <Route path='/profile' Component={() => <Profile userObj={userObj} setBottomNavigation={setBottomNavigation} profileColor={profileColor} setProfileColor={setProfileColor} />} />
                                     <Route path='/ranking' Component={() => <Ranking userObj={userObj} setBottomNavigation={setBottomNavigation} />} />
-                                    <Route path='/specific' Component={() => <Specific isLoggedIn={isLoggedIn} userObj={userObj} setUserObj={setUserObj} value={value} setValue={setValue} counter={counter} setCounter={setCounter} />} />
-                                    <Route path='/actions' Component={() => <Actions isLoggedIn={isLoggedIn} userObj={userObj} setUserObj={setUserObj} value={value} setValue={setValue} counter={counter} setCounter={setCounter} check={check} setCheck={setCheck} />} />
-                                    <Route path='/allies' Component={() => <Allies isLoggedIn={isLoggedIn} userObj={userObj} setUserObj={setUserObj} value={value} setValue={setValue} counter={counter} setCounter={setCounter} check={check} setCheck={setCheck} />} />
-                                    <Route path='/points' Component={() => <Points isLoggedIn={isLoggedIn} userObj={userObj} setUserObj={setUserObj} value={value} setValue={setValue} counter={counter} setCounter={setCounter} check={check} setCheck={setCheck} />} />
-                                    <Route path='/contact' Component={() => <Contact displayName={userObj.displayName} isLoggedIn={isLoggedIn} userObj={userObj} setUserObj={setUserObj} value={value} setValue={setValue} counter={counter} setCounter={setCounter} check={check} setCheck={setCheck} />} />
+                                    <Route path='/specific' Component={() => <Specific userObj={userObj} value={value} setValue={setValue} counter={counter} setCounter={setCounter} />} />
+                                    <Route path='/actions' Component={() => <Actions userObj={userObj} counter={counter} setCounter={setCounter} check={check} setCheck={setCheck} />} />
+                                    <Route path='/allies' Component={() => <Allies setCheck={setCheck} />} />
+                                    <Route path='/points' Component={() => <Points setCheck={setCheck} />} />
+                                    <Route path='/contact' Component={() => <Contact displayName={userObj?.displayName} userObj={userObj} />} />
                                     <Route path='/piazza' Component={() => <Piazza userObj={userObj} setBottomNavigation={setBottomNavigation} piazzaSwitch={piazzaSwitch} />} />
-                                    <Route path='/chatting' Component={() => <Chatting userObj={userObj} setBottomNavigation={setBottomNavigation} newMessage={newMessage} setNewMessage={setNewMessage} />} />
+                                    <Route path='/chatting' Component={() => <Chatting userObj={userObj} setBottomNavigation={setBottomNavigation} setNewMessage={setNewMessage} />} />
                                 </Route>
                             ) : (
                                 <Route>
-                                    <Route path='/' Component={() => <Home isLoggedIn={isLoggedIn} userObj={{ uid: null }} setUserObj={setUserObj} value={value} setValue={setValue} counter={counter} setCounter={setCounter} check={check} setCheck={setCheck} bottomNavigation={bottomNavigation} setBottomNavigation={setBottomNavigation} />} />
-                                    <Route path='/specific' Component={() => <Specific isLoggedIn={isLoggedIn} userObj={userObj} setUserObj={setUserObj} value={value} setValue={setValue} counter={counter} setCounter={setCounter} check={check} setCheck={setCheck} />} />
-                                    <Route path='/actions' Component={() => <Actions isLoggedIn={isLoggedIn} userObj={userObj} setUserObj={setUserObj} value={value} setValue={setValue} counter={counter} setCounter={setCounter} check={check} setCheck={setCheck} />} />
-                                    <Route path='/allies' Component={() => <Allies isLoggedIn={isLoggedIn} userObj={userObj} setUserObj={setUserObj} value={value} setValue={setValue} counter={counter} setCounter={setCounter} check={check} setCheck={setCheck} />} />
-                                    <Route path='/points' Component={() => <Points isLoggedIn={isLoggedIn} userObj={userObj} setUserObj={setUserObj} value={value} setValue={setValue} counter={counter} setCounter={setCounter} check={check} setCheck={setCheck} />} />
-                                    {/* <Route path='/chats' Component={() => <Specific isLoggedIn={isLoggedIn} userObj={userObj} setUserObj={setUserObj} value={value} newAccount={newAccount} setNewAccount={setNewAccount} setValue={setValue} counter={counter} setCounter={setCounter} check={check} setCheck={setCheck} />} /> */}
+                                    <Route path='/' Component={() => <Home isLoggedIn={isLoggedIn} userObj={userObj} value={value} setValue={setValue} counter={counter} setCounter={setCounter} bottomNavigation={bottomNavigation} setBottomNavigation={setBottomNavigation} />} />
+                                    <Route path='/specific' Component={() => <Specific userObj={userObj} value={value} setValue={setValue} counter={counter} setCounter={setCounter} />} />
                                 </Route>
                             )
                         }
                     </Routes>
                 </div>
-                <Navigations profileColor={profileColor} bottomNavigation={bottomNavigation} setBottomNavigation={setBottomNavigation} scroll={scroll} setScroll={setScroll} counter={counter} isLoggedIn={isLoggedIn} value={value} setValue={setValue} tmpCounter={tmpCounter} />
+                <Navigations userObj={userObj} bottomNavigation={bottomNavigation} setBottomNavigation={setBottomNavigation} counter={counter} tmpCounter={tmpCounter} setScroll={(newState) => setScroll(newState)} />
             </div>
         </BrowserRouter>
     )

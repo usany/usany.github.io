@@ -14,45 +14,11 @@
 // import ListItemText from '@mui/material/ListItemText';
 // import Navigation from 'src/navigate/Navigation'
 
-function SwipeableDrawers({ check, setCheck, isLoggedIn, scroll, setScroll, isLoggedIn, userObj, setUserObj, setValue, setMode }) {
+function SwipeableDrawers({ check, setCheck }) {
 
   // const list = () => (
   //     <List>
   //       <div>
-  //       {isLoggedIn && 
-  //         <nav>
-  //           <h1>
-  //             <div to='/' onClick={(event) => checkbox(event)}>메인 페이지</div>
-  //           </h1>
-  //           <h1>
-  //             <div to='/profile' onClick={(event) => checkbox(event)}>의 프로필</div>
-  //           </h1>
-  //           <h1>
-  //             <div to='/ranking' onClick={(event) => checkbox(event)}>유저 랭킹</div>
-  //           </h1>
-  //           <h1>
-  //             <div to="/" onClick={(event) => {
-  //               logOut(event)
-  //             }}>로그아웃</div>
-  //           </h1>
-  //         </nav>
-  //       }
-  //       {!isLoggedIn && 
-  //         <nav>
-  //           <h1>
-  //             <div to='/' onClick={(event) => checkbox(event)}>메인 페이지</div>
-  //           </h1>
-  //           <h1>
-  //             <div to='/' onClick={(event) => {
-  //               checkbox(event)
-  //               setValue(1)
-  //             }}>로그인/회원가입</div>
-  //           </h1>
-  //           <h1>
-  //             <div to="/contact" onClick={(event) => checkbox(event)}>신고하기</div>
-  //           </h1>
-  //         </nav>
-  //       }
   //       </div>
   //     </List>
   //   )
@@ -70,7 +36,7 @@ function SwipeableDrawers({ check, setCheck, isLoggedIn, scroll, setScroll, isLo
     //     onOpen={toggle(true)}
     //   >
     //     {list()}
-    //     <Navigation scroll={scroll} setScroll={setScroll} isLoggedIn={isLoggedIn} userObj={userObj} setUserObj={setUserObj} setValue={setValue} check={check} setCheck={setCheck} setMode={setMode}/>
+    //     <Navigation scroll={scroll} setScroll={setScroll} userObj={userObj} setUserObj={setUserObj} setValue={setValue} check={check} setCheck={setCheck} setMode={setMode}/>
     //   </SwipeableDrawer>
     // </div>
   );

@@ -26,70 +26,47 @@ import { blue } from '@mui/material/colors';
 //   display: flex;
 //   justify-content: center;
 // `
-function Actions({ profileColor, setProfileColor, isLoggedIn, userObj, setUserObj, value, setValue, side, setSide, sideNavigation, setSideNavigation, check, setCheck, counter, setCounter, bottomNavigation, setBottomNavigation, userUid }) {
+function Actions({ userObj, setValue, counter, setCounter }) {
   // const [email, setEmail] = useState('')
   // const [password, setPassword] = useState('')
   // const [newAccount, setNewAccount] = useState(false)
   // const [error, setError] = useState('')
-  const [borrowRegisteredMessage, setBorrowRegisteredMessage] = useState([])
-  const [borrowMessage, setBorrowMessage] = useState([])
-  const [lendRegisteredMessage, setLendRegisteredMessage] = useState([])
-  const [lendMessage, setLendMessage] = useState([])
-  const [newDisplayName, setNewDisplayName] = useState('')
-  const [num, setNum] = useState(null)
-  const [profileChangeConfirmed, setProfileChangeConfirmed] = useState(null)
-  const [attachment, setAttachment] = useState('')
-  const [changeProfile, setChangeProfile] = useState(false)
-  const [userProfile, setUserProfile] = useState(null)
+  // const [borrowRegisteredMessage, setBorrowRegisteredMessage] = useState([])
+  // const [borrowMessage, setBorrowMessage] = useState([])
+  // const [lendRegisteredMessage, setLendRegisteredMessage] = useState([])
+  // const [lendMessage, setLendMessage] = useState([])
+  // const [newDisplayName, setNewDisplayName] = useState('')
+  // const [num, setNum] = useState(null)
+  // const [profileChangeConfirmed, setProfileChangeConfirmed] = useState(null)
+  // const [userProfile, setUserProfile] = useState(null)
+  // const [attachment, setAttachment] = useState('')
+  // const [changeProfile, setChangeProfile] = useState(false)
   const {state} = useLocation()
   const navigate = useNavigate()
-  const confirmProfile = async (newDisplayName) => {
-    const tmp = query(collection(dbservice, `members`))
-    const querySnapshot = await getDocs(tmp);
-    let profileConfirmed = true
-    querySnapshot.forEach((doc) => {
-      if (newDisplayName === doc.data().displayName) {
-        profileConfirmed = false
-      }
-    });
-    if (profileConfirmed) {
-      setProfileChangeConfirmed(true)
-    } else {
-      setProfileChangeConfirmed(false)
-    }
-    // })
-    // console.log(
-    //   get(query(collection(dbservice, `members`)))
-    // )
-    // Array(query(collection(dbservice, `members`))).map((member) => {
-    //   console.log(member)
-    // })
-  }
-  const onFileChange = (event) => {
-    // console.log(event.target.files);
-    const {
-        target: { files },
-    } = event;
-    const theFile = files[0];
-    const reader = new FileReader();
-    reader.onloadend = (finishedEvent) => {
-        console.log(finishedEvent);
-        const {
-            currentTarget: { result },
-        } = finishedEvent;
-        setAttachment(result);
-    }
-    console.log(theFile)
-    reader.readAsDataURL(theFile)
-  }
-  const onClearAttachment = () => {
-    setAttachment('')
-    const fileInput = document.getElementById('img') || {value:null}
-    fileInput.value = null
-  }
-  const handleClose = () => {
-    setChangeProfile(false)
-  }
+  // const onFileChange = (event) => {
+  //   const {
+  //       target: { files },
+  //   } = event;
+  //   const theFile = files[0];
+  //   const reader = new FileReader();
+  //   reader.onloadend = (finishedEvent) => {
+  //       console.log(finishedEvent);
+  //       const {
+  //           currentTarget: { result },
+  //       } = finishedEvent;
+  //       setAttachment(result);
+  //   }
+  //   console.log(theFile)
+  //   reader.readAsDataURL(theFile)
+  // }
+  // const onClearAttachment = () => {
+  //   setAttachment('')
+  //   const fileInput = document.getElementById('img') || {value:null}
+  //   fileInput.value = null
+  // }
+  // const handleClose = () => {
+  //   setChangeProfile(false)
+  // }
 
   return (
     <div>
@@ -107,14 +84,14 @@ function Actions({ profileColor, setProfileColor, isLoggedIn, userObj, setUserOb
       </div>
       {state.actions === 'completedLend' &&
         <div className='flex justify-center flex-wrap'>
-          {state.lendRegisteredMessage.map((msg) => <Message key={msg.id} msgObj={msg} isOwner={true} userObj={userObj} isLoggedIn={isLoggedIn} setValue={setValue} counter={counter} setCounter={setCounter}/>)}
-          {state.lendMessage.map((msg) => <Message key={msg.id} msgObj={msg} isOwner={false} userObj={userObj} isLoggedIn={isLoggedIn} setValue={setValue} counter={counter} setCounter={setCounter}/>)}
+          {state.lendRegisteredMessage.map((msg) => <Message key={msg.id} msgObj={msg} isOwner={true} userObj={userObj} setValue={setValue} counter={counter} setCounter={setCounter}/>)}
+          {state.lendMessage.map((msg) => <Message key={msg.id} msgObj={msg} isOwner={false} userObj={userObj} setValue={setValue} counter={counter} setCounter={setCounter}/>)}
         </div>
       }
       {state.actions === 'completedBorrow' &&
         <div className='flex justify-center flex-wrap'>
-          {state.borrowRegisteredMessage.map((msg) => <Message key={msg.id} msgObj={msg} isOwner={true} userObj={userObj} isLoggedIn={isLoggedIn} setValue={setValue} counter={counter} setCounter={setCounter}/>)}
-          {state.borrowMessage.map((msg) => <Message key={msg.id} msgObj={msg} isOwner={false} userObj={userObj} isLoggedIn={isLoggedIn} setValue={setValue} counter={counter} setCounter={setCounter}/>)}
+          {state.borrowRegisteredMessage.map((msg) => <Message key={msg.id} msgObj={msg} isOwner={true} userObj={userObj} setValue={setValue} counter={counter} setCounter={setCounter}/>)}
+          {state.borrowMessage.map((msg) => <Message key={msg.id} msgObj={msg} isOwner={false} userObj={userObj} setValue={setValue} counter={counter} setCounter={setCounter}/>)}
         </div>
       }
       <div className='flex justify-center p-10'>

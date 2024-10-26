@@ -3,35 +3,19 @@ import { auth, onSocialClick, dbservice, storage, messaging } from 'src/baseApi/
 import { collection, query, where, orderBy, addDoc, getDocs, doc, onSnapshot, deleteDoc, updateDoc } from 'firebase/firestore';
 import Message from 'src/pages/Message'
 import { getToken } from "firebase/messaging";
-import { io } from "socket.io-client";
-import { webSocket, onClick } from 'src/webSocket.tsx'
 import MessageStacks from 'src/muiComponents/MessageStacks'
 import ChattingStacks from 'src/muiComponents/ChattingStacks'
 
-// 2
-// const webSocket = io("https://service-ceni.onrender.com");
-// const webSocket = io("http://localhost:5000");
-
-// let tmpCounter = []
-function Menu({ isLoggedIn, userObj, counter, setCounter, setValue, tmpCounter, piazzaSwitch, newMessage, setNewMessage }) {
-    // const [choose, setChoose] = useState(true);
+function Menu({ userObj, counter, setCounter, setValue, tmpCounter, piazzaSwitch, newMessage, setNewMessage }) {
     const [messages, setMessages] = useState<Array<object>>([]);
-    // const [userId, setUserId] = useState("");
-    // const [isLogin, setIsLogin] = useState(false);
-    // const [msg, setMsg] = useState("");
-    // const [msgList, setMsgList] = useState([]);
-    // const [privateTarget, setPrivateTarget] = useState('');
-    // const [roomNumber, setRoomNumber] = useState(1);
-    // const [button, setButton] = useState(false)
     const [chats, setChats] = useState(false)
     const [piazzaOn, setPiazzaOn] = useState('')
-    // const [piazzaMessages, setPiazzaMessages] = useState([])
     const [newMessages, setNewMessages] = useState(0)
+
     useEffect(() => {
         setPiazzaOn(piazzaSwitch.current)
-        // if (piazzaSwitch.current !== piazzaOn) {
-        // }
     }, [])
+
     useEffect(() => {
         const requestPermission = async () => {
             try {
@@ -123,7 +107,7 @@ function Menu({ isLoggedIn, userObj, counter, setCounter, setValue, tmpCounter, 
                                             if (counter.indexOf(msg.id) === -1) {
                                                 onCounting(msg)
                                             }
-                                            return(<Message key={msg.id} msgObj={msg} isOwner={msg.creatorId === userObj.uid} userObj={userObj} isLoggedIn={isLoggedIn} counter={counter} setCounter={setCounter} setValue={setValue} />)
+                                            return(<Message key={msg.id} msgObj={msg} isOwner={msg.creatorId === userObj.uid} userObj={userObj} counter={counter} setCounter={setCounter} setValue={setValue} />)
                                         }
                                     })}
                                 </div>

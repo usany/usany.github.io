@@ -106,16 +106,7 @@ function Ranking({ userObj, setBottomNavigation }) {
                     <IconButton aria-label="comment">
                         <Link to='/profile'
                           state = {{
-                            // msgObj: msgObj,
-                            // isOwner: isOwner,
-                            // num: num,
-                            // points: points,
                             element: element,
-                            // isLoggedIn: isLoggedIn,
-                            // uid: userObj.uid,
-                            // displayName: userObj.displayName,
-                            // setValue: setValue
-                            // setCounter: setCounter
                           }}
                         >
                           <CommentIcon />
@@ -123,30 +114,12 @@ function Ranking({ userObj, setBottomNavigation }) {
                       </IconButton>
                       </div>
                     </div>
-                    {/* <ListItemText
-                      primary={element.displayName}
-                      secondary={
-                          <Typography
-                            sx={{ display: 'inline' }}
-                            component="span"
-                            variant="body2"
-                            color="text.primary"
-                          >
-                            {element.points}
-                          </Typography>
-                      }
-                    /> */}
                   </ListItem>
                   <Divider variant="inset" component="li" />
                 </div>
             )
           }
           })}
-        {/* <div>{ranker[1].rank}</div> */}
-        {/* {ranker.map((element, index) => {
-          return (
-          )
-        })} */}
       </List>
       :
       <div>
@@ -167,7 +140,6 @@ function Ranking({ userObj, setBottomNavigation }) {
                 <div key={index} className={'flex ranking-'+String(index+1)}>
                     <ListItem>
                       <div className='px-5'>
-                        {/* {rank.indexOf(element)+1} */}
                         {index+1}
                       </div>
                       <ListItemAvatar>
@@ -188,16 +160,7 @@ function Ranking({ userObj, setBottomNavigation }) {
                       <IconButton aria-label="comment">
                           <Link to='/profile'
                             state = {{
-                              // msgObj: msgObj,
-                              // isOwner: isOwner,
-                              // num: num,
-                              // points: points,
                               element: element,
-                              // isLoggedIn: isLoggedIn,
-                              // uid: userObj.uid,
-                              // displayName: userObj.displayName,
-                              // setValue: setValue
-                              // setCounter: setCounter
                             }}
                           >
                             <CommentIcon />
@@ -205,29 +168,11 @@ function Ranking({ userObj, setBottomNavigation }) {
                         </IconButton>
                         </div>
                       </div>
-                      {/* <ListItemText
-                        primary={element.displayName}
-                        secondary={
-                            <Typography
-                              sx={{ display: 'inline' }}
-                              component="span"
-                              variant="body2"
-                              color="text.primary"
-                            >
-                              {element.points}
-                            </Typography>
-                        }
-                      /> */}
                     </ListItem>
                     <Divider variant="inset" component="li" />
                   </div>
               )
             })}
-          {/* <div>{ranker[1].rank}</div> */}
-          {/* {ranker.map((element, index) => {
-            return (
-            )
-          })} */}
         </List>
       <div className='flex justify-between w-screen'>
         <div className='flex'>
@@ -254,7 +199,6 @@ function Ranking({ userObj, setBottomNavigation }) {
                       <div className='flex justify-between w-screen'>
                       <div className='flex'>
                         <div className='flex flex-col justify-center px-5'>
-                          {/* {rank.indexOf(element)+1} */}
                           {index+1}
                         </div>
                         <div className='flex flex-col justify-center'>
@@ -271,33 +215,11 @@ function Ranking({ userObj, setBottomNavigation }) {
                           </div>
                         </div>
                       </div>
-                      {/* <ListItemText
-                        primary={element.displayName}
-                        secondary={
-                            <Typography
-                              sx={{ display: 'inline' }}
-                              component="span"
-                              variant="body2"
-                              color="text.primary"
-                            >
-                              {element.points}
-                            </Typography>
-                        }
-                      /> */}
                       <div>
                         <IconButton aria-label="comment">
                           <Link to='/profile'
                             state = {{
-                              // msgObj: msgObj,
-                              // isOwner: isOwner,
-                              // num: num,
-                              // points: points,
                               element: element,
-                              // isLoggedIn: isLoggedIn,
-                              // uid: userObj.uid,
-                              // displayName: userObj.displayName,
-                              // setValue: setValue
-                              // setCounter: setCounter
                             }}
                           >
                             <CommentIcon />

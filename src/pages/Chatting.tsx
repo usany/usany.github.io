@@ -7,9 +7,8 @@ import { webSocket, onClick } from 'src/webSocket.tsx'
 import ChattingDialogs from 'src/muiComponents/ChattingDialogs'
 
 // const webSocket = io("http://localhost:5000");
-function Chatting({ userObj, setBottomNavigation, newMessage, setNewMessage }) {
+function Chatting({ userObj, setBottomNavigation, setNewMessage }) {
   const messagesEndRef = useRef(null);
-  const [userId, setUserId] = useState("");
   const [msg, setMsg] = useState("");
   const [msgList, setMsgList] = useState([]);
   const [changeMessage, setChangeMessage] = useState(true)

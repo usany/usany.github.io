@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+// import { useState, useEffect } from 'react'
 // import Lottie from 'react-lottie'
 // import rain from './assets/Animation.json'
 import { LocalizationProvider } from '@mui/x-date-pickers';
@@ -13,8 +13,6 @@ function Pickers({ onChange, label }) {
                 <DateTimePicker label={label} onChange={onChange}/>
             </DemoContainer>
         </LocalizationProvider>
-        // <div className='flex justify-center'>
-        // </div>
     )
 }
 

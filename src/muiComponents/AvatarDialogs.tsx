@@ -4,7 +4,6 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import Button from '@mui/material/Button';
 import Avatar from '@mui/material/Avatar';
-import BeachAccess from '@mui/icons-material/BeachAccess'
 import { doc, deleteDoc, updateDoc } from 'firebase/firestore';
 import { auth, dbservice } from 'src/baseApi/serverbase'
 import { storage } from "src/baseApi/serverbase";
@@ -22,7 +21,6 @@ function AvatarDialogs({ userObj, profileColor, setProfileColor, changeProfile, 
             setProfileColor(selectedColor)
         }
         if (attachment) {   
-            // console.log(attachment.child('screen'))
             const storageRef = ref(storage, userObj.uid);
             uploadBytes(storageRef, attachmentFile).then((snapshot) => {
                 console.log('Uploaded a blob or file!');
@@ -38,9 +36,7 @@ function AvatarDialogs({ userObj, profileColor, setProfileColor, changeProfile, 
         }
     })
     const color = selectedColor || profileColor
-    // console.log(color)
     const onFileChange = (event) => {
-        // console.log(event.target.files);
         const {
             target: { files },
         } = event;
@@ -80,7 +76,6 @@ function AvatarDialogs({ userObj, profileColor, setProfileColor, changeProfile, 
                     <input id='file' type='file' onChange={onFileChange} hidden />
                     {attachment &&
                         <div className='flex justify-center pt-5'>
-                        {/* <img src={attachment} width='50px' height='50px' alt='alt' /> */}
                             <button className='factoryClear' onClick={onClearAttachment}>업로드 파일 삭제</button>
                         </div>
                     }

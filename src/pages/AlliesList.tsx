@@ -9,16 +9,22 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import { blue } from '@mui/material/colors';
+import { Link } from 'react-router-dom'
+import Btn from 'src/pages/Btn';
+import Chip from '@mui/material/Chip';
+import staticImg from 'src/assets/pwa-512x512.png';
+import CommentIcon from '@mui/icons-material/Comment';
+import IconButton from '@mui/material/IconButton';
 
-function AlliesList({ profileColor, setProfileColor, isLoggedIn, userObj, setUserObj, value, setValue, side, setSide, sideNavigation, setSideNavigation, check, setCheck, counter, setCounter, bottomNavigation, setBottomNavigation, userUid }) {
+function AlliesList({ setValue }) {
   // const [email, setEmail] = useState('')
   // const [password, setPassword] = useState('')
   // const [newAccount, setNewAccount] = useState(false)
   // const [error, setError] = useState('')
-  // const [followersUids, setFollowersUids] = useState([])
-  // const [followingsUids, setFollowingsUids] = useState([])
-  // const [followers, setFollowers] = useState([])
-  // const [followings, setFollowings] = useState([])
+  const [followersUids, setFollowersUids] = useState([])
+  const [followingsUids, setFollowingsUids] = useState([])
+  const [followers, setFollowers] = useState([])
+  const [followings, setFollowings] = useState([])
   useEffect(() => {
     const allies = async () => {
       const docRef = doc(dbservice, `members/${state.uid}`)
@@ -51,15 +57,13 @@ function AlliesList({ profileColor, setProfileColor, isLoggedIn, userObj, setUse
   console.log(state)
   return (
     <div>
-      <List sx={{ width: '100%', 
-          // maxWidth: 360,
+      {/* <List sx={{ width: '100%', 
           bgcolor: 'background.paper' }}>
             {ranker.map((element, index) => {
               return(
                 <div key={index} className={'flex ranking-'+String(index+1)}>
                     <ListItem>
                       <div className='px-5'>
-                        {/* {rank.indexOf(element)+1} */}
                         {index+1}
                       </div>
                       <ListItemAvatar>
@@ -77,46 +81,19 @@ function AlliesList({ profileColor, setProfileColor, isLoggedIn, userObj, setUse
                       <IconButton aria-label="comment">
                           <Link to='/'
                             state = {{
-                              // msgObj: msgObj,
-                              // isOwner: isOwner,
-                              // num: num,
-                              // points: points,
                               element: element,
-                              // isLoggedIn: isLoggedIn,
-                              // uid: userObj.uid,
-                              // displayName: userObj.displayName,
-                              // setValue: setValue
-                              // setCounter: setCounter
                             }}
                           >
                             <CommentIcon />
                           </Link>
                         </IconButton>
                       </div>
-                      {/* <ListItemText
-                        primary={element.displayName}
-                        secondary={
-                            <Typography
-                              sx={{ display: 'inline' }}
-                              component="span"
-                              variant="body2"
-                              color="text.primary"
-                            >
-                              {element.points}
-                            </Typography>
-                        }
-                      /> */}
                     </ListItem>
                     <Divider variant="inset" component="li" />
                   </div>
               )
             })}
-          {/* <div>{ranker[1].rank}</div> */}
-          {/* {ranker.map((element, index) => {
-            return (
-            )
-          })} */}
-        </List>
+        </List> */}
     </div>
   )
 }

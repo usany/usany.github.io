@@ -18,15 +18,12 @@ import ContactDialogs from 'src/muiComponents/ContactDialogs';
 //   display: flex;
 //   justify-content: center;
 // `
-function Contact({ displayName, setDisplayName, isLoggedIn, userObj, setUserObj, value, setValue, side, setSide, sideNavigation, setSideNavigation, check, setCheck, counter, setCounter, setBottomNavigation }) {
+function Contact({ displayName, userObj }) {
   const [messageTitle, setMessageTitle] = useState('')
   const [message, setMessage] = useState('')
   const [formFilledOut, setFormFilledOut] = useState(false)
   const [dialogMove, setDialogMove] = useState(false)
   const [change, setChange] = useState(false)
-  // const [password, setPassword] = useState('')
-  // const [newAccount, setNewAccount] = useState(false)
-  // const [error, setError] = useState('')
 
   useEffect(() => {
     if (messageTitle && message) {
