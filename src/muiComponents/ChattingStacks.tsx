@@ -26,18 +26,11 @@ const Item = styled(Paper)(({ theme }) => ({
   }),
 }));
 
-const username = `Truncation`;
-const message = `Truncation should be conditionally applicable on this long line of text
- as this is a much longer line than what the container can support.`;
-
-function ChattingStacks({ userObj, newMessage, setNewMessage, newMessages, setNewMessages }) {
+function ChattingStacks({ userObj, newMessage, setNewMessage, newMessages, setNewMessages, setChats }) {
   const [chattingMessage, setChattingMessage] = useState(false)
-  // const [newMessages, setNewMessage] = useState(false)
-  // const [myMessages, setMyMessage] = useState([])
   const [myConversations, setMyConversations] = useState([])
   const [conversations, setConversations] = useState([])
-  const [newChatting, setNewChatting] = useState(0)
-
+  
   useEffect(() => {
     const myChatting = async () => {
       const myDocRef = doc(dbservice, `members/${userObj.uid}`)
@@ -76,13 +69,19 @@ function ChattingStacks({ userObj, newMessage, setNewMessage, newMessages, setNe
             userDisplayName: userDisplayName
           }
           if (conversations.length < myConversations.length) {
+            // const check = collections.indexOf(element)
             const check = conversations.map((elements) => elements.conversation).indexOf(element)
             if (check === -1) {
+              // const chatting = conversations.map((elements) => elements.conversation)
+              // setCollections(chatting)
+              // setCollections([...collections, newMessage.conversation])
               setConversations([...conversations, newMessage])
             }
           }
         })
       })
+      // console.log(myCollections)
+      // setConversations(myCollections)
     }
     if (myConversations.length !== 0) {
       myChattings()
@@ -92,15 +91,15 @@ function ChattingStacks({ userObj, newMessage, setNewMessage, newMessages, setNe
     if (!webSocket) return;
     function sMessageCallback(message) {
       const { msg, userUid, id, target, messageClock, messageClockNumber, conversation, conversationUid, conversationName } = message;
-      console.log(msg)
+      // console.log(msg)
       const location = conversations.map((element) => element.conversation).indexOf(conversation)
       const replaceObj = {conversation: conversation, username: id, message: msg, conversationUid: userUid, userDisplayName: id, messageClockNumber: messageClockNumber}
       // {conversation: element, username: documentObj.userName, message: documentObj.message, 
       //   conversationUid: conversationUid,
       //   userDisplayName: userDisplayName
       // }
-      console.log(replaceObj)
-      console.log(conversations)
+      // console.log(replaceObj)
+      // console.log(conversations)
       // console.log(conversations.splice(location, 1, replaceObj))
       // const newConversations = conversations.splice(location, 1, replaceObj)
       // console.log(conversations)
@@ -142,7 +141,6 @@ function ChattingStacks({ userObj, newMessage, setNewMessage, newMessages, setNe
     if (!webSocket) return;
     function sNewMessageCallback(message) {
       const { msg, userUid, id, target, messageClock, messageClockNumber, conversation, conversationUid, conversationName } = message;
-      console.log(msg)
       const location = conversations.map((element) => element.conversation).indexOf(conversation)
       const replaceObj = {conversation: conversation, username: id, message: msg, conversationUid: userUid, userDisplayName: id, messageClockNumber: messageClockNumber}
       // {conversation: element, username: documentObj.userName, message: documentObj.message, 
@@ -185,7 +183,12 @@ function ChattingStacks({ userObj, newMessage, setNewMessage, newMessages, setNe
       webSocket.off(`sNewMessage`, sNewMessageCallback);
     };
   });
-  console.log(conversations)
+  useEffect(() => {
+    if (conversations) {
+      setChats(true)
+    }
+  })
+
   return (
     <>
       {conversations.map((element, index) => {

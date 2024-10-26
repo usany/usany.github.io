@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useLayoutEffect } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Home from 'src/pages/Home'
 import Profile from 'src/pages/Profile'
@@ -13,9 +13,31 @@ import { blue } from '@mui/material/colors';
 import ToggleTabs from 'src/muiComponents/Tabs'
 // import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 // import Snackbars from 'src/muiComponents/Snackbars'
+import { getStorage, ref, getDownloadURL } from "firebase/storage";
 
-const Header = ({ bottomNavigation, scroll, setScroll, isLoggedIn, userObj, setUserObj, setValue, check, setCheck, setMode, prevScrollPos, value, profileColor }) => {
-    console.log(value)
+const Header = ({ bottomNavigation, scroll, setScroll, isLoggedIn, userObj, setUserObj, setValue, check, setCheck, setMode, prevScrollPos, value, profileColor, storage, storageRef }) => {
+    const [profile, setProfile] = useState(null)
+    useLayoutEffect(() => {
+        getDownloadURL(ref(storage, 'screen.jpg'))
+        .then((url) => {
+            // `url` is the download URL for 'images/stars.jpg'
+            // This can be downloaded directly:
+            // const xhr = new XMLHttpRequest();
+            // xhr.responseType = 'blob';
+            // xhr.onload = (event) => {
+            // };
+            // xhr.open('GET', url);
+            // xhr.send();
+            // Or inserted into an <img> element
+            setProfile(url)
+        })
+        .catch((error) => {
+            console.log(error)
+            // Handle any errors
+        });
+        setProfile(null)
+    })
+    
     return (
         <div className='flex flex-row'>
                 <div id='navigationSelectorOne' className='pt-1'>
@@ -36,6 +58,9 @@ const Header = ({ bottomNavigation, scroll, setScroll, isLoggedIn, userObj, setU
                                 }} />
                             }
                         </div>
+                        {/* <div>
+                            <img src={profile}/>
+                        </div> */}
                         <div>
                     {isLoggedIn && bottomNavigation === 0 && 
                         <ToggleTabs valuing={value} setValuing={setValue}/>

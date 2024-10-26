@@ -19,7 +19,7 @@ function Message({ msgObj, isOwner, userObj, isLoggedIn, counter, setCounter, se
 
   useEffect(() => {
     onSnapshot(query(doc(dbservice, `members/${msgObj.creatorId}`)), (snapshot) => {
-        const number = snapshot.data().points
+        const number = snapshot.data()?.points
         setNum(number)
       }
     )
@@ -27,7 +27,7 @@ function Message({ msgObj, isOwner, userObj, isLoggedIn, counter, setCounter, se
   useEffect(() => {
     if (msgObj.connectedId !== null) {
       onSnapshot(query(doc(dbservice, `members/${msgObj.connectedId}`)), (snapshot) => {
-        const element = snapshot.data().points
+        const element = snapshot.data()?.points
         setPoints(element)
       })
     }

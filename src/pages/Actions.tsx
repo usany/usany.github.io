@@ -90,7 +90,7 @@ function Actions({ profileColor, setProfileColor, isLoggedIn, userObj, setUserOb
   const handleClose = () => {
     setChangeProfile(false)
   }
-  console.log(state)
+
   return (
     <div>
       <div className='flex text-2xl p-5'>

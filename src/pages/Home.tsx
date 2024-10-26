@@ -30,7 +30,6 @@ function Home({ isLoggedIn, userObj, value, newAccount, setNewAccount, setValue,
             setBottomNavigation(1)
         }
     })
-    console.log(value)
     return (
         <div>
             {isLoggedIn && 

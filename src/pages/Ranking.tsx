@@ -66,7 +66,7 @@ function Ranking({ userObj, setBottomNavigation }) {
           <TextField label='유저 이름' onChange={onChangeUserSearch}/>
         </div>
       </div>
-      <div className='flex justify-start text-2xl w-screen'>
+      <div className='flex justify-start p-5 text-2xl w-screen'>
           <div className='flex w-5/6'>빌리기 카드 목록</div>
       </div>
       {userSearch ?
@@ -78,7 +78,6 @@ function Ranking({ userObj, setBottomNavigation }) {
             for (let number = 0; number < userSearch.length; number++) {
               if (element.displayName[number] !== userSearch[number]) {
                 userNameConfirm = false
-                console.log(userNameConfirm)
               }
             }
             if (userNameConfirm) {

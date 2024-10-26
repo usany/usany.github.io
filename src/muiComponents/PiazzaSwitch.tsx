@@ -71,7 +71,7 @@ function PiazzaSwitch({ piazzaSwitch }) {
     //     localStorage.setItem("theme", 'light');
     // }
   }
-  console.log(switches)
+
   return (
     <div className='flex flex-col'>
       <div className='text-sm'>단체 대화 알림 받기</div>

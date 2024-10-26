@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import Router from 'src/Router'
 import Lotties from 'src/lottiesAnimation/Lotties'
 import { auth } from 'src/baseApi/serverbase'
@@ -20,12 +20,10 @@ function App() {
   // const [count, setCount] = useState(0)
   const [init, setInit] = useState<boolean>(false)
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false)
-  const [userObj, setUserObj] = useState(null)
-  // const [newAccount, setNewAccount] = useState<object>({account: false, round: 0})
-  const [mode, setMode] = useState(localStorage.getItem('theme'))
-  // const [piazzaSwitch, setPiazzaSwitch] = useState(localStorage.getItem('piazza'))
+  const [userObj, setUserObj] = useState<{uid: string} | null>(null)
+  const [mode, setMode] = useState<string | null>(localStorage.getItem('theme'))
   const [bottomNavigation, setBottomNavigation] = useState<number>(1);
-  // console.log(piazzaSwitch)
+
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
       if (user) {
@@ -40,12 +38,16 @@ function App() {
     })
   }, [])
 
+  const handleUserObj = (newState: {uid: string}) => setUserObj(newState)
+  const handleMode = (newState: string) => setMode(newState)
+  const handleBottomNavigation = (newState: number) => setBottomNavigation(newState)
+  
   return (
     <>
       <ThemeProvider theme={
         mode !== 'dark' ? lightTheme : darkTheme 
       }>
-        {init ? <Router isLoggedIn={isLoggedIn} userObj={userObj} setUserObj={setUserObj} setMode={setMode} bottomNavigation={bottomNavigation} setBottomNavigation={setBottomNavigation} /> : <Lotties/>}
+        {init ? <Router isLoggedIn={isLoggedIn} userObj={userObj} setUserObj={handleUserObj} setMode={handleMode} bottomNavigation={bottomNavigation} setBottomNavigation={handleBottomNavigation} /> : <Lotties/>}
       </ThemeProvider>
     </>
   )

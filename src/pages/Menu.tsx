@@ -16,16 +16,16 @@ import ChattingStacks from 'src/muiComponents/ChattingStacks'
 function Menu({ isLoggedIn, userObj, counter, setCounter, setValue, tmpCounter, piazzaSwitch, newMessage, setNewMessage }) {
     // const [choose, setChoose] = useState(true);
     const [messages, setMessages] = useState<Array<object>>([]);
-    const [userId, setUserId] = useState("");
-    const [isLogin, setIsLogin] = useState(false);
-    const [msg, setMsg] = useState("");
-    const [msgList, setMsgList] = useState([]);
-    const [privateTarget, setPrivateTarget] = useState('');
-    const [roomNumber, setRoomNumber] = useState(1);
-    const [button, setButton] = useState(false)
-    const [chats, setChats] = useState([])
+    // const [userId, setUserId] = useState("");
+    // const [isLogin, setIsLogin] = useState(false);
+    // const [msg, setMsg] = useState("");
+    // const [msgList, setMsgList] = useState([]);
+    // const [privateTarget, setPrivateTarget] = useState('');
+    // const [roomNumber, setRoomNumber] = useState(1);
+    // const [button, setButton] = useState(false)
+    const [chats, setChats] = useState(false)
     const [piazzaOn, setPiazzaOn] = useState('')
-    const [piazzaMessages, setPiazzaMessages] = useState([])
+    // const [piazzaMessages, setPiazzaMessages] = useState([])
     const [newMessages, setNewMessages] = useState(0)
     useEffect(() => {
         setPiazzaOn(piazzaSwitch.current)
@@ -100,34 +100,8 @@ function Menu({ isLoggedIn, userObj, counter, setCounter, setValue, tmpCounter, 
     //     });
     //     console.log('practice')
     // }
-    // useEffect(() => {
-    //     if (!button) return;
-    //     function buttons() {
-    //       return ({ name: 'John Doe', age: 30 })
-    //     }
-        
-    //     webSocket.emit("button", buttons);
-    //     return () => {
-    //       webSocket.emit("button", buttons);
-    //     };
-    //   }, []);
-    // const onClick = () => {
-    //     console.log('practice')
-    //     webSocket.emit("button", { name: 'John Doe', age: 30 });
-    //     setButton(true);
-    // }
-    const playlistId = '0g51VswTtsWRTIQToh5oNe';
+    // const playlistId = '0g51VswTtsWRTIQToh5oNe';
 
-{/* <iframe
-  title="Spotify Embed: Recommendation Playlist "
-  src={`https://open.spotify.com/embed/playlist/0g51VswTtsWRTIQToh5oNe?utm_source=generator&theme=0`}
-  width="100%"
-  height="100%"
-  style={{ minHeight: '360px' }}
-  frameBorder="0"
-  allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-  loading="lazy"
-/> */}
     return (
         <div className='flex justify-center flex-col pb-5'>
             {/* <div className='flex justify-center border border-sky-500'>
@@ -159,23 +133,13 @@ function Menu({ isLoggedIn, userObj, counter, setCounter, setValue, tmpCounter, 
                     <div className='w-6/12 flex flex-col border border-sky-500 rounded'>
                         {/* <div className='flex justify-center'>받은 메세지</div> */}
                             <div>
-                                {chats.length ? <div className='flex justify-center pt-20'>받은 메세지가 없습니다</div> :
+                                {!chats && !piazzaOn ? <div className='flex justify-center pt-20'>받은 메세지가 없습니다</div> :
                                 <div className='flex flex-col justify-center'>
                                     <div className='flex justify-center'>받은 메세지</div>
-                                    {/* {messages.map((msg) => {
-                                        if(msg.connectedId === userObj.uid) {
-                                            if (msg.round !== 5) {
-                                                if (counter.indexOf(msg.id) === -1) {
-                                                    onCounting(msg)
-                                                }
-                                                return(<Message key={msg.id} msgObj={msg} isOwner={msg.creatorId === userObj.uid} userObj={userObj} isLoggedIn={isLoggedIn} counter={counter} setCounter={setCounter} setValue={setValue} />)
-                                            }
-                                        }
-                                    })} */}
                                     {piazzaOn === 'true' && 
                                         <MessageStacks />
                                     }
-                                    <ChattingStacks userObj={userObj} newMessage={newMessage} setNewMessage={setNewMessage} newMessages={newMessages} setNewMessages={setNewMessages}/>
+                                    <ChattingStacks userObj={userObj} newMessage={newMessage} setNewMessage={setNewMessage} newMessages={newMessages} setNewMessages={setNewMessages} setChats={setChats}/>
                                 </div>
                             }
                             </div>

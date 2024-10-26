@@ -9,22 +9,22 @@ import { initializeApp } from "firebase/app";
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyAtraq33KBmaj0rkDAfOdXmEQtVnamrQtc",
-  authDomain: "remake-36fe0.firebaseapp.com",
-  projectId: "remake-36fe0",
-  storageBucket: "remake-36fe0.appspot.com",
-  messagingSenderId: "206737336631",
-  appId: "1:206737336631:web:55648c3ea182e23c3052b2"
-};
 // const firebaseConfig = {
-//     apiKey: "AIzaSyD-0xUYIBvDoz5trhrLRCDZZE0kON3qUSc",
-//     authDomain: "howling-e1ed9.firebaseapp.com",
-//     projectId: "howling-e1ed9",
-//     storageBucket: "howling-e1ed9.appspot.com",
-//     messagingSenderId: "160882064839",
-//     appId: "1:160882064839:web:9409cc44a01176ffcc6de2"
+//   apiKey: "AIzaSyAtraq33KBmaj0rkDAfOdXmEQtVnamrQtc",
+//   authDomain: "remake-36fe0.firebaseapp.com",
+//   projectId: "remake-36fe0",
+//   storageBucket: "remake-36fe0.appspot.com",
+//   messagingSenderId: "206737336631",
+//   appId: "1:206737336631:web:55648c3ea182e23c3052b2"
 // };
+const firebaseConfig = {
+    apiKey: "AIzaSyD-0xUYIBvDoz5trhrLRCDZZE0kON3qUSc",
+    authDomain: "howling-e1ed9.firebaseapp.com",
+    projectId: "howling-e1ed9",
+    storageBucket: "howling-e1ed9.appspot.com",
+    messagingSenderId: "160882064839",
+    appId: "1:160882064839:web:9409cc44a01176ffcc6de2"
+};
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);

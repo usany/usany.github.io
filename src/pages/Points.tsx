@@ -17,6 +17,7 @@ import Button from '@mui/material/Button';
 function Points({ isLoggedIn, userObj, setUserObj, value, setValue, side, setSide, sideNavigation, setSideNavigation, check, setCheck, counter, setBottomNavigation, profileColor }) {
   const {state} = useLocation()
   const navigate = useNavigate()
+
   return (
     <div className='flex flex-col pb-20'>
       <div className='flex text-2xl p-5'>

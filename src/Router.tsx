@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useMemo } from 'react'
+import { useState, useEffect, useRef, useMemo, useLayoutEffect, useContext } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Home from 'src/pages/Home'
 import Profile from 'src/pages/Profile'
@@ -12,31 +12,29 @@ import Piazza from 'src/pages/Piazza'
 import Chatting from 'src/pages/Chatting'
 import Header from 'src/navigate/Header'
 import Navigations from 'src/navigate/Navigations'
-import { blue } from '@mui/material/colors';
-// import { ClickAwayListener } from '@mui/base/ClickAwayListener';
-import ToggleTabs from 'src/muiComponents/Tabs'
-// import SwipeableDrawer from '@mui/material/SwipeableDrawer';
-// import Snackbars from 'src/muiComponents/Snackbars'
-import { doc, onSnapshot, query } from 'firebase/firestore';
+import { doc, getDoc } from 'firebase/firestore';
+import { getStorage, ref } from "firebase/storage";
 import { auth, dbservice } from 'src/baseApi/serverbase'
 import Box from '@mui/material/Box';
 import LinearProgress from '@mui/material/LinearProgress';
 
-const tmpCounter = []
+const tmpCounter: [] = []
 const Router = ({ isLoggedIn, userObj, setUserObj, setMode, bottomNavigation, setBottomNavigation }: {
     isLoggedIn: boolean,
-    userObj: object,
-    setUserObj: () => void,
-    setMode: () => void
+    userObj: {uid: string} | null,
+    setUserObj: (newState: {uid: string}) => void,
+    setMode: (newState: string) => void,
+    bottomNavigation: number,
+    setBottomNavigation: (newState: number) => void
 }) => {
-    const [counter, setCounter] = useState<Array<object>>([]);
+    const [counter, setCounter] = useState<number[]>([]);
     const [value, setValue] = useState<number>(0);
-    // const [bottomNavigation, setBottomNavigation] = useState<number>(1);
     const [check, setCheck] = useState<boolean>(false)
     const [scroll, setScroll] = useState<number>(0)
-    const [profileColor, setProfileColor] = useState<string>('#2196f3')
-    const piazzaSwitch = useRef(localStorage.getItem('piazza'))
-    const [newMessage, setNewMessage] = useState(false)
+    const [profileColor, setProfileColor] = useState<string | null>(null)
+    const piazzaSwitch = useRef<string | null>(localStorage.getItem('piazza'))
+    const [newMessage, setNewMessage] = useState<boolean>(false)
+    
     useEffect(() => {
         if (!check) {
             setTimeout(() => window.scrollTo({
@@ -49,33 +47,20 @@ const Router = ({ isLoggedIn, userObj, setUserObj, setMode, bottomNavigation, se
         if (!(piazzaSwitch.current)) {
             localStorage.setItem("piazza", 'false');
             piazzaSwitch.current = 'false'
-            // setPiazzaSwitch('false')
         }
     })
-    // useEffect(() => {
-    //     const checkUsername = async () => {
-    //       const values = (await supabase
-    //         .from('practices')
-    //         .select()
-    //         .eq('id', userObj.id)).data?.map((element) => element.username)[0]
-    //         setDisplayName(
-    //           values
-    //         )
-    //     }
-    //     if (userObj) {
-    //       checkUsername()
-    //     }
-    //   }, [userObj])
-    useEffect(() => {
+    console.log(profileColor)
+    useLayoutEffect(() => {
+        const setProfile = async () => {
+            const docRef = doc(dbservice, `members/${userObj?.uid}`)
+            const docSnap = await getDoc(docRef)
+            const userColor = docSnap.data()?.profileColor || '#2196f3'
+            setProfileColor(userColor)
+        }
         if (userObj) {
-            onSnapshot(query(doc(dbservice, `members/${userObj.uid}`)), (snapshot) => {
-                if (isLoggedIn) {
-                    const userColor = snapshot.data().profileColor
-                    setProfileColor(userColor)
-                }
-            })
+            setProfile()
         }
-    })
+    }, [])
     // useEffect(() => {
     //     const checkUsername = async () => {
     //       const values = (await supabase
@@ -90,22 +75,14 @@ const Router = ({ isLoggedIn, userObj, setUserObj, setMode, bottomNavigation, se
     //       checkUsername()
     //     }
     //   }, [userObj])
-    const sides = []
-    if (check === false) {
-        // sides.push(
-        //     'flex flex-col'
-        // )
-        // sides.push(
-        //     'border border-sky-500 rounded-t fixed bottom-0 start-0 end-0'
-        // )
-    } else {
-        sides.push(
-            'fixed'
-        )
-        // sides.push(
-        //     'fixed border border-sky-500 rounded-t bottom-0 start-0 end-0'
-        // )
-    }
+
+    // const sides = []
+    // if (check === false) {
+    // } else {
+    //     sides.push(
+    //         'fixed'
+    //     )
+    // }
 
     // keep track of previous scroll position
     let prevScrollPos = window.scrollY;
@@ -139,36 +116,52 @@ const Router = ({ isLoggedIn, userObj, setUserObj, setMode, bottomNavigation, se
             const touchDiff = touchY - touchstartY;
             if (touchDiff > 0 && window.scrollY === 0) {
                 if (touchDiff > 500) {
-                    pullToRefresh.classList.add('visible');
+                    pullToRefresh?.classList.add('visible');
                     refresh = true
                 }
                 else {
-                    pullToRefresh.classList.remove('visible');
+                    pullToRefresh?.classList.remove('visible');
                     refresh = false
                 }
-                // e.preventDefault();
-                // refresh = true
-                // if (touchDiff > 0) {
-                //     refresh = true
-                // }
-                // if (touchDiff <= 0) {
-                //     refresh = false
-                // }
             }
         });
         document.addEventListener('touchend', e => {
             if (refresh) {
-                if (pullToRefresh.classList.contains('visible')) {
-                    pullToRefresh.classList.remove('visible');
+                if (pullToRefresh?.classList.contains('visible')) {
+                    pullToRefresh?.classList.remove('visible');
                     window.location.reload();
                 }
             }
         });
     })
-    // const piazza = useMemo(() => <Route path='/piazza' Component={() => <Piazza userObj={userObj} setBottomNavigation={setBottomNavigation} piazzaSwitch={piazzaSwitch} setPiazzaSwitch={setPiazzaSwitch} newMessage={newMessage} setNewMessage={setNewMessage} />} />, [newMessage])
+
+    const storage = getStorage();
+    const storageRef = ref(storage, 'screen.jpg');
+    // const [counter, setCounter] = useState<number[]>([]);
+    // const [value, setValue] = useState<number>(0);
+    // const [check, setCheck] = useState<boolean>(false)
+    // const [scroll, setScroll] = useState<number>(0)
+    // const [profileColor, setProfileColor] = useState<string | null>(null)
+    // const piazzaSwitch = useRef<string | null>(localStorage.getItem('piazza'))
+    // const [newMessage, setNewMessage] = useState<boolean>(false)
+    // const returnInArray = <T,>(value: T): T[] => {
+    //     return [value];
+    // };
+      
+    // const handleCounter = (newState: number[]) => setCounter(newState)
+    // const handleValue = (newState: number) => setValue(newState)
+    // const handleCheck = (newState: boolean) => setCheck(newState)
+    // const handleScroll = (newState: number) => setScroll(newState)
+    // const handleProfileColor = (newState: string | null) => setProfileColor(newState)
+    // const handleNewMessage = (newState: boolean) => setNewMessage(newState)
+    // const handlePiazzaSwitch = (newRef: string | null) => piazzaSwitch.current = newRef
+    
     return (
         <BrowserRouter>
-            <div className={sides[0] + ' flex flex-col location'}>
+            <div className={
+                // sides[0] + 
+                ' flex flex-col location'
+            }>
                 <div className="pull-to-refresh">
                     {/* <span>Loading</span> */}
                     <Box sx={{ width: '100%' }}>
@@ -185,6 +178,8 @@ const Router = ({ isLoggedIn, userObj, setUserObj, setMode, bottomNavigation, se
                     setValue={setValue}
                     check={check} setCheck={setCheck} setMode={setMode} prevScrollPos={prevScrollPos} value={value}
                     profileColor={profileColor}
+                    storage={storage}
+                    storageRef={storageRef}
                 />
                 <div
                     id='contentSelector'
@@ -193,15 +188,14 @@ const Router = ({ isLoggedIn, userObj, setUserObj, setMode, bottomNavigation, se
                         {
                             isLoggedIn ? (
                                 <Route>
-                                    <Route path='/' Component={() => <Home isLoggedIn={isLoggedIn} userObj={userObj} setUserObj={setUserObj} value={value} setValue={setValue} counter={counter} setCounter={setCounter} check={check} setCheck={setCheck} tmpCounter={tmpCounter} bottomNavigation={bottomNavigation} setBottomNavigation={setBottomNavigation} piazzaSwitch={piazzaSwitch} newMessage={newMessage} setNewMessage={setNewMessage} />} />
-                                    <Route path='/profile' Component={() => <Profile isLoggedIn={isLoggedIn} userObj={userObj} setUserObj={setUserObj} value={value} setValue={setValue} counter={counter} setCounter={setCounter} check={check} setCheck={setCheck} bottomNavigation={bottomNavigation} setBottomNavigation={setBottomNavigation} profileColor={profileColor} setProfileColor={setProfileColor} userUid={userObj} />} />
-                                    <Route path='/ranking' Component={() => <Ranking isLoggedIn={isLoggedIn} userObj={userObj} setUserObj={setUserObj} value={value} setValue={setValue} counter={counter} setCounter={setCounter} check={check} setCheck={setCheck} setBottomNavigation={setBottomNavigation} profileColor={profileColor} />} />
-                                    <Route path='/specific' Component={() => <Specific isLoggedIn={isLoggedIn} userObj={userObj} setUserObj={setUserObj} value={value} setValue={setValue} counter={counter} setCounter={setCounter} check={check} setCheck={setCheck} />} />
+                                    <Route path='/' Component={() => <Home isLoggedIn={isLoggedIn} userObj={userObj} value={value} setValue={(newState: number) => setValue(newState)} counter={counter} setCounter={setCounter} tmpCounter={tmpCounter} bottomNavigation={bottomNavigation} setBottomNavigation={setBottomNavigation} piazzaSwitch={piazzaSwitch} newMessage={newMessage} setNewMessage={setNewMessage} />} />
+                                    <Route path='/profile' Component={() => <Profile userObj={userObj} setBottomNavigation={setBottomNavigation} profileColor={profileColor} setProfileColor={setProfileColor} />} />
+                                    <Route path='/ranking' Component={() => <Ranking userObj={userObj} setBottomNavigation={setBottomNavigation} />} />
+                                    <Route path='/specific' Component={() => <Specific isLoggedIn={isLoggedIn} userObj={userObj} setUserObj={setUserObj} value={value} setValue={setValue} counter={counter} setCounter={setCounter} />} />
                                     <Route path='/actions' Component={() => <Actions isLoggedIn={isLoggedIn} userObj={userObj} setUserObj={setUserObj} value={value} setValue={setValue} counter={counter} setCounter={setCounter} check={check} setCheck={setCheck} />} />
                                     <Route path='/allies' Component={() => <Allies isLoggedIn={isLoggedIn} userObj={userObj} setUserObj={setUserObj} value={value} setValue={setValue} counter={counter} setCounter={setCounter} check={check} setCheck={setCheck} />} />
                                     <Route path='/points' Component={() => <Points isLoggedIn={isLoggedIn} userObj={userObj} setUserObj={setUserObj} value={value} setValue={setValue} counter={counter} setCounter={setCounter} check={check} setCheck={setCheck} />} />
                                     <Route path='/contact' Component={() => <Contact displayName={userObj.displayName} isLoggedIn={isLoggedIn} userObj={userObj} setUserObj={setUserObj} value={value} setValue={setValue} counter={counter} setCounter={setCounter} check={check} setCheck={setCheck} />} />
-                                    {/* {piazza} */}
                                     <Route path='/piazza' Component={() => <Piazza userObj={userObj} setBottomNavigation={setBottomNavigation} piazzaSwitch={piazzaSwitch} />} />
                                     <Route path='/chatting' Component={() => <Chatting userObj={userObj} setBottomNavigation={setBottomNavigation} newMessage={newMessage} setNewMessage={setNewMessage} />} />
                                 </Route>
@@ -218,7 +212,7 @@ const Router = ({ isLoggedIn, userObj, setUserObj, setMode, bottomNavigation, se
                         }
                     </Routes>
                 </div>
-                <Navigations profileColor={profileColor} bottomNavigation={bottomNavigation} setBottomNavigation={setBottomNavigation} scroll={scroll} setScroll={setScroll} sides={sides[1]} counter={counter} isLoggedIn={isLoggedIn} value={value} setValue={setValue} tmpCounter={tmpCounter} />
+                <Navigations profileColor={profileColor} bottomNavigation={bottomNavigation} setBottomNavigation={setBottomNavigation} scroll={scroll} setScroll={setScroll} counter={counter} isLoggedIn={isLoggedIn} value={value} setValue={setValue} tmpCounter={tmpCounter} />
             </div>
         </BrowserRouter>
     )

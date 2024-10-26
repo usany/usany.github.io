@@ -11,7 +11,7 @@ import Badges from 'src/muiComponents/Badges'
 import Paper from '@mui/material/Paper'
 import { styled } from '@mui/system';
 
-function Navigations({ profileColor, bottomNavigation, setBottomNavigation, sides, counter, isLoggedIn, value, setValue, scroll, setScroll, tmpCounter }) {
+function Navigations({ profileColor, bottomNavigation, setBottomNavigation, counter, isLoggedIn, value, setValue, scroll, setScroll, tmpCounter }) {
     // const [colors, setColors] = useState(localStorage.getItem("theme"));
     // const [color, setColor] = useState('#e2e8f0');
     const [backgroundColor, setBackgroundColor] = useState('#e2e8f0');

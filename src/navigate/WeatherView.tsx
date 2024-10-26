@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 // import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 // import Snackbars from 'src/muiComponents/Snackbars'
+import axios from 'axios'
 
 const WeatherView = () => {
     const [weatherInfo, setWeatherInfo] = useState({
@@ -17,27 +18,16 @@ const WeatherView = () => {
             console.log(message)
         }, 500)
     }
-    const getCurrentWeather = async () => {
-        await fetch(
-            `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&APPID=${APIKEY}&units=metric`
-        )
+    // const getCurrentWeather = async () => {
+    const getCurrentWeather = () => {
+        axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&APPID=${APIKEY}&units=metric`)
         .then((response) => {
-            console.log(response)
-            return (
-                response.json()
-            )
-        })
-        .then((json) => {
-            console.log(json)
             setWeatherInfo({
-                temperature: json.main.temp,
-                weather: json.weather[0].main,
-                icon: json.weather[0].icon,
+                temperature: response.data.main.temp,
+                weather: response.data.weather[0].main,
+                icon: response.data.weather[0].icon,
                 loaded: true,
             })
-        })
-        .then(() => {
-            showError('Failed to load weatherinfo')
         })
         .catch((error) => {
             setWeatherInfo({

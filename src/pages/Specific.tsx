@@ -72,7 +72,6 @@ function Specific({
   const onClick = () => {
     navigate(-1)
   }
-  console.log(deleted)
 
   const shadowColorArray = [
     'lightblue', 

@@ -45,7 +45,6 @@ function Profile({ profileColor, setProfileColor, userObj, setBottomNavigation }
   const [userFollowersList, setUserFollowersList] = useState([])
   const [followButton, setFollowButton] = useState(true)
   const [conversation, setConversation] = useState('')
-  console.log(state)
   useEffect(() => {
     const userFollowCollection = async () => {
       const docRef = doc(dbservice, `members/${userObj.uid}`)
@@ -145,7 +144,6 @@ function Profile({ profileColor, setProfileColor, userObj, setBottomNavigation }
       const otherFollowingNum = otherUserFollowingNum || 0
       const otherFollowerList = otherUserFollowerList || []
       const otherFollowingList = otherUserFollowingList || []
-      console.log(myFollowingList)
       setMyFollowerNumber(followerNum)
       setMyFollowerList(followerList)
       setMyFollowingNumber(followingNum)
@@ -190,7 +188,6 @@ function Profile({ profileColor, setProfileColor, userObj, setBottomNavigation }
         alert('중복 확인을 완료해 주세요')
       } else {
       const data = await doc(dbservice, `members/${userObj.uid}`)
-      console.log(userObj.uid)
       await updateDoc(data, {displayName: newDisplayName});
       await updateProfile(userObj, {
         displayName: newDisplayName
@@ -361,7 +358,6 @@ function Profile({ profileColor, setProfileColor, userObj, setBottomNavigation }
     const myFollowings = myDocSnap.data().followings || []
     const otherFollowers = otherUserDocSnap.data().followers || []
     const otherFollowings = otherUserDocSnap.data().followings || []
-    console.log(myFollowingList)
     if (myFollowingNum) {
       if (myFollowingList.indexOf(state.element.uid) === -1) {
         await updateDoc(myDocRef, {
@@ -412,8 +408,6 @@ function Profile({ profileColor, setProfileColor, userObj, setBottomNavigation }
     const myFollowings = myDocSnap.data().followings || []
     const otherFollowers = otherUserDocSnap.data().followers || []
     const otherFollowings = otherUserDocSnap.data().followings || []
-    console.log(myFollowingList)
-    console.log(myFollowingList.indexOf(state.element.uid))
     if (myFollowingNum) {
       if (myFollowingList.indexOf(state.element.uid) !== -1) {
         await updateDoc(myDocRef, {
