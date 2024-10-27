@@ -15,7 +15,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
 function FilterDialogs({ changeFilter, handleClose, selectedValueOne, selectedValueTwo, selectedValueThree, setSelectedValueOne, setSelectedValueTwo, setSelectedValueThree, changeSelectedValueOne, changeSelectedValueTwo, changeSelectedValueThree }) {
-
+    
     return (
         <Dialog open={changeFilter} onClose={handleClose}>
             <DialogContent>
