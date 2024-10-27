@@ -14,7 +14,7 @@ import { webSocket, onClick } from 'src/webSocket.tsx'
 
 const MessageStacks = () => {
   const [piazzaMessage, setPiazzaMessage] = useState(null)
-  const [newMessage, setNewMessage] = useState(true)
+
   useEffect(() => {
     const piazza = async () => {
       const piazzaRef = collection(dbservice, 'chats_group')
@@ -28,10 +28,7 @@ const MessageStacks = () => {
     }
     piazza()
   })
-  useEffect(() => {
-    if (newMessage) {
-    }
-  })
+
   useEffect(() => {
     if (!webSocket) return;
     function sMessageCallback(message) {
