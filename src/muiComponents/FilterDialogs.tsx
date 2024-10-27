@@ -14,8 +14,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
-function FilterDialogs({ userObj, profileColor, setProfileColor, changeFilter, handleClose, selectedValueOne, selectedValueTwo, selectedValueThree, setSelectedValueOne, setSelectedValueTwo, setSelectedValueThree, changeSelectedValueOne, changeSelectedValueTwo, changeSelectedValueThree }) {
-    const [selection, setSelection] = useState(false)
+function FilterDialogs({ changeFilter, handleClose, selectedValueOne, selectedValueTwo, selectedValueThree, setSelectedValueOne, setSelectedValueTwo, setSelectedValueThree, changeSelectedValueOne, changeSelectedValueTwo, changeSelectedValueThree }) {
 
     return (
         <Dialog open={changeFilter} onClose={handleClose}>
