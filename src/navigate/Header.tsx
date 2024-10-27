@@ -1,39 +1,20 @@
 import { useState, useEffect, useRef, useLayoutEffect } from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import Home from 'src/pages/Home'
-import Profile from 'src/pages/Profile'
-import Ranking from 'src/pages/Ranking'
-import Specific from 'src/pages/Specific'
 import WeatherView from 'src/navigate/WeatherView'
 import Navigation from 'src/navigate/Navigation'
-import Navigations from 'src/navigate/Navigations'
 import Avatar from '@mui/material/Avatar';
 import { blue } from '@mui/material/colors';
-// import { ClickAwayListener } from '@mui/base/ClickAwayListener';
 import ToggleTabs from 'src/muiComponents/Tabs'
-// import SwipeableDrawer from '@mui/material/SwipeableDrawer';
-// import Snackbars from 'src/muiComponents/Snackbars'
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
 
-const Header = ({ bottomNavigation, scroll, setScroll, isLoggedIn, userObj, setUserObj, setValue, check, setCheck, setMode, prevScrollPos, value, profileColor, storage, storageRef }) => {
+const Header = ({ bottomNavigation, setBottomNavigation, setScroll, userObj, setValue, check, setCheck, setMode, prevScrollPos, value, profileColor, storage }) => {
     const [profile, setProfile] = useState(null)
     useLayoutEffect(() => {
         getDownloadURL(ref(storage, 'screen.jpg'))
         .then((url) => {
-            // `url` is the download URL for 'images/stars.jpg'
-            // This can be downloaded directly:
-            // const xhr = new XMLHttpRequest();
-            // xhr.responseType = 'blob';
-            // xhr.onload = (event) => {
-            // };
-            // xhr.open('GET', url);
-            // xhr.send();
-            // Or inserted into an <img> element
             setProfile(url)
         })
         .catch((error) => {
             console.log(error)
-            // Handle any errors
         });
         setProfile(null)
     })
@@ -41,20 +22,18 @@ const Header = ({ bottomNavigation, scroll, setScroll, isLoggedIn, userObj, setU
     return (
         <div className='flex flex-row'>
                 <div id='navigationSelectorOne' className='pt-1'>
-                    <Navigation scroll={scroll} setScroll={setScroll} isLoggedIn={isLoggedIn} userObj={userObj} setUserObj={setUserObj} setValue={setValue} check={check} setCheck={setCheck} setMode={setMode}/>
+                    <Navigation setScroll={setScroll} userObj={userObj} setValue={setValue} check={check} setCheck={setCheck} setMode={setMode}/>
                     <div className='flex justify-between w-screen'>
                         <div className='px-5 pt-1'>
                             {userObj ?
                                 <Avatar alt={userObj.displayName} sx={{ bgcolor: profileColor }} src='./src' onClick={() => {
                                     setCheck(!check)
                                     setScroll(prevScrollPos)
-                                    // document.getElementsByClassName('location')[0].style.top = `-${prevScrollPos}px`
                                 }} />
                                 :
                                 <Avatar sx={{ bgcolor: blue[500] }} onClick={() => {
                                     setCheck(!check)
                                     setScroll(prevScrollPos)
-                                    // document.getElementsByClassName('location')[0].style.top = `-${prevScrollPos}px`
                                 }} />
                             }
                         </div>
@@ -62,20 +41,14 @@ const Header = ({ bottomNavigation, scroll, setScroll, isLoggedIn, userObj, setU
                             <img src={profile}/>
                         </div> */}
                         <div>
-                    {isLoggedIn && bottomNavigation === 0 && 
+                    {userObj && bottomNavigation === 0 && 
                         <ToggleTabs valuing={value} setValuing={setValue}/>
                     }
-                    {/* {isLoggedIn && value === 0 && 
-                        <ToggleTabs num={1} valuing={value} setValuing={setValue}/>
-                    } */}
-                    {isLoggedIn && bottomNavigation === 2 && 
+                    {userObj && bottomNavigation === 2 && 
                         <ToggleTabs valuing={value} setValuing={setValue}/>
                     }
-                    {/* {isLoggedIn && value === 2 && 
-                        <ToggleTabs num={2} valuing={value} setValuing={setValue}/>
-                    } */}
-                    {!isLoggedIn && 
-                        <div className='pt-5 min-w-36' onClick={() => setValue(1)}>로그인을 해 주세요</div>
+                    {!userObj && 
+                        <div className='pt-5 min-w-36' onClick={() => setBottomNavigation(1)}>로그인을 해 주세요</div>
                     }
                     </div>
                     <div>
@@ -83,7 +56,6 @@ const Header = ({ bottomNavigation, scroll, setScroll, isLoggedIn, userObj, setU
                     </div>
                     </div>
                 </div>
-            {/* <div id='navigationSelectorTwo' className='w-full h-15'></div> */}
         </div>
     )
 }

@@ -9,7 +9,7 @@ import { auth, dbservice } from 'src/baseApi/serverbase'
 import { storage } from "src/baseApi/serverbase";
 import { getStorage, ref, uploadBytes } from "firebase/storage";
 
-function AvatarDialogs({ userObj, profileColor, setProfileColor, changeProfile, handleClose }) {
+const AvatarDialogs = ({ userObj, profileColor, setProfileColor, changeProfile, handleClose }) => {
     const [selectedColor, setSelectedColor] = useState(null)
     const [attachment, setAttachment] = useState(null)
     const [attachmentFile, setAttachmentFile] = useState(null)

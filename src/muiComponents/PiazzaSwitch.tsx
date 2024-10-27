@@ -1,8 +1,6 @@
 import { useRef, useReducer, useEffect, useState, useMemo } from "react";
 import Switch from '@mui/material/Switch';
 import { styled } from '@mui/material/styles';
-// import Brightness4Icon from '@mui/icons-material/Brightness4';
-// import Brightness7Icon from '@mui/icons-material/Brightness7';
 
 const MessageSwitch = styled(Switch)(({ theme }) => ({
   padding: 8,

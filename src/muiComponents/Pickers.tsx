@@ -1,6 +1,3 @@
-// import { useState, useEffect } from 'react'
-// import Lottie from 'react-lottie'
-// import rain from './assets/Animation.json'
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { DemoContainer, DemoItem } from '@mui/x-date-pickers/internals/demo';

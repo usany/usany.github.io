@@ -4,18 +4,8 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom'
-// import Avatar from '@mui/material/Avatar';
-// import BeachAccess from '@mui/icons-material/BeachAccess'
-// import { doc, deleteDoc, updateDoc } from 'firebase/firestore';
-// import { auth, dbservice } from 'src/baseApi/serverbase'
-// import { storage } from "src/baseApi/serverbase";
-// import { getStorage, ref, uploadBytes } from "firebase/storage";
-// import InputLabel from '@mui/material/InputLabel';
-// import MenuItem from '@mui/material/MenuItem';
-// import FormControl from '@mui/material/FormControl';
-// import Select from '@mui/material/Select';
 
-function PiazzaDialogs({ selectUser, user, handleClose, userObj, handleMsgList, handleChangeMessage }) {
+const PiazzaDialogs = ({ selectUser, user, handleClose, userObj, handleMsgList, handleChangeMessage }) => {
     const [conversation, setConversation] = useState(null)
     useEffect(() => {
         if (selectUser) {

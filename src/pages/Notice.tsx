@@ -110,19 +110,19 @@ function Notice({ userObj, valuing, setValue, counter, setCounter }) {
         <div className='flex justify-center flex-wrap'>
                 {valuing === 1 && messages.map((msg) => {
                     // console.log(msg.text.clocker.gmt)
-                    if (msg.text.choose === 1 && msg.round === 1 && msg.text.clocker.gmt.seconds*1000 + Date.now()) {
-                        if (selectedValueTwo === '전체' || selectedValueTwo === msg.text.count || !selectedValueTwo) {
+                    if (msg?.text.choose === 1 && msg?.round === 1 && msg?.text.clocker.gmt.seconds*1000 + Date.now()) {
+                        if (selectedValueTwo === '전체' || selectedValueTwo === msg?.text.count || !selectedValueTwo) {
                             return(
-                                <Message key={msg.id} msgObj={msg} isOwner={msg.creatorId === userObj.uid} userObj={userObj} setValue={setValue} counter={counter} setCounter={setCounter} selectedValueOne={selectedValueOne} selectedValueTwo={selectedValueTwo} selectedValueThree={selectedValueThree} />
+                                <Message key={msg?.id} msgObj={msg} isOwner={msg?.creatorId === userObj?.uid} userObj={userObj} setValue={setValue} counter={counter} setCounter={setCounter} selectedValueOne={selectedValueOne} selectedValueTwo={selectedValueTwo} selectedValueThree={selectedValueThree} />
                             )
                         }
                     }
                 })}
                 {valuing !== 1 && messages.map((msg) => {
-                    if (msg.text.choose === 2 && msg.round === 1 && (msg.text.clocker.gmt === undefined || msg.text.clocker.gmt.seconds*1000 + Date.now())) {
-                        if (selectedValueTwo === '전체' || selectedValueTwo === msg.text.count || !selectedValueTwo) {
+                    if (msg?.text.choose === 2 && msg?.round === 1 && (msg?.text.clocker.gmt === undefined || msg.text.clocker.gmt.seconds*1000 + Date.now())) {
+                        if (selectedValueTwo === '전체' || selectedValueTwo === msg?.text.count || !selectedValueTwo) {
                             return(
-                                <Message key={msg.id} msgObj={msg} isOwner={msg.creatorId === userObj.uid} userObj={userObj} setValue={setValue} counter={counter} setCounter={setCounter} selectedValueOne={selectedValueOne} selectedValueTwo={selectedValueTwo} selectedValueThree={selectedValueThree} />
+                                <Message key={msg?.id} msgObj={msg} isOwner={msg?.creatorId === userObj?.uid} userObj={userObj} setValue={setValue} counter={counter} setCounter={setCounter} selectedValueOne={selectedValueOne} selectedValueTwo={selectedValueTwo} selectedValueThree={selectedValueThree} />
                             )
                         }
                     }

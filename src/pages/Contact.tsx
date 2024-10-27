@@ -9,15 +9,7 @@ import TextField from '@mui/material/TextField';
 import Chip from '@mui/material/Chip';
 import {supabase} from 'src/baseApi/base';
 import ContactDialogs from 'src/muiComponents/ContactDialogs';
-// import styled from 'styled-components'
 
-// const NavBtn = styled.button`
-//   border: dashed;
-// `
-// const SignBtn = styled.div`
-//   display: flex;
-//   justify-content: center;
-// `
 function Contact({ displayName, userObj }) {
   const [messageTitle, setMessageTitle] = useState('')
   const [message, setMessage] = useState('')
@@ -89,11 +81,7 @@ function Contact({ displayName, userObj }) {
         <div className='flex justify-center pt-5'>
           <TextField label='신고하기 내용' multiline rows={5} value={message} onChange={onChangeMessage} variant="outlined" fullWidth />
         </div>
-        {/* <div className='flex justify-center'>
-          <TextField label="비밀번호" value={password} onChange={onChange} variant="outlined" name='password' type='password' fullWidth />
-        </div> */}
         <div className='flex justify-center pt-2.5'>
-          {/* <Button variant='outlined' form='auth' type='submit'>{newAccount.account ? '회원가입' : '로그인'}</Button> */}
           <Button variant='outlined' form='auth' onClick={() => setDialogMove(true)}>신고하기 내역</Button>
           <ContactDialogs move={dialogMove} handleClose={handleClose} userObj={userObj} change={change} setChange={setChange}/>
           {formFilledOut ?
@@ -101,7 +89,6 @@ function Contact({ displayName, userObj }) {
           :
             <Button variant='outlined' form='auth' disabled>전송</Button>
           }
-          {/* <span>{error}</span> */}
         </div>
       </form>
     </div>

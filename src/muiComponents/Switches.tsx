@@ -2,19 +2,15 @@ import Switch from '@mui/material/Switch';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { styled } from '@mui/material/styles';
-// import Brightness4Icon from '@mui/icons-material/Brightness4';
-// import Brightness7Icon from '@mui/icons-material/Brightness7';
 
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   width: 62,
   height: 34,
   padding: 10,
   '& .MuiSwitch-switchBase': {
-    // margin: 1,
     padding: 0,
     transform: 'translateX(6px)',
     '&.Mui-checked': {
-      // color: '#fff',
       transform: 'translateX(22px)',
       '& .MuiSwitch-thumb:before': {
         backgroundImage: `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="20" width="20" viewBox="0 0 20 20"><path fill="${encodeURIComponent(
@@ -54,11 +50,6 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
 
 function Switches({ onClick }) {
   return (
-    // <div>
-    //   <Brightness4Icon />
-    //   <Switch {...label} />
-    //   <Brightness7Icon />
-    // </div>
     <FormGroup>
       <FormControlLabel
         control={

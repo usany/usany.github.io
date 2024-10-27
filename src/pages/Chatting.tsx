@@ -46,23 +46,6 @@ function Chatting({ userObj, setBottomNavigation, setNewMessage }) {
     };
   }, []);
 
-  // useEffect(() => {
-  //   if (!webSocket) return;
-  //   function sLoginCallback(msg) {
-  //     setMsgList((prev) => [
-  //       ...prev,
-  //       {
-  //         msg: `${msg} joins the chat`,
-  //         type: "welcome",
-  //         id: "",
-  //       },
-  //     ]);
-  //   }
-  //   webSocket.on("sLogin", sLoginCallback);
-  //   return () => {
-  //     webSocket.off("sLogin", sLoginCallback);
-  //   };
-  // }, []);
   useEffect(() => {
     setBottomNavigation(5)
   })
@@ -90,7 +73,6 @@ function Chatting({ userObj, setBottomNavigation, setNewMessage }) {
       conversation: conversation,
       conversationUid: state.chattingUid,
       conversationName: state.displayName
-      // { msg: message, type: "me", userUid: userObj.uid, id: userObj.displayName, messageClock: messageClock }
     };
     if (message) {
       if (msgList.length !== 0) {
@@ -118,26 +100,6 @@ function Chatting({ userObj, setBottomNavigation, setNewMessage }) {
   const handleClose = () => {
     setSelectUser(false)
   }
-  // const handleClose = () => {
-  //   setSelectUser(false)
-  // }
-  // const onForm = async () => {
-  //   const message = msg
-  //   try {
-  //     const userUid = userObj.uid
-  //     const userName = userObj.displayName
-  //     const messageClock = Date.now()
-  //     const newMessage = await addDoc(collection(dbservice, 'chats_group'), {
-  //       // userUid: userUid,
-  //       userName: userName,
-  //       message: message,
-  //       messageClock: messageClock
-  //     })
-  //     setMsgList((prev) => [...prev, { msg: message, type: "me", userUid: userObj.uid, id: userObj.displayName, messageClock: messageClock }]);
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
-  // }
   const onFormConversation = async () => {
     const message = msg
     try {
@@ -202,18 +164,6 @@ function Chatting({ userObj, setBottomNavigation, setNewMessage }) {
   }
 
   useEffect(() => {
-    // const messageList = async () => {
-    //   const messageRef = collection(dbservice, 'chats_group')
-    //   const messagesCollection = query(messageRef, orderBy('messageClock'))
-    //   const messages = await getDocs(messagesCollection);
-    //   messages.forEach((doc) => {
-    //     const message = doc.data().message
-    //     const userUid = doc.data().userUid
-    //     const userName = doc.data().userName
-    //     const messageClock = doc.data().messageClock
-    //     setMsgList((prev) => [...prev, { msg: message, type: "me", userUid: userUid, id: userName, messageClock: messageClock }]);
-    //   });
-    // }
     const messageListMembers = async (conversation) => {
       const messageRef = collection(dbservice, `chats_${conversation}`)
       const messagesCollection = query(messageRef, orderBy('messageClockNumber'))
@@ -227,21 +177,14 @@ function Chatting({ userObj, setBottomNavigation, setNewMessage }) {
         const messageClockNumber = doc.data().messageClockNumber || 0
         messagesArray.push({ msg: message, type: "me", userUid: userUid, id: userName, messageClock: messageClock, messageClockNumber: messageClockNumber })
         setMsgList(messagesArray)
-        // setMsgList((prev) => [...prev, { msg: message, type: "me", userUid: userUid, id: userName, messageClock: messageClock }]);
       });
     }
-    if (changeMessage) { 
-      // if (!conversation) {
-      //   messageList()
-      // } else {
-      //   messageListMembers(conversation)
-      // }
+    if (changeMessage) {
       messageListMembers(conversation)
       setChangeMessage(false)
     }
   }, [])
-  // console.log(msgList)
-  // console.log(state)
+
   return (
     <div>
       <div className='flex text-2xl p-5'>
@@ -250,19 +193,9 @@ function Chatting({ userObj, setBottomNavigation, setNewMessage }) {
     <div className="app-container">
       <div className="wrap">
           <div className="chat-box">
-            {/* <h3>
-              개인 대화 with {state.displayName}
-            </h3> */}
             <ul className="chat">
               {msgList.map((v, i) => {
                 if (v.type === "welcome") {
-                  // return (
-                  //   <li className="welcome">
-                  //   <div className="line" />
-                  //   <div>{v.msg}</div>
-                  //   <div className="line" />
-                  // </li>
-                  // )
                 } else {
                   let userDirection
                   if (v.userUid === userObj.uid) {

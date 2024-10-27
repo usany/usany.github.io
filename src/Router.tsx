@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useMemo, useLayoutEffect, useContext } from 'react'
+import { useState, useEffect, useRef, useMemo, useLayoutEffect, useContext, useReducer } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Home from 'src/pages/Home'
 import Profile from 'src/pages/Profile'
@@ -19,8 +19,7 @@ import Box from '@mui/material/Box';
 import LinearProgress from '@mui/material/LinearProgress';
 
 const tmpCounter: [] = []
-const Router = ({ isLoggedIn, userObj, setUserObj, setMode, bottomNavigation, setBottomNavigation }: {
-    isLoggedIn: boolean,
+const Router = ({ userObj, setUserObj, setMode, bottomNavigation, setBottomNavigation }: {
     userObj: {uid: string} | null,
     setUserObj: (newState: {uid: string}) => void,
     setMode: (newState: string) => void,
@@ -31,7 +30,7 @@ const Router = ({ isLoggedIn, userObj, setUserObj, setMode, bottomNavigation, se
     const [value, setValue] = useState<number>(0);
     const [check, setCheck] = useState<boolean>(false)
     const [scroll, setScroll] = useState<number>(0)
-    const [profileColor, setProfileColor] = useState<string | null>(null)
+    const [profileColor, setProfileColor] = useState<string>('#2196f3')
     const piazzaSwitch = useRef<string | null>(localStorage.getItem('piazza'))
     const [newMessage, setNewMessage] = useState<boolean>(false)
     
@@ -55,28 +54,13 @@ const Router = ({ isLoggedIn, userObj, setUserObj, setMode, bottomNavigation, se
         const setProfile = async () => {
             const docRef = doc(dbservice, `members/${userObj?.uid}`)
             const docSnap = await getDoc(docRef)
-            const userColor = docSnap.data()?.profileColor || '#2196f3'
+            const userColor = docSnap.data()?.profileColor
             setProfileColor(userColor)
         }
         if (userObj) {
             setProfile()
         }
     }, [])
-    // useEffect(() => {
-    //     const checkUsername = async () => {
-    //       const values = (await supabase
-    //         .from('practices')
-    //         .select()
-    //         .eq('id', userObj.id)).data?.map((element) => element.username)[0]
-    //         setDisplayName(
-    //           values
-    //         )
-    //     }
-    //     if (userObj) {
-    //       checkUsername()
-    //     }
-    //   }, [userObj])
-
     // const sides = []
     // if (check === false) {
     // } else {
@@ -160,29 +144,27 @@ const Router = ({ isLoggedIn, userObj, setUserObj, setMode, bottomNavigation, se
                 </div>
                 <Header
                     bottomNavigation={bottomNavigation}
-                    scroll={scroll}
-                    setScroll={setScroll}
-                    isLoggedIn={isLoggedIn}
+                    setBottomNavigation={(newState: number) => setBottomNavigation(newState)}
+                    // isLoggedIn={isLoggedIn}
                     userObj={userObj}
-                    setUserObj={setUserObj}
                     setValue={setValue}
                     check={check} setCheck={setCheck} setMode={setMode} prevScrollPos={prevScrollPos} value={value}
                     profileColor={profileColor}
                     storage={storage}
-                    storageRef={storageRef}
+                    setScroll={(newState: number) => setScroll(newState)}
                 />
                 <div
                     id='contentSelector'
                 >
                     <Routes>
                         {
-                            isLoggedIn ? (
+                            userObj ? (
                                 <Route>
-                                    <Route path='/' Component={() => <Home isLoggedIn={isLoggedIn} userObj={userObj} value={value} setValue={(newState: number) => setValue(newState)} counter={counter} setCounter={setCounter} tmpCounter={tmpCounter} bottomNavigation={bottomNavigation} setBottomNavigation={setBottomNavigation} piazzaSwitch={piazzaSwitch} newMessage={newMessage} setNewMessage={setNewMessage} />} />
+                                    <Route path='/' Component={() => <Home userObj={userObj} value={value} setValue={(newState: number) => setValue(newState)} counter={counter} setCounter={setCounter} tmpCounter={tmpCounter} bottomNavigation={bottomNavigation} setBottomNavigation={setBottomNavigation} piazzaSwitch={piazzaSwitch} newMessage={newMessage} setNewMessage={setNewMessage} />} />
                                     <Route path='/profile' Component={() => <Profile userObj={userObj} setBottomNavigation={setBottomNavigation} profileColor={profileColor} setProfileColor={setProfileColor} />} />
                                     <Route path='/ranking' Component={() => <Ranking userObj={userObj} setBottomNavigation={setBottomNavigation} />} />
                                     <Route path='/specific' Component={() => <Specific userObj={userObj} value={value} setValue={setValue} counter={counter} setCounter={setCounter} />} />
-                                    <Route path='/actions' Component={() => <Actions userObj={userObj} counter={counter} setCounter={setCounter} check={check} setCheck={setCheck} />} />
+                                    <Route path='/actions' Component={() => <Actions userObj={userObj} counter={counter} setCounter={setCounter} setValue={setValue} />} />
                                     <Route path='/allies' Component={() => <Allies setCheck={setCheck} />} />
                                     <Route path='/points' Component={() => <Points setCheck={setCheck} />} />
                                     <Route path='/contact' Component={() => <Contact displayName={userObj?.displayName} userObj={userObj} />} />
@@ -191,7 +173,7 @@ const Router = ({ isLoggedIn, userObj, setUserObj, setMode, bottomNavigation, se
                                 </Route>
                             ) : (
                                 <Route>
-                                    <Route path='/' Component={() => <Home isLoggedIn={isLoggedIn} userObj={userObj} value={value} setValue={setValue} counter={counter} setCounter={setCounter} bottomNavigation={bottomNavigation} setBottomNavigation={setBottomNavigation} />} />
+                                    <Route path='/' Component={() => <Home userObj={userObj} value={value} setValue={setValue} counter={counter} setCounter={setCounter} bottomNavigation={bottomNavigation} setBottomNavigation={setBottomNavigation} tmpCounter={tmpCounter} piazzaSwitch={piazzaSwitch} newMessage={newMessage} setNewMessage={setNewMessage} />} />
                                     <Route path='/specific' Component={() => <Specific userObj={userObj} value={value} setValue={setValue} counter={counter} setCounter={setCounter} />} />
                                 </Route>
                             )

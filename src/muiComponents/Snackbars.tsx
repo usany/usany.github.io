@@ -24,11 +24,7 @@ export default function Snackbars() {
   };
   const handleClose = (
     event, 
-    reason
   ) => {
-    if (reason === 'clickaway') {
-      return;
-    }
     setOpen({
       ...open,
       open: false,

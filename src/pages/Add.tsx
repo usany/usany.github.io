@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
 import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnapshot, deleteDoc, updateDoc } from 'firebase/firestore';
-import Lotties from 'src/lottiesAnimation/Lotties'
 import Pickers from 'src/muiComponents/Pickers'
 import ItemSelects from 'src/muiComponents/ItemSelects'
 import Selects from 'src/muiComponents/Selects'
@@ -11,8 +10,6 @@ import RegisteredCards from 'src/muiComponents/RegisteredCards';
 import Snackbar from '@mui/material/Snackbar';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-import dayjs from 'dayjs';
-import Select from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
 
 function Add({ userObj, valuing }: {userObj: object, valuing: number}) {
@@ -20,8 +17,6 @@ function Add({ userObj, valuing }: {userObj: object, valuing: number}) {
   const [enableButton, setEnableButton] = useState(true);
   const [cardId, setCardId] = useState(null)
   const [display, setDisplay] = useState(null)
-//   const [count, setCount] = useState('');
-//   const [counter, setCounter] = useState(0);
   const [item, setItem] = useState<string>('');
   const [locationInput, setLocationInput] = useState<string>('');
   const [locationOne, setLocationOne] = useState<string>('');
@@ -42,7 +37,6 @@ function Add({ userObj, valuing }: {userObj: object, valuing: number}) {
     const {
         target: {value},
     } = event;
-    // setLocationOne(value);
     setItem(value)
     setLocationOne('');
     setLocationTwo('');
@@ -59,7 +53,6 @@ function Add({ userObj, valuing }: {userObj: object, valuing: number}) {
     const {
         target: {value},
     } = event;
-    // setLocationOne(value);
     setLocationInput(value)
     setLocationTwo('');
     setLocationThree('');
@@ -136,11 +129,7 @@ function Add({ userObj, valuing }: {userObj: object, valuing: number}) {
             } else if (to.minute-from.minute > 0) {
                 value[0] = to.minute-from.minute
             }
-            // if (valuing === 0) {
-            //     value[1] = 1
-            // } else {
-            //     value[1] = 2
-            // }
+
             let location
             if (locationOne === '직접 입력') {
                 location = locationInput
@@ -162,15 +151,8 @@ function Add({ userObj, valuing }: {userObj: object, valuing: number}) {
                 connectedName: null,
             })
             setCardId(card.id)
-            // const displayingCard = doc(dbservice, `num/${card.id}`)
-            // console.log(displayingCard)
             
             setProcess(true)
-            // setLocationOne('');
-            // setLocationTwo('');
-            // setLocationThree('');
-            // setFrom(undefined);
-            // setTo(undefined);
             const cardObject = await getDoc(doc(dbservice, `num/${card.id}`))
             setDisplay({
                 id: card.id,
@@ -182,8 +164,6 @@ function Add({ userObj, valuing }: {userObj: object, valuing: number}) {
     } else {
         alert('내용을 입력해 주세요')
     }
-    // setAddSteps(3)
-    // setEnableButton(false)
   }
   const onChangeFrom = (event) => {
     setFrom({gmt: event.$d, year: event.$y, month: event.$M+1, day:event.$D, hour: event.$H, minute: event.$m})
@@ -198,7 +178,6 @@ function Add({ userObj, valuing }: {userObj: object, valuing: number}) {
     if (cardId) {
         let cardObject
         async () => cardObject = await getDoc(doc(dbservice, `num/${cardId}`))
-        // setDisplay(cardObject)
         if (cardObject) {
             console.log(cardObject.data())
         }
@@ -211,7 +190,6 @@ function Add({ userObj, valuing }: {userObj: object, valuing: number}) {
         <div className='flex justify-end start-0 end-0'>
             <AddSteppers steps={addSteps} valuing={valuing}/>
         </div>
-        {/* {valuing !== null && */}
             <div>
                 <div className='flex text-base px-5 pt-5'>
                     1. 무엇을 {valuing === 0 ? '빌리세요?' : '빌려주세요?'}
@@ -234,7 +212,6 @@ function Add({ userObj, valuing }: {userObj: object, valuing: number}) {
                             />
                             {locationOne === '직접 입력' && 
                                 <div className='pt-7'>
-                                    {/* <input className='dark:bg-black border' onChange={changeLocationInput} required autoFocus/> */}
                                     <TextField onChange={changeLocationInput} required autoFocus/>
                                 </div>
                             }
@@ -269,40 +246,10 @@ function Add({ userObj, valuing }: {userObj: object, valuing: number}) {
                         }
                     </div>
                 }
-                {/* {addSteps > 1 &&
-                    <div>
-                        <div className='flex text-base px-5 pt-5'>
-                            3. 등록 완료
-                        </div>
-                        <div className='flex px-5'>
-                            <Pickers onChange={onChangeFrom} label={"이 때부터"}  />
-                            <Pickers onChange={onChangeTo} label={"이 때까지"} />
-                        </div>
-                    </div>
-                } */}
-                {/* <Snackbar
-                    open={true}
-                    sx={{paddingBottom: '10%'}}
-                    // anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-                    // autoHideDuration={5000}
-                    message="등록되었습니다"
-                    action={
-                        <IconButton
-                            size="small"
-                            aria-label="close"
-                            color="inherit"
-                            onClick={() => setProcess(false)}
-                        >
-                            <CloseIcon fontSize="small" />
-                        </IconButton>
-                    }
-                /> */}
                 {process &&
                     <Snackbar
                         open={true}
                         sx={{paddingBottom: '10%'}}
-                        // anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-                        // autoHideDuration={5000}
                         message="등록되었습니다"
                         action={
                             <IconButton
@@ -317,7 +264,6 @@ function Add({ userObj, valuing }: {userObj: object, valuing: number}) {
                     />
                 }
             </div>
-        {/* } */}
     </div>  
   )
 }

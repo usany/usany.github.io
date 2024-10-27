@@ -5,11 +5,9 @@ import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
 import { updateProfile, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnapshot, updateDoc, setDoc } from 'firebase/firestore';
 import Button from '@mui/material/Button';
-// import { formGroupClasses } from '@mui/material';
 import Badge from '@mui/material/Badge';
 import Avatar from '@mui/material/Avatar';
 import Checklist from '@mui/icons-material/Checklist'
-// import styled from 'styled-components'
 import { BrowserRouter, Routes, Route, useNavigate, Link, useLocation } from 'react-router-dom'
 import TextField from '@mui/material/TextField';
 import { blue } from '@mui/material/colors';
@@ -22,7 +20,6 @@ import CommentIcon from '@mui/icons-material/Comment';
 import IconButton from '@mui/material/IconButton';
 
 function Allies({ setCheck }) {
-  // const [rank, setRank] = useState([])
   const [followers, setFollowers] = useState([])
   const [followings, setFollowings] = useState([])
   const {state} = useLocation()
@@ -30,8 +27,6 @@ function Allies({ setCheck }) {
  
   useEffect(() => {
     usersCollection()
-    // allies()
-    // setCheckAllies(true)
   }, [])
   const usersCollection = async () => {
     const followersCollection = []

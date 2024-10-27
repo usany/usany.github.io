@@ -8,19 +8,11 @@ import { Link } from 'react-router-dom'
 import Btn from 'src/pages/Btn';
 import Chip from '@mui/material/Chip';
 import staticImg from 'src/assets/pwa-512x512.png';
-// import { Fragment } from 'react/jsx-runtime';
 
 function RegisteredCards({ 
   msgObj,
   isOwner,
-  // userObj,
-  // num,
-  // points,
-  // setValue,
-  // counter,
-  // setCounter
 }) {
-  // const [specific, setSpecific] = useState(false)
   const shadowColorArray = [
     'lightblue', 
     'lightcoral',
@@ -36,16 +28,9 @@ function RegisteredCards({
     'lightyellow'
   ]
   let shadowColor;
-  // console.log(/[a-z]/.exec(/[a-z]/))
-  // if (/[a-z]/.exec(String(msgObj.id[0]).toLowerCase()) === String(msgObj.id[0]).toLowerCase()) {
-  //   shadowColor = 'green';
-  // }  
   const alpha = Array.from(Array(26)).map((e, i) => i + 65);
   const letters = alpha.map((x) => String.fromCharCode(x));
-  // if (letters.indexOf(String(msgObj.id[0]).toUpperCase())%2 === 0) {
-  // }
   shadowColor = shadowColorArray[letters.indexOf(String(msgObj.id[0]).toUpperCase())%shadowColorArray.length];
-  // console.log(letters);
 
   return (
     <div className='max-w-60 min-w-20'>
@@ -54,17 +39,6 @@ function RegisteredCards({
           boxShadow: `1.9px 1.9px 1.9px 1.9px ${shadowColor}`
         }}
       >
-        {/* <CardActionArea 
-        > */}
-          {/* <Link 
-            to='/specific'
-            state = {{
-              msgObj: msgObj,
-              isOwner: isOwner,
-              num: num,
-              points: points
-            }}
-          > */}
           <CardMedia
             sx={{ height: 140 }}
             image={staticImg}
@@ -83,11 +57,6 @@ function RegisteredCards({
                 <div className='flex justify-center'>{msgObj.text.clock.year}.{msgObj.text.clock.month}.{msgObj.text.clock.day} {msgObj.text.clocker.hour}:{msgObj.text.clocker.minute} 까지</div>
             </div>
           </CardContent>
-          {/* </Link> */}
-          {/* <CardActions className='flex justify-center'>
-            <Btn msgObj={msgObj} isOwner={isOwner} uid={userObj.uid} displayName={userObj.displayName} num={num} points={points} setValue={setValue} counter={counter} setCounter={setCounter} />
-          </CardActions> */}
-        {/* </CardActionArea> */}
       </Card>
     </div>
   );

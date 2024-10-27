@@ -115,7 +115,6 @@ function Menu({ userObj, counter, setCounter, setValue, tmpCounter, piazzaSwitch
                         </div>
                     </div>
                     <div className='w-6/12 flex flex-col border border-sky-500 rounded'>
-                        {/* <div className='flex justify-center'>받은 메세지</div> */}
                             <div>
                                 {!chats && !piazzaOn ? <div className='flex justify-center pt-20'>받은 메세지가 없습니다</div> :
                                 <div className='flex flex-col justify-center'>

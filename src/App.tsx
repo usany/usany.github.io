@@ -18,8 +18,8 @@ const darkTheme = createTheme({
 
 function App() {
   // const [count, setCount] = useState(0)
+  // const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false)
   const [init, setInit] = useState<boolean>(false)
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false)
   const [userObj, setUserObj] = useState<{uid: string} | null>(null)
   const [mode, setMode] = useState<string | null>(localStorage.getItem('theme'))
   const [bottomNavigation, setBottomNavigation] = useState<number>(1);
@@ -27,10 +27,8 @@ function App() {
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
       if (user) {
-        setIsLoggedIn(true)
         setUserObj(user)
       } else {
-        setIsLoggedIn(false)
         setUserObj(null)
       }
       setBottomNavigation(1)
@@ -47,7 +45,7 @@ function App() {
       <ThemeProvider theme={
         mode !== 'dark' ? lightTheme : darkTheme 
       }>
-        {init ? <Router isLoggedIn={isLoggedIn} userObj={userObj} setUserObj={handleUserObj} setMode={handleMode} bottomNavigation={bottomNavigation} setBottomNavigation={handleBottomNavigation} /> : <Lotties/>}
+        {init ? <Router userObj={userObj} setUserObj={handleUserObj} setMode={handleMode} bottomNavigation={bottomNavigation} setBottomNavigation={handleBottomNavigation} /> : <Lotties/>}
       </ThemeProvider>
     </>
   )

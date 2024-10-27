@@ -4,7 +4,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import Button from '@mui/material/Button';
 
-function Dialogs({move, handleClose, setValue}) {
+const Dialogs = ({move, handleClose, setValue}) => {
     return (
         <Dialog open={move} onClose={handleClose}>
             <DialogContent>
