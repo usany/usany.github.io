@@ -7,7 +7,11 @@ import { webSocket, onClick } from 'src/webSocket.tsx'
 import ChattingDialogs from 'src/muiComponents/ChattingDialogs'
 
 // const webSocket = io("http://localhost:5000");
-function Chatting({ userObj, setBottomNavigation, setNewMessage }) {
+function Chatting({ userObj, setBottomNavigation, setNewMessage }: {
+  userObj: {uid: string, displayName: string},
+  setBottomNavigation: (newState: number) => void,
+  setNewMessage: (newState: boolean) => void
+}) {
   const messagesEndRef = useRef(null);
   const [msg, setMsg] = useState("");
   const [msgList, setMsgList] = useState([]);
@@ -256,7 +260,7 @@ function Chatting({ userObj, setBottomNavigation, setNewMessage }) {
               <button type="submit">전송</button>
             </form>
           </div>
-          <ChattingDialogs selectUser={selectUser} user={user} handleClose={handleClose} userObj={userObj} setMsgList={setMsgList} setChangeMessage={setChangeMessage}/>
+          <ChattingDialogs selectUser={selectUser} user={user} handleClose={handleClose} />
       </div>
     </div>
     </div>

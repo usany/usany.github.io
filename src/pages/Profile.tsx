@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { bottomNavigationStore } from 'src/store'
 import Message from 'src/pages/Message'
 import AvatarDialogs from 'src/muiComponents/AvatarDialogs'
 import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
@@ -17,7 +18,21 @@ import { BrowserRouter, Routes, Route, useNavigate, Link, useLocation } from 're
 import TextField from '@mui/material/TextField';
 import { blue } from '@mui/material/colors';
 
-function Profile({ profileColor, setProfileColor, userObj, setBottomNavigation }) {
+interface Props {
+  profileColor: string,
+  setProfileColor: (newState: string) => void,
+  userObj: {uid: string, displayName: string},
+  setBottomNavigation: (newState: number) => void
+}
+
+function Profile({ profileColor, setProfileColor, userObj }: Props
+//   {
+//   profileColor: string,
+//   setProfileColor: (newState: string) => void,
+//   userObj: {uid: string, displayName: string},
+//   setBottomNavigation: (newState: number) => void
+// }
+) {
   const [borrowRegisteredMessage, setBorrowRegisteredMessage] = useState([])
   const [borrowMessage, setBorrowMessage] = useState([])
   const [lendRegisteredMessage, setLendRegisteredMessage] = useState([])
@@ -45,6 +60,7 @@ function Profile({ profileColor, setProfileColor, userObj, setBottomNavigation }
   const [userFollowersList, setUserFollowersList] = useState([])
   const [followButton, setFollowButton] = useState(true)
   const [conversation, setConversation] = useState('')
+  const setBottomNavigation = bottomNavigationStore((state) => state.setBottomNavigation)
   useEffect(() => {
     const userFollowCollection = async () => {
       const docRef = doc(dbservice, `members/${userObj.uid}`)

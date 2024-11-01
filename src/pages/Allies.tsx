@@ -19,7 +19,7 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import CommentIcon from '@mui/icons-material/Comment';
 import IconButton from '@mui/material/IconButton';
 
-function Allies({ setCheck }) {
+function Allies() {
   const [followers, setFollowers] = useState([])
   const [followings, setFollowings] = useState([])
   const {state} = useLocation()

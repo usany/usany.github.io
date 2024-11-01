@@ -12,7 +12,7 @@ import { BrowserRouter, Routes, Route, useNavigate, Link, useLocation } from 're
 import { blue } from '@mui/material/colors';
 import Button from '@mui/material/Button';
 
-function Points({ setCheck }) {
+function Points() {
   const {state} = useLocation()
   const navigate = useNavigate()
 

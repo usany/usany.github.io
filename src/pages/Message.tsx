@@ -35,7 +35,7 @@ function Message({ msgObj, isOwner, userObj, counter, setCounter, setValue, sele
   
   return (
     // <div className='pt-5'>
-      <Cards msgObj={msgObj} isOwner={isOwner} userObj={userObj} num={num} points={points} setValue={setValue} counter={counter} setCounter={setCounter} />
+      <Cards msgObj={msgObj} isOwner={isOwner} userObj={userObj} num={num} points={points} setValue={(newState: number) => setValue(newState)} counter={counter} setCounter={(newState: number[]) => setCounter(newState)} />
     // </div>
   )
 }

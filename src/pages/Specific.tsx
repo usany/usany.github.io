@@ -17,15 +17,23 @@ function Specific({
     setValue,
     counter,
     setCounter, 
-    }) {
+    }: 
+    {
+      userObj: {uid: string, displayName: string} | null,
+      value: number, 
+      setValue: (newState: number) => void,
+      counter: number[],
+      setCounter: (newState: number[]) => void
+    }
+  ) {
 
       const {state} = useLocation()
       const navigate = useNavigate()
       // const [stepper, setStepper] = useState(state.msgObj.round-1)
-      const [msgObj, setMsgObj] = useState(state.msgObj)
-      const [num, setNum] = useState(null)
-      const [points, setPoints] = useState(null)
-      const [deleted, setDeleted] = useState(false)
+      const [msgObj, setMsgObj] = useState<{id: string, round: number, displayName: string, connectedName: string, point: number, connectedId: string | null, creatorId: string}>(state.msgObj)
+      const [num, setNum] = useState<number | null>(null)
+      const [points, setPoints] = useState<number | null>(null)
+      const [deleted, setDeleted] = useState<boolean>(false)
 
       useEffect(() => {
         onSnapshot(query(collection(dbservice, 'num')), (snapshot) => {

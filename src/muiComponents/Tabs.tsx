@@ -33,9 +33,12 @@ function a11yProps(index) {
   };
 }
 
-export default function ToggleTabs({ valuing, setValuing }) {
-  // const [value, setValue] = useState(0);
-
+export default function ToggleTabs({ valuing, setValuing }:
+  {
+    valuing: number,
+    setValuing: (newState: number) => void
+  }
+) {
   const handleChange = (event, newValue) => {
     if (valuing<2) {
       setValuing(newValue);

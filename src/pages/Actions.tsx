@@ -2,7 +2,12 @@ import Message from 'src/pages/Message'
 import Button from '@mui/material/Button';
 import { BrowserRouter, Routes, Route, useNavigate, Link, useLocation } from 'react-router-dom'
 
-const Actions = ({ userObj, setValue, counter, setCounter }) => {
+const Actions = ({ userObj, setValue, counter, setCounter }: {
+  userObj: {uid: string, displayName: string},
+  setValue: (newState: number) => void,
+  counter: number[],
+  setCounter: (newState: number[]) => void
+}) => {
   const {state} = useLocation()
   const navigate = useNavigate()
 
@@ -22,14 +27,14 @@ const Actions = ({ userObj, setValue, counter, setCounter }) => {
       </div>
       {state.actions === 'completedLend' &&
         <div className='flex justify-center flex-wrap'>
-          {state.lendRegisteredMessage.map((msg) => <Message key={msg.id} msgObj={msg} isOwner={true} userObj={userObj} setValue={setValue} counter={counter} setCounter={setCounter}/>)}
-          {state.lendMessage.map((msg) => <Message key={msg.id} msgObj={msg} isOwner={false} userObj={userObj} setValue={setValue} counter={counter} setCounter={setCounter}/>)}
+          {state.lendRegisteredMessage.map((msg) => <Message key={msg.id} msgObj={msg} isOwner={true} userObj={userObj} setValue={(newState: number) => setValue(newState)} counter={counter} setCounter={(newState: number[]) => setCounter(newState)}/>)}
+          {state.lendMessage.map((msg) => <Message key={msg.id} msgObj={msg} isOwner={false} userObj={userObj} setValue={(newState: number) => setValue(newState)} counter={counter} setCounter={(newState: number[]) => setCounter(newState)}/>)}
         </div>
       }
       {state.actions === 'completedBorrow' &&
         <div className='flex justify-center flex-wrap'>
-          {state.borrowRegisteredMessage.map((msg) => <Message key={msg.id} msgObj={msg} isOwner={true} userObj={userObj} setValue={setValue} counter={counter} setCounter={setCounter}/>)}
-          {state.borrowMessage.map((msg) => <Message key={msg.id} msgObj={msg} isOwner={false} userObj={userObj} setValue={setValue} counter={counter} setCounter={setCounter}/>)}
+          {state.borrowRegisteredMessage.map((msg) => <Message key={msg.id} msgObj={msg} isOwner={true} userObj={userObj} setValue={(newState: number) => setValue(newState)} counter={counter} setCounter={(newState: number[]) => setCounter(newState)}/>)}
+          {state.borrowMessage.map((msg) => <Message key={msg.id} msgObj={msg} isOwner={false} userObj={userObj} setValue={(newState: number) => setValue(newState)} counter={counter} setCounter={(newState: number[]) => setCounter(newState)}/>)}
         </div>
       }
       <div className='flex justify-center p-10'>

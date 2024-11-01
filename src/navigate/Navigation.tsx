@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { auth, dbservice } from 'src/baseApi/serverbase'
 import Modes from 'src/Modes'
+import { modeStore } from 'src/store'
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import { doc, onSnapshot, query } from 'firebase/firestore';
 import InboxIcon from '@mui/icons-material/Inbox';
@@ -11,11 +12,21 @@ import WorkIcon from '@mui/icons-material/Work';
 import Public from '@mui/icons-material/Public';
 
 const onLogOutClick = () => auth.signOut();
-function Navigation({ setScroll, userObj, setValue, check, setCheck, setMode }) {
-  const [colors, setColors] = useState(localStorage.getItem("theme"));
-  const [color, setColor] = useState('#e2e8f0');
-  const [backgroundColor, setBackgroundColor] = useState('#e2e8f0');
+function Navigation({ setScroll, userObj, setValue, check, setCheck, setMode, stateMode, handleModes, handleSideNavigation }:
+  {
+    setScroll: (newState: number) => void,
+    userObj: {uid: string, displayName: string},
+    setValue: (newState: number) => void,
+    check: boolean,
+    setCheck: (newState: boolean) => void,
+    setMode: (newState: string) => void
+  }
+) {
+  const [colors, setColors] = useState<string | null>(localStorage.getItem("theme"));
+  const [color, setColor] = useState<string>('#e2e8f0');
+  const [backgroundColor, setBackgroundColor] = useState<string>('#e2e8f0');
   const [points, setPoints] = useState<number>(0)
+  const modes = modeStore((state) => state.mode)
 
   useEffect(() => {
     if (userObj) {
@@ -40,7 +51,7 @@ function Navigation({ setScroll, userObj, setValue, check, setCheck, setMode }) 
     setCheck(choose)
   }
   useEffect(() => {
-    if (colors === 'dark') {
+    if (modes === 'dark') {
       setColor('#ddd')
       setBackgroundColor('#2d3848')
     } else {
@@ -76,7 +87,7 @@ function Navigation({ setScroll, userObj, setValue, check, setCheck, setMode }) 
               {userObj && <div>내 포인트: {points}</div>}
             </div>
             <div className='flex border-b border-light-3 dark:border-dark-3'></div>
-            <Modes colors={colors} setColors={setColors} setMode={setMode}/>
+            <Modes colors={colors} setColors={(newState: string) => setColors(newState)} setMode={(newState: string) => setMode(newState)} stateMode={stateMode} handleModes={handleModes}/>
           </div>
           <h1 className='text-2xl	px-5 pt-5'>
             <Link to='/profile' 
@@ -112,11 +123,11 @@ function Navigation({ setScroll, userObj, setValue, check, setCheck, setMode }) 
           className='w-full'
         >
           <div className='flex border-b border-light-3 dark:border-dark-3'>
-          <div className='p-5'>
-            <div className='flex justify-center'>좋은 날씨네요</div>
-            <div className='flex justify-center'>로그인을 해 주세요</div>
-          </div>
-            <Modes colors={colors} setColors={setColors} setMode={setMode}/>
+            <div className='p-5'>
+              <div className='flex justify-center'>좋은 날씨네요</div>
+              <div className='flex justify-center'>로그인을 해 주세요</div>
+            </div>
+            <Modes colors={colors} setColors={(newState: string) => setColors(newState)} setMode={(newState: string) => setMode(newState)}/>
           </div>
         </nav>
       }

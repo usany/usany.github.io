@@ -8,12 +8,24 @@ import Checklist from '@mui/icons-material/Checklist'
 import ChecklistRtl from '@mui/icons-material/ChecklistRtl'
 import BeachAccess from '@mui/icons-material/BeachAccess'
 import Badges from 'src/muiComponents/Badges'
+import { bottomNavigationStore } from 'src/store'
 
-function Navigations({ bottomNavigation, setBottomNavigation, counter, userObj, setScroll, tmpCounter }) {
+function Navigations({ counter, userObj, setScroll, tmpCounter }:
+    {
+        bottomNavigation: number,
+        setBottomNavigation: (newState: number) => void,
+        counter: number[],
+        userObj: {uid: string, displayName: string} | null,
+        setScroll: (newState: number) => void,
+        tmpCounter: []
+    }
+) {
     // const [colors, setColors] = useState(localStorage.getItem("theme"));
     // const [color, setColor] = useState('#e2e8f0');
     const [backgroundColor, setBackgroundColor] = useState('#e2e8f0');
-      
+    const bottomNavigation = bottomNavigationStore((state) => state.bottomNavigation)
+    const setBottomNavigation = bottomNavigationStore((state) => state.setBottomNavigation)
+
     useEffect(() => {
         if (localStorage.getItem("theme") === 'dark') {
         setBackgroundColor('#2d3848')

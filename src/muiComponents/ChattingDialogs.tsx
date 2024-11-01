@@ -4,7 +4,13 @@ import DialogContent from '@mui/material/DialogContent';
 import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom'
 
-const ChattingDialogs = ({ selectUser, user, handleClose, userObj, setMsgList, setChangeMessage }) => {
+const ChattingDialogs = ({ selectUser, user, handleClose }:
+    {
+        selectUser: boolean,
+        user: {displayName: string} | null,
+        handleClose: () => void,
+    }
+) => {
 
     return (
         <Dialog open={selectUser} onClose={handleClose}>

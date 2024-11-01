@@ -35,7 +35,7 @@ const MessageSwitch = styled(Switch)(({ theme }) => ({
   },
 }));
 
-function PiazzaSwitch({ piazzaSwitch }) {
+function PiazzaSwitch({ piazzaSwitch, onClick }) {
   const [switches, setSwitches] = useState('')
   useEffect(() => {
     if (!switches) {
@@ -43,7 +43,7 @@ function PiazzaSwitch({ piazzaSwitch }) {
       setSwitches(piazza)    
     }
   })
-  const onClick = (piazzaSwitch) => {
+  const onClicks = (piazzaSwitch) => {
     if (piazzaSwitch.current === 'true') {
       window.localStorage.setItem('piazza', 'false')
       // setPiazzaSwitch('false')

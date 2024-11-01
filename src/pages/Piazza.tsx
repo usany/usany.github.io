@@ -4,10 +4,17 @@ import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnap
 import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
 import PiazzaDialogs from 'src/muiComponents/PiazzaDialogs'
 import PiazzaSwitch from 'src/muiComponents/PiazzaSwitch'
+import { bottomNavigationStore } from 'src/store'
 import { webSocket, onClick } from 'src/webSocket.tsx'
 
 // const webSocket = io("http://localhost:5000");
-function Piazza({ userObj, setBottomNavigation, piazzaSwitch }) {
+function Piazza({ userObj, piazzaSwitch }:
+  {
+    userObj: {uid: string, displayName: string},
+    setBottomNavigation: (newState: number) => void,
+    piazzaSwitch: {current: string | null}
+  }
+) {
   const messagesEndRef = useRef(null);
   const [msg, setMsg] = useState("");
   const [msgList, setMsgList] = useState<[]>([]);
@@ -15,6 +22,7 @@ function Piazza({ userObj, setBottomNavigation, piazzaSwitch }) {
   const [privateTarget, setPrivateTarget] = useState("");
   const [user, setUser] = useState(null)
   const [selectUser, setSelectUser] = useState(false)
+  const setBottomNavigation = bottomNavigationStore((state) => state.setBottomNavigation)
   
   useEffect(() => {
     if (!webSocket) return;
@@ -186,83 +194,83 @@ function Piazza({ userObj, setBottomNavigation, piazzaSwitch }) {
           <PiazzaSwitch piazzaSwitch={piazzaSwitch} onClick={() => onClick(piazzaSwitch)} />
         </div>
       </div>
-    <div className="app-container">
-      <div className="wrap">
-          <div className="chat-box">
-            <ul className="chat">
-              {msgList.map((v, i) => {
-                if (v.type === "welcome") {
-                  return (
-                    <li className="welcome">
-                    <div className="line" />
-                    <div>{v.msg}</div>
-                    <div className="line" />
-                  </li>
-                  )
-                } else {
-                  let userDirection
-                  if (v.userUid === userObj.uid) {
-                    userDirection = 'me'
+      <div className="app-container">
+        <div className="wrap">
+            <div className="chat-box">
+              <ul className="chat">
+                {msgList.map((v, i) => {
+                  if (v.type === "welcome") {
+                    return (
+                      <li className="welcome">
+                      <div className="line" />
+                      <div>{v.msg}</div>
+                      <div className="line" />
+                    </li>
+                    )
                   } else {
-                    userDirection = 'other'
-                  }
-                  return (
-                      <li
-                        className={userDirection}
-                        key={`${i}_li`}
-                        name={v.id}
-                        data-id={v.id}
-                        onClick={() => onSetPrivateTarget(v.userUid)}
-                      >
-                        <div
-                          className={
-                            v.id === privateTarget ? "private-user" : "userId"
-                          }
-                          data-id={v.id}
+                    let userDirection
+                    if (v.userUid === userObj.uid) {
+                      userDirection = 'me'
+                    } else {
+                      userDirection = 'other'
+                    }
+                    return (
+                        <li
+                          className={userDirection}
+                          key={`${i}_li`}
                           name={v.id}
+                          data-id={v.id}
+                          onClick={() => onSetPrivateTarget(v.userUid)}
                         >
-                          {v.id}
-                        </div>
-                        {v.userUid !== userObj.uid ? 
-                        <div className='flex justify-start'>
-                        <div className={'other'} data-id={v.id} name={v.id}>
-                          {v.msg}
-                        </div>
-                        <div data-id={v.id} name={v.id}>
-                          {v.messageClock}
-                        </div>
-                        </div>
-                        :
-                        <div className='flex justify-end'>
-                        <div data-id={v.id} name={v.id}>
-                          {v.messageClock}
-                        </div>
-                        <div className={'me'} data-id={v.id} name={v.id}>
-                          {v.msg}
-                        </div>
-                        </div>
-                        }
-                      </li>
+                          <div
+                            className={
+                              v.id === privateTarget ? "private-user" : "userId"
+                            }
+                            data-id={v.id}
+                            name={v.id}
+                          >
+                            {v.id}
+                          </div>
+                          {v.userUid !== userObj.uid ? 
+                          <div className='flex justify-start'>
+                          <div className={'other'} data-id={v.id} name={v.id}>
+                            {v.msg}
+                          </div>
+                          <div data-id={v.id} name={v.id}>
+                            {v.messageClock}
+                          </div>
+                          </div>
+                          :
+                          <div className='flex justify-end'>
+                          <div data-id={v.id} name={v.id}>
+                            {v.messageClock}
+                          </div>
+                          <div className={'me'} data-id={v.id} name={v.id}>
+                            {v.msg}
+                          </div>
+                          </div>
+                          }
+                        </li>
+                    )
+                  }
+                    }
                   )
                 }
-                  }
-                )
-              }
-              <li ref={messagesEndRef} />
-            </ul>
-            <form className="send-form" onSubmit={onSendSubmitHandler}>
-              <input
-                placeholder="메세지를 작성해 주세요"
-                onChange={onChangeMsgHandler}
-                value={msg}
-                autoFocus
-              />
-              <button type="submit">전송</button>
-            </form>
-          </div>
-          <PiazzaDialogs selectUser={selectUser} user={user} handleClose={handleClose} userObj={userObj} handleMsgList={(newState: []) => setMsgList(newState)} handleChangeMessage={(newState: boolean) => setChangeMessage(newState)}/>
+                <li ref={messagesEndRef} />
+              </ul>
+              <form className="send-form" onSubmit={onSendSubmitHandler}>
+                <input
+                  placeholder="메세지를 작성해 주세요"
+                  onChange={onChangeMsgHandler}
+                  value={msg}
+                  autoFocus
+                />
+                <button type="submit">전송</button>
+              </form>
+            </div>
+            <PiazzaDialogs selectUser={selectUser} user={user} handleClose={handleClose} userObj={userObj} handleMsgList={(newState: []) => setMsgList(newState)} handleChangeMessage={(newState: boolean) => setChangeMessage(newState)}/>
+        </div>
       </div>
-    </div>
     </div>
   );
 }

@@ -1,16 +1,18 @@
 import { useState, useEffect } from 'react'
-import Message from 'src/pages/Message'
 import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
 import { updateProfile, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { collection, query, where, orderBy, addDoc, getDocs, doc, onSnapshot, updateDoc } from 'firebase/firestore';
 import Button from '@mui/material/Button';
-import { formGroupClasses } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import Chip from '@mui/material/Chip';
-import {supabase} from 'src/baseApi/base';
 import ContactDialogs from 'src/muiComponents/ContactDialogs';
 
-function Contact({ displayName, userObj }) {
+function Contact({ displayName, userObj }:
+  {
+    displayName: string
+    userObj: {uid: string, displayName: string}
+  }
+) {
   const [messageTitle, setMessageTitle] = useState('')
   const [message, setMessage] = useState('')
   const [formFilledOut, setFormFilledOut] = useState(false)
@@ -29,7 +31,7 @@ function Contact({ displayName, userObj }) {
     try {
       const newMessage = await addDoc(collection(dbservice, 'violations'), {
         userUid: userObj.uid,
-        userName: displayName,
+        userName: userObj.displayName,
         messageTitle: messageTitle,
         message: message
       })
@@ -66,7 +68,7 @@ function Contact({ displayName, userObj }) {
         <span>
           발신:&emsp;
         </span>
-        <Chip label={displayName}/>
+        <Chip label={userObj.displayName}/>
       </div>
       <div>
         <span>  
@@ -83,7 +85,7 @@ function Contact({ displayName, userObj }) {
         </div>
         <div className='flex justify-center pt-2.5'>
           <Button variant='outlined' form='auth' onClick={() => setDialogMove(true)}>신고하기 내역</Button>
-          <ContactDialogs move={dialogMove} handleClose={handleClose} userObj={userObj} change={change} setChange={setChange}/>
+          <ContactDialogs move={dialogMove} handleClose={handleClose} userObj={userObj} change={change} setChange={(newState: boolean) => setChange(newState)}/>
           {formFilledOut ?
             <Button variant='outlined' form='auth' onClick={() => onSubmit()}>전송</Button>
           :

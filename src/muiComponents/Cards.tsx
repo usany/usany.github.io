@@ -16,6 +16,16 @@ const Cards = ({
   setValue,
   counter,
   setCounter
+}:
+{
+  msgObj: {id: string, text: object},
+  isOwner: boolean,
+  userObj: {uid: string, displayName: string},
+  num: number,
+  points: number,
+  setValue: (newState: number) => void,
+  counter: number[],
+  setCounter: (newState: number[]) => void
 }) => {
   const shadowColorArray = [
     'lightblue', 
@@ -76,7 +86,7 @@ const Cards = ({
           </Link>
         </CardActionArea>
         <CardActions className='flex justify-center'>
-          <Btn msgObj={msgObj} isOwner={isOwner} uid={userObj.uid} displayName={userObj.displayName} userObj={userObj} num={num} points={points} setValue={setValue} counter={counter} setCounter={setCounter} />
+          <Btn msgObj={msgObj} isOwner={isOwner} uid={userObj.uid} displayName={userObj.displayName} userObj={userObj} num={num} points={points} setValue={setValue} counter={counter} setCounter={(newState: number[]) => setCounter(newState)} />
         </CardActions>
       </Card>
     </div>
