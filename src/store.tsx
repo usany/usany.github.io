@@ -1,3 +1,4 @@
+import { StaticDatePicker } from '@mui/x-date-pickers'
 import { useState, useEffect, useRef, useMemo, useLayoutEffect, useContext, useReducer } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { create } from 'zustand'
@@ -17,6 +18,10 @@ const profileColorStore = create((set) => ({
 const actionStore = create((set) => ({
     action: 0,
     handleAction: (newState) => set(() => ({ action: newState })),
+}))
+const borrowToggleStore = create((set) => ({
+    borrowToggle: true,
+    handleborrowToggle: () => set((state) => ({ borrowToggle: !state.borrowToggle })),
 }))
 const modeStore = create((set) => ({
   mode: localStorage.getItem('theme') || 'light',

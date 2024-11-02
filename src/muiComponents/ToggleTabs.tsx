@@ -77,7 +77,7 @@ export default function ToggleTabs({ valuing, setValuing }:
       <Box sx={{ paddingX: '10px'
         }}>
         <Tabs
-          value={valuing} onChange={handleChange} aria-label="basic tabs example"
+          value={action} onChange={handleAction} aria-label="basic tabs example"
         >
           <Tab label="빌리기" {...a11yProps(0)} />
           <Tab label="빌려주기" {...a11yProps(1)} />

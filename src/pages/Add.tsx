@@ -188,14 +188,14 @@ function Add({ userObj, valuing }: {userObj: object, valuing: number}) {
   return (
     <div className='flex flex-col'>
         <div className='flex text-2xl p-5'>
-            {valuing === 0 ? '빌리기 ' : '빌려주기 '} 카드 등록
+            {action === 0 ? '빌리기 ' : '빌려주기 '} 카드 등록
         </div>
         <div className='flex justify-end start-0 end-0'>
-            <AddSteppers steps={addSteps} valuing={valuing}/>
+            <AddSteppers steps={addSteps} valuing={action}/>
         </div>
             <div>
                 <div className='flex text-base px-5 pt-5'>
-                    1. 무엇을 {valuing === 0 ? '빌리세요?' : '빌려주세요?'}
+                    1. 무엇을 {action === 0 ? '빌리세요?' : '빌려주세요?'}
                 </div>
                 <div className='flex px-5'>
                     <ItemSelects item={item} setItem={setItem} changeItem={changeItem}/>
