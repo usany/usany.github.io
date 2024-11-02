@@ -15,12 +15,12 @@ const lendSteps = [
     '등록 완료',
 ];
   
-function AddSteppers({ steps, toggleTabs }) {
+function AddSteppers({ addSteps, toggleTabs }) {
     const stepsCollection = [borrowSteps, lendSteps]
     return (
         <div className='w-full'>
             <Stepper 
-            activeStep={steps} alternativeLabel>
+            activeStep={addSteps} alternativeLabel>
                 {stepsCollection[toggleTabs].map((label, index) => {
                     if (index === 0) {
                         return (

@@ -3,9 +3,13 @@ import { useState, useEffect, useRef, useMemo, useLayoutEffect, useContext, useR
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { create } from 'zustand'
 
-const sideNavigationStore = create((set) => ({
+interface sideNavigationState {
+  sideNavigation: boolean
+  handleSideNavigation: (state: boolean) => void
+}
+const sideNavigationStore = create<sideNavigationState>()((set) => ({
     sideNavigation: false,
-    handleSideNavigation: () => set((state) => ({ sideNavigation: !state.sideNavigation })),
+    handleSideNavigation: () => set((state: {sideNavigation: boolean}) => ({ sideNavigation: !state.sideNavigation })),
 }))
 const bottomNavigationStore = create((set) => ({
     bottomNavigation: 1,
