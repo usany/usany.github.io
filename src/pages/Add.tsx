@@ -197,7 +197,7 @@ function Add({ userObj, action }: {userObj: object, action: number}) {
                     1. 무엇을 {toggleTabs === 0 ? '빌리세요?' : '빌려주세요?'}
                 </div>
                 <div className='flex px-5'>
-                    <ItemSelects item={item} setItem={setItem} changeItem={changeItem}/>
+                    <ItemSelects item={item} setItem={(newState) => setItem(newState)} changeItem={changeItem}/>
                 </div>
                 {addSteps > 0 && 
                     <div>
@@ -210,7 +210,7 @@ function Add({ userObj, action }: {userObj: object, action: number}) {
                                 locationTwo={locationTwo} 
                                 locationThree={locationThree} 
                                 changeBuilding={changeBuilding} changeRoom={changeRoom} changeSeat={changeSeat}
-                                setAddSteps={setAddSteps}
+                                setAddSteps={(newState) => setAddSteps(newState)}
                             />
                             {locationOne === '직접 입력' && 
                                 <div className='pt-7'>
