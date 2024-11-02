@@ -4,7 +4,7 @@ import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnap
 import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
 import PiazzaDialogs from 'src/muiComponents/PiazzaDialogs'
 import PiazzaSwitch from 'src/muiComponents/PiazzaSwitch'
-import { bottomNavigationStore } from 'src/store'
+import { useBottomNavigationStore } from 'src/store'
 import { webSocket, onClick } from 'src/webSocket.tsx'
 
 // const webSocket = io("http://localhost:5000");
@@ -22,7 +22,7 @@ function Piazza({ userObj, piazzaSwitch }:
   const [privateTarget, setPrivateTarget] = useState("");
   const [user, setUser] = useState(null)
   const [selectUser, setSelectUser] = useState(false)
-  const setBottomNavigation = bottomNavigationStore((state) => state.setBottomNavigation)
+  const setBottomNavigation = useBottomNavigationStore((state) => state.setBottomNavigation)
   
   useEffect(() => {
     if (!webSocket) return;

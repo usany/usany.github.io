@@ -9,7 +9,7 @@ interface sideNavigationState {
 }
 const useSideNavigationStore = create<sideNavigationState>()((set) => ({
     sideNavigation: false,
-    handleSideNavigation: () => set((state: {sideNavigation: boolean}) => ({ sideNavigation: !state.sideNavigation })),
+    handleSideNavigation: () => set((state) => ({ sideNavigation: !state.sideNavigation })),
 }))
 const useBottomNavigationStore = create((set) => ({
     bottomNavigation: 1,

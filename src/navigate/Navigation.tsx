@@ -10,14 +10,13 @@ import DraftsIcon from '@mui/icons-material/Drafts';
 import ImageIcon from '@mui/icons-material/Image';
 import WorkIcon from '@mui/icons-material/Work';
 import Public from '@mui/icons-material/Public';
-import { useSideNavigationStore } from 'src/store'
+import { useSideNavigationStore, useThemeStore } from 'src/store'
 
 const onLogOutClick = () => auth.signOut();
-function Navigation({ setScroll, userObj, setValue, setMode, stateMode, handleModes }:
+function Navigation({ setScroll, userObj, setMode, stateMode, handleModes }:
   {
     setScroll: (newState: number) => void,
     userObj: {uid: string, displayName: string},
-    setValue: (newState: number) => void,
     setMode: (newState: string) => void
   }
 ) {
@@ -25,7 +24,7 @@ function Navigation({ setScroll, userObj, setValue, setMode, stateMode, handleMo
   const [color, setColor] = useState<string>('#e2e8f0');
   const [backgroundColor, setBackgroundColor] = useState<string>('#e2e8f0');
   const [points, setPoints] = useState<number>(0)
-  const modes = modeStore((state) => state.mode)
+  const modes = useThemeStore((state) => state.mode)
   const sideNavigation = useSideNavigationStore((state) => state.sideNavigation)
   const handleSideNavigation = useSideNavigationStore((state) => state.handleSideNavigation)
 
@@ -45,7 +44,7 @@ function Navigation({ setScroll, userObj, setValue, setMode, stateMode, handleMo
   const logOut = () => {
     onLogOutClick()
     checkbox()
-    setValue(2)
+    // setValue(2)
   }
 
   useEffect(() => {

@@ -5,25 +5,22 @@ import Avatar from '@mui/material/Avatar';
 import { blue } from '@mui/material/colors';
 import ToggleTabs from 'src/muiComponents/ToggleTabs'
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
-import { useSideNavigationStore, useBottomNavigationStore, profileColorStore, toggleTabsStore } from 'src/store'
+import { useSideNavigationStore, useBottomNavigationStore, useAvatarColorStore } from 'src/store'
 
-const Header = ({ setScroll, userObj, setValue, prevScrollPos, value, storage }: 
+const Header = ({ setScroll, userObj, setValue, prevScrollPos, storage }: 
     {
         setScroll: (newState: number) => void,
         userObj: {uid: string, displayName: string} | null,
         setValue: (newState: number) => void,
         prevScrollPos: number,
-        value: number, 
         storage: {}
     }
 ) => {
     const [profile, setProfile] = useState(null)
     const bottomNavigation = useBottomNavigationStore((state) => state.bottomNavigation)
-    const profileColor = profileColorStore((state) => state.profileColor)
+    const profileColor = useAvatarColorStore((state) => state.profileColor)
     const handleBottomNavigation = useBottomNavigationStore((state) => state.handleBottomNavigation)
     const handleSideNavigation = useSideNavigationStore((state) => state.handleSideNavigation)
-    const toggleTabs = toggleTabsStore((state) => state.toggleTabs)
-    const handleToggleTabs = toggleTabsStore((state) => state.handleToggleTabs)
     
     useLayoutEffect(() => {
         getDownloadURL(ref(storage, 'screen.jpg'))
