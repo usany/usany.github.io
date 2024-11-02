@@ -10,7 +10,7 @@ import DraftsIcon from '@mui/icons-material/Drafts';
 import ImageIcon from '@mui/icons-material/Image';
 import WorkIcon from '@mui/icons-material/Work';
 import Public from '@mui/icons-material/Public';
-import { sideNavigationStore } from 'src/store'
+import { useSideNavigationStore } from 'src/store'
 
 const onLogOutClick = () => auth.signOut();
 function Navigation({ setScroll, userObj, setValue, setMode, stateMode, handleModes }:
@@ -26,8 +26,8 @@ function Navigation({ setScroll, userObj, setValue, setMode, stateMode, handleMo
   const [backgroundColor, setBackgroundColor] = useState<string>('#e2e8f0');
   const [points, setPoints] = useState<number>(0)
   const modes = modeStore((state) => state.mode)
-  const sideNavigation = sideNavigationStore((state) => state.sideNavigation)
-  const handleSideNavigation = sideNavigationStore((state) => state.handleSideNavigation)
+  const sideNavigation = useSideNavigationStore((state) => state.sideNavigation)
+  const handleSideNavigation = useSideNavigationStore((state) => state.handleSideNavigation)
 
   useEffect(() => {
     if (userObj) {

@@ -17,7 +17,7 @@ import { getStorage, ref } from "firebase/storage";
 import { auth, dbservice } from 'src/baseApi/serverbase'
 import Box from '@mui/material/Box';
 import LinearProgress from '@mui/material/LinearProgress';
-import { sideNavigationStore, profileColorStore } from 'src/store'
+import { useSideNavigationStore, useAvatarColorStore } from 'src/store'
 
 const tmpCounter: [] = []
 const Router = ({ userObj }: {
@@ -30,8 +30,8 @@ const Router = ({ userObj }: {
     // const [profileColor, setProfileColor] = useState<string>('#2196f3')
     const piazzaSwitch = useRef<string | null>(localStorage.getItem('piazza'))
     const [newMessage, setNewMessage] = useState<boolean>(false)
-    const sideNavigation = sideNavigationStore((state) => state.sideNavigation)
-    const handleProfileColor = profileColorStore((state) => state.handleProfileColor)
+    const sideNavigation = useSideNavigationStore((state) => state.sideNavigation)
+    const handleProfileColor = useAvatarColorStore((state) => state.handleProfileColor)
     // const handleSideNavigation = sideNavigationStore((state) => state.handleSideNavigationStore)
     
     // const reducerSideNavigation = (state, action) => {

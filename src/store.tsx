@@ -7,15 +7,15 @@ interface sideNavigationState {
   sideNavigation: boolean
   handleSideNavigation: (state: boolean) => void
 }
-const sideNavigationStore = create<sideNavigationState>()((set) => ({
+const useSideNavigationStore = create<sideNavigationState>()((set) => ({
     sideNavigation: false,
     handleSideNavigation: () => set((state: {sideNavigation: boolean}) => ({ sideNavigation: !state.sideNavigation })),
 }))
-const bottomNavigationStore = create((set) => ({
+const useBottomNavigationStore = create((set) => ({
     bottomNavigation: 1,
     handleBottomNavigation: (newState) => set(() => ({ bottomNavigation: newState })),
 }))
-const profileColorStore = create((set) => ({
+const useAvatarColorStore = create((set) => ({
     profileColor: '#2196f3',
     handleProfileColor: (newState) => set(() => ({ profileColor: newState })),
 }))
@@ -23,23 +23,12 @@ const actionStore = create((set) => ({
     action: 0,
     handleAction: (newState) => set(() => ({ action: newState })),
 }))
-const toggleTabsStore = create((set) => ({
+const useTabsStore = create((set) => ({
     toggleTabs: 0,
     handleToggleTabs: (newState) => set(() => ({ toggleTabs: newState }))
 }))
-const modeStore = create((set) => ({
+const useThemeStore = create((set) => ({
   mode: localStorage.getItem('theme') || 'light',
-  // handleModeToggle: () => set(() => {
-  //   if (modeStore.mode === 'light') {
-  //     return (
-  //       { mode: 'dark' }
-  //     )
-  //   } else {
-  //     return (
-  //       { mode: 'light' }
-  //     )
-  //   }
-  // }),
   handleModeLight: () => set(() => {
     return (
       { mode: 'light' }
@@ -111,5 +100,5 @@ const bookStore = (set, get) => ({
   
   const useBookStore = create(bookStore);
   
-  export { sideNavigationStore, bottomNavigationStore, profileColorStore, actionStore, toggleTabsStore, modeStore };
+  export { useSideNavigationStore, useBottomNavigationStore, useAvatarColorStore, actionStore, useTabsStore, useThemeStore };
   

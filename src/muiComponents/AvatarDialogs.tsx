@@ -8,7 +8,7 @@ import { doc, deleteDoc, updateDoc } from 'firebase/firestore';
 import { auth, dbservice } from 'src/baseApi/serverbase'
 import { storage } from "src/baseApi/serverbase";
 import { getStorage, ref, uploadBytes } from "firebase/storage";
-import { sideNavigationStore, bottomNavigationStore, profileColorStore } from 'src/store'
+import { profileColorStore } from 'src/store'
 
 const AvatarDialogs = ({ userObj, changeProfile, handleClose }) => {
     const [selectedColor, setSelectedColor] = useState(null)

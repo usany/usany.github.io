@@ -16,7 +16,7 @@ import { CardActionArea, CardActions } from '@mui/material';
 import { BrowserRouter, Routes, Route, useNavigate, Link, useLocation } from 'react-router-dom'
 import TextField from '@mui/material/TextField';
 import { blue } from '@mui/material/colors';
-import { sideNavigationStore, bottomNavigationStore, profileColorStore } from 'src/store'
+import { useBottomNavigationStore, useAvatarColorStore } from 'src/store'
 
 interface Props {
   profileColor: string,
@@ -59,8 +59,8 @@ function Profile({ userObj }: Props
   const [userFollowersList, setUserFollowersList] = useState([])
   const [followButton, setFollowButton] = useState(true)
   const [conversation, setConversation] = useState('')
-  const profileColor = profileColorStore((state) => state.profileColor)
-  const handleBottomNavigation = bottomNavigationStore((state) => state.handleBottomNavigation)
+  const profileColor = useAvatarColorStore((state) => state.profileColor)
+  const handleBottomNavigation = useBottomNavigationStore((state) => state.handleBottomNavigation)
   useEffect(() => {
     const userFollowCollection = async () => {
       const docRef = doc(dbservice, `members/${userObj.uid}`)

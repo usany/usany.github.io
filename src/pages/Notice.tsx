@@ -4,7 +4,7 @@ import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
 import Message from 'src/pages/Message'
 import FilterDialogs from 'src/muiComponents/FilterDialogs'
 import Settings from '@mui/icons-material/Settings';
-import { sideNavigationStore, profileColorStore, actionStore, toggleTabsStore } from 'src/store'
+import { useTabsStore } from 'src/store'
 
 function Notice({ userObj, setValue, counter, setCounter }) {
   const [messages, setMessages] = useState<Array<object>>([]);
@@ -12,8 +12,7 @@ function Notice({ userObj, setValue, counter, setCounter }) {
   const [selectedValueOne, setSelectedValueOne] = useState(null);
   const [selectedValueTwo, setSelectedValueTwo] = useState(null);
   const [selectedValueThree, setSelectedValueThree] = useState(null);
-  const toggleTabs = toggleTabsStore((state) => state.toggleTabs)
-  const handleToggleTabs = toggleTabsStore((state) => state.handleToggleTabs)
+  const toggleTabs = useTabsStore((state) => state.toggleTabs)
 
   const handleClickChangeFilter = () => {
     setChangeFilter(true);

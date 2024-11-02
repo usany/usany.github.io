@@ -1,5 +1,5 @@
 import Switches from 'src/muiComponents/Switches';
-import { modeStore } from 'src/store'
+import { useThemeStore } from 'src/store'
 
 // const onClick = ({ colors, setColors }) => {
 //     document.documentElement.classList.toggle("dark")
@@ -13,9 +13,9 @@ import { modeStore } from 'src/store'
 // }
 
 const Modes = () => {
-    const mode = modeStore((state) => state.mode)
-    const handleModeLight = modeStore((state) => state.handleModeLight)
-    const handleModeDark = modeStore((state) => state.handleModeDark)
+    const mode = useThemeStore((state) => state.mode)
+    const handleModeLight = useThemeStore((state) => state.handleModeLight)
+    const handleModeDark = useThemeStore((state) => state.handleModeDark)
     return (
         <div className='flex justify-center p-5'>
             <Switches onClick={() => {

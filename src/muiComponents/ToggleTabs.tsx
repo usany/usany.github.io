@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
-import { sideNavigationStore, bottomNavigationStore, profileColorStore, actionStore, toggleTabsStore } from 'src/store'
+import { useTabsStore } from 'src/store'
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -44,10 +44,8 @@ export default function ToggleTabs() {
     //   setValuing(newValue);
     // }
   };
-  const action = actionStore((state) => state.action)
-  const handleAction = actionStore((state) => state.handleAction)
-  const toggleTabs = toggleTabsStore((state) => state.toggleTabs)
-  const handleToggleTabs = toggleTabsStore((state) => state.handleToggleTabs)
+  const toggleTabs = useTabsStore((state) => state.toggleTabs)
+  const handleToggleTabs = useTabsStore((state) => state.handleToggleTabs)
   // useEffect(() => {
   //   if (valuing === 1) {
   //     setValue(0)
