@@ -6,10 +6,13 @@ import Add from 'src/pages/Add'
 import { SwipeableViews } from "src/navigate/SwipeableViews";
 import { modeStore } from 'src/store'
 import { bottomNavigationStore } from 'src/store'
+import { sideNavigationStore, profileColorStore, actionStore, toggleTabsStore } from 'src/store'
 
 function Home({ userObj, value, setValue, counter, setCounter, tmpCounter, piazzaSwitch, newMessage, setNewMessage }) {
     const bottomNavigation = bottomNavigationStore((state) => state.bottomNavigation)
     const handleBottomNavigation = bottomNavigationStore((state) => state.handleBottomNavigation)
+    const toggleTabs = toggleTabsStore((state) => state.bottomNavigation)
+    const handleToggleTabs = toggleTabsStore((state) => state.handleBottomNavigation)
 
     useEffect(() => {
         if (bottomNavigation === 5) {
@@ -32,10 +35,10 @@ function Home({ userObj, value, setValue, counter, setCounter, tmpCounter, piazz
                         num={1}
                     >
                         <div>
-                            <Add userObj={userObj} valuing={0}/>
+                            <Add userObj={userObj} action={0}/>
                         </div>
                         <div>
-                            <Add userObj={userObj} valuing={1}/>
+                            <Add userObj={userObj} action={1}/>
                         </div>
                     </SwipeableViews>
                     </div>
@@ -48,10 +51,10 @@ function Home({ userObj, value, setValue, counter, setCounter, tmpCounter, piazz
                         num={1}
                     >
                         <div>
-                            <Notice userObj={userObj} valuing={1} setValue={setValue} counter={counter} setCounter={setCounter}/>
+                            <Notice userObj={userObj} setValue={setValue} counter={counter} setCounter={setCounter}/>
                         </div>
                         <div>
-                            <Notice userObj={userObj} valuing={3} setValue={setValue} counter={counter} setCounter={setCounter}/>
+                            <Notice userObj={userObj} setValue={setValue} counter={counter} setCounter={setCounter}/>
                         </div>
                     </SwipeableViews>
                     </div>
@@ -61,13 +64,13 @@ function Home({ userObj, value, setValue, counter, setCounter, tmpCounter, piazz
             {!userObj &&
                 <>
                     {bottomNavigation === 0 &&
-                        <Notice userObj={userObj} valuing={1} setValue={setValue} counter={counter} setCounter={(newState) => setCounter(newState)} />
+                        <Notice userObj={userObj} setValue={setValue} counter={counter} setCounter={(newState) => setCounter(newState)} />
                     }
                     {bottomNavigation === 1 &&
                         <Auth setValue={setValue}/>
                     }
                     {bottomNavigation === 2 &&
-                        <Notice userObj={userObj} valuing={4} setValue={setValue} counter={counter} setCounter={(newState) => setCounter(newState)} />
+                        <Notice userObj={userObj} setValue={setValue} counter={counter} setCounter={(newState) => setCounter(newState)} />
                     }
                 </>
             }

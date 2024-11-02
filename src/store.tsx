@@ -19,23 +19,23 @@ const actionStore = create((set) => ({
     action: 0,
     handleAction: (newState) => set(() => ({ action: newState })),
 }))
-const borrowToggleStore = create((set) => ({
-    borrowToggle: true,
-    handleborrowToggle: () => set((state) => ({ borrowToggle: !state.borrowToggle })),
+const toggleTabsStore = create((set) => ({
+    toggleTabs: 0,
+    handleToggleTabs: (newState) => set(() => ({ toggleTabs: newState }))
 }))
 const modeStore = create((set) => ({
   mode: localStorage.getItem('theme') || 'light',
-  handleModeToggle: () => set(() => {
-    if (modeStore.mode === 'light') {
-      return (
-        { mode: 'dark' }
-      )
-    } else {
-      return (
-        { mode: 'light' }
-      )
-    }
-  }),
+  // handleModeToggle: () => set(() => {
+  //   if (modeStore.mode === 'light') {
+  //     return (
+  //       { mode: 'dark' }
+  //     )
+  //   } else {
+  //     return (
+  //       { mode: 'light' }
+  //     )
+  //   }
+  // }),
   handleModeLight: () => set(() => {
     return (
       { mode: 'light' }
@@ -107,5 +107,5 @@ const bookStore = (set, get) => ({
   
   const useBookStore = create(bookStore);
   
-  export { sideNavigationStore, bottomNavigationStore, profileColorStore, actionStore, modeStore };
+  export { sideNavigationStore, bottomNavigationStore, profileColorStore, actionStore, toggleTabsStore, modeStore };
   

@@ -5,7 +5,7 @@ import Avatar from '@mui/material/Avatar';
 import { blue } from '@mui/material/colors';
 import ToggleTabs from 'src/muiComponents/ToggleTabs'
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
-import { sideNavigationStore, bottomNavigationStore, profileColorStore, actionStore } from 'src/store'
+import { sideNavigationStore, bottomNavigationStore, profileColorStore, toggleTabsStore } from 'src/store'
 
 const Header = ({ setScroll, userObj, setValue, prevScrollPos, value, storage }: 
     {
@@ -22,7 +22,8 @@ const Header = ({ setScroll, userObj, setValue, prevScrollPos, value, storage }:
     const profileColor = profileColorStore((state) => state.profileColor)
     const handleBottomNavigation = bottomNavigationStore((state) => state.handleBottomNavigation)
     const handleSideNavigation = sideNavigationStore((state) => state.handleSideNavigation)
-    const action = actionStore((state) => state.action)
+    const toggleTabs = toggleTabsStore((state) => state.toggleTabs)
+    const handleToggleTabs = toggleTabsStore((state) => state.handleToggleTabs)
     
     useLayoutEffect(() => {
         getDownloadURL(ref(storage, 'screen.jpg'))
@@ -60,10 +61,10 @@ const Header = ({ setScroll, userObj, setValue, prevScrollPos, value, storage }:
                         </div> */}
                         <div>
                             {userObj && bottomNavigation === 0 && 
-                                <ToggleTabs valuing={value} setValuing={(newState: number) => setValue(newState)}/>
+                                <ToggleTabs />
                             }
                             {userObj && bottomNavigation === 2 && 
-                                <ToggleTabs valuing={value} setValuing={(newState: number) => setValue(newState)}/>
+                                <ToggleTabs />
                             }
                             {!userObj && 
                                 <div className='pt-5 min-w-36' onClick={() => handleBottomNavigation(1)}>로그인을 해 주세요</div>
