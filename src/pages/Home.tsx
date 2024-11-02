@@ -4,11 +4,13 @@ import Notice from 'src/pages/Notice'
 import Auth from 'src/pages/Auth'
 import Add from 'src/pages/Add'
 import { SwipeableViews } from "src/navigate/SwipeableViews";
-import { useBottomNavigationStore } from 'src/store'
+import { useBottomNavigationStore, useTabsStore } from 'src/store'
 
-function Home({ userObj, value, setValue, counter, setCounter, tmpCounter, piazzaSwitch, newMessage, setNewMessage }) {
+function Home({ userObj, counter, setCounter, tmpCounter, piazzaSwitch, newMessage, setNewMessage }) {
     const bottomNavigation = useBottomNavigationStore((state) => state.bottomNavigation)
     const handleBottomNavigation = useBottomNavigationStore((state) => state.handleBottomNavigation)
+    const toggleTabs = useTabsStore((state) => state.toggleTabs)
+    const handleToggleTabs = useTabsStore((state) => state.handleToggleTabs)
 
     useEffect(() => {
         if (bottomNavigation === 5) {
@@ -21,13 +23,13 @@ function Home({ userObj, value, setValue, counter, setCounter, tmpCounter, piazz
             {userObj && 
             <div>
                 {bottomNavigation === 1 && 
-                    <Menu userObj={userObj} counter={counter} setCounter={setCounter} setValue={setValue} tmpCounter={tmpCounter} piazzaSwitch={piazzaSwitch} newMessage={newMessage} setNewMessage={setNewMessage} />
+                    <Menu userObj={userObj} counter={counter} setCounter={setCounter} tmpCounter={tmpCounter} piazzaSwitch={piazzaSwitch} newMessage={newMessage} setNewMessage={setNewMessage} />
                 }
                 {[0].indexOf(bottomNavigation) !== -1 && 
                     <div>
                     <SwipeableViews
-                        index={value}
-                        onIndexChange={setValue}
+                        index={toggleTabs}
+                        onIndexChange={handleToggleTabs}
                         num={1}
                     >
                         <div>
@@ -42,15 +44,15 @@ function Home({ userObj, value, setValue, counter, setCounter, tmpCounter, piazz
                 {[2].indexOf(bottomNavigation) !== -1 && 
                     <div>
                     <SwipeableViews
-                        index={value}
-                        onIndexChange={setValue}
+                        index={toggleTabs}
+                        onIndexChange={handleToggleTabs}
                         num={1}
                     >
                         <div>
-                            <Notice userObj={userObj} setValue={setValue} counter={counter} setCounter={setCounter}/>
+                            <Notice userObj={userObj} counter={counter} setCounter={setCounter}/>
                         </div>
                         <div>
-                            <Notice userObj={userObj} setValue={setValue} counter={counter} setCounter={setCounter}/>
+                            <Notice userObj={userObj} counter={counter} setCounter={setCounter}/>
                         </div>
                     </SwipeableViews>
                     </div>
@@ -60,13 +62,13 @@ function Home({ userObj, value, setValue, counter, setCounter, tmpCounter, piazz
             {!userObj &&
                 <>
                     {bottomNavigation === 0 &&
-                        <Notice userObj={userObj} setValue={setValue} counter={counter} setCounter={(newState) => setCounter(newState)} />
+                        <Notice userObj={userObj} counter={counter} setCounter={(newState) => setCounter(newState)} />
                     }
                     {bottomNavigation === 1 &&
-                        <Auth setValue={setValue}/>
+                        <Auth />
                     }
                     {bottomNavigation === 2 &&
-                        <Notice userObj={userObj} setValue={setValue} counter={counter} setCounter={(newState) => setCounter(newState)} />
+                        <Notice userObj={userObj} counter={counter} setCounter={(newState) => setCounter(newState)} />
                     }
                 </>
             }

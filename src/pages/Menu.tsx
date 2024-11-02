@@ -6,7 +6,7 @@ import { getToken } from "firebase/messaging";
 import MessageStacks from 'src/muiComponents/MessageStacks'
 import ChattingStacks from 'src/muiComponents/ChattingStacks'
 
-function Menu({ userObj, counter, setCounter, setValue, tmpCounter, piazzaSwitch, newMessage, setNewMessage }) {
+function Menu({ userObj, counter, setCounter, tmpCounter, piazzaSwitch, newMessage, setNewMessage }) {
     const [messages, setMessages] = useState<Array<object>>([]);
     const [chats, setChats] = useState(false)
     const [piazzaOn, setPiazzaOn] = useState('')
@@ -107,7 +107,7 @@ function Menu({ userObj, counter, setCounter, setValue, tmpCounter, piazzaSwitch
                                             if (counter.indexOf(msg.id) === -1) {
                                                 onCounting(msg)
                                             }
-                                            return(<Message key={msg.id} msgObj={msg} isOwner={msg.creatorId === userObj.uid} userObj={userObj} counter={counter} setCounter={setCounter} setValue={setValue} />)
+                                            return(<Message key={msg.id} msgObj={msg} isOwner={msg.creatorId === userObj.uid} userObj={userObj} counter={counter} setCounter={setCounter} />)
                                         }
                                     })}
                                 </div>

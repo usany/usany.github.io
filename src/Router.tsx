@@ -24,7 +24,7 @@ const Router = ({ userObj }: {
     userObj: {uid: string, displayName: string} | null,
 }) => {
     const [counter, setCounter] = useState<number[]>([]);
-    const [value, setValue] = useState<number>(0);
+    // const [value, setValue] = useState<number>(0);
     // const [check, setCheck] = useState<boolean>(false)
     const [scroll, setScroll] = useState<number>(0)
     // const [profileColor, setProfileColor] = useState<string>('#2196f3')
@@ -167,11 +167,9 @@ const Router = ({ userObj }: {
                 </div>
                 <Header
                     userObj={userObj}
-                    setValue={(newState: number) => setValue(newState)}
                     // check={check} 
                     // setCheck={(newState: boolean) => setCheck(newState)} 
                     prevScrollPos={prevScrollPos} 
-                    value={value}
                     storage={storage}
                     setScroll={(newState: number) => setScroll(newState)}
                     handleSideNavigation={() => dispatchSideNavigation({type: 'toggle'})}
@@ -183,11 +181,11 @@ const Router = ({ userObj }: {
                         {
                             userObj ? (
                                 <Route>
-                                    <Route path='/' Component={() => <Home userObj={userObj} value={value} setValue={(newState: number) => setValue(newState)} counter={counter} setCounter={(newState: number[]) => setCounter(newState)} tmpCounter={tmpCounter} piazzaSwitch={piazzaSwitch} newMessage={newMessage} setNewMessage={(newMessage: boolean) => setNewMessage(newMessage)} />} />
+                                    <Route path='/' Component={() => <Home userObj={userObj} counter={counter} setCounter={(newState: number[]) => setCounter(newState)} tmpCounter={tmpCounter} piazzaSwitch={piazzaSwitch} newMessage={newMessage} setNewMessage={(newMessage: boolean) => setNewMessage(newMessage)} />} />
                                     <Route path='/profile' Component={() => <Profile userObj={userObj} />} />
                                     <Route path='/ranking' Component={() => <Ranking userObj={userObj}/>} />
-                                    <Route path='/specific' Component={() => <Specific userObj={userObj} value={value} setValue={(newState: number) => setValue(newState)} counter={counter} setCounter={(newState: number[]) => setCounter(newState)} />} />
-                                    <Route path='/actions' Component={() => <Actions userObj={userObj} counter={counter} setCounter={(newState: number[]) => setCounter(newState)} setValue={(newState: number) => setValue(newState)} />} />
+                                    <Route path='/specific' Component={() => <Specific userObj={userObj} counter={counter} setCounter={(newState: number[]) => setCounter(newState)} />} />
+                                    <Route path='/actions' Component={() => <Actions userObj={userObj} counter={counter} setCounter={(newState: number[]) => setCounter(newState)} />} />
                                     <Route path='/allies' Component={() => <Allies />} />
                                     <Route path='/points' Component={() => <Points />} />
                                     <Route path='/contact' Component={() => <Contact displayName={userObj?.displayName} userObj={userObj} />} />
@@ -196,8 +194,8 @@ const Router = ({ userObj }: {
                                 </Route>
                             ) : (
                                 <Route>
-                                    <Route path='/' Component={() => <Home userObj={userObj} value={value} setValue={(newState: number) => setValue(newState)} counter={counter} setCounter={(newState: number[]) => setCounter(newState)} tmpCounter={tmpCounter} piazzaSwitch={piazzaSwitch} newMessage={newMessage} setNewMessage={(newMessage: boolean) => setNewMessage(newMessage)} />} />
-                                    <Route path='/specific' Component={() => <Specific userObj={userObj} value={value} setValue={(newState: number) => setValue(newState)} counter={counter} setCounter={(newState: number[]) => setCounter(newState)} />} />
+                                    <Route path='/' Component={() => <Home userObj={userObj} counter={counter} setCounter={(newState: number[]) => setCounter(newState)} tmpCounter={tmpCounter} piazzaSwitch={piazzaSwitch} newMessage={newMessage} setNewMessage={(newMessage: boolean) => setNewMessage(newMessage)} />} />
+                                    <Route path='/specific' Component={() => <Specific userObj={userObj} counter={counter} setCounter={(newState: number[]) => setCounter(newState)} />} />
                                 </Route>
                             )
                         }

@@ -7,11 +7,10 @@ import ToggleTabs from 'src/muiComponents/ToggleTabs'
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
 import { useSideNavigationStore, useBottomNavigationStore, useAvatarColorStore } from 'src/store'
 
-const Header = ({ setScroll, userObj, setValue, prevScrollPos, storage }: 
+const Header = ({ setScroll, userObj, prevScrollPos, storage }: 
     {
         setScroll: (newState: number) => void,
         userObj: {uid: string, displayName: string} | null,
-        setValue: (newState: number) => void,
         prevScrollPos: number,
         storage: {}
     }
@@ -36,7 +35,7 @@ const Header = ({ setScroll, userObj, setValue, prevScrollPos, storage }:
     return (
         <div className='flex flex-row'>
                 <div id='navigationSelectorOne' className='pt-1'>
-                    <Navigation setScroll={(newState: number) => setScroll(newState)} userObj={userObj} setValue={(newState: number) => setValue(newState)} handleSideNavigation={handleSideNavigation} />
+                    <Navigation setScroll={(newState: number) => setScroll(newState)} userObj={userObj} handleSideNavigation={handleSideNavigation} />
                     <div className='flex justify-between w-screen'>
                         <div className='px-5 pt-1'>
                             {userObj ?
