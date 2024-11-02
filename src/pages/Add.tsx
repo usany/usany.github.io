@@ -190,7 +190,7 @@ function Add({ userObj, action }: {userObj: object, action: number}) {
             {toggleTabs === 0 ? '빌리기 ' : '빌려주기 '} 카드 등록
         </div>
         <div className='flex justify-end start-0 end-0'>
-            <AddSteppers steps={addSteps} toggleTabs={toggleTabs}/>
+            <AddSteppers addSteps={addSteps} toggleTabs={toggleTabs}/>
         </div>
             <div>
                 <div className='flex text-base px-5 pt-5'>
