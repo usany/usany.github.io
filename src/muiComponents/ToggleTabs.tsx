@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
+import { sideNavigationStore, bottomNavigationStore, profileColorStore, actionStore } from 'src/store'
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -39,6 +40,7 @@ export default function ToggleTabs({ valuing, setValuing }:
     setValuing: (newState: number) => void
   }
 ) {
+  
   const handleChange = (event, newValue) => {
     if (valuing<2) {
       setValuing(newValue);
@@ -46,6 +48,8 @@ export default function ToggleTabs({ valuing, setValuing }:
       setValuing(newValue);
     }
   };
+  const action = actionStore((state) => state.action)
+  const handleAction = actionStore((state) => state.handleAction)
   
   // useEffect(() => {
   //   if (valuing === 1) {
@@ -72,22 +76,22 @@ export default function ToggleTabs({ valuing, setValuing }:
     <Box>
       <Box sx={{ paddingX: '10px'
         }}>
-        {valuing<2 &&
         <Tabs
           value={valuing} onChange={handleChange} aria-label="basic tabs example"
         >
           <Tab label="빌리기" {...a11yProps(0)} />
           <Tab label="빌려주기" {...a11yProps(1)} />
         </Tabs>
-        }
-        {valuing>=2 &&
+        {/* {valuing<2 &&
+        } */}
+        {/* {valuing>=2 &&
         <Tabs
         value={valuing} onChange={handleChange} aria-label="basic tabs example"
         >
           <Tab label="빌리기" {...a11yProps(0)} />
           <Tab label="빌려주기" {...a11yProps(1)} />
         </Tabs>
-        }
+        } */}
       </Box>
     </Box>
   );

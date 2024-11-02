@@ -11,6 +11,7 @@ import Snackbar from '@mui/material/Snackbar';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import TextField from '@mui/material/TextField';
+import { sideNavigationStore, profileColorStore, actionStore } from 'src/store'
 
 function Add({ userObj, valuing }: {userObj: object, valuing: number}) {
   const [addSteps, setAddSteps] = useState(0);
@@ -26,7 +27,9 @@ function Add({ userObj, valuing }: {userObj: object, valuing: number}) {
   const [to, setTo] = useState(null);
   const [process, setProcess] = useState<boolean>(false)
   const value: number[] = [0, valuing+1]
-
+  const action = actionStore((state) => state.action)
+  const handleAction = actionStore((state) => state.handleAction)
+  
   useEffect(() => {
     if (process) {
         setTimeout(() => setProcess(false) , 5000)

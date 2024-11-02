@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import { bottomNavigationStore } from 'src/store'
 import Message from 'src/pages/Message'
 import AvatarDialogs from 'src/muiComponents/AvatarDialogs'
 import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
@@ -17,15 +16,15 @@ import { CardActionArea, CardActions } from '@mui/material';
 import { BrowserRouter, Routes, Route, useNavigate, Link, useLocation } from 'react-router-dom'
 import TextField from '@mui/material/TextField';
 import { blue } from '@mui/material/colors';
+import { sideNavigationStore, bottomNavigationStore, profileColorStore } from 'src/store'
 
 interface Props {
   profileColor: string,
   setProfileColor: (newState: string) => void,
   userObj: {uid: string, displayName: string},
-  setBottomNavigation: (newState: number) => void
 }
 
-function Profile({ profileColor, setProfileColor, userObj }: Props
+function Profile({ userObj }: Props
 //   {
 //   profileColor: string,
 //   setProfileColor: (newState: string) => void,
@@ -60,7 +59,8 @@ function Profile({ profileColor, setProfileColor, userObj }: Props
   const [userFollowersList, setUserFollowersList] = useState([])
   const [followButton, setFollowButton] = useState(true)
   const [conversation, setConversation] = useState('')
-  const setBottomNavigation = bottomNavigationStore((state) => state.setBottomNavigation)
+  const profileColor = profileColorStore((state) => state.profileColor)
+  const handleBottomNavigation = bottomNavigationStore((state) => state.handleBottomNavigation)
   useEffect(() => {
     const userFollowCollection = async () => {
       const docRef = doc(dbservice, `members/${userObj.uid}`)
@@ -307,7 +307,7 @@ function Profile({ profileColor, setProfileColor, userObj }: Props
   }, [])
 
   useEffect(() => {
-    setBottomNavigation(5)
+    handleBottomNavigation(5)
   })
 
   const confirmProfile = async (newDisplayName) => {
@@ -492,7 +492,7 @@ function Profile({ profileColor, setProfileColor, userObj }: Props
         </Badge>
         {/* <label for='img'>label</label>
         <input id='img' type='file' onChange={onFileChange} hidden /> */}
-        <AvatarDialogs userObj={userObj} profileColor={profileColor} setProfileColor={setProfileColor} changeProfile={changeProfile} handleClose={handleClose} />
+        <AvatarDialogs userObj={userObj} changeProfile={changeProfile} handleClose={handleClose} />
       </div>
       {attachment &&
         <div className='flex justify-center'>

@@ -12,8 +12,6 @@ import { bottomNavigationStore } from 'src/store'
 
 function Navigations({ counter, userObj, setScroll, tmpCounter }:
     {
-        bottomNavigation: number,
-        setBottomNavigation: (newState: number) => void,
         counter: number[],
         userObj: {uid: string, displayName: string} | null,
         setScroll: (newState: number) => void,
@@ -24,7 +22,7 @@ function Navigations({ counter, userObj, setScroll, tmpCounter }:
     // const [color, setColor] = useState('#e2e8f0');
     const [backgroundColor, setBackgroundColor] = useState('#e2e8f0');
     const bottomNavigation = bottomNavigationStore((state) => state.bottomNavigation)
-    const setBottomNavigation = bottomNavigationStore((state) => state.setBottomNavigation)
+    const handleBottomNavigation = bottomNavigationStore((state) => state.handleBottomNavigation)
 
     useEffect(() => {
         if (localStorage.getItem("theme") === 'dark') {
@@ -44,7 +42,7 @@ function Navigations({ counter, userObj, setScroll, tmpCounter }:
                     showLabels
                     value={bottomNavigation}
                     onChange={(event, newValue) => {
-                        setBottomNavigation(newValue)
+                        handleBottomNavigation(newValue)
                         setScroll(0)
                         navigate('/')
                     }}
@@ -64,7 +62,7 @@ function Navigations({ counter, userObj, setScroll, tmpCounter }:
                     showLabels
                     value={bottomNavigation}
                     onChange={(event, newValue) => {
-                        setBottomNavigation(newValue)
+                        handleBottomNavigation(newValue)
                         setScroll(0)
                         navigate('/')
                     }}

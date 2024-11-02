@@ -10,15 +10,14 @@ import DraftsIcon from '@mui/icons-material/Drafts';
 import ImageIcon from '@mui/icons-material/Image';
 import WorkIcon from '@mui/icons-material/Work';
 import Public from '@mui/icons-material/Public';
+import { sideNavigationStore } from 'src/store'
 
 const onLogOutClick = () => auth.signOut();
-function Navigation({ setScroll, userObj, setValue, check, setCheck, setMode, stateMode, handleModes, handleSideNavigation }:
+function Navigation({ setScroll, userObj, setValue, setMode, stateMode, handleModes }:
   {
     setScroll: (newState: number) => void,
     userObj: {uid: string, displayName: string},
     setValue: (newState: number) => void,
-    check: boolean,
-    setCheck: (newState: boolean) => void,
     setMode: (newState: string) => void
   }
 ) {
@@ -27,6 +26,8 @@ function Navigation({ setScroll, userObj, setValue, check, setCheck, setMode, st
   const [backgroundColor, setBackgroundColor] = useState<string>('#e2e8f0');
   const [points, setPoints] = useState<number>(0)
   const modes = modeStore((state) => state.mode)
+  const sideNavigation = sideNavigationStore((state) => state.sideNavigation)
+  const handleSideNavigation = sideNavigationStore((state) => state.handleSideNavigation)
 
   useEffect(() => {
     if (userObj) {
@@ -37,7 +38,7 @@ function Navigation({ setScroll, userObj, setValue, check, setCheck, setMode, st
     }
   }, [])
   const checkbox = () => {
-    setCheck(false)
+    handleSideNavigation()
     setScroll(0)
   }
 
@@ -47,9 +48,6 @@ function Navigation({ setScroll, userObj, setValue, check, setCheck, setMode, st
     setValue(2)
   }
 
-  const toggle = (choose) => () => {
-    setCheck(choose)
-  }
   useEffect(() => {
     if (modes === 'dark') {
       setColor('#ddd')
@@ -72,9 +70,9 @@ function Navigation({ setScroll, userObj, setValue, check, setCheck, setMode, st
         }
       }}
       anchor={'left'}
-      open={check}
-      onClose={toggle(false)}
-      onOpen={toggle(true)}
+      open={sideNavigation}
+      onClose={handleSideNavigation}
+      onOpen={handleSideNavigation}
       aria-hidden="false"
     >
       {userObj &&

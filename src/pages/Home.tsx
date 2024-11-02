@@ -4,12 +4,16 @@ import Notice from 'src/pages/Notice'
 import Auth from 'src/pages/Auth'
 import Add from 'src/pages/Add'
 import { SwipeableViews } from "src/navigate/SwipeableViews";
+import { modeStore } from 'src/store'
+import { bottomNavigationStore } from 'src/store'
 
-function Home({ userObj, value, setValue, counter, setCounter, tmpCounter, bottomNavigation, setBottomNavigation, piazzaSwitch, newMessage, setNewMessage }) {
+function Home({ userObj, value, setValue, counter, setCounter, tmpCounter, piazzaSwitch, newMessage, setNewMessage }) {
+    const bottomNavigation = bottomNavigationStore((state) => state.bottomNavigation)
+    const handleBottomNavigation = bottomNavigationStore((state) => state.handleBottomNavigation)
 
     useEffect(() => {
         if (bottomNavigation === 5) {
-            setBottomNavigation(1)
+            handleBottomNavigation(1)
         }
     })
 

@@ -2,9 +2,21 @@ import { useState, useEffect, useRef, useMemo, useLayoutEffect, useContext, useR
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { create } from 'zustand'
 
+const sideNavigationStore = create((set) => ({
+    sideNavigation: false,
+    handleSideNavigation: () => set((state) => ({ sideNavigation: !state.sideNavigation })),
+}))
 const bottomNavigationStore = create((set) => ({
     bottomNavigation: 1,
-    setBottomNavigation: (newState) => set(() => ({ bottomNavigation: newState })),
+    handleBottomNavigation: (newState) => set(() => ({ bottomNavigation: newState })),
+}))
+const profileColorStore = create((set) => ({
+    profileColor: '#2196f3',
+    handleProfileColor: (newState) => set(() => ({ profileColor: newState })),
+}))
+const actionStore = create((set) => ({
+    action: 0,
+    handleAction: (newState) => set(() => ({ action: newState })),
 }))
 const modeStore = create((set) => ({
   mode: localStorage.getItem('theme') || 'light',
@@ -19,8 +31,16 @@ const modeStore = create((set) => ({
       )
     }
   }),
-  handleModeLight: () => set(() => ({ mode: 'light' })),
-  handleModeDark: () => set(() => ({ mode: 'dark' }))
+  handleModeLight: () => set(() => {
+    return (
+      { mode: 'light' }
+    )
+  }),
+  handleModeDark: () => set(() => {
+    return (
+      { mode: 'dark' }
+    )
+  })
 }))
 
 // store.set(state => ({ count: state.count + 1 }));
@@ -82,5 +102,5 @@ const bookStore = (set, get) => ({
   
   const useBookStore = create(bookStore);
   
-  export { bottomNavigationStore, modeStore };
+  export { sideNavigationStore, bottomNavigationStore, profileColorStore, actionStore, modeStore };
   
