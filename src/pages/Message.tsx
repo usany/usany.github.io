@@ -13,7 +13,7 @@ import Cards from 'src/muiComponents/Cards';
 // import Avatar from '@mui/material/Avatar';
 // import { blue } from '@mui/material/colors';
 
-function Message({ msgObj, isOwner, userObj, counter, setCounter, setValue, selectedValueOne, selectedValueTwo, selectedValueThree }) {
+function Message({ msgObj, isOwner, userObj, counter, setCounter, selectedValueOne, selectedValueTwo, selectedValueThree }) {
   const [num, setNum] = useState(null)
   const [points, setPoints] = useState(null)
 
@@ -35,7 +35,7 @@ function Message({ msgObj, isOwner, userObj, counter, setCounter, setValue, sele
   
   return (
     // <div className='pt-5'>
-      <Cards msgObj={msgObj} isOwner={isOwner} userObj={userObj} num={num} points={points} setValue={(newState: number) => setValue(newState)} counter={counter} setCounter={(newState: number[]) => setCounter(newState)} />
+      <Cards msgObj={msgObj} isOwner={isOwner} userObj={userObj} num={num} points={points} counter={counter} setCounter={(newState: number[]) => setCounter(newState)} />
     // </div>
   )
 }

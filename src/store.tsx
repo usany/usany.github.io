@@ -1,16 +1,21 @@
+import { StaticDatePicker } from '@mui/x-date-pickers'
 import { useState, useEffect, useRef, useMemo, useLayoutEffect, useContext, useReducer } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { create } from 'zustand'
 
-const sideNavigationStore = create((set) => ({
+interface sideNavigationState {
+  sideNavigation: boolean
+  handleSideNavigation: (state: boolean) => void
+}
+const useSideNavigationStore = create<sideNavigationState>()((set) => ({
     sideNavigation: false,
     handleSideNavigation: () => set((state) => ({ sideNavigation: !state.sideNavigation })),
 }))
-const bottomNavigationStore = create((set) => ({
+const useBottomNavigationStore = create((set) => ({
     bottomNavigation: 1,
     handleBottomNavigation: (newState) => set(() => ({ bottomNavigation: newState })),
 }))
-const profileColorStore = create((set) => ({
+const useAvatarColorStore = create((set) => ({
     profileColor: '#2196f3',
     handleProfileColor: (newState) => set(() => ({ profileColor: newState })),
 }))
@@ -18,19 +23,12 @@ const actionStore = create((set) => ({
     action: 0,
     handleAction: (newState) => set(() => ({ action: newState })),
 }))
-const modeStore = create((set) => ({
+const useTabsStore = create((set) => ({
+    toggleTabs: 0,
+    handleToggleTabs: (newState) => set(() => ({ toggleTabs: newState }))
+}))
+const useThemeStore = create((set) => ({
   mode: localStorage.getItem('theme') || 'light',
-  handleModeToggle: () => set(() => {
-    if (modeStore.mode === 'light') {
-      return (
-        { mode: 'dark' }
-      )
-    } else {
-      return (
-        { mode: 'light' }
-      )
-    }
-  }),
   handleModeLight: () => set(() => {
     return (
       { mode: 'light' }
@@ -102,5 +100,5 @@ const bookStore = (set, get) => ({
   
   const useBookStore = create(bookStore);
   
-  export { sideNavigationStore, bottomNavigationStore, profileColorStore, actionStore, modeStore };
+  export { useSideNavigationStore, useBottomNavigationStore, useAvatarColorStore, actionStore, useTabsStore, useThemeStore };
   

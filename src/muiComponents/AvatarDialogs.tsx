@@ -8,14 +8,14 @@ import { doc, deleteDoc, updateDoc } from 'firebase/firestore';
 import { auth, dbservice } from 'src/baseApi/serverbase'
 import { storage } from "src/baseApi/serverbase";
 import { getStorage, ref, uploadBytes } from "firebase/storage";
-import { sideNavigationStore, bottomNavigationStore, profileColorStore } from 'src/store'
+import { useAvatarColorStore } from 'src/store'
 
 const AvatarDialogs = ({ userObj, changeProfile, handleClose }) => {
     const [selectedColor, setSelectedColor] = useState(null)
     const [attachment, setAttachment] = useState(null)
     const [attachmentFile, setAttachmentFile] = useState(null)
-    const profileColor = profileColorStore((state) => state.profileColor)
-    const handleProfileColor = profileColorStore((state) => state.handleProfileColor)
+    const profileColor = useAvatarColorStore((state) => state.profileColor)
+    const handleProfileColor = useAvatarColorStore((state) => state.handleProfileColor)
     
     const onClick = () => {
         const data = doc(dbservice, `members/${userObj.uid}`)

@@ -2,7 +2,7 @@ import { useEffect, useState, useContext, useReducer } from 'react'
 import Router from 'src/Router'
 import Lotties from 'src/lottiesAnimation/Lotties'
 import { auth } from 'src/baseApi/serverbase'
-import { bottomNavigationStore, modeStore } from 'src/store'
+import { useBottomNavigationStore, useThemeStore } from 'src/store'
 import 'src/global.css'
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 
@@ -46,8 +46,8 @@ function App() {
   // const [mode, setMode] = useState<string | null>(localStorage.getItem('theme'))
   // const [bottomNavigation, setBottomNavigation] = useState<number>(1);
   // const bottomNavigation = bottomNavigationStore((state) => state.bottomNavigation)
-  const handleBottomNavigation = bottomNavigationStore((state) => state.handleBottomNavigation)
-  const mode = modeStore((state) => state.mode)
+  const handleBottomNavigation = useBottomNavigationStore((state) => state.handleBottomNavigation)
+  const mode = useThemeStore((state) => state.mode)
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
       setUserObj(user)

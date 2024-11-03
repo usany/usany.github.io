@@ -9,7 +9,7 @@ import SignInDialogs from 'src/muiComponents/SignInDialogs';
 import Motions from 'src/muiComponents/Motions';
 import {supabase} from 'src/baseApi/base';
 
-function Auth({ setValue }) {
+function Auth() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
@@ -60,7 +60,7 @@ function Auth({ setValue }) {
       console.log(error)
       setError(error.message)
     }
-    setValue(2)
+    // setValue(2)
     signInWithEmail(email, password)
   }
 

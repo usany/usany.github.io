@@ -4,13 +4,16 @@ import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
 import Message from 'src/pages/Message'
 import FilterDialogs from 'src/muiComponents/FilterDialogs'
 import Settings from '@mui/icons-material/Settings';
+import { useTabsStore } from 'src/store'
 
-function Notice({ userObj, valuing, setValue, counter, setCounter }) {
+function Notice({ userObj, counter, setCounter }) {
   const [messages, setMessages] = useState<Array<object>>([]);
   const [changeFilter, setChangeFilter] = useState(false);
   const [selectedValueOne, setSelectedValueOne] = useState(null);
   const [selectedValueTwo, setSelectedValueTwo] = useState(null);
   const [selectedValueThree, setSelectedValueThree] = useState(null);
+  const toggleTabs = useTabsStore((state) => state.toggleTabs)
+
   const handleClickChangeFilter = () => {
     setChangeFilter(true);
   };
@@ -90,7 +93,7 @@ function Notice({ userObj, valuing, setValue, counter, setCounter }) {
                         }
                     })
                 } */}
-        {valuing === 1 &&
+        {toggleTabs === 0 &&
             <div className='flex justify-start text-2xl w-screen'>
                 <div className='flex w-5/6'>빌리기 카드 목록</div>
                 <div className='flex w-screen justify-end px-10' onClick={handleClickChangeFilter}>
@@ -98,7 +101,7 @@ function Notice({ userObj, valuing, setValue, counter, setCounter }) {
                 </div>
             </div>
         }
-        {valuing !== 1 &&
+        {toggleTabs !== 0 &&
             <div className='flex justify-start text-2xl w-screen'>
                 <div className='flex w-5/6'>빌려주기 카드 목록</div>
                 <div className='flex w-screen justify-end px-10'>
@@ -108,21 +111,21 @@ function Notice({ userObj, valuing, setValue, counter, setCounter }) {
         }
         <FilterDialogs changeFilter={changeFilter} handleClose={handleClose} selectedValueOne={selectedValueOne} selectedValueTwo={selectedValueTwo} selectedValueThree={selectedValueThree} setSelectedValue={setSelectedValueOne} setSelectedValueTwo={setSelectedValueTwo} setSelectedValueThree={setSelectedValueThree} changeSelectedValueOne={changeSelectedValueOne} changeSelectedValueTwo={changeSelectedValueTwo} changeSelectedValueThree={changeSelectedValueThree}/>
         <div className='flex justify-center flex-wrap'>
-                {valuing === 1 && messages.map((msg) => {
+                {toggleTabs === 0 && messages.map((msg) => {
                     // console.log(msg.text.clocker.gmt)
                     if (msg?.text.choose === 1 && msg?.round === 1 && msg?.text.clocker.gmt.seconds*1000 + Date.now()) {
                         if (selectedValueTwo === '전체' || selectedValueTwo === msg?.text.count || !selectedValueTwo) {
                             return(
-                                <Message key={msg?.id} msgObj={msg} isOwner={msg?.creatorId === userObj?.uid} userObj={userObj} setValue={setValue} counter={counter} setCounter={setCounter} selectedValueOne={selectedValueOne} selectedValueTwo={selectedValueTwo} selectedValueThree={selectedValueThree} />
+                                <Message key={msg?.id} msgObj={msg} isOwner={msg?.creatorId === userObj?.uid} userObj={userObj} counter={counter} setCounter={setCounter} selectedValueOne={selectedValueOne} selectedValueTwo={selectedValueTwo} selectedValueThree={selectedValueThree} />
                             )
                         }
                     }
                 })}
-                {valuing !== 1 && messages.map((msg) => {
+                {toggleTabs !== 0 && messages.map((msg) => {
                     if (msg?.text.choose === 2 && msg?.round === 1 && (msg?.text.clocker.gmt === undefined || msg.text.clocker.gmt.seconds*1000 + Date.now())) {
                         if (selectedValueTwo === '전체' || selectedValueTwo === msg?.text.count || !selectedValueTwo) {
                             return(
-                                <Message key={msg?.id} msgObj={msg} isOwner={msg?.creatorId === userObj?.uid} userObj={userObj} setValue={setValue} counter={counter} setCounter={setCounter} selectedValueOne={selectedValueOne} selectedValueTwo={selectedValueTwo} selectedValueThree={selectedValueThree} />
+                                <Message key={msg?.id} msgObj={msg} isOwner={msg?.creatorId === userObj?.uid} userObj={userObj} counter={counter} setCounter={setCounter} selectedValueOne={selectedValueOne} selectedValueTwo={selectedValueTwo} selectedValueThree={selectedValueThree} />
                             )
                         }
                     }

@@ -4,7 +4,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import Button from '@mui/material/Button';
 
-const Dialogs = ({move, handleClose, setValue}) => {
+const Dialogs = ({move, handleClose}) => {
     return (
         <Dialog open={move} onClose={handleClose}>
             <DialogContent>
@@ -13,7 +13,7 @@ const Dialogs = ({move, handleClose, setValue}) => {
             <DialogActions>
             <Button variant='outlined' onClick={() => {
                 handleClose()
-                setValue(1)
+                // setValue(1)
             }}>
                 <Link to='/'>로그인 페이지</Link>
             </Button>

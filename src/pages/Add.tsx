@@ -11,9 +11,9 @@ import Snackbar from '@mui/material/Snackbar';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import TextField from '@mui/material/TextField';
-import { sideNavigationStore, profileColorStore, actionStore } from 'src/store'
+import { useTabsStore } from 'src/store'
 
-function Add({ userObj, valuing }: {userObj: object, valuing: number}) {
+function Add({ userObj, action }: {userObj: object, action: number}) {
   const [addSteps, setAddSteps] = useState(0);
   const [enableButton, setEnableButton] = useState(true);
   const [cardId, setCardId] = useState(null)
@@ -26,9 +26,8 @@ function Add({ userObj, valuing }: {userObj: object, valuing: number}) {
   const [from, setFrom] = useState(null);
   const [to, setTo] = useState(null);
   const [process, setProcess] = useState<boolean>(false)
-  const value: number[] = [0, valuing+1]
-  const action = actionStore((state) => state.action)
-  const handleAction = actionStore((state) => state.handleAction)
+  const value: number[] = [0, action+1]
+  const toggleTabs = useTabsStore((state) => state.toggleTabs)
   
   useEffect(() => {
     if (process) {
@@ -177,7 +176,7 @@ function Add({ userObj, valuing }: {userObj: object, valuing: number}) {
     setTo({gmt: event.$d, year: event.$y, month: event.$M+1, day:event.$D, hour: event.$H, minute: event.$m})
     setAddSteps(2)
     setEnableButton(true)
-}
+    }
     if (cardId) {
         let cardObject
         async () => cardObject = await getDoc(doc(dbservice, `num/${cardId}`))
@@ -188,17 +187,17 @@ function Add({ userObj, valuing }: {userObj: object, valuing: number}) {
   return (
     <div className='flex flex-col'>
         <div className='flex text-2xl p-5'>
-            {valuing === 0 ? '빌리기 ' : '빌려주기 '} 카드 등록
+            {toggleTabs === 0 ? '빌리기 ' : '빌려주기 '} 카드 등록
         </div>
         <div className='flex justify-end start-0 end-0'>
-            <AddSteppers steps={addSteps} valuing={valuing}/>
+            <AddSteppers addSteps={addSteps} toggleTabs={toggleTabs}/>
         </div>
             <div>
                 <div className='flex text-base px-5 pt-5'>
-                    1. 무엇을 {valuing === 0 ? '빌리세요?' : '빌려주세요?'}
+                    1. 무엇을 {toggleTabs === 0 ? '빌리세요?' : '빌려주세요?'}
                 </div>
                 <div className='flex px-5'>
-                    <ItemSelects item={item} setItem={setItem} changeItem={changeItem}/>
+                    <ItemSelects item={item} setItem={(newState) => setItem(newState)} changeItem={changeItem}/>
                 </div>
                 {addSteps > 0 && 
                     <div>
@@ -211,7 +210,7 @@ function Add({ userObj, valuing }: {userObj: object, valuing: number}) {
                                 locationTwo={locationTwo} 
                                 locationThree={locationThree} 
                                 changeBuilding={changeBuilding} changeRoom={changeRoom} changeSeat={changeSeat}
-                                setAddSteps={setAddSteps}
+                                setAddSteps={(newState) => setAddSteps(newState)}
                             />
                             {locationOne === '직접 입력' && 
                                 <div className='pt-7'>

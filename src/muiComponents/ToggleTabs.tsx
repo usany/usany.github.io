@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
-import { sideNavigationStore, bottomNavigationStore, profileColorStore, actionStore } from 'src/store'
+import { useTabsStore } from 'src/store'
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -34,23 +34,18 @@ function a11yProps(index) {
   };
 }
 
-export default function ToggleTabs({ valuing, setValuing }:
-  {
-    valuing: number,
-    setValuing: (newState: number) => void
-  }
-) {
+export default function ToggleTabs() {
   
   const handleChange = (event, newValue) => {
-    if (valuing<2) {
-      setValuing(newValue);
-    } else {
-      setValuing(newValue);
-    }
+    handleToggleTabs(newValue)
+    // if (valuing<2) {
+    //   setValuing(newValue);
+    // } else {
+    //   setValuing(newValue);
+    // }
   };
-  const action = actionStore((state) => state.action)
-  const handleAction = actionStore((state) => state.handleAction)
-  
+  const toggleTabs = useTabsStore((state) => state.toggleTabs)
+  const handleToggleTabs = useTabsStore((state) => state.handleToggleTabs)
   // useEffect(() => {
   //   if (valuing === 1) {
   //     setValue(0)
@@ -73,11 +68,11 @@ export default function ToggleTabs({ valuing, setValuing }:
   // })
 
   return (
-    <Box>
+    <div>
       <Box sx={{ paddingX: '10px'
         }}>
         <Tabs
-          value={valuing} onChange={handleChange} aria-label="basic tabs example"
+          value={toggleTabs} onChange={handleChange} aria-label="basic tabs example"
         >
           <Tab label="빌리기" {...a11yProps(0)} />
           <Tab label="빌려주기" {...a11yProps(1)} />
@@ -93,6 +88,6 @@ export default function ToggleTabs({ valuing, setValuing }:
         </Tabs>
         } */}
       </Box>
-    </Box>
+    </div>
   );
 }

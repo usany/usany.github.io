@@ -5,24 +5,21 @@ import Avatar from '@mui/material/Avatar';
 import { blue } from '@mui/material/colors';
 import ToggleTabs from 'src/muiComponents/ToggleTabs'
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
-import { sideNavigationStore, bottomNavigationStore, profileColorStore, actionStore } from 'src/store'
+import { useSideNavigationStore, useBottomNavigationStore, useAvatarColorStore } from 'src/store'
 
-const Header = ({ setScroll, userObj, setValue, prevScrollPos, value, storage }: 
+const Header = ({ setScroll, userObj, prevScrollPos, storage }: 
     {
         setScroll: (newState: number) => void,
         userObj: {uid: string, displayName: string} | null,
-        setValue: (newState: number) => void,
         prevScrollPos: number,
-        value: number, 
         storage: {}
     }
 ) => {
     const [profile, setProfile] = useState(null)
-    const bottomNavigation = bottomNavigationStore((state) => state.bottomNavigation)
-    const profileColor = profileColorStore((state) => state.profileColor)
-    const handleBottomNavigation = bottomNavigationStore((state) => state.handleBottomNavigation)
-    const handleSideNavigation = sideNavigationStore((state) => state.handleSideNavigation)
-    const action = actionStore((state) => state.action)
+    const bottomNavigation = useBottomNavigationStore((state) => state.bottomNavigation)
+    const profileColor = useAvatarColorStore((state) => state.profileColor)
+    const handleBottomNavigation = useBottomNavigationStore((state) => state.handleBottomNavigation)
+    const handleSideNavigation = useSideNavigationStore((state) => state.handleSideNavigation)
     
     useLayoutEffect(() => {
         getDownloadURL(ref(storage, 'screen.jpg'))
@@ -38,7 +35,7 @@ const Header = ({ setScroll, userObj, setValue, prevScrollPos, value, storage }:
     return (
         <div className='flex flex-row'>
                 <div id='navigationSelectorOne' className='pt-1'>
-                    <Navigation setScroll={(newState: number) => setScroll(newState)} userObj={userObj} setValue={(newState: number) => setValue(newState)} handleSideNavigation={handleSideNavigation} />
+                    <Navigation setScroll={(newState: number) => setScroll(newState)} userObj={userObj} handleSideNavigation={handleSideNavigation} />
                     <div className='flex justify-between w-screen'>
                         <div className='px-5 pt-1'>
                             {userObj ?
@@ -60,10 +57,10 @@ const Header = ({ setScroll, userObj, setValue, prevScrollPos, value, storage }:
                         </div> */}
                         <div>
                             {userObj && bottomNavigation === 0 && 
-                                <ToggleTabs valuing={value} setValuing={(newState: number) => setValue(newState)}/>
+                                <ToggleTabs />
                             }
                             {userObj && bottomNavigation === 2 && 
-                                <ToggleTabs valuing={value} setValuing={(newState: number) => setValue(newState)}/>
+                                <ToggleTabs />
                             }
                             {!userObj && 
                                 <div className='pt-5 min-w-36' onClick={() => handleBottomNavigation(1)}>로그인을 해 주세요</div>
