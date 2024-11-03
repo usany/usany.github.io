@@ -11,7 +11,11 @@ import Snackbar from '@mui/material/Snackbar';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import TextField from '@mui/material/TextField';
+<<<<<<< HEAD
 import { useTabsStore } from 'src/store'
+=======
+import { sideNavigationStore, profileColorStore, actionStore, toggleTabsStore } from 'src/store'
+>>>>>>> a1b714eec3182d5c11ed020a7ea2666da3a5705b
 
 function Add({ userObj, action }: {userObj: object, action: number}) {
   const [addSteps, setAddSteps] = useState(0);
@@ -27,7 +31,11 @@ function Add({ userObj, action }: {userObj: object, action: number}) {
   const [to, setTo] = useState(null);
   const [process, setProcess] = useState<boolean>(false)
   const value: number[] = [0, action+1]
+<<<<<<< HEAD
   const toggleTabs = useTabsStore((state) => state.toggleTabs)
+=======
+  const toggleTabs = toggleTabsStore((state) => state.toggleTabs)
+>>>>>>> a1b714eec3182d5c11ed020a7ea2666da3a5705b
   
   useEffect(() => {
     if (process) {
