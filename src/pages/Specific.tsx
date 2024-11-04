@@ -15,15 +15,11 @@ function Specific({
     userObj,
     value, 
     setValue,
-    counter,
-    setCounter, 
     }: 
     {
       userObj: {uid: string, displayName: string} | null,
       value: number, 
       setValue: (newState: number) => void,
-      counter: number[],
-      setCounter: (newState: number[]) => void
     }
   ) {
 
@@ -158,12 +154,12 @@ function Specific({
       <div className='flex justify-center'>
       {deleted === false && userObj !== null &&
         <div className='flex justify-center'>
-          <Btn msgObj={msgObj} isOwner={msgObj.creatorId === userObj.uid} uid={userObj.uid} displayName={userObj.displayName} userObj={userObj} num={num} value={value} points={points} counter={counter} setCounter={setCounter} />
+          <Btn msgObj={msgObj} isOwner={msgObj.creatorId === userObj.uid} uid={userObj.uid} displayName={userObj.displayName} userObj={userObj} num={num} value={value} points={points} />
         </div>
       }
       {deleted === false && userObj === null &&
         <div className='flex justify-center'>
-          <Btn msgObj={msgObj} isOwner={false} uid={null} displayName={null} userObj={userObj} num={num} value={value} points={points} counter={counter} setCounter={setCounter} />
+          <Btn msgObj={msgObj} isOwner={false} uid={null} displayName={null} userObj={userObj} num={num} value={value} points={points} />
         </div>
       }
       {deleted === true && 

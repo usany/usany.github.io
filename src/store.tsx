@@ -40,6 +40,19 @@ const useThemeStore = create((set) => ({
     )
   })
 }))
+const usePiazzaSwitchStore = create((set) => ({
+  piazzaSwitch: localStorage.getItem('piazza') || 'false',
+  handlePiazzaSwitchOn: () => set(() => {
+    return (
+      { piazzaSwitch: 'true' }
+    )
+  }),
+  handlePiazzaSwitchOff: () => set(() => {
+    return (
+      { piazzaSwitch: 'false' }
+    )
+  })
+}))
 
 // store.set(state => ({ count: state.count + 1 }));
 
@@ -100,5 +113,5 @@ const bookStore = (set, get) => ({
   
   const useBookStore = create(bookStore);
   
-  export { useSideNavigationStore, useBottomNavigationStore, useAvatarColorStore, actionStore, useTabsStore, useThemeStore };
+  export { useSideNavigationStore, useBottomNavigationStore, useAvatarColorStore, actionStore, useTabsStore, useThemeStore, usePiazzaSwitchStore };
   

@@ -6,7 +6,7 @@ import FilterDialogs from 'src/muiComponents/FilterDialogs'
 import Settings from '@mui/icons-material/Settings';
 import { useTabsStore } from 'src/store'
 
-function Notice({ userObj, counter, setCounter }) {
+function Notice({ userObj }) {
   const [messages, setMessages] = useState<Array<object>>([]);
   const [changeFilter, setChangeFilter] = useState(false);
   const [selectedValueOne, setSelectedValueOne] = useState(null);
@@ -116,7 +116,7 @@ function Notice({ userObj, counter, setCounter }) {
                     if (msg?.text.choose === 1 && msg?.round === 1 && msg?.text.clocker.gmt.seconds*1000 + Date.now()) {
                         if (selectedValueTwo === '전체' || selectedValueTwo === msg?.text.count || !selectedValueTwo) {
                             return(
-                                <Message key={msg?.id} msgObj={msg} isOwner={msg?.creatorId === userObj?.uid} userObj={userObj} counter={counter} setCounter={setCounter} selectedValueOne={selectedValueOne} selectedValueTwo={selectedValueTwo} selectedValueThree={selectedValueThree} />
+                                <Message key={msg?.id} msgObj={msg} isOwner={msg?.creatorId === userObj?.uid} userObj={userObj} selectedValueOne={selectedValueOne} selectedValueTwo={selectedValueTwo} selectedValueThree={selectedValueThree} />
                             )
                         }
                     }
@@ -125,7 +125,7 @@ function Notice({ userObj, counter, setCounter }) {
                     if (msg?.text.choose === 2 && msg?.round === 1 && (msg?.text.clocker.gmt === undefined || msg.text.clocker.gmt.seconds*1000 + Date.now())) {
                         if (selectedValueTwo === '전체' || selectedValueTwo === msg?.text.count || !selectedValueTwo) {
                             return(
-                                <Message key={msg?.id} msgObj={msg} isOwner={msg?.creatorId === userObj?.uid} userObj={userObj} counter={counter} setCounter={setCounter} selectedValueOne={selectedValueOne} selectedValueTwo={selectedValueTwo} selectedValueThree={selectedValueThree} />
+                                <Message key={msg?.id} msgObj={msg} isOwner={msg?.creatorId === userObj?.uid} userObj={userObj} selectedValueOne={selectedValueOne} selectedValueTwo={selectedValueTwo} selectedValueThree={selectedValueThree} />
                             )
                         }
                     }

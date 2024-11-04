@@ -5,16 +5,17 @@ import Message from 'src/pages/Message'
 import { getToken } from "firebase/messaging";
 import MessageStacks from 'src/muiComponents/MessageStacks'
 import ChattingStacks from 'src/muiComponents/ChattingStacks'
+import { useBottomNavigationStore, usePiazzaSwitchStore } from 'src/store'
 
-function Menu({ userObj, counter, setCounter, tmpCounter, piazzaSwitch, newMessage, setNewMessage }) {
+function Menu({ userObj, newMessage, setNewMessage }) {
     const [messages, setMessages] = useState<Array<object>>([]);
     const [chats, setChats] = useState(false)
     const [piazzaOn, setPiazzaOn] = useState('')
     const [newMessages, setNewMessages] = useState(0)
-
-    useEffect(() => {
-        setPiazzaOn(piazzaSwitch.current)
-    }, [])
+    const piazzaSwitch = usePiazzaSwitchStore((state) => state.piazzaSwitch)
+    // useEffect(() => {
+    //     setPiazzaOn(piazzaSwitch.current)
+    // }, [])
 
     useEffect(() => {
         const requestPermission = async () => {
@@ -51,21 +52,17 @@ function Menu({ userObj, counter, setCounter, tmpCounter, piazzaSwitch, newMessa
     })
     }, [])
 
-    const onCounting = (msg) => {
-        // setCounter([
-        //     ...counter,
-        //     msg.id
-        // ])
-        tmpCounter.push(msg.id)
-    }
+    // const onCounting = (msg) => {
+    //     tmpCounter.push(msg.id)
+    // }
     
     // const onClick = () => {
     //     setChoose(true)
     // }
 
-    useEffect(() => {
-        setCounter(tmpCounter)
-    })
+    // useEffect(() => {
+    //     setCounter(tmpCounter)
+    // })
 
     // const onClick = () => {
     //     fetch('http://localhost:5000/api/world', {
@@ -104,10 +101,7 @@ function Menu({ userObj, counter, setCounter, tmpCounter, piazzaSwitch, newMessa
                                 <div className='flex justify-center flex-wrap'>
                                     {messages.map((msg) => {
                                         if(msg.round !== 5) {
-                                            if (counter.indexOf(msg.id) === -1) {
-                                                onCounting(msg)
-                                            }
-                                            return(<Message key={msg.id} msgObj={msg} isOwner={msg.creatorId === userObj.uid} userObj={userObj} counter={counter} setCounter={setCounter} />)
+                                            return(<Message key={msg.id} msgObj={msg} isOwner={msg.creatorId === userObj.uid} userObj={userObj} />)
                                         }
                                     })}
                                 </div>
@@ -116,10 +110,10 @@ function Menu({ userObj, counter, setCounter, tmpCounter, piazzaSwitch, newMessa
                     </div>
                     <div className='w-6/12 flex flex-col border border-sky-500 rounded'>
                             <div>
-                                {!chats && !piazzaOn ? <div className='flex justify-center pt-20'>받은 메세지가 없습니다</div> :
+                                {!chats && !piazzaSwitch ? <div className='flex justify-center pt-20'>받은 메세지가 없습니다</div> :
                                 <div className='flex flex-col justify-center'>
                                     <div className='flex justify-center'>받은 메세지</div>
-                                    {piazzaOn === 'true' && 
+                                    {piazzaSwitch === 'true' && 
                                         <MessageStacks />
                                     }
                                     <ChattingStacks userObj={userObj} newMessage={newMessage} setNewMessage={setNewMessage} newMessages={newMessages} setNewMessages={setNewMessages} setChats={setChats}/>

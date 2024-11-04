@@ -19,18 +19,17 @@ import Box from '@mui/material/Box';
 import LinearProgress from '@mui/material/LinearProgress';
 import { useSideNavigationStore, useAvatarColorStore } from 'src/store'
 
-const tmpCounter: [] = []
 const Router = ({ userObj }: {
     userObj: {uid: string, displayName: string} | null,
 }) => {
-    const [counter, setCounter] = useState<number[]>([]);
+    // const [counter, setCounter] = useState<number[]>([]);
     // const [value, setValue] = useState<number>(0);
     // const [check, setCheck] = useState<boolean>(false)
-    const [scroll, setScroll] = useState<number>(0)
+    // const [scroll, setScroll] = useState<number>(0)
     // const [profileColor, setProfileColor] = useState<string>('#2196f3')
     const piazzaSwitch = useRef<string | null>(localStorage.getItem('piazza'))
     const [newMessage, setNewMessage] = useState<boolean>(false)
-    const sideNavigation = useSideNavigationStore((state) => state.sideNavigation)
+    // const sideNavigation = useSideNavigationStore((state) => state.sideNavigation)
     const handleProfileColor = useAvatarColorStore((state) => state.handleProfileColor)
     // const handleSideNavigation = sideNavigationStore((state) => state.handleSideNavigationStore)
     
@@ -42,29 +41,28 @@ const Router = ({ userObj }: {
     //     }
     // }
     // const [stateSideNavigation, dispatchSideNavigation] = useReducer(reducerSideNavigation, {sideNavigation: false})
-    const reducerNewMessage = (state, action) => {
-        if (action.type === 'toggle') {
-            return {
-                newMessage: !state.newMessage
-            }
-        }
-    }
-    const [stateNewMessage, dispatchNewMessage] = useReducer(reducerNewMessage, {newMessage: false})
-
+    // const reducerNewMessage = (state, action) => {
+    //     if (action.type === 'toggle') {
+    //         return {
+    //             newMessage: !state.newMessage
+    //         }
+    //     }
+    // }
+    // const [stateNewMessage, dispatchNewMessage] = useReducer(reducerNewMessage, {newMessage: false})
     // const handleSideNavigation = () => {
     //     dispatchSideNavigation({type: 'toggle'})
     // }
-    const handleNewMessage = () => {
-        dispatchNewMessage({type: 'toggle'})
-    }
-    useEffect(() => {
-        if (!sideNavigation) {
-            setTimeout(() => window.scrollTo({
-                top: scroll,
-                behavior: "smooth"
-            }), 15);
-        }
-    })
+    // const handleNewMessage = () => {
+    //     dispatchNewMessage({type: 'toggle'})
+    // }
+    // useEffect(() => {
+    //     if (!sideNavigation) {
+    //         setTimeout(() => window.scrollTo({
+    //             top: scroll,
+    //             behavior: "smooth"
+    //         }), 15);
+    //     }
+    // })
     
     useEffect(() => {
         if (!(piazzaSwitch.current)) {
@@ -169,10 +167,9 @@ const Router = ({ userObj }: {
                     userObj={userObj}
                     // check={check} 
                     // setCheck={(newState: boolean) => setCheck(newState)} 
-                    prevScrollPos={prevScrollPos} 
                     storage={storage}
-                    setScroll={(newState: number) => setScroll(newState)}
-                    handleSideNavigation={() => dispatchSideNavigation({type: 'toggle'})}
+                    // setScroll={(newState: number) => setScroll(newState)}
+                    // handleSideNavigation={() => dispatchSideNavigation({type: 'toggle'})}
                 />
                 <div
                     id='contentSelector'
@@ -181,11 +178,11 @@ const Router = ({ userObj }: {
                         {
                             userObj ? (
                                 <Route>
-                                    <Route path='/' Component={() => <Home userObj={userObj} counter={counter} setCounter={(newState: number[]) => setCounter(newState)} tmpCounter={tmpCounter} piazzaSwitch={piazzaSwitch} newMessage={newMessage} setNewMessage={(newMessage: boolean) => setNewMessage(newMessage)} />} />
+                                    <Route path='/' Component={() => <Home userObj={userObj} piazzaSwitch={piazzaSwitch} newMessage={newMessage} setNewMessage={(newMessage: boolean) => setNewMessage(newMessage)} />} />
                                     <Route path='/profile' Component={() => <Profile userObj={userObj} />} />
                                     <Route path='/ranking' Component={() => <Ranking userObj={userObj}/>} />
-                                    <Route path='/specific' Component={() => <Specific userObj={userObj} counter={counter} setCounter={(newState: number[]) => setCounter(newState)} />} />
-                                    <Route path='/actions' Component={() => <Actions userObj={userObj} counter={counter} setCounter={(newState: number[]) => setCounter(newState)} />} />
+                                    <Route path='/specific' Component={() => <Specific userObj={userObj} />} />
+                                    <Route path='/actions' Component={() => <Actions userObj={userObj} />} />
                                     <Route path='/allies' Component={() => <Allies />} />
                                     <Route path='/points' Component={() => <Points />} />
                                     <Route path='/contact' Component={() => <Contact displayName={userObj?.displayName} userObj={userObj} />} />
@@ -194,14 +191,14 @@ const Router = ({ userObj }: {
                                 </Route>
                             ) : (
                                 <Route>
-                                    <Route path='/' Component={() => <Home userObj={userObj} counter={counter} setCounter={(newState: number[]) => setCounter(newState)} tmpCounter={tmpCounter} piazzaSwitch={piazzaSwitch} newMessage={newMessage} setNewMessage={(newMessage: boolean) => setNewMessage(newMessage)} />} />
-                                    <Route path='/specific' Component={() => <Specific userObj={userObj} counter={counter} setCounter={(newState: number[]) => setCounter(newState)} />} />
+                                    <Route path='/' Component={() => <Home userObj={userObj} piazzaSwitch={piazzaSwitch} newMessage={newMessage} setNewMessage={(newMessage: boolean) => setNewMessage(newMessage)} />} />
+                                    <Route path='/specific' Component={() => <Specific userObj={userObj} />} />
                                 </Route>
                             )
                         }
                     </Routes>
                 </div>
-                <Navigations userObj={userObj} counter={counter} tmpCounter={tmpCounter} setScroll={(newState: number) => setScroll(newState)} />
+                <Navigations userObj={userObj} />
             </div>
         </BrowserRouter>
     )

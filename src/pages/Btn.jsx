@@ -8,7 +8,7 @@ import SendIcon from '@mui/icons-material/Send';
 import { webSocket, onClick } from 'src/webSocket.tsx'
 
 // const webSocket = io("http://localhost:5000");
-function Btn({ msgObj, isOwner, uid, displayName, userObj, num, points, setValue, counter, setCounter }) {
+function Btn({ msgObj, isOwner, uid, displayName, userObj, num, points, setValue }) {
   const [move, setMove] = useState(false)
 
   const onDeleteClick = () => {

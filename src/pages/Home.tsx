@@ -6,7 +6,7 @@ import Add from 'src/pages/Add'
 import { SwipeableViews } from "src/navigate/SwipeableViews";
 import { useBottomNavigationStore, useTabsStore } from 'src/store'
 
-function Home({ userObj, counter, setCounter, tmpCounter, piazzaSwitch, newMessage, setNewMessage }) {
+function Home({ userObj, piazzaSwitch, newMessage, setNewMessage }) {
     const bottomNavigation = useBottomNavigationStore((state) => state.bottomNavigation)
     const handleBottomNavigation = useBottomNavigationStore((state) => state.handleBottomNavigation)
     const toggleTabs = useTabsStore((state) => state.toggleTabs)
@@ -23,7 +23,7 @@ function Home({ userObj, counter, setCounter, tmpCounter, piazzaSwitch, newMessa
             {userObj && 
             <div>
                 {bottomNavigation === 1 && 
-                    <Menu userObj={userObj} counter={counter} setCounter={setCounter} tmpCounter={tmpCounter} piazzaSwitch={piazzaSwitch} newMessage={newMessage} setNewMessage={setNewMessage} />
+                    <Menu userObj={userObj} piazzaSwitch={piazzaSwitch} newMessage={newMessage} setNewMessage={setNewMessage} />
                 }
                 {[0].indexOf(bottomNavigation) !== -1 && 
                     <div>
@@ -49,10 +49,10 @@ function Home({ userObj, counter, setCounter, tmpCounter, piazzaSwitch, newMessa
                         num={1}
                     >
                         <div>
-                            <Notice userObj={userObj} counter={counter} setCounter={setCounter}/>
+                            <Notice userObj={userObj} />
                         </div>
                         <div>
-                            <Notice userObj={userObj} counter={counter} setCounter={setCounter}/>
+                            <Notice userObj={userObj} />
                         </div>
                     </SwipeableViews>
                     </div>

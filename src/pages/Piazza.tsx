@@ -4,15 +4,13 @@ import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnap
 import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
 import PiazzaDialogs from 'src/muiComponents/PiazzaDialogs'
 import PiazzaSwitch from 'src/muiComponents/PiazzaSwitch'
-import { useBottomNavigationStore } from 'src/store'
+import { useBottomNavigationStore, usePiazzaSwitchStore } from 'src/store'
 import { webSocket, onClick } from 'src/webSocket.tsx'
 
 // const webSocket = io("http://localhost:5000");
-function Piazza({ userObj, piazzaSwitch }:
+function Piazza({ userObj }:
   {
     userObj: {uid: string, displayName: string},
-    setBottomNavigation: (newState: number) => void,
-    piazzaSwitch: {current: string | null}
   }
 ) {
   const messagesEndRef = useRef(null);
@@ -22,7 +20,11 @@ function Piazza({ userObj, piazzaSwitch }:
   const [privateTarget, setPrivateTarget] = useState("");
   const [user, setUser] = useState(null)
   const [selectUser, setSelectUser] = useState(false)
-  const setBottomNavigation = useBottomNavigationStore((state) => state.setBottomNavigation)
+  const handleBottomNavigation = useBottomNavigationStore((state) => state.handleBottomNavigation)
+  // const piazzaSwitch = usePiazzaSwitchStore((state) => state.piazzaSwitch)
+  // const handlePiazzaSwitchOn = usePiazzaSwitchStore((state) => state.handlePiazzaSwitchOn)
+  // const handlePiazzaSwitchOff = usePiazzaSwitchStore((state) => state.handlePiazzaSwitchOff)
+  // const [piazzaSwitches, setPiazzaSwitches] = useState(localStorage.getItem('piazza'))
   
   useEffect(() => {
     if (!webSocket) return;
@@ -72,7 +74,7 @@ function Piazza({ userObj, piazzaSwitch }:
   }, [msgList]);
 
   useEffect(() => {
-    setBottomNavigation(5)
+    handleBottomNavigation(5)
   })
 
   const scrollToBottom = () => {
@@ -173,16 +175,15 @@ function Piazza({ userObj, piazzaSwitch }:
     }
   }, [changeMessage])
 
-  const onClick = (piazzaSwitch) => {
-    if (piazzaSwitch.current === 'true') {
-      window.localStorage.setItem('piazza', 'false')
-      piazzaSwitch.current = 'false'
-    } else {
-      window.localStorage.setItem('piazza', 'true')
-      piazzaSwitch.current = 'true'
-    }
-    console.log(piazzaSwitch.current)
-  }
+  // const onClick = () => {
+  //   if (piazzaSwitches === 'true') {
+  //     window.localStorage.setItem('piazza', 'false')
+  //     setPiazzaSwitches('false')
+  //   } else {
+  //     window.localStorage.setItem('piazza', 'true')
+  //     setPiazzaSwitches('true')
+  //   }
+  // }
   
   return (
     <div>
@@ -191,7 +192,10 @@ function Piazza({ userObj, piazzaSwitch }:
           단체 대화
         </div>
         <div className='flex w-2/3 pt-1 justify-end'>
-          <PiazzaSwitch piazzaSwitch={piazzaSwitch} onClick={() => onClick(piazzaSwitch)} />
+          <PiazzaSwitch 
+          // onClick={() => onClick()} 
+          // piazzaSwitches={piazzaSwitches} 
+          />
         </div>
       </div>
       <div className="app-container">
