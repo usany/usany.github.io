@@ -62,13 +62,13 @@ function Home({ userObj }) {
             {!userObj &&
                 <>
                     {bottomNavigation === 0 &&
-                        <Notice userObj={userObj} counter={counter} setCounter={(newState) => setCounter(newState)} />
+                        <Notice userObj={userObj} />
                     }
                     {bottomNavigation === 1 &&
                         <Auth />
                     }
                     {bottomNavigation === 2 &&
-                        <Notice userObj={userObj} counter={counter} setCounter={(newState) => setCounter(newState)} />
+                        <Notice userObj={userObj} />
                     }
                 </>
             }
