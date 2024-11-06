@@ -8,18 +8,14 @@ import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
-import { CardActionArea, CardActions } from '@mui/material';
+// import { CardActionArea, CardActions } from '@mui/material';
 import Chip from '@mui/material/Chip';
 
 function Specific({ 
-    userObj,
-    value, 
-    setValue,
+    userObj
     }: 
     {
       userObj: {uid: string, displayName: string} | null,
-      value: number, 
-      setValue: (newState: number) => void,
     }
   ) {
 
@@ -154,12 +150,12 @@ function Specific({
       <div className='flex justify-center'>
       {deleted === false && userObj !== null &&
         <div className='flex justify-center'>
-          <Btn msgObj={msgObj} isOwner={msgObj.creatorId === userObj.uid} uid={userObj.uid} displayName={userObj.displayName} userObj={userObj} num={num} value={value} points={points} />
+          <Btn msgObj={msgObj} isOwner={msgObj.creatorId === userObj.uid} uid={userObj.uid} displayName={userObj.displayName} userObj={userObj} num={num} points={points} />
         </div>
       }
       {deleted === false && userObj === null &&
         <div className='flex justify-center'>
-          <Btn msgObj={msgObj} isOwner={false} uid={null} displayName={null} userObj={userObj} num={num} value={value} points={points} />
+          <Btn msgObj={msgObj} isOwner={false} uid={null} displayName={null} userObj={userObj} num={num} points={points} />
         </div>
       }
       {deleted === true && 

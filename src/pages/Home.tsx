@@ -6,7 +6,7 @@ import Add from 'src/pages/Add'
 import { SwipeableViews } from "src/navigate/SwipeableViews";
 import { useBottomNavigationStore, useTabsStore } from 'src/store'
 
-function Home({ userObj, piazzaSwitch, newMessage, setNewMessage }) {
+function Home({ userObj }) {
     const bottomNavigation = useBottomNavigationStore((state) => state.bottomNavigation)
     const handleBottomNavigation = useBottomNavigationStore((state) => state.handleBottomNavigation)
     const toggleTabs = useTabsStore((state) => state.toggleTabs)
@@ -21,43 +21,43 @@ function Home({ userObj, piazzaSwitch, newMessage, setNewMessage }) {
     return (
         <div>
             {userObj && 
-            <div>
-                {bottomNavigation === 1 && 
-                    <Menu userObj={userObj} piazzaSwitch={piazzaSwitch} newMessage={newMessage} setNewMessage={setNewMessage} />
-                }
-                {[0].indexOf(bottomNavigation) !== -1 && 
-                    <div>
-                    <SwipeableViews
-                        index={toggleTabs}
-                        onIndexChange={handleToggleTabs}
-                        num={1}
-                    >
+                <div>
+                    {bottomNavigation === 1 && 
+                        <Menu userObj={userObj} />
+                    }
+                    {[0].indexOf(bottomNavigation) !== -1 && 
                         <div>
-                            <Add userObj={userObj} action={0}/>
+                        <SwipeableViews
+                            index={toggleTabs}
+                            onIndexChange={handleToggleTabs}
+                            num={1}
+                        >
+                            <div>
+                                <Add userObj={userObj} action={0}/>
+                            </div>
+                            <div>
+                                <Add userObj={userObj} action={1}/>
+                            </div>
+                        </SwipeableViews>
                         </div>
+                    }
+                    {[2].indexOf(bottomNavigation) !== -1 && 
                         <div>
-                            <Add userObj={userObj} action={1}/>
+                        <SwipeableViews
+                            index={toggleTabs}
+                            onIndexChange={handleToggleTabs}
+                            num={1}
+                        >
+                            <div>
+                                <Notice userObj={userObj} />
+                            </div>
+                            <div>
+                                <Notice userObj={userObj} />
+                            </div>
+                        </SwipeableViews>
                         </div>
-                    </SwipeableViews>
-                    </div>
-                }
-                {[2].indexOf(bottomNavigation) !== -1 && 
-                    <div>
-                    <SwipeableViews
-                        index={toggleTabs}
-                        onIndexChange={handleToggleTabs}
-                        num={1}
-                    >
-                        <div>
-                            <Notice userObj={userObj} />
-                        </div>
-                        <div>
-                            <Notice userObj={userObj} />
-                        </div>
-                    </SwipeableViews>
-                    </div>
-                }
-            </div>
+                    }
+                </div>
             }
             {!userObj &&
                 <>

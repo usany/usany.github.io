@@ -17,21 +17,21 @@ import { getStorage, ref } from "firebase/storage";
 import { auth, dbservice } from 'src/baseApi/serverbase'
 import Box from '@mui/material/Box';
 import LinearProgress from '@mui/material/LinearProgress';
-import { useSideNavigationStore, useAvatarColorStore } from 'src/store'
+import { useBottomNavigationStore, useThemeStore, useSideNavigationStore, useAvatarColorStore, useNewMessageStore } from 'src/store'
 
-const Router = ({ userObj }: {
-    userObj: {uid: string, displayName: string} | null,
-}) => {
+const Router = ({ userObj }) => {
     // const [counter, setCounter] = useState<number[]>([]);
     // const [value, setValue] = useState<number>(0);
     // const [check, setCheck] = useState<boolean>(false)
     // const [scroll, setScroll] = useState<number>(0)
     // const [profileColor, setProfileColor] = useState<string>('#2196f3')
-    const piazzaSwitch = useRef<string | null>(localStorage.getItem('piazza'))
-    const [newMessage, setNewMessage] = useState<boolean>(false)
+    // const piazzaSwitch = useRef<string | null>(localStorage.getItem('piazza'))
+    // const [newMessage, setNewMessage] = useState<boolean>(false)
+    // const newMessage = useNewMessageStore((state) => state.newMessage)   
+    // const handleNewMessage = useNewMessageStore((state) => state.handleNewMessage)   
     // const sideNavigation = useSideNavigationStore((state) => state.sideNavigation)
-    const handleProfileColor = useAvatarColorStore((state) => state.handleProfileColor)
-    // const handleSideNavigation = sideNavigationStore((state) => state.handleSideNavigationStore)
+    // const userObj = useUserObjStore((state) => state.userObj)
+    // const handleProfileColor = useAvatarColorStore((state) => state.handleProfileColor)
     
     // const reducerSideNavigation = (state, action) => {
     //     if (action.type === 'toggle') {
@@ -64,24 +64,24 @@ const Router = ({ userObj }: {
     //     }
     // })
     
-    useEffect(() => {
-        if (!(piazzaSwitch.current)) {
-            localStorage.setItem("piazza", 'false');
-            piazzaSwitch.current = 'false'
-        }
-    })
+    // useEffect(() => {
+    //     if (!(piazzaSwitch.current)) {
+    //         localStorage.setItem("piazza", 'false');
+    //         piazzaSwitch.current = 'false'
+    //     }
+    // })
     
-    useEffect(() => {
-        const setProfile = async () => {
-            const docRef = doc(dbservice, `members/${userObj?.uid}`)
-            const docSnap = await getDoc(docRef)
-            const userColor = docSnap.data()?.profileColor
-            handleProfileColor(userColor)
-        }
-        if (userObj) {
-            setProfile()
-        }
-    }, [])
+    // useEffect(() => {
+    //     const setProfile = async () => {
+    //         const docRef = doc(dbservice, `members/${userObj?.uid}`)
+    //         const docSnap = await getDoc(docRef)
+    //         const userColor = docSnap.data()?.profileColor
+    //         handleProfileColor(userColor)
+    //     }
+    //     if (userObj) {
+    //         setProfile()
+    //     }
+    // }, [])
     // const sides = []
     // if (check === false) {
     // } else {
@@ -178,20 +178,20 @@ const Router = ({ userObj }: {
                         {
                             userObj ? (
                                 <Route>
-                                    <Route path='/' Component={() => <Home userObj={userObj} piazzaSwitch={piazzaSwitch} newMessage={newMessage} setNewMessage={(newMessage: boolean) => setNewMessage(newMessage)} />} />
+                                    <Route path='/' Component={() => <Home userObj={userObj} />} />
                                     <Route path='/profile' Component={() => <Profile userObj={userObj} />} />
                                     <Route path='/ranking' Component={() => <Ranking userObj={userObj}/>} />
                                     <Route path='/specific' Component={() => <Specific userObj={userObj} />} />
                                     <Route path='/actions' Component={() => <Actions userObj={userObj} />} />
                                     <Route path='/allies' Component={() => <Allies />} />
                                     <Route path='/points' Component={() => <Points />} />
-                                    <Route path='/contact' Component={() => <Contact displayName={userObj?.displayName} userObj={userObj} />} />
-                                    <Route path='/piazza' Component={() => <Piazza userObj={userObj} piazzaSwitch={piazzaSwitch} />} />
-                                    <Route path='/chatting' Component={() => <Chatting userObj={userObj} setNewMessage={(newState: boolean) => setNewMessage(newState)} />} />
+                                    <Route path='/contact' Component={() => <Contact userObj={userObj} />} />
+                                    <Route path='/piazza' Component={() => <Piazza userObj={userObj} />} />
+                                    <Route path='/chatting' Component={() => <Chatting userObj={userObj} />} />
                                 </Route>
                             ) : (
                                 <Route>
-                                    <Route path='/' Component={() => <Home userObj={userObj} piazzaSwitch={piazzaSwitch} newMessage={newMessage} setNewMessage={(newMessage: boolean) => setNewMessage(newMessage)} />} />
+                                    <Route path='/' Component={() => <Home userObj={userObj} />} />
                                     <Route path='/specific' Component={() => <Specific userObj={userObj} />} />
                                 </Route>
                             )

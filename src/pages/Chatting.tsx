@@ -5,12 +5,11 @@ import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
 import { Link, useLocation } from 'react-router-dom'
 import { webSocket, onClick } from 'src/webSocket.tsx'
 import ChattingDialogs from 'src/muiComponents/ChattingDialogs'
+import { useBottomNavigationStore, useNewMessageStore } from 'src/store'
 
 // const webSocket = io("http://localhost:5000");
-function Chatting({ userObj, setBottomNavigation, setNewMessage }: {
+function Chatting({ userObj }: {
   userObj: {uid: string, displayName: string},
-  setBottomNavigation: (newState: number) => void,
-  setNewMessage: (newState: boolean) => void
 }) {
   const messagesEndRef = useRef(null);
   const [msg, setMsg] = useState("");
@@ -21,6 +20,9 @@ function Chatting({ userObj, setBottomNavigation, setNewMessage }: {
   const [selectUser, setSelectUser] = useState(false)
   const {state} = useLocation()
   const conversation = state.conversation
+  const handleBottomNavigation = useBottomNavigationStore((state) => state.handleBottomNavigation)
+  const handleNewMessageTrue = useNewMessageStore((state) => state.handleNewMessageTrue)
+
   useEffect(() => {
     if (!webSocket) return;
     function sMessageCallback(message) {
@@ -51,7 +53,7 @@ function Chatting({ userObj, setBottomNavigation, setNewMessage }: {
   }, []);
 
   useEffect(() => {
-    setBottomNavigation(5)
+    handleBottomNavigation(5)
   })
   useEffect(() => {
     scrollToBottom();
@@ -155,7 +157,9 @@ function Chatting({ userObj, setBottomNavigation, setNewMessage }: {
         await updateDoc(myDocRef, {
           conversation: [...myConversation, conversation]
         })
-        setNewMessage(true)
+        handleNewMessageTrue()
+        // setNewMessage(true)
+        // handleNewMessage()
       }
       if (userConversation.indexOf(conversation) === -1) { 
         await updateDoc(userDocRef, {

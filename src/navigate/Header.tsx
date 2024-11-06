@@ -6,6 +6,8 @@ import { blue } from '@mui/material/colors';
 import ToggleTabs from 'src/muiComponents/ToggleTabs'
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
 import { useSideNavigationStore, useBottomNavigationStore, useAvatarColorStore } from 'src/store'
+import { doc, getDoc } from 'firebase/firestore';
+import { auth, dbservice } from 'src/baseApi/serverbase'
 
 const Header = ({ userObj, storage }: 
     {
@@ -13,9 +15,10 @@ const Header = ({ userObj, storage }:
         storage: {}
     }
 ) => {
-    const [profile, setProfile] = useState(null)
+    const [profileImage, setProfileImage] = useState(null)
     const bottomNavigation = useBottomNavigationStore((state) => state.bottomNavigation)
     const profileColor = useAvatarColorStore((state) => state.profileColor)
+    const handleProfileColor = useAvatarColorStore((state) => state.handleProfileColor)
     const handleBottomNavigation = useBottomNavigationStore((state) => state.handleBottomNavigation)
     // const sideNavigation = useRef<boolean>(false)
     // const handleSideNavigation = () => {
@@ -31,13 +34,23 @@ const Header = ({ userObj, storage }:
     useLayoutEffect(() => {
         getDownloadURL(ref(storage, 'screen.jpg'))
         .then((url) => {
-            setProfile(url)
+            setProfileImage(url)
         })
         .catch((error) => {
             console.log(error)
         });
-        setProfile(null)
+        setProfileImage(null)
     })
+    
+    useEffect(() => {
+        const setProfile = async () => {
+            const docRef = doc(dbservice, `members/${userObj?.uid}`)
+            const docSnap = await getDoc(docRef)
+            const userColor = docSnap.data()?.profileColor
+            handleProfileColor(userColor)
+        }
+        setProfile()
+    }, [])
     
     return (
         <div className='flex flex-row'>

@@ -4,33 +4,35 @@ import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
 import { CardActionArea, CardActions } from '@mui/material';
 import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
-import { collection, query, QuerySnapshot, where, orderBy, addDoc, getDoc, getDocs, doc, onSnapshot, deleteDoc, updateDoc } from 'firebase/firestore';
+import { collection, query, QuerySnapshot, where, orderBy, addDoc, getDoc, getDocs, doc, onSnapshot, deleteDoc, updateDoc, limit } from 'firebase/firestore';
 import { Link } from 'react-router-dom'
 import { webSocket, onClick } from 'src/webSocket.tsx'
+import { useAvatarColorStore, useNewMessageStore } from 'src/store'
 
-const ChattingStacks = ({ userObj, newMessage, setNewMessage, newMessages, setNewMessages, setChats }) => {
-  const [chattingMessage, setChattingMessage] = useState(false)
-  const [myConversations, setMyConversations] = useState([])
-  const [conversations, setConversations] = useState([])
+const ChattingStacks = ({ userObj, chats, handleChats }) => {
+  const [myConversationUid, setMyConversationUid] = useState([])
+  // const [chattingMessage, setChattingMessage] = useState(false)
+  // const [conversations, setConversations] = useState([])
+  const newMessage = useNewMessageStore((state) => state.newMessage)
+  const handleNewMessageFalse = useNewMessageStore((state) => state.handleNewMessageFalse)
   
   useEffect(() => {
     const myChatting = async () => {
       const myDocRef = doc(dbservice, `members/${userObj.uid}`)
       const myDocSnap = await getDoc(myDocRef)
-      const myConversation = myDocSnap.data()?.conversation || []
-      setMyConversations(myConversation)
+      const myConversation = myDocSnap.data()?.conversation || ['none']
+      setMyConversationUid(myConversation)
     }
-    setChattingMessage(true)
-    if (!chattingMessage || newMessage) {
+    if (myConversationUid.length === 0 || newMessage) {
       myChatting()
-      setNewMessage(false)
+      handleNewMessageFalse()
     }
   }, [newMessage])
   useEffect(() => {
     const myChattings = () => {
-      myConversations.map(async (element, index) => {
+      myConversationUid.map(async (element, index) => {
         const chattingRef = collection(dbservice, `chats_${element}`)
-        const chattingCollection = query(chattingRef, orderBy('messageClockNumber'))
+        const chattingCollection = query(chattingRef, orderBy('messageClockNumber'), limit(1))
         const chattingMessages = await getDocs(chattingCollection)
         chattingMessages.forEach(async (document) => {
           const documentObj = document.data()
@@ -49,16 +51,16 @@ const ChattingStacks = ({ userObj, newMessage, setNewMessage, newMessages, setNe
             conversationUid: conversationUid,
             userDisplayName: userDisplayName
           }
-          if (conversations.length < myConversations.length) {
-            const check = conversations.map((elements) => elements.conversation).indexOf(element)
+          if (chats.length < myConversationUid.length) {
+            const check = chats.map((elements) => elements.conversation).indexOf(element)
             if (check === -1) {
-              setConversations([...conversations, newMessage])
+              handleChats([...chats, newMessage])
             }
           }
         })
       })
     }
-    if (myConversations.length !== 0) {
+    if (myConversationUid.length !== 0) {
       myChattings()
     }
   })
@@ -66,31 +68,30 @@ const ChattingStacks = ({ userObj, newMessage, setNewMessage, newMessages, setNe
     if (!webSocket) return;
     function sMessageCallback(message) {
       const { msg, userUid, id, target, messageClock, messageClockNumber, conversation, conversationUid, conversationName } = message;
-      const location = conversations.map((element) => element.conversation).indexOf(conversation)
+      const location = chats.map((element) => element.conversation).indexOf(conversation)
       const replaceObj = {conversation: conversation, username: id, message: msg, conversationUid: userUid, userDisplayName: id, messageClockNumber: messageClockNumber}
-      let conversationsCollection = [...conversations]
+      let conversationsCollection = [...chats]
       if (location === -1) {
         conversationsCollection = [replaceObj, ...conversationsCollection]
       } else {
         conversationsCollection.splice(location, 1, replaceObj)
       }
-      setConversations(conversationsCollection)
-      console.log(newMessages)
+      handleChats(conversationsCollection)
     }
-    conversations.map((element) => {
+    chats.map((element) => {
       webSocket.on(`sMessage${element.conversation}`, sMessageCallback);
       return () => {
         webSocket.off(`sMessage${element.conversation}`, sMessageCallback);
       };
     })
-  }, [conversations]);
+  }, [chats]);
   useEffect(() => {
     if (!webSocket) return;
     function sNewMessageCallback(message) {
       const { msg, userUid, id, target, messageClock, messageClockNumber, conversation, conversationUid, conversationName } = message;
-      const location = conversations.map((element) => element.conversation).indexOf(conversation)
+      const location = chats.map((element) => element.conversation).indexOf(conversation)
       const replaceObj = {conversation: conversation, username: id, message: msg, conversationUid: userUid, userDisplayName: id, messageClockNumber: messageClockNumber}
-      let conversationsCollection = [...conversations]
+      let conversationsCollection = [...chats]
       if (location === -1) {
         console.log('location')
         conversationsCollection = [replaceObj, ...conversationsCollection]
@@ -98,22 +99,22 @@ const ChattingStacks = ({ userObj, newMessage, setNewMessage, newMessages, setNe
         console.log('locations')
         conversationsCollection.splice(location, 1, replaceObj)
       }
-      setConversations(conversationsCollection)
+      handleChats(conversationsCollection)
     }
     webSocket.on(`sNewMessage`, sNewMessageCallback);
     return () => {
       webSocket.off(`sNewMessage`, sNewMessageCallback);
     };
   });
-  useEffect(() => {
-    if (conversations) {
-      setChats(true)
-    }
-  })
+  // useEffect(() => {
+  //   if (conversations) {
+  //     setChats(true)
+  //   }
+  // })
 
   return (
     <>
-      {conversations.map((element, index) => {
+      {chats.map((element, index) => {
         return (
           <Card key={index} sx={{ flexGrow: 1, overflow: 'hidden' }}>
             <CardActionArea>

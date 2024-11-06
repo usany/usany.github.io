@@ -5,13 +5,13 @@ import Message from 'src/pages/Message'
 import { getToken } from "firebase/messaging";
 import MessageStacks from 'src/muiComponents/MessageStacks'
 import ChattingStacks from 'src/muiComponents/ChattingStacks'
-import { useBottomNavigationStore, usePiazzaSwitchStore } from 'src/store'
+import { usePiazzaSwitchStore } from 'src/store'
 
-function Menu({ userObj, newMessage, setNewMessage }) {
+function Menu({ userObj }) {
     const [messages, setMessages] = useState<Array<object>>([]);
-    const [chats, setChats] = useState(false)
-    const [piazzaOn, setPiazzaOn] = useState('')
-    const [newMessages, setNewMessages] = useState(0)
+    const [chats, setChats] = useState([])
+    // const [piazzaOn, setPiazzaOn] = useState('')
+    // const [newMessages, setNewMessages] = useState(0)
     const piazzaSwitch = usePiazzaSwitchStore((state) => state.piazzaSwitch)
     // useEffect(() => {
     //     setPiazzaOn(piazzaSwitch.current)
@@ -110,15 +110,15 @@ function Menu({ userObj, newMessage, setNewMessage }) {
                     </div>
                     <div className='w-6/12 flex flex-col border border-sky-500 rounded'>
                             <div>
-                                {!chats && !piazzaSwitch ? <div className='flex justify-center pt-20'>받은 메세지가 없습니다</div> :
-                                <div className='flex flex-col justify-center'>
-                                    <div className='flex justify-center'>받은 메세지</div>
-                                    {piazzaSwitch === 'true' && 
-                                        <MessageStacks />
-                                    }
-                                    <ChattingStacks userObj={userObj} newMessage={newMessage} setNewMessage={setNewMessage} newMessages={newMessages} setNewMessages={setNewMessages} setChats={setChats}/>
-                                </div>
-                            }
+                                {!chats.length && !piazzaSwitch ? <div className='flex justify-center pt-20'>받은 메세지가 없습니다</div> :
+                                    <div className='flex flex-col justify-center'>
+                                        <div className='flex justify-center'>받은 메세지</div>
+                                        {piazzaSwitch === 'true' && 
+                                            <MessageStacks />
+                                        }
+                                        <ChattingStacks userObj={userObj} chats={chats} handleChats={(newState) => setChats(newState)}/>
+                                    </div>
+                                }
                             </div>
                     </div>
                 </div>

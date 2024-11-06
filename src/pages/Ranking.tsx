@@ -12,8 +12,9 @@ import CommentIcon from '@mui/icons-material/Comment';
 import IconButton from '@mui/material/IconButton';
 import { Link } from 'react-router-dom'
 import TextField from '@mui/material/TextField';
+import { useBottomNavigationStore } from 'src/store'
 
-function Ranking({ userObj, setBottomNavigation }) {
+function Ranking({ userObj }) {
   const [rank, setRank] = useState([])
   const [ranker, setRanker] = useState([])
   const [userSearch, setUserSearch] = useState('')
@@ -21,6 +22,7 @@ function Ranking({ userObj, setBottomNavigation }) {
     const { target: { value } } = event
     setUserSearch(value)
   }
+  const handleBottomNavigation = useBottomNavigationStore((state) => state.handleBottomNavigation)
   useEffect(() => {
     onSnapshot(query(collection(dbservice, 'members'), orderBy('points', 'desc')), (snapshot) => {
         const newArray = snapshot.docs.map((document) => ({
@@ -39,7 +41,7 @@ function Ranking({ userObj, setBottomNavigation }) {
   }, [])
   
   useEffect(() => {
-    setBottomNavigation(5)
+    handleBottomNavigation(5)
   })
 
   return (

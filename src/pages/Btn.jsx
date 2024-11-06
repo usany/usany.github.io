@@ -8,7 +8,7 @@ import SendIcon from '@mui/icons-material/Send';
 import { webSocket, onClick } from 'src/webSocket.tsx'
 
 // const webSocket = io("http://localhost:5000");
-function Btn({ msgObj, isOwner, uid, displayName, userObj, num, points, setValue }) {
+function Btn({ msgObj, isOwner, uid, displayName, userObj, num, points }) {
   const [move, setMove] = useState(false)
 
   const onDeleteClick = () => {
@@ -119,7 +119,7 @@ function Btn({ msgObj, isOwner, uid, displayName, userObj, num, points, setValue
                 )
               }}
               startIcon={<SendIcon />}>승낙하기</Button>
-              <Dialogs move={move} handleClose={handleClose} setValue={setValue}/>
+              <Dialogs move={move} handleClose={handleClose} />
             </div>
           }
           {msgObj.round === 2 &&

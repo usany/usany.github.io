@@ -7,10 +7,10 @@ import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnap
 import Button from '@mui/material/Button';
 import Badge from '@mui/material/Badge';
 import Avatar from '@mui/material/Avatar';
-import Checklist from '@mui/icons-material/Checklist'
+// import Checklist from '@mui/icons-material/Checklist'
 import BeachAccess from '@mui/icons-material/BeachAccess'
 import Card from '@mui/material/Card';
-import CardMedia from '@mui/material/CardMedia';
+// import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import { CardActionArea, CardActions } from '@mui/material';
 import { BrowserRouter, Routes, Route, useNavigate, Link, useLocation } from 'react-router-dom'
@@ -19,8 +19,6 @@ import { blue } from '@mui/material/colors';
 import { useBottomNavigationStore, useAvatarColorStore } from 'src/store'
 
 interface Props {
-  profileColor: string,
-  setProfileColor: (newState: string) => void,
   userObj: {uid: string, displayName: string},
 }
 

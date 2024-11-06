@@ -7,6 +7,16 @@ interface sideNavigationState {
   sideNavigation: boolean
   handleSideNavigation: (state: boolean) => void
 }
+interface newMessageState {
+  newMessage: boolean
+  handleNewMessage: (state: boolean) => void
+  handleNewMessageFalse: () => void
+  handleNewMessageTrue: () => void
+}
+// const useUserObjStore = create((set) => ({
+//     userObj: null,
+//     handleUserObj: (newState) => set(() => ({ userObj: newState })),
+// }))
 const useSideNavigationStore = create<sideNavigationState>()((set) => ({
     sideNavigation: false,
     handleSideNavigation: () => set((state) => ({ sideNavigation: !state.sideNavigation })),
@@ -52,6 +62,12 @@ const usePiazzaSwitchStore = create((set) => ({
       { piazzaSwitch: 'false' }
     )
   })
+}))
+const useNewMessageStore = create<newMessageState>()((set) => ({
+  newMessage: true,
+  handleNewMessage: (newState) => set(() => ({ newMessage: newState })),
+  handleNewMessageFalse: () => set(() => ({ newMessage: false })),
+  handleNewMessageTrue: () => set(() => ({ newMessage: true })),
 }))
 
 // store.set(state => ({ count: state.count + 1 }));
@@ -113,5 +129,5 @@ const bookStore = (set, get) => ({
   
   const useBookStore = create(bookStore);
   
-  export { useSideNavigationStore, useBottomNavigationStore, useAvatarColorStore, actionStore, useTabsStore, useThemeStore, usePiazzaSwitchStore };
+  export { useSideNavigationStore, useBottomNavigationStore, useAvatarColorStore, actionStore, useTabsStore, useThemeStore, usePiazzaSwitchStore, useNewMessageStore };
   
