@@ -69,7 +69,10 @@ const useNewMessageStore = create<newMessageState>()((set) => ({
   handleNewMessageFalse: () => set(() => ({ newMessage: false })),
   handleNewMessageTrue: () => set(() => ({ newMessage: true })),
 }))
-
+const useProfileImage = create((set) => ({
+  profileImage: null,
+  handleProfileImage: (newState) => set(() => ({ profileImage: newState }))
+}))
 // store.set(state => ({ count: state.count + 1 }));
 
 const bookStore = (set, get) => ({    
@@ -126,8 +129,8 @@ const bookStore = (set, get) => ({
       });
     },
   });
-  
+
   const useBookStore = create(bookStore);
   
-  export { useSideNavigationStore, useBottomNavigationStore, useAvatarColorStore, actionStore, useTabsStore, useThemeStore, usePiazzaSwitchStore, useNewMessageStore };
+  export { useSideNavigationStore, useBottomNavigationStore, useAvatarColorStore, actionStore, useTabsStore, useThemeStore, usePiazzaSwitchStore, useNewMessageStore, useProfileImage };
   

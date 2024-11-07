@@ -537,7 +537,7 @@ function Profile({ userObj }: Props
               alliesCollection: followersName,
               }}>
             <div className='border border-solid px-5'>
-              follower: {myFollowerNumber} 
+              팔로워: {myFollowerNumber} 
             </div>
           </Link>
           <Link to='/allies' 
@@ -549,7 +549,7 @@ function Profile({ userObj }: Props
               alliesCollection: followingsName,
             }}>
             <div className='border border-solid px-5'>
-              following: {myFollowingNumber}
+              팔로잉: {myFollowingNumber}
             </div>
           </Link>
         </div>
@@ -693,7 +693,7 @@ function Profile({ userObj }: Props
             alliesCollection: followersName,
             }}>
           <div className='border border-solid px-5'>
-            follower: {otherFollowerNumber} 
+            팔로워: {otherFollowerNumber} 
           </div>
         </Link>
         <Link to='/allies' 
@@ -705,7 +705,7 @@ function Profile({ userObj }: Props
             alliesCollection: followersName,
             }}>
           <div className='border border-solid px-5'>
-            following: {otherFollowingNumber} 
+            팔로잉: {otherFollowingNumber} 
           </div>
         </Link>
       </div>

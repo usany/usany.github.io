@@ -13,82 +13,13 @@ import Chatting from 'src/pages/Chatting'
 import Header from 'src/navigate/Header'
 import Navigations from 'src/navigate/Navigations'
 import { doc, getDoc } from 'firebase/firestore';
-import { getStorage, ref } from "firebase/storage";
+import { getStorage, ref, getDownloadURL } from "firebase/storage";
 import { auth, dbservice } from 'src/baseApi/serverbase'
 import Box from '@mui/material/Box';
 import LinearProgress from '@mui/material/LinearProgress';
 import { useBottomNavigationStore, useThemeStore, useSideNavigationStore, useAvatarColorStore, useNewMessageStore } from 'src/store'
 
 const Router = ({ userObj }) => {
-    // const [counter, setCounter] = useState<number[]>([]);
-    // const [value, setValue] = useState<number>(0);
-    // const [check, setCheck] = useState<boolean>(false)
-    // const [scroll, setScroll] = useState<number>(0)
-    // const [profileColor, setProfileColor] = useState<string>('#2196f3')
-    // const piazzaSwitch = useRef<string | null>(localStorage.getItem('piazza'))
-    // const [newMessage, setNewMessage] = useState<boolean>(false)
-    // const newMessage = useNewMessageStore((state) => state.newMessage)   
-    // const handleNewMessage = useNewMessageStore((state) => state.handleNewMessage)   
-    // const sideNavigation = useSideNavigationStore((state) => state.sideNavigation)
-    // const userObj = useUserObjStore((state) => state.userObj)
-    // const handleProfileColor = useAvatarColorStore((state) => state.handleProfileColor)
-    
-    // const reducerSideNavigation = (state, action) => {
-    //     if (action.type === 'toggle') {
-    //         return {
-    //             sideNavigation: !state.sideNavigation
-    //         }
-    //     }
-    // }
-    // const [stateSideNavigation, dispatchSideNavigation] = useReducer(reducerSideNavigation, {sideNavigation: false})
-    // const reducerNewMessage = (state, action) => {
-    //     if (action.type === 'toggle') {
-    //         return {
-    //             newMessage: !state.newMessage
-    //         }
-    //     }
-    // }
-    // const [stateNewMessage, dispatchNewMessage] = useReducer(reducerNewMessage, {newMessage: false})
-    // const handleSideNavigation = () => {
-    //     dispatchSideNavigation({type: 'toggle'})
-    // }
-    // const handleNewMessage = () => {
-    //     dispatchNewMessage({type: 'toggle'})
-    // }
-    // useEffect(() => {
-    //     if (!sideNavigation) {
-    //         setTimeout(() => window.scrollTo({
-    //             top: scroll,
-    //             behavior: "smooth"
-    //         }), 15);
-    //     }
-    // })
-    
-    // useEffect(() => {
-    //     if (!(piazzaSwitch.current)) {
-    //         localStorage.setItem("piazza", 'false');
-    //         piazzaSwitch.current = 'false'
-    //     }
-    // })
-    
-    // useEffect(() => {
-    //     const setProfile = async () => {
-    //         const docRef = doc(dbservice, `members/${userObj?.uid}`)
-    //         const docSnap = await getDoc(docRef)
-    //         const userColor = docSnap.data()?.profileColor
-    //         handleProfileColor(userColor)
-    //     }
-    //     if (userObj) {
-    //         setProfile()
-    //     }
-    // }, [])
-    // const sides = []
-    // if (check === false) {
-    // } else {
-    //     sides.push(
-    //         'fixed'
-    //     )
-    // }
 
     // keep track of previous scroll position
     let prevScrollPos = window.scrollY;
@@ -150,7 +81,7 @@ const Router = ({ userObj }) => {
     // const handleProfileColor = (newState: string | null) => setProfileColor(newState)
     // const handleNewMessage = (newState: boolean) => setNewMessage(newState)
     // const handlePiazzaSwitch = (newRef: string | null) => piazzaSwitch.current = newRef
-    
+
     return (
         <BrowserRouter>
             <div className={

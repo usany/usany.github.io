@@ -6,7 +6,7 @@ import FilterDialogs from 'src/muiComponents/FilterDialogs'
 import Settings from '@mui/icons-material/Settings';
 import { useTabsStore } from 'src/store'
 
-function Notice({ userObj }) {
+function Notice({ userObj, borrow }) {
   const [messages, setMessages] = useState<Array<object>>([]);
   const [changeFilter, setChangeFilter] = useState(false);
   const [selectedValueOne, setSelectedValueOne] = useState(null);
@@ -93,7 +93,7 @@ function Notice({ userObj }) {
                         }
                     })
                 } */}
-        {toggleTabs === 0 &&
+        {borrow &&
             <div className='flex justify-start text-2xl w-screen'>
                 <div className='flex w-5/6'>빌리기 카드 목록</div>
                 <div className='flex w-screen justify-end px-10' onClick={handleClickChangeFilter}>
@@ -101,7 +101,7 @@ function Notice({ userObj }) {
                 </div>
             </div>
         }
-        {toggleTabs !== 0 &&
+        {!borrow &&
             <div className='flex justify-start text-2xl w-screen'>
                 <div className='flex w-5/6'>빌려주기 카드 목록</div>
                 <div className='flex w-screen justify-end px-10'>
@@ -111,7 +111,7 @@ function Notice({ userObj }) {
         }
         <FilterDialogs changeFilter={changeFilter} handleClose={handleClose} selectedValueOne={selectedValueOne} selectedValueTwo={selectedValueTwo} selectedValueThree={selectedValueThree} setSelectedValue={setSelectedValueOne} setSelectedValueTwo={setSelectedValueTwo} setSelectedValueThree={setSelectedValueThree} changeSelectedValueOne={changeSelectedValueOne} changeSelectedValueTwo={changeSelectedValueTwo} changeSelectedValueThree={changeSelectedValueThree}/>
         <div className='flex justify-center flex-wrap'>
-                {toggleTabs === 0 && messages.map((msg) => {
+                {borrow && messages.map((msg) => {
                     // console.log(msg.text.clocker.gmt)
                     if (msg?.text.choose === 1 && msg?.round === 1 && msg?.text.clocker.gmt.seconds*1000 + Date.now()) {
                         if (selectedValueTwo === '전체' || selectedValueTwo === msg?.text.count || !selectedValueTwo) {
@@ -121,7 +121,7 @@ function Notice({ userObj }) {
                         }
                     }
                 })}
-                {toggleTabs !== 0 && messages.map((msg) => {
+                {!borrow && messages.map((msg) => {
                     if (msg?.text.choose === 2 && msg?.round === 1 && (msg?.text.clocker.gmt === undefined || msg.text.clocker.gmt.seconds*1000 + Date.now())) {
                         if (selectedValueTwo === '전체' || selectedValueTwo === msg?.text.count || !selectedValueTwo) {
                             return(

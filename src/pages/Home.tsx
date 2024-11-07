@@ -33,10 +33,10 @@ function Home({ userObj }) {
                             num={1}
                         >
                             <div>
-                                <Add userObj={userObj} action={0}/>
+                                <Add userObj={userObj} action={0} borrow={true}/>
                             </div>
                             <div>
-                                <Add userObj={userObj} action={1}/>
+                                <Add userObj={userObj} action={1} borrow={false}/>
                             </div>
                         </SwipeableViews>
                         </div>
@@ -49,10 +49,10 @@ function Home({ userObj }) {
                             num={1}
                         >
                             <div>
-                                <Notice userObj={userObj} />
+                                <Notice userObj={userObj} borrow={true} />
                             </div>
                             <div>
-                                <Notice userObj={userObj} />
+                                <Notice userObj={userObj} borrow={false}/>
                             </div>
                         </SwipeableViews>
                         </div>

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useLayoutEffect } from 'react'
 import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
 import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnapshot, deleteDoc, updateDoc } from 'firebase/firestore';
 import List from '@mui/material/List';
@@ -12,16 +12,28 @@ import CommentIcon from '@mui/icons-material/Comment';
 import IconButton from '@mui/material/IconButton';
 import { Link } from 'react-router-dom'
 import TextField from '@mui/material/TextField';
-import { useBottomNavigationStore } from 'src/store'
+import { useBottomNavigationStore, useProfileImage } from 'src/store'
+import { getStorage, ref, getDownloadURL } from "firebase/storage";
+import Skeleton from '@mui/material/Skeleton';
+import staticImg from 'src/assets/pwa-512x512.png';
 
 function Ranking({ userObj }) {
   const [rank, setRank] = useState([])
   const [ranker, setRanker] = useState([])
   const [userSearch, setUserSearch] = useState('')
+  const profileImage = useProfileImage((state) => state.profileImage)
+  const handleProfileImage = useProfileImage((state) => state.handleProfileImage)
+  const [loaded, setLoaded] = useState(false)
+  useEffect(() => {
+    if (handleProfileImage) {
+      setLoaded(true)
+    }
+  })
   const onChangeUserSearch = (event) => {
     const { target: { value } } = event
     setUserSearch(value)
   }
+  console.log(profileImage)
   const handleBottomNavigation = useBottomNavigationStore((state) => state.handleBottomNavigation)
   useEffect(() => {
     onSnapshot(query(collection(dbservice, 'members'), orderBy('points', 'desc')), (snapshot) => {
@@ -43,7 +55,7 @@ function Ranking({ userObj }) {
   useEffect(() => {
     handleBottomNavigation(5)
   })
-
+  
   return (
     <div className='flex flex-col pb-20'>
       <div className='flex text-2xl p-5'>
@@ -77,7 +89,10 @@ function Ranking({ userObj }) {
                       {index+1}
                     </div>
                     <ListItemAvatar>
-                      <Avatar alt={element.displayName} sx={{ bgcolor: element.profileColor || blue[500] }} src="./src" />
+                      {loaded ? 
+                        <Skeleton />:
+                        <Avatar alt={element.displayName} sx={{ bgcolor: element.profileColor || blue[500] }} src={profileImage} />
+                      }
                     </ListItemAvatar>
                     <div className='flex flex-col overflow-hidden'>
                       <div>
@@ -125,16 +140,21 @@ function Ranking({ userObj }) {
           bgcolor: 'background.paper' }}>
             {ranker.map((element, index) => {
               return(
-                <div key={index} className={'flex ranking-'+String(index+1)}>
+                <div key={index} className={'flex overflow-hidden ranking-'+String(index+1)}>
                     <ListItem>
                       <div className='px-5'>
                         {index+1}
                       </div>
                       <ListItemAvatar>
-                        <Avatar alt={element.displayName} sx={{ bgcolor: element.profileColor || blue[500] }} src="./src" />
+                        {profileImage ? 
+                          <Avatar alt={element.displayName} sx={{ bgcolor: element.profileColor || blue[500] }} src={profileImage} />:
+                          <Skeleton variant='circular'>
+                            <Avatar />
+                          </Skeleton>
+                        }
                       </ListItemAvatar>
                       <div className='flex flex-col overflow-hidden'>
-                        <div>
+                        <div className='overflow-hidden'>
                           {element.displayName}
                         </div>
                         <div>
@@ -185,7 +205,7 @@ function Ranking({ userObj }) {
                   <div key={index} className={'flex ranking-'+String(index+1)}>
                     <ListItem>
                       <div className='flex justify-between w-screen'>
-                      <div className='flex'>
+                      <div className='flex overflow-hidden'>
                         <div className='flex flex-col justify-center px-5'>
                           {index+1}
                         </div>

@@ -18,12 +18,25 @@ const lendSteps = [
 ];
 const stepsCollection = [borrowSteps, lendSteps]
 
-function AddSteppers({ addSteps, toggleTabs }) {
+function AddSteppers({ addSteps, borrow }) {
     return (
         <div className='w-full'>
             <Stepper 
             activeStep={addSteps} alternativeLabel>
-                {stepsCollection[toggleTabs].map((label, index) => {
+                {borrow ? stepsCollection[0].map((label, index) => {
+                    return (
+                        <Step key={index}>
+                            <StepLabel>
+                                {label.map((element, index) => {
+                                    return (
+                                        <div key={index}>{element}</div>
+                                    )
+                                })}
+                            </StepLabel>
+                        </Step>
+                    )
+                }) :
+                stepsCollection[1].map((label, index) => {
                     return (
                         <Step key={index}>
                             <StepLabel>
@@ -36,7 +49,7 @@ function AddSteppers({ addSteps, toggleTabs }) {
                         </Step>
                     )
                 })}
-                {toggleTabs !== 0 && lendSteps.map((label, index) => {
+                {/* {toggleTabs !== 0 && lendSteps.map((label, index) => {
                     if (index === 0) {
                         return (
                             <Step key={index}>
@@ -53,7 +66,7 @@ function AddSteppers({ addSteps, toggleTabs }) {
                             </Step>
                         )
                     }
-                })}
+                })} */}
             </Stepper>
         </div>
     )

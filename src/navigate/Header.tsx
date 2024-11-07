@@ -5,21 +5,22 @@ import Avatar from '@mui/material/Avatar';
 import { blue } from '@mui/material/colors';
 import ToggleTabs from 'src/muiComponents/ToggleTabs'
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
-import { useSideNavigationStore, useBottomNavigationStore, useAvatarColorStore } from 'src/store'
+import { useSideNavigationStore, useBottomNavigationStore, useAvatarColorStore, useProfileImage } from 'src/store'
 import { doc, getDoc } from 'firebase/firestore';
 import { auth, dbservice } from 'src/baseApi/serverbase'
+import staticImg from 'src/assets/pwa-512x512.png';
 
 const Header = ({ userObj, storage }: 
     {
         userObj: {uid: string, displayName: string} | null,
-        storage: {}
     }
 ) => {
-    const [profileImage, setProfileImage] = useState(null)
     const bottomNavigation = useBottomNavigationStore((state) => state.bottomNavigation)
     const profileColor = useAvatarColorStore((state) => state.profileColor)
     const handleProfileColor = useAvatarColorStore((state) => state.handleProfileColor)
     const handleBottomNavigation = useBottomNavigationStore((state) => state.handleBottomNavigation)
+    const profileImage = useProfileImage((state) => state.profileImage)
+    const handleProfileImage = useProfileImage((state) => state.handleProfileImage)
     // const sideNavigation = useRef<boolean>(false)
     // const handleSideNavigation = () => {
     //     sideNavigation.current = !sideNavigation.current
@@ -34,12 +35,11 @@ const Header = ({ userObj, storage }:
     useLayoutEffect(() => {
         getDownloadURL(ref(storage, 'screen.jpg'))
         .then((url) => {
-            setProfileImage(url)
+            handleProfileImage(url)
         })
         .catch((error) => {
             console.log(error)
         });
-        setProfileImage(null)
     })
     
     useEffect(() => {
@@ -51,7 +51,6 @@ const Header = ({ userObj, storage }:
         }
         setProfile()
     }, [])
-    
     return (
         <div className='flex flex-row'>
                 <div id='navigationSelectorOne' className='pt-1'>
@@ -59,7 +58,7 @@ const Header = ({ userObj, storage }:
                     <div className='flex justify-between w-screen'>
                         <div className='px-5 pt-1'>
                             {userObj ?
-                                <Avatar alt={userObj.displayName} sx={{ bgcolor: profileColor }} src='./src' onClick={() => {
+                                <Avatar alt={userObj.displayName} sx={{ bgcolor: profileColor }} src={profileImage} onClick={() => {
                                     // setCheck(!check)
                                     // setScroll(prevScrollPos)
                                     // sideNavigation.current = true
