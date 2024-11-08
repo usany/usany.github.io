@@ -13,10 +13,6 @@ interface newMessageState {
   handleNewMessageFalse: () => void
   handleNewMessageTrue: () => void
 }
-// const useUserObjStore = create((set) => ({
-//     userObj: null,
-//     handleUserObj: (newState) => set(() => ({ userObj: newState })),
-// }))
 const useSideNavigationStore = create<sideNavigationState>()((set) => ({
     sideNavigation: false,
     handleSideNavigation: () => set((state) => ({ sideNavigation: !state.sideNavigation })),
