@@ -77,7 +77,6 @@ const useProfileImage = create((set) => ({
   profileImage: null,
   handleProfileImage: (newState) => set(() => ({ profileImage: newState }))
 }))
-// store.set(state => ({ count: state.count + 1 }));
 
 const bookStore = (set, get) => ({    
     books: [],
