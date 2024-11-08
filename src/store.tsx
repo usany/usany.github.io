@@ -21,6 +21,14 @@ const useSideNavigationStore = create<sideNavigationState>()((set) => ({
     sideNavigation: false,
     handleSideNavigation: () => set((state) => ({ sideNavigation: !state.sideNavigation })),
 }))
+const useCardAccordionStore = create((set) => ({
+    cardAccordion: false,
+    handleCardAccordion: () => set((state) => ({ cardAccordion: !state.cardAccordion })),
+}))
+const useMessageAccordionStore = create((set) => ({
+    messageAccordion: true,
+    handleMessageAccordion: () => set((state) => ({ messageAccordion: !state.messageAccordion })),
+}))
 const useBottomNavigationStore = create((set) => ({
     bottomNavigation: 1,
     handleBottomNavigation: (newState) => set(() => ({ bottomNavigation: newState })),
@@ -132,5 +140,5 @@ const bookStore = (set, get) => ({
 
   const useBookStore = create(bookStore);
   
-  export { useSideNavigationStore, useBottomNavigationStore, useAvatarColorStore, actionStore, useTabsStore, useThemeStore, usePiazzaSwitchStore, useNewMessageStore, useProfileImage };
+  export { useSideNavigationStore, useCardAccordionStore, useMessageAccordionStore, useBottomNavigationStore, useAvatarColorStore, actionStore, useTabsStore, useThemeStore, usePiazzaSwitchStore, useNewMessageStore, useProfileImage };
   

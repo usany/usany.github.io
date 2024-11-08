@@ -5,10 +5,22 @@ import Avatar from '@mui/material/Avatar';
 import { blue } from '@mui/material/colors';
 import ToggleTabs from 'src/muiComponents/ToggleTabs'
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
-import { useSideNavigationStore, useBottomNavigationStore, useAvatarColorStore, useProfileImage } from 'src/store'
+import { useSideNavigationStore, useCardAccordionStore, useMessageAccordionStore, useBottomNavigationStore, useAvatarColorStore, useProfileImage } from 'src/store'
 import { doc, getDoc } from 'firebase/firestore';
 import { auth, dbservice } from 'src/baseApi/serverbase'
 import staticImg from 'src/assets/pwa-512x512.png';
+import {
+    Accordion,
+    AccordionContent,
+    AccordionItem,
+    AccordionTrigger,
+} from "@/components/ui/accordion"
+import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
+import BookmarkIcon from '@mui/icons-material/Bookmark';
+import Checkbox from '@mui/material/Checkbox';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormGroup from '@mui/material/FormGroup';
+import Divider from '@mui/material/Divider';
 
 const Header = ({ userObj, storage }: 
     {
@@ -27,6 +39,10 @@ const Header = ({ userObj, storage }:
     //     console.log(sideNavigation.current)
     // }
     // const handleSideNavigation = useSideNavigationStore((state) => state.handleSideNavigation)
+    const cardAccordion = useCardAccordionStore((state) => state.cardAccordion)
+    const handleCardAccordion = useCardAccordionStore((state) => state.handleCardAccordion)
+    const messageAccordion = useMessageAccordionStore((state) => state.messageAccordion)
+    const handleMessageAccordion = useMessageAccordionStore((state) => state.handleMessageAccordion)
     const [sideNavigation, setSideNavigation] = useState(false)
     const handleSideNavigation = () => {
         setSideNavigation(!sideNavigation)
@@ -51,6 +67,7 @@ const Header = ({ userObj, storage }:
         }
         setProfile()
     }, [])
+
     return (
         <div className='flex flex-row'>
                 <div id='navigationSelectorOne' className='pt-1'>
@@ -81,6 +98,37 @@ const Header = ({ userObj, storage }:
                         <div>
                             {userObj && bottomNavigation === 0 && 
                                 <ToggleTabs />
+                            }
+                            {userObj && bottomNavigation === 1 &&
+                                <FormGroup>
+                                    <div className='flex'>
+                                        <div className='flex flex-col'>
+                                            <FormControlLabel
+                                                control={
+                                                    <Checkbox
+                                                        checked={cardAccordion}
+                                                        onClick={handleCardAccordion}
+                                                    />
+                                                } 
+                                                label="카드" 
+                                            />
+                                            <Divider sx={{width: '100%'}} />
+                                        </div>
+                                        <div className='px-1'></div>
+                                        <div className='flex flex-col'>
+                                            <FormControlLabel
+                                                control={
+                                                    <Checkbox
+                                                        checked={messageAccordion}
+                                                        onClick={handleMessageAccordion}
+                                                    />
+                                                } 
+                                                label="메세지" 
+                                            />
+                                            <Divider sx={{width: '100%'}} />
+                                        </div>
+                                    </div>
+                                </FormGroup>
                             }
                             {userObj && bottomNavigation === 2 && 
                                 <ToggleTabs />

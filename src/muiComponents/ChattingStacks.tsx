@@ -9,13 +9,13 @@ import { Link } from 'react-router-dom'
 import { webSocket, onClick } from 'src/webSocket.tsx'
 import { useAvatarColorStore, useNewMessageStore } from 'src/store'
 
-const ChattingStacks = ({ userObj, chats, handleChats }) => {
+const ChattingStacks = ({ userObj, chats, handleChats, messageLoaded, handleMessageLoaded }) => {
   const [myConversationUid, setMyConversationUid] = useState([])
   // const [chattingMessage, setChattingMessage] = useState(false)
   // const [conversations, setConversations] = useState([])
   const newMessage = useNewMessageStore((state) => state.newMessage)
   const handleNewMessageFalse = useNewMessageStore((state) => state.handleNewMessageFalse)
-  
+  // console.log(handleMessageLoaded)
   useEffect(() => {
     const myChatting = async () => {
       const myDocRef = doc(dbservice, `members/${userObj.uid}`)
@@ -55,10 +55,12 @@ const ChattingStacks = ({ userObj, chats, handleChats }) => {
             const check = chats.map((elements) => elements.conversation).indexOf(element)
             if (check === -1) {
               handleChats([...chats, newMessage])
+              handleMessageLoaded(true)
             }
           }
         })
       })
+      // handleMessageLoaded(true)
     }
     if (myConversationUid.length !== 0) {
       myChattings()
@@ -106,11 +108,12 @@ const ChattingStacks = ({ userObj, chats, handleChats }) => {
       webSocket.off(`sNewMessage`, sNewMessageCallback);
     };
   });
-  // useEffect(() => {
-  //   if (conversations) {
-  //     setChats(true)
-  //   }
-  // })
+
+  useEffect(() => {
+    if (chats.length === myConversationUid.length ) {
+      handleMessageLoaded(true)
+    }
+  })
 
   return (
     <>
@@ -118,14 +121,14 @@ const ChattingStacks = ({ userObj, chats, handleChats }) => {
         return (
           <Card key={index} sx={{ flexGrow: 1, overflow: 'hidden' }}>
             <CardActionArea>
-                  <Link to='/chatting' state={{
-                    conversation: element.conversation, displayName: element.userDisplayName, userUid: userObj.uid, chattingUid: element.conversationUid
-                  }}>
-                  <Stack spacing={2} direction="column" sx={{ flexGrow: 1, overflow: 'hidden', p: 1 }}>
-                    <div>chatting {element.userDisplayName}</div>
-                    <Typography noWrap>{element?.message}</Typography>
-                  </Stack>
-                  </Link>
+              <Link to='/chatting' state={{
+                conversation: element.conversation, displayName: element.userDisplayName, userUid: userObj.uid, chattingUid: element.conversationUid
+              }}>
+                <Stack spacing={2} direction="column" sx={{ flexGrow: 1, overflow: 'hidden', p: 1 }}>
+                  <div>chatting {element.userDisplayName}</div>
+                  <Typography noWrap>{element?.message}</Typography>
+                </Stack>
+              </Link>
             </CardActionArea>
           </Card>
         )

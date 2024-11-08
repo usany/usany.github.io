@@ -5,7 +5,27 @@ import Message from 'src/pages/Message'
 import { getToken } from "firebase/messaging";
 import MessageStacks from 'src/muiComponents/MessageStacks'
 import ChattingStacks from 'src/muiComponents/ChattingStacks'
-import { usePiazzaSwitchStore } from 'src/store'
+import { useCardAccordionStore, useMessageAccordionStore, usePiazzaSwitchStore, useThemeStore } from 'src/store'
+// import {
+//     Accordion,
+//     AccordionContent,
+//     AccordionItem,
+//     AccordionTrigger,
+// } from "@/components/ui/accordion"
+import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
+import BookmarkIcon from '@mui/icons-material/Bookmark';
+import Checkbox from '@mui/material/Checkbox';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormGroup from '@mui/material/FormGroup';
+import Divider from '@mui/material/Divider';
+import Accordion from '@mui/material/Accordion';
+import AccordionActions from '@mui/material/AccordionActions';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Skeleton from '@mui/material/Skeleton';
 
 function Menu({ userObj }) {
     const [messages, setMessages] = useState<Array<object>>([]);
@@ -13,10 +33,17 @@ function Menu({ userObj }) {
     // const [piazzaOn, setPiazzaOn] = useState('')
     // const [newMessages, setNewMessages] = useState(0)
     const piazzaSwitch = usePiazzaSwitchStore((state) => state.piazzaSwitch)
+    const cardAccordion = useCardAccordionStore((state) => state.cardAccordion)
+    const handleCardAccordion = useCardAccordionStore((state) => state.handleCardAccordion)
+    const messageAccordion = useMessageAccordionStore((state) => state.messageAccordion)
+    const handleMessageAccordion = useMessageAccordionStore((state) => state.handleMessageAccordion)
     // useEffect(() => {
     //     setPiazzaOn(piazzaSwitch.current)
     // }, [])
-
+    const [card, setCard] = useState(true);
+    const [message, setMessage] = useState(true);
+    const [cardLoaded, setCardLoaded] = useState(false)
+    const [messageLoaded, setMessageLoaded] = useState(false)
     useEffect(() => {
         const requestPermission = async () => {
             try {
@@ -49,9 +76,10 @@ function Menu({ userObj }) {
             })
         });
         setMessages(newArray)
+        setCardLoaded(true)
     })
     }, [])
-
+    console.log(messageLoaded)
     // const onCounting = (msg) => {
     //     tmpCounter.push(msg.id)
     // }
@@ -82,7 +110,7 @@ function Menu({ userObj }) {
     //     console.log('practice')
     // }
     // const playlistId = '0g51VswTtsWRTIQToh5oNe';
-
+    const handleMessageLoaded = (newState) => setMessageLoaded(newState)
     return (
         <div className='flex justify-center flex-col pb-5'>
             {/* <div className='flex justify-center border border-sky-500'>
@@ -91,6 +119,64 @@ function Menu({ userObj }) {
             <div className='flex justify-start text-2xl p-5'>
                 내 상태
             </div>
+            <Accordion sx={{backgroundColor: '#cbd5df'}} expanded={cardAccordion} onChange={() => setCard(!card)}>
+                <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    onClick={() => handleCardAccordion()}
+                >
+                    카드
+                </AccordionSummary>
+                <AccordionDetails>
+                    {cardLoaded ? 
+                    <div>
+                        {!messages.length ? 
+                            <div className='flex justify-center pt-20'>진행 카드가 없습니다</div> :
+                            <div className='flex justify-center flex-wrap'>
+                                {messages.map((msg) => {
+                                    if(msg.round !== 5) {
+                                        return(<Message key={msg.id} msgObj={msg} isOwner={msg.creatorId === userObj.uid} userObj={userObj} />)
+                                    }
+                                })}
+                            </div>
+                        }
+                    </div>:
+                    <Skeleton />
+                    }
+                    {/* {!messages.length ? 
+                        <div className='flex justify-center pt-20'>진행 카드가 없습니다</div> :
+                        <div className='flex justify-center flex-wrap'>
+                            {messages.map((msg) => {
+                                if(msg.round !== 5) {
+                                    return(<Message key={msg.id} msgObj={msg} isOwner={msg.creatorId === userObj.uid} userObj={userObj} />)
+                                }
+                            })}
+                        </div>
+                    } */}
+                </AccordionDetails>
+            </Accordion>
+            <Accordion sx={{backgroundColor: '#cbd5df'}} expanded={messageAccordion} onChange={() => setMessage(!message)}>
+                <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    onClick={() => handleMessageAccordion()}
+                >
+                    메세지
+                </AccordionSummary>
+                <AccordionDetails>
+                    {messageLoaded ?
+                    <div>    
+                        {!chats.length && !piazzaSwitch ? <div className='flex justify-center pt-20'>받은 메세지가 없습니다</div> :
+                            <div className='flex flex-col justify-center'>
+                                {piazzaSwitch === 'true' && 
+                                    <MessageStacks />
+                                }
+                                <ChattingStacks userObj={userObj} chats={chats} handleChats={(newState) => setChats(newState)} messageLoaded={messageLoaded} handleMessageLoaded={(newState) => setMessageLoaded(newState)}/>
+                            </div>
+                        }
+                    </div>:
+                    <Skeleton />
+                    }
+                </AccordionDetails>
+            </Accordion>
             <div>
                 <div className='flex justify-center'>
                     <div className='w-6/12 flex flex-col border border-sky-500 rounded'>
@@ -116,7 +202,7 @@ function Menu({ userObj }) {
                                         {piazzaSwitch === 'true' && 
                                             <MessageStacks />
                                         }
-                                        <ChattingStacks userObj={userObj} chats={chats} handleChats={(newState) => setChats(newState)}/>
+                                        <ChattingStacks userObj={userObj} chats={chats} handleChats={(newState) => setChats(newState)} handleMessageLoaded={(newState) => setMessageLoaded(newState)}/>
                                     </div>
                                 }
                             </div>
