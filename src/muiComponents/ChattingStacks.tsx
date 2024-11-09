@@ -86,8 +86,22 @@ const ChattingStacks = ({ userObj,
     if (!webSocket) return;
     function sMessageCallback(message) {
       const { msg, userUid, id, target, messageClock, messageClockNumber, conversation, conversationUid, conversationName } = message;
-      const replaceObj = {conversation: conversation, username: id, message: msg, conversationUid: userUid, userDisplayName: id, messageClockNumber: messageClockNumber}
-      // const location = chats.map((element) => element.conversation).indexOf(conversation)
+      let userOne
+      let userTwo
+      let userOneDisplayName
+      let userTwoDisplayName
+      if (userUid < conversationUid) {
+        userOne = userUid
+        userTwo = conversationUid
+        userOneDisplayName = id
+        userTwoDisplayName = conversationName
+      } else {
+        userOne = conversationUid
+        userTwo = userUid
+        userOneDisplayName = conversationName
+        userTwoDisplayName = id
+      }
+      const replaceObj = {userUid: userUid, userName: id, userOne: userOne, userOneDisplayName: userOneDisplayName, userTwo: userTwo, userTwoDisplayName: userTwoDisplayName, message: msg, messageClock: messageClock, messageClockNumber: messageClockNumber}      // const location = chats.map((element) => element.conversation).indexOf(conversation)
       // let conversationsCollection = [...chats]
       // if (location === -1) {
       //   conversationsCollection = [replaceObj, ...conversationsCollection]
@@ -114,7 +128,22 @@ const ChattingStacks = ({ userObj,
     if (!webSocket) return;
     function sNewMessageCallback(message) {
       const { msg, userUid, id, target, messageClock, messageClockNumber, conversation, conversationUid, conversationName } = message;
-      const replaceObj = {conversation: conversation, username: id, message: msg, conversationUid: userUid, userDisplayName: id, messageClockNumber: messageClockNumber}
+      let userOne
+      let userTwo
+      let userOneDisplayName
+      let userTwoDisplayName
+      if (userUid < conversationUid) {
+        userOne = userUid
+        userTwo = conversationUid
+        userOneDisplayName = id
+        userTwoDisplayName = conversationName
+      } else {
+        userOne = conversationUid
+        userTwo = userUid
+        userOneDisplayName = conversationName
+        userTwoDisplayName = id
+      }
+      const replaceObj = {userUid: userUid, userName: id, userOne: userOne, userOneDisplayName: userOneDisplayName, userTwo: userTwo, userTwoDisplayName: userTwoDisplayName, message: msg, messageClock: messageClock, messageClockNumber: messageClockNumber}
       // const location = chats.map((element) => element.conversation).indexOf(conversation)
       // let conversationsCollection = [...chats]
       // if (location === -1) {
@@ -131,7 +160,7 @@ const ChattingStacks = ({ userObj,
       // const newChattings = {...chattings}
       // newChattings[conversation] = replaceObj
       // setChattings(newChattings)
-
+      
     }
     webSocket.on(`sNewMessage`, sNewMessageCallback);
     return () => {
@@ -150,11 +179,21 @@ const ChattingStacks = ({ userObj,
     <>
       {sortedMyConversationUid.map((element, index) => {
         if (chattings[element]) {
+          let displayName
+          let chattingUid
+          if (userObj.uid === chattings[element].userOneDisplayName) {
+            displayName = chattings[element].userTwoDisplayName
+            chattingUid = chattings[element].userTwo
+          } else {
+            displayName = chattings[element].userOneDisplayName
+            chattingUid = chattings[element].userOne
+          } 
+          
           return (
             <Card key={index} sx={{ flexGrow: 1, overflow: 'hidden' }}>
               <CardActionArea>
                 <Link to='/chatting' state={{
-                  conversation: element, displayName: userObj.uid === chattings[element].userOneDisplayName ? chattings[element].userTwoDisplayName : chattings[element].userOneDisplayName, userUid: userObj.uid, chattingUid: userObj.uid === chattings[element].userOne ? chattings[element].userTwo : chattings[element].userOne
+                  conversation: element, displayName: displayName, userUid: userObj.uid, chattingUid: chattingUid
                 }}>
                   <Stack spacing={2} direction="column" sx={{ flexGrow: 1, overflow: 'hidden', p: 1 }}>
                     <div>chatting {userObj.uid === chattings[element].userOneDisplayName ? chattings[element].userTwoDisplayName : chattings[element].userOneDisplayName}</div>
