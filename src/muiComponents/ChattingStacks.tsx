@@ -18,7 +18,7 @@ const ChattingStacks = ({ userObj,
   const [chattings, setChattings] = useState({})
   const newMessage = useNewMessageStore((state) => state.newMessage)
   const handleNewMessageFalse = useNewMessageStore((state) => state.handleNewMessageFalse)
-  console.log(chattings)
+  // console.log(chattings)
   useEffect(() => {
     const myChatting = async () => {
       const myDocRef = doc(dbservice, `members/${userObj.uid}`)
