@@ -22,7 +22,7 @@ function Chatting({ userObj }: {
   const conversation = state.conversation
   const handleBottomNavigation = useBottomNavigationStore((state) => state.handleBottomNavigation)
   const handleNewMessageTrue = useNewMessageStore((state) => state.handleNewMessageTrue)
-
+  
   useEffect(() => {
     if (!webSocket) return;
     function sMessageCallback(message) {
@@ -46,6 +46,7 @@ function Chatting({ userObj }: {
         webSocket.off(`sNewMessage`, sMessageCallback);
       };
     }
+    console.log('practice')
     webSocket.on(`sMessage${conversation}`, sMessageCallback);
     return () => {
       webSocket.off(`sMessage${conversation}`, sMessageCallback);
@@ -162,7 +163,6 @@ function Chatting({ userObj }: {
       console.log(error)
     }
   }
-  console.log(state)
   const onMembersConversation = async () => {
     const message = msg
     try {

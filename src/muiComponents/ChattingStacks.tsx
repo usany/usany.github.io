@@ -181,7 +181,7 @@ const ChattingStacks = ({ userObj,
         if (chattings[element]) {
           let displayName
           let chattingUid
-          if (userObj.uid === chattings[element].userOneDisplayName) {
+          if (userObj.uid === chattings[element].userOne) {
             displayName = chattings[element].userTwoDisplayName
             chattingUid = chattings[element].userTwo
           } else {
@@ -196,7 +196,7 @@ const ChattingStacks = ({ userObj,
                   conversation: element, displayName: displayName, userUid: userObj.uid, chattingUid: chattingUid
                 }}>
                   <Stack spacing={2} direction="column" sx={{ flexGrow: 1, overflow: 'hidden', p: 1 }}>
-                    <div>chatting {userObj.uid === chattings[element].userOneDisplayName ? chattings[element].userTwoDisplayName : chattings[element].userOneDisplayName}</div>
+                    <div>chatting {userObj.uid === chattings[element].userOne ? chattings[element].userTwoDisplayName : chattings[element].userOneDisplayName}</div>
                     <div>{chattings[element].messageClock}</div>
                     <div>{chattings[element].messageClockNumber}</div>
                     <Typography noWrap>{chattings[element]?.message}</Typography>
