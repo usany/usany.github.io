@@ -5,12 +5,11 @@ import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
 import { Link, useLocation } from 'react-router-dom'
 import { webSocket, onClick } from 'src/webSocket.tsx'
 import ChattingDialogs from 'src/muiComponents/ChattingDialogs'
+import { useBottomNavigationStore, useNewMessageStore } from 'src/store'
 
 // const webSocket = io("http://localhost:5000");
-function Chatting({ userObj, setBottomNavigation, setNewMessage }: {
+function Chatting({ userObj }: {
   userObj: {uid: string, displayName: string},
-  setBottomNavigation: (newState: number) => void,
-  setNewMessage: (newState: boolean) => void
 }) {
   const messagesEndRef = useRef(null);
   const [msg, setMsg] = useState("");
@@ -21,6 +20,9 @@ function Chatting({ userObj, setBottomNavigation, setNewMessage }: {
   const [selectUser, setSelectUser] = useState(false)
   const {state} = useLocation()
   const conversation = state.conversation
+  const handleBottomNavigation = useBottomNavigationStore((state) => state.handleBottomNavigation)
+  const handleNewMessageTrue = useNewMessageStore((state) => state.handleNewMessageTrue)
+
   useEffect(() => {
     if (!webSocket) return;
     function sMessageCallback(message) {
@@ -51,7 +53,7 @@ function Chatting({ userObj, setBottomNavigation, setNewMessage }: {
   }, []);
 
   useEffect(() => {
-    setBottomNavigation(5)
+    handleBottomNavigation(5)
   })
   useEffect(() => {
     scrollToBottom();
@@ -104,6 +106,7 @@ function Chatting({ userObj, setBottomNavigation, setNewMessage }: {
   const handleClose = () => {
     setSelectUser(false)
   }
+  console.log(state)
   const onFormConversation = async () => {
     const message = msg
     try {
@@ -113,22 +116,45 @@ function Chatting({ userObj, setBottomNavigation, setNewMessage }: {
       const messageClock = new Date().toString()
       let userOne
       let userTwo
+      let userOneDisplayName
+      let userTwoDisplayName
       if (state.userUid < state.chattingUid) {
         userOne = state.userUid
         userTwo = state.chattingUid
+        userOneDisplayName = userObj.displayName
+        userTwoDisplayName = state.displayName
       } else {
         userOne = state.chattingUid
         userTwo = state.userUid
+        userOneDisplayName = state.displayName
+        userTwoDisplayName = userObj.displayName
       }
       if (message) {
-        await addDoc(collection(dbservice, `chats_${conversation}`), {
+        const messageObj = {
           userUid: userUid,
           userName: userName,
           message: message,
           messageClock: messageClock,
           messageClockNumber: messageClockNumber,
           userOne: userOne,
-          userTwo: userTwo
+          userTwo: userTwo,
+          userOneDisplayName: userOneDisplayName,
+          userTwoDisplayName: userTwoDisplayName
+        }
+        await addDoc(collection(dbservice, `chats_${conversation}`), messageObj)
+        const myDocRef = doc(dbservice, `members/${userUid}`)
+        const myDocSnap = await getDoc(myDocRef)
+        const myChattings = myDocSnap.data().chattings || {}
+        const userDocRef = doc(dbservice, `members/${state.chattingUid}`)
+        const userDocSnap = await getDoc(userDocRef)
+        const userChattings = userDocSnap.data().chattings || {}
+        myChattings[conversation] = messageObj
+        userChattings[conversation] = messageObj
+        await updateDoc(myDocRef, {
+          chattings: myChattings
+        })
+        await updateDoc(userDocRef, {
+          chattings: userChattings
         })
         setMsgList((prev) => [...prev, { msg: message, type: "me", userUid: userObj.uid, id: userObj.displayName, messageClock: messageClock, conversation: conversation }]);
       }
@@ -155,7 +181,9 @@ function Chatting({ userObj, setBottomNavigation, setNewMessage }: {
         await updateDoc(myDocRef, {
           conversation: [...myConversation, conversation]
         })
-        setNewMessage(true)
+        handleNewMessageTrue()
+        // setNewMessage(true)
+        // handleNewMessage()
       }
       if (userConversation.indexOf(conversation) === -1) { 
         await updateDoc(userDocRef, {

@@ -2,10 +2,8 @@ import Message from 'src/pages/Message'
 import Button from '@mui/material/Button';
 import { BrowserRouter, Routes, Route, useNavigate, Link, useLocation } from 'react-router-dom'
 
-const Actions = ({ userObj, counter, setCounter }: {
+const Actions = ({ userObj }: {
   userObj: {uid: string, displayName: string},
-  counter: number[],
-  setCounter: (newState: number[]) => void
 }) => {
   const {state} = useLocation()
   const navigate = useNavigate()
@@ -26,14 +24,14 @@ const Actions = ({ userObj, counter, setCounter }: {
       </div>
       {state.actions === 'completedLend' &&
         <div className='flex justify-center flex-wrap'>
-          {state.lendRegisteredMessage.map((msg) => <Message key={msg.id} msgObj={msg} isOwner={true} userObj={userObj} counter={counter} setCounter={(newState: number[]) => setCounter(newState)}/>)}
-          {state.lendMessage.map((msg) => <Message key={msg.id} msgObj={msg} isOwner={false} userObj={userObj} counter={counter} setCounter={(newState: number[]) => setCounter(newState)}/>)}
+          {state.lendRegisteredMessage.map((msg) => <Message key={msg.id} msgObj={msg} isOwner={true} userObj={userObj} />)}
+          {state.lendMessage.map((msg) => <Message key={msg.id} msgObj={msg} isOwner={false} userObj={userObj} />)}
         </div>
       }
       {state.actions === 'completedBorrow' &&
         <div className='flex justify-center flex-wrap'>
-          {state.borrowRegisteredMessage.map((msg) => <Message key={msg.id} msgObj={msg} isOwner={true} userObj={userObj} counter={counter} setCounter={(newState: number[]) => setCounter(newState)}/>)}
-          {state.borrowMessage.map((msg) => <Message key={msg.id} msgObj={msg} isOwner={false} userObj={userObj} counter={counter} setCounter={(newState: number[]) => setCounter(newState)}/>)}
+          {state.borrowRegisteredMessage.map((msg) => <Message key={msg.id} msgObj={msg} isOwner={true} userObj={userObj} />)}
+          {state.borrowMessage.map((msg) => <Message key={msg.id} msgObj={msg} isOwner={false} userObj={userObj} />)}
         </div>
       }
       <div className='flex justify-center p-10'>

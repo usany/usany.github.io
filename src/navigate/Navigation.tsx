@@ -13,9 +13,8 @@ import Public from '@mui/icons-material/Public';
 import { useSideNavigationStore, useThemeStore } from 'src/store'
 
 const onLogOutClick = () => auth.signOut();
-function Navigation({ setScroll, userObj, setMode, stateMode, handleModes }:
+function Navigation({ userObj, setMode, stateMode, handleModes, sideNavigation, handleSideNavigation, sideNav, handleSideNav }:
   {
-    setScroll: (newState: number) => void,
     userObj: {uid: string, displayName: string},
     setMode: (newState: string) => void
   }
@@ -25,8 +24,8 @@ function Navigation({ setScroll, userObj, setMode, stateMode, handleModes }:
   const [backgroundColor, setBackgroundColor] = useState<string>('#e2e8f0');
   const [points, setPoints] = useState<number>(0)
   const modes = useThemeStore((state) => state.mode)
-  const sideNavigation = useSideNavigationStore((state) => state.sideNavigation)
-  const handleSideNavigation = useSideNavigationStore((state) => state.handleSideNavigation)
+  // const sideNavigation = useSideNavigationStore((state) => state.sideNavigation)
+  // const handleSideNavigation = useSideNavigationStore((state) => state.handleSideNavigation)
 
   useEffect(() => {
     if (userObj) {
@@ -38,7 +37,6 @@ function Navigation({ setScroll, userObj, setMode, stateMode, handleModes }:
   }, [])
   const checkbox = () => {
     handleSideNavigation()
-    setScroll(0)
   }
 
   const logOut = () => {

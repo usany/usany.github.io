@@ -7,9 +7,23 @@ interface sideNavigationState {
   sideNavigation: boolean
   handleSideNavigation: (state: boolean) => void
 }
+interface newMessageState {
+  newMessage: boolean
+  handleNewMessage: (state: boolean) => void
+  handleNewMessageFalse: () => void
+  handleNewMessageTrue: () => void
+}
 const useSideNavigationStore = create<sideNavigationState>()((set) => ({
     sideNavigation: false,
     handleSideNavigation: () => set((state) => ({ sideNavigation: !state.sideNavigation })),
+}))
+const useCardAccordionStore = create((set) => ({
+    cardAccordion: false,
+    handleCardAccordion: () => set((state) => ({ cardAccordion: !state.cardAccordion })),
+}))
+const useMessageAccordionStore = create((set) => ({
+    messageAccordion: true,
+    handleMessageAccordion: () => set((state) => ({ messageAccordion: !state.messageAccordion })),
 }))
 const useBottomNavigationStore = create((set) => ({
     bottomNavigation: 1,
@@ -40,8 +54,29 @@ const useThemeStore = create((set) => ({
     )
   })
 }))
-
-// store.set(state => ({ count: state.count + 1 }));
+const usePiazzaSwitchStore = create((set) => ({
+  piazzaSwitch: localStorage.getItem('piazza') || 'false',
+  handlePiazzaSwitchOn: () => set(() => {
+    return (
+      { piazzaSwitch: 'true' }
+    )
+  }),
+  handlePiazzaSwitchOff: () => set(() => {
+    return (
+      { piazzaSwitch: 'false' }
+    )
+  })
+}))
+const useNewMessageStore = create<newMessageState>()((set) => ({
+  newMessage: true,
+  handleNewMessage: (newState) => set(() => ({ newMessage: newState })),
+  handleNewMessageFalse: () => set(() => ({ newMessage: false })),
+  handleNewMessageTrue: () => set(() => ({ newMessage: true })),
+}))
+const useProfileImage = create((set) => ({
+  profileImage: null,
+  handleProfileImage: (newState) => set(() => ({ profileImage: newState }))
+}))
 
 const bookStore = (set, get) => ({    
     books: [],
@@ -97,8 +132,8 @@ const bookStore = (set, get) => ({
       });
     },
   });
-  
+
   const useBookStore = create(bookStore);
   
-  export { useSideNavigationStore, useBottomNavigationStore, useAvatarColorStore, actionStore, useTabsStore, useThemeStore };
+  export { useSideNavigationStore, useCardAccordionStore, useMessageAccordionStore, useBottomNavigationStore, useAvatarColorStore, actionStore, useTabsStore, useThemeStore, usePiazzaSwitchStore, useNewMessageStore, useProfileImage };
   

@@ -10,12 +10,9 @@ import BeachAccess from '@mui/icons-material/BeachAccess'
 import Badges from 'src/muiComponents/Badges'
 import { useBottomNavigationStore } from 'src/store'
 
-function Navigations({ counter, userObj, setScroll, tmpCounter }:
+function Navigations({ userObj }:
     {
-        counter: number[],
         userObj: {uid: string, displayName: string} | null,
-        setScroll: (newState: number) => void,
-        tmpCounter: []
     }
 ) {
     // const [colors, setColors] = useState(localStorage.getItem("theme"));
@@ -43,14 +40,13 @@ function Navigations({ counter, userObj, setScroll, tmpCounter }:
                     value={bottomNavigation}
                     onChange={(event, newValue) => {
                         handleBottomNavigation(newValue)
-                        setScroll(0)
                         navigate('/')
                     }}
                 >
                     <BottomNavigationAction label={'등록'} icon={<ChevronLeft />}/>
                     {/* <BottomNavigationAction label={'빌리기'} icon={<ChevronLeft />}/>
                     <BottomNavigationAction label={'빌려주기'} icon={<ChevronRight/>}/> */}
-                    <BottomNavigationAction label={'내 상태'} icon={<Badges counter={counter} tmpCounter={tmpCounter}/>}/>
+                    <BottomNavigationAction label={'내 상태'} icon={<Badges />}/>
                     <BottomNavigationAction label={'게시판'} icon={<Checklist />}/>
                     {/* <BottomNavigationAction label={'빌리기 목록'} icon={<Checklist />}/>
                     <BottomNavigationAction label={'빌려주기 목록'} icon={<ChecklistRtl />}/> */}
@@ -63,7 +59,6 @@ function Navigations({ counter, userObj, setScroll, tmpCounter }:
                     value={bottomNavigation}
                     onChange={(event, newValue) => {
                         handleBottomNavigation(newValue)
-                        setScroll(0)
                         navigate('/')
                     }}
                 >

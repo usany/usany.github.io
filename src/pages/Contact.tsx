@@ -7,9 +7,8 @@ import TextField from '@mui/material/TextField';
 import Chip from '@mui/material/Chip';
 import ContactDialogs from 'src/muiComponents/ContactDialogs';
 
-function Contact({ displayName, userObj }:
+function Contact({ userObj }:
   {
-    displayName: string
     userObj: {uid: string, displayName: string}
   }
 ) {

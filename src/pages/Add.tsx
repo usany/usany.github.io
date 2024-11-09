@@ -13,7 +13,10 @@ import CloseIcon from '@mui/icons-material/Close';
 import TextField from '@mui/material/TextField';
 import { useTabsStore } from 'src/store'
 
-function Add({ userObj, action }: {userObj: object, action: number}) {
+interface Props {
+    userObj: object, action: number, borrow: boolean
+}
+function Add({ userObj, action, borrow }: Props) {
   const [addSteps, setAddSteps] = useState(0);
   const [enableButton, setEnableButton] = useState(true);
   const [cardId, setCardId] = useState(null)
@@ -187,14 +190,14 @@ function Add({ userObj, action }: {userObj: object, action: number}) {
   return (
     <div className='flex flex-col'>
         <div className='flex text-2xl p-5'>
-            {toggleTabs === 0 ? '빌리기 ' : '빌려주기 '} 카드 등록
+            {borrow ? '빌리기 ' : '빌려주기 '} 카드 등록
         </div>
         <div className='flex justify-end start-0 end-0'>
-            <AddSteppers addSteps={addSteps} toggleTabs={toggleTabs}/>
+            <AddSteppers addSteps={addSteps} borrow={borrow} />
         </div>
             <div>
                 <div className='flex text-base px-5 pt-5'>
-                    1. 무엇을 {toggleTabs === 0 ? '빌리세요?' : '빌려주세요?'}
+                    1. 무엇을 {borrow ? '빌리세요?' : '빌려주세요?'}
                 </div>
                 <div className='flex px-5'>
                     <ItemSelects item={item} setItem={(newState) => setItem(newState)} changeItem={changeItem}/>

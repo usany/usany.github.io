@@ -50,12 +50,12 @@ function Allies() {
       <div className='flex text-2xl p-5'>
           {state.allies === 'followers' &&
             <div>
-              {state.displayName}의 follower 
+              {state.displayName}의 팔로워 
             </div>
           }
           {state.allies === 'followings' &&
             <div>
-              {state.displayName}의 following 
+              {state.displayName}의 팔로잉 
             </div>
           }
       </div>
