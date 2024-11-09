@@ -18,7 +18,7 @@ const useSideNavigationStore = create<sideNavigationState>()((set) => ({
     handleSideNavigation: () => set((state) => ({ sideNavigation: !state.sideNavigation })),
 }))
 const useCardAccordionStore = create((set) => ({
-    cardAccordion: true,
+    cardAccordion: false,
     handleCardAccordion: () => set((state) => ({ cardAccordion: !state.cardAccordion })),
 }))
 const useMessageAccordionStore = create((set) => ({

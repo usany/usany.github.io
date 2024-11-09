@@ -12,18 +12,18 @@ import { useCardAccordionStore, useMessageAccordionStore, usePiazzaSwitchStore, 
 //     AccordionItem,
 //     AccordionTrigger,
 // } from "@/components/ui/accordion"
-import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
-import BookmarkIcon from '@mui/icons-material/Bookmark';
-import Checkbox from '@mui/material/Checkbox';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormGroup from '@mui/material/FormGroup';
-import Divider from '@mui/material/Divider';
+// import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
+// import BookmarkIcon from '@mui/icons-material/Bookmark';
+// import Checkbox from '@mui/material/Checkbox';
+// import FormControlLabel from '@mui/material/FormControlLabel';
+// import FormGroup from '@mui/material/FormGroup';
+// import Divider from '@mui/material/Divider';
 import Accordion from '@mui/material/Accordion';
 import AccordionActions from '@mui/material/AccordionActions';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import Button from '@mui/material/Button';
+// import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Skeleton from '@mui/material/Skeleton';
 
@@ -79,7 +79,7 @@ function Menu({ userObj }) {
         setCardLoaded(true)
     })
     }, [])
-    console.log(messageLoaded)
+    // console.log(messageLoaded)
     // const onCounting = (msg) => {
     //     tmpCounter.push(msg.id)
     // }
@@ -111,6 +111,7 @@ function Menu({ userObj }) {
     // }
     // const playlistId = '0g51VswTtsWRTIQToh5oNe';
     const handleMessageLoaded = (newState) => setMessageLoaded(newState)
+    console.log(messageLoaded)
     return (
         <div className='flex justify-center flex-col pb-5'>
             {/* <div className='flex justify-center border border-sky-500'>
@@ -162,19 +163,16 @@ function Menu({ userObj }) {
                     메세지
                 </AccordionSummary>
                 <AccordionDetails>
-                    {messageLoaded ?
                     <div>    
                         {!chats.length && !piazzaSwitch ? <div className='flex justify-center pt-20'>받은 메세지가 없습니다</div> :
                             <div className='flex flex-col justify-center'>
                                 {piazzaSwitch === 'true' && 
                                     <MessageStacks />
                                 }
-                                <ChattingStacks userObj={userObj} chats={chats} handleChats={(newState) => setChats(newState)} messageLoaded={messageLoaded} handleMessageLoaded={(newState) => setMessageLoaded(newState)}/>
+                                <ChattingStacks userObj={userObj} chats={chats} handleChats={(newState) => setChats(newState)} handleMessageLoaded={(newState) => setMessageLoaded(newState)}/>
                             </div>
                         }
-                    </div>:
-                    <Skeleton />
-                    }
+                    </div>
                 </AccordionDetails>
             </Accordion>
             <div>

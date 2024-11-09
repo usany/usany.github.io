@@ -9,13 +9,28 @@ import { Link } from 'react-router-dom'
 import { webSocket, onClick } from 'src/webSocket.tsx'
 import { useAvatarColorStore, useNewMessageStore } from 'src/store'
 
-const ChattingStacks = ({ userObj, chats, handleChats, messageLoaded, handleMessageLoaded }) => {
+const ChattingStacks = ({ userObj, chats, handleChats, handleMessageLoaded }) => {
   const [myConversationUid, setMyConversationUid] = useState([])
   // const [chattingMessage, setChattingMessage] = useState(false)
   // const [conversations, setConversations] = useState([])
+  const [chattings, setChattings] = useState({})
   const newMessage = useNewMessageStore((state) => state.newMessage)
   const handleNewMessageFalse = useNewMessageStore((state) => state.handleNewMessageFalse)
-  // console.log(handleMessageLoaded)
+  console.log(chattings)
+  useEffect(() => {
+    const myChatting = async () => {
+      const myDocRef = doc(dbservice, `members/${userObj.uid}`)
+      const myDocSnap = await getDoc(myDocRef)
+      const myConversation = myDocSnap.data()?.chattings || {}
+      setChattings(myConversation)
+      handleMessageLoaded(true)
+    }
+    if (newMessage) {
+      myChatting()
+      console.log('sample')
+      // handleNewMessageFalse()
+    }
+  }, [newMessage])
   useEffect(() => {
     const myChatting = async () => {
       const myDocRef = doc(dbservice, `members/${userObj.uid}`)
@@ -25,7 +40,7 @@ const ChattingStacks = ({ userObj, chats, handleChats, messageLoaded, handleMess
     }
     if (myConversationUid.length === 0 || newMessage) {
       myChatting()
-      handleNewMessageFalse()
+      // handleNewMessageFalse()
     }
   }, [newMessage])
   useEffect(() => {
@@ -55,7 +70,7 @@ const ChattingStacks = ({ userObj, chats, handleChats, messageLoaded, handleMess
             const check = chats.map((elements) => elements.conversation).indexOf(element)
             if (check === -1) {
               handleChats([...chats, newMessage])
-              handleMessageLoaded(true)
+              // handleMessageLoaded(true)
             }
           }
         })
@@ -111,13 +126,31 @@ const ChattingStacks = ({ userObj, chats, handleChats, messageLoaded, handleMess
 
   useEffect(() => {
     if (chats.length === myConversationUid.length ) {
-      handleMessageLoaded(true)
+      // handleMessageLoaded(true)
     }
   })
 
   return (
     <>
-      {chats.map((element, index) => {
+      {myConversationUid.map((element, index) => {
+        if (chattings[element]) {
+          return (
+            <Card key={index} sx={{ flexGrow: 1, overflow: 'hidden' }}>
+              <CardActionArea>
+                <Link to='/chatting' state={{
+                  conversation: element, displayName: userObj.uid === chattings[element].userOneDisplayName ? chattings[element].userTwoDisplayName : chattings[element].userOneDisplayName, userUid: userObj.uid, chattingUid: userObj.uid === chattings[element].userOne ? chattings[element].userTwo : chattings[element].userOne
+                }}>
+                  <Stack spacing={2} direction="column" sx={{ flexGrow: 1, overflow: 'hidden', p: 1 }}>
+                    <div>chatting {userObj.uid === chattings[element].userOneDisplayName ? chattings[element].userTwoDisplayName : chattings[element].userOneDisplayName}</div>
+                    <Typography noWrap>{chattings[element]?.message}</Typography>
+                  </Stack>
+                </Link>
+              </CardActionArea>
+            </Card>
+          )
+        }
+      })}
+      {/* {chats.map((element, index) => {
         return (
           <Card key={index} sx={{ flexGrow: 1, overflow: 'hidden' }}>
             <CardActionArea>
@@ -132,7 +165,7 @@ const ChattingStacks = ({ userObj, chats, handleChats, messageLoaded, handleMess
             </CardActionArea>
           </Card>
         )
-      })}
+      })} */}
     </>
   );
 }
