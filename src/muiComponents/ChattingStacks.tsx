@@ -10,7 +10,7 @@ import { webSocket, onClick } from 'src/webSocket.tsx'
 import { useAvatarColorStore, useNewMessageStore } from 'src/store'
 
 const ChattingStacks = ({ userObj, chats, handleChats, handleMessageLoaded }) => {
-  const [myConversationUid, setMyConversationUid] = useState([])
+  // const [myConversationUid, setMyConversationUid] = useState([])
   // const [chattingMessage, setChattingMessage] = useState(false)
   // const [conversations, setConversations] = useState([])
   const [chattings, setChattings] = useState({})
