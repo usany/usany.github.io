@@ -31,11 +31,12 @@ function Chatting({ userObj }: {
         ...prev,
         {
           msg: msg,
-          userUid: userUid,
           type: target ? "private" : "other",
+          userUid: userUid,
           id: id,
           messageClock: messageClock,
-          conversation: conversation
+          messageClockNumber: messageClockNumber,
+          conversation: null
         },
       ]);
     }
