@@ -22,30 +22,32 @@ function Chatting({ userObj }: {
   const conversation = state.conversation
   const handleBottomNavigation = useBottomNavigationStore((state) => state.handleBottomNavigation)
   const handleNewMessageTrue = useNewMessageStore((state) => state.handleNewMessageTrue)
-
+  
   useEffect(() => {
     if (!webSocket) return;
     function sMessageCallback(message) {
-      const { msg, userUid, id, target, messageClock, conversation } = message;
+      const { msg, userUid, id, target, messageClock, messageClockNumber, conversation } = message;
       setMsgList((prev) => [
         ...prev,
         {
           msg: msg,
-          userUid: userUid,
           type: target ? "private" : "other",
+          userUid: userUid,
           id: id,
           messageClock: messageClock,
-          conversation: conversation
+          messageClockNumber: messageClockNumber,
+          conversation: null
         },
       ]);
     }
-    if (msgList.length === 0) {
-      console.log('msgList')
-      webSocket.on(`sNewMessage`, sMessageCallback);
-      return () => {
-        webSocket.off(`sNewMessage`, sMessageCallback);
-      };
-    }
+    // if (msgList.length === 0) {
+    //   console.log('msgList')
+    //   webSocket.on(`sNewMessage`, sMessageCallback);
+    //   return () => {
+    //     webSocket.off(`sNewMessage`, sMessageCallback);
+    //   };
+    // }
+    console.log('practice')
     webSocket.on(`sMessage${conversation}`, sMessageCallback);
     return () => {
       webSocket.off(`sMessage${conversation}`, sMessageCallback);
@@ -162,7 +164,6 @@ function Chatting({ userObj }: {
       console.log(error)
     }
   }
-  console.log(state)
   const onMembersConversation = async () => {
     const message = msg
     try {

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import Message from 'src/pages/Message'
 import AvatarDialogs from 'src/muiComponents/AvatarDialogs'
 import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
@@ -7,10 +7,8 @@ import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnap
 import Button from '@mui/material/Button';
 import Badge from '@mui/material/Badge';
 import Avatar from '@mui/material/Avatar';
-// import Checklist from '@mui/icons-material/Checklist'
 import BeachAccess from '@mui/icons-material/BeachAccess'
 import Card from '@mui/material/Card';
-// import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import { CardActionArea, CardActions } from '@mui/material';
 import { BrowserRouter, Routes, Route, useNavigate, Link, useLocation } from 'react-router-dom'
@@ -23,6 +21,14 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion"
+import { Check } from "lucide-react"
+import { Label, Pie, PieChart } from "recharts"
+import {
+  ChartConfig,
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "@/components/ui/chart"
 
 interface Props {
   userObj: {uid: string, displayName: string},
@@ -65,6 +71,7 @@ function Profile({ userObj }: Props
   const [conversation, setConversation] = useState('')
   const profileColor = useAvatarColorStore((state) => state.profileColor)
   const handleBottomNavigation = useBottomNavigationStore((state) => state.handleBottomNavigation)
+
   useEffect(() => {
     const userFollowCollection = async () => {
       const docRef = doc(dbservice, `members/${userObj.uid}`)
@@ -74,7 +81,6 @@ function Profile({ userObj }: Props
         setFollowButton(false)
       }
       const followersCollection = []
-      // console.log(docSnap.data())
       followingsList.forEach(async (element) => {
         const docRef = doc(dbservice, `members/${element}`)
         const docSnap = await getDoc(docRef)
@@ -120,28 +126,7 @@ function Profile({ userObj }: Props
       setFollowerNum(element)
     })
   }, [])
-  // useEffect(() => {
-  //   if (userObj.uid === state.element.uid) {
-  //     const allies = async () => {
-  //       const myDocRef = doc(dbservice, `members/${userObj.uid}`)
-  //       const myDocSnap = await getDoc(myDocRef)
-  //       const myFollowerNum = myDocSnap.data().followerNum
-  //       const myFollowingNum = myDocSnap.data().followingNum
-  //       const myFollowerList = myDocSnap.data().followers
-  //       const myFollowingList = myDocSnap.data().followings
-  //       const followerNum = myFollowerNum || 0
-  //       const followingNum = myFollowingNum || 0
-  //       const followerList = myFollowerList || []
-  //       const followingList = myFollowingList || []
-  //       console.log(myDocSnap.data())
-  //       setMyFollowerNumber(followerNum)
-  //       setMyFollowerList(followerList)
-  //       setMyFollowingNumber(followingNum)
-  //       setMyFollowingList(followingList)
-  //     }
-  //     allies()
-  //   }
-  // }, [])
+
   useEffect(() => {
     const allies = async () => {
       const myDocRef = doc(dbservice, `members/${userObj.uid}`)
@@ -174,20 +159,6 @@ function Profile({ userObj }: Props
       setOtherFollowingList(otherFollowingList)
     }
     allies()
-    // if (userObj.uid !== state.element.uid) {
-    //   const followerNum = state.element.followerNum || 0
-    //   const followingNum = state.element.followingNum || 0
-    //   const followerList = state.element.followers || []
-    //   const followingList = state.element.followings || []
-    //   if (otherFollowerNumber === null) {
-    //     setOtherFollowerNumber(followerNum)
-    //     setOtherFollowerList(followerList)
-    //   }
-    //   if (otherFollowingNumber === null) { 
-    //     setOtherFollowingNumber(followingNum)
-    //     setOtherFollowingList(followingList)
-    //   }
-    // }
   }, [])
 
   const onSubmit = async (event) => {
@@ -212,7 +183,6 @@ function Profile({ userObj }: Props
       await updateProfile(userObj, {
         displayName: newDisplayName
       }).then(() => {
-        // window.location.reload(true)
         alert('교체 완료')
       }).catch((error) => {
         console.log('error')
@@ -229,7 +199,6 @@ function Profile({ userObj }: Props
     const tmp = query(collection(dbservice, `members`))
     const querySnapshot = await getDocs(tmp);
     let profileConfirmed = true
-    // console.log(querySnapshot)
     querySnapshot.forEach((doc) => {
       if (value === doc.data().displayName) {
         profileConfirmed = false
@@ -299,7 +268,6 @@ function Profile({ userObj }: Props
   useEffect(() => {
     onSnapshot(query(doc(dbservice, `members/${userObj.uid}`)), (snapshot) => {
         const number = snapshot.data().points
-        // console.log(number)
         setNum(number)
     })
   }, [])
@@ -314,45 +282,37 @@ function Profile({ userObj }: Props
     handleBottomNavigation(5)
   })
 
-  const confirmProfile = async (newDisplayName) => {
-    const tmp = query(collection(dbservice, `members`))
-    const querySnapshot = await getDocs(tmp);
-    let profileConfirmed = true
-    querySnapshot.forEach((doc) => {
-      if (newDisplayName === doc.data().displayName) {
-        profileConfirmed = false
-      }
-    });
-    if (profileConfirmed) {
-      setProfileChangeConfirmed(true)
-    } else {
-      setProfileChangeConfirmed(false)
-    }
-    // })
-    // console.log(
-    //   get(query(collection(dbservice, `members`)))
-    // )
-    // Array(query(collection(dbservice, `members`))).map((member) => {
-    //   console.log(member)
-    // })
-  }
-  const onFileChange = (event) => {
-    // console.log(event.target.files);
-    const {
-        target: { files },
-    } = event;
-    const theFile = files[0];
-    const reader = new FileReader();
-    reader.onloadend = (finishedEvent) => {
-        console.log(finishedEvent);
-        const {
-            currentTarget: { result },
-        } = finishedEvent;
-        setAttachment(result);
-    }
-    console.log(theFile)
-    reader.readAsDataURL(theFile)
-  }
+  // const confirmProfile = async (newDisplayName) => {
+  //   const tmp = query(collection(dbservice, `members`))
+  //   const querySnapshot = await getDocs(tmp);
+  //   let profileConfirmed = true
+  //   querySnapshot.forEach((doc) => {
+  //     if (newDisplayName === doc.data().displayName) {
+  //       profileConfirmed = false
+  //     }
+  //   });
+  //   if (profileConfirmed) {
+  //     setProfileChangeConfirmed(true)
+  //   } else {
+  //     setProfileChangeConfirmed(false)
+  //   }
+  // }
+  // const onFileChange = (event) => {
+  //   const {
+  //       target: { files },
+  //   } = event;
+  //   const theFile = files[0];
+  //   const reader = new FileReader();
+  //   reader.onloadend = (finishedEvent) => {
+  //       console.log(finishedEvent);
+  //       const {
+  //           currentTarget: { result },
+  //       } = finishedEvent;
+  //       setAttachment(result);
+  //   }
+  //   console.log(theFile)
+  //   reader.readAsDataURL(theFile)
+  // }
   const onClearAttachment = () => {
     setAttachment('')
     const fileInput = document.getElementById('img') || {value:null}
@@ -362,7 +322,6 @@ function Profile({ userObj }: Props
     setChangeProfile(false)
   }
   const user = state.element.displayName
-  // console.log(user)
 
   const followUser = async (uid) => {
     const myDocRef = doc(dbservice, `members/${userObj.uid}`)
@@ -373,7 +332,6 @@ function Profile({ userObj }: Props
     const myFollowingNum = myDocSnap.data().followingNum
     const otherUserFollowerNum = otherUserDocSnap.data().followerNum
     const otherUserFollowingNum = otherUserDocSnap.data().followingNum
-    // const myData = query(collection(dbservice, 'members'), where('creatorId', '==', state.element.uid), where('round', '==', 5), where('text.choose', '==', 1), orderBy('creatorClock', 'asc'))
     const myFollowers = myDocSnap.data().followers || []
     const myFollowings = myDocSnap.data().followings || []
     const otherFollowers = otherUserDocSnap.data().followers || []
@@ -423,7 +381,6 @@ function Profile({ userObj }: Props
     const myFollowingNum = myDocSnap.data().followingNum
     const otherUserFollowerNum = otherUserDocSnap.data().followerNum
     const otherUserFollowingNum = otherUserDocSnap.data().followingNum
-    // const myData = query(collection(dbservice, 'members'), where('creatorId', '==', state.element.uid), where('round', '==', 5), where('text.choose', '==', 1), orderBy('creatorClock', 'asc'))
     const myFollowers = myDocSnap.data().followers || []
     const myFollowings = myDocSnap.data().followings || []
     const otherFollowers = otherUserDocSnap.data().followers || []
@@ -438,12 +395,6 @@ function Profile({ userObj }: Props
         setMyFollowerList(myFollowings.filter((element) => element !== state.element.uid))
       }
     }
-    // else {
-    //   await updateDoc(myDocRef, {
-    //     followingNum: 1,
-    //     followings: [state.element.uid]
-    //   })
-    // }
     if (otherUserFollowerNum) {
       if (otherFollowerList.indexOf(userObj.uid) !== -1) { 
         await updateDoc(otherUserDocRef, {
@@ -455,14 +406,7 @@ function Profile({ userObj }: Props
       }
     }
     setFollowButton(true)
-    // else {
-    //   await updateDoc(otherUserDocRef, {
-    //     followerNum: 1,
-    //     followers: [userObj.uid]
-    //   })
-    // }
   }
-  // console.log(userFollowersList)
   useEffect(() => {
     if (state.element.uid < userObj.uid) {
       setConversation(state.element.uid[0]+state.element.uid[1]+state.element.uid[2]+state.element.uid[3]+state.element.uid[4]+state.element.uid[5]+userObj.uid[0]+userObj.uid[1]+userObj.uid[2]+userObj.uid[3]+userObj.uid[4]+userObj.uid[5])
@@ -477,30 +421,6 @@ function Profile({ userObj }: Props
       <div className='flex text-2xl p-5'>
           {userObj.displayName} 프로필
       </div>
-      <Accordion 
-      defaultValue={["item-1", "item-2"]}
-      type="multiple" className="w-full">
-      <AccordionItem value="item-1">
-        <AccordionTrigger>Is it accessible?</AccordionTrigger>
-        <AccordionContent >
-          Yes. It adheres to the WAI-ARIA design pattern.
-        </AccordionContent>
-      </AccordionItem>
-      <AccordionItem value="item-2">
-        <AccordionTrigger>Is it styled?</AccordionTrigger>
-        <AccordionContent>
-          Yes. It comes with default styles that matches the other
-          components&apos; aesthetic.
-        </AccordionContent>
-      </AccordionItem>
-      <AccordionItem value="item-3">
-        <AccordionTrigger>Is it animated?</AccordionTrigger>
-        <AccordionContent>
-          Yes. It&apos;s animated by default, but you can disable it if you
-          prefer.
-        </AccordionContent>
-      </AccordionItem>
-    </Accordion>
       <div>
       <div className='flex justify-center pt-5'>
         <Badge
@@ -518,8 +438,6 @@ function Profile({ userObj }: Props
         >
           <Avatar alt={userObj.displayName} sx={{ fontSize:'100px', width: '200px', height: '200px', bgcolor: profileColor }} src='./src'/>
         </Badge>
-        {/* <label for='img'>label</label>
-        <input id='img' type='file' onChange={onFileChange} hidden /> */}
         <AvatarDialogs userObj={userObj} changeProfile={changeProfile} handleClose={handleClose} />
       </div>
       {attachment &&
@@ -548,7 +466,6 @@ function Profile({ userObj }: Props
         }
           </div>
           <div className='flex flex-col'>
-            {/* <input className='form-control dark:bg-black border' placeholder='유저 이름' value={newDisplayName} type='text' onChange={onChange} /> */}
             <TextField placeholder='유저 이름' value={newDisplayName} type='text' onChange={onChange} />
             {profileChangeConfirmed ? 
                 <Button variant='outlined' form='profile' type='submit'>유저 이름 바꾸기</Button>
@@ -583,28 +500,6 @@ function Profile({ userObj }: Props
             </div>
           </Link>
         </div>
-        {/* {profileChangeConfirmed ? 
-          <div className='flex justify-center'>
-            <div>
-              다행히 중복되지 않네요
-            </div>
-            <div>
-              <Button variant='outlined' form='profile' type='submit'>유저 이름 바꾸기</Button>
-            </div>
-          </div>
-          :
-          <div className='flex flex-col justify-center'>
-            <div className='flex justify-center'>
-              아쉽게도 중복되네요
-            </div>
-            <div className='flex justify-center'>
-              <Button variant='outlined' form='profile' type='submit' disabled>유저 이름 바꾸기</Button>
-            </div>
-          </div>
-        } */}
-        {/* <div className='flex justify-center'>
-          <Button variant='outlined' form='profile' type='submit'>유저 이름 바꾸기</Button>
-        </div> */}
       </form>
       {/* <div className='flex justify-center'>
         내 포인트: {num}
@@ -612,20 +507,12 @@ function Profile({ userObj }: Props
       <div className='flex justify-center'>
         <Card
       >
-        <CardActionArea 
-          // onClick={() => setSpecific({
-          //   msgObj: msgObj,
-          //   isOwner: isOwner,
-          //   num: num,
-          //   points: points
-          // })}
-        >
+        <CardActionArea>
           <Link 
             to='/points'
             state={{
               user: user,
               points: num,
-              // actions: 'completedLend', 
               lendRegisteredMessage: lendRegisteredMessage,
               lendMessage: lendMessage,
               borrowRegisteredMessage: borrowRegisteredMessage,
@@ -684,23 +571,6 @@ function Profile({ userObj }: Props
         </CardActionArea>
       </Card>
       </div>
-      {/* <div className='flex justify-center'>
-        최근 완료된 빌리기/빌려주기: {message.length+messages.length}
-      </div>
-      <div className='flex justify-center flex-wrap'>
-        {message.map((msg) => {
-          if (msg.round === 5) {
-            return(<Message key={msg.id} msgObj={msg} isOwner={msg.creatorId === userObj.uid} userObj={userObj} isLoggedIn={isLoggedIn} setValue={setValue} counter={counter} setCounter={setCounter}/>)
-          }
-        })}
-      </div>
-      <div className='flex justify-center flex-wrap'>
-        {messages.map((msg) => {
-          if (msg.round === 5) { 
-            return(<Message key={msg.id} msgObj={msg} isOwner={msg.creatorId === userObj.uid} userObj={userObj} isLoggedIn={isLoggedIn} setValue={setValue} counter={counter} setCounter={setCounter}/>)
-          }
-        })}
-      </div> */}
       </div>
     </div>
     :
@@ -743,20 +613,18 @@ function Profile({ userObj }: Props
         {followButton ?
         <Button variant='outlined' sx={{overflow: 'hidden'}} onClick={() => {
           followUser(state.element.uid)
-          // setChangeFollowerNum(true)
         }}>
-          follow {state.element.displayName}
+          팔로우 {state.element.displayName}
         </Button>
         :
         <Button variant='outlined' sx={{overflow: 'hidden'}} onClick={() => {
           unfollowUser(state.element.uid)
-          // setChangeFollowerNum(true)
         }}>
-          unfollow {state.element.displayName}
+          팔로우 취소 {state.element.displayName}
         </Button>
         }
         <Link to='/chatting' state={{conversation: conversation, displayName: state.element.displayName, userUid: userObj.uid, chattingUid: state.element.uid}}>
-          <Button variant='outlined' sx={{overflow: 'hidden'}}>send message</Button>
+          <Button variant='outlined' sx={{overflow: 'hidden'}}>메세지 전송</Button>
         </Link>
       </div>
       <div className='flex justify-center'>
@@ -769,7 +637,6 @@ function Profile({ userObj }: Props
             state={{
               user: user,
               points: num,
-              // actions: 'completedLend', 
               lendRegisteredMessage: lendRegisteredMessage,
               lendMessage: lendMessage,
               borrowRegisteredMessage: borrowRegisteredMessage,
@@ -828,23 +695,6 @@ function Profile({ userObj }: Props
         </CardActionArea>
       </Card>
       </div>
-      {/* <div className='flex justify-center'>
-        최근 완료된 빌리기/빌려주기: {message.length+messages.length}
-      </div>
-      <div className='flex justify-center flex-wrap'>
-        {message.map((msg) => {
-          if (msg.round === 5) {
-            return(<Message key={msg.id} msgObj={msg} isOwner={msg.creatorId === userObj.uid} userObj={userObj} isLoggedIn={isLoggedIn} setValue={setValue} counter={counter} setCounter={setCounter}/>)
-          }
-        })}
-      </div>
-      <div className='flex justify-center flex-wrap'>
-        {messages.map((msg) => {
-          if (msg.round === 5) { 
-            return(<Message key={msg.id} msgObj={msg} isOwner={msg.creatorId === userObj.uid} userObj={userObj} isLoggedIn={isLoggedIn} setValue={setValue} counter={counter} setCounter={setCounter}/>)
-          }
-        })}
-      </div> */}
       </div>
     </div>
     }

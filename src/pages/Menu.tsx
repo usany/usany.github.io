@@ -27,23 +27,20 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Typography from '@mui/material/Typography';
 import Skeleton from '@mui/material/Skeleton';
 
-function Menu({ userObj }) {
+interface Props {
+    userObj: {uid: string, displayName: string} | null
+}
+function Menu({ userObj }: Props) {
     const [messages, setMessages] = useState<Array<object>>([]);
-    const [chats, setChats] = useState([])
-    // const [piazzaOn, setPiazzaOn] = useState('')
-    // const [newMessages, setNewMessages] = useState(0)
     const piazzaSwitch = usePiazzaSwitchStore((state) => state.piazzaSwitch)
     const cardAccordion = useCardAccordionStore((state) => state.cardAccordion)
     const handleCardAccordion = useCardAccordionStore((state) => state.handleCardAccordion)
     const messageAccordion = useMessageAccordionStore((state) => state.messageAccordion)
     const handleMessageAccordion = useMessageAccordionStore((state) => state.handleMessageAccordion)
-    // useEffect(() => {
-    //     setPiazzaOn(piazzaSwitch.current)
-    // }, [])
     const [card, setCard] = useState(true);
     const [message, setMessage] = useState(true);
     const [cardLoaded, setCardLoaded] = useState(false)
-    const [messageLoaded, setMessageLoaded] = useState(false)
+    
     useEffect(() => {
         const requestPermission = async () => {
             try {
@@ -79,39 +76,7 @@ function Menu({ userObj }) {
         setCardLoaded(true)
     })
     }, [])
-    // console.log(messageLoaded)
-    // const onCounting = (msg) => {
-    //     tmpCounter.push(msg.id)
-    // }
-    
-    // const onClick = () => {
-    //     setChoose(true)
-    // }
 
-    // useEffect(() => {
-    //     setCounter(tmpCounter)
-    // })
-
-    // const onClick = () => {
-    //     fetch('http://localhost:5000/api/world', {
-    //         method: 'POST',
-    //         headers: {
-    //           'Content-Type': 'application/json'
-    //         },
-            // body: JSON.stringify({ name: 'John Doe', age: 30 })
-    //     })
-    //     .then(response => response.json())
-    //     .then(data => {
-    //         console.log(data);
-    //     })
-    //     .catch(error => {
-    //         console.error(error);
-    //     });
-    //     console.log('practice')
-    // }
-    // const playlistId = '0g51VswTtsWRTIQToh5oNe';
-    const handleMessageLoaded = (newState) => setMessageLoaded(newState)
-    console.log(messageLoaded)
     return (
         <div className='flex justify-center flex-col pb-5'>
             {/* <div className='flex justify-center border border-sky-500'>
@@ -164,18 +129,20 @@ function Menu({ userObj }) {
                 </AccordionSummary>
                 <AccordionDetails>
                     <div>    
-                        {!chats.length && !piazzaSwitch ? <div className='flex justify-center pt-20'>받은 메세지가 없습니다</div> :
+                        {!piazzaSwitch ? <div className='flex justify-center pt-20'>받은 메세지가 없습니다</div> :
                             <div className='flex flex-col justify-center'>
                                 {piazzaSwitch === 'true' && 
                                     <MessageStacks />
                                 }
-                                <ChattingStacks userObj={userObj} chats={chats} handleChats={(newState) => setChats(newState)} handleMessageLoaded={(newState) => setMessageLoaded(newState)}/>
+                                <ChattingStacks userObj={userObj}
+                                // handleMessageLoaded={(newState) => setMessageLoaded(newState)}
+                            />
                             </div>
                         }
                     </div>
                 </AccordionDetails>
             </Accordion>
-            <div>
+            {/* <div>
                 <div className='flex justify-center'>
                     <div className='w-6/12 flex flex-col border border-sky-500 rounded'>
                         <div className='flex justify-center'>진행 카드</div>
@@ -206,7 +173,7 @@ function Menu({ userObj }) {
                             </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
             {/* <Avatar sx={{ bgcolor: blue[500] }} alt="Remy Sharp" src="./assets/groups.png" />
             <Avatar sx={{ bgcolor: blue[500] }} alt="Travis Howard" src="/static/images/avatar/2.jpg" />
             <Avatar sx={{ bgcolor: blue[500] }} alt="Cindy Baker" src="/static/images/avatar/3.jpg" /> */}

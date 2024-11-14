@@ -6,13 +6,17 @@ import FilterDialogs from 'src/muiComponents/FilterDialogs'
 import Settings from '@mui/icons-material/Settings';
 import { useTabsStore } from 'src/store'
 
-function Notice({ userObj, borrow }) {
+interface Props {
+    userObj: {uid: string, displayName: string} | null
+    borrow: boolean
+}
+function Notice({ userObj, borrow }: Props) {
   const [messages, setMessages] = useState<Array<object>>([]);
   const [changeFilter, setChangeFilter] = useState(false);
   const [selectedValueOne, setSelectedValueOne] = useState(null);
   const [selectedValueTwo, setSelectedValueTwo] = useState(null);
   const [selectedValueThree, setSelectedValueThree] = useState(null);
-  const toggleTabs = useTabsStore((state) => state.toggleTabs)
+//   const toggleTabs = useTabsStore((state) => state.toggleTabs)
 
   const handleClickChangeFilter = () => {
     setChangeFilter(true);

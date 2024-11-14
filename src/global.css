@@ -69,7 +69,7 @@ body {
 .pull-to-refresh.visible {
   top: 0;
 }
-/* @layer base {
+@layer base {
   :root {
 		--background: 0 0% 100%;
 		--foreground: 0 0% 3.9%;
@@ -131,7 +131,7 @@ body {
   body {
     @apply bg-background text-foreground;
 	}
-} */
+}
 @layer base {
   :root {
 		--radius: 0.5rem

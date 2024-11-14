@@ -43,7 +43,6 @@ function Piazza({ userObj }:
           conversation: null
         },
       ]);
-      setNewMessage(true)
     }
     webSocket.on("sMessagePiazza", sMessageCallback);
     return () => {

@@ -74,13 +74,13 @@ const Cards = ({
             <div className='flex flex-col justify-center'>
                 <div className='flex justify-center'>{msgObj.text.count} {msgObj.text.counter} {msgObj.text.counting !== '' && msgObj.text.counting}</div>
                 <div className='flex justify-center'>{msgObj.text.clock?.year}.{msgObj.text.clock?.month}.{msgObj.text.clock?.day} {msgObj.text.clock?.hour}:{msgObj.text.clock?.minute} 부터</div>
-                <div className='flex justify-center'>{msgObj.text.clock?.year}.{msgObj.text.clock?.month}.{msgObj.text.clock?.day} {msgObj.text.clock?.hour}:{msgObj.text.clock?.minute} 까지</div>
+                <div className='flex justify-center'>{msgObj.text.clocker?.year}.{msgObj.text.clocker?.month}.{msgObj.text.clock?.day} {msgObj.text.clocker?.hour}:{msgObj.text.clocker?.minute} 까지</div>
             </div>
           </CardContent>
           </Link>
         </CardActionArea>
         <CardActions className='flex justify-center'>
-          <Btn msgObj={msgObj} isOwner={isOwner} uid={userObj.uid} displayName={userObj.displayName} userObj={userObj} num={num} points={points} />
+          <Btn msgObj={msgObj} isOwner={isOwner} uid={userObj?.uid} displayName={userObj?.displayName} userObj={userObj} num={num} points={points} />
         </CardActions>
       </Card>
     </div>

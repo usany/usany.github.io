@@ -8,32 +8,31 @@ import Checklist from '@mui/icons-material/Checklist'
 import ChecklistRtl from '@mui/icons-material/ChecklistRtl'
 import BeachAccess from '@mui/icons-material/BeachAccess'
 import Badges from 'src/muiComponents/Badges'
-import { useBottomNavigationStore } from 'src/store'
+import { useBottomNavigationStore, useThemeStore } from 'src/store'
 
-function Navigations({ userObj }:
-    {
-        userObj: {uid: string, displayName: string} | null,
-    }
-) {
+interface Props {
+    userObj: {uid: string, displayName: string} | null
+}
+function Navigations({ userObj }: Props) {
     // const [colors, setColors] = useState(localStorage.getItem("theme"));
     // const [color, setColor] = useState('#e2e8f0');
     const [backgroundColor, setBackgroundColor] = useState('#e2e8f0');
     const bottomNavigation = useBottomNavigationStore((state) => state.bottomNavigation)
     const handleBottomNavigation = useBottomNavigationStore((state) => state.handleBottomNavigation)
-
+    const theme = useThemeStore((state) => state.theme)
     useEffect(() => {
-        if (localStorage.getItem("theme") === 'dark') {
+        if (theme === 'dark') {
         setBackgroundColor('#2d3848')
         } else {
         setBackgroundColor('#e2e8f0')
         }
-    })
+    }, [theme])
 
     const navigate = useNavigate()
 
     return (
         <div className='w-screen fixed border border-sky-500 rounded-t bottom-0 start-0 end-0'>
-            {userObj &&
+            {userObj ?
                 <BottomNavigation
                     sx={{bgcolor: {backgroundColor}}}    
                     showLabels
@@ -51,8 +50,7 @@ function Navigations({ userObj }:
                     {/* <BottomNavigationAction label={'빌리기 목록'} icon={<Checklist />}/>
                     <BottomNavigationAction label={'빌려주기 목록'} icon={<ChecklistRtl />}/> */}
                 </BottomNavigation>
-            }
-            {!userObj && 
+                :
                 <BottomNavigation
                     sx={{bgcolor: backgroundColor}}    
                     showLabels

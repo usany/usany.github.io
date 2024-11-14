@@ -10,51 +10,53 @@ import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 // import { CardActionArea, CardActions } from '@mui/material';
 import Chip from '@mui/material/Chip';
+import { useBottomNavigationStore } from 'src/store'
 
-function Specific({ 
-    userObj
-    }: 
-    {
-      userObj: {uid: string, displayName: string} | null,
-    }
-  ) {
+interface Props {
+  userObj: {uid: string, displayName: string},
+}
 
-      const {state} = useLocation()
-      const navigate = useNavigate()
-      // const [stepper, setStepper] = useState(state.msgObj.round-1)
-      const [msgObj, setMsgObj] = useState<{id: string, round: number, displayName: string, connectedName: string, point: number, connectedId: string | null, creatorId: string}>(state.msgObj)
-      const [num, setNum] = useState<number | null>(null)
-      const [points, setPoints] = useState<number | null>(null)
-      const [deleted, setDeleted] = useState<boolean>(false)
+function Specific({ userObj }: Props) {
+  const {state} = useLocation()
+  const navigate = useNavigate()
+  // const [stepper, setStepper] = useState(state.msgObj.round-1)
+  const [msgObj, setMsgObj] = useState<{id: string, round: number, displayName: string, connectedName: string, point: number, connectedId: string | null, creatorId: string}>(state.msgObj)
+  const [num, setNum] = useState<number | null>(null)
+  const [points, setPoints] = useState<number | null>(null)
+  const [deleted, setDeleted] = useState<boolean>(false)
+  const handleBottomNavigation = useBottomNavigationStore((state) => state.handleBottomNavigation)
 
-      useEffect(() => {
-        onSnapshot(query(collection(dbservice, 'num')), (snapshot) => {
-            const newArray = snapshot.docs.map((document) => {
-              if (document.id === state.msgObj.id) {
-                setMsgObj({id: document.id, ...document.data()})
-              }
-            })
-            const newArrayId = snapshot.docs.map((document) => document.id)
-            if (newArrayId.indexOf(state.msgObj.id) === -1) {
-              setDeleted(true)
-            }
-        })
-      }, [])
-      useEffect(() => {
-        onSnapshot(query(doc(dbservice, `members/${msgObj.creatorId}`)), (snapshot) => {
-            const number = snapshot.data().points
-            setNum(number)
+  useEffect(() => {
+    handleBottomNavigation(5)
+  }, [])
+  useEffect(() => {
+    onSnapshot(query(collection(dbservice, 'num')), (snapshot) => {
+        const newArray = snapshot.docs.map((document) => {
+          if (document.id === state.msgObj.id) {
+            setMsgObj({id: document.id, ...document.data()})
           }
-        )
-      }, [])
-      useEffect(() => {
-        if (msgObj.connectedId !== null) {
-          onSnapshot(query(doc(dbservice, `members/${msgObj.connectedId}`)), (snapshot) => {
-            const element = snapshot.data().points
-            setPoints(element)
-          })
+        })
+        const newArrayId = snapshot.docs.map((document) => document.id)
+        if (newArrayId.indexOf(state.msgObj.id) === -1) {
+          setDeleted(true)
         }
+    })
+  }, [])
+  useEffect(() => {
+    onSnapshot(query(doc(dbservice, `members/${msgObj.creatorId}`)), (snapshot) => {
+        const number = snapshot.data().points
+        setNum(number)
+      }
+    )
+  }, [])
+  useEffect(() => {
+    if (msgObj.connectedId !== null) {
+      onSnapshot(query(doc(dbservice, `members/${msgObj.connectedId}`)), (snapshot) => {
+        const element = snapshot.data().points
+        setPoints(element)
       })
+    }
+  })
   
   const onClick = () => {
     navigate(-1)
@@ -112,38 +114,38 @@ function Specific({
             <Chip label='내가 작성함' />
           }
         </div>
-        <Steppers msgObj={msgObj} />
         <div className='flex pt-5'>진행 단계: {msgObj.round}</div>
+        <Steppers msgObj={msgObj} />
       {/* {msgObj.text.choose === 1 && 
         <div className='flex justify-center'>빌리기</div>
       }
       {msgObj.text.choose === 2 && 
         <div className='flex justify-center'>빌려주기</div>
       } */}
-      <div className='flex justify-between'>
+      <div className='pt-3'>
       {msgObj.text.choose === 1 && 
-        <div>
-          <div>빌리는 유저: {msgObj.displayName}</div>
-          <div>빌려주는 유저: {msgObj.connectedName}</div>
+        <div className='flex justify-between'>
+          <div>빌리는 분: {msgObj.displayName}&emsp;</div>
+          <div>빌려주는 분: {msgObj.connectedName || '아직 없음'} </div>
         </div>
       }
       {msgObj.text.choose === 2 && 
-        <div>
-          <div>빌려주는 유저: {msgObj.displayName}</div>
-          <div>빌리는 유저: {msgObj.connectedName}</div>
+        <div className='flex'>
+          <div>빌려주는 분: {msgObj.displayName}</div>
+          <div>빌리는 분: {msgObj.connectedName || '아직 없음'}</div>
         </div>
       }
 {/* 
       <div className='flex justify-center'>요청 유저: {msgObj.displayName}</div>
       <div className='flex content-end'>승낙 유저: {msgObj.connectedName || '승낙 대기'}</div> */}
       </div>
-      <div className='flex'>위치: {msgObj.text.count} {msgObj.text.counter} {msgObj.text.counting}</div>
+      <div className='flex'>대여/반납 장소: {msgObj.text.count} {msgObj.text.counter} {msgObj.text.counting}</div>
       {/* <div className='flex justify-center'>열람실의 위치: {state.msgObj.text.counting}</div>
       <div className='flex justify-center'>좌석의 위치: {state.msgObj.text.counter}</div> */}
-      <div className='flex'>이 때부터: {msgObj.text.clock.year}.{msgObj.text.clock.month}.{state.msgObj.text.clock.day} {state.msgObj.text.clock.hour}:{state.msgObj.text.clock.minute}</div>
-      <div className='flex'>이 때까지: {msgObj.text.clock.year}.{msgObj.text.clock.month}.{state.msgObj.text.clock.day} {state.msgObj.text.clocker.hour}:{state.msgObj.text.clocker.minute}</div>
-      <div className='flex'>{msgObj.text.clock.year}.{msgObj.text.clock.month}.{state.msgObj.text.clock.day} {state.msgObj.text.clock.hour}:{state.msgObj.text.clock.minute} 부터</div>
-      <div className='flex'>{msgObj.text.clock.year}.{msgObj.text.clock.month}.{state.msgObj.text.clock.day} {state.msgObj.text.clocker.hour}:{state.msgObj.text.clocker.minute} 까지</div>
+      <div className='flex'>
+        <div>사용 기간: {msgObj.text.clock.year}.{msgObj.text.clock.month}.{state.msgObj.text.clock.day} {state.msgObj.text.clock.hour}:{state.msgObj.text.clock.minute} 부터&emsp;</div>
+        <div>{msgObj.text.clock.year}.{msgObj.text.clock.month}.{state.msgObj.text.clock.day} {state.msgObj.text.clocker.hour}:{state.msgObj.text.clocker.minute} 까지</div>
+      </div>
       {/* <div className='flex justify-center'>진행 단계: {msgObj.round}</div> */}
       <div className='flex'>적립 포인트: {msgObj.point}</div>
       {/* <Btn msgObj={state.msgObj} isOwner={state.isOwner} uid={state.uid} displayName={state.displayName} num={state.num} value={state.value} /> */}

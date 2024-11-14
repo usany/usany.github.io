@@ -1,11 +1,38 @@
-import { StaticDatePicker } from '@mui/x-date-pickers'
-import { useState, useEffect, useRef, useMemo, useLayoutEffect, useContext, useReducer } from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { create } from 'zustand'
 
 interface sideNavigationState {
   sideNavigation: boolean
-  handleSideNavigation: (state: boolean) => void
+  handleSideNavigation: () => void
+}
+interface cardAccordionState {
+  cardAccordion: boolean
+  handleCardAccordion: () => void
+}
+interface messageAccordionState {
+  messageAccordion: boolean
+  handleMessageAccordion: () => void
+}
+interface bottomAccordionState {
+  bottomNavigation: number
+  handleBottomNavigation: (state: number) => void
+}
+interface avatarColorState {
+  avatarColor: string
+  handleAvatarColor: (state: string) => void
+}
+interface tabsState {
+  tabs: number
+  handleTabs: (state: number) => void
+}
+interface themeState {
+  theme: string
+  handleThemeLight: () => void
+  handleThemeDark: () => void
+}
+interface piazzaSwitchState {
+  piazzaSwitch: string
+  handlePiazzaSwitchOn: () => void
+  handlePiazzaSwitchOff: () => void
 }
 interface newMessageState {
   newMessage: boolean
@@ -13,48 +40,52 @@ interface newMessageState {
   handleNewMessageFalse: () => void
   handleNewMessageTrue: () => void
 }
+interface avatarImageState {
+  avatarImage: string | null
+  handleAvatarImage: (state: string | null) => void
+}
 const useSideNavigationStore = create<sideNavigationState>()((set) => ({
     sideNavigation: false,
     handleSideNavigation: () => set((state) => ({ sideNavigation: !state.sideNavigation })),
 }))
-const useCardAccordionStore = create((set) => ({
+const useCardAccordionStore = create<cardAccordionState>()((set) => ({
     cardAccordion: false,
     handleCardAccordion: () => set((state) => ({ cardAccordion: !state.cardAccordion })),
 }))
-const useMessageAccordionStore = create((set) => ({
+const useMessageAccordionStore = create<messageAccordionState>()((set) => ({
     messageAccordion: true,
     handleMessageAccordion: () => set((state) => ({ messageAccordion: !state.messageAccordion })),
 }))
-const useBottomNavigationStore = create((set) => ({
+const useBottomNavigationStore = create<bottomAccordionState>()((set) => ({
     bottomNavigation: 1,
     handleBottomNavigation: (newState) => set(() => ({ bottomNavigation: newState })),
 }))
-const useAvatarColorStore = create((set) => ({
-    profileColor: '#2196f3',
-    handleProfileColor: (newState) => set(() => ({ profileColor: newState })),
+const useAvatarColorStore = create<avatarColorState>()((set) => ({
+    avatarColor: '#2196f3',
+    handleAvatarColor: (newState) => set(() => ({ avatarColor: newState })),
 }))
-const actionStore = create((set) => ({
-    action: 0,
-    handleAction: (newState) => set(() => ({ action: newState })),
+// const useActionStore = create((set) => ({
+//     action: 0,
+//     handleAction: (newState) => set(() => ({ action: newState })),
+// }))
+const useTabsStore = create<tabsState>()((set) => ({
+    tabs: 0,
+    handleTabs: (newState) => set(() => ({ tabs: newState }))
 }))
-const useTabsStore = create((set) => ({
-    toggleTabs: 0,
-    handleToggleTabs: (newState) => set(() => ({ toggleTabs: newState }))
-}))
-const useThemeStore = create((set) => ({
-  mode: localStorage.getItem('theme') || 'light',
-  handleModeLight: () => set(() => {
+const useThemeStore = create<themeState>()((set) => ({
+  theme: localStorage.getItem('theme') || 'light',
+  handleThemeLight: () => set(() => {
     return (
-      { mode: 'light' }
+      { theme: 'light' }
     )
   }),
-  handleModeDark: () => set(() => {
+  handleThemeDark: () => set(() => {
     return (
-      { mode: 'dark' }
+      { theme: 'dark' }
     )
   })
 }))
-const usePiazzaSwitchStore = create((set) => ({
+const usePiazzaSwitchStore = create<piazzaSwitchState>()((set) => ({
   piazzaSwitch: localStorage.getItem('piazza') || 'false',
   handlePiazzaSwitchOn: () => set(() => {
     return (
@@ -73,9 +104,9 @@ const useNewMessageStore = create<newMessageState>()((set) => ({
   handleNewMessageFalse: () => set(() => ({ newMessage: false })),
   handleNewMessageTrue: () => set(() => ({ newMessage: true })),
 }))
-const useProfileImage = create((set) => ({
-  profileImage: null,
-  handleProfileImage: (newState) => set(() => ({ profileImage: newState }))
+const useAvatarImageStore = create<avatarImageState>()((set) => ({
+  avatarImage: null,
+  handleAvatarImage: (newState) => set(() => ({ avatarImage: newState }))
 }))
 
 const bookStore = (set, get) => ({    
@@ -135,5 +166,5 @@ const bookStore = (set, get) => ({
 
   const useBookStore = create(bookStore);
   
-  export { useSideNavigationStore, useCardAccordionStore, useMessageAccordionStore, useBottomNavigationStore, useAvatarColorStore, actionStore, useTabsStore, useThemeStore, usePiazzaSwitchStore, useNewMessageStore, useProfileImage };
+  export { useSideNavigationStore, useCardAccordionStore, useMessageAccordionStore, useBottomNavigationStore, useAvatarColorStore, useTabsStore, useThemeStore, usePiazzaSwitchStore, useNewMessageStore, useAvatarImageStore };
   
