@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { BrowserRouter, Routes, Route, useNavigate, Link, useLocation } from 'react-router-dom'
 import Btn from 'src/pages/Btn';
 import Steppers from 'src/muiComponents/Steppers';
+import PageTitle from 'src/muiComponents/PageTitle';
 import Button from '@mui/material/Button';
 import { collection, addDoc, getDocs, doc, onSnapshot, query, orderBy } from 'firebase/firestore';
 import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
@@ -96,6 +97,7 @@ function Specific({ userObj }: Props) {
 
   return (
     <div className='p-5'>
+      <PageTitle title={'카드 내용'} />
     <Card
       sx={{
         boxShadow: `1.9px 1.9px 1.9px 1.9px ${shadowColor}`
