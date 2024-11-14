@@ -12,7 +12,6 @@ import CardContent from '@mui/material/CardContent';
 // import { CardActionArea, CardActions } from '@mui/material';
 import Chip from '@mui/material/Chip';
 import { useBottomNavigationStore } from 'src/store'
-import CompareArrowsIcon from '@mui/icons-material/CompareArrows';
 import BeachAccess from '@mui/icons-material/BeachAccess'
 import EastIcon from '@mui/icons-material/East';
 import WestIcon from '@mui/icons-material/West';
@@ -158,9 +157,6 @@ function Specific({ userObj }: Props) {
               <div>
                 
               </div>
-              {/* <div>
-                {msgObj.point}
-              </div> */}
             </div>
             <div className='flex flex-col px-5 pt-5'>
               <div>
@@ -180,23 +176,10 @@ function Specific({ userObj }: Props) {
           </div>
         }
         <Divider />
-      {/* 
-      <div className='flex justify-center'>요청 유저: {msgObj.displayName}</div>
-      <div className='flex content-end'>승낙 유저: {msgObj.connectedName || '승낙 대기'}</div> */}
       </div>
       <div className='flex pt-5'>진행 단계: {msgObj.round}</div>
       <Steppers msgObj={msgObj} />
       <Divider />
-      {/* <div className='flex pt-3'>대여/반납 장소: {msgObj.text.count} {msgObj.text.counter} {msgObj.text.counting}</div> */}
-      {/* <div className='flex justify-center'>열람실의 위치: {state.msgObj.text.counting}</div>
-      <div className='flex justify-center'>좌석의 위치: {state.msgObj.text.counter}</div> */}
-      {/* <div className='flex'>
-        <div>사용 기간: {msgObj.text.clock.year}.{msgObj.text.clock.month}.{state.msgObj.text.clock.day} {state.msgObj.text.clock.hour}:{state.msgObj.text.clock.minute} 부터&emsp;</div>
-        <div>{msgObj.text.clock.year}.{msgObj.text.clock.month}.{state.msgObj.text.clock.day} {state.msgObj.text.clocker.hour}:{state.msgObj.text.clocker.minute} 까지</div>
-      </div> */}
-      {/* <div className='flex justify-center'>진행 단계: {msgObj.round}</div> */}
-      {/* <div className='flex'>지급 포인트: {msgObj.point}</div> */}
-      {/* <Btn msgObj={state.msgObj} isOwner={state.isOwner} uid={state.uid} displayName={state.displayName} num={state.num} value={state.value} /> */}
       <div className='flex justify-center pt-5'>
         {deleted === false && userObj !== null &&
           <div className='flex justify-center'>
@@ -218,7 +201,6 @@ function Specific({ userObj }: Props) {
       </div>
       </div>
       </CardContent>
-      {/* </CardActionArea> */}
     </Card>
     </div>
   )
