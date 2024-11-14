@@ -153,9 +153,6 @@ function Specific({ userObj }: Props) {
               <div className='flex justify-end'>
                 <BeachAccess />
               </div>
-              <div>
-                
-              </div>
             </div>
             <div className='flex flex-col px-5 pt-5'>
               <div>
