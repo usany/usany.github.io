@@ -25,7 +25,6 @@ interface Props {
 function Specific({ userObj }: Props) {
   const {state} = useLocation()
   const navigate = useNavigate()
-  // const [stepper, setStepper] = useState(state.msgObj.round-1)
   const [msgObj, setMsgObj] = useState<{id: string, round: number, displayName: string, connectedName: string, point: number, connectedId: string | null, creatorId: string}>(state.msgObj)
   const [num, setNum] = useState<number | null>(null)
   const [points, setPoints] = useState<number | null>(null)
