@@ -31,26 +31,26 @@ function Contact({ userObj }:
   const [formFilledOut, setFormFilledOut] = useState(false)
   const [dialogMove, setDialogMove] = useState(false)
   const [change, setChange] = useState(false)
-  const actions = [
-    { action: 'borrow', number: borrowMessage.length+borrowRegisteredMessage.length,
-      fill: 'red'},
-    { action: 'lend', number: lendMessage.length+lendRegisteredMessage.length,
-      fill: 'blue'},
-  ]
-  const labels = {
-    number: {
-      label: 'total',
-    },
-    borrow: {
-      label: 'borrow',
-      color: '#2563eb',
-    },
-    lend: {
-      label: 'lend',
-      color: '#60a5fa',
-    },
-  } satisfies ChartConfig
-  const totalNumber = actions.reduce((acc, curr) => acc + curr.number, 0)
+  // const actions = [
+  //   { action: 'borrow', number: borrowMessage.length+borrowRegisteredMessage.length,
+  //     fill: 'red'},
+  //   { action: 'lend', number: lendMessage.length+lendRegisteredMessage.length,
+  //     fill: 'blue'},
+  // ]
+  // const labels = {
+  //   number: {
+  //     label: 'total',
+  //   },
+  //   borrow: {
+  //     label: 'borrow',
+  //     color: '#2563eb',
+  //   },
+  //   lend: {
+  //     label: 'lend',
+  //     color: '#60a5fa',
+  //   },
+  // } satisfies ChartConfig
+  // const totalNumber = actions.reduce((acc, curr) => acc + curr.number, 0)
   const token = 'BQCyWDqTC23URyglem7QVVPVbPeX4RbjUFV5D-FQTLal6j9uiHZxwVWdGUVNA352AWmn40n-zo0Hm9kHL7pmtxc6PW2_cP93grpSvQJn4EuIm5SR2JXYiIqIUHXgafR5B36xRKKFjhiZ6-b66mSS1m8DtXeLqMbqHLEWK8y1YLNIkFU3Kf7kGtc2BkvGXjYxKg36frFaCLb73ohY75Itfjl0k3bVCVuHsVuGk-qOyEc_mBP5SpaUPtzOu0tWOXv_V6Wpsgv3FJP4HPNVU3kboktBqBHAZySmPcQv';
   async function fetchWebApi(endpoint, method, body) {
     const res = await fetch(`https://api.spotify.com/${endpoint}`, {
@@ -149,7 +149,7 @@ function Contact({ userObj }:
   }
   return (  
     <div>
-        <ChartContainer
+        {/* <ChartContainer
           config={labels}
           className="mx-auto aspect-square max-h-[250px]"
         >
@@ -196,7 +196,7 @@ function Contact({ userObj }:
               />
             </Pie>
           </PieChart>
-      </ChartContainer>
+      </ChartContainer> */}
       <Accordion 
         defaultValue={["item-1", "item-2"]}
         type="multiple" className="w-full">
