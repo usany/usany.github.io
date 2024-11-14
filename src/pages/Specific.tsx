@@ -103,13 +103,6 @@ function Specific({ userObj }: Props) {
         boxShadow: `1.9px 1.9px 1.9px 1.9px ${shadowColor}`
       }}
     >
-      {/* <CardActionArea> */}
-      {/* {msgObj.text.choose === 1 && 
-        <div className='flex justify-center'>빌리기 카드</div>
-      }
-      {msgObj.text.choose === 2 && 
-        <div className='flex justify-center'>빌려주기 카드</div>
-      } */}
       <CardMedia
         sx={{ height: 140 }}
         image={'src/assets/pwa-512x512.png'}
