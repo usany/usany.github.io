@@ -51,7 +51,7 @@ function Ranking({ userObj }) {
         })
     })
   }, [])
-  
+  console.log(ranker)
   useEffect(() => {
     handleBottomNavigation(5)
   })
@@ -66,9 +66,9 @@ function Ranking({ userObj }) {
           <TextField label='유저 이름' onChange={onChangeUserSearch}/>
         </div>
       </div>
-      <div className='flex justify-start p-5 text-2xl w-screen'>
+      {/* <div className='flex justify-start p-5 text-2xl w-screen'>
           <div className='flex w-5/6'>빌리기 카드 목록</div>
-      </div>
+      </div> */}
       {userSearch ?
       <List sx={{ width: '100%', 
         // maxWidth: 360,
@@ -143,7 +143,7 @@ function Ranking({ userObj }) {
                 <div key={index} className={'flex overflow-hidden ranking-'+String(index+1)}>
                     <ListItem>
                       <div className='px-5'>
-                        {index+1}
+                        {element.rank}
                       </div>
                       <ListItemAvatar>
                         {profileImage ? 

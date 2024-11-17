@@ -10,24 +10,24 @@ import { storage } from "src/baseApi/serverbase";
 import { getStorage, ref, uploadBytes } from "firebase/storage";
 import { useAvatarColorStore } from 'src/store'
 
-const AvatarDialogs = ({ userObj, changeProfile, handleClose }) => {
+const AvatarDialogs = ({ userObj, profileDialog, attachment, changeAttachment, handleClose }) => {
     const [selectedColor, setSelectedColor] = useState(null)
-    const [attachment, setAttachment] = useState(null)
     const [attachmentFile, setAttachmentFile] = useState(null)
-    const profileColor = useAvatarColorStore((state) => state.profileColor)
-    const handleProfileColor = useAvatarColorStore((state) => state.handleProfileColor)
+    const avatarColor = useAvatarColorStore((state) => state.avatarColor)
+    const handleAvatarColor = useAvatarColorStore((state) => state.handleAvatarColor)
     
     const onClick = () => {
         const data = doc(dbservice, `members/${userObj.uid}`)
         if (selectedColor) {   
             updateDoc(data, {profileColor: selectedColor});
-            handleProfileColor(selectedColor)
+            handleAvatarColor(selectedColor)
         }
-        if (attachment) {   
+        if (attachmentFile) {   
             const storageRef = ref(storage, userObj.uid);
             uploadBytes(storageRef, attachmentFile).then((snapshot) => {
                 console.log('Uploaded a blob or file!');
             });
+            changeAttachment(attachmentFile)
         }
     }
     const switchColor = (newColor) => {
@@ -35,10 +35,16 @@ const AvatarDialogs = ({ userObj, changeProfile, handleClose }) => {
     }
     useEffect(() => {
         if (!selectedColor) {
-            setSelectedColor(profileColor)
+            setSelectedColor(avatarColor)
         }
-    })
-    const color = selectedColor || profileColor
+    }, [])
+    useEffect(() => {
+        if (attachment) {
+            console.log(attachment)
+            setAttachmentFile(attachment)
+        }
+    }, [attachment])
+
     const onFileChange = (event) => {
         const {
             target: { files },
@@ -50,39 +56,38 @@ const AvatarDialogs = ({ userObj, changeProfile, handleClose }) => {
             const {
                 currentTarget: { result },
             } = finishedEvent;
-            setAttachment(result);
+            setAttachmentFile(result)
         }
         console.log(theFile)
         reader.readAsDataURL(theFile)
-        setAttachmentFile(theFile)
       }
       const onClearAttachment = () => {
-        setAttachment(null)
+        changeAttachment(null)
         setAttachmentFile(null)
         const fileInput = document.getElementById('file') || {value:null}
         fileInput.value = null
       }
     
     return (
-        <Dialog open={changeProfile} onClose={handleClose}>
+        <Dialog open={profileDialog} onClose={handleClose}>
             <DialogContent>
                 <div>
                     프로필 변경
                 </div>
                 <div className='flex'>
-                <Avatar alt={userObj.displayName} sx={{ fontSize:'100px', width: '200px', height: '200px', bgcolor: color }} src={attachment || './src'} onClick={() => {
-                }} />
-                <div className='flex-col px-5 content-center'>
-                    <div className='flex'>
+                    <Avatar alt={userObj.displayName} sx={{ fontSize:'100px', width: '200px', height: '200px', bgcolor: selectedColor }} src={attachmentFile || './src'} onClick={() => {
+                    }} />
+                    <div className='flex-col px-5 content-center'>
+                        {/* <div className='flex'>
+                        </div> */}
                         <label for='file'>내 파일 업로드</label>
+                        <input id='file' type='file' onChange={onFileChange} hidden />
+                        {attachmentFile &&
+                            <div className='flex justify-center pt-5'>
+                                <button className='factoryClear' onClick={onClearAttachment}>업로드 파일 삭제</button>
+                            </div>
+                        }
                     </div>
-                    <input id='file' type='file' onChange={onFileChange} hidden />
-                    {attachment &&
-                        <div className='flex justify-center pt-5'>
-                            <button className='factoryClear' onClick={onClearAttachment}>업로드 파일 삭제</button>
-                        </div>
-                    }
-                </div>
                 </div>
             </DialogContent>
             {/* 'profile-red': '#f44336',
@@ -125,12 +130,13 @@ const AvatarDialogs = ({ userObj, changeProfile, handleClose }) => {
             <DialogActions>
             <Button variant='outlined' onClick={() => {
                 handleClose()
+                changeAttachment(attachmentFile)
                 onClick()
             }}>저장</Button>
             <Button variant='outlined' onClick={() => {
                 handleClose()
-                setSelectedColor(null)
-                setAttachment(null)
+                setSelectedColor(avatarColor)
+                setAttachmentFile(attachment)
             }} autoFocus>
                 닫기
             </Button>

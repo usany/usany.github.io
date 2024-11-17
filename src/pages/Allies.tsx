@@ -44,24 +44,24 @@ function Allies() {
       }
     })
   }
-
+  console.log(state.alliesCollection)
   return (
     <div>
       <div className='flex text-2xl p-5'>
-          {state.allies === 'followers' &&
+          {state.followers &&
             <div>
-              {state.displayName}의 팔로워 
+              {state.user.displayName}의 팔로워 
             </div>
           }
-          {state.allies === 'followings' &&
+          {!state.followers &&
             <div>
-              {state.displayName}의 팔로잉 
+              {state.user.displayName}의 팔로잉 
             </div>
           }
       </div>
       <List sx={{ width: '100%', 
           bgcolor: 'background.paper' }}>
-        {state.allies === 'followers' &&
+        {state.followers &&
           <div className='flex flex-col justify-center flex-wrap'>
             {followers?.map((element, index) => {
               return (
@@ -100,7 +100,7 @@ function Allies() {
             })}
           </div>
         }
-        {state.allies === 'followings' &&
+        {!state.followers &&
           <div className='flex flex-col justify-center flex-wrap'>
             {followings?.map((element, index) => {
               return (
