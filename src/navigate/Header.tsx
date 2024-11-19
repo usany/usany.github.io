@@ -65,11 +65,11 @@ const Header = ({ userObj }: Props) => {
                         {userObj ?
                             <Avatar alt={userObj?.displayName} sx={{ bgcolor: avatarColor || blue[500] }} src={avatarImage || undefined} onClick={() => {
                                 handleSideNavigation()
-                            }} />
+                            }} variant="rounded" />
                             :
                             <Avatar sx={{ bgcolor: blue[500] }} onClick={() => {
                                 handleSideNavigation()
-                            }} />
+                            }} variant="rounded" />
                         }
                     </div>
                     <div>

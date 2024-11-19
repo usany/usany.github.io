@@ -91,7 +91,7 @@ function Ranking({ userObj }) {
                     <ListItemAvatar>
                       {loaded ?
                         <Skeleton />:
-                        <Avatar alt={element.displayName} sx={{ bgcolor: element.profileColor || blue[500] }} src={profileImage} />
+                        <Avatar alt={element.displayName} sx={{ bgcolor: element.profileColor || blue[500] }} src={profileImage} variant="rounded" />
                       }
                     </ListItemAvatar>
                     <div className='flex flex-col overflow-hidden'>
@@ -142,12 +142,14 @@ function Ranking({ userObj }) {
               return(
                 <div key={index} className={'flex overflow-hidden ranking-'+String(index+1)}>
                     <ListItem>
+                      <div className='flex justify-between w-screen'>
+                      <div className='flex'>
                       <div className='px-5'>
                         {element.rank}
                       </div>
                       <ListItemAvatar>
                         {profileImage ? 
-                          <Avatar alt={element.displayName} sx={{ bgcolor: element.profileColor || blue[500] }} src={profileImage} />:
+                          <Avatar alt={element.displayName} sx={{ bgcolor: element.profileColor || blue[500] }} src={profileImage} variant="rounded" />:
                           <Skeleton variant='circular'>
                             <Avatar />
                           </Skeleton>
@@ -161,11 +163,12 @@ function Ranking({ userObj }) {
                           {element.points}
                         </div>
                       </div>
+                      </div>
                       <div>
                       <div 
-                        className='flex'
+                        className='flex '
                       >
-                      <IconButton aria-label="comment">
+                        <IconButton aria-label="comment">
                           <Link to='/profile'
                             state = {{
                               element: element,
@@ -174,7 +177,8 @@ function Ranking({ userObj }) {
                             <CommentIcon />
                           </Link>
                         </IconButton>
-                        </div>
+                      </div>
+                      </div>
                       </div>
                     </ListItem>
                     <Divider variant="inset" component="li" />
@@ -211,7 +215,7 @@ function Ranking({ userObj }) {
                         </div>
                         <div className='flex flex-col justify-center'>
                         <ListItemAvatar>
-                          <Avatar alt={element.displayName} sx={{ bgcolor: element.profileColor || blue[500] }} src="./src" />
+                          <Avatar alt={element.displayName} sx={{ bgcolor: element.profileColor || blue[500] }} src="./src" variant="rounded" />
                         </ListItemAvatar>
                         </div>
                         <div className='flex flex-col overflow-hidden'>

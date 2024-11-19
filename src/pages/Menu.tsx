@@ -6,23 +6,23 @@ import { getToken } from "firebase/messaging";
 import MessageStacks from 'src/muiComponents/MessageStacks'
 import ChattingStacks from 'src/muiComponents/ChattingStacks'
 import { useCardAccordionStore, useMessageAccordionStore, usePiazzaSwitchStore, useThemeStore } from 'src/store'
-// import {
-//     Accordion,
-//     AccordionContent,
-//     AccordionItem,
-//     AccordionTrigger,
-// } from "@/components/ui/accordion"
+import {
+    Accordion,
+    AccordionContent,
+    AccordionItem,
+    AccordionTrigger,
+} from "@/components/ui/accordion"
 // import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 // import BookmarkIcon from '@mui/icons-material/Bookmark';
 // import Checkbox from '@mui/material/Checkbox';
 // import FormControlLabel from '@mui/material/FormControlLabel';
 // import FormGroup from '@mui/material/FormGroup';
 // import Divider from '@mui/material/Divider';
-import Accordion from '@mui/material/Accordion';
-import AccordionActions from '@mui/material/AccordionActions';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+// import Accordion from '@mui/material/Accordion';
+// import AccordionActions from '@mui/material/AccordionActions';
+// import AccordionSummary from '@mui/material/AccordionSummary';
+// import AccordionDetails from '@mui/material/AccordionDetails';
+// import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 // import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Skeleton from '@mui/material/Skeleton';
@@ -40,7 +40,18 @@ function Menu({ userObj }: Props) {
     const [card, setCard] = useState(true);
     const [message, setMessage] = useState(true);
     const [cardLoaded, setCardLoaded] = useState(false)
-    
+    const [accordions, setAccordions] = useState({cards: 'item-1', messages: 'item-2' })
+    useEffect(() => {
+        if (cardAccordion && messageAccordion) {
+            setAccordions({cards: 'item-1', messages: 'item-2'})
+        } else if (cardAccordion && !messageAccordion) {
+            setAccordions({cards: 'item-1', messages: ''})
+        } else if (!cardAccordion && messageAccordion) {
+            setAccordions({cards: '', messages: 'item-2'})
+        } else {
+            setAccordions({cards: '', messages: ''})
+        }
+    })
     useEffect(() => {
         const requestPermission = async () => {
             try {
@@ -85,7 +96,53 @@ function Menu({ userObj }: Props) {
             <div className='flex justify-start text-2xl p-5'>
                 내 상태
             </div>
-            <Accordion sx={{backgroundColor: '#cbd5df'}} expanded={cardAccordion} onChange={() => setCard(!card)}>
+            <Accordion 
+                // defaultValue={[accordions.cards, accordions.messages]}
+                value={[accordions.cards, accordions.messages]}
+                type="multiple" className="w-full px-3">
+                <AccordionItem value="item-1">
+                <AccordionTrigger onClick={() => handleCardAccordion()}>카드</AccordionTrigger>
+                <AccordionContent >
+                    {cardLoaded ? 
+                        <div>
+                            {!messages.length ? 
+                                <div className='flex justify-center pt-20'>진행 카드가 없습니다</div> :
+                                <div className='flex flex-wrap'>
+                                    {messages.map((msg) => {
+                                        if(msg.round !== 5) {
+                                            return(<Message key={msg.id} msgObj={msg} isOwner={msg.creatorId === userObj.uid} userObj={userObj} />)
+                                        }
+                                    })}
+                                </div>
+                            }
+                        </div>:
+                        <Skeleton />
+                    }
+                </AccordionContent>
+                </AccordionItem>
+                <AccordionItem value="item-2">
+                <AccordionTrigger onClick={() => handleMessageAccordion()}>메세지</AccordionTrigger>
+                <AccordionContent>
+                    {!piazzaSwitch ? <div className='flex justify-center pt-20'>받은 메세지가 없습니다</div> :
+                        <div className='flex flex-col justify-center'>
+                            {piazzaSwitch === 'true' && 
+                                <MessageStacks />
+                            }
+                            <ChattingStacks userObj={userObj}
+                        />
+                        </div>
+                    }
+                </AccordionContent>
+                </AccordionItem>
+                {/* <AccordionItem value="item-3">
+                <AccordionTrigger>Is it animated?</AccordionTrigger>
+                <AccordionContent>
+                    Yes. It&apos;s animated by default, but you can disable it if you
+                    prefer.
+                </AccordionContent>
+                </AccordionItem> */}
+            </Accordion>
+            {/* <Accordion sx={{backgroundColor: '#cbd5df'}} expanded={cardAccordion} onChange={() => setCard(!card)}>
                 <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
                     onClick={() => handleCardAccordion()}
@@ -108,16 +165,6 @@ function Menu({ userObj }: Props) {
                     </div>:
                     <Skeleton />
                     }
-                    {/* {!messages.length ? 
-                        <div className='flex justify-center pt-20'>진행 카드가 없습니다</div> :
-                        <div className='flex justify-center flex-wrap'>
-                            {messages.map((msg) => {
-                                if(msg.round !== 5) {
-                                    return(<Message key={msg.id} msgObj={msg} isOwner={msg.creatorId === userObj.uid} userObj={userObj} />)
-                                }
-                            })}
-                        </div>
-                    } */}
                 </AccordionDetails>
             </Accordion>
             <Accordion sx={{backgroundColor: '#cbd5df'}} expanded={messageAccordion} onChange={() => setMessage(!message)}>
@@ -135,13 +182,12 @@ function Menu({ userObj }: Props) {
                                     <MessageStacks />
                                 }
                                 <ChattingStacks userObj={userObj}
-                                // handleMessageLoaded={(newState) => setMessageLoaded(newState)}
                             />
                             </div>
                         }
                     </div>
                 </AccordionDetails>
-            </Accordion>
+            </Accordion> */}
             {/* <div>
                 <div className='flex justify-center'>
                     <div className='w-6/12 flex flex-col border border-sky-500 rounded'>

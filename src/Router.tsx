@@ -10,6 +10,7 @@ import Allies from 'src/pages/Allies'
 import Contact from 'src/pages/Contact'
 import Piazza from 'src/pages/Piazza'
 import Chatting from 'src/pages/Chatting'
+import Chats from 'src/pages/Chats'
 import PullRefresh from 'src/muiComponents/PullRefresh'
 import Header from 'src/navigate/Header'
 import Navigations from 'src/navigate/Navigations'
@@ -44,7 +45,7 @@ const Router = ({ userObj }: Props) => {
 
     return (
         <BrowserRouter>
-            <div className='flex flex-col location'>
+            <div className='flex flex-col location h-screen'>
                 <PullRefresh />
                 <Header
                     userObj={userObj}
@@ -66,6 +67,7 @@ const Router = ({ userObj }: Props) => {
                                     <Route path='/contact' Component={() => <Contact userObj={userObj} />} />
                                     <Route path='/piazza' Component={() => <Piazza userObj={userObj} />} />
                                     <Route path='/chatting' Component={() => <Chatting userObj={userObj} />} />
+                                    <Route path='/chats' Component={() => <Chats userObj={userObj} />} />
                                 </Route>
                             ) : (
                                 <Route>

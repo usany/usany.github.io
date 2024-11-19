@@ -60,6 +60,7 @@ function Navigation({ userObj, sideNavigation, handleSideNavigation }: Props) {
         sx: {
           backgroundColor: {backgroundColor},
           color: {textColor},
+          height: '100%'
         }
       }}
       anchor={'left'}
@@ -69,10 +70,10 @@ function Navigation({ userObj, sideNavigation, handleSideNavigation }: Props) {
       aria-hidden="false"
     >
       <nav
-        className='w-full'
+        className='flex flex-col justify-between w-full h-full'
       >
         {userObj ?
-          <div>
+          <div className=''>
             <div className='flex border-b border-light-3 dark:border-dark-3'>
               <div className='p-5'>
                 <div>좋은 날씨네요 {userObj.displayName} 님</div>
@@ -81,33 +82,41 @@ function Navigation({ userObj, sideNavigation, handleSideNavigation }: Props) {
               <div className='flex border-b border-light-3 dark:border-dark-3'></div>
               <Modes />
             </div>
-            <h1 className='text-2xl	px-5 pt-5'>
-              <Link to='/profile' 
-                state={{element: element}}
-                onClick={() => checkbox()}
-              >
-                <span className='px-3'><InboxIcon /></span>
-                {userObj.displayName} 프로필
-              </Link>
-            </h1>
-            <h1 className='text-2xl	px-5'>
-              <span className='px-3'><DraftsIcon /></span>
-              <Link to='/ranking' onClick={() => checkbox()}>유저 랭킹</Link>
-            </h1>
-            <h1 className='text-2xl	px-5'>
-              <span className='px-3'><ImageIcon /></span>
-              <Link to='/contact' onClick={() => checkbox()}>신고하기</Link>
-            </h1>
-            <h1 className='text-2xl px-5'>
-              <span className='px-3'><WorkIcon /></span>
-              <Link to='/piazza' onClick={() => checkbox()}>단체방</Link>
-            </h1>
-            <h1 className='text-2xl px-5'>
-              <span className='px-3'><Public /></span>
-              <Link to="/" onClick={() => {
-                logOut()
-              }}>로그아웃</Link>
-            </h1>
+            <div className='flex flex-col justify-between'>
+            <div>
+              <h1 className='text-2xl	px-5 pt-5'>
+                <Link to='/profile' 
+                  state={{element: element}}
+                  onClick={() => checkbox()}
+                >
+                  <span className='px-3'><InboxIcon /></span>
+                  {userObj.displayName} 프로필
+                </Link>
+              </h1>
+              <h1 className='text-2xl	px-5'>
+                <span className='px-3'><DraftsIcon /></span>
+                <Link to='/ranking' onClick={() => checkbox()}>유저 랭킹</Link>
+              </h1>
+              <h1 className='text-2xl px-5'>
+                <span className='px-3'><WorkIcon /></span>
+                <Link to='/piazza' onClick={() => checkbox()}>단체방</Link>
+              </h1>
+              <h1 className='text-2xl	px-5'>
+                <span className='px-3'><ImageIcon /></span>
+                <Link to='/contact' onClick={() => checkbox()}>신고하기</Link>
+              </h1>
+              <h1 className='text-2xl px-5'>
+                <span className='px-3'><WorkIcon /></span>
+                <Link to='/chats' onClick={() => checkbox()}>단체방</Link>
+              </h1>
+              <h1 className='text-2xl px-5'>
+                <span className='px-3'><Public /></span>
+                <Link to="/" onClick={() => {
+                  logOut()
+                }}>로그아웃</Link>
+              </h1>
+            </div>
+            </div>
           </div>
           :
           <div className='flex border-b border-light-3 dark:border-dark-3'>
@@ -116,6 +125,11 @@ function Navigation({ userObj, sideNavigation, handleSideNavigation }: Props) {
               <div className='flex justify-center'>로그인을 해 주세요</div>
             </div>
             <Modes />
+          </div>
+        }
+        {userObj &&
+          <div className='absolute flex justify-center bottom-0'>
+            <iframe src="https://open.spotify.com/embed/playlist/5C9ADjArybPy54GTZgXtZO?utm_source=generator" width="90%" height="200" allow="autoplay; clipboard-write; fullscreen; picture-in-picture" loading="lazy" />
           </div>
         }
       </nav>

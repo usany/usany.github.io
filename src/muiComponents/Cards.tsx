@@ -43,7 +43,7 @@ const Cards = ({
   shadowColor = shadowColorArray[mergedArray.indexOf(String(msgObj.id[0]).toUpperCase())%shadowColorArray.length];
 
   return (
-    <div className='p-5 max-w-60 min-w-20'>
+    <div className='max-w-60 min-w-20'>
       <Card
         sx={{
           boxShadow: `1.9px 1.9px 1.9px 1.9px ${shadowColor}`
@@ -71,7 +71,7 @@ const Cards = ({
                 <Chip label='내 카드' />
               }
             </div>
-            <div className='flex flex-col justify-center'>
+            <div className='flex flex-col'>
                 <div className='flex justify-center'>{msgObj.text.count} {msgObj.text.counter} {msgObj.text.counting !== '' && msgObj.text.counting}</div>
                 <div className='flex justify-center'>{msgObj.text.clock?.year}.{msgObj.text.clock?.month}.{msgObj.text.clock?.day} {msgObj.text.clock?.hour}:{msgObj.text.clock?.minute} 부터</div>
                 <div className='flex justify-center'>{msgObj.text.clocker?.year}.{msgObj.text.clocker?.month}.{msgObj.text.clock?.day} {msgObj.text.clocker?.hour}:{msgObj.text.clocker?.minute} 까지</div>
