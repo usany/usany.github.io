@@ -6,11 +6,8 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Chip from '@mui/material/Chip';
 import ContactDialogs from 'src/muiComponents/ContactDialogs';
-import PageTitle from 'src/muiComponents/PageTitle';
-import ContactAddress from 'src/muiComponents/ContactAddress';
-import ContactForm from 'src/muiComponents/ContactForm';
 
-function Contact({ userObj }:
+function ContactForm({ userObj }:
   {
     userObj: {uid: string, displayName: string}
   }
@@ -62,12 +59,25 @@ function Contact({ userObj }:
   }
   return (  
     <div>
-      <PageTitle title={'신고하기'}/>
-      <ContactAddress action={'발신'} label={userObj.displayName}/>
-      <ContactAddress action={'수신'} label={'담당자'}/>
-      <ContactForm />
+      <form id='auth'>
+        <div className='flex justify-center pt-5 px-5'>
+          <TextField label='신고하기 제목' multiline value={messageTitle} onChange={onChangeMessageTitle} variant="outlined" fullWidth />
+        </div>
+        <div className='flex justify-center pt-5 px-5'>
+          <TextField label='신고하기 내용' multiline rows={5} value={message} onChange={onChangeMessage} variant="outlined" fullWidth />
+        </div>
+        <div className='flex justify-center pt-2.5'>
+          <Button variant='outlined' form='auth' onClick={() => setDialogMove(true)}>신고하기 내역</Button>
+          <ContactDialogs move={dialogMove} handleClose={handleClose} userObj={userObj} change={change} setChange={(newState: boolean) => setChange(newState)}/>
+          {formFilledOut ?
+            <Button variant='outlined' form='auth' onClick={() => onSubmit()}>전송</Button>
+          :
+            <Button variant='outlined' form='auth' disabled>전송</Button>
+          }
+        </div>
+      </form>
     </div>
   )
 }
 
-export default Contact
+export default ContactForm

@@ -18,11 +18,17 @@ const lendSteps = [
 ];
 const stepsCollection = [borrowSteps, lendSteps]
 
-function AddSteppers({ addSteps, borrow }) {
+interface Props {
+    addSteps: number, borrow: boolean
+}
+function AddSteppers({ addSteps, borrow }: Props) {
     return (
+        // <div className='flex justify-end start-0 end-0'>
         <div className='w-full'>
-            <Stepper 
-            activeStep={addSteps} alternativeLabel>
+            <Stepper
+                activeStep={addSteps} 
+                alternativeLabel
+            >
                 {borrow ? stepsCollection[0].map((label, index) => {
                     return (
                         <Step key={index}>
@@ -49,26 +55,9 @@ function AddSteppers({ addSteps, borrow }) {
                         </Step>
                     )
                 })}
-                {/* {toggleTabs !== 0 && lendSteps.map((label, index) => {
-                    if (index === 0) {
-                        return (
-                            <Step key={index}>
-                                <StepLabel>
-                                    <div>{label[0]}</div>
-                                    <div>{label[1]}</div>
-                                </StepLabel>
-                            </Step>
-                        )
-                    } else {
-                        return (
-                            <Step key={index}>
-                                <StepLabel>{label}</StepLabel>
-                            </Step>
-                        )
-                    }
-                })} */}
             </Stepper>
         </div>
+        // </div>
     )
 }
 

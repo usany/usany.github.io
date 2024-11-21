@@ -52,7 +52,7 @@ const Motions = () => {
     const duplicatedSlides = [...slides, ...slides];
 
     return (
-        <div className="relative w-full overflow-hidden">
+        <div className="relative w-full overflow-hidden p-5">
             {/* Wrapping div for seamless looping */}
             <motion.div
                 className="flex"

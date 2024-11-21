@@ -26,7 +26,7 @@ function Chatting({ userObj }: {
   useEffect(() => {
     if (!webSocket) return;
     function sMessageCallback(message) {
-      const { msg, userUid, id, target, messageClock, conversation } = message;
+      const { msg, userUid, id, target, messageClock, messageClockNumber, conversation } = message;
       setMsgList((prev) => [
         ...prev,
         {
@@ -40,13 +40,13 @@ function Chatting({ userObj }: {
         },
       ]);
     }
-    if (msgList.length === 0) {
-      console.log('msgList')
-      webSocket.on(`sNewMessage`, sMessageCallback);
-      return () => {
-        webSocket.off(`sNewMessage`, sMessageCallback);
-      };
-    }
+    // if (msgList.length === 0) {
+    //   console.log('msgList')
+    //   webSocket.on(`sNewMessage`, sMessageCallback);
+    //   return () => {
+    //     webSocket.off(`sNewMessage`, sMessageCallback);
+    //   };
+    // }
     console.log('practice')
     webSocket.on(`sMessage${conversation}`, sMessageCallback);
     return () => {

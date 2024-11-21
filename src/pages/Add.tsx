@@ -1,113 +1,138 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useReducer } from 'react'
 import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
 import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnapshot, deleteDoc, updateDoc } from 'firebase/firestore';
 import Pickers from 'src/muiComponents/Pickers'
-import ItemSelects from 'src/muiComponents/ItemSelects'
 import Selects from 'src/muiComponents/Selects'
 import AddSteppers from 'src/muiComponents/AddSteppers'
+import AddStepTitle from 'src/muiComponents/AddStepTitle'
+import AddStepOne from 'src/muiComponents/AddStepOne'
+import AddStepTwo from 'src/muiComponents/AddStepTwo'
+import AddStepThree from 'src/muiComponents/AddStepThree'
+import AddStepFour from 'src/muiComponents/AddStepFour'
+import AddRegisterButton from 'src/muiComponents/AddRegisterButton'
+import AddSnackBar from 'src/muiComponents/AddSnackBar'
+import PageTitle from 'src/muiComponents/PageTitle'
 import Button from '@mui/material/Button';
 import RegisteredCards from 'src/muiComponents/RegisteredCards';
 import Snackbar from '@mui/material/Snackbar';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import TextField from '@mui/material/TextField';
-import { useTabsStore } from 'src/store'
 
 interface Props {
-    userObj: object, action: number, borrow: boolean
+    userObj: {uid: string, displayName: string} | null, action: number, borrow: boolean
 }
 function Add({ userObj, action, borrow }: Props) {
   const [addSteps, setAddSteps] = useState(0);
-  const [enableButton, setEnableButton] = useState(true);
+//   const [enableButton, setEnableButton] = useState(true);
   const [cardId, setCardId] = useState(null)
   const [display, setDisplay] = useState(null)
   const [item, setItem] = useState<string>('');
-  const [locationInput, setLocationInput] = useState<string>('');
-  const [locationOne, setLocationOne] = useState<string>('');
-  const [locationTwo, setLocationTwo] = useState<string>('');
-  const [locationThree, setLocationThree] = useState<string>('');
+  const locationReducer = (state: {locationOne: string | null, locationTwo: string | null, locationThree: string | null, locationInput: string | null}, action: {type: string, newState: string | null}) => {
+    if (action.type === 'changeBuilding') {
+        return {...state, locationOne: action.newState, locationTwo: '', locationThree: ''}
+    } else if (action.type === 'changeRoom') {
+        return {...state, locationTwo: action.newState, locationThree: ''}
+    } else if (action.type === 'changeSeat') {
+        return {...state, locationThree: action.newState}
+    } else if (action.type === 'changeLocationInput') {
+        return {...state, locationTwo: '', locationThree: '', locationInput: action.newState}
+    } else if (action.type === 'changeItem') {
+        return {locationOne: '', locationTwo: '', locationThree: '', locationInput: ''}
+    } else {
+        return {...state}
+    }
+  }
+  const addStepsReducer = (state: {addSteps: number, enableButton: boolean}, action: {type: string, newState: number}) => {
+    if (action.type === 'changeAddSteps') {
+        return {addSteps: action.newState}
+    } else {
+        return {...state}
+    }
+  }
+  const [locationState, locationDispatch] = useReducer(locationReducer, {
+    locationOne: '',
+    locationTwo: '',
+    locationThree: '',
+    locationInput: ''
+  })
+  const [addStepsState, addStepsDispatch] = useReducer(addStepsReducer, {
+    addSteps: 0
+  })
+//   const [locationInput, setLocationInput] = useState<string>('');
+//   const [locationOne, setLocationOne] = useState<string>('');
+//   const [locationTwo, setLocationTwo] = useState<string>('');
+//   const [locationThree, setLocationThree] = useState<string>('');
   const [from, setFrom] = useState(null);
   const [to, setTo] = useState(null);
-  const [process, setProcess] = useState<boolean>(false)
+  const [snackBar, setSnackBar] = useState<boolean>(false)
   const value: number[] = [0, action+1]
-  const toggleTabs = useTabsStore((state) => state.toggleTabs)
-  
+    const [fromTo, setFromTo] = useState<{from: {gmt: {}, year: number, month: number, day: number, hour: number, minute: number} | null, to: {gmt: {}, year: number, month: number, day: number, hour: number, minute: number} | null}>({from: null, to: null})
+
   useEffect(() => {
-    if (process) {
-        setTimeout(() => setProcess(false) , 5000)
-    }
+    setTimeout(() => setSnackBar(false) , 5000)
   })
-  const changeItem = (event) => {
+  const changeItem = (event: {preventDefault: () => void, target: {value: string}}) => {
     event.preventDefault()
     const {
         target: {value},
     } = event;
     setItem(value)
-    setLocationOne('');
-    setLocationTwo('');
-    setLocationThree('');
-    if (value.trim() !== '') {
+    locationDispatch({type: 'changeItem', newState: null})
+    if (value) {
         setAddSteps(1)
     } else {
         setAddSteps(0)
     }
-    setEnableButton(true)
   }
   const changeLocationInput = (event) => {
     event.preventDefault()
     const {
         target: {value},
     } = event;
-    setLocationInput(value)
-    setLocationTwo('');
-    setLocationThree('');
-    if (value.trim() !== '') {
+    locationDispatch({type: 'changeLocationInput', newState: value})
+    if (value) {
         setAddSteps(2)
     } else {
         setAddSteps(1)
     }
-    setEnableButton(true)
   }
   const changeBuilding = (event) => {
     event.preventDefault()
     const {
         target: {value},
     } = event;
-    setLocationOne(value);
-    setLocationTwo('');
-    setLocationThree('');
+    locationDispatch({type: 'changeBuilding', newState: value})
+    // if (addStepsState.addSteps === 2) {
+    // }
     setAddSteps(1)
-    setEnableButton(true)
   }
   const changeRoom = (event) => {
     event.preventDefault()
     const {
         target: {value},
     } = event;
-    setLocationTwo(value);
-    setLocationThree('');
-    if (locationOne !== '중도' && locationOne !== '직접 입력') {
+    locationDispatch({type: 'changeRoom', newState: value})
+    if (locationState.locationOne !== '중도' && locationState.locationOne !== '직접 입력') {
         setAddSteps(2)
-    } else if (locationOne === '중도' && (['1열(1F)', '2열(2F)', '3열(2F)', '4열(4F)', '집중열(1F)'].indexOf(value) === -1)) {
+    } else if (locationState.locationOne === '중도' && (['1열(1F)', '2열(2F)', '3열(2F)', '4열(4F)', '집중열(1F)'].indexOf(value) === -1)) {
         setAddSteps(2)
     } else {
         setAddSteps(1)
     }
-    setEnableButton(true)
   }
   const changeSeat = (event) => {
       event.preventDefault()
       const {
           target: {value},
       } = event;
-      setLocationThree(value);
+      locationDispatch({type: 'changeSeat', newState: value})
       setAddSteps(2)
-      setEnableButton(true)
   }
-
+  console.log(from)
   const submit = async (event) => {
       event.preventDefault()
-      if((locationInput !== '' || (locationOne !== '' && locationTwo !== '')) && from !== null && to !== null) {
+      if((locationState.locationInput !== '' || (locationState.locationOne !== '' && locationState.locationTwo !== '')) && from !== null && to !== null) {
         if (from.gmt > to.gmt) {
             alert('시간을 확인해 주세요')
         } else if (from.gmt < Date.now()) {
@@ -116,13 +141,7 @@ function Add({ userObj, action, borrow }: Props) {
             alert('현재 시간을 확인 후 등록해 주세요')    
         }
         else {
-            {locationInput && setLocationOne(locationInput)}
-            // console.log(to.year-from.year)
-            // console.log(to.month-from.month)
-            // console.log(to.day-from.day)
-            // console.log(to.hour-from.hour)
-            // console.log(to.minute-from.minute)
-
+            // {locationInput && setLocationOne(locationInput)}
             if (to.year-from.year > 0) {
                 value[0] = (to.year-from.year)*366*24*60
             } else if (to.month-from.month > 0) {
@@ -136,35 +155,34 @@ function Add({ userObj, action, borrow }: Props) {
             }
 
             let location
-            if (locationOne === '직접 입력') {
-                location = locationInput
+            if (locationState.locationOne === '직접 입력') {
+                location = locationState.locationInput
             } else {
-                location = locationOne
+                location = locationState.locationOne
             }
             const card = await addDoc(collection(dbservice, 'num'), {
                 point: value[0],
                 displayName: userObj?.displayName,
                 text: {choose: value[1], 
                     count: location,
-                    counter: locationTwo, 
-                    counting: locationThree,
+                    counter: locationState.locationTwo, 
+                    counting: locationState.locationThree,
                     clock: from, clocker: to},
                 round: 1,
                 creatorClock: Date.now(),
                 creatorId: userObj?.uid,
                 connectedId: null,
                 connectedName: null,
+                item: item
             })
             setCardId(card.id)
-            
-            setProcess(true)
+            setSnackBar(true)
             const cardObject = await getDoc(doc(dbservice, `num/${card.id}`))
             setDisplay({
                 id: card.id,
                 ...cardObject.data()
             })
             setAddSteps(3)
-            setEnableButton(false)
         }
     } else {
         alert('내용을 입력해 주세요')
@@ -172,13 +190,19 @@ function Add({ userObj, action, borrow }: Props) {
   }
   const onChangeFrom = (event) => {
     setFrom({gmt: event.$d, year: event.$y, month: event.$M+1, day:event.$D, hour: event.$H, minute: event.$m})
+    setFromTo({
+        from: {gmt: event.$d, year: event.$y, month: event.$M+1, day:event.$D, hour: event.$H, minute: event.$m},
+        to: fromTo.to
+    })
     setAddSteps(2)
-    setEnableButton(true)
   }
   const onChangeTo = (event) => {
     setTo({gmt: event.$d, year: event.$y, month: event.$M+1, day:event.$D, hour: event.$H, minute: event.$m})
+    setFromTo({
+        ...fromTo,
+        to: {gmt: event.$d, year: event.$y, month: event.$M+1, day:event.$D, hour: event.$H, minute: event.$m}
+    })
     setAddSteps(2)
-    setEnableButton(true)
     }
     if (cardId) {
         let cardObject
@@ -187,88 +211,34 @@ function Add({ userObj, action, borrow }: Props) {
             console.log(cardObject.data())
         }
     }
+    
   return (
     <div className='flex flex-col'>
-        <div className='flex text-2xl p-5'>
-            {borrow ? '빌리기 ' : '빌려주기 '} 카드 등록
-        </div>
-        <div className='flex justify-end start-0 end-0'>
-            <AddSteppers addSteps={addSteps} borrow={borrow} />
-        </div>
-            <div>
-                <div className='flex text-base px-5 pt-5'>
-                    1. 무엇을 {borrow ? '빌리세요?' : '빌려주세요?'}
-                </div>
-                <div className='flex px-5'>
-                    <ItemSelects item={item} setItem={(newState) => setItem(newState)} changeItem={changeItem}/>
-                </div>
-                {addSteps > 0 && 
-                    <div>
-                        <div className='flex text-base px-5 pt-5'>
-                            2. 장소 입력
-                        </div>
-                        <div className='flex px-5'>
-                            <Selects 
-                                locationOne={locationOne} 
-                                locationTwo={locationTwo} 
-                                locationThree={locationThree} 
-                                changeBuilding={changeBuilding} changeRoom={changeRoom} changeSeat={changeSeat}
-                                setAddSteps={(newState) => setAddSteps(newState)}
-                            />
-                            {locationOne === '직접 입력' && 
-                                <div className='pt-7'>
-                                    <TextField onChange={changeLocationInput} required autoFocus/>
-                                </div>
-                            }
-                        </div>
-                    </div>
+        <PageTitle title={`${borrow ? '빌리기 ' : '빌려주기 '} 카드 등록`}/>
+        <AddSteppers addSteps={addSteps} borrow={borrow} />
+        <AddStepOne borrow={borrow} item={item} changeItem={changeItem} />
+        {addSteps > 0 && <AddStepTwo locationState={locationState} changeBuilding={changeBuilding} changeRoom={changeRoom} changeSeat={changeSeat} changeLocationInput={changeLocationInput} />}
+        {addSteps > 1 && <AddStepThree onChangeFrom={onChangeFrom} onChangeTo={onChangeTo} />}
+        {addSteps === 2 && <AddRegisterButton submit={submit} />}
+        {addSteps === 3 && <AddStepFour display={display} />} 
+        <AddSnackBar snackBar={snackBar} changeSnackBar={() => setSnackBar(false)}/>
+        {/* <div>
+            <Snackbar
+                open={snackBar}
+                sx={{paddingBottom: '10%'}}
+                message="등록되었습니다"
+                action={
+                    <IconButton
+                        size="small"
+                        aria-label="close"
+                        color="inherit"
+                        onClick={() => setSnackbar(false)}
+                    >
+                        <CloseIcon fontSize="small" />
+                    </IconButton>
                 }
-                {addSteps > 1 &&
-                    <div>
-                        <div className='flex text-base px-5 pt-5'>
-                            3. 시간 입력
-                        </div>
-                        <div className='flex flex-col px-5'>
-                            <Pickers onChange={onChangeFrom} label={"이 때부터"}  />
-                            <Pickers onChange={onChangeTo} label={"이 때까지"} />
-                        </div>
-                        {enableButton ? 
-                            <form className='flex justify-center pt-5' id='selection' onSubmit={submit}>
-                                <Button variant='outlined' form='selection' type='submit'>등록하기</Button>
-                            </form>
-                        :
-                            <div>
-                                <div className='flex text-base px-5 pt-5'>
-                                    4. 등록 완료
-                                </div>
-                                <div className='flex text-base px-5'>
-                                    (등록 카드는 내 상태, 게시판에서 확인할 수 있습니다)
-                                </div>
-                                <div className='flex px-5 pt-5 pb-52'>
-                                    <RegisteredCards msgObj={display} isOwner={true} />
-                                </div>
-                            </div>
-                        }
-                    </div>
-                }
-                {process &&
-                    <Snackbar
-                        open={true}
-                        sx={{paddingBottom: '10%'}}
-                        message="등록되었습니다"
-                        action={
-                            <IconButton
-                                size="small"
-                                aria-label="close"
-                                color="inherit"
-                                onClick={() => setProcess(false)}
-                            >
-                                <CloseIcon fontSize="small" />
-                            </IconButton>
-                        }
-                    />
-                }
-            </div>
+            />
+        </div> */}
     </div>  
   )
 }

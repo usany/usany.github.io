@@ -10,22 +10,18 @@ import { webSocket, onClick } from 'src/webSocket.tsx'
 import { useAvatarColorStore, useNewMessageStore } from 'src/store'
 
 const ChattingStacks = ({ userObj, 
-  // chats, handleChats, 
-  handleMessageLoaded }) => {
-  // const [myConversationUid, setMyConversationUid] = useState([])
-  // const [chattingMessage, setChattingMessage] = useState(false)
-  // const [conversations, setConversations] = useState([])
+  // handleMessageLoaded 
+}) => {
   const [chattings, setChattings] = useState({})
   const newMessage = useNewMessageStore((state) => state.newMessage)
-  const handleNewMessageFalse = useNewMessageStore((state) => state.handleNewMessageFalse)
-  // console.log(chattings)
+
   useEffect(() => {
     const myChatting = async () => {
       const myDocRef = doc(dbservice, `members/${userObj.uid}`)
       const myDocSnap = await getDoc(myDocRef)
       const myConversation = myDocSnap.data()?.chattings || {}
       setChattings(myConversation)
-      handleMessageLoaded(true)
+      // handleMessageLoaded(true)
     }
     if (newMessage) {
       myChatting()

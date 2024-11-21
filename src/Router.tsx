@@ -10,17 +10,16 @@ import Allies from 'src/pages/Allies'
 import Contact from 'src/pages/Contact'
 import Piazza from 'src/pages/Piazza'
 import Chatting from 'src/pages/Chatting'
+import Chats from 'src/pages/Chats'
+import PullRefresh from 'src/muiComponents/PullRefresh'
 import Header from 'src/navigate/Header'
 import Navigations from 'src/navigate/Navigations'
-import { doc, getDoc } from 'firebase/firestore';
-import { getStorage, ref, getDownloadURL } from "firebase/storage";
-import { auth, dbservice } from 'src/baseApi/serverbase'
-import Box from '@mui/material/Box';
-import LinearProgress from '@mui/material/LinearProgress';
-import { useBottomNavigationStore, useThemeStore, useSideNavigationStore, useAvatarColorStore, useNewMessageStore } from 'src/store'
 
-const Router = ({ userObj }) => {
-
+interface Props {
+    userObj: {uid: string, displayName: string} | null,
+}
+  
+const Router = ({ userObj }: Props) => {
     // keep track of previous scroll position
     let prevScrollPos = window.scrollY;
     window.addEventListener('scroll', function () {
@@ -41,66 +40,15 @@ const Router = ({ userObj }) => {
         prevScrollPos = currentScrollPos;
     });
 
-    useEffect(() => {
-        let refresh = false
-        const pullToRefresh = document.querySelector('.pull-to-refresh');
-        let touchstartY = 0;
-        document.addEventListener('touchstart', e => {
-            touchstartY = e.touches[0].clientY;
-        });
-        document.addEventListener('touchmove', e => {
-            const touchY = e.touches[0].clientY;
-            const touchDiff = touchY - touchstartY;
-            if (touchDiff > 0 && window.scrollY === 0) {
-                if (touchDiff > 500) {
-                    pullToRefresh?.classList.add('visible');
-                    refresh = true
-                }
-                else {
-                    pullToRefresh?.classList.remove('visible');
-                    refresh = false
-                }
-            }
-        });
-        document.addEventListener('touchend', e => {
-            if (refresh) {
-                if (pullToRefresh?.classList.contains('visible')) {
-                    pullToRefresh?.classList.remove('visible');
-                    window.location.reload();
-                }
-            }
-        });
-    })
-
-    const storage = getStorage();
-    const storageRef = ref(storage, 'screen.jpg');      
-    // const handleCounter = (newState: number[]) => setCounter(newState)
-    // const handleValue = (newState: number) => setValue(newState)
-    // const handleCheck = (newState: boolean) => setCheck(newState)
-    // const handleScroll = (newState: number) => setScroll(newState)
-    // const handleProfileColor = (newState: string | null) => setProfileColor(newState)
-    // const handleNewMessage = (newState: boolean) => setNewMessage(newState)
-    // const handlePiazzaSwitch = (newRef: string | null) => piazzaSwitch.current = newRef
+    // const storage = getStorage();
+    // const storageRef = ref(storage, 'screen.jpg');   
 
     return (
         <BrowserRouter>
-            <div className={
-                // sides[0] + 
-                ' flex flex-col location'
-            }>
-                <div className="pull-to-refresh">
-                    {/* <span>Loading</span> */}
-                    <Box sx={{ width: '100%' }}>
-                        <LinearProgress />
-                    </Box>
-                </div>
+            <div className='flex flex-col location h-screen'>
+                <PullRefresh />
                 <Header
                     userObj={userObj}
-                    // check={check} 
-                    // setCheck={(newState: boolean) => setCheck(newState)} 
-                    storage={storage}
-                    // setScroll={(newState: number) => setScroll(newState)}
-                    // handleSideNavigation={() => dispatchSideNavigation({type: 'toggle'})}
                 />
                 <div
                     id='contentSelector'
@@ -119,6 +67,7 @@ const Router = ({ userObj }) => {
                                     <Route path='/contact' Component={() => <Contact userObj={userObj} />} />
                                     <Route path='/piazza' Component={() => <Piazza userObj={userObj} />} />
                                     <Route path='/chatting' Component={() => <Chatting userObj={userObj} />} />
+                                    <Route path='/chats' Component={() => <Chats userObj={userObj} />} />
                                 </Route>
                             ) : (
                                 <Route>
