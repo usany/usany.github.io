@@ -85,7 +85,7 @@
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
   background-color: lemonchiffon;
-  color: black;
+  /* color: black; */
 }
 .app-container > .wrap > .chat-box .chat div.other {
   padding: 5px;
@@ -94,7 +94,7 @@
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
   background-color: white;
-  color: black;
+  /* color: black; */
 }
 /* .app-container > .wrap > .chat-box .chat div.private {
   padding: 5px;
