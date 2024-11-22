@@ -39,7 +39,6 @@ function Profile({ userObj }: Props) {
   const profileColor = useAvatarColorStore((state) => state.profileColor)
   const handleBottomNavigation = useBottomNavigationStore((state) => state.handleBottomNavigation)
 
-
   useEffect(() => {
     getDownloadURL(ref(storage, 'screen.jpg'))
     .then((url) => {
@@ -50,11 +49,9 @@ function Profile({ userObj }: Props) {
     });
   }, [])
   
-
   useEffect(() => {
     handleBottomNavigation(5)
   })
-  
   const handleClose = () => {
     setProfileDialog(false)
   }
