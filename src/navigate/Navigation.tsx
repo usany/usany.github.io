@@ -138,9 +138,9 @@ function Navigation({ userObj, sideNavigation, handleSideNavigation }: Props) {
        clipboard-write; encrypted-media; fullscreen; picture-in-picture"
          loading="lazy"
        />
-          <div className='absolute flex justify-center bottom-0'>
-            <iframe src="https://open.spotify.com/embed/playlist/6phYndBIC4DIqefH1CcUsT?utm_source=generator&theme=0" width="90%" height="200" allow="autoplay; clipboard-write; fullscreen; picture-in-picture" loading="lazy" />
-          </div>
+          // <div className='absolute flex justify-center bottom-0'>
+          //   <iframe src="https://open.spotify.com/embed/playlist/6phYndBIC4DIqefH1CcUsT?utm_source=generator&theme=0" width="90%" height="200" allow="autoplay; clipboard-write; fullscreen; picture-in-picture" loading="lazy" />
+          // </div>
         }
       </nav>
     </SwipeableDrawer>
