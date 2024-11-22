@@ -32,16 +32,34 @@ function Btn({ msgObj, isOwner, uid, displayName, userObj, num, points }) {
       updateDoc(data, {round: 5});
       const point = doc(dbservice, `members/${msgObj.creatorId}`)
       const connectedPoint = doc(dbservice, `members/${msgObj.connectedId}`)
-
+      const creatorSnap = await getDoc(point)
+      const connectedSnap = await getDoc(connectedPoint)
+      const creatorDone = creatorSnap.data().done || []
+      const connectedDone = connectedSnap.data().done || []
       if (msgObj.text.choose == 1) {
+        const creatorBorrowDone = creatorSnap.data().borrowDoneCount || []
+        const connectedLendDone = connectedSnap.data().lendDoneCount || []
         updateDoc(point, {points: num-msgObj.point});
         updateDoc(connectedPoint, {points: points+msgObj.point});
+        updateDoc(point, {borrowDoneCount: [...creatorBorrowDone, msgObj.id]});
+        updateDoc(connectedPoint, {lendDoneCount: [...connectedLendDone, msgObj.id]});
         webSocket.emit('confirm return', { choose: msgObj.text.choose, sendingToken: messagingToken, creatorId: msgObj.creatorId, creatorName: msgObj.displayName, connectedId: uid, connectedName: displayName, })
       } else {
+        const creatorLendDone = creatorSnap.data().lendDoneCount || []
+        const connectedBorrowDone = connectedSnap.data().borrowDoneCount || []
         updateDoc(point, {points: num+msgObj.point});
         updateDoc(connectedPoint, {points: points-msgObj.point});
+        updateDoc(point, {lendDoneCount: [...creatorLendDone, msgObj.id]});
+        updateDoc(connectedPoint, {borrowDoneCount: [...connectedBorrowDone, msgObj.id]});
         webSocket.emit('confirm return', { choose: msgObj.text.choose, sendingToken: messagingToken, creatorId: msgObj.creatorId, creatorName: msgObj.displayName, connectedId: uid, connectedName: displayName, })
       }
+      console.log('practice')
+      updateDoc(point, {done: 
+        [...creatorDone, msgObj.id]
+      });
+      updateDoc(connectedPoint, {done: 
+        [...connectedDone, msgObj.id]
+      });
     } else if (action === 'confirm') {
       updateDoc(data, {round: 3});
       webSocket.emit('confirm', { choose: msgObj.text.choose, sendingToken: messagingToken, creatorId: msgObj.creatorId, creatorName: msgObj.displayName, connectedId: uid, connectedName: displayName, })

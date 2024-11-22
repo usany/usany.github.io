@@ -7,7 +7,6 @@ import PiazzaSwitch from 'src/muiComponents/PiazzaSwitch'
 import { useBottomNavigationStore, usePiazzaSwitchStore } from 'src/store'
 import { webSocket, onClick } from 'src/webSocket.tsx'
 
-// const webSocket = io("http://localhost:5000");
 function Piazza({ userObj }:
   {
     userObj: {uid: string, displayName: string},
@@ -21,10 +20,6 @@ function Piazza({ userObj }:
   const [user, setUser] = useState(null)
   const [selectUser, setSelectUser] = useState(false)
   const handleBottomNavigation = useBottomNavigationStore((state) => state.handleBottomNavigation)
-  // const piazzaSwitch = usePiazzaSwitchStore((state) => state.piazzaSwitch)
-  // const handlePiazzaSwitchOn = usePiazzaSwitchStore((state) => state.handlePiazzaSwitchOn)
-  // const handlePiazzaSwitchOff = usePiazzaSwitchStore((state) => state.handlePiazzaSwitchOff)
-  // const [piazzaSwitches, setPiazzaSwitches] = useState(localStorage.getItem('piazza'))
   
   useEffect(() => {
     if (!webSocket) return;
@@ -43,7 +38,6 @@ function Piazza({ userObj }:
           conversation: null
         },
       ]);
-      setNewMessage(true)
     }
     webSocket.on("sMessagePiazza", sMessageCallback);
     return () => {

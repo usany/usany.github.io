@@ -2,6 +2,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import TextField from '@mui/material/TextField';
 
 const locationsCollection = {
     cl : ['1열(1F)', '2열(2F)', '3열(2F)', '4열(4F)', '집중열(1F)', '1층 책상', '1층 세미나실', '매점(2F)', '카페(1F)', '중앙자료실 책상(3F)', '참고열람실 책상(4F)', '정기간행물 책상(4F)'],
@@ -44,9 +45,9 @@ const location = {
     e : settingLocations(locationsCollection.e),
     c : settingLocations(locationsCollection.c)
 }
-function Selects({ locationOne, locationTwo, locationThree, changeBuilding, changeRoom, changeSeat }) {
+function Selects({ locationState, changeBuilding, changeRoom, changeSeat, changeLocationInput }) {
     return (
-        <div>
+        <div className='flex px-5'>
             <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
                 <InputLabel 
                     // id="demo-simple-select-standard-label"
@@ -54,7 +55,7 @@ function Selects({ locationOne, locationTwo, locationThree, changeBuilding, chan
                 <Select
                     // labelId="demo-simple-select-standard-label"
                     // id="demo-simple-select-standard"
-                    value={locationOne}
+                    value={locationState.locationOne}
                     onChange={changeBuilding}
                     // label="Age"
                 >
@@ -74,32 +75,32 @@ function Selects({ locationOne, locationTwo, locationThree, changeBuilding, chan
                     <MenuItem value={'직접 입력'}>직접 입력</MenuItem>
                 </Select>
             </FormControl>
-            {locationOne !== '' && locationOne !== '직접 입력' &&
+            {locationState.locationOne !== '' && locationState.locationOne !== '직접 입력' &&
                 <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
                     <InputLabel 
                     // id="demo-simple-select-standard-label1"
                     >
-                        {locationOne} 어디인가요
+                        {locationState.locationOne} 어디인가요
                     </InputLabel>
                     <Select
                         // labelId="demo-simple-select-standard-label1"
                         // id="demo-simple-select-standard"
-                        value={locationTwo}
+                        value={locationState.locationTwo}
                         onChange={changeRoom}
                         // label="Age"
                     >
-                        {locationOne == '중도' && location.cl}
-                        {locationOne == '청운' && location.cw}
-                        {locationOne == '푸른솔' && location.p}
-                        {locationOne == '간호이과대' && location.g}
-                        {locationOne == '경영대' && location.k}
-                        {locationOne == '문과대' && location.m}
-                        {locationOne == '의과대' && location.e}
-                        {locationOne == '치과병원' && location.c}
+                        {locationState.locationOne == '중도' && location.cl}
+                        {locationState.locationOne == '청운' && location.cw}
+                        {locationState.locationOne == '푸른솔' && location.p}
+                        {locationState.locationOne == '간호이과대' && location.g}
+                        {locationState.locationOne == '경영대' && location.k}
+                        {locationState.locationOne == '문과대' && location.m}
+                        {locationState.locationOne == '의과대' && location.e}
+                        {locationState.locationOne == '치과병원' && location.c}
                     </Select>
                 </FormControl>
             }
-            {['1열(1F)', '2열(2F)', '3열(2F)', '4열(4F)', '집중열(1F)'].indexOf(locationTwo) !== -1 &&
+            {['1열(1F)', '2열(2F)', '3열(2F)', '4열(4F)', '집중열(1F)'].indexOf(locationState.locationTwo) !== -1 &&
                 <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
                     <InputLabel 
                     // id="demo-simple-select-standard-label1"
@@ -109,17 +110,22 @@ function Selects({ locationOne, locationTwo, locationThree, changeBuilding, chan
                     <Select
                         // labelId="demo-simple-select-standard-label1"
                         // id="demo-simple-select-standard"
-                        value={locationThree}
+                        value={locationState.locationThree}
                         onChange={changeSeat}
                         // label="Age"
                     >
-                        {locationTwo == '1열(1F)' && location.one}
-                        {locationTwo == '2열(2F)' && location.two}
-                        {locationTwo == '3열(2F)' && location.three}
-                        {locationTwo == '4열(4F)' && location.four}
-                        {locationTwo == '집중열(1F)' && location.focus}
+                        {locationState.locationTwo == '1열(1F)' && location.one}
+                        {locationState.locationTwo == '2열(2F)' && location.two}
+                        {locationState.locationTwo == '3열(2F)' && location.three}
+                        {locationState.locationTwo == '4열(4F)' && location.four}
+                        {locationState.locationTwo == '집중열(1F)' && location.focus}
                     </Select>
                 </FormControl>
+            }
+            {locationState.locationOne === '직접 입력' && 
+                <div className='pt-7'>
+                    <TextField onChange={changeLocationInput} required autoFocus/>
+                </div>
             }
         </div>
     )

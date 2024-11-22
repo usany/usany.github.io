@@ -37,15 +37,15 @@ function a11yProps(index) {
 export default function ToggleTabs() {
   
   const handleChange = (event, newValue) => {
-    handleToggleTabs(newValue)
+    handleTabs(newValue)
     // if (valuing<2) {
     //   setValuing(newValue);
     // } else {
     //   setValuing(newValue);
     // }
   };
-  const toggleTabs = useTabsStore((state) => state.toggleTabs)
-  const handleToggleTabs = useTabsStore((state) => state.handleToggleTabs)
+  const tabs = useTabsStore((state) => state.tabs)
+  const handleTabs = useTabsStore((state) => state.handleTabs)
   // useEffect(() => {
   //   if (valuing === 1) {
   //     setValue(0)
@@ -72,7 +72,7 @@ export default function ToggleTabs() {
       <Box sx={{ paddingX: '10px'
         }}>
         <Tabs
-          value={toggleTabs} onChange={handleChange} aria-label="basic tabs example"
+          value={tabs} onChange={handleChange} aria-label="basic tabs example"
         >
           <Tab label="빌리기" {...a11yProps(0)} />
           <Tab label="빌려주기" {...a11yProps(1)} />

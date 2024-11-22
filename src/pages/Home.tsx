@@ -6,30 +6,38 @@ import Add from 'src/pages/Add'
 import { SwipeableViews } from "src/navigate/SwipeableViews";
 import { useBottomNavigationStore, useTabsStore } from 'src/store'
 
-function Home({ userObj }) {
-    const bottomNavigation = useBottomNavigationStore((state) => state.bottomNavigation)
-    const handleBottomNavigation = useBottomNavigationStore((state) => state.handleBottomNavigation)
-    const toggleTabs = useTabsStore((state) => state.toggleTabs)
-    const handleToggleTabs = useTabsStore((state) => state.handleToggleTabs)
+interface Props {
+    userObj: {uid: string, displayName: string} | null
+}
+function Home({ userObj }: Props) {
+    // const bottomNavigation = useBottomNavigationStore((state) => state.bottomNavigation)
+    // const handleBottomNavigation = useBottomNavigationStore((state) => state.handleBottomNavigation)
+    const {bottomNavigation, handleBottomNavigation} = useBottomNavigationStore((state) => {
+        return state
+    })
+    // const handleBottomNavigation = useBottomNavigationStore((state) => state.handleBottomNavigation)
+    
+    const tabs = useTabsStore((state) => state.tabs)
+    const handleTabs = useTabsStore((state) => state.handleTabs)
 
     useEffect(() => {
         if (bottomNavigation === 5) {
             handleBottomNavigation(1)
         }
-    })
-
+    }, [])
+    
     return (
         <div>
-            {userObj && 
-                <div>
+            {userObj ? 
+                <>
                     {bottomNavigation === 1 && 
                         <Menu userObj={userObj} />
                     }
-                    {[0].indexOf(bottomNavigation) !== -1 && 
+                    {bottomNavigation === 0 && 
                         <div>
                         <SwipeableViews
-                            index={toggleTabs}
-                            onIndexChange={handleToggleTabs}
+                            index={tabs}
+                            onIndexChange={handleTabs}
                             num={1}
                         >
                             <div>
@@ -41,11 +49,11 @@ function Home({ userObj }) {
                         </SwipeableViews>
                         </div>
                     }
-                    {[2].indexOf(bottomNavigation) !== -1 && 
+                    {bottomNavigation === 2 && 
                         <div>
                         <SwipeableViews
-                            index={toggleTabs}
-                            onIndexChange={handleToggleTabs}
+                            index={tabs}
+                            onIndexChange={handleTabs}
                             num={1}
                         >
                             <div>
@@ -57,18 +65,17 @@ function Home({ userObj }) {
                         </SwipeableViews>
                         </div>
                     }
-                </div>
-            }
-            {!userObj &&
+                </>
+                :
                 <>
                     {bottomNavigation === 0 &&
-                        <Notice userObj={userObj} />
+                        <Notice userObj={userObj} borrow={true}/>
                     }
                     {bottomNavigation === 1 &&
                         <Auth />
                     }
                     {bottomNavigation === 2 &&
-                        <Notice userObj={userObj} />
+                        <Notice userObj={userObj} borrow={false}/>
                     }
                 </>
             }

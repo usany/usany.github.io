@@ -33,7 +33,7 @@ function RegisteredCards({
   shadowColor = shadowColorArray[letters.indexOf(String(msgObj.id[0]).toUpperCase())%shadowColorArray.length];
 
   return (
-    <div className='max-w-60 min-w-20'>
+    <div className='flex px-5 pt-5 pb-52 max-w-60 min-w-20'>
       <Card
         sx={{
           boxShadow: `1.9px 1.9px 1.9px 1.9px ${shadowColor}`

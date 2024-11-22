@@ -22,30 +22,32 @@ function Chatting({ userObj }: {
   const conversation = state.conversation
   const handleBottomNavigation = useBottomNavigationStore((state) => state.handleBottomNavigation)
   const handleNewMessageTrue = useNewMessageStore((state) => state.handleNewMessageTrue)
-
+  
   useEffect(() => {
     if (!webSocket) return;
     function sMessageCallback(message) {
-      const { msg, userUid, id, target, messageClock, conversation } = message;
+      const { msg, userUid, id, target, messageClock, messageClockNumber, conversation } = message;
       setMsgList((prev) => [
         ...prev,
         {
           msg: msg,
-          userUid: userUid,
           type: target ? "private" : "other",
+          userUid: userUid,
           id: id,
           messageClock: messageClock,
-          conversation: conversation
+          messageClockNumber: messageClockNumber,
+          conversation: null
         },
       ]);
     }
-    if (msgList.length === 0) {
-      console.log('msgList')
-      webSocket.on(`sNewMessage`, sMessageCallback);
-      return () => {
-        webSocket.off(`sNewMessage`, sMessageCallback);
-      };
-    }
+    // if (msgList.length === 0) {
+    //   console.log('msgList')
+    //   webSocket.on(`sNewMessage`, sMessageCallback);
+    //   return () => {
+    //     webSocket.off(`sNewMessage`, sMessageCallback);
+    //   };
+    // }
+    console.log('practice')
     webSocket.on(`sMessage${conversation}`, sMessageCallback);
     return () => {
       webSocket.off(`sMessage${conversation}`, sMessageCallback);
@@ -106,6 +108,7 @@ function Chatting({ userObj }: {
   const handleClose = () => {
     setSelectUser(false)
   }
+  console.log(state)
   const onFormConversation = async () => {
     const message = msg
     try {
@@ -115,22 +118,45 @@ function Chatting({ userObj }: {
       const messageClock = new Date().toString()
       let userOne
       let userTwo
+      let userOneDisplayName
+      let userTwoDisplayName
       if (state.userUid < state.chattingUid) {
         userOne = state.userUid
         userTwo = state.chattingUid
+        userOneDisplayName = userObj.displayName
+        userTwoDisplayName = state.displayName
       } else {
         userOne = state.chattingUid
         userTwo = state.userUid
+        userOneDisplayName = state.displayName
+        userTwoDisplayName = userObj.displayName
       }
       if (message) {
-        await addDoc(collection(dbservice, `chats_${conversation}`), {
+        const messageObj = {
           userUid: userUid,
           userName: userName,
           message: message,
           messageClock: messageClock,
           messageClockNumber: messageClockNumber,
           userOne: userOne,
-          userTwo: userTwo
+          userTwo: userTwo,
+          userOneDisplayName: userOneDisplayName,
+          userTwoDisplayName: userTwoDisplayName
+        }
+        await addDoc(collection(dbservice, `chats_${conversation}`), messageObj)
+        const myDocRef = doc(dbservice, `members/${userUid}`)
+        const myDocSnap = await getDoc(myDocRef)
+        const myChattings = myDocSnap.data().chattings || {}
+        const userDocRef = doc(dbservice, `members/${state.chattingUid}`)
+        const userDocSnap = await getDoc(userDocRef)
+        const userChattings = userDocSnap.data().chattings || {}
+        myChattings[conversation] = messageObj
+        userChattings[conversation] = messageObj
+        await updateDoc(myDocRef, {
+          chattings: myChattings
+        })
+        await updateDoc(userDocRef, {
+          chattings: userChattings
         })
         setMsgList((prev) => [...prev, { msg: message, type: "me", userUid: userObj.uid, id: userObj.displayName, messageClock: messageClock, conversation: conversation }]);
       }
@@ -138,7 +164,6 @@ function Chatting({ userObj }: {
       console.log(error)
     }
   }
-  console.log(state)
   const onMembersConversation = async () => {
     const message = msg
     try {
