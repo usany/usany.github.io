@@ -168,7 +168,6 @@ function Piazza({ userObj }:
       setChangeMessage(false)
     }
   }, [changeMessage])
-
   // const onClick = () => {
   //   if (piazzaSwitches === 'true') {
   //     window.localStorage.setItem('piazza', 'false')
