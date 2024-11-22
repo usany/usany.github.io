@@ -39,10 +39,7 @@ const Router = ({ userObj }: Props) => {
         // update previous scroll position
         prevScrollPos = currentScrollPos;
     });
-
-    // const storage = getStorage();
-    // const storageRef = ref(storage, 'screen.jpg');   
-
+    
     return (
         <BrowserRouter>
             <div className='flex flex-col location h-screen'>
