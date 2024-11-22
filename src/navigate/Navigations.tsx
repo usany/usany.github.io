@@ -14,8 +14,8 @@ interface Props {
     userObj: {uid: string, displayName: string} | null
 }
 function Navigations({ userObj }: Props) {
-    // const [colors, setColors] = useState(localStorage.getItem("theme"));
     // const [color, setColor] = useState('#e2e8f0');
+    // const [colors, setColors] = useState(localStorage.getItem("theme"));
     const [backgroundColor, setBackgroundColor] = useState('#e2e8f0');
     const bottomNavigation = useBottomNavigationStore((state) => state.bottomNavigation)
     const handleBottomNavigation = useBottomNavigationStore((state) => state.handleBottomNavigation)
