@@ -107,7 +107,7 @@ function Navigation({ userObj, sideNavigation, handleSideNavigation }: Props) {
               </h1>
               <h1 className='text-2xl px-5'>
                 <span className='px-3'><WorkIcon /></span>
-                <Link to='/chats' onClick={() => checkbox()}>단체방</Link>
+                <Link to='/chats' onClick={() => checkbox()}>실험실</Link>
               </h1>
               <h1 className='text-2xl px-5'>
                 <span className='px-3'><Public /></span>
@@ -128,8 +128,18 @@ function Navigation({ userObj, sideNavigation, handleSideNavigation }: Props) {
           </div>
         }
         {userObj &&
+         <iframe
+         src="https://open.spotify.com/embed/playlist/6phYndBIC4DIqefH1CcUsT?utm_source=generator&theme=0"
+         width="60%"
+         height="400px"
+         frameborder="{0}"
+         allowfullscreen
+         allow="autoplay;
+       clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+         loading="lazy"
+       />
           <div className='absolute flex justify-center bottom-0'>
-            <iframe src="https://open.spotify.com/embed/playlist/5C9ADjArybPy54GTZgXtZO?utm_source=generator" width="90%" height="200" allow="autoplay; clipboard-write; fullscreen; picture-in-picture" loading="lazy" />
+            <iframe src="https://open.spotify.com/embed/playlist/6phYndBIC4DIqefH1CcUsT?utm_source=generator&theme=0" width="90%" height="200" allow="autoplay; clipboard-write; fullscreen; picture-in-picture" loading="lazy" />
           </div>
         }
       </nav>

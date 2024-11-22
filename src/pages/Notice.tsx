@@ -6,6 +6,7 @@ import FilterDialogs from 'src/muiComponents/FilterDialogs'
 import Settings from '@mui/icons-material/Settings';
 import { useTabsStore } from 'src/store'
 import { createPortal } from 'react-dom'
+import { Root, Overlay, Description } from "@radix-ui/react-dialog";
 
 interface Props {
     userObj: {uid: string, displayName: string} | null
