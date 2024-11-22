@@ -4,6 +4,13 @@ import { CardActionArea, CardActions } from '@mui/material';
 import { Link } from 'react-router-dom'
 import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnapshot, updateDoc, setDoc } from 'firebase/firestore';
 import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
+import { Label, Pie, PieChart } from "recharts"
+import {
+  ChartConfig,
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "@/components/ui/chart"
 
 const ProfileCards = ({
   user
@@ -24,8 +31,8 @@ const ProfileCards = ({
     const cards = async () => {
       const docRef = doc(dbservice, `members/${user.uid}`)
       const myDocSnap = await getDoc(docRef)
-      const { points, done, borrowDone, lendDone } = myDocSnap.data()
-      setCards({point: points, done: done, borrowDone: borrowDone || [], lendDone: lendDone || [] })
+      const { points, done, borrowDoneCount, lendDoneCount } = myDocSnap.data()
+      setCards({point: points, done: done, borrowDone: borrowDoneCount || [], lendDone: lendDoneCount || [] })
     }
     cards()
   }, [])
@@ -41,6 +48,28 @@ const ProfileCards = ({
     }
     allies()
   }, [])
+  console.log(cards.borrowDone)
+  console.log(cards.lendDone)
+  const actions = [
+    { action: 'borrow', number: cards.borrowDone.length,
+      fill: 'red'},
+    { action: 'lend', number: cards.lendDone.length,
+      fill: 'blue'},
+  ]
+  const labels = {
+    number: {
+      label: 'total',
+    },
+    borrow: {
+      label: 'borrow',
+      color: '#2563eb',
+    },
+    lend: {
+      label: 'lend',
+      color: '#60a5fa',
+    },
+  } satisfies ChartConfig
+  const totalNumber = actions.reduce((acc, curr) => acc + curr.number, 0)
 
   return (
     <div className='flex flex-col'>
@@ -144,6 +173,54 @@ const ProfileCards = ({
             </CardActionArea>
           </Card>
         </div>
+        <ChartContainer
+          config={labels}
+          // className="mx-auto aspect-square max-h-[250px]"
+        >
+          <PieChart>
+            <ChartTooltip
+              cursor={false}
+              content={<ChartTooltipContent indicator='line' hideLabel />}
+            />
+            <Pie
+              data={actions}
+              dataKey="number"
+              nameKey="action"
+              innerRadius={60}
+              strokeWidth={5}
+            >
+              <Label
+                content={({ viewBox }) => {
+                  if (viewBox && "cx" in viewBox && "cy" in viewBox) {
+                    return (
+                      <text
+                        x={viewBox.cx}
+                        y={viewBox.cy}
+                        textAnchor="middle"
+                        dominantBaseline="middle"
+                      >
+                        <tspan
+                          x={viewBox.cx}
+                          y={viewBox.cy}
+                          className="fill-foreground text-3xl font-bold"
+                        >
+                          {totalNumber.toLocaleString()}
+                        </tspan>
+                        <tspan
+                          x={viewBox.cx}
+                          y={(viewBox.cy || 0) + 24}
+                          className="fill-muted-foreground"
+                        >
+                          Actions
+                        </tspan>
+                      </text>
+                    )
+                  }
+                }}
+              />
+            </Pie>
+          </PieChart>
+        </ChartContainer>
     </div>
   );
 }

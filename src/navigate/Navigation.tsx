@@ -59,8 +59,8 @@ function Navigation({ userObj, sideNavigation, handleSideNavigation }: Props) {
       PaperProps={{
         sx: {
           backgroundColor: {backgroundColor},
-          color: {textColor},
-          height: '100%'
+          // color: {textColor},
+          // height: '100%'
         }
       }}
       anchor={'left'}
@@ -70,7 +70,7 @@ function Navigation({ userObj, sideNavigation, handleSideNavigation }: Props) {
       aria-hidden="false"
     >
       <nav
-        className='flex flex-col justify-between w-full h-full'
+        className='flex flex-col justify-between w-full'
       >
         {userObj ?
           <div className=''>

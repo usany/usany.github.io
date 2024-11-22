@@ -18,6 +18,7 @@ import Snackbar from '@mui/material/Snackbar';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import TextField from '@mui/material/TextField';
+import { useBottomNavigationStore, useTabsStore } from 'src/store'
 
 interface Props {
     userObj: {uid: string, displayName: string} | null, action: number, borrow: boolean
@@ -28,6 +29,12 @@ function Add({ userObj, action, borrow }: Props) {
   const [cardId, setCardId] = useState(null)
   const [display, setDisplay] = useState(null)
   const [item, setItem] = useState<string>('');
+  const lendNumber = useTabsStore((state) => state.tabs)
+
+  useEffect(() => {
+    setAddSteps(0)
+    setItem('')
+  }, [lendNumber])
   const locationReducer = (state: {locationOne: string | null, locationTwo: string | null, locationThree: string | null, locationInput: string | null}, action: {type: string, newState: string | null}) => {
     if (action.type === 'changeBuilding') {
         return {...state, locationOne: action.newState, locationTwo: '', locationThree: ''}
@@ -66,8 +73,9 @@ function Add({ userObj, action, borrow }: Props) {
   const [from, setFrom] = useState(null);
   const [to, setTo] = useState(null);
   const [snackBar, setSnackBar] = useState<boolean>(false)
-  const value: number[] = [0, action+1]
-    const [fromTo, setFromTo] = useState<{from: {gmt: {}, year: number, month: number, day: number, hour: number, minute: number} | null, to: {gmt: {}, year: number, month: number, day: number, hour: number, minute: number} | null}>({from: null, to: null})
+//   const value: number[] = [0, action+1]
+  let calculatePoint = 0
+  const [fromTo, setFromTo] = useState<{from: {gmt: {}, year: number, month: number, day: number, hour: number, minute: number} | null, to: {gmt: {}, year: number, month: number, day: number, hour: number, minute: number} | null}>({from: null, to: null})
 
   useEffect(() => {
     setTimeout(() => setSnackBar(false) , 5000)
@@ -143,15 +151,15 @@ function Add({ userObj, action, borrow }: Props) {
         else {
             // {locationInput && setLocationOne(locationInput)}
             if (to.year-from.year > 0) {
-                value[0] = (to.year-from.year)*366*24*60
+                calculatePoint = (to.year-from.year)*366*24*60
             } else if (to.month-from.month > 0) {
-                value[0] = (to.month-from.month)*31*24*60
+                calculatePoint = (to.month-from.month)*31*24*60
             } else if (to.day-from.day > 0) {
-                value[0] = (to.day-from.day)*24*60
+                calculatePoint = (to.day-from.day)*24*60
             } else if (to.hour-from.hour > 0) {
-                value[0] = (to.hour-from.hour)*60
+                calculatePoint = (to.hour-from.hour)*60
             } else if (to.minute-from.minute > 0) {
-                value[0] = to.minute-from.minute
+                calculatePoint = to.minute-from.minute
             }
 
             let location
@@ -161,9 +169,9 @@ function Add({ userObj, action, borrow }: Props) {
                 location = locationState.locationOne
             }
             const card = await addDoc(collection(dbservice, 'num'), {
-                point: value[0],
+                point: calculatePoint,
                 displayName: userObj?.displayName,
-                text: {choose: value[1], 
+                text: {choose: action+1, 
                     count: location,
                     counter: locationState.locationTwo, 
                     counting: locationState.locationThree,
@@ -211,7 +219,7 @@ function Add({ userObj, action, borrow }: Props) {
             console.log(cardObject.data())
         }
     }
-    
+    console.log(window.innerHeight)
   return (
     <div className='flex flex-col'>
         <PageTitle title={`${borrow ? '빌리기 ' : '빌려주기 '} 카드 등록`}/>

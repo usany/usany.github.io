@@ -10,8 +10,13 @@ interface Props {
     userObj: {uid: string, displayName: string} | null
 }
 function Home({ userObj }: Props) {
-    const bottomNavigation = useBottomNavigationStore((state) => state.bottomNavigation)
-    const handleBottomNavigation = useBottomNavigationStore((state) => state.handleBottomNavigation)
+    // const bottomNavigation = useBottomNavigationStore((state) => state.bottomNavigation)
+    // const handleBottomNavigation = useBottomNavigationStore((state) => state.handleBottomNavigation)
+    const {bottomNavigation, handleBottomNavigation} = useBottomNavigationStore((state) => {
+        return state
+    })
+    // const handleBottomNavigation = useBottomNavigationStore((state) => state.handleBottomNavigation)
+    
     const tabs = useTabsStore((state) => state.tabs)
     const handleTabs = useTabsStore((state) => state.handleTabs)
 

@@ -6,6 +6,20 @@ import { Link, useLocation } from 'react-router-dom'
 import { webSocket, onClick } from 'src/webSocket.tsx'
 import ChattingDialogs from 'src/muiComponents/ChattingDialogs'
 import { useBottomNavigationStore, useNewMessageStore } from 'src/store'
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion"
+import { Check } from "lucide-react"
+import { Label, Pie, PieChart } from "recharts"
+import {
+  ChartConfig,
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "@/components/ui/chart"
 
 // const webSocket = io("http://localhost:5000");
 function Chats({ userObj }: {
@@ -52,7 +66,27 @@ function Chats({ userObj }: {
   // };
   
   
-  
+    // const actions = [
+  //   { action: 'borrow', number: borrowMessage.length+borrowRegisteredMessage.length,
+  //     fill: 'red'},
+  //   { action: 'lend', number: lendMessage.length+lendRegisteredMessage.length,
+  //     fill: 'blue'},
+  // ]
+  // const labels = {
+  //   number: {
+  //     label: 'total',
+  //   },
+  //   borrow: {
+  //     label: 'borrow',
+  //     color: '#2563eb',
+  //   },
+  //   lend: {
+  //     label: 'lend',
+  //     color: '#60a5fa',
+  //   },
+  // } satisfies ChartConfig
+  // const totalNumber = actions.reduce((acc, curr) => acc + curr.number, 0)
+
   return (
     <div>
       {/* <iframe 
@@ -85,6 +119,55 @@ src="https://open.spotify.com/embed/track/6w8pFOKn42O418qwcQElZ3?utm_source=gene
         </button>
       </div>
     </div>
+            {/* <ChartContainer
+          config={labels}
+          className="mx-auto aspect-square max-h-[250px]"
+        >
+          <PieChart>
+            <ChartTooltip
+              cursor={false}
+              content={<ChartTooltipContent indicator='line' hideLabel />}
+            />
+            <Pie
+              data={actions}
+              dataKey="number"
+              nameKey="action"
+              innerRadius={60}
+              strokeWidth={5}
+            >
+              <Label
+                content={({ viewBox }) => {
+                  if (viewBox && "cx" in viewBox && "cy" in viewBox) {
+                    return (
+                      <text
+                        x={viewBox.cx}
+                        y={viewBox.cy}
+                        textAnchor="middle"
+                        dominantBaseline="middle"
+                      >
+                        <tspan
+                          x={viewBox.cx}
+                          y={viewBox.cy}
+                          className="fill-foreground text-3xl font-bold"
+                        >
+                          {totalNumber.toLocaleString()}
+                        </tspan>
+                        <tspan
+                          x={viewBox.cx}
+                          y={(viewBox.cy || 0) + 24}
+                          className="fill-muted-foreground"
+                        >
+                          Actions
+                        </tspan>
+                      </text>
+                    )
+                  }
+                }}
+              />
+            </Pie>
+          </PieChart>
+      </ChartContainer> */}
+
   </div>
   );
 }

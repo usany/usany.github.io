@@ -40,7 +40,7 @@ function Menu({ userObj }: Props) {
     const [card, setCard] = useState(true);
     const [message, setMessage] = useState(true);
     const [cardLoaded, setCardLoaded] = useState(false)
-    const [accordions, setAccordions] = useState({cards: 'item-1', messages: 'item-2' })
+    const [accordions, setAccordions] = useState({cards: '', messages: '' })
     useEffect(() => {
         if (cardAccordion && messageAccordion) {
             setAccordions({cards: 'item-1', messages: 'item-2'})
@@ -51,7 +51,7 @@ function Menu({ userObj }: Props) {
         } else {
             setAccordions({cards: '', messages: ''})
         }
-    })
+    }, [cardAccordion, messageAccordion])
     useEffect(() => {
         const requestPermission = async () => {
             try {
@@ -78,16 +78,31 @@ function Menu({ userObj }: Props) {
     useEffect(() => {
     onSnapshot(query(collection(dbservice, 'num'), orderBy('creatorClock', 'desc')), (snapshot) => {
         const newArray = snapshot.docs.map((document) => {
-            return ({
-                id: document.id,
-                ...document.data(),
-            })
+            // return ({
+            //     id: document.id,
+            //     ...document.data(),
+            // })
+            if (document.data().creatorId === userObj.uid) {
+                return ({
+                    id: document.id,
+                    ...document.data(),
+                })
+            } else if (document.data().connectedId === userObj.uid && document.data().round !== 1) {
+                return ({
+                    id: document.id,
+                    ...document.data(),
+                })
+            }
         });
-        setMessages(newArray)
+        const newArraySelection = newArray.filter((element) => {
+            return element !== undefined;
+        });
+        // console.log(newArraySelection)
+        setMessages(newArraySelection)
         setCardLoaded(true)
     })
     }, [])
-
+    console.log(messages)
     return (
         <div className='flex justify-center flex-col pb-5'>
             {/* <div className='flex justify-center border border-sky-500'>
@@ -110,7 +125,11 @@ function Menu({ userObj }: Props) {
                                 <div className='flex flex-wrap'>
                                     {messages.map((msg) => {
                                         if(msg.round !== 5) {
-                                            return(<Message key={msg.id} msgObj={msg} isOwner={msg.creatorId === userObj.uid} userObj={userObj} />)
+                                            if (msg.creatorId === userObj.uid) {
+                                                return(<Message key={msg.id} msgObj={msg} isOwner={msg.creatorId === userObj.uid} userObj={userObj} />)
+                                            } else if (msg.connectedId === userObj.uid && msg.round !== 1) {
+                                                return(<Message key={msg.id} msgObj={msg} isOwner={msg.creatorId === userObj.uid} userObj={userObj} />)
+                                            }
                                         }
                                     })}
                                 </div>

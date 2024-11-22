@@ -4,8 +4,12 @@ import { CardActionArea, CardActions } from '@mui/material';
 import { Link } from 'react-router-dom'
 import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnapshot, updateDoc, setDoc } from 'firebase/firestore';
 import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
+import ProfileForm from 'src/muiComponents/ProfileForm'
+import ProfileConnects from 'src/muiComponents/ProfileConnects'
+import { StatementSync } from 'node:sqlite';
 
 const ProfileActions = ({
+  userObj,
   user
 }) => {
   const [cards, setCards] = useState({point: null, done: []})
@@ -41,50 +45,13 @@ const ProfileActions = ({
   }, [])
   // console.log(cards)
   return (
-    <div className='flex justify-center'>
-          <Card>
-            <CardActionArea>
-              <Link 
-                to='/actions'
-                state={{
-                  user: user,
-                  actions: 'completedLend', 
-                  cards: cards,
-                  // lendRegisteredMessage: lendRegisteredMessage,
-                  // lendMessage: lendMessage,
-                  // borrowRegisteredMessage: borrowRegisteredMessage,
-                  // borrowMessage: borrowMessage
-                }}
-              >
-              <div>
-              <div>완료된 빌려주기</div>
-              <div className='flex justify-center'>{allies.followings.number}회</div>
-              </div>
-              </Link>
-            </CardActionArea>
-          </Card>
-          <Card>
-            <CardActionArea>
-              <Link 
-                to='/actions'
-                state={{
-                  user: user,
-                  actions: 'completedBorrow', 
-                  cards: cards,
-                  // lendRegisteredMessage: lendRegisteredMessage,
-                  // lendMessage: lendMessage,
-                  // borrowRegisteredMessage: borrowRegisteredMessage,
-                  // borrowMessage: borrowMessage
-                }}
-              >
-              <div>
-              <div>완료된 빌리기</div>
-              <div className='flex justify-center'>{allies.followers.number}회</div>
-              </div>
-              </Link>
-            </CardActionArea>
-          </Card>
-        </div>
+    <div>
+      {userObj.uid === user.uid ? 
+        <ProfileForm userObj={userObj} />
+        :
+        <ProfileConnects userObj={userObj} user={user} />      
+      }
+    </div>
   );
 }
 
