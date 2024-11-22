@@ -43,10 +43,10 @@ function Navigations({ userObj }: Props) {
                     }}
                 >
                     <BottomNavigationAction label={'등록'} icon={<ChevronLeft />}/>
-                    {/* <BottomNavigationAction label={'빌리기'} icon={<ChevronLeft />}/>
-                    <BottomNavigationAction label={'빌려주기'} icon={<ChevronRight/>}/> */}
                     <BottomNavigationAction label={'내 상태'} icon={<Badges />}/>
                     <BottomNavigationAction label={'게시판'} icon={<Checklist />}/>
+                    {/* <BottomNavigationAction label={'빌리기'} icon={<ChevronLeft />}/>
+                    <BottomNavigationAction label={'빌려주기'} icon={<ChevronRight/>}/> */}
                     {/* <BottomNavigationAction label={'빌리기 목록'} icon={<Checklist />}/>
                     <BottomNavigationAction label={'빌려주기 목록'} icon={<ChecklistRtl />}/> */}
                 </BottomNavigation>
