@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import Message from 'src/pages/Message'
 import AvatarDialogs from 'src/muiComponents/AvatarDialogs'
 import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
 import { updateProfile, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
