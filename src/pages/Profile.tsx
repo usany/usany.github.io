@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect, useMemo, useCallback } from 'react'
 import AvatarDialogs from 'src/muiComponents/AvatarDialogs'
 import PageTitle from 'src/muiComponents/PageTitle'
 import ProfileAvatar from 'src/muiComponents/ProfileAvatar'
@@ -9,7 +9,7 @@ import ProfileActions from 'src/muiComponents/ProfileActions'
 import ProfileConnects from 'src/muiComponents/ProfileConnects'
 import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
 // import { updateProfile, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
-// import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnapshot, updateDoc, setDoc } from 'firebase/firestore';
+import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnapshot, updateDoc, setDoc } from 'firebase/firestore';
 // import Button from '@mui/material/Button';
 import Avatar from '@mui/material/Avatar';
 // import Card from '@mui/material/Card';
@@ -20,6 +20,7 @@ import { blue } from '@mui/material/colors';
 import { useBottomNavigationStore, useAvatarColorStore } from 'src/store'
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
 import { Check } from "lucide-react"
+import { useImmer } from "use-immer"
 import { Label, Pie, PieChart } from "recharts"
 import {
   ChartConfig,
@@ -38,15 +39,49 @@ function Profile({ userObj }: Props) {
   const [profileDialog, setProfileDialog] = useState(false)
   const profileColor = useAvatarColorStore((state) => state.profileColor)
   const handleBottomNavigation = useBottomNavigationStore((state) => state.handleBottomNavigation)
-
+  const [allies, setAllies] = useState({
+    followers: {
+      number: null,
+      list: null
+    },
+    followings: {
+      number: null,
+      list: null
+    }
+  })
+  const handleFollowers = ({ number, list }) => {
+    setAllies({followers: {number: number, list: list}, followings: allies.followings})
+  }
+  const handleFollowings = ({ number, list }) => {
+    setAllies({...allies, followings: {number: number, list: list}})
+  }
   useEffect(() => {
-    getDownloadURL(ref(storage, 'screen.jpg'))
-    .then((url) => {
+    const bringAllies = async () => {
+      const docRef = doc(dbservice, `members/${state.element.uid}`)
+      const myDocSnap = await getDoc(docRef)
+      const {followerNum, followingNum, followers, followings} = myDocSnap.data()
+      const alliesObj = {
+        followers: {number: followerNum || 0, list: followers || []},
+        followings: {number: followingNum || 0, list: followings || []}
+      }
+      console.log(alliesObj)
+      // handleFollowers(alliesObj.followers)
+      // handleFollowings(alliesObj.followings)
+      console.log(state.element.uid)
+    }
+    bringAllies()
+  }, [allies])
+  console.log(allies)
+  useEffect(() => {
+    if (userObj.displayName === 'screen') {
+      getDownloadURL(ref(storage, 'screen.jpg'))
+      .then((url) => {
         setAttachment(url)
-    })
-    .catch((error) => {
+      })
+      .catch((error) => {
         console.log(error)
-    });
+      });
+    }
   }, [])
   
   useEffect(() => {
@@ -78,11 +113,11 @@ function Profile({ userObj }: Props) {
 
   return (
     <div>
-      <PageTitle title={'내 프로필'}/>
+      <PageTitle title={`${state.element.displayName} 프로필`}/>
       <ProfileAvatar userObj={userObj} user={state.element} handleProfileDialog={() => setProfileDialog(true)} attachment={attachment} profileColor={profileColor} />
       <AvatarDialogs userObj={userObj} profileDialog={profileDialog} attachment={attachment} changeAttachment={(newState) => setAttachment(newState)}  handleClose={handleClose} />
-      <ProfileActions userObj={userObj} user={state.element} />
-      <ProfileCards user={state.element} />
+      <ProfileActions userObj={userObj} user={state.element} allies={allies} handleFollowers={handleFollowers} handleFollowings={handleFollowings}/>
+      <ProfileCards user={state.element} allies={allies}/>
       {/* <ChartContainer
           config={labels}
           className="mx-auto aspect-square max-h-[250px]"

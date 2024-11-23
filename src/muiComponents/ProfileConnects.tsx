@@ -13,7 +13,10 @@ import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
 
 const ProfileConnects = ({
   userObj,
-  user
+  user,
+  allies,
+  handleFollowers,
+  handleFollowings
 }) => {
   const [myFollowingList, setMyFollowingList] = useState([])
   const [otherFollowerNumber, setOtherFollowerNumber] = useState(null)
@@ -51,6 +54,7 @@ const ProfileConnects = ({
       })
       // setMyFollowingNumber(1)
       setMyFollowingList([user.uid])
+      // handleFollowings({number: 1, list: [user.uid]})
     }
     if (otherUserFollowerNum) {
       if (otherFollowerList.indexOf(userObj.uid) === -1) { 
@@ -60,6 +64,7 @@ const ProfileConnects = ({
         })
         setOtherFollowerNumber(otherFollowerNumber+1)
         setOtherFollowerList([...otherFollowers, userObj.uid])
+        handleFollowers({number: otherUserFollowerNum+1, list: [...otherFollowers, userObj.uid]})
       }
     } else {
       await updateDoc(otherUserDocRef, {
@@ -68,6 +73,7 @@ const ProfileConnects = ({
       })
       setOtherFollowerNumber(1)
       setOtherFollowerList([userObj.uid])
+      handleFollowers({number:1, list: [userObj.uid]})
     }
     setFollowButton(false)
   }
@@ -102,6 +108,7 @@ const ProfileConnects = ({
         })
         setOtherFollowerNumber(otherFollowerNumber-1)
         setOtherFollowerList(otherFollowers.filter((element) => element !== userObj.uid))
+        handleFollowers({number: otherFollowerNumber-1, list: otherFollowers.filter((element) => element !== userObj.uid)})
       }
     }
     setFollowButton(true)
@@ -111,6 +118,12 @@ const ProfileConnects = ({
       setConversation(user.uid[0]+user.uid[1]+user.uid[2]+user.uid[3]+user.uid[4]+user.uid[5]+userObj.uid[0]+userObj.uid[1]+userObj.uid[2]+userObj.uid[3]+userObj.uid[4]+userObj.uid[5])
     } else {
       setConversation(userObj.uid[0]+userObj.uid[1]+userObj.uid[2]+userObj.uid[3]+userObj.uid[4]+userObj.uid[5]+user.uid[0]+user.uid[1]+user.uid[2]+user.uid[3]+user.uid[4]+user.uid[5])
+    }
+  }, [])
+  console.log(allies)
+  useEffect(() => {
+    if (allies.followers.list.indexOf(userObj.uid) !== -1) {
+      setFollowButton(false)
     }
   }, [])
   return (

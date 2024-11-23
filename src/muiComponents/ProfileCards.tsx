@@ -13,19 +13,20 @@ import {
 } from "@/components/ui/chart"
 
 const ProfileCards = ({
-  user
+  user,
+  allies
 }) => {
   const [cards, setCards] = useState({point: null, done: [], borrowDone: [], lendDone: [] })
-  const [allies, setAllies] = useState({
-    followers: {
-      number: null,
-      list: null
-    },
-    followings: {
-      number: null,
-      list: null
-    }
-  })
+  // const [allies, setAllies] = useState({
+  //   followers: {
+  //     number: null,
+  //     list: null
+  //   },
+  //   followings: {
+  //     number: null,
+  //     list: null
+  //   }
+  // })
 
   useEffect(() => {
     const cards = async () => {
@@ -36,20 +37,19 @@ const ProfileCards = ({
     }
     cards()
   }, [])
-  useEffect(() => {
-    const allies = async () => {
-      const docRef = doc(dbservice, `members/${user.uid}`)
-      const myDocSnap = await getDoc(docRef)
-      const {followerNum, followingNum, followers, followings} = myDocSnap.data()
-      setAllies({
-        followers: {number: followerNum || 0, list: followers || []},
-        followings: {number: followingNum || 0, list: followings || []}
-      })
-    }
-    allies()
-  }, [])
-  console.log(cards.borrowDone)
-  console.log(cards.lendDone)
+  // useEffect(() => {
+  //   const allies = async () => {
+  //     const docRef = doc(dbservice, `members/${user.uid}`)
+  //     const myDocSnap = await getDoc(docRef)
+  //     const {followerNum, followingNum, followers, followings} = myDocSnap.data()
+  //     setAllies({
+  //       followers: {number: followerNum || 0, list: followers || []},
+  //       followings: {number: followingNum || 0, list: followings || []}
+  //     })
+  //   }
+  //   allies()
+  // }, [])
+  
   const actions = [
     { action: 'borrow', number: cards.borrowDone.length,
       fill: 'red'},

@@ -37,13 +37,15 @@ const Header = ({ userObj }: Props) => {
     // const storageRef = ref(storage, 'screen.jpg'); 
 
     useEffect(() => {
-        getDownloadURL(ref(storage, 'screen.jpg'))
-        .then((url) => {
-            handleAvatarImage(url)
-        })
-        .catch((error) => {
-            console.log(error)
-        });
+        if (userObj.displayName === 'screen') {
+            getDownloadURL(ref(storage, 'screen.jpg'))
+            .then((url) => {
+                handleAvatarImage(url)
+            })
+            .catch((error) => {
+                console.log(error)
+            });
+        }
     }, [])
     
     useEffect(() => {
@@ -63,7 +65,7 @@ const Header = ({ userObj }: Props) => {
                 <div className='flex justify-between w-screen'>
                     <div className='px-5 pt-1'>
                         {userObj ?
-                            <Avatar alt={userObj?.displayName} sx={{ bgcolor: avatarColor || blue[500] }} src={avatarImage || undefined} onClick={() => {
+                            <Avatar alt={userObj?.displayName} sx={{ bgcolor: avatarColor || blue[500] }} src={avatarImage || './src'} onClick={() => {
                                 handleSideNavigation()
                             }} variant="rounded" />
                             :
