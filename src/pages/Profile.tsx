@@ -64,9 +64,9 @@ function Profile({ userObj }: Props) {
         followers: {number: followerNum || 0, list: followers || []},
         followings: {number: followingNum || 0, list: followings || []}
       }
-      console.log(alliesObj)
       // handleFollowers(alliesObj.followers)
       // handleFollowings(alliesObj.followings)
+      console.log(alliesObj)
       console.log(state.element.uid)
     }
     bringAllies()
