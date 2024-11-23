@@ -54,7 +54,7 @@ const Actions = ({ userObj }: {
       {state.actions === 'completedLend' &&
         <div className='flex justify-center flex-wrap'>
           {messagesList.map((element) => {
-            if (element.text.choose === 2) {
+            if (element.text.choose === 2 && element.round === 5) {
               return <Message key={element.id} msgObj={element} isOwner={element.creatorId === userObj.uid} userObj={userObj} />
             }
           })}
@@ -65,7 +65,7 @@ const Actions = ({ userObj }: {
       {state.actions === 'completedBorrow' &&
         <div className='flex justify-center flex-wrap'>
           {messagesList.map((element) => {
-            if (element.text.choose === 1) {
+            if (element.text.choose === 1 && element.round === 5) {
               return <Message key={element.id} msgObj={element} isOwner={element.creatorId === userObj.uid} userObj={userObj} />
             }
           })}

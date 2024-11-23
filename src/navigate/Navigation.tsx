@@ -90,7 +90,7 @@ function Navigation({ userObj, sideNavigation, handleSideNavigation }: Props) {
                   onClick={() => checkbox()}
                 >
                   <span className='px-3'><InboxIcon /></span>
-                  {userObj.displayName} 프로필
+                  내 프로필
                 </Link>
               </h1>
               <h1 className='text-2xl	px-5'>
@@ -99,7 +99,7 @@ function Navigation({ userObj, sideNavigation, handleSideNavigation }: Props) {
               </h1>
               <h1 className='text-2xl px-5'>
                 <span className='px-3'><WorkIcon /></span>
-                <Link to='/piazza' onClick={() => checkbox()}>단체방</Link>
+                <Link to='/piazza' onClick={() => checkbox()}>단체 대화방</Link>
               </h1>
               <h1 className='text-2xl	px-5'>
                 <span className='px-3'><ImageIcon /></span>

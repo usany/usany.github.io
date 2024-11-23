@@ -165,7 +165,7 @@ const ProfileCards = ({
                   // borrowMessage: borrowMessage
                 }}
               >
-              <div>
+              <div className='p-5'>
                 <div>완료된 빌리기</div>
                 <div className='flex justify-center'>{cards.borrowDone.length}회</div>
               </div>
@@ -211,7 +211,7 @@ const ProfileCards = ({
                           y={(viewBox.cy || 0) + 24}
                           className="fill-muted-foreground"
                         >
-                          Actions
+                          활동 횟수
                         </tspan>
                       </text>
                     )

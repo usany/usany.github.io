@@ -76,7 +76,7 @@ const AvatarDialogs = ({ userObj, profileDialog, attachment, changeAttachment, h
                 </div>
                 <div className='flex'>
                     <Avatar alt={userObj.displayName} sx={{ fontSize:'100px', width: '200px', height: '200px', bgcolor: selectedColor }} src={attachmentFile || './src'} onClick={() => {
-                    }} />
+                    }} variant='rounded' />
                     <div className='flex-col px-5 content-center'>
                         {/* <div className='flex'>
                         </div> */}

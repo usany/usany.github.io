@@ -78,7 +78,7 @@ function Profile({ userObj }: Props) {
 
   return (
     <div>
-      <PageTitle title={`${state.element.displayName} 프로필`}/>
+      <PageTitle title={'내 프로필'}/>
       <ProfileAvatar userObj={userObj} user={state.element} handleProfileDialog={() => setProfileDialog(true)} attachment={attachment} profileColor={profileColor} />
       <AvatarDialogs userObj={userObj} profileDialog={profileDialog} attachment={attachment} changeAttachment={(newState) => setAttachment(newState)}  handleClose={handleClose} />
       <ProfileActions userObj={userObj} user={state.element} />

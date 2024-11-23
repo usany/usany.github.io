@@ -17,7 +17,7 @@ const ProfileAvatar = ({ userObj, user, handleProfileDialog, attachment, profile
                 <BeachAccess />
               </button>
             }>
-              <Avatar alt={userObj.displayName} sx={{ fontSize:'100px', width: '200px', height: '200px', bgcolor: profileColor }} src={attachment || './src'} />
+              <Avatar alt={userObj.displayName} sx={{ fontSize:'100px', width: '200px', height: '200px', bgcolor: profileColor }} src={attachment || './src'} variant='rounded' />
             </Badge>
           :
             <Avatar alt={user.displayName} sx={{ fontSize:'100px', width: '200px', height: '200px', bgcolor: user?.profileColor || blue[500] }} src='./src'/>
