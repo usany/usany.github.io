@@ -5,6 +5,7 @@ import Message from 'src/pages/Message'
 import { getToken } from "firebase/messaging";
 import MessageStacks from 'src/muiComponents/MessageStacks'
 import ChattingStacks from 'src/muiComponents/ChattingStacks'
+import PageTitle from 'src/muiComponents/PageTitle'
 import { useCardAccordionStore, useMessageAccordionStore, usePiazzaSwitchStore, useThemeStore } from 'src/store'
 import {
     Accordion,
@@ -108,9 +109,10 @@ function Menu({ userObj }: Props) {
             {/* <div className='flex justify-center border border-sky-500'>
                 내 상태
             </div> */}
-            <div className='flex justify-start text-2xl p-5'>
+            {/* <div className='flex justify-start text-2xl p-5'>
                 내 상태
-            </div>
+            </div> */}
+            <PageTitle title={'내 상태'}/>
             <Accordion 
                 // defaultValue={[accordions.cards, accordions.messages]}
                 value={[accordions.cards, accordions.messages]}

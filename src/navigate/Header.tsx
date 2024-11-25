@@ -13,6 +13,8 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormGroup from '@mui/material/FormGroup';
 import Divider from '@mui/material/Divider';
 import { Link } from 'react-router-dom'
+import { CreditCard } from 'lucide-react';
+import { MessageCircle } from "lucide-react"
 
 interface Props {
     userObj: {uid: string, displayName: string} | null
@@ -37,7 +39,7 @@ const Header = ({ userObj }: Props) => {
     // const storageRef = ref(storage, 'screen.jpg'); 
 
     useEffect(() => {
-        if (userObj.displayName === 'screen') {
+        if (userObj?.displayName === 'screen') {
             getDownloadURL(ref(storage, 'screen.jpg'))
             .then((url) => {
                 handleAvatarImage(url)
@@ -89,7 +91,8 @@ const Header = ({ userObj }: Props) => {
                                                     onClick={handleCardAccordion}
                                                 />
                                             } 
-                                            label="카드" 
+                                            // label="카드" 
+                                            label={<CreditCard/>} 
                                         />
                                         <Divider sx={{width: '100%'}} />
                                     </div>
@@ -102,7 +105,8 @@ const Header = ({ userObj }: Props) => {
                                                     onClick={handleMessageAccordion}
                                                 />
                                             } 
-                                            label="메세지" 
+                                            // label="메세지" 
+                                            label={<MessageCircle/>} 
                                         />
                                         <Divider sx={{width: '100%'}} />
                                     </div>

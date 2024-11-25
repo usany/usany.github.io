@@ -41,23 +41,47 @@ function Profile({ userObj }: Props) {
   const handleBottomNavigation = useBottomNavigationStore((state) => state.handleBottomNavigation)
   const [allies, setAllies] = useState({
     followers: {
-      number: null,
-      list: null
+      number: 0,
+      list: []
     },
     followings: {
-      number: null,
-      list: null
+      number: 0,
+      list: []
     }
   })
+  const [alliesCollection, setAlliesCollection] = useImmer([
+    {
+      id: 'followers',
+      list: []
+    },
+    {
+      id: 'followings',
+      list: []
+    }
+  ])
   const handleFollowers = ({ number, list }) => {
     setAllies({followers: {number: number, list: list}, followings: allies.followings})
+    setAlliesCollection((draft) => {
+      const followers = draft.find((todo) => todo.id === 'followers');
+      followers.list = list
+    })
   }
   const handleFollowings = ({ number, list }) => {
     setAllies({...allies, followings: {number: number, list: list}})
+    setAlliesCollection((draft) => {
+      const followings = draft.find((todo) => todo.id === 'followings');
+      followings.list = list
+    })
   }
+  console.log(alliesCollection)
   useEffect(() => {
     const bringAllies = async () => {
-      const docRef = doc(dbservice, `members/${state.element.uid}`)
+      let docRef
+      if (userObj.uid === state.element.uid) {
+        docRef = doc(dbservice, `members/${userObj.uid}`)
+      } else {
+        docRef = doc(dbservice, `members/${state.element.uid}`)
+      }
       const myDocSnap = await getDoc(docRef)
       const {followerNum, followingNum, followers, followings} = myDocSnap.data()
       const alliesObj = {
@@ -68,9 +92,11 @@ function Profile({ userObj }: Props) {
       // handleFollowings(alliesObj.followings)
       console.log(alliesObj)
       console.log(state.element.uid)
+      setAllies(alliesObj)
     }
     bringAllies()
-  }, [allies])
+  }, [])
+  console.log(state.element)
   console.log(allies)
   useEffect(() => {
     if (userObj.displayName === 'screen') {

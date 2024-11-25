@@ -12,7 +12,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion"
-import { Check } from "lucide-react"
+import { MessageCircle } from "lucide-react"
 import { Label, Pie, PieChart } from "recharts"
 import {
   ChartConfig,
