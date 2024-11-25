@@ -5,6 +5,8 @@ import Auth from 'src/pages/Auth'
 import Add from 'src/pages/Add'
 import { SwipeableViews } from "src/navigate/SwipeableViews";
 import { useBottomNavigationStore, useTabsStore } from 'src/store'
+import { collection, query, QuerySnapshot, where, orderBy, addDoc, setDoc, getDoc, getDocs, doc, onSnapshot, deleteDoc, updateDoc, limit } from 'firebase/firestore';
+import { auth, dbservice } from 'src/baseApi/serverbase'
 
 interface Props {
     userObj: {uid: string, displayName: string} | null
@@ -25,7 +27,29 @@ function Home({ userObj }: Props) {
             handleBottomNavigation(1)
         }
     }, [])
-    
+
+    useEffect(() => {
+        const userSetting = async () => {
+            const userRef = doc(dbservice, `members/${userObj.uid}`)
+            const userSnap = await getDoc(userRef)
+            const user = userSnap.data()
+            if (!user) {
+                await setDoc(doc(dbservice, 'members', `${userObj.uid}`), {
+                    uid: userObj.uid,
+                    displayName: userObj.displayName,
+                    points: 0,
+                    profileColor: '#2196f3',
+                    profileImage: null,
+                    followerNum: 0,
+                    followingNum: 0,
+                    followers: [],
+                    followings: [],
+                    messagingToken: null
+                })
+            }
+        }
+        userSetting()
+    }, [])
     return (
         <div>
             {userObj ? 
