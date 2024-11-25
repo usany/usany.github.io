@@ -41,7 +41,7 @@ const Header = ({ userObj }: Props) => {
     // const storageRef = ref(storage, 'screen.jpg'); 
 
     useEffect(() => {
-        getDownloadURL(ref(storage, `${userObj.uid}`))
+        getDownloadURL(ref(storage, `${userObj?.uid}`))
         .then((url) => {
             handleAvatarImage(url)
         })
