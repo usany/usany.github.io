@@ -54,7 +54,7 @@ const Header = ({ userObj }: Props) => {
         const setAvatarColor = async () => {
             const docRef = doc(dbservice, `members/${userObj?.uid}`)
             const docSnap = await getDoc(docRef)
-            const userColor = docSnap.data()?.avatarColor || '#2196f3'
+            const userColor = docSnap.data()?.profileColor || '#2196f3'
             handleAvatarColor(userColor)
         }
         setAvatarColor()

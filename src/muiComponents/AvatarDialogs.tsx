@@ -73,12 +73,10 @@ const AvatarDialogs = ({ userObj, profileDialog, attachment, changeAttachment, h
         }
     }, [])
     useEffect(() => {
-        if (avatarImage) {
-            console.log(attachment)
-            setAttachmentFile(avatarImage)
-        }
-    }, [])
-
+        setAttachmentFile(avatarImage)
+        changeAttachment(avatarImage)
+    }, [avatarImage])
+    
     const onFileChange = (event) => {
         const {
             target: { files },
@@ -185,10 +183,12 @@ const AvatarDialogs = ({ userObj, profileDialog, attachment, changeAttachment, h
             <Button variant='outlined' onClick={() => {
                 handleClose()
                 changeAttachment(attachmentFile)
-                onClick()
+                onClick()        
+                handleAvatarColor(selectedColor)
             }}>저장</Button>
             <Button variant='outlined' onClick={() => {
                 handleClose()
+                setOnClear(false)
                 setSelectedColor(avatarColor)
                 setAttachmentFile(attachment)
                 handleAvatarImage(attachment)

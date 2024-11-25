@@ -23,12 +23,15 @@ function Navigation({ userObj, sideNavigation, handleSideNavigation }: Props) {
   const [backgroundColor, setBackgroundColor] = useState<string>('#e2e8f0');
   const [points, setPoints] = useState<number>(0)
   const theme = useThemeStore((state) => state.theme)
+  const [profileColor, setProfileColor] = useState<string>('');
   
   useEffect(() => {
     if (userObj) {
       onSnapshot(doc(dbservice, `members/${userObj.uid}`), (snapshot) => {
         const number = snapshot.data()?.points
         setPoints(number)
+        const profileColor = snapshot.data()?.profileColor
+        setProfileColor(profileColor)
       })
     }
   }, [])
@@ -53,6 +56,7 @@ function Navigation({ userObj, sideNavigation, handleSideNavigation }: Props) {
   const element = {
     uid: userObj?.uid,
     displayName: userObj?.displayName,
+    profileColor: profileColor
   }
   return (
     <SwipeableDrawer

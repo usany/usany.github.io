@@ -136,7 +136,7 @@ function Profile({ userObj }: Props) {
   //   },
   // } satisfies ChartConfig
   // const totalNumber = actions.reduce((acc, curr) => acc + curr.number, 0)
-
+  
   return (
     <div>
       <PageTitle title={`${state.element.displayName} 프로필`}/>
