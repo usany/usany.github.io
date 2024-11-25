@@ -15,6 +15,8 @@ import Divider from '@mui/material/Divider';
 import { Link } from 'react-router-dom'
 import { CreditCard } from 'lucide-react';
 import { MessageCircle } from "lucide-react"
+import { Minimize2 } from 'lucide-react';
+import { Maximize2 } from 'lucide-react';
 
 interface Props {
     userObj: {uid: string, displayName: string} | null
@@ -39,15 +41,13 @@ const Header = ({ userObj }: Props) => {
     // const storageRef = ref(storage, 'screen.jpg'); 
 
     useEffect(() => {
-        if (userObj?.displayName === 'screen') {
-            getDownloadURL(ref(storage, 'screen.jpg'))
-            .then((url) => {
-                handleAvatarImage(url)
-            })
-            .catch((error) => {
-                console.log(error)
-            });
-        }
+        getDownloadURL(ref(storage, `${userObj.uid}`))
+        .then((url) => {
+            handleAvatarImage(url)
+        })
+        .catch((error) => {
+            console.log(error)
+        });
     }, [])
     
     useEffect(() => {
@@ -59,7 +59,7 @@ const Header = ({ userObj }: Props) => {
         }
         setAvatarColor()
     }, [])
-
+    console.log(avatarImage)
     return (
         <div className='flex flex-row'>
             <div id='navigationSelectorOne' className='pt-1'>

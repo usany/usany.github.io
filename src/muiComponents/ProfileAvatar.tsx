@@ -4,8 +4,10 @@ import Badge from '@mui/material/Badge';
 import Avatar from '@mui/material/Avatar';
 import BeachAccess from '@mui/icons-material/BeachAccess'
 import { blue } from '@mui/material/colors';
+import { useAvatarColorStore, useAvatarImageStore } from 'src/store'
 
 const ProfileAvatar = ({ userObj, user, handleProfileDialog, attachment, profileColor }) => {
+    const avatarImage = useAvatarImageStore((state) => state.avatarImage)
     return (
         <div className='flex justify-center'>
           {user.uid === userObj.uid ? 
@@ -17,7 +19,7 @@ const ProfileAvatar = ({ userObj, user, handleProfileDialog, attachment, profile
                 <BeachAccess />
               </button>
             }>
-              <Avatar alt={userObj.displayName} sx={{ fontSize:'100px', width: '200px', height: '200px', bgcolor: profileColor || blue[500] }} src={attachment || './src'} variant='rounded' />
+              <Avatar alt={userObj.displayName} sx={{ fontSize:'100px', width: '200px', height: '200px', bgcolor: profileColor || blue[500] }} src={avatarImage || './src'} variant='rounded' />
             </Badge>
           :
             <Avatar alt={user.displayName} sx={{ fontSize:'100px', width: '200px', height: '200px', bgcolor: user?.profileColor || blue[500] }} src='./src' variant='rounded'/>

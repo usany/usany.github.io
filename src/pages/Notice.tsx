@@ -8,6 +8,8 @@ import { useTabsStore } from 'src/store'
 import { createPortal } from 'react-dom'
 import { Root, Overlay, Description } from "@radix-ui/react-dialog";
 import { useImmer } from 'use-immer'
+import { Filter } from 'lucide-react';
+
 interface Props {
     userObj: {uid: string, displayName: string} | null
     borrow: boolean
@@ -92,7 +94,8 @@ function Notice({ userObj, borrow }: Props) {
         <div className='flex justify-start text-2xl w-screen'>
             <div className='flex w-5/6'>{borrow ? '빌리기' : '빌려주기'} 카드 목록</div>
             <div className='flex w-screen justify-end px-10' onClick={handleClickChangeFilter}>
-                <Settings onClick={handleClickChangeFilter}/>
+                {/* <Settings onClick={handleClickChangeFilter}/> */}
+                <Filter onClick={handleClickChangeFilter}/>
             </div>
         </div>
         {/* {borrow ?

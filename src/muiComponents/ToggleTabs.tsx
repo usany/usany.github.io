@@ -4,6 +4,8 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import { useTabsStore } from 'src/store'
+import { Minimize2 } from 'lucide-react';
+import { Maximize2 } from 'lucide-react';
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -74,8 +76,8 @@ export default function ToggleTabs() {
         <Tabs
           value={tabs} onChange={handleChange} aria-label="basic tabs example"
         >
-          <Tab label="빌리기" {...a11yProps(0)} />
-          <Tab label="빌려주기" {...a11yProps(1)} />
+          <Tab label={<Minimize2 />} {...a11yProps(0)} />
+          <Tab label={<Maximize2 />} {...a11yProps(1)} />
         </Tabs>
         {/* {valuing<2 &&
         } */}
