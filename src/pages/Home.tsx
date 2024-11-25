@@ -34,7 +34,7 @@ function Home({ userObj }: Props) {
             const userSnap = await getDoc(userRef)
             const user = userSnap.data()
             if (!user) {
-                await setDoc(doc(dbservice, 'members', `${userObj.uid}`), {
+                await setDoc(userRef, {
                     uid: userObj.uid,
                     displayName: userObj.displayName,
                     points: 0,
