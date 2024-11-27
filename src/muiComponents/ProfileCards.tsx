@@ -36,7 +36,7 @@ const ProfileCards = ({
       setCards({point: points, done: done, borrowDone: borrowDoneCount || [], lendDone: lendDoneCount || [] })
     }
     cards()
-  }, [])
+  }, [user])
   // useEffect(() => {
   //   const allies = async () => {
   //     const docRef = doc(dbservice, `members/${user.uid}`)
@@ -49,8 +49,12 @@ const ProfileCards = ({
   //   }
   //   allies()
   // }, [])
-  
+  console.log(cards)
   const actions = [
+    // { action: 'borrow', number: cards.borrowDone.length,
+    //   fill: 'red'},
+    // { action: 'lend', number: cards.lendDone.length,
+    //   fill: 'blue'},
     { action: 'borrow', number: cards.borrowDone.length,
       fill: 'red'},
     { action: 'lend', number: cards.lendDone.length,
@@ -175,7 +179,7 @@ const ProfileCards = ({
         </div>
         <ChartContainer
           config={labels}
-          // className="mx-auto aspect-square max-h-[250px]"
+          className="aspect-square max-h-[250px]"
         >
           <PieChart>
             <ChartTooltip

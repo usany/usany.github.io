@@ -7,6 +7,8 @@ import { SwipeableViews } from "src/navigate/SwipeableViews";
 import { useBottomNavigationStore, useTabsStore } from 'src/store'
 import { collection, query, QuerySnapshot, where, orderBy, addDoc, setDoc, getDoc, getDocs, doc, onSnapshot, deleteDoc, updateDoc, limit } from 'firebase/firestore';
 import { auth, dbservice } from 'src/baseApi/serverbase'
+import { storage } from "src/baseApi/serverbase";
+import { getStorage, ref, uploadBytes, uploadString, uploadBytesResumable, getDownloadURL,  } from "firebase/storage";
 
 interface Props {
     userObj: {uid: string, displayName: string} | null
@@ -46,6 +48,10 @@ function Home({ userObj }: Props) {
                     followings: [],
                     messagingToken: null
                 })
+                const storageRef = ref(storage, userObj.uid);
+                uploadString(storageRef, 'null', 'raw').then((snapshot) => {
+                    console.log('Uploaded a blob or file!');
+                });
             }
         }
         userSetting()

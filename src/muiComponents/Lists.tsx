@@ -9,9 +9,12 @@ import { blue } from '@mui/material/colors';
 import CommentIcon from '@mui/icons-material/Comment';
 import IconButton from '@mui/material/IconButton';
 import { Link } from 'react-router-dom'
+import { useAvatarColorStore, useAvatarImageStore } from 'src/store'
+import { storage } from "src/baseApi/serverbase";
+import { getStorage, ref, uploadBytes, uploadString, uploadBytesResumable, getDownloadURL,  } from "firebase/storage";
 
-function Lists({ elements, profileImage, multiple, userSearch }) {
-  
+function Lists({ elements, multiple, userSearch, loadedImage, loadedImageIndex }) {
+  const avatarImage = useAvatarImageStore((state) => state.avatarImage)
   return (
     <div>
       {!userSearch &&
@@ -34,6 +37,7 @@ function Lists({ elements, profileImage, multiple, userSearch }) {
       // maxWidth: 360,
       bgcolor: 'background.paper' }}>
       {elements.map((element, index) => {
+        // console.log(element.profileImage)
         let userNameConfirm = true
         if (userSearch) {
           for (let number = 0; number < userSearch.length; number++) {
@@ -54,11 +58,16 @@ function Lists({ elements, profileImage, multiple, userSearch }) {
                 </div>
                 :
                 <div className='flex flex-col justify-center px-5'>
-                    {index+1}
-                  </div>
+                  {index+1}
+                </div>
                 }
                 <ListItemAvatar>
-                  <Avatar alt={element.displayName} sx={{ bgcolor: element.profileColor || blue[500] }} src='./src' variant="rounded" />
+                  {
+                    multiple ?
+                    <Avatar alt={element.displayName} sx={{ bgcolor: element.profileColor || blue[500] }} src={element?.profileImageUrl || './src'} variant="rounded" />
+                    :
+                    <Avatar alt={element.displayName} sx={{ bgcolor: element.profileColor || blue[500] }} src={element?.profileImageUrl || './src'} variant="rounded" />                  
+                  }
                 </ListItemAvatar>
                 <div className='flex flex-col overflow-hidden'>
                   <div className='overflow-hidden'>

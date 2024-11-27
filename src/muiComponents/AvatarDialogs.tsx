@@ -4,7 +4,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import Button from '@mui/material/Button';
 import Avatar from '@mui/material/Avatar';
-import { doc, deleteDoc, updateDoc } from 'firebase/firestore';
+import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnapshot, updateDoc, setDoc } from 'firebase/firestore';
 import { auth, dbservice } from 'src/baseApi/serverbase'
 import { storage } from "src/baseApi/serverbase";
 import { getStorage, ref, uploadBytes, uploadString, uploadBytesResumable, getDownloadURL,  } from "firebase/storage";
@@ -31,7 +31,10 @@ const AvatarDialogs = ({ userObj, profileDialog, attachment, changeAttachment, h
             uploadString(storageRef, attachmentFile, 'data_url').then((snapshot) => {
                 console.log('Uploaded a blob or file!');
             });
-            changeAttachment(attachmentFile)
+            const docRef = doc(dbservice, `members/${userObj?.uid}`)
+            updateDoc(docRef, {profileImageUrl: attachmentFile});
+                                                                
+            // changeAttachment(attachmentFile)
             // if (attachmentFile === 'null') {
             //     handleAvatarImage(null)
             // } else {
@@ -62,6 +65,8 @@ const AvatarDialogs = ({ userObj, profileDialog, attachment, changeAttachment, h
             uploadString(storageRef, 'null', 'raw').then((snapshot) => {
                 console.log('Uploaded a blob or file!');
             });
+            const docRef = doc(dbservice, `members/${userObj?.uid}`)
+            updateDoc(docRef, {profileImageUrl: attachmentFile});
         }
     }
     const switchColor = (newColor) => {
@@ -74,7 +79,7 @@ const AvatarDialogs = ({ userObj, profileDialog, attachment, changeAttachment, h
     }, [])
     useEffect(() => {
         setAttachmentFile(avatarImage)
-        changeAttachment(avatarImage)
+        // changeAttachment(avatarImage)
     }, [avatarImage])
     
     const onFileChange = (event) => {
@@ -113,7 +118,6 @@ const AvatarDialogs = ({ userObj, profileDialog, attachment, changeAttachment, h
     
       }
       const onClearAttachment = () => {
-        changeAttachment(null)
         setAttachmentFile(null)
         setOnClear(true)
         const fileInput = document.getElementById('file') || {value:null}
@@ -188,10 +192,13 @@ const AvatarDialogs = ({ userObj, profileDialog, attachment, changeAttachment, h
             }}>저장</Button>
             <Button variant='outlined' onClick={() => {
                 handleClose()
+                if (onClear) {
+                    setAttachmentFile(avatarImage)
+                }
                 setOnClear(false)
                 setSelectedColor(avatarColor)
-                setAttachmentFile(attachment)
-                handleAvatarImage(attachment)
+                // setAttachmentFile(attachment)
+                // handleAvatarImage(attachment)
             }} autoFocus>
                 닫기
             </Button>

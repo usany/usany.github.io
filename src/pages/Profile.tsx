@@ -95,20 +95,20 @@ function Profile({ userObj }: Props) {
       setAllies(alliesObj)
     }
     bringAllies()
-  }, [])
+  }, [state])
   console.log(state.element)
   console.log(allies)
-  useEffect(() => {
-    if (userObj.displayName === 'screen') {
-      getDownloadURL(ref(storage, 'screen.jpg'))
-      .then((url) => {
-        setAttachment(url)
-      })
-      .catch((error) => {
-        console.log(error)
-      });
-    }
-  }, [])
+  // useEffect(() => {
+  //   if (userObj.displayName === 'screen') {
+  //     getDownloadURL(ref(storage, 'screen.jpg'))
+  //     .then((url) => {
+  //       setAttachment(url)
+  //     })
+  //     .catch((error) => {
+  //       console.log(error)
+  //     });
+  //   }
+  // }, [])
   
   useEffect(() => {
     handleBottomNavigation(5)
@@ -136,7 +136,7 @@ function Profile({ userObj }: Props) {
   //   },
   // } satisfies ChartConfig
   // const totalNumber = actions.reduce((acc, curr) => acc + curr.number, 0)
-  
+  console.log(state)
   return (
     <div>
       <PageTitle title={`${state.element.displayName} 프로필`}/>

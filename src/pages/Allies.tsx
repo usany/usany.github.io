@@ -82,7 +82,7 @@ function Allies() {
                       </div>
                       <div>
                         <IconButton aria-label="comment">
-                          <Link to='/'
+                          <Link to='/profile'
                             state = {{
                               element: element,
                             }}
@@ -121,7 +121,7 @@ function Allies() {
                       </div>
                       <div>
                         <IconButton aria-label="comment">
-                          <Link to='/'
+                          <Link to='/profile'
                             state = {{
                               element: element,
                             }}

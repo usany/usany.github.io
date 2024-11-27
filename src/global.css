@@ -8,11 +8,6 @@
 .SwipeableViews {
   scrollbar-width: none;
 }
-.weatherView {
-	white-space: nowrap;
-	overflow: hidden;
-	/* text-overflow: ellipsis; */
-}
 
 body {
   font-family: maruburi;

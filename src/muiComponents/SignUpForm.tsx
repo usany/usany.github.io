@@ -5,6 +5,8 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import { doc, setDoc } from 'firebase/firestore';
 import { connectStorageEmulator } from 'firebase/storage';
+import { storage } from "src/baseApi/serverbase";
+import { getStorage, ref, uploadBytes, uploadString, uploadBytesResumable, getDownloadURL,  } from "firebase/storage";
 
 interface Props {
   handleClose: () => void
@@ -42,6 +44,11 @@ const SignUpForm = ({ handleClose }: Props) => {
       }).catch((error) => {
         console.log('error')
       })
+      
+      const storageRef = ref(storage, data.user.uid);
+      uploadString(storageRef, 'null', 'raw').then((snapshot) => {
+          console.log('Uploaded a blob or file!');
+      });
       // if (newAccount.account) {
       // } else {
       // }

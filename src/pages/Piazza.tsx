@@ -4,8 +4,10 @@ import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnap
 import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
 import PiazzaDialogs from 'src/muiComponents/PiazzaDialogs'
 import PiazzaSwitch from 'src/muiComponents/PiazzaSwitch'
-import { useBottomNavigationStore, usePiazzaSwitchStore } from 'src/store'
+import { useBottomNavigationStore, usePiazzaSwitchStore, useAvatarColorStore, useAvatarImageStore } from 'src/store'
 import { webSocket, onClick } from 'src/webSocket.tsx'
+import Avatar from '@mui/material/Avatar';
+import { blue } from '@mui/material/colors';
 
 function Piazza({ userObj }:
   {
@@ -20,7 +22,9 @@ function Piazza({ userObj }:
   const [user, setUser] = useState(null)
   const [selectUser, setSelectUser] = useState(false)
   const handleBottomNavigation = useBottomNavigationStore((state) => state.handleBottomNavigation)
-  
+  const avatarColor = useAvatarColorStore((state) => state.avatarColor)
+  const avatarImage = useAvatarImageStore((state) => state.avatarImage)
+  const [displayedName, setDisplayedName] = useState(null)
   useEffect(() => {
     if (!webSocket) return;
     function sMessageCallback(message) {
@@ -72,7 +76,7 @@ function Piazza({ userObj }:
   })
 
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    messagesEndRef.current?.scrollIntoView();
   };
 
   const onSendSubmitHandler = (e) => {
@@ -113,12 +117,13 @@ function Piazza({ userObj }:
     setMsg(e.target.value);
   };
 
-  const onSetPrivateTarget = async (userUid) => {
+  const onSetPrivateTarget = async ({ userUid, displayName }) => {
     const userRef = doc(dbservice, `members/${userUid}`)
     const userDoc = await getDoc(userRef)
     const userElement = userDoc.data()
     setUser(userElement)
     setSelectUser(true)
+    setDisplayedName(displayName)
   };
   
   const handleClose = () => {
@@ -132,15 +137,18 @@ function Piazza({ userObj }:
       const userName = userObj.displayName
       const messageClock = new Date().toString()
       const messageClockNumber = Date.now()
-      if (message){
+      const profileImageUrl = avatarImage
+      console.log(profileImageUrl)
+      if (message) {
         await addDoc(collection(dbservice, 'chats_group'), {
           userUid: userUid,
           userName: userName,
           message: message,
           messageClock: messageClock,
-          messageClockNumber: messageClockNumber 
+          messageClockNumber: messageClockNumber,
+          profileImageUrl: profileImageUrl
         })
-        setMsgList((prev) => [...prev, { msg: message, type: "me", userUid: userObj.uid, id: userObj.displayName, messageClock: messageClock, conversation: null }]);
+        setMsgList((prev) => [...prev, { msg: message, type: "me", userUid: userObj.uid, id: userObj.displayName, messageClock: messageClock, conversation: null, profileImageUrl: profileImageUrl }]);
       }
     } catch (error) {
       console.log(error)
@@ -159,7 +167,9 @@ function Piazza({ userObj }:
         const userName = doc.data().userName
         const messageClock = doc.data().messageClock
         const messageClockNumber = doc.data().messageClockNumber
-        messagesArray.push({ msg: message, type: "me", userUid: userUid, id: userName, messageClockNumber: messageClockNumber, messageClock: messageClock, conversation: null })
+        const profileColor = doc.data()?.profileColor
+        const profileImageUrl = doc.data()?.profileImageUrl
+        messagesArray.push({ msg: message, type: "me", userUid: userUid, id: userName, messageClockNumber: messageClockNumber, messageClock: messageClock, conversation: null, profileColor: profileColor, profileImageUrl: profileImageUrl })
         setMsgList(messagesArray);
       });
     }
@@ -177,7 +187,7 @@ function Piazza({ userObj }:
   //     setPiazzaSwitches('true')
   //   }
   // }
-  
+  console.log(msgList)
   return (
     <div>
       <div className='flex text-2xl p-5'>
@@ -217,8 +227,11 @@ function Piazza({ userObj }:
                           key={`${i}_li`}
                           name={v.id}
                           data-id={v.id}
-                          onClick={() => onSetPrivateTarget(v.userUid)}
+                          onClick={() => onSetPrivateTarget({userUid: v.userUid, displayName: v.id})}
                         >
+                          <div className={`flex justify-${v.userUid !== userObj.uid ? 'start' : 'end'}`}>
+                            <Avatar alt={v.id} sx={{ bgcolor: v.profileColor || blue[500] }} src={v.profileImageUrl || './src'} variant="rounded" />
+                          </div>
                           <div
                             className={
                               v.id === privateTarget ? "private-user" : "userId"
@@ -265,7 +278,7 @@ function Piazza({ userObj }:
                 <button type="submit">전송</button>
               </form>
             </div>
-            <PiazzaDialogs selectUser={selectUser} user={user} handleClose={handleClose} userObj={userObj} handleMsgList={(newState: []) => setMsgList(newState)} handleChangeMessage={(newState: boolean) => setChangeMessage(newState)}/>
+            <PiazzaDialogs selectUser={selectUser} user={user} handleClose={handleClose} userObj={userObj} handleMsgList={(newState: []) => setMsgList(newState)} handleChangeMessage={(newState: boolean) => setChangeMessage(newState)} displayedName={displayedName}/>
         </div>
       </div>
     </div>

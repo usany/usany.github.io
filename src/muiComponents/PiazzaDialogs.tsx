@@ -4,8 +4,10 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom'
+import Avatar from '@mui/material/Avatar';
+import { blue } from '@mui/material/colors';
 
-const PiazzaDialogs = ({ selectUser, user, handleClose, userObj, handleMsgList, handleChangeMessage }) => {
+const PiazzaDialogs = ({ selectUser, user, handleClose, userObj, handleMsgList, handleChangeMessage, displayedName }) => {
     const [conversation, setConversation] = useState(null)
     useEffect(() => {
         if (selectUser) {
@@ -22,6 +24,11 @@ const PiazzaDialogs = ({ selectUser, user, handleClose, userObj, handleMsgList, 
                 <div>
                     {user?.displayName}
                 </div>
+                {user?.displayName !== displayedName &&
+                    <div>
+                        ({displayedName}에서 개명)
+                    </div>
+                }
             </DialogContent>
             <DialogActions>
             <Link to='/profile'
@@ -34,17 +41,17 @@ const PiazzaDialogs = ({ selectUser, user, handleClose, userObj, handleMsgList, 
                 </Button>
             </Link>
             {userObj.uid !== user?.uid && 
-            <Link to='/chatting' 
-            state={{conversation: conversation, displayName: user?.displayName, userUid: userObj.uid, chattingUid: user?.uid}}>
-                <Button variant='outlined' onClick={() => {
-                    handleMsgList([])
-                    handleChangeMessage(true)
-                    handleClose()
-                }}>
-                    개인 대화
-                </Button>
-            </Link>
-                }
+                <Link to='/chatting' 
+                state={{conversation: conversation, displayName: user?.displayName, userUid: userObj.uid, chattingUid: user?.uid}}>
+                    <Button variant='outlined' onClick={() => {
+                        handleMsgList([])
+                        handleChangeMessage(true)
+                        handleClose()
+                    }}>
+                        개인 대화
+                    </Button>
+                </Link>
+            }
             <Button variant='outlined' onClick={() => {
                 handleClose()
             }}>

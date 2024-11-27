@@ -22,11 +22,12 @@ const ProfileAvatar = ({ userObj, user, handleProfileDialog, attachment, profile
                 <BeachAccess />
               </button>
             }>
-              {userObj.uid === user.uid ?
+              <Avatar alt={userObj.displayName} sx={{ fontSize:'100px', width: '200px', height: '200px', bgcolor: avatarColor || blue[500] }} src={avatarImage || './src'} variant='rounded' />
+              {/* {userObj.uid === user.uid ?
                 <Avatar alt={userObj.displayName} sx={{ fontSize:'100px', width: '200px', height: '200px', bgcolor: avatarColor || blue[500] }} src={avatarImage || './src'} variant='rounded' />
                 :
                 <Avatar alt={userObj.displayName} sx={{ fontSize:'100px', width: '200px', height: '200px', bgcolor: user?.profileColor || blue[500] }} src={avatarImage || './src'} variant='rounded' />
-              }
+              } */}
             </Badge>
           :
             <Avatar alt={user.displayName} sx={{ fontSize:'100px', width: '200px', height: '200px', bgcolor: user?.profileColor || blue[500] }} src='./src' variant='rounded'/>

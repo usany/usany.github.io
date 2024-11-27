@@ -48,7 +48,7 @@ const Header = ({ userObj }: Props) => {
         .catch((error) => {
             console.log(error)
         });
-    }, [])
+    }, [userObj])
     
     useEffect(() => {
         const setAvatarColor = async () => {
@@ -58,7 +58,7 @@ const Header = ({ userObj }: Props) => {
             handleAvatarColor(userColor)
         }
         setAvatarColor()
-    }, [])
+    }, [userObj])
     console.log(avatarImage)
     return (
         <div className='flex flex-row'>
