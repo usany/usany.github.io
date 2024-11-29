@@ -28,6 +28,16 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart"
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer"
 
 interface Props {
   userObj: {uid: string, displayName: string},
@@ -145,11 +155,27 @@ function Profile({ userObj }: Props) {
   console.log(state)
   return (
     <div>
+      <Drawer>
+  <DrawerTrigger>Open</DrawerTrigger>
+  <DrawerContent>
+    <DrawerHeader>
+      <DrawerTitle>Are you absolutely sure?</DrawerTitle>
+      <DrawerDescription>This action cannot be undone.</DrawerDescription>
+    </DrawerHeader>
+    <DrawerFooter>
+      {/* <button>Submit</button> */}
+      {/* <DrawerClose>
+        <button>Cancel</button>
+      </DrawerClose> */}
+    </DrawerFooter>
+  </DrawerContent>
+</Drawer>
       <PageTitle title={`${state.element.displayName} 프로필`}/>
       <ProfileAvatar userObj={userObj} user={state.element} handleProfileDialog={() => setProfileDialog(true)} attachment={attachment} profileColor={profileColor} />
       <AvatarDialogs userObj={userObj} profileDialog={profileDialog} attachment={attachment} changeAttachment={(newState) => setAttachment(newState)}  handleClose={handleClose} />
       <ProfileActions userObj={userObj} user={state.element} allies={allies} handleFollowers={handleFollowers} handleFollowings={handleFollowings}/>
       <ProfileCards user={state.element} allies={allies}/>
+
       {/* <ChartContainer
           config={labels}
           className="mx-auto aspect-square max-h-[250px]"

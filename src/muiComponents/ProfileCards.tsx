@@ -11,7 +11,17 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart"
-
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer"
+import Points from 'src/pages/Points'
 const ProfileCards = ({
   user,
   allies
@@ -80,6 +90,21 @@ const ProfileCards = ({
     <div className='flex justify-center'>
       <Card>
         <CardActionArea>
+        <Drawer>
+  <DrawerTrigger>Open</DrawerTrigger>
+  <DrawerContent className='max-h-[50%] overflow-y-scroll'>
+    <Points user={user} cards={cards}/>
+    <Points user={user} cards={cards}/>
+    <Points user={user} cards={cards}/>
+    <DrawerHeader>
+      <DrawerTitle>Are you absolutely sure?</DrawerTitle>
+      <DrawerDescription>This action cannot be undone.</DrawerDescription>
+    </DrawerHeader>
+    <DrawerFooter>
+      {/* <Points /> */}
+    </DrawerFooter>
+  </DrawerContent>
+</Drawer>
           <Link 
             to='/points'
             state={{

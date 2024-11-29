@@ -19,8 +19,9 @@ import CommentIcon from '@mui/icons-material/Comment';
 import IconButton from '@mui/material/IconButton';
 
 function Allies() {
-  const [followers, setFollowers] = useState([])
-  const [followings, setFollowings] = useState([])
+  // const [followers, setFollowers] = useState([])
+  // const [followings, setFollowings] = useState([])
+  const [elements, setElements] = useState([])
   const {state} = useLocation()
   const navigate = useNavigate()
  
@@ -28,88 +29,87 @@ function Allies() {
     usersCollection()
   }, [])
   const usersCollection = async () => {
-    const followersCollection = []
-    const followingsCollection = []
+    // const followersCollection = []
+    // const followingsCollection = []
+    const elementsCollection = []
     const collectionRef = collection(dbservice, 'members')
     const docs = await getDocs(query(collectionRef, orderBy('points', 'desc')))
     docs.forEach((element) => {
       if (state.alliesCollection.indexOf(element.data().uid) !== -1) {
-        followersCollection.push(element.data())
-        setFollowers(followersCollection)
+        elementsCollection.push(element.data())
+        setElements(elementsCollection)
       }
-      if (state.alliesCollection.indexOf(element.data().uid) !== -1) {
-        followingsCollection.push(element.data())
-        setFollowings(followingsCollection)
-      }
+      // if (state.alliesCollection.indexOf(element.data().uid) !== -1) {
+      //   elementsCollection.push(element.data())
+      //   setFollowings(followingsCollection)
+      // }
     })
   }
-  console.log(state.alliesCollection)
+  // const elements = state.followers ? followers : followings
   return (
     <div>
       <div className='flex text-2xl p-5'>
-          {state.followers &&
+        {state.user.displayName}의 {state.followers ? '팔로워' : '팔로잉'} 
+          {/* {state.followers &&
             <div>
-              {state.user.displayName}의 팔로워 
             </div>
           }
           {!state.followers &&
             <div>
               {state.user.displayName}의 팔로잉 
             </div>
-          }
+          } */}
       </div>
-      <List sx={{ width: '100%', 
+      <List sx={{ 
           bgcolor: 'background.paper' }}>
-        {state.followers &&
+        {/* {state.followers ?
           <div className='flex flex-col justify-center flex-wrap'>
             {followers?.map((element, index) => {
               return (
                 <div key={index} className='flex'>
-                    <ListItem>
-                      <div className='flex justify-between w-screen'>
-                      <div className='flex'>
-                        <ListItemAvatar>
-                          <Avatar alt={element.displayName} sx={{ bgcolor: element.profileColor || blue[500] }} src="./src" />
-                        </ListItemAvatar>
-                        <div className='flex flex-col overflow-hidden'>
-                          <div>
-                            {element.displayName}
-                          </div>
-                          <div>
-                            {element.points}
-                          </div>
+                  <div className='flex justify-between w-screen'>
+                    <div className='flex'>
+                      <ListItemAvatar>
+                        <Avatar alt={element.displayName} sx={{ bgcolor: element.profileColor || blue[500] }} src="./src" />
+                      </ListItemAvatar>
+                      <div className='flex flex-col overflow-hidden'>
+                        <div>
+                          {element.displayName}
+                        </div>
+                        <div>
+                          {element.points}
                         </div>
                       </div>
-                      <div>
-                        <IconButton aria-label="comment">
-                          <Link to='/profile'
-                            state = {{
-                              element: element,
-                            }}
-                          >
-                            <CommentIcon />
-                          </Link>
-                        </IconButton>
-                      </div>
-                      </div>
-                    </ListItem>
-                    <Divider variant="inset" component="li" />
+                    </div>
+                    <div>
+                      <IconButton aria-label="comment">
+                        <Link to='/profile'
+                          state = {{
+                            element: element,
+                          }}
+                        >
+                          <CommentIcon />
+                        </Link>
+                      </IconButton>
+                    </div>
                   </div>
+                  <Divider variant="inset" component="li" />
+                </div>
               )
             })}
           </div>
-        }
-        {!state.followers &&
+          : */}
           <div className='flex flex-col justify-center flex-wrap'>
-            {followings?.map((element, index) => {
+            {elements?.map((element, index) => {
               return (
-                <div key={index} className='flex'>
-                    <ListItem>
-                      <div className='flex justify-between w-screen px-5'>
-                      <div className='flex'>
+                <div key={index}>
+                  <div className='flex justify-between w-screen px-5'>
+                      <div>
                         <ListItemAvatar>
                           <Avatar alt={element.displayName} sx={{ bgcolor: element.profileColor || blue[500] }} src="./src" />
                         </ListItemAvatar>
+                      </div>
+                      <div>
                         <div className='flex flex-col overflow-hidden'>
                           <div>
                             {element.displayName}
@@ -130,18 +130,17 @@ function Allies() {
                           </Link>
                         </IconButton>
                       </div>
-                      </div>
-                    </ListItem>
-                    <Divider variant="inset" component="li" />
                   </div>
+                  <Divider variant="inset" component="li" />
+                </div>
               )
             })}
           </div>
-        }
+        {/* } */}
       </List>
-      <div className='flex justify-center p-10'>
+      {/* <div className='flex justify-center p-10'>
         <Button variant='outlined' onClick={() => navigate(-1)}>확인</Button>
-      </div>
+      </div> */}
     </div>
   )
 }

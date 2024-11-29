@@ -86,7 +86,7 @@ function Btn({ msgObj, isOwner, uid, displayName, userObj, num, points }) {
 
   return (
     <>
-      {isOwner &&
+      {isOwner ?
         <>
           {msgObj.round === 1 && 
             <div className='flex flex-col justify-center'>
@@ -126,9 +126,8 @@ function Btn({ msgObj, isOwner, uid, displayName, userObj, num, points }) {
             </div>
           }
         </>
-      }
-      {!isOwner &&
-        <div>
+        :
+        <>
           {msgObj.round === 1 &&
             <div className='flex justify-center'>
               <Button variant='outlined' onClick={() => {
@@ -175,7 +174,7 @@ function Btn({ msgObj, isOwner, uid, displayName, userObj, num, points }) {
               <Button variant='outlined' disabled>주인에게 확인 중</Button>}
             </div>
           }
-        </div>  
+        </>  
       }
     </>
   )
