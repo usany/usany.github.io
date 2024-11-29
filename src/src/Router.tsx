@@ -27,12 +27,12 @@ const Router = ({ userObj }: Props) => {
         const currentScrollPos = window.scrollY;
         if (prevScrollPos >= currentScrollPos) {
             // user has scrolled up
-            document.querySelector('#navigationSelectorOne')?.classList.add('fixed', 'top-0', 'z-20', 'bg-light-3', 'dark:bg-dark-3')
+            // document.querySelector('#navigationSelectorOne')?.classList.add('overflow-hidden', 'fixed', 'top-0', 'z-20', 'bg-light-3', 'dark:bg-dark-3')
             // document.querySelector('#navigationSelectorTwo')?.classList.add('fixed', 'top-0', 'z-10', 'bg-light-3', 'dark:bg-dark-3')
             // document.querySelector('#contentSelector')?.classList.add('pt-16')
         } else {
             // user has scrolled down
-            document.querySelector('#navigationSelectorOne')?.classList.remove('fixed', 'top-0', 'z-20', 'bg-light-3', 'dark:bg-dark-3')
+            // document.querySelector('#navigationSelectorOne')?.classList.remove('overflow-hidden', 'fixed', 'top-0', 'z-20', 'bg-light-3', 'dark:bg-dark-3')
             // document.querySelector('#navigationSelectorTwo')?.classList.remove('fixed', 'top-0', 'z-10', 'bg-light-3', 'dark:bg-dark-3')
             // document.querySelector('#contentSelector')?.classList.remove('pt-16')
         }

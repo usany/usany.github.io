@@ -70,7 +70,7 @@ export default function ToggleTabs() {
   // })
 
   return (
-    <div className=''>
+    <div>
       <Box sx={{ paddingX: '10px'
         }}>
         <Tabs
