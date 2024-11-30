@@ -7,6 +7,7 @@ import ProfileCards from 'src/muiComponents/ProfileCards'
 import ProfileActions from 'src/muiComponents/ProfileActions'
 // import ProfileActions from 'src/muiComponents/ProfileActions'
 import ProfileConnects from 'src/muiComponents/ProfileConnects'
+import Drawers from 'src/muiComponents/Drawers'
 import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
 // import { updateProfile, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnapshot, updateDoc, setDoc } from 'firebase/firestore';
@@ -155,27 +156,13 @@ function Profile({ userObj }: Props) {
   console.log(state)
   return (
     <div>
-      <Drawer>
-  <DrawerTrigger>Open</DrawerTrigger>
-  <DrawerContent>
-    <DrawerHeader>
-      <DrawerTitle>Are you absolutely sure?</DrawerTitle>
-      <DrawerDescription>This action cannot be undone.</DrawerDescription>
-    </DrawerHeader>
-    <DrawerFooter>
-      {/* <button>Submit</button> */}
-      {/* <DrawerClose>
-        <button>Cancel</button>
-      </DrawerClose> */}
-    </DrawerFooter>
-  </DrawerContent>
-</Drawer>
+      {/* <Drawers /> */}
       <PageTitle title={`${state.element.displayName} 프로필`}/>
       <ProfileAvatar userObj={userObj} user={state.element} handleProfileDialog={() => setProfileDialog(true)} attachment={attachment} profileColor={profileColor} />
       <AvatarDialogs userObj={userObj} profileDialog={profileDialog} attachment={attachment} changeAttachment={(newState) => setAttachment(newState)}  handleClose={handleClose} />
       <ProfileActions userObj={userObj} user={state.element} allies={allies} handleFollowers={handleFollowers} handleFollowings={handleFollowings}/>
       <ProfileCards user={state.element} allies={allies}/>
-
+      
       {/* <ChartContainer
           config={labels}
           className="mx-auto aspect-square max-h-[250px]"

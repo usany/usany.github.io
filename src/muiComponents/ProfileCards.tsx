@@ -21,7 +21,9 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer"
+import { ScrollArea } from "@/components/ui/scroll-area"
 import Points from 'src/pages/Points'
+import ProfileDrawers from 'src/muiComponents/ProfileDrawers'
 const ProfileCards = ({
   user,
   allies
@@ -90,33 +92,19 @@ const ProfileCards = ({
     <div className='flex justify-center'>
       <Card>
         <CardActionArea>
-        <Drawer>
-  <DrawerTrigger>Open</DrawerTrigger>
-  <DrawerContent className='max-h-[50%] overflow-y-scroll'>
-    <Points user={user} cards={cards}/>
-    <Points user={user} cards={cards}/>
-    <Points user={user} cards={cards}/>
-    <DrawerHeader>
-      <DrawerTitle>Are you absolutely sure?</DrawerTitle>
-      <DrawerDescription>This action cannot be undone.</DrawerDescription>
-    </DrawerHeader>
-    <DrawerFooter>
-      {/* <Points /> */}
-    </DrawerFooter>
-  </DrawerContent>
-</Drawer>
-          <Link 
+          {/* <Link 
             to='/points'
             state={{
               user: user,
               cards: cards,
             }}
           >
-          <div className='p-5'>
-            <div>포인트</div>
-            <div className='flex justify-center'>{cards.point}</div>
-          </div>
-          </Link>
+            <div className='p-5'>
+              <div>포인트</div>
+              <div className='flex justify-center'>{cards.point}</div>
+            </div>
+          </Link> */}
+          <ProfileDrawers user={user} cards={cards}/>
         </CardActionArea>
       </Card>
       <Card>
