@@ -8,6 +8,8 @@ import { Label, Pie, PieChart } from "recharts"
 import {
   ChartConfig,
   ChartContainer,
+  ChartLegend,
+  ChartLegendContent,
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart"
@@ -24,11 +26,16 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area"
 import Points from 'src/pages/Points'
 import ProfileDrawers from 'src/muiComponents/ProfileDrawers'
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import Divider from '@mui/material/Divider';
+
 const ProfileCards = ({
   user,
   allies
 }) => {
   const [cards, setCards] = useState({point: null, done: [], borrowDone: [], lendDone: [] })
+  const [chart, setChart] = useState({borrow: false, lend: true})
   // const [allies, setAllies] = useState({
   //   followers: {
   //     number: null,
@@ -68,25 +75,25 @@ const ProfileCards = ({
     // { action: 'lend', number: cards.lendDone.length,
     //   fill: 'blue'},
     { action: 'borrow', number: cards.borrowDone.length,
-      fill: 'red'},
+      fill: '#e76e50'},
     { action: 'lend', number: cards.lendDone.length,
-      fill: 'blue'},
+      fill: '#7fc4bc'},
   ]
   const labels = {
     number: {
       label: 'total',
     },
     borrow: {
-      label: 'borrow',
-      color: '#2563eb',
+      label: '빌리기',
+      color: '#e76e50',
     },
     lend: {
-      label: 'lend',
-      color: '#60a5fa',
+      label: '빌려주기',
+      color: '#7fc4bc',
     },
   } satisfies ChartConfig
   const totalNumber = actions.reduce((acc, curr) => acc + curr.number, 0)
-
+  console.log(allies)
   return (
     <div className='flex flex-col'>
     <div className='flex justify-center'>
@@ -104,12 +111,12 @@ const ProfileCards = ({
               <div className='flex justify-center'>{cards.point}</div>
             </div>
           </Link> */}
-          <ProfileDrawers user={user} cards={cards}/>
+          <ProfileDrawers user={user} cards={cards} followers={null} alliesCollection={null} selection={'points'}/>
         </CardActionArea>
       </Card>
       <Card>
         <CardActionArea>
-          <Link to='/allies' 
+          {/* <Link to='/allies' 
             state={{
               user: user,
               followers: true,
@@ -123,12 +130,13 @@ const ProfileCards = ({
                 {allies.followers.number}명 
               </div>
             </div>
-          </Link>
+          </Link> */}
+          <ProfileDrawers user={user} cards={null} followers={true} alliesCollection={allies.followers.list} selection={'allies'}/>
         </CardActionArea>
       </Card>
       <Card>
         <CardActionArea>
-          <Link to='/allies' 
+          {/* <Link to='/allies' 
             state={{
               user: user,
               followers: false,
@@ -142,7 +150,8 @@ const ProfileCards = ({
                 {allies.followings.number}명
               </div>
             </div>
-          </Link>
+          </Link> */}
+          <ProfileDrawers user={user} cards={null} followers={false} alliesCollection={allies.followings.list} selection={'allies'}/>
         </CardActionArea>
       </Card>
     </div>
@@ -190,16 +199,90 @@ const ProfileCards = ({
             </CardActionArea>
           </Card>
         </div>
+        <div id='drawer'>
+          <Drawer>
+            <DrawerContent>
+              practice
+            </DrawerContent>
+          </Drawer>
+        </div>
         <ChartContainer
           config={labels}
           className="aspect-square max-h-[250px]"
         >
           <PieChart>
-            <ChartTooltip
-              cursor={false}
-              content={<ChartTooltipContent indicator='line' hideLabel />}
+            <ChartLegend
+              content={<ChartLegendContent nameKey="action" />}
+              className="gap-2 [&>*]:basis-1/4 [&>*]:justify-center"
+              verticalAlign='top'
             />
             <Pie
+              data={actions}
+              dataKey="number"
+              nameKey="action"
+              onClick={(value) => {
+                const action = value.action
+                document.getElementById('drawer')?.childNodes
+                console.log(document.getElementById('drawer')?.childNodes)
+              }}
+              // labelLine={false}
+              // label={({ payload, ...props }) => {
+              //   return (
+              //     <text
+              //       cx={props.cx}
+              //       cy={props.cy}
+              //       x={props.x}
+              //       y={props.y}
+              //       textAnchor={props.textAnchor}
+              //       dominantBaseline={props.dominantBaseline}
+              //       fill="hsla(var(--foreground))"
+              //     >
+              //       <Drawer>
+              //         <createPortal>
+              //           <DrawerTrigger>
+              //             <div className='p-5'>
+              //                 <div>포인트</div>
+              //                 <div className='flex justify-center'>{cards.point}</div>
+              //             </div>
+              //           </DrawerTrigger>
+              //         </createPortal>
+              //         <DrawerContent className='max-h-[50%]'>
+              //           <ScrollArea>
+              //             <DrawerHeader>
+              //               <DrawerTitle>{`${user.displayName}의 포인트 적립 영수증`}</DrawerTitle>
+              //             </DrawerHeader>
+              //             <div>
+              //               <List 
+              //                 sx={{bgcolor: 'background.paper' }}
+              //               >
+              //                     <div>
+              //                       practice
+              //                     </div>
+              //               </List>
+              //             </div>
+              //           </ScrollArea>
+              //         </DrawerContent>
+              //       </Drawer>
+              //       <Drawer>
+              //           practice
+              //       {payload.action === 'borrow' ? '빌리기' : '빌려주기'} {payload.number}회
+              //       </Drawer>
+              //     </text>
+              //   )
+              // }}
+            />
+            {/* <ChartLegend
+              content={<ChartLegendContent nameKey="action" />}
+              className="gap-2 [&>*]:basis-1/4 [&>*]:justify-center"
+            /> */}
+          </PieChart>
+        </ChartContainer>
+        <ChartContainer
+          config={labels}
+          className="aspect-square max-h-[250px]"
+        >
+          <PieChart>
+          <Pie
               data={actions}
               dataKey="number"
               nameKey="action"
@@ -236,6 +319,10 @@ const ProfileCards = ({
                 }}
               />
             </Pie>
+            <ChartLegend
+              content={<ChartLegendContent nameKey="action" />}
+              className="-translate-y-2 flex-wrap gap-2 [&>*]:basis-1/4 [&>*]:justify-center"
+            />
           </PieChart>
         </ChartContainer>
     </div>

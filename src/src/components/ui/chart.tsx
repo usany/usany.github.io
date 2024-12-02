@@ -265,7 +265,7 @@ const ChartLegendContent = React.forwardRef<
     }
 >(
   (
-    { className, hideIcon = false, payload, verticalAlign = "bottom", nameKey },
+    { className, hideIcon = false, payload, verticalAlign = "top", nameKey },
     ref
   ) => {
     const { config } = useChart()
@@ -304,7 +304,7 @@ const ChartLegendContent = React.forwardRef<
                   }}
                 />
               )}
-              {itemConfig?.label}
+              {itemConfig?.label}: {item.payload.number}회
             </div>
           )
         })}
