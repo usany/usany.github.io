@@ -17,26 +17,29 @@ function Message({ msgObj, isOwner, userObj }) {
   const [num, setNum] = useState(null)
   const [points, setPoints] = useState(null)
 
-  useEffect(() => {
-    onSnapshot(query(doc(dbservice, `members/${msgObj.creatorId}`)), (snapshot) => {
-        const number = snapshot.data()?.points
-        setNum(number)
-      }
-    )
-  }, [])
-  useEffect(() => {
-    if (msgObj.connectedId !== null) {
-      onSnapshot(query(doc(dbservice, `members/${msgObj.connectedId}`)), (snapshot) => {
-        const element = snapshot.data()?.points
-        setPoints(element)
-      })
-    }
-  })
-  
+  // useEffect(() => {
+  //   onSnapshot(query(doc(dbservice, `members/${msgObj.creatorId}`)), (snapshot) => {
+  //       const number = snapshot.data()?.points
+  //       setNum(number)
+  //     }
+  //   )
+  // }, [])
+  // useEffect(() => {
+  //   if (msgObj.connectedId !== null) {
+  //     onSnapshot(query(doc(dbservice, `members/${msgObj.connectedId}`)), (snapshot) => {
+  //       const element = snapshot.data()?.points
+  //       setPoints(element)
+  //     })
+  //   }
+  // })
+  console.log(msgObj)
   return (
-    // <div className='pt-5'>
+    <div>
       <Cards msgObj={msgObj} isOwner={isOwner} userObj={userObj} num={num} points={points} />
-    // </div>
+      {/* {msgObj.creatorId === userObj.uid && 
+      }
+      {msgObj.connectedId === userObj.uid && msgObj.round !== 1} */}
+    </div>
   )
 }
 

@@ -65,7 +65,7 @@ function Contact({ userObj }:
       <PageTitle title={'신고하기'}/>
       <ContactAddress action={'발신'} label={userObj.displayName}/>
       <ContactAddress action={'수신'} label={'담당자'}/>
-      <ContactForm />
+      <ContactForm userObj={userObj} />
     </div>
   )
 }

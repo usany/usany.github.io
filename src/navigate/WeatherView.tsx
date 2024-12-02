@@ -53,7 +53,11 @@ const WeatherView = () => {
     
     return (
         <div>
-            {loaded ? 
+            <div className='flex flex-col px-5'>
+                <img className='size-10' src={`https://openweathermap.org/img/wn/${icon}@2x.png`}/>
+                <span>회기동 섭씨 {temperature}도</span>
+            </div>
+            {/* {loaded ? 
                 <div className='flex flex-col px-5'>
                     <img className='size-10' src={`https://openweathermap.org/img/wn/${icon}@2x.png`}/>
                     <span>회기동 섭씨 {temperature}도</span>
@@ -63,7 +67,7 @@ const WeatherView = () => {
                     <img className='size-10' src={`https://openweathermap.org/img/wn/${icon}@2x.png`}/>
                     <span>회기동 섭씨 {temperature}도</span>
                 </div>
-            }
+            } */}
         </div>
     )
 }

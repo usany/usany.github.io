@@ -13,15 +13,18 @@ import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
 
 const ProfileConnects = ({
   userObj,
-  user
+  user,
+  allies,
+  handleFollowers,
+  handleFollowings
 }) => {
-  const [myFollowingList, setMyFollowingList] = useState([])
-  const [otherFollowerNumber, setOtherFollowerNumber] = useState(null)
-  const [otherFollowerList, setOtherFollowerList] = useState([])
-  const [userFollowersList, setUserFollowersList] = useState([])
-  const [followButton, setFollowButton] = useState(true)
+  // const [myFollowingList, setMyFollowingList] = useState([])
+  // const [otherFollowerNumber, setOtherFollowerNumber] = useState(null)
+  // const [otherFollowerList, setOtherFollowerList] = useState([])
+  // const [userFollowersList, setUserFollowersList] = useState([])
   const [conversation, setConversation] = useState('')
-
+  // const [followButton, setFollowButton] = useState(true)
+  const followButton = allies.followers.list.indexOf(userObj.uid) === -1
   const followUser = async (uid) => {
     const myDocRef = doc(dbservice, `members/${userObj.uid}`)
     const myDocSnap = await getDoc(myDocRef)
@@ -36,40 +39,51 @@ const ProfileConnects = ({
     const otherFollowers = otherUserDocSnap.data().followers || []
     const otherFollowings = otherUserDocSnap.data().followings || []
     if (myFollowingNum) {
-      if (myFollowingList.indexOf(user.uid) === -1) {
+      if (myFollowings.indexOf(user.uid) === -1) {
         await updateDoc(myDocRef, {
           followingNum: myFollowingNum+1,
           followings: [...myFollowings, user.uid]
         })
+        // handleFollowings({
+        //   number: myFollowingNum+1,
+        //   lists: [...myFollowings, user.uid]
+        // })
         // setMyFollowingNumber(myFollowingNum+1)
-        setMyFollowingList([...myFollowings, user.uid])
+        // setMyFollowingList([...myFollowings, user.uid])
       }
     } else {
       await updateDoc(myDocRef, {
         followingNum: 1,
         followings: [user.uid]
       })
+      // handleFollowings({
+      //   number: 1,
+      //   lists: [user.uid]
+      // })
       // setMyFollowingNumber(1)
-      setMyFollowingList([user.uid])
+      // setMyFollowingList([user.uid])
+      // handleFollowings({number: 1, list: [user.uid]})
     }
     if (otherUserFollowerNum) {
-      if (otherFollowerList.indexOf(userObj.uid) === -1) { 
+      if (otherFollowers.indexOf(userObj.uid) === -1) { 
         await updateDoc(otherUserDocRef, {
           followerNum: otherUserFollowerNum+1,
           followers: [...otherFollowers, userObj.uid]
         })
-        setOtherFollowerNumber(otherFollowerNumber+1)
-        setOtherFollowerList([...otherFollowers, userObj.uid])
+        // setOtherFollowerNumber(otherFollowerNumber+1)
+        // setOtherFollowerList([...otherFollowers, userObj.uid])
+        handleFollowers({number: otherUserFollowerNum+1, list: [...otherFollowers, userObj.uid]})
       }
     } else {
       await updateDoc(otherUserDocRef, {
         followerNum: 1,
         followers: [userObj.uid]
       })
-      setOtherFollowerNumber(1)
-      setOtherFollowerList([userObj.uid])
+      // setOtherFollowerNumber(1)
+      // setOtherFollowerList([userObj.uid])
+      handleFollowers({number:1, list: [userObj.uid]})
     }
-    setFollowButton(false)
+    // setFollowButton(false)
   }
   const unfollowUser = async (uid) => {
     const myDocRef = doc(dbservice, `members/${userObj.uid}`)
@@ -85,7 +99,7 @@ const ProfileConnects = ({
     const otherFollowers = otherUserDocSnap.data().followers || []
     const otherFollowings = otherUserDocSnap.data().followings || []
     if (myFollowingNum) {
-      if (myFollowingList.indexOf(user.uid) !== -1) {
+      if (myFollowings.indexOf(uid) !== -1) {
         await updateDoc(myDocRef, {
           followingNum: myFollowingNum-1,
           followings: myFollowings.filter((element) => element !== user.uid)
@@ -94,17 +108,20 @@ const ProfileConnects = ({
         // setMyFollowerList(myFollowings.filter((element) => element !== state.element.uid))
       }
     }
+    
     if (otherUserFollowerNum) {
-      if (otherFollowerList.indexOf(userObj.uid) !== -1) { 
+      if (otherFollowers.indexOf(userObj.uid) !== -1) { 
         await updateDoc(otherUserDocRef, {
           followerNum: otherUserFollowerNum-1,
           followers: otherFollowers.filter((element) => element !== userObj.uid)
         })
-        setOtherFollowerNumber(otherFollowerNumber-1)
-        setOtherFollowerList(otherFollowers.filter((element) => element !== userObj.uid))
+        // setOtherFollowerNumber(otherFollowerNumber-1)
+        // setOtherFollowerList(otherFollowers.filter((element) => element !== userObj.uid))
+        handleFollowers({number: otherUserFollowerNum-1, list: otherFollowers.filter((element) => element !== userObj.uid)})
       }
+      console.log(otherFollowers.indexOf(userObj.uid))
     }
-    setFollowButton(true)
+    // setFollowButton(true)
   }
   useEffect(() => {
     if (user.uid < user.uid) {
@@ -113,6 +130,13 @@ const ProfileConnects = ({
       setConversation(userObj.uid[0]+userObj.uid[1]+userObj.uid[2]+userObj.uid[3]+userObj.uid[4]+userObj.uid[5]+user.uid[0]+user.uid[1]+user.uid[2]+user.uid[3]+user.uid[4]+user.uid[5])
     }
   }, [])
+  console.log(allies)
+  // useEffect(() => {
+  //   console.log('practice')
+  //   if (allies.followers.list.indexOf(userObj.uid) !== -1) {
+  //     setFollowButton(false)
+  //   }
+  // }, [])
   return (
     <div>
       <div className='flex justify-center'>

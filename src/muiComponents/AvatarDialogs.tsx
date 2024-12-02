@@ -4,30 +4,69 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import Button from '@mui/material/Button';
 import Avatar from '@mui/material/Avatar';
-import { doc, deleteDoc, updateDoc } from 'firebase/firestore';
+import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnapshot, updateDoc, setDoc } from 'firebase/firestore';
 import { auth, dbservice } from 'src/baseApi/serverbase'
 import { storage } from "src/baseApi/serverbase";
-import { getStorage, ref, uploadBytes } from "firebase/storage";
-import { useAvatarColorStore } from 'src/store'
+import { getStorage, ref, uploadBytes, uploadString, uploadBytesResumable, getDownloadURL,  } from "firebase/storage";
+import { useAvatarColorStore, useAvatarImageStore } from 'src/store'
 
 const AvatarDialogs = ({ userObj, profileDialog, attachment, changeAttachment, handleClose }) => {
     const [selectedColor, setSelectedColor] = useState(null)
     const [attachmentFile, setAttachmentFile] = useState(null)
+    const [onClear, setOnClear] = useState(false)
+    // const [file, setFile] = useState(null)
     const avatarColor = useAvatarColorStore((state) => state.avatarColor)
     const handleAvatarColor = useAvatarColorStore((state) => state.handleAvatarColor)
-    
-    const onClick = () => {
+    const avatarImage = useAvatarImageStore((state) => state.avatarImage)
+    const handleAvatarImage = useAvatarImageStore((state) => state.handleAvatarImage)
+    const onClick = async () => {
         const data = doc(dbservice, `members/${userObj.uid}`)
         if (selectedColor) {   
             updateDoc(data, {profileColor: selectedColor});
             handleAvatarColor(selectedColor)
         }
-        if (attachmentFile) {   
+        if (attachmentFile && !onClear) {   
             const storageRef = ref(storage, userObj.uid);
-            uploadBytes(storageRef, attachmentFile).then((snapshot) => {
+            // const response = await storageRef.putString()
+            uploadString(storageRef, attachmentFile, 'data_url').then((snapshot) => {
                 console.log('Uploaded a blob or file!');
             });
-            changeAttachment(attachmentFile)
+            const docRef = doc(dbservice, `members/${userObj?.uid}`)
+            updateDoc(docRef, {profileImageUrl: attachmentFile});
+                                                                
+            // changeAttachment(attachmentFile)
+            // if (attachmentFile === 'null') {
+            //     handleAvatarImage(null)
+            // } else {
+            //     handleAvatarImage(attachmentFile)
+            // }
+            handleAvatarImage(attachmentFile)
+            // const uploadTask = uploadBytesResumable(storageRef, file);
+            // uploadTask.on(
+            //     "state_changed",
+            //     (snapshot) => {
+            //         console.log(snapshot);
+            //     },
+            //     (error) => {
+            //         alert(error);
+            //     },
+            //     () => {
+            //         getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+            //         await updateDoc(collectionRef, {
+            //             imageurl: downloadURL,
+            //         });
+            //         });
+            //     }
+            // );
+        } else if (onClear) {
+            handleAvatarImage(null)
+            setOnClear(false)
+            const storageRef = ref(storage, userObj.uid);
+            uploadString(storageRef, 'null', 'raw').then((snapshot) => {
+                console.log('Uploaded a blob or file!');
+            });
+            const docRef = doc(dbservice, `members/${userObj?.uid}`)
+            updateDoc(docRef, {profileImageUrl: attachmentFile});
         }
     }
     const switchColor = (newColor) => {
@@ -39,12 +78,10 @@ const AvatarDialogs = ({ userObj, profileDialog, attachment, changeAttachment, h
         }
     }, [])
     useEffect(() => {
-        if (attachment) {
-            console.log(attachment)
-            setAttachmentFile(attachment)
-        }
-    }, [attachment])
-
+        setAttachmentFile(avatarImage)
+        // changeAttachment(avatarImage)
+    }, [avatarImage])
+    
     const onFileChange = (event) => {
         const {
             target: { files },
@@ -60,10 +97,29 @@ const AvatarDialogs = ({ userObj, profileDialog, attachment, changeAttachment, h
         }
         console.log(theFile)
         reader.readAsDataURL(theFile)
+        // setFile(theFile)
+        // const uploadTask = uploadBytesResumable(storageRef, file);
+        // uploadTask.on(
+        //   "state_changed",
+        //   (snapshot) => {
+        //     console.log(snapshot);
+        //   },
+        //   (error) => {
+        //     alert(error);
+        //   },
+        //   () => {
+        //     getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+        //       await updateDoc(collectionRef, {
+        //         imageurl: downloadURL,
+        //       });
+        //     });
+        //   }
+        // );
+    
       }
       const onClearAttachment = () => {
-        changeAttachment(null)
         setAttachmentFile(null)
+        setOnClear(true)
         const fileInput = document.getElementById('file') || {value:null}
         fileInput.value = null
       }
@@ -76,7 +132,7 @@ const AvatarDialogs = ({ userObj, profileDialog, attachment, changeAttachment, h
                 </div>
                 <div className='flex'>
                     <Avatar alt={userObj.displayName} sx={{ fontSize:'100px', width: '200px', height: '200px', bgcolor: selectedColor }} src={attachmentFile || './src'} onClick={() => {
-                    }} />
+                    }} variant='rounded' />
                     <div className='flex-col px-5 content-center'>
                         {/* <div className='flex'>
                         </div> */}
@@ -131,12 +187,18 @@ const AvatarDialogs = ({ userObj, profileDialog, attachment, changeAttachment, h
             <Button variant='outlined' onClick={() => {
                 handleClose()
                 changeAttachment(attachmentFile)
-                onClick()
+                onClick()        
+                handleAvatarColor(selectedColor)
             }}>저장</Button>
             <Button variant='outlined' onClick={() => {
                 handleClose()
+                if (onClear) {
+                    setAttachmentFile(avatarImage)
+                }
+                setOnClear(false)
                 setSelectedColor(avatarColor)
-                setAttachmentFile(attachment)
+                // setAttachmentFile(attachment)
+                // handleAvatarImage(attachment)
             }} autoFocus>
                 닫기
             </Button>

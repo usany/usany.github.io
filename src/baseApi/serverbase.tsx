@@ -7,6 +7,7 @@ import { getMessaging } from "firebase/messaging";
 import { initializeApp } from "firebase/app";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
+import { doc, setDoc } from 'firebase/firestore';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -56,6 +57,7 @@ const onSocialClick = async (event) => {
         const user = result.user;
         console.log('result '+result)
         console.log('user '+user.email)
+        console.log('user '+user.uid)
         // IdP data available using getAdditionalUserInfo(result)
         // ...
     }).catch((error) => {

@@ -28,13 +28,13 @@ const Router = ({ userObj }: Props) => {
         if (prevScrollPos >= currentScrollPos) {
             // user has scrolled up
             document.querySelector('#navigationSelectorOne')?.classList.add('fixed', 'top-0', 'z-20', 'bg-light-3', 'dark:bg-dark-3')
-            document.querySelector('#navigationSelectorTwo')?.classList.add('fixed', 'top-0', 'z-10', 'bg-light-3', 'dark:bg-dark-3')
-            document.querySelector('#contentSelector')?.classList.add('pt-16')
+            // document.querySelector('#navigationSelectorTwo')?.classList.add('fixed', 'top-0', 'z-10', 'bg-light-3', 'dark:bg-dark-3')
+            // document.querySelector('#contentSelector')?.classList.add('pt-16')
         } else {
             // user has scrolled down
             document.querySelector('#navigationSelectorOne')?.classList.remove('fixed', 'top-0', 'z-20', 'bg-light-3', 'dark:bg-dark-3')
-            document.querySelector('#navigationSelectorTwo')?.classList.remove('fixed', 'top-0', 'z-10', 'bg-light-3', 'dark:bg-dark-3')
-            document.querySelector('#contentSelector')?.classList.remove('pt-16')
+            // document.querySelector('#navigationSelectorTwo')?.classList.remove('fixed', 'top-0', 'z-10', 'bg-light-3', 'dark:bg-dark-3')
+            // document.querySelector('#contentSelector')?.classList.remove('pt-16')
         }
         // update previous scroll position
         prevScrollPos = currentScrollPos;
@@ -45,7 +45,7 @@ const Router = ({ userObj }: Props) => {
 
     return (
         <BrowserRouter>
-            <div className='flex flex-col location h-screen'>
+            <div className='flex flex-col location'>
                 <PullRefresh />
                 <Header
                     userObj={userObj}

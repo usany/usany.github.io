@@ -37,11 +37,11 @@ function Btn({ msgObj, isOwner, uid, displayName, userObj, num, points }) {
       const creatorDone = creatorSnap.data().done || []
       const connectedDone = connectedSnap.data().done || []
       if (msgObj.text.choose == 1) {
-        const creatorBorrowDone = creatorSnap.data().borrowDone || []
-        const connectedLendDone = connectedSnap.data().lendDone || []
+        const creatorBorrowDone = creatorSnap.data().borrowDoneCount || []
+        const connectedLendDone = connectedSnap.data().lendDoneCount || []
         updateDoc(point, {points: num-msgObj.point});
         updateDoc(connectedPoint, {points: points+msgObj.point});
-        updateDoc(point, {borrowDone: [...creatorBorrowDone, msgObj.id]});
+        updateDoc(point, {borrowDoneCount: [...creatorBorrowDone, msgObj.id]});
         updateDoc(connectedPoint, {lendDoneCount: [...connectedLendDone, msgObj.id]});
         webSocket.emit('confirm return', { choose: msgObj.text.choose, sendingToken: messagingToken, creatorId: msgObj.creatorId, creatorName: msgObj.displayName, connectedId: uid, connectedName: displayName, })
       } else {
@@ -86,7 +86,7 @@ function Btn({ msgObj, isOwner, uid, displayName, userObj, num, points }) {
 
   return (
     <>
-      {isOwner &&
+      {isOwner ?
         <>
           {msgObj.round === 1 && 
             <div className='flex flex-col justify-center'>
@@ -126,9 +126,8 @@ function Btn({ msgObj, isOwner, uid, displayName, userObj, num, points }) {
             </div>
           }
         </>
-      }
-      {!isOwner &&
-        <div>
+        :
+        <>
           {msgObj.round === 1 &&
             <div className='flex justify-center'>
               <Button variant='outlined' onClick={() => {
@@ -175,7 +174,7 @@ function Btn({ msgObj, isOwner, uid, displayName, userObj, num, points }) {
               <Button variant='outlined' disabled>주인에게 확인 중</Button>}
             </div>
           }
-        </div>  
+        </>  
       }
     </>
   )

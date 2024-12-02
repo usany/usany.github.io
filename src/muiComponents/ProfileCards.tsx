@@ -4,61 +4,107 @@ import { CardActionArea, CardActions } from '@mui/material';
 import { Link } from 'react-router-dom'
 import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnapshot, updateDoc, setDoc } from 'firebase/firestore';
 import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
-
+import { Label, Pie, PieChart } from "recharts"
+import {
+  ChartConfig,
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "@/components/ui/chart"
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer"
+import { ScrollArea } from "@/components/ui/scroll-area"
+import Points from 'src/pages/Points'
+import ProfileDrawers from 'src/muiComponents/ProfileDrawers'
 const ProfileCards = ({
-  user
+  user,
+  allies
 }) => {
   const [cards, setCards] = useState({point: null, done: [], borrowDone: [], lendDone: [] })
-  const [allies, setAllies] = useState({
-    followers: {
-      number: null,
-      list: null
-    },
-    followings: {
-      number: null,
-      list: null
-    }
-  })
+  // const [allies, setAllies] = useState({
+  //   followers: {
+  //     number: null,
+  //     list: null
+  //   },
+  //   followings: {
+  //     number: null,
+  //     list: null
+  //   }
+  // })
 
   useEffect(() => {
     const cards = async () => {
       const docRef = doc(dbservice, `members/${user.uid}`)
       const myDocSnap = await getDoc(docRef)
-      const { points, done, borrowDone, lendDone } = myDocSnap.data()
-      setCards({point: points, done: done, borrowDone: borrowDone || [], lendDone: lendDone || [] })
+      const { points, done, borrowDoneCount, lendDoneCount } = myDocSnap.data()
+      setCards({point: points, done: done, borrowDone: borrowDoneCount || [], lendDone: lendDoneCount || [] })
     }
     cards()
-  }, [])
-  useEffect(() => {
-    const allies = async () => {
-      const docRef = doc(dbservice, `members/${user.uid}`)
-      const myDocSnap = await getDoc(docRef)
-      const {followerNum, followingNum, followers, followings} = myDocSnap.data()
-      setAllies({
-        followers: {number: followerNum || 0, list: followers || []},
-        followings: {number: followingNum || 0, list: followings || []}
-      })
-    }
-    allies()
-  }, [])
+  }, [user])
+  // useEffect(() => {
+  //   const allies = async () => {
+  //     const docRef = doc(dbservice, `members/${user.uid}`)
+  //     const myDocSnap = await getDoc(docRef)
+  //     const {followerNum, followingNum, followers, followings} = myDocSnap.data()
+  //     setAllies({
+  //       followers: {number: followerNum || 0, list: followers || []},
+  //       followings: {number: followingNum || 0, list: followings || []}
+  //     })
+  //   }
+  //   allies()
+  // }, [])
+  console.log(cards)
+  const actions = [
+    // { action: 'borrow', number: cards.borrowDone.length,
+    //   fill: 'red'},
+    // { action: 'lend', number: cards.lendDone.length,
+    //   fill: 'blue'},
+    { action: 'borrow', number: cards.borrowDone.length,
+      fill: 'red'},
+    { action: 'lend', number: cards.lendDone.length,
+      fill: 'blue'},
+  ]
+  const labels = {
+    number: {
+      label: 'total',
+    },
+    borrow: {
+      label: 'borrow',
+      color: '#2563eb',
+    },
+    lend: {
+      label: 'lend',
+      color: '#60a5fa',
+    },
+  } satisfies ChartConfig
+  const totalNumber = actions.reduce((acc, curr) => acc + curr.number, 0)
 
   return (
     <div className='flex flex-col'>
     <div className='flex justify-center'>
       <Card>
         <CardActionArea>
-          <Link 
+          {/* <Link 
             to='/points'
             state={{
               user: user,
               cards: cards,
             }}
           >
-          <div className='p-5'>
-            <div>포인트</div>
-            <div className='flex justify-center'>{cards.point}</div>
-          </div>
-          </Link>
+            <div className='p-5'>
+              <div>포인트</div>
+              <div className='flex justify-center'>{cards.point}</div>
+            </div>
+          </Link> */}
+          <ProfileDrawers user={user} cards={cards} followers={null} alliesCollection={null} selection={'points'}/>
         </CardActionArea>
       </Card>
       <Card>
@@ -78,6 +124,7 @@ const ProfileCards = ({
               </div>
             </div>
           </Link>
+          <ProfileDrawers user={user} cards={null} followers={true} alliesCollection={allies.followers.list} selection={'points'}/>
         </CardActionArea>
       </Card>
       <Card>
@@ -136,7 +183,7 @@ const ProfileCards = ({
                   // borrowMessage: borrowMessage
                 }}
               >
-              <div>
+              <div className='p-5'>
                 <div>완료된 빌리기</div>
                 <div className='flex justify-center'>{cards.borrowDone.length}회</div>
               </div>
@@ -144,6 +191,54 @@ const ProfileCards = ({
             </CardActionArea>
           </Card>
         </div>
+        <ChartContainer
+          config={labels}
+          className="aspect-square max-h-[250px]"
+        >
+          <PieChart>
+            <ChartTooltip
+              cursor={false}
+              content={<ChartTooltipContent indicator='line' hideLabel />}
+            />
+            <Pie
+              data={actions}
+              dataKey="number"
+              nameKey="action"
+              innerRadius={60}
+              strokeWidth={5}
+            >
+              <Label
+                content={({ viewBox }) => {
+                  if (viewBox && "cx" in viewBox && "cy" in viewBox) {
+                    return (
+                      <text
+                        x={viewBox.cx}
+                        y={viewBox.cy}
+                        textAnchor="middle"
+                        dominantBaseline="middle"
+                      >
+                        <tspan
+                          x={viewBox.cx}
+                          y={viewBox.cy}
+                          className="fill-foreground text-3xl font-bold"
+                        >
+                          {totalNumber.toLocaleString()}
+                        </tspan>
+                        <tspan
+                          x={viewBox.cx}
+                          y={(viewBox.cy || 0) + 24}
+                          className="fill-muted-foreground"
+                        >
+                          활동 횟수
+                        </tspan>
+                      </text>
+                    )
+                  }
+                }}
+              />
+            </Pie>
+          </PieChart>
+        </ChartContainer>
     </div>
   );
 }

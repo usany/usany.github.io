@@ -3,6 +3,7 @@ import { auth, onSocialClick, dbservice } from 'src/baseApi/serverbase'
 import { updateProfile, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
+import SignInDialogs from 'src/muiComponents/SignInDialogs';
 
 interface Props {
   changeNewAccount: () => void

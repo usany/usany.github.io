@@ -23,12 +23,15 @@ function Navigation({ userObj, sideNavigation, handleSideNavigation }: Props) {
   const [backgroundColor, setBackgroundColor] = useState<string>('#e2e8f0');
   const [points, setPoints] = useState<number>(0)
   const theme = useThemeStore((state) => state.theme)
+  const [profileColor, setProfileColor] = useState<string>('');
   
   useEffect(() => {
     if (userObj) {
       onSnapshot(doc(dbservice, `members/${userObj.uid}`), (snapshot) => {
         const number = snapshot.data()?.points
         setPoints(number)
+        const profileColor = snapshot.data()?.profileColor
+        setProfileColor(profileColor)
       })
     }
   }, [])
@@ -53,14 +56,15 @@ function Navigation({ userObj, sideNavigation, handleSideNavigation }: Props) {
   const element = {
     uid: userObj?.uid,
     displayName: userObj?.displayName,
+    profileColor: profileColor
   }
   return (
     <SwipeableDrawer
       PaperProps={{
         sx: {
           backgroundColor: {backgroundColor},
-          color: {textColor},
-          height: '100%'
+          // color: {textColor},
+          // height: '100%'
         }
       }}
       anchor={'left'}
@@ -70,7 +74,7 @@ function Navigation({ userObj, sideNavigation, handleSideNavigation }: Props) {
       aria-hidden="false"
     >
       <nav
-        className='flex flex-col justify-between w-full h-full'
+        className='flex flex-col justify-between w-full'
       >
         {userObj ?
           <div className=''>
@@ -90,7 +94,7 @@ function Navigation({ userObj, sideNavigation, handleSideNavigation }: Props) {
                   onClick={() => checkbox()}
                 >
                   <span className='px-3'><InboxIcon /></span>
-                  {userObj.displayName} 프로필
+                  내 프로필
                 </Link>
               </h1>
               <h1 className='text-2xl	px-5'>
@@ -99,7 +103,7 @@ function Navigation({ userObj, sideNavigation, handleSideNavigation }: Props) {
               </h1>
               <h1 className='text-2xl px-5'>
                 <span className='px-3'><WorkIcon /></span>
-                <Link to='/piazza' onClick={() => checkbox()}>단체방</Link>
+                <Link to='/piazza' onClick={() => checkbox()}>단체 대화방</Link>
               </h1>
               <h1 className='text-2xl	px-5'>
                 <span className='px-3'><ImageIcon /></span>
@@ -107,7 +111,7 @@ function Navigation({ userObj, sideNavigation, handleSideNavigation }: Props) {
               </h1>
               <h1 className='text-2xl px-5'>
                 <span className='px-3'><WorkIcon /></span>
-                <Link to='/chats' onClick={() => checkbox()}>단체방</Link>
+                <Link to='/chats' onClick={() => checkbox()}>실험실</Link>
               </h1>
               <h1 className='text-2xl px-5'>
                 <span className='px-3'><Public /></span>
@@ -129,7 +133,7 @@ function Navigation({ userObj, sideNavigation, handleSideNavigation }: Props) {
         }
         {userObj &&
           <div className='absolute flex justify-center bottom-0'>
-            <iframe src="https://open.spotify.com/embed/playlist/5C9ADjArybPy54GTZgXtZO?utm_source=generator" width="90%" height="200" allow="autoplay; clipboard-write; fullscreen; picture-in-picture" loading="lazy" />
+            <iframe src="https://open.spotify.com/embed/playlist/6phYndBIC4DIqefH1CcUsT?utm_source=generator&theme=0" width="90%" height="200" allow="autoplay; clipboard-write; fullscreen; picture-in-picture" loading="lazy" />
           </div>
         }
       </nav>

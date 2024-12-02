@@ -9,9 +9,9 @@ import Button from '@mui/material/Button';
 import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnapshot, updateDoc, setDoc } from 'firebase/firestore';
 import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
 
-function Points() {
+function Points({user, cards}) {
   const [messages, setMessages] = useState([])
-  const {state} = useLocation()
+  // const {state} = useLocation()
   const navigate = useNavigate()
   useEffect(() => {
     const bringMessages = async () => {
@@ -20,7 +20,12 @@ function Points() {
       const messageSnap = await getDocs(messageRef)
       messageSnap.forEach((doc) => {
         const cardId = doc.id
-        if (state.cards.done.indexOf(cardId) !== -1) {
+        // if (state.cards.done.indexOf(cardId) !== -1) {
+        //   const card = doc.data()
+        //   messagesArray.push(card)
+        //   setMessages(messagesArray)
+        // }
+        if (cards.done.indexOf(cardId) !== -1) {
           const card = doc.data()
           messagesArray.push(card)
           setMessages(messagesArray)
@@ -29,12 +34,16 @@ function Points() {
     }
     bringMessages()
   }, [])
-  console.log(messages)
+  
   return (
     <div className='flex flex-col pb-20'>
-      <PageTitle title={`${state.user.displayName}의 포인트 적립 영수증`}/>
+      {/* <PageTitle title={`${state.user.displayName}의 포인트 적립 영수증`}/>
       <div className='flex justify-center'>
-        포인트 합계: {state.cards.points}
+        포인트 합계: {state.cards.point}
+      </div> */}
+      <PageTitle title={`${user.displayName}의 포인트 적립 영수증`}/>
+      <div className='flex justify-center'>
+        포인트 합계: {cards.point}
       </div>
       <div className='pt-5 px-5'>
         <List 
