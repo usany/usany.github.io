@@ -7,7 +7,7 @@ import Avatar from '@mui/material/Avatar';
 import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnapshot, updateDoc, setDoc } from 'firebase/firestore';
 import { auth, dbservice } from 'src/baseApi/serverbase'
 import { storage } from "src/baseApi/serverbase";
-import { getStorage, ref, uploadBytes, uploadString, uploadBytesResumable, getDownloadURL,  } from "firebase/storage";
+import { getStorage, ref, uploadBytes, uploadString, uploadBytesResumable, getDownloadURL, deleteObject } from "firebase/storage";
 import { useAvatarColorStore, useAvatarImageStore } from 'src/store'
 
 const AvatarDialogs = ({ userObj, profileDialog, attachment, changeAttachment, handleClose }) => {
@@ -65,6 +65,14 @@ const AvatarDialogs = ({ userObj, profileDialog, attachment, changeAttachment, h
             uploadString(storageRef, 'null', 'raw').then((snapshot) => {
                 console.log('Uploaded a blob or file!');
             });
+
+            // Delete the file
+            deleteObject(storageRef).then(() => {
+            // File deleted successfully
+            }).catch((error) => {
+            // Uh-oh, an error occurred!
+            });
+
             const docRef = doc(dbservice, `members/${userObj?.uid}`)
             updateDoc(docRef, {profileImageUrl: attachmentFile});
         }
@@ -97,6 +105,7 @@ const AvatarDialogs = ({ userObj, profileDialog, attachment, changeAttachment, h
         }
         console.log(theFile)
         reader.readAsDataURL(theFile)
+        setOnClear(false)
         // setFile(theFile)
         // const uploadTask = uploadBytesResumable(storageRef, file);
         // uploadTask.on(

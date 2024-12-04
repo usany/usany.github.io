@@ -78,6 +78,11 @@ const Router = ({ userObj }: Props) => {
                         }
                     </Routes>
                 </div>
+                <div className='flex justify-center h-52 p-5'>
+                    this is footer
+                    administration: ahncb@khu.ac.kr
+                    Made in KHU
+                </div>
                 <Navigations userObj={userObj} />
             </div>
         </BrowserRouter>

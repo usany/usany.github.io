@@ -25,7 +25,26 @@ function Notice({ userObj, borrow }: Props) {
     selectedValueTwo: null,
     selectedValueThree: null,
   })
-    
+  const [selectedValues, setSelectedValues] = useImmer([
+    {
+        id: 'selectedValueOne',
+        value: null
+    },
+    {
+        id: 'selectedValueTwo',
+        value: null
+    },
+    {
+        id: 'selectedValueThree',
+        value: null
+    },
+    ])
+    const handleSelectedValues = ({id, newValue}) => {
+        setSelectedValues((values) => {
+            const value = values.find((value) => value.id === id)
+            value.value = newValue
+        })
+    }
   const handleClickChangeFilter = () => {
     setChangeFilter(true);
   };
@@ -66,7 +85,7 @@ function Notice({ userObj, borrow }: Props) {
   }
 
   useEffect(() => {
-    if (selectedValueThree === '최신순' || !selectedValueThree) {
+    if (selectedValues[2].value === '최신순' || !selectedValues[2].value) {
         onSnapshot(query(collection(dbservice, 'num'), orderBy('creatorClock', 'desc')), (snapshot) => {
             const newArray = snapshot.docs.map((document) => {
                 return ({
@@ -87,15 +106,21 @@ function Notice({ userObj, borrow }: Props) {
             setMessages(newArray)
         })
     }
-  }, [selectedValueThree])
-
+  }, [selectedValues[2].value])
+  console.log(selectedValues[0].value)
   return (  
     <div className='p-5'>
         <div className='flex justify-start text-2xl w-screen'>
             <div className='flex w-5/6'>{borrow ? '빌리기' : '빌려주기'} 카드 목록</div>
             <div className='flex w-screen justify-end px-10' onClick={handleClickChangeFilter}>
                 {/* <Settings onClick={handleClickChangeFilter}/> */}
-                <Filter onClick={handleClickChangeFilter}/>
+                {/* <Filter onClick={handleClickChangeFilter}/> */}
+                <FilterDialogs changeFilter={changeFilter} handleClose={handleClose} selectedValueOne={selectedValueOne} selectedValueTwo={selectedValueTwo} selectedValueThree={selectedValueThree} 
+                    // setSelectedValue={setSelectedValueOne} setSelectedValueTwo={setSelectedValueTwo} setSelectedValueThree={setSelectedValueThree} 
+                    changeSelectedValueOne={changeSelectedValueOne} changeSelectedValueTwo={changeSelectedValueTwo} changeSelectedValueThree={changeSelectedValueThree}
+                    selectedValues={selectedValues}
+                    handleSelectedValues={handleSelectedValues}
+                />
             </div>
         </div>
         {/* {borrow ?
@@ -108,17 +133,20 @@ function Notice({ userObj, borrow }: Props) {
                 </div>
             </div>
         } */}
-        <FilterDialogs changeFilter={changeFilter} handleClose={handleClose} selectedValueOne={selectedValueOne} selectedValueTwo={selectedValueTwo} selectedValueThree={selectedValueThree} 
-        // setSelectedValue={setSelectedValueOne} setSelectedValueTwo={setSelectedValueTwo} setSelectedValueThree={setSelectedValueThree} 
-        changeSelectedValueOne={changeSelectedValueOne} changeSelectedValueTwo={changeSelectedValueTwo} changeSelectedValueThree={changeSelectedValueThree}/>
+        {/* <FilterDialogs changeFilter={changeFilter} handleClose={handleClose} selectedValueOne={selectedValueOne} selectedValueTwo={selectedValueTwo} selectedValueThree={selectedValueThree} 
+        setSelectedValue={setSelectedValueOne} setSelectedValueTwo={setSelectedValueTwo} setSelectedValueThree={setSelectedValueThree} 
+        changeSelectedValueOne={changeSelectedValueOne} changeSelectedValueTwo={changeSelectedValueTwo} changeSelectedValueThree={changeSelectedValueThree}
+        selectedValues={selectedValues}
+        handleSelectedValues={handleSelectedValues}
+        /> */}
         <div className='flex flex-wrap h-screen'>
             {messages.map((msg) => {
                 let choose
                 {borrow ? choose = 1 : choose = 2}
                 // console.log(msg.text.clocker.gmt)
                 if (msg?.text.choose === choose && msg?.round === 1) {
-                    if (selectedValueOne === '전체' ||selectedValueOne === msg?.item || !selectedValueOne) {
-                        if (selectedValueTwo === '전체' || selectedValueTwo === msg?.text.count || !selectedValueTwo) {
+                    if (selectedValues[0].value === '전체' ||selectedValues[0].value === msg?.item || !selectedValues[0].value) {
+                        if (selectedValues[1].value === '전체' || selectedValues[1].value === msg?.text.count || !selectedValues[1].value) {
                             return(
                                 <Message key={msg?.id} msgObj={msg} isOwner={msg?.creatorId === userObj?.uid} userObj={userObj} 
                                 // selectedValueOne={selectedValueOne} selectedValueTwo={selectedValueTwo} selectedValueThree={selectedValueThree} 

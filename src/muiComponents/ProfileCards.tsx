@@ -1,6 +1,7 @@
 import { useState, useEffect, useReducer } from 'react'
 import Card from '@mui/material/Card';
 import { CardActionArea, CardActions } from '@mui/material';
+import { createPortal } from 'react-dom'
 import { Link } from 'react-router-dom'
 import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnapshot, updateDoc, setDoc } from 'firebase/firestore';
 import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
@@ -29,6 +30,7 @@ import ProfileDrawers from 'src/muiComponents/ProfileDrawers'
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import Divider from '@mui/material/Divider';
+import Message from 'src/pages/Message'
 
 const ProfileCards = ({
   user,
@@ -36,6 +38,9 @@ const ProfileCards = ({
 }) => {
   const [cards, setCards] = useState({point: null, done: [], borrowDone: [], lendDone: [] })
   const [chart, setChart] = useState({borrow: false, lend: true})
+  const [completedDrawer, setCompletedDrawer] = useState('')
+  const [messagesList, setMessagesList] = useState([])
+
   // const [allies, setAllies] = useState({
   //   followers: {
   //     number: null,
@@ -93,7 +98,33 @@ const ProfileCards = ({
     },
   } satisfies ChartConfig
   const totalNumber = actions.reduce((acc, curr) => acc + curr.number, 0)
-  console.log(allies)
+  
+  useEffect(() => {
+    const getMessage = async () => {
+      const messagesRef = query(collection(dbservice, 'num'))
+      const querySnap = await getDocs(messagesRef)
+      const messagesArray = []
+      querySnap.forEach((docSnap) => {
+        const messageId = docSnap.id
+        const messageObj = docSnap.data()
+        const message = {id: messageId, ...messageObj}
+        messagesArray.push(message)
+      })
+      setMessagesList(messagesArray)
+      // const messagesList = state.cards.done.map(async (element) => {
+      //   const docRef = query(collection(dbservice, `num`))
+      //   const docSnap = await getDoc(docRef)
+      //   const messageId = docSnap.id
+      //   const message = docSnap.data() 
+      //   messagesArray.push({messageId, message})
+      //   return {messageId, message}
+      // })
+      // console.log(messagesArray[0])
+      // setMessagesList(messagesList)
+    }
+    getMessage()
+  }, [])
+
   return (
     <div className='flex flex-col'>
     <div className='flex justify-center'>
@@ -199,13 +230,56 @@ const ProfileCards = ({
             </CardActionArea>
           </Card>
         </div>
-        <div id='drawer'>
-          <Drawer>
-            <DrawerContent>
-              practice
-            </DrawerContent>
-          </Drawer>
-        </div>
+        <Drawer>
+          <DrawerTrigger>
+            <div id='completedAction' />
+          </DrawerTrigger>
+          <DrawerContent className='max-h-[50%] h-full overflow-y-scroll'>
+            <ScrollArea>
+              <DrawerHeader>
+                완료된 {`${completedDrawer === 'borrow' ? '빌리기' : '빌려주기'}`}
+              </DrawerHeader>
+              {completedDrawer === 'borrow' ?
+                <div className='flex justify-center flex-wrap'>
+                  {messagesList.map((element) => {
+                    if (element.text.choose === 1 && element.round === 5) {
+                      return (
+                        <div>
+                          <Message key={element.id} msgObj={element} isOwner={element.creatorId === user.uid} userObj={user} />
+                          <Message key={element.id} msgObj={element} isOwner={element.creatorId === user.uid} userObj={user} />
+                          <Message key={element.id} msgObj={element} isOwner={element.creatorId === user.uid} userObj={user} />
+                        </div>
+                      )
+                    }
+                  })}
+                  {/* {state.lendRegisteredMessage.map((msg) => <Message key={msg.id} msgObj={msg} isOwner={true} userObj={userObj} />)}
+                  {state.lendMessage.map((msg) => <Message key={msg.id} msgObj={msg} isOwner={false} userObj={userObj} />)} */}
+                </div>
+                :
+                <div className='flex justify-center flex-wrap'>
+                  {messagesList.map((element) => {
+                    if (element.text.choose === 2 && element.round === 5) {
+                      return <Message key={element.id} msgObj={element} isOwner={element.creatorId === user.uid} userObj={user} />
+                    }
+                  })}
+                  {/* {state.lendRegisteredMessage.map((msg) => <Message key={msg.id} msgObj={msg} isOwner={true} userObj={userObj} />)}
+                  {state.lendMessage.map((msg) => <Message key={msg.id} msgObj={msg} isOwner={false} userObj={userObj} />)} */}
+                </div>
+              }
+            </ScrollArea>
+          </DrawerContent>
+        </Drawer>
+        {/* <Drawer>
+          <DrawerTrigger>
+            <div id='lendCompleted' />
+          </DrawerTrigger>
+          <DrawerContent>
+            <DrawerHeader className='max-h-[50%]'>
+              완료된 빌려주기
+            </DrawerHeader>
+          lendCompleted
+          </DrawerContent>
+        </Drawer> */}
         <ChartContainer
           config={labels}
           className="aspect-square max-h-[250px]"
@@ -213,7 +287,7 @@ const ProfileCards = ({
           <PieChart>
             <ChartLegend
               content={<ChartLegendContent nameKey="action" />}
-              className="gap-2 [&>*]:basis-1/4 [&>*]:justify-center"
+              className="text-base font-bold gap-2 [&>*]:basis-1/4 [&>*]:justify-center"
               verticalAlign='top'
             />
             <Pie
@@ -222,59 +296,39 @@ const ProfileCards = ({
               nameKey="action"
               onClick={(value) => {
                 const action = value.action
-                document.getElementById('drawer')?.childNodes
-                console.log(document.getElementById('drawer')?.childNodes)
+                document.getElementById('completedAction')?.parentNode?.click()
+                setCompletedDrawer(action)
               }}
-              // labelLine={false}
-              // label={({ payload, ...props }) => {
-              //   return (
-              //     <text
-              //       cx={props.cx}
-              //       cy={props.cy}
-              //       x={props.x}
-              //       y={props.y}
-              //       textAnchor={props.textAnchor}
-              //       dominantBaseline={props.dominantBaseline}
-              //       fill="hsla(var(--foreground))"
-              //     >
-              //       <Drawer>
-              //         <createPortal>
-              //           <DrawerTrigger>
-              //             <div className='p-5'>
-              //                 <div>포인트</div>
-              //                 <div className='flex justify-center'>{cards.point}</div>
-              //             </div>
-              //           </DrawerTrigger>
-              //         </createPortal>
-              //         <DrawerContent className='max-h-[50%]'>
-              //           <ScrollArea>
-              //             <DrawerHeader>
-              //               <DrawerTitle>{`${user.displayName}의 포인트 적립 영수증`}</DrawerTitle>
-              //             </DrawerHeader>
-              //             <div>
-              //               <List 
-              //                 sx={{bgcolor: 'background.paper' }}
-              //               >
-              //                     <div>
-              //                       practice
-              //                     </div>
-              //               </List>
-              //             </div>
-              //           </ScrollArea>
-              //         </DrawerContent>
-              //       </Drawer>
-              //       <Drawer>
-              //           practice
-              //       {payload.action === 'borrow' ? '빌리기' : '빌려주기'} {payload.number}회
-              //       </Drawer>
-              //     </text>
-              //   )
-              // }}
-            />
-            {/* <ChartLegend
-              content={<ChartLegendContent nameKey="action" />}
-              className="gap-2 [&>*]:basis-1/4 [&>*]:justify-center"
-            /> */}
+              innerRadius={60}
+            >
+              <Label
+                content={({ viewBox }) => {
+                  if (viewBox && "cx" in viewBox && "cy" in viewBox) {
+                    return (
+                      <text
+                        x={viewBox.cx}
+                        y={viewBox.cy}
+                        textAnchor="middle"
+                      >
+                        <tspan
+                          x={viewBox.cx}
+                          y={viewBox.cy}
+                          className="fill-foreground text-3xl font-bold"
+                        >
+                          {totalNumber.toLocaleString()}
+                        </tspan>
+                        <tspan
+                          x={viewBox.cx}
+                          y={(viewBox.cy || 0) + 24}
+                        >
+                          활동 횟수
+                        </tspan>
+                      </text>
+                    )
+                  }
+                }}
+              />
+            </Pie>
           </PieChart>
         </ChartContainer>
         <ChartContainer

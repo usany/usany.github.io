@@ -5,7 +5,7 @@ import Avatar from '@mui/material/Avatar';
 import { blue } from '@mui/material/colors';
 import ToggleTabs from 'src/muiComponents/ToggleTabs'
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
-import { useSideNavigationStore, useCardAccordionStore, useMessageAccordionStore, useBottomNavigationStore, useAvatarColorStore, useAvatarImageStore } from 'src/store'
+import { useSideNavigationStore, useCardAccordionStore, useMessageAccordionStore, useBottomNavigationStore, useAvatarColorStore, useAvatarImageStore, useProfileUrlStore } from 'src/store'
 import { doc, getDoc } from 'firebase/firestore';
 import { auth, dbservice } from 'src/baseApi/serverbase'
 import Checkbox from '@mui/material/Checkbox';
@@ -17,7 +17,21 @@ import { CreditCard } from 'lucide-react';
 import { MessageCircle } from "lucide-react"
 import { Minimize2 } from 'lucide-react';
 import { Maximize2 } from 'lucide-react';
+import { styled } from '@mui/material/styles';
 
+const Puller = styled('div')(({ theme }) => ({
+    width: 30,
+    height: 6,
+    backgroundColor: grey[300],
+    borderRadius: 3,
+    position: 'absolute',
+    top: 8,
+    left: 'calc(50% - 15px)',
+    ...theme.applyStyles('dark', {
+      backgroundColor: grey[900],
+    }),
+  }));
+  
 interface Props {
     userObj: {uid: string, displayName: string} | null
 }
@@ -29,6 +43,7 @@ const Header = ({ userObj }: Props) => {
     const handleBottomNavigation = useBottomNavigationStore((state) => state.handleBottomNavigation)
     const avatarImage = useAvatarImageStore((state) => state.avatarImage)
     const handleAvatarImage = useAvatarImageStore((state) => state.handleAvatarImage)
+    const {profileUrl, handleProfileUrl} = useProfileUrlStore()
     const cardAccordion = useCardAccordionStore((state) => state.cardAccordion)
     const handleCardAccordion = useCardAccordionStore((state) => state.handleCardAccordion)
     const messageAccordion = useMessageAccordionStore((state) => state.messageAccordion)
@@ -63,7 +78,10 @@ const Header = ({ userObj }: Props) => {
     useEffect(() => {
         getDownloadURL(ref(storage, `${userObj?.uid}`))
         .then((url) => {
-            handleAvatarImage(url)
+            if (!profileUrl) {
+                handleAvatarImage(url)
+            }
+            handleProfileUrl(url)
         })
         .catch((error) => {
             console.log(error)

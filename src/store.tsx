@@ -44,6 +44,10 @@ interface avatarImageState {
   avatarImage: string | null
   handleAvatarImage: (state: string | null) => void
 }
+interface profileUrlState {
+  profileUrl: string | null
+  handleProfileUrl: (state: string | null) => void
+}
 const useSideNavigationStore = create<sideNavigationState>()((set) => ({
     sideNavigation: false,
     handleSideNavigation: () => set((state) => ({ sideNavigation: !state.sideNavigation })),
@@ -108,6 +112,10 @@ const useAvatarImageStore = create<avatarImageState>()((set) => ({
   avatarImage: null,
   handleAvatarImage: (newState) => set(() => ({ avatarImage: newState }))
 }))
+const useProfileUrlStore = create<profileUrlState>()((set) => ({
+  profileUrl: null,
+  handleProfileUrl: (newState) => set(() => ({ profileUrl: newState }))
+}))
 
 const bookStore = (set, get) => ({    
   books: [],
@@ -166,5 +174,5 @@ const bookStore = (set, get) => ({
 
   const useBookStore = create(bookStore);
   
-  export { useSideNavigationStore, useCardAccordionStore, useMessageAccordionStore, useBottomNavigationStore, useAvatarColorStore, useTabsStore, useThemeStore, usePiazzaSwitchStore, useNewMessageStore, useAvatarImageStore };
+  export { useSideNavigationStore, useCardAccordionStore, useMessageAccordionStore, useBottomNavigationStore, useAvatarColorStore, useTabsStore, useThemeStore, usePiazzaSwitchStore, useNewMessageStore, useAvatarImageStore, useProfileUrlStore };
   

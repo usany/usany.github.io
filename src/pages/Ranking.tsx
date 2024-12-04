@@ -32,12 +32,10 @@ function Ranking({ userObj }) {
   useEffect(() => {
     onSnapshot(query(collection(dbservice, 'members'), orderBy('points', 'desc')), (snapshot) => {
         const newArray = snapshot.docs.map((document,index) => {
-
           getDownloadURL(ref(storage, `${document.data()?.uid}`))
           .then((url) => {
             console.log(url)
             setLoadedImage([...loadedImage, {url: url, index: index}])
-
           })
           .catch((error) => {
             console.log(error)
@@ -63,7 +61,7 @@ function Ranking({ userObj }) {
   //   }
   // }, [])
 
-  console.log(ranker)
+  console.log(rank)
   console.log(loadedImageIndex)
   useEffect(() => {
     handleBottomNavigation(5)

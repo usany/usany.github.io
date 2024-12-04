@@ -4,7 +4,7 @@ import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnap
 import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
 import PiazzaDialogs from 'src/muiComponents/PiazzaDialogs'
 import PiazzaSwitch from 'src/muiComponents/PiazzaSwitch'
-import { useBottomNavigationStore, usePiazzaSwitchStore, useAvatarColorStore, useAvatarImageStore } from 'src/store'
+import { useBottomNavigationStore, usePiazzaSwitchStore, useAvatarColorStore, useAvatarImageStore, useProfileUrlStore } from 'src/store'
 import { webSocket, onClick } from 'src/webSocket.tsx'
 import Avatar from '@mui/material/Avatar';
 import { blue } from '@mui/material/colors';
@@ -24,6 +24,7 @@ function Piazza({ userObj }:
   const handleBottomNavigation = useBottomNavigationStore((state) => state.handleBottomNavigation)
   const avatarColor = useAvatarColorStore((state) => state.avatarColor)
   const avatarImage = useAvatarImageStore((state) => state.avatarImage)
+  const {profileUrl, handleProfileUrl} = useProfileUrlStore()
   const [displayedName, setDisplayedName] = useState(null)
   useEffect(() => {
     if (!webSocket) return;
@@ -39,7 +40,9 @@ function Piazza({ userObj }:
           id: id,
           messageClock: messageClock,
           messageClockNumber: messageClockNumber,
-          conversation: null
+          conversation: null,
+          profileImageUrl: profileUrl,
+          profileColor: avatarColor
         },
       ]);
     }
@@ -49,23 +52,23 @@ function Piazza({ userObj }:
     };
   }, []);
 
-  useEffect(() => {
-    if (!webSocket) return;
-    function sLoginCallback(msg) {
-      setMsgList((prev) => [
-        ...prev,
-        {
-          msg: `${msg} joins the chat`,
-          type: "welcome",
-          id: "",
-        },
-      ]);
-    }
-    webSocket.on("sLogin", sLoginCallback);
-    return () => {
-      webSocket.off("sLogin", sLoginCallback);
-    };
-  }, []);
+  // useEffect(() => {
+  //   if (!webSocket) return;
+  //   function sLoginCallback(msg) {
+  //     setMsgList((prev) => [
+  //       ...prev,
+  //       {
+  //         msg: `${msg} joins the chat`,
+  //         type: "welcome",
+  //         id: "",
+  //       },
+  //     ]);
+  //   }
+  //   webSocket.on("sLogin", sLoginCallback);
+  //   return () => {
+  //     webSocket.off("sLogin", sLoginCallback);
+  //   };
+  // }, []);
 
   useEffect(() => {
     scrollToBottom();
@@ -138,7 +141,7 @@ function Piazza({ userObj }:
       const messageClock = new Date().toString()
       const messageClockNumber = Date.now()
       const profileImageUrl = avatarImage
-      console.log(profileImageUrl)
+      // console.log(profileImageUrl)
       if (message) {
         await addDoc(collection(dbservice, 'chats_group'), {
           userUid: userUid,
@@ -146,9 +149,10 @@ function Piazza({ userObj }:
           message: message,
           messageClock: messageClock,
           messageClockNumber: messageClockNumber,
-          profileImageUrl: profileImageUrl
+          profileImageUrl: profileUrl,
+          profileColor: avatarColor
         })
-        setMsgList((prev) => [...prev, { msg: message, type: "me", userUid: userObj.uid, id: userObj.displayName, messageClock: messageClock, conversation: null, profileImageUrl: profileImageUrl }]);
+        setMsgList((prev) => [...prev, { msg: message, type: "me", userUid: userObj.uid, id: userObj.displayName, messageClock: messageClock, conversation: null, profileImageUrl: profileImageUrl, profileColor: avatarColor }]);
       }
     } catch (error) {
       console.log(error)
@@ -161,16 +165,19 @@ function Piazza({ userObj }:
       const messageRef = collection(dbservice, 'chats_group')
       const messagesCollection = query(messageRef, orderBy('messageClockNumber'))
       const messages = await getDocs(messagesCollection);
-      messages.forEach((doc) => {
-        const message = doc.data().message
-        const userUid = doc.data().userUid
-        const userName = doc.data().userName
-        const messageClock = doc.data().messageClock
-        const messageClockNumber = doc.data().messageClockNumber
-        const profileColor = doc.data()?.profileColor
-        const profileImageUrl = doc.data()?.profileImageUrl
+      messages.forEach((document) => {
+        const message = document.data().message
+        const userUid = document.data().userUid
+        const userRef = doc(dbservice, `members/${userUid}`)
+        // const userSnap = await getDoc(userRef)
+        const userName = document.data().userName
+        const messageClock = document.data().messageClock
+        const messageClockNumber = document.data().messageClockNumber
+        const profileColor = document.data()?.profileColor
+        const profileImageUrl = document.data()?.profileImageUrl
         messagesArray.push({ msg: message, type: "me", userUid: userUid, id: userName, messageClockNumber: messageClockNumber, messageClock: messageClock, conversation: null, profileColor: profileColor, profileImageUrl: profileImageUrl })
         setMsgList(messagesArray);
+        console.log(profileColor)
       });
     }
     if (changeMessage) { 
@@ -203,82 +210,82 @@ function Piazza({ userObj }:
       </div>
       <div className="app-container">
         <div className="wrap">
-            <div className="chat-box">
-              <ul className="chat">
-                {msgList.map((v, i) => {
-                  if (v.type === "welcome") {
-                    return (
-                      <li className="welcome">
-                      <div className="line" />
-                      <div>{v.msg}</div>
-                      <div className="line" />
-                    </li>
-                    )
+          <div className="chat-box">
+            <ul className="chat">
+              {msgList.map((v, i) => {
+                if (v.type === "welcome") {
+                  return (
+                    <li className="welcome">
+                    <div className="line" />
+                    <div>{v.msg}</div>
+                    <div className="line" />
+                  </li>
+                  )
+                } else {
+                  let userDirection
+                  if (v.userUid === userObj.uid) {
+                    userDirection = 'me'
                   } else {
-                    let userDirection
-                    if (v.userUid === userObj.uid) {
-                      userDirection = 'me'
-                    } else {
-                      userDirection = 'other'
-                    }
-                    return (
-                        <li
-                          className={userDirection}
-                          key={`${i}_li`}
-                          name={v.id}
-                          data-id={v.id}
-                          onClick={() => onSetPrivateTarget({userUid: v.userUid, displayName: v.id})}
-                        >
-                          <div className={`flex justify-${v.userUid !== userObj.uid ? 'start' : 'end'}`}>
-                            <Avatar alt={v.id} sx={{ bgcolor: v.profileColor || blue[500] }} src={v.profileImageUrl || './src'} variant="rounded" />
-                          </div>
-                          <div
-                            className={
-                              v.id === privateTarget ? "private-user" : "userId"
-                            }
-                            data-id={v.id}
-                            name={v.id}
-                          >
-                            {v.id}
-                          </div>
-                          {v.userUid !== userObj.uid ? 
-                          <div className='flex justify-start'>
-                          <div className={'other'} data-id={v.id} name={v.id}>
-                            {v.msg}
-                          </div>
-                          <div data-id={v.id} name={v.id}>
-                            {v.messageClock}
-                          </div>
-                          </div>
-                          :
-                          <div className='flex justify-end'>
-                          <div data-id={v.id} name={v.id}>
-                            {v.messageClock}
-                          </div>
-                          <div className={'me'} data-id={v.id} name={v.id}>
-                            {v.msg}
-                          </div>
-                          </div>
-                          }
-                        </li>
-                    )
+                    userDirection = 'other'
                   }
-                    }
+                  return (
+                      <li
+                        className={userDirection}
+                        key={`${i}_li`}
+                        name={v.id}
+                        data-id={v.id}
+                        onClick={() => onSetPrivateTarget({userUid: v.userUid, displayName: v.id})}
+                      >
+                        <div className={`flex justify-${v.userUid !== userObj.uid ? 'start' : 'end'}`}>
+                          <Avatar alt={v.id} sx={{ bgcolor: v.profileColor || blue[500] }} src={v.profileImageUrl || './src'} variant="rounded" />
+                        </div>
+                        <div
+                          className={
+                            v.id === privateTarget ? "private-user" : "userId"
+                          }
+                          data-id={v.id}
+                          name={v.id}
+                        >
+                          {v.id}
+                        </div>
+                        {v.userUid !== userObj.uid ? 
+                        <div className='flex justify-start'>
+                        <div className={'other'} data-id={v.id} name={v.id}>
+                          {v.msg}
+                        </div>
+                        <div data-id={v.id} name={v.id}>
+                          {v.messageClock}
+                        </div>
+                        </div>
+                        :
+                        <div className='flex justify-end'>
+                        <div data-id={v.id} name={v.id}>
+                          {v.messageClock}
+                        </div>
+                        <div className={'me'} data-id={v.id} name={v.id}>
+                          {v.msg}
+                        </div>
+                        </div>
+                        }
+                      </li>
                   )
                 }
-                <li ref={messagesEndRef} />
-              </ul>
-              <form className="send-form" onSubmit={onSendSubmitHandler}>
-                <input
-                  placeholder="메세지를 작성해 주세요"
-                  onChange={onChangeMsgHandler}
-                  value={msg}
-                  autoFocus
-                />
-                <button type="submit">전송</button>
-              </form>
-            </div>
-            <PiazzaDialogs selectUser={selectUser} user={user} handleClose={handleClose} userObj={userObj} handleMsgList={(newState: []) => setMsgList(newState)} handleChangeMessage={(newState: boolean) => setChangeMessage(newState)} displayedName={displayedName}/>
+                  }
+                )
+              }
+              <li ref={messagesEndRef} />
+            </ul>
+            <form className="send-form" onSubmit={onSendSubmitHandler}>
+              <input
+                placeholder="메세지를 작성해 주세요"
+                onChange={onChangeMsgHandler}
+                value={msg}
+                autoFocus
+              />
+              <button type="submit">전송</button>
+            </form>
+          </div>
+          <PiazzaDialogs selectUser={selectUser} user={user} handleClose={handleClose} userObj={userObj} handleMsgList={(newState: []) => setMsgList(newState)} handleChangeMessage={(newState: boolean) => setChangeMessage(newState)} displayedName={displayedName}/>
         </div>
       </div>
     </div>

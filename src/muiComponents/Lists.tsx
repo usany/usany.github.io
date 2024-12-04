@@ -37,11 +37,13 @@ function Lists({ elements, multiple, userSearch, loadedImage, loadedImageIndex }
       // maxWidth: 360,
       bgcolor: 'background.paper' }}>
       {elements.map((element, index) => {
+        console.log(element)
+        console.log(element.displayName)
         // console.log(element.profileImage)
         let userNameConfirm = true
         if (userSearch) {
           for (let number = 0; number < userSearch.length; number++) {
-            if (element.displayName[number] !== userSearch[number]) {
+            if (element?.displayName[number] !== userSearch[number]) {
               userNameConfirm = false
             }
           }

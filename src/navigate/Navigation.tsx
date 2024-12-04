@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import { Link } from 'react-router-dom'
 import { auth, dbservice } from 'src/baseApi/serverbase'
 import Modes from 'src/Modes'
@@ -9,7 +9,27 @@ import DraftsIcon from '@mui/icons-material/Drafts';
 import ImageIcon from '@mui/icons-material/Image';
 import WorkIcon from '@mui/icons-material/Work';
 import Public from '@mui/icons-material/Public';
-import { useSideNavigationStore, useThemeStore } from 'src/store'
+import { useSideNavigationStore, useThemeStore, useAvatarColorStore, useAvatarImageStore, useProfileUrlStore } from 'src/store'
+import { styled } from '@mui/material/styles';
+import { blue } from '@mui/material/colors';
+
+const StyledBox = styled('div')(({ theme }) => ({
+  backgroundColor: '#fff',
+  ...theme.applyStyles('dark', {
+    backgroundColor: blue[800],
+  }),
+}));
+
+const Puller = styled('div')(({ theme }) => ({
+  // display: 'flex',
+  width: 30,
+  left: 500,
+  height: '90%',
+  backgroundColor: blue[300],
+  borderRadius: 3,
+  position: 'absolute',
+  top: 8,
+}));
 
 interface Props {
   userObj: {uid: string, displayName: string} | null
@@ -24,7 +44,9 @@ function Navigation({ userObj, sideNavigation, handleSideNavigation }: Props) {
   const [points, setPoints] = useState<number>(0)
   const theme = useThemeStore((state) => state.theme)
   const [profileColor, setProfileColor] = useState<string>('');
-  
+  const {avatarImage, handleAvatarImage} = useAvatarImageStore()
+  const {avatarColor, handleAvatarColor} = useAvatarColorStore()
+  const {profileUrl, handleProfileUrl} = useProfileUrlStore()
   useEffect(() => {
     if (userObj) {
       onSnapshot(doc(dbservice, `members/${userObj.uid}`), (snapshot) => {
@@ -41,6 +63,9 @@ function Navigation({ userObj, sideNavigation, handleSideNavigation }: Props) {
 
   const logOut = () => {
     onLogOutClick()
+    handleAvatarImage(null)
+    handleAvatarColor('')
+    handleProfileUrl('')
     checkbox()
   }
 
@@ -58,6 +83,7 @@ function Navigation({ userObj, sideNavigation, handleSideNavigation }: Props) {
     displayName: userObj?.displayName,
     profileColor: profileColor
   }
+  
   return (
     <SwipeableDrawer
       PaperProps={{
@@ -72,6 +98,7 @@ function Navigation({ userObj, sideNavigation, handleSideNavigation }: Props) {
       onClose={handleSideNavigation}
       onOpen={handleSideNavigation}
       aria-hidden="false"
+      swipeAreaWidth={20}
     >
       <nav
         className='flex flex-col justify-between w-full'
