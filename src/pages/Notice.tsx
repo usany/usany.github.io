@@ -113,12 +113,8 @@ function Notice({ userObj, borrow }: Props) {
         <div className='flex justify-start text-2xl w-screen'>
             <div className='flex w-5/6'>{borrow ? '빌리기' : '빌려주기'} 카드 목록</div>
             <div className='flex w-screen justify-end px-10' onClick={handleClickChangeFilter}>
-                {/* <Settings onClick={handleClickChangeFilter}/> */}
-                {/* <Filter onClick={handleClickChangeFilter}/> */}
-                <FilterDialogs changeFilter={changeFilter} handleClose={handleClose} selectedValueOne={selectedValueOne} selectedValueTwo={selectedValueTwo} selectedValueThree={selectedValueThree} 
-                    // setSelectedValue={setSelectedValueOne} setSelectedValueTwo={setSelectedValueTwo} setSelectedValueThree={setSelectedValueThree} 
-                    changeSelectedValueOne={changeSelectedValueOne} changeSelectedValueTwo={changeSelectedValueTwo} changeSelectedValueThree={changeSelectedValueThree}
-                    selectedValues={selectedValues}
+                <FilterDialogs 
+                    selectedValues={selectedValues} 
                     handleSelectedValues={handleSelectedValues}
                 />
             </div>
@@ -133,12 +129,6 @@ function Notice({ userObj, borrow }: Props) {
                 </div>
             </div>
         } */}
-        {/* <FilterDialogs changeFilter={changeFilter} handleClose={handleClose} selectedValueOne={selectedValueOne} selectedValueTwo={selectedValueTwo} selectedValueThree={selectedValueThree} 
-        setSelectedValue={setSelectedValueOne} setSelectedValueTwo={setSelectedValueTwo} setSelectedValueThree={setSelectedValueThree} 
-        changeSelectedValueOne={changeSelectedValueOne} changeSelectedValueTwo={changeSelectedValueTwo} changeSelectedValueThree={changeSelectedValueThree}
-        selectedValues={selectedValues}
-        handleSelectedValues={handleSelectedValues}
-        /> */}
         <div className='flex flex-wrap h-screen'>
             {messages.map((msg) => {
                 let choose

@@ -34,9 +34,7 @@ import {
   } from "@/components/ui/select"
   import { Filter } from 'lucide-react';
 
-function FilterDialogs({ changeFilter, handleClose, selectedValueOne, selectedValueTwo, selectedValueThree, 
-    // setSelectedValueOne, setSelectedValueTwo, setSelectedValueThree, 
-    changeSelectedValueOne, changeSelectedValueTwo, changeSelectedValueThree, selectedValues, handleSelectedValues }) {
+function FilterDialogs({ selectedValues, handleSelectedValues }) {
     
     return (
         <div>
