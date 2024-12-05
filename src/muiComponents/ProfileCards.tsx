@@ -25,7 +25,7 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer"
 import { ScrollArea } from "@/components/ui/scroll-area"
-import Points from 'src/pages/Points'
+import { useCompletedDrawerStore } from 'src/store'
 import ProfileDrawers from 'src/muiComponents/ProfileDrawers'
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -38,9 +38,9 @@ const ProfileCards = ({
 }) => {
   const [cards, setCards] = useState({point: null, done: [], borrowDone: [], lendDone: [] })
   const [chart, setChart] = useState({borrow: false, lend: true})
-  const [completedDrawer, setCompletedDrawer] = useState('')
+  // const [completedDrawer, setCompletedDrawer] = useState('')
   const [messagesList, setMessagesList] = useState([])
-
+  const { completedDrawer, handleCompletedDrawer } = useCompletedDrawerStore()
   // const [allies, setAllies] = useState({
   //   followers: {
   //     number: null,
@@ -108,7 +108,9 @@ const ProfileCards = ({
         const messageId = docSnap.id
         const messageObj = docSnap.data()
         const message = {id: messageId, ...messageObj}
-        messagesArray.push(message)
+        if (messageObj.creatorId === user.uid || messageObj.connectedId === user.uid) {
+          messagesArray.push(message)
+        }
       })
       setMessagesList(messagesArray)
       // const messagesList = state.cards.done.map(async (element) => {
@@ -186,7 +188,7 @@ const ProfileCards = ({
         </CardActionArea>
       </Card>
     </div>
-    <div className='flex justify-center'>
+    {/* <div className='flex justify-center'>
           <Card>
             <CardActionArea>
               <Link 
@@ -195,10 +197,10 @@ const ProfileCards = ({
                   user: user,
                   actions: 'completedLend', 
                   cards: cards,
-                  // lendRegisteredMessage: lendRegisteredMessage,
-                  // lendMessage: lendMessage,
-                  // borrowRegisteredMessage: borrowRegisteredMessage,
-                  // borrowMessage: borrowMessage
+                  lendRegisteredMessage: lendRegisteredMessage,
+                  lendMessage: lendMessage,
+                  borrowRegisteredMessage: borrowRegisteredMessage,
+                  borrowMessage: borrowMessage
                 }}
               >
               <div className='p-5'>
@@ -216,10 +218,10 @@ const ProfileCards = ({
                   user: user,
                   actions: 'completedBorrow', 
                   cards: cards,
-                  // lendRegisteredMessage: lendRegisteredMessage,
-                  // lendMessage: lendMessage,
-                  // borrowRegisteredMessage: borrowRegisteredMessage,
-                  // borrowMessage: borrowMessage
+                  lendRegisteredMessage: lendRegisteredMessage,
+                  lendMessage: lendMessage,
+                  borrowRegisteredMessage: borrowRegisteredMessage,
+                  borrowMessage: borrowMessage
                 }}
               >
               <div className='p-5'>
@@ -229,7 +231,7 @@ const ProfileCards = ({
               </Link>
             </CardActionArea>
           </Card>
-        </div>
+        </div> */}
         <Drawer>
           <DrawerTrigger>
             <div id='completedAction' />
@@ -243,12 +245,13 @@ const ProfileCards = ({
                 <div className='flex justify-center flex-wrap'>
                   {messagesList.map((element) => {
                     if (element.text.choose === 1 && element.round === 5) {
+                      console.log(element)
                       return (
-                        <div>
-                          <Message key={element.id} msgObj={element} isOwner={element.creatorId === user.uid} userObj={user} />
-                          <Message key={element.id} msgObj={element} isOwner={element.creatorId === user.uid} userObj={user} />
-                          <Message key={element.id} msgObj={element} isOwner={element.creatorId === user.uid} userObj={user} />
-                        </div>
+                        <Message key={element.id} msgObj={element} isOwner={element.creatorId === user.uid} userObj={user} />
+                        // <div>
+                        //   <Message key={element.id} msgObj={element} isOwner={element.creatorId === user.uid} userObj={user} />
+                        //   <Message key={element.id} msgObj={element} isOwner={element.creatorId === user.uid} userObj={user} />
+                        // </div>
                       )
                     }
                   })}
@@ -286,7 +289,9 @@ const ProfileCards = ({
         >
           <PieChart>
             <ChartLegend
-              content={<ChartLegendContent nameKey="action" />}
+              content={
+                <ChartLegendContent nameKey="action" /> 
+              }
               className="text-base font-bold gap-2 [&>*]:basis-1/4 [&>*]:justify-center"
               verticalAlign='top'
             />
@@ -297,7 +302,7 @@ const ProfileCards = ({
               onClick={(value) => {
                 const action = value.action
                 document.getElementById('completedAction')?.parentNode?.click()
-                setCompletedDrawer(action)
+                handleCompletedDrawer(action)
               }}
               innerRadius={60}
             >
@@ -331,7 +336,7 @@ const ProfileCards = ({
             </Pie>
           </PieChart>
         </ChartContainer>
-        <ChartContainer
+        {/* <ChartContainer
           config={labels}
           className="aspect-square max-h-[250px]"
         >
@@ -378,7 +383,7 @@ const ProfileCards = ({
               className="-translate-y-2 flex-wrap gap-2 [&>*]:basis-1/4 [&>*]:justify-center"
             />
           </PieChart>
-        </ChartContainer>
+        </ChartContainer> */}
     </div>
   );
 }

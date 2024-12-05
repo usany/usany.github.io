@@ -48,6 +48,10 @@ interface profileUrlState {
   profileUrl: string | null
   handleProfileUrl: (state: string | null) => void
 }
+interface completedDrawerState {
+  completedDrawer: string | null
+  handleCompletedDrawer: (state: string | null) => void
+}
 const useSideNavigationStore = create<sideNavigationState>()((set) => ({
     sideNavigation: false,
     handleSideNavigation: () => set((state) => ({ sideNavigation: !state.sideNavigation })),
@@ -116,6 +120,10 @@ const useProfileUrlStore = create<profileUrlState>()((set) => ({
   profileUrl: null,
   handleProfileUrl: (newState) => set(() => ({ profileUrl: newState }))
 }))
+const useCompletedDrawerStore = create<completedDrawerState>()((set) => ({
+  completedDrawer: null,
+  handleCompletedDrawer: (newState) => set(() => ({ completedDrawer: newState }))
+}))
 
 const bookStore = (set, get) => ({    
   books: [],
@@ -174,5 +182,5 @@ const bookStore = (set, get) => ({
 
   const useBookStore = create(bookStore);
   
-  export { useSideNavigationStore, useCardAccordionStore, useMessageAccordionStore, useBottomNavigationStore, useAvatarColorStore, useTabsStore, useThemeStore, usePiazzaSwitchStore, useNewMessageStore, useAvatarImageStore, useProfileUrlStore };
+  export { useSideNavigationStore, useCardAccordionStore, useMessageAccordionStore, useBottomNavigationStore, useAvatarColorStore, useTabsStore, useThemeStore, usePiazzaSwitchStore, useNewMessageStore, useAvatarImageStore, useProfileUrlStore, useCompletedDrawerStore };
   

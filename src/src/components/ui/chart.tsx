@@ -1,6 +1,6 @@
 import * as React from "react"
 import * as RechartsPrimitive from "recharts"
-
+import { useCompletedDrawerStore } from 'src/store'
 import { cn } from "@/lib/utils"
 
 // Format: { THEME_NAME: CSS_SELECTOR }
@@ -269,6 +269,7 @@ const ChartLegendContent = React.forwardRef<
     ref
   ) => {
     const { config } = useChart()
+    const {completedDrawer, handleCompletedDrawer} = useCompletedDrawerStore()
 
     if (!payload?.length) {
       return null
@@ -278,11 +279,12 @@ const ChartLegendContent = React.forwardRef<
       <div
         ref={ref}
         className={cn(
-          "flex items-center justify-center gap-4",
+          "flex items-center justify-center gap-4 flex-col",
           verticalAlign === "top" ? "pb-3" : "pt-3",
           className
         )}
       >
+        <div className='flex'>
         {payload.map((item) => {
           const key = `${nameKey || item.dataKey || "value"}`
           const itemConfig = getPayloadConfigFromPayload(config, item, key)
@@ -291,8 +293,13 @@ const ChartLegendContent = React.forwardRef<
             <div
               key={item.value}
               className={cn(
-                "flex items-center gap-1.5 [&>svg]:h-3 [&>svg]:w-3 [&>svg]:text-neutral-500 dark:[&>svg]:text-neutral-400"
+                "flex items-center gap-1.5 [&>svg]:h-3 [&>svg]:w-3 [&>svg]:text-neutral-500 dark:[&>svg]:text-neutral-400 px-5"
               )}
+              onClick={(value) => {
+                console.log(item)
+                document.getElementById('completedAction')?.parentNode?.click()
+                handleCompletedDrawer(item.payload.action)
+              }}
             >
               {itemConfig?.icon && !hideIcon ? (
                 <itemConfig.icon />
@@ -308,6 +315,8 @@ const ChartLegendContent = React.forwardRef<
             </div>
           )
         })}
+        </div>
+        {!payload[0].payload.number && !payload[1].payload.number && <div className='pt-5'>완료 활동이 없습니다</div>}
       </div>
     )
   }
