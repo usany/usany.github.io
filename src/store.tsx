@@ -1,4 +1,9 @@
 import { create } from 'zustand'
+import { configureStore } from '@reduxjs/toolkit'
+// import { counterReducer } from 'src/stateSlices/stateSlice'
+import { cardAccordionReducer } from 'src/stateSlices/cardAccordionSlice'
+import { themeReducer } from 'src/stateSlices/themeSlice'
+import { bottomNavigationReducer } from 'src/stateSlices/bottomNavigationSlice'
 
 interface sideNavigationState {
   sideNavigation: boolean
@@ -181,6 +186,12 @@ const bookStore = (set, get) => ({
 });
 
   const useBookStore = create(bookStore);
-  
-  export { useSideNavigationStore, useCardAccordionStore, useMessageAccordionStore, useBottomNavigationStore, useAvatarColorStore, useTabsStore, useThemeStore, usePiazzaSwitchStore, useNewMessageStore, useAvatarImageStore, useProfileUrlStore, useCompletedDrawerStore };
+  const store = configureStore({
+    reducer: {
+      cardAccordion: cardAccordionReducer.reducer,
+      theme: themeReducer.reducer,
+      bottomNavigation: bottomNavigationReducer.reducer,
+    }
+  })
+  export { store, useSideNavigationStore, useCardAccordionStore, useMessageAccordionStore, useBottomNavigationStore, useAvatarColorStore, useTabsStore, useThemeStore, usePiazzaSwitchStore, useNewMessageStore, useAvatarImageStore, useProfileUrlStore, useCompletedDrawerStore };
   

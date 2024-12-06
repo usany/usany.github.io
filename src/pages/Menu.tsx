@@ -13,6 +13,8 @@ import {
     AccordionItem,
     AccordionTrigger,
 } from "@/components/ui/accordion"
+import { useSelector, useDispatch } from 'react-redux'
+import { cardAccordionReducer, change } from 'src/stateSlices/cardAccordionSlice'
 // import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 // import BookmarkIcon from '@mui/icons-material/Bookmark';
 // import Checkbox from '@mui/material/Checkbox';
@@ -27,19 +29,22 @@ import {
 // import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Skeleton from '@mui/material/Skeleton';
+import { User } from 'firebase/auth';
 
 interface Props {
-    userObj: {uid: string, displayName: string} | null
+    userObj: User | null
 }
 function Menu({ userObj }: Props) {
     const [messages, setMessages] = useState<Array<object>>([]);
     const piazzaSwitch = usePiazzaSwitchStore((state) => state.piazzaSwitch)
-    const cardAccordion = useCardAccordionStore((state) => state.cardAccordion)
-    const handleCardAccordion = useCardAccordionStore((state) => state.handleCardAccordion)
+    // const cardAccordion = useCardAccordionStore((state) => state.cardAccordion)
+    // const handleCardAccordion = useCardAccordionStore((state) => state.handleCardAccordion)
+    const cardAccordion = useSelector(state => state.cardAccordion.value)
+    const dispatch = useDispatch()
     const messageAccordion = useMessageAccordionStore((state) => state.messageAccordion)
     const handleMessageAccordion = useMessageAccordionStore((state) => state.handleMessageAccordion)
-    const [card, setCard] = useState(true);
-    const [message, setMessage] = useState(true);
+    // const [card, setCard] = useState(true);
+    // const [message, setMessage] = useState(true);
     const [cardLoaded, setCardLoaded] = useState(false)
     const [accordions, setAccordions] = useState({cards: '', messages: '' })
     useEffect(() => {
@@ -118,7 +123,7 @@ function Menu({ userObj }: Props) {
                 value={[accordions.cards, accordions.messages]}
                 type="multiple" className="w-full px-3">
                 <AccordionItem value="item-1">
-                <AccordionTrigger onClick={() => handleCardAccordion()}>카드</AccordionTrigger>
+                <AccordionTrigger onClick={() => dispatch(change())}>카드</AccordionTrigger>
                 <AccordionContent >
                     {cardLoaded ? 
                         <div>

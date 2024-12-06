@@ -19,13 +19,13 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import TextField from '@mui/material/TextField';
 import { useBottomNavigationStore, useTabsStore } from 'src/store'
+import { User } from 'firebase/auth';
 
 interface Props {
-    userObj: {uid: string, displayName: string} | null, action: number, borrow: boolean
+    userObj: User, action: number, borrow: boolean
 }
 function Add({ userObj, action, borrow }: Props) {
   const [addSteps, setAddSteps] = useState(0);
-//   const [enableButton, setEnableButton] = useState(true);
   const [cardId, setCardId] = useState(null)
   const [display, setDisplay] = useState(null)
   const [item, setItem] = useState<string>('');

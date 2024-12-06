@@ -9,9 +9,10 @@ import { createPortal } from 'react-dom'
 import { Root, Overlay, Description } from "@radix-ui/react-dialog";
 import { useImmer } from 'use-immer'
 import { Filter } from 'lucide-react';
+import { User } from 'firebase/auth';
 
 interface Props {
-    userObj: {uid: string, displayName: string} | null
+    userObj: User | null
     borrow: boolean
 }
 function Notice({ userObj, borrow }: Props) {

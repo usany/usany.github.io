@@ -18,6 +18,9 @@ import { MessageCircle } from "lucide-react"
 import { Minimize2 } from 'lucide-react';
 import { Maximize2 } from 'lucide-react';
 import { styled } from '@mui/material/styles';
+import { useSelector, useDispatch } from 'react-redux'
+import { cardAccordionReducer, change } from 'src/stateSlices/cardAccordionSlice'
+import { User } from 'firebase/auth';
 
 const Puller = styled('div')(({ theme }) => ({
     width: 30,
@@ -33,7 +36,7 @@ const Puller = styled('div')(({ theme }) => ({
   }));
   
 interface Props {
-    userObj: {uid: string, displayName: string} | null
+    userObj: User | null
 }
 
 const Header = ({ userObj }: Props) => {
@@ -44,8 +47,8 @@ const Header = ({ userObj }: Props) => {
     const avatarImage = useAvatarImageStore((state) => state.avatarImage)
     const handleAvatarImage = useAvatarImageStore((state) => state.handleAvatarImage)
     const {profileUrl, handleProfileUrl} = useProfileUrlStore()
-    const cardAccordion = useCardAccordionStore((state) => state.cardAccordion)
-    const handleCardAccordion = useCardAccordionStore((state) => state.handleCardAccordion)
+    // const cardAccordion = useCardAccordionStore((state) => state.cardAccordion)
+    // const handleCardAccordion = useCardAccordionStore((state) => state.handleCardAccordion)
     const messageAccordion = useMessageAccordionStore((state) => state.messageAccordion)
     const handleMessageAccordion = useMessageAccordionStore((state) => state.handleMessageAccordion)
     const [sideNavigation, setSideNavigation] = useState(false)
@@ -55,6 +58,9 @@ const Header = ({ userObj }: Props) => {
     const storage = getStorage();
     // const storageRef = ref(storage, 'screen.jpg'); 
     const [scroll, setScroll] = useState('')
+    const cardAccordion = useSelector(state => state.cardAccordion.value)
+    const dispatch = useDispatch()
+  
     let prevScrollPos = window.scrollY;
     window.addEventListener('scroll', function () {
         // current scroll position
@@ -129,7 +135,7 @@ const Header = ({ userObj }: Props) => {
                                             control={
                                                 <Checkbox
                                                     checked={cardAccordion}
-                                                    onClick={handleCardAccordion}
+                                                    onClick={() => dispatch(change())}
                                                 />
                                             } 
                                             // label="카드" 
