@@ -10,50 +10,53 @@ import ImageIcon from '@mui/icons-material/Image';
 import WorkIcon from '@mui/icons-material/Work';
 import Public from '@mui/icons-material/Public';
 import { useSideNavigationStore, useThemeStore, useAvatarColorStore, useAvatarImageStore, useProfileUrlStore } from 'src/store'
-import { styled } from '@mui/material/styles';
-import { blue } from '@mui/material/colors';
+import { User } from 'firebase/auth';
+import { changeProfileUrl } from 'src/stateSlices/profileUrlSlice'
+import { changeProfileColor } from 'src/stateSlices/profileColorSlice'
+import { changeProfileImage } from 'src/stateSlices/profileImageSlice'
+import { useSelector, useDispatch } from 'react-redux'
 
-const StyledBox = styled('div')(({ theme }) => ({
-  backgroundColor: '#fff',
-  ...theme.applyStyles('dark', {
-    backgroundColor: blue[800],
-  }),
-}));
+// const StyledBox = styled('div')(({ theme }) => ({
+//   backgroundColor: '#fff',
+//   ...theme.applyStyles('dark', {
+//     backgroundColor: blue[800],
+//   }),
+// }));
 
-const Puller = styled('div')(({ theme }) => ({
-  // display: 'flex',
-  width: 30,
-  left: 500,
-  height: '90%',
-  backgroundColor: blue[300],
-  borderRadius: 3,
-  position: 'absolute',
-  top: 8,
-}));
+// const Puller = styled('div')(({ theme }) => ({
+//   width: 30,
+//   left: 500,
+//   height: '90%',
+//   backgroundColor: blue[300],
+//   borderRadius: 3,
+//   position: 'absolute',
+//   top: 8,
+// }));
 
 interface Props {
-  userObj: {uid: string, displayName: string} | null
+  userObj: User | null
   sideNavigation: boolean
   handleSideNavigation: () => void
 }
 
 const onLogOutClick = () => auth.signOut();
 function Navigation({ userObj, sideNavigation, handleSideNavigation }: Props) {
-  const [textColor, setTextColor] = useState<string>('#e2e8f0');
   const [backgroundColor, setBackgroundColor] = useState<string>('#e2e8f0');
   const [points, setPoints] = useState<number>(0)
   const theme = useThemeStore((state) => state.theme)
   const [profileColor, setProfileColor] = useState<string>('');
-  const {avatarImage, handleAvatarImage} = useAvatarImageStore()
-  const {avatarColor, handleAvatarColor} = useAvatarColorStore()
-  const {profileUrl, handleProfileUrl} = useProfileUrlStore()
+  const dispatch = useDispatch()
+  // const {avatarImage, handleAvatarImage} = useAvatarImageStore()
+  // const {avatarColor, handleAvatarColor} = useAvatarColorStore()
+  // const {profileUrl, handleProfileUrl} = useProfileUrlStore()
+
   useEffect(() => {
     if (userObj) {
       onSnapshot(doc(dbservice, `members/${userObj.uid}`), (snapshot) => {
         const number = snapshot.data()?.points
         setPoints(number)
-        const profileColor = snapshot.data()?.profileColor
-        setProfileColor(profileColor)
+        const color = snapshot.data()?.profileColor
+        setProfileColor(color)
       })
     }
   }, [])
@@ -63,18 +66,19 @@ function Navigation({ userObj, sideNavigation, handleSideNavigation }: Props) {
 
   const logOut = () => {
     onLogOutClick()
-    handleAvatarImage(null)
-    handleAvatarColor('')
-    handleProfileUrl('')
+    // handleAvatarImage(null)
+    // handleAvatarColor('')
+    // handleProfileUrl('')
+    dispatch(changeProfileUrl(''))
+    dispatch(changeProfileImage(''))
+    dispatch(changeProfileColor(''))
     checkbox()
   }
 
   useEffect(() => {
     if (theme === 'dark') {
-      setTextColor('#ddd')
       setBackgroundColor('#2d3848')
     } else {
-      setTextColor('#000')
       setBackgroundColor('#e2e8f0')
     }
   }, [theme])

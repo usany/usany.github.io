@@ -1,5 +1,6 @@
 import "./SwipeableViews.css";
 import React, { useCallback, useEffect, useRef } from "react";
+import { useSelector, useDispatch } from 'react-redux'
 
 export function SwipeableViews({
   className = "",
@@ -94,11 +95,12 @@ export function SwipeableViews({
           //   currentPage = currentPage+3
           // }
         }
-        onIndexChange(currentPage);
+        console.log(currentPage)
+        console.log(onIndexChange(currentPage))
       }, 100);
     },
   );
-
+  
   return (
     <div
       {...rootProps}

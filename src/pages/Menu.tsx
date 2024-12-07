@@ -14,20 +14,8 @@ import {
     AccordionTrigger,
 } from "@/components/ui/accordion"
 import { useSelector, useDispatch } from 'react-redux'
-import { cardAccordionReducer, change } from 'src/stateSlices/cardAccordionSlice'
-// import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
-// import BookmarkIcon from '@mui/icons-material/Bookmark';
-// import Checkbox from '@mui/material/Checkbox';
-// import FormControlLabel from '@mui/material/FormControlLabel';
-// import FormGroup from '@mui/material/FormGroup';
-// import Divider from '@mui/material/Divider';
-// import Accordion from '@mui/material/Accordion';
-// import AccordionActions from '@mui/material/AccordionActions';
-// import AccordionSummary from '@mui/material/AccordionSummary';
-// import AccordionDetails from '@mui/material/AccordionDetails';
-// import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-// import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
+import { change } from 'src/stateSlices/cardAccordionSlice'
+import { changeMessageAccordion } from 'src/stateSlices/messageAccordionSlice'
 import Skeleton from '@mui/material/Skeleton';
 import { User } from 'firebase/auth';
 
@@ -40,9 +28,10 @@ function Menu({ userObj }: Props) {
     // const cardAccordion = useCardAccordionStore((state) => state.cardAccordion)
     // const handleCardAccordion = useCardAccordionStore((state) => state.handleCardAccordion)
     const cardAccordion = useSelector(state => state.cardAccordion.value)
+    const messageAccordion = useSelector(state => state.messageAccordion.value)
     const dispatch = useDispatch()
-    const messageAccordion = useMessageAccordionStore((state) => state.messageAccordion)
-    const handleMessageAccordion = useMessageAccordionStore((state) => state.handleMessageAccordion)
+    // const messageAccordion = useMessageAccordionStore((state) => state.messageAccordion)
+    // const handleMessageAccordion = useMessageAccordionStore((state) => state.handleMessageAccordion)
     // const [card, setCard] = useState(true);
     // const [message, setMessage] = useState(true);
     const [cardLoaded, setCardLoaded] = useState(false)
@@ -147,7 +136,7 @@ function Menu({ userObj }: Props) {
                 </AccordionContent>
                 </AccordionItem>
                 <AccordionItem value="item-2">
-                <AccordionTrigger onClick={() => handleMessageAccordion()}>메세지</AccordionTrigger>
+                <AccordionTrigger onClick={() => dispatch(changeMessageAccordion())}>메세지</AccordionTrigger>
                 <AccordionContent>
                     {!piazzaSwitch ? <div className='flex justify-center pt-20'>받은 메세지가 없습니다</div> :
                         <div className='flex flex-col justify-center'>

@@ -10,6 +10,9 @@ import { auth, dbservice } from 'src/baseApi/serverbase'
 import { storage } from "src/baseApi/serverbase";
 import { getStorage, ref, uploadBytes, uploadString, uploadBytesResumable, getDownloadURL, } from "firebase/storage";
 import { User } from 'firebase/auth'
+import { useSelector, useDispatch } from 'react-redux'
+import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
+import { changeTabs } from 'src/stateSlices/tabsSlice'
 
 interface Props {
     userObj: User | null
@@ -17,13 +20,15 @@ interface Props {
 function Home({ userObj }: Props) {
     // const bottomNavigation = useBottomNavigationStore((state) => state.bottomNavigation)
     // const handleBottomNavigation = useBottomNavigationStore((state) => state.handleBottomNavigation)
-    const {bottomNavigation, handleBottomNavigation} = useBottomNavigationStore()
-    const tabs = useTabsStore((state) => state.tabs)
-    const handleTabs = useTabsStore((state) => state.handleTabs)
-
+    // const {bottomNavigation, handleBottomNavigation} = useBottomNavigationStore()
+    // const tabs = useTabsStore((state) => state.tabs)
+    // const handleTabs = useTabsStore((state) => state.handleTabs)
+    const bottomNavigation = useSelector(state => state.bottomNavigation.value)
+    const tabs = useSelector(state => state.tabs.value)
+    const dispatch = useDispatch()
     useEffect(() => {
         if (bottomNavigation === 5) {
-            handleBottomNavigation(1)
+            dispatch(changeBottomNavigation(1))
         }
     }, [])
 
@@ -61,7 +66,7 @@ function Home({ userObj }: Props) {
                     {bottomNavigation === 0 && 
                         <SwipeableViews
                             index={tabs}
-                            onIndexChange={handleTabs}
+                            onIndexChange={(newValue) => dispatch(changeTabs(newValue))}
                             num={1}
                         >
                             <Add userObj={userObj} action={0} borrow={true}/>
@@ -71,7 +76,7 @@ function Home({ userObj }: Props) {
                     {bottomNavigation === 2 && 
                         <SwipeableViews
                             index={tabs}
-                            onIndexChange={handleTabs}
+                            onIndexChange={(newValue) => dispatch(changeTabs(newValue))}
                             num={1}
                         >
                             <Notice userObj={userObj} borrow={true} />

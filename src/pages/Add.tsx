@@ -137,7 +137,7 @@ function Add({ userObj, action, borrow }: Props) {
       locationDispatch({type: 'changeSeat', newState: value})
       setAddSteps(2)
   }
-  console.log(from)
+//   console.log(from)
   const submit = async (event) => {
       event.preventDefault()
       if((locationState.locationInput !== '' || (locationState.locationOne !== '' && locationState.locationTwo !== '')) && from !== null && to !== null) {
@@ -219,7 +219,7 @@ function Add({ userObj, action, borrow }: Props) {
             console.log(cardObject.data())
         }
     }
-    console.log(window.innerHeight)
+    // console.log(window.innerHeight)
   return (
     <div className='flex flex-col'>
         <PageTitle title={`${borrow ? '빌리기 ' : '빌려주기 '} 카드 등록`}/>

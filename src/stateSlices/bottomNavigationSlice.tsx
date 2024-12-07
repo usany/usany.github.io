@@ -1,21 +1,22 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
+interface BottomNavigationState {
+  value: number
+}
+
+const initialState: BottomNavigationState = {
+  value: 0
+}
 const bottomNavigationReducer = createSlice({
   name: 'bottomNavigation',
-  initialState: {
-    value: localStorage.getItem('theme') || 'light'
-  },
+  initialState,
   reducers: {
-    changeLight: state => {
-      state.value = 'light'
-    },
-    changeDark: state => {
-      state.value = 'dark'
+    changeBottomNavigation: (state, action: PayloadAction<number>) => {
+      state.value = action.payload
     },
   }
 })
-const { changeLight, changeDark } = bottomNavigationReducer.actions
+const { changeBottomNavigation } = bottomNavigationReducer.actions
 
-export { bottomNavigationReducer, changeLight, changeDark, }
-// export default counterSlice
+export { bottomNavigationReducer, changeBottomNavigation }
 

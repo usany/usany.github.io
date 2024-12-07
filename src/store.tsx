@@ -1,9 +1,14 @@
 import { create } from 'zustand'
 import { configureStore } from '@reduxjs/toolkit'
 // import { counterReducer } from 'src/stateSlices/stateSlice'
+import { profileUrlReducer } from 'src/stateSlices/profileUrlSlice'
+import { profileColorReducer } from 'src/stateSlices/profileColorSlice'
+import { profileImageReducer } from 'src/stateSlices/profileImageSlice'
 import { cardAccordionReducer } from 'src/stateSlices/cardAccordionSlice'
+import { messageAccordionReducer } from 'src/stateSlices/messageAccordionSlice'
 import { themeReducer } from 'src/stateSlices/themeSlice'
 import { bottomNavigationReducer } from 'src/stateSlices/bottomNavigationSlice'
+import { tabsReducer } from 'src/stateSlices/tabsSlice'
 
 interface sideNavigationState {
   sideNavigation: boolean
@@ -188,9 +193,14 @@ const bookStore = (set, get) => ({
   const useBookStore = create(bookStore);
   const store = configureStore({
     reducer: {
+      profileUrl: profileUrlReducer.reducer,
+      profileColor: profileColorReducer.reducer,
+      profileImage: profileImageReducer.reducer,
       cardAccordion: cardAccordionReducer.reducer,
+      messageAccordion: messageAccordionReducer.reducer,
       theme: themeReducer.reducer,
       bottomNavigation: bottomNavigationReducer.reducer,
+      tabs: tabsReducer.reducer,
     }
   })
   export { store, useSideNavigationStore, useCardAccordionStore, useMessageAccordionStore, useBottomNavigationStore, useAvatarColorStore, useTabsStore, useThemeStore, usePiazzaSwitchStore, useNewMessageStore, useAvatarImageStore, useProfileUrlStore, useCompletedDrawerStore };
