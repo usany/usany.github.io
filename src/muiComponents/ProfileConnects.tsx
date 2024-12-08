@@ -14,7 +14,7 @@ import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
 const ProfileConnects = ({
   userObj,
   user,
-  allies,
+  alliesCollection,
   handleFollowers,
   handleFollowings
 }) => {
@@ -24,7 +24,7 @@ const ProfileConnects = ({
   // const [userFollowersList, setUserFollowersList] = useState([])
   const [conversation, setConversation] = useState('')
   // const [followButton, setFollowButton] = useState(true)
-  const followButton = allies.followers.list.indexOf(userObj.uid) === -1
+  const followButton = alliesCollection[0].list.indexOf(userObj.uid) === -1
   const followUser = async (uid) => {
     const myDocRef = doc(dbservice, `members/${userObj.uid}`)
     const myDocSnap = await getDoc(myDocRef)
@@ -130,7 +130,7 @@ const ProfileConnects = ({
       setConversation(userObj.uid[0]+userObj.uid[1]+userObj.uid[2]+userObj.uid[3]+userObj.uid[4]+userObj.uid[5]+user.uid[0]+user.uid[1]+user.uid[2]+user.uid[3]+user.uid[4]+user.uid[5])
     }
   }, [])
-  console.log(allies)
+  
   // useEffect(() => {
   //   console.log('practice')
   //   if (allies.followers.list.indexOf(userObj.uid) !== -1) {

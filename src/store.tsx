@@ -1,6 +1,7 @@
 import { create } from 'zustand'
 import { configureStore } from '@reduxjs/toolkit'
 // import { counterReducer } from 'src/stateSlices/stateSlice'
+import { piazzaSwitchReducer } from 'src/stateSlices/piazzaSwitchSlice'
 import { profileUrlReducer } from 'src/stateSlices/profileUrlSlice'
 import { profileColorReducer } from 'src/stateSlices/profileColorSlice'
 import { profileImageReducer } from 'src/stateSlices/profileImageSlice'
@@ -198,6 +199,7 @@ const bookStore = (set, get) => ({
       profileImage: profileImageReducer.reducer,
       cardAccordion: cardAccordionReducer.reducer,
       messageAccordion: messageAccordionReducer.reducer,
+      piazzaSwitch: piazzaSwitchReducer.reducer,
       theme: themeReducer.reducer,
       bottomNavigation: bottomNavigationReducer.reducer,
       tabs: tabsReducer.reducer,

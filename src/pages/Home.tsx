@@ -18,11 +18,6 @@ interface Props {
     userObj: User | null
 }
 function Home({ userObj }: Props) {
-    // const bottomNavigation = useBottomNavigationStore((state) => state.bottomNavigation)
-    // const handleBottomNavigation = useBottomNavigationStore((state) => state.handleBottomNavigation)
-    // const {bottomNavigation, handleBottomNavigation} = useBottomNavigationStore()
-    // const tabs = useTabsStore((state) => state.tabs)
-    // const handleTabs = useTabsStore((state) => state.handleTabs)
     const bottomNavigation = useSelector(state => state.bottomNavigation.value)
     const tabs = useSelector(state => state.tabs.value)
     const dispatch = useDispatch()

@@ -34,7 +34,7 @@ import Message from 'src/pages/Message'
 
 const ProfileCards = ({
   user,
-  allies
+  alliesCollection
 }) => {
   const [cards, setCards] = useState({point: null, done: [], borrowDone: [], lendDone: [] })
   const [chart, setChart] = useState({borrow: false, lend: true})
@@ -164,7 +164,7 @@ const ProfileCards = ({
               </div>
             </div>
           </Link> */}
-          <ProfileDrawers user={user} cards={null} followers={true} alliesCollection={allies.followers.list} selection={'allies'}/>
+          <ProfileDrawers user={user} cards={null} followers={true} alliesCollection={alliesCollection[0].list} selection={'allies'}/>
         </CardActionArea>
       </Card>
       <Card>
@@ -184,7 +184,7 @@ const ProfileCards = ({
               </div>
             </div>
           </Link> */}
-          <ProfileDrawers user={user} cards={null} followers={false} alliesCollection={allies.followings.list} selection={'allies'}/>
+          <ProfileDrawers user={user} cards={null} followers={false} alliesCollection={alliesCollection[1].list} selection={'allies'}/>
         </CardActionArea>
       </Card>
     </div>

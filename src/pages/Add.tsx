@@ -1,10 +1,7 @@
 import { useState, useEffect, useReducer } from 'react'
 import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
 import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnapshot, deleteDoc, updateDoc } from 'firebase/firestore';
-import Pickers from 'src/muiComponents/Pickers'
-import Selects from 'src/muiComponents/Selects'
 import AddSteppers from 'src/muiComponents/AddSteppers'
-import AddStepTitle from 'src/muiComponents/AddStepTitle'
 import AddStepOne from 'src/muiComponents/AddStepOne'
 import AddStepTwo from 'src/muiComponents/AddStepTwo'
 import AddStepThree from 'src/muiComponents/AddStepThree'
@@ -12,14 +9,11 @@ import AddStepFour from 'src/muiComponents/AddStepFour'
 import AddRegisterButton from 'src/muiComponents/AddRegisterButton'
 import AddSnackBar from 'src/muiComponents/AddSnackBar'
 import PageTitle from 'src/muiComponents/PageTitle'
-import Button from '@mui/material/Button';
-import RegisteredCards from 'src/muiComponents/RegisteredCards';
-import Snackbar from '@mui/material/Snackbar';
-import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
-import TextField from '@mui/material/TextField';
 import { useBottomNavigationStore, useTabsStore } from 'src/store'
 import { User } from 'firebase/auth';
+import { useSelector, useDispatch } from 'react-redux'
+import { change } from 'src/stateSlices/cardAccordionSlice'
+import { changeMessageAccordion } from 'src/stateSlices/messageAccordionSlice'
 
 interface Props {
     userObj: User, action: number, borrow: boolean
@@ -29,13 +23,23 @@ function Add({ userObj, action, borrow }: Props) {
   const [cardId, setCardId] = useState(null)
   const [display, setDisplay] = useState(null)
   const [item, setItem] = useState<string>('');
-  const lendNumber = useTabsStore((state) => state.tabs)
-
-  useEffect(() => {
-    setAddSteps(0)
-    setItem('')
-  }, [lendNumber])
-  const locationReducer = (state: {locationOne: string | null, locationTwo: string | null, locationThree: string | null, locationInput: string | null}, action: {type: string, newState: string | null}) => {
+  const tabs = useSelector(state => state.tabs.value)
+//   const locationReducer = (state: {locationOne: string | null, locationTwo: string | null, locationThree: string | null, locationInput: string | null}, action: {type: string, newState: string | null}) => {
+//     if (action.type === 'changeBuilding') {
+//         return {...state, locationOne: action.newState, locationTwo: '', locationThree: ''}
+//     } else if (action.type === 'changeRoom') {
+//         return {...state, locationTwo: action.newState, locationThree: ''}
+//     } else if (action.type === 'changeSeat') {
+//         return {...state, locationThree: action.newState}
+//     } else if (action.type === 'changeLocationInput') {
+//         return {...state, locationTwo: '', locationThree: '', locationInput: action.newState}
+//     } else if (action.type === 'changeItem') {
+//         return {locationOne: '', locationTwo: '', locationThree: '', locationInput: ''}
+//     } else {
+//         return {...state}
+//     }
+//   }
+  const [locationState, locationDispatch] = useReducer((state: {locationOne: string | null, locationTwo: string | null, locationThree: string | null, locationInput: string | null}, action: {type: string, newState: string | null}) => {
     if (action.type === 'changeBuilding') {
         return {...state, locationOne: action.newState, locationTwo: '', locationThree: ''}
     } else if (action.type === 'changeRoom') {
@@ -49,33 +53,22 @@ function Add({ userObj, action, borrow }: Props) {
     } else {
         return {...state}
     }
-  }
-  const addStepsReducer = (state: {addSteps: number, enableButton: boolean}, action: {type: string, newState: number}) => {
-    if (action.type === 'changeAddSteps') {
-        return {addSteps: action.newState}
-    } else {
-        return {...state}
-    }
-  }
-  const [locationState, locationDispatch] = useReducer(locationReducer, {
+  }, {
     locationOne: '',
     locationTwo: '',
     locationThree: '',
     locationInput: ''
   })
-  const [addStepsState, addStepsDispatch] = useReducer(addStepsReducer, {
-    addSteps: 0
-  })
-//   const [locationInput, setLocationInput] = useState<string>('');
-//   const [locationOne, setLocationOne] = useState<string>('');
-//   const [locationTwo, setLocationTwo] = useState<string>('');
-//   const [locationThree, setLocationThree] = useState<string>('');
   const [from, setFrom] = useState(null);
   const [to, setTo] = useState(null);
   const [snackBar, setSnackBar] = useState<boolean>(false)
-//   const value: number[] = [0, action+1]
-  let calculatePoint = 0
   const [fromTo, setFromTo] = useState<{from: {gmt: {}, year: number, month: number, day: number, hour: number, minute: number} | null, to: {gmt: {}, year: number, month: number, day: number, hour: number, minute: number} | null}>({from: null, to: null})
+  
+  useEffect(() => {
+    setAddSteps(0)
+    setItem('')
+  }, [tabs])
+  let calculatePoint = 0
 
   useEffect(() => {
     setTimeout(() => setSnackBar(false) , 5000)
@@ -111,8 +104,6 @@ function Add({ userObj, action, borrow }: Props) {
         target: {value},
     } = event;
     locationDispatch({type: 'changeBuilding', newState: value})
-    // if (addStepsState.addSteps === 2) {
-    // }
     setAddSteps(1)
   }
   const changeRoom = (event) => {
@@ -137,7 +128,7 @@ function Add({ userObj, action, borrow }: Props) {
       locationDispatch({type: 'changeSeat', newState: value})
       setAddSteps(2)
   }
-//   console.log(from)
+
   const submit = async (event) => {
       event.preventDefault()
       if((locationState.locationInput !== '' || (locationState.locationOne !== '' && locationState.locationTwo !== '')) && from !== null && to !== null) {
@@ -149,7 +140,6 @@ function Add({ userObj, action, borrow }: Props) {
             alert('현재 시간을 확인 후 등록해 주세요')    
         }
         else {
-            // {locationInput && setLocationOne(locationInput)}
             if (to.year-from.year > 0) {
                 calculatePoint = (to.year-from.year)*366*24*60
             } else if (to.month-from.month > 0) {
@@ -219,36 +209,19 @@ function Add({ userObj, action, borrow }: Props) {
             console.log(cardObject.data())
         }
     }
-    // console.log(window.innerHeight)
-  return (
-    <div className='flex flex-col'>
-        <PageTitle title={`${borrow ? '빌리기 ' : '빌려주기 '} 카드 등록`}/>
-        <AddSteppers addSteps={addSteps} borrow={borrow} />
-        <AddStepOne borrow={borrow} item={item} changeItem={changeItem} />
-        {addSteps > 0 && <AddStepTwo locationState={locationState} changeBuilding={changeBuilding} changeRoom={changeRoom} changeSeat={changeSeat} changeLocationInput={changeLocationInput} />}
-        {addSteps > 1 && <AddStepThree onChangeFrom={onChangeFrom} onChangeTo={onChangeTo} />}
-        {addSteps === 2 && <AddRegisterButton submit={submit} />}
-        {addSteps === 3 && <AddStepFour display={display} />} 
-        <AddSnackBar snackBar={snackBar} changeSnackBar={() => setSnackBar(false)}/>
-        {/* <div>
-            <Snackbar
-                open={snackBar}
-                sx={{paddingBottom: '10%'}}
-                message="등록되었습니다"
-                action={
-                    <IconButton
-                        size="small"
-                        aria-label="close"
-                        color="inherit"
-                        onClick={() => setSnackbar(false)}
-                    >
-                        <CloseIcon fontSize="small" />
-                    </IconButton>
-                }
-            />
-        </div> */}
-    </div>  
-  )
+  
+    return (
+        <div className='flex flex-col'>
+            <PageTitle title={`${borrow ? '빌리기 ' : '빌려주기 '} 카드 등록`}/>
+            <AddSteppers addSteps={addSteps} borrow={borrow} />
+            <AddStepOne borrow={borrow} item={item} changeItem={changeItem} />
+            {addSteps > 0 && <AddStepTwo locationState={locationState} changeBuilding={changeBuilding} changeRoom={changeRoom} changeSeat={changeSeat} changeLocationInput={changeLocationInput} />}
+            {addSteps > 1 && <AddStepThree onChangeFrom={onChangeFrom} onChangeTo={onChangeTo} />}
+            {addSteps === 2 && <AddRegisterButton submit={submit} />}
+            {addSteps === 3 && <AddStepFour display={display} />} 
+            <AddSnackBar snackBar={snackBar} changeSnackBar={() => setSnackBar(false)}/>
+        </div>  
+    )
 }
 
 export default Add
