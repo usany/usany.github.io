@@ -9,11 +9,8 @@ import AddStepFour from 'src/muiComponents/AddStepFour'
 import AddRegisterButton from 'src/muiComponents/AddRegisterButton'
 import AddSnackBar from 'src/muiComponents/AddSnackBar'
 import PageTitle from 'src/muiComponents/PageTitle'
-import { useBottomNavigationStore, useTabsStore } from 'src/store'
 import { User } from 'firebase/auth';
 import { useSelector, useDispatch } from 'react-redux'
-import { change } from 'src/stateSlices/cardAccordionSlice'
-import { changeMessageAccordion } from 'src/stateSlices/messageAccordionSlice'
 
 interface Props {
     userObj: User, action: number, borrow: boolean

@@ -10,17 +10,16 @@ import { BrowserRouter, Routes, Route, useNavigate, Link, useLocation } from 're
 import { useImmer } from "use-immer"
 import { useSelector, useDispatch } from 'react-redux'
 import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
+import { User } from 'firebase/auth'
 
 interface Props {
-  userObj: {uid: string, displayName: string},
+  userObj: User,
 }
-
 function Profile({ userObj }: Props) {
   const [attachment, setAttachment] = useState('')
   const {state} = useLocation()
   const [profileDialog, setProfileDialog] = useState(false)
   const profileColor = useSelector(state => state.profileColor.value)
-  const bottomNavigation = useSelector(state => state.bottomNavigation.value)
   const [alliesCollection, setAlliesCollection] = useImmer([
     {
       id: 'followers',
@@ -96,12 +95,12 @@ function Profile({ userObj }: Props) {
   //   },
   // } satisfies ChartConfig
   // const totalNumber = actions.reduce((acc, curr) => acc + curr.number, 0)
-  console.log(bottomNavigation)
+
   return (
     <div>
       <PageTitle title={`${state.element.uid === userObj.uid ? '내' : state.element.displayName} 프로필`}/>
-      <ProfileAvatar userObj={userObj} user={state.element} handleProfileDialog={() => setProfileDialog(true)} attachment={attachment} profileColor={profileColor} />
-      <AvatarDialogs userObj={userObj} profileDialog={profileDialog} attachment={attachment} changeAttachment={(newState) => setAttachment(newState)}  handleClose={handleClose} />
+      <ProfileAvatar userObj={userObj} user={state.element} handleProfileDialog={() => setProfileDialog(true)} />
+      <AvatarDialogs userObj={userObj} profileDialog={profileDialog} attachment={attachment} changeAttachment={(newState: string) => setAttachment(newState)}  handleClose={handleClose} />
       <ProfileActions userObj={userObj} user={state.element} alliesCollection={alliesCollection} handleFollowers={handleFollowers} handleFollowings={handleFollowings}/>
       <ProfileCards user={state.element} alliesCollection={alliesCollection}/>
     </div>

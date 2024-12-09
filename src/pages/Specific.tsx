@@ -17,9 +17,12 @@ import EastIcon from '@mui/icons-material/East';
 import WestIcon from '@mui/icons-material/West';
 import HorizontalRuleIcon from '@mui/icons-material/HorizontalRule';
 import Divider from '@mui/material/Divider';
+import { useSelector, useDispatch } from 'react-redux'
+import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
+import { User } from 'firebase/auth';
 
 interface Props {
-  userObj: {uid: string, displayName: string},
+  userObj: User
 }
 
 function Specific({ userObj }: Props) {
@@ -29,22 +32,22 @@ function Specific({ userObj }: Props) {
   const [num, setNum] = useState<number | null>(null)
   const [points, setPoints] = useState<number | null>(null)
   const [deleted, setDeleted] = useState<boolean>(false)
-  const handleBottomNavigation = useBottomNavigationStore((state) => state.handleBottomNavigation)
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    handleBottomNavigation(5)
+    dispatch(changeBottomNavigation(5))
   }, [])
   useEffect(() => {
     onSnapshot(query(collection(dbservice, 'num')), (snapshot) => {
-        const newArray = snapshot.docs.map((document) => {
-          if (document.id === state.msgObj.id) {
-            setMsgObj({id: document.id, ...document.data()})
-          }
-        })
-        const newArrayId = snapshot.docs.map((document) => document.id)
-        if (newArrayId.indexOf(state.msgObj.id) === -1) {
-          setDeleted(true)
+      const newArray = snapshot.docs.map((document) => {
+        if (document.id === state.msgObj.id) {
+          setMsgObj({id: document.id, ...document.data()})
         }
+      })
+      const newArrayId = snapshot.docs.map((document) => document.id)
+      if (newArrayId.indexOf(state.msgObj.id) === -1) {
+        setDeleted(true)
+      }
     })
   }, [])
   useEffect(() => {

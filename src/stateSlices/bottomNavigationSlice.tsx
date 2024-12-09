@@ -5,7 +5,7 @@ interface BottomNavigationState {
 }
 
 const initialState: BottomNavigationState = {
-  value: 0
+  value: 1
 }
 const bottomNavigationReducer = createSlice({
   name: 'bottomNavigation',

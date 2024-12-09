@@ -2,6 +2,8 @@ import * as React from "react"
 import * as RechartsPrimitive from "recharts"
 import { useCompletedDrawerStore } from 'src/store'
 import { cn } from "@/lib/utils"
+import { useSelector, useDispatch } from 'react-redux'
+import { changeCompletedAction } from 'src/stateSlices/completedActionSlice'
 
 // Format: { THEME_NAME: CSS_SELECTOR }
 const THEMES = { light: "", dark: ".dark" } as const
@@ -269,8 +271,8 @@ const ChartLegendContent = React.forwardRef<
     ref
   ) => {
     const { config } = useChart()
-    const {completedDrawer, handleCompletedDrawer} = useCompletedDrawerStore()
-
+    const dispatch = useDispatch()
+    
     if (!payload?.length) {
       return null
     }
@@ -298,7 +300,7 @@ const ChartLegendContent = React.forwardRef<
               onClick={(value) => {
                 console.log(item)
                 document.getElementById('completedAction')?.parentNode?.click()
-                handleCompletedDrawer(item.payload.action)
+                dispatch(changeCompletedAction(item.payload.action))
               }}
             >
               {itemConfig?.icon && !hideIcon ? (

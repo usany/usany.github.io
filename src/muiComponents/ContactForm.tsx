@@ -1,17 +1,17 @@
 import { useState, useEffect } from 'react'
 import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
-import { updateProfile, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { User } from "firebase/auth";
 import { collection, query, where, orderBy, addDoc, getDocs, doc, onSnapshot, updateDoc } from 'firebase/firestore';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import Chip from '@mui/material/Chip';
+// import Chip from '@mui/material/Chip';
 import ContactDialogs from 'src/muiComponents/ContactDialogs';
 
-function ContactForm({ userObj }:
-  {
-    userObj: {uid: string, displayName: string}
-  }
-) {
+interface Props {
+  userObj: User
+}
+
+function ContactForm({ userObj }: Props) {
   const [messageTitle, setMessageTitle] = useState('')
   const [message, setMessage] = useState('')
   const [formFilledOut, setFormFilledOut] = useState(false)
@@ -27,7 +27,7 @@ function ContactForm({ userObj }:
 
   const onSubmit = async () => {
     try {
-      const newMessage = await addDoc(collection(dbservice, 'violations'), {
+      await addDoc(collection(dbservice, 'violations'), {
         userUid: userObj.uid,
         userName: userObj.displayName,
         messageTitle: messageTitle,

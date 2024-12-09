@@ -8,7 +8,6 @@ import Checklist from '@mui/icons-material/Checklist'
 import ChecklistRtl from '@mui/icons-material/ChecklistRtl'
 import BeachAccess from '@mui/icons-material/BeachAccess'
 import Badges from 'src/muiComponents/Badges'
-import { useBottomNavigationStore, useThemeStore } from 'src/store'
 import { useSelector, useDispatch } from 'react-redux'
 import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
 
@@ -21,7 +20,8 @@ function Navigations({ userObj }: Props) {
     const [backgroundColor, setBackgroundColor] = useState('#e2e8f0');
     // const bottomNavigation = useBottomNavigationStore((state) => state.bottomNavigation)
     // const handleBottomNavigation = useBottomNavigationStore((state) => state.handleBottomNavigation)
-    const theme = useThemeStore((state) => state.theme)
+    // const theme = useThemeStore((state) => state.theme)
+    const theme = useSelector(state => state.theme.value)
     const bottomNavigation = useSelector(state => state.bottomNavigation.value)
     const dispatch = useDispatch()
 

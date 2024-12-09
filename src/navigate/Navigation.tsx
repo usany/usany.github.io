@@ -9,7 +9,6 @@ import DraftsIcon from '@mui/icons-material/Drafts';
 import ImageIcon from '@mui/icons-material/Image';
 import WorkIcon from '@mui/icons-material/Work';
 import Public from '@mui/icons-material/Public';
-import { useSideNavigationStore, useThemeStore, useAvatarColorStore, useAvatarImageStore, useProfileUrlStore } from 'src/store'
 import { User } from 'firebase/auth';
 import { changeProfileUrl } from 'src/stateSlices/profileUrlSlice'
 import { changeProfileColor } from 'src/stateSlices/profileColorSlice'
@@ -43,7 +42,7 @@ const onLogOutClick = () => auth.signOut();
 function Navigation({ userObj, sideNavigation, handleSideNavigation }: Props) {
   const [backgroundColor, setBackgroundColor] = useState<string>('#e2e8f0');
   const [points, setPoints] = useState<number>(0)
-  const theme = useThemeStore((state) => state.theme)
+  const theme = useSelector(state => state.theme.value)
   const [profileColor, setProfileColor] = useState<string>('');
   const dispatch = useDispatch()
   // const {avatarImage, handleAvatarImage} = useAvatarImageStore()

@@ -1,7 +1,9 @@
 import { useRef, useReducer, useEffect, useState, useMemo } from "react";
 import Switch from '@mui/material/Switch';
 import { styled } from '@mui/material/styles';
-import { useBottomNavigationStore, usePiazzaSwitchStore } from 'src/store'
+// import { useBottomNavigationStore, usePiazzaSwitchStore } from 'src/store'
+import { useSelector, useDispatch } from 'react-redux'
+import { changePiazzaSwitch } from 'src/stateSlices/piazzaSwitchSlice'
 
 const MessageSwitch = styled(Switch)(({ theme }) => ({
   padding: 8,
@@ -45,42 +47,22 @@ function PiazzaSwitch() {
   //   }
   // })
   // console.log(switches)
-  const piazzaSwitch = usePiazzaSwitchStore((state) => state.piazzaSwitch)
-  const handlePiazzaSwitchOn = usePiazzaSwitchStore((state) => state.handlePiazzaSwitchOn)
-  const handlePiazzaSwitchOff = usePiazzaSwitchStore((state) => state.handlePiazzaSwitchOff)
+  // const piazzaSwitch = usePiazzaSwitchStore((state) => state.piazzaSwitch)
+  // const handlePiazzaSwitchOn = usePiazzaSwitchStore((state) => state.handlePiazzaSwitchOn)
+  // const handlePiazzaSwitchOff = usePiazzaSwitchStore((state) => state.handlePiazzaSwitchOff)
   // const handlePiazzaSwitch = usePiazzaSwitchStore((state) => state.handlePiazzaSwitch)
+  const piazzaSwitch = useSelector(state => state.piazzaSwitch.value)
+  const dispatch = useDispatch()
+
   const onClick = () => {
-    if (piazzaSwitch === 'true') {
+    if (piazzaSwitch === true) {
       window.localStorage.setItem('piazza', 'false')
-      handlePiazzaSwitchOff()
+      // handlePiazzaSwitchOff()
     } else {
       window.localStorage.setItem('piazza', 'true')
-      handlePiazzaSwitchOn()
+      // handlePiazzaSwitchOn()
     }
-  }
-  const onClicks = (piazzaSwitch) => {
-    if (piazzaSwitch.current === 'true') {
-      window.localStorage.setItem('piazza', 'false')
-      // setPiazzaSwitch('false')
-      piazzaSwitch.current = 'false'
-      // setPiazzaCheck('false')
-      setSwitches('false')
-    } else {
-      window.localStorage.setItem('piazza', 'true')
-      // setPiazzaSwitch('true'
-      piazzaSwitch.current = 'true'
-      // setPiazzaCheck('true')
-      setSwitches('true')
-    }
-    // if (colors === 'light') {
-    //     setColors('dark')
-    //     setMode('dark')
-    //     localStorage.setItem("theme", 'dark');
-    // } else {
-    //     setColors('light')
-    //     setMode('light')
-    //     localStorage.setItem("theme", 'light');
-    // }
+    dispatch(changePiazzaSwitch())
   }
 
   return (
@@ -88,7 +70,7 @@ function PiazzaSwitch() {
       <div className='text-sm'>단체 대화 알림 받기</div>
       {/* <div className='text-sm'>알림 받기</div> */}
       <div className='flex justify-end'>
-        <MessageSwitch onClick={() => onClick()} inputProps={{ 'aria-label': 'ant design' }} checked={piazzaSwitch === 'true'}/>
+        <MessageSwitch onClick={() => onClick()} inputProps={{ 'aria-label': 'ant design' }} checked={piazzaSwitch === true}/>
         {/* <MessageSwitch /> */}
       </div>
     </div>

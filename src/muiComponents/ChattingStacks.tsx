@@ -8,12 +8,16 @@ import { collection, query, QuerySnapshot, where, orderBy, addDoc, getDoc, getDo
 import { Link } from 'react-router-dom'
 import { webSocket, onClick } from 'src/webSocket.tsx'
 import { useAvatarColorStore, useNewMessageStore } from 'src/store'
+import { useSelector, useDispatch } from 'react-redux'
+import { change } from 'src/stateSlices/cardAccordionSlice'
+
 
 const ChattingStacks = ({ userObj, 
   // handleMessageLoaded 
 }) => {
   const [chattings, setChattings] = useState({})
-  const newMessage = useNewMessageStore((state) => state.newMessage)
+  const newMessage = useSelector(state => state.newMessage.value)
+  // const newMessage = useNewMessageStore((state) => state.newMessage)
 
   useEffect(() => {
     const myChatting = async () => {

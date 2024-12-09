@@ -10,6 +10,8 @@ import { messageAccordionReducer } from 'src/stateSlices/messageAccordionSlice'
 import { themeReducer } from 'src/stateSlices/themeSlice'
 import { bottomNavigationReducer } from 'src/stateSlices/bottomNavigationSlice'
 import { tabsReducer } from 'src/stateSlices/tabsSlice'
+import { completedActionReducer } from 'src/stateSlices/completedActionSlice'
+import { newMessageReducer } from 'src/stateSlices/newMessageSlice'
 
 interface sideNavigationState {
   sideNavigation: boolean
@@ -203,7 +205,11 @@ const bookStore = (set, get) => ({
       theme: themeReducer.reducer,
       bottomNavigation: bottomNavigationReducer.reducer,
       tabs: tabsReducer.reducer,
+      completedAction: completedActionReducer.reducer,
+      newMessage: newMessageReducer.reducer,
     }
   })
-  export { store, useSideNavigationStore, useCardAccordionStore, useMessageAccordionStore, useBottomNavigationStore, useAvatarColorStore, useTabsStore, useThemeStore, usePiazzaSwitchStore, useNewMessageStore, useAvatarImageStore, useProfileUrlStore, useCompletedDrawerStore };
+  export { store, 
+    // useSideNavigationStore, useCardAccordionStore, useMessageAccordionStore, useBottomNavigationStore, useAvatarColorStore, useTabsStore, useThemeStore, usePiazzaSwitchStore, useNewMessageStore, useAvatarImageStore, useProfileUrlStore, useCompletedDrawerStore 
+  };
   

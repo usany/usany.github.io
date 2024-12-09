@@ -6,7 +6,7 @@ import { getToken } from "firebase/messaging";
 import MessageStacks from 'src/muiComponents/MessageStacks'
 import ChattingStacks from 'src/muiComponents/ChattingStacks'
 import PageTitle from 'src/muiComponents/PageTitle'
-import { useCardAccordionStore, useMessageAccordionStore, usePiazzaSwitchStore, useThemeStore } from 'src/store'
+// import { useCardAccordionStore, useMessageAccordionStore, usePiazzaSwitchStore, useThemeStore } from 'src/store'
 import {
     Accordion,
     AccordionContent,
@@ -24,7 +24,6 @@ interface Props {
 }
 function Menu({ userObj }: Props) {
     const [messages, setMessages] = useState<Array<object>>([]);
-    // const piazzaSwitch = usePiazzaSwitchStore((state) => state.piazzaSwitch)
     const piazzaSwitch = useSelector(state => state.piazzaSwitch.value)
     const cardAccordion = useSelector(state => state.cardAccordion.value)
     const messageAccordion = useSelector(state => state.messageAccordion.value)
@@ -123,7 +122,7 @@ function Menu({ userObj }: Props) {
                 <AccordionContent>
                     {!piazzaSwitch ? <div className='flex justify-center pt-20'>받은 메세지가 없습니다</div> :
                         <div className='flex flex-col justify-center'>
-                            {piazzaSwitch === 'true' && 
+                            {piazzaSwitch && 
                                 <MessageStacks />
                             }
                             <ChattingStacks userObj={userObj}

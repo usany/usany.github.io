@@ -4,16 +4,17 @@ import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnap
 import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
 import PiazzaDialogs from 'src/muiComponents/PiazzaDialogs'
 import PiazzaSwitch from 'src/muiComponents/PiazzaSwitch'
-import { useBottomNavigationStore, usePiazzaSwitchStore, useAvatarColorStore, useAvatarImageStore, useProfileUrlStore } from 'src/store'
 import { webSocket, onClick } from 'src/webSocket.tsx'
 import Avatar from '@mui/material/Avatar';
 import { blue } from '@mui/material/colors';
+import { useSelector, useDispatch } from 'react-redux'
+import { User } from "firebase/auth";
+import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
 
-function Piazza({ userObj }:
-  {
-    userObj: {uid: string, displayName: string},
-  }
-) {
+interface Props {
+  userObj: User
+}
+function Piazza({ userObj }: Props) {
   const messagesEndRef = useRef(null);
   const [msg, setMsg] = useState("");
   const [msgList, setMsgList] = useState<[]>([]);
@@ -21,11 +22,10 @@ function Piazza({ userObj }:
   const [privateTarget, setPrivateTarget] = useState("");
   const [user, setUser] = useState(null)
   const [selectUser, setSelectUser] = useState(false)
-  const handleBottomNavigation = useBottomNavigationStore((state) => state.handleBottomNavigation)
-  const avatarColor = useAvatarColorStore((state) => state.avatarColor)
-  const avatarImage = useAvatarImageStore((state) => state.avatarImage)
-  const {profileUrl, handleProfileUrl} = useProfileUrlStore()
+  const profileColor = useSelector(state => state.profileColor.value)
+  const profileUrl = useSelector(state => state.profileUrl.value)
   const [displayedName, setDisplayedName] = useState(null)
+  const dispatch = useDispatch()
   useEffect(() => {
     if (!webSocket) return;
     function sMessageCallback(message) {
@@ -42,7 +42,7 @@ function Piazza({ userObj }:
           messageClockNumber: messageClockNumber,
           conversation: null,
           profileImageUrl: profileUrl,
-          profileColor: avatarColor
+          profileColor: profileColor
         },
       ]);
     }
@@ -75,7 +75,7 @@ function Piazza({ userObj }:
   }, [msgList]);
 
   useEffect(() => {
-    handleBottomNavigation(5)
+    dispatch(changeBottomNavigation(5))
   })
 
   const scrollToBottom = () => {
@@ -140,8 +140,6 @@ function Piazza({ userObj }:
       const userName = userObj.displayName
       const messageClock = new Date().toString()
       const messageClockNumber = Date.now()
-      const profileImageUrl = avatarImage
-      // console.log(profileImageUrl)
       if (message) {
         await addDoc(collection(dbservice, 'chats_group'), {
           userUid: userUid,
@@ -150,9 +148,9 @@ function Piazza({ userObj }:
           messageClock: messageClock,
           messageClockNumber: messageClockNumber,
           profileImageUrl: profileUrl,
-          profileColor: avatarColor
+          profileColor: profileColor
         })
-        setMsgList((prev) => [...prev, { msg: message, type: "me", userUid: userObj.uid, id: userObj.displayName, messageClock: messageClock, conversation: null, profileImageUrl: profileImageUrl, profileColor: avatarColor }]);
+        setMsgList((prev) => [...prev, { msg: message, type: "me", userUid: userObj.uid, id: userObj.displayName, messageClock: messageClock, conversation: null, profileImageUrl: profileUrl, profileColor: profileColor }]);
       }
     } catch (error) {
       console.log(error)
@@ -168,8 +166,6 @@ function Piazza({ userObj }:
       messages.forEach((document) => {
         const message = document.data().message
         const userUid = document.data().userUid
-        const userRef = doc(dbservice, `members/${userUid}`)
-        // const userSnap = await getDoc(userRef)
         const userName = document.data().userName
         const messageClock = document.data().messageClock
         const messageClockNumber = document.data().messageClockNumber
@@ -177,7 +173,6 @@ function Piazza({ userObj }:
         const profileImageUrl = document.data()?.profileImageUrl
         messagesArray.push({ msg: message, type: "me", userUid: userUid, id: userName, messageClockNumber: messageClockNumber, messageClock: messageClock, conversation: null, profileColor: profileColor, profileImageUrl: profileImageUrl })
         setMsgList(messagesArray);
-        console.log(profileColor)
       });
     }
     if (changeMessage) { 
@@ -185,16 +180,7 @@ function Piazza({ userObj }:
       setChangeMessage(false)
     }
   }, [changeMessage])
-  // const onClick = () => {
-  //   if (piazzaSwitches === 'true') {
-  //     window.localStorage.setItem('piazza', 'false')
-  //     setPiazzaSwitches('false')
-  //   } else {
-  //     window.localStorage.setItem('piazza', 'true')
-  //     setPiazzaSwitches('true')
-  //   }
-  // }
-  console.log(msgList)
+
   return (
     <div>
       <div className='flex text-2xl p-5'>
@@ -202,10 +188,7 @@ function Piazza({ userObj }:
           단체 대화
         </div>
         <div className='flex w-2/3 pt-1 justify-end'>
-          <PiazzaSwitch 
-          // onClick={() => onClick()} 
-          // piazzaSwitches={piazzaSwitches} 
-          />
+          <PiazzaSwitch />
         </div>
       </div>
       <div className="app-container">
