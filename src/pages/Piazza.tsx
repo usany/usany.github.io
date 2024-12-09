@@ -99,7 +99,6 @@ function Piazza({ userObj }: Props) {
       conversation: null
     };
     // const year = new Date().toString()
-    // console.log(year)
     if (sendData && message) {
       webSocket.emit("message", sendData);
       // const { data, uid, id, target } = sendData;
