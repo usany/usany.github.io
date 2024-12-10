@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 // import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 // import Snackbars from 'src/muiComponents/Snackbars'
 import axios from 'axios'
+import { useQuery } from '@tanstack/react-query'
 
 const WeatherView = () => {
     const [weatherInfo, setWeatherInfo] = useState({
@@ -28,6 +29,7 @@ const WeatherView = () => {
                 icon: response.data.weather[0].icon,
                 loaded: true,
             })
+            console.log(response)
         })
         .catch((error) => {
             setWeatherInfo({
@@ -37,6 +39,7 @@ const WeatherView = () => {
             showError('Failed to load weatherinfo')
         })
     }
+    // const { isLoading } = useQuery(['weather'], getCurrentWeather)
     useEffect(() => {
         getCurrentWeather();
     }, []);

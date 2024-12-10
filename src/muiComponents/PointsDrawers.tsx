@@ -23,6 +23,7 @@ import {
 } from "@/components/ui/drawer"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import Points from 'src/pages/Points'
+
 const PointsDrawers = ({ user, cards }) => {
   
   return (

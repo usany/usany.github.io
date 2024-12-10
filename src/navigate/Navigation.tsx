@@ -18,7 +18,6 @@ import { useSelector, useDispatch } from 'react-redux'
 // const StyledBox = styled('div')(({ theme }) => ({
 //   backgroundColor: '#fff',
 //   ...theme.applyStyles('dark', {
-//     backgroundColor: blue[800],
 //   }),
 // }));
 
@@ -26,7 +25,6 @@ import { useSelector, useDispatch } from 'react-redux'
 //   width: 30,
 //   left: 500,
 //   height: '90%',
-//   backgroundColor: blue[300],
 //   borderRadius: 3,
 //   position: 'absolute',
 //   top: 8,

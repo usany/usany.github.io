@@ -6,7 +6,6 @@ import PiazzaDialogs from 'src/muiComponents/PiazzaDialogs'
 import PiazzaSwitch from 'src/muiComponents/PiazzaSwitch'
 import { webSocket, onClick } from 'src/webSocket.tsx'
 import Avatar from '@mui/material/Avatar';
-import { blue } from '@mui/material/colors';
 import { useSelector, useDispatch } from 'react-redux'
 import { User } from "firebase/auth";
 import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
@@ -219,7 +218,7 @@ function Piazza({ userObj }: Props) {
                         onClick={() => onSetPrivateTarget({userUid: v.userUid, displayName: v.id})}
                       >
                         <div className={`flex justify-${v.userUid !== userObj.uid ? 'start' : 'end'}`}>
-                          <Avatar alt={v.id} sx={{ bgcolor: v.profileColor || blue[500] }} src={v.profileImageUrl || './src'} variant="rounded" />
+                          <Avatar alt={v.id} sx={{ bgcolor: v.profileColor || '#2196f3' }} src={v.profileImageUrl || './src'} variant="rounded" />
                         </div>
                         <div
                           className={

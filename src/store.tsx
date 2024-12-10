@@ -192,8 +192,8 @@ const bookStore = (set, get) => ({
     });
   },
 });
-
   const useBookStore = create(bookStore);
+  
   const store = configureStore({
     reducer: {
       profileUrl: profileUrlReducer.reducer,

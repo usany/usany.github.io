@@ -5,7 +5,7 @@ import DialogContent from '@mui/material/DialogContent';
 import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom'
 import Avatar from '@mui/material/Avatar';
-import { blue } from '@mui/material/colors';
+// import { blue } from '@mui/material/colors';
 
 const PiazzaDialogs = ({ selectUser, user, handleClose, userObj, handleMsgList, handleChangeMessage, displayedName }) => {
     const [conversation, setConversation] = useState(null)

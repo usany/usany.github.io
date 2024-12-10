@@ -63,11 +63,11 @@ function Ranking({ userObj }: Props) {
         <TextField label='유저 이름' onChange={onChangeUserSearch}/>
       </div>
       {userSearch ?
-        <Lists elements={rank} multiple={true} userSearch={userSearch} loadedImage={loadedImage} loadedImageIndex={loadedImageIndex}/>
+        <Lists elements={rank} multiple={true} userSearch={userSearch} />
       :
         <div>
-          <Lists elements={ranker} multiple={false} userSearch={null} loadedImage={loadedImage} loadedImageIndex={loadedImageIndex}/>
-          <Lists elements={rank} multiple={true} userSearch={null} loadedImage={loadedImage} loadedImageIndex={loadedImageIndex}/>
+          <Lists elements={ranker} multiple={false} userSearch={null} />
+          <Lists elements={rank} multiple={true} userSearch={null} />
         </div>
       }
     </div>  

@@ -27,9 +27,6 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { useCompletedDrawerStore } from 'src/store'
 import ProfileDrawers from 'src/muiComponents/ProfileDrawers'
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import Divider from '@mui/material/Divider';
 import Message from 'src/pages/Message'
 import { useSelector, useDispatch } from 'react-redux'
 import { changeCompletedAction } from 'src/stateSlices/completedActionSlice'

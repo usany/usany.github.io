@@ -1,5 +1,5 @@
 import { useState, useEffect, useLayoutEffect } from 'react'
-import Stack from '@mui/material/Stack';
+// import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
 import { CardActionArea, CardActions } from '@mui/material';
@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom'
 import { webSocket, onClick } from 'src/webSocket.tsx'
 import { useSelector, useDispatch } from 'react-redux'
 import { User } from 'firebase/auth';
+import { changeNewMessage, changeNewMessageTrue, changeNewMessageFalse } from 'src/stateSlices/newMessageSlice'
 
 interface Props {
   userObj: User
@@ -17,6 +18,7 @@ interface Props {
 const ChattingStacks = ({ userObj }: Props) => {
   const [chattings, setChattings] = useState({})
   const newMessage = useSelector(state => state.newMessage.value)
+  const dispatch = useDispatch()
 
   useEffect(() => {
     const myChatting = async () => {
@@ -24,11 +26,9 @@ const ChattingStacks = ({ userObj }: Props) => {
       const myDocSnap = await getDoc(myDocRef)
       const myConversation = myDocSnap.data()?.chattings || {}
       setChattings(myConversation)
-      // handleMessageLoaded(true)
     }
     if (newMessage) {
       myChatting()
-      console.log('sample')
       // handleNewMessageFalse()
     }
   }, [newMessage])
@@ -114,12 +114,12 @@ const ChattingStacks = ({ userObj }: Props) => {
                 <Link to='/chatting' state={{
                   conversation: element, displayName: displayName, userUid: userObj.uid, chattingUid: chattingUid
                 }}>
-                  <Stack spacing={2} direction="column" sx={{ flexGrow: 1, overflow: 'hidden', p: 1 }}>
+                  <div className='p-3'>
                     <div>chatting {userObj.uid === chattings[element].userOne ? chattings[element].userTwoDisplayName : chattings[element].userOneDisplayName}</div>
                     <div>{chattings[element].messageClock}</div>
                     <div>{chattings[element].messageClockNumber}</div>
                     <Typography noWrap>{chattings[element]?.message}</Typography>
-                  </Stack>
+                  </div>
                 </Link>
               </CardActionArea>
             </Card>

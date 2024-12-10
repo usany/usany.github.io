@@ -2,10 +2,8 @@ import { useState, useEffect, useRef, useLayoutEffect } from 'react'
 import WeatherView from 'src/navigate/WeatherView'
 import Navigation from 'src/navigate/Navigation'
 import Avatar from '@mui/material/Avatar';
-import { blue } from '@mui/material/colors';
 import ToggleTabs from 'src/muiComponents/ToggleTabs'
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
-import { useSideNavigationStore, useCardAccordionStore, useMessageAccordionStore, useBottomNavigationStore, useAvatarColorStore, useAvatarImageStore, useProfileUrlStore } from 'src/store'
 import { doc, getDoc } from 'firebase/firestore';
 import { auth, dbservice } from 'src/baseApi/serverbase'
 import Checkbox from '@mui/material/Checkbox';
@@ -15,7 +13,6 @@ import Divider from '@mui/material/Divider';
 import { Link } from 'react-router-dom'
 import { CreditCard } from 'lucide-react';
 import { MessageCircle, Minimize2, Maximize2 } from "lucide-react"
-import { styled } from '@mui/material/styles';
 import { useSelector, useDispatch } from 'react-redux'
 import { cardAccordionReducer, change } from 'src/stateSlices/cardAccordionSlice'
 import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
@@ -24,6 +21,7 @@ import { changeProfileUrl } from 'src/stateSlices/profileUrlSlice'
 import { changeProfileColor } from 'src/stateSlices/profileColorSlice'
 import { changeProfileImage } from 'src/stateSlices/profileImageSlice'
 import { User } from 'firebase/auth';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 // const Puller = styled('div')(({ theme }) => ({
 //     width: 30,
@@ -41,17 +39,18 @@ import { User } from 'firebase/auth';
 interface Props {
     userObj: User | null
 }
-
+const cli = new QueryClient({
+    defaultOptions: {
+        queries: {
+            suspense: true,
+        },
+    }
+})
 const Header = ({ userObj }: Props) => {
     const bottomNavigation = useSelector(state => state.bottomNavigation.value)
     const profileUrl = useSelector(state => state.profileUrl.value)
     const profileColor = useSelector(state => state.profileColor.value)
     const profileImage = useSelector(state => state.profileImage.value)
-    // const avatarColor = useAvatarColorStore((state) => state.avatarColor)
-    // const handleAvatarColor = useAvatarColorStore((state) => state.handleAvatarColor)
-    // const avatarImage = useAvatarImageStore((state) => state.avatarImage)
-    // const handleAvatarImage = useAvatarImageStore((state) => state.handleAvatarImage)
-    // const {profileUrl, handleProfileUrl} = useProfileUrlStore()
     const [sideNavigation, setSideNavigation] = useState(false)
     const handleSideNavigation = () => {
         setSideNavigation(!sideNavigation)
@@ -61,7 +60,6 @@ const Header = ({ userObj }: Props) => {
     const cardAccordion = useSelector(state => state.cardAccordion.value)
     const messageAccordion = useSelector(state => state.messageAccordion.value)
     const dispatch = useDispatch()
-  
     let prevScrollPos = window.scrollY;
     window.addEventListener('scroll', function () {
         // current scroll position
@@ -112,11 +110,11 @@ const Header = ({ userObj }: Props) => {
                 <div className='flex justify-between w-screen'>
                     <div className='px-5 pt-1'>
                         {userObj ?
-                            <Avatar alt={userObj.displayName || ''} sx={{ bgcolor: profileColor || blue[500] }} src={profileImage || './src'} onClick={() => {
+                            <Avatar alt={userObj.displayName || ''} sx={{ bgcolor: profileColor || '#2196f3' }} src={profileImage || './src'} onClick={() => {
                                 handleSideNavigation()
                             }} variant="rounded" />
                             :
-                            <Avatar sx={{ bgcolor: blue[500] }} onClick={() => {
+                            <Avatar sx={{ bgcolor: '#2196f3' }} onClick={() => {
                                 handleSideNavigation()
                             }} variant="rounded" />
                         }

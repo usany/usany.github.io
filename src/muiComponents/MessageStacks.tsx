@@ -1,9 +1,9 @@
 import { useState, useEffect, useLayoutEffect } from 'react'
-import Avatar from '@mui/material/Avatar';
-import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
-import Stack from '@mui/material/Stack';
-import { styled } from '@mui/material/styles';
+// import Avatar from '@mui/material/Avatar';
+// import Box from '@mui/material/Box';
+// import Paper from '@mui/material/Paper';
+// import Stack from '@mui/material/Stack';
+// import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
 import { CardActionArea, CardActions } from '@mui/material';
@@ -51,10 +51,10 @@ const MessageStacks = () => {
       <Card sx={{ flexGrow: 1, overflow: 'hidden' }}>
         <CardActionArea>
           <Link to='/piazza'>
-          <Stack spacing={2} direction="column" sx={{ flexGrow: 1, overflow: 'hidden', p: 1 }}>
+          <div className='p-3'>
             <div>piazza {piazzaMessage?.username}</div>
             <Typography noWrap>{piazzaMessage?.message}</Typography>
-          </Stack>
+          </div>
           </Link>
         </CardActionArea>
       </Card>
