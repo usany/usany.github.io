@@ -67,7 +67,7 @@ function Navigation({ userObj, sideNavigation, handleSideNavigation }: Props) {
     // handleAvatarColor('')
     // handleProfileUrl('')
     dispatch(changeProfileUrl(''))
-    dispatch(changeProfileImage(''))
+    dispatch(changeProfileImage('null'))
     dispatch(changeProfileColor(''))
     checkbox()
   }

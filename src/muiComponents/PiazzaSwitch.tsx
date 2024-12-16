@@ -53,16 +53,17 @@ function PiazzaSwitch() {
   // const handlePiazzaSwitch = usePiazzaSwitchStore((state) => state.handlePiazzaSwitch)
   const piazzaSwitch = useSelector(state => state.piazzaSwitch.value)
   const dispatch = useDispatch()
-
+  
   const onClick = () => {
-    if (piazzaSwitch === true) {
+    if (piazzaSwitch === 'true') {
       window.localStorage.setItem('piazza', 'false')
       // handlePiazzaSwitchOff()
+      dispatch(changePiazzaSwitch('false'))
     } else {
       window.localStorage.setItem('piazza', 'true')
       // handlePiazzaSwitchOn()
+      dispatch(changePiazzaSwitch('true'))
     }
-    dispatch(changePiazzaSwitch())
   }
 
   return (
@@ -70,7 +71,7 @@ function PiazzaSwitch() {
       <div className='text-sm'>단체 대화 알림 받기</div>
       {/* <div className='text-sm'>알림 받기</div> */}
       <div className='flex justify-end'>
-        <MessageSwitch onClick={() => onClick()} inputProps={{ 'aria-label': 'ant design' }} checked={piazzaSwitch === true}/>
+        <MessageSwitch onClick={() => onClick()} inputProps={{ 'aria-label': 'ant design' }} checked={piazzaSwitch === 'true'}/>
         {/* <MessageSwitch /> */}
       </div>
     </div>

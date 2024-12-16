@@ -62,6 +62,14 @@ function Add({ userObj, action, borrow }: Props) {
   const [fromTo, setFromTo] = useState<{from: {gmt: {}, year: number, month: number, day: number, hour: number, minute: number} | null, to: {gmt: {}, year: number, month: number, day: number, hour: number, minute: number} | null}>({from: null, to: null})
   
   useEffect(() => {
+    document.documentElement.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: "instant", // Optional if you want to skip the scrolling animation
+    });
+  }, []);
+
+  useEffect(() => {
     setAddSteps(0)
     setItem('')
   }, [tabs])
@@ -208,7 +216,7 @@ function Add({ userObj, action, borrow }: Props) {
     }
   
     return (
-        <div className='flex flex-col'>
+        <div className='flex flex-col h-screen'>
             <PageTitle title={`${borrow ? '빌리기 ' : '빌려주기 '} 카드 등록`}/>
             <AddSteppers addSteps={addSteps} borrow={borrow} />
             <AddStepOne borrow={borrow} item={item} changeItem={changeItem} />

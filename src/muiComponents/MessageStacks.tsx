@@ -1,4 +1,4 @@
-import { useState, useEffect, useLayoutEffect } from 'react'
+import { useState, useEffect, useLayoutEffect, Suspense } from 'react'
 // import Avatar from '@mui/material/Avatar';
 // import Box from '@mui/material/Box';
 // import Paper from '@mui/material/Paper';
@@ -11,24 +11,40 @@ import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
 import { collection, query, where, orderBy, addDoc, getDocs, doc, onSnapshot, deleteDoc, updateDoc } from 'firebase/firestore';
 import { Link } from 'react-router-dom'
 import { webSocket, onClick } from 'src/webSocket.tsx'
+import { User } from 'firebase/auth';
+import ChattingStacks from 'src/muiComponents/ChattingStacks'
+import { useQuery } from '@tanstack/react-query'
 
-const MessageStacks = () => {
-  const [piazzaMessage, setPiazzaMessage] = useState(null)
-
+interface Props {
+  userObj: User
+  piazzaSwitch: string
+}
+const MessageStacks = ({ userObj, piazzaSwitch }: Props) => {
+  const [piazzaMessage, setPiazzaMessage] = useState<{username: string, message: string} | null>(null)
+  const [chattings, setChattings] = useState({})
+  const piazza = async () => {
+    const piazzaRef = collection(dbservice, 'chats_group')
+    const piazzaCollection = query(piazzaRef, orderBy('messageClockNumber'))
+    const piazzaMessages = await getDocs(piazzaCollection)
+    // piazzaMessages.forEach((doc) => {
+    //   if (!piazzaMessage) {
+    //     setPiazzaMessage({username: doc.data().userName, message: doc.data().message})
+    //   }
+    // })
+    return piazzaMessages
+  }
+  
+  const messages = useQuery({queryKey: ['messages'], queryFn: piazza, suspense: true})
+  // console.log(messages)
   useEffect(() => {
-    const piazza = async () => {
-      const piazzaRef = collection(dbservice, 'chats_group')
-      const piazzaCollection = query(piazzaRef, orderBy('messageClockNumber'))
-      const piazzaMessages = await getDocs(piazzaCollection)
-      piazzaMessages.forEach((doc) => {
+    if (piazzaSwitch === 'true') {
+      messages.data?.forEach((doc) => {
         if (!piazzaMessage) {
           setPiazzaMessage({username: doc.data().userName, message: doc.data().message})
         }
       })
     }
-    piazza()
   })
-
   useEffect(() => {
     if (!webSocket) return;
     function sMessageCallback(message) {
@@ -46,18 +62,30 @@ const MessageStacks = () => {
       webSocket.off("sMessagePiazza", sMessageCallback);
     };
   }, []);
+
   return (
     <>
-      <Card sx={{ flexGrow: 1, overflow: 'hidden' }}>
+      {piazzaSwitch === 'true' && <Card sx={{ flexGrow: 1, overflow: 'hidden' }}>
         <CardActionArea>
           <Link to='/piazza'>
-          <div className='p-3'>
-            <div>piazza {piazzaMessage?.username}</div>
-            <Typography noWrap>{piazzaMessage?.message}</Typography>
-          </div>
+            <div className='p-3'>
+              <div>piazza {piazzaMessage?.username}</div>
+              <Typography noWrap>{piazzaMessage?.message}</Typography>
+            </div>
           </Link>
         </CardActionArea>
-      </Card>
+      </Card>}
+      {/* {piazzaSwitch && <Card sx={{ flexGrow: 1, overflow: 'hidden' }}>
+        <CardActionArea>
+          <Link to='/piazza'>
+            <div className='p-3'>
+              <div>piazza {piazzaMessage?.username}</div>
+              <Typography noWrap>{piazzaMessage?.message}</Typography>
+            </div>
+          </Link>
+        </CardActionArea>
+      </Card>} */}
+      <ChattingStacks userObj={userObj} chattings={chattings} handleChattings={(newValue) => setChattings(newValue)}/>
     </>
   );
 }

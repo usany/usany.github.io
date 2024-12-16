@@ -7,7 +7,6 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { User } from 'firebase/auth'
 import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
 import { useSelector, useDispatch } from 'react-redux'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 const lightTheme = createTheme({
   palette: {
@@ -19,7 +18,7 @@ const darkTheme = createTheme({
     mode: 'dark',
   },
 });
-const cli = new QueryClient()
+
 function App() {
   // const [count, setCount] = useState(0)
   const [userObj, setUserObj] = useState<User | null>(null)

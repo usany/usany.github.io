@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useLayoutEffect } from 'react'
+import { useState, useEffect, useRef, useLayoutEffect, Suspense, lazy } from 'react'
 import WeatherView from 'src/navigate/WeatherView'
 import Navigation from 'src/navigate/Navigation'
 import Avatar from '@mui/material/Avatar';
@@ -81,16 +81,26 @@ const Header = ({ userObj }: Props) => {
         prevScrollPos = currentScrollPos;
     });
     useEffect(() => {
-        getDownloadURL(ref(storage, `${userObj?.uid}`))
-        .then((url) => {
-            if (!profileUrl) {
-                dispatch(changeProfileImage(url))
-            }
-            dispatch(changeProfileUrl(url))
-        })
-        .catch((error) => {
-            console.log(error)
-        });
+        if (userObj) {
+            getDownloadURL(ref(storage, `${userObj?.uid}`))
+            .then((url) => {
+                if (!profileUrl) {
+                    if (url) {
+                        dispatch(changeProfileImage(url))
+                    } else {
+                        dispatch(changeProfileImage('null'))
+                    }
+                }
+                if (url) {
+                    dispatch(changeProfileUrl(url))
+                } else {
+                    dispatch(changeProfileUrl(''))
+                }
+            })
+            .catch((error) => {
+                console.log(error)
+            });
+        }
     }, [userObj])
     
     useEffect(() => {
@@ -169,7 +179,17 @@ const Header = ({ userObj }: Props) => {
                         }
                     </div>
                     <div>
-                        <WeatherView />
+                        <QueryClientProvider client={new QueryClient({
+                            defaultOptions: {
+                                queries: {
+                                    suspense: true,
+                                },
+                            },
+                        })}>
+                            <Suspense fallback={<div>loading</div>}>
+                                <WeatherView />
+                            </Suspense>
+                        </QueryClientProvider>
                     </div>
                 </div>
             </div>

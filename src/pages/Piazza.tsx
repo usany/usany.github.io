@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState, useMemo } from "react";
+import { useRef, useEffect, useState, useMemo, lazy } from "react";
 import "./Chatting.css";
 import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnapshot, deleteDoc, updateDoc } from 'firebase/firestore';
 import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
@@ -50,7 +50,14 @@ function Piazza({ userObj }: Props) {
       webSocket.off("sMessagePiazza", sMessageCallback);
     };
   }, []);
-
+  
+  useEffect(() => {
+    document.documentElement.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "instant", // Optional if you want to skip the scrolling animation
+    });
+  }, []);
   // useEffect(() => {
   //   if (!webSocket) return;
   //   function sLoginCallback(msg) {

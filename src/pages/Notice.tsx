@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, lazy } from 'react'
 import { collection, addDoc, getDocs, doc, onSnapshot, query, orderBy } from 'firebase/firestore';
 import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
 import Message from 'src/pages/Message'
@@ -32,6 +32,13 @@ function Notice({ userObj, borrow }: Props) {
             value.value = newValue
         })
     }
+    useEffect(() => {
+      document.documentElement.scrollTo({
+          top: 0,
+          left: 0,
+          behavior: "instant", // Optional if you want to skip the scrolling animation
+      });
+    }, []);
 
   useEffect(() => {
     if (selectedValues[2].value === '최신순' || !selectedValues[2].value) {

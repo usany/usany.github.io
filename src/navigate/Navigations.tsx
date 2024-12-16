@@ -11,6 +11,7 @@ import Badges from 'src/muiComponents/Badges'
 import { useSelector, useDispatch } from 'react-redux'
 import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
 import { User } from 'firebase/auth';
+import { alpha } from "@mui/material";
 
 interface Props {
     userObj: User | null
@@ -35,7 +36,7 @@ function Navigations({ userObj }: Props) {
         <div className='w-screen fixed border border-sky-500 rounded-t bottom-0 start-0 end-0'>
             {userObj ?
                 <BottomNavigation
-                    sx={{bgcolor: {backgroundColor}}}    
+                    sx={{bgcolor: alpha(backgroundColor, 0.8)}}    
                     showLabels
                     value={bottomNavigation}
                     onChange={(event, newValue) => {

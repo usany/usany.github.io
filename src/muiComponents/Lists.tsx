@@ -49,7 +49,12 @@ function Lists({ elements, multiple, userSearch }) {
                       {index+1}
                     </div>
                   }
-                  <Avatar alt={element.displayName} sx={{ bgcolor: element.profileColor || '#2196f3' }} src={element?.profileImageUrl || './src'} variant="rounded" />
+                  {element?.profileImageUrl && 
+                    <Avatar alt={element.displayName} sx={{ bgcolor: element.profileColor || '#2196f3' }} src={element?.profileImageUrl || './src'} variant="rounded" />
+                  }
+                  {!element?.profileImageUrl && 
+                    <Avatar alt={element.displayName} sx={{ bgcolor: element.profileColor || '#2196f3' }} src={'./src'} variant="rounded" />
+                  }
                   <div className='flex flex-col overflow-hidden px-3'>
                     <div className='overflow-hidden'>
                       {element.displayName}

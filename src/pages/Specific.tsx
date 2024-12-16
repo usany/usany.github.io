@@ -22,7 +22,7 @@ import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
 import { User } from 'firebase/auth';
 
 interface Props {
-  userObj: User
+  userObj: User | null
 }
 
 function Specific({ userObj }: Props) {
@@ -51,16 +51,16 @@ function Specific({ userObj }: Props) {
     })
   }, [])
   useEffect(() => {
-    onSnapshot(query(doc(dbservice, `members/${msgObj.creatorId}`)), (snapshot) => {
-        const number = snapshot.data().points
+    onSnapshot(doc(dbservice, `members/${msgObj.creatorId}`), (snapshot) => {
+        const number = snapshot.data()?.points
         setNum(number)
       }
     )
   }, [])
   useEffect(() => {
     if (msgObj.connectedId !== null) {
-      onSnapshot(query(doc(dbservice, `members/${msgObj.connectedId}`)), (snapshot) => {
-        const element = snapshot.data().points
+      onSnapshot(doc(dbservice, `members/${msgObj.connectedId}`), (snapshot) => {
+        const element = snapshot.data()?.points
         setPoints(element)
       })
     }

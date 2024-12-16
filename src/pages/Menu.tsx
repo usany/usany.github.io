@@ -1,10 +1,10 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, Suspense, lazy } from 'react'
 import { auth, onSocialClick, dbservice, storage, messaging } from 'src/baseApi/serverbase'
 import { collection, query, where, orderBy, addDoc, getDocs, doc, onSnapshot, deleteDoc, updateDoc } from 'firebase/firestore';
 import Message from 'src/pages/Message'
 import { getToken } from "firebase/messaging";
 import MessageStacks from 'src/muiComponents/MessageStacks'
-import ChattingStacks from 'src/muiComponents/ChattingStacks'
+// import ChattingStacks from 'src/muiComponents/ChattingStacks'
 import PageTitle from 'src/muiComponents/PageTitle'
 // import { useCardAccordionStore, useMessageAccordionStore, usePiazzaSwitchStore, useThemeStore } from 'src/store'
 import {
@@ -18,9 +18,10 @@ import { change } from 'src/stateSlices/cardAccordionSlice'
 import { changeMessageAccordion } from 'src/stateSlices/messageAccordionSlice'
 import Skeleton from '@mui/material/Skeleton';
 import { User } from 'firebase/auth';
-    
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import Points from 'src/pages/Points'
 interface Props {
-    userObj: User | null
+    userObj: User
 }
 function Menu({ userObj }: Props) {
     const [messages, setMessages] = useState<Array<object>>([]);
@@ -120,15 +121,24 @@ function Menu({ userObj }: Props) {
                 <AccordionItem value="item-2">
                 <AccordionTrigger onClick={() => dispatch(changeMessageAccordion())}>메세지</AccordionTrigger>
                 <AccordionContent>
-                    {!piazzaSwitch ? <div className='flex justify-center pt-20'>받은 메세지가 없습니다</div> :
+                    <QueryClientProvider client={new QueryClient({
+                        defaultOptions: {
+                            queries: {
+                                suspense: true,
+                            },
+                        },                      
+                    })}>
+                        <Suspense fallback={<Points />}>
+                            <MessageStacks userObj={userObj} piazzaSwitch={piazzaSwitch}/>
+                        </Suspense>
+                    </QueryClientProvider>
+                    {/* {!piazzaSwitch ? <div className='flex justify-center pt-20'>받은 메세지가 없습니다</div> :
                         <div className='flex flex-col justify-center'>
                             {piazzaSwitch && 
-                                <MessageStacks />
                             }
-                            <ChattingStacks userObj={userObj}
-                        />
+                            <ChattingStacks userObj={userObj} />
                         </div>
-                    }
+                    } */}
                 </AccordionContent>
                 </AccordionItem>
             </Accordion>

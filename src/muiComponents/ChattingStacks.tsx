@@ -13,19 +13,21 @@ import { changeNewMessage, changeNewMessageTrue, changeNewMessageFalse } from 's
 
 interface Props {
   userObj: User
+  chattings: {}
+  handleChattings: ({}) => void
 }
 
-const ChattingStacks = ({ userObj }: Props) => {
-  const [chattings, setChattings] = useState({})
+const ChattingStacks = ({ userObj, chattings, handleChattings }: Props) => {
+  // const [chattings, setChattings] = useState({})
   const newMessage = useSelector(state => state.newMessage.value)
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
 
   useEffect(() => {
     const myChatting = async () => {
       const myDocRef = doc(dbservice, `members/${userObj.uid}`)
       const myDocSnap = await getDoc(myDocRef)
       const myConversation = myDocSnap.data()?.chattings || {}
-      setChattings(myConversation)
+      handleChattings(myConversation)
     }
     if (newMessage) {
       myChatting()
@@ -54,7 +56,8 @@ const ChattingStacks = ({ userObj }: Props) => {
       }
       const replaceObj = {userUid: userUid, userName: id, userOne: userOne, userOneDisplayName: userOneDisplayName, userTwo: userTwo, userTwoDisplayName: userTwoDisplayName, message: msg, messageClock: messageClock, messageClockNumber: messageClockNumber}      // const location = chats.map((element) => element.conversation).indexOf(conversation)
       const newChattings = {...chattings, [conversation]: replaceObj}
-      setChattings(newChattings)
+      // setChattings(newChattings)
+      handleChattings(newChattings)
     }
     sortedMyConversationUid.map((element) => {
       webSocket.on(`sMessage${element}`, sMessageCallback);
@@ -84,7 +87,8 @@ const ChattingStacks = ({ userObj }: Props) => {
       }
       const replaceObj = {userUid: userUid, userName: id, userOne: userOne, userOneDisplayName: userOneDisplayName, userTwo: userTwo, userTwoDisplayName: userTwoDisplayName, message: msg, messageClock: messageClock, messageClockNumber: messageClockNumber}
       const newChattings = {...chattings, [conversation]: replaceObj}
-      setChattings(newChattings)
+      // setChattings(newChattings)
+      handleChattings(newChattings)
     }
     webSocket.on(`sNewMessage`, sNewMessageCallback);
     return () => {

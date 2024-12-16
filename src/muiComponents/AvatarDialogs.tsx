@@ -15,7 +15,7 @@ import { changeProfileImage } from 'src/stateSlices/profileImageSlice'
 
 const AvatarDialogs = ({ userObj, profileDialog, attachment, changeAttachment, handleClose }) => {
     const [selectedColor, setSelectedColor] = useState('')
-    const [attachmentFile, setAttachmentFile] = useState(null)
+    const [attachmentFile, setAttachmentFile] = useState('null')
     const [onClear, setOnClear] = useState(false)
     const profileColor = useSelector(state => state.profileColor.value)
     const profileImage = useSelector(state => state.profileImage.value)
@@ -35,7 +35,7 @@ const AvatarDialogs = ({ userObj, profileDialog, attachment, changeAttachment, h
             updateDoc(docRef, {profileImageUrl: attachmentFile});
             dispatch(changeProfileImage(attachmentFile))
         } else if (onClear) {
-            dispatch(changeProfileImage(''))
+            dispatch(changeProfileImage('null'))
             setOnClear(false)
             const storageRef = ref(storage, userObj.uid);
             uploadString(storageRef, 'null', 'raw').then((snapshot) => {
@@ -83,7 +83,7 @@ const AvatarDialogs = ({ userObj, profileDialog, attachment, changeAttachment, h
         setOnClear(false)
       }
       const onClearAttachment = () => {
-        setAttachmentFile(null)
+        setAttachmentFile('null')
         setOnClear(true)
         const fileInput = document.getElementById('file') || {value:null}
         fileInput.value = null
@@ -101,7 +101,7 @@ const AvatarDialogs = ({ userObj, profileDialog, attachment, changeAttachment, h
                     <div className='flex-col px-5 content-center'>
                         <label for='file'>내 파일 업로드</label>
                         <input id='file' type='file' onChange={onFileChange} hidden />
-                        {attachmentFile &&
+                        {attachmentFile && attachmentFile !== 'null' &&
                             <div className='flex justify-center pt-5'>
                                 <button className='factoryClear' onClick={onClearAttachment}>업로드 파일 삭제</button>
                             </div>
