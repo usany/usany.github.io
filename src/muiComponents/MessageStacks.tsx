@@ -8,12 +8,13 @@ import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
 import { CardActionArea, CardActions } from '@mui/material';
 import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
-import { collection, query, where, orderBy, addDoc, getDocs, doc, onSnapshot, deleteDoc, updateDoc } from 'firebase/firestore';
+import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnapshot, deleteDoc, updateDoc } from 'firebase/firestore';
 import { Link } from 'react-router-dom'
 import { webSocket, onClick } from 'src/webSocket.tsx'
 import { User } from 'firebase/auth';
 import ChattingStacks from 'src/muiComponents/ChattingStacks'
 import { useQuery } from '@tanstack/react-query'
+import { useSelector, useDispatch } from 'react-redux'
 
 interface Props {
   userObj: User
@@ -33,7 +34,9 @@ const MessageStacks = ({ userObj, piazzaSwitch }: Props) => {
     // })
     return piazzaMessages
   }
-  
+  const newMessage = useSelector(state => state.newMessage.value)
+  // const dispatch = useDispatch()
+
   const messages = useQuery({queryKey: ['messages'], queryFn: piazza, suspense: true})
   // console.log(messages)
   useEffect(() => {
@@ -65,16 +68,20 @@ const MessageStacks = ({ userObj, piazzaSwitch }: Props) => {
 
   return (
     <>
-      {piazzaSwitch === 'true' && <Card sx={{ flexGrow: 1, overflow: 'hidden' }}>
-        <CardActionArea>
-          <Link to='/piazza'>
-            <div className='p-3'>
-              <div>piazza {piazzaMessage?.username}</div>
-              <Typography noWrap>{piazzaMessage?.message}</Typography>
-            </div>
-          </Link>
-        </CardActionArea>
-      </Card>}
+      {piazzaSwitch === 'true' && 
+        <div>
+          <Card sx={{ flexGrow: 1, overflow: 'hidden' }}>
+            <CardActionArea>
+              <Link to='/piazza'>
+                <div className='p-3'>
+                  <div>piazza {piazzaMessage?.username}</div>
+                  <Typography noWrap>{piazzaMessage?.message}</Typography>
+                </div>
+              </Link>
+            </CardActionArea>
+          </Card>
+        </div>
+      }
       {/* {piazzaSwitch && <Card sx={{ flexGrow: 1, overflow: 'hidden' }}>
         <CardActionArea>
           <Link to='/piazza'>

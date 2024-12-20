@@ -128,7 +128,7 @@ function Menu({ userObj }: Props) {
                             },
                         },                      
                     })}>
-                        <Suspense fallback={<Points />}>
+                        <Suspense fallback={<Skeleton />}>
                             <MessageStacks userObj={userObj} piazzaSwitch={piazzaSwitch}/>
                         </Suspense>
                     </QueryClientProvider>

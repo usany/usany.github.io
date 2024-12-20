@@ -97,6 +97,7 @@ const ChattingStacks = ({ userObj, chattings, handleChattings }: Props) => {
   });
 
   const sortedMyConversationUid = Object.keys(chattings).sort((elementOne, elementTwo) => {return chattings[elementTwo].messageClockNumber-chattings[elementOne].messageClockNumber})
+  console.log(sortedMyConversationUid)
   
   return (
     <>
