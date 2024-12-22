@@ -42,12 +42,9 @@ const AvatarDialogs = ({ userObj, profileDialog, attachment, changeAttachment, h
                 console.log('Uploaded a blob or file!');
             });
 
-            // Delete the file
-            deleteObject(storageRef).then(() => {
-            // File deleted successfully
-            }).catch((error) => {
-            // Uh-oh, an error occurred!
-            });
+            // deleteObject(storageRef).then(() => {
+            // }).catch((error) => {
+            // });
 
             const docRef = doc(dbservice, `members/${userObj?.uid}`)
             updateDoc(docRef, {profileImageUrl: attachmentFile});
@@ -101,11 +98,11 @@ const AvatarDialogs = ({ userObj, profileDialog, attachment, changeAttachment, h
                     <div className='flex-col px-5 content-center'>
                         <label for='file'>내 파일 업로드</label>
                         <input id='file' type='file' onChange={onFileChange} hidden />
-                        {attachmentFile && attachmentFile !== 'null' &&
-                            <div className='flex justify-center pt-5'>
-                                <button className='factoryClear' onClick={onClearAttachment}>업로드 파일 삭제</button>
-                            </div>
-                        }
+                        <div className='flex justify-center pt-5'>
+                            <button className='factoryClear' onClick={onClearAttachment}>업로드 파일 삭제</button>
+                        </div>
+                        {/* {attachmentFile && attachmentFile !== 'null' &&
+                        } */}
                     </div>
                 </div>
             </DialogContent>

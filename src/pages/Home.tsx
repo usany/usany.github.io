@@ -13,6 +13,8 @@ import { User } from 'firebase/auth'
 import { useSelector, useDispatch } from 'react-redux'
 import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
 import { changeTabs } from 'src/stateSlices/tabsSlice'
+import { Skeleton } from "@/components/ui/skeleton"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 interface Props {
     userObj: User | null
@@ -26,7 +28,7 @@ function Home({ userObj }: Props) {
             dispatch(changeBottomNavigation(1))
         }
     }, [])
-
+    
     useEffect(() => {
         const userSetting = async () => {
             const userRef = doc(dbservice, `members/${userObj?.uid}`)
@@ -53,6 +55,12 @@ function Home({ userObj }: Props) {
         }
         userSetting()
     }, [userObj])
+
+    // const storageRef = ref(storage, userObj.uid);
+    // uploadString(storageRef, 'null', 'raw').then(() => {
+    //     console.log('Uploaded a blob or file!');
+    // });
+
     return (
         <>
             {userObj ? 

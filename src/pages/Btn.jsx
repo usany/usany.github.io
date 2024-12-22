@@ -141,7 +141,7 @@ function Btn({ msgObj, isOwner, uid, displayName, userObj, num, points }) {
           }
           {msgObj.round === 2 &&
             <div className='flex flex-col justify-center'>
-              <Button variant='contained' 
+              <Button variant='contained'
                 disabled
               >승낙 메시지 전송 완료</Button>
               <Button variant='outlined' onClick={() => {

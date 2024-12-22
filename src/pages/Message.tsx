@@ -21,12 +21,9 @@ function Message({ msgObj, isOwner, userObj }) {
   //   }
   // })
   return (
-    <div>
-      <Cards msgObj={msgObj} isOwner={isOwner} userObj={userObj} num={num} points={points} />
-      {/* {msgObj.creatorId === userObj.uid && 
-      }
-      {msgObj.connectedId === userObj.uid && msgObj.round !== 1} */}
-    </div>
+    <Cards msgObj={msgObj} isOwner={isOwner} userObj={userObj} num={num} points={points} />
+    // <>
+    // </>
   )
 }
 

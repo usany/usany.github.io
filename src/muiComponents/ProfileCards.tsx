@@ -94,7 +94,7 @@ const ProfileCards = ({
   }, [])
 
   return (
-    <div className='flex flex-col'>
+    <div className='flex flex-col pt-5'>
       <div className='flex justify-center'>
         <Card>
           <CardActionArea>
@@ -145,7 +145,7 @@ const ProfileCards = ({
       </Drawer>
       <ChartContainer
         config={labels}
-        className="aspect-square max-h-[250px]"
+        className="aspect-square max-h-[250px] pt-5"
       >
         <PieChart>
           <ChartLegend

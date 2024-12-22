@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useLayoutEffect, Suspense, lazy } from 'react'
 import WeatherView from 'src/navigate/WeatherView'
 import Navigation from 'src/navigate/Navigation'
+import Points from 'src/pages/points'
 import Avatar from '@mui/material/Avatar';
 import ToggleTabs from 'src/muiComponents/ToggleTabs'
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
@@ -91,6 +92,7 @@ const Header = ({ userObj }: Props) => {
                         dispatch(changeProfileImage('null'))
                     }
                 }
+                console.log(url)
                 if (url) {
                     dispatch(changeProfileUrl(url))
                 } else {
@@ -120,9 +122,15 @@ const Header = ({ userObj }: Props) => {
                 <div className='flex justify-between w-screen'>
                     <div className='px-5 pt-1'>
                         {userObj ?
-                            <Avatar alt={userObj.displayName || ''} sx={{ bgcolor: profileColor || '#2196f3' }} src={profileImage || './src'} onClick={() => {
-                                handleSideNavigation()
-                            }} variant="rounded" />
+                            <div>
+                                {profileImage ?
+                                    <Avatar alt={userObj.displayName || ''} sx={{ bgcolor: profileColor || '#2196f3' }} src={profileImage || ''} onClick={() => {
+                                        handleSideNavigation()
+                                    }} variant="rounded" />
+                                    :
+                                    <div>loading</div>
+                                }
+                            </div>
                             :
                             <Avatar sx={{ bgcolor: '#2196f3' }} onClick={() => {
                                 handleSideNavigation()
