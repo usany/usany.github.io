@@ -76,7 +76,6 @@ const MessageStacks = ({ userObj, piazzaSwitch }: Props) => {
             <div className='flex p-3'>
               <Avatar>
                 <AvatarImage src="https://github.com/shadcn.png" />
-                {/* <AvatarFallback className="leading-1 flex size-full items-center justify-center bg-white text-[15px] font-medium text-violet11">CN</AvatarFallback> */}
                 <AvatarFallback>CN</AvatarFallback>
               </Avatar>
               <div className='flex flex-col w-screen'>
