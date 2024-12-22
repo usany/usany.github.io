@@ -25,11 +25,11 @@ const MessageStacks = ({ userObj, piazzaSwitch }: Props) => {
     const piazzaMessages = await getDocs(piazzaCollection)
     return piazzaMessages
   }
-  const newMessage = useSelector(state => state.newMessage.value)
+  // const newMessage = useSelector(state => state.newMessage.value)
   // const dispatch = useDispatch()
 
   const messages = useQuery({queryKey: ['messages'], queryFn: piazza, suspense: true})
-  // console.log(messages)
+
   useEffect(() => {
     if (piazzaSwitch === 'true') {
       messages.data?.forEach((doc) => {
