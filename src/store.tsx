@@ -1,4 +1,17 @@
 import { create } from 'zustand'
+import { configureStore } from '@reduxjs/toolkit'
+// import { counterReducer } from 'src/stateSlices/stateSlice'
+import { piazzaSwitchReducer } from 'src/stateSlices/piazzaSwitchSlice'
+import { profileUrlReducer } from 'src/stateSlices/profileUrlSlice'
+import { profileColorReducer } from 'src/stateSlices/profileColorSlice'
+import { profileImageReducer } from 'src/stateSlices/profileImageSlice'
+import { cardAccordionReducer } from 'src/stateSlices/cardAccordionSlice'
+import { messageAccordionReducer } from 'src/stateSlices/messageAccordionSlice'
+import { themeReducer } from 'src/stateSlices/themeSlice'
+import { bottomNavigationReducer } from 'src/stateSlices/bottomNavigationSlice'
+import { tabsReducer } from 'src/stateSlices/tabsSlice'
+import { completedActionReducer } from 'src/stateSlices/completedActionSlice'
+import { newMessageReducer } from 'src/stateSlices/newMessageSlice'
 
 interface sideNavigationState {
   sideNavigation: boolean
@@ -43,6 +56,14 @@ interface newMessageState {
 interface avatarImageState {
   avatarImage: string | null
   handleAvatarImage: (state: string | null) => void
+}
+interface profileUrlState {
+  profileUrl: string | null
+  handleProfileUrl: (state: string | null) => void
+}
+interface completedDrawerState {
+  completedDrawer: string | null
+  handleCompletedDrawer: (state: string | null) => void
 }
 const useSideNavigationStore = create<sideNavigationState>()((set) => ({
     sideNavigation: false,
@@ -108,6 +129,14 @@ const useAvatarImageStore = create<avatarImageState>()((set) => ({
   avatarImage: null,
   handleAvatarImage: (newState) => set(() => ({ avatarImage: newState }))
 }))
+const useProfileUrlStore = create<profileUrlState>()((set) => ({
+  profileUrl: null,
+  handleProfileUrl: (newState) => set(() => ({ profileUrl: newState }))
+}))
+const useCompletedDrawerStore = create<completedDrawerState>()((set) => ({
+  completedDrawer: null,
+  handleCompletedDrawer: (newState) => set(() => ({ completedDrawer: newState }))
+}))
 
 const bookStore = (set, get) => ({    
   books: [],
@@ -163,8 +192,24 @@ const bookStore = (set, get) => ({
     });
   },
 });
-
   const useBookStore = create(bookStore);
   
-  export { useSideNavigationStore, useCardAccordionStore, useMessageAccordionStore, useBottomNavigationStore, useAvatarColorStore, useTabsStore, useThemeStore, usePiazzaSwitchStore, useNewMessageStore, useAvatarImageStore };
+  const store = configureStore({
+    reducer: {
+      profileUrl: profileUrlReducer.reducer,
+      profileColor: profileColorReducer.reducer,
+      profileImage: profileImageReducer.reducer,
+      cardAccordion: cardAccordionReducer.reducer,
+      messageAccordion: messageAccordionReducer.reducer,
+      piazzaSwitch: piazzaSwitchReducer.reducer,
+      theme: themeReducer.reducer,
+      bottomNavigation: bottomNavigationReducer.reducer,
+      tabs: tabsReducer.reducer,
+      completedAction: completedActionReducer.reducer,
+      newMessage: newMessageReducer.reducer,
+    }
+  })
+  export { store, 
+    // useSideNavigationStore, useCardAccordionStore, useMessageAccordionStore, useBottomNavigationStore, useAvatarColorStore, useTabsStore, useThemeStore, usePiazzaSwitchStore, useNewMessageStore, useAvatarImageStore, useProfileUrlStore, useCompletedDrawerStore 
+  };
   

@@ -1,11 +1,10 @@
-import { useState, useEffect, useRef, useLayoutEffect } from 'react'
+import { useState, useEffect, useRef, useLayoutEffect, Suspense, lazy } from 'react'
 import WeatherView from 'src/navigate/WeatherView'
 import Navigation from 'src/navigate/Navigation'
+import Points from 'src/pages/points'
 import Avatar from '@mui/material/Avatar';
-import { blue } from '@mui/material/colors';
 import ToggleTabs from 'src/muiComponents/ToggleTabs'
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
-import { useSideNavigationStore, useCardAccordionStore, useMessageAccordionStore, useBottomNavigationStore, useAvatarColorStore, useAvatarImageStore } from 'src/store'
 import { doc, getDoc } from 'firebase/firestore';
 import { auth, dbservice } from 'src/baseApi/serverbase'
 import Checkbox from '@mui/material/Checkbox';
@@ -14,46 +13,68 @@ import FormGroup from '@mui/material/FormGroup';
 import Divider from '@mui/material/Divider';
 import { Link } from 'react-router-dom'
 import { CreditCard } from 'lucide-react';
-import { MessageCircle } from "lucide-react"
-import { Minimize2 } from 'lucide-react';
-import { Maximize2 } from 'lucide-react';
+import { MessageCircle, Minimize2, Maximize2 } from "lucide-react"
+import { useSelector, useDispatch } from 'react-redux'
+import { cardAccordionReducer, change } from 'src/stateSlices/cardAccordionSlice'
+import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
+import { changeMessageAccordion } from 'src/stateSlices/messageAccordionSlice'
+import { changeProfileUrl } from 'src/stateSlices/profileUrlSlice'
+import { changeProfileColor } from 'src/stateSlices/profileColorSlice'
+import { changeProfileImage } from 'src/stateSlices/profileImageSlice'
+import { User } from 'firebase/auth';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
+// const Puller = styled('div')(({ theme }) => ({
+//     width: 30,
+//     height: 6,
+//     backgroundColor: grey[300],
+//     borderRadius: 3,
+//     position: 'absolute',
+//     top: 8,
+//     left: 'calc(50% - 15px)',
+//     ...theme.applyStyles('dark', {
+//       backgroundColor: grey[900],
+//     }),
+//   }));
+  
 interface Props {
-    userObj: {uid: string, displayName: string} | null
+    userObj: User | null
 }
-
+const cli = new QueryClient({
+    defaultOptions: {
+        queries: {
+            suspense: true,
+        },
+    }
+})
 const Header = ({ userObj }: Props) => {
-    const bottomNavigation = useBottomNavigationStore((state) => state.bottomNavigation)
-    const avatarColor = useAvatarColorStore((state) => state.avatarColor)
-    const handleAvatarColor = useAvatarColorStore((state) => state.handleAvatarColor)
-    const handleBottomNavigation = useBottomNavigationStore((state) => state.handleBottomNavigation)
-    const avatarImage = useAvatarImageStore((state) => state.avatarImage)
-    const handleAvatarImage = useAvatarImageStore((state) => state.handleAvatarImage)
-    const cardAccordion = useCardAccordionStore((state) => state.cardAccordion)
-    const handleCardAccordion = useCardAccordionStore((state) => state.handleCardAccordion)
-    const messageAccordion = useMessageAccordionStore((state) => state.messageAccordion)
-    const handleMessageAccordion = useMessageAccordionStore((state) => state.handleMessageAccordion)
+    const bottomNavigation = useSelector(state => state.bottomNavigation.value)
+    const profileUrl = useSelector(state => state.profileUrl.value)
+    const profileColor = useSelector(state => state.profileColor.value)
+    const profileImage = useSelector(state => state.profileImage.value)
     const [sideNavigation, setSideNavigation] = useState(false)
     const handleSideNavigation = () => {
         setSideNavigation(!sideNavigation)
     }
     const storage = getStorage();
-    // const storageRef = ref(storage, 'screen.jpg'); 
     const [scroll, setScroll] = useState('')
+    const cardAccordion = useSelector(state => state.cardAccordion.value)
+    const messageAccordion = useSelector(state => state.messageAccordion.value)
+    const dispatch = useDispatch()
     let prevScrollPos = window.scrollY;
     window.addEventListener('scroll', function () {
         // current scroll position
         const currentScrollPos = window.scrollY;
         if (prevScrollPos >= currentScrollPos) {
+            setScroll('overflow-hidden h-28 fixed top-0 z-20 bg-light-3 dark:bg-dark-3')
             // user has scrolled up
             // document.querySelector('#navigationSelectorOne')?.classList.add('overflow-hidden fixed top-0 z-20 bg-light-3 dark:bg-dark-3')
-            setScroll('overflow-hidden h-28 fixed top-0 z-20 bg-light-3 dark:bg-dark-3')
             // document.querySelector('#navigationSelectorTwo')?.classList.add('fixed', 'top-0', 'z-10', 'bg-light-3', 'dark:bg-dark-3')
             // document.querySelector('#contentSelector')?.classList.add('pt-16')
         } else {
+            setScroll('')
             // user has scrolled down
             // document.querySelector('#navigationSelectorOne')?.classList.remove('overflow-hidden', 'fixed', 'top-0', 'z-20', 'bg-light-3', 'dark:bg-dark-3')
-            setScroll('')
             // document.querySelector('#navigationSelectorTwo')?.classList.remove('fixed', 'top-0', 'z-10', 'bg-light-3', 'dark:bg-dark-3')
             // document.querySelector('#contentSelector')?.classList.remove('pt-16')
         }
@@ -61,13 +82,27 @@ const Header = ({ userObj }: Props) => {
         prevScrollPos = currentScrollPos;
     });
     useEffect(() => {
-        getDownloadURL(ref(storage, `${userObj?.uid}`))
-        .then((url) => {
-            handleAvatarImage(url)
-        })
-        .catch((error) => {
-            console.log(error)
-        });
+        if (userObj) {
+            getDownloadURL(ref(storage, `${userObj?.uid}`))
+            .then((url) => {
+                if (!profileUrl) {
+                    if (url) {
+                        dispatch(changeProfileImage(url))
+                    } else {
+                        dispatch(changeProfileImage('null'))
+                    }
+                }
+                console.log(url)
+                if (url) {
+                    dispatch(changeProfileUrl(url))
+                } else {
+                    dispatch(changeProfileUrl(''))
+                }
+            })
+            .catch((error) => {
+                console.log(error)
+            });
+        }
     }, [userObj])
     
     useEffect(() => {
@@ -75,26 +110,29 @@ const Header = ({ userObj }: Props) => {
             const docRef = doc(dbservice, `members/${userObj?.uid}`)
             const docSnap = await getDoc(docRef)
             const userColor = docSnap.data()?.profileColor || '#2196f3'
-            handleAvatarColor(userColor)
+            dispatch(changeProfileColor(userColor))
         }
         setAvatarColor()
     }, [userObj])
-    // console.log(avatarImage)
+    
     return (
-        <div className='h-28 overflow-hidden'>
-            <div 
-                // id='navigationSelectorOne' 
-                className={scroll}
-            >
+        <div className='h-24 overflow-hidden'>
+            <div className={scroll}>
                 <Navigation userObj={userObj} handleSideNavigation={handleSideNavigation} sideNavigation={sideNavigation} />
                 <div className='flex justify-between w-screen'>
                     <div className='px-5 pt-1'>
                         {userObj ?
-                            <Avatar alt={userObj?.displayName} sx={{ bgcolor: avatarColor || blue[500] }} src={avatarImage || './src'} onClick={() => {
-                                handleSideNavigation()
-                            }} variant="rounded" />
+                            <div>
+                                {profileImage ?
+                                    <Avatar alt={userObj.displayName || ''} sx={{ bgcolor: profileColor || '#2196f3' }} src={profileImage || ''} onClick={() => {
+                                        handleSideNavigation()
+                                    }} variant="rounded" />
+                                    :
+                                    <div>loading</div>
+                                }
+                            </div>
                             :
-                            <Avatar sx={{ bgcolor: blue[500] }} onClick={() => {
+                            <Avatar sx={{ bgcolor: '#2196f3' }} onClick={() => {
                                 handleSideNavigation()
                             }} variant="rounded" />
                         }
@@ -111,7 +149,7 @@ const Header = ({ userObj }: Props) => {
                                             control={
                                                 <Checkbox
                                                     checked={cardAccordion}
-                                                    onClick={handleCardAccordion}
+                                                    onClick={() => dispatch(change())}
                                                 />
                                             } 
                                             // label="카드" 
@@ -125,7 +163,7 @@ const Header = ({ userObj }: Props) => {
                                             control={
                                                 <Checkbox
                                                     checked={messageAccordion}
-                                                    onClick={handleMessageAccordion}
+                                                    onClick={() => dispatch(changeMessageAccordion())}
                                                 />
                                             } 
                                             // label="메세지" 
@@ -142,14 +180,24 @@ const Header = ({ userObj }: Props) => {
                         {!userObj && 
                             <div>
                                 <Link to='/'>
-                                    <div className='pt-5 min-w-36' onClick={() => handleBottomNavigation(1)}>로그인을 해 주세요</div>
+                                    <div className='pt-5 min-w-36' onClick={() => dispatch(changeBottomNavigation(1))}>로그인을 해 주세요</div>
                                 </Link>
                                 <Divider sx={{width: '100%'}} />
                             </div>
                         }
                     </div>
                     <div>
-                        <WeatherView />
+                        <QueryClientProvider client={new QueryClient({
+                            defaultOptions: {
+                                queries: {
+                                    suspense: true,
+                                },
+                            },
+                        })}>
+                            <Suspense fallback={<div>loading</div>}>
+                                <WeatherView />
+                            </Suspense>
+                        </QueryClientProvider>
                     </div>
                 </div>
             </div>

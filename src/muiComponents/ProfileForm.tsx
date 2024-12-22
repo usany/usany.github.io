@@ -69,15 +69,15 @@ const ProfileForm = ({ userObj }) => {
   
   return (
     <form id='profile' onSubmit={onSubmit}>
-      <div className='flex justify-center pt-3'>
-        <div className='flex pt-5 px-3'>유저 이름 바꾸기:</div>
+      <div className='flex justify-center pt-10'>
+        {/* <div className='flex pt-5 px-3'>유저 이름 바꾸기:</div> */}
         <div className='flex flex-col'>
-          <TextField placeholder='유저 이름' value={newDisplayName} type='text' onChange={onChange} />
-          <div className='flex justify-end'>
+          <TextField label='유저 이름 바꾸기' placeholder='유저 이름 바꾸기' value={newDisplayName} type='text' onChange={onChange} />
+          <div className='flex justify-start'>
             {profileChangeConfirmed ? 
               <div className='flex'>
                 <div className='pt-1'>다행히 중복되지 않네요</div>
-                <Button variant='outlined' form='profile' type='submit'>바꾸기</Button>
+                {/* <Button variant='outlined' form='profile' type='submit'>바꾸기</Button> */}
               </div>
               :
               <div className='flex'>
@@ -92,12 +92,17 @@ const ProfileForm = ({ userObj }) => {
                   :
                   <div className='pt-1'>이름 입력이 필요해요</div>
                 }
-                <Button variant='outlined' form='profile' type='submit' disabled>바꾸기</Button>
+                {/* <Button variant='outlined' form='profile' type='submit' disabled>바꾸기</Button> */}
               </div>
             }
           </div>
         </div>
-      </div>
+        {profileChangeConfirmed ? 
+          <Button sx={{height: '56px'}} variant='outlined' form='profile' type='submit'>바꾸기</Button>
+          :
+          <Button sx={{height: '56px'}} variant='outlined' form='profile' type='submit' disabled>바꾸기</Button>
+        }
+        </div>
     </form>
   )
 }

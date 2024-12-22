@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import { Link } from 'react-router-dom'
 import { auth, dbservice } from 'src/baseApi/serverbase'
 import Modes from 'src/Modes'
@@ -9,29 +9,51 @@ import DraftsIcon from '@mui/icons-material/Drafts';
 import ImageIcon from '@mui/icons-material/Image';
 import WorkIcon from '@mui/icons-material/Work';
 import Public from '@mui/icons-material/Public';
-import { useSideNavigationStore, useThemeStore } from 'src/store'
+import { User } from 'firebase/auth';
+import { changeProfileUrl } from 'src/stateSlices/profileUrlSlice'
+import { changeProfileColor } from 'src/stateSlices/profileColorSlice'
+import { changeProfileImage } from 'src/stateSlices/profileImageSlice'
+import { useSelector, useDispatch } from 'react-redux'
+
+// const StyledBox = styled('div')(({ theme }) => ({
+//   backgroundColor: '#fff',
+//   ...theme.applyStyles('dark', {
+//   }),
+// }));
+
+// const Puller = styled('div')(({ theme }) => ({
+//   width: 30,
+//   left: 500,
+//   height: '90%',
+//   borderRadius: 3,
+//   position: 'absolute',
+//   top: 8,
+// }));
 
 interface Props {
-  userObj: {uid: string, displayName: string} | null
+  userObj: User | null
   sideNavigation: boolean
   handleSideNavigation: () => void
 }
 
 const onLogOutClick = () => auth.signOut();
 function Navigation({ userObj, sideNavigation, handleSideNavigation }: Props) {
-  const [textColor, setTextColor] = useState<string>('#e2e8f0');
   const [backgroundColor, setBackgroundColor] = useState<string>('#e2e8f0');
   const [points, setPoints] = useState<number>(0)
-  const theme = useThemeStore((state) => state.theme)
+  const theme = useSelector(state => state.theme.value)
   const [profileColor, setProfileColor] = useState<string>('');
-  
+  const dispatch = useDispatch()
+  // const {avatarImage, handleAvatarImage} = useAvatarImageStore()
+  // const {avatarColor, handleAvatarColor} = useAvatarColorStore()
+  // const {profileUrl, handleProfileUrl} = useProfileUrlStore()
+
   useEffect(() => {
     if (userObj) {
       onSnapshot(doc(dbservice, `members/${userObj.uid}`), (snapshot) => {
         const number = snapshot.data()?.points
         setPoints(number)
-        const profileColor = snapshot.data()?.profileColor
-        setProfileColor(profileColor)
+        const color = snapshot.data()?.profileColor
+        setProfileColor(color)
       })
     }
   }, [])
@@ -41,15 +63,19 @@ function Navigation({ userObj, sideNavigation, handleSideNavigation }: Props) {
 
   const logOut = () => {
     onLogOutClick()
+    // handleAvatarImage(null)
+    // handleAvatarColor('')
+    // handleProfileUrl('')
+    dispatch(changeProfileUrl(''))
+    dispatch(changeProfileImage('null'))
+    dispatch(changeProfileColor(''))
     checkbox()
   }
 
   useEffect(() => {
     if (theme === 'dark') {
-      setTextColor('#ddd')
       setBackgroundColor('#2d3848')
     } else {
-      setTextColor('#000')
       setBackgroundColor('#e2e8f0')
     }
   }, [theme])
@@ -58,6 +84,7 @@ function Navigation({ userObj, sideNavigation, handleSideNavigation }: Props) {
     displayName: userObj?.displayName,
     profileColor: profileColor
   }
+  
   return (
     <SwipeableDrawer
       PaperProps={{
@@ -72,6 +99,7 @@ function Navigation({ userObj, sideNavigation, handleSideNavigation }: Props) {
       onClose={handleSideNavigation}
       onOpen={handleSideNavigation}
       aria-hidden="false"
+      swipeAreaWidth={20}
     >
       <nav
         className='flex flex-col justify-between w-full'
@@ -133,7 +161,11 @@ function Navigation({ userObj, sideNavigation, handleSideNavigation }: Props) {
         }
         {userObj &&
           <div className='absolute flex justify-center bottom-0'>
-            <iframe src="https://open.spotify.com/embed/playlist/6phYndBIC4DIqefH1CcUsT?utm_source=generator&theme=0" width="90%" height="200" allow="autoplay; clipboard-write; fullscreen; picture-in-picture" loading="lazy" />
+            {theme === 'light' ? 
+              <iframe src="https://open.spotify.com/embed/playlist/41clCj2piQBL3BSEFQN9J3?utm_source=generator" width="90%" height="200" allow="autoplay; clipboard-write; fullscreen; picture-in-picture" loading="lazy" />
+              :
+              <iframe src="https://open.spotify.com/embed/playlist/41clCj2piQBL3BSEFQN9J3?utm_source=generator&theme=0" width="90%" height="200" allow="autoplay; clipboard-write; fullscreen; picture-in-picture" loading="lazy" />
+            }
           </div>
         }
       </nav>

@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react'
 import Chip from '@mui/material/Chip';
 
-function ContactAddress({ action, label }:
-  {
-    userObj: {uid: string, displayName: string}
-  }
-) {
+interface Props {
+  action: string,
+  label: string | null
+}
+
+function ContactAddress({ action, label }: Props) {
   return (  
     <div className='px-5'>
       <span>

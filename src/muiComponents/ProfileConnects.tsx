@@ -1,20 +1,13 @@
 import { useState, useEffect, useReducer } from 'react'
 import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnapshot, updateDoc, setDoc } from 'firebase/firestore';
 import Button from '@mui/material/Button';
-import Avatar from '@mui/material/Avatar';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import { CardActionArea, CardActions } from '@mui/material';
-import { BrowserRouter, Routes, Route, useNavigate, Link, useLocation } from 'react-router-dom'
-import { blue } from '@mui/material/colors';
-import { useBottomNavigationStore, useAvatarColorStore } from 'src/store'
-import { getStorage, ref, getDownloadURL } from "firebase/storage";
 import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
+import { Link } from 'react-router-dom'
 
 const ProfileConnects = ({
   userObj,
   user,
-  allies,
+  alliesCollection,
   handleFollowers,
   handleFollowings
 }) => {
@@ -24,7 +17,7 @@ const ProfileConnects = ({
   // const [userFollowersList, setUserFollowersList] = useState([])
   const [conversation, setConversation] = useState('')
   // const [followButton, setFollowButton] = useState(true)
-  const followButton = allies.followers.list.indexOf(userObj.uid) === -1
+  const followButton = alliesCollection[0].list.indexOf(userObj.uid) === -1
   const followUser = async (uid) => {
     const myDocRef = doc(dbservice, `members/${userObj.uid}`)
     const myDocSnap = await getDoc(myDocRef)
@@ -44,25 +37,12 @@ const ProfileConnects = ({
           followingNum: myFollowingNum+1,
           followings: [...myFollowings, user.uid]
         })
-        // handleFollowings({
-        //   number: myFollowingNum+1,
-        //   lists: [...myFollowings, user.uid]
-        // })
-        // setMyFollowingNumber(myFollowingNum+1)
-        // setMyFollowingList([...myFollowings, user.uid])
       }
     } else {
       await updateDoc(myDocRef, {
         followingNum: 1,
         followings: [user.uid]
       })
-      // handleFollowings({
-      //   number: 1,
-      //   lists: [user.uid]
-      // })
-      // setMyFollowingNumber(1)
-      // setMyFollowingList([user.uid])
-      // handleFollowings({number: 1, list: [user.uid]})
     }
     if (otherUserFollowerNum) {
       if (otherFollowers.indexOf(userObj.uid) === -1) { 
@@ -70,8 +50,6 @@ const ProfileConnects = ({
           followerNum: otherUserFollowerNum+1,
           followers: [...otherFollowers, userObj.uid]
         })
-        // setOtherFollowerNumber(otherFollowerNumber+1)
-        // setOtherFollowerList([...otherFollowers, userObj.uid])
         handleFollowers({number: otherUserFollowerNum+1, list: [...otherFollowers, userObj.uid]})
       }
     } else {
@@ -79,11 +57,8 @@ const ProfileConnects = ({
         followerNum: 1,
         followers: [userObj.uid]
       })
-      // setOtherFollowerNumber(1)
-      // setOtherFollowerList([userObj.uid])
       handleFollowers({number:1, list: [userObj.uid]})
     }
-    // setFollowButton(false)
   }
   const unfollowUser = async (uid) => {
     const myDocRef = doc(dbservice, `members/${userObj.uid}`)
@@ -104,8 +79,6 @@ const ProfileConnects = ({
           followingNum: myFollowingNum-1,
           followings: myFollowings.filter((element) => element !== user.uid)
         })
-        // setMyFollowerNumber(myFollowingNum-1)
-        // setMyFollowerList(myFollowings.filter((element) => element !== state.element.uid))
       }
     }
     
@@ -115,13 +88,9 @@ const ProfileConnects = ({
           followerNum: otherUserFollowerNum-1,
           followers: otherFollowers.filter((element) => element !== userObj.uid)
         })
-        // setOtherFollowerNumber(otherFollowerNumber-1)
-        // setOtherFollowerList(otherFollowers.filter((element) => element !== userObj.uid))
         handleFollowers({number: otherUserFollowerNum-1, list: otherFollowers.filter((element) => element !== userObj.uid)})
       }
-      console.log(otherFollowers.indexOf(userObj.uid))
     }
-    // setFollowButton(true)
   }
   useEffect(() => {
     if (user.uid < user.uid) {
@@ -130,13 +99,7 @@ const ProfileConnects = ({
       setConversation(userObj.uid[0]+userObj.uid[1]+userObj.uid[2]+userObj.uid[3]+userObj.uid[4]+userObj.uid[5]+user.uid[0]+user.uid[1]+user.uid[2]+user.uid[3]+user.uid[4]+user.uid[5])
     }
   }, [])
-  console.log(allies)
-  // useEffect(() => {
-  //   console.log('practice')
-  //   if (allies.followers.list.indexOf(userObj.uid) !== -1) {
-  //     setFollowButton(false)
-  //   }
-  // }, [])
+  
   return (
     <div>
       <div className='flex justify-center'>

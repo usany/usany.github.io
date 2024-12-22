@@ -5,12 +5,17 @@ import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
 import { Link, useLocation } from 'react-router-dom'
 import { webSocket, onClick } from 'src/webSocket.tsx'
 import ChattingDialogs from 'src/muiComponents/ChattingDialogs'
-import { useBottomNavigationStore, useNewMessageStore } from 'src/store'
+import { User } from "firebase/auth";
+import { useSelector, useDispatch } from 'react-redux'
+import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
+import { changeNewMessage, changeNewMessageTrue, changeNewMessageFalse } from 'src/stateSlices/newMessageSlice'
 
 // const webSocket = io("http://localhost:5000");
-function Chatting({ userObj }: {
-  userObj: {uid: string, displayName: string},
-}) {
+interface Props {
+  userObj: User
+}
+
+function Chatting({ userObj }: Props) {
   const messagesEndRef = useRef(null);
   const [msg, setMsg] = useState("");
   const [msgList, setMsgList] = useState([]);
@@ -20,9 +25,8 @@ function Chatting({ userObj }: {
   const [selectUser, setSelectUser] = useState(false)
   const {state} = useLocation()
   const conversation = state.conversation
-  const handleBottomNavigation = useBottomNavigationStore((state) => state.handleBottomNavigation)
-  const handleNewMessageTrue = useNewMessageStore((state) => state.handleNewMessageTrue)
-  
+  const dispatch = useDispatch()
+
   useEffect(() => {
     if (!webSocket) return;
     function sMessageCallback(message) {
@@ -40,14 +44,6 @@ function Chatting({ userObj }: {
         },
       ]);
     }
-    // if (msgList.length === 0) {
-    //   console.log('msgList')
-    //   webSocket.on(`sNewMessage`, sMessageCallback);
-    //   return () => {
-    //     webSocket.off(`sNewMessage`, sMessageCallback);
-    //   };
-    // }
-    console.log('practice')
     webSocket.on(`sMessage${conversation}`, sMessageCallback);
     return () => {
       webSocket.off(`sMessage${conversation}`, sMessageCallback);
@@ -55,7 +51,7 @@ function Chatting({ userObj }: {
   }, []);
 
   useEffect(() => {
-    handleBottomNavigation(5)
+    dispatch(changeBottomNavigation(5))
   })
   useEffect(() => {
     scrollToBottom();
@@ -165,13 +161,9 @@ function Chatting({ userObj }: {
     }
   }
   const onMembersConversation = async () => {
-    const message = msg
     try {
       const userUid = userObj.uid
       const chattingUid = state.chattingUid
-      // const userName = userObj.displayName
-      // const messageClockNumber = Date.now()
-      // const messageClock = new Date().toString()
       const myDocRef = doc(dbservice, `members/${userUid}`)
       const myDocSnap = await getDoc(myDocRef)
       const myConversation = myDocSnap.data().conversation || []
@@ -182,9 +174,7 @@ function Chatting({ userObj }: {
         await updateDoc(myDocRef, {
           conversation: [...myConversation, conversation]
         })
-        handleNewMessageTrue()
-        // setNewMessage(true)
-        // handleNewMessage()
+        dispatch(changeNewMessageTrue())
       }
       if (userConversation.indexOf(conversation) === -1) { 
         await updateDoc(userDocRef, {

@@ -60,8 +60,7 @@ function Allies() {
             </div>
           } */}
       </div>
-      <List sx={{ 
-          bgcolor: 'background.paper' }}>
+      <div>
         {/* {state.followers ?
           <div className='flex flex-col justify-center flex-wrap'>
             {followers?.map((element, index) => {
@@ -70,7 +69,7 @@ function Allies() {
                   <div className='flex justify-between w-screen'>
                     <div className='flex'>
                       <ListItemAvatar>
-                        <Avatar alt={element.displayName} sx={{ bgcolor: element.profileColor || blue[500] }} src="./src" />
+                        <Avatar alt={element.displayName} sx={{ bgcolor: element.profileColor }} src="./src" />
                       </ListItemAvatar>
                       <div className='flex flex-col overflow-hidden'>
                         <div>
@@ -106,7 +105,7 @@ function Allies() {
                   <div className='flex justify-between w-screen px-5'>
                       <div>
                         <ListItemAvatar>
-                          <Avatar alt={element.displayName} sx={{ bgcolor: element.profileColor || blue[500] }} src="./src" />
+                          <Avatar alt={element.displayName} sx={{ bgcolor: element.profileColor || '#2196f3' }} src="./src" />
                         </ListItemAvatar>
                       </div>
                       <div>
@@ -137,7 +136,7 @@ function Allies() {
             })}
           </div>
         {/* } */}
-      </List>
+      </div>
       {/* <div className='flex justify-center p-10'>
         <Button variant='outlined' onClick={() => navigate(-1)}>확인</Button>
       </div> */}

@@ -30,7 +30,8 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const dbservice = getFirestore(app);
-const storage = getStorage(app, 'gs://remake-36fe0.appspot.com');
+// const storage = getStorage(app, 'gs://remake-36fe0.appspot.com');
+const storage = getStorage(app);
 const messaging = getMessaging(app);
 
 const onSocialClick = async (event) => {

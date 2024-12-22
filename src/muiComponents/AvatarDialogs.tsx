@@ -7,64 +7,45 @@ import Avatar from '@mui/material/Avatar';
 import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnapshot, updateDoc, setDoc } from 'firebase/firestore';
 import { auth, dbservice } from 'src/baseApi/serverbase'
 import { storage } from "src/baseApi/serverbase";
-import { getStorage, ref, uploadBytes, uploadString, uploadBytesResumable, getDownloadURL,  } from "firebase/storage";
-import { useAvatarColorStore, useAvatarImageStore } from 'src/store'
+import { getStorage, ref, uploadBytes, uploadString, uploadBytesResumable, getDownloadURL, deleteObject } from "firebase/storage";
+// import { useAvatarColorStore, useAvatarImageStore } from 'src/store'
+import { useSelector, useDispatch } from 'react-redux'
+import { changeProfileColor } from 'src/stateSlices/profileColorSlice'
+import { changeProfileImage } from 'src/stateSlices/profileImageSlice'
 
 const AvatarDialogs = ({ userObj, profileDialog, attachment, changeAttachment, handleClose }) => {
-    const [selectedColor, setSelectedColor] = useState(null)
-    const [attachmentFile, setAttachmentFile] = useState(null)
+    const [selectedColor, setSelectedColor] = useState('')
+    const [attachmentFile, setAttachmentFile] = useState('null')
     const [onClear, setOnClear] = useState(false)
-    // const [file, setFile] = useState(null)
-    const avatarColor = useAvatarColorStore((state) => state.avatarColor)
-    const handleAvatarColor = useAvatarColorStore((state) => state.handleAvatarColor)
-    const avatarImage = useAvatarImageStore((state) => state.avatarImage)
-    const handleAvatarImage = useAvatarImageStore((state) => state.handleAvatarImage)
+    const profileColor = useSelector(state => state.profileColor.value)
+    const profileImage = useSelector(state => state.profileImage.value)
+    const dispatch = useDispatch()
     const onClick = async () => {
         const data = doc(dbservice, `members/${userObj.uid}`)
         if (selectedColor) {   
             updateDoc(data, {profileColor: selectedColor});
-            handleAvatarColor(selectedColor)
+            dispatch(changeProfileColor(selectedColor))
         }
         if (attachmentFile && !onClear) {   
             const storageRef = ref(storage, userObj.uid);
-            // const response = await storageRef.putString()
             uploadString(storageRef, attachmentFile, 'data_url').then((snapshot) => {
                 console.log('Uploaded a blob or file!');
             });
             const docRef = doc(dbservice, `members/${userObj?.uid}`)
             updateDoc(docRef, {profileImageUrl: attachmentFile});
-                                                                
-            // changeAttachment(attachmentFile)
-            // if (attachmentFile === 'null') {
-            //     handleAvatarImage(null)
-            // } else {
-            //     handleAvatarImage(attachmentFile)
-            // }
-            handleAvatarImage(attachmentFile)
-            // const uploadTask = uploadBytesResumable(storageRef, file);
-            // uploadTask.on(
-            //     "state_changed",
-            //     (snapshot) => {
-            //         console.log(snapshot);
-            //     },
-            //     (error) => {
-            //         alert(error);
-            //     },
-            //     () => {
-            //         getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
-            //         await updateDoc(collectionRef, {
-            //             imageurl: downloadURL,
-            //         });
-            //         });
-            //     }
-            // );
+            dispatch(changeProfileImage(attachmentFile))
         } else if (onClear) {
-            handleAvatarImage(null)
+            dispatch(changeProfileImage('null'))
             setOnClear(false)
             const storageRef = ref(storage, userObj.uid);
             uploadString(storageRef, 'null', 'raw').then((snapshot) => {
                 console.log('Uploaded a blob or file!');
             });
+
+            // deleteObject(storageRef).then(() => {
+            // }).catch((error) => {
+            // });
+
             const docRef = doc(dbservice, `members/${userObj?.uid}`)
             updateDoc(docRef, {profileImageUrl: attachmentFile});
         }
@@ -74,13 +55,12 @@ const AvatarDialogs = ({ userObj, profileDialog, attachment, changeAttachment, h
     }
     useEffect(() => {
         if (!selectedColor) {
-            setSelectedColor(avatarColor)
+            setSelectedColor(profileColor)
         }
     }, [])
     useEffect(() => {
-        setAttachmentFile(avatarImage)
-        // changeAttachment(avatarImage)
-    }, [avatarImage])
+        setAttachmentFile(profileImage)
+    }, [profileImage])
     
     const onFileChange = (event) => {
         const {
@@ -97,28 +77,10 @@ const AvatarDialogs = ({ userObj, profileDialog, attachment, changeAttachment, h
         }
         console.log(theFile)
         reader.readAsDataURL(theFile)
-        // setFile(theFile)
-        // const uploadTask = uploadBytesResumable(storageRef, file);
-        // uploadTask.on(
-        //   "state_changed",
-        //   (snapshot) => {
-        //     console.log(snapshot);
-        //   },
-        //   (error) => {
-        //     alert(error);
-        //   },
-        //   () => {
-        //     getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
-        //       await updateDoc(collectionRef, {
-        //         imageurl: downloadURL,
-        //       });
-        //     });
-        //   }
-        // );
-    
+        setOnClear(false)
       }
       const onClearAttachment = () => {
-        setAttachmentFile(null)
+        setAttachmentFile('null')
         setOnClear(true)
         const fileInput = document.getElementById('file') || {value:null}
         fileInput.value = null
@@ -134,37 +96,17 @@ const AvatarDialogs = ({ userObj, profileDialog, attachment, changeAttachment, h
                     <Avatar alt={userObj.displayName} sx={{ fontSize:'100px', width: '200px', height: '200px', bgcolor: selectedColor }} src={attachmentFile || './src'} onClick={() => {
                     }} variant='rounded' />
                     <div className='flex-col px-5 content-center'>
-                        {/* <div className='flex'>
-                        </div> */}
                         <label for='file'>내 파일 업로드</label>
                         <input id='file' type='file' onChange={onFileChange} hidden />
-                        {attachmentFile &&
-                            <div className='flex justify-center pt-5'>
-                                <button className='factoryClear' onClick={onClearAttachment}>업로드 파일 삭제</button>
-                            </div>
-                        }
+                        <div className='flex justify-center pt-5'>
+                            <button className='factoryClear' onClick={onClearAttachment}>업로드 파일 삭제</button>
+                        </div>
+                        {/* {attachmentFile && attachmentFile !== 'null' &&
+                        } */}
                     </div>
                 </div>
             </DialogContent>
-            {/* 'profile-red': '#f44336',
-      'profile-pink': '#e91e63',
-      'profile-purple': '#9c27b0',
-      'profile-deeppurple': '#673ab7',
-      'profile-indigo': '#3f51b5',
-      'profile-blue': '#2196f3',
-      'profile-lightblue': '#03a9f4',
-      'profile-cyan': '#00bcd4',
-      'profile-teal': '#009688',
-      'profile-green': '#4caf50',
-      'profile-lightgreen': '#8bc34a',
-      'profile-lime': '#cddc39',
-      'profile-yellow': '#ffeb3b',
-      'profile-amber': '#ffc107',
-      'profile-orange': '#ff9800',
-      'profile-deeporange': '#ff5722', */}
-        <div className='flex'>
-            <div>색깔을 선택하면 배경에 반영됩니다.&emsp;</div>
-        </div>
+            <div className='flex'>색깔을 선택하면 배경에 반영됩니다.&emsp;</div>
             <div className='flex px-1'>
                 <div className='w-10 bg-profile-red' onClick={() => switchColor('#f44336')}>&emsp;</div>
                 <div className='w-10 bg-profile-pink' onClick={() => switchColor('#e91e63')}>&emsp;</div>
@@ -188,17 +130,15 @@ const AvatarDialogs = ({ userObj, profileDialog, attachment, changeAttachment, h
                 handleClose()
                 changeAttachment(attachmentFile)
                 onClick()        
-                handleAvatarColor(selectedColor)
+                dispatch(changeProfileColor(selectedColor))
             }}>저장</Button>
             <Button variant='outlined' onClick={() => {
                 handleClose()
                 if (onClear) {
-                    setAttachmentFile(avatarImage)
+                    setAttachmentFile(profileImage)
                 }
                 setOnClear(false)
-                setSelectedColor(avatarColor)
-                // setAttachmentFile(attachment)
-                // handleAvatarImage(attachment)
+                setSelectedColor(profileColor)
             }} autoFocus>
                 닫기
             </Button>

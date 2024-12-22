@@ -1,6 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from 'src/App.tsx'
+import { store } from 'src/store'
+import { Provider } from 'react-redux'
 
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('/firebase-messaging-sw.js')
@@ -14,6 +16,8 @@ if ('serviceWorker' in navigator) {
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
+    <Provider store={store}>
     <App />
+    </Provider>
   </React.StrictMode>,
 )

@@ -1,5 +1,5 @@
 import { useState, useEffect, useLayoutEffect } from 'react'
-import Stack from '@mui/material/Stack';
+// import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
 import { CardActionArea, CardActions } from '@mui/material';
@@ -7,77 +7,35 @@ import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
 import { collection, query, QuerySnapshot, where, orderBy, addDoc, getDoc, getDocs, doc, onSnapshot, deleteDoc, updateDoc, limit } from 'firebase/firestore';
 import { Link } from 'react-router-dom'
 import { webSocket, onClick } from 'src/webSocket.tsx'
-import { useAvatarColorStore, useNewMessageStore } from 'src/store'
+import { useSelector, useDispatch } from 'react-redux'
+import { User } from 'firebase/auth';
+import { changeNewMessage, changeNewMessageTrue, changeNewMessageFalse } from 'src/stateSlices/newMessageSlice'
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
-const ChattingStacks = ({ userObj, 
-  // handleMessageLoaded 
-}) => {
-  const [chattings, setChattings] = useState({})
-  const newMessage = useNewMessageStore((state) => state.newMessage)
+interface Props {
+  userObj: User
+  chattings: {}
+  handleChattings: ({}) => void
+}
+
+const ChattingStacks = ({ userObj, chattings, handleChattings }: Props) => {
+  // const [chattings, setChattings] = useState({})
+  const newMessage = useSelector(state => state.newMessage.value)
+  // const dispatch = useDispatch()
 
   useEffect(() => {
     const myChatting = async () => {
       const myDocRef = doc(dbservice, `members/${userObj.uid}`)
       const myDocSnap = await getDoc(myDocRef)
       const myConversation = myDocSnap.data()?.chattings || {}
-      setChattings(myConversation)
-      // handleMessageLoaded(true)
+      handleChattings(myConversation)
     }
     if (newMessage) {
       myChatting()
-      console.log('sample')
       // handleNewMessageFalse()
     }
   }, [newMessage])
 
-  // useEffect(() => {
-  //   const myChatting = async () => {
-  //     const myDocRef = doc(dbservice, `members/${userObj.uid}`)
-  //     const myDocSnap = await getDoc(myDocRef)
-  //     const myConversation = myDocSnap.data()?.conversation || ['none']
-  //     setMyConversationUid(myConversation)
-  //   }
-  //   if (myConversationUid.length === 0 || newMessage) {
-  //     myChatting()
-  //     handleNewMessageFalse()
-  //   }
-  // }, [newMessage])
-  // useEffect(() => {
-  //   const myChattings = () => {
-  //     myConversationUid.map(async (element, index) => {
-  //       const chattingRef = collection(dbservice, `chats_${element}`)
-  //       const chattingCollection = query(chattingRef, orderBy('messageClockNumber'), limit(1))
-  //       const chattingMessages = await getDocs(chattingCollection)
-  //       chattingMessages.forEach(async (document) => {
-  //         const documentObj = document.data()
-  //         let userDocRef
-  //         let conversationUid
-  //         if (userObj.uid === documentObj.userOne) {
-  //           userDocRef = doc(dbservice, `members/${documentObj.userTwo}`)
-  //           conversationUid = documentObj.userTwo
-  //         } else {
-  //           userDocRef = doc(dbservice, `members/${documentObj.userOne}`)
-  //           conversationUid = documentObj.userOne
-  //         }
-  //         const userDocSnap = await getDoc(userDocRef)
-  //         const userDisplayName = userDocSnap.data()?.displayName
-  //         const newMessage = {conversation: element, username: documentObj.userName, message: documentObj.message, 
-  //           conversationUid: conversationUid,
-  //           userDisplayName: userDisplayName
-  //         }
-  //         if (chats.length < myConversationUid.length) {
-  //           const check = chats.map((elements) => elements.conversation).indexOf(element)
-  //           if (check === -1) {
-  //             handleChats([...chats, newMessage])
-  //           }
-  //         }
-  //       })
-  //     })
-  //   }
-  //   if (myConversationUid.length !== 0) {
-  //     myChattings()
-  //   }
-  // })
   useEffect(() => {
     if (!webSocket) return;
     function sMessageCallback(message) {
@@ -98,20 +56,9 @@ const ChattingStacks = ({ userObj,
         userTwoDisplayName = id
       }
       const replaceObj = {userUid: userUid, userName: id, userOne: userOne, userOneDisplayName: userOneDisplayName, userTwo: userTwo, userTwoDisplayName: userTwoDisplayName, message: msg, messageClock: messageClock, messageClockNumber: messageClockNumber}      // const location = chats.map((element) => element.conversation).indexOf(conversation)
-      // let conversationsCollection = [...chats]
-      // if (location === -1) {
-      //   conversationsCollection = [replaceObj, ...conversationsCollection]
-      // } else {
-      //   conversationsCollection.splice(location, 1, replaceObj)
-      // }
-      // handleChats(conversationsCollection)
-      
       const newChattings = {...chattings, [conversation]: replaceObj}
-      setChattings(newChattings)
-      // const newChattings = {...chattings}
-      // newChattings[conversation] = replaceObj
       // setChattings(newChattings)
-    
+      handleChattings(newChattings)
     }
     sortedMyConversationUid.map((element) => {
       webSocket.on(`sMessage${element}`, sMessageCallback);
@@ -140,23 +87,9 @@ const ChattingStacks = ({ userObj,
         userTwoDisplayName = id
       }
       const replaceObj = {userUid: userUid, userName: id, userOne: userOne, userOneDisplayName: userOneDisplayName, userTwo: userTwo, userTwoDisplayName: userTwoDisplayName, message: msg, messageClock: messageClock, messageClockNumber: messageClockNumber}
-      // const location = chats.map((element) => element.conversation).indexOf(conversation)
-      // let conversationsCollection = [...chats]
-      // if (location === -1) {
-      //   console.log('location')
-      //   conversationsCollection = [replaceObj, ...conversationsCollection]
-      // } else {
-      //   console.log('locations')
-      //   conversationsCollection.splice(location, 1, replaceObj)
-      // }
-      // handleChats(conversationsCollection)
-
       const newChattings = {...chattings, [conversation]: replaceObj}
-      setChattings(newChattings)
-      // const newChattings = {...chattings}
-      // newChattings[conversation] = replaceObj
       // setChattings(newChattings)
-      
+      handleChattings(newChattings)
     }
     webSocket.on(`sNewMessage`, sNewMessageCallback);
     return () => {
@@ -164,12 +97,8 @@ const ChattingStacks = ({ userObj,
     };
   });
 
-  // useEffect(() => {
-  //   if (chats.length === myConversationUid.length ) {
-  //     handleMessageLoaded(true)
-  //   }
-  // })
   const sortedMyConversationUid = Object.keys(chattings).sort((elementOne, elementTwo) => {return chattings[elementTwo].messageClockNumber-chattings[elementOne].messageClockNumber})
+  console.log(sortedMyConversationUid)
   
   return (
     <>
@@ -191,12 +120,33 @@ const ChattingStacks = ({ userObj,
                 <Link to='/chatting' state={{
                   conversation: element, displayName: displayName, userUid: userObj.uid, chattingUid: chattingUid
                 }}>
-                  <Stack spacing={2} direction="column" sx={{ flexGrow: 1, overflow: 'hidden', p: 1 }}>
-                    <div>chatting {userObj.uid === chattings[element].userOne ? chattings[element].userTwoDisplayName : chattings[element].userOneDisplayName}</div>
-                    <div>{chattings[element].messageClock}</div>
-                    <div>{chattings[element].messageClockNumber}</div>
-                    <Typography noWrap>{chattings[element]?.message}</Typography>
-                  </Stack>
+                  <div className='flex p-3'>
+                    <div className=''>
+                      <Avatar>
+                        <AvatarImage src="https://github.com/shadcn.png" />
+                        {/* <AvatarFallback className="leading-1 flex size-full items-center justify-center bg-white text-[15px] font-medium text-violet11">CN</AvatarFallback> */}
+                        <AvatarFallback>CN</AvatarFallback>
+                      </Avatar>
+                    </div>
+                    {/* <div className='px-3'>{chattings[element]?.message}</div> */}
+                    {/* <Typography noWrap>{chattings[element]?.message}</Typography> */}
+                    <div className='flex flex-col w-screen'>
+                      <div className='flex justify-between'>
+                        <div className='px-3 w-1/2 overflow-hidden'>{userObj.uid === chattings[element].userOne ? chattings[element].userTwoDisplayName : chattings[element].userOneDisplayName}</div>
+                        <div>{chattings[element].messageClock} {chattings[element].messageClockNumber}</div>
+                        {/* <div>{chattings[element].messageClockNumber}</div> */}
+                      </div>
+                      <div className='flex px-3'>
+                        {/* <Avatar>
+                          <AvatarImage src="https://github.com/shadcn.png" />
+                          <AvatarFallback className="leading-1 flex size-full items-center justify-center bg-white text-[15px] font-medium text-violet11">CN</AvatarFallback>
+                          <AvatarFallback>CN</AvatarFallback>
+                        </Avatar> */}
+                        <div>{chattings[element]?.message}</div>
+                        {/* <Typography noWrap>{chattings[element]?.message}</Typography> */}
+                      </div>
+                    </div>
+                  </div>
                 </Link>
               </CardActionArea>
             </Card>

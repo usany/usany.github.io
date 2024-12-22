@@ -89,9 +89,9 @@ const SignUpForm = ({ handleClose }: Props) => {
       </div>
       <div className='flex justify-center pt-3'>
           <Button variant='outlined' form='signUp' type='submit'>회원가입</Button>
-          <Button variant='outlined' onClick={handleClose}>
+          {/* <Button variant='outlined' onClick={handleClose}>
             닫기
-          </Button>
+          </Button> */}
       </div>
       <span>{error}</span>
     </form>

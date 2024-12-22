@@ -1,20 +1,12 @@
 import { useState, useEffect, useLayoutEffect } from 'react'
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
 import Divider from '@mui/material/Divider';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
-import Typography from '@mui/material/Typography';
-import { blue } from '@mui/material/colors';
 import CommentIcon from '@mui/icons-material/Comment';
 import IconButton from '@mui/material/IconButton';
 import { Link } from 'react-router-dom'
-import { useAvatarColorStore, useAvatarImageStore } from 'src/store'
-import { storage } from "src/baseApi/serverbase";
-import { getStorage, ref, uploadBytes, uploadString, uploadBytesResumable, getDownloadURL,  } from "firebase/storage";
 
-function Lists({ elements, multiple, userSearch, loadedImage, loadedImageIndex }) {
-  const avatarImage = useAvatarImageStore((state) => state.avatarImage)
+function Lists({ elements, multiple, userSearch }) {
+
   return (
     <div>
       {!userSearch &&
@@ -33,71 +25,60 @@ function Lists({ elements, multiple, userSearch, loadedImage, loadedImageIndex }
           </div>
         </div>
       }
-    <List sx={{ width: '100%', 
-      // maxWidth: 360,
-      bgcolor: 'background.paper' }}>
+    <div className='bg-light-3 dark:bg-dark-3'>
       {elements.map((element, index) => {
-        // console.log(element.profileImage)
         let userNameConfirm = true
         if (userSearch) {
           for (let number = 0; number < userSearch.length; number++) {
-            if (element.displayName[number] !== userSearch[number]) {
+            if (element?.displayName[number] !== userSearch[number]) {
               userNameConfirm = false
             }
           }
         }
         if (userNameConfirm) {
           return (
-            <div key={index} className={`flex overflow-hidden ranking-${index+1}`}>
-              <ListItem>
-                <div className='flex justify-between w-screen'>
+            <div key={index} className={`flex flex-col overflow-hidden ranking-${index+1}`}>
+              <div className='flex justify-between w-screen p-3'>
                 <div className='flex'>
-                {!multiple ? 
-                <div className='flex flex-col justify-center px-5'>
-                  {element.rank}
-                </div>
-                :
-                <div className='flex flex-col justify-center px-5'>
-                  {index+1}
-                </div>
-                }
-                <ListItemAvatar>
-                  {
-                    multiple ?
-                    <Avatar alt={element.displayName} sx={{ bgcolor: element.profileColor || blue[500] }} src={element?.profileImageUrl || './src'} variant="rounded" />
-                    :
-                    <Avatar alt={element.displayName} sx={{ bgcolor: element.profileColor || blue[500] }} src={element?.profileImageUrl || './src'} variant="rounded" />                  
+                  {!multiple ? 
+                    <div className='flex flex-col justify-center px-5'>
+                      {element.rank}
+                    </div>
+                  :
+                    <div className='flex flex-col justify-center px-5'>
+                      {index+1}
+                    </div>
                   }
-                </ListItemAvatar>
-                <div className='flex flex-col overflow-hidden'>
-                  <div className='overflow-hidden'>
-                    {element.displayName}
+                  {element?.profileImageUrl && 
+                    <Avatar alt={element.displayName} sx={{ bgcolor: element.profileColor || '#2196f3' }} src={element?.profileImageUrl || './src'} variant="rounded" />
+                  }
+                  {!element?.profileImageUrl && 
+                    <Avatar alt={element.displayName} sx={{ bgcolor: element.profileColor || '#2196f3' }} src={'./src'} variant="rounded" />
+                  }
+                  <div className='flex flex-col overflow-hidden px-3'>
+                    <div className='overflow-hidden'>
+                      {element.displayName}
+                    </div>
+                    <div className='overflow-hidden'>
+                      {element.points}
+                    </div>
                   </div>
-                  <div>
-                    {element.points}
-                  </div>
                 </div>
-                </div>
-                <div>
-                <div>
-                  <IconButton aria-label="comment">
-                    <Link to='/profile'
-                      state = {{
-                        element: element,
-                      }}
-                    >
-                      <CommentIcon />
-                    </Link>
-                  </IconButton>
-                </div>
-                </div>
-                </div>
-              </ListItem>
-              <Divider variant="inset" component="li" />
+                <IconButton aria-label="comment">
+                  <Link to='/profile'
+                    state = {{
+                      element: element,
+                    }}
+                  >
+                    <CommentIcon />
+                  </Link>
+                </IconButton>
+              </div>
+              <Divider variant="inset" />
             </div>
           )
       }})}
-    </List>
+    </div>
     </div>
   )
 }
