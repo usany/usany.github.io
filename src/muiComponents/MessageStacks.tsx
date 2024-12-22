@@ -23,11 +23,6 @@ const MessageStacks = ({ userObj, piazzaSwitch }: Props) => {
     const piazzaRef = collection(dbservice, 'chats_group')
     const piazzaCollection = query(piazzaRef, orderBy('messageClockNumber'))
     const piazzaMessages = await getDocs(piazzaCollection)
-    // piazzaMessages.forEach((doc) => {
-    //   if (!piazzaMessage) {
-    //     setPiazzaMessage({username: doc.data().userName, message: doc.data().message})
-    //   }
-    // })
     return piazzaMessages
   }
   const newMessage = useSelector(state => state.newMessage.value)
