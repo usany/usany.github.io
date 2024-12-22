@@ -318,7 +318,7 @@ const ChartLegendContent = React.forwardRef<
           )
         })}
         </div>
-        {!payload[0].payload.number && !payload[1].payload.number && <div className='pt-5'>완료 활동이 없습니다</div>}
+        {!payload[0].payload.number && !payload[1].payload.number && <div className='flex border border-dashed rounded w-1/2 p-5'>완료 활동이 없습니다</div>}
       </div>
     )
   }

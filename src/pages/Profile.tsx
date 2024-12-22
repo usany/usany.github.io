@@ -99,21 +99,25 @@ function Profile({ userObj }: Props) {
   //   },
   // } satisfies ChartConfig
   // const totalNumber = actions.reduce((acc, curr) => acc + curr.number, 0)
+  // const ProfileAvatar = lazy(() => import("src/muiComponents/ProfileAvatar"))
   return (
     <div>
-      {profileImage ?
-        <div>
-          <PageTitle title={`${state.element.uid === userObj.uid ? '내' : state.element.displayName} 프로필`}/>
+      <div>
+        <PageTitle title={`${state.element.uid === userObj.uid ? '내' : state.element.displayName} 프로필`}/>
+        <ProfileAvatar userObj={userObj} user={state.element} handleProfileDialog={() => setProfileDialog(true)} />
+        {/* <Suspense fallback={<Skeleton />}>
           <ProfileAvatar userObj={userObj} user={state.element} handleProfileDialog={() => setProfileDialog(true)} />
-          <AvatarDialogs userObj={userObj} profileDialog={profileDialog} attachment={attachment} changeAttachment={(newState: string) => setAttachment(newState)}  handleClose={handleClose} />
-          <ProfileActions userObj={userObj} user={state.element} alliesCollection={alliesCollection} handleFollowers={handleFollowers} handleFollowings={handleFollowings}/>
-          <ProfileCards user={state.element} alliesCollection={alliesCollection}/>
-        </div>
+        </Suspense> */}
+        <AvatarDialogs userObj={userObj} profileDialog={profileDialog} attachment={attachment} changeAttachment={(newState: string) => setAttachment(newState)}  handleClose={handleClose} />
+        <ProfileActions userObj={userObj} user={state.element} alliesCollection={alliesCollection} handleFollowers={handleFollowers} handleFollowings={handleFollowings}/>
+        <ProfileCards user={state.element} alliesCollection={alliesCollection}/>
+      </div>
+      {/* {profileImage ?
         :
         <div className='w-screen px-5'>
           <Skeleton />
         </div>
-      }
+      } */}
     </div>
   )
 }

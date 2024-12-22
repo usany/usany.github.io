@@ -16,10 +16,12 @@ import {
 import { useSelector, useDispatch } from 'react-redux'
 import { change } from 'src/stateSlices/cardAccordionSlice'
 import { changeMessageAccordion } from 'src/stateSlices/messageAccordionSlice'
-import Skeleton from '@mui/material/Skeleton';
+import { Skeleton } from "@/components/ui/skeleton"
 import { User } from 'firebase/auth';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import Points from 'src/pages/Points'
+import { getStorage, ref, uploadBytes, uploadString, uploadBytesResumable, getDownloadURL,  } from "firebase/storage";
+
 interface Props {
     userObj: User
 }
@@ -64,6 +66,10 @@ function Menu({ userObj }: Props) {
         };
         requestPermission();
     }, []);
+    // const storageRef = ref(storage, userObj.uid);
+    // uploadString(storageRef, 'null', 'raw').then((snapshot) => {
+    //     console.log('Uploaded a blob or file!');
+    // });
     
     useEffect(() => {
     onSnapshot(query(collection(dbservice, 'num'), orderBy('creatorClock', 'desc')), (snapshot) => {
@@ -93,6 +99,7 @@ function Menu({ userObj }: Props) {
             <PageTitle title={'내 상태'}/>
             <Accordion 
                 value={[accordions.cards, accordions.messages]}
+                defaultValue={["item-1", 'item-2']}
                 type="multiple" className="w-full px-3">
                 <AccordionItem value="item-1">
                 <AccordionTrigger onClick={() => dispatch(change())}>카드</AccordionTrigger>
@@ -100,7 +107,12 @@ function Menu({ userObj }: Props) {
                     {cardLoaded ? 
                         <div>
                             {!messages.length ? 
-                                <div className='flex justify-center pt-20'>진행 카드가 없습니다</div> :
+                                <div className='flex items-center flex-col'>
+                                    <div className='flex justify-center border border-dashed rounded w-1/2 p-5'>
+                                        진행 카드가 없습니다
+                                    </div>
+                                </div> 
+                                :
                                 <div className='flex flex-wrap'>
                                     {messages.map((msg) => {
                                         if(msg.round !== 5) {
@@ -128,7 +140,7 @@ function Menu({ userObj }: Props) {
                             },
                         },                      
                     })}>
-                        <Suspense fallback={<Points />}>
+                        <Suspense fallback={<Skeleton />}>
                             <MessageStacks userObj={userObj} piazzaSwitch={piazzaSwitch}/>
                         </Suspense>
                     </QueryClientProvider>

@@ -29,7 +29,7 @@ const Motions = () => {
         { musician: '아이유(IU)', title: '좋은 날'},
         { musician: 'AKMU(악뮤)', title: '오랜 날 오랜 밤'},
         { musician: '김완선', title: '기분 좋은 날'},
-        { musician: '장범준', title: '추적이는 여름 비가 되어'},
+        // { musician: '장범준', title: '추적이는 여름 비가 되어'},
         { musician: '러브홀릭스', title: 'Raining (Feat. 크리스티나 of Clazziquai)'},
         { musician: '방탄소년단', title: 'Rain'},
         { musician: 'San E(산이), 로코베리', title: '오늘 날씨 맑음'},

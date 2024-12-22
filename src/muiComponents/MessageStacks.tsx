@@ -14,6 +14,7 @@ import { webSocket, onClick } from 'src/webSocket.tsx'
 import { User } from 'firebase/auth';
 import ChattingStacks from 'src/muiComponents/ChattingStacks'
 import { useQuery } from '@tanstack/react-query'
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 interface Props {
   userObj: User
@@ -40,7 +41,7 @@ const MessageStacks = ({ userObj, piazzaSwitch }: Props) => {
     if (piazzaSwitch === 'true') {
       messages.data?.forEach((doc) => {
         if (!piazzaMessage) {
-          setPiazzaMessage({username: doc.data().userName, message: doc.data().message})
+          setPiazzaMessage({username: doc.data().userName, messageClock: doc.data().messageClock, messageClockNumber: doc.data().messageClockNumber, message: doc.data().message})
         }
       })
     }
@@ -53,6 +54,7 @@ const MessageStacks = ({ userObj, piazzaSwitch }: Props) => {
       setPiazzaMessage(
         {
           message: msg,
+          messageClock: messageClock,
           username: id,
         }
       );
@@ -62,15 +64,38 @@ const MessageStacks = ({ userObj, piazzaSwitch }: Props) => {
       webSocket.off("sMessagePiazza", sMessageCallback);
     };
   }, []);
-
+  console.log(piazzaMessage)
   return (
     <>
       {piazzaSwitch === 'true' && <Card sx={{ flexGrow: 1, overflow: 'hidden' }}>
         <CardActionArea>
           <Link to='/piazza'>
-            <div className='p-3'>
-              <div>piazza {piazzaMessage?.username}</div>
-              <Typography noWrap>{piazzaMessage?.message}</Typography>
+            <div className='flex p-3'>
+              <Avatar>
+                <AvatarImage src="https://github.com/shadcn.png" />
+                {/* <AvatarFallback className="leading-1 flex size-full items-center justify-center bg-white text-[15px] font-medium text-violet11">CN</AvatarFallback> */}
+                <AvatarFallback>CN</AvatarFallback>
+              </Avatar>
+              <div className='flex flex-col w-screen'>
+                <div className='flex justify-between'>
+                  <div className='px-3'>단체 대화</div> 
+                  {/* <div className='px-3'>{piazzaMessage?.username}</div> */}
+                  <div>{piazzaMessage?.messageClock}</div>
+                </div>
+                <div className='flex justify-between px-3'>
+                  {/* <Avatar>
+                      <AvatarImage src="https://github.com/shadcn.png" />
+                      <AvatarFallback className="leading-1 flex size-full items-center justify-center bg-white text-[15px] font-medium text-violet11">CN</AvatarFallback>
+                      <AvatarFallback>CN</AvatarFallback>
+                  </Avatar> */}
+                  <div>{piazzaMessage?.message}</div>
+                  {/* <Typography noWrap>{piazzaMessage?.message}</Typography> */}
+                  {/* <div>{piazzaMessage?.messageClock}</div> */}
+                  {/* <div className='px-3'>
+                    <div>단체 대화 {piazzaMessage?.username}</div>
+                  </div> */}
+                </div>
+              </div>
             </div>
           </Link>
         </CardActionArea>

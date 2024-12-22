@@ -36,7 +36,7 @@ function Points({user, cards}) {
   }, [])
   
   return (
-      <Skeleton />
+    <Skeleton />
     // <div className='flex flex-col pb-20'>
     // </div>  
   )

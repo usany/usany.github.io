@@ -2,6 +2,7 @@ import { useState, useEffect, useReducer } from 'react'
 import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnapshot, updateDoc, setDoc } from 'firebase/firestore';
 import Button from '@mui/material/Button';
 import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
+import { Link } from 'react-router-dom'
 
 const ProfileConnects = ({
   userObj,
