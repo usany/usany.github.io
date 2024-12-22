@@ -35,7 +35,7 @@ const MessageStacks = ({ userObj, piazzaSwitch }: Props) => {
     // })
     return piazzaMessages
   }
-  const newMessage = useSelector(state => state.newMessage.value)
+  // const newMessage = useSelector(state => state.newMessage.value)
   // const dispatch = useDispatch()
 
   const messages = useQuery({queryKey: ['messages'], queryFn: piazza, suspense: true})
