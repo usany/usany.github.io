@@ -103,16 +103,6 @@ const MessageStacks = ({ userObj, piazzaSwitch }: Props) => {
           </Link>
         </CardActionArea>
       </Card>}
-      {/* {piazzaSwitch && <Card sx={{ flexGrow: 1, overflow: 'hidden' }}>
-        <CardActionArea>
-          <Link to='/piazza'>
-            <div className='p-3'>
-              <div>piazza {piazzaMessage?.username}</div>
-              <Typography noWrap>{piazzaMessage?.message}</Typography>
-            </div>
-          </Link>
-        </CardActionArea>
-      </Card>} */}
       <ChattingStacks userObj={userObj} chattings={chattings} handleChattings={(newValue) => setChattings(newValue)}/>
     </>
   );
