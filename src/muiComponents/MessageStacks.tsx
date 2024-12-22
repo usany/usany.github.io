@@ -70,22 +70,6 @@ const MessageStacks = ({ userObj, piazzaSwitch }: Props) => {
   console.log(piazzaMessage)
   return (
     <>
-<<<<<<< HEAD
-      {piazzaSwitch === 'true' && 
-        <div>
-          <Card sx={{ flexGrow: 1, overflow: 'hidden' }}>
-            <CardActionArea>
-              <Link to='/piazza'>
-                <div className='p-3'>
-                  <div>piazza {piazzaMessage?.username}</div>
-                  <Typography noWrap>{piazzaMessage?.message}</Typography>
-                </div>
-              </Link>
-            </CardActionArea>
-          </Card>
-        </div>
-      }
-=======
       {piazzaSwitch === 'true' && <Card sx={{ flexGrow: 1, overflow: 'hidden' }}>
         <CardActionArea>
           <Link to='/piazza'>
@@ -119,7 +103,6 @@ const MessageStacks = ({ userObj, piazzaSwitch }: Props) => {
           </Link>
         </CardActionArea>
       </Card>}
->>>>>>> 070f917
       {/* {piazzaSwitch && <Card sx={{ flexGrow: 1, overflow: 'hidden' }}>
         <CardActionArea>
           <Link to='/piazza'>
