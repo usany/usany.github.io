@@ -19,7 +19,6 @@ interface Props {
 }
 
 const ChattingStacks = ({ userObj, chattings, handleChattings }: Props) => {
-  // const [chattings, setChattings] = useState({})
   const newMessage = useSelector(state => state.newMessage.value)
   // const dispatch = useDispatch()
 
