@@ -4,6 +4,7 @@ import Avatar from '@mui/material/Avatar';
 import BeachAccess from '@mui/icons-material/BeachAccess'
 import { useSelector, useDispatch } from 'react-redux'
 import Avatars from 'src/muiComponents/Avatars'
+import LoadingsSkeletons from 'src/muiComponents/LoadingsSkeletons'
 
 const ProfileAvatar = ({ userObj, user, handleProfileDialog }) => {
     const profileColor = useSelector(state => state.profileColor.value)
@@ -21,9 +22,9 @@ const ProfileAvatar = ({ userObj, user, handleProfileDialog }) => {
             }
           >
             {profileImage ?
-            <Avatars profile={true} image={profileImage} fallback={userObj.displayName[0]}/>
+              <Avatars profile={true} image={profileImage} fallback={userObj.displayName[0]}/>
             :
-            <div>loading</div>
+              <LoadingsSkeletons height={'[192px]'} width={'[192px]'} />
             }
             {/* <Avatar alt={userObj.displayName} sx={{ fontSize:'100px', width: '200px', height: '200px', bgcolor: profileColor || '#2196f3' }} src={profileImage} variant='rounded' /> */}
           </Badge>
