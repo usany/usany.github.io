@@ -17,14 +17,10 @@ import CommentIcon from '@mui/icons-material/Comment';
 import IconButton from '@mui/material/IconButton';
 
 function AlliesList({ setValue }) {
-  // const [email, setEmail] = useState('')
-  // const [password, setPassword] = useState('')
-  // const [newAccount, setNewAccount] = useState(false)
-  // const [error, setError] = useState('')
   const [followersUids, setFollowersUids] = useState([])
   const [followingsUids, setFollowingsUids] = useState([])
   const [followers, setFollowers] = useState([])
-  const [followings, setFollowings] = useState([])
+  // const [followings, setFollowings] = useState([])
   useEffect(() => {
     const allies = async () => {
       const docRef = doc(dbservice, `members/${state.uid}`)

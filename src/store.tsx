@@ -1,6 +1,5 @@
 import { create } from 'zustand'
 import { configureStore } from '@reduxjs/toolkit'
-// import { counterReducer } from 'src/stateSlices/stateSlice'
 import { piazzaSwitchReducer } from 'src/stateSlices/piazzaSwitchSlice'
 import { profileUrlReducer } from 'src/stateSlices/profileUrlSlice'
 import { profileColorReducer } from 'src/stateSlices/profileColorSlice'
