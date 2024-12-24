@@ -72,7 +72,9 @@ const MessageStacks = ({ userObj, piazzaSwitch }: Props) => {
     <>
       {piazzaSwitch === 'true' && <Card sx={{ flexGrow: 1, overflow: 'hidden' }}>
         <CardActionArea>
-          <Link to='/piazza'>
+          <Link to='/piazza'
+            state={{multiple: true}}
+          >
             <div className='flex p-3'>
               <Avatar>
                 <AvatarImage src="https://github.com/shadcn.png" />

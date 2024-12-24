@@ -102,15 +102,15 @@ function Profile({ userObj }: Props) {
   // const ProfileAvatar = lazy(() => import("src/muiComponents/ProfileAvatar"))
   return (
     <div>
-      <div>
-        <PageTitle title={`${state.element.uid === userObj.uid ? '내' : state.element.displayName} 프로필`}/>
+      <PageTitle title={`${state.element.uid === userObj.uid ? '내' : state.element.displayName} 프로필`}/>
+      <ProfileAvatar userObj={userObj} user={state.element} handleProfileDialog={() => setProfileDialog(true)} />
+      {/* <Suspense fallback={<Skeleton />}>
         <ProfileAvatar userObj={userObj} user={state.element} handleProfileDialog={() => setProfileDialog(true)} />
-        {/* <Suspense fallback={<Skeleton />}>
-          <ProfileAvatar userObj={userObj} user={state.element} handleProfileDialog={() => setProfileDialog(true)} />
-        </Suspense> */}
-        <AvatarDialogs userObj={userObj} profileDialog={profileDialog} attachment={attachment} changeAttachment={(newState: string) => setAttachment(newState)}  handleClose={handleClose} />
-        <ProfileActions userObj={userObj} user={state.element} alliesCollection={alliesCollection} handleFollowers={handleFollowers} handleFollowings={handleFollowings}/>
-        <ProfileCards user={state.element} alliesCollection={alliesCollection}/>
+      </Suspense> */}
+      <AvatarDialogs userObj={userObj} profileDialog={profileDialog} attachment={attachment} changeAttachment={(newState: string) => setAttachment(newState)}  handleClose={handleClose} />
+      <ProfileActions userObj={userObj} user={state.element} alliesCollection={alliesCollection} handleFollowers={handleFollowers} handleFollowings={handleFollowings}/>
+      <ProfileCards user={state.element} alliesCollection={alliesCollection}/>
+      <div>
       </div>
       {/* {profileImage ?
         :

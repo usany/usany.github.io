@@ -116,8 +116,8 @@ const ChattingStacks = ({ userObj, chattings, handleChattings }: Props) => {
           return (
             <Card key={index} sx={{ flexGrow: 1, overflow: 'hidden' }}>
               <CardActionArea>
-                <Link to='/chatting' state={{
-                  conversation: element, displayName: displayName, userUid: userObj.uid, chattingUid: chattingUid
+                <Link to='/piazza' state={{
+                  conversation: element, displayName: displayName, userUid: userObj.uid, chattingUid: chattingUid, multiple: false,
                 }}>
                   <div className='flex p-3'>
                     <div className=''>

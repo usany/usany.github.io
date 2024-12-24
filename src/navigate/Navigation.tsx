@@ -131,7 +131,12 @@ function Navigation({ userObj, sideNavigation, handleSideNavigation }: Props) {
               </h1>
               <h1 className='text-2xl px-5'>
                 <span className='px-3'><WorkIcon /></span>
-                <Link to='/piazza' onClick={() => checkbox()}>단체 대화방</Link>
+                <Link to='/piazza' 
+                  state={{multiple: true}}
+                  onClick={() => checkbox()}
+                >
+                  단체 대화방
+                </Link>
               </h1>
               <h1 className='text-2xl	px-5'>
                 <span className='px-3'><ImageIcon /></span>

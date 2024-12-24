@@ -41,8 +41,8 @@ const PiazzaDialogs = ({ selectUser, user, handleClose, userObj, handleMsgList, 
                 </Button>
             </Link>
             {userObj.uid !== user?.uid && 
-                <Link to='/chatting' 
-                state={{conversation: conversation, displayName: user?.displayName, userUid: userObj.uid, chattingUid: user?.uid}}>
+                <Link to='/piazza' 
+                state={{conversation: conversation, displayName: user?.displayName, userUid: userObj.uid, chattingUid: user?.uid, multiple: false,}}>
                     <Button variant='outlined' onClick={() => {
                         handleMsgList([])
                         handleChangeMessage(true)
