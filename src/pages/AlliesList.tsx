@@ -50,46 +50,8 @@ function AlliesList({ setValue }) {
     allies()
   }, [])
   
-  console.log(state)
   return (
     <div>
-      {/* <List sx={{ width: '100%', 
-          bgcolor: 'background.paper' }}>
-            {ranker.map((element, index) => {
-              return(
-                <div key={index} className={'flex ranking-'+String(index+1)}>
-                    <ListItem>
-                      <div className='px-5'>
-                        {index+1}
-                      </div>
-                      <ListItemAvatar>
-                        <Avatar alt={element.displayName} sx={{ bgcolor: element.profileColor || blue[500] }} src="./src" />
-                      </ListItemAvatar>
-                      <div className='flex flex-col overflow-hidden'>
-                        <div>
-                          {element.displayName}
-                        </div>
-                        <div>
-                          {element.points}
-                        </div>
-                      </div>
-                      <div>
-                      <IconButton aria-label="comment">
-                          <Link to='/'
-                            state = {{
-                              element: element,
-                            }}
-                          >
-                            <CommentIcon />
-                          </Link>
-                        </IconButton>
-                      </div>
-                    </ListItem>
-                    <Divider variant="inset" component="li" />
-                  </div>
-              )
-            })}
-        </List> */}
     </div>
   )
 }
