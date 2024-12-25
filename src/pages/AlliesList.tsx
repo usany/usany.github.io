@@ -17,14 +17,10 @@ import CommentIcon from '@mui/icons-material/Comment';
 import IconButton from '@mui/material/IconButton';
 
 function AlliesList({ setValue }) {
-  // const [email, setEmail] = useState('')
-  // const [password, setPassword] = useState('')
-  // const [newAccount, setNewAccount] = useState(false)
-  // const [error, setError] = useState('')
   const [followersUids, setFollowersUids] = useState([])
   const [followingsUids, setFollowingsUids] = useState([])
   const [followers, setFollowers] = useState([])
-  const [followings, setFollowings] = useState([])
+  // const [followings, setFollowings] = useState([])
   useEffect(() => {
     const allies = async () => {
       const docRef = doc(dbservice, `members/${state.uid}`)
@@ -54,46 +50,8 @@ function AlliesList({ setValue }) {
     allies()
   }, [])
   
-  console.log(state)
   return (
     <div>
-      {/* <List sx={{ width: '100%', 
-          bgcolor: 'background.paper' }}>
-            {ranker.map((element, index) => {
-              return(
-                <div key={index} className={'flex ranking-'+String(index+1)}>
-                    <ListItem>
-                      <div className='px-5'>
-                        {index+1}
-                      </div>
-                      <ListItemAvatar>
-                        <Avatar alt={element.displayName} sx={{ bgcolor: element.profileColor || blue[500] }} src="./src" />
-                      </ListItemAvatar>
-                      <div className='flex flex-col overflow-hidden'>
-                        <div>
-                          {element.displayName}
-                        </div>
-                        <div>
-                          {element.points}
-                        </div>
-                      </div>
-                      <div>
-                      <IconButton aria-label="comment">
-                          <Link to='/'
-                            state = {{
-                              element: element,
-                            }}
-                          >
-                            <CommentIcon />
-                          </Link>
-                        </IconButton>
-                      </div>
-                    </ListItem>
-                    <Divider variant="inset" component="li" />
-                  </div>
-              )
-            })}
-        </List> */}
     </div>
   )
 }

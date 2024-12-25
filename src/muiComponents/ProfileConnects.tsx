@@ -116,7 +116,7 @@ const ProfileConnects = ({
           팔로우 취소 {user.displayName}
         </Button>
         }
-        <Link to='/chatting' state={{conversation: conversation, displayName: user.displayName, userUid: userObj.uid, chattingUid: user.uid}}>
+        <Link to='/piazza' state={{conversation: conversation, displayName: user.displayName, userUid: userObj.uid, chattingUid: user.uid, multiple: false, profileUrl: user.profileImageUrl}}>
           <Button variant='outlined' sx={{overflow: 'hidden'}}>메세지 전송</Button>
         </Link>
       </div>

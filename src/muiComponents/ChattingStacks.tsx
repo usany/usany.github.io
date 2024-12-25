@@ -11,6 +11,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { User } from 'firebase/auth';
 import { changeNewMessage, changeNewMessageTrue, changeNewMessageFalse } from 'src/stateSlices/newMessageSlice'
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { getStorage, ref, uploadBytes, uploadString, uploadBytesResumable, getDownloadURL,  } from "firebase/storage";
 
 interface Props {
   userObj: User
@@ -20,6 +21,7 @@ interface Props {
 
 const ChattingStacks = ({ userObj, chattings, handleChattings }: Props) => {
   // const [chattings, setChattings] = useState({})
+  const [profileUrls, setProfileUrls] = useState([])
   const newMessage = useSelector(state => state.newMessage.value)
   // const dispatch = useDispatch()
 
@@ -28,6 +30,28 @@ const ChattingStacks = ({ userObj, chattings, handleChattings }: Props) => {
       const myDocRef = doc(dbservice, `members/${userObj.uid}`)
       const myDocSnap = await getDoc(myDocRef)
       const myConversation = myDocSnap.data()?.chattings || {}
+      const conversation = Object.keys(myConversation).map((element) => {
+        let displayName
+        let chattingUid
+        // let profileImageUrl
+        if (userObj.uid === myConversation[element].userOne) {
+          displayName = myConversation[element].userTwoDisplayName
+          chattingUid = myConversation[element].userTwo
+        } else {
+          displayName = myConversation[element].userOneDisplayName
+          chattingUid = myConversation[element].userOne
+        } 
+        getDownloadURL(ref(storage, `${chattingUid}`))
+        .then((url) => {
+          const newObject = profileUrls
+          newObject[chattingUid] = {profileUrl: url, displayName: displayName}
+          // myConversation[element].profileImageUrl = url
+          setProfileUrls(newObject)
+        })
+        .catch((error) => {
+          console.log(error)
+        });
+      })
       handleChattings(myConversation)
     }
     if (newMessage) {
@@ -35,7 +59,7 @@ const ChattingStacks = ({ userObj, chattings, handleChattings }: Props) => {
       // handleNewMessageFalse()
     }
   }, [newMessage])
-
+  
   useEffect(() => {
     if (!webSocket) return;
     function sMessageCallback(message) {
@@ -96,38 +120,42 @@ const ChattingStacks = ({ userObj, chattings, handleChattings }: Props) => {
       webSocket.off(`sNewMessage`, sNewMessageCallback);
     };
   });
-
+  
   const sortedMyConversationUid = Object.keys(chattings).sort((elementOne, elementTwo) => {return chattings[elementTwo].messageClockNumber-chattings[elementOne].messageClockNumber})
   console.log(sortedMyConversationUid)
-  
+  console.log(chattings)
+  console.log(profileUrls)
   return (
     <>
       {sortedMyConversationUid.map((element, index) => {
         if (chattings[element]) {
           let displayName
           let chattingUid
+          let profileUrl
           if (userObj.uid === chattings[element].userOne) {
             displayName = chattings[element].userTwoDisplayName
             chattingUid = chattings[element].userTwo
+            profileUrl = chattings[element].userTwoProfileurl
           } else {
             displayName = chattings[element].userOneDisplayName
             chattingUid = chattings[element].userOne
+            profileUrl = chattings[element].userOneProfileUrl
           } 
-          
+          console.log(chattings)
           return (
             <Card key={index} sx={{ flexGrow: 1, overflow: 'hidden' }}>
               <CardActionArea>
-                <Link to='/chatting' state={{
-                  conversation: element, displayName: displayName, userUid: userObj.uid, chattingUid: chattingUid
+                <Link to='/piazza' state={{
+                  conversation: element, displayName: displayName, userUid: userObj.uid, chattingUid: chattingUid, multiple: false, profileUrl: profileUrl
                 }}>
                   <div className='flex p-3'>
-                    <div className=''>
+                    <>
                       <Avatar>
-                        <AvatarImage src="https://github.com/shadcn.png" />
+                        <AvatarImage src={profileUrl} />
                         {/* <AvatarFallback className="leading-1 flex size-full items-center justify-center bg-white text-[15px] font-medium text-violet11">CN</AvatarFallback> */}
-                        <AvatarFallback>CN</AvatarFallback>
+                        <AvatarFallback>{profileUrl}</AvatarFallback>
                       </Avatar>
-                    </div>
+                    </>
                     {/* <div className='px-3'>{chattings[element]?.message}</div> */}
                     {/* <Typography noWrap>{chattings[element]?.message}</Typography> */}
                     <div className='flex flex-col w-screen'>

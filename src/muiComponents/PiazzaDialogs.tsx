@@ -22,6 +22,9 @@ const PiazzaDialogs = ({ selectUser, user, handleClose, userObj, handleMsgList, 
         <Dialog open={selectUser} onClose={handleClose}>
             <DialogContent>
                 <div>
+                    <Avatar alt={user?.displayName} sx={{ bgcolor: user?.profileColor || '#2196f3' }} src={user?.profileImageUrl || './src'} variant="rounded" />
+                </div>
+                <div>
                     {user?.displayName}
                 </div>
                 {user?.displayName !== displayedName &&
@@ -41,8 +44,8 @@ const PiazzaDialogs = ({ selectUser, user, handleClose, userObj, handleMsgList, 
                 </Button>
             </Link>
             {userObj.uid !== user?.uid && 
-                <Link to='/chatting' 
-                state={{conversation: conversation, displayName: user?.displayName, userUid: userObj.uid, chattingUid: user?.uid}}>
+                <Link to='/piazza' 
+                state={{conversation: conversation, displayName: user?.displayName, userUid: userObj.uid, chattingUid: user?.uid, multiple: false, profileUrl: user?.profileImageUrl}}>
                     <Button variant='outlined' onClick={() => {
                         handleMsgList([])
                         handleChangeMessage(true)

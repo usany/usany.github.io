@@ -31,7 +31,7 @@ function Ranking({ userObj }: Props) {
       const newArray = snapshot.docs.map((document, index) => {
         getDownloadURL(ref(storage, `${document.data()?.uid}`))
         .then((url) => {
-          console.log(url)
+          // console.log(url)
           setLoadedImage([...loadedImage, {url: url, index: index}])
         })
         .catch((error) => {

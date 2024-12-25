@@ -10,15 +10,13 @@ interface Props {
 
 const Avatars = ({ profile, image, fallback }: Props) => {
     const profileImage = useSelector(state => state.profileImage.value)
+
     return (
         <div>
             {profile ? 
                 <Avatar className='w-48 h-48'>
-                    {profileImage ? 
-                    <AvatarImage src={image} />
-                    :
+                    {profileImage && <AvatarImage src={image} />}
                     <AvatarFallback className='text-8xl'>{fallback}</AvatarFallback>
-                    }
                 </Avatar>
                 :
                 <Avatar>

@@ -35,10 +35,11 @@ const MessageStacks = ({ userObj, piazzaSwitch }: Props) => {
     // })
     return piazzaMessages
   }
-  // const newMessage = useSelector(state => state.newMessage.value)
+  const newMessage = useSelector(state => state.newMessage.value)
   // const dispatch = useDispatch()
 
   const messages = useQuery({queryKey: ['messages'], queryFn: piazza, suspense: true})
+  // console.log(messages)
   useEffect(() => {
     if (piazzaSwitch === 'true') {
       messages.data?.forEach((doc) => {
@@ -71,25 +72,49 @@ const MessageStacks = ({ userObj, piazzaSwitch }: Props) => {
     <>
       {piazzaSwitch === 'true' && <Card sx={{ flexGrow: 1, overflow: 'hidden' }}>
         <CardActionArea>
-          <Link to='/piazza'>
+          <Link to='/piazza'
+            state={{multiple: true}}
+          >
             <div className='flex p-3'>
               <Avatar>
                 <AvatarImage src="https://github.com/shadcn.png" />
+                {/* <AvatarFallback className="leading-1 flex size-full items-center justify-center bg-white text-[15px] font-medium text-violet11">CN</AvatarFallback> */}
                 <AvatarFallback>CN</AvatarFallback>
               </Avatar>
               <div className='flex flex-col w-screen'>
                 <div className='flex justify-between'>
                   <div className='px-3'>단체 대화</div> 
+                  {/* <div className='px-3'>{piazzaMessage?.username}</div> */}
                   <div>{piazzaMessage?.messageClock}</div>
                 </div>
                 <div className='flex justify-between px-3'>
+                  {/* <Avatar>
+                      <AvatarImage src="https://github.com/shadcn.png" />
+                      <AvatarFallback className="leading-1 flex size-full items-center justify-center bg-white text-[15px] font-medium text-violet11">CN</AvatarFallback>
+                      <AvatarFallback>CN</AvatarFallback>
+                  </Avatar> */}
                   <div>{piazzaMessage?.message}</div>
+                  {/* <Typography noWrap>{piazzaMessage?.message}</Typography> */}
+                  {/* <div>{piazzaMessage?.messageClock}</div> */}
+                  {/* <div className='px-3'>
+                    <div>단체 대화 {piazzaMessage?.username}</div>
+                  </div> */}
                 </div>
               </div>
             </div>
           </Link>
         </CardActionArea>
       </Card>}
+      {/* {piazzaSwitch && <Card sx={{ flexGrow: 1, overflow: 'hidden' }}>
+        <CardActionArea>
+          <Link to='/piazza'>
+            <div className='p-3'>
+              <div>piazza {piazzaMessage?.username}</div>
+              <Typography noWrap>{piazzaMessage?.message}</Typography>
+            </div>
+          </Link>
+        </CardActionArea>
+      </Card>} */}
       <ChattingStacks userObj={userObj} chattings={chattings} handleChattings={(newValue) => setChattings(newValue)}/>
     </>
   );

@@ -26,13 +26,21 @@ const AvatarDialogs = ({ userObj, profileDialog, attachment, changeAttachment, h
             updateDoc(data, {profileColor: selectedColor});
             dispatch(changeProfileColor(selectedColor))
         }
+        // getDownloadURL(ref(storage, `${userObj.uid}`))
+        // .then((url) => {
+        //     const docRef = doc(dbservice, `members/${userObj?.uid}`)
+        //     updateDoc(docRef, {profileImageUrl: url});
+        // })
+        // .catch((error) => {
+        //   console.log(error)
+        // });
         if (attachmentFile && !onClear) {   
             const storageRef = ref(storage, userObj.uid);
             uploadString(storageRef, attachmentFile, 'data_url').then((snapshot) => {
                 console.log('Uploaded a blob or file!');
             });
             const docRef = doc(dbservice, `members/${userObj?.uid}`)
-            updateDoc(docRef, {profileImageUrl: attachmentFile});
+            updateDoc(docRef, {profileImage: attachmentFile});
             dispatch(changeProfileImage(attachmentFile))
         } else if (onClear) {
             dispatch(changeProfileImage('null'))
@@ -47,7 +55,7 @@ const AvatarDialogs = ({ userObj, profileDialog, attachment, changeAttachment, h
             // });
 
             const docRef = doc(dbservice, `members/${userObj?.uid}`)
-            updateDoc(docRef, {profileImageUrl: attachmentFile});
+            updateDoc(docRef, {profileImage: attachmentFile});
         }
     }
     const switchColor = (newColor) => {

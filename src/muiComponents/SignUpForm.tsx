@@ -33,11 +33,12 @@ const SignUpForm = ({ handleClose }: Props) => {
         points: 0,
         profileColor: '#2196f3',
         profileImage: null,
+        profileImageUrl: null,
         followerNum: 0,
         followingNum: 0,
         followers: [],
         followings: [],
-        messagingToken: null
+        messagingToken: null,
       })
       await updateProfile(data.user, {
         displayName: data.user.uid
