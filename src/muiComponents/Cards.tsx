@@ -35,18 +35,17 @@ const Cards = ({
     'lightsteelblue', 
     'lightyellow'
   ]
-  let shadowColor;
   const alpha = Array.from(Array(26)).map((e, i) => i + 65);
   const letters = alpha.map((x) => String.fromCharCode(x));
   const numbers = Array.from({ length: 10 }, (e, i) => `${i}`)
   const mergedArray = letters.concat(numbers)
-  shadowColor = shadowColorArray[mergedArray.indexOf(String(msgObj.id[0]).toUpperCase())%shadowColorArray.length];
+  const shadowColor = shadowColorArray[mergedArray.indexOf(String(msgObj.id[0]).toUpperCase())%shadowColorArray.length];
 
   return (
-    <div className='max-w-60 min-w-20 p-3'>
+    <div className='max-w-60 min-w-20 p-1'>
       <Card
         sx={{
-          boxShadow: `1.9px 1.9px 1.9px 1.9px ${shadowColor}`
+          boxShadow: `1.5px 1.5px 1.5px 1.5px ${shadowColor}`
         }}
       >
         <CardActionArea>

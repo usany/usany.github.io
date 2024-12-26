@@ -416,11 +416,12 @@ function Piazza({ userObj }: Props) {
               <button type="submit">전송</button>
             </form>
           </div>
-          {multiple ? 
-            <PiazzaDialogs selectUser={selectUser} user={user} handleClose={handleClose} userObj={userObj} handleMsgList={(newState: []) => setMsgList(newState)} handleChangeMessage={(newState: boolean) => setChangeMessage(newState)} displayedName={displayedName}/>
+          <PiazzaDialogs multiple={multiple} selectUser={selectUser} user={user} handleClose={handleClose} userObj={userObj} handleMsgList={(newState: []) => setMsgList(newState)} handleChangeMessage={(newState: boolean) => setChangeMessage(newState)} displayedName={displayedName}/>
+          {/* {multiple ? 
+            <PiazzaDialogs multiple={multiple} selectUser={selectUser} user={user} handleClose={handleClose} userObj={userObj} handleMsgList={(newState: []) => setMsgList(newState)} handleChangeMessage={(newState: boolean) => setChangeMessage(newState)} displayedName={displayedName}/>
             :
             <ChattingDialogs selectUser={selectUser} user={user} handleClose={handleClose} />
-          }
+          } */}
         </div>
       </div>
     </div>

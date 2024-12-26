@@ -135,13 +135,15 @@ const ChattingStacks = ({ userObj, chattings, handleChattings }: Props) => {
           if (userObj.uid === chattings[element].userOne) {
             displayName = chattings[element].userTwoDisplayName
             chattingUid = chattings[element].userTwo
-            profileUrl = chattings[element].userTwoProfileurl
+            profileUrl = chattings[element].userTwoProfileUrl
           } else {
             displayName = chattings[element].userOneDisplayName
             chattingUid = chattings[element].userOne
             profileUrl = chattings[element].userOneProfileUrl
+            // console.log(profileUrl)
           } 
-          console.log(chattings)
+          // console.log(chattings[element])
+          // console.log(profileUrl)
           return (
             <Card key={index} sx={{ flexGrow: 1, overflow: 'hidden' }}>
               <CardActionArea>
@@ -153,7 +155,7 @@ const ChattingStacks = ({ userObj, chattings, handleChattings }: Props) => {
                       <Avatar>
                         <AvatarImage src={profileUrl} />
                         {/* <AvatarFallback className="leading-1 flex size-full items-center justify-center bg-white text-[15px] font-medium text-violet11">CN</AvatarFallback> */}
-                        <AvatarFallback>{profileUrl}</AvatarFallback>
+                        <AvatarFallback>{displayName[0]}</AvatarFallback>
                       </Avatar>
                     </>
                     {/* <div className='px-3'>{chattings[element]?.message}</div> */}

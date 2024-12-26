@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom'
 import Avatar from '@mui/material/Avatar';
 // import { blue } from '@mui/material/colors';
 
-const PiazzaDialogs = ({ selectUser, user, handleClose, userObj, handleMsgList, handleChangeMessage, displayedName }) => {
+const PiazzaDialogs = ({ multiple, selectUser, user, handleClose, userObj, handleMsgList, handleChangeMessage, displayedName }) => {
     const [conversation, setConversation] = useState(null)
     useEffect(() => {
         if (selectUser) {
@@ -43,7 +43,7 @@ const PiazzaDialogs = ({ selectUser, user, handleClose, userObj, handleMsgList, 
                     프로필 확인
                 </Button>
             </Link>
-            {userObj.uid !== user?.uid && 
+            {multiple && userObj.uid !== user?.uid && 
                 <Link to='/piazza' 
                 state={{conversation: conversation, displayName: user?.displayName, userUid: userObj.uid, chattingUid: user?.uid, multiple: false, profileUrl: user?.profileImageUrl}}>
                     <Button variant='outlined' onClick={() => {
