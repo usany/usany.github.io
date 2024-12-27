@@ -1,6 +1,6 @@
 import { useRef, useEffect, useState, useMemo, lazy } from "react";
 import "./Chatting.css";
-import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnapshot, deleteDoc, updateDoc } from 'firebase/firestore';
+import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnapshot, deleteDoc, updateDoc, limit } from 'firebase/firestore';
 import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
 import PiazzaDialogs from 'src/muiComponents/PiazzaDialogs'
 import PiazzaSwitch from 'src/muiComponents/PiazzaSwitch'
@@ -50,6 +50,17 @@ function Piazza({ userObj }: Props) {
           profileColor: profileColor
         },
       ]);
+      // const myDocRef = doc(dbservice, `chats_group/${piazzaUid}`)
+      // const myDocSnap = await getDoc(myDocRef)
+      // const myChattings = myDocSnap.data()
+      // const piazzaCheckedList = myChattings.piazzaChecked || []
+      // if (piazzaCheckedList.indexOf(userObj.uid) === -1) {
+      //   piazzaCheckedList.push(userObj.uid)
+      //   await updateDoc(myDocRef, {
+      //     ...myChattings, 
+      //     piazzaChecked: piazzaCheckedList,
+      //   })
+      // }
     }
     webSocket.on("sMessagePiazza", sMessageCallback);
     return () => {
@@ -105,6 +116,36 @@ function Piazza({ userObj }: Props) {
 
   useEffect(() => {
     scrollToBottom();
+    
+    const checkMessage = async () => {
+      if (multiple) {
+        const piazzaRef = collection(dbservice, 'chats_group')
+        const piazzaCollection = query(piazzaRef, orderBy('messageClockNumber', 'desc'), limit(1))
+        const piazzaMessages = await getDocs(piazzaCollection)
+        piazzaMessages.forEach(async (document) => {
+          const myDocRef = doc(dbservice, `chats_group/${document.id}`)
+          const myDocSnap = await getDoc(myDocRef)
+          const myChattings = myDocSnap.data()
+          const piazzaCheckedList = myChattings.piazzaChecked || []
+          if (piazzaCheckedList.indexOf(userObj.uid) === -1) {
+            piazzaCheckedList.push(userObj.uid)
+            await updateDoc(myDocRef, {
+              ...myChattings, 
+              piazzaChecked: piazzaCheckedList,
+            })
+          }
+        })
+      } else {
+        const myDocRef = doc(dbservice, `members/${userObj.uid}`)
+        const myDocSnap = await getDoc(myDocRef)
+        const myChattings = myDocSnap.data().chattings
+        myChattings[conversation].messageCount = 0
+        await updateDoc(myDocRef, {
+          chattings: myChattings
+        })    
+      }
+    }
+    checkMessage()
   }, [msgList]);
 
   useEffect(() => {
@@ -114,7 +155,7 @@ function Piazza({ userObj }: Props) {
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView();
   };
-
+  
   const onSendSubmitHandler = (e) => {
     e.preventDefault();
     const message = msg
@@ -129,7 +170,10 @@ function Piazza({ userObj }: Props) {
       messageClockNumber: messageClockNumber,
       messageClock: messageClock,
       target: privateTarget,
-      conversation: null
+      conversation: conversation,
+      conversationUid: state.chattingUid,
+      conversationName: state.displayName,
+      profileUrl: profileUrl,
     };
     // const year = new Date().toString()
     if (multiple) {
@@ -185,7 +229,8 @@ function Piazza({ userObj }: Props) {
           messageClock: messageClock,
           messageClockNumber: messageClockNumber,
           profileImageUrl: profileUrl,
-          profileColor: profileColor
+          profileColor: profileColor,
+          piazzaChecked: [userObj.uid]
         })
         setMsgList((prev) => [...prev, { msg: message, type: "me", userUid: userObj.uid, id: userObj.displayName, messageClock: messageClock, conversation: null, profileImageUrl: profileUrl, profileColor: profileColor }]);
       }
@@ -288,8 +333,9 @@ function Piazza({ userObj }: Props) {
         const userDocRef = doc(dbservice, `members/${state.chattingUid}`)
         const userDocSnap = await getDoc(userDocRef)
         const userChattings = userDocSnap.data().chattings || {}
+        const userChattingsNumber = userChattings[conversation].messageCount || 0
         myChattings[conversation] = messageObj
-        userChattings[conversation] = messageObj
+        userChattings[conversation] = {...messageObj, messageCount: userChattingsNumber+1}
         await updateDoc(myDocRef, {
           chattings: myChattings
         })

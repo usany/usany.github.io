@@ -113,7 +113,7 @@ function Menu({ userObj }: Props) {
                                     </div>
                                 </div> 
                                 :
-                                <div className='flex flex-wrap'>
+                                <div className='flex flex-wrap justify-between'>
                                     {messages.map((msg) => {
                                         if(msg.round !== 5) {
                                             if (msg.creatorId === userObj.uid) {

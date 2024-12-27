@@ -1,7 +1,7 @@
 import { io } from "socket.io-client";
 
-const webSocket = io("https://service-ceni.onrender.com");
-// const webSocket = io("http://localhost:5000");
+// const webSocket = io("https://service-ceni.onrender.com");
+const webSocket = io("http://localhost:5000");
 
 const onClick = () => {
     console.log('practice')
