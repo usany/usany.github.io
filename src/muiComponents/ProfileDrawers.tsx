@@ -39,7 +39,7 @@ const ProfileDrawers = ({ user, cards, followers, alliesCollection, selection })
       bringMessages()
     }
   }, [cards])
-  console.log(alliesCollection)
+  // console.log(alliesCollection)
   useEffect(() => {
     if (alliesCollection) {
       usersCollection()

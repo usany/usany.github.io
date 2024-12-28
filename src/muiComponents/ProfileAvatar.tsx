@@ -9,6 +9,7 @@ import LoadingsSkeletons from 'src/muiComponents/LoadingsSkeletons'
 const ProfileAvatar = ({ userObj, user, handleProfileDialog }) => {
     const profileColor = useSelector(state => state.profileColor.value)
     const profileImage = useSelector(state => state.profileImage.value)
+    const profileUrl = useSelector(state => state.profileUrl.value)
     return (
       <div className='flex justify-center'>
         {user.uid === userObj.uid ? 
@@ -22,7 +23,7 @@ const ProfileAvatar = ({ userObj, user, handleProfileDialog }) => {
             }
           >
             {profileImage ?
-              <Avatars profile={true} image={profileImage} fallback={userObj.displayName[0]}/>
+              <Avatars profile={true} profileColor={profileColor} profileImage={profileImage} fallback={userObj.displayName[0]}/>
             :
               <LoadingsSkeletons height={'[192px]'} width={'[192px]'} />
             }
@@ -44,7 +45,14 @@ const ProfileAvatar = ({ userObj, user, handleProfileDialog }) => {
           //   }
           // </div>
         :
-          <Avatar alt={user.displayName} sx={{ fontSize:'100px', width: '200px', height: '200px', bgcolor: user?.profileColor || '#2196f3' }} src={user?.profileImageUrl} variant='rounded'/>
+          <>
+            {profileImage ?
+              <Avatars profile={true} profileColor={user.profileColor} profileImage={profileImage} fallback={user.displayName[0]}/>
+            :
+              <LoadingsSkeletons height={'[192px]'} width={'[192px]'} />
+            }
+            {/* <Avatar alt={user.displayName} sx={{ fontSize:'100px', width: '200px', height: '200px', bgcolor: user?.profileColor || '#2196f3' }} src={user?.profileImageUrl} variant='rounded'/> */}
+          </>
         }
       </div>
     )

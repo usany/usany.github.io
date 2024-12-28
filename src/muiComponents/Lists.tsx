@@ -4,6 +4,7 @@ import Avatar from '@mui/material/Avatar';
 import CommentIcon from '@mui/icons-material/Comment';
 import IconButton from '@mui/material/IconButton';
 import { Link } from 'react-router-dom'
+import Avatars from 'src/muiComponents/Avatars'
 
 function Lists({ elements, multiple, userSearch }) {
 
@@ -61,12 +62,13 @@ function Lists({ elements, multiple, userSearch }) {
                         {index+1}
                       </div>
                     }
-                    {element?.profileImageUrl && 
+                    <Avatars profile={false} profileColor={'profile-blue'} profileImage={element?.profileImage || 'null'} fallback={element.displayName[0]}/>
+                    {/* {element?.profileImageUrl && 
                       <Avatar alt={element.displayName} sx={{ bgcolor: element.profileColor || '#2196f3' }} src={element?.profileImageUrl || './src'} variant="rounded" />
                     }
                     {!element?.profileImageUrl && 
                       <Avatar alt={element.displayName} sx={{ bgcolor: element.profileColor || '#2196f3' }} src={'./src'} variant="rounded" />
-                    }
+                    } */}
                     <div className='flex flex-col overflow-hidden px-10 w-48'>
                       <div className='overflow-hidden'>
                         {element.displayName}

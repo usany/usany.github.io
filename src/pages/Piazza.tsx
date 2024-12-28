@@ -5,13 +5,15 @@ import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
 import PiazzaDialogs from 'src/muiComponents/PiazzaDialogs'
 import PiazzaSwitch from 'src/muiComponents/PiazzaSwitch'
 import { webSocket, onClick } from 'src/webSocket.tsx'
-import Avatar from '@mui/material/Avatar';
+// import Avatar from '@mui/material/Avatar';
 import { useSelector, useDispatch } from 'react-redux'
 import { User } from "firebase/auth";
 import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
 import { Link, useLocation } from 'react-router-dom'
 import ChattingDialogs from 'src/muiComponents/ChattingDialogs'
 import { changeNewMessageTrue } from 'src/stateSlices/newMessageSlice'
+import Avatars from 'src/muiComponents/Avatars'
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 interface Props {
   userObj: User
@@ -310,8 +312,8 @@ function Piazza({ userObj }: Props) {
         userOneProfileUrl = state.profileUrl
         userTwoProfileUrl = profileUrl
       }
-      console.log(state)
-      console.log(profileUrl)
+      // console.log(state)
+      // console.log(profileUrl)
       if (message) {
         const messageObj = {
           userUid: userUid,
@@ -414,7 +416,12 @@ function Piazza({ userObj }: Props) {
                         onClick={() => onSetPrivateTarget({userUid: v.userUid, displayName: v.id})}
                       >
                         <div className={`flex justify-${v.userUid !== userObj.uid ? 'start' : 'end'}`}>
-                          <Avatar alt={v.id} sx={{ bgcolor: v.profileColor || '#2196f3' }} src={v.profileImageUrl || './src'} variant="rounded" />
+                          {/* <Avatars profile={false} profileColor={'profile-blue'} profileImage={v.profileImageUrl || 'null'} fallback={v.id[0]}/> */}
+                          <Avatar className={'bg-profile-blue'}>
+                            <AvatarImage src={v.profileImageUrl} />
+                            <AvatarFallback className='text-xl border-none	'>{v.id[0]}</AvatarFallback>
+                          </Avatar>
+                          {/* <Avatar alt={v.id} sx={{ bgcolor: v.profileColor || '#2196f3' }} src={v.profileImageUrl || './src'} variant="rounded" /> */}
                         </div>
                         <div
                           className={

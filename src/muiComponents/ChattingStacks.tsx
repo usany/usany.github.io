@@ -141,8 +141,8 @@ const ChattingStacks = ({ userObj, chattings, handleChattings }: Props) => {
       chattings: myChattings
     })
   }
-  console.log(sortedMyConversationUid)
-  console.log(chattings)
+  // console.log(sortedMyConversationUid)
+  // console.log(chattings)
   useEffect(() => {
     const sorted = Object.keys(chattings).sort((elementOne, elementTwo) => {return chattings[elementTwo].messageClockNumber-chattings[elementOne].messageClockNumber})
     setSortedMyConversationUid(sorted)
@@ -166,7 +166,7 @@ const ChattingStacks = ({ userObj, chattings, handleChattings }: Props) => {
           } 
           // console.log(chattings[element])
           // console.log(profileUrl)
-          console.log(chattings)
+          // console.log(chattings)
           return (
             <Card key={index} sx={{ flexGrow: 1, overflow: 'hidden' }}>
               <CardActionArea>
