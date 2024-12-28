@@ -1,0 +1,1 @@
+import{aJ as t,aK as a,j as r}from"./index-B7KiBrOL.js";var e={},o=a;Object.defineProperty(e,"__esModule",{value:!0});var u=e.default=void 0,v=o(t()),i=r;u=e.default=(0,v.default)((0,i.jsx)("path",{d:"M21.99 4c0-1.1-.89-2-1.99-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14l4 4zM18 14H6v-2h12zm0-3H6V9h12zm0-3H6V6h12z"}),"Comment");export{u as d};
