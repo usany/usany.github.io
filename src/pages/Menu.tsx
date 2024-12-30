@@ -4,9 +4,7 @@ import { collection, query, where, orderBy, addDoc, getDocs, doc, onSnapshot, de
 import Message from 'src/pages/Message'
 import { getToken } from "firebase/messaging";
 import MessageStacks from 'src/muiComponents/MessageStacks'
-// import ChattingStacks from 'src/muiComponents/ChattingStacks'
 import PageTitle from 'src/muiComponents/PageTitle'
-// import { useCardAccordionStore, useMessageAccordionStore, usePiazzaSwitchStore, useThemeStore } from 'src/store'
 import {
     Accordion,
     AccordionContent,
@@ -19,20 +17,18 @@ import { changeMessageAccordion } from 'src/stateSlices/messageAccordionSlice'
 import { Skeleton } from "@/components/ui/skeleton"
 import { User } from 'firebase/auth';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import Points from 'src/pages/Points'
-import { getStorage, ref, uploadBytes, uploadString, uploadBytesResumable, getDownloadURL,  } from "firebase/storage";
 
 interface Props {
     userObj: User
 }
 function Menu({ userObj }: Props) {
     const [messages, setMessages] = useState<Array<object>>([]);
-    const piazzaSwitch = useSelector(state => state.piazzaSwitch.value)
+    const [cardLoaded, setCardLoaded] = useState(false)
+    const [accordions, setAccordions] = useState({cards: '', messages: '' })
+    const piazzaSwitch = useSelector<boolean>(state => state.piazzaSwitch.value)
     const cardAccordion = useSelector(state => state.cardAccordion.value)
     const messageAccordion = useSelector(state => state.messageAccordion.value)
     const dispatch = useDispatch()
-    const [cardLoaded, setCardLoaded] = useState(false)
-    const [accordions, setAccordions] = useState({cards: '', messages: '' })
     useEffect(() => {
         if (cardAccordion && messageAccordion) {
             setAccordions({cards: 'item-1', messages: 'item-2'})
@@ -66,10 +62,6 @@ function Menu({ userObj }: Props) {
         };
         requestPermission();
     }, []);
-    // const storageRef = ref(storage, userObj.uid);
-    // uploadString(storageRef, 'null', 'raw').then((snapshot) => {
-    //     console.log('Uploaded a blob or file!');
-    // });
     
     useEffect(() => {
     onSnapshot(query(collection(dbservice, 'num'), orderBy('creatorClock', 'desc')), (snapshot) => {

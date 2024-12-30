@@ -11,8 +11,8 @@ import { useImmer } from "use-immer"
 import { useSelector, useDispatch } from 'react-redux'
 import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
 import { User } from 'firebase/auth'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import Skeleton from '@mui/material/Skeleton';
+// import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+// import Skeleton from '@mui/material/Skeleton';
 
 interface Props {
   userObj: User,
@@ -21,7 +21,7 @@ function Profile({ userObj }: Props) {
   const [attachment, setAttachment] = useState('')
   const {state} = useLocation()
   const [profileDialog, setProfileDialog] = useState(false)
-  const profileColor = useSelector(state => state.profileColor.value)
+  // const profileColor = useSelector(state => state.profileColor.value)
   const [alliesCollection, setAlliesCollection] = useImmer([
     {
       id: 'followers',
@@ -32,7 +32,7 @@ function Profile({ userObj }: Props) {
       list: []
     }
   ])
-  const profileImage = useSelector(state => state.profileImage.value)
+  // const profileImage = useSelector(state => state.profileImage.value)
 
   const handleFollowers = ({ number, list }) => {
     setAlliesCollection((draft) => {

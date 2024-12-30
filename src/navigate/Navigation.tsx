@@ -14,6 +14,7 @@ import { changeProfileUrl } from 'src/stateSlices/profileUrlSlice'
 import { changeProfileColor } from 'src/stateSlices/profileColorSlice'
 import { changeProfileImage } from 'src/stateSlices/profileImageSlice'
 import { useSelector, useDispatch } from 'react-redux'
+import { MessageCircle, Minimize2, Maximize2, Captions, Bike } from "lucide-react"
 
 // const StyledBox = styled('div')(({ theme }) => ({
 //   backgroundColor: '#fff',
@@ -117,17 +118,28 @@ function Navigation({ userObj, sideNavigation, handleSideNavigation }: Props) {
             <div className='flex flex-col justify-between'>
             <div>
               <h1 className='text-2xl	px-5 pt-5'>
-                <Link to='/profile' 
-                  state={{element: element}}
-                  onClick={() => checkbox()}
-                >
-                  <span className='px-3'><InboxIcon /></span>
-                  내 프로필
-                </Link>
+                <div className='flex'>
+                  <Link to='/profile' 
+                    state={{element: element}}
+                    onClick={() => checkbox()}
+                  >
+                    <div className='flex px-3'>
+                      <Captions />
+                      <div className='px-3'>내 프로필</div>
+                    </div>
+                  </Link>
+                </div>
               </h1>
               <h1 className='text-2xl	px-5'>
-                <span className='px-3'><DraftsIcon /></span>
-                <Link to='/ranking' onClick={() => checkbox()}>유저 랭킹</Link>
+                <div className='flex'>
+                  <Link to='/ranking' onClick={() => checkbox()}>
+                    {/* 유저 랭킹 */}
+                    <div className='flex px-3'>
+                      <><Bike /></>
+                      <div className='px-3'>유저 랭킹</div>
+                    </div>
+                  </Link>
+                </div>
               </h1>
               <h1 className='text-2xl px-5'>
                 <span className='px-3'><WorkIcon /></span>
@@ -142,10 +154,10 @@ function Navigation({ userObj, sideNavigation, handleSideNavigation }: Props) {
                 <span className='px-3'><ImageIcon /></span>
                 <Link to='/contact' onClick={() => checkbox()}>신고하기</Link>
               </h1>
-              <h1 className='text-2xl px-5'>
+              {/* <h1 className='text-2xl px-5'>
                 <span className='px-3'><WorkIcon /></span>
                 <Link to='/chats' onClick={() => checkbox()}>실험실</Link>
-              </h1>
+              </h1> */}
               <h1 className='text-2xl px-5'>
                 <span className='px-3'><Public /></span>
                 <Link to="/" onClick={() => {

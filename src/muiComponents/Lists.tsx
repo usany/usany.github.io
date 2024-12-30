@@ -1,10 +1,11 @@
 import { useState, useEffect, useLayoutEffect } from 'react'
 import Divider from '@mui/material/Divider';
-import Avatar from '@mui/material/Avatar';
+// import Avatar from '@mui/material/Avatar';
 import CommentIcon from '@mui/icons-material/Comment';
 import IconButton from '@mui/material/IconButton';
 import { Link } from 'react-router-dom'
 import Avatars from 'src/muiComponents/Avatars'
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 function Lists({ elements, multiple, userSearch }) {
 
@@ -40,6 +41,8 @@ function Lists({ elements, multiple, userSearch }) {
       } */}
       <div className='bg-light-3 dark:bg-dark-3'>
         {elements.map((element, index) => {
+          const profileColor = element?.profileColor
+          // console.log(profileColor)
           let userNameConfirm = true
           if (userSearch) {
             for (let number = 0; number < userSearch.length; number++) {
@@ -51,7 +54,7 @@ function Lists({ elements, multiple, userSearch }) {
           if (userNameConfirm) {
             return (
               <div key={index}>
-                <div className={`flex justify-between w-screen p-3 ranking-${index+1}`}>
+                <div className={`flex justify-between w-screen p-3 ranking-${multiple? index+1 : element.rank}`}>
                   <div className='flex'>
                     {!multiple ? 
                       <div className='flex flex-col justify-center px-5 w-20'>
@@ -62,7 +65,11 @@ function Lists({ elements, multiple, userSearch }) {
                         {index+1}
                       </div>
                     }
-                    <Avatars profile={false} profileColor={'profile-blue'} profileImage={element?.profileImage || 'null'} fallback={element.displayName[0]}/>
+                    <Avatar className={`bg-${profileColor?.indexOf('#') === -1 ? element?.profileColor : 'profile-blue'}`}>
+                      <AvatarImage src={element?.profileImageUrl} />
+                      <AvatarFallback className='text-xl border-none	'>{element?.displayName[0]}</AvatarFallback>
+                    </Avatar>
+                    {/* <Avatars profile={false} profileColor={'profile-blue'} profileImage={element?.profileImageUrl || 'null'} fallback={element.displayName[0]}/> */}
                     {/* {element?.profileImageUrl && 
                       <Avatar alt={element.displayName} sx={{ bgcolor: element.profileColor || '#2196f3' }} src={element?.profileImageUrl || './src'} variant="rounded" />
                     }

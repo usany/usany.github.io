@@ -11,7 +11,7 @@ import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 // import { CardActionArea, CardActions } from '@mui/material';
 import Chip from '@mui/material/Chip';
-import { useBottomNavigationStore } from 'src/store'
+// import { useBottomNavigationStore } from 'src/store'
 import BeachAccess from '@mui/icons-material/BeachAccess'
 import EastIcon from '@mui/icons-material/East';
 import WestIcon from '@mui/icons-material/West';

@@ -1,6 +1,6 @@
 import { useState, useEffect, useReducer } from 'react'
 import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
-import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnapshot, deleteDoc, updateDoc } from 'firebase/firestore';
+import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnapshot, deleteDoc, updateDoc, DocumentSnapshot } from 'firebase/firestore';
 import AddSteppers from 'src/muiComponents/AddSteppers'
 import AddStepOne from 'src/muiComponents/AddStepOne'
 import AddStepTwo from 'src/muiComponents/AddStepTwo'
@@ -11,55 +11,70 @@ import AddSnackBar from 'src/muiComponents/AddSnackBar'
 import PageTitle from 'src/muiComponents/PageTitle'
 import { User } from 'firebase/auth';
 import { useSelector, useDispatch } from 'react-redux'
+import TabsRootState from 'src/interfaces/TabsRootState';
 
 interface Props {
     userObj: User, action: number, borrow: boolean
 }
+interface LocationEvent extends EventTarget {
+    target: {value: string};
+}
+interface DisplayCard {
+    id: string
+}
+interface Clock {
+    gmt: {}, year: number, month: number, day: number, hour: number, minute: number
+}
+interface FromTo {
+    from: Clock | null 
+    to: Clock | null
+}
+
 function Add({ userObj, action, borrow }: Props) {
-  const [addSteps, setAddSteps] = useState(0);
-  const [cardId, setCardId] = useState(null)
-  const [display, setDisplay] = useState(null)
-  const [item, setItem] = useState<string>('');
-  const tabs = useSelector(state => state.tabs.value)
-//   const locationReducer = (state: {locationOne: string | null, locationTwo: string | null, locationThree: string | null, locationInput: string | null}, action: {type: string, newState: string | null}) => {
-//     if (action.type === 'changeBuilding') {
-//         return {...state, locationOne: action.newState, locationTwo: '', locationThree: ''}
-//     } else if (action.type === 'changeRoom') {
-//         return {...state, locationTwo: action.newState, locationThree: ''}
-//     } else if (action.type === 'changeSeat') {
-//         return {...state, locationThree: action.newState}
-//     } else if (action.type === 'changeLocationInput') {
-//         return {...state, locationTwo: '', locationThree: '', locationInput: action.newState}
-//     } else if (action.type === 'changeItem') {
-//         return {locationOne: '', locationTwo: '', locationThree: '', locationInput: ''}
-//     } else {
-//         return {...state}
-//     }
-//   }
-  const [locationState, locationDispatch] = useReducer((state: {locationOne: string | null, locationTwo: string | null, locationThree: string | null, locationInput: string | null}, action: {type: string, newState: string | null}) => {
-    if (action.type === 'changeBuilding') {
-        return {...state, locationOne: action.newState, locationTwo: '', locationThree: ''}
-    } else if (action.type === 'changeRoom') {
-        return {...state, locationTwo: action.newState, locationThree: ''}
-    } else if (action.type === 'changeSeat') {
-        return {...state, locationThree: action.newState}
-    } else if (action.type === 'changeLocationInput') {
-        return {...state, locationTwo: '', locationThree: '', locationInput: action.newState}
-    } else if (action.type === 'changeItem') {
-        return {locationOne: '', locationTwo: '', locationThree: '', locationInput: ''}
-    } else {
-        return {...state}
-    }
-  }, {
-    locationOne: '',
-    locationTwo: '',
-    locationThree: '',
-    locationInput: ''
-  })
-  const [from, setFrom] = useState(null);
-  const [to, setTo] = useState(null);
-  const [snackBar, setSnackBar] = useState<boolean>(false)
-  const [fromTo, setFromTo] = useState<{from: {gmt: {}, year: number, month: number, day: number, hour: number, minute: number} | null, to: {gmt: {}, year: number, month: number, day: number, hour: number, minute: number} | null}>({from: null, to: null})
+    const [addSteps, setAddSteps] = useState(0);
+    const [cardId, setCardId] = useState<string | null>(null)
+    const [display, setDisplay] = useState<DisplayCard | null>(null)
+    const [item, setItem] = useState('');
+    const tabs = useSelector((state: TabsRootState) => state.tabs)
+    const [from, setFrom] = useState(null);
+    const [to, setTo] = useState(null);
+    const [snackBar, setSnackBar] = useState(false)
+    const [fromTo, setFromTo] = useState<FromTo>({from: null, to: null})
+    //   const locationReducer = (state: {locationOne: string | null, locationTwo: string | null, locationThree: string | null, locationInput: string | null}, action: {type: string, newState: string | null}) => {
+    //     if (action.type === 'changeBuilding') {
+    //         return {...state, locationOne: action.newState, locationTwo: '', locationThree: ''}
+    //     } else if (action.type === 'changeRoom') {
+    //         return {...state, locationTwo: action.newState, locationThree: ''}
+    //     } else if (action.type === 'changeSeat') {
+    //         return {...state, locationThree: action.newState}
+    //     } else if (action.type === 'changeLocationInput') {
+    //         return {...state, locationTwo: '', locationThree: '', locationInput: action.newState}
+    //     } else if (action.type === 'changeItem') {
+    //         return {locationOne: '', locationTwo: '', locationThree: '', locationInput: ''}
+    //     } else {
+    //         return {...state}
+    //     }
+    //   }
+    const [locationState, locationDispatch] = useReducer((state: {locationOne: string | null, locationTwo: string | null, locationThree: string | null, locationInput: string | null}, action: {type: string, newState: string | null}) => {
+      if (action.type === 'changeBuilding') {
+          return {...state, locationOne: action.newState, locationTwo: '', locationThree: ''}
+      } else if (action.type === 'changeRoom') {
+          return {...state, locationTwo: action.newState, locationThree: ''}
+      } else if (action.type === 'changeSeat') {
+          return {...state, locationThree: action.newState}
+      } else if (action.type === 'changeLocationInput') {
+          return {...state, locationTwo: '', locationThree: '', locationInput: action.newState}
+      } else if (action.type === 'changeItem') {
+          return {locationOne: '', locationTwo: '', locationThree: '', locationInput: ''}
+      } else {
+          return {...state}
+      }
+    }, {
+      locationOne: '',
+      locationTwo: '',
+      locationThree: '',
+      locationInput: ''
+    })
   
   useEffect(() => {
     document.documentElement.scrollTo({
@@ -73,13 +88,16 @@ function Add({ userObj, action, borrow }: Props) {
     setAddSteps(0)
     setItem('')
   }, [tabs])
-  let calculatePoint = 0
 
   useEffect(() => {
     setTimeout(() => setSnackBar(false) , 5000)
   })
+  
+  let calculatePoint = 0
+
   const changeItem = (event: {preventDefault: () => void, target: {value: string}}) => {
-    event.preventDefault()
+    // event.preventDefault()
+    console.log(event)
     const {
         target: {value},
     } = event;
@@ -91,8 +109,8 @@ function Add({ userObj, action, borrow }: Props) {
         setAddSteps(0)
     }
   }
-  const changeLocationInput = (event) => {
-    event.preventDefault()
+  const changeLocationInput = (event: LocationEvent) => {
+    // event.preventDefault()
     const {
         target: {value},
     } = event;
@@ -103,16 +121,16 @@ function Add({ userObj, action, borrow }: Props) {
         setAddSteps(1)
     }
   }
-  const changeBuilding = (event) => {
-    event.preventDefault()
+  const changeBuilding = (event: LocationEvent) => {
+    // event.preventDefault()
     const {
         target: {value},
     } = event;
     locationDispatch({type: 'changeBuilding', newState: value})
     setAddSteps(1)
   }
-  const changeRoom = (event) => {
-    event.preventDefault()
+  const changeRoom = (event: LocationEvent) => {
+    // event.preventDefault()
     const {
         target: {value},
     } = event;
@@ -125,8 +143,8 @@ function Add({ userObj, action, borrow }: Props) {
         setAddSteps(1)
     }
   }
-  const changeSeat = (event) => {
-      event.preventDefault()
+  const changeSeat = (event: LocationEvent) => {
+    //   event.preventDefault()
       const {
           target: {value},
       } = event;
@@ -136,7 +154,7 @@ function Add({ userObj, action, borrow }: Props) {
 
   const submit = async (event) => {
       event.preventDefault()
-      if((locationState.locationInput !== '' || (locationState.locationOne !== '' && locationState.locationTwo !== '')) && from !== null && to !== null) {
+      if ((locationState.locationInput !== '' || (locationState.locationOne !== '' && locationState.locationTwo !== '')) && from !== null && to !== null) {
         if (from.gmt > to.gmt) {
             alert('시간을 확인해 주세요')
         } else if (from.gmt < Date.now()) {
@@ -218,12 +236,12 @@ function Add({ userObj, action, borrow }: Props) {
     return (
         <div className='flex flex-col h-screen'>
             <PageTitle title={`${borrow ? '빌리기 ' : '빌려주기 '} 카드 등록`}/>
-            <AddSteppers addSteps={addSteps} borrow={borrow} />
+            <AddSteppers addSteps={addSteps} handleAddSteps={(newValue) => setAddSteps(newValue)} borrow={borrow} />
             <AddStepOne borrow={borrow} item={item} changeItem={changeItem} />
             {addSteps > 0 && <AddStepTwo locationState={locationState} changeBuilding={changeBuilding} changeRoom={changeRoom} changeSeat={changeSeat} changeLocationInput={changeLocationInput} />}
             {addSteps > 1 && <AddStepThree onChangeFrom={onChangeFrom} onChangeTo={onChangeTo} />}
-            {addSteps === 2 && <AddRegisterButton submit={submit} />}
-            {addSteps === 3 && <AddStepFour display={display} />} 
+            {(addSteps === 2 || addSteps === 3) && <AddRegisterButton submit={submit} />}
+            {addSteps === 4 && <AddStepFour display={display} />} 
             <AddSnackBar snackBar={snackBar} changeSnackBar={() => setSnackBar(false)}/>
         </div>  
     )

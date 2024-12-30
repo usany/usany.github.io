@@ -18,13 +18,15 @@ const darkTheme = createTheme({
     mode: 'dark',
   },
 });
-
+interface themeRootState  {
+  theme: string
+}
 function App() {
   // const [count, setCount] = useState(0)
   const [userObj, setUserObj] = useState<User | null>(null)
-  const theme = useSelector(state => state.theme.value)
+  const [initial, setInitial] = useState(false)
+  const theme = useSelector((state: themeRootState) => state.theme)
   const dispatch = useDispatch()
-  const [initial, setInitial] = useState<boolean>(false)
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
       setUserObj(user)

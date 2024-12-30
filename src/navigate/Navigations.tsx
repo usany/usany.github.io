@@ -16,10 +16,16 @@ import { alpha } from "@mui/material";
 interface Props {
     userObj: User | null
 }
+interface ThemeRootState  {
+    theme: string
+}
+interface BottomNavigationRootState  {
+    bottomNavigation: number
+}
 function Navigations({ userObj }: Props) {
     const [backgroundColor, setBackgroundColor] = useState('#e2e8f0');
-    const theme = useSelector(state => state.theme.value)
-    const bottomNavigation = useSelector(state => state.bottomNavigation.value)
+    const theme = useSelector((state: ThemeRootState) => state.theme)
+    const bottomNavigation = useSelector((state: BottomNavigationRootState) => state.bottomNavigation)
     const dispatch = useDispatch()
 
     useEffect(() => {

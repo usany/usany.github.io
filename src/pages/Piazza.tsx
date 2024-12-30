@@ -413,11 +413,11 @@ function Piazza({ userObj }: Props) {
                         key={`${i}_li`}
                         name={v.id}
                         data-id={v.id}
-                        onClick={() => onSetPrivateTarget({userUid: v.userUid, displayName: v.id})}
+                        // onClick={() => onSetPrivateTarget({userUid: v.userUid, displayName: v.id})}
                       >
                         <div className={`flex justify-${v.userUid !== userObj.uid ? 'start' : 'end'}`}>
                           {/* <Avatars profile={false} profileColor={'profile-blue'} profileImage={v.profileImageUrl || 'null'} fallback={v.id[0]}/> */}
-                          <Avatar className={'bg-profile-blue'}>
+                          <Avatar onClick={() => onSetPrivateTarget({userUid: v.userUid, displayName: v.id})} className={'bg-profile-blue'}>
                             <AvatarImage src={v.profileImageUrl} />
                             <AvatarFallback className='text-xl border-none	'>{v.id[0]}</AvatarFallback>
                           </Avatar>
