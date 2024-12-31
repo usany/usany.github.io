@@ -4,15 +4,13 @@ interface BottomNavigationState {
   value: number
 }
 
-const initialState: BottomNavigationState = {
-  value: 1
-}
+const initialState: number = 1
 const bottomNavigationReducer = createSlice({
   name: 'bottomNavigation',
   initialState,
   reducers: {
     changeBottomNavigation: (state, action: PayloadAction<number>) => {
-      state.value = action.payload
+      return state = action.payload
     },
   }
 })

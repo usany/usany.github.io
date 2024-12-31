@@ -1,14 +1,19 @@
 import { useRef, useEffect, useState, useMemo, lazy } from "react";
 import "./Chatting.css";
-import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnapshot, deleteDoc, updateDoc } from 'firebase/firestore';
+import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnapshot, deleteDoc, updateDoc, limit } from 'firebase/firestore';
 import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
 import PiazzaDialogs from 'src/muiComponents/PiazzaDialogs'
 import PiazzaSwitch from 'src/muiComponents/PiazzaSwitch'
 import { webSocket, onClick } from 'src/webSocket.tsx'
-import Avatar from '@mui/material/Avatar';
+// import Avatar from '@mui/material/Avatar';
 import { useSelector, useDispatch } from 'react-redux'
 import { User } from "firebase/auth";
 import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
+import { Link, useLocation } from 'react-router-dom'
+import ChattingDialogs from 'src/muiComponents/ChattingDialogs'
+import { changeNewMessageTrue } from 'src/stateSlices/newMessageSlice'
+import Avatars from 'src/muiComponents/Avatars'
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 interface Props {
   userObj: User
@@ -25,11 +30,14 @@ function Piazza({ userObj }: Props) {
   const profileUrl = useSelector(state => state.profileUrl.value)
   const [displayedName, setDisplayedName] = useState(null)
   const dispatch = useDispatch()
+  const {state} = useLocation()
+  const multiple = state?.multiple
+  const conversation = state?.conversation
+  
   useEffect(() => {
     if (!webSocket) return;
     function sMessageCallback(message) {
       const { msg, userUid, id, target, messageClock, messageClockNumber, conversation } = message;
-      console.log(msg)
       setMsgList((prev) => [
         ...prev,
         {
@@ -44,13 +52,45 @@ function Piazza({ userObj }: Props) {
           profileColor: profileColor
         },
       ]);
+      // const myDocRef = doc(dbservice, `chats_group/${piazzaUid}`)
+      // const myDocSnap = await getDoc(myDocRef)
+      // const myChattings = myDocSnap.data()
+      // const piazzaCheckedList = myChattings.piazzaChecked || []
+      // if (piazzaCheckedList.indexOf(userObj.uid) === -1) {
+      //   piazzaCheckedList.push(userObj.uid)
+      //   await updateDoc(myDocRef, {
+      //     ...myChattings, 
+      //     piazzaChecked: piazzaCheckedList,
+      //   })
+      // }
     }
     webSocket.on("sMessagePiazza", sMessageCallback);
     return () => {
       webSocket.off("sMessagePiazza", sMessageCallback);
     };
   }, []);
-  
+  useEffect(() => {
+    if (!webSocket) return;
+    function sMessageCallback(message) {
+      const { msg, userUid, id, target, messageClock, messageClockNumber, conversation } = message;
+      setMsgList((prev) => [
+        ...prev,
+        {
+          msg: msg,
+          type: target ? "private" : "other",
+          userUid: userUid,
+          id: id,
+          messageClock: messageClock,
+          messageClockNumber: messageClockNumber,
+          conversation: null
+        },
+      ]);
+    }
+    webSocket.on(`sMessage${conversation}`, sMessageCallback);
+    return () => {
+      webSocket.off(`sMessage${conversation}`, sMessageCallback);
+    };
+  }, []);
   useEffect(() => {
     document.documentElement.scrollTo({
       top: 0,
@@ -78,6 +118,36 @@ function Piazza({ userObj }: Props) {
 
   useEffect(() => {
     scrollToBottom();
+    
+    const checkMessage = async () => {
+      if (multiple) {
+        const piazzaRef = collection(dbservice, 'chats_group')
+        const piazzaCollection = query(piazzaRef, orderBy('messageClockNumber', 'desc'), limit(1))
+        const piazzaMessages = await getDocs(piazzaCollection)
+        piazzaMessages.forEach(async (document) => {
+          const myDocRef = doc(dbservice, `chats_group/${document.id}`)
+          const myDocSnap = await getDoc(myDocRef)
+          const myChattings = myDocSnap.data()
+          const piazzaCheckedList = myChattings.piazzaChecked || []
+          if (piazzaCheckedList.indexOf(userObj.uid) === -1) {
+            piazzaCheckedList.push(userObj.uid)
+            await updateDoc(myDocRef, {
+              ...myChattings, 
+              piazzaChecked: piazzaCheckedList,
+            })
+          }
+        })
+      } else {
+        const myDocRef = doc(dbservice, `members/${userObj.uid}`)
+        const myDocSnap = await getDoc(myDocRef)
+        const myChattings = myDocSnap.data().chattings
+        myChattings[conversation].messageCount = 0
+        await updateDoc(myDocRef, {
+          chattings: myChattings
+        })    
+      }
+    }
+    checkMessage()
   }, [msgList]);
 
   useEffect(() => {
@@ -87,14 +157,19 @@ function Piazza({ userObj }: Props) {
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView();
   };
-
-  const onSendSubmitHandler = (e) => {
+  
+  const onSendSubmitHandler = async (e) => {
     e.preventDefault();
     const message = msg
     const userUid = userObj.uid
     const userName = userObj.displayName
     const messageClockNumber = Date.now()
     const messageClock = new Date().toString()
+    const toUserRef = doc(dbservice, `members/${state.chattingUid}`)
+    const toUser = await getDoc(toUserRef)
+    // console.log(toUser.data().messagingToken)
+    const messagingToken = toUser.data()?.messagingToken
+
     const sendData = {
       msg: message,
       userUid: userUid,
@@ -102,21 +177,30 @@ function Piazza({ userObj }: Props) {
       messageClockNumber: messageClockNumber,
       messageClock: messageClock,
       target: privateTarget,
-      conversation: null
+      conversation: conversation,
+      conversationUid: state.chattingUid,
+      conversationName: state.displayName,
+      profileUrl: profileUrl,
+      sendingToken: messagingToken,
     };
     // const year = new Date().toString()
-    if (sendData && message) {
-      webSocket.emit("message", sendData);
-      // const { data, uid, id, target } = sendData;
-      // setMsgList((prev) => [
-      //   ...prev,
-      //   {
-      //     msg: data,
-      //     type: target ? "private" : "other",
-      //     id: id,
-      //   },
-      // ]);
-      onForm()
+    if (multiple) {
+      if (sendData && message) {
+        webSocket.emit("message", sendData);
+        onForm()
+      }
+    } else {
+      if (message) {
+        if (msgList.length !== 0) {
+          webSocket.emit("message", sendData);
+          console.log('message')
+        } else {
+          webSocket.emit("messageNew", sendData);
+          console.log('messageNew')
+        }
+        onFormConversation()
+        onMembersConversation()
+      }
     }
     setMsg("");
   };
@@ -153,7 +237,8 @@ function Piazza({ userObj }: Props) {
           messageClock: messageClock,
           messageClockNumber: messageClockNumber,
           profileImageUrl: profileUrl,
-          profileColor: profileColor
+          profileColor: profileColor,
+          piazzaChecked: [userObj.uid]
         })
         setMsgList((prev) => [...prev, { msg: message, type: "me", userUid: userObj.uid, id: userObj.displayName, messageClock: messageClock, conversation: null, profileImageUrl: profileUrl, profileColor: profileColor }]);
       }
@@ -180,21 +265,133 @@ function Piazza({ userObj }: Props) {
         setMsgList(messagesArray);
       });
     }
-    if (changeMessage) { 
-      messageList()
-      setChangeMessage(false)
+    const messageListMembers = async (conversation) => {
+      const messageRef = collection(dbservice, `chats_${conversation}`)
+      const messagesCollection = query(messageRef, orderBy('messageClockNumber'))
+      const messages = await getDocs(messagesCollection);
+      const messagesArray = []
+      messages.forEach((doc) => {
+        const message = doc.data().message
+        const userUid = doc.data().userUid
+        const userName = doc.data().userName
+        const messageClock = doc.data().messageClock
+        const messageClockNumber = doc.data().messageClockNumber || 0
+        messagesArray.push({ msg: message, type: "me", userUid: userUid, id: userName, messageClock: messageClock, messageClockNumber: messageClockNumber })
+        setMsgList(messagesArray)
+      });
+    }
+    if (changeMessage) {
+      if (multiple) {
+        messageList()
+        setChangeMessage(false)
+      } else {
+        messageListMembers(conversation)
+        setChangeMessage(false)
+      }
     }
   }, [changeMessage])
-
+  const onFormConversation = async () => {
+    const message = msg
+    try {
+      const userUid = userObj.uid
+      const userName = userObj.displayName
+      const messageClockNumber = Date.now()
+      const messageClock = new Date().toString()
+      let userOne
+      let userTwo
+      let userOneDisplayName
+      let userTwoDisplayName
+      let userOneProfileUrl
+      let userTwoProfileUrl
+      if (state.userUid < state.chattingUid) {
+        userOne = state.userUid
+        userTwo = state.chattingUid
+        userOneDisplayName = userObj.displayName
+        userTwoDisplayName = state.displayName
+        userOneProfileUrl = profileUrl
+        userTwoProfileUrl = state.profileUrl
+      } else {
+        userOne = state.chattingUid
+        userTwo = state.userUid
+        userOneDisplayName = state.displayName
+        userTwoDisplayName = userObj.displayName
+        userOneProfileUrl = state.profileUrl
+        userTwoProfileUrl = profileUrl
+      }
+      // console.log(state)
+      // console.log(profileUrl)
+      if (message) {
+        const messageObj = {
+          userUid: userUid,
+          userName: userName,
+          message: message,
+          messageClock: messageClock,
+          messageClockNumber: messageClockNumber,
+          userOne: userOne,
+          userTwo: userTwo,
+          userOneDisplayName: userOneDisplayName,
+          userTwoDisplayName: userTwoDisplayName,
+          userOneProfileUrl: userOneProfileUrl,
+          userTwoProfileUrl: userTwoProfileUrl
+        }
+        await addDoc(collection(dbservice, `chats_${conversation}`), messageObj)
+        const myDocRef = doc(dbservice, `members/${userUid}`)
+        const myDocSnap = await getDoc(myDocRef)
+        const myChattings = myDocSnap.data().chattings || {}
+        const userDocRef = doc(dbservice, `members/${state.chattingUid}`)
+        const userDocSnap = await getDoc(userDocRef)
+        const userChattings = userDocSnap.data().chattings || {}
+        const userChattingsNumber = userChattings[conversation].messageCount || 0
+        myChattings[conversation] = messageObj
+        userChattings[conversation] = {...messageObj, messageCount: userChattingsNumber+1}
+        await updateDoc(myDocRef, {
+          chattings: myChattings
+        })
+        await updateDoc(userDocRef, {
+          chattings: userChattings
+        })
+        setMsgList((prev) => [...prev, { msg: message, type: "me", userUid: userObj.uid, id: userObj.displayName, messageClock: messageClock, conversation: conversation }]);
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  const onMembersConversation = async () => {
+    try {
+      const userUid = userObj.uid
+      const chattingUid = state.chattingUid
+      const myDocRef = doc(dbservice, `members/${userUid}`)
+      const myDocSnap = await getDoc(myDocRef)
+      const myConversation = myDocSnap.data().conversation || []
+      const userDocRef = doc(dbservice, `members/${chattingUid}`)
+      const userDocSnap = await getDoc(userDocRef)
+      const userConversation = userDocSnap.data().conversation || []
+      if (myConversation.indexOf(conversation) === -1) {
+        await updateDoc(myDocRef, {
+          conversation: [...myConversation, conversation]
+        })
+        dispatch(changeNewMessageTrue())
+      }
+      if (userConversation.indexOf(conversation) === -1) { 
+        await updateDoc(userDocRef, {
+          conversation: [...userConversation, conversation]
+        })
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
   return (
     <div>
       <div className='flex text-2xl p-5'>
         <div className='w-screen'>
-          단체 대화
+          {multiple ? '단체 대화' : `개인 대화 ${state?.displayName}`}
         </div>
-        <div className='flex w-2/3 pt-1 justify-end'>
-          <PiazzaSwitch />
-        </div>
+        {multiple && 
+          <div className='flex w-2/3 pt-1 justify-end'>
+            <PiazzaSwitch />
+          </div>
+        }
       </div>
       <div className="app-container">
         <div className="wrap">
@@ -222,10 +419,15 @@ function Piazza({ userObj }: Props) {
                         key={`${i}_li`}
                         name={v.id}
                         data-id={v.id}
-                        onClick={() => onSetPrivateTarget({userUid: v.userUid, displayName: v.id})}
+                        // onClick={() => onSetPrivateTarget({userUid: v.userUid, displayName: v.id})}
                       >
                         <div className={`flex justify-${v.userUid !== userObj.uid ? 'start' : 'end'}`}>
-                          <Avatar alt={v.id} sx={{ bgcolor: v.profileColor || '#2196f3' }} src={v.profileImageUrl || './src'} variant="rounded" />
+                          {/* <Avatars profile={false} profileColor={'profile-blue'} profileImage={v.profileImageUrl || 'null'} fallback={v.id[0]}/> */}
+                          <Avatar onClick={() => onSetPrivateTarget({userUid: v.userUid, displayName: v.id})} className={'bg-profile-blue'}>
+                            <AvatarImage src={v.profileImageUrl} />
+                            <AvatarFallback className='text-xl border-none	'>{v.id[0]}</AvatarFallback>
+                          </Avatar>
+                          {/* <Avatar alt={v.id} sx={{ bgcolor: v.profileColor || '#2196f3' }} src={v.profileImageUrl || './src'} variant="rounded" /> */}
                         </div>
                         <div
                           className={
@@ -273,7 +475,12 @@ function Piazza({ userObj }: Props) {
               <button type="submit">전송</button>
             </form>
           </div>
-          <PiazzaDialogs selectUser={selectUser} user={user} handleClose={handleClose} userObj={userObj} handleMsgList={(newState: []) => setMsgList(newState)} handleChangeMessage={(newState: boolean) => setChangeMessage(newState)} displayedName={displayedName}/>
+          <PiazzaDialogs multiple={multiple} selectUser={selectUser} user={user} handleClose={handleClose} userObj={userObj} handleMsgList={(newState: []) => setMsgList(newState)} handleChangeMessage={(newState: boolean) => setChangeMessage(newState)} displayedName={displayedName}/>
+          {/* {multiple ? 
+            <PiazzaDialogs multiple={multiple} selectUser={selectUser} user={user} handleClose={handleClose} userObj={userObj} handleMsgList={(newState: []) => setMsgList(newState)} handleChangeMessage={(newState: boolean) => setChangeMessage(newState)} displayedName={displayedName}/>
+            :
+            <ChattingDialogs selectUser={selectUser} user={user} handleClose={handleClose} />
+          } */}
         </div>
       </div>
     </div>

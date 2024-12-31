@@ -20,9 +20,9 @@ import {
 
 function SignInDialogs({ move, handleClose, changeNewAccount }) {
     return (
-      <div>
+      <div className='flex justify-center'>
         <Drawer>
-          <DrawerTrigger>
+          <DrawerTrigger className='w-screen'>
             <Button sx={{width: '100%'}} variant='outlined' onClick={changeNewAccount}>회원가입</Button>
           </DrawerTrigger>
           <DrawerContent>

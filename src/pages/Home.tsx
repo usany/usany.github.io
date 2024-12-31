@@ -4,24 +4,20 @@ import Notice from 'src/pages/Notice'
 import Auth from 'src/pages/Auth'
 import Add from 'src/pages/Add'
 import { SwipeableViews } from "src/navigate/SwipeableViews";
-import { useBottomNavigationStore, useTabsStore } from 'src/store'
 import { collection, query, QuerySnapshot, where, orderBy, addDoc, setDoc, getDoc, getDocs, doc, onSnapshot, deleteDoc, updateDoc, limit } from 'firebase/firestore';
 import { auth, dbservice } from 'src/baseApi/serverbase'
 import { storage } from "src/baseApi/serverbase";
 import { getStorage, ref, uploadBytes, uploadString, uploadBytesResumable, getDownloadURL, } from "firebase/storage";
-import { User } from 'firebase/auth'
 import { useSelector, useDispatch } from 'react-redux'
 import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
 import { changeTabs } from 'src/stateSlices/tabsSlice'
-import { Skeleton } from "@/components/ui/skeleton"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import TabsRootState from 'src/interfaces/TabsRootState'
+import BottomNavigationRootState from 'src/interfaces/BottomNavigationRootState'
+import UserObjProps from 'src/interfaces/UserObjProps'
 
-interface Props {
-    userObj: User | null
-}
-function Home({ userObj }: Props) {
-    const bottomNavigation = useSelector(state => state.bottomNavigation.value)
-    const tabs = useSelector(state => state.tabs.value)
+function Home({ userObj }: UserObjProps) {
+    const bottomNavigation = useSelector((state: BottomNavigationRootState) => state.bottomNavigation)
+    const tabs = useSelector((state: TabsRootState) => state.tabs)
     const dispatch = useDispatch()
     useEffect(() => {
         if (bottomNavigation === 5) {
@@ -55,17 +51,11 @@ function Home({ userObj }: Props) {
         }
         userSetting()
     }, [userObj])
-
-    // const storageRef = ref(storage, userObj.uid);
-    // uploadString(storageRef, 'null', 'raw').then(() => {
-    //     console.log('Uploaded a blob or file!');
-    // });
-
+    
     return (
         <>
             {userObj ? 
                 <>
-                    {bottomNavigation === 1 && <Menu userObj={userObj} />}
                     {bottomNavigation === 0 && 
                         <SwipeableViews
                             index={tabs}
@@ -76,6 +66,7 @@ function Home({ userObj }: Props) {
                             <Add userObj={userObj} action={1} borrow={false}/>
                         </SwipeableViews>
                     }
+                    {bottomNavigation === 1 && <Menu userObj={userObj} />}
                     {bottomNavigation === 2 && 
                         <SwipeableViews
                             index={tabs}

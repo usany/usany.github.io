@@ -11,8 +11,8 @@ import { useImmer } from "use-immer"
 import { useSelector, useDispatch } from 'react-redux'
 import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
 import { User } from 'firebase/auth'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import Skeleton from '@mui/material/Skeleton';
+// import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+// import Skeleton from '@mui/material/Skeleton';
 
 interface Props {
   userObj: User,
@@ -21,7 +21,7 @@ function Profile({ userObj }: Props) {
   const [attachment, setAttachment] = useState('')
   const {state} = useLocation()
   const [profileDialog, setProfileDialog] = useState(false)
-  const profileColor = useSelector(state => state.profileColor.value)
+  // const profileColor = useSelector(state => state.profileColor.value)
   const [alliesCollection, setAlliesCollection] = useImmer([
     {
       id: 'followers',
@@ -32,7 +32,7 @@ function Profile({ userObj }: Props) {
       list: []
     }
   ])
-  const profileImage = useSelector(state => state.profileImage.value)
+  // const profileImage = useSelector(state => state.profileImage.value)
 
   const handleFollowers = ({ number, list }) => {
     setAlliesCollection((draft) => {
@@ -102,15 +102,15 @@ function Profile({ userObj }: Props) {
   // const ProfileAvatar = lazy(() => import("src/muiComponents/ProfileAvatar"))
   return (
     <div>
-      <div>
-        <PageTitle title={`${state.element.uid === userObj.uid ? '내' : state.element.displayName} 프로필`}/>
+      <PageTitle title={`${state.element.uid === userObj.uid ? '내' : state.element.displayName} 프로필`}/>
+      <ProfileAvatar userObj={userObj} user={state.element} handleProfileDialog={() => setProfileDialog(true)} />
+      {/* <Suspense fallback={<Skeleton />}>
         <ProfileAvatar userObj={userObj} user={state.element} handleProfileDialog={() => setProfileDialog(true)} />
-        {/* <Suspense fallback={<Skeleton />}>
-          <ProfileAvatar userObj={userObj} user={state.element} handleProfileDialog={() => setProfileDialog(true)} />
-        </Suspense> */}
-        <AvatarDialogs userObj={userObj} profileDialog={profileDialog} attachment={attachment} changeAttachment={(newState: string) => setAttachment(newState)}  handleClose={handleClose} />
-        <ProfileActions userObj={userObj} user={state.element} alliesCollection={alliesCollection} handleFollowers={handleFollowers} handleFollowings={handleFollowings}/>
-        <ProfileCards user={state.element} alliesCollection={alliesCollection}/>
+      </Suspense> */}
+      <AvatarDialogs userObj={userObj} profileDialog={profileDialog} attachment={attachment} changeAttachment={(newState: string) => setAttachment(newState)}  handleClose={handleClose} />
+      <ProfileActions userObj={userObj} user={state.element} alliesCollection={alliesCollection} handleFollowers={handleFollowers} handleFollowings={handleFollowings}/>
+      <ProfileCards user={state.element} alliesCollection={alliesCollection}/>
+      <div>
       </div>
       {/* {profileImage ?
         :

@@ -4,16 +4,14 @@ interface TabsState {
 }
 
 // Define the initial state using that type
-const initialState: TabsState = {
-  value: 0
-}
+const initialState: number = 0
 
 const tabsReducer = createSlice({
   name: 'tabs',
   initialState,
   reducers: {
     changeTabs: (state, action: PayloadAction<number>) => {
-      state.value = action.payload
+      state = action.payload
     },
   }
 })

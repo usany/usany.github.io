@@ -23,6 +23,7 @@ import { changeProfileColor } from 'src/stateSlices/profileColorSlice'
 import { changeProfileImage } from 'src/stateSlices/profileImageSlice'
 import { User } from 'firebase/auth';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import Avatars from 'src/muiComponents/Avatars'
 
 // const Puller = styled('div')(({ theme }) => ({
 //     width: 30,
@@ -85,19 +86,19 @@ const Header = ({ userObj }: Props) => {
         if (userObj) {
             getDownloadURL(ref(storage, `${userObj?.uid}`))
             .then((url) => {
-                if (!profileUrl) {
-                    if (url) {
-                        dispatch(changeProfileImage(url))
-                    } else {
-                        dispatch(changeProfileImage('null'))
-                    }
-                }
-                console.log(url)
-                if (url) {
-                    dispatch(changeProfileUrl(url))
-                } else {
-                    dispatch(changeProfileUrl(''))
-                }
+                dispatch(changeProfileUrl(url))
+                // if (!profileUrl) {
+                //     if (url) {
+                //         dispatch(changeProfileImage(url))
+                //     } else {
+                //         dispatch(changeProfileImage('null'))
+                //     }
+                // }
+                // if (url) {
+                //     dispatch(changeProfileUrl(url))
+                // } else {
+                //     dispatch(changeProfileUrl(''))
+                // }
             })
             .catch((error) => {
                 console.log(error)
@@ -106,27 +107,48 @@ const Header = ({ userObj }: Props) => {
     }, [userObj])
     
     useEffect(() => {
-        const setAvatarColor = async () => {
+        const setProfile = async () => {
             const docRef = doc(dbservice, `members/${userObj?.uid}`)
             const docSnap = await getDoc(docRef)
             const userColor = docSnap.data()?.profileColor || '#2196f3'
+            const userImage = docSnap.data()?.profileImage || 'null'
             dispatch(changeProfileColor(userColor))
+            dispatch(changeProfileImage(userImage))
         }
-        setAvatarColor()
+        setProfile()
     }, [userObj])
-    
+    // console.log(profileColor)
     return (
         <div className='h-24 overflow-hidden'>
             <div className={scroll}>
                 <Navigation userObj={userObj} handleSideNavigation={handleSideNavigation} sideNavigation={sideNavigation} />
                 <div className='flex justify-between w-screen'>
                     <div className='px-5 pt-1'>
-                        {userObj ?
+                        <div>
+                            {profileImage ?
+                                <div onClick={() => {
+                                    handleSideNavigation()
+                                }}>
+                                    {userObj ? 
+                                        <Avatars profile={false} profileColor={profileColor} profileImage={profileImage} fallback={userObj?.displayName[0]}/>
+                                    : 
+                                        <Avatar sx={{ bgcolor: '#2196f3' }} onClick={() => {
+                                            handleSideNavigation()
+                                        }} variant="rounded" />
+                                    }
+                                </div>
+                                :
+                                <div>loading</div>
+                            }
+                        </div>
+                        {/* {userObj ?
                             <div>
                                 {profileImage ?
-                                    <Avatar alt={userObj.displayName || ''} sx={{ bgcolor: profileColor || '#2196f3' }} src={profileImage || ''} onClick={() => {
+                                    <div onClick={() => {
                                         handleSideNavigation()
-                                    }} variant="rounded" />
+                                    }}>
+                                        <Avatars profile={false} profileColor={profileColor} profileImage={profileImage} fallback={userObj.displayName[0]}/>
+                                    </div>
                                     :
                                     <div>loading</div>
                                 }
@@ -135,7 +157,7 @@ const Header = ({ userObj }: Props) => {
                             <Avatar sx={{ bgcolor: '#2196f3' }} onClick={() => {
                                 handleSideNavigation()
                             }} variant="rounded" />
-                        }
+                        } */}
                     </div>
                     <div>
                         {userObj && bottomNavigation === 0 && 
