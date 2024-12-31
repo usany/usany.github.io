@@ -41,7 +41,7 @@ const onLogOutClick = () => auth.signOut();
 function Navigation({ userObj, sideNavigation, handleSideNavigation }: Props) {
   const [backgroundColor, setBackgroundColor] = useState<string>('#e2e8f0');
   const [points, setPoints] = useState<number>(0)
-  const theme = useSelector(state => state.theme.value)
+  const theme = useSelector(state => state.theme)
   const [profileColor, setProfileColor] = useState<string>('');
   const dispatch = useDispatch()
   // const {avatarImage, handleAvatarImage} = useAvatarImageStore()
@@ -109,7 +109,7 @@ function Navigation({ userObj, sideNavigation, handleSideNavigation }: Props) {
           <div className=''>
             <div className='flex border-b border-light-3 dark:border-dark-3'>
               <div className='p-5'>
-                <div>좋은 날씨네요 {userObj.displayName} 님</div>
+                <div className='max-w-[200px] max-h-[200px] overflow-hidden'>좋은 날씨네요 {userObj.displayName} 님</div>
                 {userObj && <div>내 포인트: {points}</div>}
               </div>
               <div className='flex border-b border-light-3 dark:border-dark-3'></div>

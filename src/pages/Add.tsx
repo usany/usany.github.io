@@ -19,6 +19,9 @@ interface Props {
 interface LocationEvent extends EventTarget {
     target: {value: string};
 }
+interface LocationEvents {
+    target: {value: string};
+}
 interface DisplayCard {
     id: string
 }
@@ -95,7 +98,7 @@ function Add({ userObj, action, borrow }: Props) {
   
   let calculatePoint = 0
 
-  const changeItem = (event: {preventDefault: () => void, target: {value: string}}) => {
+  const changeItem = (event: PointerEvent) => {
     // event.preventDefault()
     console.log(event)
     const {
@@ -109,7 +112,7 @@ function Add({ userObj, action, borrow }: Props) {
         setAddSteps(0)
     }
   }
-  const changeLocationInput = (event: LocationEvent) => {
+  const changeLocationInput = (event: LocationEvents) => {
     // event.preventDefault()
     const {
         target: {value},

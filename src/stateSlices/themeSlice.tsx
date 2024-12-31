@@ -5,10 +5,10 @@ const themeReducer = createSlice({
   initialState: localStorage.getItem('theme') || 'light',
   reducers: {
     changeLight: state => {
-      state = 'light'
+      return (state = 'light')
     },
     changeDark: state => {
-      state = 'dark'
+      return (state = 'dark')
     },
   }
 })

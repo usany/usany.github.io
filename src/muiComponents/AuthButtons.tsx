@@ -9,14 +9,15 @@ interface Props {
   changeNewAccount: () => void
 }
 
-const AuthButtons = ({ changeNewAccount }: Props) => {
+const AuthButtons = ({ move, handleClose, changeNewAccount }: Props) => {
   return (
     <div className='flex flex-col justify-center px-20'>
       <div>
         <Button sx={{width: '50%'}} variant='outlined' name='g' onClick={onSocialClick}>구글로 로그인</Button>
         <Button sx={{width: '50%'}} variant='outlined' name='h' onClick={onSocialClick}>깃허브로 로그인</Button>
       </div>
-      <Button sx={{width: '100%'}} variant='outlined' onClick={changeNewAccount}>회원가입</Button>
+      <SignInDialogs move={move} handleClose={handleClose} changeNewAccount={changeNewAccount} />
+      {/* <Button sx={{width: '100%'}} variant='outlined' onClick={changeNewAccount}>회원가입</Button> */}
     </div>
   )
 }

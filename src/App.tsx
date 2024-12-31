@@ -7,6 +7,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { User } from 'firebase/auth'
 import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
 import { useSelector, useDispatch } from 'react-redux'
+import ThemeRootState from './interfaces/ThemeRootState copy'
 
 const lightTheme = createTheme({
   palette: {
@@ -18,14 +19,14 @@ const darkTheme = createTheme({
     mode: 'dark',
   },
 });
-interface themeRootState  {
-  theme: string
-}
+// interface themeRootState  {
+//   theme: string
+// }
 function App() {
   // const [count, setCount] = useState(0)
   const [userObj, setUserObj] = useState<User | null>(null)
   const [initial, setInitial] = useState(false)
-  const theme = useSelector((state: themeRootState) => state.theme)
+  const theme = useSelector((state: ThemeRootState) => state.theme)
   const dispatch = useDispatch()
   useEffect(() => {
     auth.onAuthStateChanged((user) => {

@@ -60,6 +60,7 @@ function Navigations({ userObj }: Props) {
                     showLabels
                     value={bottomNavigation}
                     onChange={(event, newValue) => {
+                        dispatch(changeBottomNavigation(newValue))
                         navigate('/')
                     }}
                 >
