@@ -186,7 +186,7 @@ function Piazza({ userObj }: Props) {
     // const year = new Date().toString()
     if (multiple) {
       if (sendData && message) {
-        webSocket.emit("message", sendData);
+        webSocket.emit("piazzaMessage", sendData);
         onForm()
       }
     } else {
