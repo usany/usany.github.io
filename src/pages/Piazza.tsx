@@ -158,13 +158,18 @@ function Piazza({ userObj }: Props) {
     messagesEndRef.current?.scrollIntoView();
   };
   
-  const onSendSubmitHandler = (e) => {
+  const onSendSubmitHandler = async (e) => {
     e.preventDefault();
     const message = msg
     const userUid = userObj.uid
     const userName = userObj.displayName
     const messageClockNumber = Date.now()
     const messageClock = new Date().toString()
+    const toUserRef = doc(dbservice, `members/${state.chattingUid}`)
+    const toUser = await getDoc(toUserRef)
+    // console.log(toUser.data().messagingToken)
+    const messagingToken = toUser.data()?.messagingToken
+
     const sendData = {
       msg: message,
       userUid: userUid,
@@ -176,11 +181,12 @@ function Piazza({ userObj }: Props) {
       conversationUid: state.chattingUid,
       conversationName: state.displayName,
       profileUrl: profileUrl,
+      sendingToken: messagingToken,
     };
     // const year = new Date().toString()
     if (multiple) {
       if (sendData && message) {
-        webSocket.emit("message", sendData);
+        webSocket.emit("piazzaMessage", sendData);
         onForm()
       }
     } else {
@@ -312,6 +318,18 @@ function Piazza({ userObj }: Props) {
         userOneProfileUrl = state.profileUrl
         userTwoProfileUrl = profileUrl
       }
+      if (!userOneProfileUrl) {
+        const userRef = doc(dbservice, `members/${userOne}`)
+        const userSnap = await getDoc(userRef)
+        const userUrl = userSnap.data()?.profileImageUrl
+        userOneProfileUrl = userUrl
+      }
+      if (!userTwoProfileUrl) {
+        const userRef = doc(dbservice, `members/${userTwo}`)
+        const userSnap = await getDoc(userRef)
+        const userUrl = userSnap.data()?.profileImageUrl
+        userTwoProfileUrl = userUrl
+      }
       // console.log(state)
       // console.log(profileUrl)
       if (message) {
@@ -328,6 +346,7 @@ function Piazza({ userObj }: Props) {
           userOneProfileUrl: userOneProfileUrl,
           userTwoProfileUrl: userTwoProfileUrl
         }
+        console.log(messageObj)
         await addDoc(collection(dbservice, `chats_${conversation}`), messageObj)
         const myDocRef = doc(dbservice, `members/${userUid}`)
         const myDocSnap = await getDoc(myDocRef)
@@ -335,7 +354,7 @@ function Piazza({ userObj }: Props) {
         const userDocRef = doc(dbservice, `members/${state.chattingUid}`)
         const userDocSnap = await getDoc(userDocRef)
         const userChattings = userDocSnap.data().chattings || {}
-        const userChattingsNumber = userChattings[conversation].messageCount || 0
+        const userChattingsNumber = userChattings[conversation]?.messageCount || 0
         myChattings[conversation] = messageObj
         userChattings[conversation] = {...messageObj, messageCount: userChattingsNumber+1}
         await updateDoc(myDocRef, {

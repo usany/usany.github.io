@@ -60,6 +60,7 @@ const Router = ({ userObj }: Props) => {
                     administration: ahncb@khu.ac.kr
                     Made in KHU
                 </div> */}
+                <div className='h-[56px]'>&emsp;</div>
                 <Navigations userObj={userObj} />
             </div>
         </BrowserRouter>

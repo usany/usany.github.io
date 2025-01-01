@@ -110,7 +110,8 @@ function Profile({ userObj }: Props) {
       <AvatarDialogs userObj={userObj} profileDialog={profileDialog} attachment={attachment} changeAttachment={(newState: string) => setAttachment(newState)}  handleClose={handleClose} />
       <ProfileActions userObj={userObj} user={state.element} alliesCollection={alliesCollection} handleFollowers={handleFollowers} handleFollowings={handleFollowings}/>
       <ProfileCards user={state.element} alliesCollection={alliesCollection}/>
-      <div>
+      <div className='flex justify-center'>
+        회원 탈퇴
       </div>
       {/* {profileImage ?
         :

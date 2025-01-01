@@ -1,3 +1,4 @@
+import { useState, useEffect, useRef, useMemo, useLayoutEffect, useContext, useReducer, Suspense, lazy } from 'react'
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
@@ -6,6 +7,8 @@ import { Link } from 'react-router-dom'
 import Btn from 'src/pages/Btn';
 import Chip from '@mui/material/Chip';
 import staticImg from 'src/assets/pwa-512x512.png';
+import staticImageJ from 'src/assets/blue-01.png';
+import staticImageC from 'src/assets/screen-01.png';
 
 interface Props {
   msgObj: {id: string, text: object},
@@ -14,6 +17,26 @@ interface Props {
   num: number | null,
   points: number | null,
 }
+const shadowColorArray = [
+  'lightblue', 
+  'lightcoral',
+  'lightcyan',
+  'lightgoldenrodyellow',
+  'lightgray',
+  'lightgreen', 
+  'lightpink',
+  'lightsalmon',
+  'lightseagreen',
+  'lightskyblue',
+  'lightsteelblue', 
+  'lightyellow'
+]
+const alpha = Array.from(Array(26)).map((e, i) => i + 65);
+const letters = alpha.map((x) => String.fromCharCode(x));
+const numbers = Array.from({ length: 10 }, (e, i) => `${i}`)
+const mergedArray = letters.concat(numbers)
+// const shadowColor = shadowColorArray[mergedArray.indexOf(String(msgObj.id[0]).toUpperCase())%shadowColorArray.length];
+
 const Cards = ({ 
   msgObj,
   isOwner,
@@ -21,26 +44,36 @@ const Cards = ({
   num,
   points,
 }: Props) => {
-  const shadowColorArray = [
-    'lightblue', 
-    'lightcoral',
-    'lightcyan',
-    'lightgoldenrodyellow',
-    'lightgray',
-    'lightgreen', 
-    'lightpink',
-    'lightsalmon',
-    'lightseagreen',
-    'lightskyblue',
-    'lightsteelblue', 
-    'lightyellow'
-  ]
-  const alpha = Array.from(Array(26)).map((e, i) => i + 65);
-  const letters = alpha.map((x) => String.fromCharCode(x));
-  const numbers = Array.from({ length: 10 }, (e, i) => `${i}`)
-  const mergedArray = letters.concat(numbers)
+  const [staticImage, setStaticImage] = useState('')
   const shadowColor = shadowColorArray[mergedArray.indexOf(String(msgObj.id[0]).toUpperCase())%shadowColorArray.length];
-
+  // const shadowColorArray = [
+  //   'lightblue', 
+  //   'lightcoral',
+  //   'lightcyan',
+  //   'lightgoldenrodyellow',
+  //   'lightgray',
+  //   'lightgreen', 
+  //   'lightpink',
+  //   'lightsalmon',
+  //   'lightseagreen',
+  //   'lightskyblue',
+  //   'lightsteelblue', 
+  //   'lightyellow'
+  // ]
+  // const alpha = Array.from(Array(26)).map((e, i) => i + 65);
+  // const letters = alpha.map((x) => String.fromCharCode(x));
+  // const numbers = Array.from({ length: 10 }, (e, i) => `${i}`)
+  // const mergedArray = letters.concat(numbers)
+  
+  useEffect(() => {
+    if (msgObj.text.count === '중도') {
+      setStaticImage(staticImageJ)
+    } else if (msgObj.text.count === '청운') {
+      setStaticImage(staticImageC)
+    } else {
+      setStaticImage(staticImg)
+    }
+  }, [msgObj])
   return (
     <div className='max-w-60 min-w-20 p-1'>
       <Card
@@ -55,12 +88,13 @@ const Cards = ({
               msgObj: msgObj,
               isOwner: isOwner,
               num: num,
-              points: points
+              points: points,
+              staticImage: staticImage
             }}
           >
           <CardMedia
             sx={{ height: 140 }}
-            image={staticImg}
+            image={staticImage}
           />
           <CardContent>
             <div className='flex justify-center'>

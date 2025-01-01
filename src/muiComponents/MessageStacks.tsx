@@ -86,6 +86,8 @@ const MessageStacks = ({ userObj, piazzaSwitch }: Props) => {
     }
   }
   console.log(piazzaMessage)
+  const clock = new Date(piazzaMessage?.messageClock)
+
   return (
     <>
       {piazzaSwitch === 'true' && <Card sx={{ flexGrow: 1, overflow: 'hidden' }}>
@@ -103,7 +105,11 @@ const MessageStacks = ({ userObj, piazzaSwitch }: Props) => {
                 <div className='flex justify-between'>
                   <div className='px-3'>단체 대화</div> 
                   {/* <div className='px-3'>{piazzaMessage?.username}</div> */}
-                  <div>{piazzaMessage?.messageClock}</div>
+                  <div className='flex flex-col'>
+                    <div className='flex justify-end'>{clock.getHours()}:{clock.getMinutes()}</div>
+                    <div className='flex justify-end'>{clock.getFullYear()}-{clock.getMonth()}-{clock.getDate()}</div>
+                    <div>{piazzaMessage?.messageClock}</div>
+                  </div>
                 </div>
                 <div className='flex justify-between px-3'>
                   {/* <Avatar>

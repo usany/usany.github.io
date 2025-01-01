@@ -11,7 +11,7 @@ function Lists({ elements, multiple, userSearch }) {
 
   return (
     <div>
-      <div className='flex justify-between w-screen'>
+      <div className='flex justify-between w-screen pt-5'>
         <div className='flex flex-col justify-center px-5'>
           {multiple ? '유저':'내'} 랭킹
         </div>

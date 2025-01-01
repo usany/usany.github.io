@@ -150,6 +150,8 @@ const ChattingStacks = ({ userObj, chattings, handleChattings }: Props) => {
   return (
     <>
       {sortedMyConversationUid.map((element, index) => {
+        const clock = new Date(chattings[element].messageClock)
+
         if (chattings[element]) {
           let displayName
           let chattingUid
@@ -186,7 +188,7 @@ const ChattingStacks = ({ userObj, chattings, handleChattings }: Props) => {
                     <div className='flex flex-col w-screen'>
                       <div className='flex px-3 justify-between'>
                         <div className='w-1/2 overflow-hidden'>{userObj.uid === chattings[element].userOne ? chattings[element].userTwoDisplayName : chattings[element].userOneDisplayName}</div>
-                        <div>{chattings[element].messageClock} {chattings[element].messageClockNumber}</div>
+                        <div>{clock.getFullYear()}.{clock.getMonth()}.{clock.getDate()} {chattings[element].messageClockNumber}</div>
                         {/* <div>{chattings[element].messageClockNumber}</div> */}
                       </div>
                       <div className='flex px-3 justify-between'>
