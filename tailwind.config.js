@@ -52,10 +52,10 @@ module.exports = {
   		'bubble-gum': '#ff77e9',
   		bermuda: '#78dcca'
   	},
-  	height: {
-  		'15': '3.75rem'
-  	},
   	extend: {
+		height: {
+			'15': '3.75rem'
+		},
   		padding: {
   			'60px': '60px'
   		},
