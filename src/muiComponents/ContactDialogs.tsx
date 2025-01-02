@@ -22,8 +22,7 @@ import {
  
 const ContactDialogs = ({ move, handleClose, userObj, change, setChange }) => {
     const [sendMessages, setSendMessages] = useState([])
-    const [dialogMove, setDialogMove] = useState(false)
-  
+    // const [dialogMove, setDialogMove] = useState(false)
     const collectionQuery = query(collection(dbservice, 'violations'))
     const deleteMessage = (element) => {
         console.log(element)
@@ -62,7 +61,7 @@ const ContactDialogs = ({ move, handleClose, userObj, change, setChange }) => {
         <div>
             <Drawer>
                 <DrawerTrigger>
-                    <Button variant='outlined' form='auth' onClick={() => setDialogMove(true)}>신고하기 내역</Button>
+                    <Button variant='outlined' form='auth'>신고하기 내역</Button>
                 </DrawerTrigger>
                 <DrawerContent className='bg-light-3 dark:bg-dark-3'>
                   <div className='flex justify-center'>
