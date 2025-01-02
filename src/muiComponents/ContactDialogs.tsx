@@ -23,11 +23,6 @@ import {
 const ContactDialogs = ({ move, handleClose, userObj, change, setChange }) => {
     const [sendMessages, setSendMessages] = useState([])
     const [dialogMove, setDialogMove] = useState(false)
-    const [goal, setGoal] = useState(350)
- 
-    function onClick(adjustment: number) {
-      setGoal(Math.max(200, Math.min(400, goal + adjustment)))
-    }
   
     const collectionQuery = query(collection(dbservice, 'violations'))
     const deleteMessage = (element) => {
