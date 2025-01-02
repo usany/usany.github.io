@@ -102,7 +102,6 @@ const ContactDialogs = ({ move, handleClose, userObj, change, setChange }) => {
                     :
                     <div>신고하기 내역이 없습니다.</div>
                   }                
-                {/* <div>신고하기 내역이 없습니다.</div> */}
                   </div>
                 </DrawerContent>
             </Drawer>
