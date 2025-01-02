@@ -53,16 +53,17 @@ const Header = ({ userObj }: Props) => {
         setSideNavigation(!sideNavigation)
     }
     const storage = getStorage();
-    const [scroll, setScroll] = useState('bg-light-3 dark:bg-dark-3')
+    const [scroll, setScroll] = useState('')
     const cardAccordion = useSelector(state => state.cardAccordion.value)
     const messageAccordion = useSelector(state => state.messageAccordion.value)
     const dispatch = useDispatch()
     let prevScrollPos = window.scrollY;
+
     window.addEventListener('scroll', function () {
         // current scroll position
         const currentScrollPos = window.scrollY;
         if (prevScrollPos >= currentScrollPos) {
-            setScroll('fixed z-20 bg-light-3 dark:bg-dark-3')
+            setScroll('fixed z-20 bg-light-3/50 dark:bg-dark-3/50')
             // user has scrolled up
             // document.querySelector('#navigationSelectorOne')?.classList.add('overflow-hidden fixed top-0 z-20 bg-light-3 dark:bg-dark-3')
             // document.querySelector('#navigationSelectorTwo')?.classList.add('fixed', 'top-0', 'z-10', 'bg-light-3', 'dark:bg-dark-3')
@@ -75,7 +76,7 @@ const Header = ({ userObj }: Props) => {
             // document.querySelector('#contentSelector')?.classList.remove('pt-16')
         }
         if (currentScrollPos === 0) {
-            setScroll('bg-light-3 dark:bg-dark-3')
+            setScroll('')
         }
         // update previous scroll position
         prevScrollPos = currentScrollPos;

@@ -9,9 +9,70 @@ import AccordionActions from '@mui/material/AccordionActions';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-
+import {
+    Drawer,
+    DrawerClose,
+    DrawerContent,
+    DrawerDescription,
+    DrawerFooter,
+    DrawerHeader,
+    DrawerTitle,
+    DrawerTrigger,
+  } from "@/components/ui/drawer"
+  import { Minus, Plus } from "lucide-react"
+import { Bar, BarChart, ResponsiveContainer } from "recharts"
+ 
+const data = [
+  {
+    goal: 400,
+  },
+  {
+    goal: 300,
+  },
+  {
+    goal: 200,
+  },
+  {
+    goal: 300,
+  },
+  {
+    goal: 200,
+  },
+  {
+    goal: 278,
+  },
+  {
+    goal: 189,
+  },
+  {
+    goal: 239,
+  },
+  {
+    goal: 300,
+  },
+  {
+    goal: 200,
+  },
+  {
+    goal: 278,
+  },
+  {
+    goal: 189,
+  },
+  {
+    goal: 349,
+  },
+]
+ 
 const ContactDialogs = ({ move, handleClose, userObj, change, setChange }) => {
     const [sendMessages, setSendMessages] = useState(null)
+    const [dialogMove, setDialogMove] = useState(false)
+    const [goal, setGoal] = useState(350)
+ 
+    function onClick(adjustment: number) {
+      setGoal(Math.max(200, Math.min(400, goal + adjustment)))
+    }
+  
     const collectionQuery = query(collection(dbservice, 'violations'))
     const deleteMessage = (element) => {
         console.log(element)
@@ -47,6 +108,33 @@ const ContactDialogs = ({ move, handleClose, userObj, change, setChange }) => {
     })
 
     return (
+        <div>
+            <Drawer>
+                <DrawerTrigger>
+                    <Button variant='outlined' form='auth' onClick={() => setDialogMove(true)}>신고하기 내역</Button>
+                </DrawerTrigger>
+                <DrawerContent className='bg-light-3 dark:bg-dark-3'>
+                <div className="mx-auto mt-4 h-2 w-[100px] rounded-full bg-muted">
+                    &emsp;
+                </div>
+                {/* <div className="text-[0.70rem] uppercase text-muted-foreground">
+                    &emsp;
+                </div> */}
+                <div>
+                    신고하기 내역
+                </div>
+                    <DrawerHeader className="text-left">
+                    <DrawerTitle>Edit profile</DrawerTitle>
+                    <DrawerDescription>
+                        Make changes to your profile here. Click save when you're done.
+                    </DrawerDescription>
+                    </DrawerHeader>
+                    <DrawerFooter className="pt-2">
+                    <DrawerClose asChild>
+                    </DrawerClose>
+                    </DrawerFooter>
+                </DrawerContent>
+            </Drawer>
         <Dialog fullWidth={true} open={move} onClose={handleClose}>
             <DialogContent>
               <div>
@@ -79,6 +167,7 @@ const ContactDialogs = ({ move, handleClose, userObj, change, setChange }) => {
               </Button>
             </DialogContent>
         </Dialog>
+        </div>
     )
 }
 
