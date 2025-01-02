@@ -19,50 +19,6 @@ import {
     DrawerTitle,
     DrawerTrigger,
   } from "@/components/ui/drawer"
-  import { Minus, Plus } from "lucide-react"
-import { Bar, BarChart, ResponsiveContainer } from "recharts"
- 
-const data = [
-  {
-    goal: 400,
-  },
-  {
-    goal: 300,
-  },
-  {
-    goal: 200,
-  },
-  {
-    goal: 300,
-  },
-  {
-    goal: 200,
-  },
-  {
-    goal: 278,
-  },
-  {
-    goal: 189,
-  },
-  {
-    goal: 239,
-  },
-  {
-    goal: 300,
-  },
-  {
-    goal: 200,
-  },
-  {
-    goal: 278,
-  },
-  {
-    goal: 189,
-  },
-  {
-    goal: 349,
-  },
-]
  
 const ContactDialogs = ({ move, handleClose, userObj, change, setChange }) => {
     const [sendMessages, setSendMessages] = useState([])
@@ -106,7 +62,7 @@ const ContactDialogs = ({ move, handleClose, userObj, change, setChange }) => {
             setChange(false)
         }
     })
-    console.log(sendMessages)
+    // console.log(sendMessages)
     return (
         <div>
             <Drawer>
