@@ -173,7 +173,6 @@ const ChattingStacks = ({ userObj, chattings, handleChattings }: Props) => {
           messageDate = '0'+messageDate
         } 
       
-
         if (chattings[element]) {
           let displayName
           let chattingUid
@@ -186,11 +185,7 @@ const ChattingStacks = ({ userObj, chattings, handleChattings }: Props) => {
             displayName = chattings[element].userOneDisplayName
             chattingUid = chattings[element].userOne
             profileUrl = chattings[element].userOneProfileUrl
-            // console.log(profileUrl)
-          } 
-          // console.log(chattings[element])
-          // console.log(profileUrl)
-          // console.log(chattings)
+          }
           return (
             <Card key={index} sx={{ flexGrow: 1, overflow: 'hidden' }}>
               <CardActionArea>
