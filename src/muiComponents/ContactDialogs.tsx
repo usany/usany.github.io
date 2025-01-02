@@ -65,7 +65,7 @@ const data = [
 ]
  
 const ContactDialogs = ({ move, handleClose, userObj, change, setChange }) => {
-    const [sendMessages, setSendMessages] = useState(null)
+    const [sendMessages, setSendMessages] = useState([])
     const [dialogMove, setDialogMove] = useState(false)
     const [goal, setGoal] = useState(350)
  
@@ -106,7 +106,7 @@ const ContactDialogs = ({ move, handleClose, userObj, change, setChange }) => {
             setChange(false)
         }
     })
-
+    console.log(sendMessages)
     return (
         <div>
             <Drawer>
@@ -114,28 +114,43 @@ const ContactDialogs = ({ move, handleClose, userObj, change, setChange }) => {
                     <Button variant='outlined' form='auth' onClick={() => setDialogMove(true)}>신고하기 내역</Button>
                 </DrawerTrigger>
                 <DrawerContent className='bg-light-3 dark:bg-dark-3'>
-                <div className="mx-auto mt-4 h-2 w-[100px] rounded-full bg-muted">
-                    &emsp;
-                </div>
-                {/* <div className="text-[0.70rem] uppercase text-muted-foreground">
-                    &emsp;
-                </div> */}
-                <div>
+                  <div className='flex justify-center'>
+                    <div className="bg-light-2 dark:bg-dark-2 h-2 w-[100px] rounded-full bg-muted">
+                        &emsp;
+                    </div>
+                  </div>
+                  <div className='flex justify-center pt-5'>
                     신고하기 내역
-                </div>
-                    <DrawerHeader className="text-left">
-                    <DrawerTitle>Edit profile</DrawerTitle>
-                    <DrawerDescription>
-                        Make changes to your profile here. Click save when you're done.
-                    </DrawerDescription>
-                    </DrawerHeader>
-                    <DrawerFooter className="pt-2">
-                    <DrawerClose asChild>
-                    </DrawerClose>
-                    </DrawerFooter>
+                  </div>
+                  <div className='p-5'>
+                    {sendMessages.length !== 0 ? sendMessages.map((element, index) => {
+                        return (
+                            <div>
+                                <Accordion>
+                                    <AccordionSummary
+                                        expandIcon={<ExpandMoreIcon />}
+                                        id={index}
+                                    >
+                                        {element.messageTitle}
+                                    </AccordionSummary>
+                                    <AccordionDetails>
+                                        {element.message}
+                                    </AccordionDetails>
+                                    <AccordionActions>
+                                        <Button variant='outlined' onClick={() => deleteMessage(element)}>지우기</Button>
+                                    </AccordionActions>
+                                </Accordion>
+                            </div>
+                        )
+                    })
+                    :
+                    <div>신고하기 내역이 없습니다.</div>
+                  }                
+                {/* <div>신고하기 내역이 없습니다.</div> */}
+                  </div>
                 </DrawerContent>
             </Drawer>
-        <Dialog fullWidth={true} open={move} onClose={handleClose}>
+        {/* <Dialog fullWidth={true} open={move} onClose={handleClose}>
             <DialogContent>
               <div>
                 신고하기 내역
@@ -166,7 +181,7 @@ const ContactDialogs = ({ move, handleClose, userObj, change, setChange }) => {
                   닫기
               </Button>
             </DialogContent>
-        </Dialog>
+        </Dialog> */}
         </div>
     )
 }
