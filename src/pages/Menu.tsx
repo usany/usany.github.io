@@ -85,7 +85,7 @@ function Menu({ userObj }: Props) {
         setCardLoaded(true)
     })
     }, [])
-    
+    console.log(userObj)
     return (
         <div className='flex justify-center flex-col pb-5'>
             <PageTitle title={'내 상태'}/>

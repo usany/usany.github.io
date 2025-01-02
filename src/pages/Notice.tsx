@@ -85,7 +85,7 @@ function Notice({ userObj, borrow }: Props) {
                 </div>
             </div>
         } */}
-        <div className='flex flex-wrap h-screen'>
+        <div className='flex flex-wrap h-screen pt-5'>
             {messages.map((msg) => {
                 let choose
                 {borrow ? choose = 1 : choose = 2}

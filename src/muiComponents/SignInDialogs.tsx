@@ -17,35 +17,46 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer"
+import { useSelector, useDispatch } from 'react-redux'
 
-function SignInDialogs({ move, handleClose, changeNewAccount }) {
-    return (
-      <div className='flex justify-center'>
-        <Drawer>
-          <DrawerTrigger className='w-screen'>
-            <Button sx={{width: '100%'}} variant='outlined' onClick={changeNewAccount}>회원가입</Button>
-          </DrawerTrigger>
-          <DrawerContent>
-            <DrawerTitle>
-              환영합니다
-            </DrawerTitle>
+function SignInDialogs({ handleClose, changeNewAccount }) {
+  const theme = useSelector(state => state.theme)
+  
+  return (
+    <>
+      <Drawer>
+        <DrawerTrigger className='flex justify-center w-full'>
+          <Button sx={{width: '100%'}} variant='outlined' onClick={changeNewAccount}>회원가입</Button>
+        </DrawerTrigger>
+        <DrawerContent className='bg-light-3 dark:bg-dark-3'>
+          <DrawerTitle className='flex justify-center'>
+            환영합니다
+          </DrawerTitle>
+          <div className='p-3'>
             <div>1분이면 계정을 만들 수 있어요</div>
             <div>지루하지 않게 노래도 준비했어요</div>
-            <iframe src="https://open.spotify.com/embed/playlist/5C9ADjArybPy54GTZgXtZO?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"/>
-            <SignUpForm handleClose={handleClose} />
-          </DrawerContent>
-        </Drawer>
-        {/* <Dialog fullWidth={true} open={move} onClose={handleClose}>
-          <DialogContent>
-            <div>환영합니다</div>
-            <div>1분이면 계정을 만들 수 있어요</div>
-            <div>지루하지 않게 노래도 준비했어요</div>
-            <iframe src="https://open.spotify.com/embed/playlist/5C9ADjArybPy54GTZgXtZO?utm_source=generator"       width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"/>
-            <SignUpForm handleClose={handleClose} />
-          </DialogContent>
-        </Dialog> */}
-      </div>
-    )
+          </div>
+          <div className='flex justify-center pt-3'>
+            {theme === 'light' ? 
+              <iframe src="https://open.spotify.com/embed/playlist/41clCj2piQBL3BSEFQN9J3?utm_source=generator" width="90%" height="200" allow="autoplay; clipboard-write; fullscreen; picture-in-picture" loading="lazy" />
+              :
+              <iframe src="https://open.spotify.com/embed/playlist/41clCj2piQBL3BSEFQN9J3?utm_source=generator&theme=0" width="90%" height="200" allow="autoplay; clipboard-write; fullscreen; picture-in-picture" loading="lazy" />
+            }
+          </div>
+          <SignUpForm handleClose={handleClose} />
+        </DrawerContent>
+      </Drawer>
+      {/* <Dialog fullWidth={true} open={move} onClose={handleClose}>
+        <DialogContent>
+          <div>환영합니다</div>
+          <div>1분이면 계정을 만들 수 있어요</div>
+          <div>지루하지 않게 노래도 준비했어요</div>
+          <iframe src="https://open.spotify.com/embed/playlist/5C9ADjArybPy54GTZgXtZO?utm_source=generator"       width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"/>
+          <SignUpForm handleClose={handleClose} />
+        </DialogContent>
+      </Dialog> */}
+    </>
+  )
 }
 
 export default SignInDialogs

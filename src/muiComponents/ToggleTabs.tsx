@@ -41,39 +41,10 @@ function a11yProps(index) {
 export default function ToggleTabs() {
   
   const handleChange = (event, newValue) => {
-    // handleTabs(newValue)
-    // if (valuing<2) {
-    //   setValuing(newValue);
-    // } else {
-    //   setValuing(newValue);
-    // }
     dispatch(changeTabs(newValue))
   };
-  // const tabs = useTabsStore((state) => state.tabs)
-  // const handleTabs = useTabsStore((state) => state.handleTabs)
-  const tabs = useSelector(state => state.tabs.value)
+  const tabs = useSelector(state => state.tabs)
   const dispatch = useDispatch()
-
-  // useEffect(() => {
-  //   if (valuing === 1) {
-  //     setValue(0)
-  //   }
-  // })
-  // useEffect(() => {
-  //   if (valuing === 3) {
-  //     setValue(1)
-  //   }
-  // })
-  // useEffect(() => {
-  //   if (valuing === 0) {
-  //     setValue(0)
-  //   }
-  // })
-  // useEffect(() => {
-  //   if (valuing === 4) {
-  //     setValue(1)
-  //   }
-  // })
 
   return (
     <div className=''>
@@ -85,16 +56,6 @@ export default function ToggleTabs() {
           <Tab label={<Minimize2 />} {...a11yProps(0)} />
           <Tab label={<Maximize2 />} {...a11yProps(1)} />
         </Tabs>
-        {/* {valuing<2 &&
-        } */}
-        {/* {valuing>=2 &&
-        <Tabs
-        value={valuing} onChange={handleChange} aria-label="basic tabs example"
-        >
-          <Tab label="빌리기" {...a11yProps(0)} />
-          <Tab label="빌려주기" {...a11yProps(1)} />
-        </Tabs>
-        } */}
       </Box>
     </div>
   );

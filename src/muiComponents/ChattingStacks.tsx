@@ -12,7 +12,7 @@ import { User } from 'firebase/auth';
 import { changeNewMessage, changeNewMessageTrue, changeNewMessageFalse } from 'src/stateSlices/newMessageSlice'
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { getStorage, ref, uploadBytes, uploadString, uploadBytesResumable, getDownloadURL,  } from "firebase/storage";
-import Badge from '@mui/material/Badge';
+// import Badge from '@mui/material/Badge';
 import Chip from '@mui/material/Chip';
 
 interface Props {
@@ -26,7 +26,7 @@ const ChattingStacks = ({ userObj, chattings, handleChattings }: Props) => {
   const [sortedMyConversationUid, setSortedMyConversationUid] = useState([])
   const [profileUrls, setProfileUrls] = useState([])
   const newMessage = useSelector(state => state.newMessage.value)
-  const [messageCount, setMessageCount] = useState(0)
+  // const [messageCount, setMessageCount] = useState(0)
   // const dispatch = useDispatch()
   useEffect(() => {
     const myChatting = async () => {
@@ -131,7 +131,6 @@ const ChattingStacks = ({ userObj, chattings, handleChattings }: Props) => {
   });
   
   // const sortedMyConversationUid = Object.keys(chattings).sort((elementOne, elementTwo) => {return chattings[elementTwo].messageClockNumber-chattings[elementOne].messageClockNumber})
-  
   const checkedMessage = async ({ conversation }) => {
     const myDocRef = doc(dbservice, `members/${userObj.uid}`)
     const myDocSnap = await getDoc(myDocRef)
@@ -141,8 +140,7 @@ const ChattingStacks = ({ userObj, chattings, handleChattings }: Props) => {
       chattings: myChattings
     })
   }
-  // console.log(sortedMyConversationUid)
-  // console.log(chattings)
+
   useEffect(() => {
     const sorted = Object.keys(chattings).sort((elementOne, elementTwo) => {return chattings[elementTwo].messageClockNumber-chattings[elementOne].messageClockNumber})
     setSortedMyConversationUid(sorted)
@@ -173,7 +171,6 @@ const ChattingStacks = ({ userObj, chattings, handleChattings }: Props) => {
           messageDate = '0'+messageDate
         } 
       
-
         if (chattings[element]) {
           let displayName
           let chattingUid
@@ -186,25 +183,19 @@ const ChattingStacks = ({ userObj, chattings, handleChattings }: Props) => {
             displayName = chattings[element].userOneDisplayName
             chattingUid = chattings[element].userOne
             profileUrl = chattings[element].userOneProfileUrl
-            // console.log(profileUrl)
-          } 
-          // console.log(chattings[element])
-          // console.log(profileUrl)
-          // console.log(chattings)
+          }
           return (
             <Card key={index} sx={{ flexGrow: 1, overflow: 'hidden' }}>
               <CardActionArea>
                 <Link to='/piazza' state={{
                   conversation: element, displayName: displayName, userUid: userObj.uid, chattingUid: chattingUid, multiple: false, profileUrl: profileUrl
                 }}>
-                  <div className='flex p-3' onClick={() => checkedMessage({conversation: element})}>
-                    <>
-                      <Avatar>
-                        <AvatarImage src={profileUrl} />
-                        {/* <AvatarFallback className="leading-1 flex size-full items-center justify-center bg-white text-[15px] font-medium text-violet11">CN</AvatarFallback> */}
-                        <AvatarFallback>{displayName[0]}</AvatarFallback>
-                      </Avatar>
-                    </>
+                  <div className='flex p-3' onClick={() => checkedMessage({conversation: element})} onContextMenu={() => console.log('practice')}>
+                    <Avatar>
+                      <AvatarImage src={profileUrl} />
+                      {/* <AvatarFallback className="leading-1 flex size-full items-center justify-center bg-white text-[15px] font-medium text-violet11">CN</AvatarFallback> */}
+                      <AvatarFallback>{displayName[0]}</AvatarFallback>
+                    </Avatar>
                     {/* <div className='px-3'>{chattings[element]?.message}</div> */}
                     {/* <Typography noWrap>{chattings[element]?.message}</Typography> */}
                     <div className='flex flex-col w-screen'>

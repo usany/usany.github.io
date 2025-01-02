@@ -1,11 +1,9 @@
-import { useState, useEffect } from 'react'
-import ItemSelects from 'src/muiComponents/ItemSelects'
 
 interface Props {
-    borrow: boolean, title: string, changeItem: (event: {}) => void
+    title: string[]
 }
 
-const AddStepTitle = ({ title }: {title: string[]}) => {
+const AddStepTitle = ({ title }: Props) => {
     
     return (
         <div className='flex flex-col text-base px-5 pt-5'>

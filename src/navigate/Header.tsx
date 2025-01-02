@@ -24,6 +24,7 @@ import { changeProfileImage } from 'src/stateSlices/profileImageSlice'
 import { User } from 'firebase/auth';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import Avatars from 'src/muiComponents/Avatars'
+import staticImg from 'src/assets/blue01.png';
 
 // const Puller = styled('div')(({ theme }) => ({
 //     width: 30,
@@ -41,16 +42,10 @@ import Avatars from 'src/muiComponents/Avatars'
 interface Props {
     userObj: User | null
 }
-const cli = new QueryClient({
-    defaultOptions: {
-        queries: {
-            suspense: true,
-        },
-    }
-})
+
 const Header = ({ userObj }: Props) => {
-    const bottomNavigation = useSelector(state => state.bottomNavigation.value)
-    const profileUrl = useSelector(state => state.profileUrl.value)
+    const bottomNavigation = useSelector(state => state.bottomNavigation)
+    // const profileUrl = useSelector(state => state.profileUrl.value)
     const profileColor = useSelector(state => state.profileColor.value)
     const profileImage = useSelector(state => state.profileImage.value)
     const [sideNavigation, setSideNavigation] = useState(false)
@@ -73,7 +68,7 @@ const Header = ({ userObj }: Props) => {
             // document.querySelector('#navigationSelectorTwo')?.classList.add('fixed', 'top-0', 'z-10', 'bg-light-3', 'dark:bg-dark-3')
             // document.querySelector('#contentSelector')?.classList.add('pt-16')
         } else {
-            // setScroll('')
+            setScroll('')
             // user has scrolled down
             // document.querySelector('#navigationSelectorOne')?.classList.remove('overflow-hidden', 'fixed', 'top-0', 'z-20', 'bg-light-3', 'dark:bg-dark-3')
             // document.querySelector('#navigationSelectorTwo')?.classList.remove('fixed', 'top-0', 'z-10', 'bg-light-3', 'dark:bg-dark-3')
@@ -90,18 +85,6 @@ const Header = ({ userObj }: Props) => {
             getDownloadURL(ref(storage, `${userObj?.uid}`))
             .then((url) => {
                 dispatch(changeProfileUrl(url))
-                // if (!profileUrl) {
-                //     if (url) {
-                //         dispatch(changeProfileImage(url))
-                //     } else {
-                //         dispatch(changeProfileImage('null'))
-                //     }
-                // }
-                // if (url) {
-                //     dispatch(changeProfileUrl(url))
-                // } else {
-                //     dispatch(changeProfileUrl(''))
-                // }
             })
             .catch((error) => {
                 console.log(error)
@@ -120,7 +103,7 @@ const Header = ({ userObj }: Props) => {
         }
         setProfile()
     }, [userObj])
-    // console.log(profileColor)
+
     return (
         <div>
             <div className={scroll}>
@@ -133,34 +116,18 @@ const Header = ({ userObj }: Props) => {
                                     handleSideNavigation()
                                 }}>
                                     {userObj ? 
-                                        <Avatars profile={false} profileColor={profileColor} profileImage={profileImage} fallback={userObj?.displayName[0]}/>
-                                    : 
-                                        <Avatar sx={{ bgcolor: '#2196f3' }} onClick={() => {
-                                            handleSideNavigation()
-                                        }} variant="rounded" />
+                                        <Avatars profile={false} profileColor={profileColor} profileImage={profileImage} fallback={userObj.displayName ? userObj.displayName[0] : ''}/>
+                                        : 
+                                        <Avatars profile={false} profileColor={'profile-blue'} profileImage={staticImg} fallback={''}/>
+                                        // <Avatar sx={{ bgcolor: '#2196f3' }} onClick={() => {
+                                        //     handleSideNavigation()
+                                        // }} variant="rounded" />
                                     }
                                 </div>
                                 :
                                 <div>loading</div>
                             }
                         </div>
-                        {/* {userObj ?
-                            <div>
-                                {profileImage ?
-                                    <div onClick={() => {
-                                        handleSideNavigation()
-                                    }}>
-                                        <Avatars profile={false} profileColor={profileColor} profileImage={profileImage} fallback={userObj.displayName[0]}/>
-                                    </div>
-                                    :
-                                    <div>loading</div>
-                                }
-                            </div>
-                            :
-                            <Avatar sx={{ bgcolor: '#2196f3' }} onClick={() => {
-                                handleSideNavigation()
-                            }} variant="rounded" />
-                        } */}
                     </div>
                     <div>
                         {userObj && bottomNavigation === 0 && 
@@ -177,7 +144,6 @@ const Header = ({ userObj }: Props) => {
                                                     onClick={() => dispatch(change())}
                                                 />
                                             } 
-                                            // label="카드" 
                                             label={<CreditCard/>} 
                                         />
                                         <Divider sx={{width: '100%'}} />
@@ -191,7 +157,6 @@ const Header = ({ userObj }: Props) => {
                                                     onClick={() => dispatch(changeMessageAccordion())}
                                                 />
                                             } 
-                                            // label="메세지" 
                                             label={<MessageCircle/>} 
                                         />
                                         <Divider sx={{width: '100%'}} />

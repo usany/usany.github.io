@@ -102,7 +102,7 @@ const ProfileConnects = ({
   
   return (
     <div>
-      <div className='flex justify-center'>
+      <div className='flex justify-center pt-10'>
         {followButton ?
         <Button variant='outlined' sx={{overflow: 'hidden'}} onClick={() => {
           followUser(user.uid)

@@ -5,7 +5,7 @@ import ProfileAvatar from 'src/muiComponents/ProfileAvatar'
 import ProfileCards from 'src/muiComponents/ProfileCards'
 import ProfileActions from 'src/muiComponents/ProfileActions'
 import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
-import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnapshot, updateDoc, setDoc } from 'firebase/firestore';
+// import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnapshot, updateDoc, setDoc } from 'firebase/firestore';
 import { BrowserRouter, Routes, Route, useNavigate, Link, useLocation } from 'react-router-dom'
 import { useImmer } from "use-immer"
 import { useSelector, useDispatch } from 'react-redux'
@@ -13,6 +13,8 @@ import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
 import { User } from 'firebase/auth'
 // import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 // import Skeleton from '@mui/material/Skeleton';
+import { getAuth, deleteUser } from "firebase/auth";
+import { doc, deleteDoc } from "firebase/firestore";
 
 interface Props {
   userObj: User,
@@ -33,7 +35,7 @@ function Profile({ userObj }: Props) {
     }
   ])
   // const profileImage = useSelector(state => state.profileImage.value)
-
+  const user = getAuth().currentUser;
   const handleFollowers = ({ number, list }) => {
     setAlliesCollection((draft) => {
       const followers = draft.find((todo) => todo.id === 'followers');
@@ -47,6 +49,7 @@ function Profile({ userObj }: Props) {
     })
   }
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   useEffect(() => {
     const bringAllies = async () => {
@@ -100,6 +103,18 @@ function Profile({ userObj }: Props) {
   // } satisfies ChartConfig
   // const totalNumber = actions.reduce((acc, curr) => acc + curr.number, 0)
   // const ProfileAvatar = lazy(() => import("src/muiComponents/ProfileAvatar"))
+  console.log(user)
+  const delist = async () => {
+    await deleteDoc(doc(dbservice, `members/${userObj.uid}`));
+    deleteUser(user).then(() => {
+      console.log(user)
+      // User deleted.
+    }).catch((error) => {
+      // An error ocurred
+      // ...
+    });
+    navigate('/')
+  }
   return (
     <div>
       <PageTitle title={`${state.element.uid === userObj.uid ? '내' : state.element.displayName} 프로필`}/>
@@ -110,9 +125,11 @@ function Profile({ userObj }: Props) {
       <AvatarDialogs userObj={userObj} profileDialog={profileDialog} attachment={attachment} changeAttachment={(newState: string) => setAttachment(newState)}  handleClose={handleClose} />
       <ProfileActions userObj={userObj} user={state.element} alliesCollection={alliesCollection} handleFollowers={handleFollowers} handleFollowings={handleFollowings}/>
       <ProfileCards user={state.element} alliesCollection={alliesCollection}/>
-      <div className='flex justify-center'>
-        회원 탈퇴
-      </div>
+      {state.element.uid === userObj.uid && 
+        <div className='flex justify-center' onClick={delist}>
+          회원 탈퇴
+        </div>
+      }
       {/* {profileImage ?
         :
         <div className='w-screen px-5'>

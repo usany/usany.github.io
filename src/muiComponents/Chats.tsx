@@ -11,6 +11,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { User } from 'firebase/auth';
 import { changeNewMessage, changeNewMessageTrue, changeNewMessageFalse } from 'src/stateSlices/newMessageSlice'
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import Chip from '@mui/material/Chip';
 
 interface Props {
   userObj: User
@@ -18,158 +19,72 @@ interface Props {
   handleChattings: ({}) => void
 }
 
-const ChattingStacks = ({ userObj, chattings, handleChattings }: Props) => {
-  // const [chattings, setChattings] = useState({})
-  const newMessage = useSelector(state => state.newMessage.value)
-  // const dispatch = useDispatch()
+const Chats = ({ userObj, profileUrl, conversation, displayName, chattingUid, multiple, clock, message }: Props) => {
+  let messageAmpm
+  let messageHours = clock.getHours()
+  let messageMonth = (clock.getMonth()+1).toString()
+  let messageDate = (clock.getDate()).toString()
+  if (messageHours >= 13) {
+    messageAmpm = '오후'
+    if (messageHours !== 12) {
+      messageHours = messageHours-12
+    }
+  } else {
+    messageAmpm = '오전'
+    if (messageHours === 0) {
+      messageHours = messageHours+12
+    }
+  }
+  if (clock.getMonth() < 10) {
+    messageMonth = '0'+messageMonth
+  } 
+  if (messageDate.length === 1) {
+    messageDate = '0'+messageDate
+  } 
 
-  useEffect(() => {
-    const myChatting = async () => {
-      const myDocRef = doc(dbservice, `members/${userObj.uid}`)
-      const myDocSnap = await getDoc(myDocRef)
-      const myConversation = myDocSnap.data()?.chattings || {}
-      handleChattings(myConversation)
-    }
-    if (newMessage) {
-      myChatting()
-      // handleNewMessageFalse()
-    }
-  }, [newMessage])
-
-  useEffect(() => {
-    if (!webSocket) return;
-    function sMessageCallback(message) {
-      const { msg, userUid, id, target, messageClock, messageClockNumber, conversation, conversationUid, conversationName } = message;
-      let userOne
-      let userTwo
-      let userOneDisplayName
-      let userTwoDisplayName
-      if (userUid < conversationUid) {
-        userOne = userUid
-        userTwo = conversationUid
-        userOneDisplayName = id
-        userTwoDisplayName = conversationName
-      } else {
-        userOne = conversationUid
-        userTwo = userUid
-        userOneDisplayName = conversationName
-        userTwoDisplayName = id
-      }
-      const replaceObj = {userUid: userUid, userName: id, userOne: userOne, userOneDisplayName: userOneDisplayName, userTwo: userTwo, userTwoDisplayName: userTwoDisplayName, message: msg, messageClock: messageClock, messageClockNumber: messageClockNumber}      // const location = chats.map((element) => element.conversation).indexOf(conversation)
-      const newChattings = {...chattings, [conversation]: replaceObj}
-      // setChattings(newChattings)
-      handleChattings(newChattings)
-    }
-    sortedMyConversationUid.map((element) => {
-      webSocket.on(`sMessage${element}`, sMessageCallback);
-      return () => {
-        webSocket.off(`sMessage${element}`, sMessageCallback);
-      };
-    })
-  }, [chattings]);
-  useEffect(() => {
-    if (!webSocket) return;
-    function sNewMessageCallback(message) {
-      const { msg, userUid, id, target, messageClock, messageClockNumber, conversation, conversationUid, conversationName } = message;
-      let userOne
-      let userTwo
-      let userOneDisplayName
-      let userTwoDisplayName
-      if (userUid < conversationUid) {
-        userOne = userUid
-        userTwo = conversationUid
-        userOneDisplayName = id
-        userTwoDisplayName = conversationName
-      } else {
-        userOne = conversationUid
-        userTwo = userUid
-        userOneDisplayName = conversationName
-        userTwoDisplayName = id
-      }
-      const replaceObj = {userUid: userUid, userName: id, userOne: userOne, userOneDisplayName: userOneDisplayName, userTwo: userTwo, userTwoDisplayName: userTwoDisplayName, message: msg, messageClock: messageClock, messageClockNumber: messageClockNumber}
-      const newChattings = {...chattings, [conversation]: replaceObj}
-      // setChattings(newChattings)
-      handleChattings(newChattings)
-    }
-    webSocket.on(`sNewMessage`, sNewMessageCallback);
-    return () => {
-      webSocket.off(`sNewMessage`, sNewMessageCallback);
-    };
-  });
-
-  const sortedMyConversationUid = Object.keys(chattings).sort((elementOne, elementTwo) => {return chattings[elementTwo].messageClockNumber-chattings[elementOne].messageClockNumber})
-  
   return (
-    <>
-      {sortedMyConversationUid.map((element, index) => {
-        if (chattings[element]) {
-          let displayName
-          let chattingUid
-          if (userObj.uid === chattings[element].userOne) {
-            displayName = chattings[element].userTwoDisplayName
-            chattingUid = chattings[element].userTwo
-          } else {
-            displayName = chattings[element].userOneDisplayName
-            chattingUid = chattings[element].userOne
-          } 
-          
-          return (
-            <Card key={index} sx={{ flexGrow: 1, overflow: 'hidden' }}>
-              <CardActionArea>
-                <Link to='/piazza' state={{
-                  conversation: element, displayName: displayName, userUid: userObj.uid, chattingUid: chattingUid, multiple: false,
-                }}>
-                  <div className='flex p-3'>
-                    <div className=''>
-                      <Avatar>
-                        <AvatarImage src="https://github.com/shadcn.png" />
-                        {/* <AvatarFallback className="leading-1 flex size-full items-center justify-center bg-white text-[15px] font-medium text-violet11">CN</AvatarFallback> */}
-                        <AvatarFallback>CN</AvatarFallback>
-                      </Avatar>
-                    </div>
-                    {/* <div className='px-3'>{chattings[element]?.message}</div> */}
-                    {/* <Typography noWrap>{chattings[element]?.message}</Typography> */}
-                    <div className='flex flex-col w-screen'>
-                      <div className='flex justify-between'>
-                        <div className='px-3 w-1/2 overflow-hidden'>{userObj.uid === chattings[element].userOne ? chattings[element].userTwoDisplayName : chattings[element].userOneDisplayName}</div>
-                        <div>{chattings[element].messageClock} {chattings[element].messageClockNumber}</div>
-                        {/* <div>{chattings[element].messageClockNumber}</div> */}
-                      </div>
-                      <div className='flex px-3'>
-                        {/* <Avatar>
-                          <AvatarImage src="https://github.com/shadcn.png" />
-                          <AvatarFallback className="leading-1 flex size-full items-center justify-center bg-white text-[15px] font-medium text-violet11">CN</AvatarFallback>
-                          <AvatarFallback>CN</AvatarFallback>
-                        </Avatar> */}
-                        <div>{chattings[element]?.message}</div>
-                        {/* <Typography noWrap>{chattings[element]?.message}</Typography> */}
-                      </div>
-                    </div>
+    <Card sx={{ flexGrow: 1, overflow: 'hidden' }}>
+      <CardActionArea>
+        <Link to='/piazza' state={{
+          conversation: conversation, 
+          displayName: displayName, 
+          userUid: userObj.uid, 
+          chattingUid: chattingUid,
+          multiple: false,
+        }}>
+          <div className='flex p-3'>
+            <div className=''>
+              <Avatar>
+                <AvatarImage src={multiple ? "https://github.com/shadcn.png" : profileUrl} />
+                <AvatarFallback>{multiple ? "CN" : displayName[0]}</AvatarFallback>
+                {/* {multiple ? 
+                  :
+                  <AvatarImage src={profileUrl} />
+                  <AvatarFallback>CN</AvatarFallback>
+                } */}
+              </Avatar>
+            </div>
+            <div className='flex flex-col w-screen'>
+              <div className='flex justify-between'>
+                <div className='px-3'>단체 대화</div> 
+                <div className='flex flex-col px-3'>
+                  <div className='flex justify-end'>{clock.getFullYear()}-{messageMonth}-{messageDate} {messageAmpm} {messageHours}:{clock.getMinutes()}</div>
+                </div>
+              </div>
+              <div className='flex justify-between px-3'>
+                <div>{message?.message}</div>
+                {message?.piazzaChecked.indexOf(userObj.uid) === -1 &&
+                  <div>
+                    <Chip sx={{height: '20px'}} label={'새 대화'} color='primary'/>
                   </div>
-                </Link>
-              </CardActionArea>
-            </Card>
-          )
-        }
-      })}
-      {/* {chats.map((element, index) => {
-        return (
-          <Card key={index} sx={{ flexGrow: 1, overflow: 'hidden' }}>
-            <CardActionArea>
-              <Link to='/chatting' state={{
-                conversation: element.conversation, displayName: element.userDisplayName, userUid: userObj.uid, chattingUid: element.conversationUid
-              }}>
-                <Stack spacing={2} direction="column" sx={{ flexGrow: 1, overflow: 'hidden', p: 1 }}>
-                  <div>chatting {element.userDisplayName}</div>
-                  <Typography noWrap>{element?.message}</Typography>
-                </Stack>
-              </Link>
-            </CardActionArea>
-          </Card>
-        )
-      })} */}
-    </>
+                }
+              </div>
+            </div>
+          </div>
+        </Link>
+      </CardActionArea>
+    </Card>
   );
 }
 
-export default ChattingStacks
+export default Chats

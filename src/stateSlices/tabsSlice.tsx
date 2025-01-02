@@ -11,7 +11,7 @@ const tabsReducer = createSlice({
   initialState,
   reducers: {
     changeTabs: (state, action: PayloadAction<number>) => {
-      state = action.payload
+      return (state = action.payload)
     },
   }
 })
