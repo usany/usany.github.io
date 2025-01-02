@@ -43,32 +43,6 @@ function AddSteppers({ addSteps, handleAddSteps, borrow }: Props) {
                         </Step>
                     )
                 })}
-                {/* {borrow ? stepsCollection[0].map((label, index) => {
-                    return (
-                        <Step key={index}>
-                            <StepLabel>
-                                {label.map((element, index) => {
-                                    return (
-                                        <div key={index}>{element}</div>
-                                    )
-                                })}
-                            </StepLabel>
-                        </Step>
-                    )
-                }) :
-                stepsCollection[1].map((label, index) => {
-                    return (
-                        <Step key={index}>
-                            <StepLabel>
-                                {label.map((element, index) => {
-                                    return (
-                                        <div key={index}>{element}</div>
-                                    )
-                                })}
-                            </StepLabel>
-                        </Step>
-                    )
-                })} */}
             </Stepper>
         </div>
     )
