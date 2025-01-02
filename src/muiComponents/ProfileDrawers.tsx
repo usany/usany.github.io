@@ -28,7 +28,7 @@ const ProfileDrawers = ({ user, cards, followers, alliesCollection, selection })
       const messageSnap = await getDocs(messageRef)
       messageSnap.forEach((doc) => {
         const cardId = doc.id
-        if (cards?.done.indexOf(cardId) !== -1) {
+        if ((cards?.done || []).indexOf(cardId) !== -1) {
           const card = doc.data()
           messagesArray.push(card)
           setMessages(messagesArray)

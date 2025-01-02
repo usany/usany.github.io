@@ -150,6 +150,30 @@ const ChattingStacks = ({ userObj, chattings, handleChattings }: Props) => {
   return (
     <>
       {sortedMyConversationUid.map((element, index) => {
+        const clock = new Date(chattings[element].messageClock)
+        let messageAmpm
+        let messageHours = clock.getHours()
+        let messageMonth = (clock.getMonth()+1).toString()
+        let messageDate = (clock.getDate()).toString()
+        if (messageHours >= 13) {
+          messageAmpm = '오후'
+          if (messageHours !== 12) {
+            messageHours = messageHours-12
+          }
+        } else {
+          messageAmpm = '오전'
+          if (messageHours === 0) {
+            messageHours = messageHours+12
+          }
+        }
+        if (clock.getMonth() < 10) {
+          messageMonth = '0'+messageMonth
+        } 
+        if (messageDate.length === 1) {
+          messageDate = '0'+messageDate
+        } 
+      
+
         if (chattings[element]) {
           let displayName
           let chattingUid
@@ -186,7 +210,8 @@ const ChattingStacks = ({ userObj, chattings, handleChattings }: Props) => {
                     <div className='flex flex-col w-screen'>
                       <div className='flex px-3 justify-between'>
                         <div className='w-1/2 overflow-hidden'>{userObj.uid === chattings[element].userOne ? chattings[element].userTwoDisplayName : chattings[element].userOneDisplayName}</div>
-                        <div>{chattings[element].messageClock} {chattings[element].messageClockNumber}</div>
+                        <div className='flex justify-end'>{clock.getFullYear()}-{messageMonth}-{messageDate} {messageAmpm} {messageHours}:{clock.getMinutes()}</div>
+                        {/* <div>{clock.getFullYear()}.{clock.getMonth()}.{clock.getDate()} {chattings[element].messageClockNumber}</div> */}
                         {/* <div>{chattings[element].messageClockNumber}</div> */}
                       </div>
                       <div className='flex px-3 justify-between'>

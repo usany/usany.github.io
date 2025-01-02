@@ -58,7 +58,7 @@ const Header = ({ userObj }: Props) => {
         setSideNavigation(!sideNavigation)
     }
     const storage = getStorage();
-    const [scroll, setScroll] = useState('')
+    const [scroll, setScroll] = useState('bg-light-3 dark:bg-dark-3')
     const cardAccordion = useSelector(state => state.cardAccordion.value)
     const messageAccordion = useSelector(state => state.messageAccordion.value)
     const dispatch = useDispatch()
@@ -67,17 +67,20 @@ const Header = ({ userObj }: Props) => {
         // current scroll position
         const currentScrollPos = window.scrollY;
         if (prevScrollPos >= currentScrollPos) {
-            setScroll('overflow-hidden h-28 fixed top-0 z-20 bg-light-3 dark:bg-dark-3')
+            setScroll('fixed z-20 bg-light-3 dark:bg-dark-3')
             // user has scrolled up
             // document.querySelector('#navigationSelectorOne')?.classList.add('overflow-hidden fixed top-0 z-20 bg-light-3 dark:bg-dark-3')
             // document.querySelector('#navigationSelectorTwo')?.classList.add('fixed', 'top-0', 'z-10', 'bg-light-3', 'dark:bg-dark-3')
             // document.querySelector('#contentSelector')?.classList.add('pt-16')
         } else {
-            setScroll('')
+            // setScroll('')
             // user has scrolled down
             // document.querySelector('#navigationSelectorOne')?.classList.remove('overflow-hidden', 'fixed', 'top-0', 'z-20', 'bg-light-3', 'dark:bg-dark-3')
             // document.querySelector('#navigationSelectorTwo')?.classList.remove('fixed', 'top-0', 'z-10', 'bg-light-3', 'dark:bg-dark-3')
             // document.querySelector('#contentSelector')?.classList.remove('pt-16')
+        }
+        if (currentScrollPos === 0) {
+            setScroll('bg-light-3 dark:bg-dark-3')
         }
         // update previous scroll position
         prevScrollPos = currentScrollPos;
@@ -119,7 +122,7 @@ const Header = ({ userObj }: Props) => {
     }, [userObj])
     // console.log(profileColor)
     return (
-        <div className='h-24 overflow-hidden'>
+        <div>
             <div className={scroll}>
                 <Navigation userObj={userObj} handleSideNavigation={handleSideNavigation} sideNavigation={sideNavigation} />
                 <div className='flex justify-between w-screen'>

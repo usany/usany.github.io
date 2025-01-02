@@ -86,6 +86,29 @@ const MessageStacks = ({ userObj, piazzaSwitch }: Props) => {
     }
   }
   console.log(piazzaMessage)
+  const clock = new Date(piazzaMessage?.messageClock)
+  let messageAmpm
+  let messageHours = clock.getHours()
+  let messageMonth = (clock.getMonth()+1).toString()
+  let messageDate = (clock.getDate()).toString()
+  if (messageHours >= 13) {
+    messageAmpm = '오후'
+    if (messageHours !== 12) {
+      messageHours = messageHours-12
+    }
+  } else {
+    messageAmpm = '오전'
+    if (messageHours === 0) {
+      messageHours = messageHours+12
+    }
+  }
+  if (clock.getMonth() < 10) {
+    messageMonth = '0'+messageMonth
+  } 
+  if (messageDate.length === 1) {
+    messageDate = '0'+messageDate
+  } 
+  
   return (
     <>
       {piazzaSwitch === 'true' && <Card sx={{ flexGrow: 1, overflow: 'hidden' }}>
@@ -103,7 +126,11 @@ const MessageStacks = ({ userObj, piazzaSwitch }: Props) => {
                 <div className='flex justify-between'>
                   <div className='px-3'>단체 대화</div> 
                   {/* <div className='px-3'>{piazzaMessage?.username}</div> */}
-                  <div>{piazzaMessage?.messageClock}</div>
+                  <div className='flex flex-col px-3'>
+                    <div className='flex justify-end'>{clock.getFullYear()}-{messageMonth}-{messageDate} {messageAmpm} {messageHours}:{clock.getMinutes()}</div>
+                    {/* <div className='flex justify-end'>{clock.getFullYear()}-{messageMonth}-{messageDate}</div> */}
+                    {/* <div>{piazzaMessage?.messageClock}</div> */}
+                  </div>
                 </div>
                 <div className='flex justify-between px-3'>
                   {/* <Avatar>
