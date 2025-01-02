@@ -64,9 +64,9 @@ function Navigations({ userObj }: Props) {
                         navigate('/')
                     }}
                 >
-                    <BottomNavigationAction label={'빌리기 목록'} icon={<Checklist />}/>
+                    <BottomNavigationAction label={'등록'} icon={<Checklist />}/>
                     <BottomNavigationAction label={'로그인'} icon={<BeachAccess />}/>
-                    <BottomNavigationAction label={'빌려주기 목록'} icon={<ChecklistRtl />}/>
+                    <BottomNavigationAction label={'게시판'} icon={<ChecklistRtl />}/>
                 </BottomNavigation>
             }
         </div>

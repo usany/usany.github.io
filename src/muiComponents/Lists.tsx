@@ -6,6 +6,8 @@ import IconButton from '@mui/material/IconButton';
 import { Link } from 'react-router-dom'
 import Avatars from 'src/muiComponents/Avatars'
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { MessageCircle, Minimize2, Maximize2, Captions, Bike, Ellipsis, ChevronRight } from "lucide-react"
+import staticImg from 'src/assets/pwa-512x512.png';
 
 function Lists({ elements, multiple, userSearch }) {
 
@@ -53,48 +55,57 @@ function Lists({ elements, multiple, userSearch }) {
           }
           if (userNameConfirm) {
             return (
-              <div key={index}>
-                <div className={`flex justify-between w-screen p-3 ranking-${multiple? index+1 : element.rank}`}>
-                  <div className='flex'>
-                    {!multiple ? 
-                      <div className='flex flex-col justify-center px-5 w-20'>
-                        {element.rank}
-                      </div>
-                    :
-                      <div className='flex flex-col justify-center px-5 w-20'>
-                        {index+1}
-                      </div>
-                    }
-                    <Avatar className={`bg-${profileColor?.indexOf('#') === -1 ? element?.profileColor : 'profile-blue'}`}>
-                      <AvatarImage src={element?.profileImageUrl} />
-                      <AvatarFallback className='text-xl border-none	'>{element?.displayName[0]}</AvatarFallback>
-                    </Avatar>
-                    {/* <Avatars profile={false} profileColor={'profile-blue'} profileImage={element?.profileImageUrl || 'null'} fallback={element.displayName[0]}/> */}
-                    {/* {element?.profileImageUrl && 
-                      <Avatar alt={element.displayName} sx={{ bgcolor: element.profileColor || '#2196f3' }} src={element?.profileImageUrl || './src'} variant="rounded" />
-                    }
-                    {!element?.profileImageUrl && 
-                      <Avatar alt={element.displayName} sx={{ bgcolor: element.profileColor || '#2196f3' }} src={'./src'} variant="rounded" />
-                    } */}
-                    <div className='flex flex-col overflow-hidden px-10 w-48'>
-                      <div className='overflow-hidden'>
-                        {element.displayName}
-                      </div>
-                      <div className='overflow-hidden'>
-                        {element.points}
+              <div key={index} className='px-3 pt-3'>
+                <Link to='/profile'
+                  state = {{
+                    element: element,
+                  }}
+                >
+                  <div className={`flex w-full justify-between p-3 ranking-${multiple? index+1 : element.rank}`}>
+                    <div className='flex'>
+                      {!multiple ? 
+                        <div className='flex flex-col justify-center px-5 w-20'>
+                          {element.rank}
+                        </div>
+                      :
+                        <div className='flex flex-col justify-center px-5 w-20'>
+                          {index+1}
+                        </div>
+                      }
+                      <Avatar className={`bg-${profileColor?.indexOf('#') === -1 ? element?.profileColor : 'profile-blue'}`}>
+                        <AvatarImage src={element?.profileImageUrl} />
+                        <AvatarFallback className='text-xl border-none'>{element?.displayName[0]}</AvatarFallback>
+                      </Avatar>
+                      {/* <Avatars profile={false} profileColor={'profile-blue'} profileImage={element?.profileImageUrl || 'null'} fallback={element.displayName[0]}/> */}
+                      {/* {element?.profileImageUrl && 
+                        <Avatar alt={element.displayName} sx={{ bgcolor: element.profileColor || '#2196f3' }} src={element?.profileImageUrl || './src'} variant="rounded" />
+                      }
+                      {!element?.profileImageUrl && 
+                        <Avatar alt={element.displayName} sx={{ bgcolor: element.profileColor || '#2196f3' }} src={'./src'} variant="rounded" />
+                      } */}
+                      <div className='flex flex-col overflow-hidden px-10 w-48'>
+                        <div className='overflow-hidden'>
+                          {element.displayName}
+                        </div>
+                        <div className='overflow-hidden'>
+                          {element.points}
+                        </div>
                       </div>
                     </div>
+                    {/* <div className='flex flex-col justify-center'>
+                      <ChevronRight />
+                    </div> */}
+                    {/* <IconButton aria-label="comment">
+                      <Link to='/profile'
+                        state = {{
+                          element: element,
+                        }}
+                      >
+                        <CommentIcon />
+                      </Link>
+                    </IconButton> */}
                   </div>
-                  <IconButton aria-label="comment">
-                    <Link to='/profile'
-                      state = {{
-                        element: element,
-                      }}
-                    >
-                      <CommentIcon />
-                    </Link>
-                  </IconButton>
-                </div>
+                </Link>
                 <Divider variant="inset" />
               </div>
             )

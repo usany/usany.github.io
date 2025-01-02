@@ -35,7 +35,6 @@ const alpha = Array.from(Array(26)).map((e, i) => i + 65);
 const letters = alpha.map((x) => String.fromCharCode(x));
 const numbers = Array.from({ length: 10 }, (e, i) => `${i}`)
 const mergedArray = letters.concat(numbers)
-// const shadowColor = shadowColorArray[mergedArray.indexOf(String(msgObj.id[0]).toUpperCase())%shadowColorArray.length];
 
 const Cards = ({ 
   msgObj,
@@ -46,25 +45,6 @@ const Cards = ({
 }: Props) => {
   const [staticImage, setStaticImage] = useState('')
   const shadowColor = shadowColorArray[mergedArray.indexOf(String(msgObj.id[0]).toUpperCase())%shadowColorArray.length];
-  // const shadowColorArray = [
-  //   'lightblue', 
-  //   'lightcoral',
-  //   'lightcyan',
-  //   'lightgoldenrodyellow',
-  //   'lightgray',
-  //   'lightgreen', 
-  //   'lightpink',
-  //   'lightsalmon',
-  //   'lightseagreen',
-  //   'lightskyblue',
-  //   'lightsteelblue', 
-  //   'lightyellow'
-  // ]
-  // const alpha = Array.from(Array(26)).map((e, i) => i + 65);
-  // const letters = alpha.map((x) => String.fromCharCode(x));
-  // const numbers = Array.from({ length: 10 }, (e, i) => `${i}`)
-  // const mergedArray = letters.concat(numbers)
-  
   useEffect(() => {
     if (msgObj.text.count === '중도') {
       setStaticImage(staticImageJ)

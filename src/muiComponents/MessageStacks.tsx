@@ -85,9 +85,30 @@ const MessageStacks = ({ userObj, piazzaSwitch }: Props) => {
       })
     }
   }
-  console.log(piazzaMessage)
+  // console.log(piazzaMessage)
   const clock = new Date(piazzaMessage?.messageClock)
-
+  let messageAmpm
+  let messageHours = clock.getHours()
+  let messageMonth = (clock.getMonth()+1).toString()
+  let messageDate = (clock.getDate()).toString()
+  if (messageHours >= 13) {
+    messageAmpm = '오후'
+    if (messageHours !== 12) {
+      messageHours = messageHours-12
+    }
+  } else {
+    messageAmpm = '오전'
+    if (messageHours === 0) {
+      messageHours = messageHours+12
+    }
+  }
+  if (clock.getMonth() < 10) {
+    messageMonth = '0'+messageMonth
+  } 
+  if (messageDate.length === 1) {
+    messageDate = '0'+messageDate
+  } 
+  
   return (
     <>
       {piazzaSwitch === 'true' && <Card sx={{ flexGrow: 1, overflow: 'hidden' }}>
@@ -98,37 +119,22 @@ const MessageStacks = ({ userObj, piazzaSwitch }: Props) => {
             <div className='flex p-3' onClick={checkedPiazza}>
               <Avatar>
                 <AvatarImage src="https://github.com/shadcn.png" />
-                {/* <AvatarFallback className="leading-1 flex size-full items-center justify-center bg-white text-[15px] font-medium text-violet11">CN</AvatarFallback> */}
                 <AvatarFallback>CN</AvatarFallback>
               </Avatar>
               <div className='flex flex-col w-screen'>
                 <div className='flex justify-between'>
                   <div className='px-3'>단체 대화</div> 
-                  {/* <div className='px-3'>{piazzaMessage?.username}</div> */}
-                  <div className='flex flex-col'>
-                    <div className='flex justify-end'>{clock.getHours()}:{clock.getMinutes()}</div>
-                    <div className='flex justify-end'>{clock.getFullYear()}-{clock.getMonth()}-{clock.getDate()}</div>
-                    <div>{piazzaMessage?.messageClock}</div>
+                  <div className='flex flex-col px-3'>
+                    <div className='flex justify-end'>{clock.getFullYear()}-{messageMonth}-{messageDate} {messageAmpm} {messageHours}:{clock.getMinutes()}</div>
                   </div>
                 </div>
                 <div className='flex justify-between px-3'>
-                  {/* <Avatar>
-                      <AvatarImage src="https://github.com/shadcn.png" />
-                      <AvatarFallback className="leading-1 flex size-full items-center justify-center bg-white text-[15px] font-medium text-violet11">CN</AvatarFallback>
-                      <AvatarFallback>CN</AvatarFallback>
-                  </Avatar> */}
                   <div>{piazzaMessage?.message}</div>
                   {piazzaMessage?.piazzaChecked.indexOf(userObj.uid) === -1 &&
                     <div>
                       <Chip sx={{height: '20px'}} label={'새 대화'} color='primary'/>
                     </div>
                   }
-                  {/* <Chip sx={{height: '20px'}} label={'새 대화'} color='primary'/> */}
-                  {/* <Typography noWrap>{piazzaMessage?.message}</Typography> */}
-                  {/* <div>{piazzaMessage?.messageClock}</div> */}
-                  {/* <div className='px-3'>
-                    <div>단체 대화 {piazzaMessage?.username}</div>
-                  </div> */}
                 </div>
               </div>
             </div>
