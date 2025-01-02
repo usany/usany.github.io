@@ -44,7 +44,6 @@ function Lists({ elements, multiple, userSearch }) {
       <div className='bg-light-3 dark:bg-dark-3'>
         {elements.map((element, index) => {
           const profileColor = element?.profileColor
-          // console.log(profileColor)
           let userNameConfirm = true
           if (userSearch) {
             for (let number = 0; number < userSearch.length; number++) {
