@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react'
-import Dialog from '@mui/material/Dialog';
-import DialogContent from '@mui/material/DialogContent';
+// import Dialog from '@mui/material/Dialog';
+// import DialogContent from '@mui/material/DialogContent';
 import Button from '@mui/material/Button';
 import { auth, onSocialClick, dbservice } from 'src/baseApi/serverbase'
 import { doc, getDoc, getDocs, setDoc, collection, where, query, deleteDoc } from 'firebase/firestore';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+// import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {
     Drawer,
     DrawerClose,
@@ -22,7 +22,7 @@ import {
     AccordionTrigger,
 } from "@/components/ui/accordion"
 
-const ContactDialogs = ({ handleClose, userObj, }) => {
+const ContactDrawers = ({ userObj }) => {
     const [sendMessages, setSendMessages] = useState([])
     const collectionQuery = query(collection(dbservice, 'violations'))
     const deleteMessage = (value) => {
@@ -30,7 +30,6 @@ const ContactDialogs = ({ handleClose, userObj, }) => {
         const deleting = doc(dbservice, `violations/${value.id}`)
         deleteDoc(deleting)
         alert('지웠습니다')
-        handleClose()
     }
     useEffect(() => {
         const docs = async () => {
@@ -127,4 +126,4 @@ const ContactDialogs = ({ handleClose, userObj, }) => {
     )
 }
 
-export default ContactDialogs
+export default ContactDrawers

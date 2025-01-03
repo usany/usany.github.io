@@ -4,7 +4,7 @@ import { User } from "firebase/auth";
 import { collection, query, where, orderBy, addDoc, getDocs, doc, onSnapshot, updateDoc } from 'firebase/firestore';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import ContactDialogs from 'src/muiComponents/ContactDialogs';
+import ContactDrawers from 'src/muiComponents/ContactDrawers';
 
 interface Props {
   userObj: User
@@ -14,8 +14,6 @@ function ContactForm({ userObj }: Props) {
   const [messageTitle, setMessageTitle] = useState('')
   const [message, setMessage] = useState('')
   const [formFilledOut, setFormFilledOut] = useState(false)
-  const [dialogMove, setDialogMove] = useState(false)
-  const [change, setChange] = useState(false)
   useEffect(() => {
     if (messageTitle && message) {
       setFormFilledOut(true)
@@ -35,7 +33,6 @@ function ContactForm({ userObj }: Props) {
       alert('등록되었습니다')
       setMessageTitle('')
       setMessage('')
-      setChange(true)
     } catch (error) {
       console.log(error)
     }
@@ -53,10 +50,7 @@ function ContactForm({ userObj }: Props) {
     } = event
     setMessageTitle(value)
   }
-  const handleClose = () => {
-    setDialogMove(false)
-  }
-  
+
   return (  
     <>
       <form id='auth'>
@@ -67,10 +61,9 @@ function ContactForm({ userObj }: Props) {
           <TextField label='신고하기 내용' multiline rows={5} value={message} onChange={onChangeMessage} variant="outlined" fullWidth />
         </div>
         <div className='flex justify-center pt-2.5'>
-          {/* <Button variant='outlined' form='auth' onClick={() => setDialogMove(true)}>신고하기 내역</Button> */}
-          <ContactDialogs handleClose={handleClose} userObj={userObj} />
+          <ContactDrawers userObj={userObj} />
           {formFilledOut ?
-            <Button variant='outlined' form='auth' onClick={() => onSubmit()}>전송</Button>
+            <Button variant='outlined' form='auth' onClick={onSubmit}>전송</Button>
           :
             <Button variant='outlined' form='auth' disabled>전송</Button>
           }

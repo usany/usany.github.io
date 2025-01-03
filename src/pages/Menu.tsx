@@ -22,10 +22,9 @@ interface Props {
     userObj: User
 }
 function Menu({ userObj }: Props) {
-    const [messages, setMessages] = useState<Array<object>>([]);
+    const [messages, setMessages] = useState([]);
     const [cardLoaded, setCardLoaded] = useState(false)
     const [accordions, setAccordions] = useState({cards: '', messages: '' })
-    const piazzaSwitch = useSelector<boolean>(state => state.piazzaSwitch.value)
     const cardAccordion = useSelector(state => state.cardAccordion.value)
     const messageAccordion = useSelector(state => state.messageAccordion.value)
     const dispatch = useDispatch()
@@ -85,7 +84,7 @@ function Menu({ userObj }: Props) {
         setCardLoaded(true)
     })
     }, [])
-    console.log(userObj)
+    // console.log(userObj)
     return (
         <div className='flex justify-center flex-col pb-5'>
             <PageTitle title={'내 상태'}/>
@@ -133,7 +132,7 @@ function Menu({ userObj }: Props) {
                         },                      
                     })}>
                         <Suspense fallback={<Skeleton />}>
-                            <MessageStacks userObj={userObj} piazzaSwitch={piazzaSwitch}/>
+                            <MessageStacks userObj={userObj} />
                         </Suspense>
                     </QueryClientProvider>
                     {/* {!piazzaSwitch ? <div className='flex justify-center pt-20'>받은 메세지가 없습니다</div> :
