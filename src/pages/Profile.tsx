@@ -125,9 +125,13 @@ function Profile({ userObj }: Props) {
       <AvatarDialogs userObj={userObj} profileDialog={profileDialog} attachment={attachment} changeAttachment={(newState: string) => setAttachment(newState)}  handleClose={handleClose} />
       <ProfileActions userObj={userObj} user={state.element} alliesCollection={alliesCollection} handleFollowers={handleFollowers} handleFollowings={handleFollowings}/>
       <ProfileCards user={state.element} alliesCollection={alliesCollection}/>
-      {state.element.uid === userObj.uid && 
+      {state.element.uid === userObj.uid ?
         <div className='flex justify-center' onClick={delist}>
           회원 탈퇴
+        </div>
+        :
+        <div className='flex justify-center'>
+          신고하기
         </div>
       }
       {/* {profileImage ?

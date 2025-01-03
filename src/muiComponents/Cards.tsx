@@ -45,6 +45,8 @@ const Cards = ({
 }: Props) => {
   const [staticImage, setStaticImage] = useState('')
   const shadowColor = shadowColorArray[mergedArray.indexOf(String(msgObj.id[0]).toUpperCase())%shadowColorArray.length];
+  const [onMouse, setOnMouse] = useState(false)
+
   useEffect(() => {
     if (msgObj.text.count === '중도') {
       setStaticImage(staticImageJ)
@@ -54,8 +56,20 @@ const Cards = ({
       setStaticImage(staticImg)
     }
   }, [msgObj])
+  useEffect(() => {
+    if (onMouse) {
+      setTimeout(() => console.log('sample'), 5000)
+    }
+  }, [onMouse])
+  console.log(onMouse)
   return (
-    <div className='max-w-60 min-w-20 p-1'>
+    <div className='max-w-60 min-w-20 p-1' 
+      onMouseDown={() => setOnMouse(true)}
+      onMouseUp={() => {
+        console.log('samples')
+        setOnMouse(false)
+      }}
+    >
       <Card
         sx={{
           boxShadow: `1.5px 1.5px 1.5px 1.5px ${shadowColor}`

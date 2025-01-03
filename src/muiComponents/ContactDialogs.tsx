@@ -4,20 +4,31 @@ import DialogContent from '@mui/material/DialogContent';
 import Button from '@mui/material/Button';
 import { auth, onSocialClick, dbservice } from 'src/baseApi/serverbase'
 import { doc, getDoc, getDocs, setDoc, collection, where, query, deleteDoc } from 'firebase/firestore';
-import Accordion from '@mui/material/Accordion';
-import AccordionActions from '@mui/material/AccordionActions';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import {
+    Drawer,
+    DrawerClose,
+    DrawerContent,
+    DrawerDescription,
+    DrawerFooter,
+    DrawerHeader,
+    DrawerTitle,
+    DrawerTrigger,
+} from "@/components/ui/drawer"
+import {
+    Accordion,
+    AccordionContent,
+    AccordionItem,
+    AccordionTrigger,
+} from "@/components/ui/accordion"
 
-const ContactDialogs = ({ move, handleClose, userObj, change, setChange }) => {
-    const [sendMessages, setSendMessages] = useState(null)
+const ContactDialogs = ({ handleClose, userObj, }) => {
+    const [sendMessages, setSendMessages] = useState([])
     const collectionQuery = query(collection(dbservice, 'violations'))
     const deleteMessage = (element) => {
         console.log(element)
         const deleting = doc(dbservice, `violations/${element.id}`)
         deleteDoc(deleting)
-        setChange(true)
         alert('지웠습니다')
         handleClose()
     }
@@ -40,14 +51,47 @@ const ContactDialogs = ({ move, handleClose, userObj, change, setChange }) => {
                 setSendMessages(messagesArray)
             })
         }
-        if (!sendMessages || change) {
-            docs()
-            setChange(false)
-        }
-    })
+        docs()
+    }, [])
 
     return (
-        <Dialog fullWidth={true} open={move} onClose={handleClose}>
+        <div>
+            <Drawer>
+                <DrawerTrigger>
+                    <Button variant='outlined' form='auth'>신고하기 내역</Button>
+                </DrawerTrigger>
+                <DrawerContent className='bg-light-3 dark:bg-dark-3'>
+                  <div className='flex justify-center'>
+                    <div className="bg-light-2 dark:bg-dark-2 h-2 w-[100px] rounded-full bg-muted">
+                        &emsp;
+                    </div>
+                  </div>
+                  <div className='flex justify-center pt-5'>
+                    신고하기 내역
+                  </div>
+                  <div className='p-5'>
+                    {sendMessages.length !== 0 ? sendMessages.map((element, index) => {
+                        return (
+                            <div>
+                                <Accordion type="single" collapsible className="w-full">
+                                    <AccordionItem value={index.toString()}>
+                                        <AccordionTrigger>{element.messageTitle}</AccordionTrigger>
+                                        <AccordionContent>
+                                            <div>{element.message}</div>
+                                            <Button variant='outlined' onClick={() => deleteMessage(element)}>지우기</Button>
+                                        </AccordionContent>
+                                    </AccordionItem>
+                                </Accordion>
+                            </div>
+                        )
+                    })
+                    :
+                    <div>신고하기 내역이 없습니다.</div>
+                  }                
+                  </div>
+                </DrawerContent>
+            </Drawer>
+        {/* <Dialog fullWidth={true} open={move} onClose={handleClose}>
             <DialogContent>
               <div>
                 신고하기 내역
@@ -78,7 +122,8 @@ const ContactDialogs = ({ move, handleClose, userObj, change, setChange }) => {
                   닫기
               </Button>
             </DialogContent>
-        </Dialog>
+        </Dialog> */}
+        </div>
     )
 }
 

@@ -91,6 +91,7 @@ function Navigation({ userObj, sideNavigation, handleSideNavigation }: Props) {
       PaperProps={{
         sx: {
           backgroundColor: {backgroundColor},
+          opacity: 0.9
           // color: {textColor},
           // height: '100%'
         }
@@ -130,7 +131,7 @@ function Navigation({ userObj, sideNavigation, handleSideNavigation }: Props) {
                   </Link>
                 </div>
               </h1>
-              <h1 className='text-2xl	px-5'>
+              <h1 className='text-2xl	px-5 pt-3'>
                 <div className='flex'>
                   <Link to='/ranking' onClick={() => checkbox()}>
                     {/* 유저 랭킹 */}
@@ -141,7 +142,7 @@ function Navigation({ userObj, sideNavigation, handleSideNavigation }: Props) {
                   </Link>
                 </div>
               </h1>
-              <h1 className='text-2xl px-5'>
+              <h1 className='text-2xl px-5 pt-3'>
                 <span className='px-3'><WorkIcon /></span>
                 <Link to='/piazza' 
                   state={{multiple: true}}
@@ -150,7 +151,7 @@ function Navigation({ userObj, sideNavigation, handleSideNavigation }: Props) {
                   단체 대화방
                 </Link>
               </h1>
-              <h1 className='text-2xl	px-5'>
+              <h1 className='text-2xl	px-5 pt-3'>
                 <span className='px-3'><ImageIcon /></span>
                 <Link to='/contact' onClick={() => checkbox()}>신고하기</Link>
               </h1>
@@ -158,7 +159,7 @@ function Navigation({ userObj, sideNavigation, handleSideNavigation }: Props) {
                 <span className='px-3'><WorkIcon /></span>
                 <Link to='/chats' onClick={() => checkbox()}>실험실</Link>
               </h1> */}
-              <h1 className='text-2xl px-5'>
+              <h1 className='text-2xl px-5 pt-3'>
                 <span className='px-3'><Public /></span>
                 <Link to="/" onClick={() => {
                   logOut()

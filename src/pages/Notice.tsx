@@ -68,7 +68,7 @@ function Notice({ userObj, borrow }: Props) {
     <div className='p-5'>
         <div className='flex justify-start text-2xl w-screen'>
             <div className='flex w-5/6'>{borrow ? '빌리기' : '빌려주기'} 카드 목록</div>
-            <div className='flex w-screen justify-end px-10'>
+            <div className='flex w-screen justify-end px-16'>
                 <FilterDialogs 
                     selectedValues={selectedValues} 
                     handleSelectedValues={handleSelectedValues}

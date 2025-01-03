@@ -68,7 +68,7 @@ function ContactForm({ userObj }: Props) {
           <TextField label='신고하기 내용' multiline rows={5} value={message} onChange={onChangeMessage} variant="outlined" fullWidth />
         </div>
         <div className='flex justify-center pt-2.5'>
-          <Button variant='outlined' form='auth' onClick={() => setDialogMove(true)}>신고하기 내역</Button>
+          {/* <Button variant='outlined' form='auth' onClick={() => setDialogMove(true)}>신고하기 내역</Button> */}
           <ContactDialogs move={dialogMove} handleClose={handleClose} userObj={userObj} change={change} setChange={(newState: boolean) => setChange(newState)}/>
           {formFilledOut ?
             <Button variant='outlined' form='auth' onClick={() => onSubmit()}>전송</Button>

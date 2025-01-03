@@ -190,7 +190,7 @@ const ChattingStacks = ({ userObj, chattings, handleChattings }: Props) => {
                 <Link to='/piazza' state={{
                   conversation: element, displayName: displayName, userUid: userObj.uid, chattingUid: chattingUid, multiple: false, profileUrl: profileUrl
                 }}>
-                  <div className='flex p-3' onClick={() => checkedMessage({conversation: element})}>
+                  <div className='flex p-3' onClick={() => checkedMessage({conversation: element})} onContextMenu={() => console.log('practice')}>
                     <Avatar>
                       <AvatarImage src={profileUrl} />
                       {/* <AvatarFallback className="leading-1 flex size-full items-center justify-center bg-white text-[15px] font-medium text-violet11">CN</AvatarFallback> */}
