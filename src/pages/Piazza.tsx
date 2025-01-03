@@ -461,7 +461,7 @@ function Piazza({ userObj }: Props) {
                       messageHours = messageHours+12
                     }
                   }
-                  if (messageMonth < 10) {
+                  if (clock.getMonth()+1 < 10) {
                     messageMonth = '0'+messageMonth
                   } 
                   if (messageDate.length === 1) {
