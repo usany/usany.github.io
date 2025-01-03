@@ -4,7 +4,6 @@ import { User } from "firebase/auth";
 import { collection, query, where, orderBy, addDoc, getDocs, doc, onSnapshot, updateDoc } from 'firebase/firestore';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-// import Chip from '@mui/material/Chip';
 import ContactDialogs from 'src/muiComponents/ContactDialogs';
 
 interface Props {
@@ -59,7 +58,7 @@ function ContactForm({ userObj }: Props) {
   }
   
   return (  
-    <div>
+    <>
       <form id='auth'>
         <div className='flex justify-center pt-5 px-5'>
           <TextField label='신고하기 제목' multiline value={messageTitle} onChange={onChangeMessageTitle} variant="outlined" fullWidth />
@@ -69,7 +68,7 @@ function ContactForm({ userObj }: Props) {
         </div>
         <div className='flex justify-center pt-2.5'>
           {/* <Button variant='outlined' form='auth' onClick={() => setDialogMove(true)}>신고하기 내역</Button> */}
-          <ContactDialogs move={dialogMove} handleClose={handleClose} userObj={userObj} change={change} setChange={(newState: boolean) => setChange(newState)}/>
+          <ContactDialogs handleClose={handleClose} userObj={userObj} />
           {formFilledOut ?
             <Button variant='outlined' form='auth' onClick={() => onSubmit()}>전송</Button>
           :
@@ -77,7 +76,7 @@ function ContactForm({ userObj }: Props) {
           }
         </div>
       </form>
-    </div>
+    </>
   )
 }
 

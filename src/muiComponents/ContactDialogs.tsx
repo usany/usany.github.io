@@ -25,9 +25,9 @@ import {
 const ContactDialogs = ({ handleClose, userObj, }) => {
     const [sendMessages, setSendMessages] = useState([])
     const collectionQuery = query(collection(dbservice, 'violations'))
-    const deleteMessage = (element) => {
-        console.log(element)
-        const deleting = doc(dbservice, `violations/${element.id}`)
+    const deleteMessage = (value) => {
+        console.log(value)
+        const deleting = doc(dbservice, `violations/${value.id}`)
         deleteDoc(deleting)
         alert('지웠습니다')
         handleClose()
@@ -36,11 +36,11 @@ const ContactDialogs = ({ handleClose, userObj, }) => {
         const docs = async () => {
             const messagesArray = []
             const messages = await getDocs(collectionQuery)
-            messages.forEach((element) => {
-                if (element.data().userUid === userObj.uid) {
-                    const elementMessageTitle = element.data().messageTitle
-                    const elementMessage = element.data().message
-                    const elementId = element.id
+            messages.forEach((value) => {
+                if (value.data().userUid === userObj.uid) {
+                    const elementMessageTitle = value.data().messageTitle
+                    const elementMessage = value.data().message
+                    const elementId = value.id
                     const message = {
                         id: elementId,
                         messageTitle: elementMessageTitle,
@@ -55,7 +55,7 @@ const ContactDialogs = ({ handleClose, userObj, }) => {
     }, [])
 
     return (
-        <div>
+        <>
             <Drawer>
                 <DrawerTrigger>
                     <Button variant='outlined' form='auth'>신고하기 내역</Button>
@@ -70,15 +70,15 @@ const ContactDialogs = ({ handleClose, userObj, }) => {
                     신고하기 내역
                   </div>
                   <div className='p-5'>
-                    {sendMessages.length !== 0 ? sendMessages.map((element, index) => {
+                    {sendMessages.length !== 0 ? sendMessages.map((value, index) => {
                         return (
                             <div>
                                 <Accordion type="single" collapsible className="w-full">
                                     <AccordionItem value={index.toString()}>
-                                        <AccordionTrigger>{element.messageTitle}</AccordionTrigger>
+                                        <AccordionTrigger>{value.messageTitle}</AccordionTrigger>
                                         <AccordionContent>
-                                            <div>{element.message}</div>
-                                            <Button variant='outlined' onClick={() => deleteMessage(element)}>지우기</Button>
+                                            <div>{value.message}</div>
+                                            <Button variant='outlined' onClick={() => deleteMessage(value)}>지우기</Button>
                                         </AccordionContent>
                                     </AccordionItem>
                                 </Accordion>
@@ -123,7 +123,7 @@ const ContactDialogs = ({ handleClose, userObj, }) => {
               </Button>
             </DialogContent>
         </Dialog> */}
-        </div>
+        </>
     )
 }
 
