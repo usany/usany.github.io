@@ -1,11 +1,11 @@
 .app-container {
   /* height: 100vh; */
+  /* align-items: center; */
+  /* justify-content: center;
+  width: 100%;
+  padding: 10px; */
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
-  justify-content: center;
-  width: 100%;
-  padding: 10px;
 }
 /* .app-container > .wrap > .login-box > .login-title {
   display: flex;
@@ -43,22 +43,22 @@
 } */
 
 .app-container > .wrap > .chat-box .chat {
-  list-style: none;
+  /* list-style: none; */
   padding: 10px;
   border-style: solid;
   border-width: 1px 1px 1px 1px;
   border-radius: 10px;
-  /* width: 80%; */
   height: 350px;
   overflow: auto;
+  /* width: 80%; */
 }
-.app-container > .wrap > .chat-box .chat li.me {
+/* .app-container > .wrap > .chat-box .chat li.me {
   text-align: right;
-}
-.app-container > .wrap > .chat-box .chat li.other {
-  text-align: left;
+} */
+/* .app-container > .wrap > .chat-box .chat li.other {
+  text-align: left; */
   /* cursor: pointer; */
-}
+/* } */
 /* .app-container > .wrap > .chat-box .chat li.private {
   text-align: right;
   color: red;
@@ -79,22 +79,22 @@
   background-color: #cecece;
 } */
 .app-container > .wrap > .chat-box .chat div.me {
-  padding: 5px;
-  display: inline-block;
-  border-top-left-radius: 20px;
+  /* display: inline-block; */
+  /* padding: 5px; */
+  /* border-top-left-radius: 20px;
   border-bottom-left-radius: 20px;
-  border-bottom-right-radius: 20px;
-  background-color: lemonchiffon;
-  color: black;
+  border-bottom-right-radius: 20px; */
+  /* background-color: lemonchiffon;
+  color: black; */
 }
 .app-container > .wrap > .chat-box .chat div.other {
-  padding: 5px;
-  display: inline-block;
-  border-top-right-radius: 20px;
+  /* display: inline-block; */
+  /* padding: 5px; */
+  /* border-top-right-radius: 20px;
   border-bottom-left-radius: 20px;
-  border-bottom-right-radius: 20px;
-  background-color: white;
-  color: black;
+  border-bottom-right-radius: 20px; */
+  /* background-color: white;
+  color: black; */
 }
 /* .app-container > .wrap > .chat-box .chat div.private {
   padding: 5px;
@@ -116,26 +116,26 @@
   font-weight: bold;
   color: red;
 } */
-.app-container > .wrap > .chat-box .send-form {
+/* .app-container > .wrap > .chat-box .send-form {
   display: flex;
   flex-direction: row;
+  gap: 1px; */
   /* align-items: center; */
-  gap: 1px;
-}
-.app-container > .wrap > .chat-box .send-form input {
-  width: 90%;
+/* } */
+/* .app-container > .wrap > .chat-box .send-form input { */
   /* border: 0; */
-  padding: 10px;
-  border-radius: 5px;
-  background-color: #f6f6f6;
-}
-.app-container > .wrap > .chat-box .send-form button {
+  /* width: 90%; */
+  /* padding: 10px; */
+  /* border-radius: 5px; */
+  /* background-color: #f6f6f6; */
+/* } */
+/* .app-container > .wrap > .chat-box .send-form button { */
   /* border: 0; */
   /* padding: 10px; */
-  width: 10%;
+  /* width: 10%;
   border-radius: 5px;
-  background-color: lemonchiffon;
-}
+  background-color: lemonchiffon; */
+/* } */
 
 /* .app-container > .wrap > .chat-box .send-form .private-target {
   border: 0;

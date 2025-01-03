@@ -12,6 +12,8 @@ import { User } from 'firebase/auth';
 // import { changeNewMessage, changeNewMessageTrue, changeNewMessageFalse } from 'src/stateSlices/newMessageSlice'
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import Chip from '@mui/material/Chip';
+// import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
+// import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnapshot, deleteDoc, updateDoc, limit } from 'firebase/firestore';
 
 interface Props {
   userObj: User
@@ -44,13 +46,13 @@ const Chats = ({ userObj, profileUrl, conversation, displayName, chattingUid, mu
       messageHours = messageHours+12
     }
   }
-  if (clock.getMonth() < 10) {
+  if (messageMonth < 10) {
     messageMonth = '0'+messageMonth
   } 
   if (messageDate.length === 1) {
     messageDate = '0'+messageDate
-  } 
-
+  }
+  
   return (
     <Card sx={{ flexGrow: 1, overflow: 'hidden' }}>
       <CardActionArea>

@@ -33,7 +33,7 @@ function Piazza({ userObj }: Props) {
   const {state} = useLocation()
   const multiple = state?.multiple
   const conversation = state?.conversation
-  
+
   useEffect(() => {
     if (!webSocket) return;
     function sMessageCallback(message) {
@@ -158,18 +158,24 @@ function Piazza({ userObj }: Props) {
     messagesEndRef.current?.scrollIntoView();
   };
   
-  const onSendSubmitHandler = async (e) => {
-    e.preventDefault();
+  const onSendSubmitHandler = async (event) => {
+    event.preventDefault();
     const message = msg
     const userUid = userObj.uid
     const userName = userObj.displayName
     const messageClockNumber = Date.now()
     const messageClock = new Date().toString()
-    const toUserRef = doc(dbservice, `members/${state.chattingUid}`)
-    const toUser = await getDoc(toUserRef)
+    let toUserRef
+    let toUser
+    let messagingToken
+    if (state.chattingUid) {
+      toUserRef = doc(dbservice, `members/${state.chattingUid}`)
+      toUser = await getDoc(toUserRef)
+      messagingToken = toUser.data()?.messagingToken
+    }
     // console.log(toUser.data().messagingToken)
-    const messagingToken = toUser.data()?.messagingToken
-
+    // const messagingToken = toUser.data()?.messagingToken
+    
     const sendData = {
       msg: message,
       userUid: userUid,
@@ -395,8 +401,8 @@ function Piazza({ userObj }: Props) {
     }
   }
   return (
-    <div>
-      <div className='flex text-2xl p-5'>
+    <>
+      <div className='flex text-2xl p-5 w-screen'>
         <div className='w-screen'>
           {multiple ? '단체 대화' : `개인 대화 ${state?.displayName}`}
         </div>
@@ -410,93 +416,120 @@ function Piazza({ userObj }: Props) {
         <div className="wrap">
           <div className="chat-box">
             <ul className="chat">
-              {msgList.map((v, i) => {
-                if (v.type === "welcome") {
-                  return (
-                    <li className="welcome">
-                    <div className="line" />
-                    <div>{v.msg}</div>
-                    <div className="line" />
-                  </li>
-                  )
-                } else {
+              {msgList.map((v, index) => {
                   let userDirection
+                  const clock = new Date(v.messageClock)
                   if (v.userUid === userObj.uid) {
-                    userDirection = 'me'
+                    userDirection = 'text-right'
                   } else {
-                    userDirection = 'other'
+                    userDirection = 'text-left'
                   }
-                  return (
-                      <li
-                        className={userDirection}
-                        key={`${i}_li`}
-                        name={v.id}
-                        data-id={v.id}
-                        // onClick={() => onSetPrivateTarget({userUid: v.userUid, displayName: v.id})}
-                      >
-                        <div className={`flex justify-${v.userUid !== userObj.uid ? 'start' : 'end'}`}>
-                          {/* <Avatars profile={false} profileColor={'profile-blue'} profileImage={v.profileImageUrl || 'null'} fallback={v.id[0]}/> */}
-                          <Avatar onClick={() => onSetPrivateTarget({userUid: v.userUid, displayName: v.id})} className={'bg-profile-blue'}>
-                            <AvatarImage src={v.profileImageUrl} />
-                            <AvatarFallback className='text-xl border-none	'>{v.id[0]}</AvatarFallback>
-                          </Avatar>
-                          {/* <Avatar alt={v.id} sx={{ bgcolor: v.profileColor || '#2196f3' }} src={v.profileImageUrl || './src'} variant="rounded" /> */}
-                        </div>
-                        <div
-                          className={
-                            v.id === privateTarget ? "private-user" : "userId"
+                  let previousUid
+                  let passingClock
+                  let displayClock = 'true'
+                  if (index > 0) {
+                    previousUid = msgList[index-1].userUid
+                  }
+                  if (index < msgList.length-1) {
+                    if (msgList[index+1].userUid === userObj.uid) {
+                      passingClock = new Date(msgList[index+1].messageClock)
+                      if (clock.getFullYear() === passingClock.getFullYear()) {
+                        if (clock.getMonth() === passingClock.getMonth()) {
+                          if (clock.getDate() === passingClock.getDate()) {
+                            if (clock.getHours() === passingClock.getHours()) {
+                              if (clock.getMinutes() === passingClock.getMinutes()) {
+                                displayClock = 'false'
+                              }
+                            }
                           }
-                          data-id={v.id}
-                          name={v.id}
-                        >
-                          {v.id}
-                        </div>
+                        }
+                      }
+                    }
+                  }
+                  let messageAmpm
+                  let messageHours = clock.getHours()
+                  let messageMonth = (clock.getMonth()+1).toString()
+                  let messageDate = (clock.getDate()).toString()
+                  if (messageHours >= 13) {
+                    messageAmpm = '오후'
+                    if (messageHours !== 12) {
+                      messageHours = messageHours-12
+                    }
+                  } else {
+                    messageAmpm = '오전'
+                    if (messageHours === 0) {
+                      messageHours = messageHours+12
+                    }
+                  }
+                  if (messageMonth < 10) {
+                    messageMonth = '0'+messageMonth
+                  } 
+                  if (messageDate.length === 1) {
+                    messageDate = '0'+messageDate
+                  }
+                  
+                  return (
+                      <li className={userDirection}>
+                        {previousUid !== v.userUid &&
+                          <div>
+                            <div className={`flex justify-${v.userUid !== userObj.uid ? 'start' : 'end'}`}>
+                              {userDirection === 'text-left' ?
+                              <div className='flex gap-3'>
+                                <Avatar onClick={() => onSetPrivateTarget({userUid: v.userUid, displayName: v.id})} className={'bg-profile-blue'}>
+                                  <AvatarImage src={v.profileImageUrl} />
+                                  <AvatarFallback className='text-xl border-none	'>{v.id[0]}</AvatarFallback>
+                                </Avatar>
+                                <div>{v.id}</div>
+                              </div>
+                              :
+                              <div className='flex gap-3'>
+                                <div>{v.id}</div>
+                                <Avatar onClick={() => onSetPrivateTarget({userUid: v.userUid, displayName: v.id})} className={'bg-profile-blue'}>
+                                  <AvatarImage src={v.profileImageUrl} />
+                                  <AvatarFallback className='text-xl border-none	'>{v.id[0]}</AvatarFallback>
+                                </Avatar>
+                              </div>
+                              }
+                            </div>
+                          </div>
+                        }
                         {v.userUid !== userObj.uid ? 
-                        <div className='flex justify-start'>
-                        <div className={'other'} data-id={v.id} name={v.id}>
-                          {v.msg}
-                        </div>
-                        <div data-id={v.id} name={v.id}>
-                          {v.messageClock}
-                        </div>
-                        </div>
+                          <div className='flex gap-3 justify-start'>
+                            <div className='other rounded-tr-lg rounded-bl-lg rounded-br-lg p-1 bg-light-1 dark:bg-dark-1'>{v.msg}</div>
+                            {displayClock === 'true' && 
+                              <div>{clock.getFullYear()}-{messageMonth}-{messageDate} {messageAmpm} {messageHours}:{clock.getMinutes()}</div>
+                            }
+                          </div>
                         :
-                        <div className='flex justify-end'>
-                        <div data-id={v.id} name={v.id}>
-                          {v.messageClock}
-                        </div>
-                        <div className={'me'} data-id={v.id} name={v.id}>
-                          {v.msg}
-                        </div>
-                        </div>
+                          <div className='flex gap-3 justify-end'>
+                            {displayClock === 'true' &&
+                              <div>{clock.getFullYear()}-{messageMonth}-{messageDate} {messageAmpm} {messageHours}:{clock.getMinutes()}</div>
+                            }
+                            <div className='me rounded-tl-lg rounded-bl-lg rounded-br-lg p-1 bg-light-1 dark:bg-dark-1'>{v.msg}</div>
+                          </div>
                         }
                       </li>
                   )
-                }
                   }
                 )
               }
               <li ref={messagesEndRef} />
             </ul>
-            <form className="send-form" onSubmit={onSendSubmitHandler}>
+            <form className="flex gap-px" onSubmit={onSendSubmitHandler}>
               <input
+                className='w-full p-3 rounded bg-light-1 dark:bg-dark-1'
                 placeholder="메세지를 작성해 주세요"
                 onChange={onChangeMsgHandler}
                 value={msg}
                 autoFocus
               />
-              <button type="submit">전송</button>
+              <button className='w-1/6 rounded bg-light-2 dark:bg-dark-2' type="submit">전송</button>
             </form>
           </div>
           <PiazzaDialogs multiple={multiple} selectUser={selectUser} user={user} handleClose={handleClose} userObj={userObj} handleMsgList={(newState: []) => setMsgList(newState)} handleChangeMessage={(newState: boolean) => setChangeMessage(newState)} displayedName={displayedName}/>
-          {/* {multiple ? 
-            <PiazzaDialogs multiple={multiple} selectUser={selectUser} user={user} handleClose={handleClose} userObj={userObj} handleMsgList={(newState: []) => setMsgList(newState)} handleChangeMessage={(newState: boolean) => setChangeMessage(newState)} displayedName={displayedName}/>
-            :
-            <ChattingDialogs selectUser={selectUser} user={user} handleClose={handleClose} />
-          } */}
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
