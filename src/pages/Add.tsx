@@ -237,22 +237,16 @@ function Add({ userObj, action, borrow }: Props) {
     }
   
     return (
-        <>
-            {userObj ?
-                <div className='flex flex-col h-screen'>
-                    <PageTitle title={`${borrow ? '빌리기 ' : '빌려주기 '} 카드 등록`}/>
-                    <AddSteppers addSteps={addSteps} handleAddSteps={(newValue) => setAddSteps(newValue)} borrow={borrow} />
-                    <AddStepOne borrow={borrow} item={item} changeItem={changeItem} />
-                    {addSteps > 0 && <AddStepTwo locationState={locationState} changeBuilding={changeBuilding} changeRoom={changeRoom} changeSeat={changeSeat} changeLocationInput={changeLocationInput} />}
-                    {addSteps > 1 && <AddStepThree onChangeFrom={onChangeFrom} onChangeTo={onChangeTo} />}
-                    {(addSteps === 2 || addSteps === 3) && <AddRegisterButton submit={submit} />}
-                    {addSteps === 4 && <AddStepFour display={display} />} 
-                    <AddSnackBar snackBar={snackBar} changeSnackBar={() => setSnackBar(false)}/>
-                </div>  
-            :
-                <div></div>
-        }
-        </>
+        <div className='flex flex-col h-screen'>
+            <PageTitle title={`${borrow ? '빌리기 ' : '빌려주기 '} 카드 등록`}/>
+            <AddSteppers addSteps={addSteps} handleAddSteps={(newValue) => setAddSteps(newValue)} borrow={borrow} />
+            <AddStepOne borrow={borrow} item={item} changeItem={changeItem} />
+            {addSteps > 0 && <AddStepTwo locationState={locationState} changeBuilding={changeBuilding} changeRoom={changeRoom} changeSeat={changeSeat} changeLocationInput={changeLocationInput} />}
+            {addSteps > 1 && <AddStepThree onChangeFrom={onChangeFrom} onChangeTo={onChangeTo} />}
+            {(addSteps === 2 || addSteps === 3) && <AddRegisterButton submit={submit} />}
+            {addSteps === 4 && <AddStepFour display={display} />} 
+            <AddSnackBar snackBar={snackBar} changeSnackBar={() => setSnackBar(false)}/>
+        </div>  
     )
 }
 

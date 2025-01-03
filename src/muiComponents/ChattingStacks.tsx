@@ -9,11 +9,11 @@ import { Link } from 'react-router-dom'
 import { webSocket, onClick } from 'src/webSocket.tsx'
 import { useSelector, useDispatch } from 'react-redux'
 import { User } from 'firebase/auth';
-import { changeNewMessage, changeNewMessageTrue, changeNewMessageFalse } from 'src/stateSlices/newMessageSlice'
+// import { changeNewMessage, changeNewMessageTrue, changeNewMessageFalse } from 'src/stateSlices/newMessageSlice'
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { getStorage, ref, uploadBytes, uploadString, uploadBytesResumable, getDownloadURL,  } from "firebase/storage";
-// import Badge from '@mui/material/Badge';
 import Chip from '@mui/material/Chip';
+import Chats from 'src/muiComponents/Chats'
 
 interface Props {
   userObj: User
@@ -22,12 +22,9 @@ interface Props {
 }
 
 const ChattingStacks = ({ userObj, chattings, handleChattings }: Props) => {
-  // const [chattings, setChattings] = useState({})
   const [sortedMyConversationUid, setSortedMyConversationUid] = useState([])
   const [profileUrls, setProfileUrls] = useState([])
   const newMessage = useSelector(state => state.newMessage.value)
-  // const [messageCount, setMessageCount] = useState(0)
-  // const dispatch = useDispatch()
   useEffect(() => {
     const myChatting = async () => {
       const myDocRef = doc(dbservice, `members/${userObj.uid}`)
@@ -185,65 +182,12 @@ const ChattingStacks = ({ userObj, chattings, handleChattings }: Props) => {
             profileUrl = chattings[element].userOneProfileUrl
           }
           return (
-            <Card key={index} sx={{ flexGrow: 1, overflow: 'hidden' }}>
-              <CardActionArea>
-                <Link to='/piazza' state={{
-                  conversation: element, displayName: displayName, userUid: userObj.uid, chattingUid: chattingUid, multiple: false, profileUrl: profileUrl
-                }}>
-                  <div className='flex p-3' onClick={() => checkedMessage({conversation: element})} onContextMenu={() => console.log('practice')}>
-                    <Avatar>
-                      <AvatarImage src={profileUrl} />
-                      {/* <AvatarFallback className="leading-1 flex size-full items-center justify-center bg-white text-[15px] font-medium text-violet11">CN</AvatarFallback> */}
-                      <AvatarFallback>{displayName[0]}</AvatarFallback>
-                    </Avatar>
-                    {/* <div className='px-3'>{chattings[element]?.message}</div> */}
-                    {/* <Typography noWrap>{chattings[element]?.message}</Typography> */}
-                    <div className='flex flex-col w-screen'>
-                      <div className='flex px-3 justify-between'>
-                        <div className='w-1/2 overflow-hidden'>{userObj.uid === chattings[element].userOne ? chattings[element].userTwoDisplayName : chattings[element].userOneDisplayName}</div>
-                        <div className='flex justify-end'>{clock.getFullYear()}-{messageMonth}-{messageDate} {messageAmpm} {messageHours}:{clock.getMinutes()}</div>
-                        {/* <div>{clock.getFullYear()}.{clock.getMonth()}.{clock.getDate()} {chattings[element].messageClockNumber}</div> */}
-                        {/* <div>{chattings[element].messageClockNumber}</div> */}
-                      </div>
-                      <div className='flex px-3 justify-between'>
-                        {/* <Avatar>
-                          <AvatarImage src="https://github.com/shadcn.png" />
-                          <AvatarFallback className="leading-1 flex size-full items-center justify-center bg-white text-[15px] font-medium text-violet11">CN</AvatarFallback>
-                          <AvatarFallback>CN</AvatarFallback>
-                        </Avatar> */}
-                        <div>{chattings[element].message}</div>
-                        {chattings[element].messageCount > 0 &&
-                          <div>
-                            {/* <Badge badgeContent={<div className='px-1'>{chattings[element].messageCount}</div>} color='primary'/> */}
-                            <Chip sx={{height: '20px'}} label={chattings[element].messageCount} color='primary'/>
-                          </div>
-                        }
-                        {/* <Typography noWrap>{chattings[element]?.message}</Typography> */}
-                      </div>
-                    </div>
-                  </div>
-                </Link>
-              </CardActionArea>
-            </Card>
+            <>
+              <Chats userObj={userObj} profileUrl={profileUrl} conversation={element} displayName={displayName} chattingUid={chattingUid} multiple={false} clock={clock} message={chattings[element]} />
+            </>
           )
         }
       })}
-      {/* {chats.map((element, index) => {
-        return (
-          <Card key={index} sx={{ flexGrow: 1, overflow: 'hidden' }}>
-            <CardActionArea>
-              <Link to='/chatting' state={{
-                conversation: element.conversation, displayName: element.userDisplayName, userUid: userObj.uid, chattingUid: element.conversationUid
-              }}>
-                <Stack spacing={2} direction="column" sx={{ flexGrow: 1, overflow: 'hidden', p: 1 }}>
-                  <div>chatting {element.userDisplayName}</div>
-                  <Typography noWrap>{element?.message}</Typography>
-                </Stack>
-              </Link>
-            </CardActionArea>
-          </Card>
-        )
-      })} */}
     </>
   );
 }

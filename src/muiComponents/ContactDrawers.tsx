@@ -1,14 +1,10 @@
 import { useState, useEffect } from 'react'
-import Dialog from '@mui/material/Dialog';
-import DialogContent from '@mui/material/DialogContent';
+// import Dialog from '@mui/material/Dialog';
+// import DialogContent from '@mui/material/DialogContent';
 import Button from '@mui/material/Button';
 import { auth, onSocialClick, dbservice } from 'src/baseApi/serverbase'
 import { doc, getDoc, getDocs, setDoc, collection, where, query, deleteDoc } from 'firebase/firestore';
-import Accordion from '@mui/material/Accordion';
-import AccordionActions from '@mui/material/AccordionActions';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+// import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {
     Drawer,
     DrawerClose,
@@ -18,29 +14,32 @@ import {
     DrawerHeader,
     DrawerTitle,
     DrawerTrigger,
-  } from "@/components/ui/drawer"
- 
-const ContactDialogs = ({ move, handleClose, userObj, change, setChange }) => {
+} from "@/components/ui/drawer"
+import {
+    Accordion,
+    AccordionContent,
+    AccordionItem,
+    AccordionTrigger,
+} from "@/components/ui/accordion"
+
+const ContactDrawers = ({ userObj }) => {
     const [sendMessages, setSendMessages] = useState([])
-    // const [dialogMove, setDialogMove] = useState(false)
     const collectionQuery = query(collection(dbservice, 'violations'))
-    const deleteMessage = (element) => {
-        console.log(element)
-        const deleting = doc(dbservice, `violations/${element.id}`)
+    const deleteMessage = (value) => {
+        console.log(value)
+        const deleting = doc(dbservice, `violations/${value.id}`)
         deleteDoc(deleting)
-        setChange(true)
         alert('지웠습니다')
-        handleClose()
     }
     useEffect(() => {
         const docs = async () => {
             const messagesArray = []
             const messages = await getDocs(collectionQuery)
-            messages.forEach((element) => {
-                if (element.data().userUid === userObj.uid) {
-                    const elementMessageTitle = element.data().messageTitle
-                    const elementMessage = element.data().message
-                    const elementId = element.id
+            messages.forEach((value) => {
+                if (value.data().userUid === userObj.uid) {
+                    const elementMessageTitle = value.data().messageTitle
+                    const elementMessage = value.data().message
+                    const elementId = value.id
                     const message = {
                         id: elementId,
                         messageTitle: elementMessageTitle,
@@ -51,14 +50,11 @@ const ContactDialogs = ({ move, handleClose, userObj, change, setChange }) => {
                 setSendMessages(messagesArray)
             })
         }
-        if (!sendMessages || change) {
-            docs()
-            setChange(false)
-        }
-    })
-    // console.log(sendMessages)
+        docs()
+    }, [])
+
     return (
-        <div>
+        <>
             <Drawer>
                 <DrawerTrigger>
                     <Button variant='outlined' form='auth'>신고하기 내역</Button>
@@ -73,22 +69,17 @@ const ContactDialogs = ({ move, handleClose, userObj, change, setChange }) => {
                     신고하기 내역
                   </div>
                   <div className='p-5'>
-                    {sendMessages.length !== 0 ? sendMessages.map((element, index) => {
+                    {sendMessages.length !== 0 ? sendMessages.map((value, index) => {
                         return (
                             <div>
-                                <Accordion>
-                                    <AccordionSummary
-                                        expandIcon={<ExpandMoreIcon />}
-                                        id={index}
-                                    >
-                                        {element.messageTitle}
-                                    </AccordionSummary>
-                                    <AccordionDetails>
-                                        {element.message}
-                                    </AccordionDetails>
-                                    <AccordionActions>
-                                        <Button variant='outlined' onClick={() => deleteMessage(element)}>지우기</Button>
-                                    </AccordionActions>
+                                <Accordion type="single" collapsible className="w-full">
+                                    <AccordionItem value={index.toString()}>
+                                        <AccordionTrigger>{value.messageTitle}</AccordionTrigger>
+                                        <AccordionContent>
+                                            <div>{value.message}</div>
+                                            <Button variant='outlined' onClick={() => deleteMessage(value)}>지우기</Button>
+                                        </AccordionContent>
+                                    </AccordionItem>
                                 </Accordion>
                             </div>
                         )
@@ -131,8 +122,8 @@ const ContactDialogs = ({ move, handleClose, userObj, change, setChange }) => {
               </Button>
             </DialogContent>
         </Dialog> */}
-        </div>
+        </>
     )
 }
 
-export default ContactDialogs
+export default ContactDrawers

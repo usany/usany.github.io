@@ -17,15 +17,15 @@ import { changeMessageAccordion } from 'src/stateSlices/messageAccordionSlice'
 import { Skeleton } from "@/components/ui/skeleton"
 import { User } from 'firebase/auth';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import Cards from 'src/muiComponents/Cards';
 
 interface Props {
     userObj: User
 }
 function Menu({ userObj }: Props) {
-    const [messages, setMessages] = useState<Array<object>>([]);
+    const [messages, setMessages] = useState([]);
     const [cardLoaded, setCardLoaded] = useState(false)
     const [accordions, setAccordions] = useState({cards: '', messages: '' })
-    const piazzaSwitch = useSelector<boolean>(state => state.piazzaSwitch.value)
     const cardAccordion = useSelector(state => state.cardAccordion.value)
     const messageAccordion = useSelector(state => state.messageAccordion.value)
     const dispatch = useDispatch()
@@ -85,14 +85,15 @@ function Menu({ userObj }: Props) {
         setCardLoaded(true)
     })
     }, [])
-    console.log(userObj)
+    const accordionValues = ['카드', '메세지']
     return (
         <div className='flex justify-center flex-col pb-5'>
             <PageTitle title={'내 상태'}/>
             <Accordion 
                 value={[accordions.cards, accordions.messages]}
-                defaultValue={["item-1", 'item-2']}
-                type="multiple" className="w-full px-3">
+                defaultValue={accordionValues}
+                type="multiple" className="w-full px-3"
+            >
                 <AccordionItem value="item-1">
                 <AccordionTrigger onClick={() => dispatch(change())}>카드</AccordionTrigger>
                 <AccordionContent >
@@ -107,11 +108,16 @@ function Menu({ userObj }: Props) {
                                 :
                                 <div className='flex flex-wrap justify-around'>
                                     {messages.map((msg) => {
+                                        const isOwner = msg.creatorId === userObj.uid
                                         if(msg.round !== 5) {
                                             if (msg.creatorId === userObj.uid) {
-                                                return(<Message key={msg.id} msgObj={msg} isOwner={msg.creatorId === userObj.uid} userObj={userObj} />)
+                                                return (
+                                                    <Cards msgObj={msg} isOwner={isOwner} userObj={userObj} num={null} points={null} />
+                                                )
                                             } else if (msg.connectedId === userObj.uid && msg.round !== 1) {
-                                                return(<Message key={msg.id} msgObj={msg} isOwner={msg.creatorId === userObj.uid} userObj={userObj} />)
+                                                return (
+                                                    <Cards msgObj={msg} isOwner={isOwner} userObj={userObj} num={null} points={null} />
+                                                )
                                             }
                                         }
                                     })}
@@ -133,16 +139,9 @@ function Menu({ userObj }: Props) {
                         },                      
                     })}>
                         <Suspense fallback={<Skeleton />}>
-                            <MessageStacks userObj={userObj} piazzaSwitch={piazzaSwitch}/>
+                            <MessageStacks userObj={userObj} />
                         </Suspense>
                     </QueryClientProvider>
-                    {/* {!piazzaSwitch ? <div className='flex justify-center pt-20'>받은 메세지가 없습니다</div> :
-                        <div className='flex flex-col justify-center'>
-                            {piazzaSwitch && 
-                            }
-                            <ChattingStacks userObj={userObj} />
-                        </div>
-                    } */}
                 </AccordionContent>
                 </AccordionItem>
             </Accordion>

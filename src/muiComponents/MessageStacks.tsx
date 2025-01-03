@@ -1,29 +1,25 @@
 import { useState, useEffect, useLayoutEffect, Suspense } from 'react'
-// import Avatar from '@mui/material/Avatar';
-// import Box from '@mui/material/Box';
-// import Paper from '@mui/material/Paper';
-// import Stack from '@mui/material/Stack';
-// import { styled } from '@mui/material/styles';
-import Typography from '@mui/material/Typography';
-import Card from '@mui/material/Card';
-import { CardActionArea, CardActions } from '@mui/material';
+// import Typography from '@mui/material/Typography';
+// import Card from '@mui/material/Card';
+// import { CardActionArea, CardActions } from '@mui/material';
 import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
 import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnapshot, deleteDoc, updateDoc, limit } from 'firebase/firestore';
 import { Link } from 'react-router-dom'
 import { webSocket, onClick } from 'src/webSocket.tsx'
 import { User } from 'firebase/auth';
 import ChattingStacks from 'src/muiComponents/ChattingStacks'
+import Chats from 'src/muiComponents/Chats'
 import { useQuery } from '@tanstack/react-query'
+// import { useSelector, useDispatch } from 'react-redux'
+// import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+// import Badge from '@mui/material/Badge';
+// import Chip from '@mui/material/Chip';
 import { useSelector, useDispatch } from 'react-redux'
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import Badge from '@mui/material/Badge';
-import Chip from '@mui/material/Chip';
 
 interface Props {
   userObj: User
-  piazzaSwitch: string
 }
-const MessageStacks = ({ userObj, piazzaSwitch }: Props) => {
+const MessageStacks = ({ userObj }: Props) => {
   const [piazzaMessage, setPiazzaMessage] = useState<{username: string, message: string} | null>(null)
   const [chattings, setChattings] = useState({})
   const [piazzaUid, setPiazzaUid] = useState('')
@@ -31,18 +27,11 @@ const MessageStacks = ({ userObj, piazzaSwitch }: Props) => {
     const piazzaRef = collection(dbservice, 'chats_group')
     const piazzaCollection = query(piazzaRef, orderBy('messageClockNumber', 'desc'), limit(1))
     const piazzaMessages = await getDocs(piazzaCollection)
-    // piazzaMessages.forEach((doc) => {
-    //   if (!piazzaMessage) {
-    //     setPiazzaMessage({username: doc.data().userName, message: doc.data().message})
-    //   }
-    // })
     return piazzaMessages
   }
-  // const newMessage = useSelector(state => state.newMessage.value)
-  // const dispatch = useDispatch()
+  const piazzaSwitch = useSelector<boolean>(state => state.piazzaSwitch.value)
 
   const messages = useQuery({queryKey: ['messages'], queryFn: piazza, suspense: true})
-  // console.log(messages)
   useEffect(() => {
     if (piazzaSwitch === 'true') {
       messages.data?.forEach((doc) => {
@@ -72,20 +61,7 @@ const MessageStacks = ({ userObj, piazzaSwitch }: Props) => {
       webSocket.off("sMessagePiazza", sMessageCallback);
     };
   }, []);
-  const checkedPiazza = async () => {
-    const myDocRef = doc(dbservice, `chats_group/${piazzaUid}`)
-    const myDocSnap = await getDoc(myDocRef)
-    const myChattings = myDocSnap.data()
-    const piazzaCheckedList = myChattings.piazzaChecked || []
-    if (piazzaCheckedList.indexOf(userObj.uid) === -1) {
-      piazzaCheckedList.push(userObj.uid)
-      await updateDoc(myDocRef, {
-        ...myChattings, 
-        piazzaChecked: piazzaCheckedList,
-      })
-    }
-  }
-  // console.log(piazzaMessage)
+
   const clock = new Date(piazzaMessage?.messageClock)
   let messageAmpm
   let messageHours = clock.getHours()
@@ -111,46 +87,7 @@ const MessageStacks = ({ userObj, piazzaSwitch }: Props) => {
   
   return (
     <>
-      {piazzaSwitch === 'true' && <Card sx={{ flexGrow: 1, overflow: 'hidden' }}>
-        <CardActionArea>
-          <Link to='/piazza'
-            state={{multiple: true}}
-          >
-            <div className='flex p-3' onClick={checkedPiazza}>
-              <Avatar>
-                <AvatarImage src="https://github.com/shadcn.png" />
-                <AvatarFallback>CN</AvatarFallback>
-              </Avatar>
-              <div className='flex flex-col w-screen'>
-                <div className='flex justify-between'>
-                  <div className='px-3'>단체 대화</div> 
-                  <div className='flex flex-col px-3'>
-                    <div className='flex justify-end'>{clock.getFullYear()}-{messageMonth}-{messageDate} {messageAmpm} {messageHours}:{clock.getMinutes()}</div>
-                  </div>
-                </div>
-                <div className='flex justify-between px-3'>
-                  <div>{piazzaMessage?.message}</div>
-                  {piazzaMessage?.piazzaChecked.indexOf(userObj.uid) === -1 &&
-                    <div>
-                      <Chip sx={{height: '20px'}} label={'새 대화'} color='primary'/>
-                    </div>
-                  }
-                </div>
-              </div>
-            </div>
-          </Link>
-        </CardActionArea>
-      </Card>}
-      {/* {piazzaSwitch && <Card sx={{ flexGrow: 1, overflow: 'hidden' }}>
-        <CardActionArea>
-          <Link to='/piazza'>
-            <div className='p-3'>
-              <div>piazza {piazzaMessage?.username}</div>
-              <Typography noWrap>{piazzaMessage?.message}</Typography>
-            </div>
-          </Link>
-        </CardActionArea>
-      </Card>} */}
+      {piazzaSwitch === 'true' && <Chats userObj={userObj} profileUrl={''} conversation={''} displayName={''} chattingUid={''} multiple={true} clock={clock} message={piazzaMessage} />}
       <ChattingStacks userObj={userObj} chattings={chattings} handleChattings={(newValue) => setChattings(newValue)}/>
     </>
   );
