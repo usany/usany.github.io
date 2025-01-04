@@ -97,7 +97,7 @@ function Specific({ userObj }: Props) {
   shadowColor = shadowColorArray[mergedArray.indexOf(String(msgObj.id[0]).toUpperCase())%shadowColorArray.length];
 
   return (
-    <div className='p-5'>
+    <div>
       <PageTitle title={'카드 내용'} />
     <Card
       sx={{

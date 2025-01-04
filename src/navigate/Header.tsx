@@ -131,7 +131,7 @@ const Header = ({ userObj }: Props) => {
                         </div>
                     </div>
                     <div>
-                        {userObj && bottomNavigation === 0 && 
+                        {bottomNavigation === 0 && 
                             <ToggleTabs />
                         }
                         {userObj && bottomNavigation === 1 &&
@@ -165,13 +165,13 @@ const Header = ({ userObj }: Props) => {
                                 </div>
                             </FormGroup>
                         }
-                        {userObj && bottomNavigation === 2 && 
+                        {bottomNavigation === 2 && 
                             <ToggleTabs />
                         }
-                        {!userObj && 
+                        {!userObj && bottomNavigation === 1 &&
                             <div>
                                 <Link to='/'>
-                                    <div className='pt-5 min-w-36' onClick={() => dispatch(changeBottomNavigation(1))}>로그인을 해 주세요</div>
+                                    <div className='pt-5 min-w-36'>로그인을 해 주세요</div>
                                 </Link>
                                 <Divider sx={{width: '100%'}} />
                             </div>

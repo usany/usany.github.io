@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import Menu from 'src/pages/Menu'
 import Notice from 'src/pages/Notice'
+import Layout from 'src/pages/Layout'
 import Auth from 'src/pages/Auth'
 import Add from 'src/pages/Add'
 import { SwipeableViews } from "src/navigate/SwipeableViews";
@@ -57,22 +58,14 @@ function Home({ userObj }: UserObjProps) {
             {userObj ? 
                 <>
                     {bottomNavigation === 0 && 
-                        <SwipeableViews
-                            index={tabs}
-                            onIndexChange={(newValue) => dispatch(changeTabs(newValue))}
-                            num={1}
-                        >
+                        <SwipeableViews>
                             <Add userObj={userObj} action={0} borrow={true}/>
                             <Add userObj={userObj} action={1} borrow={false}/>
                         </SwipeableViews>
                     }
                     {bottomNavigation === 1 && <Menu userObj={userObj} />}
                     {bottomNavigation === 2 && 
-                        <SwipeableViews
-                            index={tabs}
-                            onIndexChange={(newValue) => dispatch(changeTabs(newValue))}
-                            num={1}
-                        >
+                        <SwipeableViews>
                             <Notice userObj={userObj} borrow={true} />
                             <Notice userObj={userObj} borrow={false}/>
                         </SwipeableViews>
@@ -80,9 +73,19 @@ function Home({ userObj }: UserObjProps) {
                 </>
                 :
                 <>
-                    {bottomNavigation === 0 && <Notice userObj={userObj} borrow={true} />}
+                    {bottomNavigation === 0 && 
+                        <SwipeableViews>
+                            <Layout borrow={true} />
+                            <Layout borrow={false}/>
+                        </SwipeableViews>
+                    }
                     {bottomNavigation === 1 && <Auth />}
-                    {bottomNavigation === 2 && <Notice userObj={userObj} borrow={false} />}
+                    {bottomNavigation === 2 && 
+                        <SwipeableViews>
+                            <Notice userObj={userObj} borrow={true} />
+                            <Notice userObj={userObj} borrow={false}/>
+                        </SwipeableViews>
+                    }
                 </>
             }
         </>

@@ -5,9 +5,9 @@
 	font-family: 'maruburi';
 	src: url('src/assets/fonts/OTF/MaruBuri-Bold.otf') format('opentype')
 }
-.SwipeableViews {
+/* .SwipeableViews {
   scrollbar-width: none;
-}
+} */
 
 body {
   font-family: maruburi;
@@ -56,7 +56,7 @@ body {
   text-align: center;
   display: block;
 } */
-.pull-to-refresh {
+/* .pull-to-refresh {
   position: fixed;
   top: -50px;
   width: 100%;
@@ -68,7 +68,7 @@ body {
 }
 .pull-to-refresh.visible {
   top: 0;
-}
+} */
 @layer base {
   :root {
 		--background: 0 0% 100%;
@@ -139,7 +139,7 @@ body {
 		--radius: 0.5rem
 	}
 }
-.episodes {
+/* .episodes {
 	display: flex;
 	flex-direction: column;
   }
@@ -153,4 +153,4 @@ body {
 	background: #191414;
 	color: #fff;
 	cursor: pointer;
-  }
+  } */

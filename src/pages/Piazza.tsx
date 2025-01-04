@@ -14,6 +14,7 @@ import ChattingDialogs from 'src/muiComponents/ChattingDialogs'
 import { changeNewMessageTrue } from 'src/stateSlices/newMessageSlice'
 import Avatars from 'src/muiComponents/Avatars'
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import PageTitle from 'src/muiComponents/PageTitle'
 
 interface Props {
   userObj: User
@@ -402,17 +403,15 @@ function Piazza({ userObj }: Props) {
   }
   return (
     <>
-      <div className='flex text-2xl p-5 w-screen'>
-        <div className='w-screen'>
-          {multiple ? '단체 대화' : `개인 대화 ${state?.displayName}`}
-        </div>
+      <div className='flex w-screen justify-between'>
+        <PageTitle title={multiple ? '단체 대화' : `개인 대화 ${state?.displayName}`} />
         {multiple && 
-          <div className='flex w-2/3 pt-1 justify-end'>
+          <div className='flex w-2/3 justify-end px-5 pt-5'>
             <PiazzaSwitch />
           </div>
         }
       </div>
-      <div className="app-container">
+      <div className="app-container pt-5">
         <div className="wrap">
           <div className="chat-box">
             <ul className="chat">
@@ -426,7 +425,7 @@ function Piazza({ userObj }: Props) {
                   }
                   let previousUid
                   let passingClock
-                  let displayClock = 'true'
+                  let displayClock = 0
                   if (index > 0) {
                     previousUid = msgList[index-1].userUid
                   }
@@ -438,7 +437,7 @@ function Piazza({ userObj }: Props) {
                           if (clock.getDate() === passingClock.getDate()) {
                             if (clock.getHours() === passingClock.getHours()) {
                               if (clock.getMinutes() === passingClock.getMinutes()) {
-                                displayClock = 'false'
+                                displayClock = 1
                               }
                             }
                           }
@@ -496,15 +495,11 @@ function Piazza({ userObj }: Props) {
                         {v.userUid !== userObj.uid ? 
                           <div className='flex gap-3 justify-start'>
                             <div className='other rounded-tr-lg rounded-bl-lg rounded-br-lg p-1 bg-light-1 dark:bg-dark-1'>{v.msg}</div>
-                            {displayClock === 'true' && 
-                              <div>{clock.getFullYear()}-{messageMonth}-{messageDate} {messageAmpm} {messageHours}:{clock.getMinutes()}</div>
-                            }
+                            <div>{clock.getFullYear()}-{messageMonth}-{messageDate} {messageAmpm} {messageHours}:{clock.getMinutes()}</div>
                           </div>
                         :
                           <div className='flex gap-3 justify-end'>
-                            {displayClock === 'true' &&
-                              <div>{clock.getFullYear()}-{messageMonth}-{messageDate} {messageAmpm} {messageHours}:{clock.getMinutes()}</div>
-                            }
+                            <div>{clock.getFullYear()}-{messageMonth}-{messageDate} {messageAmpm} {messageHours}:{clock.getMinutes()}</div>
                             <div className='me rounded-tl-lg rounded-bl-lg rounded-br-lg p-1 bg-light-1 dark:bg-dark-1'>{v.msg}</div>
                           </div>
                         }
