@@ -14,7 +14,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import Chip from '@mui/material/Chip';
 // import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
 // import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnapshot, deleteDoc, updateDoc, limit } from 'firebase/firestore';
-import staticImage from 'src/assets/blue02.png';
+import staticImage from 'src/assets/blue.png';
 interface Props {
   userObj: User
   profileUrl: string
