@@ -14,7 +14,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import Chip from '@mui/material/Chip';
 // import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
 // import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnapshot, deleteDoc, updateDoc, limit } from 'firebase/firestore';
-
+import staticImage from 'src/assets/blue02.png';
 interface Props {
   userObj: User
   profileUrl: string
@@ -66,7 +66,7 @@ const Chats = ({ userObj, profileUrl, conversation, displayName, chattingUid, mu
           <div className='flex p-3'>
             <div className=''>
               <Avatar>
-                <AvatarImage src={multiple ? "https://github.com/shadcn.png" : profileUrl} />
+                <AvatarImage src={multiple ? staticImage : profileUrl} />
                 <AvatarFallback>{multiple ? "CN" : displayName[0]}</AvatarFallback>
               </Avatar>
             </div>
