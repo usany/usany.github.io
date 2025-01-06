@@ -8,20 +8,9 @@ import { connectStorageEmulator } from 'firebase/storage';
 import { storage } from "src/baseApi/serverbase";
 import { getStorage, ref, uploadBytes, uploadString, uploadBytesResumable, getDownloadURL,  } from "firebase/storage";
 
-interface Props {
-  handleClose: () => void
-}
-
-const SignUpForm = ({ handleClose }: Props) => {
+const SignUpForm = () => {
   const [account, setAccount] = useState({email: '', password: ''})
   const [error, setError] = useState('')
-  // async function signInWithEmail(email, password) {
-  //   const { data, error } = await supabase.auth.signInWithPassword({
-  //     email: email,
-  //     password: password,
-  //   })
-  //   console.log(data)
-  // }  
   const onSubmit = async (event) => {
     event.preventDefault()
     try {
@@ -45,15 +34,10 @@ const SignUpForm = ({ handleClose }: Props) => {
       }).catch((error) => {
         console.log('error')
       })
-      // console.log(data.user)
       const storageRef = ref(storage, data.user.uid);
       uploadString(storageRef, 'null', 'raw').then((snapshot) => {
           console.log('Uploaded a blob or file!');
       });
-      // if (newAccount.account) {
-      // } else {
-      // }
-      // await createUserWithEmailAndPassword(auth, account.email, account.password)
     } catch (error) {
       if (error.message === 'Firebase: Error (auth/invalid-credential).') {
         const errorMessage = '로그인 실패: 계정을 확인해 주세요'
@@ -68,8 +52,6 @@ const SignUpForm = ({ handleClose }: Props) => {
         console.log(error.message)
       }
     }
-    // setValue(2)
-    // signInWithEmail(email, password)
   }
 
   const onChange = (event) => {
@@ -94,11 +76,7 @@ const SignUpForm = ({ handleClose }: Props) => {
       <div className='flex flex-col justify-center p-3'>
         <span className='flex justify-center'>{error}</span>
         <Button variant='outlined' form='signUp' type='submit'>회원가입</Button>
-          {/* <Button variant='outlined' onClick={handleClose}>
-            닫기
-          </Button> */}
       </div>
-      {/* <span>{error}</span> */}
     </form>
   )
 }

@@ -24,6 +24,7 @@ import {
 
 const ContactDrawers = ({ userObj }) => {
     const [sendMessages, setSendMessages] = useState([])
+    const [deletedMessage, setDeletedMessage] = useState()
     const collectionQuery = query(collection(dbservice, 'violations'))
     const deleteMessage = (value) => {
         console.log(value)

@@ -1,10 +1,10 @@
 import { useState, useMemo, useEffect } from 'react'
-import { auth, onSocialClick, dbservice } from 'src/baseApi/serverbase'
-import { updateProfile, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
-import { doc, setDoc } from 'firebase/firestore';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import Dialogs from 'src/muiComponents/Dialogs';
+// import { auth, onSocialClick, dbservice } from 'src/baseApi/serverbase'
+// import { updateProfile, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+// import { doc, setDoc } from 'firebase/firestore';
+// import Button from '@mui/material/Button';
+// import TextField from '@mui/material/TextField';
+// import Dialogs from 'src/muiComponents/Dialogs';
 import PageTitle from 'src/muiComponents/PageTitle';
 import AuthButtons from 'src/muiComponents/AuthButtons';
 import SignInForm from 'src/muiComponents/SignInForm';
@@ -13,17 +13,14 @@ import Motions from 'src/muiComponents/Motions';
 import {supabase} from 'src/baseApi/base';
 
 function Auth() {
-  // const [email, setEmail] = useState('')
-  // const [password, setPassword] = useState('')
-  // const [error, setError] = useState('')
-  const [newAccount, setNewAccount] = useState(false)
-  async function signInWithEmail(email, password) {
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email: email,
-      password: password,
-    })
-    console.log(data)
-  }  
+  // const [newAccount, setNewAccount] = useState(false)
+  // async function signInWithEmail(email, password) {
+  //   const { data, error } = await supabase.auth.signInWithPassword({
+  //     email: email,
+  //     password: password,
+  //   })
+  //   console.log(data)
+  // }  
   // const onSubmit = async (event) => {
   //   event.preventDefault()
   //   try {
@@ -75,10 +72,9 @@ function Auth() {
   return (  
     <div>
       <PageTitle title={'로그인'} />
-      <div className='px-5'>반갑습니다. 캠퍼스 우산 공유 서비스 쿠우산입니다.</div>
+      <div className='p-5'>반갑습니다. 캠퍼스 우산 공유 서비스 쿠우산입니다.</div>
       <SignInForm />
-      <AuthButtons handleClose={() => setNewAccount(false)} changeNewAccount={() => setNewAccount(true)}/>
-      {/* <SignInDialogs move={newAccount} handleClose={() => setNewAccount(false)} changeNewAccount={() => setNewAccount(true)} /> */}
+      <AuthButtons />
       <div className='pt-5 px-5'>날씨 플레이리스트도 준비되어 있어요.</div>
       {motions}
     </div>

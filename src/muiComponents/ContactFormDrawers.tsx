@@ -1,11 +1,8 @@
 import { useState, useEffect } from 'react'
 import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
-import { User } from "firebase/auth";
 import { collection, query, where, orderBy, addDoc, getDocs, doc, onSnapshot, updateDoc } from 'firebase/firestore';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import ContactDrawers from 'src/muiComponents/ContactDrawers';
-import ContactMemberDrawers from 'src/muiComponents/ContactMemberDrawers';
 import {
   Drawer,
   DrawerClose,
@@ -20,11 +17,10 @@ import Lists from 'src/muiComponents/Lists'
 import { getStorage, ref, uploadBytes, uploadString, uploadBytesResumable, getDownloadURL,  } from "firebase/storage";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import Card from '@mui/material/Card';
-import CardMedia from '@mui/material/CardMedia';
-import CardContent from '@mui/material/CardContent';
 
 interface Props {
-  user: {}
+  violationUser: {} | null
+  changeViolationUser: (newValue) => void
 }
 
 function ContactFormDrawers({ violationUser, changeViolationUser }: Props) {
