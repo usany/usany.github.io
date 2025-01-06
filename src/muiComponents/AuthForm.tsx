@@ -8,7 +8,7 @@ interface Props {
     title: string
 }
 
-const SignInForm = () => {
+const AuthForm = () => {
   const [account, setAccount] = useState({email: '', password: ''})
   const [error, setError] = useState('')
   // async function signInWithEmail(email, password) {
@@ -80,4 +80,4 @@ const SignInForm = () => {
   )
 }
 
-export default SignInForm
+export default AuthForm

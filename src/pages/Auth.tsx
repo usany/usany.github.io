@@ -7,7 +7,7 @@ import { useState, useMemo, useEffect } from 'react'
 // import Dialogs from 'src/muiComponents/Dialogs';
 import PageTitle from 'src/muiComponents/PageTitle';
 import AuthButtons from 'src/muiComponents/AuthButtons';
-import SignInForm from 'src/muiComponents/SignInForm';
+import AuthForm from 'src/muiComponents/AuthForm';
 import SignInDialogs from 'src/muiComponents/SignInDialogs';
 import Motions from 'src/muiComponents/Motions';
 import {supabase} from 'src/baseApi/base';
@@ -73,7 +73,7 @@ function Auth() {
     <div>
       <PageTitle title={'로그인'} />
       <div className='p-5'>반갑습니다. 캠퍼스 우산 공유 서비스 쿠우산입니다.</div>
-      <SignInForm />
+      <AuthForm />
       <AuthButtons />
       <div className='pt-5 px-5'>날씨 플레이리스트도 준비되어 있어요.</div>
       {motions}
