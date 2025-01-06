@@ -9,10 +9,11 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { MessageCircle, Minimize2, Maximize2, Captions, Bike, Ellipsis, ChevronRight } from "lucide-react"
 import staticImg from 'src/assets/pwa-512x512.png';
 
-function Lists({ elements, multiple, userSearch }) {
+function Lists({ elements, multiple, userSearch, ranking, handleUser }) {
 
   return (
-    <div>
+  <div>
+    {ranking && <div>
       <div className='flex justify-between w-screen pt-5'>
         <div className='flex flex-col justify-center px-5'>
           {multiple ? '유저':'내'} 랭킹
@@ -111,6 +112,56 @@ function Lists({ elements, multiple, userSearch }) {
           }
         })}
       </div>
+    </div>}
+    {!ranking && 
+      <div>
+        <div className='bg-light-3 dark:bg-dark-3'>
+        {elements.map((element, index) => {
+          const profileColor = element?.profileColor
+          let userNameConfirm = true
+          if (userSearch) {
+            for (let number = 0; number < userSearch.length; number++) {
+              if (element?.displayName[number] !== userSearch[number]) {
+                userNameConfirm = false
+              }
+            }
+          }
+          if (userNameConfirm) {
+            return (
+              <div key={index} className='px-3 pt-3' onClick={() => handleUser(element)}>
+                  <div className={`flex w-full justify-between p-3 ranking-${multiple? index+1 : element.rank}`}>
+                    <div className='flex'>
+                      {!multiple ? 
+                        <div className='flex flex-col justify-center px-5 w-20'>
+                          {element.rank}
+                        </div>
+                      :
+                        <div className='flex flex-col justify-center px-5 w-20'>
+                          {index+1}
+                        </div>
+                      }
+                      <Avatar className={`bg-${profileColor?.indexOf('#') === -1 ? element?.profileColor : 'profile-blue'}`}>
+                        <AvatarImage src={element?.profileImageUrl} />
+                        <AvatarFallback className='text-xl border-none'>{element?.displayName[0]}</AvatarFallback>
+                      </Avatar>
+                      <div className='flex flex-col overflow-hidden px-10 w-48'>
+                        <div className='overflow-hidden'>
+                          {element.displayName}
+                        </div>
+                        <div className='overflow-hidden'>
+                          {element.points}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                <Divider variant="inset" />
+              </div>
+            )
+          }
+        })}
+      </div>
+      </div>
+    }
     </div>
   )
 }

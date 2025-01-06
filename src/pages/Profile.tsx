@@ -103,7 +103,6 @@ function Profile({ userObj }: Props) {
   // } satisfies ChartConfig
   // const totalNumber = actions.reduce((acc, curr) => acc + curr.number, 0)
   // const ProfileAvatar = lazy(() => import("src/muiComponents/ProfileAvatar"))
-  console.log(user)
   const delist = async () => {
     await deleteDoc(doc(dbservice, `members/${userObj.uid}`));
     deleteUser(user).then(() => {
@@ -130,9 +129,11 @@ function Profile({ userObj }: Props) {
           회원 탈퇴
         </div>
         :
-        <div className='flex justify-center'>
-          신고하기
-        </div>
+        <Link to='/contact' state={{user: state.element}}>
+          <div className='flex justify-center'>
+            신고하기
+          </div>
+        </Link>
       }
       {/* {profileImage ?
         :

@@ -22,8 +22,8 @@ const ProfileAvatar = ({ userObj, user, handleProfileDialog }) => {
               </button>
             }
           >
-            {profileImage ?
-              <Avatars profile={true} profileColor={profileColor} profileImage={profileImage} fallback={userObj.displayName[0]}/>
+            {profileUrl ?
+              <Avatars profile={true} profileColor={profileColor} profileImage={profileUrl} fallback={userObj.displayName[0]}/>
             :
               <LoadingsSkeletons height={'[192px]'} width={'[192px]'} />
             }
@@ -46,8 +46,8 @@ const ProfileAvatar = ({ userObj, user, handleProfileDialog }) => {
           // </div>
         :
           <>
-            {profileImage ?
-              <Avatars profile={true} profileColor={user.profileColor} profileImage={profileImage} fallback={user.displayName[0]}/>
+            {user?.profileImageUrl ?
+              <Avatars profile={true} profileColor={user.profileColor} profileImage={user?.profileImageUrl} fallback={user.displayName[0]}/>
             :
               <LoadingsSkeletons height={'[192px]'} width={'[192px]'} />
             }

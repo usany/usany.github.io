@@ -24,7 +24,7 @@ import { changeProfileImage } from 'src/stateSlices/profileImageSlice'
 import { User } from 'firebase/auth';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import Avatars from 'src/muiComponents/Avatars'
-import staticImg from 'src/assets/blue01.png';
+import staticImage from 'src/assets/blue.png';
 
 // const Puller = styled('div')(({ theme }) => ({
 //     width: 30,
@@ -119,7 +119,7 @@ const Header = ({ userObj }: Props) => {
                                     {userObj ? 
                                         <Avatars profile={false} profileColor={profileColor} profileImage={profileImage} fallback={userObj.displayName ? userObj.displayName[0] : ''}/>
                                         : 
-                                        <Avatars profile={false} profileColor={'profile-blue'} profileImage={staticImg} fallback={''}/>
+                                        <Avatars profile={false} profileColor={'profile-blue'} profileImage={staticImage} fallback={''}/>
                                         // <Avatar sx={{ bgcolor: '#2196f3' }} onClick={() => {
                                         //     handleSideNavigation()
                                         // }} variant="rounded" />
