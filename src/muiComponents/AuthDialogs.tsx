@@ -18,8 +18,9 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer"
 import { useSelector, useDispatch } from 'react-redux'
+import AuthForm from 'src/muiComponents/AuthForm';
 
-function SignUpDialogs() {
+function AuthDialogs() {
   const theme = useSelector(state => state.theme)
   
   return (
@@ -43,11 +44,11 @@ function SignUpDialogs() {
               <iframe src="https://open.spotify.com/embed/playlist/41clCj2piQBL3BSEFQN9J3?utm_source=generator&theme=0" width="90%" height="200" allow="autoplay; clipboard-write; fullscreen; picture-in-picture" loading="lazy" />
             }
           </div>
-          <SignUpForm />
+          <AuthForm signIn={false} />
         </DrawerContent>
       </Drawer>
     </>
   )
 }
 
-export default SignUpDialogs
+export default AuthDialogs

@@ -67,7 +67,7 @@ const SignUpForm = () => {
   
   return (
     <form id='signUp' onSubmit={onSubmit}>
-      <div className='flex justify-center px-3'>
+      {/* <div className='flex justify-center px-3'>
           <TextField label="이메일" value={account.email} onChange={onChange} variant="outlined" name='email' type='email' fullWidth required />
       </div>
       <div className='flex justify-center px-3'>
@@ -76,7 +76,7 @@ const SignUpForm = () => {
       <div className='flex flex-col justify-center p-3'>
         <span className='flex justify-center'>{error}</span>
         <Button variant='outlined' form='signUp' type='submit'>회원가입</Button>
-      </div>
+      </div> */}
     </form>
   )
 }

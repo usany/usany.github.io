@@ -1,6 +1,6 @@
 import { auth, onSocialClick, dbservice } from 'src/baseApi/serverbase'
 import Button from '@mui/material/Button';
-import SignUpDialogs from 'src/muiComponents/SignUpDialogs';
+import AuthDialogs from 'src/muiComponents/AuthDialogs';
 
 const AuthButtons = () => {
   return (
@@ -9,7 +9,7 @@ const AuthButtons = () => {
         <Button sx={{width: '50%'}} variant='outlined' name='g' onClick={onSocialClick}>구글로 로그인</Button>
         <Button sx={{width: '50%'}} variant='outlined' name='h' onClick={onSocialClick}>깃허브로 로그인</Button>
       </div>
-      <SignUpDialogs />
+      <AuthDialogs />
     </div>
   )
 }
