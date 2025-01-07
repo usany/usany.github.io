@@ -21,15 +21,26 @@ import {
     AccordionItem,
     AccordionTrigger,
 } from "@/components/ui/accordion"
+import Lists from 'src/muiComponents/Lists'
+import Divider from '@mui/material/Divider';
 
 const ContactDrawers = ({ userObj }) => {
     const [sendMessages, setSendMessages] = useState([])
     const [deletedMessage, setDeletedMessage] = useState()
     const collectionQuery = query(collection(dbservice, 'violations'))
     const deleteMessage = (value) => {
-        console.log(value)
-        const deleting = doc(dbservice, `violations/${value.id}`)
+        const deletedId = value.id
+        const deleting = doc(dbservice, `violations/${deletedId}`)
         deleteDoc(deleting)
+        const deletedSendMessages = []
+        sendMessages.map((element, index) => {
+            if (element.id !== deletedId) {
+                deletedSendMessages.push(element)
+            }
+            if (index+1 === sendMessages.length) {
+                setSendMessages(deletedSendMessages)
+            }
+        })
         alert('지웠습니다')
     }
     useEffect(() => {
@@ -38,14 +49,8 @@ const ContactDrawers = ({ userObj }) => {
             const messages = await getDocs(collectionQuery)
             messages.forEach((value) => {
                 if (value.data().userUid === userObj.uid) {
-                    const elementMessageTitle = value.data().messageTitle
-                    const elementMessage = value.data().message
-                    const elementId = value.id
-                    const message = {
-                        id: elementId,
-                        messageTitle: elementMessageTitle,
-                        message: elementMessage
-                    }
+                    const messageObj = value.data()
+                    const message = {id: value.id, ...messageObj}
                     messagesArray.push(message)
                 }
                 setSendMessages(messagesArray)
@@ -53,7 +58,7 @@ const ContactDrawers = ({ userObj }) => {
         }
         docs()
     }, [])
-
+    console.log(sendMessages)
     return (
         <>
             <Drawer>
@@ -78,7 +83,17 @@ const ContactDrawers = ({ userObj }) => {
                                         <AccordionTrigger>{value.messageTitle}</AccordionTrigger>
                                         <AccordionContent>
                                             <div>{value.message}</div>
-                                            <Button variant='outlined' onClick={() => deleteMessage(value)}>지우기</Button>
+                                            {value?.violationUser ?
+                                                <div>
+                                                    <div className='pt-5'>신고 등록 유저</div>
+                                                    <Lists elements={[value.violationUser]} multiple={true} userSearch={true} ranking={false} handleUser={(value) => console.log(value)}/>
+                                                </div>
+                                                :
+                                                <Divider variant="inset" />
+                                            }
+                                            <div className='flex pt-3 justify-center'>
+                                                <Button variant='outlined' onClick={() => deleteMessage(value)}>지우기</Button>
+                                            </div>
                                         </AccordionContent>
                                     </AccordionItem>
                                 </Accordion>
