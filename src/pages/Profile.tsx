@@ -37,16 +37,18 @@ function Profile({ userObj }: Props) {
     }
   ])
   const [cards, setCards] = useState({point: null, done: [], borrowDone: [], lendDone: [] })
-
+  const userUid = state?.element.uid || userObj.uid
+  const userDisplayName = state?.element.displayName || userObj.displayName
   useEffect(() => {
     const cards = async () => {
-      const docRef = doc(dbservice, `members/${state.element.uid}`)
+      const docRef = doc(dbservice, `members/${userUid}`)
       const myDocSnap = await getDoc(docRef)
       const { points, done, borrowDoneCount, lendDoneCount } = myDocSnap.data()
       setCards({point: points, done: done, borrowDone: borrowDoneCount || [], lendDone: lendDoneCount || [] })
     }
     cards()
   }, [state])
+
   // const profileImage = useSelector(state => state.profileImage.value)
   const handleFollowers = ({ number, list }) => {
     setAlliesCollection((draft) => {
@@ -114,24 +116,24 @@ function Profile({ userObj }: Props) {
   // } satisfies ChartConfig
   // const totalNumber = actions.reduce((acc, curr) => acc + curr.number, 0)
   // const ProfileAvatar = lazy(() => import("src/muiComponents/ProfileAvatar"))
-  let displayName
-  if (state.element.displayName.length > 10) {
-    displayName = state.element.displayName.slice(0, 10)+'......'
+  let shortenName
+  if (userDisplayName.length > 10) {
+    shortenName = userDisplayName.slice(0, 10)+'......'
   } else {
-    displayName = state.element.displayName
+    shortenName = userDisplayName
   }
 
   return (
     <div>
-      <PageTitle title={`${state.element.uid === userObj.uid ? '내' : displayName} 프로필`}/>
-      <ProfileAvatar userObj={userObj} user={state.element} handleProfileDialog={() => setProfileDialog(true)} />
+      <PageTitle title={`${userUid === userObj.uid ? '내' : shortenName} 프로필`}/>
+      <ProfileAvatar userObj={userObj} user={state?.element || userObj} handleProfileDialog={() => setProfileDialog(true)} />
       <AvatarDialogs userObj={userObj} profileDialog={profileDialog} attachment={attachment} changeAttachment={(newState: string) => setAttachment(newState)}  handleClose={handleClose} />
       {/* <Suspense fallback={<Skeleton />}>
         <ProfileAvatar userObj={userObj} user={state.element} handleProfileDialog={() => setProfileDialog(true)} />
       </Suspense> */}
-      <ProfileActions userObj={userObj} user={state.element} alliesCollection={alliesCollection} handleFollowers={handleFollowers} handleFollowings={handleFollowings}/>
-      <ProfileCards user={state.element} alliesCollection={alliesCollection} cards={cards}/>
-      <ProfileCompleted user={state.element} cards={cards}/>
+      <ProfileActions userObj={userObj} user={state?.element || userObj} alliesCollection={alliesCollection} handleFollowers={handleFollowers} handleFollowings={handleFollowings}/>
+      <ProfileCards user={state?.element || userObj} alliesCollection={alliesCollection} cards={cards}/>
+      <ProfileCompleted user={state?.element || userObj} cards={cards}/>
       {/* {state.element.uid === userObj.uid ?
         <div className='flex justify-center' onClick={delist}>
           회원 탈퇴
@@ -149,7 +151,7 @@ function Profile({ userObj }: Props) {
           <Skeleton />
         </div>
       } */}
-      <ProfileMembers userObj={userObj} user={state.element} />
+      <ProfileMembers userObj={userObj} user={state?.element || userObj} />
     </div>
   )
 }
