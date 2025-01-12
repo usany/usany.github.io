@@ -61,7 +61,7 @@ const Cards = ({
       setTimeout(() => console.log('sample'), 5000)
     }
   }, [onMouse])
-  console.log(onMouse)
+  // console.log(onMouse)
   return (
     <div className='max-w-60 min-w-20 p-1' 
       onMouseDown={() => setOnMouse(true)}

@@ -8,13 +8,15 @@ import Avatars from 'src/muiComponents/Avatars'
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { MessageCircle, Minimize2, Maximize2, Captions, Bike, Ellipsis, ChevronRight } from "lucide-react"
 import staticImg from 'src/assets/pwa-512x512.png';
+import RankingListsTitle from 'src/muiComponents/RankingListsTitle'
 
 function Lists({ elements, multiple, userSearch, ranking, handleUser }) {
 
   return (
   <div>
     {ranking && <div>
-      <div className='flex justify-between w-screen pt-5'>
+      <RankingListsTitle multiple={multiple}/>
+      {/* <div className='flex justify-between w-screen pt-5'>
         <div className='flex flex-col justify-center px-5'>
           {multiple ? '유저':'내'} 랭킹
         </div>
@@ -25,7 +27,7 @@ function Lists({ elements, multiple, userSearch, ranking, handleUser }) {
         <div className='flex flex-col justify-center px-5'>
           프로필
         </div>
-      </div>
+      </div> */}
       {/* {!userSearch &&
         <div className='flex justify-between w-screen'>
           <div className='flex'>
@@ -54,6 +56,13 @@ function Lists({ elements, multiple, userSearch, ranking, handleUser }) {
             }
           }
           if (userNameConfirm) {
+            let displayName
+            displayName = element.displayName.slice(0, 10)+'......'
+            if (element.displayName.length > 10) {
+            } else {
+              displayName = element.displayName
+            }
+            
             return (
               <div key={index} className='px-3 pt-3'>
                 <Link to='/profile'
@@ -85,7 +94,7 @@ function Lists({ elements, multiple, userSearch, ranking, handleUser }) {
                       } */}
                       <div className='flex flex-col overflow-hidden px-10 w-48'>
                         <div className='overflow-hidden'>
-                          {element.displayName}
+                          {displayName}
                         </div>
                         <div className='overflow-hidden'>
                           {element.points}
@@ -127,6 +136,12 @@ function Lists({ elements, multiple, userSearch, ranking, handleUser }) {
             }
           }
           if (userNameConfirm) {
+            let displayName
+            if (element.displayName.length > 10) {
+              displayName = element.displayName.slice(0, 10)+'......'
+            } else {
+              displayName = element.displayName.slice(0, 10)+'......'
+            }
             return (
               <div key={index} className='px-3 pt-3' onClick={() => handleUser(element)}>
                   <div className={`flex w-full justify-between p-3`}>
@@ -146,7 +161,7 @@ function Lists({ elements, multiple, userSearch, ranking, handleUser }) {
                       </Avatar>
                       <div className='flex flex-col justify-center overflow-hidden px-10 w-48'>
                         <div className='overflow-hidden'>
-                          {element.displayName}
+                          {displayName}
                         </div>
                         {/* <div className='overflow-hidden'>
                           {element.points}

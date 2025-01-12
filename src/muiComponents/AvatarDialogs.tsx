@@ -12,6 +12,7 @@ import { getStorage, ref, uploadBytes, uploadString, uploadBytesResumable, getDo
 import { useSelector, useDispatch } from 'react-redux'
 import { changeProfileColor } from 'src/stateSlices/profileColorSlice'
 import { changeProfileImage } from 'src/stateSlices/profileImageSlice'
+import Avatars from 'src/muiComponents/Avatars'
 
 const AvatarDialogs = ({ userObj, profileDialog, attachment, changeAttachment, handleClose }) => {
     const [selectedColor, setSelectedColor] = useState('')
@@ -19,6 +20,7 @@ const AvatarDialogs = ({ userObj, profileDialog, attachment, changeAttachment, h
     const [onClear, setOnClear] = useState(false)
     const profileColor = useSelector(state => state.profileColor.value)
     const profileImage = useSelector(state => state.profileImage.value)
+    const profileUrl = useSelector(state => state.profileUrl.value)
     const dispatch = useDispatch()
     const onClick = async () => {
         const data = doc(dbservice, `members/${userObj.uid}`)
@@ -101,8 +103,9 @@ const AvatarDialogs = ({ userObj, profileDialog, attachment, changeAttachment, h
                     프로필 변경
                 </div>
                 <div className='flex'>
-                    <Avatar alt={userObj.displayName} sx={{ fontSize:'100px', width: '200px', height: '200px', bgcolor: selectedColor }} src={attachmentFile || './src'} onClick={() => {
-                    }} variant='rounded' />
+                    <Avatars profile={true} profileColor={selectedColor} profileImage={attachmentFile} fallback={userObj.displayName[0]}/>
+                    {/* <Avatar alt={userObj.displayName} sx={{ fontSize:'100px', width: '200px', height: '200px', bgcolor: selectedColor }} src={attachmentFile || './src'} onClick={() => {
+                    }} variant='rounded' /> */}
                     <div className='flex-col px-5 content-center'>
                         <label for='file'>내 파일 업로드</label>
                         <input id='file' type='file' onChange={onFileChange} hidden />

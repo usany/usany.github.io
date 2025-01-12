@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import ChevronRight from '@mui/icons-material/ChevronRight'
@@ -27,7 +27,7 @@ function Navigations({ userObj }: Props) {
     const theme = useSelector((state: ThemeRootState) => state.theme)
     const bottomNavigation = useSelector((state: BottomNavigationRootState) => state.bottomNavigation)
     const dispatch = useDispatch()
-
+    const location = useLocation();
     useEffect(() => {
         if (theme === 'dark') {
         setBackgroundColor('#2d3848')
@@ -47,7 +47,9 @@ function Navigations({ userObj }: Props) {
                     value={bottomNavigation}
                     onChange={(event, newValue) => {
                         dispatch(changeBottomNavigation(newValue))
-                        navigate('/')
+                        if (location.pathname !== '/') {
+                            navigate('/')
+                        }
                     }}
                 >
                     <BottomNavigationAction label={'등록'} icon={<ChevronLeft />}/>
@@ -61,7 +63,9 @@ function Navigations({ userObj }: Props) {
                     value={bottomNavigation}
                     onChange={(event, newValue) => {
                         dispatch(changeBottomNavigation(newValue))
-                        navigate('/')
+                        if (location.pathname !== '/') {
+                            navigate('/')
+                        }
                     }}
                 >
                     <BottomNavigationAction label={'등록'} icon={<Checklist />}/>

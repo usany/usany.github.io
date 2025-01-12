@@ -3,6 +3,8 @@ import AvatarDialogs from 'src/muiComponents/AvatarDialogs'
 import PageTitle from 'src/muiComponents/PageTitle'
 import ProfileAvatar from 'src/muiComponents/ProfileAvatar'
 import ProfileCards from 'src/muiComponents/ProfileCards'
+import ProfileCompleted from 'src/muiComponents/ProfileCompleted'
+import ProfileMembers from 'src/muiComponents/ProfileMembers'
 import ProfileActions from 'src/muiComponents/ProfileActions'
 import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
 // import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnapshot, updateDoc, setDoc } from 'firebase/firestore';
@@ -14,7 +16,7 @@ import { User } from 'firebase/auth'
 // import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 // import Skeleton from '@mui/material/Skeleton';
 import { getAuth, deleteUser } from "firebase/auth";
-import { doc, deleteDoc } from "firebase/firestore";
+import { doc, deleteDoc, getDoc } from "firebase/firestore";
 
 interface Props {
   userObj: User,
@@ -34,8 +36,18 @@ function Profile({ userObj }: Props) {
       list: []
     }
   ])
+  const [cards, setCards] = useState({point: null, done: [], borrowDone: [], lendDone: [] })
+
+  useEffect(() => {
+    const cards = async () => {
+      const docRef = doc(dbservice, `members/${state.element.uid}`)
+      const myDocSnap = await getDoc(docRef)
+      const { points, done, borrowDoneCount, lendDoneCount } = myDocSnap.data()
+      setCards({point: points, done: done, borrowDone: borrowDoneCount || [], lendDone: lendDoneCount || [] })
+    }
+    cards()
+  }, [state])
   // const profileImage = useSelector(state => state.profileImage.value)
-  const user = getAuth().currentUser;
   const handleFollowers = ({ number, list }) => {
     setAlliesCollection((draft) => {
       const followers = draft.find((todo) => todo.id === 'followers');
@@ -49,8 +61,7 @@ function Profile({ userObj }: Props) {
     })
   }
   const dispatch = useDispatch()
-  const navigate = useNavigate()
-
+  
   useEffect(() => {
     const bringAllies = async () => {
       let docRef
@@ -103,28 +114,25 @@ function Profile({ userObj }: Props) {
   // } satisfies ChartConfig
   // const totalNumber = actions.reduce((acc, curr) => acc + curr.number, 0)
   // const ProfileAvatar = lazy(() => import("src/muiComponents/ProfileAvatar"))
-  const delist = async () => {
-    await deleteDoc(doc(dbservice, `members/${userObj.uid}`));
-    deleteUser(user).then(() => {
-      console.log(user)
-      // User deleted.
-    }).catch((error) => {
-      // An error ocurred
-      // ...
-    });
-    navigate('/')
+  let displayName
+  if (state.element.displayName.length > 10) {
+    displayName = state.element.displayName.slice(0, 10)+'......'
+  } else {
+    displayName = state.element.displayName
   }
+
   return (
     <div>
-      <PageTitle title={`${state.element.uid === userObj.uid ? '내' : state.element.displayName} 프로필`}/>
+      <PageTitle title={`${state.element.uid === userObj.uid ? '내' : displayName} 프로필`}/>
       <ProfileAvatar userObj={userObj} user={state.element} handleProfileDialog={() => setProfileDialog(true)} />
+      <AvatarDialogs userObj={userObj} profileDialog={profileDialog} attachment={attachment} changeAttachment={(newState: string) => setAttachment(newState)}  handleClose={handleClose} />
       {/* <Suspense fallback={<Skeleton />}>
         <ProfileAvatar userObj={userObj} user={state.element} handleProfileDialog={() => setProfileDialog(true)} />
       </Suspense> */}
-      <AvatarDialogs userObj={userObj} profileDialog={profileDialog} attachment={attachment} changeAttachment={(newState: string) => setAttachment(newState)}  handleClose={handleClose} />
       <ProfileActions userObj={userObj} user={state.element} alliesCollection={alliesCollection} handleFollowers={handleFollowers} handleFollowings={handleFollowings}/>
-      <ProfileCards user={state.element} alliesCollection={alliesCollection}/>
-      {state.element.uid === userObj.uid ?
+      <ProfileCards user={state.element} alliesCollection={alliesCollection} cards={cards}/>
+      <ProfileCompleted user={state.element} cards={cards}/>
+      {/* {state.element.uid === userObj.uid ?
         <div className='flex justify-center' onClick={delist}>
           회원 탈퇴
         </div>
@@ -134,13 +142,14 @@ function Profile({ userObj }: Props) {
             신고하기
           </div>
         </Link>
-      }
+      } */}
       {/* {profileImage ?
         :
         <div className='w-screen px-5'>
           <Skeleton />
         </div>
       } */}
+      <ProfileMembers userObj={userObj} user={state.element} />
     </div>
   )
 }

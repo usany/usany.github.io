@@ -23,7 +23,7 @@ const ProfileAvatar = ({ userObj, user, handleProfileDialog }) => {
             }
           >
             {profileUrl ?
-              <Avatars profile={true} profileColor={profileColor} profileImage={profileUrl} fallback={userObj.displayName[0]}/>
+              <Avatars profile={true} profileColor={profileColor} profileImage={profileImage} fallback={userObj.displayName[0]}/>
             :
               <LoadingsSkeletons height={'[192px]'} width={'[192px]'} />
             }

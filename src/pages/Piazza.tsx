@@ -3,18 +3,19 @@ import "./Chatting.css";
 import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnapshot, deleteDoc, updateDoc, limit } from 'firebase/firestore';
 import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
 import PiazzaDialogs from 'src/muiComponents/PiazzaDialogs'
-import PiazzaSwitch from 'src/muiComponents/PiazzaSwitch'
+// import PiazzaSwitch from 'src/muiComponents/PiazzaSwitch'
 import { webSocket, onClick } from 'src/webSocket.tsx'
 // import Avatar from '@mui/material/Avatar';
 import { useSelector, useDispatch } from 'react-redux'
 import { User } from "firebase/auth";
 import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
 import { Link, useLocation } from 'react-router-dom'
-import ChattingDialogs from 'src/muiComponents/ChattingDialogs'
+// import ChattingDialogs from 'src/muiComponents/ChattingDialogs'
 import { changeNewMessageTrue } from 'src/stateSlices/newMessageSlice'
-import Avatars from 'src/muiComponents/Avatars'
+// import Avatars from 'src/muiComponents/Avatars'
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import PageTitle from 'src/muiComponents/PageTitle'
+// import PageTitle from 'src/muiComponents/PageTitle'
+import PiazzaTitle from 'src/muiComponents/PiazzaTitle'
 
 interface Props {
   userObj: User
@@ -24,15 +25,15 @@ function Piazza({ userObj }: Props) {
   const [msg, setMsg] = useState("");
   const [msgList, setMsgList] = useState<[]>([]);
   const [changeMessage, setChangeMessage] = useState<boolean>(true)
-  const [privateTarget, setPrivateTarget] = useState("");
+  // const [privateTarget, setPrivateTarget] = useState("");
+  // const [selectUser, setSelectUser] = useState(false)
   const [user, setUser] = useState(null)
-  const [selectUser, setSelectUser] = useState(false)
   const profileColor = useSelector(state => state.profileColor.value)
   const profileUrl = useSelector(state => state.profileUrl.value)
-  const [displayedName, setDisplayedName] = useState(null)
+  const [displayedName, setDisplayedName] = useState('')
   const dispatch = useDispatch()
   const {state} = useLocation()
-  const multiple = state?.multiple
+  const multiple = state?.multiple || true
   const conversation = state?.conversation
 
   useEffect(() => {
@@ -183,7 +184,7 @@ function Piazza({ userObj }: Props) {
       id: userName,
       messageClockNumber: messageClockNumber,
       messageClock: messageClock,
-      target: privateTarget,
+      // target: privateTarget,
       conversation: conversation,
       conversationUid: state.chattingUid,
       conversationName: state.displayName,
@@ -221,13 +222,9 @@ function Piazza({ userObj }: Props) {
     const userDoc = await getDoc(userRef)
     const userElement = userDoc.data()
     setUser(userElement)
-    setSelectUser(true)
     setDisplayedName(displayName)
   };
   
-  const handleClose = () => {
-    setSelectUser(false)
-  }
 
   const onForm = async () => {
     try {
@@ -353,7 +350,7 @@ function Piazza({ userObj }: Props) {
           userOneProfileUrl: userOneProfileUrl,
           userTwoProfileUrl: userTwoProfileUrl
         }
-        console.log(messageObj)
+        
         await addDoc(collection(dbservice, `chats_${conversation}`), messageObj)
         const myDocRef = doc(dbservice, `members/${userUid}`)
         const myDocSnap = await getDoc(myDocRef)
@@ -401,24 +398,17 @@ function Piazza({ userObj }: Props) {
       console.log(error)
     }
   }
+  const displayName = state?.displayName
   return (
     <>
-      <div className='flex w-screen justify-between'>
-        <PageTitle title={multiple ? '단체 대화' : `개인 대화 ${state?.displayName}`} />
-        {multiple && 
-          <div className='flex w-2/3 justify-end px-5 pt-5'>
-            <PiazzaSwitch />
-          </div>
-        }
-      </div>
-      <div className="app-container pt-5">
-        <div className="wrap">
-          <div className="chat-box">
-            <ul className="chat">
-              {msgList.map((v, index) => {
+      <PiazzaTitle multiple={multiple} displayName={displayName} />
+      <div className="flex flex-col pt-5">
+          <div className="p-1 border-t rounded-xl h-[350px] overflow-auto">
+            <ul>
+              {msgList.map((value, index) => {
                   let userDirection
-                  const clock = new Date(v.messageClock)
-                  if (v.userUid === userObj.uid) {
+                  const clock = new Date(value.messageClock)
+                  if (value.userUid === userObj.uid) {
                     userDirection = 'text-right'
                   } else {
                     userDirection = 'text-left'
@@ -469,38 +459,44 @@ function Piazza({ userObj }: Props) {
                   
                   return (
                       <li className={userDirection}>
-                        {previousUid !== v.userUid &&
+                        {previousUid !== value.userUid &&
                           <div>
-                            <div className={`flex justify-${v.userUid !== userObj.uid ? 'start' : 'end'}`}>
+                            <div className={`flex justify-${value.userUid !== userObj.uid ? 'start' : 'end'}`}>
                               {userDirection === 'text-left' ?
                               <div className='flex gap-3'>
-                                <Avatar onClick={() => onSetPrivateTarget({userUid: v.userUid, displayName: v.id})} className={'bg-profile-blue'}>
-                                  <AvatarImage src={v.profileImageUrl} />
-                                  <AvatarFallback className='text-xl border-none	'>{v.id[0]}</AvatarFallback>
+                                <Avatar onClick={() => {
+                                  document.getElementById('drawer')?.click()
+                                  onSetPrivateTarget({userUid: value.userUid, displayName: value.id})
+                                }} className={'bg-profile-blue'}>
+                                    <AvatarImage src={value?.profileImageUrl} />
+                                    <AvatarFallback className='text-xl border-none	'>{value?.id[0]}</AvatarFallback>
                                 </Avatar>
-                                <div>{v.id}</div>
+                                <div>{value.id}</div>
                               </div>
                               :
                               <div className='flex gap-3'>
-                                <div>{v.id}</div>
-                                <Avatar onClick={() => onSetPrivateTarget({userUid: v.userUid, displayName: v.id})} className={'bg-profile-blue'}>
-                                  <AvatarImage src={v.profileImageUrl} />
-                                  <AvatarFallback className='text-xl border-none	'>{v.id[0]}</AvatarFallback>
+                                <div>{value.id}</div>
+                                <Avatar onClick={() => {
+                                  document.getElementById('drawer')?.click()
+                                  onSetPrivateTarget({userUid: value.userUid, displayName: value.id})
+                                }} className={'bg-profile-blue'}>
+                                    <AvatarImage src={value?.profileImageUrl} />
+                                    <AvatarFallback className='text-xl border-none	'>{value?.id[0]}</AvatarFallback>
                                 </Avatar>
                               </div>
                               }
                             </div>
                           </div>
                         }
-                        {v.userUid !== userObj.uid ? 
+                        {value.userUid !== userObj.uid ? 
                           <div className='flex gap-3 justify-start'>
-                            <div className='other rounded-tr-lg rounded-bl-lg rounded-br-lg p-1 bg-light-1 dark:bg-dark-1'>{v.msg}</div>
+                            <div className='other rounded-tr-lg rounded-bl-lg rounded-br-lg p-1 bg-light-1 dark:bg-dark-1'>{value.msg}</div>
                             <div>{clock.getFullYear()}-{messageMonth}-{messageDate} {messageAmpm} {messageHours}:{clock.getMinutes()}</div>
                           </div>
                         :
                           <div className='flex gap-3 justify-end'>
                             <div>{clock.getFullYear()}-{messageMonth}-{messageDate} {messageAmpm} {messageHours}:{clock.getMinutes()}</div>
-                            <div className='me rounded-tl-lg rounded-bl-lg rounded-br-lg p-1 bg-light-1 dark:bg-dark-1'>{v.msg}</div>
+                            <div className='me rounded-tl-lg rounded-bl-lg rounded-br-lg p-1 bg-light-1 dark:bg-dark-1'>{value.msg}</div>
                           </div>
                         }
                       </li>
@@ -510,20 +506,19 @@ function Piazza({ userObj }: Props) {
               }
               <li ref={messagesEndRef} />
             </ul>
-            <form className="flex gap-px" onSubmit={onSendSubmitHandler}>
-              <input
-                className='w-full p-3 rounded bg-light-1 dark:bg-dark-1'
-                placeholder="메세지를 작성해 주세요"
-                onChange={onChangeMsgHandler}
-                value={msg}
-                autoFocus
-              />
-              <button className='w-1/6 rounded bg-light-2 dark:bg-dark-2' type="submit">전송</button>
-            </form>
           </div>
-          <PiazzaDialogs multiple={multiple} selectUser={selectUser} user={user} handleClose={handleClose} userObj={userObj} handleMsgList={(newState: []) => setMsgList(newState)} handleChangeMessage={(newState: boolean) => setChangeMessage(newState)} displayedName={displayedName}/>
-        </div>
+          <form className="flex gap-px" onSubmit={onSendSubmitHandler}>
+            <input
+              className='w-full p-3 rounded bg-light-1 dark:bg-dark-1'
+              placeholder="메세지를 작성해 주세요"
+              onChange={onChangeMsgHandler}
+              value={msg}
+              autoFocus
+            />
+            <button className='w-1/6 rounded bg-light-2 dark:bg-dark-2' type="submit">전송</button>
+          </form>
       </div>
+      <PiazzaDialogs multiple={multiple} user={user} userObj={userObj} handleMsgList={(newState: []) => setMsgList(newState)} handleChangeMessage={(newState: boolean) => setChangeMessage(newState)} displayedName={displayedName}/>
     </>
   );
 }
