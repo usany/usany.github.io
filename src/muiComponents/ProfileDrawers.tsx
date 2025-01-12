@@ -57,7 +57,7 @@ const ProfileDrawers = ({ user, cards, followers, alliesCollection, selection })
   //     }
   //   })
   // }
-  console.log(cards)
+  // console.log(cards)
   return (
     <Drawer>
       <DrawerTrigger>
