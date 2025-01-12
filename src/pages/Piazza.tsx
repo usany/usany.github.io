@@ -18,19 +18,13 @@ interface Props {
 }
 function Piazza({ userObj }: Props) {
   const messagesEndRef = useRef(null);
-  const [msg, setMsg] = useState("");
   const [msgList, setMsgList] = useState<[]>([]);
   const [changeMessage, setChangeMessage] = useState<boolean>(true)
-  // const [privateTarget, setPrivateTarget] = useState("");
-  // const [selectUser, setSelectUser] = useState(false)
   const [user, setUser] = useState(null)
-  const profileColor = useSelector(state => state.profileColor.value)
-  const profileUrl = useSelector(state => state.profileUrl.value)
   const [displayedName, setDisplayedName] = useState('')
   const dispatch = useDispatch()
   const {state} = useLocation()
   const multiple = state?.multiple || true
-  const conversation = state?.conversation
 
   useEffect(() => {
     dispatch(changeBottomNavigation(5))
