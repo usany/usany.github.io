@@ -25,7 +25,6 @@ function Profile({ userObj }: Props) {
   const [attachment, setAttachment] = useState('')
   const {state} = useLocation()
   const [profileDialog, setProfileDialog] = useState(false)
-  // const profileColor = useSelector(state => state.profileColor.value)
   const [alliesCollection, setAlliesCollection] = useImmer([
     {
       id: 'followers',
@@ -49,7 +48,6 @@ function Profile({ userObj }: Props) {
     cards()
   }, [state])
 
-  // const profileImage = useSelector(state => state.profileImage.value)
   const handleFollowers = ({ number, list }) => {
     setAlliesCollection((draft) => {
       const followers = draft.find((todo) => todo.id === 'followers');
