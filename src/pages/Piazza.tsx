@@ -3,18 +3,13 @@ import "./Chatting.css";
 import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnapshot, deleteDoc, updateDoc, limit } from 'firebase/firestore';
 import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
 import PiazzaDialogs from 'src/muiComponents/PiazzaDialogs'
-// import PiazzaSwitch from 'src/muiComponents/PiazzaSwitch'
 import { webSocket, onClick } from 'src/webSocket.tsx'
-// import Avatar from '@mui/material/Avatar';
 import { useSelector, useDispatch } from 'react-redux'
 import { User } from "firebase/auth";
 import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
 import { Link, useLocation } from 'react-router-dom'
-// import ChattingDialogs from 'src/muiComponents/ChattingDialogs'
 import { changeNewMessageTrue } from 'src/stateSlices/newMessageSlice'
-// import Avatars from 'src/muiComponents/Avatars'
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-// import PageTitle from 'src/muiComponents/PageTitle'
 import PiazzaTitle from 'src/muiComponents/PiazzaTitle'
 
 interface Props {
@@ -334,8 +329,6 @@ function Piazza({ userObj }: Props) {
         const userUrl = userSnap.data()?.profileImageUrl
         userTwoProfileUrl = userUrl
       }
-      // console.log(state)
-      // console.log(profileUrl)
       if (message) {
         const messageObj = {
           userUid: userUid,
@@ -403,120 +396,120 @@ function Piazza({ userObj }: Props) {
     <>
       <PiazzaTitle multiple={multiple} displayName={displayName} />
       <div className="flex flex-col pt-5">
-          <div className="p-1 border-t rounded-xl h-[350px] overflow-auto">
-            <ul>
-              {msgList.map((value, index) => {
-                  let userDirection
-                  const clock = new Date(value.messageClock)
-                  if (value.userUid === userObj.uid) {
-                    userDirection = 'text-right'
-                  } else {
-                    userDirection = 'text-left'
-                  }
-                  let previousUid
-                  let passingClock
-                  let displayClock = 0
-                  if (index > 0) {
-                    previousUid = msgList[index-1].userUid
-                  }
-                  if (index < msgList.length-1) {
-                    if (msgList[index+1].userUid === userObj.uid) {
-                      passingClock = new Date(msgList[index+1].messageClock)
-                      if (clock.getFullYear() === passingClock.getFullYear()) {
-                        if (clock.getMonth() === passingClock.getMonth()) {
-                          if (clock.getDate() === passingClock.getDate()) {
-                            if (clock.getHours() === passingClock.getHours()) {
-                              if (clock.getMinutes() === passingClock.getMinutes()) {
-                                displayClock = 1
-                              }
+        <div className="p-1 border-t rounded-xl h-[350px] overflow-auto">
+          <ul>
+            {msgList.map((value, index) => {
+                let userDirection
+                const clock = new Date(value.messageClock)
+                if (value.userUid === userObj.uid) {
+                  userDirection = 'text-right'
+                } else {
+                  userDirection = 'text-left'
+                }
+                let previousUid
+                let passingClock
+                let displayClock = 0
+                if (index > 0) {
+                  previousUid = msgList[index-1].userUid
+                }
+                if (index < msgList.length-1) {
+                  if (msgList[index+1].userUid === userObj.uid) {
+                    passingClock = new Date(msgList[index+1].messageClock)
+                    if (clock.getFullYear() === passingClock.getFullYear()) {
+                      if (clock.getMonth() === passingClock.getMonth()) {
+                        if (clock.getDate() === passingClock.getDate()) {
+                          if (clock.getHours() === passingClock.getHours()) {
+                            if (clock.getMinutes() === passingClock.getMinutes()) {
+                              displayClock = 1
                             }
                           }
                         }
                       }
                     }
                   }
-                  let messageAmpm
-                  let messageHours = clock.getHours()
-                  let messageMonth = (clock.getMonth()+1).toString()
-                  let messageDate = (clock.getDate()).toString()
-                  if (messageHours >= 13) {
-                    messageAmpm = '오후'
-                    if (messageHours !== 12) {
-                      messageHours = messageHours-12
-                    }
-                  } else {
-                    messageAmpm = '오전'
-                    if (messageHours === 0) {
-                      messageHours = messageHours+12
-                    }
+                }
+                let messageAmpm
+                let messageHours = clock.getHours()
+                let messageMonth = (clock.getMonth()+1).toString()
+                let messageDate = (clock.getDate()).toString()
+                if (messageHours >= 13) {
+                  messageAmpm = '오후'
+                  if (messageHours !== 12) {
+                    messageHours = messageHours-12
                   }
-                  if (clock.getMonth()+1 < 10) {
-                    messageMonth = '0'+messageMonth
-                  } 
-                  if (messageDate.length === 1) {
-                    messageDate = '0'+messageDate
+                } else {
+                  messageAmpm = '오전'
+                  if (messageHours === 0) {
+                    messageHours = messageHours+12
                   }
-                  
-                  return (
-                      <li className={userDirection}>
-                        {previousUid !== value.userUid &&
-                          <div>
-                            <div className={`flex justify-${value.userUid !== userObj.uid ? 'start' : 'end'}`}>
-                              {userDirection === 'text-left' ?
-                              <div className='flex gap-3'>
-                                <Avatar onClick={() => {
-                                  document.getElementById('drawer')?.click()
-                                  onSetPrivateTarget({userUid: value.userUid, displayName: value.id})
-                                }} className={'bg-profile-blue'}>
-                                    <AvatarImage src={value?.profileImageUrl} />
-                                    <AvatarFallback className='text-xl border-none	'>{value?.id[0]}</AvatarFallback>
-                                </Avatar>
-                                <div>{value.id}</div>
-                              </div>
-                              :
-                              <div className='flex gap-3'>
-                                <div>{value.id}</div>
-                                <Avatar onClick={() => {
-                                  document.getElementById('drawer')?.click()
-                                  onSetPrivateTarget({userUid: value.userUid, displayName: value.id})
-                                }} className={'bg-profile-blue'}>
-                                    <AvatarImage src={value?.profileImageUrl} />
-                                    <AvatarFallback className='text-xl border-none	'>{value?.id[0]}</AvatarFallback>
-                                </Avatar>
-                              </div>
-                              }
+                }
+                if (clock.getMonth()+1 < 10) {
+                  messageMonth = '0'+messageMonth
+                } 
+                if (messageDate.length === 1) {
+                  messageDate = '0'+messageDate
+                }
+                
+                return (
+                    <li className={userDirection}>
+                      {previousUid !== value.userUid &&
+                        <div>
+                          <div className={`flex justify-${value.userUid !== userObj.uid ? 'start' : 'end'}`}>
+                            {userDirection === 'text-left' ?
+                            <div className='flex gap-3'>
+                              <Avatar onClick={() => {
+                                document.getElementById('drawer')?.click()
+                                onSetPrivateTarget({userUid: value.userUid, displayName: value.id})
+                              }} className={'bg-profile-blue'}>
+                                  <AvatarImage src={value?.profileImageUrl} />
+                                  <AvatarFallback className='text-xl border-none	'>{value?.id[0]}</AvatarFallback>
+                              </Avatar>
+                              <div>{value.id}</div>
                             </div>
+                            :
+                            <div className='flex gap-3'>
+                              <div>{value.id}</div>
+                              <Avatar onClick={() => {
+                                document.getElementById('drawer')?.click()
+                                onSetPrivateTarget({userUid: value.userUid, displayName: value.id})
+                              }} className={'bg-profile-blue'}>
+                                  <AvatarImage src={value?.profileImageUrl} />
+                                  <AvatarFallback className='text-xl border-none	'>{value?.id[0]}</AvatarFallback>
+                              </Avatar>
+                            </div>
+                            }
                           </div>
-                        }
-                        {value.userUid !== userObj.uid ? 
-                          <div className='flex gap-3 justify-start'>
-                            <div className='other rounded-tr-lg rounded-bl-lg rounded-br-lg p-1 bg-light-1 dark:bg-dark-1'>{value.msg}</div>
-                            <div>{clock.getFullYear()}-{messageMonth}-{messageDate} {messageAmpm} {messageHours}:{clock.getMinutes()}</div>
-                          </div>
-                        :
-                          <div className='flex gap-3 justify-end'>
-                            <div>{clock.getFullYear()}-{messageMonth}-{messageDate} {messageAmpm} {messageHours}:{clock.getMinutes()}</div>
-                            <div className='me rounded-tl-lg rounded-bl-lg rounded-br-lg p-1 bg-light-1 dark:bg-dark-1'>{value.msg}</div>
-                          </div>
-                        }
-                      </li>
-                  )
-                  }
+                        </div>
+                      }
+                      {value.userUid !== userObj.uid ? 
+                        <div className='flex gap-3 justify-start'>
+                          <div className='other rounded-tr-lg rounded-bl-lg rounded-br-lg p-1 bg-light-1 dark:bg-dark-1'>{value.msg}</div>
+                          <div>{clock.getFullYear()}-{messageMonth}-{messageDate} {messageAmpm} {messageHours}:{clock.getMinutes()}</div>
+                        </div>
+                      :
+                        <div className='flex gap-3 justify-end'>
+                          <div>{clock.getFullYear()}-{messageMonth}-{messageDate} {messageAmpm} {messageHours}:{clock.getMinutes()}</div>
+                          <div className='me rounded-tl-lg rounded-bl-lg rounded-br-lg p-1 bg-light-1 dark:bg-dark-1'>{value.msg}</div>
+                        </div>
+                      }
+                    </li>
                 )
-              }
-              <li ref={messagesEndRef} />
-            </ul>
-          </div>
-          <form className="flex gap-px" onSubmit={onSendSubmitHandler}>
-            <input
-              className='w-full p-3 rounded bg-light-1 dark:bg-dark-1'
-              placeholder="메세지를 작성해 주세요"
-              onChange={onChangeMsgHandler}
-              value={msg}
-              autoFocus
-            />
-            <button className='w-1/6 rounded bg-light-2 dark:bg-dark-2' type="submit">전송</button>
-          </form>
+                }
+              )
+            }
+            <li ref={messagesEndRef} />
+          </ul>
+        </div>
+        <form className="flex gap-px" onSubmit={onSendSubmitHandler}>
+          <input
+            className='w-full p-3 rounded bg-light-1 dark:bg-dark-1'
+            placeholder="메세지를 작성해 주세요"
+            onChange={onChangeMsgHandler}
+            value={msg}
+            autoFocus
+          />
+          <button className='w-1/6 rounded bg-light-2 dark:bg-dark-2' type="submit">전송</button>
+        </form>
       </div>
       <PiazzaDialogs multiple={multiple} user={user} userObj={userObj} handleMsgList={(newState: []) => setMsgList(newState)} handleChangeMessage={(newState: boolean) => setChangeMessage(newState)} displayedName={displayedName}/>
     </>
