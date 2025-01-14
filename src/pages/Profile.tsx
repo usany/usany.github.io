@@ -65,7 +65,7 @@ function Profile({ userObj }: Props) {
   useEffect(() => {
     const bringAllies = async () => {
       let docRef
-      if (userObj.uid === state.element.uid) {
+      if (userObj.uid === userUid) {
         docRef = doc(dbservice, `members/${userObj.uid}`)
       } else {
         docRef = doc(dbservice, `members/${state.element.uid}`)
@@ -125,7 +125,7 @@ function Profile({ userObj }: Props) {
     <div>
       <PageTitle title={`${userUid === userObj.uid ? '내' : shortenName} 프로필`}/>
       <ProfileAvatar userObj={userObj} user={state?.element || userObj} handleProfileDialog={() => setProfileDialog(true)} />
-      <AvatarDialogs userObj={userObj} profileDialog={profileDialog} attachment={attachment} changeAttachment={(newState: string) => setAttachment(newState)}  handleClose={handleClose} />
+      <AvatarDialogs userObj={userObj} profileDialog={profileDialog} attachment={attachment} changeAttachment={(newState: string) => setAttachment(newState)} handleClose={handleClose} />
       {/* <Suspense fallback={<Skeleton />}>
         <ProfileAvatar userObj={userObj} user={state.element} handleProfileDialog={() => setProfileDialog(true)} />
       </Suspense> */}

@@ -18,7 +18,7 @@ import {
 } from "@/components/ui/drawer"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
-const PiazzaDialogs = ({ multiple, user, userObj, handleMsgList, handleChangeMessage, displayedName, }) => {
+const PiazzaDialogs = ({ multiple, handleMultiple, user, userObj, handleMessagesList, displayedName, }) => {
     const [conversation, setConversation] = useState(null)
     useEffect(() => {
         if (user) {
@@ -103,13 +103,16 @@ const PiazzaDialogs = ({ multiple, user, userObj, handleMsgList, handleChangeMes
                         </Link>
                         {multiple && userObj.uid !== user?.uid && 
                             <Link to='/piazza' state={{conversation: conversation, displayName: user?.displayName, userUid: userObj.uid, chattingUid: user?.uid, multiple: false, profileUrl: user?.profileImageUrl}}>
-                                <Button variant='outlined' onClick={() => {
-                                    handleMsgList([])
-                                    handleChangeMessage(true)
-                                    // handleClose()
-                                }}>
-                                    개인 대화
-                                </Button>
+                                <DrawerClose>
+                                    <Button variant='outlined' onClick={() => {
+                                        handleMessagesList([])
+                                        // handleChangeMessage(true)
+                                        handleMultiple(false)
+                                        // handleClose()
+                                    }}>
+                                        개인 대화
+                                    </Button>
+                                </DrawerClose>
                             </Link>
                         }
                     </div>
