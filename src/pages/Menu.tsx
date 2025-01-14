@@ -18,6 +18,7 @@ import { Skeleton } from "@/components/ui/skeleton"
 import { User } from 'firebase/auth';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import Cards from 'src/muiComponents/Cards';
+import useLongPress from 'src/hooks/usePress';
 
 interface Props {
     userObj: User
@@ -86,6 +87,8 @@ function Menu({ userObj }: Props) {
     })
     }, [])
     const accordionValues = ['카드', '메세지']
+    const elementRef = useRef()
+    useLongPress(elementRef, () => alert('practice'))
     return (
         <div className='flex justify-center flex-col pb-5'>
             <PageTitle title={'내 상태'}/>
@@ -96,7 +99,7 @@ function Menu({ userObj }: Props) {
             >
                 <AccordionItem value="item-1">
                 <AccordionTrigger onClick={() => dispatch(change())}>카드</AccordionTrigger>
-                <AccordionContent >
+                <AccordionContent ref={elementRef}>
                     {cardLoaded ? 
                         <div>
                             {!messages.length ? 
