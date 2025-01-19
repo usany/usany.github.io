@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import Menu from 'src/pages/Menu'
 import Notice from 'src/pages/Notice'
+import Layout from 'src/pages/Layout'
 import Auth from 'src/pages/Auth'
 import Add from 'src/pages/Add'
 import { SwipeableViews } from "src/navigate/SwipeableViews";
@@ -19,60 +20,62 @@ function Home({ userObj }: UserObjProps) {
     const bottomNavigation = useSelector((state: BottomNavigationRootState) => state.bottomNavigation)
     const tabs = useSelector((state: TabsRootState) => state.tabs)
     const dispatch = useDispatch()
+    const [profileUrl, setProfileUrl] = useState(null)
     useEffect(() => {
         if (bottomNavigation === 5) {
             dispatch(changeBottomNavigation(1))
         }
     }, [])
     
-    useEffect(() => {
-        const userSetting = async () => {
-            const userRef = doc(dbservice, `members/${userObj?.uid}`)
-            const userSnap = await getDoc(userRef)
-            const user = userSnap.data()
-            if (!user && userObj) {
-                await setDoc(userRef, {
-                    uid: userObj.uid,
-                    displayName: userObj.displayName,
-                    points: 0,
-                    profileColor: '#2196f3',
-                    profileImage: null,
-                    followerNum: 0,
-                    followingNum: 0,
-                    followers: [],
-                    followings: [],
-                    messagingToken: null
-                })
-                const storageRef = ref(storage, userObj.uid);
-                uploadString(storageRef, 'null', 'raw').then(() => {
-                    console.log('Uploaded a blob or file!');
-                });
-            }
-        }
-        userSetting()
-    }, [userObj])
+    // useEffect(() => {
+    //     const userSetting = async () => {
+    //         const userRef = doc(dbservice, `members/${userObj?.uid}`)
+    //         const userSnap = await getDoc(userRef)
+    //         const user = userSnap.data()
+    //         getDownloadURL(ref(storage, userObj.uid))
+    //         .then((url) => {
+    //             setProfileUrl(url)    
+    //         })
+    //         .catch((error) => {
+    //         console.log(error)
+    //         });
+    //         if (!user && userObj) {
+    //             console.log(profileUrl)
+    //             await setDoc(userRef, {
+    //                 uid: userObj.uid,
+    //                 displayName: userObj.displayName,
+    //                 points: 0,
+    //                 profileColor: 'profile-lime',
+    //                 profileImage: null,
+    //                 profileImageUrl: profileUrl,
+    //                 followerNum: 0,
+    //                 followingNum: 0,
+    //                 followers: [],
+    //                 followings: [],
+    //                 messagingToken: null
+    //             })
+    //             const storageRef = ref(storage, userObj.uid);
+    //             uploadString(storageRef, 'null', 'raw').then(() => {
+    //                 console.log('Uploaded a blob or file!');
+    //             });
+    //         }
+    //     }
+    //     userSetting()
+    // }, [userObj])
     
     return (
         <>
             {userObj ? 
                 <>
                     {bottomNavigation === 0 && 
-                        <SwipeableViews
-                            index={tabs}
-                            onIndexChange={(newValue) => dispatch(changeTabs(newValue))}
-                            num={1}
-                        >
+                        <SwipeableViews>
                             <Add userObj={userObj} action={0} borrow={true}/>
                             <Add userObj={userObj} action={1} borrow={false}/>
                         </SwipeableViews>
                     }
                     {bottomNavigation === 1 && <Menu userObj={userObj} />}
                     {bottomNavigation === 2 && 
-                        <SwipeableViews
-                            index={tabs}
-                            onIndexChange={(newValue) => dispatch(changeTabs(newValue))}
-                            num={1}
-                        >
+                        <SwipeableViews>
                             <Notice userObj={userObj} borrow={true} />
                             <Notice userObj={userObj} borrow={false}/>
                         </SwipeableViews>
@@ -80,9 +83,19 @@ function Home({ userObj }: UserObjProps) {
                 </>
                 :
                 <>
-                    {bottomNavigation === 0 && <Notice userObj={userObj} borrow={true} />}
+                    {bottomNavigation === 0 && 
+                        <SwipeableViews>
+                            <Layout borrow={true} />
+                            <Layout borrow={false}/>
+                        </SwipeableViews>
+                    }
                     {bottomNavigation === 1 && <Auth />}
-                    {bottomNavigation === 2 && <Notice userObj={userObj} borrow={false} />}
+                    {bottomNavigation === 2 && 
+                        <SwipeableViews>
+                            <Notice userObj={userObj} borrow={true} />
+                            <Notice userObj={userObj} borrow={false}/>
+                        </SwipeableViews>
+                    }
                 </>
             }
         </>

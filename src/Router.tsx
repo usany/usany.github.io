@@ -31,28 +31,23 @@ const Router = ({ userObj }: Props) => {
                 <Header userObj={userObj} />
                 <div>
                     <Suspense fallback={<Loadings />}>
-                    <Routes>
-                        {userObj ? 
-                            <Route>
-                                <Route path='/' Component={() => <Home userObj={userObj} />} />
-                                <Route path='/profile' Component={() => <Profile userObj={userObj}/>} />
-                                <Route path='/ranking' Component={() => <Ranking userObj={userObj}/>} />
-                                <Route path='/specific' Component={() => <Specific userObj={userObj} />} />
-                                <Route path='/contact' Component={() => <Contact userObj={userObj} />} />
-                                <Route path='/piazza' Component={() => <Piazza userObj={userObj} />} />
-                                {/* <Route path='/chatting' Component={() => <Chatting userObj={userObj} />} />
-                                <Route path='/actions' Component={() => <Actions userObj={userObj} />} />
-                                <Route path='/allies' Component={() => <Allies />} />
-                                <Route path='/points' Component={() => <Points />} />
-                                <Route path='/chats' Component={() => <Chats userObj={userObj} />} /> */}
-                            </Route>
-                            : 
-                            <Route>
-                                <Route path='/' Component={() => <Home userObj={userObj} />} />
-                                <Route path='/specific' Component={() => <Specific userObj={userObj} />} />
-                            </Route>
-                        }
-                    </Routes>
+                        <Routes>
+                            {userObj ? 
+                                <Route>
+                                    <Route path='/' Component={() => <Home userObj={userObj} />} />
+                                    <Route path='/profile' Component={() => <Profile userObj={userObj}/>} />
+                                    <Route path='/ranking' Component={() => <Ranking userObj={userObj}/>} />
+                                    <Route path='/specific' Component={() => <Specific userObj={userObj} />} />
+                                    <Route path='/contact' Component={() => <Contact userObj={userObj} />} />
+                                    <Route path='/piazza' Component={() => <Piazza userObj={userObj} />} />
+                                </Route>
+                                : 
+                                <Route>
+                                    <Route path='/' Component={() => <Home userObj={userObj} />} />
+                                    <Route path='/specific' Component={() => <Specific userObj={userObj} />} />
+                                </Route>
+                            }
+                        </Routes>
                     </Suspense>
                 </div>
                 {/* <div className='flex justify-center h-52 p-5'>

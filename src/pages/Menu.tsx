@@ -18,6 +18,7 @@ import { Skeleton } from "@/components/ui/skeleton"
 import { User } from 'firebase/auth';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import Cards from 'src/muiComponents/Cards';
+import useLongPress from 'src/hooks/useLongPress';
 
 interface Props {
     userObj: User
@@ -86,8 +87,23 @@ function Menu({ userObj }: Props) {
     })
     }, [])
     const accordionValues = ['카드', '메세지']
+    const elementRef = useRef()
+    useLongPress(elementRef, () => alert('practice'))
+    useEffect(() => {
+        function handleContextMenu(e) {
+          e.preventDefault(); // prevents the default right-click menu from appearing
+        }
+        // add the event listener to the component's root element
+        const rootElement = document.getElementById('sample');
+        rootElement.addEventListener('contextmenu', handleContextMenu);
+        // remove the event listener when the component is unmounted
+    
+        return () => {
+          rootElement.removeEventListener('contextmenu', handleContextMenu);
+        };
+      }, []);
     return (
-        <div className='flex justify-center flex-col pb-5'>
+        <div id='sample' className='flex justify-center flex-col pb-5'>
             <PageTitle title={'내 상태'}/>
             <Accordion 
                 value={[accordions.cards, accordions.messages]}
@@ -96,7 +112,7 @@ function Menu({ userObj }: Props) {
             >
                 <AccordionItem value="item-1">
                 <AccordionTrigger onClick={() => dispatch(change())}>카드</AccordionTrigger>
-                <AccordionContent >
+                <AccordionContent ref={elementRef}>
                     {cardLoaded ? 
                         <div>
                             {!messages.length ? 

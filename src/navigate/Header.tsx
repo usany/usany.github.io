@@ -24,7 +24,7 @@ import { changeProfileImage } from 'src/stateSlices/profileImageSlice'
 import { User } from 'firebase/auth';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import Avatars from 'src/muiComponents/Avatars'
-import staticImg from 'src/assets/blue01.png';
+import staticImage from 'src/assets/blue.png';
 
 // const Puller = styled('div')(({ theme }) => ({
 //     width: 30,
@@ -98,7 +98,7 @@ const Header = ({ userObj }: Props) => {
             const docRef = doc(dbservice, `members/${userObj?.uid}`)
             const docSnap = await getDoc(docRef)
             const userColor = docSnap.data()?.profileColor || '#2196f3'
-            const userImage = docSnap.data()?.profileImage || 'null'
+            const userImage = docSnap.data()?.profileImageUrl || 'null'
             dispatch(changeProfileColor(userColor))
             dispatch(changeProfileImage(userImage))
         }
@@ -119,7 +119,7 @@ const Header = ({ userObj }: Props) => {
                                     {userObj ? 
                                         <Avatars profile={false} profileColor={profileColor} profileImage={profileImage} fallback={userObj.displayName ? userObj.displayName[0] : ''}/>
                                         : 
-                                        <Avatars profile={false} profileColor={'profile-blue'} profileImage={staticImg} fallback={''}/>
+                                        <Avatars profile={false} profileColor={'profile-blue'} profileImage={staticImage} fallback={''}/>
                                         // <Avatar sx={{ bgcolor: '#2196f3' }} onClick={() => {
                                         //     handleSideNavigation()
                                         // }} variant="rounded" />
@@ -131,7 +131,7 @@ const Header = ({ userObj }: Props) => {
                         </div>
                     </div>
                     <div>
-                        {userObj && bottomNavigation === 0 && 
+                        {bottomNavigation === 0 && 
                             <ToggleTabs />
                         }
                         {userObj && bottomNavigation === 1 &&
@@ -165,13 +165,13 @@ const Header = ({ userObj }: Props) => {
                                 </div>
                             </FormGroup>
                         }
-                        {userObj && bottomNavigation === 2 && 
+                        {bottomNavigation === 2 && 
                             <ToggleTabs />
                         }
-                        {!userObj && 
+                        {!userObj && bottomNavigation === 1 &&
                             <div>
                                 <Link to='/'>
-                                    <div className='pt-5 min-w-36' onClick={() => dispatch(changeBottomNavigation(1))}>로그인을 해 주세요</div>
+                                    <div className='pt-5 min-w-36'>로그인을 해 주세요</div>
                                 </Link>
                                 <Divider sx={{width: '100%'}} />
                             </div>

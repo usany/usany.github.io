@@ -15,6 +15,7 @@ import { changeProfileColor } from 'src/stateSlices/profileColorSlice'
 import { changeProfileImage } from 'src/stateSlices/profileImageSlice'
 import { useSelector, useDispatch } from 'react-redux'
 import { MessageCircle, Minimize2, Maximize2, Captions, Bike } from "lucide-react"
+import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
 
 // const StyledBox = styled('div')(({ theme }) => ({
 //   backgroundColor: '#fff',
@@ -172,7 +173,10 @@ function Navigation({ userObj, sideNavigation, handleSideNavigation }: Props) {
           <div className='flex border-b border-light-3 dark:border-dark-3'>
             <div className='p-5'>
               <div className='flex justify-center'>좋은 날씨네요</div>
-              <div className='flex justify-center'>로그인을 해 주세요</div>
+              <div className='flex justify-center' onClick={() => {
+                dispatch(changeBottomNavigation(1))
+                checkbox()
+              }}>로그인을 해 주세요</div>
             </div>
             <Modes />
           </div>

@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  darkMode: 'class',
+  darkMode: ['class', 'class'],
   content: [
     './pages/**/*.{ts,tsx}',
     './components/**/*.{ts,tsx}',
@@ -53,9 +53,6 @@ module.exports = {
   		bermuda: '#78dcca'
   	},
   	extend: {
-		height: {
-			'15': '3.75rem'
-		},
   		padding: {
   			'60px': '60px'
   		},
@@ -122,11 +119,29 @@ module.exports = {
   				to: {
   					height: '0'
   				}
+  			},
+  			marquee: {
+  				from: {
+  					transform: 'translateX(0)'
+  				},
+  				to: {
+  					transform: 'translateX(calc(-100% - var(--gap)))'
+  				}
+  			},
+  			'marquee-vertical': {
+  				from: {
+  					transform: 'translateY(0)'
+  				},
+  				to: {
+  					transform: 'translateY(calc(-100% - var(--gap)))'
+  				}
   			}
   		},
   		animation: {
   			'accordion-down': 'accordion-down 0.2s ease-out',
-  			'accordion-up': 'accordion-up 0.2s ease-out'
+  			'accordion-up': 'accordion-up 0.2s ease-out',
+  			marquee: 'marquee var(--duration) infinite linear',
+  			'marquee-vertical': 'marquee-vertical var(--duration) linear infinite'
   		}
   	}
   },

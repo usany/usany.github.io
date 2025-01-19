@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom'
 import { webSocket, onClick } from 'src/webSocket.tsx'
 import { useSelector, useDispatch } from 'react-redux'
 import { User } from 'firebase/auth';
-// import { changeNewMessage, changeNewMessageTrue, changeNewMessageFalse } from 'src/stateSlices/newMessageSlice'
+import { changeNewMessage, changeNewMessageTrue, changeNewMessageFalse } from 'src/stateSlices/newMessageSlice'
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { getStorage, ref, uploadBytes, uploadString, uploadBytesResumable, getDownloadURL,  } from "firebase/storage";
 import Chip from '@mui/material/Chip';
@@ -21,10 +21,11 @@ interface Props {
   handleChattings: ({}) => void
 }
 
-const ChattingStacks = ({ userObj, chattings, handleChattings }: Props) => {
+const ChattingStacks = ({ userObj, chattings, handleChattings, longPressChat, changeLongPressChat, onLongPress, changeOnLongPress }: Props) => {
   const [sortedMyConversationUid, setSortedMyConversationUid] = useState([])
   const [profileUrls, setProfileUrls] = useState([])
-  const newMessage = useSelector(state => state.newMessage.value)
+  // const newMessage = useSelector(state => state.newMessage.value)
+  const [newMessage, setNewMessage] = useState(true)
   useEffect(() => {
     const myChatting = async () => {
       const myDocRef = doc(dbservice, `members/${userObj.uid}`)
@@ -53,13 +54,14 @@ const ChattingStacks = ({ userObj, chattings, handleChattings }: Props) => {
         });
       })
       handleChattings(myConversation)
+      setNewMessage(false)
     }
     if (newMessage) {
       myChatting()
-      // handleNewMessageFalse()
+      // dispatch(changeNewMessageFalse())
     }
   }, [newMessage])
-  
+
   useEffect(() => {
     if (!webSocket) return;
     function sMessageCallback(message) {
@@ -142,6 +144,34 @@ const ChattingStacks = ({ userObj, chattings, handleChattings }: Props) => {
     const sorted = Object.keys(chattings).sort((elementOne, elementTwo) => {return chattings[elementTwo].messageClockNumber-chattings[elementOne].messageClockNumber})
     setSortedMyConversationUid(sorted)
   }, [chattings])
+
+  const onDelete = async ({ conversation }) => {
+    const newSortedMyConversationUid = sortedMyConversationUid
+    newSortedMyConversationUid.splice(sortedMyConversationUid.indexOf(conversation), 1)
+    console.log(newSortedMyConversationUid)
+    setSortedMyConversationUid(newSortedMyConversationUid)
+    setNewMessage(true)
+    // dispatch(changeNewMessageTrue())
+    const userRef = doc(dbservice, `members/${userObj.uid}`)
+    const userDoc = await getDoc(userRef)
+    const userChattings = userDoc.data().chattings || {}
+    const userConversation = userDoc.data().conversation || []
+    Reflect.deleteProperty(userChattings, conversation)
+    if (userConversation.indexOf(conversation) !== -1) {
+      userConversation.splice(userConversation.indexOf(conversation), 1)
+    }
+    updateDoc(userRef, {chattings: userChattings});
+    updateDoc(userRef, {conversation: userConversation});
+  }
+  // const onDeleteData = ({ conversation }) => {
+  //   const newSortedMyConversationUid = sortedMyConversationUid
+  //   newSortedMyConversationUid.splice(sortedMyConversationUid.indexOf(conversation), 1)
+  //   console.log(newSortedMyConversationUid)
+  //   setSortedMyConversationUid(newSortedMyConversationUid)
+  //   onDeleteData({conversation: conversation})
+  // }
+  
+  console.log(newMessage)
   return (
     <>
       {sortedMyConversationUid.map((element, index) => {
@@ -183,7 +213,7 @@ const ChattingStacks = ({ userObj, chattings, handleChattings }: Props) => {
           }
           return (
             <>
-              <Chats userObj={userObj} profileUrl={profileUrl} conversation={element} displayName={displayName} chattingUid={chattingUid} multiple={false} clock={clock} message={chattings[element]} />
+              <Chats userObj={userObj} profileUrl={profileUrl} conversation={element} displayName={displayName} chattingUid={chattingUid} multiple={false} clock={clock} message={chattings[element]} longPressChat={longPressChat} changeLongPressChat={changeLongPressChat} onLongPress={onLongPress} changeOnLongPress={changeOnLongPress} onDelete={onDelete}/>
             </>
           )
         }

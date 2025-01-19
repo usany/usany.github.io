@@ -15,6 +15,8 @@ import { useQuery } from '@tanstack/react-query'
 // import Badge from '@mui/material/Badge';
 // import Chip from '@mui/material/Chip';
 import { useSelector, useDispatch } from 'react-redux'
+import { AnimatedList } from 'src/src/components/ui/animated-list';
+import { CardActionArea, CardActions, ClickAwayListener } from '@mui/material';
 
 interface Props {
   userObj: User
@@ -23,6 +25,18 @@ const MessageStacks = ({ userObj }: Props) => {
   const [piazzaMessage, setPiazzaMessage] = useState<{username: string, message: string} | null>(null)
   const [chattings, setChattings] = useState({})
   const [piazzaUid, setPiazzaUid] = useState('')
+  const [longPressChat, setLongPressChat] = useState(null)
+  const [onLongPress, setOnLongPress] = useState(0)
+  useEffect(() => {
+    if (!onLongPress) {
+      setLongPressChat(null)
+    }
+  }, [onLongPress])
+  useEffect(() => {
+    if (!longPressChat) {
+      setOnLongPress(0)
+    }
+  }, [longPressChat])
   const piazza = async () => {
     const piazzaRef = collection(dbservice, 'chats_group')
     const piazzaCollection = query(piazzaRef, orderBy('messageClockNumber', 'desc'), limit(1))
@@ -87,8 +101,19 @@ const MessageStacks = ({ userObj }: Props) => {
   
   return (
     <>
-      {piazzaSwitch === 'true' && <Chats userObj={userObj} profileUrl={''} conversation={''} displayName={''} chattingUid={''} multiple={true} clock={clock} message={piazzaMessage} />}
-      <ChattingStacks userObj={userObj} chattings={chattings} handleChattings={(newValue) => setChattings(newValue)}/>
+      <ClickAwayListener onClickAway={() => {
+        setLongPressChat(null)
+        setOnLongPress(0)
+      }}>
+      <div>
+      <AnimatedList>
+        {piazzaSwitch === 'true' && <Chats userObj={userObj} profileUrl={''} conversation={''} displayName={''} chattingUid={''} multiple={true} clock={clock} message={piazzaMessage} longPressChat={longPressChat} changeLongPressChat={(newValue) => setLongPressChat(newValue)} onLongPress={onLongPress} changeOnLongPress={(newValue) => setOnLongPress(newValue)}/>}
+      </AnimatedList>
+      <AnimatedList>
+        <ChattingStacks userObj={userObj} chattings={chattings} handleChattings={(newValue) => setChattings(newValue)} longPressChat={longPressChat} changeLongPressChat={(newValue) => setLongPressChat(newValue)} onLongPress={onLongPress} changeOnLongPress={(newValue) => setOnLongPress(newValue)}/>
+      </AnimatedList>
+      </div>
+      </ClickAwayListener>
     </>
   );
 }

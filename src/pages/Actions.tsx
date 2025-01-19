@@ -4,6 +4,7 @@ import Button from '@mui/material/Button';
 import { BrowserRouter, Routes, Route, useNavigate, Link, useLocation } from 'react-router-dom'
 import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
 import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnapshot, updateDoc, setDoc } from 'firebase/firestore';
+import Cards from 'src/muiComponents/Cards'
 
 const Actions = ({ userObj }: {
   userObj: {uid: string, displayName: string},
@@ -55,7 +56,7 @@ const Actions = ({ userObj }: {
         <div className='flex justify-center flex-wrap'>
           {messagesList.map((element) => {
             if (element.text.choose === 2 && element.round === 5) {
-              return <Message key={element.id} msgObj={element} isOwner={element.creatorId === userObj.uid} userObj={userObj} />
+              return <Cards key={element.id} msgObj={element} isOwner={element.creatorId === userObj.uid} userObj={userObj} num={null} points={null} />
             }
           })}
           {/* {state.lendRegisteredMessage.map((msg) => <Message key={msg.id} msgObj={msg} isOwner={true} userObj={userObj} />)}
@@ -66,7 +67,7 @@ const Actions = ({ userObj }: {
         <div className='flex justify-center flex-wrap'>
           {messagesList.map((element) => {
             if (element.text.choose === 1 && element.round === 5) {
-              return <Message key={element.id} msgObj={element} isOwner={element.creatorId === userObj.uid} userObj={userObj} />
+              return <Cards key={element.id} msgObj={element} isOwner={element.creatorId === userObj.uid} userObj={userObj} num={null} points={null} />
             }
           })}
           {/* {messagesList.map((element) => <Message key={element.messageId} msgObj={element.message} isOwner={element.message.creatorId === userObj.uid} userObj={userObj} />)}
