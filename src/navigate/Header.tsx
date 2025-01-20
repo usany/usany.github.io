@@ -63,7 +63,8 @@ const Header = ({ userObj }: Props) => {
         // current scroll position
         const currentScrollPos = window.scrollY;
         if (prevScrollPos >= currentScrollPos) {
-            setScroll('fixed z-20 bg-light-3/50 dark:bg-dark-3/50')
+            // setScroll('fixed z-20 bg-light-3/50 dark:bg-dark-3/50')
+            setScroll('scroll')
             // user has scrolled up
             // document.querySelector('#navigationSelectorOne')?.classList.add('overflow-hidden fixed top-0 z-20 bg-light-3 dark:bg-dark-3')
             // document.querySelector('#navigationSelectorTwo')?.classList.add('fixed', 'top-0', 'z-10', 'bg-light-3', 'dark:bg-dark-3')
@@ -75,9 +76,9 @@ const Header = ({ userObj }: Props) => {
             // document.querySelector('#navigationSelectorTwo')?.classList.remove('fixed', 'top-0', 'z-10', 'bg-light-3', 'dark:bg-dark-3')
             // document.querySelector('#contentSelector')?.classList.remove('pt-16')
         }
-        if (currentScrollPos === 0) {
-            setScroll('')
-        }
+        // if (currentScrollPos === 0) {
+        //     setScroll('')
+        // }
         // update previous scroll position
         prevScrollPos = currentScrollPos;
     });
@@ -98,7 +99,7 @@ const Header = ({ userObj }: Props) => {
             const docRef = doc(dbservice, `members/${userObj?.uid}`)
             const docSnap = await getDoc(docRef)
             const userColor = docSnap.data()?.profileColor || '#2196f3'
-            const userImage = docSnap.data()?.profileImage || 'null'
+            const userImage = docSnap.data()?.profileImageUrl || 'null'
             dispatch(changeProfileColor(userColor))
             dispatch(changeProfileImage(userImage))
         }
@@ -106,8 +107,93 @@ const Header = ({ userObj }: Props) => {
     }, [userObj])
 
     return (
-        <div>
-            <div className={scroll}>
+        <>
+            {scroll === 'scroll' && <div className='fixed z-20 bg-light-3/50 dark:bg-dark-3/50'>
+                <div>
+                <Navigation userObj={userObj} handleSideNavigation={handleSideNavigation} sideNavigation={sideNavigation} />
+                <div className='flex justify-between w-screen'>
+                    <div className='px-5 pt-1'>
+                        <div>
+                            {profileImage ?
+                                <div onClick={() => {
+                                    handleSideNavigation()
+                                }}>
+                                    {userObj ? 
+                                        <Avatars profile={false} profileColor={profileColor} profileImage={profileImage} fallback={userObj.displayName ? userObj.displayName[0] : ''}/>
+                                        : 
+                                        <Avatars profile={false} profileColor={'profile-blue'} profileImage={staticImage} fallback={''}/>
+                                    }
+                                </div>
+                                :
+                                <div>loading</div>
+                            }
+                        </div>
+                    </div>
+                    <div>
+                        {bottomNavigation === 0 && 
+                            <ToggleTabs />
+                        }
+                        {userObj && bottomNavigation === 1 &&
+                            <FormGroup>
+                                <div className='flex w-1/2'>
+                                    <div className='flex flex-col'>
+                                        <FormControlLabel
+                                            control={
+                                                <Checkbox
+                                                    checked={cardAccordion}
+                                                    onClick={() => dispatch(change())}
+                                                />
+                                            } 
+                                            label={<CreditCard/>} 
+                                        />
+                                        <Divider sx={{width: '100%'}} />
+                                    </div>
+                                    <div className='px-1'></div>
+                                    <div className='flex flex-col'>
+                                        <FormControlLabel
+                                            control={
+                                                <Checkbox
+                                                    checked={messageAccordion}
+                                                    onClick={() => dispatch(changeMessageAccordion())}
+                                                />
+                                            } 
+                                            label={<MessageCircle/>} 
+                                        />
+                                        <Divider sx={{width: '100%'}} />
+                                    </div>
+                                </div>
+                            </FormGroup>
+                        }
+                        {bottomNavigation === 2 && 
+                            <ToggleTabs />
+                        }
+                        {!userObj && bottomNavigation === 1 &&
+                            <div>
+                                <Link to='/'>
+                                    <div className='pt-5 min-w-36'>로그인을 해 주세요</div>
+                                </Link>
+                                <Divider sx={{width: '100%'}} />
+                            </div>
+                        }
+                    </div>
+                    <div>
+                        {/* <QueryClientProvider client={new QueryClient({
+                            defaultOptions: {
+                                queries: {
+                                    suspense: true,
+                                },
+                            },
+                        })}>
+                            <Suspense fallback={<div>loading</div>}>
+                            </Suspense>
+                        </QueryClientProvider> */}
+                        <WeatherView />
+                    </div>
+                </div>
+                </div>
+            </div>}
+            <div className='h-16'>
+                <div className={`${scroll && 'hidden'}`}>
                 <Navigation userObj={userObj} handleSideNavigation={handleSideNavigation} sideNavigation={sideNavigation} />
                 <div className='flex justify-between w-screen'>
                     <div className='px-5 pt-1'>
@@ -191,8 +277,9 @@ const Header = ({ userObj }: Props) => {
                         </QueryClientProvider>
                     </div>
                 </div>
+                </div>
             </div>
-        </div>
+        </>
     )
 }
 

@@ -9,6 +9,17 @@
   scrollbar-width: none;
 } */
 
+@keyframes shaking {
+	0% { transform: rotate(0deg); }
+	25% { transform: rotate(1deg); }
+	50% { transform: rotate(0eg); }
+	75% { transform: rotate(-1deg); }
+	100% { transform: rotate(0deg); }
+}
+.longPress {
+	animation: shaking 1s infinite;
+}
+
 body {
   font-family: maruburi;
   overflow-x: hidden;

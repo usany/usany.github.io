@@ -12,6 +12,9 @@ import Loadings from 'src/pages/Loadings'
 import Header from 'src/navigate/Header'
 import Navigations from 'src/navigate/Navigations'
 import { User } from 'firebase/auth'
+import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
+import { useSelector, useDispatch } from 'react-redux'
+import usePathname from 'src/hooks/usePathname'
 
 interface Props {
     userObj: User | null,
@@ -24,12 +27,13 @@ const Router = ({ userObj }: Props) => {
     const Specific = lazy(() => import("src/pages/Specific"))
     const Contact = lazy(() => import("src/pages/Contact"))
     const Piazza = lazy(() => import("src/pages/Piazza"))
-
+    const pathname = usePathname()
+    
     return (
         <BrowserRouter>
             <div className='flex flex-col'>
                 <Header userObj={userObj} />
-                <div>
+                <div className=''>
                     <Suspense fallback={<Loadings />}>
                         <Routes>
                             {userObj ? 

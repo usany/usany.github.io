@@ -4,7 +4,6 @@ import StepLabel from '@mui/material/StepLabel';
 
 interface Props {
     addSteps: number
-    handleAddSteps: (newValue: number) => void
     borrow: boolean
 }
 
@@ -23,7 +22,7 @@ const lendSteps = [
     ...stepsTwoToFour
 ];
 const stepsCollection = [borrowSteps, lendSteps]
-function AddSteppers({ addSteps, handleAddSteps, borrow }: Props) {
+function AddSteppers({ addSteps, borrow }: Props) {
     return (
         <div className='w-full'>
             <Stepper
