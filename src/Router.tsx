@@ -27,7 +27,6 @@ const Router = ({ userObj }: Props) => {
     const Specific = lazy(() => import("src/pages/Specific"))
     const Contact = lazy(() => import("src/pages/Contact"))
     const Piazza = lazy(() => import("src/pages/Piazza"))
-    const pathname = usePathname()
     
     return (
         <BrowserRouter>
