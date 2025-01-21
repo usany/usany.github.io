@@ -16,7 +16,7 @@ import { CreditCard } from 'lucide-react';
 import { MessageCircle, Minimize2, Maximize2 } from "lucide-react"
 import { useSelector, useDispatch } from 'react-redux'
 import { cardAccordionReducer, change } from 'src/stateSlices/cardAccordionSlice'
-import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
+import { selectBottomNavigation, changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
 import { changeMessageAccordion } from 'src/stateSlices/messageAccordionSlice'
 import { changeProfileUrl } from 'src/stateSlices/profileUrlSlice'
 import { changeProfileColor } from 'src/stateSlices/profileColorSlice'
@@ -44,7 +44,7 @@ interface Props {
 }
 
 const Header = ({ userObj }: Props) => {
-    const bottomNavigation = useSelector(state => state.bottomNavigation)
+    const bottomNavigation = useSelector(selectBottomNavigation)
     // const profileUrl = useSelector(state => state.profileUrl.value)
     const profileColor = useSelector(state => state.profileColor.value)
     const profileImage = useSelector(state => state.profileImage.value)

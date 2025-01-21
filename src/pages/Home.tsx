@@ -10,7 +10,7 @@ import { auth, dbservice } from 'src/baseApi/serverbase'
 import { storage } from "src/baseApi/serverbase";
 import { getStorage, ref, uploadBytes, uploadString, uploadBytesResumable, getDownloadURL, } from "firebase/storage";
 import { useSelector, useDispatch } from 'react-redux'
-import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
+import { selectBottomNavigation, changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
 import { changeTabs } from 'src/stateSlices/tabsSlice'
 import TabsRootState from 'src/interfaces/TabsRootState'
 import BottomNavigationRootState from 'src/interfaces/BottomNavigationRootState'
@@ -18,15 +18,15 @@ import UserObjProps from 'src/interfaces/UserObjProps'
 import usePathname from 'src/hooks/usePathname'
 
 function Home({ userObj }: UserObjProps) {
-    const bottomNavigation = useSelector((state: BottomNavigationRootState) => state.bottomNavigation)
+    const bottomNavigation = useSelector(selectBottomNavigation)
+    const dispatch = useDispatch()
+    useEffect(() => {
+        if (bottomNavigation !== 1) {
+            dispatch(changeBottomNavigation(1))
+        }
+    }, [userObj])
     // const tabs = useSelector((state: TabsRootState) => state.tabs)
-    // const dispatch = useDispatch()
     // const [profileUrl, setProfileUrl] = useState(null)
-    // useEffect(() => {
-    //     if (bottomNavigation === 5) {
-    //         dispatch(changeBottomNavigation(1))
-    //     }
-    // }, [])
     
     // useEffect(() => {
     //     const userSetting = async () => {
