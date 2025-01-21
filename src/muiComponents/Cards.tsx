@@ -9,6 +9,17 @@ import Chip from '@mui/material/Chip';
 import staticImg from 'src/assets/pwa-512x512.png';
 import staticImageJ from 'src/assets/blue-01.png';
 import staticImageC from 'src/assets/screen-01.png';
+import {
+  MorphingDialog,
+  MorphingDialogTrigger,
+  MorphingDialogContent,
+  MorphingDialogTitle,
+  MorphingDialogImage,
+  MorphingDialogSubtitle,
+  MorphingDialogClose,
+  MorphingDialogDescription,
+  MorphingDialogContainer,
+} from '@/components/ui/morphing-dialog';
 
 interface Props {
   msgObj: {id: string, text: object},
@@ -70,7 +81,42 @@ const Cards = ({
         setOnMouse(false)
       }}
     >
-      <Card
+      <MorphingDialog
+      transition={{
+        duration: 0.3,
+        ease: 'easeInOut',
+      }}
+    >
+      <MorphingDialogTrigger>
+        <MorphingDialogImage
+          src={staticImage}
+          alt='staticImage'
+          className='max-w-xs rounded-[4px]'
+        />
+      </MorphingDialogTrigger>
+      <MorphingDialogContainer>
+        <MorphingDialogContent className='relative'>
+          <MorphingDialogImage
+            src={staticImage}
+            alt='staticImage'
+            className='h-auto w-full max-w-[90vw] rounded-[4px] object-cover lg:h-[90vh]'
+          />
+        </MorphingDialogContent>
+        <MorphingDialogClose
+          className='fixed right-6 top-6 h-fit w-fit rounded-full bg-white p-1'
+          variants={{
+            initial: { opacity: 0 },
+            animate: {
+              opacity: 1,
+              transition: { delay: 0.3, duration: 0.1 },
+            },
+            exit: { opacity: 0, transition: { duration: 0 } },
+          }}
+        >
+        </MorphingDialogClose>
+      </MorphingDialogContainer>
+    </MorphingDialog>
+      {/* <Card
         sx={{
           boxShadow: `1.5px 1.5px 1.5px 1.5px ${shadowColor}`
         }}
@@ -107,7 +153,7 @@ const Cards = ({
         <CardActions className='flex justify-center'>
           <Btn msgObj={msgObj} isOwner={isOwner} uid={userObj?.uid} displayName={userObj?.displayName} userObj={userObj} num={num} points={points} />
         </CardActions>
-      </Card>
+      </Card> */}
     </div>
   );
 }
