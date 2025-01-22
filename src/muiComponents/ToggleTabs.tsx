@@ -43,7 +43,7 @@ export default function ToggleTabs() {
   const handleChange = (event, newValue) => {
     dispatch(changeTabs(newValue))
   };
-  const tabs = useSelector(state => state.tabs)
+  const tabs = useSelector(state => state.tabs.value)
   const dispatch = useDispatch()
 
   return (

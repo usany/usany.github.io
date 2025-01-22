@@ -10,15 +10,16 @@ import { auth, dbservice } from 'src/baseApi/serverbase'
 import { storage } from "src/baseApi/serverbase";
 import { getStorage, ref, uploadBytes, uploadString, uploadBytesResumable, getDownloadURL, } from "firebase/storage";
 import { useSelector, useDispatch } from 'react-redux'
-import { selectBottomNavigation, changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
+import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
 import { changeTabs } from 'src/stateSlices/tabsSlice'
 import TabsRootState from 'src/interfaces/TabsRootState'
 import BottomNavigationRootState from 'src/interfaces/BottomNavigationRootState'
 import UserObjProps from 'src/interfaces/UserObjProps'
 import usePathname from 'src/hooks/usePathname'
+import { useSelectors } from 'src/hooks/useSelectors'
 
 function Home({ userObj }: UserObjProps) {
-    const bottomNavigation = useSelector(selectBottomNavigation)
+    const bottomNavigation = useSelectors(state => state.bottomNavigation.value)
     const dispatch = useDispatch()
     useEffect(() => {
         if (bottomNavigation !== 1) {
