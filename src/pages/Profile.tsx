@@ -17,6 +17,7 @@ import { User } from 'firebase/auth'
 // import Skeleton from '@mui/material/Skeleton';
 import { getAuth, deleteUser } from "firebase/auth";
 import { doc, deleteDoc, getDoc } from "firebase/firestore";
+import { useQuery } from '@tanstack/react-query'
 
 interface Props {
   userObj: User,
@@ -38,6 +39,14 @@ function Profile({ userObj }: Props) {
   const [cards, setCards] = useState({point: null, done: [], borrowDone: [], lendDone: [] })
   const userUid = state?.element.uid || userObj.uid
   const userDisplayName = state?.element.displayName || userObj.displayName
+  const myCardsQuery = async ({ uid }) => {
+    const docRef = doc(dbservice, `members/${uid}`)
+    const myDocSnap = await getDoc(docRef)
+
+    return myDocSnap
+  }
+  const myCards = useQuery({queryKey: ['myCards'], queryFn: () => myCardsQuery(userObj.uid), suspense: true})
+
   useEffect(() => {
     const cards = async () => {
       const docRef = doc(dbservice, `members/${userUid}`)

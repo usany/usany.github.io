@@ -19,17 +19,7 @@
 .longPress {
 	animation: shaking 1s infinite;
 }
-@keyframes ripple {
-	from {
-	  transform: scale(0);
-	  opacity: 1;
-	}
-	to {
-	  transform: scale(6);
-	  opacity: 0;
-	}
-  }
-  
+
 body {
   font-family: maruburi;
   overflow-x: hidden;

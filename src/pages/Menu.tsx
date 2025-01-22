@@ -139,7 +139,8 @@ function Menu({ userObj }: Props) {
                                     })}
                                 </div>
                             }
-                        </div>:
+                        </div>
+                        :
                         <Skeleton />
                     }
                 </AccordionContent>
@@ -147,17 +148,17 @@ function Menu({ userObj }: Props) {
                 <AccordionItem value="item-2">
                 <AccordionTrigger onClick={() => dispatch(changeMessageAccordion())}>메세지</AccordionTrigger>
                 <AccordionContent>
-                    <QueryClientProvider client={new QueryClient({
+                    {/* <QueryClientProvider client={new QueryClient({
                         defaultOptions: {
                             queries: {
                                 suspense: true,
                             },
                         },                      
                     })}>
+                    </QueryClientProvider> */}
                         <Suspense fallback={<Skeleton />}>
                             <MessageStacks userObj={userObj} />
                         </Suspense>
-                    </QueryClientProvider>
                 </AccordionContent>
                 </AccordionItem>
             </Accordion>
