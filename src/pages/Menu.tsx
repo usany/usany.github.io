@@ -122,7 +122,7 @@ function Menu({ userObj }: Props) {
                                     </div>
                                 </div> 
                                 :
-                                <div className='flex flex-wrap justify-around'>
+                                <div className='flex flex-wrap justify-around gap-1'>
                                     {messages.map((msg) => {
                                         const isOwner = msg.creatorId === userObj.uid
                                         if(msg.round !== 5) {

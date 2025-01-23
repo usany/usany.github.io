@@ -75,6 +75,7 @@ function Notice({ userObj, borrow }: Props) {
                 />
             </div>
         </div>
+        <div>
         <div className='flex flex-wrap justify-between h-screen pt-5 gap-1'>
             {messages.map((msg) => {
                 let choose
@@ -90,6 +91,7 @@ function Notice({ userObj, borrow }: Props) {
                     }
                 }
             })}
+        </div>
         </div>
     </div>
   )

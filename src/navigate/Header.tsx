@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useLayoutEffect, Suspense, lazy } from 'react'
+import { useState, useEffect, useRef, useLayoutEffect, useMemo, Suspense, lazy } from 'react'
 import WeatherView from 'src/navigate/WeatherView'
 import Navigation from 'src/navigate/Navigation'
 import Points from 'src/pages/points'
@@ -106,11 +106,29 @@ const Header = ({ userObj }: Props) => {
         }
         setProfile()
     }, [userObj])
-
+    const profile = useMemo(() => {
+        return (
+            <div>
+                {profileImage ?
+                    <div onClick={() => {
+                        handleSideNavigation()
+                    }}>
+                        {userObj ? 
+                            <Avatars profile={false} profileColor={profileColor} profileImage={profileImage} fallback={userObj.displayName ? userObj.displayName[0] : ''}/>
+                            : 
+                            <Avatars profile={false} profileColor={'profile-blue'} profileImage={staticImage} fallback={''}/>
+                        }
+                    </div>
+                    :
+                    <div>loading</div>
+                }
+            </div>
+        )
+    }, [])
     return (
         <>
-            {scroll === 'scroll' && <div className='fixed z-20 bg-light-3/50 dark:bg-dark-3/50'>
-                <div>
+            <div className='fixed z-20 bg-light-3/50 dark:bg-dark-3/50'>
+                <div className={`${!scroll && 'hidden'}`}>
                 <Navigation userObj={userObj} handleSideNavigation={handleSideNavigation} sideNavigation={sideNavigation} />
                 <div className='flex justify-between w-screen'>
                     <div className='px-5 pt-1'>
@@ -192,92 +210,92 @@ const Header = ({ userObj }: Props) => {
                     </div>
                 </div>
                 </div>
-            </div>}
+            </div>
             <div className='h-16'>
                 <div className={`${scroll && 'hidden'}`}>
-                <Navigation userObj={userObj} handleSideNavigation={handleSideNavigation} sideNavigation={sideNavigation} />
-                <div className='flex justify-between w-screen'>
-                    <div className='px-5 pt-1'>
+                    <Navigation userObj={userObj} handleSideNavigation={handleSideNavigation} sideNavigation={sideNavigation} />
+                    <div className='flex justify-between w-screen'>
+                        <div className='px-5 pt-1'>
+                            <div>
+                                {profileImage ?
+                                    <div onClick={() => {
+                                        handleSideNavigation()
+                                    }}>
+                                        {userObj ? 
+                                            <Avatars profile={false} profileColor={profileColor} profileImage={profileImage} fallback={userObj.displayName ? userObj.displayName[0] : ''}/>
+                                            : 
+                                            <Avatars profile={false} profileColor={'profile-blue'} profileImage={staticImage} fallback={''}/>
+                                            // <Avatar sx={{ bgcolor: '#2196f3' }} onClick={() => {
+                                            //     handleSideNavigation()
+                                            // }} variant="rounded" />
+                                        }
+                                    </div>
+                                    :
+                                    <div>loading</div>
+                                }
+                            </div>
+                        </div>
                         <div>
-                            {profileImage ?
-                                <div onClick={() => {
-                                    handleSideNavigation()
-                                }}>
-                                    {userObj ? 
-                                        <Avatars profile={false} profileColor={profileColor} profileImage={profileImage} fallback={userObj.displayName ? userObj.displayName[0] : ''}/>
-                                        : 
-                                        <Avatars profile={false} profileColor={'profile-blue'} profileImage={staticImage} fallback={''}/>
-                                        // <Avatar sx={{ bgcolor: '#2196f3' }} onClick={() => {
-                                        //     handleSideNavigation()
-                                        // }} variant="rounded" />
-                                    }
+                            {bottomNavigation === 0 && 
+                                <ToggleTabs />
+                            }
+                            {userObj && bottomNavigation === 1 &&
+                                <FormGroup>
+                                    <div className='flex w-1/2'>
+                                        <div className='flex flex-col'>
+                                            <FormControlLabel
+                                                control={
+                                                    <Checkbox
+                                                        checked={cardAccordion}
+                                                        onClick={() => dispatch(change())}
+                                                    />
+                                                } 
+                                                label={<CreditCard/>} 
+                                            />
+                                            <Divider sx={{width: '100%'}} />
+                                        </div>
+                                        <div className='px-1'></div>
+                                        <div className='flex flex-col'>
+                                            <FormControlLabel
+                                                control={
+                                                    <Checkbox
+                                                        checked={messageAccordion}
+                                                        onClick={() => dispatch(changeMessageAccordion())}
+                                                    />
+                                                } 
+                                                label={<MessageCircle/>} 
+                                            />
+                                            <Divider sx={{width: '100%'}} />
+                                        </div>
+                                    </div>
+                                </FormGroup>
+                            }
+                            {bottomNavigation === 2 && 
+                                <ToggleTabs />
+                            }
+                            {!userObj && bottomNavigation === 1 &&
+                                <div>
+                                    <Link to='/'>
+                                        <div className='pt-5 min-w-36'>로그인을 해 주세요</div>
+                                    </Link>
+                                    <Divider sx={{width: '100%'}} />
                                 </div>
-                                :
-                                <div>loading</div>
                             }
                         </div>
-                    </div>
-                    <div>
-                        {bottomNavigation === 0 && 
-                            <ToggleTabs />
-                        }
-                        {userObj && bottomNavigation === 1 &&
-                            <FormGroup>
-                                <div className='flex w-1/2'>
-                                    <div className='flex flex-col'>
-                                        <FormControlLabel
-                                            control={
-                                                <Checkbox
-                                                    checked={cardAccordion}
-                                                    onClick={() => dispatch(change())}
-                                                />
-                                            } 
-                                            label={<CreditCard/>} 
-                                        />
-                                        <Divider sx={{width: '100%'}} />
-                                    </div>
-                                    <div className='px-1'></div>
-                                    <div className='flex flex-col'>
-                                        <FormControlLabel
-                                            control={
-                                                <Checkbox
-                                                    checked={messageAccordion}
-                                                    onClick={() => dispatch(changeMessageAccordion())}
-                                                />
-                                            } 
-                                            label={<MessageCircle/>} 
-                                        />
-                                        <Divider sx={{width: '100%'}} />
-                                    </div>
-                                </div>
-                            </FormGroup>
-                        }
-                        {bottomNavigation === 2 && 
-                            <ToggleTabs />
-                        }
-                        {!userObj && bottomNavigation === 1 &&
-                            <div>
-                                <Link to='/'>
-                                    <div className='pt-5 min-w-36'>로그인을 해 주세요</div>
-                                </Link>
-                                <Divider sx={{width: '100%'}} />
-                            </div>
-                        }
-                    </div>
-                    <div>
-                        <QueryClientProvider client={new QueryClient({
-                            defaultOptions: {
-                                queries: {
-                                    suspense: true,
+                        <div>
+                            <QueryClientProvider client={new QueryClient({
+                                defaultOptions: {
+                                    queries: {
+                                        suspense: true,
+                                    },
                                 },
-                            },
-                        })}>
-                            <Suspense fallback={<div>loading</div>}>
-                                <WeatherView />
-                            </Suspense>
-                        </QueryClientProvider>
+                            })}>
+                                <Suspense fallback={<div>loading</div>}>
+                                    <WeatherView />
+                                </Suspense>
+                            </QueryClientProvider>
+                        </div>
                     </div>
-                </div>
                 </div>
             </div>
         </>

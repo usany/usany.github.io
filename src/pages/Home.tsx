@@ -22,7 +22,7 @@ function Home({ userObj }: UserObjProps) {
     const bottomNavigation = useSelectors(state => state.bottomNavigation.value)
     const dispatch = useDispatch()
     useEffect(() => {
-        if (bottomNavigation !== 1) {
+        if (bottomNavigation === 5) {
             dispatch(changeBottomNavigation(1))
         }
     }, [userObj])

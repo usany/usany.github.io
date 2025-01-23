@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { useSelector, useDispatch } from 'react-redux'
 
@@ -14,7 +14,7 @@ const Avatars = ({ profile, profileColor, profileImage, fallback }: Props) => {
     // const profileUrl = useSelector(state => state.profileUrl.value)
     // console.log(profileImage)
     return (
-        <div>   
+        <div>
             {profile ? 
                 // <Avatar className={`w-48 h-48 bg-${(profileColor || '')[0] === '#' ? 'profile-blue' : profileColor}`}>
                 <Avatar className={`w-48 h-48 bg-${(profileColor || '#')[0] === '#' ? 'profile-blue' : profileColor}`}>

@@ -76,11 +76,11 @@ const Cards = ({
   // console.log(onMouse)
   return (
     <div className='max-w-60 min-w-20 p-1' 
-      onMouseDown={() => setOnMouse(true)}
-      onMouseUp={() => {
-        console.log('samples')
-        setOnMouse(false)
-      }}
+      // onMouseDown={() => setOnMouse(true)}
+      // onMouseUp={() => {
+      //   console.log('samples')
+      //   setOnMouse(false)
+      // }}
     >
       <MorphingDialog
         transition={{
