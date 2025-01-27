@@ -1,6 +1,7 @@
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 interface Props {
     addSteps: number
@@ -35,7 +36,7 @@ function AddSteppers({ addSteps, borrow }: Props) {
                             <StepLabel>
                                 {label.map((element, index) => {
                                     return (
-                                        <div key={index}>{element}</div>
+                                        <div key={index} className='pt-1 truncate'>{element}</div>
                                     )
                                 })}
                             </StepLabel>
