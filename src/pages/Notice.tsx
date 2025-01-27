@@ -76,7 +76,7 @@ function Notice({ userObj, borrow }: Props) {
             </div>
         </div>
         <div>
-        <div className='flex flex-wrap justify-between h-screen pt-5 gap-1'>
+        <div className='flex flex-wrap justify-between pt-5 gap-1'>
             {messages.map((msg) => {
                 let choose
                 const isOwner = msg?.creatorId === userObj?.uid

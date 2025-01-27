@@ -11,7 +11,30 @@ import { bottomNavigationReducer } from 'src/stateSlices/bottomNavigationSlice'
 import { tabsReducer } from 'src/stateSlices/tabsSlice'
 import { completedActionReducer } from 'src/stateSlices/completedActionSlice'
 import { newMessageReducer } from 'src/stateSlices/newMessageSlice'
-  
+import { createMachine } from 'xstate';
+import { piazza } from './stateSlices/piazza'
+import { weather } from './stateSlices/weather'
+
+const toggleMachine = createMachine({
+  /** @xstate-layout N4IgpgJg5mDOIC5QBcD2UoBswDoCSAdgIYDGyAlgG5gDEaG2A2gAwC6ioADqrORagQ4gAHogCMANgk4ATM3nMxAZgAsSpTICsYgDQgAnuKVicCxSuYB2CwA4JGgL4O99LLgCCZKrVdM2Q7l5+QSQRcSlZM2U1DW09QwQbEyUzSxsbaxsZFTEnZxACVAg4IV8wAJ4+cgEhUQQAWgl4xHrLEwBOTs7NZgt2u2ZNJxd0N3xiL2oKoOqQ0DqVGWbE6X71FU1NG1VmCSzhkDKcTwop0MCqmtC6mWscS1T2zUtLGSUM5Zt2nBVtpU2HpoNBobAcjgQwAB3AAEsGQRGQYGhYmmlzmYQQMhsmhwYi67QkG3aGw0yzEOJSCjSGV+2WYoLyQA */
+  id: 'toggle',
+  initial: 'Inactive',
+  states: {
+    Inactive: {
+      on: {
+        toggle: 'Active'
+      },
+    },
+
+    Active: {
+      on: { toggle: 'Inactive' },
+    },
+
+    "new state 1": {}
+  },
+});
+
+
 export const store = configureStore({
   reducer: {
     profileUrl: profileUrlReducer.reducer,
@@ -25,7 +48,13 @@ export const store = configureStore({
     tabs: tabsReducer.reducer,
     completedAction: completedActionReducer.reducer,
     newMessage: newMessageReducer.reducer,
-  }
+    piazza: piazza.reducer,
+    weather: weather.reducer
+  },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false
+    }).concat(piazza.middleware, weather.middleware)
 })
 
 export type AppStore = typeof store

@@ -26,7 +26,6 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import Avatars from 'src/muiComponents/Avatars'
 import staticImage from 'src/assets/blue.png';
 import { useSelectors } from 'src/hooks/useSelectors';
-import HeaderViews from 'src/navigate/HeaderViews';
 
 // const Puller = styled('div')(({ theme }) => ({
 //     width: 30,
@@ -45,7 +44,7 @@ interface Props {
     userObj: User | null
 }
 
-const Header = ({ userObj }: Props) => {
+const HeaderViews = ({ userObj }: Props) => {
     const bottomNavigation = useSelectors(state => state.bottomNavigation.value)
     // const profileUrl = useSelector(state => state.profileUrl.value)
     const profileColor = useSelector(state => state.profileColor.value)
@@ -128,18 +127,85 @@ const Header = ({ userObj }: Props) => {
     }, [])
     return (
         <>
-            <div className='fixed z-20 bg-light-3/50 dark:bg-dark-3/50'>
-                <div className={`${!scroll && 'hidden'}`}>
-                    <HeaderViews userObj={userObj} />
+            <Navigation userObj={userObj} handleSideNavigation={handleSideNavigation} sideNavigation={sideNavigation} />
+            <div className='flex justify-between w-screen'>
+                <div className='px-5 pt-1'>
+                    <div>
+                        {profileImage ?
+                            <div onClick={() => {
+                                handleSideNavigation()
+                            }}>
+                                {userObj ? 
+                                    <Avatars profile={false} profileColor={profileColor} profileImage={profileImage} fallback={userObj.displayName ? userObj.displayName[0] : ''}/>
+                                    : 
+                                    <Avatars profile={false} profileColor={'profile-blue'} profileImage={staticImage} fallback={''}/>
+                                }
+                            </div>
+                            :
+                            <div>loading</div>
+                        }
+                    </div>
                 </div>
-            </div>
-            <div className='h-16'>
-                <div className={`${scroll && 'hidden'}`}>
-                    <HeaderViews userObj={userObj}/>
+                <div>
+                    {bottomNavigation === 0 && 
+                        <ToggleTabs />
+                    }
+                    {userObj && bottomNavigation === 1 &&
+                        <>
+                            <div className='flex w-1/2 gap-3'>
+                                <div className='flex flex-col'>
+                                    {/* <FormControlLabel
+                                        sx={{height: '45px'}}
+                                        control={
+                                            <Checkbox
+                                                checked={cardAccordion}
+                                                onClick={() => dispatch(change())}
+                                            />
+                                        } 
+                                        label={cardAccordion ? <CreditCard color='#2196f3' /> : <CreditCard />} 
+                                    /> */}
+                                    <div className='flex justify-center w-16 h-[45px] pt-3'>
+                                        {cardAccordion ? <CreditCard color='#2196f3' onClick={() => dispatch(change())} /> : <CreditCard onClick={() => dispatch(change())} />}
+                                    </div>
+                                    <Divider sx={{width: '100%', height: '1px', backgroundColor: cardAccordion && '#2196f3'}} />
+                                </div>
+                                <div className='flex flex-col'>
+                                    {/* <FormControlLabel
+                                        sx={{height: '45px'}}
+                                        control={
+                                            <Checkbox
+                                                checked={messageAccordion}
+                                                onClick={() => dispatch(changeMessageAccordion())}
+                                            />
+                                        } 
+                                        label={messageAccordion ? <MessageCircle color='#2196f3' /> : <MessageCircle />} 
+                                    /> */}
+                                    <div className='flex justify-center w-16 h-[45px] pt-3'>
+                                        {messageAccordion ? <MessageCircle color='#2196f3' onClick={() => dispatch(changeMessageAccordion())} /> : <MessageCircle onClick={() => dispatch(changeMessageAccordion())} />}
+                                    </div>
+                                    <Divider sx={{width: '100%', height: '1px', backgroundColor: messageAccordion && '#2196f3'}} />
+                                </div>
+                            </div>
+                        </>
+                    }
+                    {bottomNavigation === 2 && 
+                        <ToggleTabs />
+                    }
+                    {!userObj && bottomNavigation === 1 &&
+                        <div>
+                            <Link to='/'>
+                                <div className='pt-5 min-w-36'>로그인을 해 주세요</div>
+                            </Link>
+                            <Divider sx={{width: '100%'}} />
+                        </div>
+                    }
+                </div>
+                <div>
+                    <WeatherView />
                 </div>
             </div>
         </>
     )
 }
 
-export default Header
+export default HeaderViews

@@ -5,9 +5,9 @@ import { auth } from 'src/baseApi/serverbase'
 import 'src/global.css'
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { User } from 'firebase/auth'
-import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
 import { useSelector, useDispatch } from 'react-redux'
 import ThemeRootState from './interfaces/ThemeRootState copy'
+import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
 import { useQuery } from '@tanstack/react-query'
 
 const lightTheme = createTheme({
@@ -35,6 +35,7 @@ function App() {
     })
     // dispatch(changeBottomNavigation(1))
   }, [])
+
   // const onAuthQuery = () => {
   //   const onAuth = {userObj: undefined}
   //   auth.onAuthStateChanged((user) => {

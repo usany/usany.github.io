@@ -47,7 +47,7 @@ const location = {
 }
 function Selects({ locationState, changeBuilding, changeRoom, changeSeat, changeLocationInput }) {
     return (
-        <div className='flex px-5'>
+        <div className='flex flex-col px-5'>
             <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
                 <InputLabel 
                     // id="demo-simple-select-standard-label"

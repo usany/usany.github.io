@@ -17,6 +17,7 @@ import { useQuery } from '@tanstack/react-query'
 import { useSelector, useDispatch } from 'react-redux'
 import { AnimatedList } from 'src/src/components/ui/animated-list';
 import { CardActionArea, CardActions, ClickAwayListener } from '@mui/material';
+import { useGetPiazzaQuery } from 'src/stateSlices/piazza';
 
 interface Props {
   userObj: User
@@ -37,6 +38,9 @@ const MessageStacks = ({ userObj }: Props) => {
       setOnLongPress(0)
     }
   }, [longPressChat])
+  const { data, error, isLoading } = useGetPiazzaQuery('query')
+  // console.log(data)
+  // data.forEach((doc) => console.log(doc.data()))
   const piazza = async () => {
     const piazzaRef = collection(dbservice, 'chats_group')
     const piazzaCollection = query(piazzaRef, orderBy('messageClockNumber', 'desc'), limit(1))

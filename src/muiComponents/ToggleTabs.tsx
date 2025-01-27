@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
@@ -45,9 +45,8 @@ export default function ToggleTabs() {
   };
   const tabs = useSelector(state => state.tabs.value)
   const dispatch = useDispatch()
-
-  return (
-    <div className=''>
+  const tabsBox = useMemo(() => {
+    return (
       <Box sx={{ paddingX: '10px'
         }}>
         <Tabs
@@ -57,6 +56,20 @@ export default function ToggleTabs() {
           <Tab label={<Maximize2 />} {...a11yProps(1)} />
         </Tabs>
       </Box>
+    )
+  }, [tabs])
+  return (
+    <div className=''>
+      {/* <Box sx={{ paddingX: '10px'
+        }}>
+        <Tabs
+          value={tabs} onChange={handleChange} aria-label="basic tabs example"
+        >
+          <Tab label={<Minimize2 />} {...a11yProps(0)} />
+          <Tab label={<Maximize2 />} {...a11yProps(1)} />
+        </Tabs>
+      </Box> */}
+      {tabsBox}
     </div>
   );
 }
