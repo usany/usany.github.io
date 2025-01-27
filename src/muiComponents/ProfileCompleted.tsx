@@ -83,8 +83,64 @@ const ProfileCompleted = ({
     getMessage()
   }, [])
 
+  // useEffect(() => {
+  //   if (document.getElementById('completedAction').asChild) {
+      
+  //   }
+  // })
   return (
     <div className='flex flex-col pt-5'>
+      <Drawer>
+        <DrawerTrigger id='completedAction'>
+          <div onClick={() => {
+            document.documentElement.scrollTo({
+              top: 0,
+              left: 0,
+              behavior: "instant", // Optional if you want to skip the scrolling animation
+            });
+          }}/>
+        </DrawerTrigger>
+        <DrawerContent className='max-h-[50%] h-full overflow-y-scroll'>
+          <ScrollArea>
+            <DrawerHeader>
+              완료된 {`${completedAction === 'borrow' ? '빌리기' : '빌려주기'}`}
+            </DrawerHeader>
+            {completedAction === 'borrow' ?
+              <div className='flex justify-center flex-wrap'>
+                {messagesList.map((element) => {
+                  if (element.round === 5) {
+                    if (element.creatorId === user.uid && element.text.choose === 1) {
+                      return (
+                        <Cards key={element.id} msgObj={element} isOwner={true} userObj={user} num={null} points={null} />
+                      )
+                    } else if (element.creatorId !== user.uid && element.text.choose === 2) {
+                      return (
+                        <Cards key={element.id} msgObj={element} isOwner={false} userObj={user} num={null} points={null} />
+                      )
+                    }
+                  }
+                })}
+              </div>
+              :
+              <div className='flex justify-center flex-wrap'>
+                {messagesList.map((element) => {
+                  if (element.round === 5) {
+                    if (element.creatorId === user.uid && element.text.choose === 2) {
+                      return (
+                        <Cards key={element.id} msgObj={element} isOwner={true} userObj={user} num={null} points={null} />
+                      )
+                    } else if (element.creatorId !== user.uid && element.text.choose === 1) {
+                      return (
+                        <Cards key={element.id} msgObj={element} isOwner={false} userObj={user} num={null} points={null} />
+                      )
+                    }
+                  }
+                })}
+              </div>
+            }
+          </ScrollArea>
+        </DrawerContent>
+      </Drawer>
       <ChartContainer
         config={labels}
         className="aspect-square max-h-[250px] pt-5"
@@ -103,7 +159,7 @@ const ProfileCompleted = ({
             nameKey="action"
             onClick={(value) => {
               const action = value.action
-              document.getElementById('completedAction')?.parentNode?.click()
+              // document.getElementById('completedAction')?.parentNode?.click()
               dispatch(changeCompletedAction(action))
             }}
             innerRadius={60}
@@ -138,37 +194,6 @@ const ProfileCompleted = ({
           </Pie>
         </PieChart>
       </ChartContainer>
-      <Drawer>
-        <DrawerTrigger>
-          <div id='completedAction' />
-        </DrawerTrigger>
-        <DrawerContent className='max-h-[50%] h-full overflow-y-scroll'>
-          <ScrollArea>
-            <DrawerHeader>
-              완료된 {`${completedAction === 'borrow' ? '빌리기' : '빌려주기'}`}
-            </DrawerHeader>
-            {completedAction === 'borrow' ?
-              <div className='flex justify-center flex-wrap'>
-                {messagesList.map((element) => {
-                  if (element.text.choose === 1 && element.round === 5) {
-                    return (
-                      <Cards key={element.id} msgObj={element} isOwner={element.creatorId === user.uid} userObj={user} num={null} points={null} />
-                    )
-                  }
-                })}
-              </div>
-              :
-              <div className='flex justify-center flex-wrap'>
-                {messagesList.map((element) => {
-                  if (element.text.choose === 2 && element.round === 5) {
-                    return <Cards key={element.id} msgObj={element} isOwner={element.creatorId === user.uid} userObj={user} num={null} points={null} />
-                  }
-                })}
-              </div>
-            }
-          </ScrollArea>
-        </DrawerContent>
-      </Drawer>
     </div>
   );
 }

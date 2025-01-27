@@ -12,6 +12,7 @@ import PageTitle from 'src/muiComponents/PageTitle'
 import { User } from 'firebase/auth';
 import { useSelector, useDispatch } from 'react-redux'
 import TabsRootState from 'src/interfaces/TabsRootState';
+import AddCards from 'src/muiComponents/AddCards';
 
 interface Props {
     userObj: User
@@ -44,7 +45,7 @@ function Add({ userObj, borrow }: Props) {
     const [addSteps, setAddSteps] = useState(0);
     const [display, setDisplay] = useState<DisplayCard | null>(null)
     const [item, setItem] = useState('');
-    const tabs = useSelector((state: TabsRootState) => state.tabs)
+    const tabs = useSelector((state: TabsRootState) => state.tabs.value)
     const [fromTo, setFromTo] = useState<FromTo>({from: null, to: null})
     // const [cardId, setCardId] = useState<string | null>(null)
     // const [from, setFrom] = useState(null);
@@ -260,10 +261,15 @@ function Add({ userObj, borrow }: Props) {
         <div className='flex flex-col h-screen'>
             <PageTitle title={`${borrow ? '빌리기 ' : '빌려주기 '} 카드 등록`}/>
             <AddSteppers addSteps={addSteps} borrow={borrow} />
-            <AddStepOne borrow={borrow} item={item} changeItem={changeItem} />
-            {addSteps > 0 && <AddStepTwo locationState={locationState} changeBuilding={changeBuilding} changeRoom={changeRoom} changeSeat={changeSeat} changeLocationInput={changeLocationInput} />}
+            <div className='flex justify-around'>
+                <AddCards borrow={borrow} addSteps={addSteps} item={item} fromTo={fromTo} locationState={locationState} />
+                <div>
+                    <AddStepOne borrow={borrow} item={item} changeItem={changeItem} />
+                    {addSteps > 0 && <AddStepTwo locationState={locationState} changeBuilding={changeBuilding} changeRoom={changeRoom} changeSeat={changeSeat} changeLocationInput={changeLocationInput} />}
+                </div>
+            </div>
             {addSteps > 1 && <AddStepThree onChangeFrom={onChangeFrom} onChangeTo={onChangeTo} />}
-            {addSteps === 2 && <AddRegisterButton submit={submit} />}
+            {addSteps === 2 && <AddRegisterButton submit={submit} fromTo={fromTo}/>}
             {addSteps > 2 && <AddStepFour display={display} />} 
             {addSteps === 3 && <AddSnackBar changeAddSteps={changeAddSteps}/>}
         </div>  

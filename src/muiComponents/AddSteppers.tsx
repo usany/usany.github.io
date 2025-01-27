@@ -35,7 +35,7 @@ function AddSteppers({ addSteps, borrow }: Props) {
                             <StepLabel>
                                 {label.map((element, index) => {
                                     return (
-                                        <div key={index}>{element}</div>
+                                        <div key={index} className='pt-1 caret-current truncate'>{element}</div>
                                     )
                                 })}
                             </StepLabel>

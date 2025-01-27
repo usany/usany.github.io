@@ -37,6 +37,7 @@ function Profile({ userObj }: Props) {
     }
   ])
   const [cards, setCards] = useState({point: null, done: [], borrowDone: [], lendDone: [] })
+  const [drawerClosed, setDrawerClosed] = useState(false)
   const userUid = state?.element.uid || userObj.uid
   const userDisplayName = state?.element.displayName || userObj.displayName
   const myCardsQuery = async ({ uid }) => {
@@ -140,7 +141,7 @@ function Profile({ userObj }: Props) {
       </Suspense> */}
       <ProfileActions userObj={userObj} user={state?.element || userObj} alliesCollection={alliesCollection} handleFollowers={handleFollowers} handleFollowings={handleFollowings}/>
       <ProfileCards user={state?.element || userObj} alliesCollection={alliesCollection} cards={cards}/>
-      <ProfileCompleted user={state?.element || userObj} cards={cards}/>
+      <ProfileCompleted user={state?.element || userObj} cards={cards} />
       {/* {state.element.uid === userObj.uid ?
         <div className='flex justify-center' onClick={delist}>
           회원 탈퇴

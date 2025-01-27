@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import axios from 'axios'
 import { useQuery } from '@tanstack/react-query'
+import { useGetWeatherQuery } from 'src/stateSlices/weather'
 // import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 // import Snackbars from 'src/muiComponents/Snackbars'
 
@@ -59,19 +60,22 @@ const WeatherView = () => {
     // if (weather && temperature && icon) {
     //     dataCollection.push(weatherInfo);
     // }
+    // const weather = useGetWeatherQuery('query')
+    console.log('sample')
     const { data, isLoading } = useQuery({queryKey: ['weather'], queryFn: getCurrentWeather, 
-        suspense: true
+        // suspense: true
     })
+    if (isLoading) return <div>waiting</div>
     return (
         <div>
-            {!isLoading ?
-                <div className='flex flex-col px-5'>
-                    <img className='size-10' src={`https://openweathermap.org/img/wn/${data?.data.weather[0].icon}@2x.png`}/>
-                    <span>회기동 섭씨 {data?.data.main.temp}도</span>
-                </div>
+            <div className='flex flex-col px-5'>
+                <img className='size-10' src={`https://openweathermap.org/img/wn/${data?.data.weather[0].icon}@2x.png`}/>
+                <span>회기동 섭씨 {data?.data.main.temp}도</span>
+            </div>
+            {/* {!isLoading ?
             :
                 <div>waiting</div>
-            }
+            } */}
             {/* {loaded ? 
                 <div className='flex flex-col px-5'>
                     <img className='size-10' src={`https://openweathermap.org/img/wn/${icon}@2x.png`}/>

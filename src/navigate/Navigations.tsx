@@ -9,7 +9,7 @@ import ChecklistRtl from '@mui/icons-material/ChecklistRtl'
 import BeachAccess from '@mui/icons-material/BeachAccess'
 import Badges from 'src/muiComponents/Badges'
 import { useSelector, useDispatch } from 'react-redux'
-import { selectBottomNavigation, changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
+import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
 import { User } from 'firebase/auth';
 import { alpha } from "@mui/material";
 import { useSelectors } from 'src/hooks/useSelectors';
@@ -20,13 +20,13 @@ interface Props {
 interface ThemeRootState  {
     theme: string
 }
-// interface BottomNavigationRootState  {
-//     bottomNavigation: number
-// }
+interface BottomNavigationRootState  {
+    bottomNavigation: number
+}
 function Navigations({ userObj }: Props) {
     const [backgroundColor, setBackgroundColor] = useState('#e2e8f0');
     const theme = useSelector((state: ThemeRootState) => state.theme)
-    const bottomNavigation = useSelectors((state) => state.bottomNavigation.value)
+    const bottomNavigation = useSelectors(state => state.bottomNavigation.value)
     const dispatch = useDispatch()
     const location = useLocation();
     useEffect(() => {
