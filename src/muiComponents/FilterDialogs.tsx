@@ -42,13 +42,13 @@ function FilterDialogs({ selectedValues, handleSelectedValues }) {
                 <DrawerTrigger>
                     <Filter />
                 </DrawerTrigger>
-                <DrawerContent className='flex flex-col justify-center px-5'>
+                <DrawerContent className='flex flex-col justify-center px-5 bg-light-2 dark:bg-dark-2'>
                     <div className='flex justify-center'>우산 / 양산 선택</div>
                     <Select defaultValue={selectedValues[0].value || '전체'} onValueChange={(newValue) => handleSelectedValues({id: 'selectedValueOne', newValue: newValue})}>
-                        <SelectTrigger>
+                        <SelectTrigger className='bg-light-1 dark:bg-dark-1'>
                             <SelectValue />
                         </SelectTrigger>
-                        <SelectContent>
+                        <SelectContent className='bg-light-1 dark:bg-dark-1'>
                             <SelectGroup>
                                 <SelectItem value='전체'>전체</SelectItem>
                                 <SelectItem value='우산'>우산</SelectItem>
@@ -58,10 +58,10 @@ function FilterDialogs({ selectedValues, handleSelectedValues }) {
                     </Select>
                     <div className='flex justify-center'>장소 선택</div>
                     <Select defaultValue={selectedValues[1].value || '전체'} onValueChange={(newValue) => handleSelectedValues({id: 'selectedValueTwo', newValue: newValue})}>
-                        <SelectTrigger>
+                        <SelectTrigger className='bg-light-1 dark:bg-dark-1'>
                             <SelectValue />
                         </SelectTrigger>
-                        <SelectContent>
+                        <SelectContent className='bg-light-1 dark:bg-dark-1'>
                             <SelectGroup>
                                 <SelectItem value='전체'>전체</SelectItem>
                                 <SelectItem value='중도'>중도</SelectItem>
@@ -71,16 +71,18 @@ function FilterDialogs({ selectedValues, handleSelectedValues }) {
                     </Select>
                     <div className='flex justify-center'>시간 정렬</div>
                     <Select defaultValue={selectedValues[2].value || '최신순'} onValueChange={(newValue) => handleSelectedValues({id: 'selectedValueThree', newValue: newValue})}>
-                        <SelectTrigger>
+                        <SelectTrigger className='bg-light-1 dark:bg-dark-1'>
                             <SelectValue />
                         </SelectTrigger>
-                        <SelectContent>
+                        <SelectContent className='bg-light-1 dark:bg-dark-1'>
                             <SelectGroup>
                                 <SelectItem value='최신순'>최신순</SelectItem>
                                 <SelectItem value='오래된'>오래된</SelectItem>
                             </SelectGroup>
                         </SelectContent>
                     </Select>
+                </DrawerContent>
+            </Drawer>
                 {/* <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
                 <InputLabel 
                 >우산 / 양산 선택
@@ -119,8 +121,6 @@ function FilterDialogs({ selectedValues, handleSelectedValues }) {
                     <MenuItem value={'오래된'}>오래된</MenuItem>
                 </Select>
             </FormControl> */}
-                </DrawerContent>
-            </Drawer>
         {/* <Dialog open={changeFilter} onClose={handleClose}>
             <DialogContent>
                 <div>

@@ -13,6 +13,7 @@ import { User } from 'firebase/auth';
 import { useSelector, useDispatch } from 'react-redux'
 import TabsRootState from 'src/interfaces/TabsRootState';
 import AddCards from 'src/muiComponents/AddCards';
+import { useMediaQuery } from '@mui/material';
 
 interface Props {
     userObj: User
@@ -47,6 +48,7 @@ function Add({ userObj, borrow }: Props) {
     const [item, setItem] = useState('');
     const tabs = useSelector((state: TabsRootState) => state.tabs.value)
     const [fromTo, setFromTo] = useState<FromTo>({from: null, to: null})
+    const matches = useMediaQuery('(min-width:500px)');
     // const [cardId, setCardId] = useState<string | null>(null)
     // const [from, setFrom] = useState(null);
     // const [to, setTo] = useState(null);
@@ -264,7 +266,7 @@ function Add({ userObj, borrow }: Props) {
             <div className='flex justify-around'>
                 <AddCards borrow={borrow} userObj={userObj} addSteps={addSteps} item={item} fromTo={fromTo} locationState={locationState} />
                 <div>
-                    <AddStepOne borrow={borrow} item={item} changeItem={changeItem} />
+                    {matches&&<AddStepOne borrow={borrow} item={item} changeItem={changeItem} />}
                     {addSteps > 0 && <AddStepTwo locationState={locationState} changeBuilding={changeBuilding} changeRoom={changeRoom} changeSeat={changeSeat} changeLocationInput={changeLocationInput} />}
                 </div>
             </div>

@@ -78,8 +78,8 @@ const ProfileDrawers = ({ user, cards, followers, alliesCollection, selection })
           </div>
         }
       </DrawerTrigger>
-      <DrawerContent className='bg-light-2 dark:bg-dark-2 max-h-[50%]'>
-        <ScrollArea>
+      <DrawerContent className='max-h-[50%] bg-light-2 dark:bg-dark-2'>
+        <ScrollArea className='overflow-y-scroll'>
           <div>
             <DrawerHeader>
               {selection === 'points' &&

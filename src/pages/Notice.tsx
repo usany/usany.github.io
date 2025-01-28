@@ -5,6 +5,7 @@ import FilterDialogs from 'src/muiComponents/FilterDialogs'
 import { useImmer } from 'use-immer'
 import { User } from 'firebase/auth';
 import Cards from 'src/muiComponents/Cards';
+import { Chip } from '@mui/material';
 
 interface Props {
     userObj: User | null
@@ -69,6 +70,8 @@ function Notice({ userObj, borrow }: Props) {
         <div className='flex justify-start text-2xl w-screen'>
             <div className='flex w-5/6'>{borrow ? '빌리기' : '빌려주기'} 카드 목록</div>
             <div className='flex w-screen justify-end px-16'>
+                {selectedValues[0].value && <Chip label={selectedValues[0].value}/>}
+                {selectedValues[1].value && <Chip label={selectedValues[1].value}/>}
                 <FilterDialogs 
                     selectedValues={selectedValues} 
                     handleSelectedValues={handleSelectedValues}

@@ -100,8 +100,8 @@ const ProfileCompleted = ({
             });
           }}/>
         </DrawerTrigger>
-        <DrawerContent className='max-h-[50%] h-full overflow-y-scroll'>
-          <ScrollArea>
+        <DrawerContent className='max-h-[50%] bg-light-2 dark:bg-dark-2'>
+          <ScrollArea className='overflow-y-scroll'>
             <DrawerHeader>
               완료된 {`${completedAction === 'borrow' ? '빌리기' : '빌려주기'}`}
             </DrawerHeader>
