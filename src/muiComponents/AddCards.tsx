@@ -25,7 +25,7 @@ const AddCards = ({ borrow, userObj, addSteps, item, fromTo, locationState }: Pr
                         <div className='flex justify-between gap-1'>
                             <Avatars profile={false} profileColor={profileColor} profileImage={profileImage} fallback={userObj.displayName ? userObj.displayName[0] : ''}/>
                             {item && <Chip label={`${item} ${borrow ? ' 빌리기' : ' 빌려주기'}`} />}
-                            {item && <Chip label='내가 작성함' />}
+                            {/* {item && <Chip label='내가 작성함' />} */}
                         </div>
                         {locationState.locationOne && <CardMedia
                             sx={{ height: 140 }}
