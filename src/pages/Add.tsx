@@ -262,7 +262,7 @@ function Add({ userObj, borrow }: Props) {
             <PageTitle title={`${borrow ? '빌리기 ' : '빌려주기 '} 카드 등록`}/>
             <AddSteppers addSteps={addSteps} borrow={borrow} />
             <div className='flex justify-around'>
-                <AddCards borrow={borrow} addSteps={addSteps} item={item} fromTo={fromTo} locationState={locationState} />
+                <AddCards borrow={borrow} userObj={userObj} addSteps={addSteps} item={item} fromTo={fromTo} locationState={locationState} />
                 <div>
                     <AddStepOne borrow={borrow} item={item} changeItem={changeItem} />
                     {addSteps > 0 && <AddStepTwo locationState={locationState} changeBuilding={changeBuilding} changeRoom={changeRoom} changeSeat={changeSeat} changeLocationInput={changeLocationInput} />}

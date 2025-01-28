@@ -46,7 +46,6 @@ interface Props {
 
 const HeaderViews = ({ userObj }: Props) => {
     const bottomNavigation = useSelectors(state => state.bottomNavigation.value)
-    // const profileUrl = useSelector(state => state.profileUrl.value)
     const profileColor = useSelector(state => state.profileColor.value)
     const profileImage = useSelector(state => state.profileImage.value)
     const [sideNavigation, setSideNavigation] = useState(false)
@@ -54,35 +53,10 @@ const HeaderViews = ({ userObj }: Props) => {
         setSideNavigation(!sideNavigation)
     }
     const storage = getStorage();
-    const [scroll, setScroll] = useState('')
     const cardAccordion = useSelector(state => state.cardAccordion.value)
     const messageAccordion = useSelector(state => state.messageAccordion.value)
     const dispatch = useDispatch()
-    let prevScrollPos = window.scrollY;
-    console.log(cardAccordion)
-    window.addEventListener('scroll', function () {
-        // current scroll position
-        const currentScrollPos = window.scrollY;
-        if (prevScrollPos >= currentScrollPos) {
-            // setScroll('fixed z-20 bg-light-3/50 dark:bg-dark-3/50')
-            setScroll('scroll')
-            // user has scrolled up
-            // document.querySelector('#navigationSelectorOne')?.classList.add('overflow-hidden fixed top-0 z-20 bg-light-3 dark:bg-dark-3')
-            // document.querySelector('#navigationSelectorTwo')?.classList.add('fixed', 'top-0', 'z-10', 'bg-light-3', 'dark:bg-dark-3')
-            // document.querySelector('#contentSelector')?.classList.add('pt-16')
-        } else {
-            setScroll('')
-            // user has scrolled down
-            // document.querySelector('#navigationSelectorOne')?.classList.remove('overflow-hidden', 'fixed', 'top-0', 'z-20', 'bg-light-3', 'dark:bg-dark-3')
-            // document.querySelector('#navigationSelectorTwo')?.classList.remove('fixed', 'top-0', 'z-10', 'bg-light-3', 'dark:bg-dark-3')
-            // document.querySelector('#contentSelector')?.classList.remove('pt-16')
-        }
-        // if (currentScrollPos === 0) {
-        //     setScroll('')
-        // }
-        // update previous scroll position
-        prevScrollPos = currentScrollPos;
-    });
+    
     useEffect(() => {
         if (userObj) {
             getDownloadURL(ref(storage, `${userObj?.uid}`))
