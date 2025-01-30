@@ -63,32 +63,13 @@ const Cards = ({
   longPressCard,
   changeLongPressCard,
 }: Props) => {
-  const [staticImage, setStaticImage] = useState('')
-  const shadowColor = shadowColorArray[mergedArray.indexOf(String(msgObj.id[0]).toUpperCase())%shadowColorArray.length];
-  // const [onMouse, setOnMouse] = useState(false)
   const [longPressed, setLongPressed] = useState(false)
   
-  useEffect(() => {
-    if (msgObj.text.count === '중도') {
-      setStaticImage(staticImageJ)
-    } else if (msgObj.text.count === '청운') {
-      setStaticImage(staticImageC)
-    } else {
-      setStaticImage(staticImg)
-    }
-  }, [msgObj])
-  // useEffect(() => {
-  //   if (onMouse) {
-  //     setTimeout(() => console.log('sample'), 5000)
-  //   }
-  // }, [onMouse])
-  // console.log(onMouse)
   const cardsRef = useRef()
   useLongPress(cardsRef, () => {
     if (longPressCard && !onLongPress) {
       setLongPressed(true)
       changeOnLongPress(onLongPress+1)
-      // console.log('practice')
     }
   })
   useEffect(() => {
@@ -96,7 +77,7 @@ const Cards = ({
       setLongPressed(false)
     }
   }, [onLongPress])
-  // console.log(onLongPress)
+
   return (
     <div className='max-w-60 min-w-20 p-1'
       ref={cardsRef}
