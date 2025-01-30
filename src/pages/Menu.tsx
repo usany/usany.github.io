@@ -15,7 +15,8 @@ import { change } from 'src/stateSlices/cardAccordionSlice'
 import { changeMessageAccordion } from 'src/stateSlices/messageAccordionSlice'
 import { Skeleton } from "@/components/ui/skeleton"
 import { User } from 'firebase/auth';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import CardsStacks from 'src/muiComponents/CardsStacks';
+// import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 interface Props {
     userObj: User
