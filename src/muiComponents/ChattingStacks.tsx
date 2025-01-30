@@ -141,7 +141,6 @@ const ChattingStacks = ({ userObj, chattings, handleChattings, longPressChat, ch
     <>
       {sortedMyConversationUid.map((element, index) => {
         const clock = new Date(chattings[element].messageClock)
-      
         if (chattings[element]) {
           let displayName
           let chattingUid
