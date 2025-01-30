@@ -4,16 +4,11 @@ import { useState, useEffect, useLayoutEffect, Suspense } from 'react'
 // import { CardActionArea, CardActions } from '@mui/material';
 import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
 import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnapshot, deleteDoc, updateDoc, limit } from 'firebase/firestore';
-import { Link } from 'react-router-dom'
 import { webSocket, onClick } from 'src/webSocket.tsx'
 import { User } from 'firebase/auth';
 import ChattingStacks from 'src/muiComponents/ChattingStacks'
 import Chats from 'src/muiComponents/Chats'
 import { useQuery } from '@tanstack/react-query'
-// import { useSelector, useDispatch } from 'react-redux'
-// import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-// import Badge from '@mui/material/Badge';
-// import Chip from '@mui/material/Chip';
 import { useSelector, useDispatch } from 'react-redux'
 import { AnimatedList } from 'src/src/components/ui/animated-list';
 import { CardActionArea, CardActions, ClickAwayListener } from '@mui/material';
@@ -25,7 +20,6 @@ interface Props {
 const MessageStacks = ({ userObj }: Props) => {
   const [piazzaMessage, setPiazzaMessage] = useState<{username: string, message: string} | null>(null)
   const [chattings, setChattings] = useState({})
-  const [piazzaUid, setPiazzaUid] = useState('')
   const [longPressChat, setLongPressChat] = useState(null)
   const [onLongPress, setOnLongPress] = useState(0)
   useEffect(() => {
@@ -39,8 +33,7 @@ const MessageStacks = ({ userObj }: Props) => {
     }
   }, [longPressChat])
   const { data, error, isLoading } = useGetPiazzaQuery('query')
-  // console.log(data)
-  // data.forEach((doc) => console.log(doc.data()))
+
   const piazza = async () => {
     const piazzaRef = collection(dbservice, 'chats_group')
     const piazzaCollection = query(piazzaRef, orderBy('messageClockNumber', 'desc'), limit(1))
@@ -54,7 +47,6 @@ const MessageStacks = ({ userObj }: Props) => {
     if (piazzaSwitch === 'true') {
       messages.data?.forEach((doc) => {
         if (!piazzaMessage) {
-          setPiazzaUid(doc.id)
           setPiazzaMessage({username: doc.data().userName, messageClock: doc.data().messageClock, messageClockNumber: doc.data().messageClockNumber, message: doc.data().message, piazzaChecked: doc.data().piazzaChecked || []})
         }
       })
@@ -81,27 +73,6 @@ const MessageStacks = ({ userObj }: Props) => {
   }, []);
 
   const clock = new Date(piazzaMessage?.messageClock)
-  let messageAmpm
-  let messageHours = clock.getHours()
-  let messageMonth = (clock.getMonth()+1).toString()
-  let messageDate = (clock.getDate()).toString()
-  if (messageHours >= 13) {
-    messageAmpm = '오후'
-    if (messageHours !== 12) {
-      messageHours = messageHours-12
-    }
-  } else {
-    messageAmpm = '오전'
-    if (messageHours === 0) {
-      messageHours = messageHours+12
-    }
-  }
-  if (clock.getMonth() < 10) {
-    messageMonth = '0'+messageMonth
-  } 
-  if (messageDate.length === 1) {
-    messageDate = '0'+messageDate
-  } 
   
   return (
     <>

@@ -1,21 +1,8 @@
 import { useState, useEffect, useLayoutEffect, useRef } from 'react'
-// import Stack from '@mui/material/Stack';
-// import Typography from '@mui/material/Typography';
-import Card from '@mui/material/Card';
-import { CardActionArea, CardActions, ClickAwayListener } from '@mui/material';
-// import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
-// import { collection, query, QuerySnapshot, where, orderBy, addDoc, getDoc, getDocs, doc, onSnapshot, deleteDoc, updateDoc, limit } from 'firebase/firestore';
-import { Link } from 'react-router-dom'
-// import { webSocket, onClick } from 'src/webSocket.tsx'
-// import { useSelector, useDispatch } from 'react-redux'
 import { User } from 'firebase/auth';
-// import { changeNewMessage, changeNewMessageTrue, changeNewMessageFalse } from 'src/stateSlices/newMessageSlice'
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import Chip from '@mui/material/Chip';
-// import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
-// import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnapshot, deleteDoc, updateDoc, limit } from 'firebase/firestore';
 import staticImage from 'src/assets/blue.png';
-import useLongPress from 'src/hooks/useLongPress';
 interface Props {
   userObj: User
   profileUrl: string
@@ -54,12 +41,10 @@ const ChatsBoxes = ({ userObj, profileUrl, displayName, multiple, clock, message
 
   return (
           <div className='flex p-3'>
-            <div className=''>
-              <Avatar>
-                <AvatarImage src={multiple ? staticImage : profileUrl} />
-                <AvatarFallback>{multiple ? "CN" : displayName[0]}</AvatarFallback>
-              </Avatar>
-            </div>
+            <Avatar>
+              <AvatarImage src={multiple ? staticImage : profileUrl} />
+              <AvatarFallback>{multiple ? "CN" : displayName[0]}</AvatarFallback>
+            </Avatar>
             <div className='flex flex-col w-screen'>
               <div className='flex justify-between'>
                 <div className='w-1/2 px-3 overflow-hidden'>{multiple ? '단체 대화' : displayName}</div> 

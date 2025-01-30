@@ -1,18 +1,9 @@
 import { useState, useEffect, useLayoutEffect } from 'react'
-// import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
-import Card from '@mui/material/Card';
-import { CardActionArea, CardActions } from '@mui/material';
 import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
 import { collection, query, QuerySnapshot, where, orderBy, addDoc, getDoc, getDocs, doc, onSnapshot, deleteDoc, updateDoc, limit } from 'firebase/firestore';
-import { Link } from 'react-router-dom'
 import { webSocket, onClick } from 'src/webSocket.tsx'
-import { useSelector, useDispatch } from 'react-redux'
 import { User } from 'firebase/auth';
-import { changeNewMessage, changeNewMessageTrue, changeNewMessageFalse } from 'src/stateSlices/newMessageSlice'
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { getStorage, ref, uploadBytes, uploadString, uploadBytesResumable, getDownloadURL,  } from "firebase/storage";
-import Chip from '@mui/material/Chip';
 import Chats from 'src/muiComponents/Chats'
 
 interface Props {
@@ -24,7 +15,6 @@ interface Props {
 const ChattingStacks = ({ userObj, chattings, handleChattings, longPressChat, changeLongPressChat, onLongPress, changeOnLongPress }: Props) => {
   const [sortedMyConversationUid, setSortedMyConversationUid] = useState([])
   const [profileUrls, setProfileUrls] = useState([])
-  // const newMessage = useSelector(state => state.newMessage.value)
   const [newMessage, setNewMessage] = useState(true)
   useEffect(() => {
     const myChatting = async () => {
@@ -34,7 +24,6 @@ const ChattingStacks = ({ userObj, chattings, handleChattings, longPressChat, ch
       const conversation = Object.keys(myConversation).map((element) => {
         let displayName
         let chattingUid
-        // let profileImageUrl
         if (userObj.uid === myConversation[element].userOne) {
           displayName = myConversation[element].userTwoDisplayName
           chattingUid = myConversation[element].userTwo
@@ -46,7 +35,6 @@ const ChattingStacks = ({ userObj, chattings, handleChattings, longPressChat, ch
         .then((url) => {
           const newObject = profileUrls
           newObject[chattingUid] = {profileUrl: url, displayName: displayName}
-          // myConversation[element].profileImageUrl = url
           setProfileUrls(newObject)
         })
         .catch((error) => {
@@ -58,7 +46,6 @@ const ChattingStacks = ({ userObj, chattings, handleChattings, longPressChat, ch
     }
     if (newMessage) {
       myChatting()
-      // dispatch(changeNewMessageFalse())
     }
   }, [newMessage])
 
@@ -88,7 +75,6 @@ const ChattingStacks = ({ userObj, chattings, handleChattings, longPressChat, ch
       }
       const replaceObj = {userUid: userUid, userName: id, userOne: userOne, userOneDisplayName: userOneDisplayName, userTwo: userTwo, userTwoDisplayName: userTwoDisplayName, message: msg, messageClock: messageClock, messageClockNumber: messageClockNumber, userOneProfileUrl: userOneProfileUrl, userTwoProfileUrl: userTwoProfileUrl, messageCount: messageCount}      // const location = chats.map((element) => element.conversation).indexOf(conversation)
       const newChattings = {...chattings, [conversation]: replaceObj}
-      // setChattings(newChattings)
       handleChattings(newChattings)
     }
     sortedMyConversationUid.map((element) => {
@@ -120,7 +106,6 @@ const ChattingStacks = ({ userObj, chattings, handleChattings, longPressChat, ch
       }
       const replaceObj = {userUid: userUid, userName: id, userOne: userOne, userOneDisplayName: userOneDisplayName, userTwo: userTwo, userTwoDisplayName: userTwoDisplayName, message: msg, messageClock: messageClock, messageClockNumber: messageClockNumber, messageCount: messageCount}
       const newChattings = {...chattings, [conversation]: replaceObj}
-      // setChattings(newChattings)
       handleChattings(newChattings)
     }
     webSocket.on(`sNewMessage`, sNewMessageCallback);
@@ -129,17 +114,6 @@ const ChattingStacks = ({ userObj, chattings, handleChattings, longPressChat, ch
     };
   });
   
-  // const sortedMyConversationUid = Object.keys(chattings).sort((elementOne, elementTwo) => {return chattings[elementTwo].messageClockNumber-chattings[elementOne].messageClockNumber})
-  const checkedMessage = async ({ conversation }) => {
-    const myDocRef = doc(dbservice, `members/${userObj.uid}`)
-    const myDocSnap = await getDoc(myDocRef)
-    const myChattings = myDocSnap.data().chattings
-    myChattings[conversation].messageCount = 0
-    await updateDoc(myDocRef, {
-      chattings: myChattings
-    })
-  }
-
   useEffect(() => {
     const sorted = Object.keys(chattings).sort((elementOne, elementTwo) => {return chattings[elementTwo].messageClockNumber-chattings[elementOne].messageClockNumber})
     setSortedMyConversationUid(sorted)
@@ -151,7 +125,6 @@ const ChattingStacks = ({ userObj, chattings, handleChattings, longPressChat, ch
     console.log(newSortedMyConversationUid)
     setSortedMyConversationUid(newSortedMyConversationUid)
     setNewMessage(true)
-    // dispatch(changeNewMessageTrue())
     const userRef = doc(dbservice, `members/${userObj.uid}`)
     const userDoc = await getDoc(userRef)
     const userChattings = userDoc.data().chattings || {}
@@ -163,15 +136,7 @@ const ChattingStacks = ({ userObj, chattings, handleChattings, longPressChat, ch
     updateDoc(userRef, {chattings: userChattings});
     updateDoc(userRef, {conversation: userConversation});
   }
-  // const onDeleteData = ({ conversation }) => {
-  //   const newSortedMyConversationUid = sortedMyConversationUid
-  //   newSortedMyConversationUid.splice(sortedMyConversationUid.indexOf(conversation), 1)
-  //   console.log(newSortedMyConversationUid)
-  //   setSortedMyConversationUid(newSortedMyConversationUid)
-  //   onDeleteData({conversation: conversation})
-  // }
-  
-  console.log(newMessage)
+
   return (
     <>
       {sortedMyConversationUid.map((element, index) => {
@@ -212,9 +177,7 @@ const ChattingStacks = ({ userObj, chattings, handleChattings, longPressChat, ch
             profileUrl = chattings[element].userOneProfileUrl
           }
           return (
-            <>
-              <Chats userObj={userObj} profileUrl={profileUrl} conversation={element} displayName={displayName} chattingUid={chattingUid} multiple={false} clock={clock} message={chattings[element]} longPressChat={longPressChat} changeLongPressChat={changeLongPressChat} onLongPress={onLongPress} changeOnLongPress={changeOnLongPress} onDelete={onDelete}/>
-            </>
+            <Chats userObj={userObj} profileUrl={profileUrl} conversation={element} displayName={displayName} chattingUid={chattingUid} multiple={false} clock={clock} message={chattings[element]} longPressChat={longPressChat} changeLongPressChat={changeLongPressChat} onLongPress={onLongPress} changeOnLongPress={changeOnLongPress} onDelete={onDelete}/>
           )
         }
       })}
