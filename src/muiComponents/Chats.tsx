@@ -60,41 +60,41 @@ const Chats = ({ userObj, profileUrl, conversation, displayName, chattingUid, mu
         changeLongPressChat(longPress)
       }}
     >
-    <Card sx={{ flexGrow: 1, overflow: 'hidden' }}>
-      <CardActionArea>
-        {!onLongPress ?
-        <Link to='/piazza' state={{
-          conversation: conversation, 
-          displayName: displayName, 
-          userUid: userObj.uid, 
-          chattingUid: chattingUid,
-          multiple: multiple,
-        }}>
-          <ChatsBoxes userObj={userObj} profileUrl={profileUrl} displayName={displayName} multiple={multiple} clock={clock} message={message} />
-        </Link>
-        :
-        <div
-          onClick={() => {
-            if (onLongPress) {
-              setLongPressed(!longPressed)
-              if (longPressed) {
-                changeOnLongPress(onLongPress-1)
-              } else {
-                changeOnLongPress(onLongPress+1)
+      <Card sx={{ flexGrow: 1, overflow: 'hidden' }}>
+        <CardActionArea>
+          {!onLongPress ?
+          <Link to='/piazza' state={{
+            conversation: conversation, 
+            displayName: displayName, 
+            userUid: userObj.uid, 
+            chattingUid: chattingUid,
+            multiple: multiple,
+          }}>
+            <ChatsBoxes userObj={userObj} profileUrl={profileUrl} displayName={displayName} multiple={multiple} clock={clock} message={message} />
+          </Link>
+          :
+          <div
+            onClick={() => {
+              if (onLongPress) {
+                setLongPressed(!longPressed)
+                if (longPressed) {
+                  changeOnLongPress(onLongPress-1)
+                } else {
+                  changeOnLongPress(onLongPress+1)
+                }
               }
-            }
-          }}
-        >
-          <ChatsBoxes userObj={userObj} profileUrl={profileUrl} displayName={displayName} multiple={multiple} clock={clock} message={message} />
-        </div>
-        }
-      </CardActionArea>
-    </Card>
+            }}
+          >
+            <ChatsBoxes userObj={userObj} profileUrl={profileUrl} displayName={displayName} multiple={multiple} clock={clock} message={message} />
+          </div>
+          }
+        </CardActionArea>
+      </Card>
     </div>
     {longPressed && 
-    <div onClick={() => onDelete({conversation: conversation})}>
-      <Chip label={<DeleteIcon />} color='error'/>
-    </div>
+      <div onClick={() => onDelete({conversation: conversation})}>
+        <Chip label={<DeleteIcon />} color='error'/>
+      </div>
     }
     </div>
   )

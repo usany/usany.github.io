@@ -40,31 +40,31 @@ const ChatsBoxes = ({ userObj, profileUrl, displayName, multiple, clock, message
   }
 
   return (
-          <div className='flex p-3'>
-            <Avatar>
-              <AvatarImage src={multiple ? staticImage : profileUrl} />
-              <AvatarFallback>{multiple ? "CN" : displayName[0]}</AvatarFallback>
-            </Avatar>
-            <div className='flex flex-col w-screen'>
-              <div className='flex justify-between'>
-                <div className='w-1/2 px-3 overflow-hidden'>{multiple ? '단체 대화' : displayName}</div> 
-                <div className='flex flex-col px-3'>
-                  <div className='flex justify-end'>{clock.getFullYear()}-{messageMonth}-{messageDate} {messageAmpm} {messageHours}:{clock.getMinutes()}</div>
-                </div>
-              </div>
-              <div className='flex justify-between px-3'>
-                <div>{message?.message}</div>
-                <div>
-                  {message?.piazzaChecked && message?.piazzaChecked.indexOf(userObj.uid) === -1 &&
-                    <Chip sx={{height: '20px'}} label={'새 대화'} color='primary'/>
-                  }
-                  {message?.messageCount > 0 &&
-                    <Chip sx={{height: '20px'}} label={message.messageCount} color='primary'/>
-                  }
-                </div>
-              </div>
-            </div>
+    <div className='flex p-3'>
+      <Avatar>
+        <AvatarImage src={multiple ? staticImage : profileUrl} />
+        <AvatarFallback>{multiple ? "CN" : displayName[0]}</AvatarFallback>
+      </Avatar>
+      <div className='flex flex-col w-screen'>
+        <div className='flex justify-between'>
+          <div className='w-1/2 px-3 overflow-hidden'>{multiple ? '단체 대화' : displayName}</div> 
+          <div className='flex flex-col px-3'>
+            <div className='flex justify-end'>{clock.getFullYear()}-{messageMonth}-{messageDate} {messageAmpm} {messageHours}:{clock.getMinutes()}</div>
           </div>
+        </div>
+        <div className='flex justify-between px-3'>
+          <div>{message?.message}</div>
+          <div>
+            {message?.piazzaChecked && message?.piazzaChecked.indexOf(userObj.uid) === -1 &&
+              <Chip sx={{height: '20px'}} label={'새 대화'} color='primary'/>
+            }
+            {message?.messageCount > 0 &&
+              <Chip sx={{height: '20px'}} label={message.messageCount} color='primary'/>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 

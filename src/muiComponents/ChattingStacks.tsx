@@ -141,27 +141,6 @@ const ChattingStacks = ({ userObj, chattings, handleChattings, longPressChat, ch
     <>
       {sortedMyConversationUid.map((element, index) => {
         const clock = new Date(chattings[element].messageClock)
-        let messageAmpm
-        let messageHours = clock.getHours()
-        let messageMonth = (clock.getMonth()+1).toString()
-        let messageDate = (clock.getDate()).toString()
-        if (messageHours >= 13) {
-          messageAmpm = '오후'
-          if (messageHours !== 12) {
-            messageHours = messageHours-12
-          }
-        } else {
-          messageAmpm = '오전'
-          if (messageHours === 0) {
-            messageHours = messageHours+12
-          }
-        }
-        if (clock.getMonth() < 10) {
-          messageMonth = '0'+messageMonth
-        } 
-        if (messageDate.length === 1) {
-          messageDate = '0'+messageDate
-        } 
       
         if (chattings[element]) {
           let displayName
