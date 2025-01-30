@@ -23,8 +23,6 @@ import {
 } from '@/components/ui/morphing-dialog';
 import DeleteIcon from '@mui/icons-material/Delete';
 import useLongPress from 'src/hooks/useLongPress';
-import CardsViews from './CardsViews';
-import MorphingDialogs from './MorphingDialogs';
 
 interface Props {
   msgObj: {id: string, text: object},
@@ -52,21 +50,15 @@ const letters = alpha.map((x) => String.fromCharCode(x));
 const numbers = Array.from({ length: 10 }, (e, i) => `${i}`)
 const mergedArray = letters.concat(numbers)
 
-const Cards = ({ 
+const CardsViews = ({ 
   msgObj,
   isOwner,
   userObj,
   num,
   points,
-  onLongPress,
-  changeOnLongPress,
-  longPressCard,
-  changeLongPressCard,
 }: Props) => {
   const [staticImage, setStaticImage] = useState('')
   const shadowColor = shadowColorArray[mergedArray.indexOf(String(msgObj.id[0]).toUpperCase())%shadowColorArray.length];
-  // const [onMouse, setOnMouse] = useState(false)
-  const [longPressed, setLongPressed] = useState(false)
   
   useEffect(() => {
     if (msgObj.text.count === '중도') {
@@ -77,62 +69,36 @@ const Cards = ({
       setStaticImage(staticImg)
     }
   }, [msgObj])
-  // useEffect(() => {
-  //   if (onMouse) {
-  //     setTimeout(() => console.log('sample'), 5000)
-  //   }
-  // }, [onMouse])
-  // console.log(onMouse)
-  const cardsRef = useRef()
-  useLongPress(cardsRef, () => {
-    if (longPressCard && !onLongPress) {
-      setLongPressed(true)
-      changeOnLongPress(onLongPress+1)
-      // console.log('practice')
-    }
-  })
-  useEffect(() => {
-    if (!onLongPress) {
-      setLongPressed(false)
-    }
-  }, [onLongPress])
-  // console.log(onLongPress)
+
   return (
-    <div className='max-w-60 min-w-20 p-1'
-      ref={cardsRef}
-    >
-      {longPressed ?
-        <div className='flex'>
-          <div className='longPress'
-            onClick={() => {
-              setLongPressed(false)
-              changeOnLongPress(onLongPress-1)
-            }}
-          >
-            <CardsViews msgObj={msgObj} isOwner={isOwner} userObj={userObj} num={num} points={points} />
-          </div>
-          {longPressed && 
-            <div onClick={() => console.log('sample')}>
-              <Chip label={<DeleteIcon />} color='error'/>
+      <Card
+        sx={{
+          boxShadow: `1.5px 1.5px 1.5px 1.5px ${shadowColor}`
+        }}
+      >
+        <CardActionArea>
+          <CardMedia
+            sx={{ height: 140 }}
+            image={staticImage}
+          />
+          <CardContent>
+            <div className='flex justify-center'>
+              {msgObj.text.choose === 1 && <Chip label={`${msgObj.item} 빌리기`} />}
+              {msgObj.text.choose === 2 && <Chip label={`${msgObj.item} 빌려주기`} />}
+              {isOwner && <Chip label='내 카드' />}
             </div>
-          }
-        </div>
-        :
-        <div>
-          {onLongPress ?
-            <div onClick={() => {
-              setLongPressed(true)
-              changeOnLongPress(onLongPress+1)
-            }}>
-              <CardsViews msgObj={msgObj} isOwner={isOwner} userObj={userObj} num={num} points={points} />
+            <div className='flex flex-col'>
+              <div className='flex justify-center'>{msgObj.text.count} {msgObj.text.counter} {msgObj.text.counting !== '' && msgObj.text.counting}</div>
+              <div className='flex justify-center'>{msgObj.text.clock?.year}.{msgObj.text.clock?.month}.{msgObj.text.clock?.day} {msgObj.text.clock?.hour}:{msgObj.text.clock?.minute} 부터</div>
+              <div className='flex justify-center'>{msgObj.text.clocker?.year}.{msgObj.text.clocker?.month}.{msgObj.text.clock?.day} {msgObj.text.clocker?.hour}:{msgObj.text.clocker?.minute} 까지</div>
             </div>
-            :
-            <MorphingDialogs msgObj={msgObj} isOwner={isOwner} userObj={userObj} num={num} points={points} />
-          }
-        </div>
-      }
-    </div>
+          </CardContent>
+        </CardActionArea>
+        <CardActions className='flex justify-center'>
+          <Btn msgObj={msgObj} isOwner={isOwner} uid={userObj?.uid} displayName={userObj?.displayName} userObj={userObj} num={num} points={points} />
+        </CardActions>
+      </Card>
   );
 }
 
-export default Cards
+export default CardsViews

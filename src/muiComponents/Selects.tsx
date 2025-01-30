@@ -3,6 +3,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
+import { useMediaQuery } from '@mui/material';
 
 const locationsCollection = {
     cl : ['1열(1F)', '2열(2F)', '3열(2F)', '4열(4F)', '집중열(1F)', '1층 책상', '1층 세미나실', '매점(2F)', '카페(1F)', '중앙자료실 책상(3F)', '참고열람실 책상(4F)', '정기간행물 책상(4F)'],
@@ -46,8 +47,9 @@ const location = {
     c : settingLocations(locationsCollection.c)
 }
 function Selects({ locationState, changeBuilding, changeRoom, changeSeat, changeLocationInput }) {
+    const matches = useMediaQuery('(min-width:500px)')
     return (
-        <div className='flex flex-col px-5'>
+        <div className={`flex ${matches ? '' : 'flex-col'} px-5`}>
             <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
                 <InputLabel 
                     // id="demo-simple-select-standard-label"

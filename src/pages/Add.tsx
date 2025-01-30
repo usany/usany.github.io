@@ -263,14 +263,34 @@ function Add({ userObj, borrow }: Props) {
         <div className='flex flex-col h-screen'>
             <PageTitle title={`${borrow ? '빌리기 ' : '빌려주기 '} 카드 등록`}/>
             <AddSteppers addSteps={addSteps} borrow={borrow} />
-            <div className='flex justify-around'>
+            {/* <div className='flex justify-around'>
                 <AddCards borrow={borrow} userObj={userObj} addSteps={addSteps} item={item} fromTo={fromTo} locationState={locationState} />
                 <div>
-                    {matches&&<AddStepOne borrow={borrow} item={item} changeItem={changeItem} />}
+                    <AddStepOne borrow={borrow} item={item} changeItem={changeItem} />
                     {addSteps > 0 && <AddStepTwo locationState={locationState} changeBuilding={changeBuilding} changeRoom={changeRoom} changeSeat={changeSeat} changeLocationInput={changeLocationInput} />}
                 </div>
-            </div>
-            {addSteps > 1 && <AddStepThree onChangeFrom={onChangeFrom} onChangeTo={onChangeTo} />}
+            </div> */}
+            {matches ?
+                <div className='flex justify-around'>
+                    <AddCards borrow={borrow} userObj={userObj} addSteps={addSteps} item={item} fromTo={fromTo} locationState={locationState} />
+                    <div className='flex flex-col'>
+                        <div className='flex'>
+                            <AddStepOne borrow={borrow} item={item} changeItem={changeItem} />
+                            {addSteps > 0 && <AddStepTwo locationState={locationState} changeBuilding={changeBuilding} changeRoom={changeRoom} changeSeat={changeSeat} changeLocationInput={changeLocationInput} />}
+                        </div>
+                        {addSteps > 1 && <AddStepThree onChangeFrom={onChangeFrom} onChangeTo={onChangeTo} />}
+                    </div>
+                </div>
+                :
+                <div className='flex justify-around'>
+                    <AddCards borrow={borrow} userObj={userObj} addSteps={addSteps} item={item} fromTo={fromTo} locationState={locationState} />
+                    <div>
+                        <AddStepOne borrow={borrow} item={item} changeItem={changeItem} />
+                        {addSteps > 0 && <AddStepTwo locationState={locationState} changeBuilding={changeBuilding} changeRoom={changeRoom} changeSeat={changeSeat} changeLocationInput={changeLocationInput} />}
+                    </div>
+                </div>
+            }
+            {!matches && addSteps > 1 && <AddStepThree onChangeFrom={onChangeFrom} onChangeTo={onChangeTo} />}
             {addSteps === 2 && <AddRegisterButton submit={submit} fromTo={fromTo}/>}
             {addSteps > 2 && <AddStepFour display={display} />} 
             {addSteps === 3 && <AddSnackBar changeAddSteps={changeAddSteps}/>}

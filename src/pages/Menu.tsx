@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef, Suspense, lazy } from 'react'
 import { auth, onSocialClick, dbservice, storage, messaging } from 'src/baseApi/serverbase'
 import { collection, query, where, orderBy, addDoc, getDocs, doc, onSnapshot, deleteDoc, updateDoc } from 'firebase/firestore';
-import Message from 'src/pages/Message'
 import { getToken } from "firebase/messaging";
 import MessageStacks from 'src/muiComponents/MessageStacks'
 import PageTitle from 'src/muiComponents/PageTitle'
@@ -17,19 +16,16 @@ import { changeMessageAccordion } from 'src/stateSlices/messageAccordionSlice'
 import { Skeleton } from "@/components/ui/skeleton"
 import { User } from 'firebase/auth';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import Cards from 'src/muiComponents/Cards';
-import useLongPress from 'src/hooks/useLongPress';
 
 interface Props {
     userObj: User
 }
 function Menu({ userObj }: Props) {
-    const [messages, setMessages] = useState([]);
-    const [cardLoaded, setCardLoaded] = useState(false)
     const [accordions, setAccordions] = useState({cards: '', messages: '' })
     const cardAccordion = useSelector(state => state.cardAccordion.value)
     const messageAccordion = useSelector(state => state.messageAccordion.value)
     const dispatch = useDispatch()
+
     useEffect(() => {
         if (cardAccordion && messageAccordion) {
             setAccordions({cards: 'item-1', messages: 'item-2'})
@@ -64,31 +60,7 @@ function Menu({ userObj }: Props) {
         requestPermission();
     }, []);
     
-    useEffect(() => {
-    onSnapshot(query(collection(dbservice, 'num'), orderBy('creatorClock', 'desc')), (snapshot) => {
-        const newArray = snapshot.docs.map((document) => {
-            if (document.data().creatorId === userObj.uid) {
-                return ({
-                    id: document.id,
-                    ...document.data(),
-                })
-            } else if (document.data().connectedId === userObj.uid && document.data().round !== 1) {
-                return ({
-                    id: document.id,
-                    ...document.data(),
-                })
-            }
-        });
-        const newArraySelection = newArray.filter((element) => {
-            return element !== undefined;
-        });
-        setMessages(newArraySelection)
-        setCardLoaded(true)
-    })
-    }, [])
     const accordionValues = ['카드', '메세지']
-    const elementRef = useRef()
-    useLongPress(elementRef, () => alert('practice'))
     useEffect(() => {
         function handleContextMenu(e) {
           e.preventDefault(); // prevents the default right-click menu from appearing
@@ -102,6 +74,7 @@ function Menu({ userObj }: Props) {
           rootElement.removeEventListener('contextmenu', handleContextMenu);
         };
       }, []);
+    
     return (
         <div id='sample' className='flex justify-center flex-col pb-5'>
             <PageTitle title={'내 상태'}/>
@@ -112,37 +85,8 @@ function Menu({ userObj }: Props) {
             >
                 <AccordionItem value="item-1">
                 <AccordionTrigger onClick={() => dispatch(change())}>카드</AccordionTrigger>
-                <AccordionContent ref={elementRef}>
-                    {cardLoaded ? 
-                        <div>
-                            {!messages.length ? 
-                                <div className='flex items-center flex-col'>
-                                    <div className='flex justify-center border border-dashed rounded w-1/2 p-5'>
-                                        진행 카드가 없습니다
-                                    </div>
-                                </div> 
-                                :
-                                <div className='flex flex-wrap justify-around gap-1'>
-                                    {messages.map((msg) => {
-                                        const isOwner = msg.creatorId === userObj.uid
-                                        if(msg.round !== 5) {
-                                            if (msg.creatorId === userObj.uid) {
-                                                return (
-                                                    <Cards msgObj={msg} isOwner={isOwner} userObj={userObj} num={null} points={null} />
-                                                )
-                                            } else if (msg.connectedId === userObj.uid && msg.round !== 1) {
-                                                return (
-                                                    <Cards msgObj={msg} isOwner={isOwner} userObj={userObj} num={null} points={null} />
-                                                )
-                                            }
-                                        }
-                                    })}
-                                </div>
-                            }
-                        </div>
-                        :
-                        <Skeleton />
-                    }
+                <AccordionContent>
+                    <CardsStacks userObj={userObj} />
                 </AccordionContent>
                 </AccordionItem>
                 <AccordionItem value="item-2">
@@ -156,9 +100,9 @@ function Menu({ userObj }: Props) {
                         },                      
                     })}>
                     </QueryClientProvider> */}
-                        <Suspense fallback={<Skeleton />}>
-                            <MessageStacks userObj={userObj} />
-                        </Suspense>
+                    <Suspense fallback={<Skeleton />}>
+                    <MessageStacks userObj={userObj} />
+                    </Suspense>
                 </AccordionContent>
                 </AccordionItem>
             </Accordion>

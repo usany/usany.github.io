@@ -66,7 +66,7 @@ const Chats = ({ userObj, profileUrl, conversation, displayName, chattingUid, mu
     if (longPressChat && !onLongPress) {
       setLongPressed(true)
       changeOnLongPress(onLongPress+1)
-      console.log('practice')
+      // console.log('practice')
     }
   })
   // useEffect(() => {
@@ -76,7 +76,7 @@ const Chats = ({ userObj, profileUrl, conversation, displayName, chattingUid, mu
   // }, [longPressChat])
   useEffect(() => {
     if (!longPressChat && !onLongPress) {
-      console.log('sample')
+      // console.log('sample')
       setLongPressed(false)
       changeOnLongPress(0)
     }
