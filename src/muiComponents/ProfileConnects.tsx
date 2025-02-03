@@ -93,7 +93,7 @@ const ProfileConnects = ({
     }
   }
   useEffect(() => {
-    if (user.uid < user.uid) {
+    if (user.uid < userObj.uid) {
       setConversation(user.uid[0]+user.uid[1]+user.uid[2]+user.uid[3]+user.uid[4]+user.uid[5]+userObj.uid[0]+userObj.uid[1]+userObj.uid[2]+userObj.uid[3]+userObj.uid[4]+userObj.uid[5])
     } else {
       setConversation(userObj.uid[0]+userObj.uid[1]+userObj.uid[2]+userObj.uid[3]+userObj.uid[4]+userObj.uid[5]+user.uid[0]+user.uid[1]+user.uid[2]+user.uid[3]+user.uid[4]+user.uid[5])
@@ -102,7 +102,7 @@ const ProfileConnects = ({
   
   return (
     <div>
-      <div className='flex justify-center'>
+      <div className='flex justify-center pt-10'>
         {followButton ?
         <Button variant='outlined' sx={{overflow: 'hidden'}} onClick={() => {
           followUser(user.uid)
@@ -116,7 +116,7 @@ const ProfileConnects = ({
           팔로우 취소 {user.displayName}
         </Button>
         }
-        <Link to='/chatting' state={{conversation: conversation, displayName: user.displayName, userUid: userObj.uid, chattingUid: user.uid}}>
+        <Link to='/piazza' state={{conversation: conversation, displayName: user.displayName, userUid: userObj.uid, chattingUid: user.uid, multiple: false, profileUrl: user.profileImageUrl}}>
           <Button variant='outlined' sx={{overflow: 'hidden'}}>메세지 전송</Button>
         </Link>
       </div>

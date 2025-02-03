@@ -299,7 +299,8 @@ const ChartLegendContent = React.forwardRef<
               )}
               onClick={(value) => {
                 console.log(item)
-                document.getElementById('completedAction')?.parentNode?.click()
+                // document.getElementById('completedAction')?.parentNode?.click()
+                document.getElementById('completedAction')?.click()
                 dispatch(changeCompletedAction(item.payload.action))
               }}
             >

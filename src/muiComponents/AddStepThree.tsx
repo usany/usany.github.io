@@ -1,7 +1,3 @@
-import { useState, useEffect } from 'react'
-import ItemSelects from 'src/muiComponents/ItemSelects'
-import Selects from 'src/muiComponents/Selects'
-import TextField from '@mui/material/TextField';
 import AddStepTitle from 'src/muiComponents/AddStepTitle'
 import Pickers from 'src/muiComponents/Pickers'
 
@@ -16,7 +12,7 @@ const AddStepThree = ({ onChangeFrom, onChangeTo }: Props) => {
     return (
         <div>
             <AddStepTitle title={title}/>
-            <div className='flex flex-col px-5'>
+            <div className='flex flex-col w-full px-5'>
                 <Pickers onChange={onChangeFrom} label={"이 때부터"}  />
                 <Pickers onChange={onChangeTo} label={"이 때까지"} />
             </div>

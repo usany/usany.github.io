@@ -3,7 +3,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
-function ItemSelects({ item, changeItem }) {
+function AddItemSelects({ item, changeItem }) {
     return (
         <div>
             <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
@@ -21,4 +21,4 @@ function ItemSelects({ item, changeItem }) {
     )
 }
 
-export default ItemSelects
+export default AddItemSelects

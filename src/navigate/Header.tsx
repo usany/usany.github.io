@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useLayoutEffect, Suspense, lazy } from 'react'
+import { useState, useEffect, useRef, useLayoutEffect, useMemo, Suspense, lazy } from 'react'
 import WeatherView from 'src/navigate/WeatherView'
 import Navigation from 'src/navigate/Navigation'
 import Points from 'src/pages/points'
@@ -23,6 +23,10 @@ import { changeProfileColor } from 'src/stateSlices/profileColorSlice'
 import { changeProfileImage } from 'src/stateSlices/profileImageSlice'
 import { User } from 'firebase/auth';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import Avatars from 'src/muiComponents/Avatars'
+import staticImage from 'src/assets/blue.png';
+import { useSelectors } from 'src/hooks/useSelectors';
+import HeaderViews from 'src/navigate/HeaderViews';
 
 // const Puller = styled('div')(({ theme }) => ({
 //     width: 30,
@@ -40,16 +44,10 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 interface Props {
     userObj: User | null
 }
-const cli = new QueryClient({
-    defaultOptions: {
-        queries: {
-            suspense: true,
-        },
-    }
-})
+
 const Header = ({ userObj }: Props) => {
-    const bottomNavigation = useSelector(state => state.bottomNavigation.value)
-    const profileUrl = useSelector(state => state.profileUrl.value)
+    const bottomNavigation = useSelectors(state => state.bottomNavigation.value)
+    // const profileUrl = useSelector(state => state.profileUrl.value)
     const profileColor = useSelector(state => state.profileColor.value)
     const profileImage = useSelector(state => state.profileImage.value)
     const [sideNavigation, setSideNavigation] = useState(false)
@@ -62,11 +60,13 @@ const Header = ({ userObj }: Props) => {
     const messageAccordion = useSelector(state => state.messageAccordion.value)
     const dispatch = useDispatch()
     let prevScrollPos = window.scrollY;
+    console.log(cardAccordion)
     window.addEventListener('scroll', function () {
         // current scroll position
         const currentScrollPos = window.scrollY;
         if (prevScrollPos >= currentScrollPos) {
-            setScroll('overflow-hidden h-28 fixed top-0 z-20 bg-light-3 dark:bg-dark-3')
+            // setScroll('fixed z-20 bg-light-3/50 dark:bg-dark-3/50')
+            setScroll('scroll')
             // user has scrolled up
             // document.querySelector('#navigationSelectorOne')?.classList.add('overflow-hidden fixed top-0 z-20 bg-light-3 dark:bg-dark-3')
             // document.querySelector('#navigationSelectorTwo')?.classList.add('fixed', 'top-0', 'z-10', 'bg-light-3', 'dark:bg-dark-3')
@@ -78,6 +78,9 @@ const Header = ({ userObj }: Props) => {
             // document.querySelector('#navigationSelectorTwo')?.classList.remove('fixed', 'top-0', 'z-10', 'bg-light-3', 'dark:bg-dark-3')
             // document.querySelector('#contentSelector')?.classList.remove('pt-16')
         }
+        // if (currentScrollPos === 0) {
+        //     setScroll('')
+        // }
         // update previous scroll position
         prevScrollPos = currentScrollPos;
     });
@@ -85,19 +88,7 @@ const Header = ({ userObj }: Props) => {
         if (userObj) {
             getDownloadURL(ref(storage, `${userObj?.uid}`))
             .then((url) => {
-                if (!profileUrl) {
-                    if (url) {
-                        dispatch(changeProfileImage(url))
-                    } else {
-                        dispatch(changeProfileImage('null'))
-                    }
-                }
-                console.log(url)
-                if (url) {
-                    dispatch(changeProfileUrl(url))
-                } else {
-                    dispatch(changeProfileUrl(''))
-                }
+                dispatch(changeProfileUrl(url))
             })
             .catch((error) => {
                 console.log(error)
@@ -106,102 +97,48 @@ const Header = ({ userObj }: Props) => {
     }, [userObj])
     
     useEffect(() => {
-        const setAvatarColor = async () => {
+        const setProfile = async () => {
             const docRef = doc(dbservice, `members/${userObj?.uid}`)
             const docSnap = await getDoc(docRef)
             const userColor = docSnap.data()?.profileColor || '#2196f3'
+            const userImage = docSnap.data()?.profileImageUrl || 'null'
             dispatch(changeProfileColor(userColor))
+            dispatch(changeProfileImage(userImage))
         }
-        setAvatarColor()
+        setProfile()
     }, [userObj])
-    
+    const profile = useMemo(() => {
+        return (
+            <div>
+                {profileImage ?
+                    <div onClick={() => {
+                        handleSideNavigation()
+                    }}>
+                        {userObj ? 
+                            <Avatars profile={false} profileColor={profileColor} profileImage={profileImage} fallback={userObj.displayName ? userObj.displayName[0] : ''}/>
+                            : 
+                            <Avatars profile={false} profileColor={'profile-blue'} profileImage={staticImage} fallback={''}/>
+                        }
+                    </div>
+                    :
+                    <div>loading</div>
+                }
+            </div>
+        )
+    }, [])
     return (
-        <div className='h-24 overflow-hidden'>
-            <div className={scroll}>
-                <Navigation userObj={userObj} handleSideNavigation={handleSideNavigation} sideNavigation={sideNavigation} />
-                <div className='flex justify-between w-screen'>
-                    <div className='px-5 pt-1'>
-                        {userObj ?
-                            <div>
-                                {profileImage ?
-                                    <Avatar alt={userObj.displayName || ''} sx={{ bgcolor: profileColor || '#2196f3' }} src={profileImage || ''} onClick={() => {
-                                        handleSideNavigation()
-                                    }} variant="rounded" />
-                                    :
-                                    <div>loading</div>
-                                }
-                            </div>
-                            :
-                            <Avatar sx={{ bgcolor: '#2196f3' }} onClick={() => {
-                                handleSideNavigation()
-                            }} variant="rounded" />
-                        }
-                    </div>
-                    <div>
-                        {userObj && bottomNavigation === 0 && 
-                            <ToggleTabs />
-                        }
-                        {userObj && bottomNavigation === 1 &&
-                            <FormGroup>
-                                <div className='flex w-1/2'>
-                                    <div className='flex flex-col'>
-                                        <FormControlLabel
-                                            control={
-                                                <Checkbox
-                                                    checked={cardAccordion}
-                                                    onClick={() => dispatch(change())}
-                                                />
-                                            } 
-                                            // label="카드" 
-                                            label={<CreditCard/>} 
-                                        />
-                                        <Divider sx={{width: '100%'}} />
-                                    </div>
-                                    <div className='px-1'></div>
-                                    <div className='flex flex-col'>
-                                        <FormControlLabel
-                                            control={
-                                                <Checkbox
-                                                    checked={messageAccordion}
-                                                    onClick={() => dispatch(changeMessageAccordion())}
-                                                />
-                                            } 
-                                            // label="메세지" 
-                                            label={<MessageCircle/>} 
-                                        />
-                                        <Divider sx={{width: '100%'}} />
-                                    </div>
-                                </div>
-                            </FormGroup>
-                        }
-                        {userObj && bottomNavigation === 2 && 
-                            <ToggleTabs />
-                        }
-                        {!userObj && 
-                            <div>
-                                <Link to='/'>
-                                    <div className='pt-5 min-w-36' onClick={() => dispatch(changeBottomNavigation(1))}>로그인을 해 주세요</div>
-                                </Link>
-                                <Divider sx={{width: '100%'}} />
-                            </div>
-                        }
-                    </div>
-                    <div>
-                        <QueryClientProvider client={new QueryClient({
-                            defaultOptions: {
-                                queries: {
-                                    suspense: true,
-                                },
-                            },
-                        })}>
-                            <Suspense fallback={<div>loading</div>}>
-                                <WeatherView />
-                            </Suspense>
-                        </QueryClientProvider>
-                    </div>
+        <>
+            <div className='fixed z-20 bg-light-3/50 dark:bg-dark-3/50'>
+                <div className={`${!scroll && 'hidden'}`}>
+                    <HeaderViews userObj={userObj} />
                 </div>
             </div>
-        </div>
+            <div className='h-16'>
+                <div className={`${scroll && 'hidden'}`}>
+                    <HeaderViews userObj={userObj}/>
+                </div>
+            </div>
+        </>
     )
 }
 

@@ -12,7 +12,7 @@ import Skeleton from '@mui/material/Skeleton';
 function Points({user, cards}) {
   const [messages, setMessages] = useState([])
   // const {state} = useLocation()
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
   useEffect(() => {
     const bringMessages = async () => {
       const messagesArray = []

@@ -1,12 +1,9 @@
 import { useState, useEffect, useRef, Suspense, lazy } from 'react'
 import { auth, onSocialClick, dbservice, storage, messaging } from 'src/baseApi/serverbase'
 import { collection, query, where, orderBy, addDoc, getDocs, doc, onSnapshot, deleteDoc, updateDoc } from 'firebase/firestore';
-import Message from 'src/pages/Message'
 import { getToken } from "firebase/messaging";
 import MessageStacks from 'src/muiComponents/MessageStacks'
-// import ChattingStacks from 'src/muiComponents/ChattingStacks'
 import PageTitle from 'src/muiComponents/PageTitle'
-// import { useCardAccordionStore, useMessageAccordionStore, usePiazzaSwitchStore, useThemeStore } from 'src/store'
 import {
     Accordion,
     AccordionContent,
@@ -18,21 +15,18 @@ import { change } from 'src/stateSlices/cardAccordionSlice'
 import { changeMessageAccordion } from 'src/stateSlices/messageAccordionSlice'
 import { Skeleton } from "@/components/ui/skeleton"
 import { User } from 'firebase/auth';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import Points from 'src/pages/Points'
-import { getStorage, ref, uploadBytes, uploadString, uploadBytesResumable, getDownloadURL,  } from "firebase/storage";
+import CardsStacks from 'src/muiComponents/CardsStacks';
+// import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 interface Props {
     userObj: User
 }
 function Menu({ userObj }: Props) {
-    const [messages, setMessages] = useState<Array<object>>([]);
-    const piazzaSwitch = useSelector(state => state.piazzaSwitch.value)
+    const [accordions, setAccordions] = useState({cards: '', messages: '' })
     const cardAccordion = useSelector(state => state.cardAccordion.value)
     const messageAccordion = useSelector(state => state.messageAccordion.value)
     const dispatch = useDispatch()
-    const [cardLoaded, setCardLoaded] = useState(false)
-    const [accordions, setAccordions] = useState({cards: '', messages: '' })
+
     useEffect(() => {
         if (cardAccordion && messageAccordion) {
             setAccordions({cards: 'item-1', messages: 'item-2'})
@@ -66,91 +60,50 @@ function Menu({ userObj }: Props) {
         };
         requestPermission();
     }, []);
-    // const storageRef = ref(storage, userObj.uid);
-    // uploadString(storageRef, 'null', 'raw').then((snapshot) => {
-    //     console.log('Uploaded a blob or file!');
-    // });
     
+    const accordionValues = ['카드', '메세지']
     useEffect(() => {
-    onSnapshot(query(collection(dbservice, 'num'), orderBy('creatorClock', 'desc')), (snapshot) => {
-        const newArray = snapshot.docs.map((document) => {
-            if (document.data().creatorId === userObj.uid) {
-                return ({
-                    id: document.id,
-                    ...document.data(),
-                })
-            } else if (document.data().connectedId === userObj.uid && document.data().round !== 1) {
-                return ({
-                    id: document.id,
-                    ...document.data(),
-                })
-            }
-        });
-        const newArraySelection = newArray.filter((element) => {
-            return element !== undefined;
-        });
-        setMessages(newArraySelection)
-        setCardLoaded(true)
-    })
-    }, [])
+        function handleContextMenu(e) {
+          e.preventDefault(); // prevents the default right-click menu from appearing
+        }
+        // add the event listener to the component's root element
+        const rootElement = document.getElementById('sample');
+        rootElement.addEventListener('contextmenu', handleContextMenu);
+        // remove the event listener when the component is unmounted
+    
+        return () => {
+          rootElement.removeEventListener('contextmenu', handleContextMenu);
+        };
+      }, []);
     
     return (
-        <div className='flex justify-center flex-col pb-5'>
+        <div id='sample' className='flex justify-center flex-col pb-5'>
             <PageTitle title={'내 상태'}/>
             <Accordion 
                 value={[accordions.cards, accordions.messages]}
-                defaultValue={["item-1", 'item-2']}
-                type="multiple" className="w-full px-3">
+                defaultValue={accordionValues}
+                type="multiple" className="w-full px-3"
+            >
                 <AccordionItem value="item-1">
                 <AccordionTrigger onClick={() => dispatch(change())}>카드</AccordionTrigger>
-                <AccordionContent >
-                    {cardLoaded ? 
-                        <div>
-                            {!messages.length ? 
-                                <div className='flex items-center flex-col'>
-                                    <div className='flex justify-center border border-dashed rounded w-1/2 p-5'>
-                                        진행 카드가 없습니다
-                                    </div>
-                                </div> 
-                                :
-                                <div className='flex flex-wrap'>
-                                    {messages.map((msg) => {
-                                        if(msg.round !== 5) {
-                                            if (msg.creatorId === userObj.uid) {
-                                                return(<Message key={msg.id} msgObj={msg} isOwner={msg.creatorId === userObj.uid} userObj={userObj} />)
-                                            } else if (msg.connectedId === userObj.uid && msg.round !== 1) {
-                                                return(<Message key={msg.id} msgObj={msg} isOwner={msg.creatorId === userObj.uid} userObj={userObj} />)
-                                            }
-                                        }
-                                    })}
-                                </div>
-                            }
-                        </div>:
-                        <Skeleton />
-                    }
+                <AccordionContent>
+                    <CardsStacks userObj={userObj} />
                 </AccordionContent>
                 </AccordionItem>
                 <AccordionItem value="item-2">
                 <AccordionTrigger onClick={() => dispatch(changeMessageAccordion())}>메세지</AccordionTrigger>
                 <AccordionContent>
-                    <QueryClientProvider client={new QueryClient({
+                    {/* <QueryClientProvider client={new QueryClient({
                         defaultOptions: {
                             queries: {
                                 suspense: true,
                             },
                         },                      
                     })}>
-                        <Suspense fallback={<Skeleton />}>
-                            <MessageStacks userObj={userObj} piazzaSwitch={piazzaSwitch}/>
-                        </Suspense>
-                    </QueryClientProvider>
-                    {/* {!piazzaSwitch ? <div className='flex justify-center pt-20'>받은 메세지가 없습니다</div> :
-                        <div className='flex flex-col justify-center'>
-                            {piazzaSwitch && 
-                            }
-                            <ChattingStacks userObj={userObj} />
-                        </div>
-                    } */}
+                    </QueryClientProvider> */}
+                    <Suspense fallback={<Skeleton />}>
+                    <MessageStacks userObj={userObj} />
+                    </Suspense>
                 </AccordionContent>
                 </AccordionItem>
             </Accordion>

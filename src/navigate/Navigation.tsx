@@ -14,6 +14,8 @@ import { changeProfileUrl } from 'src/stateSlices/profileUrlSlice'
 import { changeProfileColor } from 'src/stateSlices/profileColorSlice'
 import { changeProfileImage } from 'src/stateSlices/profileImageSlice'
 import { useSelector, useDispatch } from 'react-redux'
+import { MessageCircle, Minimize2, Maximize2, Captions, Bike } from "lucide-react"
+import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
 
 // const StyledBox = styled('div')(({ theme }) => ({
 //   backgroundColor: '#fff',
@@ -40,7 +42,7 @@ const onLogOutClick = () => auth.signOut();
 function Navigation({ userObj, sideNavigation, handleSideNavigation }: Props) {
   const [backgroundColor, setBackgroundColor] = useState<string>('#e2e8f0');
   const [points, setPoints] = useState<number>(0)
-  const theme = useSelector(state => state.theme.value)
+  const theme = useSelector(state => state.theme)
   const [profileColor, setProfileColor] = useState<string>('');
   const dispatch = useDispatch()
   // const {avatarImage, handleAvatarImage} = useAvatarImageStore()
@@ -90,6 +92,7 @@ function Navigation({ userObj, sideNavigation, handleSideNavigation }: Props) {
       PaperProps={{
         sx: {
           backgroundColor: {backgroundColor},
+          opacity: 0.9
           // color: {textColor},
           // height: '100%'
         }
@@ -108,7 +111,7 @@ function Navigation({ userObj, sideNavigation, handleSideNavigation }: Props) {
           <div className=''>
             <div className='flex border-b border-light-3 dark:border-dark-3'>
               <div className='p-5'>
-                <div>좋은 날씨네요 {userObj.displayName} 님</div>
+                <div className='max-w-[200px] max-h-[200px] overflow-hidden'>좋은 날씨네요 {userObj.displayName} 님</div>
                 {userObj && <div>내 포인트: {points}</div>}
               </div>
               <div className='flex border-b border-light-3 dark:border-dark-3'></div>
@@ -117,31 +120,47 @@ function Navigation({ userObj, sideNavigation, handleSideNavigation }: Props) {
             <div className='flex flex-col justify-between'>
             <div>
               <h1 className='text-2xl	px-5 pt-5'>
-                <Link to='/profile' 
-                  state={{element: element}}
+                <div className='flex'>
+                  <Link to='/profile' 
+                    state={{element: element}}
+                    onClick={() => checkbox()}
+                  >
+                    <div className='flex px-3'>
+                      <Captions />
+                      <div className='px-3'>내 프로필</div>
+                    </div>
+                  </Link>
+                </div>
+              </h1>
+              <h1 className='text-2xl	px-5 pt-3'>
+                <div className='flex'>
+                  <Link to='/ranking' onClick={() => checkbox()}>
+                    {/* 유저 랭킹 */}
+                    <div className='flex px-3'>
+                      <><Bike /></>
+                      <div className='px-3'>유저 랭킹</div>
+                    </div>
+                  </Link>
+                </div>
+              </h1>
+              <h1 className='text-2xl px-5 pt-3'>
+                <span className='px-3'><WorkIcon /></span>
+                <Link to='/piazza' 
+                  state={{multiple: true}}
                   onClick={() => checkbox()}
                 >
-                  <span className='px-3'><InboxIcon /></span>
-                  내 프로필
+                  단체 대화방
                 </Link>
               </h1>
-              <h1 className='text-2xl	px-5'>
-                <span className='px-3'><DraftsIcon /></span>
-                <Link to='/ranking' onClick={() => checkbox()}>유저 랭킹</Link>
-              </h1>
-              <h1 className='text-2xl px-5'>
-                <span className='px-3'><WorkIcon /></span>
-                <Link to='/piazza' onClick={() => checkbox()}>단체 대화방</Link>
-              </h1>
-              <h1 className='text-2xl	px-5'>
+              <h1 className='text-2xl	px-5 pt-3'>
                 <span className='px-3'><ImageIcon /></span>
                 <Link to='/contact' onClick={() => checkbox()}>신고하기</Link>
               </h1>
-              <h1 className='text-2xl px-5'>
+              {/* <h1 className='text-2xl px-5'>
                 <span className='px-3'><WorkIcon /></span>
                 <Link to='/chats' onClick={() => checkbox()}>실험실</Link>
-              </h1>
-              <h1 className='text-2xl px-5'>
+              </h1> */}
+              <h1 className='text-2xl px-5 pt-3'>
                 <span className='px-3'><Public /></span>
                 <Link to="/" onClick={() => {
                   logOut()
@@ -154,7 +173,10 @@ function Navigation({ userObj, sideNavigation, handleSideNavigation }: Props) {
           <div className='flex border-b border-light-3 dark:border-dark-3'>
             <div className='p-5'>
               <div className='flex justify-center'>좋은 날씨네요</div>
-              <div className='flex justify-center'>로그인을 해 주세요</div>
+              <div className='flex justify-center' onClick={() => {
+                dispatch(changeBottomNavigation(1))
+                checkbox()
+              }}>로그인을 해 주세요</div>
             </div>
             <Modes />
           </div>

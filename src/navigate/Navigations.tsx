@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import ChevronRight from '@mui/icons-material/ChevronRight'
@@ -12,16 +12,23 @@ import { useSelector, useDispatch } from 'react-redux'
 import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
 import { User } from 'firebase/auth';
 import { alpha } from "@mui/material";
+import { useSelectors } from 'src/hooks/useSelectors';
 
 interface Props {
     userObj: User | null
 }
+interface ThemeRootState  {
+    theme: string
+}
+interface BottomNavigationRootState  {
+    bottomNavigation: number
+}
 function Navigations({ userObj }: Props) {
     const [backgroundColor, setBackgroundColor] = useState('#e2e8f0');
-    const theme = useSelector(state => state.theme.value)
-    const bottomNavigation = useSelector(state => state.bottomNavigation.value)
+    const theme = useSelector((state: ThemeRootState) => state.theme)
+    const bottomNavigation = useSelectors(state => state.bottomNavigation.value)
     const dispatch = useDispatch()
-
+    const location = useLocation();
     useEffect(() => {
         if (theme === 'dark') {
         setBackgroundColor('#2d3848')
@@ -41,7 +48,9 @@ function Navigations({ userObj }: Props) {
                     value={bottomNavigation}
                     onChange={(event, newValue) => {
                         dispatch(changeBottomNavigation(newValue))
-                        navigate('/')
+                        if (location.pathname !== '/') {
+                            navigate('/')
+                        }
                     }}
                 >
                     <BottomNavigationAction label={'등록'} icon={<ChevronLeft />}/>
@@ -54,12 +63,15 @@ function Navigations({ userObj }: Props) {
                     showLabels
                     value={bottomNavigation}
                     onChange={(event, newValue) => {
-                        navigate('/')
+                        dispatch(changeBottomNavigation(newValue))
+                        if (location.pathname !== '/') {
+                            navigate('/')
+                        }
                     }}
                 >
-                    <BottomNavigationAction label={'빌리기 목록'} icon={<Checklist />}/>
+                    <BottomNavigationAction label={'등록'} icon={<Checklist />}/>
                     <BottomNavigationAction label={'로그인'} icon={<BeachAccess />}/>
-                    <BottomNavigationAction label={'빌려주기 목록'} icon={<ChecklistRtl />}/>
+                    <BottomNavigationAction label={'게시판'} icon={<ChecklistRtl />}/>
                 </BottomNavigation>
             }
         </div>

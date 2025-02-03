@@ -1,6 +1,12 @@
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
+import useMediaQuery from '@mui/material/useMediaQuery';
+
+interface Props {
+    addSteps: number
+    borrow: boolean
+}
 
 const stepOneItems = '우산 / 양산 선택'
 const stepsTwoToFour = [
@@ -17,38 +23,20 @@ const lendSteps = [
     ...stepsTwoToFour
 ];
 const stepsCollection = [borrowSteps, lendSteps]
-
-interface Props {
-    addSteps: number, borrow: boolean
-}
 function AddSteppers({ addSteps, borrow }: Props) {
     return (
-        // <div className='flex justify-end start-0 end-0'>
         <div className='w-full'>
             <Stepper
                 activeStep={addSteps} 
                 alternativeLabel
             >
-                {borrow ? stepsCollection[0].map((label, index) => {
+                {stepsCollection[[true, false].indexOf(borrow)].map((label, index) => {
                     return (
                         <Step key={index}>
                             <StepLabel>
                                 {label.map((element, index) => {
                                     return (
-                                        <div key={index}>{element}</div>
-                                    )
-                                })}
-                            </StepLabel>
-                        </Step>
-                    )
-                }) :
-                stepsCollection[1].map((label, index) => {
-                    return (
-                        <Step key={index}>
-                            <StepLabel>
-                                {label.map((element, index) => {
-                                    return (
-                                        <div key={index}>{element}</div>
+                                        <div key={index} className='truncate'>{element}</div>
                                     )
                                 })}
                             </StepLabel>
@@ -57,7 +45,6 @@ function AddSteppers({ addSteps, borrow }: Props) {
                 })}
             </Stepper>
         </div>
-        // </div>
     )
 }
 

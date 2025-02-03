@@ -1,10 +1,11 @@
 import { useState, useEffect, lazy } from 'react'
 import { collection, addDoc, getDocs, doc, onSnapshot, query, orderBy } from 'firebase/firestore';
 import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
-import Message from 'src/pages/Message'
 import FilterDialogs from 'src/muiComponents/FilterDialogs'
 import { useImmer } from 'use-immer'
 import { User } from 'firebase/auth';
+import Cards from 'src/muiComponents/Cards';
+import { Chip } from '@mui/material';
 
 interface Props {
     userObj: User | null
@@ -68,46 +69,32 @@ function Notice({ userObj, borrow }: Props) {
     <div className='p-5'>
         <div className='flex justify-start text-2xl w-screen'>
             <div className='flex w-5/6'>{borrow ? '빌리기' : '빌려주기'} 카드 목록</div>
-            <div className='flex w-screen justify-end px-10'>
+            <div className='flex w-screen justify-end px-16'>
+                {selectedValues[0].value && <Chip label={selectedValues[0].value}/>}
+                {selectedValues[1].value && <Chip label={selectedValues[1].value}/>}
                 <FilterDialogs 
                     selectedValues={selectedValues} 
                     handleSelectedValues={handleSelectedValues}
                 />
             </div>
         </div>
-        {/* {borrow ?
-        :
-        !borrow &&
-            <div className='flex justify-start text-2xl w-screen'>
-                <div className='flex w-5/6'>빌려주기 카드 목록</div>
-                <div className='flex w-screen justify-end px-10'>
-                    <Settings onClick={handleClickChangeFilter}/>
-                </div>
-            </div>
-        } */}
-        <div className='flex flex-wrap h-screen'>
+        <div>
+        <div className='flex flex-wrap justify-between pt-5 gap-1'>
             {messages.map((msg) => {
                 let choose
+                const isOwner = msg?.creatorId === userObj?.uid
                 {borrow ? choose = 1 : choose = 2}
                 if (msg?.text.choose === choose && msg?.round === 1) {
                     if (selectedValues[0].value === '전체' ||selectedValues[0].value === msg?.item || !selectedValues[0].value) {
                         if (selectedValues[1].value === '전체' || selectedValues[1].value === msg?.text.count || !selectedValues[1].value) {
                             return(
-                                <Message key={msg?.id} msgObj={msg} isOwner={msg?.creatorId === userObj?.uid} userObj={userObj} />
+                                <Cards msgObj={msg} isOwner={isOwner} userObj={userObj} num={null} points={null} />
                             )
                         }
                     }
                 }
             })}
-            {/* {!borrow && messages.map((msg) => {
-                if (msg?.text.choose === 2 && msg?.round === 1 && (msg?.text.clocker.gmt === undefined || msg.text.clocker.gmt.seconds*1000 + Date.now())) {
-                    if (selectedValueTwo === '전체' || selectedValueTwo === msg?.text.count || !selectedValueTwo) {
-                        return(
-                            <Message key={msg?.id} msgObj={msg} isOwner={msg?.creatorId === userObj?.uid} userObj={userObj} selectedValueOne={selectedValueOne} selectedValueTwo={selectedValueTwo} selectedValueThree={selectedValueThree} />
-                        )
-                    }
-                }
-            })} */}
+        </div>
         </div>
     </div>
   )

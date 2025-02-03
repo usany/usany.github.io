@@ -12,6 +12,7 @@ import { getStorage, ref, uploadBytes, uploadString, uploadBytesResumable, getDo
 import { useSelector, useDispatch } from 'react-redux'
 import { changeProfileColor } from 'src/stateSlices/profileColorSlice'
 import { changeProfileImage } from 'src/stateSlices/profileImageSlice'
+import Avatars from 'src/muiComponents/Avatars'
 
 const AvatarDialogs = ({ userObj, profileDialog, attachment, changeAttachment, handleClose }) => {
     const [selectedColor, setSelectedColor] = useState('')
@@ -19,6 +20,7 @@ const AvatarDialogs = ({ userObj, profileDialog, attachment, changeAttachment, h
     const [onClear, setOnClear] = useState(false)
     const profileColor = useSelector(state => state.profileColor.value)
     const profileImage = useSelector(state => state.profileImage.value)
+    const profileUrl = useSelector(state => state.profileUrl.value)
     const dispatch = useDispatch()
     const onClick = async () => {
         const data = doc(dbservice, `members/${userObj.uid}`)
@@ -26,13 +28,21 @@ const AvatarDialogs = ({ userObj, profileDialog, attachment, changeAttachment, h
             updateDoc(data, {profileColor: selectedColor});
             dispatch(changeProfileColor(selectedColor))
         }
+        // getDownloadURL(ref(storage, `${userObj.uid}`))
+        // .then((url) => {
+        //     const docRef = doc(dbservice, `members/${userObj?.uid}`)
+        //     updateDoc(docRef, {profileImageUrl: url});
+        // })
+        // .catch((error) => {
+        //   console.log(error)
+        // });
         if (attachmentFile && !onClear) {   
             const storageRef = ref(storage, userObj.uid);
             uploadString(storageRef, attachmentFile, 'data_url').then((snapshot) => {
                 console.log('Uploaded a blob or file!');
             });
             const docRef = doc(dbservice, `members/${userObj?.uid}`)
-            updateDoc(docRef, {profileImageUrl: attachmentFile});
+            updateDoc(docRef, {profileImage: attachmentFile});
             dispatch(changeProfileImage(attachmentFile))
         } else if (onClear) {
             dispatch(changeProfileImage('null'))
@@ -47,7 +57,7 @@ const AvatarDialogs = ({ userObj, profileDialog, attachment, changeAttachment, h
             // });
 
             const docRef = doc(dbservice, `members/${userObj?.uid}`)
-            updateDoc(docRef, {profileImageUrl: attachmentFile});
+            updateDoc(docRef, {profileImage: attachmentFile});
         }
     }
     const switchColor = (newColor) => {
@@ -93,8 +103,9 @@ const AvatarDialogs = ({ userObj, profileDialog, attachment, changeAttachment, h
                     프로필 변경
                 </div>
                 <div className='flex'>
-                    <Avatar alt={userObj.displayName} sx={{ fontSize:'100px', width: '200px', height: '200px', bgcolor: selectedColor }} src={attachmentFile || './src'} onClick={() => {
-                    }} variant='rounded' />
+                    <Avatars profile={true} profileColor={selectedColor} profileImage={attachmentFile} fallback={userObj.displayName[0]}/>
+                    {/* <Avatar alt={userObj.displayName} sx={{ fontSize:'100px', width: '200px', height: '200px', bgcolor: selectedColor }} src={attachmentFile || './src'} onClick={() => {
+                    }} variant='rounded' /> */}
                     <div className='flex-col px-5 content-center'>
                         <label for='file'>내 파일 업로드</label>
                         <input id='file' type='file' onChange={onFileChange} hidden />
@@ -108,22 +119,22 @@ const AvatarDialogs = ({ userObj, profileDialog, attachment, changeAttachment, h
             </DialogContent>
             <div className='flex'>색깔을 선택하면 배경에 반영됩니다.&emsp;</div>
             <div className='flex px-1'>
-                <div className='w-10 bg-profile-red' onClick={() => switchColor('#f44336')}>&emsp;</div>
-                <div className='w-10 bg-profile-pink' onClick={() => switchColor('#e91e63')}>&emsp;</div>
-                <div className='w-10 bg-profile-purple' onClick={() => switchColor('#9c27b0')}>&emsp;</div>
-                <div className='w-10 bg-profile-deeppurple' onClick={() => switchColor('#673ab7')}>&emsp;</div>
-                <div className='w-10 bg-profile-indigo' onClick={() => switchColor('#3f51b5')}>&emsp;</div>
-                <div className='w-10 bg-profile-blue' onClick={() => switchColor('#2196f3')}>&emsp;</div>
-                <div className='w-10 bg-profile-lightblue' onClick={() => switchColor('#03a9f4')}>&emsp;</div>
-                <div className='w-10 bg-profile-cyan' onClick={() => switchColor('#00bcd4')}>&emsp;</div>
-                <div className='w-10 bg-profile-teal' onClick={() => switchColor('#009688')}>&emsp;</div>
-                <div className='w-10 bg-profile-green' onClick={() => switchColor('#4caf50')}>&emsp;</div>
-                <div className='w-10 bg-profile-lightgreen' onClick={() => switchColor('#8bc34a')}>&emsp;</div>
-                <div className='w-10 bg-profile-lime' onClick={() => switchColor('#cddc39')}>&emsp;</div>
-                <div className='w-10 bg-profile-yellow' onClick={() => switchColor('#ffeb3b')}>&emsp;</div>
-                <div className='w-10 bg-profile-amber' onClick={() => switchColor('#ffc107')}>&emsp;</div>
-                <div className='w-10 bg-profile-orange' onClick={() => switchColor('#ff9800')}>&emsp;</div>
-                <div className='w-10 bg-profile-deeporange' onClick={() => switchColor('#ff5722')}>&emsp;</div>
+                <div className='w-10 bg-profile-red' onClick={() => switchColor('profile-red')}>&emsp;</div>
+                <div className='w-10 bg-profile-pink' onClick={() => switchColor('profile-pink')}>&emsp;</div>
+                <div className='w-10 bg-profile-purple' onClick={() => switchColor('profile-purple')}>&emsp;</div>
+                <div className='w-10 bg-profile-deeppurple' onClick={() => switchColor('profile-deeppurple')}>&emsp;</div>
+                <div className='w-10 bg-profile-indigo' onClick={() => switchColor('profile-indigo')}>&emsp;</div>
+                <div className='w-10 bg-profile-blue' onClick={() => switchColor('profile-blue')}>&emsp;</div>
+                <div className='w-10 bg-profile-lightblue' onClick={() => switchColor('profile-lightblue')}>&emsp;</div>
+                <div className='w-10 bg-profile-cyan' onClick={() => switchColor('profile-cyan')}>&emsp;</div>
+                <div className='w-10 bg-profile-teal' onClick={() => switchColor('profile-teal')}>&emsp;</div>
+                <div className='w-10 bg-profile-green' onClick={() => switchColor('profile-green')}>&emsp;</div>
+                <div className='w-10 bg-profile-lightgreen' onClick={() => switchColor('profile-lightgreen')}>&emsp;</div>
+                <div className='w-10 bg-profile-lime' onClick={() => switchColor('profile-lime')}>&emsp;</div>
+                <div className='w-10 bg-profile-yellow' onClick={() => switchColor('profile-yellow')}>&emsp;</div>
+                <div className='w-10 bg-profile-amber' onClick={() => switchColor('profile-amber')}>&emsp;</div>
+                <div className='w-10 bg-profile-orange' onClick={() => switchColor('profile-orange')}>&emsp;</div>
+                <div className='w-10 bg-profile-deeporange' onClick={() => switchColor('profile-deeporange')}>&emsp;</div>
             </div>
             <DialogActions>
             <Button variant='outlined' onClick={() => {
