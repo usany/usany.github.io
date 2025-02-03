@@ -83,16 +83,19 @@ function CardsStacks({ userObj }: Props) {
                             </div>
                         </div> 
                         :
-                        <ClickAwayListener onClickAway={() => {
-                            setOnLongPress(0)
-                            setLongPressCard(null)
-                        }}>
+                        <>
                         <div className='flex flex-wrap justify-around gap-1'>
                             {messages.map((msg) => {
                                 const isOwner = msg.creatorId === userObj.uid
                                 if (msg.round !== 5) {
                                     if (msg.creatorId === userObj.uid) {
                                         return (
+                                            <ClickAwayListener onClickAway={() => {
+                                                if (longPressCard === msg.id) {
+                                                    setOnLongPress(0)
+                                                    setLongPressCard(null)
+                                                }
+                                            }}>
                                             <div
                                                 onMouseDownCapture={() => {
                                                     const longPress = msg.id
@@ -108,6 +111,7 @@ function CardsStacks({ userObj }: Props) {
                                             >
                                                 <Cards msgObj={msg} isOwner={isOwner} userObj={userObj} num={null} points={null} onLongPress={onLongPress} changeOnLongPress={(newValue) => setOnLongPress(newValue)} longPressCard={longPressCard} changeLongPressCard={(newValue) => setLongPressCard(newValue)}/>
                                             </div>
+                                            </ClickAwayListener>
                                         )
                                     } else if (msg.connectedId === userObj.uid && msg.round !== 1) {
                                         return (
@@ -133,7 +137,7 @@ function CardsStacks({ userObj }: Props) {
                                 }
                             })}
                         </div>
-                        </ClickAwayListener>
+                        </>
                     }
                 </div>
                 :

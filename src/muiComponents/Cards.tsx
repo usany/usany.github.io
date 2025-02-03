@@ -84,7 +84,7 @@ const Cards = ({
     >
       {longPressed ?
         <div className='flex'>
-          <div className='longPress'
+          <div className='longPress pt-5'
             onClick={() => {
               setLongPressed(false)
               changeOnLongPress(onLongPress-1)
@@ -93,7 +93,7 @@ const Cards = ({
             <CardsViews msgObj={msgObj} isOwner={isOwner} userObj={userObj} num={num} points={points} />
           </div>
           {longPressed && 
-            <div onClick={() => console.log('sample')}>
+            <div className='z-10' onClick={() => console.log('sample')}>
               <Chip label={<DeleteIcon />} color='error'/>
             </div>
           }

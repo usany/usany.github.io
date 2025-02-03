@@ -12,42 +12,48 @@ interface Props {
   handleChattings: ({}) => void
 }
 
-const ChattingStacks = ({ userObj, chattings, handleChattings, longPressChat, changeLongPressChat, onLongPress, changeOnLongPress }: Props) => {
-  const [sortedMyConversationUid, setSortedMyConversationUid] = useState([])
-  const [profileUrls, setProfileUrls] = useState([])
-  const [newMessage, setNewMessage] = useState(true)
+const ChattingStacks = ({ userObj, longPressChat, changeLongPressChat, onLongPress, changeOnLongPress }: Props) => {
+  // const [sortedMyConversationUid, setSortedMyConversationUid] = useState([])
+  // const [profileUrls, setProfileUrls] = useState([])
+  // const [newMessage, setNewMessage] = useState(true)
+  const [chattings, setChattings] = useState({})
+  const sorted = Object.keys(chattings).sort((elementOne, elementTwo) => {return chattings[elementTwo].messageClockNumber-chattings[elementOne].messageClockNumber})
   useEffect(() => {
-    const myChatting = async () => {
-      const myDocRef = doc(dbservice, `members/${userObj.uid}`)
-      const myDocSnap = await getDoc(myDocRef)
-      const myConversation = myDocSnap.data()?.chattings || {}
-      const conversation = Object.keys(myConversation).map((element) => {
-        let displayName
-        let chattingUid
-        if (userObj.uid === myConversation[element].userOne) {
-          displayName = myConversation[element].userTwoDisplayName
-          chattingUid = myConversation[element].userTwo
-        } else {
-          displayName = myConversation[element].userOneDisplayName
-          chattingUid = myConversation[element].userOne
-        } 
-        getDownloadURL(ref(storage, `${chattingUid}`))
-        .then((url) => {
-          const newObject = profileUrls
-          newObject[chattingUid] = {profileUrl: url, displayName: displayName}
-          setProfileUrls(newObject)
-        })
-        .catch((error) => {
-          console.log(error)
-        });
-      })
-      handleChattings(myConversation)
-      setNewMessage(false)
-    }
-    if (newMessage) {
-      myChatting()
-    }
-  }, [newMessage])
+    onSnapshot(doc(dbservice, `members/${userObj.uid}`), (snapshot) => {
+      const newChattings = snapshot.data().chattings
+      setChattings(newChattings)
+    })
+    // const myChatting = async () => {
+    //   const myDocRef = doc(dbservice, `members/${userObj.uid}`)
+    //   const myDocSnap = await getDoc(myDocRef)
+    //   const myConversation = myDocSnap.data()?.chattings || {}
+    //   const conversation = Object.keys(myConversation).map((element) => {
+        // let displayName
+        // let chattingUid
+        // if (userObj.uid === myConversation[element].userOne) {
+        //   displayName = myConversation[element].userTwoDisplayName
+        //   chattingUid = myConversation[element].userTwo
+        // } else {
+        //   displayName = myConversation[element].userOneDisplayName
+        //   chattingUid = myConversation[element].userOne
+        // } 
+        // getDownloadURL(ref(storage, `${chattingUid}`))
+        // .then((url) => {
+        //   const newObject = profileUrls
+        //   newObject[chattingUid] = {profileUrl: url, displayName: displayName}
+        //   setProfileUrls(newObject)
+        // })
+        // .catch((error) => {
+        //   console.log(error)
+        // });
+      // })
+      // setChattings(myConversation)
+      // setNewMessage(false)
+      // if (newMessage) {
+      //   myChatting()
+      // }
+    // }
+  }, [])
 
   useEffect(() => {
     if (!webSocket) return;
@@ -75,9 +81,9 @@ const ChattingStacks = ({ userObj, chattings, handleChattings, longPressChat, ch
       }
       const replaceObj = {userUid: userUid, userName: id, userOne: userOne, userOneDisplayName: userOneDisplayName, userTwo: userTwo, userTwoDisplayName: userTwoDisplayName, message: msg, messageClock: messageClock, messageClockNumber: messageClockNumber, userOneProfileUrl: userOneProfileUrl, userTwoProfileUrl: userTwoProfileUrl, messageCount: messageCount}      // const location = chats.map((element) => element.conversation).indexOf(conversation)
       const newChattings = {...chattings, [conversation]: replaceObj}
-      handleChattings(newChattings)
+      setChattings(newChattings)
     }
-    sortedMyConversationUid.map((element) => {
+    sorted.map((element) => {
       webSocket.on(`sMessage${element}`, sMessageCallback);
       return () => {
         webSocket.off(`sMessage${element}`, sMessageCallback);
@@ -106,7 +112,7 @@ const ChattingStacks = ({ userObj, chattings, handleChattings, longPressChat, ch
       }
       const replaceObj = {userUid: userUid, userName: id, userOne: userOne, userOneDisplayName: userOneDisplayName, userTwo: userTwo, userTwoDisplayName: userTwoDisplayName, message: msg, messageClock: messageClock, messageClockNumber: messageClockNumber, messageCount: messageCount}
       const newChattings = {...chattings, [conversation]: replaceObj}
-      handleChattings(newChattings)
+      setChattings(newChattings)
     }
     webSocket.on(`sNewMessage`, sNewMessageCallback);
     return () => {
@@ -114,17 +120,18 @@ const ChattingStacks = ({ userObj, chattings, handleChattings, longPressChat, ch
     };
   });
   
-  useEffect(() => {
-    const sorted = Object.keys(chattings).sort((elementOne, elementTwo) => {return chattings[elementTwo].messageClockNumber-chattings[elementOne].messageClockNumber})
-    setSortedMyConversationUid(sorted)
-  }, [chattings])
+  // useEffect(() => {
+  //   const sorted = Object.keys(chattings).sort((elementOne, elementTwo) => {return chattings[elementTwo].messageClockNumber-chattings[elementOne].messageClockNumber})
+  //   setSortedMyConversationUid(sorted)
+  // }, [chattings])
 
   const onDelete = async ({ conversation }) => {
-    const newSortedMyConversationUid = sortedMyConversationUid
-    newSortedMyConversationUid.splice(sortedMyConversationUid.indexOf(conversation), 1)
-    console.log(newSortedMyConversationUid)
-    setSortedMyConversationUid(newSortedMyConversationUid)
-    setNewMessage(true)
+    const newSortedMyConversationUid = sorted
+    newSortedMyConversationUid.splice(sorted.indexOf(conversation), 1)
+    // console.log(newSortedMyConversationUid)
+    // setSortedMyConversationUid(newSortedMyConversationUid)
+    // setNewMessage(true)
+    changeLongPressChat(null)
     const userRef = doc(dbservice, `members/${userObj.uid}`)
     const userDoc = await getDoc(userRef)
     const userChattings = userDoc.data().chattings || {}
@@ -139,7 +146,7 @@ const ChattingStacks = ({ userObj, chattings, handleChattings, longPressChat, ch
 
   return (
     <>
-      {sortedMyConversationUid.map((element, index) => {
+      {sorted.map((element, index) => {
         const clock = new Date(chattings[element].messageClock)
         if (chattings[element]) {
           let displayName
