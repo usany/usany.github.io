@@ -19,7 +19,7 @@ interface Props {
 }
 const MessageStacks = ({ userObj }: Props) => {
   const [piazzaMessage, setPiazzaMessage] = useState<{username: string, message: string} | null>(null)
-  const [chattings, setChattings] = useState({})
+  // const [chattings, setChattings] = useState({})
   const [longPressChat, setLongPressChat] = useState(null)
   const [onLongPress, setOnLongPress] = useState(0)
   useEffect(() => {
@@ -85,7 +85,7 @@ const MessageStacks = ({ userObj }: Props) => {
         {piazzaSwitch === 'true' && <Chats userObj={userObj} profileUrl={''} conversation={''} displayName={''} chattingUid={''} multiple={true} clock={clock} message={piazzaMessage} longPressChat={longPressChat} changeLongPressChat={(newValue) => setLongPressChat(newValue)} onLongPress={onLongPress} changeOnLongPress={(newValue) => setOnLongPress(newValue)}/>}
       </AnimatedList>
       <AnimatedList>
-        <ChattingStacks userObj={userObj} chattings={chattings} handleChattings={(newValue) => setChattings(newValue)} longPressChat={longPressChat} changeLongPressChat={(newValue) => setLongPressChat(newValue)} onLongPress={onLongPress} changeOnLongPress={(newValue) => setOnLongPress(newValue)}/>
+        <ChattingStacks userObj={userObj} longPressChat={longPressChat} changeLongPressChat={(newValue) => setLongPressChat(newValue)} onLongPress={onLongPress} changeOnLongPress={(newValue) => setOnLongPress(newValue)}/>
       </AnimatedList>
       </div>
       </ClickAwayListener>
