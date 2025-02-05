@@ -49,7 +49,7 @@ const ChatsBoxes = ({ userObj, profileUrl, displayName, multiple, clock, message
         <div className='flex justify-between'>
           <div className='w-1/2 px-3 overflow-hidden'>{multiple ? '단체 대화' : displayName}</div> 
           <div className='flex flex-col px-3'>
-            <div className='flex justify-end'>{clock.getFullYear()}-{messageMonth}-{messageDate} {messageAmpm} {messageHours}:{clock.getMinutes()}</div>
+            <div className='flex justify-end'>{clock.getFullYear()}-{messageMonth}-{messageDate} {messageAmpm} {messageHours}:{clock.getMinutes() < 10 && '0'}{clock.getMinutes()}</div>
           </div>
         </div>
         <div className='flex justify-between px-3'>

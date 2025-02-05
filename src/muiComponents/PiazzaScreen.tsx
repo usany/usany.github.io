@@ -255,11 +255,11 @@ function PiazzaScreen({ userObj, multiple, handleMultiple, messagesList, handleM
                       {value.userUid !== userObj.uid ? 
                         <div className='flex gap-3 justify-start'>
                           <div className='other rounded-tr-lg rounded-bl-lg rounded-br-lg p-1 bg-light-1 dark:bg-dark-1'>{value.msg}</div>
-                          <div>{clock.getFullYear()}-{messageMonth}-{messageDate} {messageAmpm} {messageHours}:{clock.getMinutes()}</div>
+                          <div>{clock.getFullYear()}-{messageMonth}-{messageDate} {messageAmpm} {messageHours}:{clock.getMinutes() < 10 && '0'}{clock.getMinutes()}</div>
                         </div>
                       :
                         <div className='flex gap-3 justify-end'>
-                          <div>{clock.getFullYear()}-{messageMonth}-{messageDate} {messageAmpm} {messageHours}:{clock.getMinutes()}</div>
+                          <div>{clock.getFullYear()}-{messageMonth}-{messageDate} {messageAmpm} {messageHours}:{clock.getMinutes() < 10 && '0'}{clock.getMinutes()}</div>
                           <div className='me rounded-tl-lg rounded-bl-lg rounded-br-lg p-1 bg-light-1 dark:bg-dark-1'>{value.msg}</div>
                         </div>
                       }

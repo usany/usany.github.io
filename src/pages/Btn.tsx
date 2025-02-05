@@ -24,10 +24,10 @@ function Btn({ msgObj, isOwner, uid, displayName, userObj, num, points }) {
     const messagingToken = toUser.data().messagingToken
     if (action === 'delete') {
       deleteDoc(data)
-      const [msgObj, ...newCounter] = counter
-      setCounter([
-        ...newCounter
-      ])
+      // const [msgObj, ...newCounter] = counter
+      // setCounter([
+      //   ...newCounter
+      // ])
     } else if (action === 'confirm return') {
       updateDoc(data, {round: 5});
       const point = doc(dbservice, `members/${msgObj.creatorId}`)

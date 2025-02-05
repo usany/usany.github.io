@@ -25,6 +25,8 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import useLongPress from 'src/hooks/useLongPress';
 import CardsViews from './CardsViews';
 import MorphingDialogs from './MorphingDialogs';
+import { deleteDoc, doc } from 'firebase/firestore';
+import { dbservice } from 'src/baseApi/serverbase';
 
 interface Props {
   msgObj: {id: string, text: object},
@@ -84,6 +86,13 @@ const Cards = ({
     >
       {longPressed ?
         <div className='flex'>
+          <ClickAwayListener onClickAway={() => {
+              console.log('practice')
+              if (longPressCard === msgObj.id) {
+                changeOnLongPress(0)
+                changeLongPressCard(null)
+              }
+          }}>
           <div className='longPress pt-5'
             onClick={() => {
               setLongPressed(false)
@@ -92,21 +101,40 @@ const Cards = ({
           >
             <CardsViews msgObj={msgObj} isOwner={isOwner} userObj={userObj} num={num} points={points} />
           </div>
-          {longPressed && 
-            <div className='z-10' onClick={() => console.log('sample')}>
+          </ClickAwayListener>
+          {/* {longPressed && 
+            <div className='z-10 h-full' onClick={() => {
+              const data = doc(dbservice, `num/${msgObj.id}`)
+              deleteDoc(data)
+              changeOnLongPress(null)
+            }}>
               <Chip label={<DeleteIcon />} color='error'/>
             </div>
-          }
+          } */}
+          <div className='z-10 h-full' onClick={() => {
+            const data = doc(dbservice, `num/${msgObj.id}`)
+            deleteDoc(data)
+            changeOnLongPress(null)
+          }}>
+            <Chip label={<DeleteIcon />} color='error'/>
+          </div>
         </div>
         :
         <div>
           {onLongPress ?
-            <div onClick={() => {
-              setLongPressed(true)
-              changeOnLongPress(onLongPress+1)
+            <ClickAwayListener onClickAway={() => {
+              if (longPressCard === msgObj.id) {
+                changeOnLongPress(0)
+                changeLongPressCard(null)
+              }
             }}>
-              <CardsViews msgObj={msgObj} isOwner={isOwner} userObj={userObj} num={num} points={points} />
-            </div>
+              <div onClick={() => {
+                setLongPressed(true)
+                changeOnLongPress(onLongPress+1)
+              }}>
+                <CardsViews msgObj={msgObj} isOwner={isOwner} userObj={userObj} num={num} points={points} />
+              </div>
+            </ClickAwayListener>
             :
             <MorphingDialogs msgObj={msgObj} isOwner={isOwner} userObj={userObj} num={num} points={points} />
           }

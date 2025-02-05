@@ -18,41 +18,21 @@ const ChattingStacks = ({ userObj, longPressChat, changeLongPressChat, onLongPre
   // const [newMessage, setNewMessage] = useState(true)
   const [chattings, setChattings] = useState({})
   const sorted = Object.keys(chattings).sort((elementOne, elementTwo) => {return chattings[elementTwo].messageClockNumber-chattings[elementOne].messageClockNumber})
+  console.log(sorted)
   useEffect(() => {
-    onSnapshot(doc(dbservice, `members/${userObj.uid}`), (snapshot) => {
-      const newChattings = snapshot.data().chattings
+    const bringChattings = async () => {
+      const docRef = doc(dbservice, `members/${userObj.uid}`)
+      const docSnap = await getDoc(docRef)
+      const newChattings = docSnap.data()?.chattings || {}
       setChattings(newChattings)
-    })
-    // const myChatting = async () => {
-    //   const myDocRef = doc(dbservice, `members/${userObj.uid}`)
-    //   const myDocSnap = await getDoc(myDocRef)
-    //   const myConversation = myDocSnap.data()?.chattings || {}
-    //   const conversation = Object.keys(myConversation).map((element) => {
-        // let displayName
-        // let chattingUid
-        // if (userObj.uid === myConversation[element].userOne) {
-        //   displayName = myConversation[element].userTwoDisplayName
-        //   chattingUid = myConversation[element].userTwo
-        // } else {
-        //   displayName = myConversation[element].userOneDisplayName
-        //   chattingUid = myConversation[element].userOne
-        // } 
-        // getDownloadURL(ref(storage, `${chattingUid}`))
-        // .then((url) => {
-        //   const newObject = profileUrls
-        //   newObject[chattingUid] = {profileUrl: url, displayName: displayName}
-        //   setProfileUrls(newObject)
-        // })
-        // .catch((error) => {
-        //   console.log(error)
-        // });
-      // })
-      // setChattings(myConversation)
-      // setNewMessage(false)
-      // if (newMessage) {
-      //   myChatting()
-      // }
-    // }
+    }
+    bringChattings()
+    // onSnapshot(doc(dbservice, `members/${userObj.uid}`), (snapshot) => {
+    //   const newChattings = snapshot.data()?.chattings || {}
+    //   if (!sorted.length) {
+    //     setChattings(newChattings)
+    //   }
+    // })
   }, [])
 
   useEffect(() => {
@@ -83,6 +63,7 @@ const ChattingStacks = ({ userObj, longPressChat, changeLongPressChat, onLongPre
       const newChattings = {...chattings, [conversation]: replaceObj}
       setChattings(newChattings)
     }
+    const sorted = Object.keys(chattings).sort((elementOne, elementTwo) => {return chattings[elementTwo].messageClockNumber-chattings[elementOne].messageClockNumber})
     sorted.map((element) => {
       webSocket.on(`sMessage${element}`, sMessageCallback);
       return () => {
@@ -140,6 +121,7 @@ const ChattingStacks = ({ userObj, longPressChat, changeLongPressChat, onLongPre
     if (userConversation.indexOf(conversation) !== -1) {
       userConversation.splice(userConversation.indexOf(conversation), 1)
     }
+    setChattings(userChattings)
     updateDoc(userRef, {chattings: userChattings});
     updateDoc(userRef, {conversation: userConversation});
   }

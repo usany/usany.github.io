@@ -8,16 +8,37 @@ import { CardHeader, Chip } from '@mui/material';
 import Avatars from 'src/muiComponents/Avatars';
 import { useSelector } from 'react-redux';
 
-const AddCards = ({ borrow, userObj, addSteps, item, fromTo, locationState }: Props) => {
+const AddCards = ({ borrow, userObj, addSteps, item, fromTo, locationState, display }) => {
     const profileColor = useSelector(state => state.profileColor.value)
     const profileImage = useSelector(state => state.profileImage.value)
+    const shadowColorArray = [
+        'lightblue', 
+        'lightcoral',
+        'lightcyan',
+        'lightgoldenrodyellow',
+        'lightgray',
+        'lightgreen', 
+        'lightpink',
+        'lightsalmon',
+        'lightseagreen',
+        'lightskyblue',
+        'lightsteelblue', 
+        'lightyellow'
+    ]
+    let shadowColor;
+    const alpha = Array.from(Array(26)).map((e, i) => i + 65);
+    const letters = alpha.map((x) => String.fromCharCode(x));
+    if (display) {
+        shadowColor = shadowColorArray[letters.indexOf(String(display.id[0]).toUpperCase())%shadowColorArray.length];
+    }
+    
     return (
         <div className='flex justify-center pt-5 p-1'>
             <Card
                 sx={{
                     width: 200,
-                    height: 280
-                    // boxShadow: `1.9px 1.9px 1.9px 1.9px ${shadowColor}`
+                    height: 280,
+                    boxShadow: `1.9px 1.9px 1.9px 1.9px ${shadowColor}`
                 }}
             >
                 <CardContent sx={{padding: '5px'}}>

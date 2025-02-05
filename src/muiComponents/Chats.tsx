@@ -11,6 +11,8 @@ import ChatsBoxes from 'src/muiComponents/ChatsBoxes'
 import DeleteIcon from '@mui/icons-material/Delete';
 import { dbservice } from 'src/baseApi/serverbase'
 import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnapshot, deleteDoc, updateDoc } from 'firebase/firestore';
+import { useDispatch } from 'react-redux';
+import { changePiazzaSwitch } from 'src/stateSlices/piazzaSwitchSlice';
 
 interface Props {
   userObj: User
@@ -30,7 +32,7 @@ interface Props {
 
 const Chats = ({ userObj, profileUrl, conversation, displayName, chattingUid, multiple, clock, message, longPressChat, changeLongPressChat, onLongPress, changeOnLongPress, onDelete }: Props) => {
   const [longPressed, setLongPressed] = useState(false)
-
+  const dispatch = useDispatch()
   const chatsRef = useRef()
   useLongPress(chatsRef, () => {
     if (longPressChat && !onLongPress) {
@@ -47,6 +49,10 @@ const Chats = ({ userObj, profileUrl, conversation, displayName, chattingUid, mu
   
   return (
     <div className={`${longPressed && 'flex py-5'}`}>
+    <ClickAwayListener onClickAway={() => {
+      changeLongPressChat(null)
+      changeOnLongPress(0)
+    }}>
     <div ref={chatsRef} className={`${longPressed && 'longPress w-5/6 py-5'}`}
       onMouseDownCapture={() => {
         const longPress = conversation || 'piazza'
@@ -91,8 +97,32 @@ const Chats = ({ userObj, profileUrl, conversation, displayName, chattingUid, mu
         </CardActionArea>
       </Card>
     </div>
+    </ClickAwayListener>
     {longPressed && 
-      <div onClick={() => onDelete({conversation: conversation})}>
+      // <>
+      //   {conversation ?
+      //     <div className='h-full' onClick={() => onDelete({conversation: conversation})}>
+      //       <Chip label={<DeleteIcon />} color='error'/>
+      //     </div>
+      //   :
+      //     <div className='h-full' onClick={() => {
+      //       if (conversation) {
+      //         onDelete({conversation: conversation})
+      //       } else {
+      //         dispatch(changePiazzaSwitch('false'))
+      //       }
+      //     }}>
+      //       <Chip label={<DeleteIcon />} color='error'/>
+      //     </div>
+      //   }
+      // </>
+      <div className='h-full' onClick={() => {
+        if (conversation) {
+          onDelete({conversation: conversation})
+        } else {
+          dispatch(changePiazzaSwitch('false'))
+        }
+      }}>
         <Chip label={<DeleteIcon />} color='error'/>
       </div>
     }

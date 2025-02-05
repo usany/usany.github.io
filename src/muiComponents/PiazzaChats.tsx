@@ -68,7 +68,7 @@ const PiazzaChats = ({ userObj, profileUrl, conversation, displayName, chattingU
   
   return (
     <div>
-      <Chats id='piazza' ref={piazzaRef} userObj={userObj} profileUrl={''} conversation={''} displayName={''} chattingUid={''} multiple={true} clock={clock} message={piazzaMessage} />
+      {/* <Chats id='piazza' ref={piazzaRef} userObj={userObj} profileUrl={''} conversation={''} displayName={''} chattingUid={''} multiple={true} clock={clock} message={piazzaMessage} /> */}
     </div>
   );
 }

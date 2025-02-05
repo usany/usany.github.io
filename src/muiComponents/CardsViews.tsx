@@ -23,6 +23,8 @@ import {
 } from '@/components/ui/morphing-dialog';
 import DeleteIcon from '@mui/icons-material/Delete';
 import useLongPress from 'src/hooks/useLongPress';
+import Avatars from './Avatars';
+import { useSelector } from 'react-redux';
 
 interface Props {
   msgObj: {id: string, text: object},
@@ -59,7 +61,8 @@ const CardsViews = ({
 }: Props) => {
   const [staticImage, setStaticImage] = useState('')
   const shadowColor = shadowColorArray[mergedArray.indexOf(String(msgObj.id[0]).toUpperCase())%shadowColorArray.length];
-  
+  const profileColor = useSelector(state => state.profileColor.value)
+  const profileImage = useSelector(state => state.profileImage.value)
   useEffect(() => {
     if (msgObj.text.count === '중도') {
       setStaticImage(staticImageJ)
@@ -71,33 +74,75 @@ const CardsViews = ({
   }, [msgObj])
 
   return (
-      <Card
-        sx={{
-          boxShadow: `1.5px 1.5px 1.5px 1.5px ${shadowColor}`
-        }}
-      >
-        <CardActionArea>
-          <CardMedia
-            sx={{ height: 140 }}
-            image={staticImage}
-          />
-          <CardContent>
-            <div className='flex justify-center'>
-              {msgObj.text.choose === 1 && <Chip label={`${msgObj.item} 빌리기`} />}
-              {msgObj.text.choose === 2 && <Chip label={`${msgObj.item} 빌려주기`} />}
-              {isOwner && <Chip label='내 카드' />}
-            </div>
-            <div className='flex flex-col'>
-              <div className='flex justify-center'>{msgObj.text.count} {msgObj.text.counter} {msgObj.text.counting !== '' && msgObj.text.counting}</div>
-              <div className='flex justify-center'>{msgObj.text.clock?.year}.{msgObj.text.clock?.month}.{msgObj.text.clock?.day} {msgObj.text.clock?.hour}:{msgObj.text.clock?.minute} 부터</div>
-              <div className='flex justify-center'>{msgObj.text.clocker?.year}.{msgObj.text.clocker?.month}.{msgObj.text.clock?.day} {msgObj.text.clocker?.hour}:{msgObj.text.clocker?.minute} 까지</div>
-            </div>
-          </CardContent>
-        </CardActionArea>
-        <CardActions className='flex justify-center'>
-          <Btn msgObj={msgObj} isOwner={isOwner} uid={userObj?.uid} displayName={userObj?.displayName} userObj={userObj} num={num} points={points} />
-        </CardActions>
-      </Card>
+    <div>
+    <Card
+      sx={{
+        boxShadow: `1.5px 1.5px 1.5px 1.5px ${shadowColor}`
+      }}
+    >
+      <CardActionArea>
+        <CardMedia
+          sx={{ height: 140 }}
+          image={staticImage}
+        />
+        <CardContent>
+          <div className='flex justify-center'>
+            {msgObj.text.choose === 1 && <Chip label={`${msgObj.item} 빌리기`} />}
+            {msgObj.text.choose === 2 && <Chip label={`${msgObj.item} 빌려주기`} />}
+            {isOwner && <Chip label='내 카드' />}
+          </div>
+          <div className='flex flex-col'>
+            <div className='flex justify-center'>{msgObj.text.count} {msgObj.text.counter} {msgObj.text.counting !== '' && msgObj.text.counting}</div>
+            <div className='flex justify-center'>{msgObj.text.clock?.year}.{msgObj.text.clock?.month}.{msgObj.text.clock?.day} {msgObj.text.clock?.hour}:{msgObj.text.clock?.minute} 부터</div>
+            <div className='flex justify-center'>{msgObj.text.clocker?.year}.{msgObj.text.clocker?.month}.{msgObj.text.clock?.day} {msgObj.text.clocker?.hour}:{msgObj.text.clocker?.minute} 까지</div>
+          </div>
+        </CardContent>
+      </CardActionArea>
+      <CardActions className='flex justify-center'>
+        <Btn msgObj={msgObj} isOwner={isOwner} uid={userObj?.uid} displayName={userObj?.displayName} userObj={userObj} num={num} points={points} />
+      </CardActions>
+    </Card>
+    <Card
+                sx={{
+                    width: 200,
+                    height: 280,
+                    boxShadow: `1.5px 1.5px 1.5px 1.5px ${shadowColor}`
+                }}
+            >
+                <CardContent sx={{padding: '5px'}}>
+                    <div>
+                        <div className='flex justify-between gap-1'>
+                            <Avatars profile={false} profileColor={profileColor} profileImage={profileImage} fallback={userObj.displayName ? userObj.displayName[0] : ''}/>
+                            {<Chip label={`${msgObj.item} ${msgObj.text.choose === 1 ? ' 빌리기' : ' 빌려주기'}`} />}
+                            {/* {item && <Chip label='내가 작성함' />} */}
+                        </div>
+                        {/* {!item &&
+                            <div className='flex justify-center pt-5'>
+                                빈 카드입니다
+                            </div>
+                        } */}
+                        <div className='pt-1'>
+                            <CardMedia
+                                sx={{ height: 140 }}
+                                image={staticImg}
+                            />
+                        </div>
+                        {/* {locationState.locationOne && 
+                        } */}
+                        <div className='flex flex-col'>
+                          <div className='flex justify-center'>{msgObj.text.count} {msgObj.text.counter} {msgObj.text.counting !== '' && msgObj.text.counting}</div>
+                          <div className='flex justify-center'>{msgObj.text.clock?.year}.{msgObj.text.clock?.month}.{msgObj.text.clock?.day} {msgObj.text.clock?.hour}:{msgObj.text.clock?.minute} 부터</div>
+                          <div className='flex justify-center'>{msgObj.text.clocker?.year}.{msgObj.text.clocker?.month}.{msgObj.text.clock?.day} {msgObj.text.clocker?.hour}:{msgObj.text.clocker?.minute} 까지</div>
+                        </div>
+                        {/* <div className='flex flex-col justify-center pt-1'>
+                            {locationState && <div className='flex justify-center'>{locationState?.locationOne} {locationState?.locationTwo} {locationState?.locationThree}</div>}
+                            {fromTo.from && <div className='flex justify-center'>{fromTo.from.year}.{fromTo.from.month < 10 && '0'}{fromTo.from.month}.{fromTo.from.day < 10 && '0'}{fromTo.from.day} {fromTo.from.hour < 10 && '0'}{fromTo.from.hour}:{fromTo.from.minute < 10 && '0'}{fromTo.from.minute} 부터</div>}
+                            {fromTo.to && <div className='flex justify-center'>{fromTo.to.year}.{fromTo.to.month < 10 && '0'}{fromTo.to.month}.{fromTo.from.day < 10 && '0'}{fromTo.to.day} {fromTo.to.hour < 10 && '0'}{fromTo.to.hour}:{fromTo.to.minute < 10 && '0'}{fromTo.to.minute} 까지</div>}
+                        </div> */}
+                    </div>
+                </CardContent>
+            </Card>
+    </div>
   );
 }
 
