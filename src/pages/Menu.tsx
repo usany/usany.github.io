@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef, Suspense, lazy } from 'react'
 import { auth, onSocialClick, dbservice, storage, messaging } from 'src/baseApi/serverbase'
 import { collection, query, where, orderBy, addDoc, getDocs, doc, onSnapshot, deleteDoc, updateDoc } from 'firebase/firestore';
-import Message from 'src/pages/Message'
 import { getToken } from "firebase/messaging";
 import MessageStacks from 'src/muiComponents/MessageStacks'
 import PageTitle from 'src/muiComponents/PageTitle'
@@ -119,7 +118,7 @@ function Menu({ userObj }: Props) {
             </AnimatedSubscribeButton>
             <WordRotate words={['sample']}/>
             <TextScramble>
-                samples
+                sample
             </TextScramble>
             <Accordion 
                 value={[accordions.cards, accordions.messages]}
