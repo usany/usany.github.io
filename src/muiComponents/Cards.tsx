@@ -85,7 +85,7 @@ const Cards = ({
       ref={cardsRef}
     >
       {longPressed ?
-        <div className='flex'>
+        <div className='flex gap-3 scale-50'>
           <ClickAwayListener onClickAway={() => {
               console.log('practice')
               if (longPressCard === msgObj.id) {
@@ -93,14 +93,14 @@ const Cards = ({
                 changeLongPressCard(null)
               }
           }}>
-          <div className='longPress pt-5'
-            onClick={() => {
-              setLongPressed(false)
-              changeOnLongPress(onLongPress-1)
-            }}
-          >
-            <CardsViews msgObj={msgObj} isOwner={isOwner} userObj={userObj} num={num} points={points} />
-          </div>
+            <div className='longPress'
+              onClick={() => {
+                setLongPressed(false)
+                changeOnLongPress(onLongPress-1)
+              }}
+            >
+              <CardsViews msgObj={msgObj} isOwner={isOwner} userObj={userObj} num={num} points={points} />
+            </div>
           </ClickAwayListener>
           {/* {longPressed && 
             <div className='z-10 h-full' onClick={() => {
