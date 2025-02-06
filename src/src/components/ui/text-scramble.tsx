@@ -1,6 +1,6 @@
 "'use client'";
-import { type JSX, useEffect, useState } from "'react'";
-import { motion, MotionProps } from "'motion/react'";
+import { type JSX, useEffect, useState } from 'react';
+import { motion, MotionProps } from 'motion/react';
 
 export type TextScrambleProps = {
   children: string;
@@ -22,7 +22,7 @@ export function TextScramble({
   speed = 0.04,
   characterSet = defaultChars,
   className,
-  as: Component = "'p'",
+  as: Component = 'p',
   trigger = true,
   onScrambleComplete,
   ...props

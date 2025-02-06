@@ -19,6 +19,10 @@ import { User } from 'firebase/auth';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import Cards from 'src/muiComponents/Cards';
 import useLongPress from 'src/hooks/useLongPress';
+import { AnimatedGroup } from 'src/src/components/ui/animated-group';
+import { AnimatedSubscribeButton } from 'src/src/components/ui/animated-subscribe-button';
+import { WordRotate } from 'src/src/components/ui/word-rotate';
+import { TextScramble } from 'src/src/components/ui/text-scramble';
 
 interface Props {
     userObj: User
@@ -105,6 +109,18 @@ function Menu({ userObj }: Props) {
     return (
         <div id='sample' className='flex justify-center flex-col pb-5'>
             <PageTitle title={'내 상태'}/>
+            <AnimatedGroup className='flex' preset='slide'>
+                <div>practice</div>
+                <div>practice</div>
+            </AnimatedGroup>
+            <AnimatedSubscribeButton>
+                <span>practice</span>
+                <span>practice</span>
+            </AnimatedSubscribeButton>
+            <WordRotate words={['sample']}/>
+            <TextScramble>
+                samples
+            </TextScramble>
             <Accordion 
                 value={[accordions.cards, accordions.messages]}
                 defaultValue={accordionValues}

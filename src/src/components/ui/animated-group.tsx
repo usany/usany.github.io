@@ -1,11 +1,11 @@
 "'use client'";
-import { ReactNode } from "'react'";
-import { motion, Variants } from "'motion/react'";
-import React from "'react'";
+import { ReactNode } from 'react';
+import { motion, Variants } from 'motion/react';
+import React from 'react';
 
 export type PresetType =
-  | "'fade'"
-  | "'slide'"
+  | 'fade'
+  | 'slide'
   | "'scale'"
   | "'blur'"
   | "'blur-slide'"
@@ -109,8 +109,8 @@ function AnimatedGroup({
   className,
   variants,
   preset,
-  as = "'div'",
-  asChild = "'div'",
+  as = 'div',
+  asChild = 'div',
 }: AnimatedGroupProps) {
   const selectedVariants = {
     item: addDefaultVariants(preset ? presetVariants[preset] : {}),
