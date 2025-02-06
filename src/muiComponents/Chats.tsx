@@ -53,7 +53,7 @@ const Chats = ({ userObj, profileUrl, conversation, displayName, chattingUid, mu
       changeLongPressChat(null)
       changeOnLongPress(0)
     }}>
-    <div ref={chatsRef} className={`${longPressed && 'longPress w-5/6 py-5'}`}
+    <div ref={chatsRef} className={`${longPressed && 'longPress flex w-[calc(100%-48px)] py-5'}`}
       onMouseDownCapture={() => {
         const longPress = conversation || 'piazza'
         changeLongPressChat(longPress)
@@ -116,7 +116,7 @@ const Chats = ({ userObj, profileUrl, conversation, displayName, chattingUid, mu
       //     </div>
       //   }
       // </>
-      <div className='h-full' onClick={() => {
+      <div className='flex justify-end h-full w-1/6' onClick={() => {
         if (conversation) {
           onDelete({conversation: conversation})
         } else {

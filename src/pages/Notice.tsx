@@ -11,6 +11,16 @@ interface Props {
     userObj: User | null
     borrow: boolean
 }
+interface Message {
+    creatorId: string
+    text: {
+        choose: number
+        count: string
+        counter: string
+    }
+    round: number
+    item: string
+}
 function Notice({ userObj, borrow }: Props) {
   const [messages, setMessages] = useState<Array<object>>([]);
   const [selectedValues, setSelectedValues] = useImmer([
@@ -27,10 +37,15 @@ function Notice({ userObj, borrow }: Props) {
         value: '최신순'
     },
     ])
-    const handleSelectedValues = ({id, newValue}) => {
+    const handleSelectedValues = ({id, newValue}: {
+        id: string
+        newValue: string
+    }) => {
         setSelectedValues((values) => {
             const value = values.find((value) => value.id === id)
-            value.value = newValue
+            if (value) {
+                value.value = newValue
+            }
         })
     }
     useEffect(() => {
@@ -85,9 +100,9 @@ function Notice({ userObj, borrow }: Props) {
                 const isOwner = msg?.creatorId === userObj?.uid
                 {borrow ? choose = 1 : choose = 2}
                 if (msg?.text.choose === choose && msg?.round === 1) {
-                    if (selectedValues[0].value === '전체' ||selectedValues[0].value === msg?.item || !selectedValues[0].value) {
+                    if (selectedValues[0].value === '전체' || selectedValues[0].value === msg?.item || !selectedValues[0].value) {
                         if (selectedValues[1].value === '전체' || selectedValues[1].value === msg?.text.count || !selectedValues[1].value) {
-                            return(
+                            return (
                                 <Cards msgObj={msg} isOwner={isOwner} userObj={userObj} num={null} points={null} />
                             )
                         }
