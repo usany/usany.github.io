@@ -1,12 +1,12 @@
 import { useRef, useEffect, useState, useMemo, lazy } from "react";
 // import "./Chatting.css";
-import PiazzaScreen from 'src/muiComponents/PiazzaScreen'
-import PiazzaForm from 'src/muiComponents/PiazzaForm'
+import PiazzaScreen from 'src/pages/piazza/piazzaScreen/PiazzaScreen'
+import PiazzaForm from 'src/pages/piazza/piazzaForm/PiazzaForm'
 import { useSelector, useDispatch } from 'react-redux'
 import { User } from "firebase/auth";
 import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
 import { Link, useLocation } from 'react-router-dom'
-import PiazzaTitle from 'src/muiComponents/PiazzaTitle'
+import PiazzaTitle from 'src/pages/piazza/piazzaTitle/PiazzaTitle'
 
 interface Props {
   userObj: User
