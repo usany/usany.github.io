@@ -1,5 +1,5 @@
-import AddStepTitle from 'src/muiComponents/AddStepTitle'
-import Pickers from 'src/muiComponents/Pickers'
+import AddStepTitle from 'src/components/AddStepTitle'
+import Pickers from 'src/components/Pickers'
 
 interface Props {
     onChangeFrom: (event: {}) => void 

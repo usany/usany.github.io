@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, Suspense, lazy } from 'react'
-import PageTitle from 'src/muiComponents/PageTitle'
-import LoadingsSkeletons from 'src/muiComponents/LoadingsSkeletons'
+import PageTitle from 'src/components/PageTitle'
+import LoadingsSkeletons from 'src/components/LoadingsSkeletons'
 import { useSelector, useDispatch } from 'react-redux'
 import { change } from 'src/stateSlices/cardAccordionSlice'
 import { Skeleton } from "@/components/ui/skeleton"

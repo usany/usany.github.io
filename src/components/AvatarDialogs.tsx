@@ -12,7 +12,7 @@ import { getStorage, ref, uploadBytes, uploadString, uploadBytesResumable, getDo
 import { useSelector, useDispatch } from 'react-redux'
 import { changeProfileColor } from 'src/stateSlices/profileColorSlice'
 import { changeProfileImage } from 'src/stateSlices/profileImageSlice'
-import Avatars from 'src/muiComponents/Avatars'
+import Avatars from 'src/components/Avatars'
 
 const AvatarDialogs = ({ userObj, profileDialog, attachment, changeAttachment, handleClose }) => {
     const [selectedColor, setSelectedColor] = useState('')

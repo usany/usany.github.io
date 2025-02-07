@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
-import PageTitle from 'src/muiComponents/PageTitle'
-import PiazzaSwitch from 'src/muiComponents/PiazzaSwitch'
+import PageTitle from 'src/components/PageTitle'
+import PiazzaSwitch from 'src/components/PiazzaSwitch'
 
 interface Props {
     multiple: boolean

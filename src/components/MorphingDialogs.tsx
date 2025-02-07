@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useMemo, useLayoutEffect, useContext, useReducer, Suspense, lazy } from 'react'
-import Specifics from 'src/muiComponents/Specifics';
+import Specifics from 'src/components/Specifics';
 import {
   MorphingDialog,
   MorphingDialogTrigger,

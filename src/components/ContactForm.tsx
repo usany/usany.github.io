@@ -4,8 +4,8 @@ import { User } from "firebase/auth";
 import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnapshot, updateDoc } from 'firebase/firestore';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import ContactDrawers from 'src/muiComponents/ContactDrawers';
-import ContactFormDrawers from 'src/muiComponents/ContactFormDrawers'
+import ContactDrawers from 'src/components/ContactDrawers';
+import ContactFormDrawers from 'src/components/ContactFormDrawers'
 
 interface Props {
   userObj: User

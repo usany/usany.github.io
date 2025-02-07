@@ -2,8 +2,8 @@ import { useState, useEffect, useRef, Suspense, lazy } from 'react'
 import { auth, onSocialClick, dbservice, storage, messaging } from 'src/baseApi/serverbase'
 import { collection, query, where, orderBy, addDoc, getDocs, doc, onSnapshot, deleteDoc, updateDoc } from 'firebase/firestore';
 import { getToken } from "firebase/messaging";
-import MessageStacks from 'src/muiComponents/MessageStacks'
-import PageTitle from 'src/muiComponents/PageTitle'
+import MessageStacks from 'src/components/MessageStacks'
+import PageTitle from 'src/components/PageTitle'
 import {
     Accordion,
     AccordionContent,
@@ -15,7 +15,7 @@ import { change } from 'src/stateSlices/cardAccordionSlice'
 import { changeMessageAccordion } from 'src/stateSlices/messageAccordionSlice'
 import { Skeleton } from "@/components/ui/skeleton"
 import { User } from 'firebase/auth';
-import CardsStacks from 'src/muiComponents/CardsStacks';
+import CardsStacks from 'src/components/CardsStacks';
 // import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 interface Props {

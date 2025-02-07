@@ -6,8 +6,8 @@ import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
 import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnapshot, deleteDoc, updateDoc, limit } from 'firebase/firestore';
 import { webSocket, onClick } from 'src/webSocket.tsx'
 import { User } from 'firebase/auth';
-import ChattingStacks from 'src/muiComponents/ChattingStacks'
-import Chats from 'src/muiComponents/Chats'
+import ChattingStacks from 'src/components/ChattingStacks'
+import Chats from 'src/components/Chats'
 import { useQuery } from '@tanstack/react-query'
 import { useSelector, useDispatch } from 'react-redux'
 import { AnimatedList } from 'src/src/components/ui/animated-list';

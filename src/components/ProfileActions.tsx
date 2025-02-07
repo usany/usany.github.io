@@ -1,6 +1,6 @@
 import { useState, useEffect, useReducer } from 'react'
-import ProfileForm from 'src/muiComponents/ProfileForm'
-import ProfileConnects from 'src/muiComponents/ProfileConnects'
+import ProfileForm from 'src/components/ProfileForm'
+import ProfileConnects from 'src/components/ProfileConnects'
 
 const ProfileActions = ({
   userObj,

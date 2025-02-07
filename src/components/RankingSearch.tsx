@@ -3,8 +3,8 @@ import TextField from '@mui/material/TextField';
 // import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
 // import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnapshot, deleteDoc, updateDoc } from 'firebase/firestore';
 // import Skeleton from '@mui/material/Skeleton';
-// import PageTitle from 'src/muiComponents/PageTitle'
-// import Lists from 'src/muiComponents/Lists'
+// import PageTitle from 'src/components/PageTitle'
+// import Lists from 'src/components/Lists'
 // import { getStorage, ref, uploadBytes, uploadString, uploadBytesResumable, getDownloadURL,  } from "firebase/storage";
 // import { useSelector, useDispatch } from 'react-redux'
 // import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'

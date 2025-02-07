@@ -5,7 +5,7 @@ import CardContent from '@mui/material/CardContent';
 import { CardActionArea, CardActions, ClickAwayListener } from '@mui/material';
 import { Link } from 'react-router-dom'
 import Btn from 'src/pages/Btn';
-import Specifics from 'src/muiComponents/Specifics';
+import Specifics from 'src/components/Specifics';
 import Chip from '@mui/material/Chip';
 import staticImg from 'src/assets/pwa-512x512.png';
 import staticImageJ from 'src/assets/blue-01.png';

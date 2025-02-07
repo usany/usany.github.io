@@ -1,5 +1,5 @@
-import Selects from 'src/muiComponents/Selects'
-import AddStepTitle from 'src/muiComponents/AddStepTitle'
+import Selects from 'src/components/Selects'
+import AddStepTitle from 'src/components/AddStepTitle'
 
 interface Props {
     locationState: {locationOne: string | null, locationTwo: string | null, locationThree: string | null, locationInput: string | null}

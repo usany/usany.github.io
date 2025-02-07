@@ -2,7 +2,7 @@ import { useState, useEffect, useReducer } from 'react'
 import Card from '@mui/material/Card';
 import { createPortal } from 'react-dom'
 import { BrowserRouter, Routes, Route, useNavigate, Link, useLocation } from 'react-router-dom'
-import ProfileMembersDrawers from 'src/muiComponents/ProfileMembersDrawers'
+import ProfileMembersDrawers from 'src/components/ProfileMembersDrawers'
 
 const ProfileMembers = ({
   userObj,

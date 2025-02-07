@@ -21,7 +21,7 @@ import {
     AccordionItem,
     AccordionTrigger,
 } from "@/components/ui/accordion"
-import Lists from 'src/muiComponents/Lists'
+import Lists from 'src/components/Lists'
 import Divider from '@mui/material/Divider';
 
 const ContactDrawers = ({ userObj }) => {

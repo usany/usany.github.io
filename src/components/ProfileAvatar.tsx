@@ -3,8 +3,8 @@ import Badge from '@mui/material/Badge';
 import Avatar from '@mui/material/Avatar';
 import BeachAccess from '@mui/icons-material/BeachAccess'
 import { useSelector, useDispatch } from 'react-redux'
-import Avatars from 'src/muiComponents/Avatars'
-import LoadingsSkeletons from 'src/muiComponents/LoadingsSkeletons'
+import Avatars from 'src/components/Avatars'
+import LoadingsSkeletons from 'src/components/LoadingsSkeletons'
 
 const ProfileAvatar = ({ userObj, user, handleProfileDialog }) => {
     const profileColor = useSelector(state => state.profileColor.value)

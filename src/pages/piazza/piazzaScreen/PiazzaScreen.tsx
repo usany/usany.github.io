@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { User } from "firebase/auth";
 import { Link, useLocation } from 'react-router-dom'
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import PiazzaDialogs from 'src/muiComponents/PiazzaDialogs'
+import PiazzaDialogs from 'src/components/PiazzaDialogs'
 
 interface Props {
   userObj: User

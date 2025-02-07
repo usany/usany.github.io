@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
 import { User } from "firebase/auth";
-import PageTitle from 'src/muiComponents/PageTitle';
-import ContactAddress from 'src/muiComponents/ContactAddress';
-import ContactForm from 'src/muiComponents/ContactForm';
+import PageTitle from 'src/components/PageTitle';
+import ContactAddress from 'src/components/ContactAddress';
+import ContactForm from 'src/components/ContactForm';
 import { useSelector, useDispatch } from 'react-redux'
 import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
 import { useLocation } from 'react-router-dom'

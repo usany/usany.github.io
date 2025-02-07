@@ -1,12 +1,12 @@
 import { useState, useEffect, lazy } from 'react'
 import { collection, addDoc, getDocs, doc, onSnapshot, query, orderBy } from 'firebase/firestore';
 import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
-import FilterDialogs from 'src/muiComponents/FilterDialogs'
+import FilterDialogs from 'src/components/FilterDialogs'
 import { useImmer } from 'use-immer'
 import { User } from 'firebase/auth';
-import Cards from 'src/muiComponents/Cards';
+import Cards from 'src/components/Cards';
 import { Chip } from '@mui/material';
-import PageTitle from 'src/muiComponents/PageTitle';
+import PageTitle from 'src/components/PageTitle';
 
 interface Props {
     userObj: User | null

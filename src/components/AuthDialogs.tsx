@@ -3,7 +3,7 @@ import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import SignUpForm from 'src/muiComponents/SignUpForm';
+import SignUpForm from 'src/components/SignUpForm';
 import { auth, onSocialClick, dbservice } from 'src/baseApi/serverbase'
 import { updateProfile, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc } from 'firebase/firestore';
@@ -18,7 +18,7 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer"
 import { useSelector, useDispatch } from 'react-redux'
-import AuthForm from 'src/muiComponents/AuthForm';
+import AuthForm from 'src/components/AuthForm';
 
 function AuthDialogs() {
   const theme = useSelector(state => state.theme)

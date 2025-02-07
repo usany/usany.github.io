@@ -1,6 +1,6 @@
 import { auth, onSocialClick, dbservice } from 'src/baseApi/serverbase'
 import Button from '@mui/material/Button';
-import AuthDialogs from 'src/muiComponents/AuthDialogs';
+import AuthDialogs from 'src/components/AuthDialogs';
 
 const AuthButtons = () => {
   return (

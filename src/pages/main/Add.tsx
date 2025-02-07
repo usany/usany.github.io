@@ -1,18 +1,18 @@
 import { useState, useEffect, useReducer } from 'react'
 import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
 import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnapshot, deleteDoc, updateDoc, DocumentSnapshot } from 'firebase/firestore';
-import AddSteppers from 'src/muiComponents/AddSteppers'
-import AddStepOne from 'src/muiComponents/AddStepOne'
-import AddStepTwo from 'src/muiComponents/AddStepTwo'
-import AddStepThree from 'src/muiComponents/AddStepThree'
-import AddStepFour from 'src/muiComponents/AddStepFour'
-import AddRegisterButton from 'src/muiComponents/AddRegisterButton'
-import AddSnackBar from 'src/muiComponents/AddSnackBar'
-import PageTitle from 'src/muiComponents/PageTitle'
+import AddSteppers from 'src/components/AddSteppers'
+import AddStepOne from 'src/components/AddStepOne'
+import AddStepTwo from 'src/components/AddStepTwo'
+import AddStepThree from 'src/components/AddStepThree'
+import AddStepFour from 'src/components/AddStepFour'
+import AddRegisterButton from 'src/components/AddRegisterButton'
+import AddSnackBar from 'src/components/AddSnackBar'
+import PageTitle from 'src/components/PageTitle'
 import { User } from 'firebase/auth';
 import { useSelector, useDispatch } from 'react-redux'
 import TabsRootState from 'src/interfaces/TabsRootState';
-import AddCards from 'src/muiComponents/AddCards';
+import AddCards from 'src/components/AddCards';
 import { useMediaQuery } from '@mui/material';
 
 interface Props {

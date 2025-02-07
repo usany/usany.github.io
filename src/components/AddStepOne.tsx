@@ -1,5 +1,5 @@
-import AddItemSelects from 'src/muiComponents/AddItemSelects'
-import AddStepTitle from 'src/muiComponents/AddStepTitle'
+import AddItemSelects from 'src/components/AddItemSelects'
+import AddStepTitle from 'src/components/AddStepTitle'
 
 
 interface Props {

@@ -1,11 +1,11 @@
-import AddItemSelects from 'src/muiComponents/AddItemSelects'
-import AddStepTitle from 'src/muiComponents/AddStepTitle'
+import AddItemSelects from 'src/components/AddItemSelects'
+import AddStepTitle from 'src/components/AddStepTitle'
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import staticImg from 'src/assets/pwa-512x512.png';
 import { CardHeader, Chip } from '@mui/material';
-import Avatars from 'src/muiComponents/Avatars';
+import Avatars from 'src/components/Avatars';
 import { useSelector } from 'react-redux';
 
 const AddCards = ({ borrow, userObj, addSteps, item, fromTo, locationState, display }) => {

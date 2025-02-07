@@ -1,5 +1,5 @@
-import AddStepTitle from 'src/muiComponents/AddStepTitle'
-import RegisteredCards from 'src/muiComponents/RegisteredCards';
+import AddStepTitle from 'src/components/AddStepTitle'
+import RegisteredCards from 'src/components/RegisteredCards';
 
 interface Props {
     display: {id: string} | null

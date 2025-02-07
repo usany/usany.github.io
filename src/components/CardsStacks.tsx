@@ -4,7 +4,7 @@ import { collection, query, where, orderBy, addDoc, getDocs, doc, onSnapshot, de
 import { getToken } from "firebase/messaging";
 import { Skeleton } from "@/components/ui/skeleton"
 import { User } from 'firebase/auth';
-import Cards from 'src/muiComponents/Cards';
+import Cards from 'src/components/Cards';
 import { Chip, ClickAwayListener } from '@mui/material';
 
 interface Props {
