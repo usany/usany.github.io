@@ -3,7 +3,7 @@ import Card from '@mui/material/Card';
 import { CardActionArea, CardActions } from '@mui/material';
 import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnapshot, updateDoc, setDoc } from 'firebase/firestore';
 import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
-import ProfileDrawers from 'src/components/ProfileDrawers'
+import ProfileDrawers from 'src/pages/profile/ProfileDrawers'
 
 const ProfileCards = ({
   user,

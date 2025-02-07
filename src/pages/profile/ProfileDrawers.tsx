@@ -17,8 +17,8 @@ import Divider from '@mui/material/Divider';
 import Avatar from '@mui/material/Avatar';
 import CommentIcon from '@mui/icons-material/Comment';
 import IconButton from '@mui/material/IconButton';
-import ProfileDrawersPoints from 'src/components/ProfileDrawersPoints'
-import ProfileDrawersAllies from 'src/components/ProfileDrawersAllies'
+import ProfileDrawersPoints from 'src/pages/profile/ProfileDrawersPoints'
+import ProfileDrawersAllies from 'src/pages/profile/ProfileDrawersAllies'
 
 const ProfileDrawers = ({ user, cards, followers, alliesCollection, selection }) => {
   // const [messages, setMessages] = useState([])
