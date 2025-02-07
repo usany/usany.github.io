@@ -273,7 +273,7 @@ function Add({ userObj, borrow }: Props) {
             {matches ?
                 <div className='flex justify-around'>
                     <AddCards borrow={borrow} userObj={userObj} addSteps={addSteps} item={item} fromTo={fromTo} locationState={locationState} display={display}/>
-                    <div className='flex flex-col'>
+                    <div className='flex flex-col w-[624px]'>
                         <div className='flex'>
                             <AddStepOne borrow={borrow} item={item} changeItem={changeItem} />
                             {addSteps > 0 && <AddStepTwo locationState={locationState} changeBuilding={changeBuilding} changeRoom={changeRoom} changeSeat={changeSeat} changeLocationInput={changeLocationInput} />}

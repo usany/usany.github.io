@@ -24,7 +24,7 @@ function ContactForm({ userObj, user }: Props) {
       setInitialViolationUser(false)
     }
   }, [user])
-
+  
   useEffect(() => {
     if (messageTitle && message) {
       setFormFilledOut(true)

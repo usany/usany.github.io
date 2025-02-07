@@ -84,7 +84,7 @@ function CardsStacks({ userObj }: Props) {
                         </div> 
                         :
                         <>
-                        <div className='flex flex-wrap justify-around gap-1'>
+                        <div className='flex flex-wrap justify-around gap-5'>
                             {messages.map((msg) => {
                                 const isOwner = msg.creatorId === userObj.uid
                                 if (msg.round !== 5) {

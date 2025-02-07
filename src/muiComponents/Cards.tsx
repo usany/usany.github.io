@@ -116,7 +116,7 @@ const Cards = ({
             deleteDoc(data)
             changeOnLongPress(null)
           }}>
-            <Chip label={<DeleteIcon />} color='error'/>
+            <Chip label={<DeleteIcon />} color='error' />
           </div>
         </div>
         :

@@ -6,6 +6,7 @@ import { useImmer } from 'use-immer'
 import { User } from 'firebase/auth';
 import Cards from 'src/muiComponents/Cards';
 import { Chip } from '@mui/material';
+import PageTitle from 'src/muiComponents/PageTitle';
 
 interface Props {
     userObj: User | null
@@ -81,10 +82,10 @@ function Notice({ userObj, borrow }: Props) {
   }, [selectedValues[2].value])
 
   return (  
-    <div className='p-5'>
-        <div className='flex justify-start text-2xl w-screen'>
-            <div className='flex w-5/6'>{borrow ? '빌리기' : '빌려주기'} 카드 목록</div>
-            <div className='flex w-screen justify-end px-16'>
+    <div>
+        <div className='flex justify-between text-2xl'>
+            <PageTitle title={`${borrow ? '빌리기' : '빌려주기'} 카드 목록`}/>
+            <div className='flex gap-1 pt-5 px-1'>
                 {selectedValues[0].value && <Chip label={selectedValues[0].value}/>}
                 {selectedValues[1].value && <Chip label={selectedValues[1].value}/>}
                 <FilterDialogs 
@@ -94,7 +95,7 @@ function Notice({ userObj, borrow }: Props) {
             </div>
         </div>
         <div>
-        <div className='flex flex-wrap justify-between pt-5 gap-1'>
+        <div className='flex flex-wrap justify-between p-3 gap-1'>
             {messages.map((msg) => {
                 let choose
                 const isOwner = msg?.creatorId === userObj?.uid
