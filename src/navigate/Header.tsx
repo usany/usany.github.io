@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useLayoutEffect, useMemo, Suspense, lazy } from 'react'
 import WeatherView from 'src/navigate/WeatherView'
 import Navigation from 'src/navigate/Navigation'
-import Points from 'src/pages/points'
+import Points from 'src/pages/search/Points'
 import Avatar from '@mui/material/Avatar';
 import ToggleTabs from 'src/muiComponents/ToggleTabs'
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
@@ -128,12 +128,12 @@ const Header = ({ userObj }: Props) => {
     }, [])
     return (
         <>
-            <div className='fixed z-20 bg-light-3/50 dark:bg-dark-3/50'>
+            <div className='fixed z-20 bg-light-3/50 dark:bg-dark-3/50 truncate'>
                 <div className={`${!scroll && 'hidden'}`}>
                     <HeaderViews userObj={userObj} />
                 </div>
             </div>
-            <div className='h-16'>
+            <div className='h-16 truncate'>
                 <div className={`${scroll && 'hidden'}`}>
                     <HeaderViews userObj={userObj}/>
                 </div>

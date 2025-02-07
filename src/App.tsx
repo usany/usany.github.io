@@ -9,7 +9,6 @@ import { useSelector, useDispatch } from 'react-redux'
 import ThemeRootState from './interfaces/ThemeRootState copy'
 import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
 import { useQuery } from '@tanstack/react-query'
-import { useMediaQuery } from '@mui/material'
 
 const lightTheme = createTheme({
   palette: {
@@ -36,6 +35,7 @@ function App() {
     })
     // dispatch(changeBottomNavigation(1))
   }, [])
+
   // const onAuthQuery = () => {
   //   const onAuth = {userObj: undefined}
   //   auth.onAuthStateChanged((user) => {
