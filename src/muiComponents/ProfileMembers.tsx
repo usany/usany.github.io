@@ -22,7 +22,7 @@ const ProfileMembers = ({
           <ProfileMembersDrawers userObj={userObj}/>
         </div>
         :
-        <Link to='/contact' state={{user: user.element}}>
+        <Link to='/contact' state={{user: user}}>
           <div className='flex justify-center'>
             <Card sx={{width: '50%'}}>
               <div className='flex justify-center p-5'>

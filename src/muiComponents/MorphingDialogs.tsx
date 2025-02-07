@@ -12,11 +12,12 @@ import {
   MorphingDialogContainer,
 } from '@/components/ui/morphing-dialog';
 import CardsViews from './CardsViews';
+import { User } from 'firebase/auth';
 
 interface Props {
   msgObj: {id: string, text: object},
   isOwner: boolean,
-  userObj: {uid: string, displayName: string},
+  userObj: User | null,
   num: number | null,
   points: number | null,
 }

@@ -85,7 +85,7 @@ const Cards = ({
       ref={cardsRef}
     >
       {longPressed ?
-        <div className='flex gap-3 scale-50'>
+        <div className='flex gap-3 scale-75 w-[200px]'>
           <ClickAwayListener onClickAway={() => {
               console.log('practice')
               if (longPressCard === msgObj.id) {
@@ -116,7 +116,7 @@ const Cards = ({
             deleteDoc(data)
             changeOnLongPress(null)
           }}>
-            <Chip label={<DeleteIcon />} color='error'/>
+            <Chip label={<DeleteIcon />} color='error' />
           </div>
         </div>
         :

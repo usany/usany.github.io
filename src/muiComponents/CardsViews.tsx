@@ -25,11 +25,12 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import useLongPress from 'src/hooks/useLongPress';
 import Avatars from './Avatars';
 import { useSelector } from 'react-redux';
+import { User } from 'firebase/auth';
 
 interface Props {
   msgObj: {id: string, text: object},
   isOwner: boolean,
-  userObj: {uid: string, displayName: string},
+  userObj: User | null,
   num: number | null,
   points: number | null,
 }
