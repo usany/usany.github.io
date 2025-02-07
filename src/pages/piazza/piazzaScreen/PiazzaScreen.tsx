@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { User } from "firebase/auth";
 import { Link, useLocation } from 'react-router-dom'
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import PiazzaDialogs from 'src/components/PiazzaDialogs'
+import PiazzaDialogs from 'src/pages/piazza/piazzaScreen/piazzaDialogs/PiazzaDialogs'
 
 interface Props {
   userObj: User
@@ -222,7 +222,7 @@ function PiazzaScreen({ userObj, multiple, handleMultiple, messagesList, handleM
                 }
                 
                 return (
-                    <li className={userDirection}>
+                    <li key={index} className={userDirection}>
                       {previousUid !== value.userUid &&
                         <div>
                           <div className={`flex justify-${value.userUid !== userObj.uid ? 'start' : 'end'}`}>

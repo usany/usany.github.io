@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, Suspense, lazy } from 'react'
-import PageTitle from 'src/components/PageTitle'
+import PageTitle from 'src/pages/core/PageTitle'
 import LoadingsSkeletons from 'src/components/LoadingsSkeletons'
 import { useSelector, useDispatch } from 'react-redux'
 import { change } from 'src/stateSlices/cardAccordionSlice'

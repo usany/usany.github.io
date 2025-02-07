@@ -5,7 +5,7 @@ import { useState, useMemo, useEffect } from 'react'
 // import Button from '@mui/material/Button';
 // import TextField from '@mui/material/TextField';
 // import Dialogs from 'src/components/Dialogs';
-import PageTitle from 'src/components/PageTitle';
+import PageTitle from 'src/pages/core/PageTitle';
 import AuthButtons from 'src/components/AuthButtons';
 import AuthForm from 'src/components/AuthForm';
 import SignInDialogs from 'src/components/SignInDialogs';

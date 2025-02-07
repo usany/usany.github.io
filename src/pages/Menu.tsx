@@ -3,7 +3,7 @@ import { auth, onSocialClick, dbservice, storage, messaging } from 'src/baseApi/
 import { collection, query, where, orderBy, addDoc, getDocs, doc, onSnapshot, deleteDoc, updateDoc } from 'firebase/firestore';
 import { getToken } from "firebase/messaging";
 import MessageStacks from 'src/components/MessageStacks'
-import PageTitle from 'src/components/PageTitle'
+import PageTitle from 'src/pages/core/PageTitle'
 import {
     Accordion,
     AccordionContent,

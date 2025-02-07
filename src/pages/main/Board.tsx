@@ -6,7 +6,7 @@ import { useImmer } from 'use-immer'
 import { User } from 'firebase/auth';
 import Cards from 'src/components/Cards';
 import { Chip } from '@mui/material';
-import PageTitle from 'src/components/PageTitle';
+import PageTitle from 'src/pages/core/PageTitle';
 
 interface Props {
     userObj: User | null

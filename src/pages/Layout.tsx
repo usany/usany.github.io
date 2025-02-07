@@ -4,7 +4,7 @@ import Notice from 'src/pages/Board'
 import Auth from 'src/pages/Auth'
 import Add from 'src/pages/Add'
 import { useSelector, useDispatch } from 'react-redux'
-import PageTitle from 'src/components/PageTitle'
+import PageTitle from 'src/pages/core/PageTitle'
 import { Skeleton } from "@/components/ui/skeleton"
 import { Link } from 'react-router-dom'
 import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'

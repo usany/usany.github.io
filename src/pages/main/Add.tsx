@@ -8,7 +8,7 @@ import AddStepThree from 'src/components/AddStepThree'
 import AddStepFour from 'src/components/AddStepFour'
 import AddRegisterButton from 'src/components/AddRegisterButton'
 import AddSnackBar from 'src/components/AddSnackBar'
-import PageTitle from 'src/components/PageTitle'
+import PageTitle from 'src/pages/core/PageTitle'
 import { User } from 'firebase/auth';
 import { useSelector, useDispatch } from 'react-redux'
 import TabsRootState from 'src/interfaces/TabsRootState';

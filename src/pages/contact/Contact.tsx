@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { User } from "firebase/auth";
-import PageTitle from 'src/components/PageTitle';
+import PageTitle from 'src/pages/core/PageTitle';
 import ContactAddress from 'src/components/ContactAddress';
 import ContactForm from 'src/components/ContactForm';
 import { useSelector, useDispatch } from 'react-redux'

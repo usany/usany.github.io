@@ -1,11 +1,11 @@
 import { useState, useEffect, useMemo, useCallback, Suspense, lazy } from 'react'
-import AvatarDialogs from 'src/muiComponents/AvatarDialogs'
-import PageTitle from 'src/muiComponents/PageTitle'
-import ProfileAvatar from 'src/muiComponents/ProfileAvatar'
-import ProfileCards from 'src/muiComponents/ProfileCards'
-import ProfileCompleted from 'src/muiComponents/ProfileCompleted'
-import ProfileMembers from 'src/muiComponents/ProfileMembers'
-import ProfileActions from 'src/muiComponents/ProfileActions'
+import AvatarDialogs from 'src/components/AvatarDialogs'
+import PageTitle from 'src/pages/core/PageTitle'
+import ProfileAvatar from 'src/components/ProfileAvatar'
+import ProfileCards from 'src/components/ProfileCards'
+import ProfileCompleted from 'src/components/ProfileCompleted'
+import ProfileMembers from 'src/components/ProfileMembers'
+import ProfileActions from 'src/components/ProfileActions'
 import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
 // import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnapshot, updateDoc, setDoc } from 'firebase/firestore';
 import { BrowserRouter, Routes, Route, useNavigate, Link, useLocation } from 'react-router-dom'
@@ -123,7 +123,7 @@ function Profile({ userObj }: Props) {
   //   },
   // } satisfies ChartConfig
   // const totalNumber = actions.reduce((acc, curr) => acc + curr.number, 0)
-  // const ProfileAvatar = lazy(() => import("src/muiComponents/ProfileAvatar"))
+  // const ProfileAvatar = lazy(() => import("src/components/ProfileAvatar"))
   let shortenName
   if (userDisplayName.length > 10) {
     shortenName = userDisplayName.slice(0, 10)+'......'
