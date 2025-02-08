@@ -8,7 +8,7 @@ import Avatars from 'src/components/Avatars'
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { MessageCircle, Minimize2, Maximize2, Captions, Bike, Ellipsis, ChevronRight } from "lucide-react"
 import staticImg from 'src/assets/pwa-512x512.png';
-import RankingListsTitle from 'src/components/RankingListsTitle'
+import RankingListsTitle from 'src/pages/search/searchList/searchListViews/searchListViewsTitle/RankingListsTitle'
 
 function Lists({ elements, multiple, userSearch, ranking, handleUser }) {
 

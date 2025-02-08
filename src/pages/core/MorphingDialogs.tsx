@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useMemo, useLayoutEffect, useContext, useReducer, Suspense, lazy } from 'react'
-import Specifics from 'src/components/Specifics';
+import Specifics from 'src/pages/core/specifics/Specifics';
 import {
   MorphingDialog,
   MorphingDialogTrigger,
@@ -11,7 +11,7 @@ import {
   MorphingDialogDescription,
   MorphingDialogContainer,
 } from '@/components/ui/morphing-dialog';
-import CardsViews from './CardsViews';
+import CardsViews from '../../components/card/CardsViews';
 import { User } from 'firebase/auth';
 
 interface Props {

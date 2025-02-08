@@ -14,7 +14,7 @@ import { changeProfileColor } from 'src/stateSlices/profileColorSlice'
 import { changeProfileImage } from 'src/stateSlices/profileImageSlice'
 import Avatars from 'src/components/Avatars'
 
-const AvatarDialogs = ({ userObj, profileDialog, attachment, changeAttachment, handleClose }) => {
+const ProfileDialogs = ({ userObj, profileDialog, attachment, changeAttachment, handleClose }) => {
     const [selectedColor, setSelectedColor] = useState('')
     const [attachmentFile, setAttachmentFile] = useState('null')
     const [onClear, setOnClear] = useState(false)
@@ -158,4 +158,4 @@ const AvatarDialogs = ({ userObj, profileDialog, attachment, changeAttachment, h
     )
 }
 
-export default AvatarDialogs
+export default ProfileDialogs

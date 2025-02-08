@@ -1,4 +1,4 @@
-import AddStepTitle from 'src/components/AddStepTitle'
+import AddStepTitle from 'src/components/add/AddStepTitle'
 import Pickers from 'src/components/Pickers'
 
 interface Props {

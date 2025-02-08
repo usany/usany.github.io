@@ -4,9 +4,9 @@ import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
 import FilterDialogs from 'src/components/FilterDialogs'
 import { useImmer } from 'use-immer'
 import { User } from 'firebase/auth';
-import Cards from 'src/components/Cards';
+import Cards from 'src/components/card/Cards';
 import { Chip } from '@mui/material';
-import PageTitle from 'src/pages/core/PageTitle';
+import PageTitle from 'src/pages/core/pageTitle/PageTitle';
 
 interface Props {
     userObj: User | null

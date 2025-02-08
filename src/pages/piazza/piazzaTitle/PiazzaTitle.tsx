@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import PageTitle from 'src/pages/core/PageTitle'
+import PageTitle from 'src/pages/core/pageTitle/PageTitle'
 import PiazzaSwitch from 'src/pages/piazza/piazzaTitle/piazzaSwitch/PiazzaSwitch'
 
 interface Props {

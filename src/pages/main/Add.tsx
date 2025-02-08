@@ -1,18 +1,18 @@
 import { useState, useEffect, useReducer } from 'react'
 import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
 import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnapshot, deleteDoc, updateDoc, DocumentSnapshot } from 'firebase/firestore';
-import AddSteppers from 'src/components/AddSteppers'
-import AddStepOne from 'src/components/AddStepOne'
-import AddStepTwo from 'src/components/AddStepTwo'
-import AddStepThree from 'src/components/AddStepThree'
-import AddStepFour from 'src/components/AddStepFour'
-import AddRegisterButton from 'src/components/AddRegisterButton'
-import AddSnackBar from 'src/components/AddSnackBar'
-import PageTitle from 'src/pages/core/PageTitle'
+import AddSteppers from 'src/components/add/AddSteppers'
+import AddStepOne from 'src/components/add/AddStepOne'
+import AddStepTwo from 'src/components/add/AddStepTwo'
+import AddStepThree from 'src/components/add/AddStepThree'
+import AddStepFour from 'src/components/add/AddStepFour'
+import AddRegisterButton from 'src/components/add/AddRegisterButton'
+import AddSnackBar from 'src/components/add/AddSnackBar'
+import PageTitle from 'src/pages/core/pageTitle/PageTitle'
 import { User } from 'firebase/auth';
 import { useSelector, useDispatch } from 'react-redux'
 import TabsRootState from 'src/interfaces/TabsRootState';
-import AddCards from 'src/components/AddCards';
+import AddCards from 'src/components/add/AddCards';
 import { useMediaQuery } from '@mui/material';
 
 interface Props {

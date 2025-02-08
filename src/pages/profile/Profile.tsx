@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo, useCallback, Suspense, lazy } from 'react'
-import AvatarDialogs from 'src/components/AvatarDialogs'
-import PageTitle from 'src/pages/core/PageTitle'
-import ProfileAvatar from 'src/pages/profile/ProfileAvatar'
+import ProfileDialogs from 'src/pages/profile/profileAvatar/profileDialogs/ProfileDialogs'
+import PageTitle from 'src/pages/core/pageTitle/PageTitle'
+import ProfileAvatar from 'src/pages/profile/profileAvatar/ProfileAvatar'
 import ProfileCards from 'src/pages/profile/ProfileCards'
 import ProfileCompleted from 'src/pages/profile/ProfileCompleted'
 import ProfileMembers from 'src/pages/profile/ProfileMembers'
@@ -135,7 +135,7 @@ function Profile({ userObj }: Props) {
     <div>
       <PageTitle title={`${userUid === userObj.uid ? '내' : shortenName} 프로필`}/>
       <ProfileAvatar userObj={userObj} user={state?.element || userObj} handleProfileDialog={() => setProfileDialog(true)} />
-      <AvatarDialogs userObj={userObj} profileDialog={profileDialog} attachment={attachment} changeAttachment={(newState: string) => setAttachment(newState)} handleClose={handleClose} />
+      <ProfileDialogs userObj={userObj} profileDialog={profileDialog} attachment={attachment} changeAttachment={(newState: string) => setAttachment(newState)} handleClose={handleClose} />
       {/* <Suspense fallback={<Skeleton />}>
         <ProfileAvatar userObj={userObj} user={state.element} handleProfileDialog={() => setProfileDialog(true)} />
       </Suspense> */}

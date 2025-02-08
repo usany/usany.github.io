@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, Suspense, lazy } from 'react'
-import PageTitle from 'src/pages/core/PageTitle'
+import PageTitle from 'src/pages/core/pageTitle/PageTitle'
 import { Skeleton } from "@/components/ui/skeleton"
 
 interface Props {

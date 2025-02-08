@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, Suspense, lazy } from 'react'
-import PageTitle from 'src/pages/core/PageTitle'
+import PageTitle from 'src/pages/core/pageTitle/PageTitle'
 import { useSelector, useDispatch } from 'react-redux'
 import { change } from 'src/stateSlices/cardAccordionSlice'
 import Skeleton from '@mui/material/Skeleton';

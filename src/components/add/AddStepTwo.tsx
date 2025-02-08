@@ -1,5 +1,5 @@
 import Selects from 'src/components/Selects'
-import AddStepTitle from 'src/components/AddStepTitle'
+import AddStepTitle from 'src/components/add/AddStepTitle'
 
 interface Props {
     locationState: {locationOne: string | null, locationTwo: string | null, locationThree: string | null, locationInput: string | null}

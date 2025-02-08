@@ -18,7 +18,7 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer"
 import { useSelector, useDispatch } from 'react-redux'
-import AuthForm from 'src/components/AuthForm';
+import AuthForm from 'src/components/auth/AuthForm';
 
 function AuthDialogs() {
   const theme = useSelector(state => state.theme)

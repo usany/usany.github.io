@@ -1,5 +1,5 @@
-import AddItemSelects from 'src/components/AddItemSelects'
-import AddStepTitle from 'src/components/AddStepTitle'
+import AddItemSelects from 'src/components/add/AddItemSelects'
+import AddStepTitle from 'src/components/add/AddStepTitle'
 
 
 interface Props {

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { BrowserRouter, Routes, Route, useNavigate, Link, useLocation } from 'react-router-dom'
 import Btn from 'src/pages/Btn';
 import Steppers from 'src/components/Steppers';
-import PageTitle from 'src/pages/core/PageTitle';
+import PageTitle from 'src/pages/core/pageTitle/PageTitle';
 import Button from '@mui/material/Button';
 import { collection, addDoc, getDocs, doc, onSnapshot, query, orderBy } from 'firebase/firestore';
 import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
