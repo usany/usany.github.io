@@ -9,7 +9,7 @@ import PageTitle from 'src/pages/core/pageTitle/PageTitle';
 import AuthButtons from 'src/components/auth/AuthButtons';
 import AuthForm from 'src/components/auth/AuthForm';
 import SignInDialogs from 'src/components/SignInDialogs';
-import Motions from 'src/components/Motions';
+import Motions from 'src/components/auth/Motions';
 import {supabase} from 'src/baseApi/base';
 
 function Auth() {

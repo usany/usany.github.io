@@ -4,7 +4,7 @@ import Divider from '@mui/material/Divider';
 import CommentIcon from '@mui/icons-material/Comment';
 import IconButton from '@mui/material/IconButton';
 import { Link } from 'react-router-dom'
-import Avatars from 'src/components/Avatars'
+import Avatars from 'src/pages/core/Avatars'
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { MessageCircle, Minimize2, Maximize2, Captions, Bike, Ellipsis, ChevronRight } from "lucide-react"
 import staticImg from 'src/assets/pwa-512x512.png';

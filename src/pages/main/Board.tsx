@@ -1,7 +1,7 @@
 import { useState, useEffect, lazy } from 'react'
 import { collection, addDoc, getDocs, doc, onSnapshot, query, orderBy } from 'firebase/firestore';
 import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
-import FilterDialogs from 'src/components/FilterDialogs'
+import FilterDialogs from 'src/pages/main/FilterDialogs'
 import { useImmer } from 'use-immer'
 import { User } from 'firebase/auth';
 import Cards from 'src/components/card/Cards';

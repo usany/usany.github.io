@@ -5,7 +5,7 @@ import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import staticImg from 'src/assets/pwa-512x512.png';
 import { CardHeader, Chip } from '@mui/material';
-import Avatars from 'src/components/Avatars';
+import Avatars from 'src/pages/core/Avatars';
 import { useSelector } from 'react-redux';
 
 const AddCards = ({ borrow, userObj, addSteps, item, fromTo, locationState, display }) => {

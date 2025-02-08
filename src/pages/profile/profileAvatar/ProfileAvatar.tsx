@@ -3,7 +3,7 @@ import Badge from '@mui/material/Badge';
 import Avatar from '@mui/material/Avatar';
 import BeachAccess from '@mui/icons-material/BeachAccess'
 import { useSelector, useDispatch } from 'react-redux'
-import Avatars from 'src/components/Avatars'
+import Avatars from 'src/pages/core/Avatars'
 import LoadingsSkeletons from 'src/components/recycle/recycleLoadingsSkeletons'
 
 const ProfileAvatar = ({ userObj, user, handleProfileDialog }) => {

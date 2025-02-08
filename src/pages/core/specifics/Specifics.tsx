@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { BrowserRouter, Routes, Route, useNavigate, Link, useLocation } from 'react-router-dom'
 import Btn from 'src/pages/Btn';
-import Steppers from 'src/components/Steppers';
+import Steppers from 'src/components/add/Steppers';
 import PageTitle from 'src/pages/core/pageTitle/PageTitle';
 import Button from '@mui/material/Button';
 import { collection, addDoc, getDocs, doc, onSnapshot, query, orderBy } from 'firebase/firestore';
@@ -20,7 +20,7 @@ import Divider from '@mui/material/Divider';
 import { useSelector, useDispatch } from 'react-redux'
 import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
 import { User } from 'firebase/auth';
-import Avatars from 'src/components/Avatars';
+import Avatars from 'src/pages/core/Avatars';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import staticImg from 'src/assets/pwa-512x512.png';
 
