@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
 import { User } from "firebase/auth";
 import PageTitle from 'src/pages/core/pageTitle/PageTitle';
-import ContactAddress from 'src/components/ContactAddress';
-import ContactForm from 'src/components/ContactForm';
+import ContactAddress from 'src/pages/contact/ContactAddress';
+import ContactForm from 'src/pages/contact/ContactForm';
 import { useSelector, useDispatch } from 'react-redux'
 import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
 import { useLocation } from 'react-router-dom'
