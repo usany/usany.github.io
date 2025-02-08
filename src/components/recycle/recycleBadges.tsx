@@ -3,7 +3,7 @@ import BeachAccess from '@mui/icons-material/BeachAccess'
 import Badge from '@mui/material/Badge';
 
 const Badges = () => {
-    const [num, setNum] = useState('')
+    // const [num, setNum] = useState('')
     // useEffect(() => {
     //     setInterval(() => {
     //         setNum(tmpCounter.length), 1000
