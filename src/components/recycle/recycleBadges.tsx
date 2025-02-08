@@ -10,7 +10,7 @@ const Badges = () => {
     //     })
     // })
     return (
-        <Badge badgeContent={num} color="primary">
+        <Badge badgeContent={''} color="primary">
             <BeachAccess/>
         </Badge>
     )
