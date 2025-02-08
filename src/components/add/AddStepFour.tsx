@@ -1,5 +1,5 @@
 import AddStepTitle from 'src/components/add/AddStepTitle'
-import RegisteredCards from 'src/components/recycleRegisteredCards';
+import RegisteredCards from 'src/components/recycle/recycleRegisteredCards';
 
 interface Props {
     display: {id: string} | null

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import FilterDialogs from '../pages/main/FilterDialogs';
+import FilterDialogs from './FilterDialogs';
 
 const meta = {
   component: FilterDialogs,
