@@ -61,10 +61,7 @@ const ChattingStacks = ({ userObj, longPressChat, changeLongPressChat, onLongPre
       const newChattings = {...chattings, [conversation]: replaceObj}
       setChattings(newChattings)
     }
-<<<<<<< HEAD:src/muiComponents/ChattingStacks.tsx
-=======
     const sorted = Object.keys(chattings).sort((elementOne, elementTwo) => {return chattings[elementTwo].messageClockNumber-chattings[elementOne].messageClockNumber})
->>>>>>> main:src/components/chatting/ChattingStacks.tsx
     sorted.map((element) => {
       webSocket.on(`sMessage${element}`, sMessageCallback);
       return () => {
@@ -108,13 +105,8 @@ const ChattingStacks = ({ userObj, longPressChat, changeLongPressChat, onLongPre
   // }, [chattings])
 
   const onDelete = async ({ conversation }) => {
-<<<<<<< HEAD:src/muiComponents/ChattingStacks.tsx
-    // const newSortedMyConversationUid = sorted
-    // newSortedMyConversationUid.splice(sorted.indexOf(conversation), 1)
-=======
     const newSortedMyConversationUid = sorted
     newSortedMyConversationUid.splice(sorted.indexOf(conversation), 1)
->>>>>>> main:src/components/chatting/ChattingStacks.tsx
     // console.log(newSortedMyConversationUid)
     // setSortedMyConversationUid(newSortedMyConversationUid)
     // setNewMessage(true)
