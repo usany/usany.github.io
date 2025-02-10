@@ -8,7 +8,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 // import Piazza from 'src/pages/Piazza'
 // import Chatting from 'src/pages/Chatting'
 // import Chats from 'src/pages/Chats'
-import Loadings from 'src/pages/Loadings'
+import Loadings from 'src/pages/core/loadings/Loadings'
 import Header from 'src/navigate/Header'
 import Navigations from 'src/navigate/Navigations'
 import { User } from 'firebase/auth'
@@ -21,12 +21,12 @@ interface Props {
 }
 
 const Router = ({ userObj }: Props) => {
-    const Home = lazy(() => import("src/pages/Home"))
-    const Profile = lazy(() => import("src/pages/Profile"))
-    const Ranking = lazy(() => import("src/pages/Ranking"))
-    const Specific = lazy(() => import("src/pages/Specific"))
-    const Contact = lazy(() => import("src/pages/Contact"))
-    const Piazza = lazy(() => import("src/pages/Piazza"))
+    const Home = lazy(() => import("src/pages/main/Home"))
+    const Profile = lazy(() => import("src/pages/profile/Profile"))
+    const Ranking = lazy(() => import("src/pages/search/Ranking"))
+    // const Specific = lazy(() => import("src/pages/Specific"))
+    const Contact = lazy(() => import("src/pages/contact/Contact"))
+    const Piazza = lazy(() => import("src/pages/piazza/Piazza"))
     // console.log('sample')
     return (
         <BrowserRouter>

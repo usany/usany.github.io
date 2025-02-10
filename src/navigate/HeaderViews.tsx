@@ -1,9 +1,9 @@
 import { useState, useEffect, useRef, useLayoutEffect, useMemo, Suspense, lazy } from 'react'
 import WeatherView from 'src/navigate/WeatherView'
 import Navigation from 'src/navigate/Navigation'
-import Points from 'src/pages/points'
+import Points from 'src/pages/search/Points'
 import Avatar from '@mui/material/Avatar';
-import ToggleTabs from 'src/muiComponents/ToggleTabs'
+import ToggleTabs from 'src/pages/main/ToggleTabs'
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
 import { doc, getDoc } from 'firebase/firestore';
 import { auth, dbservice } from 'src/baseApi/serverbase'
@@ -23,7 +23,7 @@ import { changeProfileColor } from 'src/stateSlices/profileColorSlice'
 import { changeProfileImage } from 'src/stateSlices/profileImageSlice'
 import { User } from 'firebase/auth';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import Avatars from 'src/muiComponents/Avatars'
+import Avatars from 'src/pages/core/Avatars'
 import staticImage from 'src/assets/blue.png';
 import { useSelectors } from 'src/hooks/useSelectors';
 

@@ -7,7 +7,7 @@ import ChevronLeft from '@mui/icons-material/ChevronLeft'
 import Checklist from '@mui/icons-material/Checklist'
 import ChecklistRtl from '@mui/icons-material/ChecklistRtl'
 import BeachAccess from '@mui/icons-material/BeachAccess'
-import Badges from 'src/muiComponents/Badges'
+// import Badges from 'src/components/Badges'
 import { useSelector, useDispatch } from 'react-redux'
 import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
 import { User } from 'firebase/auth';
@@ -54,13 +54,13 @@ function Navigations({ userObj }: Props) {
                     }}
                 >
                     <BottomNavigationAction label={'등록'} icon={<ChevronLeft />}/>
-                    <BottomNavigationAction label={'내 상태'} icon={<Badges />}/>
+                    <BottomNavigationAction label={'내 상태'} icon={<BeachAccess />}/>
                     <BottomNavigationAction label={'게시판'} icon={<Checklist />}/>
                 </BottomNavigation>
                 :
                 <BottomNavigation
                     sx={{bgcolor: backgroundColor}}    
-                    showLabels
+                    showLabels  
                     value={bottomNavigation}
                     onChange={(event, newValue) => {
                         dispatch(changeBottomNavigation(newValue))
