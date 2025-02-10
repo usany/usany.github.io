@@ -3,7 +3,7 @@ import axios from 'axios'
 import { useQuery } from '@tanstack/react-query'
 import { useGetWeatherQuery } from 'src/stateSlices/weather'
 // import SwipeableDrawer from '@mui/material/SwipeableDrawer';
-// import Snackbars from 'src/muiComponents/Snackbars'
+// import Snackbars from 'src/components/Snackbars'
 
 const getCurrentWeather = () => {
     const APIKEY = 'e9f8a415cef0c0bb87f7da5e167bdaf1'

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { dbservice } from 'src/baseApi/serverbase'
 import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnapshot, deleteDoc, updateDoc } from 'firebase/firestore';
-import Dialogs from 'src/muiComponents/Dialogs';
+import Dialogs from 'src/pages/core/morphingDialogs/Dialogs';
 import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';
 import SendIcon from '@mui/icons-material/Send';
@@ -24,10 +24,10 @@ function Btn({ msgObj, isOwner, uid, displayName, userObj, num, points }) {
     const messagingToken = toUser.data().messagingToken
     if (action === 'delete') {
       deleteDoc(data)
-      const [msgObj, ...newCounter] = counter
-      setCounter([
-        ...newCounter
-      ])
+      // const [msgObj, ...newCounter] = counter
+      // setCounter([
+      //   ...newCounter
+      // ])
     } else if (action === 'confirm return') {
       updateDoc(data, {round: 5});
       const point = doc(dbservice, `members/${msgObj.creatorId}`)
