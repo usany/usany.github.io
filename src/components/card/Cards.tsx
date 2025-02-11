@@ -87,7 +87,7 @@ const Cards = ({
       {longPressed ?
         <div className='flex gap-3 scale-75 w-[200px]'>
           <ClickAwayListener onClickAway={() => {
-              console.log('practice')
+              // console.log('practice')
               if (longPressCard === msgObj.id) {
                 changeOnLongPress(0)
                 changeLongPressCard(null)
