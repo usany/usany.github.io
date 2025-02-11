@@ -77,17 +77,12 @@ const CardsViews = ({
 
   return (
     <div className='relative'>
-      {/* <GlowEffect
-        colors={['#0894FF', '#C959DD', '#FF2E54', '#FF9004']}
-        mode='static'
-        blur='medium'
-      /> */}
       <GlowEffect
         colors={['#0894FF', '#C959DD', '#FF2E54', '#FF9004']}
         mode='rotate'
         blur='strong'
       />
-    <Card
+            <Card
                 sx={{
                     width: 200,
                     height: 280,
