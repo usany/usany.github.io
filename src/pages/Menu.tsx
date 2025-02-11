@@ -16,6 +16,7 @@ import { changeMessageAccordion } from 'src/stateSlices/messageAccordionSlice'
 import { Skeleton } from "@/components/ui/skeleton"
 import { User } from 'firebase/auth';
 import CardsStacks from 'src/components/card/CardsStacks';
+import { GlowEffect } from 'src/src/components/ui/glow-effect';
 // import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 interface Props {
@@ -79,6 +80,8 @@ function Menu({ userObj }: Props) {
     return (
         <div id='sample' className='flex justify-center flex-col pb-5'>
             <PageTitle title={'내 상태'}/>
+            <div>
+      </div>
             <Accordion 
                 value={[accordions.cards, accordions.messages]}
                 defaultValue={accordionValues}

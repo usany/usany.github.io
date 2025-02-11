@@ -26,6 +26,7 @@ import useLongPress from 'src/hooks/useLongPress';
 import Avatars from '../../pages/core/Avatars';
 import { useSelector } from 'react-redux';
 import { User } from 'firebase/auth';
+import { GlowEffect } from 'src/src/components/ui/glow-effect';
 
 interface Props {
   msgObj: {id: string, text: object},
@@ -75,12 +76,23 @@ const CardsViews = ({
   }, [msgObj])
 
   return (
-    <div>
+    <div className='relative'>
+      {/* <GlowEffect
+        colors={['#0894FF', '#C959DD', '#FF2E54', '#FF9004']}
+        mode='static'
+        blur='medium'
+      /> */}
+      <GlowEffect
+        colors={['#0894FF', '#C959DD', '#FF2E54', '#FF9004']}
+        mode='rotate'
+        blur='strong'
+      />
     <Card
                 sx={{
                     width: 200,
                     height: 280,
-                    boxShadow: `1.5px 1.5px 1.5px 1.5px ${shadowColor}`
+                    boxShadow: `1.5px 1.5px 1.5px 1.5px ${shadowColor}`,
+                    position: 'relative'
                 }}
             >
                 <CardContent sx={{padding: '5px'}}>
