@@ -60,7 +60,7 @@ const Header = ({ userObj }: Props) => {
     const messageAccordion = useSelector(state => state.messageAccordion.value)
     const dispatch = useDispatch()
     let prevScrollPos = window.scrollY;
-    console.log(cardAccordion)
+    // console.log(cardAccordion)
     window.addEventListener('scroll', function () {
         // current scroll position
         const currentScrollPos = window.scrollY;
