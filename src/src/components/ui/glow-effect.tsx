@@ -8,19 +8,19 @@ export type GlowEffectProps = {
   colors?: string[];
   mode?:
     | 'rotate'
-    | "'pulse'"
-    | "'breathe'"
+    | 'pulse'
+    | 'breathe'
     | 'colorShift'
-    | "'flowHorizontal'"
+    | 'flowHorizontal'
     | 'static';
   blur?:
     | number
-    | "'softest'"
+    | 'softest'
     | 'soft'
     | 'medium'
     | 'strong'
-    | "'stronger'"
-    | "'strongest'"
+    | 'stronger'
+    | 'strongest'
     | 'none';
   transition?: Transition;
   scale?: number;
