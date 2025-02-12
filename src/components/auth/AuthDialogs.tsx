@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/drawer"
 import { useSelector, useDispatch } from 'react-redux'
 import AuthForm from 'src/components/auth/AuthForm';
+import { Divider } from '@mui/material';
 
 function AuthDialogs() {
   const theme = useSelector(state => state.theme)
@@ -27,7 +28,12 @@ function AuthDialogs() {
     <>
       <Drawer>
         <DrawerTrigger className='flex justify-center w-full'>
-          <Button sx={{width: '100%'}} variant='outlined'>회원가입</Button>
+          {/* <Button sx={{width: '100%'}} variant='outlined'>회원가입</Button> */}
+          <div className='flex justify-center w-full text-xs p-5'>
+            <Divider sx={{width: '25%', padding: '5px'}}/>
+            <div className='px-5'>회원가입</div>
+            <Divider sx={{width: '25%', padding: '5px'}}/>
+          </div>
         </DrawerTrigger>
         <DrawerContent className='bg-light-3 dark:bg-dark-3'>
           <DrawerTitle className='flex justify-center'>
