@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  darkMode: 'class',
+  darkMode: ['class', 'class'],
   content: [
     './pages/**/*.{ts,tsx}',
     './components/**/*.{ts,tsx}',
@@ -52,12 +52,6 @@ module.exports = {
   		'bubble-gum': '#ff77e9',
   		bermuda: '#78dcca'
   	},
-	// width: {
-	// 	'screen/2': '50vw'
-	// },
-  	// height: {
-  	// 	'15': '3.75rem'
-  	// },
   	extend: {
   		padding: {
   			'60px': '60px'
@@ -125,11 +119,21 @@ module.exports = {
   				to: {
   					height: '0'
   				}
+  			},
+  			rippling: {
+  				'0%': {
+  					opacity: '1'
+  				},
+  				'100%': {
+  					transform: 'scale(2)',
+  					opacity: '0'
+  				}
   			}
   		},
   		animation: {
   			'accordion-down': 'accordion-down 0.2s ease-out',
-  			'accordion-up': 'accordion-up 0.2s ease-out'
+  			'accordion-up': 'accordion-up 0.2s ease-out',
+  			rippling: 'rippling var(--duration) ease-out'
   		}
   	}
   },

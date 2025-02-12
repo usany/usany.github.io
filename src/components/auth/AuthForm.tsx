@@ -5,6 +5,7 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import { doc, setDoc } from 'firebase/firestore';
 import { getStorage, ref, uploadBytes, uploadString, uploadBytesResumable, getDownloadURL,  } from "firebase/storage";
+import staticMail from 'src/assets/signMail.svg'
 
 const AuthForm = ({ signIn }) => {
   const [account, setAccount] = useState({email: '', password: ''})
@@ -82,7 +83,7 @@ const AuthForm = ({ signIn }) => {
         <TextField label="비밀번호" value={account.password} onChange={onChange} variant="outlined" name='password' type='password' fullWidth required />
       </div>
       <div className='flex flex-col justify-center p-3'>
-        <Button variant='outlined' form={signIn ? 'auth' : 'signUp'} type='submit'>{signIn ? '로그인' : '회원가입'}</Button>
+        <Button variant='outlined' startIcon={<img src={staticMail} className='w-[20px]'/>} form={signIn ? 'auth' : 'signUp'} type='submit'>{signIn ? '로그인' : '회원가입'}</Button>
         <span>{error}</span>
       </div>
     </form>
