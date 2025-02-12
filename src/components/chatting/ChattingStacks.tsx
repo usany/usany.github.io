@@ -16,7 +16,7 @@ const ChattingStacks = ({ userObj, longPressChat, changeLongPressChat, onLongPre
   // const [newMessage, setNewMessage] = useState(true)
   const [chattings, setChattings] = useState({})
   const sorted = Object.keys(chattings).sort((elementOne, elementTwo) => {return chattings[elementTwo].messageClockNumber-chattings[elementOne].messageClockNumber})
-  console.log(sorted)
+  // console.log(sorted)
   useEffect(() => {
     const bringChattings = async () => {
       const docRef = doc(dbservice, `members/${userObj.uid}`)

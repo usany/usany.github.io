@@ -1,5 +1,5 @@
-import { getAuth, GoogleAuthProvider, OAuthProvider, FacebookAuthProvider, GithubAuthProvider, signInWithPopup, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithRedirect, getRedirectResult  } from "firebase/auth";
-import { getFirestore, collection, addDoc } from "firebase/firestore";
+import { getAuth, GoogleAuthProvider, OAuthProvider,  GithubAuthProvider, signInWithPopup, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithRedirect, getRedirectResult, TwitterAuthProvider, FacebookAuthProvider  } from "firebase/auth";
+import { getFirestore, collection, addDoc, getDoc } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 import { getMessaging } from "firebase/messaging";
 
@@ -33,10 +33,12 @@ const dbservice = getFirestore(app);
 // const storage = getStorage(app, 'gs://remake-36fe0.appspot.com');
 const storage = getStorage(app);
 const messaging = getMessaging(app);
-const providerMicrosoft = new OAuthProvider('microsoft.com');
+// const providerMicrosoft = new OAuthProvider('microsoft.com');
 // providerMicrosoft.setCustomParameters({
 //     prompt: "consent",
 //     tenant: "723e1730-9623-4a7c-a8ee-b616ecd5e89f",
+//     login_hint: 'user@firstadd.onmicrosoft.com',
+//     redirect_uri: 'https://remake-36fe0.firebaseapp.com/__/auth/handler'
 // })
 
 const onSocialClick = async (event) => {
@@ -84,11 +86,95 @@ const onSocialClick = async (event) => {
 }
 
 const onSocialClickMicrosoft = () => {
-    signInWithPopup(auth, providerMicrosoft).then((result) => {
+    const providerMicrosoft = new OAuthProvider('microsoft.com');
+    signInWithPopup(auth, providerMicrosoft).then(async (result) => {
+        const uid = result.user.uid
+        console.log(result.user)
+        const credential = OAuthProvider.credentialFromResult(result);
+        const accessToken = credential.accessToken;
+        const idToken = credential.idToken;
+        const docRef = doc(dbservice, `members/${uid}`)
+        const docSnap = await getDoc(docRef)
+        const userData = docSnap.data()
+        if (!userData) {
+            await setDoc(doc(dbservice, 'members', `${uid}`), {
+                uid: result.user.uid,
+                displayName: result.user.displayName,
+                points: 0,
+                profileColor: '#2196f3',
+                profileImage: null,
+                profileImageUrl: null,
+                followerNum: 0,
+                followingNum: 0,
+                followers: [],
+                followings: [],
+                messagingToken: null,
+            })
+        }
+        console.log(accessToken)
+        console.log(idToken)
+    }).catch((error) => {
+        console.log(error)
+    })
+}
+const onSocialClickTwitter = () => {
+    const providerTwitter = new TwitterAuthProvider()
+    signInWithPopup(auth, providerTwitter).then(async (result) => {
+        console.log(result)
+        const credential = TwitterAuthProvider.credentialFromResult(result);
+        const accessToken = credential.accessToken;
+        const idToken = credential.idToken;
+        // const docRef = doc(dbservice, `members/${uid}`)
+        // const docSnap = await getDoc(docRef)
+        // const userData = docSnap.data()
+        // if (!userData) {
+        //     await setDoc(doc(dbservice, 'members', `${uid}`), {
+        //         uid: result.user.uid,
+        //         displayName: result.user.displayName,
+        //         points: 0,
+        //         profileColor: '#2196f3',
+        //         profileImage: null,
+        //         profileImageUrl: null,
+        //         followerNum: 0,
+        //         followingNum: 0,
+        //         followers: [],
+        //         followings: [],
+        //         messagingToken: null,
+        //     })
+        // }
+        console.log(accessToken)
+        console.log(idToken)
+    }).catch((error) => {
+        console.log(error)
+    })
+}
+
+const onSocialClickFacebook = () => {
+    const providerFacebook = new FacebookAuthProvider()
+    signInWithPopup(auth, providerFacebook).then(async (result) => {
+        // const uid = result.user.uid
         console.log(result)
         const credential = OAuthProvider.credentialFromResult(result);
         const accessToken = credential.accessToken;
         const idToken = credential.idToken;
+        // const docRef = doc(dbservice, `members/${uid}`)
+        // const docSnap = await getDoc(docRef)
+        // const userData = docSnap.data()
+        // if (!userData) {
+        //     await setDoc(doc(dbservice, 'members', `${uid}`), {
+        //         uid: result.user.uid,
+        //         displayName: result.user.displayName,
+        //         points: 0,
+        //         profileColor: '#2196f3',
+        //         profileImage: null,
+        //         profileImageUrl: null,
+        //         followerNum: 0,
+        //         followingNum: 0,
+        //         followers: [],
+        //         followings: [],
+        //         messagingToken: null,
+        //     })
+        // }
         console.log(accessToken)
         console.log(idToken)
     }).catch((error) => {
@@ -104,4 +190,4 @@ const onSocialClickMicrosoft = () => {
 // })
 
 
-export {auth, onSocialClick, onSocialClickMicrosoft, dbservice, storage, messaging}
+export {auth, onSocialClick, onSocialClickMicrosoft, onSocialClickTwitter, onSocialClickFacebook, dbservice, storage, messaging}
