@@ -9,7 +9,7 @@ import { OAuthProvider, signInWithPopup } from 'firebase/auth';
 
 const AuthButtons = () => {
   return (
-    <div className='flex flex-col w-screen items-center justify-center px-20 pt-5'>
+    <div className='flex flex-col w-screen items-center justify-center px-20'>
         {/* <AuthDialogs /> */}
         <Button sx={{width: '50%'}} startIcon={<img src={staticMicrosoft} className='w-[20px]'/>} variant='outlined' onClick={onSocialClickMicrosoft}>
           <div className='truncate'>
@@ -27,9 +27,9 @@ const AuthButtons = () => {
             페이스북으로 로그인
           </div>
         </Button>
+        <Button sx={{width: '50%'}} variant='outlined' name='h' onClick={onSocialClick}>애플로 로그인</Button>
         {/* <Button sx={{width: '50%'}} startIcon={<img src={staticMicrosoft} className='w-[20px]'/>} variant='outlined' name='g' onClick={onSocialClick}>구글로 로그인</Button> */}
         {/* <Button sx={{width: '50%'}} variant='outlined' name='g' onClick={onSocialClick}>구글로 로그인</Button> */}
-        <Button sx={{width: '50%'}} variant='outlined' name='h' onClick={onSocialClick}>애플로 로그인</Button>
         {/* <Button sx={{width: '50%'}} variant='outlined' onClick={onSocialClickFacebook}>페이스북으로 로그인</Button> */}
       {/* <AuthDialogs /> */}
     </div>
