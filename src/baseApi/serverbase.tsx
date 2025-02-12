@@ -11,12 +11,12 @@ import { doc, setDoc } from 'firebase/firestore';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyAtraq33KBmaj0rkDAfOdXmEQtVnamrQtc",
-  authDomain: "remake-36fe0.firebaseapp.com",
-  projectId: "remake-36fe0",
-  storageBucket: "remake-36fe0.appspot.com",
-  messagingSenderId: "206737336631",
-  appId: "1:206737336631:web:55648c3ea182e23c3052b2"
+  apiKey: 'AIzaSyAtraq33KBmaj0rkDAfOdXmEQtVnamrQtc',
+  authDomain: import.meta.env.VITE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_APP_ID,
 };
 // const firebaseConfig = {
 //     apiKey: "AIzaSyD-0xUYIBvDoz5trhrLRCDZZE0kON3qUSc",
