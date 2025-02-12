@@ -63,7 +63,7 @@ function BoardMap() {
             loader
             .importLibrary('maps')
             .then(({Map, InfoWindow}) => {
-                const map = new Map(document.getElementById("map"), {
+                const map = new Map(document.getElementById('map'), {
                     center: { lat: 34.84555, lng: -111.8035 },
                     zoom: 10,
                     mapId: '77db85c9c2270baa'
@@ -76,7 +76,10 @@ function BoardMap() {
                     tourStops.forEach(({ position, title }, i) => {
                         const pin = new PinElement({
                           glyph: `${i + 1}`,
-                          scale: 1.5,
+                          scale: 1,
+                          background: '#FBBC04',
+                          borderColor: '#137333',
+                          glyphColor: '#ffffff'
                         });
                         const marker = new AdvancedMarkerElement({
                           position,
@@ -85,7 +88,7 @@ function BoardMap() {
                           content: pin.element,
                           gmpClickable: true,
                         });
-                        marker.addListener("click", () => {
+                        marker.addListener('click', () => {
                             infoWindow.close();
                             infoWindow.setContent(marker.title);
                             infoWindow.open(marker.map, marker);
