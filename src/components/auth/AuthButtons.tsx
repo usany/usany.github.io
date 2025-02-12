@@ -9,7 +9,7 @@ import { OAuthProvider, signInWithPopup } from 'firebase/auth';
 
 const AuthButtons = () => {
   return (
-    <div className='flex flex-col w-screen items-center justify-center px-20'>
+    <div className='flex flex-col w-screen items-center justify-center px-20 pt-5'>
         {/* <AuthDialogs /> */}
         <Button sx={{width: '50%'}} startIcon={<img src={staticMicrosoft} className='w-[20px]'/>} variant='outlined' onClick={onSocialClickMicrosoft}>
           <div className='truncate'>
