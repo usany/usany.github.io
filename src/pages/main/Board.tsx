@@ -7,6 +7,13 @@ import { User } from 'firebase/auth';
 import Cards from 'src/components/card/Cards';
 import { Chip } from '@mui/material';
 import PageTitle from 'src/pages/core/pageTitle/PageTitle';
+import {
+    Accordion,
+    AccordionContent,
+    AccordionItem,
+    AccordionTrigger,
+} from "@/components/ui/accordion"
+import BoardMap from './BoardMap';
 
 interface Props {
     userObj: User | null
@@ -23,21 +30,22 @@ interface Message {
     item: string
 }
 function Notice({ userObj, borrow }: Props) {
-  const [messages, setMessages] = useState<Array<object>>([]);
-  const [selectedValues, setSelectedValues] = useImmer([
-    {
-        id: 'selectedValueOne',
-        value: '전체'
-    },
-    {
-        id: 'selectedValueTwo',
-        value: '전체'
-    },
-    {
-        id: 'selectedValueThree',
-        value: '최신순'
-    },
+    const [messages, setMessages] = useState<Array<object>>([]);
+    const [selectedValues, setSelectedValues] = useImmer([
+        {
+            id: 'selectedValueOne',
+            value: '전체'
+        },
+        {
+            id: 'selectedValueTwo',
+            value: '전체'
+        },
+        {
+            id: 'selectedValueThree',
+            value: '최신순'
+        },
     ])
+    const [mapAccordion, setMapAccordion] = useState('map')
     const handleSelectedValues = ({id, newValue}: {
         id: string
         newValue: string
@@ -81,6 +89,7 @@ function Notice({ userObj, borrow }: Props) {
     }
   }, [selectedValues[2].value])
 
+
   return (  
     <div>
         <div className='flex justify-between text-2xl'>
@@ -94,6 +103,7 @@ function Notice({ userObj, borrow }: Props) {
                 />
             </div>
         </div>
+        <BoardMap />
         <div>
         <div className='flex flex-wrap justify-between p-3 gap-1'>
             {messages.map((msg) => {

@@ -22,7 +22,7 @@ interface Props {
     userObj: User
 }
 function Menu({ userObj }: Props) {
-    const [accordions, setAccordions] = useState({cards: '', messages: '' })
+    const [accordions, setAccordions] = useState({cards: 'item-1', messages: 'item-2' })
     const cardAccordion = useSelector(state => state.cardAccordion.value)
     const messageAccordion = useSelector(state => state.messageAccordion.value)
     const dispatch = useDispatch()
@@ -81,8 +81,8 @@ function Menu({ userObj }: Props) {
             <PageTitle title={'내 상태'}/>
             <Accordion 
                 value={[accordions.cards, accordions.messages]}
-                defaultValue={accordionValues}
-                type="multiple" className="w-full px-3"
+                // defaultValue={accordionValues}
+                type="multiple" className="px-3"
             >
                 <AccordionItem value="item-1">
                 <AccordionTrigger onClick={() => dispatch(change())}>카드</AccordionTrigger>
