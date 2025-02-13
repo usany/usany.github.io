@@ -1,29 +1,27 @@
 import "./SwipeableViews.css";
 import React, { useCallback, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from 'react-redux'
+import TabsRootState from "src/interfaces/TabsRootState";
+import { changeTabs } from 'src/stateSlices/tabsSlice'
 
 export function SwipeableViews({
   className = "",
-  index,
-  onIndexChange,
   onScroll,
-  num,
   ...rootProps
 }: {
-  index: number;
-  num: number;
-  onIndexChange: (page: number) => void;
 } & React.HTMLProps<HTMLDivElement>) {
   const containerRef = useRef<HTMLDivElement>(null);
   const scrollTimeout = useRef<number>();
   const lastChildrenCount = useRef(0);
+  const tabs = useSelector((state: TabsRootState) => state.tabs.value)
+  const dispatch = useDispatch()
 
   // on every rerender
   useEffect(() => {
     if (!containerRef.current) return;
 
     // set aria-hidden and inert on all children that aren't current page
-    const currentChild = containerRef.current.children[index];
+    const currentChild = containerRef.current.children[tabs];
     for (const child of Array.from(containerRef.current.children)) {
       if (!(child instanceof HTMLElement)) continue;
       child.ariaHidden = child !== currentChild ? "true" : null;
@@ -38,14 +36,14 @@ export function SwipeableViews({
       // scroll container to the current page instantly
       console.log(
         "instant scroll to page",
-        index,
-        containerRef.current?.children[index]
+        tabs,
+        containerRef.current?.children[tabs]
       );
       const pageWidth =
         containerRef.current.scrollWidth / containerRef.current.children.length;
       containerRef.current?.scrollTo({
         behavior: "instant",
-        left: index * pageWidth,
+        left: tabs * pageWidth,
         top: 0,
       });
     }
@@ -58,17 +56,17 @@ export function SwipeableViews({
     // scroll container to the current page smoothly
     console.log(
       "smooth scroll to page",
-      index,
-      containerRef.current.children[index]
+      tabs,
+      containerRef.current.children[tabs]
     );
     const pageWidth =
       containerRef.current.scrollWidth / containerRef.current.children.length;
     containerRef.current.scrollTo({
       behavior: "smooth",
-      left: index * pageWidth,
+      left: tabs * pageWidth,
       top: 0,
     });
-  }, [index]);
+  }, [tabs]);
 
   // on user scroll
   const handleScroll = useCallback(
@@ -80,23 +78,8 @@ export function SwipeableViews({
         // update current page index
         const pageWidth =
           currentTarget.scrollWidth / currentTarget.children.length;
-        let currentPage
-        if (num === 1) {
-          currentPage = Math.round(currentTarget.scrollLeft / pageWidth);
-          // if (currentPage === 1) {
-          //   currentPage = currentPage+3
-          // }
-        } else {
-          currentPage = Math.round(currentTarget.scrollLeft / pageWidth);
-          currentPage = currentPage+3
-          // if (currentPage === 1) {
-          // }
-          // if (currentPage === 0) {
-          //   currentPage = currentPage+3
-          // }
-        }
-        console.log(currentPage)
-        console.log(onIndexChange(currentPage))
+        const currentPage = Math.round(currentTarget.scrollLeft / pageWidth);
+        dispatch(changeTabs(currentPage))
       }, 100);
     },
   );

@@ -1,9 +1,9 @@
-import Switches from 'src/muiComponents/Switches';
+import Switches from 'src/navigate/Switches';
 import { useSelector, useDispatch } from 'react-redux'
 import { changeLight, changeDark } from 'src/stateSlices/themeSlice'
 
 const Modes = () => {
-    const theme = useSelector(state => state.theme.value)
+    const theme = useSelector(state => state.theme)
     const dispatch = useDispatch()
 
     return (

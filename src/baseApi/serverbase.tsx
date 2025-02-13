@@ -1,4 +1,4 @@
-import { getAuth, GoogleAuthProvider, GithubAuthProvider, signInWithPopup, createUserWithEmailAndPassword, signInWithEmailAndPassword  } from "firebase/auth";
+import { getAuth, GoogleAuthProvider, OAuthProvider, FacebookAuthProvider, GithubAuthProvider, signInWithPopup, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithRedirect, getRedirectResult  } from "firebase/auth";
 import { getFirestore, collection, addDoc } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 import { getMessaging } from "firebase/messaging";
@@ -8,7 +8,7 @@ import { initializeApp } from "firebase/app";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 import { doc, setDoc } from 'firebase/firestore';
-
+import * as firebaseui from 'firebaseui';
 // Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyAtraq33KBmaj0rkDAfOdXmEQtVnamrQtc",
@@ -33,7 +33,12 @@ const dbservice = getFirestore(app);
 // const storage = getStorage(app, 'gs://remake-36fe0.appspot.com');
 const storage = getStorage(app);
 const messaging = getMessaging(app);
-
+const providerMicrosoft = new OAuthProvider('microsoft.com');
+// providerMicrosoft.setCustomParameters({
+//     prompt: "consent",
+//     tenant: "723e1730-9623-4a7c-a8ee-b616ecd5e89f",
+// })
+const ui = new firebaseui.auth.AuthUI(auth)
 const onSocialClick = async (event) => {
     const {
         target: {name},
@@ -78,4 +83,25 @@ const onSocialClick = async (event) => {
     });
 }
 
-export {auth, onSocialClick, dbservice, storage, messaging}
+const onSocialClickMicrosoft = () => {
+    signInWithPopup(auth, providerMicrosoft).then((result) => {
+        console.log(result)
+        const credential = OAuthProvider.credentialFromResult(result);
+        const accessToken = credential.accessToken;
+        const idToken = credential.idToken;
+        console.log(accessToken)
+        console.log(idToken)
+    }).catch((error) => {
+        console.log(error)
+    })
+}
+// signInWithPopup(auth, providerMicrosoft).then(() => {
+//     const credential = OAuthProvider.credentialFromResult(result);
+//     const accessToken = credential.accessToken;
+//     const idToken = credential.idToken;
+// }).catch((error) => {
+//     console.log(error)
+// })
+
+
+export {auth, ui, onSocialClick, onSocialClickMicrosoft, dbservice, storage, messaging}

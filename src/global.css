@@ -5,8 +5,19 @@
 	font-family: 'maruburi';
 	src: url('src/assets/fonts/OTF/MaruBuri-Bold.otf') format('opentype')
 }
-.SwipeableViews {
+/* .SwipeableViews {
   scrollbar-width: none;
+} */
+
+@keyframes shaking {
+	0% { transform: rotate(0deg); }
+	25% { transform: rotate(1deg); }
+	50% { transform: rotate(0eg); }
+	75% { transform: rotate(-1deg); }
+	100% { transform: rotate(0deg); }
+}
+.longPress {
+	animation: shaking 1s infinite;
 }
 
 body {
@@ -46,9 +57,9 @@ body {
 .ranking-3 {
   background-color: #7e8b57;
 }
-.pagings {
+/* .pagings {
   padding-top: 60px;
-}
+} */
 /* .navigationChecked {
   background: rgba(0, 0, 0, 0.7);
   font-size: 25px;
@@ -56,7 +67,7 @@ body {
   text-align: center;
   display: block;
 } */
-.pull-to-refresh {
+/* .pull-to-refresh {
   position: fixed;
   top: -50px;
   width: 100%;
@@ -68,7 +79,7 @@ body {
 }
 .pull-to-refresh.visible {
   top: 0;
-}
+} */
 @layer base {
   :root {
 		--background: 0 0% 100%;
@@ -139,7 +150,7 @@ body {
 		--radius: 0.5rem
 	}
 }
-.episodes {
+/* .episodes {
 	display: flex;
 	flex-direction: column;
   }
@@ -153,4 +164,4 @@ body {
 	background: #191414;
 	color: #fff;
 	cursor: pointer;
-  }
+  } */

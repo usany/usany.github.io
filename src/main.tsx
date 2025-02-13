@@ -3,6 +3,10 @@ import ReactDOM from 'react-dom/client'
 import App from 'src/App.tsx'
 import { store } from 'src/store'
 import { Provider } from 'react-redux'
+import { useState, useEffect, useRef, Suspense, lazy } from 'react'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import Lotties from 'src/lottiesAnimation/Lotties'
+import {APIProvider} from '@vis.gl/react-google-maps';
 
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('/firebase-messaging-sw.js')
@@ -14,10 +18,24 @@ if ('serviceWorker' in navigator) {
       });
 }
 
+const apiKey = 'AIzaSyCptsTxJTIB6BidwKt92tUcZ5BRUiJ5AzU'
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <Provider store={store}>
-    <App />
-    </Provider>
+    <APIProvider apiKey={apiKey} onLoad={() => console.log('Maps API has loaded.')}>
+      <Provider store={store}>
+        <QueryClientProvider client={new QueryClient({
+          defaultOptions: {
+            queries: {
+              suspense: true,
+              // notifyOnChangeProps: 'all',
+            },
+          },                      
+        })}>
+          <Suspense fallback={<Lotties />}>
+          <App />
+          </Suspense>
+        </QueryClientProvider>
+      </Provider>
+    </APIProvider>
   </React.StrictMode>,
 )

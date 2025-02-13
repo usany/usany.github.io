@@ -4,7 +4,7 @@ import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnap
 import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
 import { Link, useLocation } from 'react-router-dom'
 import { webSocket, onClick } from 'src/webSocket.tsx'
-import ChattingDialogs from 'src/muiComponents/ChattingDialogs'
+import ChattingDialogs from 'src/components/chatting/ChattingDialogs'
 import { User } from "firebase/auth";
 import { useSelector, useDispatch } from 'react-redux'
 import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
