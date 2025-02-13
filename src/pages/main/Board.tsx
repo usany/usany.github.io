@@ -66,7 +66,7 @@ function Notice({ userObj, borrow }: Props) {
     },
   ]);
   const [mapAccordion, setMapAccordion] = useState(false);
-  const [location, setLocation] = useState("");
+  const [choose, setChoose] = useState(false);
   const handleSelectedValues = ({
     id,
     newValue,
@@ -245,29 +245,54 @@ function Notice({ userObj, borrow }: Props) {
                 <Marker
                   onClick={() => {
                     onClickMarker("중도");
-                    setLocation("cl");
                   }}
                   position={{ lat: 59.9156636, lng: 10.7507967 }}
                 />
-                {location === "cl" && (
+                <Marker
+                  onClick={() => {
+                    onClickMarker("청운");
+                  }}
+                  position={{ lat: 59.9166636, lng: 10.7517967 }}
+                />
+                {selectedValues[1].value === "중도" && (
                   <InfoWindow
                     position={{ lat: 59.9156636, lng: 10.7507967 }}
                     onClose={() => {
                       onClickMarker("전체");
-                      setLocation("");
+                      if (choose) {
+                        onClickMarkerItem("전체");
+                        setChoose(false);
+                      }
                     }}
                   >
-                    <div onClick={() => onClickMarkerItem("우산")}>우산: </div>
-                    <div onClick={() => onClickMarkerItem("양산")}>양산: </div>
+                    <div
+                      onClick={() => {
+                        setChoose(true);
+                        onClickMarkerItem("우산");
+                      }}
+                    >
+                      우산:
+                    </div>
+                    <div
+                      onClick={() => {
+                        setChoose(true);
+                        onClickMarkerItem("양산");
+                      }}
+                    >
+                      양산:
+                    </div>
                     The content of the info window is here
                   </InfoWindow>
                 )}
-                {location === "cw" && (
+                {selectedValues[1].value === "청운" && (
                   <InfoWindow
                     position={{ lat: 59.9166636, lng: 10.7517967 }}
                     onClose={() => {
                       onClickMarker("전체");
-                      setLocation("");
+                      if (choose) {
+                        onClickMarkerItem("전체");
+                        setChoose(false);
+                      }
                     }}
                   >
                     <div onClick={() => onClickMarkerItem("우산")}>우산: </div>
@@ -278,7 +303,6 @@ function Notice({ userObj, borrow }: Props) {
                 <Marker
                   onClick={() => {
                     onClickMarker("청운");
-                    setLocation("cw");
                   }}
                   position={{ lat: 59.9166636, lng: 10.7517967 }}
                 />
