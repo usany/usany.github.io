@@ -8,7 +8,7 @@ import { initializeApp } from "firebase/app";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 import { doc, setDoc } from 'firebase/firestore';
-
+import * as firebaseui from 'firebaseui';
 // Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyAtraq33KBmaj0rkDAfOdXmEQtVnamrQtc",
@@ -38,7 +38,7 @@ const providerMicrosoft = new OAuthProvider('microsoft.com');
 //     prompt: "consent",
 //     tenant: "723e1730-9623-4a7c-a8ee-b616ecd5e89f",
 // })
-
+const ui = new firebaseui.auth.AuthUI(auth)
 const onSocialClick = async (event) => {
     const {
         target: {name},
@@ -104,4 +104,4 @@ const onSocialClickMicrosoft = () => {
 // })
 
 
-export {auth, onSocialClick, onSocialClickMicrosoft, dbservice, storage, messaging}
+export {auth, ui, onSocialClick, onSocialClickMicrosoft, dbservice, storage, messaging}
