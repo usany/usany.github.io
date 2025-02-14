@@ -48,6 +48,9 @@ function BoardMap() {
         },
     ])
     const [mapAccordion, setMapAccordion] = useState(false)
+    const [onMarker, setOnMarker] = useState(false);
+    const [choose, setChoose] = useState(false);
+  
     const handleSelectedValues = ({id, newValue}: {
         id: string
         newValue: string
@@ -174,33 +177,173 @@ function BoardMap() {
     }
   }, [selectedValues[2].value])
   
+  const onClickMarker = (newValue) => {
+    handleSelectedValues({ id: "selectedValueTwo", newValue: newValue });
+  };
+  const onClickMarkerItem = (newValue) => {
+    handleSelectedValues({ id: "selectedValueOne", newValue: newValue });
+  };
   return (  
     <div>
         <Accordion
-            // value={mapAccordion}
-            // defaultValue='등록 지도'
-            type='single'
-            collapsible
-            className='px-3'
-        >
-            <AccordionItem value='item-1'>
-                <AccordionTrigger 
-                    onClick={() => setMapAccordion(!mapAccordion)}
-                >등록 지도</AccordionTrigger>
-                <AccordionContent>
-                    <div className='w-full h-[300px]'>
-                        <Map
-                            defaultCenter={{lat: 53.54992, lng: 10.00678}}
-                            defaultZoom={13}
-                            gestureHandling={'greedy'}
-                            disableDefaultUI={true}
-                        >
-                            <Marker onClick={() => console.log('practice')} position={{lat: 53.54992, lng: 10.00678}} />
-                        </Map>
+        // value={mapAccordion}
+        // defaultValue='등록 지도'
+        type="single"
+        collapsible
+        className="px-3"
+      >
+        <AccordionItem value="item-1">
+          <AccordionTrigger onClick={() => setMapAccordion(!mapAccordion)}>
+            등록 지도
+          </AccordionTrigger>
+          <AccordionContent>
+            <div className="flex">
+              <div className="p-5">
+                59.9156636,10.7507967 표시된 곳을 선택하면 해당하는 내용만
+                확인할 수 있어요
+              </div>
+              {onMarker && (
+                <FilterDialogs
+                  selectedValues={selectedValues}
+                  handleSelectedValues={handleSelectedValues}
+                  onMarker={onMarker}
+                />
+              )}
+            </div>
+            <div className="w-full h-[300px]">
+              <Map
+                defaultCenter={{ lat: 59.9156636, lng: 10.7507967 }}
+                defaultZoom={18}
+                gestureHandling={"greedy"}
+                disableDefaultUI={true}
+              >
+                <Marker
+                  onClick={() => {
+                    onClickMarker("중도");
+                    setOnMarker(true);
+                  }}
+                  position={{ lat: 59.9156636, lng: 10.7507967 }}
+                />
+                <Marker
+                  onClick={() => {
+                    onClickMarker("청운");
+                    setOnMarker(true);
+                  }}
+                  position={{ lat: 59.9166636, lng: 10.7517967 }}
+                />
+                {selectedValues[1].value === "중도" && (
+                  <InfoWindow
+                    position={{ lat: 59.9156636, lng: 10.7507967 }}
+                    onClose={() => {
+                      onClickMarker("전체 장소");
+                      if (choose) {
+                        onClickMarkerItem("전체 아이템");
+                        setChoose(false);
+                      }
+                      setOnMarker(false);
+                    }}
+                  >
+                    {/* <button
+                      onClick={() => {
+                        setChoose(true);
+                        onClickMarkerItem("우산");
+                      }}
+                    >
+                      우산:
+                    </button> */}
+                    <div className="flex flex-col">
+                      <div className="flex">
+                        <div className="pt-1">
+                          <Chip
+                            label={`우산`}
+                            onClick={() => {
+                              setChoose(true);
+                              onClickMarkerItem("우산");
+                            }}
+                          />
+                        </div>
+                        <div className="pt-3">: {messages.length} 요청</div>
+                      </div>
+                      <div className="flex">
+                        <div className="pt-1">
+                          <Chip
+                            label={`우산`}
+                            onClick={() => {
+                              setChoose(true);
+                              onClickMarkerItem("우산");
+                            }}
+                          />
+                        </div>
+                        <div className="pt-3">: {messages.length} 요청</div>
+                      </div>
                     </div>
-                </AccordionContent>
-            </AccordionItem>
-        </Accordion>
+                    <div
+                      onClick={() => {
+                        setChoose(true);
+                        onClickMarkerItem("양산");
+                      }}
+                    >
+                      양산:
+                    </div>
+                    The content of the info window is here
+                  </InfoWindow>
+                )}
+                {selectedValues[1].value === "청운" && (
+                  <InfoWindow
+                    position={{ lat: 59.9166636, lng: 10.7517967 }}
+                    onClose={() => {
+                      onClickMarker("전체 장소");
+                      if (choose) {
+                        onClickMarkerItem("전체 아이템");
+                        setChoose(false);
+                      }
+                      setOnMarker(false);
+                    }}
+                  >
+                    <div className="flex flex-col">
+                      <div className="flex">
+                        <div className="pt-1">
+                          <Chip
+                            label={`우산`}
+                            onClick={() => {
+                              setChoose(true);
+                              onClickMarkerItem("우산");
+                            }}
+                          />
+                        </div>
+                        <div className="pt-3">: {messages.length} 요청</div>
+                      </div>
+                      <div className="flex">
+                        <div className="pt-1">
+                          <Chip
+                            label={`우산`}
+                            onClick={() => {
+                              setChoose(true);
+                              onClickMarkerItem("우산");
+                            }}
+                          />
+                        </div>
+                        <div className="pt-3">: {messages.length} 요청</div>
+                      </div>
+                    </div>
+                    <div onClick={() => onClickMarkerItem("우산")}>우산: </div>
+                    <div onClick={() => onClickMarkerItem("양산")}>양산: </div>
+                    The content of the info window is here
+                  </InfoWindow>
+                )}
+                {/* <Marker
+                  onClick={() => {
+                    onClickMarker("청운");
+                  }}
+                  position={{ lat: 59.9166636, lng: 10.7517967 }}
+                /> */}
+              </Map>
+            </div>
+            {/* <div id="map" className='h-[500px]'>samples</div>
+                    <div id='el' onClick={() => console.log('practice')}>sample</div> */}
+          </AccordionContent>
+        </AccordionItem>
+      </Accordion>
     </div>
   )
 }
