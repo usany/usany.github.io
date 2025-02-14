@@ -33,18 +33,50 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Filter } from "lucide-react";
+import { Chip } from "@mui/material";
 
-function FilterDialogs({ selectedValues, handleSelectedValues }) {
+function FilterDialogs({ selectedValues, handleSelectedValues, onMarker }) {
+  const [selected, setSelected] = useState(null);
+  const onClick = ({ id }) => {
+    setSelected(id);
+  };
+  console.log(selected === "selectedValueOne");
   return (
     <div>
       <Drawer>
         <DrawerTrigger>
-          <Filter />
+          <div className="flex gap-1">
+            {selectedValues[0].value && (
+              <Chip
+                label={selectedValues[0].value}
+                onClick={() => {
+                  onClick({ id: selectedValues[0].id });
+                }}
+              />
+            )}
+            {selectedValues[1].value && (
+              <Chip
+                label={selectedValues[1].value}
+                onClick={() => {
+                  onClick({ id: selectedValues[1].id });
+                }}
+              />
+            )}
+            {selectedValues[2].value && (
+              <Chip
+                label={selectedValues[2].value}
+                onClick={() => {
+                  onClick({ id: selectedValues[2].id });
+                }}
+              />
+            )}
+          </div>
+          {/* <Filter /> */}
         </DrawerTrigger>
         <DrawerContent className="flex flex-col justify-center px-5 bg-light-2 dark:bg-dark-2">
           <div className="flex justify-center">우산 / 양산 선택</div>
           <Select
-            defaultValue={selectedValues[0].value || "전체"}
+            defaultValue={selectedValues[0].value || "전체 아이템"}
             onValueChange={(newValue) =>
               handleSelectedValues({
                 id: "selectedValueOne",
@@ -52,12 +84,15 @@ function FilterDialogs({ selectedValues, handleSelectedValues }) {
               })
             }
           >
-            <SelectTrigger className="bg-light-1 dark:bg-dark-1">
+            <SelectTrigger
+              className="bg-light-1 dark:bg-dark-1"
+              autoFocus={selected === selectedValues[0].id}
+            >
               <SelectValue />
             </SelectTrigger>
             <SelectContent className="bg-light-1 dark:bg-dark-1">
               <SelectGroup>
-                <SelectItem value="전체">전체</SelectItem>
+                <SelectItem value="전체 아이템">전체 아이템</SelectItem>
                 <SelectItem value="우산">우산</SelectItem>
                 <SelectItem value="양산">양산</SelectItem>
               </SelectGroup>
@@ -65,7 +100,7 @@ function FilterDialogs({ selectedValues, handleSelectedValues }) {
           </Select>
           <div className="flex justify-center">장소 선택</div>
           <Select
-            defaultValue={selectedValues[1].value || "전체"}
+            defaultValue={selectedValues[1].value || "전체 장소"}
             onValueChange={(newValue) =>
               handleSelectedValues({
                 id: "selectedValueTwo",
@@ -73,12 +108,15 @@ function FilterDialogs({ selectedValues, handleSelectedValues }) {
               })
             }
           >
-            <SelectTrigger className="bg-light-1 dark:bg-dark-1">
+            <SelectTrigger
+              className="bg-light-1 dark:bg-dark-1"
+              autoFocus={selected === selectedValues[1].id}
+            >
               <SelectValue />
             </SelectTrigger>
             <SelectContent className="bg-light-1 dark:bg-dark-1">
-              <SelectGroup>
-                <SelectItem value="전체">전체</SelectItem>
+              <SelectGroup id="location">
+                <SelectItem value="전체 장소">전체 장소</SelectItem>
                 <SelectItem value="중도">중도</SelectItem>
                 <SelectItem value="청운">청운</SelectItem>
               </SelectGroup>
@@ -94,7 +132,10 @@ function FilterDialogs({ selectedValues, handleSelectedValues }) {
               })
             }
           >
-            <SelectTrigger className="bg-light-1 dark:bg-dark-1">
+            <SelectTrigger
+              className="bg-light-1 dark:bg-dark-1"
+              autoFocus={selected === selectedValues[2].id}
+            >
               <SelectValue />
             </SelectTrigger>
             <SelectContent className="bg-light-1 dark:bg-dark-1">

@@ -54,11 +54,11 @@ function Notice({ userObj, borrow }: Props) {
   const [selectedValues, setSelectedValues] = useImmer([
     {
       id: "selectedValueOne",
-      value: "전체",
+      value: "전체 아이템",
     },
     {
       id: "selectedValueTwo",
-      value: "전체",
+      value: "전체 장소",
     },
     {
       id: "selectedValueThree",
@@ -66,6 +66,7 @@ function Notice({ userObj, borrow }: Props) {
     },
   ]);
   const [mapAccordion, setMapAccordion] = useState(false);
+  const [onMarker, setOnMarker] = useState(false);
   const [choose, setChoose] = useState(false);
   const handleSelectedValues = ({
     id,
@@ -211,12 +212,13 @@ function Notice({ userObj, borrow }: Props) {
       <div className="flex justify-between text-2xl">
         <PageTitle title={`${borrow ? "빌리기" : "빌려주기"} 카드 목록`} />
         <div className="flex gap-1 pt-5 px-1">
-          {selectedValues[0].value && <Chip label={selectedValues[0].value} />}
+          {/* {selectedValues[0].value && <Chip label={selectedValues[0].value} />}
           {selectedValues[1].value && <Chip label={selectedValues[1].value} />}
+          {selectedValues[2].value && <Chip label={selectedValues[2].value} />}
           <FilterDialogs
             selectedValues={selectedValues}
             handleSelectedValues={handleSelectedValues}
-          />
+          /> */}
         </div>
       </div>
       <Accordion
@@ -231,9 +233,18 @@ function Notice({ userObj, borrow }: Props) {
             등록 지도
           </AccordionTrigger>
           <AccordionContent>
-            <div className="p-5">
-              59.9156636,10.7507967 표시된 곳을 선택하면 해당하는 내용만 확인할
-              수 있어요
+            <div className="flex">
+              <div className="p-5">
+                59.9156636,10.7507967 표시된 곳을 선택하면 해당하는 내용만
+                확인할 수 있어요
+              </div>
+              {onMarker && (
+                <FilterDialogs
+                  selectedValues={selectedValues}
+                  handleSelectedValues={handleSelectedValues}
+                  onMarker={onMarker}
+                />
+              )}
             </div>
             <div className="w-full h-[300px]">
               <Map
@@ -245,12 +256,14 @@ function Notice({ userObj, borrow }: Props) {
                 <Marker
                   onClick={() => {
                     onClickMarker("중도");
+                    setOnMarker(true);
                   }}
                   position={{ lat: 59.9156636, lng: 10.7507967 }}
                 />
                 <Marker
                   onClick={() => {
                     onClickMarker("청운");
+                    setOnMarker(true);
                   }}
                   position={{ lat: 59.9166636, lng: 10.7517967 }}
                 />
@@ -258,20 +271,47 @@ function Notice({ userObj, borrow }: Props) {
                   <InfoWindow
                     position={{ lat: 59.9156636, lng: 10.7507967 }}
                     onClose={() => {
-                      onClickMarker("전체");
+                      onClickMarker("전체 장소");
                       if (choose) {
-                        onClickMarkerItem("전체");
+                        onClickMarkerItem("전체 아이템");
                         setChoose(false);
                       }
+                      setOnMarker(false);
                     }}
                   >
-                    <div
+                    {/* <button
                       onClick={() => {
                         setChoose(true);
                         onClickMarkerItem("우산");
                       }}
                     >
                       우산:
+                    </button> */}
+                    <div className="flex flex-col">
+                      <div className="flex">
+                        <div className="pt-1">
+                          <Chip
+                            label={`우산`}
+                            onClick={() => {
+                              setChoose(true);
+                              onClickMarkerItem("우산");
+                            }}
+                          />
+                        </div>
+                        <div className="pt-3">: {messages.length} 요청</div>
+                      </div>
+                      <div className="flex">
+                        <div className="pt-1">
+                          <Chip
+                            label={`우산`}
+                            onClick={() => {
+                              setChoose(true);
+                              onClickMarkerItem("우산");
+                            }}
+                          />
+                        </div>
+                        <div className="pt-3">: {messages.length} 요청</div>
+                      </div>
                     </div>
                     <div
                       onClick={() => {
@@ -288,24 +328,51 @@ function Notice({ userObj, borrow }: Props) {
                   <InfoWindow
                     position={{ lat: 59.9166636, lng: 10.7517967 }}
                     onClose={() => {
-                      onClickMarker("전체");
+                      onClickMarker("전체 장소");
                       if (choose) {
-                        onClickMarkerItem("전체");
+                        onClickMarkerItem("전체 아이템");
                         setChoose(false);
                       }
+                      setOnMarker(false);
                     }}
                   >
+                    <div className="flex flex-col">
+                      <div className="flex">
+                        <div className="pt-1">
+                          <Chip
+                            label={`우산`}
+                            onClick={() => {
+                              setChoose(true);
+                              onClickMarkerItem("우산");
+                            }}
+                          />
+                        </div>
+                        <div className="pt-3">: {messages.length} 요청</div>
+                      </div>
+                      <div className="flex">
+                        <div className="pt-1">
+                          <Chip
+                            label={`우산`}
+                            onClick={() => {
+                              setChoose(true);
+                              onClickMarkerItem("우산");
+                            }}
+                          />
+                        </div>
+                        <div className="pt-3">: {messages.length} 요청</div>
+                      </div>
+                    </div>
                     <div onClick={() => onClickMarkerItem("우산")}>우산: </div>
                     <div onClick={() => onClickMarkerItem("양산")}>양산: </div>
                     The content of the info window is here
                   </InfoWindow>
                 )}
-                <Marker
+                {/* <Marker
                   onClick={() => {
                     onClickMarker("청운");
                   }}
                   position={{ lat: 59.9166636, lng: 10.7517967 }}
-                />
+                /> */}
               </Map>
             </div>
             {/* <div id="map" className='h-[500px]'>samples</div>
@@ -317,16 +384,22 @@ function Notice({ userObj, borrow }: Props) {
         <div className="flex justify-between">
           <div className="p-3">카드 목록</div>
           <div className="flex p-3 gap-1">
-            {selectedValues[0].value && (
+            {/* {selectedValues[0].value && (
               <Chip label={selectedValues[0].value} />
             )}
             {selectedValues[1].value && (
               <Chip label={selectedValues[1].value} />
             )}
-            <FilterDialogs
-              selectedValues={selectedValues}
-              handleSelectedValues={handleSelectedValues}
-            />
+            {selectedValues[2].value && (
+              <Chip label={selectedValues[2].value} />
+            )} */}
+            {!onMarker && (
+              <FilterDialogs
+                selectedValues={selectedValues}
+                handleSelectedValues={handleSelectedValues}
+                onMarker={onMarker}
+              />
+            )}
           </div>
         </div>
         <div className="flex flex-wrap justify-between p-3 gap-1">
@@ -337,27 +410,36 @@ function Notice({ userObj, borrow }: Props) {
               borrow ? (choose = 1) : (choose = 2);
             }
             if (msg?.text.choose === choose && msg?.round === 1) {
-              if (
-                selectedValues[0].value === "전체" ||
-                selectedValues[0].value === msg?.item ||
-                !selectedValues[0].value
-              ) {
-                if (
-                  selectedValues[1].value === "전체" ||
-                  selectedValues[1].value === msg?.text.count ||
-                  !selectedValues[1].value
-                ) {
-                  return (
-                    <Cards
-                      msgObj={msg}
-                      isOwner={isOwner}
-                      userObj={userObj}
-                      num={null}
-                      points={null}
-                    />
-                  );
-                }
-              }
+              // if (
+              //   selectedValues[0].value === "전체" ||
+              //   selectedValues[0].value === msg?.item ||
+              //   !selectedValues[0].value
+              // ) {
+              //   if (
+              //     selectedValues[1].value === "전체" ||
+              //     selectedValues[1].value === msg?.text.count ||
+              //     !selectedValues[1].value
+              //   ) {
+              //     return (
+              //       <Cards
+              //         msgObj={msg}
+              //         isOwner={isOwner}
+              //         userObj={userObj}
+              //         num={null}
+              //         points={null}
+              //       />
+              //     );
+              //   }
+              // }
+              return (
+                <Cards
+                  msgObj={msg}
+                  isOwner={isOwner}
+                  userObj={userObj}
+                  num={null}
+                  points={null}
+                />
+              );
             }
           })}
         </div>
