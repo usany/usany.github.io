@@ -16,7 +16,6 @@ import {
 import maplibregl from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import {APIProvider, Map, Marker} from '@vis.gl/react-google-maps';
-import BoardMap from 'src/pages/main/BoardMap';
 
 interface Props {
     userObj: User | null
@@ -32,7 +31,7 @@ interface Message {
     round: number
     item: string
 }
-function Notice({ userObj, borrow }: Props) {
+function BoardMap() {
     const [messages, setMessages] = useState<Array<object>>([]);
     const [selectedValues, setSelectedValues] = useImmer([
         {
@@ -177,49 +176,33 @@ function Notice({ userObj, borrow }: Props) {
   
   return (  
     <div>
-        <div className='flex justify-between text-2xl'>
-            <PageTitle title={`${borrow ? '빌리기' : '빌려주기'} 카드 목록`}/>
-            <div className='flex gap-1 pt-5 px-1'>
-                {selectedValues[0].value && <Chip label={selectedValues[0].value}/>}
-                {selectedValues[1].value && <Chip label={selectedValues[1].value}/>}
-                <FilterDialogs 
-                    selectedValues={selectedValues} 
-                    handleSelectedValues={handleSelectedValues}
-                />
-            </div>
-        </div>
-        <BoardMap />
-        <div>
-            <div className='flex justify-between'>
-                <div className='p-3'>카드 목록</div>
-                <div className='flex p-3 gap-1'>
-                    {selectedValues[0].value && <Chip label={selectedValues[0].value}/>}
-                    {selectedValues[1].value && <Chip label={selectedValues[1].value}/>}
-                    <FilterDialogs 
-                        selectedValues={selectedValues} 
-                        handleSelectedValues={handleSelectedValues}
-                    />
-                </div>
-            </div>
-        <div className='flex flex-wrap justify-between p-3 gap-1'>
-            {messages.map((msg) => {
-                let choose
-                const isOwner = msg?.creatorId === userObj?.uid
-                {borrow ? choose = 1 : choose = 2}
-                if (msg?.text.choose === choose && msg?.round === 1) {
-                    if (selectedValues[0].value === '전체' || selectedValues[0].value === msg?.item || !selectedValues[0].value) {
-                        if (selectedValues[1].value === '전체' || selectedValues[1].value === msg?.text.count || !selectedValues[1].value) {
-                            return (
-                                <Cards msgObj={msg} isOwner={isOwner} userObj={userObj} num={null} points={null} />
-                            )
-                        }
-                    }
-                }
-            })}
-        </div>
-        </div>
+        <Accordion
+            // value={mapAccordion}
+            // defaultValue='등록 지도'
+            type='single'
+            collapsible
+            className='px-3'
+        >
+            <AccordionItem value='item-1'>
+                <AccordionTrigger 
+                    onClick={() => setMapAccordion(!mapAccordion)}
+                >등록 지도</AccordionTrigger>
+                <AccordionContent>
+                    <div className='w-full h-[300px]'>
+                        <Map
+                            defaultCenter={{lat: 53.54992, lng: 10.00678}}
+                            defaultZoom={13}
+                            gestureHandling={'greedy'}
+                            disableDefaultUI={true}
+                        >
+                            <Marker onClick={() => console.log('practice')} position={{lat: 53.54992, lng: 10.00678}} />
+                        </Map>
+                    </div>
+                </AccordionContent>
+            </AccordionItem>
+        </Accordion>
     </div>
   )
 }
 
-export default Notice
+export default BoardMap

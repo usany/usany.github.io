@@ -61,7 +61,7 @@ const WeatherView = () => {
     //     dataCollection.push(weatherInfo);
     // }
     // const weather = useGetWeatherQuery('query')
-    console.log('sample')
+    // console.log('sample')
     const { data, isLoading } = useQuery({queryKey: ['weather'], queryFn: getCurrentWeather, 
         // suspense: true
     })

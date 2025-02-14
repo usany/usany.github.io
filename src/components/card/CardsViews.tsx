@@ -86,7 +86,7 @@ const CardsViews = ({
                 <CardContent sx={{padding: '5px'}}>
                     <div>
                         <div className='flex justify-between gap-1'>
-                            <Avatars profile={false} profileColor={profileColor} profileImage={profileImage} fallback={userObj.displayName ? userObj.displayName[0] : ''}/>
+                            <Avatars profile={false} profileColor={profileColor} profileImage={profileImage} fallback={userObj?.displayName ? userObj.displayName[0] : ''}/>
                             {<Chip label={`${msgObj.item} ${msgObj.text.choose === 1 ? ' 빌리기' : ' 빌려주기'}`} />}
                             {/* {item && <Chip label='내가 작성함' />} */}
                         </div>

@@ -5,6 +5,8 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import { doc, setDoc } from 'firebase/firestore';
 import { getStorage, ref, uploadBytes, uploadString, uploadBytesResumable, getDownloadURL,  } from "firebase/storage";
+import staticMail from 'src/assets/signMail.svg'
+import AuthDialogs from './AuthDialogs';
 
 const AuthForm = ({ signIn }) => {
   const [account, setAccount] = useState({email: '', password: ''})
@@ -74,18 +76,23 @@ const AuthForm = ({ signIn }) => {
     }
   }
   return (
-    <form id={signIn ? 'auth' : 'signUp'} className='pt-3' onSubmit={signIn ? onSubmitSignIn : onSubmitSignUp}>
-      <div className='flex justify-center px-3'>
-        <TextField label="이메일" value={account.email} onChange={onChange} variant="outlined" name='email' type='email' fullWidth required autoFocus/>
+    <div className='flex justify-center'>
+      <div className='flex flex-col border border-solid w-1/2 rounded-lg pt-5'>
+        <form id={signIn ? 'auth' : 'signUp'} className='pt-3' onSubmit={signIn ? onSubmitSignIn : onSubmitSignUp}>
+          <div className='flex justify-center px-3'>
+            <TextField label="이메일" value={account.email} onChange={onChange} variant="outlined" name='email' type='email' fullWidth required autoFocus/>
+          </div>
+          <div className='flex justify-center px-3'>
+            <TextField label="비밀번호" value={account.password} onChange={onChange} variant="outlined" name='password' type='password' fullWidth required />
+          </div>
+          <div className='flex flex-col justify-center p-3'>
+            <Button variant='outlined' startIcon={<img src={staticMail} className='w-[20px]'/>} form={signIn ? 'auth' : 'signUp'} type='submit'>{signIn ? '로그인' : '회원가입'}</Button>
+            <span>{error}</span>
+          </div>
+        </form>
+        <AuthDialogs />
       </div>
-      <div className='flex justify-center px-3'>
-        <TextField label="비밀번호" value={account.password} onChange={onChange} variant="outlined" name='password' type='password' fullWidth required />
-      </div>
-      <div className='flex flex-col justify-center p-3'>
-        <Button variant='outlined' form={signIn ? 'auth' : 'signUp'} type='submit'>{signIn ? '로그인' : '회원가입'}</Button>
-        <span>{error}</span>
-      </div>
-    </form>
+    </div>
   )
 }
 
