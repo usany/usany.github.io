@@ -89,7 +89,6 @@ function Notice({ userObj, borrow }: Props) {
     }
   }, [selectedValues[2].value])
 
-
   return (  
     <div>
         <div className='flex justify-between text-2xl'>
@@ -103,7 +102,7 @@ function Notice({ userObj, borrow }: Props) {
                 />
             </div>
         </div>
-        <BoardMap />
+        <BoardMap selectedValueTwo={selectedValues[1].value} handleSelectedValues={handleSelectedValues}/>
         <div>
         <div className='flex flex-wrap justify-between p-3 gap-1'>
             {messages.map((msg) => {
