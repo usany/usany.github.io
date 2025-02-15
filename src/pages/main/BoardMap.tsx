@@ -3,7 +3,6 @@ import { collection, addDoc, getDocs, doc, onSnapshot, query, orderBy } from 'fi
 import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
 import FilterDialogs from 'src/pages/main/FilterDialogs'
 import { useImmer } from 'use-immer'
-import { User } from 'firebase/auth';
 import { Chip } from '@mui/material';
 import {
     Accordion,
