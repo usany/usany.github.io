@@ -266,25 +266,16 @@ function BoardMap({onMarker, onMarkerTrue, onMarkerFalse }) {
                       <div className="flex">
                         <div className="pt-1">
                           <Chip
-                            label={`우산`}
+                            label={`양산`}
                             onClick={() => {
                               setChoose(true);
-                              onClickMarkerItem("우산");
+                              onClickMarkerItem("양산");
                             }}
                           />
                         </div>
                         <div className="pt-3">: {messages.length} 요청</div>
                       </div>
                     </div>
-                    <div
-                      onClick={() => {
-                        setChoose(true);
-                        onClickMarkerItem("양산");
-                      }}
-                    >
-                      양산:
-                    </div>
-                    The content of the info window is here
                   </InfoWindow>
                 )}
                 {selectedValues[1].value === "청운" && (
@@ -315,19 +306,16 @@ function BoardMap({onMarker, onMarkerTrue, onMarkerFalse }) {
                       <div className="flex">
                         <div className="pt-1">
                           <Chip
-                            label={`우산`}
+                            label={`양산`}
                             onClick={() => {
                               setChoose(true);
-                              onClickMarkerItem("우산");
+                              onClickMarkerItem("양산");
                             }}
                           />
                         </div>
                         <div className="pt-3">: {messages.length} 요청</div>
                       </div>
                     </div>
-                    <div onClick={() => onClickMarkerItem("우산")}>우산: </div>
-                    <div onClick={() => onClickMarkerItem("양산")}>양산: </div>
-                    The content of the info window is here
                   </InfoWindow>
                 )}
                 {/* <Marker
