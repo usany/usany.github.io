@@ -18,7 +18,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Filter } from "lucide-react";
+// import { Filter } from "lucide-react";
 import { Chip } from "@mui/material";
 
 function FilterDialogs({ selectedValues, handleSelectedValues }) {
@@ -26,7 +26,7 @@ function FilterDialogs({ selectedValues, handleSelectedValues }) {
   const onClick = ({ id }) => {
     setSelected(id);
   };
-  console.log(selected === "selectedValueOne");
+  
   return (
     <div>
       <Drawer>
@@ -57,7 +57,6 @@ function FilterDialogs({ selectedValues, handleSelectedValues }) {
               />
             )}
           </div>
-          {/* <Filter /> */}
         </DrawerTrigger>
         <DrawerContent className="flex flex-col justify-center px-5 bg-light-2 dark:bg-dark-2">
           <div className="flex justify-center">우산 / 양산 선택</div>
