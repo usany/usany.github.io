@@ -4,34 +4,22 @@ import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
 import FilterDialogs from 'src/pages/main/FilterDialogs'
 import { useImmer } from 'use-immer'
 import { User } from 'firebase/auth';
-import Cards from 'src/components/card/Cards';
 import { Chip } from '@mui/material';
-import PageTitle from 'src/pages/core/pageTitle/PageTitle';
 import {
     Accordion,
     AccordionContent,
     AccordionItem,
     AccordionTrigger,
 } from "@/components/ui/accordion"
-import maplibregl from 'maplibre-gl';
-import 'maplibre-gl/dist/maplibre-gl.css';
 import {APIProvider, InfoWindow, Map, Marker} from '@vis.gl/react-google-maps';
 
 interface Props {
-    userObj: User | null
-    borrow: boolean
+  onMarker: boolean
+  onMarkerTrue: () => void
+  onMarkerFalse: () => void
 }
-interface Message {
-    creatorId: string
-    text: {
-        choose: number
-        count: string
-        counter: string
-    }
-    round: number
-    item: string
-}
-function BoardMap({onMarker, onMarkerTrue, onMarkerFalse }) {
+
+function BoardMap({onMarker, onMarkerTrue, onMarkerFalse }: Props) {
     const [messages, setMessages] = useState<Array<object>>([]);
     const [selectedValues, setSelectedValues] = useImmer([
         {
@@ -48,7 +36,6 @@ function BoardMap({onMarker, onMarkerTrue, onMarkerFalse }) {
         },
     ])
     const [mapAccordion, setMapAccordion] = useState(false)
-    // const [onMarker, setOnMarker] = useState(false);
     const [choose, setChoose] = useState(false);
   
     const handleSelectedValues = ({id, newValue}: {
@@ -62,88 +49,6 @@ function BoardMap({onMarker, onMarkerTrue, onMarkerFalse }) {
             }
         })
     }
-
-    useEffect(() => {
-        if (mapAccordion) {
-            // const map = new maplibregl.Map({
-            //     container: 'map',
-            //     style:
-            //         'https://api.maptiler.com/maps/streets/style.json?key=get_your_own_OpIi9ZULNHzrESv6T2vL',
-            //     center: [12.550343, 55.665957],
-            //     zoom: 8
-            // });
-            // const el = document.getElementById('el')
-            // const marker = new maplibregl.Marker({element: el})
-            //     .setLngLat([12.550343, 55.665957])
-            //     .addTo(map);
-            // marker.getElement().addEventListener
-            // const geojson = {
-            //     'type': 'FeatureCollection',
-            //     'features': [
-            //         {
-            //             'type': 'Feature',
-            //             'properties': {
-            //                 'message': 'Foo',
-            //                 'iconSize': [60, 60]
-            //             },
-            //             'geometry': {
-            //                 'type': 'Point',
-            //                 'coordinates': [-66.324462890625, -16.024695711685304]
-            //             }
-            //         },
-            //         {
-            //             'type': 'Feature',
-            //             'properties': {
-            //                 'message': 'Bar',
-            //                 'iconSize': [50, 50]
-            //             },
-            //             'geometry': {
-            //                 'type': 'Point',
-            //                 'coordinates': [-61.2158203125, -15.97189158092897]
-            //             }
-            //         },
-            //         {
-            //             'type': 'Feature',
-            //             'properties': {
-            //                 'message': 'Baz',
-            //                 'iconSize': [40, 40]
-            //             },
-            //             'geometry': {
-            //                 'type': 'Point',
-            //                 'coordinates': [-63.29223632812499, -18.28151823530889]
-            //             }
-            //         }
-            //     ]
-            // };
-        
-            // const map = new maplibregl.Map({
-            //     container: 'map',
-            //     style:
-            //         'https://api.maptiler.com/maps/streets/style.json?key=get_your_own_OpIi9ZULNHzrESv6T2vL',
-            //     center: [-65.017, -16.457],
-            //     zoom: 5
-            // });
-            // geojson.features.forEach((marker) => {
-            //     const el = document.getElementById('el')
-            //     // el.className = 'marker';
-            //     el.style.backgroundImage =
-            //         `url(https://picsum.photos/${
-            //             marker.properties.iconSize.join('/')
-            //         }/)`;
-            //     el.style.width = `${marker.properties.iconSize[0]}px`;
-            //     el.style.height = `${marker.properties.iconSize[1]}px`;
-        
-            //     el.addEventListener('click', () => {
-            //         console.log('practice')
-            //     });
-        
-                // add marker to map
-                // new maplibregl.Marker({element: el})
-                //     .setLngLat(marker.geometry.coordinates)
-                //     .addTo(map);
-            // })
-        }
-    })
 
     useEffect(() => {
       document.documentElement.scrollTo({
@@ -186,8 +91,6 @@ function BoardMap({onMarker, onMarkerTrue, onMarkerFalse }) {
   return (  
     <div>
       <Accordion
-        // value={mapAccordion}
-        // defaultValue='등록 지도'
         type="single"
         collapsible
         className="px-3"
