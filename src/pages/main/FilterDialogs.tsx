@@ -35,7 +35,7 @@ import {
 import { Filter } from "lucide-react";
 import { Chip } from "@mui/material";
 
-function FilterDialogs({ selectedValues, handleSelectedValues, onMarker }) {
+function FilterDialogs({ selectedValues, handleSelectedValues }) {
   const [selected, setSelected] = useState(null);
   const onClick = ({ id }) => {
     setSelected(id);

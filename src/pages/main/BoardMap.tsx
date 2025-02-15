@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/accordion"
 import maplibregl from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
-import {APIProvider, Map, Marker} from '@vis.gl/react-google-maps';
+import {APIProvider, InfoWindow, Map, Marker} from '@vis.gl/react-google-maps';
 
 interface Props {
     userObj: User | null
@@ -31,7 +31,7 @@ interface Message {
     round: number
     item: string
 }
-function BoardMap() {
+function BoardMap({onMarker, onMarkerTrue, onMarkerFalse }) {
     const [messages, setMessages] = useState<Array<object>>([]);
     const [selectedValues, setSelectedValues] = useImmer([
         {
@@ -48,7 +48,7 @@ function BoardMap() {
         },
     ])
     const [mapAccordion, setMapAccordion] = useState(false)
-    const [onMarker, setOnMarker] = useState(false);
+    // const [onMarker, setOnMarker] = useState(false);
     const [choose, setChoose] = useState(false);
   
     const handleSelectedValues = ({id, newValue}: {
@@ -185,7 +185,7 @@ function BoardMap() {
   };
   return (  
     <div>
-        <Accordion
+      <Accordion
         // value={mapAccordion}
         // defaultValue='등록 지도'
         type="single"
@@ -206,7 +206,6 @@ function BoardMap() {
                 <FilterDialogs
                   selectedValues={selectedValues}
                   handleSelectedValues={handleSelectedValues}
-                  onMarker={onMarker}
                 />
               )}
             </div>
@@ -220,14 +219,14 @@ function BoardMap() {
                 <Marker
                   onClick={() => {
                     onClickMarker("중도");
-                    setOnMarker(true);
+                    onMarkerTrue()
                   }}
                   position={{ lat: 59.9156636, lng: 10.7507967 }}
                 />
                 <Marker
                   onClick={() => {
                     onClickMarker("청운");
-                    setOnMarker(true);
+                    onMarkerTrue()
                   }}
                   position={{ lat: 59.9166636, lng: 10.7517967 }}
                 />
@@ -240,7 +239,7 @@ function BoardMap() {
                         onClickMarkerItem("전체 아이템");
                         setChoose(false);
                       }
-                      setOnMarker(false);
+                      onMarkerFalse()
                     }}
                   >
                     {/* <button
@@ -297,7 +296,7 @@ function BoardMap() {
                         onClickMarkerItem("전체 아이템");
                         setChoose(false);
                       }
-                      setOnMarker(false);
+                      onMarkerFalse()
                     }}
                   >
                     <div className="flex flex-col">

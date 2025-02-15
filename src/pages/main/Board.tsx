@@ -49,6 +49,9 @@ function Notice({ userObj, borrow }: Props) {
         },
     ])
     const [mapAccordion, setMapAccordion] = useState(false)
+    const [onMarker, setOnMarker] = useState(false)
+    const onMarkerTrue = () => setOnMarker(true)
+    const onMarkerFalse = () => setOnMarker(false)
     const handleSelectedValues = ({id, newValue}: {
         id: string
         newValue: string
@@ -179,26 +182,28 @@ function Notice({ userObj, borrow }: Props) {
     <div>
         <div className='flex justify-between text-2xl'>
             <PageTitle title={`${borrow ? '빌리기' : '빌려주기'} 카드 목록`}/>
-            <div className='flex gap-1 pt-5 px-1'>
+            {/* <div className='flex gap-1 pt-5 px-1'>
                 {selectedValues[0].value && <Chip label={selectedValues[0].value}/>}
                 {selectedValues[1].value && <Chip label={selectedValues[1].value}/>}
                 <FilterDialogs 
                     selectedValues={selectedValues} 
                     handleSelectedValues={handleSelectedValues}
                 />
-            </div>
+            </div> */}
         </div>
-        <BoardMap />
+        <BoardMap onMarker={onMarker} onMarkerTrue={onMarkerTrue} onMarkerFalse={onMarkerFalse} />
         <div>
             <div className='flex justify-between'>
                 <div className='p-3'>카드 목록</div>
                 <div className='flex p-3 gap-1'>
-                    {selectedValues[0].value && <Chip label={selectedValues[0].value}/>}
-                    {selectedValues[1].value && <Chip label={selectedValues[1].value}/>}
-                    <FilterDialogs 
-                        selectedValues={selectedValues} 
-                        handleSelectedValues={handleSelectedValues}
-                    />
+                    {/* {selectedValues[0].value && <Chip label={selectedValues[0].value}/>}
+                    {selectedValues[1].value && <Chip label={selectedValues[1].value}/>} */}
+                    {!onMarker && 
+                        <FilterDialogs 
+                            selectedValues={selectedValues} 
+                            handleSelectedValues={handleSelectedValues}
+                        />
+                    }
                 </div>
             </div>
         <div className='flex flex-wrap justify-between p-3 gap-1'>
