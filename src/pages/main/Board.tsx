@@ -80,22 +80,12 @@ function Notice({ userObj, borrow }: Props) {
     <div>
         <div className='flex justify-between text-2xl'>
             <PageTitle title={`${borrow ? '빌리기' : '빌려주기'} 카드 목록`}/>
-            {/* <div className='flex gap-1 pt-5 px-1'>
-                {selectedValues[0].value && <Chip label={selectedValues[0].value}/>}
-                {selectedValues[1].value && <Chip label={selectedValues[1].value}/>}
-                <FilterDialogs 
-                    selectedValues={selectedValues} 
-                    handleSelectedValues={handleSelectedValues}
-                />
-            </div> */}
         </div>
         <BoardMap onMarker={onMarker} onMarkerTrue={onMarkerTrue} onMarkerFalse={onMarkerFalse} />
         <div>
             <div className='flex justify-between'>
                 <div className='p-3'>카드 목록</div>
                 <div className='flex p-3 gap-1'>
-                    {/* {selectedValues[0].value && <Chip label={selectedValues[0].value}/>}
-                    {selectedValues[1].value && <Chip label={selectedValues[1].value}/>} */}
                     {!onMarker && 
                         <FilterDialogs 
                             selectedValues={selectedValues} 
