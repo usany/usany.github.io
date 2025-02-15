@@ -145,14 +145,6 @@ function BoardMap({onMarker, onMarkerTrue, onMarkerFalse }: Props) {
                       onMarkerFalse()
                     }}
                   >
-                    {/* <button
-                      onClick={() => {
-                        setChoose(true);
-                        onClickMarkerItem("우산");
-                      }}
-                    >
-                      우산:
-                    </button> */}
                     <div className="flex flex-col">
                       <div className="flex">
                         <div className="pt-1">
@@ -221,17 +213,9 @@ function BoardMap({onMarker, onMarkerTrue, onMarkerFalse }: Props) {
                     </div>
                   </InfoWindow>
                 )}
-                {/* <Marker
-                  onClick={() => {
-                    onClickMarker("청운");
-                  }}
-                  position={{ lat: 59.9166636, lng: 10.7517967 }}
-                /> */}
               </Map>
             </div>
-            {/* <div id="map" className='h-[500px]'>samples</div>
-                    <div id='el' onClick={() => console.log('practice')}>sample</div> */}
-          </AccordionContent>
+           </AccordionContent>
         </AccordionItem>
       </Accordion>
     </div>
