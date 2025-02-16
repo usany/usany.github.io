@@ -20,14 +20,11 @@ function RankingLists({ userObj, userSearch }: Props) {
   const [loadedImage, setLoadedImage] = useState([])
   const [continuing, setContinuing] = useState(null)
   const [scroll, setScroll] = useState(false)
-  // const [userSearch, setUserSearch] = useState('')
 
   useEffect(() => {
     const membersList = async() => {
       const collectionQuery = query(collection(dbservice, 'members'), orderBy('points', 'desc'), limit(20), startAfter(continuing? continuing : ''))
       const docs = await getDocs(collectionQuery)
-      // const paused = docs.docs[docs.docs.length-1]
-      // setContinuing(paused)
       const newArray = docs.docs.map((document, index) => {
         getDownloadURL(ref(storage, `${document.data()?.uid}`))
         .then((url) => {
