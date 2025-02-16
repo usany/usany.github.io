@@ -1,17 +1,20 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+
 interface TabsState {
   value: number
 }
 
 // Define the initial state using that type
-const initialState: number = 0
+const initialState: TabsState = {
+  value: 0
+}
 
 const tabsReducer = createSlice({
   name: 'tabs',
   initialState,
   reducers: {
     changeTabs: (state, action: PayloadAction<number>) => {
-      return (state = action.payload)
+      state.value = action.payload
     },
   }
 })

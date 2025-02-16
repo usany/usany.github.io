@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import AvatarDialogs from 'src/muiComponents/AvatarDialogs'
+import AvatarDialogs from 'src/pages/profile/profileAvatar/profileDialogs/ProfileDialogs'
 import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
 import { updateProfile, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnapshot, updateDoc, setDoc } from 'firebase/firestore';

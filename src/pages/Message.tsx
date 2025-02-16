@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import Cards from 'src/muiComponents/Cards';
+import Cards from 'src/components/card/Cards';
 
 function Message({ msgObj, isOwner, userObj }) {
   // const [num, setNum] = useState(null)

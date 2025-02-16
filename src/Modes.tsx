@@ -1,4 +1,4 @@
-import Switches from 'src/muiComponents/Switches';
+import Switches from 'src/navigate/Switches';
 import { useSelector, useDispatch } from 'react-redux'
 import { changeLight, changeDark } from 'src/stateSlices/themeSlice'
 

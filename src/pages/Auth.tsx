@@ -4,12 +4,12 @@ import { useState, useMemo, useEffect } from 'react'
 // import { doc, setDoc } from 'firebase/firestore';
 // import Button from '@mui/material/Button';
 // import TextField from '@mui/material/TextField';
-// import Dialogs from 'src/muiComponents/Dialogs';
-import PageTitle from 'src/muiComponents/PageTitle';
-import AuthButtons from 'src/muiComponents/AuthButtons';
-import AuthForm from 'src/muiComponents/AuthForm';
-import SignInDialogs from 'src/muiComponents/SignInDialogs';
-import Motions from 'src/muiComponents/Motions';
+// import Dialogs from 'src/components/Dialogs';
+import PageTitle from 'src/pages/core/pageTitle/PageTitle';
+import AuthButtons from 'src/components/auth/AuthButtons';
+import AuthForm from 'src/components/auth/AuthForm';
+import SignInDialogs from 'src/components/SignInDialogs';
+import Motions from 'src/components/auth/Motions';
 import {supabase} from 'src/baseApi/base';
 
 function Auth() {

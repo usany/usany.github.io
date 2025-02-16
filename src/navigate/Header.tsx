@@ -1,9 +1,9 @@
-import { useState, useEffect, useRef, useLayoutEffect, Suspense, lazy } from 'react'
+import { useState, useEffect, useRef, useLayoutEffect, useMemo, Suspense, lazy } from 'react'
 import WeatherView from 'src/navigate/WeatherView'
 import Navigation from 'src/navigate/Navigation'
-import Points from 'src/pages/points'
+import Points from 'src/pages/search/Points'
 import Avatar from '@mui/material/Avatar';
-import ToggleTabs from 'src/muiComponents/ToggleTabs'
+import ToggleTabs from 'src/pages/main/ToggleTabs'
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
 import { doc, getDoc } from 'firebase/firestore';
 import { auth, dbservice } from 'src/baseApi/serverbase'
@@ -23,8 +23,10 @@ import { changeProfileColor } from 'src/stateSlices/profileColorSlice'
 import { changeProfileImage } from 'src/stateSlices/profileImageSlice'
 import { User } from 'firebase/auth';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import Avatars from 'src/muiComponents/Avatars'
+import Avatars from 'src/pages/core/Avatars'
 import staticImage from 'src/assets/blue.png';
+import { useSelectors } from 'src/hooks/useSelectors';
+import HeaderViews from 'src/navigate/HeaderViews';
 
 // const Puller = styled('div')(({ theme }) => ({
 //     width: 30,
@@ -44,7 +46,7 @@ interface Props {
 }
 
 const Header = ({ userObj }: Props) => {
-    const bottomNavigation = useSelector(state => state.bottomNavigation)
+    const bottomNavigation = useSelectors(state => state.bottomNavigation.value)
     // const profileUrl = useSelector(state => state.profileUrl.value)
     const profileColor = useSelector(state => state.profileColor.value)
     const profileImage = useSelector(state => state.profileImage.value)
@@ -58,12 +60,13 @@ const Header = ({ userObj }: Props) => {
     const messageAccordion = useSelector(state => state.messageAccordion.value)
     const dispatch = useDispatch()
     let prevScrollPos = window.scrollY;
-
+    console.log(cardAccordion)
     window.addEventListener('scroll', function () {
         // current scroll position
         const currentScrollPos = window.scrollY;
         if (prevScrollPos >= currentScrollPos) {
-            setScroll('fixed z-20 bg-light-3/50 dark:bg-dark-3/50')
+            // setScroll('fixed z-20 bg-light-3/50 dark:bg-dark-3/50')
+            setScroll('scroll')
             // user has scrolled up
             // document.querySelector('#navigationSelectorOne')?.classList.add('overflow-hidden fixed top-0 z-20 bg-light-3 dark:bg-dark-3')
             // document.querySelector('#navigationSelectorTwo')?.classList.add('fixed', 'top-0', 'z-10', 'bg-light-3', 'dark:bg-dark-3')
@@ -75,9 +78,9 @@ const Header = ({ userObj }: Props) => {
             // document.querySelector('#navigationSelectorTwo')?.classList.remove('fixed', 'top-0', 'z-10', 'bg-light-3', 'dark:bg-dark-3')
             // document.querySelector('#contentSelector')?.classList.remove('pt-16')
         }
-        if (currentScrollPos === 0) {
-            setScroll('')
-        }
+        // if (currentScrollPos === 0) {
+        //     setScroll('')
+        // }
         // update previous scroll position
         prevScrollPos = currentScrollPos;
     });
@@ -104,95 +107,38 @@ const Header = ({ userObj }: Props) => {
         }
         setProfile()
     }, [userObj])
-
+    const profile = useMemo(() => {
+        return (
+            <div>
+                {profileImage ?
+                    <div onClick={() => {
+                        handleSideNavigation()
+                    }}>
+                        {userObj ? 
+                            <Avatars profile={false} profileColor={profileColor} profileImage={profileImage} fallback={userObj.displayName ? userObj.displayName[0] : ''}/>
+                            : 
+                            <Avatars profile={false} profileColor={'profile-blue'} profileImage={staticImage} fallback={''}/>
+                        }
+                    </div>
+                    :
+                    <div>loading</div>
+                }
+            </div>
+        )
+    }, [])
     return (
-        <div>
-            <div className={scroll}>
-                <Navigation userObj={userObj} handleSideNavigation={handleSideNavigation} sideNavigation={sideNavigation} />
-                <div className='flex justify-between w-screen'>
-                    <div className='px-5 pt-1'>
-                        <div>
-                            {profileImage ?
-                                <div onClick={() => {
-                                    handleSideNavigation()
-                                }}>
-                                    {userObj ? 
-                                        <Avatars profile={false} profileColor={profileColor} profileImage={profileImage} fallback={userObj.displayName ? userObj.displayName[0] : ''}/>
-                                        : 
-                                        <Avatars profile={false} profileColor={'profile-blue'} profileImage={staticImage} fallback={''}/>
-                                        // <Avatar sx={{ bgcolor: '#2196f3' }} onClick={() => {
-                                        //     handleSideNavigation()
-                                        // }} variant="rounded" />
-                                    }
-                                </div>
-                                :
-                                <div>loading</div>
-                            }
-                        </div>
-                    </div>
-                    <div>
-                        {bottomNavigation === 0 && 
-                            <ToggleTabs />
-                        }
-                        {userObj && bottomNavigation === 1 &&
-                            <FormGroup>
-                                <div className='flex w-1/2'>
-                                    <div className='flex flex-col'>
-                                        <FormControlLabel
-                                            control={
-                                                <Checkbox
-                                                    checked={cardAccordion}
-                                                    onClick={() => dispatch(change())}
-                                                />
-                                            } 
-                                            label={<CreditCard/>} 
-                                        />
-                                        <Divider sx={{width: '100%'}} />
-                                    </div>
-                                    <div className='px-1'></div>
-                                    <div className='flex flex-col'>
-                                        <FormControlLabel
-                                            control={
-                                                <Checkbox
-                                                    checked={messageAccordion}
-                                                    onClick={() => dispatch(changeMessageAccordion())}
-                                                />
-                                            } 
-                                            label={<MessageCircle/>} 
-                                        />
-                                        <Divider sx={{width: '100%'}} />
-                                    </div>
-                                </div>
-                            </FormGroup>
-                        }
-                        {bottomNavigation === 2 && 
-                            <ToggleTabs />
-                        }
-                        {!userObj && bottomNavigation === 1 &&
-                            <div>
-                                <Link to='/'>
-                                    <div className='pt-5 min-w-36'>로그인을 해 주세요</div>
-                                </Link>
-                                <Divider sx={{width: '100%'}} />
-                            </div>
-                        }
-                    </div>
-                    <div>
-                        <QueryClientProvider client={new QueryClient({
-                            defaultOptions: {
-                                queries: {
-                                    suspense: true,
-                                },
-                            },
-                        })}>
-                            <Suspense fallback={<div>loading</div>}>
-                                <WeatherView />
-                            </Suspense>
-                        </QueryClientProvider>
-                    </div>
+        <>
+            <div className='fixed z-20 bg-light-3/50 dark:bg-dark-3/50 truncate'>
+                <div className={`${!scroll && 'hidden'}`}>
+                    <HeaderViews userObj={userObj} />
                 </div>
             </div>
-        </div>
+            <div className='h-16 truncate'>
+                <div className={`${scroll && 'hidden'}`}>
+                    <HeaderViews userObj={userObj}/>
+                </div>
+            </div>
+        </>
     )
 }
 

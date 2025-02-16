@@ -4,7 +4,7 @@ import Button from '@mui/material/Button';
 import { BrowserRouter, Routes, Route, useNavigate, Link, useLocation } from 'react-router-dom'
 import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
 import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnapshot, updateDoc, setDoc } from 'firebase/firestore';
-import Cards from 'src/muiComponents/Cards'
+import Cards from 'src/components/card/Cards'
 
 const Actions = ({ userObj }: {
   userObj: {uid: string, displayName: string},
