@@ -1,6 +1,6 @@
 import { getAuth, GoogleAuthProvider, OAuthProvider,  GithubAuthProvider, signInWithPopup, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithRedirect, getRedirectResult, TwitterAuthProvider, FacebookAuthProvider  } from "firebase/auth";
 import { getFirestore, collection, addDoc, getDoc } from "firebase/firestore";
-import { getStorage } from "firebase/storage";
+import { getStorage, ref, uploadString } from "firebase/storage";
 import { getMessaging } from "firebase/messaging";
 
 // Import the functions you need from the SDKs you need
@@ -41,7 +41,7 @@ const messaging = getMessaging(app);
 //     redirect_uri: 'https://remake-36fe0.firebaseapp.com/__/auth/handler'
 // })
 
-const onSocialClick = async (event) => {
+const onSocialClick = (event) => {
     const {
         target: {name},
     } = event;
@@ -90,9 +90,9 @@ const onSocialClickMicrosoft = () => {
     signInWithPopup(auth, providerMicrosoft).then(async (result) => {
         const uid = result.user.uid
         console.log(result.user)
-        const credential = OAuthProvider.credentialFromResult(result);
-        const accessToken = credential.accessToken;
-        const idToken = credential.idToken;
+        // const credential = OAuthProvider.credentialFromResult(result);
+        // const accessToken = credential.accessToken;
+        // const idToken = credential.idToken;
         const docRef = doc(dbservice, `members/${uid}`)
         const docSnap = await getDoc(docRef)
         const userData = docSnap.data()
@@ -110,9 +110,11 @@ const onSocialClickMicrosoft = () => {
                 followings: [],
                 messagingToken: null,
             })
+            const storageRef = ref(storage, result.user.uid);
+            uploadString(storageRef, 'null', 'raw').then((snapshot) => {
+                console.log('Uploaded a blob or file!');
+            });
         }
-        console.log(accessToken)
-        console.log(idToken)
     }).catch((error) => {
         console.log(error)
     })

@@ -16,34 +16,6 @@ function Lists({ elements, multiple, userSearch, ranking, handleUser }) {
   <div>
     {ranking && <div>
       <RankingListsTitle multiple={multiple}/>
-      {/* <div className='flex justify-between w-screen pt-5'>
-        <div className='flex flex-col justify-center px-5'>
-          {multiple ? '유저':'내'} 랭킹
-        </div>
-        <div className='flex flex-col overflow-hidden'>
-          <div>{multiple ? '유저':'내'} 이름</div>
-          <div>포인트</div>
-        </div>
-        <div className='flex flex-col justify-center px-5'>
-          프로필
-        </div>
-      </div> */}
-      {/* {!userSearch &&
-        <div className='flex justify-between w-screen'>
-          <div className='flex'>
-            <div className='flex flex-col justify-center px-5'>
-              {multiple ? '유저':'내'}  랭킹
-            </div>
-            <div>
-              <div>{multiple ? '유저':'내'} 이름</div> 
-              <div>포인트</div> 
-            </div>
-          </div>
-          <div className='flex flex-col justify-center px-5'>
-            프로필
-          </div>
-        </div>
-      } */}
       <div className='bg-light-3 dark:bg-dark-3'>
         {elements.map((element, index) => {
           const profileColor = element?.profileColor
@@ -62,7 +34,6 @@ function Lists({ elements, multiple, userSearch, ranking, handleUser }) {
             } else {
               displayName = element.displayName
             }
-            
             return (
               <div key={index} className='px-3 pt-3'>
                 <Link to='/profile'
