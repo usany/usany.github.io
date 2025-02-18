@@ -75,15 +75,19 @@ function RankingLists({ userObj, userSearch }: Props) {
           };
         }
       });
-      console.log(newArray);
       setRank([...rank, ...newArray]);
       if (ranker.length === 0) {
+        const docRef = doc(dbservice, `members/${userObj.uid}`)
+        const myDocSnap = await getDoc(docRef)
+        const myDocSnapData = myDocSnap.data()
+        console.log(myDocSnapData)
         newArray.map((document, index) => {
           if (document.uid === userObj.uid) {
+            console.log(document?.ranking)
             newArray[index].rank = index + 1;
-            setRanker([newArray[index]]);
           }
         });
+        setRanker([myDocSnapData]);
       }
       setIsLoading(false);
     };
@@ -145,6 +149,7 @@ function RankingLists({ userObj, userSearch }: Props) {
       {userSearch ? (
         <div>
           <Lists
+          userObj={userObj}
             elements={rank}
             multiple={true}
             userSearch={userSearch}
@@ -155,6 +160,7 @@ function RankingLists({ userObj, userSearch }: Props) {
       ) : (
         <div>
           <Lists
+          userObj={userObj}
             elements={ranker}
             multiple={false}
             userSearch={null}
@@ -162,6 +168,7 @@ function RankingLists({ userObj, userSearch }: Props) {
             handleUser={null}
           />
           <Lists
+          userObj={userObj}
             elements={rank}
             multiple={true}
             userSearch={null}

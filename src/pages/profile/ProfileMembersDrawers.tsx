@@ -42,7 +42,7 @@ import {
 } from "@/components/ui/drawer";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import TextField from "@mui/material/TextField";
-import { Card } from "@mui/material";
+import { Card, Chip } from "@mui/material";
 
 const ProfileMembersDrawers = ({ userObj, user }) => {
   const [confirmEmail, setConfirmEmail] = useState(false);
@@ -72,16 +72,19 @@ const ProfileMembersDrawers = ({ userObj, user }) => {
       });
     navigate("/");
   };
-
+  console.log(user)
   useEffect(() => {
+    const createdNumber = user.userData?.createdCards.length || 0
+    const connectedNumber = user.userData?.connectedCards.length || 0
     if (
-      user.userData.createdCards.length === 0 &&
-      user.userData.connectedCards.length === 0
+      createdNumber === 0 &&
+      connectedNumber === 0
     ) {
       setProcess(true);
+    } else {
+      setProcess(false)
     }
   }, [user]);
-
   return (
     <Drawer>
       <DrawerTrigger>
@@ -104,9 +107,13 @@ const ProfileMembersDrawers = ({ userObj, user }) => {
               진행 중인 빌리기, 빌려주기가 없어야 회원 탈퇴를 할 수 있습니다.
             </div>
             {process ? (
-              <div>진행 가능합니다</div>
+              <div className='flex justify-center'>
+                <Chip label={'진행 카드가 없습니다'} color="primary"/>
+              </div>
             ) : (
-              <div>진행 카드가 없어야 가능합니다</div>
+              <div className='flex justify-center'>
+                <Chip label={'진행 카드가 있습니다'} color="error"/>
+              </div>
             )}
             <div>정말로 회원 탈퇴를 하시려면 이메일을 입력해 주세요</div>
           </DrawerHeader>

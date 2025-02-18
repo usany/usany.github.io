@@ -130,7 +130,7 @@ function Profile({ userObj }: Props) {
   } else {
     shortenName = userDisplayName
   }
-
+  
   return (
     <div>
       <PageTitle title={`${userUid === userObj.uid ? '내' : shortenName} 프로필`}/>
