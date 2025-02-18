@@ -29,9 +29,9 @@ export const piazza = createApi({
           const piazzaRef = collection(dbservice, 'chats_group')
           const piazzaCollection = query(piazzaRef, orderBy('messageClockNumber', 'desc'), limit(1))
           const piazzaMessages = await getDocs(piazzaCollection)
-          console.log(piazzaMessages)
-          piazzaMessages.forEach((element) => console.log(element.data()))
-          console.log(arg)
+          // console.log(piazzaMessages)
+          // piazzaMessages.forEach((element) => console.log(element.data()))
+          // console.log(arg)
           return { data: piazzaMessages }
         } catch (error) {
           return { error: error }

@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, Suspense, lazy } from 'react'
-import { auth, onSocialClick, dbservice, storage, messaging, ui } from 'src/baseApi/serverbase'
+import { auth, onSocialClick, dbservice, storage, messaging } from 'src/baseApi/serverbase'
 import { collection, query, where, orderBy, addDoc, getDocs, doc, onSnapshot, deleteDoc, updateDoc } from 'firebase/firestore';
 import { getToken } from "firebase/messaging";
 import MessageStacks from 'src/components/chatting/MessageStacks'
@@ -14,7 +14,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { change } from 'src/stateSlices/cardAccordionSlice'
 import { changeMessageAccordion } from 'src/stateSlices/messageAccordionSlice'
 import { Skeleton } from "@/components/ui/skeleton"
-import { EmailAuthProvider, GithubAuthProvider, OAuthProvider, User } from 'firebase/auth';
+import { User } from 'firebase/auth';
 import CardsStacks from 'src/components/card/CardsStacks';
 // import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
@@ -26,7 +26,7 @@ function Menu({ userObj }: Props) {
     const cardAccordion = useSelector(state => state.cardAccordion.value)
     const messageAccordion = useSelector(state => state.messageAccordion.value)
     const dispatch = useDispatch()
-    const [base, setBase] = useState(false)
+
     useEffect(() => {
         if (cardAccordion && messageAccordion) {
             setAccordions({cards: 'item-1', messages: 'item-2'})
@@ -75,6 +75,7 @@ function Menu({ userObj }: Props) {
           rootElement.removeEventListener('contextmenu', handleContextMenu);
         };
       }, []);
+    
     return (
         <div id='sample' className='flex justify-center flex-col pb-5'>
             <PageTitle title={'내 상태'}/>

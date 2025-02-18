@@ -52,7 +52,8 @@ const Motions = () => {
     const duplicatedSlides = [...slides, ...slides];
 
     return (
-        <div className="relative w-full overflow-hidden p-5">
+        <div className='flex justify-center'>
+        <div className="relative w-1/2 overflow-hidden p-5">
             {/* Wrapping div for seamless looping */}
             <motion.div
                 className="flex"
@@ -77,6 +78,7 @@ const Motions = () => {
                     </span>
                 ))}
             </motion.div>
+        </div>
         </div>
     );
 };
