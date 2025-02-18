@@ -16,9 +16,7 @@ function Lists({ userObj, elements, multiple, userSearch, ranking, handleUser })
   let point
   let samePointIndex
   const [newRanking, setNewRanking] = useState(0)
-  // useEffect(() => {
-  //   updateDoc(user, { ranking: newRanking });
-  // })
+  
   return (
   <div>
     {ranking && <div>
