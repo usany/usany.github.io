@@ -12,7 +12,14 @@ import {
 } from "firebase/auth";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-import { collection, doc, getDocs, query, setDoc } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDocs,
+  query,
+  setDoc,
+  updateDoc,
+} from "firebase/firestore";
 import {
   getStorage,
   ref,
@@ -72,11 +79,19 @@ const AuthForm = ({ signIn }) => {
       }).catch((error) => {
         console.log("error");
       });
+      const user = doc(dbservice, `members/${data.user.uid}`);
       const storageRef = ref(storage, data.user.uid);
       uploadString(storageRef, "null", "raw").then((snapshot) => {
         console.log("Uploaded a blob or file!");
       });
-      console.log(storageRef);
+      getDownloadURL(storageRef)
+        .then(async (url) => {
+          await updateDoc(user, { profileImageUrl: url });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      // console.log(storageRef);
     } catch (error) {
       if (error.message === "Firebase: Error (auth/invalid-credential).") {
         const errorMessage = "로그인 실패: 계정을 확인해 주세요";
