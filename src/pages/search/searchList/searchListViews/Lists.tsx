@@ -9,15 +9,37 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { MessageCircle, Minimize2, Maximize2, Captions, Bike, Ellipsis, ChevronRight } from "lucide-react"
 import staticImg from 'src/assets/pwa-512x512.png';
 import RankingListsTitle from 'src/pages/search/searchList/searchListViews/searchListViewsTitle/RankingListsTitle'
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
+import { dbservice } from 'src/baseApi/serverbase';
 
-function Lists({ elements, multiple, userSearch, ranking, handleUser }) {
-
+function Lists({ userObj, elements, multiple, userSearch, ranking, handleUser }) {
+  let point
+  let samePointIndex
+  const [newRanking, setNewRanking] = useState(0)
+  // useEffect(() => {
+  //   updateDoc(user, { ranking: newRanking });
+  // })
   return (
   <div>
     {ranking && <div>
       <RankingListsTitle multiple={multiple}/>
       <div className='bg-light-3 dark:bg-dark-3'>
         {elements.map((element, index) => {
+          // console.log(element.points)
+          // console.log(point)
+          if (element.points !== point) {
+            point = element.points
+            samePointIndex = index
+          }
+          if (element.uid === userObj.uid) {
+            const user = doc(dbservice, `members/${userObj.uid}`);
+            const newRank = samePointIndex ? samePointIndex+1 : index+1
+            console.log(newRank)
+            updateDoc(user, { ranking: newRank });
+            if (!newRanking) {
+              setNewRanking(newRank)
+            }
+          }
           const profileColor = element?.profileColor
           let userNameConfirm = true
           if (userSearch) {
@@ -45,11 +67,11 @@ function Lists({ elements, multiple, userSearch, ranking, handleUser }) {
                     <div className='flex'>
                       {!multiple ? 
                         <div className='flex flex-col justify-center px-5 w-20'>
-                          {element.rank}
+                          {newRanking ? newRanking : element.ranking}
                         </div>
                       :
                         <div className='flex flex-col justify-center px-5 w-20'>
-                          {index+1}
+                          {samePointIndex ? samePointIndex+1 : index+1}
                         </div>
                       }
                       <Avatar className={`bg-${profileColor?.indexOf('#') === -1 ? element?.profileColor : 'profile-blue'}`}>

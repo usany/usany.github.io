@@ -222,6 +222,10 @@ function Add({ userObj, borrow }: Props) {
                 connectedName: null,
                 item: item
             })
+            const user = doc(dbservice, `members/${userObj.uid}`);
+            const getDocUser = await getDoc(user)
+            const userCreatedCards = getDocUser.data()?.createdCards
+            await updateDoc(user, { createdCards: [...userCreatedCards, card.id] });
             // setCardId(card.id)
             // setSnackBar(true)
             const cardObject = await getDoc(doc(dbservice, `num/${card.id}`))

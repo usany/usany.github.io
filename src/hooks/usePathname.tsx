@@ -1,9 +1,9 @@
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef } from "react";
 
-export default function usePathname() {
-    const [pathname, setPathname] = useState('/')
-    function changePathname(newValue) {
-        setPathname(newValue)
-    }
-    return {pathname, changePathname}
-}
+const useRegister = async () => {
+  const [pathname, setPathname] = useState("/");
+  function changePathname(newValue) {
+    setPathname(newValue);
+  }
+  return { pathname, changePathname };
+};
