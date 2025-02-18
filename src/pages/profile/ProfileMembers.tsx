@@ -10,13 +10,15 @@ import {
   useLocation,
 } from "react-router-dom";
 import ProfileMembersDrawers from "src/pages/profile/ProfileMembersDrawers";
+import { dbservice } from "src/baseApi/serverbase";
+import { doc } from "firebase/firestore";
 
 const ProfileMembers = ({ userObj, user }) => {
   return (
     <div className="flex flex-col p-5">
       {user.uid === userObj.uid ? (
         <div className="flex justify-center">
-          <Card sx={{ width: "50%" }}>
+          {/* <Card sx={{ width: "50%" }}>
             <div
               className="flex justify-center p-5"
               onClick={() => {
@@ -25,8 +27,8 @@ const ProfileMembers = ({ userObj, user }) => {
             >
               회원 탈퇴
             </div>
-          </Card>
-          <ProfileMembersDrawers userObj={userObj} />
+          </Card> */}
+          <ProfileMembersDrawers userObj={userObj} user={user} />
         </div>
       ) : (
         <Link to="/contact" state={{ user: user }}>
