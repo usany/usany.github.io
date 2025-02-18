@@ -25,8 +25,6 @@ function Lists({ userObj, elements, multiple, userSearch, ranking, handleUser })
       <RankingListsTitle multiple={multiple}/>
       <div className='bg-light-3 dark:bg-dark-3'>
         {elements.map((element, index) => {
-          // console.log(element.points)
-          // console.log(point)
           if (element.points !== point) {
             point = element.points
             samePointIndex = index
