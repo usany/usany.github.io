@@ -1,103 +1,127 @@
-import { useState, useEffect, lazy } from 'react'
-import { collection, addDoc, getDocs, doc, onSnapshot, query, orderBy } from 'firebase/firestore';
-import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
-import FilterDialogs from 'src/pages/main/FilterDialogs'
-import { useImmer } from 'use-immer'
-import { Chip } from '@mui/material';
+import { useState, useEffect, lazy } from "react";
 import {
-    Accordion,
-    AccordionContent,
-    AccordionItem,
-    AccordionTrigger,
-} from "@/components/ui/accordion"
-import {APIProvider, InfoWindow, Map, Marker} from '@vis.gl/react-google-maps';
+  collection,
+  addDoc,
+  getDocs,
+  doc,
+  onSnapshot,
+  query,
+  orderBy,
+} from "firebase/firestore";
+import {
+  auth,
+  onSocialClick,
+  dbservice,
+  storage,
+} from "src/baseApi/serverbase";
+import FilterDialogs from "src/pages/main/FilterDialogs";
+import { useImmer } from "use-immer";
+import { Chip } from "@mui/material";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import {
+  APIProvider,
+  InfoWindow,
+  Map,
+  Marker,
+} from "@vis.gl/react-google-maps";
 
 interface Props {
-  onMarker: boolean
-  onMarkerTrue: () => void
-  onMarkerFalse: () => void
+  onMarker: boolean;
+  onMarkerTrue: () => void;
+  onMarkerFalse: () => void;
 }
 
-function BoardMap({onMarker, onMarkerTrue, onMarkerFalse }: Props) {
-    const [messages, setMessages] = useState<Array<object>>([]);
-    const [selectedValues, setSelectedValues] = useImmer([
-        {
-            id: 'selectedValueOne',
-            value: '전체'
-        },
-        {
-            id: 'selectedValueTwo',
-            value: '전체'
-        },
-        {
-            id: 'selectedValueThree',
-            value: '최신순'
-        },
-    ])
-    const [mapAccordion, setMapAccordion] = useState(false)
-    const [choose, setChoose] = useState(false);
-  
-    const handleSelectedValues = ({id, newValue}: {
-        id: string
-        newValue: string
-    }) => {
-        setSelectedValues((values) => {
-            const value = values.find((value) => value.id === id)
-            if (value) {
-                value.value = newValue
-            }
-        })
-    }
+function BoardMap({ onMarker, onMarkerTrue, onMarkerFalse }: Props) {
+  const [messages, setMessages] = useState<Array<object>>([]);
+  const [selectedValues, setSelectedValues] = useImmer([
+    {
+      id: "selectedValueOne",
+      value: "전체",
+    },
+    {
+      id: "selectedValueTwo",
+      value: "전체",
+    },
+    {
+      id: "selectedValueThree",
+      value: "최신순",
+    },
+  ]);
+  const [mapAccordion, setMapAccordion] = useState(false);
+  const [choose, setChoose] = useState(false);
 
-    useEffect(() => {
-      document.documentElement.scrollTo({
-          top: 0,
-          left: 0,
-          behavior: "instant", // Optional if you want to skip the scrolling animation
-      });
-    }, []);
+  const handleSelectedValues = ({
+    id,
+    newValue,
+  }: {
+    id: string;
+    newValue: string;
+  }) => {
+    setSelectedValues((values) => {
+      const value = values.find((value) => value.id === id);
+      if (value) {
+        value.value = newValue;
+      }
+    });
+  };
 
   useEffect(() => {
-    if (selectedValues[2].value === '최신순' || !selectedValues[2].value) {
-        onSnapshot(query(collection(dbservice, 'num'), orderBy('creatorClock', 'desc')), (snapshot) => {
-            const newArray = snapshot.docs.map((document) => {
-                return ({
-                    id: document.id,
-                    ...document.data(),
-                })
-            });
-            setMessages(newArray)
-        })
+    document.documentElement.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "instant", // Optional if you want to skip the scrolling animation
+    });
+  }, []);
+
+  useEffect(() => {
+    if (selectedValues[2].value === "최신순" || !selectedValues[2].value) {
+      onSnapshot(
+        query(collection(dbservice, "num"), orderBy("creatorClock", "desc")),
+        (snapshot) => {
+          const newArray = snapshot.docs.map((document) => {
+            return {
+              id: document.id,
+              ...document.data(),
+            };
+          });
+          setMessages(newArray);
+        }
+      );
     } else {
-        onSnapshot(query(collection(dbservice, 'num'), orderBy('creatorClock')), (snapshot) => {
-            const newArray = snapshot.docs.map((document) => {
-                return ({
-                    id: document.id,
-                    ...document.data(),
-                })
-            });
-            setMessages(newArray)
-        })
+      onSnapshot(
+        query(collection(dbservice, "num"), orderBy("creatorClock")),
+        (snapshot) => {
+          const newArray = snapshot.docs.map((document) => {
+            return {
+              id: document.id,
+              ...document.data(),
+            };
+          });
+          setMessages(newArray);
+        }
+      );
     }
-  }, [selectedValues[2].value])
-  
+  }, [selectedValues[2].value]);
+
   const onClickMarker = (newValue) => {
     handleSelectedValues({ id: "selectedValueTwo", newValue: newValue });
   };
   const onClickMarkerItem = (newValue) => {
     handleSelectedValues({ id: "selectedValueOne", newValue: newValue });
   };
-  return (  
+  return (
     <div>
-      <Accordion
-        type="single"
-        collapsible
-        className="px-3"
-      >
+      <Accordion type="single" collapsible className="px-3">
         <AccordionItem value="item-1">
           <AccordionTrigger onClick={() => setMapAccordion(!mapAccordion)}>
             등록 지도
           </AccordionTrigger>
+          <div className="sticky top-10 z-30 bg-light-3 dark:bg-dark-3"></div>
           <AccordionContent>
             <div className="flex">
               <div className="p-5">
@@ -121,14 +145,14 @@ function BoardMap({onMarker, onMarkerTrue, onMarkerFalse }: Props) {
                 <Marker
                   onClick={() => {
                     onClickMarker("중도");
-                    onMarkerTrue()
+                    onMarkerTrue();
                   }}
                   position={{ lat: 59.9156636, lng: 10.7507967 }}
                 />
                 <Marker
                   onClick={() => {
                     onClickMarker("청운");
-                    onMarkerTrue()
+                    onMarkerTrue();
                   }}
                   position={{ lat: 59.9166636, lng: 10.7517967 }}
                 />
@@ -141,7 +165,7 @@ function BoardMap({onMarker, onMarkerTrue, onMarkerFalse }: Props) {
                         onClickMarkerItem("전체 아이템");
                         setChoose(false);
                       }
-                      onMarkerFalse()
+                      onMarkerFalse();
                     }}
                   >
                     <div className="flex flex-col">
@@ -181,7 +205,7 @@ function BoardMap({onMarker, onMarkerTrue, onMarkerFalse }: Props) {
                         onClickMarkerItem("전체 아이템");
                         setChoose(false);
                       }
-                      onMarkerFalse()
+                      onMarkerFalse();
                     }}
                   >
                     <div className="flex flex-col">
@@ -214,11 +238,11 @@ function BoardMap({onMarker, onMarkerTrue, onMarkerFalse }: Props) {
                 )}
               </Map>
             </div>
-           </AccordionContent>
+          </AccordionContent>
         </AccordionItem>
       </Accordion>
     </div>
-  )
+  );
 }
 
-export default BoardMap
+export default BoardMap;
