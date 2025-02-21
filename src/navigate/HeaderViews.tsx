@@ -1,44 +1,23 @@
-import { useState, useEffect, useRef, useLayoutEffect, useMemo, Suspense, lazy } from 'react'
+import { useState, useEffect, } from 'react'
 import WeatherView from 'src/navigate/WeatherView'
 import Navigation from 'src/navigate/Navigation'
-import Points from 'src/pages/search/Points'
-import Avatar from '@mui/material/Avatar';
 import ToggleTabs from 'src/pages/main/ToggleTabs'
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
 import { doc, getDoc } from 'firebase/firestore';
-import { auth, dbservice } from 'src/baseApi/serverbase'
-import Checkbox from '@mui/material/Checkbox';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormGroup from '@mui/material/FormGroup';
+import { dbservice } from 'src/baseApi/serverbase'
 import Divider from '@mui/material/Divider';
 import { Link } from 'react-router-dom'
-import { CreditCard } from 'lucide-react';
-import { MessageCircle, Minimize2, Maximize2 } from "lucide-react"
+import { CreditCard, MessageCircle } from 'lucide-react';
 import { useSelector, useDispatch } from 'react-redux'
-import { cardAccordionReducer, change } from 'src/stateSlices/cardAccordionSlice'
-import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
+import { change } from 'src/stateSlices/cardAccordionSlice'
 import { changeMessageAccordion } from 'src/stateSlices/messageAccordionSlice'
 import { changeProfileUrl } from 'src/stateSlices/profileUrlSlice'
 import { changeProfileColor } from 'src/stateSlices/profileColorSlice'
 import { changeProfileImage } from 'src/stateSlices/profileImageSlice'
 import { User } from 'firebase/auth';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import Avatars from 'src/pages/core/Avatars'
 import staticImage from 'src/assets/blue.png';
 import { useSelectors } from 'src/hooks/useSelectors';
-
-// const Puller = styled('div')(({ theme }) => ({
-//     width: 30,
-//     height: 6,
-//     backgroundColor: grey[300],
-//     borderRadius: 3,
-//     position: 'absolute',
-//     top: 8,
-//     left: 'calc(50% - 15px)',
-//     ...theme.applyStyles('dark', {
-//       backgroundColor: grey[900],
-//     }),
-//   }));
   
 interface Props {
     userObj: User | null
@@ -80,25 +59,6 @@ const HeaderViews = ({ userObj }: Props) => {
         }
         setProfile()
     }, [userObj])
-    const profile = useMemo(() => {
-        return (
-            <div>
-                {profileImage ?
-                    <div onClick={() => {
-                        handleSideNavigation()
-                    }}>
-                        {userObj ? 
-                            <Avatars profile={false} profileColor={profileColor} profileImage={profileImage} fallback={userObj.displayName ? userObj.displayName[0] : ''}/>
-                            : 
-                            <Avatars profile={false} profileColor={'profile-blue'} profileImage={staticImage} fallback={''}/>
-                        }
-                    </div>
-                    :
-                    <div>loading</div>
-                }
-            </div>
-        )
-    }, [])
     return (
         <>
             <Navigation userObj={userObj} handleSideNavigation={handleSideNavigation} sideNavigation={sideNavigation} />
@@ -128,32 +88,12 @@ const HeaderViews = ({ userObj }: Props) => {
                         <>
                             <div className='flex w-1/2 gap-3'>
                                 <div className='flex flex-col'>
-                                    {/* <FormControlLabel
-                                        sx={{height: '45px'}}
-                                        control={
-                                            <Checkbox
-                                                checked={cardAccordion}
-                                                onClick={() => dispatch(change())}
-                                            />
-                                        } 
-                                        label={cardAccordion ? <CreditCard color='#2196f3' /> : <CreditCard />} 
-                                    /> */}
                                     <div className='flex justify-center w-16 h-[45px] pt-3'>
                                         {cardAccordion ? <CreditCard color='#2196f3' onClick={() => dispatch(change())} /> : <CreditCard onClick={() => dispatch(change())} />}
                                     </div>
                                     <Divider sx={{width: '100%', height: '1px', backgroundColor: cardAccordion && '#2196f3'}} />
                                 </div>
                                 <div className='flex flex-col'>
-                                    {/* <FormControlLabel
-                                        sx={{height: '45px'}}
-                                        control={
-                                            <Checkbox
-                                                checked={messageAccordion}
-                                                onClick={() => dispatch(changeMessageAccordion())}
-                                            />
-                                        } 
-                                        label={messageAccordion ? <MessageCircle color='#2196f3' /> : <MessageCircle />} 
-                                    /> */}
                                     <div className='flex justify-center w-16 h-[45px] pt-3'>
                                         {messageAccordion ? <MessageCircle color='#2196f3' onClick={() => dispatch(changeMessageAccordion())} /> : <MessageCircle onClick={() => dispatch(changeMessageAccordion())} />}
                                     </div>

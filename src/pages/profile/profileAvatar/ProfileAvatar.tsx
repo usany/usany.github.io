@@ -10,7 +10,7 @@ const ProfileAvatar = ({ userObj, user, handleProfileDialog }) => {
   const profileColor = useSelector((state) => state.profileColor.value);
   const profileImage = useSelector((state) => state.profileImage.value);
   const profileUrl = useSelector((state) => state.profileUrl.value);
-  console.log(profileUrl);
+  console.log(user?.profileImageUrl);
   return (
     <div className="flex justify-center">
       {user.uid === userObj.uid ? (
