@@ -33,7 +33,7 @@ import {
 } from "@/components/ui/morphing-dialog";
 import DeleteIcon from "@mui/icons-material/Delete";
 import useLongPress from "src/hooks/useLongPress";
-import Avatars from "../../pages/core/Avatars";
+import Avatars from "../../core/Avatars";
 import { useSelector } from "react-redux";
 import { User } from "firebase/auth";
 

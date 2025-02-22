@@ -34,7 +34,7 @@ import {
 import DeleteIcon from "@mui/icons-material/Delete";
 import useLongPress from "src/hooks/useLongPress";
 import CardsViews from "./CardsViews";
-import MorphingDialogs from "../../pages/core/morphingDialogs/MorphingDialogs";
+import MorphingDialogs from "../../core/morphingDialogs/MorphingDialogs";
 import { deleteDoc, doc } from "firebase/firestore";
 import { dbservice } from "src/baseApi/serverbase";
 

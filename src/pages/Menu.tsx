@@ -32,7 +32,7 @@ import { change } from "src/stateSlices/cardAccordionSlice";
 import { changeMessageAccordion } from "src/stateSlices/messageAccordionSlice";
 import { Skeleton } from "@/components/ui/skeleton";
 import { User } from "firebase/auth";
-import CardsStacks from "src/components/card/CardsStacks";
+import CardsStacks from "src/pages/main/card/CardsStacks";
 // import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 interface Props {

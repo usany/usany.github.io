@@ -21,7 +21,7 @@ import {
 import { getToken } from "firebase/messaging";
 import { Skeleton } from "@/components/ui/skeleton";
 import { User } from "firebase/auth";
-import Cards from "src/components/card/Cards";
+import Cards from "src/pages/main/card/Cards";
 import { Chip, ClickAwayListener } from "@mui/material";
 
 interface Props {

@@ -11,7 +11,7 @@ import {
   MorphingDialogDescription,
   MorphingDialogContainer,
 } from '@/components/ui/morphing-dialog';
-import CardsViews from '../../../components/card/CardsViews';
+import CardsViews from '../../main/card/CardsViews';
 import { User } from 'firebase/auth';
 
 interface Props {
