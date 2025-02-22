@@ -4,7 +4,7 @@ import { collection, query, QuerySnapshot, where, orderBy, addDoc, getDoc, getDo
 import { webSocket, onClick } from 'src/webSocket.tsx'
 import { User } from 'firebase/auth';
 import { getStorage, ref, uploadBytes, uploadString, uploadBytesResumable, getDownloadURL,  } from "firebase/storage";
-import Chats from 'src/components/chatting/Chats'
+import Chats from 'src/pages/main/chatting/Chats'
 
 interface Props {
   userObj: User

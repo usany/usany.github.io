@@ -13,7 +13,7 @@ import { User } from 'firebase/auth';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { getStorage, ref, uploadBytes, uploadString, uploadBytesResumable, getDownloadURL,  } from "firebase/storage";
 import Chip from '@mui/material/Chip';
-import Chats from 'src/components/chatting/Chats'
+import Chats from 'src/pages/main/chatting/Chats'
 import useLongPress from 'src/hooks/useLongPress';
 import {
   Drawer,

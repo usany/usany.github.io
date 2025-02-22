@@ -7,7 +7,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import Chip from '@mui/material/Chip';
 import staticImage from 'src/assets/blue.png';
 import useLongPress from 'src/hooks/useLongPress';
-import ChatsBoxes from 'src/components/chatting/ChatsBoxes'
+import ChatsBoxes from 'src/pages/main/chatting/ChatsBoxes'
 import DeleteIcon from '@mui/icons-material/Delete';
 import { dbservice } from 'src/baseApi/serverbase'
 import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnapshot, deleteDoc, updateDoc } from 'firebase/firestore';

@@ -7,8 +7,8 @@ import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnap
 import { Link } from 'react-router-dom'
 import { webSocket, onClick } from 'src/webSocket.tsx'
 import { User } from 'firebase/auth';
-import ChattingStacks from 'src/components/chatting/ChattingStacks'
-import Chats from 'src/components/chatting/Chats'
+import ChattingStacks from 'src/pages/main/chatting/ChattingStacks'
+import Chats from 'src/pages/main/chatting/Chats'
 import { useQuery } from '@tanstack/react-query'
 // import { useSelector, useDispatch } from 'react-redux'
 // import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"

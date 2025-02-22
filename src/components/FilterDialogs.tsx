@@ -1,4 +1,18 @@
 import { useState, useEffect } from "react";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import Button from "@mui/material/Button";
+import Avatar from "@mui/material/Avatar";
+import BeachAccess from "@mui/icons-material/BeachAccess";
+import { doc, deleteDoc, updateDoc } from "firebase/firestore";
+import { auth, dbservice } from "src/baseApi/serverbase";
+import { storage } from "src/baseApi/serverbase";
+import { getStorage, ref, uploadBytes } from "firebase/storage";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+// import Select from '@mui/material/Select';
 import {
   Drawer,
   DrawerClose,
@@ -18,15 +32,15 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-// import { Filter } from "lucide-react";
+import { Filter } from "lucide-react";
 import { Chip } from "@mui/material";
 
-function FilterDialogs({ selectedValues, handleSelectedValues }) {
+function FilterDialogs({ selectedValues, handleSelectedValues, onMarker }) {
   const [selected, setSelected] = useState(null);
   const onClick = ({ id }) => {
     setSelected(id);
   };
-  
+  console.log(selected === "selectedValueOne");
   return (
     <div>
       <Drawer>
@@ -57,6 +71,7 @@ function FilterDialogs({ selectedValues, handleSelectedValues }) {
               />
             )}
           </div>
+          {/* <Filter /> */}
         </DrawerTrigger>
         <DrawerContent className="flex flex-col justify-center px-5 bg-light-2 dark:bg-dark-2">
           <div className="flex justify-center">우산 / 양산 선택</div>
