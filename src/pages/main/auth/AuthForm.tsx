@@ -30,7 +30,7 @@ import {
 } from "firebase/storage";
 import staticMail from "src/assets/signMail.svg";
 import AuthDialogs from "./AuthDialogs.tsx";
-import storeSetDoc from "../setDocUser.ts";
+// import storeSetDoc from "../../../components/setDocUser.ts";
 
 const AuthForm = ({ signIn }) => {
   const [account, setAccount] = useState({ email: "", password: "" });
