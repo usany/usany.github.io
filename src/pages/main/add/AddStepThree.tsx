@@ -1,5 +1,5 @@
-import AddStepTitle from 'src/components/add/AddStepTitle'
-import Pickers from 'src/components/add/Pickers'
+import AddStepTitle from 'src/pages/main/add/AddStepTitle'
+import Pickers from 'src/pages/main/add/Pickers'
 
 interface Props {
     onChangeFrom: (event: {}) => void 
