@@ -1,6 +1,6 @@
 import { auth, onSocialClick, dbservice, onSocialClickMicrosoft, onSocialClickTwitter, onSocialClickFacebook } from 'src/baseApi/serverbase'
 import Button from '@mui/material/Button';
-import AuthDialogs from 'src/components/auth/AuthDialogs';
+import AuthDialogs from 'src/pages/main/auth/AuthDialogs';
 import staticMail from 'src/assets/signMail.svg'
 import staticGoogle from 'src/assets/signGoogle.svg'
 import staticMicrosoft from 'src/assets/signMicrosoft.svg'
