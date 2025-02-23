@@ -17,7 +17,7 @@ import {
 import FilterDialogs from "src/pages/main/FilterDialogs";
 import { useImmer } from "use-immer";
 import { User } from "firebase/auth";
-import Cards from "src/components/card/Cards";
+import Cards from "src/pages/main/card/Cards";
 import { Chip } from "@mui/material";
 import PageTitle from "src/pages/core/pageTitle/PageTitle";
 import {

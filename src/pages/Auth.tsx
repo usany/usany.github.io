@@ -6,10 +6,10 @@ import { useState, useMemo, useEffect } from 'react'
 // import TextField from '@mui/material/TextField';
 // import Dialogs from 'src/components/Dialogs';
 import PageTitle from 'src/pages/core/pageTitle/PageTitle';
-import AuthButtons from 'src/components/auth/AuthButtons';
-import AuthForm from 'src/components/auth/AuthForm';
+import AuthButtons from 'src/pages/main/auth/AuthButtons';
+import AuthForm from 'src/pages/main/auth/AuthForm';
 import SignInDialogs from 'src/components/SignInDialogs';
-import Motions from 'src/components/auth/Motions';
+import Motions from 'src/pages/main/auth/Motions';
 import {supabase} from 'src/baseApi/base';
 
 function Auth() {

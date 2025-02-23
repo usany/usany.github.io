@@ -19,18 +19,18 @@ import {
   updateDoc,
   DocumentSnapshot,
 } from "firebase/firestore";
-import AddSteppers from "src/components/add/AddSteppers";
-import AddStepOne from "src/components/add/AddStepOne";
-import AddStepTwo from "src/components/add/AddStepTwo";
-import AddStepThree from "src/components/add/AddStepThree";
-import AddStepFour from "src/components/add/AddStepFour";
-import AddRegisterButton from "src/components/add/AddRegisterButton";
-import AddSnackBar from "src/components/add/AddSnackBar";
+import AddSteppers from "src/pages/main/add/AddSteppers";
+import AddStepOne from "src/pages/main/add/AddStepOne";
+import AddStepTwo from "src/pages/main/add/AddStepTwo";
+import AddStepThree from "src/pages/main/add/AddStepThree";
+import AddStepFour from "src/pages/main/add/AddStepFour";
+import AddRegisterButton from "src/pages/main/add/AddRegisterButton";
+import AddSnackBar from "src/pages/main/add/AddSnackBar";
 import PageTitle from "src/pages/core/pageTitle/PageTitle";
 import { User } from "firebase/auth";
 import { useSelector, useDispatch } from "react-redux";
 import TabsRootState from "src/interfaces/TabsRootState";
-import AddCards from "src/components/add/AddCards";
+import AddCards from "src/pages/main/add/AddCards";
 import { useMediaQuery } from "@mui/material";
 
 interface Props {
