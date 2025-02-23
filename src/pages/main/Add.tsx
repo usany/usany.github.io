@@ -66,7 +66,7 @@ function Add({ userObj, borrow }: Props) {
   const [item, setItem] = useState("");
   const tabs = useSelector((state: TabsRootState) => state.tabs.value);
   const [fromTo, setFromTo] = useState<FromTo>({ from: null, to: null });
-  const matches = useMediaQuery("(min-width:500px)");
+  const matches = useMediaQuery("(min-width:850px)");
   // const [cardId, setCardId] = useState<string | null>(null)
   // const [from, setFrom] = useState(null);
   // const [to, setTo] = useState(null);
@@ -285,6 +285,7 @@ function Add({ userObj, borrow }: Props) {
           creatorUrl: userProfileUrl,
           connectedId: null,
           connectedName: null,
+          connectedUrl: null,
           item: item,
         });
         await updateDoc(user, { createdCards: [...userCreatedCards, card.id] });
@@ -351,7 +352,7 @@ function Add({ userObj, borrow }: Props) {
                 </div>
             </div> */}
       {matches ? (
-        <div className="flex justify-around">
+        <div className="flex justify-around px-5">
           <AddCards
             borrow={borrow}
             userObj={userObj}
@@ -383,7 +384,7 @@ function Add({ userObj, borrow }: Props) {
           </div>
         </div>
       ) : (
-        <div className="flex justify-around">
+        <div className="flex justify-around px-5">
           <AddCards
             borrow={borrow}
             userObj={userObj}

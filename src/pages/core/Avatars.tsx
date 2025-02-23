@@ -13,8 +13,8 @@ const Avatars = ({
   profile,
   profileColor,
   profileUrl,
-  //   profileImage,
   fallback,
+  //   profileImage,
 }: Props) => {
   // const profileImage = useSelector(state => state.profileImage.value)
   // const profileUrl = useSelector(state => state.profileUrl.value)

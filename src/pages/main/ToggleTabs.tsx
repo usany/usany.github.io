@@ -50,7 +50,9 @@ export default function ToggleTabs() {
       <Box sx={{ paddingX: '10px'
         }}>
         <Tabs
-          sx={{animation: 0}}
+          sx={{animation: 0,
+            animationDuration: 0
+          }}
           value={tabs} onChange={handleChange} aria-label="basic tabs example"
         >
           <Tab label={<Minimize2 />} {...a11yProps(0)} />

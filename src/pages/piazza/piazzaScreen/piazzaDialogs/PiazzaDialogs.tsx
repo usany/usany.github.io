@@ -17,6 +17,8 @@ import {
     DrawerTrigger,
 } from "@/components/ui/drawer"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import DrawersBar from 'src/pages/core/DrawersBar';
+import { ScrollArea } from '@radix-ui/react-scroll-area';
 
 const PiazzaDialogs = ({ multiple, handleMultiple, user, userObj, handleMessagesList, displayedName, }) => {
     const [conversation, setConversation] = useState(null)
@@ -74,48 +76,46 @@ const PiazzaDialogs = ({ multiple, handleMultiple, user, userObj, handleMessages
                     <div id='drawer'></div>
                 </DrawerTrigger>
                 <DrawerContent className='bg-light-3 dark:bg-dark-3'>
-                    <div className='flex justify-center'>
-                        <div className="bg-light-2 dark:bg-dark-2 h-2 w-[100px] rounded-full bg-muted">
-                            &emsp;
-                        </div>
-                    </div>
-                    <div className='flex flex-col items-center pt-3'>
-                        <Avatar className={'bg-profile-blue'}>
-                            <AvatarImage src={user?.profileImageUrl} />
-                            <AvatarFallback className='text-xl border-none	'>{user?.displayName[0]}</AvatarFallback>
-                        </Avatar>
-                        <div>
-                            {user?.displayName}
-                        </div>
-                        {user?.displayName !== displayedName &&
+                    <ScrollArea className='overflow-y-scroll'>
+                        <DrawersBar />
+                        <div className='flex flex-col items-center pt-5'>
+                            <Avatar className={'bg-profile-blue'}>
+                                <AvatarImage src={user?.profileImageUrl} />
+                                <AvatarFallback className='text-xl border-none	'>{user?.displayName[0]}</AvatarFallback>
+                            </Avatar>
                             <div>
-                                ({displayedName}에서 개명)
+                                {user?.displayName}
                             </div>
-                        }
-                    </div>
-                    <div className='flex justify-center p-5'>
-                        <Link to='/profile' state={{element: user}}>
-                            <Button variant='outlined' onClick={() => {
-                                // handleClose()
-                            }}>
-                                프로필 확인
-                            </Button>
-                        </Link>
-                        {multiple && userObj.uid !== user?.uid && 
-                            <Link to='/piazza' state={{conversation: conversation, displayName: user?.displayName, userUid: userObj.uid, chattingUid: user?.uid, multiple: false, profileUrl: user?.profileImageUrl}}>
-                                <DrawerClose>
-                                    <Button variant='outlined' onClick={() => {
-                                        handleMessagesList([])
-                                        // handleChangeMessage(true)
-                                        handleMultiple(false)
-                                        // handleClose()
-                                    }}>
-                                        개인 대화
-                                    </Button>
-                                </DrawerClose>
+                            {user?.displayName !== displayedName &&
+                                <div>
+                                    ({displayedName}에서 개명)
+                                </div>
+                            }
+                        </div>
+                        <div className='flex justify-center p-5'>
+                            <Link to='/profile' state={{element: user}}>
+                                <Button variant='outlined' onClick={() => {
+                                    // handleClose()
+                                }}>
+                                    프로필 확인
+                                </Button>
                             </Link>
-                        }
-                    </div>
+                            {multiple && userObj.uid !== user?.uid && 
+                                <Link to='/piazza' state={{conversation: conversation, displayName: user?.displayName, userUid: userObj.uid, chattingUid: user?.uid, multiple: false, profileUrl: user?.profileImageUrl}}>
+                                    <DrawerClose>
+                                        <Button variant='outlined' onClick={() => {
+                                            handleMessagesList([])
+                                            // handleChangeMessage(true)
+                                            handleMultiple(false)
+                                            // handleClose()
+                                        }}>
+                                            개인 대화
+                                        </Button>
+                                    </DrawerClose>
+                                </Link>
+                            }
+                        </div>
+                    </ScrollArea>
                 </DrawerContent>
             </Drawer>
         </div>

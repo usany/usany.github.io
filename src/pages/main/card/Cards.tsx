@@ -37,11 +37,12 @@ import CardsViews from "./CardsViews";
 import MorphingDialogs from "../../core/morphingDialogs/MorphingDialogs";
 import { deleteDoc, doc } from "firebase/firestore";
 import { dbservice } from "src/baseApi/serverbase";
+import { User } from "firebase/auth";
 
 interface Props {
   msgObj: { id: string; text: object };
   isOwner: boolean;
-  userObj: { uid: string; displayName: string };
+  userObj: User | null;
   num: number | null;
   points: number | null;
 }
@@ -89,7 +90,7 @@ const Cards = ({
       setLongPressed(false);
     }
   }, [onLongPress]);
-  console.log(msgObj);
+
   return (
     <div className="max-w-60 min-w-20 p-1" ref={cardsRef}>
       {longPressed ? (

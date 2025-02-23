@@ -20,8 +20,11 @@ import {
   Maximize2,
   Captions,
   Bike,
+  PersonStanding,
+  Speech,
 } from "lucide-react";
 import { changeBottomNavigation } from "src/stateSlices/bottomNavigationSlice";
+import { AlarmCheck, AlertCircle, DoorOpen, Presentation, Siren, UserCheck, UserRound } from "lucide-react";
 
 // const StyledBox = styled('div')(({ theme }) => ({
 //   backgroundColor: '#fff',
@@ -137,7 +140,7 @@ function Navigation({ userObj, sideNavigation, handleSideNavigation }: Props) {
                       onClick={() => checkbox()}
                     >
                       <div className="flex px-3">
-                        <Captions />
+                        <PersonStanding />
                         <div className="px-3">내 프로필</div>
                       </div>
                     </Link>
@@ -157,16 +160,18 @@ function Navigation({ userObj, sideNavigation, handleSideNavigation }: Props) {
                   </div>
                 </h1>
                 <h1 className="text-2xl px-5 pt-3">
-                  <span className="px-3">
-                    <WorkIcon />
-                  </span>
-                  <Link
-                    to="/piazza"
-                    state={{ multiple: true }}
-                    onClick={() => checkbox()}
-                  >
-                    단체 대화방
-                  </Link>
+                  <div className='flex'>
+                    <span className="pt-1 px-3">
+                      <Speech />
+                    </span>
+                    <Link
+                      to="/piazza"
+                      state={{ multiple: true }}
+                      onClick={() => checkbox()}
+                    >
+                      단체 대화방
+                    </Link>
+                  </div>
                 </h1>
                 <h1 className="text-2xl	px-5 pt-3">
                   <span className="px-3">
@@ -234,6 +239,14 @@ function Navigation({ userObj, sideNavigation, handleSideNavigation }: Props) {
             )}
           </div>
         )}
+
+      <AlarmCheck />
+      <AlertCircle />
+      <Siren />
+      <Presentation />
+      <DoorOpen />
+      <UserRound />
+      <UserCheck />
       </nav>
     </SwipeableDrawer>
   );

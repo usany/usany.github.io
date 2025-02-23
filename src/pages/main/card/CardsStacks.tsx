@@ -23,6 +23,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { User } from "firebase/auth";
 import Cards from "src/pages/main/card/Cards";
 import { Chip, ClickAwayListener } from "@mui/material";
+import { AnimatedList } from "src/components/ui/animated-list";
 
 interface Props {
   userObj: User;
@@ -137,21 +138,23 @@ function CardsStacks({ userObj }: Props) {
                               setLongPressCard(longPress);
                             }}
                           >
-                            <Cards
-                              msgObj={msg}
-                              isOwner={isOwner}
-                              userObj={userObj}
-                              num={null}
-                              points={null}
-                              onLongPress={onLongPress}
-                              changeOnLongPress={(newValue) =>
-                                setOnLongPress(newValue)
-                              }
-                              longPressCard={longPressCard}
-                              changeLongPressCard={(newValue) =>
-                                setLongPressCard(newValue)
-                              }
-                            />
+                            <AnimatedList>
+                              <Cards
+                                msgObj={msg}
+                                isOwner={isOwner}
+                                userObj={userObj}
+                                num={null}
+                                points={null}
+                                onLongPress={onLongPress}
+                                changeOnLongPress={(newValue) =>
+                                  setOnLongPress(newValue)
+                                }
+                                longPressCard={longPressCard}
+                                changeLongPressCard={(newValue) =>
+                                  setLongPressCard(newValue)
+                                }
+                              />
+                            </AnimatedList>
                           </div>
                         </ClickAwayListener>
                       );

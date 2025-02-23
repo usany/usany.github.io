@@ -163,7 +163,27 @@ function Profile({ userObj }: Props) {
   } else {
     shortenName = userDisplayName;
   }
-
+  function getCoords() {
+    return new Promise((resolve, reject) =>
+      navigator.permissions ?
+  
+        // Permission API is implemented
+        navigator.permissions.query({
+          name: 'geolocation'
+        }).then(permission =>
+          // is geolocation granted?
+          permission.state === "granted"
+            ? navigator.geolocation.getCurrentPosition(pos => resolve(pos.coords)) 
+            : resolve(null)
+        ) :
+  
+      // Permission API was not implemented
+      reject(new Error("Permission API is not supported"))
+    )
+  }
+  
+  getCoords().then(coords => console.log(coords))
+  
   return (
     <div>
       {/* <div>
@@ -191,6 +211,7 @@ function Profile({ userObj }: Props) {
       <PageTitle
         title={`${userUid === userObj.uid ? "내" : shortenName} 프로필`}
       />
+      <div onClick={() => navigator.geolocation.getCurrentPosition(position => console.log(position))}>위치</div>
       <ProfileAvatar
         userObj={userObj}
         user={state?.element || userObj}

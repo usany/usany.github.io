@@ -54,7 +54,7 @@ const AuthForm = ({ signIn }) => {
         account.email,
         account.password
       );
-      storeSetDoc({ uid: data.user.uid, email: data.user.email });
+      // storeSetDoc({ uid: data.user.uid, email: data.user.email });
       const docsRef = query(collection(dbservice, "members"));
       const docs = await getDocs(docsRef);
       const docsLength = docs.docs.length;
