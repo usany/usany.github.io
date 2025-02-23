@@ -43,6 +43,10 @@ import { User } from "firebase/auth";
 import Avatars from "src/pages/core/Avatars";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import staticImg from "src/assets/pwa-512x512.png";
+import SpecificsDimensions from "./SpecificsDimensions";
+import SpecificsActions from "./SpecificsActions";
+import SpecificsSteppers from "./SpecificsSteppers";
+import SpecificsTrades from "./SpecificsTrades";
 
 interface Props {
   userObj: User | null;
@@ -141,54 +145,14 @@ function Specifics({ userObj, message }: Props) {
         }}
       >
         <CardContent>
-          <div className="flex justify-between gap-1">
-            <div className="flex flex-col gap-1 items-center">
-              <Avatars
-                profile={false}
-                profileColor={profileColor}
-                profileUrl={message.creatorUrl}
-                fallback={userObj.displayName ? userObj.displayName[0] : ""}
-              />
-              {message.creatorId === userObj?.uid ? (
-                <Chip label="내가 작성함" />
-              ) : (
-                <Chip label={`${messageName} 작성함`} />
-              )}
-            </div>
-            <div className="flex items-center">
-              <Chip
-                label={`${message.item} ${message.text.choose === 1 ? " 빌리기" : " 빌려주기"}`}
-              />
-            </div>
-          </div>
+          <SpecificsActions userObj={userObj} message={message} />
           <div className="pt-5">
             <CardMedia
               sx={{ height: 140 }}
               image={"src/assets/pwa-512x512.png"}
             />
           </div>
-          <div className="flex justify-around gap-1 pt-5">
-            <div className="flex items-center">
-              <div>전달 장소:&emsp;</div>
-              <Chip
-                label={`${message.text.count} ${message.text.counter} ${message.text.counting}`}
-              />
-            </div>
-            <div>
-              <div className="flex items-center">
-                <div>대여 시간:&emsp;</div>
-                <Chip
-                  label={`${message.text.clock.year}.${message.text.clock.month}.${message.text.clock.day} ${message.text.clock.hour}:${message.text.clock.minute}`}
-                />
-              </div>
-              <div className="flex items-center">
-                <div>반납 시간:&emsp;</div>
-                <Chip
-                  label={`${message.text.clock.year}.${message.text.clock.month}.${message.text.clock.day} ${message.text.clock.hour}:${message.text.clock.minute}`}
-                />
-              </div>
-            </div>
-          </div>
+          <SpecificsDimensions message={message} />
           <Divider />
           <div className="pt-3">
             {message.text.choose === 1 && (
@@ -287,12 +251,10 @@ function Specifics({ userObj, message }: Props) {
                 </div>
               </div>
             )}
+            <SpecificsTrades userObj={userObj} message={message} />
             <Divider />
           </div>
-          <div className="flex flex-col gap-1">
-            <div className="flex pt-5">진행 단계: {message.round}</div>
-            <Steppers msgObj={message} />
-          </div>
+          <SpecificsSteppers message={message} />
           <Divider />
           <div className="flex justify-center pt-5">
             {deleted === false && userObj !== null && (

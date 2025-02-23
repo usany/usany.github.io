@@ -97,111 +97,111 @@ function Specific({ userObj }: Props) {
   shadowColor = shadowColorArray[mergedArray.indexOf(String(msgObj.id[0]).toUpperCase())%shadowColorArray.length];
 
   return (
-    <div>
-      <PageTitle title={'카드 내용'} />
-    <Card
-      sx={{
-        boxShadow: `1.9px 1.9px 1.9px 1.9px ${shadowColor}`
-      }}
-    >
-      <CardMedia
-        sx={{ height: 140 }}
-        image={'src/assets/pwa-512x512.png'}
-      />
-      <CardContent>
-      <div className='flex justify-between'>
-        <div>
-          {msgObj.text.choose === 1 && <Chip label={`${msgObj.item} 빌리기`} />}
-          {msgObj.text.choose === 2 && <Chip label={`${msgObj.item} 빌려주기`} />}
-          {msgObj.creatorId === (userObj?.uid || null) && 
-            <Chip label='내가 작성함' />
-          }
-        </div>
-        <div>
-          <div className='flex'>{msgObj.text.count} {msgObj.text.counter} {msgObj.text.counting}에서</div>
-          <div className='flex flex-col'>
-            <div>{msgObj.text.clock.year}.{msgObj.text.clock.month}.{state.msgObj.text.clock.day} {state.msgObj.text.clock.hour}:{state.msgObj.text.clock.minute}에 대여</div>
-            <div>{msgObj.text.clock.year}.{msgObj.text.clock.month}.{state.msgObj.text.clock.day} {state.msgObj.text.clocker.hour}:{state.msgObj.text.clocker.minute}에 반납</div>
-          </div>
-        </div>
-      </div>
-      <Divider />
-      <div className='pt-3'>
-        {msgObj.text.choose === 1 && 
-          <div className='flex justify-center'>
-            <div className='flex flex-col px-5 pt-5'>
-              <div>
-                빌리는 분
-              </div>
-              <div>
-                {msgObj.displayName}
-              </div>
-            </div>
-            <div className='flex flex-col'>
-              <div>
-              {msgObj.point} 포인트 지급
-              </div>
-              <div className='flex justify-start'>
-                <HorizontalRuleIcon />
-                <EastIcon />
-                <HorizontalRuleIcon />
-                <EastIcon />
-              </div>
-              <div className='flex justify-end'>
-                <WestIcon />
-                <HorizontalRuleIcon />
-                <WestIcon />
-                <HorizontalRuleIcon />
-              </div>
-              <div className='flex justify-end'>
-                <BeachAccess />
-              </div>
-            </div>
-            <div className='flex flex-col px-5 pt-5'>
-              <div>
-                빌려주는 분
-              </div>
-              <div>
-                {msgObj.connectedName || '아직 없음'}
-              </div>
-            </div>
-          </div>
-        }
-        {msgObj.text.choose === 2 && 
-          <div className='flex justify-between'>
-            <div>빌려주는 분: {msgObj.displayName}</div>
-            <div>지급 포인트: {msgObj.point}</div>
-            <div>빌리는 분: {msgObj.connectedName || '아직 없음'}</div>
-          </div>
-        }
-        <Divider />
-      </div>
-      <div className='flex pt-5'>진행 단계: {msgObj.round}</div>
-      <Steppers msgObj={msgObj} />
-      <Divider />
-      <div className='flex justify-center pt-5'>
-        {deleted === false && userObj !== null &&
-          <div className='flex justify-center'>
-            <Btn msgObj={msgObj} isOwner={msgObj.creatorId === userObj.uid} uid={userObj.uid} displayName={userObj.displayName} userObj={userObj} num={num} points={points} />
-          </div>
-        }
-        {deleted === false && userObj === null &&
-          <div className='flex justify-center'>
-            <Btn msgObj={msgObj} isOwner={false} uid={null} displayName={null} userObj={userObj} num={num} points={points} />
-          </div>
-        }
-        {deleted === true && 
-          <div className='flex justify-center'>
-            <Button variant='outlined' disabled>지워졌습니다</Button>
-          </div>
-        }
-      <div className='flex justify-center'>
-        <Button variant='outlined' onClick={onClick}>뒤로 가기</Button>
-      </div>
-      </div>
-      </CardContent>
-    </Card>
-    </div>
+    // <div>
+    //   <PageTitle title={'카드 내용'} />
+    // <Card
+    //   sx={{
+    //     boxShadow: `1.9px 1.9px 1.9px 1.9px ${shadowColor}`
+    //   }}
+    // >
+    //   <CardMedia
+    //     sx={{ height: 140 }}
+    //     image={'src/assets/pwa-512x512.png'}
+    //   />
+    //   <CardContent>
+    //   <div className='flex justify-between'>
+    //     <div>
+    //       {msgObj.text.choose === 1 && <Chip label={`${msgObj.item} 빌리기`} />}
+    //       {msgObj.text.choose === 2 && <Chip label={`${msgObj.item} 빌려주기`} />}
+    //       {msgObj.creatorId === (userObj?.uid || null) && 
+    //         <Chip label='내가 작성함' />
+    //       }
+    //     </div>
+    //     <div>
+    //       <div className='flex'>{msgObj.text.count} {msgObj.text.counter} {msgObj.text.counting}에서</div>
+    //       <div className='flex flex-col'>
+    //         <div>{msgObj.text.clock.year}.{msgObj.text.clock.month}.{state.msgObj.text.clock.day} {state.msgObj.text.clock.hour}:{state.msgObj.text.clock.minute}에 대여</div>
+    //         <div>{msgObj.text.clock.year}.{msgObj.text.clock.month}.{state.msgObj.text.clock.day} {state.msgObj.text.clocker.hour}:{state.msgObj.text.clocker.minute}에 반납</div>
+    //       </div>
+    //     </div>
+    //   </div>
+    //   <Divider />
+    //   <div className='pt-3'>
+    //     {msgObj.text.choose === 1 && 
+    //       <div className='flex justify-center'>
+    //         <div className='flex flex-col px-5 pt-5'>
+    //           <div>
+    //             빌리는 분
+    //           </div>
+    //           <div>
+    //             {msgObj.displayName}
+    //           </div>
+    //         </div>
+    //         <div className='flex flex-col'>
+    //           <div>
+    //           {msgObj.point} 포인트 지급
+    //           </div>
+    //           <div className='flex justify-start'>
+    //             <HorizontalRuleIcon />
+    //             <EastIcon />
+    //             <HorizontalRuleIcon />
+    //             <EastIcon />
+    //           </div>
+    //           <div className='flex justify-end'>
+    //             <WestIcon />
+    //             <HorizontalRuleIcon />
+    //             <WestIcon />
+    //             <HorizontalRuleIcon />
+    //           </div>
+    //           <div className='flex justify-end'>
+    //             <BeachAccess />
+    //           </div>
+    //         </div>
+    //         <div className='flex flex-col px-5 pt-5'>
+    //           <div>
+    //             빌려주는 분
+    //           </div>
+    //           <div>
+    //             {msgObj.connectedName || '아직 없음'}
+    //           </div>
+    //         </div>
+    //       </div>
+    //     }
+    //     {msgObj.text.choose === 2 && 
+    //       <div className='flex justify-between'>
+    //         <div>빌려주는 분: {msgObj.displayName}</div>
+    //         <div>지급 포인트: {msgObj.point}</div>
+    //         <div>빌리는 분: {msgObj.connectedName || '아직 없음'}</div>
+    //       </div>
+    //     }
+    //     <Divider />
+    //   </div>
+    //   <div className='flex pt-5'>진행 단계: {msgObj.round}</div>
+    //   <Steppers msgObj={msgObj} />
+    //   <Divider />
+    //   <div className='flex justify-center pt-5'>
+    //     {deleted === false && userObj !== null &&
+    //       <div className='flex justify-center'>
+    //         <Btn msgObj={msgObj} isOwner={msgObj.creatorId === userObj.uid} uid={userObj.uid} displayName={userObj.displayName} userObj={userObj} num={num} points={points} />
+    //       </div>
+    //     }
+    //     {deleted === false && userObj === null &&
+    //       <div className='flex justify-center'>
+    //         <Btn msgObj={msgObj} isOwner={false} uid={null} displayName={null} userObj={userObj} num={num} points={points} />
+    //       </div>
+    //     }
+    //     {deleted === true && 
+    //       <div className='flex justify-center'>
+    //         <Button variant='outlined' disabled>지워졌습니다</Button>
+    //       </div>
+    //     }
+    //   <div className='flex justify-center'>
+    //     <Button variant='outlined' onClick={onClick}>뒤로 가기</Button>
+    //   </div>
+    //   </div>
+    //   </CardContent>
+    // </Card>
+    // </div>
   )
 }
 
