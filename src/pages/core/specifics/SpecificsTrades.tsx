@@ -62,11 +62,11 @@ function SpecificsTrades({ userObj, message }: Props) {
   }
 
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center pt-3">
       <div className="flex flex-col items-center px-5 gap-1">
         <div>빌리는 분</div>
         {message.text.choose === 1 ? (
-          <div>
+          <div className="flex flex-col items-center">
             <Avatars
               profile={false}
               profileColor={""}
@@ -76,7 +76,7 @@ function SpecificsTrades({ userObj, message }: Props) {
             <Chip label={messageName} />
           </div>
         ) : (
-          <div>
+          <div className="flex flex-col items-center">
             {message.connectedName ? (
               <Avatars
                 profile={false}
@@ -123,7 +123,7 @@ function SpecificsTrades({ userObj, message }: Props) {
       <div className="flex flex-col items-center px-5 gap-1">
         <div>빌려주는 분</div>
         {message.text.choose === 1 ? (
-          <div>
+          <div className="flex flex-col items-center">
             {message.connectedName ? (
               <Avatars
                 profile={false}
@@ -148,16 +148,14 @@ function SpecificsTrades({ userObj, message }: Props) {
             )}
           </div>
         ) : (
-          <div>
-            <div>
-              <Avatars
-                profile={false}
-                profileColor={""}
-                profileUrl={message.creatorUrl}
-                fallback={userObj.displayName ? userObj.displayName[0] : ""}
-              />
-              <Chip label={messageName} />
-            </div>
+          <div className="flex flex-col items-center">
+            <Avatars
+              profile={false}
+              profileColor={""}
+              profileUrl={message.creatorUrl}
+              fallback={userObj.displayName ? userObj.displayName[0] : ""}
+            />
+            <Chip label={messageName} />
           </div>
         )}
       </div>

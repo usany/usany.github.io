@@ -66,16 +66,11 @@ function Specifics({ userObj, message }: Props) {
   const [num, setNum] = useState<number | null>(null);
   const [points, setPoints] = useState<number | null>(null);
   const [deleted, setDeleted] = useState<boolean>(false);
-  const profileColor = useSelector((state) => state.profileColor.value);
-  const profileImage = useSelector((state) => state.profileImage.value);
   useEffect(() => {
     if (!msgObj) {
       setMsgObj(message);
     }
   });
-  // useEffect(() => {
-  //   dispatch(changeBottomNavigation(5))
-  // }, [])
   useEffect(() => {
     onSnapshot(query(collection(dbservice, "num")), (snapshot) => {
       const newArray = snapshot.docs.map((document) => {
@@ -130,13 +125,7 @@ function Specifics({ userObj, message }: Props) {
       mergedArray.indexOf(String(message.id[0]).toUpperCase()) %
         shadowColorArray.length
     ];
-  const messageDisplayName = message.displayName;
-  let messageName;
-  if (messageDisplayName.length > 10) {
-    messageName = messageDisplayName.slice(0, 10) + "......";
-  } else {
-    messageName = messageDisplayName;
-  }
+
   return (
     <div className="truncate">
       <Card
@@ -154,10 +143,8 @@ function Specifics({ userObj, message }: Props) {
           </div>
           <SpecificsDimensions message={message} />
           <Divider />
-          <div className="pt-3">
-            <SpecificsTrades userObj={userObj} message={message} />
-            <Divider />
-          </div>
+          <SpecificsTrades userObj={userObj} message={message} />
+          <Divider />
           <SpecificsSteppers message={message} />
           <Divider />
           <div className="flex justify-center pt-5">
