@@ -4,7 +4,7 @@ import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnap
 import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
 import { Link, useLocation } from 'react-router-dom'
 import { webSocket, onClick } from 'src/webSocket.tsx'
-import ChattingDialogs from 'src/components/chatting/ChattingDialogs'
+import ChattingDialogs from 'src/pages/main/chatting/ChattingDialogs'
 import { useBottomNavigationStore, useNewMessageStore } from 'src/store'
 import {
   Accordion,

@@ -100,8 +100,8 @@ const ProfileMembersDrawers = ({ userObj, user }) => {
           </div>
         </Card>
       </DrawerTrigger>
-      <DrawerContent className="bg-light-2 dark:bg-dark-2 max-h-[50%] h-full overflow-y-scroll">
-        <ScrollArea>
+      <DrawerContent className="bg-light-2 dark:bg-dark-2 max-h-[50%]">
+        <ScrollArea className='overflow-y-scroll'>
           <DrawerHeader>
             <div>
               진행 중인 빌리기, 빌려주기가 없어야 회원 탈퇴를 할 수 있습니다.

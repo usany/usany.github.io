@@ -17,7 +17,7 @@ import {
 import FilterDialogs from "src/pages/main/FilterDialogs";
 import { useImmer } from "use-immer";
 import { User } from "firebase/auth";
-import Cards from "src/components/card/Cards";
+import Cards from "src/pages/main/card/Cards";
 import PageTitle from "src/pages/core/pageTitle/PageTitle";
 import BoardMap from "src/pages/main/BoardMap";
 import { SwipeableViews } from "src/navigate/SwipeableViews";

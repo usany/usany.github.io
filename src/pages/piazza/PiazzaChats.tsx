@@ -15,7 +15,7 @@ import Chip from '@mui/material/Chip';
 // import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
 // import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnapshot, deleteDoc, updateDoc, limit } from 'firebase/firestore';
 import staticImage from 'src/assets/blue.png';
-import Chats from 'src/components/chatting/Chats'
+import Chats from 'src/pages/main/chatting/Chats'
 
 interface Props {
   userObj: User

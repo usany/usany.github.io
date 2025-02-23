@@ -154,17 +154,13 @@ const Header = ({ userObj }: Props) => {
   return (
     <>
       {/* <div className="fixed z-20 bg-light-3/50 dark:bg-dark-3/50 truncate"> */}
-      <div className="fixed z-20 bg-light-3 dark:bg-dark-3 truncate">
+      <div className="fixed z-50 bg-light-3 dark:bg-dark-3 truncate">
         <HeaderViews userObj={userObj} />
         {/* <div className={`${!scroll && "hidden"}`}>
           <HeaderViews userObj={userObj} />
         </div> */}
       </div>
       <div className="h-16 truncate">
-        <HeaderViews userObj={userObj} />
-        {/* <div className={`${scroll && "hidden"}`}>
-          <HeaderViews userObj={userObj} />
-        </div> */}
       </div>
     </>
   );

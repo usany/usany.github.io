@@ -19,18 +19,18 @@ import {
   updateDoc,
   DocumentSnapshot,
 } from "firebase/firestore";
-import AddSteppers from "src/components/add/AddSteppers";
-import AddStepOne from "src/components/add/AddStepOne";
-import AddStepTwo from "src/components/add/AddStepTwo";
-import AddStepThree from "src/components/add/AddStepThree";
-import AddStepFour from "src/components/add/AddStepFour";
-import AddRegisterButton from "src/components/add/AddRegisterButton";
-import AddSnackBar from "src/components/add/AddSnackBar";
+import AddSteppers from "src/pages/main/add/AddSteppers";
+import AddStepOne from "src/pages/main/add/AddStepOne";
+import AddStepTwo from "src/pages/main/add/AddStepTwo";
+import AddStepThree from "src/pages/main/add/AddStepThree";
+import AddStepFour from "src/pages/main/add/AddStepFour";
+import AddRegisterButton from "src/pages/main/add/AddRegisterButton";
+import AddSnackBar from "src/pages/main/add/AddSnackBar";
 import PageTitle from "src/pages/core/pageTitle/PageTitle";
 import { User } from "firebase/auth";
 import { useSelector, useDispatch } from "react-redux";
 import TabsRootState from "src/interfaces/TabsRootState";
-import AddCards from "src/components/add/AddCards";
+import AddCards from "src/pages/main/add/AddCards";
 import { useMediaQuery } from "@mui/material";
 
 interface Props {
@@ -66,7 +66,7 @@ function Add({ userObj, borrow }: Props) {
   const [item, setItem] = useState("");
   const tabs = useSelector((state: TabsRootState) => state.tabs.value);
   const [fromTo, setFromTo] = useState<FromTo>({ from: null, to: null });
-  const matches = useMediaQuery("(min-width:500px)");
+  const matches = useMediaQuery("(min-width:850px)");
   // const [cardId, setCardId] = useState<string | null>(null)
   // const [from, setFrom] = useState(null);
   // const [to, setTo] = useState(null);
@@ -351,7 +351,7 @@ function Add({ userObj, borrow }: Props) {
                 </div>
             </div> */}
       {matches ? (
-        <div className="flex justify-around">
+        <div className="flex justify-around px-5">
           <AddCards
             borrow={borrow}
             userObj={userObj}
@@ -383,7 +383,7 @@ function Add({ userObj, borrow }: Props) {
           </div>
         </div>
       ) : (
-        <div className="flex justify-around">
+        <div className="flex justify-around px-5">
           <AddCards
             borrow={borrow}
             userObj={userObj}
