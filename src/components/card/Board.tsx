@@ -50,7 +50,7 @@ interface Message {
   item: string;
 }
 function Notice({ userObj, borrow }: Props) {
-  const [messages, setMessages] = useState<Array<object>>([]);
+  const [messages, setMessages] = useState<Array<Message>>([]);
   const [selectedValues, setSelectedValues] = useImmer([
     {
       id: "selectedValueOne",
