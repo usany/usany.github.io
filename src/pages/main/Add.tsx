@@ -285,6 +285,7 @@ function Add({ userObj, borrow }: Props) {
           creatorUrl: userProfileUrl,
           connectedId: null,
           connectedName: null,
+          connectedUrl: null,
           item: item,
         });
         await updateDoc(user, { createdCards: [...userCreatedCards, card.id] });
