@@ -77,12 +77,23 @@ function SpecificsTrades({ userObj, message }: Props) {
           </div>
         ) : (
           <div>
-            <Avatar
-              className={`bg-light-3 dark:bg-dark-3 border border-dashed`}
-            >
-              <AvatarImage src={message?.connectedUrl} />
-              <AvatarFallback className="text-xl border-none">?</AvatarFallback>
-            </Avatar>
+            {message.connectedName ? (
+              <Avatars
+                profile={false}
+                profileColor={""}
+                profileUrl={message.creatorUrl}
+                fallback={message.connectedName ? message.connectedName[0] : ""}
+              />
+            ) : (
+              <Avatar
+                className={`bg-light-3 dark:bg-dark-3 border border-dashed`}
+              >
+                <AvatarImage src={message?.connectedUrl} />
+                <AvatarFallback className="text-xl border-none">
+                  ?
+                </AvatarFallback>
+              </Avatar>
+            )}
             {message.connectedName ? (
               <Chip label={message.connectedName} />
             ) : (
@@ -113,12 +124,23 @@ function SpecificsTrades({ userObj, message }: Props) {
         <div>빌려주는 분</div>
         {message.text.choose === 1 ? (
           <div>
-            <Avatar
-              className={`bg-light-3 dark:bg-dark-3 border border-dashed`}
-            >
-              <AvatarImage src={message?.connectedUrl} />
-              <AvatarFallback className="text-xl border-none">?</AvatarFallback>
-            </Avatar>
+            {message.connectedName ? (
+              <Avatars
+                profile={false}
+                profileColor={""}
+                profileUrl={message.connectedUrl}
+                fallback={message.connectedName ? message.connectedName[0] : ""}
+              />
+            ) : (
+              <Avatar
+                className={`bg-light-3 dark:bg-dark-3 border border-dashed`}
+              >
+                <AvatarImage src={message?.connectedUrl} />
+                <AvatarFallback className="text-xl border-none">
+                  ?
+                </AvatarFallback>
+              </Avatar>
+            )}
             {message.connectedName ? (
               <Chip label={message.connectedName} />
             ) : (
