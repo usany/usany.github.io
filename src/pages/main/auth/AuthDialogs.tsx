@@ -20,6 +20,7 @@ import {
 import { useSelector, useDispatch } from 'react-redux'
 import AuthForm from 'src/pages/main/auth/AuthForm';
 import { Divider } from '@mui/material';
+import { ScrollArea } from '@radix-ui/react-scroll-area';
 
 function AuthDialogs() {
   const theme = useSelector(state => state.theme)
@@ -35,22 +36,24 @@ function AuthDialogs() {
             <Divider sx={{width: '25%', padding: '5px'}}/>
           </div>
         </DrawerTrigger>
-        <DrawerContent className='bg-light-3 dark:bg-dark-3'>
-          <DrawerTitle className='flex justify-center'>
-            환영합니다
-          </DrawerTitle>
-          <div className='p-3'>
-            <div>1분이면 계정을 만들 수 있어요</div>
-            <div>지루하지 않게 노래도 준비했어요</div>
-          </div>
-          <div className='flex justify-center pt-3'>
-            {theme === 'light' ? 
-              <iframe src="https://open.spotify.com/embed/playlist/41clCj2piQBL3BSEFQN9J3?utm_source=generator" width="90%" height="200" allow="autoplay; clipboard-write; fullscreen; picture-in-picture" loading="lazy" />
-              :
-              <iframe src="https://open.spotify.com/embed/playlist/41clCj2piQBL3BSEFQN9J3?utm_source=generator&theme=0" width="90%" height="200" allow="autoplay; clipboard-write; fullscreen; picture-in-picture" loading="lazy" />
-            }
-          </div>
-          <AuthForm signIn={false} />
+        <DrawerContent className='bg-light-3 dark:bg-dark-3 max-h-[90%]'>
+          <ScrollArea className='overflow-y-scroll'>
+            <DrawerTitle className='flex justify-center'>
+              환영합니다
+            </DrawerTitle>
+            <div className='p-3'>
+              <div>1분이면 계정을 만들 수 있어요</div>
+              <div>지루하지 않게 노래도 준비했어요</div>
+            </div>
+            <div className='flex justify-center pt-3'>
+              {theme === 'light' ? 
+                <iframe src="https://open.spotify.com/embed/playlist/41clCj2piQBL3BSEFQN9J3?utm_source=generator" width="90%" height="200" allow="autoplay; clipboard-write; fullscreen; picture-in-picture" loading="lazy" />
+                :
+                <iframe src="https://open.spotify.com/embed/playlist/41clCj2piQBL3BSEFQN9J3?utm_source=generator&theme=0" width="90%" height="200" allow="autoplay; clipboard-write; fullscreen; picture-in-picture" loading="lazy" />
+              }
+            </div>
+            <AuthForm signIn={false} />
+          </ScrollArea>
         </DrawerContent>
       </Drawer>
     </>
