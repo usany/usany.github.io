@@ -13,6 +13,7 @@ import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
 import { User } from 'firebase/auth';
 import { alpha } from "@mui/material";
 import { useSelectors } from 'src/hooks/useSelectors';
+import { Pencil, Presentation, Umbrella } from 'lucide-react';
 
 interface Props {
     userObj: User | null
@@ -53,9 +54,9 @@ function Navigations({ userObj }: Props) {
                         }
                     }}
                 >
-                    <BottomNavigationAction label={'등록'} icon={<ChevronLeft />}/>
-                    <BottomNavigationAction label={'내 상태'} icon={<BeachAccess />}/>
-                    <BottomNavigationAction label={'게시판'} icon={<Checklist />}/>
+                    <BottomNavigationAction label={'등록'} icon={<Pencil />}/>
+                    <BottomNavigationAction label={'내 상태'} icon={<Umbrella />}/>
+                    <BottomNavigationAction label={'게시판'} icon={<Presentation />}/>
                 </BottomNavigation>
                 :
                 <BottomNavigation
@@ -69,9 +70,9 @@ function Navigations({ userObj }: Props) {
                         }
                     }}
                 >
-                    <BottomNavigationAction label={'등록'} icon={<Checklist />}/>
-                    <BottomNavigationAction label={'로그인'} icon={<BeachAccess />}/>
-                    <BottomNavigationAction label={'게시판'} icon={<ChecklistRtl />}/>
+                    <BottomNavigationAction label={'등록'} icon={<Pencil />}/>
+                    <BottomNavigationAction label={'로그인'} icon={<Umbrella />}/>
+                    <BottomNavigationAction label={'게시판'} icon={<Presentation />}/>
                 </BottomNavigation>
             }
         </div>

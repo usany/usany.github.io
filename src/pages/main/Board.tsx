@@ -21,7 +21,7 @@ import Cards from "src/components/card/Cards";
 import PageTitle from "src/pages/core/pageTitle/PageTitle";
 import BoardMap from "src/pages/main/BoardMap";
 import { SwipeableViews } from "src/navigate/SwipeableViews";
-import { AlarmCheck, AlertCircle, DoorOpen, Presentation, Siren, UserCheck, UserRound } from "lucide-react";
+import { AlarmCheck, AlertCircle, Building, Clock, DoorOpen, MessagesSquare, Pencil, Presentation, Search, SearchCheck, SearchCode, SearchSlash, Siren, TowerControl, Umbrella, UserCheck, UserRound, Watch } from "lucide-react";
 
 interface Props {
   userObj: User | null;
@@ -110,6 +110,17 @@ function Notice({ userObj, borrow }: Props) {
       <DoorOpen />
       <UserRound />
       <UserCheck />
+      <MessagesSquare />
+      <Umbrella />
+      <TowerControl />
+      <Clock />
+      <Building />
+      <Watch />
+      <Pencil />
+      <Search />
+      <SearchCheck />
+      <SearchCode />
+      <SearchSlash />
       {/* <div>
         <div className="sticky top-20 p-5 bg-white">카드 목록</div>
         <div>

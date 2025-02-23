@@ -22,6 +22,10 @@ import {
   Bike,
   PersonStanding,
   Speech,
+  Group,
+  MessageSquare,
+  MessagesSquare,
+  SearchCheck,
 } from "lucide-react";
 import { changeBottomNavigation } from "src/stateSlices/bottomNavigationSlice";
 import { AlarmCheck, AlertCircle, DoorOpen, Presentation, Siren, UserCheck, UserRound } from "lucide-react";
@@ -140,7 +144,7 @@ function Navigation({ userObj, sideNavigation, handleSideNavigation }: Props) {
                       onClick={() => checkbox()}
                     >
                       <div className="flex px-3">
-                        <PersonStanding />
+                        <UserRound />
                         <div className="px-3">내 프로필</div>
                       </div>
                     </Link>
@@ -152,7 +156,7 @@ function Navigation({ userObj, sideNavigation, handleSideNavigation }: Props) {
                       {/* 유저 랭킹 */}
                       <div className="flex px-3">
                         <>
-                          <Bike />
+                          <SearchCheck />
                         </>
                         <div className="px-3">유저 랭킹</div>
                       </div>
@@ -162,7 +166,7 @@ function Navigation({ userObj, sideNavigation, handleSideNavigation }: Props) {
                 <h1 className="text-2xl px-5 pt-3">
                   <div className='flex'>
                     <span className="pt-1 px-3">
-                      <Speech />
+                      <MessagesSquare />
                     </span>
                     <Link
                       to="/piazza"
@@ -175,7 +179,7 @@ function Navigation({ userObj, sideNavigation, handleSideNavigation }: Props) {
                 </h1>
                 <h1 className="text-2xl	px-5 pt-3">
                   <span className="px-3">
-                    <ImageIcon />
+                    <Siren />
                   </span>
                   <Link to="/contact" onClick={() => checkbox()}>
                     신고하기
@@ -187,7 +191,7 @@ function Navigation({ userObj, sideNavigation, handleSideNavigation }: Props) {
               </h1> */}
                 <h1 className="text-2xl px-5 pt-3">
                   <span className="px-3">
-                    <Public />
+                    <DoorOpen />
                   </span>
                   <Link
                     to="/"
