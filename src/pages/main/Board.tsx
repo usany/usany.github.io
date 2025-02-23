@@ -29,7 +29,7 @@ interface Props {
 
 function Notice({ userObj, borrow }: Props) {
   const [messages, setMessages] = useState<Array<object>>([]);
-  const [lendMessages, setLendMessages] = useState([]);
+  // const [lendMessages, setLendMessages] = useState([]);
   const [selectedValues, setSelectedValues] = useImmer([
     {
       id: "selectedValueOne",

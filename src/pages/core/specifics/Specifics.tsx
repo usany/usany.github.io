@@ -243,13 +243,19 @@ function Specifics({ userObj, message }: Props) {
               <div className="flex justify-center">
                 <div className="flex flex-col items-center px-5 gap-1">
                   <div>빌리는 분</div>
-                  <Avatars
-                    profile={false}
-                    profileColor={profileColor}
-                    profileUrl={message.creatorUrl}
-                    fallback={userObj.displayName ? userObj.displayName[0] : ""}
-                  />
-                  <Chip label={messageName} />
+                  <Avatar
+                    className={`bg-light-3 dark:bg-dark-3 border border-dashed`}
+                  >
+                    <AvatarImage src={message?.connectedUrl} />
+                    <AvatarFallback className="text-xl border-none">
+                      ?
+                    </AvatarFallback>
+                  </Avatar>
+                  {message.connectedName ? (
+                    <Chip label={message.connectedName} />
+                  ) : (
+                    <Chip variant="outlined" label={"아직 없음"} />
+                  )}
                 </div>
                 <div className="flex flex-col">
                   <div>{message.point} 포인트 지급</div>
@@ -278,29 +284,9 @@ function Specifics({ userObj, message }: Props) {
                     fallback={userObj.displayName ? userObj.displayName[0] : ""}
                   />
                   <Chip label={messageName} />
-                  <Avatar
-                    className={`bg-light-3 dark:bg-dark-3 border border-dashed`}
-                  >
-                    <AvatarImage src={message?.connectedUrl} />
-                    <AvatarFallback className="text-xl border-none">
-                      ?
-                    </AvatarFallback>
-                  </Avatar>
-                  {message.connectedName ? (
-                    <Chip label={message.connectedName} />
-                  ) : (
-                    <Chip variant="outlined" label={"아직 없음"} />
-                  )}
                 </div>
               </div>
             )}
-            {/* {message.text.choose === 2 && (
-              <div className="flex justify-between">
-                <div>빌려주는 분: {message.displayName}</div>
-                <div>지급 포인트: {message.point}</div>
-                <div>빌리는 분: {message.connectedName || "아직 없음"}</div>
-              </div>
-            )} */}
             <Divider />
           </div>
           <div className="flex flex-col gap-1">
