@@ -9,7 +9,7 @@ const { Server } = require('socket.io')
 // )
 // server.listen(5000)
 var admin = require('firebase-admin')
-var serviceAccount = require('./service-account.json')
+var serviceAccount = require('../service-account.json')
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   databaseURL:
