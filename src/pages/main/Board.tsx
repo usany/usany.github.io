@@ -17,10 +17,11 @@ import {
 import FilterDialogs from "src/pages/main/FilterDialogs";
 import { useImmer } from "use-immer";
 import { User } from "firebase/auth";
-import Cards from "src/pages/main/card/Cards";
+import Cards from "src/components/card/Cards";
 import PageTitle from "src/pages/core/pageTitle/PageTitle";
 import BoardMap from "src/pages/main/BoardMap";
 import { SwipeableViews } from "src/navigate/SwipeableViews";
+import { AlarmCheck, AlertCircle, Building, Clock, DoorOpen, MessagesSquare, Pen, PenBox, Pencil, PenSquare, PenTool, Presentation, Search, SearchCheck, SearchCode, SearchSlash, Siren, TowerControl, Umbrella, UserCheck, UserRound, Watch } from "lucide-react";
 
 interface Props {
   userObj: User | null;
@@ -29,6 +30,7 @@ interface Props {
 
 function Notice({ userObj, borrow }: Props) {
   const [messages, setMessages] = useState<Array<object>>([]);
+  // const [lendMessages, setLendMessages] = useState([]);
   const [selectedValues, setSelectedValues] = useImmer([
     {
       id: "selectedValueOne",
@@ -101,6 +103,29 @@ function Notice({ userObj, borrow }: Props) {
 
   return (
     <div>
+      <AlarmCheck />
+      <AlertCircle />
+      <Siren />
+      <Presentation />
+      <DoorOpen />
+      <UserRound />
+      <UserCheck />
+      <MessagesSquare />
+      <Umbrella />
+      <TowerControl />
+      <Clock />
+      <Building />
+      <Watch />
+      <Pencil />
+      <Search />
+      <SearchCheck />
+      <SearchCode />
+      <SearchSlash />
+      <Pen />
+      <PenBox />
+      <PenTool />
+      <PenSquare />
+      
       {/* <div>
         <div className="sticky top-20 p-5 bg-white">카드 목록</div>
         <div>
@@ -156,11 +181,8 @@ function Notice({ userObj, borrow }: Props) {
         <SwipeableViews>
           <div className="flex flex-wrap justify-between p-3 gap-1">
             {messages.map((msg) => {
-              let choose;
+              const choose = 1;
               const isOwner = msg?.creatorId === userObj?.uid;
-              {
-                borrow ? (choose = 1) : (choose = 2);
-              }
               if (msg?.text.choose === choose && msg?.round === 1) {
                 if (
                   selectedValues[0].value === "전체" ||
@@ -188,11 +210,8 @@ function Notice({ userObj, borrow }: Props) {
           </div>
           <div className="flex flex-wrap justify-between p-3 gap-1">
             {messages.map((msg) => {
-              let choose;
+              const choose = 2;
               const isOwner = msg?.creatorId === userObj?.uid;
-              {
-                borrow ? (choose = 1) : (choose = 2);
-              }
               if (msg?.text.choose === choose && msg?.round === 1) {
                 if (
                   selectedValues[0].value === "전체" ||

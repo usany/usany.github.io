@@ -330,26 +330,26 @@ function Notice({ userObj, borrow }: Props) {
           </div>
         </div>
         <div className="flex flex-wrap justify-between p-3 gap-1">
-          {messages.map((msg) => {
+          {messages.map((message) => {
             let choose;
-            const isOwner = msg?.creatorId === userObj?.uid;
+            const isOwner = message?.creatorId === userObj?.uid;
             {
               borrow ? (choose = 1) : (choose = 2);
             }
-            if (msg?.text.choose === choose && msg?.round === 1) {
+            if (message?.text.choose === choose && message?.round === 1) {
               if (
                 selectedValues[0].value === "전체" ||
-                selectedValues[0].value === msg?.item ||
+                selectedValues[0].value === message?.item ||
                 !selectedValues[0].value
               ) {
                 if (
                   selectedValues[1].value === "전체" ||
-                  selectedValues[1].value === msg?.text.count ||
+                  selectedValues[1].value === message?.text.count ||
                   !selectedValues[1].value
                 ) {
                   return (
                     <Cards
-                      msgObj={msg}
+                      msgObj={message}
                       isOwner={isOwner}
                       userObj={userObj}
                       num={null}

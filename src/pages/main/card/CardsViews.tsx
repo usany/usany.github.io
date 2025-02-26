@@ -36,6 +36,7 @@ import useLongPress from "src/hooks/useLongPress";
 import Avatars from "../../core/Avatars";
 import { useSelector } from "react-redux";
 import { User } from "firebase/auth";
+import { Building, Clock, Watch } from "lucide-react";
 
 interface Props {
   msgObj: { id: string; text: object };
@@ -121,10 +122,12 @@ const CardsViews = ({ msgObj, isOwner, userObj, num, points }: Props) => {
                         } */}
             <div className="flex flex-col">
               <div className="flex justify-center">
-                {msgObj.text.count} {msgObj.text.counter}{" "}
+                <Building />
+                {msgObj.text.count} {msgObj.text.counter}
                 {msgObj.text.counting !== "" && msgObj.text.counting}
               </div>
               <div className="flex justify-center">
+                <Watch />
                 {msgObj.text.clock?.year}.{msgObj.text.clock?.month}.
                 {msgObj.text.clock?.day} {msgObj.text.clock?.hour}:
                 {msgObj.text.clock?.minute} 부터

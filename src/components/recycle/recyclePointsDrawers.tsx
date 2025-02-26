@@ -25,7 +25,7 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 import Points from 'src/pages/search/Points'
 
 const PointsDrawers = ({ user, cards }) => {
-  
+
   return (
     <div className='flex flex-col'>
       <Drawer>

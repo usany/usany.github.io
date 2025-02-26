@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { Payload } from 'recharts/types/component/DefaultLegendContent'
+// import { Payload } from 'recharts/types/component/DefaultLegendContent'
 
 interface PiazzaSwitchState {
   value: string | null

@@ -24,10 +24,12 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import {
+  AdvancedMarker,
   APIProvider,
   InfoWindow,
   Map,
   Marker,
+  Pin,
 } from "@vis.gl/react-google-maps";
 
 interface Props {
@@ -136,19 +138,25 @@ function BoardMap({ onMarker, onMarkerTrue, onMarkerFalse }: Props) {
               )}
             </div>
             <div className="w-full h-[300px]">
-              <Map
+              <Map mapId='c9fba092cf3c503e'
                 defaultCenter={{ lat: 59.9156636, lng: 10.7507967 }}
                 defaultZoom={18}
                 gestureHandling={"greedy"}
                 disableDefaultUI={true}
               >
-                <Marker
+                <AdvancedMarker
                   onClick={() => {
                     onClickMarker("중도");
                     onMarkerTrue();
                   }}
                   position={{ lat: 59.9156636, lng: 10.7507967 }}
-                />
+                >
+                  <Pin
+                    background={"#0f9d58"}
+                    borderColor={"#006425"}
+                    glyphColor={"#60d98f"}
+                  />
+                </AdvancedMarker>
                 <Marker
                   onClick={() => {
                     onClickMarker("청운");
