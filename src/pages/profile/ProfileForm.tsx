@@ -4,15 +4,17 @@ import { updateProfile, createUserWithEmailAndPassword, signInWithEmailAndPasswo
 import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnapshot, updateDoc, setDoc } from 'firebase/firestore';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
+import { useQueryState } from 'nuqs'
+import { NuqsAdapter } from 'nuqs/adapters/react'
 
 interface Props {
   userObj: string
 }
 
-const ProfileForm = ({ userObj }) => {
+const ProfileForm = ({ userObj, }) => {
   const [profileChangeConfirmed, setProfileChangeConfirmed] = useState(false)
   const [newDisplayName, setNewDisplayName] = useState('')
-  
+  const [name, setName] = useQueryState('name')
   useEffect(() => {
     setNewDisplayName(
       userObj.displayName
@@ -52,6 +54,7 @@ const ProfileForm = ({ userObj }) => {
       target: { value },
     } = event
     setNewDisplayName(value)
+    setName(value)
     const tmp = query(collection(dbservice, `members`))
     const querySnapshot = await getDocs(tmp);
     let profileConfirmed = true
@@ -72,7 +75,7 @@ const ProfileForm = ({ userObj }) => {
       <div className='flex justify-center pt-10'>
         {/* <div className='flex pt-5 px-3'>유저 이름 바꾸기:</div> */}
         <div className='flex flex-col'>
-          <TextField label='유저 이름 바꾸기' placeholder='유저 이름 바꾸기' value={newDisplayName} type='text' onChange={onChange} />
+          <TextField label='유저 이름 바꾸기' placeholder='유저 이름 바꾸기' value={name} type='text' onChange={onChange} />
           <div className='flex justify-start'>
             {profileChangeConfirmed ? 
               <div className='flex'>

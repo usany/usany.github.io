@@ -38,6 +38,7 @@ import CardsStacks from "src/pages/main/card/CardsStacks";
 interface Props {
   userObj: User;
 }
+
 function Menu({ userObj }: Props) {
   const [accordions, setAccordions] = useState({
     cards: "item-1",
@@ -98,7 +99,7 @@ function Menu({ userObj }: Props) {
       rootElement.removeEventListener("contextmenu", handleContextMenu);
     };
   }, []);
-
+  
   return (
     <div id="sample" className="flex justify-center flex-col pb-5">
       <PageTitle title={"내 상태"} />

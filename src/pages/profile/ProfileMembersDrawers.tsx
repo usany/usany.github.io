@@ -74,8 +74,10 @@ const ProfileMembersDrawers = ({ userObj, user }) => {
   };
   console.log(user)
   useEffect(() => {
-    const createdNumber = user.userData?.createdCards.length || 0
-    const connectedNumber = user.userData?.connectedCards.length || 0
+    const createdCards = user.userData?.createdCards
+    const connectedCards = user.userData?.connectedCards
+    const createdNumber = createdCards?.length || 0
+    const connectedNumber = connectedCards?.length || 0
     if (
       createdNumber === 0 &&
       connectedNumber === 0

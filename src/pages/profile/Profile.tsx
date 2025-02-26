@@ -61,6 +61,7 @@ function Profile({ userObj }: Props) {
     borrowDone: [],
     lendDone: [],
   });
+  const [weather, setWeather] = useState(null)
   const [drawerClosed, setDrawerClosed] = useState(false);
   const userUid = state?.element.uid || userObj.uid;
   const userDisplayName = state?.element.displayName || userObj.displayName;
@@ -75,7 +76,7 @@ function Profile({ userObj }: Props) {
     queryFn: () => myCardsQuery(userObj.uid),
     suspense: true,
   });
-
+  
   useEffect(() => {
     const cards = async () => {
       const docRef = doc(dbservice, `members/${userUid}`);
@@ -173,7 +174,10 @@ function Profile({ userObj }: Props) {
         }).then(permission =>
           // is geolocation granted?
           permission.state === "granted"
-            ? navigator.geolocation.getCurrentPosition(pos => resolve(pos.coords)) 
+            ? navigator.geolocation.getCurrentPosition(pos => {
+              // setWeather(pos)
+              resolve(pos.coords)
+            }) 
             : resolve(null)
         ) :
   
@@ -181,8 +185,8 @@ function Profile({ userObj }: Props) {
       reject(new Error("Permission API is not supported"))
     )
   }
-  
   getCoords().then(coords => console.log(coords))
+  // console.log(weather)
   
   return (
     <div>
