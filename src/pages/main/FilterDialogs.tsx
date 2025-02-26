@@ -18,7 +18,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-// import { Filter } from "lucide-react";
 import { Chip } from "@mui/material";
 
 function FilterDialogs({ selectedValues, handleSelectedValues }) {
@@ -26,7 +25,7 @@ function FilterDialogs({ selectedValues, handleSelectedValues }) {
   const onClick = ({ id }) => {
     setSelected(id);
   };
-  
+
   return (
     <div>
       <Drawer>
@@ -133,7 +132,7 @@ function FilterDialogs({ selectedValues, handleSelectedValues }) {
         </DrawerContent>
       </Drawer>
       {/* <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-                <InputLabel 
+                <InputLabel
                 >우산 / 양산 선택
                 </InputLabel>
                 <Select
@@ -146,7 +145,7 @@ function FilterDialogs({ selectedValues, handleSelectedValues }) {
                 </Select>
             </FormControl>
                     <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-                <InputLabel 
+                <InputLabel
                 >장소 선택
                 </InputLabel>
                 <Select
@@ -159,7 +158,7 @@ function FilterDialogs({ selectedValues, handleSelectedValues }) {
                 </Select>
             </FormControl>
                     <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-                <InputLabel 
+                <InputLabel
                 >시간 정렬
                 </InputLabel>
                 <Select
@@ -176,7 +175,7 @@ function FilterDialogs({ selectedValues, handleSelectedValues }) {
                     필터
                 </div>
                     <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-                <InputLabel 
+                <InputLabel
                 >우산 / 양산 선택
                 </InputLabel>
                 <Select
@@ -189,7 +188,7 @@ function FilterDialogs({ selectedValues, handleSelectedValues }) {
                 </Select>
             </FormControl>
                     <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-                <InputLabel 
+                <InputLabel
                 >장소 선택
                 </InputLabel>
                 <Select
@@ -202,7 +201,7 @@ function FilterDialogs({ selectedValues, handleSelectedValues }) {
                 </Select>
             </FormControl>
                     <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-                <InputLabel 
+                <InputLabel
                 >시간 정렬
                 </InputLabel>
                 <Select
