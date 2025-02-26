@@ -3,23 +3,24 @@ import Router from 'src/Router'
 import Lotties from 'src/lottiesAnimation/Lotties'
 import { auth } from 'src/baseApi/serverbase'
 import 'src/global.css'
-import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { ThemeProvider, createTheme } from '@mui/material/styles'
 import { User } from 'firebase/auth'
 import { useSelector, useDispatch } from 'react-redux'
 import ThemeRootState from './interfaces/ThemeRootState copy'
 import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
 import { useQuery } from '@tanstack/react-query'
+import { NuqsAdapter } from 'nuqs/adapters/react'
 
 const lightTheme = createTheme({
   palette: {
     mode: 'light',
   },
-});
+})
 const darkTheme = createTheme({
   palette: {
     mode: 'dark',
   },
-});
+})
 // interface themeRootState  {
 //   theme: string
 // }
@@ -62,14 +63,11 @@ function App() {
   //   return piazzaMessages
   // }
   // const piazzaSwitch = useSelector<boolean>(state => state.piazzaSwitch.value)
-
   // const messages = useQuery({queryKey: ['messages'], queryFn: piazza, suspense: true})
-  
+
   return (
     <>
-      <ThemeProvider theme={
-        theme === 'light' ? lightTheme : darkTheme 
-      }>
+      <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
         {userObj !== undefined ? <Router userObj={userObj} /> : <Lotties />}
       </ThemeProvider>
     </>
