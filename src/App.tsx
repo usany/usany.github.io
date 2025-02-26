@@ -21,6 +21,7 @@ const darkTheme = createTheme({
     mode: 'dark',
   },
 })
+
 // interface themeRootState  {
 //   theme: string
 // }
