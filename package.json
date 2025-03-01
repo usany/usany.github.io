@@ -13,7 +13,8 @@
     "deploy": "gh-pages -d dist",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "web-push": "web-push"
+    "web-push": "web-push",
+    "nextdev": "node server.cjs"
   },
   "dependencies": {
     "@emotion/css": "^11.11.2",
