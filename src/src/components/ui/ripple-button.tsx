@@ -27,7 +27,6 @@ export const RippleButton = React.forwardRef<
     const [buttonRipples, setButtonRipples] = useState<
       Array<{ x: number; y: number; size: number; key: number }>
     >([]);
-
     const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
       createRipple(event);
       onClick?.(event);
@@ -69,7 +68,7 @@ export const RippleButton = React.forwardRef<
         <div className="relative z-10">{children}</div>
         <span className="pointer-events-none absolute inset-0">
           {buttonRipples.map((ripple) => {
-            console.log(ripple);
+            console.log(ripple)
             return (
               <span
                 className="absolute animate-rippling rounded-full bg-background opacity-30"

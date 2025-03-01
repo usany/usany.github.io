@@ -35,6 +35,7 @@ import { User } from "firebase/auth";
 import CardsStacks from "src/components/card/CardsStacks";
 import { GlowEffect } from "src/src/components/ui/glow-effect";
 import { RippleButton } from "src/src/components/ui/ripple-button";
+import { PulsatingButton } from "src/components/magicui/pulsating-button";
 // import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 interface Props {
@@ -101,6 +102,7 @@ function Menu({ userObj }: Props) {
   return (
     <div id="sample" className="flex justify-center flex-col pb-5">
       <PageTitle title={"내 상태"} />
+      <PulsatingButton>buttons</PulsatingButton>
       <RippleButton rippleColor="#ADD8E6">buttons</RippleButton>
       <div></div>
       <Accordion
