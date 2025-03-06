@@ -22,24 +22,22 @@ if ("serviceWorker" in navigator) {
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <>
-      <>
-        <QueryClientProvider
-          client={
-            new QueryClient({
-              defaultOptions: {
-                queries: {
-                  suspense: true,
-                  // notifyOnChangeProps: 'all',
-                },
+      <QueryClientProvider
+        client={
+          new QueryClient({
+            defaultOptions: {
+              queries: {
+                suspense: true,
+                // notifyOnChangeProps: 'all',
               },
-            })
-          }
-        >
-          <Suspense fallback={<Lotties />}>
-            <App />
-          </Suspense>
-        </QueryClientProvider>
-      </>
+            },
+          })
+        }
+      >
+        <Suspense fallback={<Lotties />}>
+          <App />
+        </Suspense>
+      </QueryClientProvider>
     </>
   </React.StrictMode>,
 );
