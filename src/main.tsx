@@ -21,7 +21,7 @@ if ("serviceWorker" in navigator) {
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <StoreProvider>
+    <>
       <>
         <QueryClientProvider
           client={
@@ -40,6 +40,6 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           </Suspense>
         </QueryClientProvider>
       </>
-    </StoreProvider>
+    </>
   </React.StrictMode>,
 );
