@@ -1,19 +1,21 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from "@reduxjs/toolkit";
 
 const themeReducer = createSlice({
-  name: 'theme',
-  initialState: localStorage.getItem('theme') || 'light',
+  name: "theme",
+  initialState:
+    typeof window === "undefined"
+      ? "light"
+      : localStorage.getItem("theme") || "light",
   reducers: {
-    changeLight: state => {
-      return (state = 'light')
+    changeLight: (state) => {
+      return (state = "light");
     },
-    changeDark: state => {
-      return (state = 'dark')
+    changeDark: (state) => {
+      return (state = "dark");
     },
-  }
-})
-const { changeLight, changeDark } = themeReducer.actions
+  },
+});
+const { changeLight, changeDark } = themeReducer.actions;
 
-export { themeReducer, changeLight, changeDark, }
+export { themeReducer, changeLight, changeDark };
 // export default counterSlice
-

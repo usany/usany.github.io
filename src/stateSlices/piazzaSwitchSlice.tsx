@@ -1,26 +1,28 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { Payload } from 'recharts/types/component/DefaultLegendContent'
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { Payload } from "recharts/types/component/DefaultLegendContent";
 
 interface PiazzaSwitchState {
-  value: string | null
+  value: string | null;
 }
 
 const initialState: PiazzaSwitchState = {
-  value: window.localStorage.getItem('piazza')
-}
+  value:
+    typeof window === "undefined"
+      ? "true"
+      : window.localStorage.getItem("piazza"),
+};
 const piazzaSwitchReducer = createSlice({
-  name: 'piazzaSwitch',
+  name: "piazzaSwitch",
   initialState,
   reducers: {
     changePiazzaSwitch: (state, action: PayloadAction<string>) => {
-      state.value = action.payload
+      state.value = action.payload;
     },
     // changePiazzaSwitchOff: (state) => {
     //   state.value = 'false'
     // },
-  }
-})
-const { changePiazzaSwitch } = piazzaSwitchReducer.actions
+  },
+});
+const { changePiazzaSwitch } = piazzaSwitchReducer.actions;
 
-export { piazzaSwitchReducer, changePiazzaSwitch, }
-
+export { piazzaSwitchReducer, changePiazzaSwitch };

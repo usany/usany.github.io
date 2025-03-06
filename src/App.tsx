@@ -1,23 +1,26 @@
-import { useEffect, useState, useContext, useReducer } from 'react'
-import Router from 'src/Router'
-import Lotties from 'src/lottiesAnimation/Lotties'
-import { auth } from 'src/baseApi/serverbase'
-import 'src/global.css'
-import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { User } from 'firebase/auth'
-import { useSelector, useDispatch } from 'react-redux'
-import ThemeRootState from './interfaces/ThemeRootState copy'
-import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
-import { useQuery } from '@tanstack/react-query'
+"use client";
+
+import { useEffect, useState, useContext, useReducer, lazy } from "react";
+import Router from "src/Router";
+// import Lotties from "src/lottiesAnimation/Lotties";
+import { auth } from "src/baseApi/serverbase";
+import "src/global.css";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { User } from "firebase/auth";
+import { useSelector, useDispatch } from "react-redux";
+import ThemeRootState from "./interfaces/ThemeRootState copy";
+import { changeBottomNavigation } from "src/stateSlices/bottomNavigationSlice";
+import { useQuery } from "@tanstack/react-query";
+import StoreProvider from "./StoreProvider";
 
 const lightTheme = createTheme({
   palette: {
-    mode: 'light',
+    mode: "light",
   },
 });
 const darkTheme = createTheme({
   palette: {
-    mode: 'dark',
+    mode: "dark",
   },
 });
 // interface themeRootState  {
@@ -26,16 +29,16 @@ const darkTheme = createTheme({
 function App() {
   // const [count, setCount] = useState(0)
   // const [initial, setInitial] = useState(false)
-  const [userObj, setUserObj] = useState<User | null | undefined>(undefined)
-  const theme = useSelector((state: ThemeRootState) => state.theme)
+  const [userObj, setUserObj] = useState<User | null | undefined>(undefined);
+  const theme = useSelector((state: ThemeRootState) => state.theme);
   // const dispatch = useDispatch()
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
-      setUserObj(user)
-    })
+      setUserObj(user);
+    });
     // dispatch(changeBottomNavigation(1))
-  }, [])
-
+  }, []);
+  const StoreProvider = lazy(() => import("./StoreProvider"));
   // const onAuthQuery = () => {
   //   const onAuth = {userObj: undefined}
   //   auth.onAuthStateChanged((user) => {
@@ -64,16 +67,17 @@ function App() {
   // const piazzaSwitch = useSelector<boolean>(state => state.piazzaSwitch.value)
 
   // const messages = useQuery({queryKey: ['messages'], queryFn: piazza, suspense: true})
-  
+  const Lotties = lazy(() => import("src/lottiesAnimation/Lotties"));
+
   return (
     <>
-      <ThemeProvider theme={
-        theme === 'light' ? lightTheme : darkTheme 
-      }>
-        {userObj !== undefined ? <Router userObj={userObj} /> : <Lotties />}
-      </ThemeProvider>
+      <StoreProvider>
+        <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
+          {userObj !== undefined ? <Router userObj={userObj} /> : <Lotties />}
+        </ThemeProvider>
+      </StoreProvider>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
