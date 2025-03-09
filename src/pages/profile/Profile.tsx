@@ -27,6 +27,7 @@ import {
   useNavigate,
   Link,
   useLocation,
+  useParams,
 } from "react-router-dom";
 import { useImmer } from "use-immer";
 import { useSelector, useDispatch } from "react-redux";
@@ -42,6 +43,8 @@ interface Props {
   userObj: User;
 }
 function Profile({ userObj }: Props) {
+  const params = useParams()
+  console.log(params)
   const [attachment, setAttachment] = useState("");
   const { state } = useLocation();
   const [profileDialog, setProfileDialog] = useState(false);
@@ -76,7 +79,7 @@ function Profile({ userObj }: Props) {
     queryFn: () => myCardsQuery(userObj.uid),
     suspense: true,
   });
-  
+
   useEffect(() => {
     const cards = async () => {
       const docRef = doc(dbservice, `members/${userUid}`);
@@ -167,7 +170,7 @@ function Profile({ userObj }: Props) {
   function getCoords() {
     return new Promise((resolve, reject) =>
       navigator.permissions ?
-  
+
         // Permission API is implemented
         navigator.permissions.query({
           name: 'geolocation'
@@ -177,17 +180,17 @@ function Profile({ userObj }: Props) {
             ? navigator.geolocation.getCurrentPosition(pos => {
               // setWeather(pos)
               resolve(pos.coords)
-            }) 
+            })
             : resolve(null)
         ) :
-  
+
       // Permission API was not implemented
       reject(new Error("Permission API is not supported"))
     )
   }
   getCoords().then(coords => console.log(coords))
   // console.log(weather)
-  
+
   return (
     <div>
       {/* <div>

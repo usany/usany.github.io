@@ -1,12 +1,11 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from 'src/App.tsx'
-import { store } from 'src/store'
-import { Provider } from 'react-redux'
-import { useState, useEffect, useRef, Suspense, lazy } from 'react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import Lotties from 'src/lottiesAnimation/Lotties'
 import { APIProvider } from '@vis.gl/react-google-maps'
+import React, { Suspense } from 'react'
+import ReactDOM from 'react-dom/client'
+import { Provider } from 'react-redux'
+import App from 'src/App.tsx'
+import Lotties from 'src/lottiesAnimation/Lotties'
+import { store } from 'src/store'
 
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker

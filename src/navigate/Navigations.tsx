@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import { Link, useNavigate, useLocation } from 'react-router-dom'
+import { Link, useNavigate, useLocation, useParams, useSearchParams } from 'react-router-dom'
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import ChevronRight from '@mui/icons-material/ChevronRight'
@@ -44,13 +44,18 @@ function Navigations({ userObj }: Props) {
         <div className='w-screen fixed border border-sky-500 rounded-t bottom-0 start-0 end-0'>
             {userObj ?
                 <BottomNavigation
-                    sx={{bgcolor: alpha(backgroundColor, 0.8)}}    
+                    sx={{bgcolor: alpha(backgroundColor, 0.8)}}
                     showLabels
                     value={bottomNavigation}
                     onChange={(event, newValue) => {
+                      console.log(location.pathname)
                         dispatch(changeBottomNavigation(newValue))
-                        if (location.pathname !== '/') {
-                            navigate('/')
+                        // if (location.pathname !== '/') {
+                        //     navigate('/')
+                        // }
+                        if (location.pathname === '/profile/:10') {
+                          navigate(`/profile/:${newValue}`)
+                          console.log(newValue)
                         }
                     }}
                 >
@@ -60,8 +65,8 @@ function Navigations({ userObj }: Props) {
                 </BottomNavigation>
                 :
                 <BottomNavigation
-                    sx={{bgcolor: backgroundColor}}    
-                    showLabels  
+                    sx={{bgcolor: backgroundColor}}
+                    showLabels
                     value={bottomNavigation}
                     onChange={(event, newValue) => {
                         dispatch(changeBottomNavigation(newValue))

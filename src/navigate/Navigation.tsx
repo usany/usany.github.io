@@ -139,7 +139,7 @@ function Navigation({ userObj, sideNavigation, handleSideNavigation }: Props) {
                 <h1 className="text-2xl	px-5 pt-5">
                   <div className="flex">
                     <Link
-                      to="/profile"
+                      to={`/profile/10`}
                       state={{ element: element }}
                       onClick={() => checkbox()}
                     >

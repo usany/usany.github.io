@@ -32,6 +32,7 @@ import { useSelector, useDispatch } from "react-redux";
 import TabsRootState from "src/interfaces/TabsRootState";
 import AddCards from "src/pages/main/add/AddCards";
 import { useMediaQuery } from "@mui/material";
+import { useParams, useSearchParams } from "react-router-dom";
 
 interface Props {
   userObj: User;
@@ -86,6 +87,9 @@ function Add({ userObj, borrow }: Props) {
   //         return {...state}
   //     }
   //   }
+  const params = useParams()
+  const search = useSearchParams()
+  console.log(useSearchParams())
   function changeAddSteps(newValue) {
     setAddSteps(newValue);
   }

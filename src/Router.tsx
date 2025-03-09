@@ -1,30 +1,17 @@
-import {
-  useState,
-  useEffect,
-  useRef,
-  useMemo,
-  useLayoutEffect,
-  useContext,
-  useReducer,
-  Suspense,
-  lazy,
-} from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { Suspense, lazy } from 'react'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 // import Home from 'src/pages/Home'
-// import Profile from 'src/pages/Profile'
+import Profile from 'src/pages/profile/Profile'
 // import Ranking from 'src/pages/Ranking'
 // import Specific from 'src/pages/Specific'
 // import Contact from 'src/pages/Contact'
 // import Piazza from 'src/pages/Piazza'
 // import Chatting from 'src/pages/Chatting'
 // import Chats from 'src/pages/Chats'
-import Loadings from 'src/pages/core/loadings/Loadings'
+import { User } from 'firebase/auth'
 import Header from 'src/navigate/Header'
 import Navigations from 'src/navigate/Navigations'
-import { User } from 'firebase/auth'
-import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
-import { useSelector, useDispatch } from 'react-redux'
-import usePathname from 'src/hooks/usePathname'
+import Loadings from 'src/pages/core/loadings/Loadings'
 
 interface Props {
   userObj: User | null
@@ -32,7 +19,7 @@ interface Props {
 
 const Router = ({ userObj }: Props) => {
   const Home = lazy(() => import('src/pages/main/Home'))
-  const Profile = lazy(() => import('src/pages/profile/Profile'))
+  // const Profile = lazy(() => import('src/pages/profile/Profile'))
   const Ranking = lazy(() => import('src/pages/search/Ranking'))
   // const Specific = lazy(() => import("src/pages/Specific"))
   const Contact = lazy(() => import('src/pages/contact/Contact'))
@@ -51,9 +38,13 @@ const Router = ({ userObj }: Props) => {
                     path="/"
                     Component={() => <Home userObj={userObj} />}
                   />
-                  <Route
+                  {/* <Route
                     path="/profile"
-                    Component={() => <Profile userObj={userObj} />}
+                    element={<Profile userObj={userObj} />}
+                  /> */}
+                  <Route
+                    path="/profile/:id"
+                    element={<Profile userObj={userObj} />}
                   />
                   <Route
                     path="/ranking"
