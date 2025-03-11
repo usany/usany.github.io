@@ -27,7 +27,6 @@ const darkTheme = createTheme({
 // }
 function App() {
   // const [count, setCount] = useState(0)
-  // const [initial, setInitial] = useState(false)
   const [userObj, setUserObj] = useState<User | null | undefined>(undefined)
   const theme = useSelector((state: ThemeRootState) => state.theme)
   // const dispatch = useDispatch()
