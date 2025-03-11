@@ -39,6 +39,14 @@ const Router = ({ userObj }: Props) => {
                     Component={() => <Home userObj={userObj} />}
                   />
                   <Route
+                    path="/add"
+                    Component={() => <Home userObj={userObj} />}
+                  />
+                  <Route
+                    path="/board"
+                    Component={() => <Home userObj={userObj} />}
+                  />
+                  <Route
                     path="/profile"
                     element={<Profile userObj={userObj} />}
                   />
