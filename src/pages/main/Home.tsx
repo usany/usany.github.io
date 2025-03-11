@@ -117,10 +117,11 @@ function Home({ userObj }: UserObjProps) {
           )}
           {bottomNavigation === 1 && <Auth />}
           {bottomNavigation === 2 && (
-            <SwipeableViews>
-              <Notice userObj={userObj} borrow={true} />
-              <Notice userObj={userObj} borrow={false} />
-            </SwipeableViews>
+            <Notice userObj={userObj} borrow={true} />
+            // <SwipeableViews>
+            //   <Notice userObj={userObj} borrow={true} />
+            //   <Notice userObj={userObj} borrow={false} />
+            // </SwipeableViews>
           )}
         </>
       )}
