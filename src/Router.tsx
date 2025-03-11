@@ -38,14 +38,14 @@ const Router = ({ userObj }: Props) => {
                     path="/"
                     Component={() => <Home userObj={userObj} />}
                   />
-                  {/* <Route
+                  <Route
                     path="/profile"
                     element={<Profile userObj={userObj} />}
-                  /> */}
-                  <Route
+                  />
+                  {/* <Route
                     path="/profile/:id"
                     element={<Profile userObj={userObj} />}
-                  />
+                  /> */}
                   <Route
                     path="/ranking"
                     Component={() => <Ranking userObj={userObj} />}

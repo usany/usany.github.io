@@ -38,6 +38,7 @@ import { User } from "firebase/auth";
 import { getAuth, deleteUser } from "firebase/auth";
 import { doc, deleteDoc, getDoc } from "firebase/firestore";
 import { useQuery } from "@tanstack/react-query";
+import { Button, Chip } from "@mui/material";
 
 interface Props {
   userObj: User;
@@ -64,8 +65,9 @@ function Profile({ userObj }: Props) {
     borrowDone: [],
     lendDone: [],
   });
-  const [weather, setWeather] = useState(null)
-  const [drawerClosed, setDrawerClosed] = useState(false);
+  // const [weather, setWeather] = useState(null)
+  // const [drawerClosed, setDrawerClosed] = useState(false);
+  const [locationConfirmed, setLocationConfirmed] = useState(false)
   const userUid = state?.element.uid || userObj.uid;
   const userDisplayName = state?.element.displayName || userObj.displayName;
   const myCardsQuery = async ({ uid }) => {
@@ -184,8 +186,8 @@ function Profile({ userObj }: Props) {
             : resolve(null)
         ) :
 
-      // Permission API was not implemented
-      reject(new Error("Permission API is not supported"))
+        // Permission API was not implemented
+        reject(new Error("Permission API is not supported"))
     )
   }
   getCoords().then(coords => console.log(coords))
@@ -218,7 +220,12 @@ function Profile({ userObj }: Props) {
       <PageTitle
         title={`${userUid === userObj.uid ? "내" : shortenName} 프로필`}
       />
-      <div onClick={() => navigator.geolocation.getCurrentPosition(position => console.log(position))}>위치</div>
+      <div onClick={() => {
+        // const navigators = navigator.geolocation.getCurrentPosition(position => console.log(position))
+        // console.log(navigators)
+      }
+      }>위치 latitude:37.5682 longitude:126.9977</div>
+
       <ProfileAvatar
         userObj={userObj}
         user={state?.element || userObj}
@@ -231,6 +238,18 @@ function Profile({ userObj }: Props) {
         changeAttachment={(newState: string) => setAttachment(newState)}
         handleClose={handleClose}
       />
+      <div className='flex flex-col items-center pt-5'>
+        <div>
+          캠퍼스에 계세요?
+        </div>
+        <div>
+          캠퍼스 위치 확인으로 뱃지를 받으세요.
+        </div>
+        {locationConfirmed && <Chip label={'캠퍼스 위치'} />}
+        <Button onClick={() => setLocationConfirmed(true)}>
+          캠퍼스 위치 확인
+        </Button>
+      </div>
       {/* <Suspense fallback={<Skeleton />}>
         <ProfileAvatar userObj={userObj} user={state.element} handleProfileDialog={() => setProfileDialog(true)} />
       </Suspense> */}

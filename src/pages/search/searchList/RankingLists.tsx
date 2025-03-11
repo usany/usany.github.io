@@ -126,7 +126,7 @@ function RankingLists({ userObj, userSearch }: Props) {
   const handleScroll = () => {
     if (
       window.innerHeight + Math.round(document.documentElement.scrollTop) !==
-        document.documentElement.offsetHeight ||
+      document.documentElement.offsetHeight ||
       isLoading
     ) {
       console.log(document.documentElement.offsetHeight);
@@ -149,7 +149,7 @@ function RankingLists({ userObj, userSearch }: Props) {
       {userSearch ? (
         <div>
           <Lists
-          userObj={userObj}
+            userObj={userObj}
             elements={rank}
             multiple={true}
             userSearch={userSearch}
@@ -160,7 +160,7 @@ function RankingLists({ userObj, userSearch }: Props) {
       ) : (
         <div>
           <Lists
-          userObj={userObj}
+            userObj={userObj}
             elements={ranker}
             multiple={false}
             userSearch={null}
@@ -168,7 +168,7 @@ function RankingLists({ userObj, userSearch }: Props) {
             handleUser={null}
           />
           <Lists
-          userObj={userObj}
+            userObj={userObj}
             elements={rank}
             multiple={true}
             userSearch={null}

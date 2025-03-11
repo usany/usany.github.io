@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import Menu from "src/pages/Menu";
-import Notice from "./Board";
+import Notice from "src/pages/main/board/Board";
 import Layout from "src/pages/Layout";
 import Auth from "src/pages/Auth";
 import Add from "./Add";

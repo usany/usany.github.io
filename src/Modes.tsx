@@ -7,7 +7,7 @@ const Modes = () => {
   const dispatch = useDispatch()
 
   return (
-    <div className="flex justify-center p-5">
+    <div className="flex justify-center">
       <Switches
         onClick={() => {
           document.documentElement.classList.toggle('dark')

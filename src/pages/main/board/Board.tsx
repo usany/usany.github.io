@@ -1,27 +1,55 @@
-import { useState, useEffect, lazy } from "react";
+import { User } from "firebase/auth";
 import {
   collection,
-  addDoc,
-  getDocs,
-  doc,
   onSnapshot,
-  query,
   orderBy,
+  query
 } from "firebase/firestore";
+import { useEffect, useState } from "react";
 import {
-  auth,
-  onSocialClick,
-  dbservice,
-  storage,
+  dbservice
 } from "src/baseApi/serverbase";
+import Cards from "src/components/card/Cards";
+import { SwipeableViews } from "src/navigate/SwipeableViews";
+import PageTitle from "src/pages/core/pageTitle/PageTitle";
+import BoardMap from "src/pages/main/board/boardMap/BoardMap";
 import FilterDialogs from "src/pages/main/FilterDialogs";
 import { useImmer } from "use-immer";
-import { User } from "firebase/auth";
-import Cards from "src/components/card/Cards";
-import PageTitle from "src/pages/core/pageTitle/PageTitle";
-import BoardMap from "src/pages/main/BoardMap";
-import { SwipeableViews } from "src/navigate/SwipeableViews";
-import { AlarmCheck, AlertCircle, Building, Clock, DoorOpen, MessagesSquare, Pen, PenBox, Pencil, PenSquare, PenTool, Presentation, Search, SearchCheck, SearchCode, SearchSlash, Siren, TowerControl, Umbrella, UserCheck, UserRound, Watch } from "lucide-react";
+// import { AlarmCheck, AlertCircle, Building, Clock, DoorOpen, MessagesSquare, Pen, PenBox, Pencil, PenSquare, PenTool, Presentation, Search, SearchCheck, SearchCode, SearchSlash, Siren, TowerControl, Umbrella, UserCheck, UserRound, Watch } from "lucide-react";
+
+const CardsList = ({ choose, messages, selectedValues, userObj }) => {
+  return (
+    <div className="flex flex-wrap justify-between p-3 gap-1">
+      {messages.map((message, index) => {
+        const isOwner = message?.creatorId === userObj?.uid;
+        if (message?.text.choose === choose && message?.round === 1) {
+          if (
+            selectedValues[0].value === "전체" ||
+            selectedValues[0].value === message?.item ||
+            !selectedValues[0].value
+          ) {
+            if (
+              selectedValues[1].value === "전체" ||
+              selectedValues[1].value === message?.text.count ||
+              !selectedValues[1].value
+            ) {
+              return (
+                <Cards
+                  key={index}
+                  msgObj={message}
+                  isOwner={isOwner}
+                  userObj={userObj}
+                  num={null}
+                  points={null}
+                />
+              );
+            }
+          }
+        }
+      })}
+    </div>
+  )
+}
 
 interface Props {
   userObj: User | null;
@@ -30,7 +58,6 @@ interface Props {
 
 function Notice({ userObj, borrow }: Props) {
   const [messages, setMessages] = useState<Array<object>>([]);
-  // const [lendMessages, setLendMessages] = useState([]);
   const [selectedValues, setSelectedValues] = useImmer([
     {
       id: "selectedValueOne",
@@ -103,7 +130,7 @@ function Notice({ userObj, borrow }: Props) {
 
   return (
     <div>
-      <AlarmCheck />
+      {/* <AlarmCheck />
       <AlertCircle />
       <Siren />
       <Presentation />
@@ -124,8 +151,7 @@ function Notice({ userObj, borrow }: Props) {
       <Pen />
       <PenBox />
       <PenTool />
-      <PenSquare />
-      
+      <PenSquare /> */}
       {/* <div>
         <div className="sticky top-20 p-5 bg-white">카드 목록</div>
         <div>
@@ -154,12 +180,12 @@ function Notice({ userObj, borrow }: Props) {
       {/* <div className="sticky top-20 p-5">카드 목록</div>
       <div className="sticky top-20 p-5">카드 목록 목록</div> */}
       <SwipeableViews>
-        <div className="flex justify-between text-2xl">
-          <PageTitle title={`빌리기 카드 목록`} />
+        <PageTitle title={`빌리기 카드 목록`} />
+        <PageTitle title={`빌려주기 카드 목록`} />
+        {/* <div className="flex justify-between text-2xl">
         </div>
         <div className="flex justify-between text-2xl">
-          <PageTitle title={`빌려주기 카드 목록`} />
-        </div>
+        </div> */}
       </SwipeableViews>
       <BoardMap
         onMarker={onMarker}
@@ -179,24 +205,26 @@ function Notice({ userObj, borrow }: Props) {
           </div>
         </div>
         <SwipeableViews>
-          <div className="flex flex-wrap justify-between p-3 gap-1">
-            {messages.map((msg) => {
+          <CardsList choose={1} messages={messages} selectedValues={selectedValues} userObj={userObj} />
+          <CardsList choose={2} messages={messages} selectedValues={selectedValues} userObj={userObj} />
+          {/* <div className="flex flex-wrap justify-between p-3 gap-1">
+            {messages.map((message) => {
               const choose = 1;
-              const isOwner = msg?.creatorId === userObj?.uid;
-              if (msg?.text.choose === choose && msg?.round === 1) {
+              const isOwner = message?.creatorId === userObj?.uid;
+              if (message?.text.choose === choose && message?.round === 1) {
                 if (
                   selectedValues[0].value === "전체" ||
-                  selectedValues[0].value === msg?.item ||
+                  selectedValues[0].value === message?.item ||
                   !selectedValues[0].value
                 ) {
                   if (
                     selectedValues[1].value === "전체" ||
-                    selectedValues[1].value === msg?.text.count ||
+                    selectedValues[1].value === message?.text.count ||
                     !selectedValues[1].value
                   ) {
                     return (
                       <Cards
-                        msgObj={msg}
+                        msgObj={message}
                         isOwner={isOwner}
                         userObj={userObj}
                         num={null}
@@ -236,7 +264,7 @@ function Notice({ userObj, borrow }: Props) {
                 }
               }
             })}
-          </div>
+          </div> */}
         </SwipeableViews>
       </div>
     </div>

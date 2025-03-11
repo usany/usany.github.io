@@ -1,36 +1,29 @@
-import { useState, useEffect, lazy } from "react";
-import {
-  collection,
-  addDoc,
-  getDocs,
-  doc,
-  onSnapshot,
-  query,
-  orderBy,
-} from "firebase/firestore";
-import {
-  auth,
-  onSocialClick,
-  dbservice,
-  storage,
-} from "src/baseApi/serverbase";
-import FilterDialogs from "src/pages/main/FilterDialogs";
-import { useImmer } from "use-immer";
-import { Chip } from "@mui/material";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { Chip } from "@mui/material";
 import {
   AdvancedMarker,
-  APIProvider,
   InfoWindow,
   Map,
   Marker,
-  Pin,
+  Pin
 } from "@vis.gl/react-google-maps";
+import {
+  collection,
+  onSnapshot,
+  orderBy,
+  query
+} from "firebase/firestore";
+import { useEffect, useState } from "react";
+import {
+  dbservice
+} from "src/baseApi/serverbase";
+import FilterDialogs from "src/pages/main/FilterDialogs";
+import { useImmer } from "use-immer";
 
 interface Props {
   onMarker: boolean;

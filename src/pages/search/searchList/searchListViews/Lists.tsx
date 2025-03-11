@@ -99,10 +99,10 @@ function Lists({
                             </AvatarFallback>
                           </Avatar>
                           {/* <Avatars profile={false} profileColor={'profile-blue'} profileImage={element?.profileImageUrl || 'null'} fallback={element.displayName[0]}/> */}
-                          {/* {element?.profileImageUrl && 
+                          {/* {element?.profileImageUrl &&
                         <Avatar alt={element.displayName} sx={{ bgcolor: element.profileColor || '#2196f3' }} src={element?.profileImageUrl || './src'} variant="rounded" />
                       }
-                      {!element?.profileImageUrl && 
+                      {!element?.profileImageUrl &&
                         <Avatar alt={element.displayName} sx={{ bgcolor: element.profileColor || '#2196f3' }} src={'./src'} variant="rounded" />
                       } */}
                           <div className="flex flex-col overflow-hidden px-10 w-48">
@@ -162,7 +162,7 @@ function Lists({
                   >
                     <div className={`flex w-full justify-between p-3`}>
                       <div className="flex">
-                        {/* {!multiple ? 
+                        {/* {!multiple ?
                         <div className='flex flex-col justify-center px-5 w-20'>
                           {element.rank}
                         </div>
