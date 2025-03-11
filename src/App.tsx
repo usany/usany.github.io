@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext, useReducer } from 'react'
-import Router from 'src/Router'
+import Router from 'src/pages/core/Router'
 import Lotties from 'src/lottiesAnimation/Lotties'
 import { auth } from 'src/baseApi/serverbase'
 import 'src/global.css'
