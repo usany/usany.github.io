@@ -1,179 +1,94 @@
-import { User } from "firebase/auth";
-import {
-  collection,
-  onSnapshot,
-  orderBy,
-  query
-} from "firebase/firestore";
-import { useEffect, useState } from "react";
-import {
-  dbservice
-} from "src/baseApi/serverbase";
-import Cards from "src/components/card/Cards";
-import { SwipeableViews } from "src/navigate/SwipeableViews";
-import PageTitle from "src/pages/core/pageTitle/PageTitle";
-import BoardMap from "src/pages/main/board/boardMap/BoardMap";
-import FilterDialogs from "src/pages/main/FilterDialogs";
-import { useImmer } from "use-immer";
-// import { AlarmCheck, AlertCircle, Building, Clock, DoorOpen, MessagesSquare, Pen, PenBox, Pencil, PenSquare, PenTool, Presentation, Search, SearchCheck, SearchCode, SearchSlash, Siren, TowerControl, Umbrella, UserCheck, UserRound, Watch } from "lucide-react";
-
-const CardsList = ({ choose, messages, selectedValues, userObj }) => {
-  return (
-    <div className="flex flex-wrap justify-between p-3 gap-1">
-      {messages.map((message, index) => {
-        const isOwner = message?.creatorId === userObj?.uid;
-        if (message?.text.choose === choose && message?.round === 1) {
-          if (
-            selectedValues[0].value === "전체" ||
-            selectedValues[0].value === message?.item ||
-            !selectedValues[0].value
-          ) {
-            if (
-              selectedValues[1].value === "전체" ||
-              selectedValues[1].value === message?.text.count ||
-              !selectedValues[1].value
-            ) {
-              return (
-                <Cards
-                  key={index}
-                  msgObj={message}
-                  isOwner={isOwner}
-                  userObj={userObj}
-                  num={null}
-                  points={null}
-                />
-              );
-            }
-          }
-        }
-      })}
-    </div>
-  )
-}
+import { User } from 'firebase/auth'
+import { collection, onSnapshot, orderBy, query } from 'firebase/firestore'
+import { useEffect, useState } from 'react'
+import { dbservice } from 'src/baseApi/serverbase'
+import { SwipeableViews } from 'src/navigate/SwipeableViews'
+import PageTitle from 'src/pages/core/pageTitle/PageTitle'
+import BoardMap from 'src/pages/main/board/boardMap/BoardMap'
+import FilterDialogs from 'src/pages/main/FilterDialogs'
+import { useImmer } from 'use-immer'
+import CardsList from './cardsList/CardList'
 
 interface Props {
-  userObj: User | null;
-  borrow: boolean;
+  userObj: User | null
+  borrow: boolean
 }
 
 function Notice({ userObj, borrow }: Props) {
-  const [messages, setMessages] = useState<Array<object>>([]);
+  const [messages, setMessages] = useState<Array<object>>([])
   const [selectedValues, setSelectedValues] = useImmer([
     {
-      id: "selectedValueOne",
-      value: "전체",
+      id: 'selectedValueOne',
+      value: '전체',
     },
     {
-      id: "selectedValueTwo",
-      value: "전체",
+      id: 'selectedValueTwo',
+      value: '전체',
     },
     {
-      id: "selectedValueThree",
-      value: "최신순",
+      id: 'selectedValueThree',
+      value: '최신순',
     },
-  ]);
-  const [onMarker, setOnMarker] = useState(false);
-  const onMarkerTrue = () => setOnMarker(true);
-  const onMarkerFalse = () => setOnMarker(false);
+  ])
+  const [onMarker, setOnMarker] = useState(false)
+  const onMarkerTrue = () => setOnMarker(true)
+  const onMarkerFalse = () => setOnMarker(false)
   const handleSelectedValues = ({
     id,
     newValue,
   }: {
-    id: string;
-    newValue: string;
+    id: string
+    newValue: string
   }) => {
     setSelectedValues((values) => {
-      const value = values.find((value) => value.id === id);
+      const value = values.find((value) => value.id === id)
       if (value) {
-        value.value = newValue;
+        value.value = newValue
       }
-    });
-  };
+    })
+  }
 
   useEffect(() => {
     document.documentElement.scrollTo({
       top: 0,
       left: 0,
-      behavior: "instant", // Optional if you want to skip the scrolling animation
-    });
-  }, []);
+      behavior: 'instant', // Optional if you want to skip the scrolling animation
+    })
+  }, [])
 
   useEffect(() => {
-    if (selectedValues[2].value === "최신순" || !selectedValues[2].value) {
+    if (selectedValues[2].value === '최신순' || !selectedValues[2].value) {
       onSnapshot(
-        query(collection(dbservice, "num"), orderBy("creatorClock", "desc")),
+        query(collection(dbservice, 'num'), orderBy('creatorClock', 'desc')),
         (snapshot) => {
           const newArray = snapshot.docs.map((document) => {
             return {
               id: document.id,
               ...document.data(),
-            };
-          });
-          setMessages(newArray);
-        }
-      );
+            }
+          })
+          setMessages(newArray)
+        },
+      )
     } else {
       onSnapshot(
-        query(collection(dbservice, "num"), orderBy("creatorClock")),
+        query(collection(dbservice, 'num'), orderBy('creatorClock')),
         (snapshot) => {
           const newArray = snapshot.docs.map((document) => {
             return {
               id: document.id,
               ...document.data(),
-            };
-          });
-          setMessages(newArray);
-        }
-      );
+            }
+          })
+          setMessages(newArray)
+        },
+      )
     }
-  }, [selectedValues[2].value]);
+  }, [selectedValues[2].value])
 
   return (
     <div>
-      {/* <AlarmCheck />
-      <AlertCircle />
-      <Siren />
-      <Presentation />
-      <DoorOpen />
-      <UserRound />
-      <UserCheck />
-      <MessagesSquare />
-      <Umbrella />
-      <TowerControl />
-      <Clock />
-      <Building />
-      <Watch />
-      <Pencil />
-      <Search />
-      <SearchCheck />
-      <SearchCode />
-      <SearchSlash />
-      <Pen />
-      <PenBox />
-      <PenTool />
-      <PenSquare /> */}
-      {/* <div>
-        <div className="sticky top-20 p-5 bg-white">카드 목록</div>
-        <div>
-          <div>목록 카드 목록</div>
-          <div>목록 카드 목록</div>
-          <div>목록 카드 목록</div>
-          <div>목록 카드 목록</div>
-          <div>목록 카드 목록</div>
-          <div>목록 카드 목록</div>
-        </div>
-      </div>
-      <div>
-        <div className="sticky top-20 p-5 bg-white">목록 카드 목록 목록</div>
-        <div>
-          <div>목록 카드 목록</div>
-          <div>목록 카드 목록</div>
-          <div>목록 카드 목록</div>
-          <div>목록 카드 목록</div>
-          <div>목록 카드 목록</div>
-          <div>목록 카드 목록</div>
-        </div>
-      </div> */}
+      {' '}
       {/* <div className="flex justify-between text-2xl">
         <PageTitle title={`${borrow ? "빌리기" : "빌려주기"} 카드 목록`} />
       </div> */}
@@ -205,8 +120,18 @@ function Notice({ userObj, borrow }: Props) {
           </div>
         </div>
         <SwipeableViews>
-          <CardsList choose={1} messages={messages} selectedValues={selectedValues} userObj={userObj} />
-          <CardsList choose={2} messages={messages} selectedValues={selectedValues} userObj={userObj} />
+          <CardsList
+            choose={1}
+            messages={messages}
+            selectedValues={selectedValues}
+            userObj={userObj}
+          />
+          <CardsList
+            choose={2}
+            messages={messages}
+            selectedValues={selectedValues}
+            userObj={userObj}
+          />
           {/* <div className="flex flex-wrap justify-between p-3 gap-1">
             {messages.map((message) => {
               const choose = 1;
@@ -268,7 +193,7 @@ function Notice({ userObj, borrow }: Props) {
         </SwipeableViews>
       </div>
     </div>
-  );
+  )
 }
 
-export default Notice;
+export default Notice
