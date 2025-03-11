@@ -1,4 +1,4 @@
-import Modes from "src/Modes";
+import Modes from "src/navigate/Modes";
 import NavigationUser from "../navigationUser/NavigationUser";
 
 const NavigationSignedIn = ({ userObj, points }) => {

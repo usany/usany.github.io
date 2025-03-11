@@ -12,7 +12,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { auth, dbservice } from "src/baseApi/serverbase";
-import Modes from "src/Modes";
+import Modes from "src/navigate/Modes";
 import { changeBottomNavigation } from "src/stateSlices/bottomNavigationSlice";
 import { changeProfileColor } from "src/stateSlices/profileColorSlice";
 import { changeProfileImage } from "src/stateSlices/profileImageSlice";
