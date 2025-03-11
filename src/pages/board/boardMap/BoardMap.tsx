@@ -22,7 +22,7 @@ import { useEffect, useState } from "react";
 import {
   dbservice
 } from "src/baseApi/serverbase";
-import FilterDialogs from "src/pages/main/FilterDialogs";
+import FilterDialogs from "src/pages/board/FilterDialogs/FilterDialogs";
 import { useImmer } from "use-immer";
 
 interface Props {

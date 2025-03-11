@@ -1,5 +1,5 @@
-import AddItemSelects from 'src/components/add/AddItemSelects'
-import AddStepTitle from 'src/components/add/AddStepTitle'
+import AddItemSelects from 'src/pages/add/AddItemSelects'
+import AddStepTitle from 'src/pages/add/AddStepTitle'
 
 
 interface Props {
@@ -10,7 +10,7 @@ interface Props {
 
 const AddStepOne = ({ borrow, item, changeItem }: Props) => {
     const title = [`1. 무엇을 ${borrow ? '빌리세요?' : '빌려주세요?'}`]
-    
+
     return (
         <div className='flex flex-col'>
             <AddStepTitle title={title} />

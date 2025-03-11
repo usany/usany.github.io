@@ -1,14 +1,14 @@
-import AddStepTitle from 'src/pages/main/add/AddStepTitle'
-import Pickers from 'src/pages/main/add/Pickers'
+import AddStepTitle from 'src/pages/add/AddStepTitle'
+import Pickers from 'src/pages/add/Pickers'
 
 interface Props {
-    onChangeFrom: (event: {}) => void 
+    onChangeFrom: (event: {}) => void
     onChangeTo: (event: {}) => void
 }
 
 const AddStepThree = ({ onChangeFrom, onChangeTo }: Props) => {
     const title = ['3. 시간 입력']
-    
+
     return (
         <div>
             <AddStepTitle title={title}/>

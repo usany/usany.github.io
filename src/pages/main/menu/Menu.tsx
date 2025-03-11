@@ -99,7 +99,7 @@ function Menu({ userObj }: Props) {
       rootElement.removeEventListener("contextmenu", handleContextMenu);
     };
   }, []);
-  
+
   return (
     <div id="sample" className="flex justify-center flex-col pb-5">
       <PageTitle title={"내 상태"} />

@@ -1,7 +1,7 @@
 import { SwipeableViews } from "src/navigate/SwipeableViews";
-import Menu from 'src/pages/Menu'
+import Menu from 'src/pages/main/Menu'
 import Notice from 'src/pages/Board'
-import Auth from 'src/pages/Auth'
+import Auth from 'src/pages/main/auth/Auth'
 import Add from 'src/pages/Add'
 import { useSelector, useDispatch } from 'react-redux'
 import PageTitle from 'src/pages/core/pageTitle/PageTitle'

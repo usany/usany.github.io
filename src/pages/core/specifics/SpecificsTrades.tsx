@@ -8,7 +8,7 @@ import {
   useLocation,
 } from "react-router-dom";
 import Btn from "src/pages/Btn";
-import Steppers from "src/pages/main/add/Steppers";
+import Steppers from "src/pages/add/Steppers";
 import PageTitle from "src/pages/core/pageTitle/PageTitle";
 import Button from "@mui/material/Button";
 import {

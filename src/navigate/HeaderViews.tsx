@@ -11,7 +11,7 @@ import WeatherView from "src/navigate/WeatherView";
 import Navigation from "src/navigate/Navigation";
 import Points from "src/pages/search/Points";
 import Avatar from "@mui/material/Avatar";
-import ToggleTabs from "src/pages/main/ToggleTabs";
+import ToggleTabs from "src/pages/core/ToggleTabs";
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
 import { doc, getDoc } from "firebase/firestore";
 import { auth, dbservice } from "src/baseApi/serverbase";
@@ -174,8 +174,8 @@ const HeaderViews = ({ userObj }: Props) => {
                                                 checked={cardAccordion}
                                                 onClick={() => dispatch(change())}
                                             />
-                                        } 
-                                        label={cardAccordion ? <CreditCard color='#2196f3' /> : <CreditCard />} 
+                                        }
+                                        label={cardAccordion ? <CreditCard color='#2196f3' /> : <CreditCard />}
                                     /> */}
                   <div className="flex justify-center w-16 h-[45px] pt-3">
                     {cardAccordion ? (
@@ -203,8 +203,8 @@ const HeaderViews = ({ userObj }: Props) => {
                                                 checked={messageAccordion}
                                                 onClick={() => dispatch(changeMessageAccordion())}
                                             />
-                                        } 
-                                        label={messageAccordion ? <MessageCircle color='#2196f3' /> : <MessageCircle />} 
+                                        }
+                                        label={messageAccordion ? <MessageCircle color='#2196f3' /> : <MessageCircle />}
                                     /> */}
                   <div className="flex justify-center w-16 h-[45px] pt-3">
                     {messageAccordion ? (

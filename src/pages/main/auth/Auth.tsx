@@ -14,7 +14,7 @@ import {supabase} from 'src/baseApi/base';
 
 function Auth() {
   const motions = useMemo(() => <Motions />, [])
-  return (  
+  return (
     <div>
       <PageTitle title={'로그인'} />
       <div className='flex justify-center p-5'>반갑습니다. 캠퍼스 우산 공유 서비스 쿠우산입니다.</div>

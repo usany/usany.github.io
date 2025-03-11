@@ -1,5 +1,5 @@
-import AddItemSelects from 'src/components/add/AddItemSelects'
-import AddStepTitle from 'src/components/add/AddStepTitle'
+import AddItemSelects from 'src/pages/add/AddItemSelects'
+import AddStepTitle from 'src/pages/add/AddStepTitle'
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
@@ -12,17 +12,17 @@ const AddCards = ({ borrow, userObj, addSteps, item, fromTo, locationState, disp
     const profileColor = useSelector(state => state.profileColor.value)
     const profileImage = useSelector(state => state.profileImage.value)
     const shadowColorArray = [
-        'lightblue', 
+        'lightblue',
         'lightcoral',
         'lightcyan',
         'lightgoldenrodyellow',
         'lightgray',
-        'lightgreen', 
+        'lightgreen',
         'lightpink',
         'lightsalmon',
         'lightseagreen',
         'lightskyblue',
-        'lightsteelblue', 
+        'lightsteelblue',
         'lightyellow'
     ]
     let shadowColor;
@@ -31,7 +31,7 @@ const AddCards = ({ borrow, userObj, addSteps, item, fromTo, locationState, disp
     if (display) {
         shadowColor = shadowColorArray[letters.indexOf(String(display.id[0]).toUpperCase())%shadowColorArray.length];
     }
-    
+
     return (
         <div className='flex justify-center pt-5 p-1'>
             <Card
@@ -53,7 +53,7 @@ const AddCards = ({ borrow, userObj, addSteps, item, fromTo, locationState, disp
                                 빈 카드입니다
                             </div>
                         }
-                        {locationState.locationOne && 
+                        {locationState.locationOne &&
                             <div className='pt-1'>
                                 <CardMedia
                                     sx={{ height: 140 }}
