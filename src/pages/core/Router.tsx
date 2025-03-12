@@ -12,6 +12,8 @@ import { User } from 'firebase/auth'
 import Header from 'src/navigate/Header'
 import Navigations from 'src/navigate/Navigations'
 import Loadings from 'src/pages/core/loadings/Loadings'
+import { useSelector } from 'react-redux'
+import ThemeRootState from 'src/interfaces/ThemeRootState copy'
 
 interface Props {
   userObj: User | null
@@ -21,10 +23,11 @@ const Router = ({ userObj }: Props) => {
   const Home = lazy(() => import('src/pages/main/Home'))
   const Profile = lazy(() => import('src/pages/profile/Profile'))
   const Ranking = lazy(() => import('src/pages/search/Ranking'))
-  // const Specific = lazy(() => import("src/pages/Specific"))
   const Contact = lazy(() => import('src/pages/contact/Contact'))
   const Piazza = lazy(() => import('src/pages/piazza/Piazza'))
-  // console.log('sample')
+  // const Specific = lazy(() => import("src/pages/Specific"))
+  // const theme = useSelector((state: ThemeRootState) => state.theme)
+
   return (
     <BrowserRouter>
       <div className="flex flex-col">

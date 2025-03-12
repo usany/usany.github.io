@@ -17,14 +17,14 @@ import { useQuery } from '@tanstack/react-query'
 import { useSelector, useDispatch } from 'react-redux'
 import { AnimatedList } from 'src/src/components/ui/animated-list';
 import { CardActionArea, CardActions, ClickAwayListener } from '@mui/material';
-import { createApi, fetchBaseQuery, fakeBaseQuery,  } from '@reduxjs/toolkit/query/react'
+import { createApi, fetchBaseQuery, fakeBaseQuery, } from '@reduxjs/toolkit/query/react'
 import axios from 'axios'
 
 const getCurrentWeather = () => {
   const APIKEY = 'e9f8a415cef0c0bb87f7da5e167bdaf1'
   const latitude = 37.5948
   const longitude = 127.0531
-  
+
   const response = axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&APPID=${APIKEY}&units=metric`)
   return response
   // .then((response) => {
@@ -55,7 +55,7 @@ export const weather = createApi({
           const APIKEY = 'e9f8a415cef0c0bb87f7da5e167bdaf1'
           const latitude = 37.5948
           const longitude = 127.0531
-          
+
           const response = axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&APPID=${APIKEY}&units=metric`)
           return { data: response }
         } catch (error) {
@@ -86,6 +86,6 @@ export const weather = createApi({
       // },
     }),
   }),
-})  
+})
 
 export const { useGetWeatherQuery } = weather
