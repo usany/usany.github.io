@@ -73,6 +73,10 @@ function Notice({ userObj, borrow }: Props) {
     },
   ]);
   const [onMarker, setOnMarker] = useState(false);
+  const [mapAccordion, setMapAccordion] = useState(false)
+  const mapAccordionToggle = () => setMapAccordion(!mapAccordion)
+  // const mapAccordionTrue = () => setMapAccordion(true)
+  // const mapAccordionFalse = () => setMapAccordion(false)
   const onMarkerTrue = () => setOnMarker(true);
   const onMarkerFalse = () => setOnMarker(false);
   const handleSelectedValues = ({
@@ -188,6 +192,10 @@ function Notice({ userObj, borrow }: Props) {
         </div> */}
       </SwipeableViews>
       <BoardMap
+        mapAccordion={mapAccordion}
+        mapAccordionToggle={mapAccordionToggle}
+        // mapAccordionTrue={mapAccordionTrue}
+        // mapAccordionFalse={mapAccordionFalse}
         onMarker={onMarker}
         onMarkerTrue={onMarkerTrue}
         onMarkerFalse={onMarkerFalse}
@@ -196,7 +204,7 @@ function Notice({ userObj, borrow }: Props) {
         <div className="flex p-3 sticky top-16 z-30 justify-between bg-light-3 dark:bg-dark-3">
           <div className="pt-1">카드 목록</div>
           <div className="flex gap-1">
-            {!onMarker && (
+            {!(mapAccordion && onMarker) && (
               <FilterDialogs
                 selectedValues={selectedValues}
                 handleSelectedValues={handleSelectedValues}

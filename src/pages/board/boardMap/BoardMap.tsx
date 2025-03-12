@@ -31,7 +31,7 @@ interface Props {
   onMarkerFalse: () => void;
 }
 
-function BoardMap({ onMarker, onMarkerTrue, onMarkerFalse }: Props) {
+function BoardMap({ mapAccordion, mapAccordionToggle, onMarker, onMarkerTrue, onMarkerFalse }: Props) {
   const [messages, setMessages] = useState<Array<object>>([]);
   const [selectedValues, setSelectedValues] = useImmer([
     {
@@ -47,7 +47,7 @@ function BoardMap({ onMarker, onMarkerTrue, onMarkerFalse }: Props) {
       value: "최신순",
     },
   ]);
-  const [mapAccordion, setMapAccordion] = useState(false);
+  // const [mapAccordion, setMapAccordion] = useState(false);
   const [choose, setChoose] = useState(false);
 
   const handleSelectedValues = ({
@@ -113,7 +113,7 @@ function BoardMap({ onMarker, onMarkerTrue, onMarkerFalse }: Props) {
     <div>
       <Accordion type="single" collapsible className="px-3">
         <AccordionItem value="item-1">
-          <AccordionTrigger onClick={() => setMapAccordion(!mapAccordion)}>
+          <AccordionTrigger onClick={() => mapAccordionToggle()}>
             등록 지도
           </AccordionTrigger>
           <div className="sticky top-10 z-30 bg-light-3 dark:bg-dark-3"></div>
@@ -123,7 +123,7 @@ function BoardMap({ onMarker, onMarkerTrue, onMarkerFalse }: Props) {
                 59.9156636,10.7507967 표시된 곳을 선택하면 해당하는 내용만
                 확인할 수 있어요
               </div>
-              {onMarker && (
+              {mapAccordion && onMarker && (
                 <FilterDialogs
                   selectedValues={selectedValues}
                   handleSelectedValues={handleSelectedValues}
@@ -132,6 +132,7 @@ function BoardMap({ onMarker, onMarkerTrue, onMarkerFalse }: Props) {
             </div>
             <div className="w-full h-[300px]">
               <Map
+                mapId={'77db85c9c2270baa'}
                 defaultCenter={{ lat: 59.9156636, lng: 10.7507967 }}
                 defaultZoom={18}
                 gestureHandling={"greedy"}
