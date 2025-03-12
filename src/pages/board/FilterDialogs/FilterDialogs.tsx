@@ -26,7 +26,7 @@ function FilterDialogs({ selectedValues, handleSelectedValues }) {
   const onClick = ({ id }) => {
     setSelected(id);
   };
-  
+
   return (
     <div>
       <Drawer>
@@ -104,6 +104,7 @@ function FilterDialogs({ selectedValues, handleSelectedValues }) {
                 <SelectItem value="전체 장소">전체 장소</SelectItem>
                 <SelectItem value="중도">중도</SelectItem>
                 <SelectItem value="청운">청운</SelectItem>
+                <SelectItem value="이과대">이과대</SelectItem>
               </SelectGroup>
             </SelectContent>
           </Select>
@@ -133,7 +134,7 @@ function FilterDialogs({ selectedValues, handleSelectedValues }) {
         </DrawerContent>
       </Drawer>
       {/* <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-                <InputLabel 
+                <InputLabel
                 >우산 / 양산 선택
                 </InputLabel>
                 <Select
@@ -146,7 +147,7 @@ function FilterDialogs({ selectedValues, handleSelectedValues }) {
                 </Select>
             </FormControl>
                     <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-                <InputLabel 
+                <InputLabel
                 >장소 선택
                 </InputLabel>
                 <Select
@@ -159,7 +160,7 @@ function FilterDialogs({ selectedValues, handleSelectedValues }) {
                 </Select>
             </FormControl>
                     <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-                <InputLabel 
+                <InputLabel
                 >시간 정렬
                 </InputLabel>
                 <Select
@@ -176,7 +177,7 @@ function FilterDialogs({ selectedValues, handleSelectedValues }) {
                     필터
                 </div>
                     <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-                <InputLabel 
+                <InputLabel
                 >우산 / 양산 선택
                 </InputLabel>
                 <Select
@@ -189,7 +190,7 @@ function FilterDialogs({ selectedValues, handleSelectedValues }) {
                 </Select>
             </FormControl>
                     <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-                <InputLabel 
+                <InputLabel
                 >장소 선택
                 </InputLabel>
                 <Select
@@ -202,7 +203,7 @@ function FilterDialogs({ selectedValues, handleSelectedValues }) {
                 </Select>
             </FormControl>
                     <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-                <InputLabel 
+                <InputLabel
                 >시간 정렬
                 </InputLabel>
                 <Select
