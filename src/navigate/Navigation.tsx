@@ -33,10 +33,9 @@ function Navigation({ userObj, sideNavigation, handleSideNavigation }: Props) {
   const [profileColor, setProfileColor] = useState<string>("");
   const [userData, setUserData] = useState(null);
   const dispatch = useDispatch();
-
   useEffect(() => {
     if (userObj) {
-      onSnapshot(doc(dbservice, `members /${userObj.uid}`), (snapshot) => {
+      onSnapshot(doc(dbservice, `members/${userObj.uid}`), (snapshot) => {
         const number = snapshot.data()?.points;
         setPoints(number);
         const color = snapshot.data()?.profileColor;

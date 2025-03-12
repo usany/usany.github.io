@@ -11,7 +11,7 @@ import WeatherView from "src/navigate/WeatherView";
 import Navigation from "src/navigate/Navigation";
 import Points from "src/pages/search/Points";
 import Avatar from "@mui/material/Avatar";
-import ToggleTabs from "src/pages/main/ToggleTabs";
+import ToggleTabs from "src/pages/core/ToggleTabs";
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
 import { doc, getDoc } from "firebase/firestore";
 import { auth, dbservice } from "src/baseApi/serverbase";

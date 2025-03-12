@@ -14,7 +14,7 @@ import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import { CardActionArea, CardActions, ClickAwayListener } from "@mui/material";
 import { Link } from "react-router-dom";
-import Btn from "src/pages/Btn";
+import Btn from "src/Btn";
 import Specifics from "src/pages/core/specifics/Specifics";
 import Chip from "@mui/material/Chip";
 import staticImg from "src/assets/pwa-512x512.png";
@@ -118,7 +118,7 @@ const CardsViews = ({ msgObj, isOwner, userObj, num, points }: Props) => {
             <div className="pt-1">
               <CardMedia sx={{ height: 140 }} image={staticImg} />
             </div>
-            {/* {locationState.locationOne && 
+            {/* {locationState.locationOne &&
                         } */}
             <div className="flex flex-col">
               <div className="flex justify-center">

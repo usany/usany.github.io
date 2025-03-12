@@ -21,59 +21,24 @@ import ProfileDrawersPoints from 'src/pages/profile/ProfileDrawersPoints'
 import ProfileDrawersAllies from 'src/pages/profile/ProfileDrawersAllies'
 
 const ProfileDrawers = ({ user, cards, followers, alliesCollection, selection }) => {
-  // const [messages, setMessages] = useState([])
-  // const [elements, setElements] = useState([])
-  // useEffect(() => {
-  //   const bringMessages = async () => {
-  //     const messagesArray = []
-  //     const messageRef = query(collection(dbservice, 'num'), orderBy("creatorClock", "desc"),)
-  //     const messageSnap = await getDocs(messageRef)
-  //     messageSnap.forEach((doc) => {
-  //       const cardId = doc.id
-  //       if ((cards?.done || []).indexOf(cardId) !== -1) {
-  //         const card = doc.data()
-  //         messagesArray.push(card)
-  //         setMessages(messagesArray)
-  //       }
-  //     })
-  //   }
-  //   if (cards) {
-  //     bringMessages()
-  //   }
-  // }, [cards])
-  // useEffect(() => {
-  //   if (alliesCollection) {
-  //     usersCollection()
-  //   }
-  // }, [alliesCollection])
-  // const usersCollection = async () => {
-  //   const elementsCollection = []
-  //   const collectionRef = collection(dbservice, 'members')
-  //   const docs = await getDocs(query(collectionRef, orderBy('points', 'desc')))
-  //   docs.forEach((element) => {
-  //     if (alliesCollection?.indexOf(element.data().uid) !== -1) {
-  //       elementsCollection.push(element.data())
-  //       setElements(elementsCollection)
-  //     }
-  //   })
-  // }
-  
+
+
   return (
     <Drawer>
       <DrawerTrigger>
-        {selection === 'points' && 
+        {selection === 'points' &&
           <div className='p-5'>
             <div>포인트</div>
             <div className='flex justify-center'>{cards.point}</div>
           </div>
         }
-        {selection === 'allies' && 
+        {selection === 'allies' &&
           <div className='p-5'>
             <div>
               {followers ? '팔로워' : '팔로잉'}
             </div>
             <div className='flex justify-center'>
-              {alliesCollection.length}명 
+              {alliesCollection.length}명
             </div>
           </div>
         }

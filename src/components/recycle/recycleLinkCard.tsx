@@ -3,11 +3,11 @@ import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import { CardActionArea, CardActions } from '@mui/material';
 import { Link } from 'react-router-dom'
-import Btn from 'src/pages/Btn';
+import Btn from 'src/Btn';
 import Chip from '@mui/material/Chip';
 import staticImg from 'src/assets/pwa-512x512.png';
 
-const Cards = ({ 
+const Cards = ({
   msgObj,
   isOwner,
   userObj,
@@ -22,17 +22,17 @@ const Cards = ({
   points: number,
 }) => {
   const shadowColorArray = [
-    'lightblue', 
+    'lightblue',
     'lightcoral',
     'lightcyan',
     'lightgoldenrodyellow',
     'lightgray',
-    'lightgreen', 
+    'lightgreen',
     'lightpink',
     'lightsalmon',
     'lightseagreen',
     'lightskyblue',
-    'lightsteelblue', 
+    'lightsteelblue',
     'lightyellow'
   ]
   let shadowColor;
@@ -46,7 +46,7 @@ const Cards = ({
     <div className='flex justify-center'>
       <Card>
         <CardActionArea>
-          <Link 
+          <Link
             to='/points'
             state={{
               user: user,
@@ -66,11 +66,11 @@ const Cards = ({
       </Card>
       <Card>
         <CardActionArea>
-          <Link to='/allies' 
+          <Link to='/allies'
             state={{
-              uid: userObj.uid, 
+              uid: userObj.uid,
               displayName: userObj.displayName,
-              followerList: myFollowerList, 
+              followerList: myFollowerList,
               allies: 'followers',
               alliesCollection: followersName,
           }}>
@@ -79,7 +79,7 @@ const Cards = ({
                 팔로워
               </div>
               <div className='flex justify-center'>
-                {myFollowerNumber}명 
+                {myFollowerNumber}명
               </div>
             </div>
           </Link>
@@ -87,11 +87,11 @@ const Cards = ({
       </Card>
       <Card>
         <CardActionArea>
-          <Link to='/allies' 
+          <Link to='/allies'
             state={{
-              uid: userObj.uid, 
+              uid: userObj.uid,
               displayName: userObj.displayName,
-              followingsList: myFollowingList, 
+              followingsList: myFollowingList,
               allies: 'followings',
               alliesCollection: followingsName,
           }}>

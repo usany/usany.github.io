@@ -1,4 +1,4 @@
-import { getAuth, GoogleAuthProvider, OAuthProvider,  GithubAuthProvider, signInWithPopup, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithRedirect, getRedirectResult, TwitterAuthProvider, FacebookAuthProvider  } from "firebase/auth";
+import { getAuth, GoogleAuthProvider, OAuthProvider, GithubAuthProvider, signInWithPopup, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithRedirect, getRedirectResult, TwitterAuthProvider, FacebookAuthProvider } from "firebase/auth";
 import { getFirestore, collection, addDoc, getDoc } from "firebase/firestore";
 import { getStorage, ref, uploadString } from "firebase/storage";
 import { getMessaging } from "firebase/messaging";
@@ -42,146 +42,181 @@ const messaging = getMessaging(app);
 // })
 
 const onSocialClick = (event) => {
-    const {
-        target: {name},
-    } = event;
-    let provider
-    if (name === 'g') {
-        provider = new GoogleAuthProvider();
-    } else {
-        provider = new GithubAuthProvider();
-    }
-    signInWithPopup(auth, provider)
-    .then((result) => {
-        // This gives you a Google Access Token. You can use it to access the Google API.
-        let credential
-        if (name === 'g') {
-            credential = GoogleAuthProvider.credentialFromResult(result)
-        } else {
-            credential = GithubAuthProvider.credentialFromResult(result)
-        }
-        const token = credential.accessToken;
-        // The signed-in user info.
-        const user = result.user;
-        console.log('result '+result)
-        console.log('user '+user.email)
-        console.log('user '+user.uid)
-        // IdP data available using getAdditionalUserInfo(result)
-        // ...
+  const {
+    target: { name },
+  } = event;
+  let provider
+  if (name === 'g') {
+    provider = new GoogleAuthProvider();
+  } else {
+    provider = new GithubAuthProvider();
+  }
+  signInWithPopup(auth, provider)
+    .then(async (result) => {
+      // This gives you a Google Access Token. You can use it to access the Google API.
+      let credential
+      if (name === 'g') {
+        credential = GoogleAuthProvider.credentialFromResult(result)
+      } else {
+        credential = GithubAuthProvider.credentialFromResult(result)
+      }
+      const uid = result.user.uid
+      console.log(result.user)
+      // const credential = OAuthProvider.credentialFromResult(result);
+      // const accessToken = credential.accessToken;
+      // const idToken = credential.idToken;
+      const docRef = doc(dbservice, `members/${uid}`)
+      const docSnap = await getDoc(docRef)
+      const userData = docSnap.data()
+      if (!userData) {
+        await setDoc(doc(dbservice, 'members', `${uid}`), {
+          uid: data.user.uid,
+          displayName: data.user.email,
+          points: 0,
+          profileImage: null,
+          profileImageUrl: null,
+          followers: [],
+          followings: [],
+          messagingToken: null,
+          ranking: docsLength,
+          createdCards: [],
+          connectedCards: [],
+          profileColor: "#2196f3",
+          followerNum: 0,
+          followingNum: 0,
+          locationConfirmed: false,
+        })
+        const storageRef = ref(storage, result.user.uid);
+        uploadString(storageRef, 'null', 'raw').then((snapshot) => {
+          console.log('Uploaded a blob or file!');
+        });
+      }
+      // const token = credential.accessToken;
+      // The signed-in user info.
+      const user = result.user;
+      console.log('result ' + result)
+      console.log('user ' + user.email)
+      console.log('user ' + user.uid)
+      // IdP data available using getAdditionalUserInfo(result)
+      // ...
     }).catch((error) => {
-        // Handle Errors here.
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // The email of the user's account used.
-        const email = error.customData.email;
-        // The AuthCredential type that was used.
-        let credential
-        if (name === 'g') {
-            credential = GoogleAuthProvider.credentialFromError(error);
-        } else {
-            credential = GithubAuthProvider.credentialFromError(error);
-        }
-        // ...
+      // Handle Errors here.
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      // The email of the user's account used.
+      const email = error.customData.email;
+      // The AuthCredential type that was used.
+      let credential
+      if (name === 'g') {
+        credential = GoogleAuthProvider.credentialFromError(error);
+      } else {
+        credential = GithubAuthProvider.credentialFromError(error);
+      }
+      // ...
     });
 }
 
 const onSocialClickMicrosoft = () => {
-    const providerMicrosoft = new OAuthProvider('microsoft.com');
-    signInWithPopup(auth, providerMicrosoft).then(async (result) => {
-        const uid = result.user.uid
-        console.log(result.user)
-        // const credential = OAuthProvider.credentialFromResult(result);
-        // const accessToken = credential.accessToken;
-        // const idToken = credential.idToken;
-        const docRef = doc(dbservice, `members/${uid}`)
-        const docSnap = await getDoc(docRef)
-        const userData = docSnap.data()
-        if (!userData) {
-            await setDoc(doc(dbservice, 'members', `${uid}`), {
-                uid: result.user.uid,
-                displayName: result.user.displayName,
-                points: 0,
-                profileColor: '#2196f3',
-                profileImage: null,
-                profileImageUrl: null,
-                followerNum: 0,
-                followingNum: 0,
-                followers: [],
-                followings: [],
-                messagingToken: null,
-            })
-            const storageRef = ref(storage, result.user.uid);
-            uploadString(storageRef, 'null', 'raw').then((snapshot) => {
-                console.log('Uploaded a blob or file!');
-            });
-        }
-    }).catch((error) => {
-        console.log(error)
-    })
+  const providerMicrosoft = new OAuthProvider('microsoft.com');
+  signInWithPopup(auth, providerMicrosoft).then(async (result) => {
+    const uid = result.user.uid
+    console.log(result.user)
+    // const credential = OAuthProvider.credentialFromResult(result);
+    // const accessToken = credential.accessToken;
+    // const idToken = credential.idToken;
+    const docRef = doc(dbservice, `members/${uid}`)
+    const docSnap = await getDoc(docRef)
+    const userData = docSnap.data()
+    if (!userData) {
+      await setDoc(doc(dbservice, 'members', `${uid}`), {
+        uid: data.user.uid,
+        displayName: data.user.email,
+        points: 0,
+        profileImage: null,
+        profileImageUrl: null,
+        followers: [],
+        followings: [],
+        messagingToken: null,
+        ranking: docsLength,
+        createdCards: [],
+        connectedCards: [],
+        profileColor: "#2196f3",
+        followerNum: 0,
+        followingNum: 0,
+        locationConfirmed: false,
+      })
+      const storageRef = ref(storage, result.user.uid);
+      uploadString(storageRef, 'null', 'raw').then((snapshot) => {
+        console.log('Uploaded a blob or file!');
+      });
+    }
+  }).catch((error) => {
+    console.log(error)
+  })
 }
 const onSocialClickTwitter = () => {
-    const providerTwitter = new TwitterAuthProvider()
-    signInWithPopup(auth, providerTwitter).then(async (result) => {
-        console.log(result)
-        const credential = TwitterAuthProvider.credentialFromResult(result);
-        const accessToken = credential.accessToken;
-        const idToken = credential.idToken;
-        // const docRef = doc(dbservice, `members/${uid}`)
-        // const docSnap = await getDoc(docRef)
-        // const userData = docSnap.data()
-        // if (!userData) {
-        //     await setDoc(doc(dbservice, 'members', `${uid}`), {
-        //         uid: result.user.uid,
-        //         displayName: result.user.displayName,
-        //         points: 0,
-        //         profileColor: '#2196f3',
-        //         profileImage: null,
-        //         profileImageUrl: null,
-        //         followerNum: 0,
-        //         followingNum: 0,
-        //         followers: [],
-        //         followings: [],
-        //         messagingToken: null,
-        //     })
-        // }
-        console.log(accessToken)
-        console.log(idToken)
-    }).catch((error) => {
-        console.log(error)
-    })
+  const providerTwitter = new TwitterAuthProvider()
+  signInWithPopup(auth, providerTwitter).then(async (result) => {
+    console.log(result)
+    const credential = TwitterAuthProvider.credentialFromResult(result);
+    const accessToken = credential.accessToken;
+    const idToken = credential.idToken;
+    // const docRef = doc(dbservice, `members/${uid}`)
+    // const docSnap = await getDoc(docRef)
+    // const userData = docSnap.data()
+    // if (!userData) {
+    //     await setDoc(doc(dbservice, 'members', `${uid}`), {
+    //         uid: result.user.uid,
+    //         displayName: result.user.displayName,
+    //         points: 0,
+    //         profileColor: '#2196f3',
+    //         profileImage: null,
+    //         profileImageUrl: null,
+    //         followerNum: 0,
+    //         followingNum: 0,
+    //         followers: [],
+    //         followings: [],
+    //         messagingToken: null,
+    //     })
+    // }
+    console.log(accessToken)
+    console.log(idToken)
+  }).catch((error) => {
+    console.log(error)
+  })
 }
 
 const onSocialClickFacebook = () => {
-    const providerFacebook = new FacebookAuthProvider()
-    signInWithPopup(auth, providerFacebook).then(async (result) => {
-        // const uid = result.user.uid
-        console.log(result)
-        const credential = OAuthProvider.credentialFromResult(result);
-        const accessToken = credential.accessToken;
-        const idToken = credential.idToken;
-        // const docRef = doc(dbservice, `members/${uid}`)
-        // const docSnap = await getDoc(docRef)
-        // const userData = docSnap.data()
-        // if (!userData) {
-        //     await setDoc(doc(dbservice, 'members', `${uid}`), {
-        //         uid: result.user.uid,
-        //         displayName: result.user.displayName,
-        //         points: 0,
-        //         profileColor: '#2196f3',
-        //         profileImage: null,
-        //         profileImageUrl: null,
-        //         followerNum: 0,
-        //         followingNum: 0,
-        //         followers: [],
-        //         followings: [],
-        //         messagingToken: null,
-        //     })
-        // }
-        console.log(accessToken)
-        console.log(idToken)
-    }).catch((error) => {
-        console.log(error)
-    })
+  const providerFacebook = new FacebookAuthProvider()
+  signInWithPopup(auth, providerFacebook).then(async (result) => {
+    // const uid = result.user.uid
+    console.log(result)
+    const credential = OAuthProvider.credentialFromResult(result);
+    const accessToken = credential.accessToken;
+    const idToken = credential.idToken;
+    // const docRef = doc(dbservice, `members/${uid}`)
+    // const docSnap = await getDoc(docRef)
+    // const userData = docSnap.data()
+    // if (!userData) {
+    //     await setDoc(doc(dbservice, 'members', `${uid}`), {
+    //         uid: result.user.uid,
+    //         displayName: result.user.displayName,
+    //         points: 0,
+    //         profileColor: '#2196f3',
+    //         profileImage: null,
+    //         profileImageUrl: null,
+    //         followerNum: 0,
+    //         followingNum: 0,
+    //         followers: [],
+    //         followings: [],
+    //         messagingToken: null,
+    //     })
+    // }
+    console.log(accessToken)
+    console.log(idToken)
+  }).catch((error) => {
+    console.log(error)
+  })
 }
 // signInWithPopup(auth, providerMicrosoft).then(() => {
 //     const credential = OAuthProvider.credentialFromResult(result);
@@ -192,4 +227,4 @@ const onSocialClickFacebook = () => {
 // })
 
 
-export {auth, onSocialClick, onSocialClickMicrosoft, onSocialClickTwitter, onSocialClickFacebook, dbservice, storage, messaging}
+export { auth, onSocialClick, onSocialClickMicrosoft, onSocialClickTwitter, onSocialClickFacebook, dbservice, storage, messaging }

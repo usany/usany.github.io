@@ -1,4 +1,4 @@
-import Modes from "src/Modes";
+import Modes from "src/navigate/Modes";
 import { useDispatch, useSelector } from "react-redux";
 import { changeBottomNavigation } from "src/stateSlices/bottomNavigationSlice";
 

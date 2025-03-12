@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import Menu from "src/pages/Menu";
-import Notice from "src/pages/main/board/Board";
-import Layout from "src/pages/Layout";
-import Auth from "src/pages/Auth";
-import Add from "./Add";
+import Menu from "src/pages/main/menu/Menu";
+import Notice from "src/pages/board/Board";
+import Layout from "src/pages/add/Layout";
+import Auth from "src/pages/main/auth/Auth";
+import Add from "../add/Add";
 import { SwipeableViews } from "src/navigate/SwipeableViews";
 import {
   collection,
@@ -117,10 +117,11 @@ function Home({ userObj }: UserObjProps) {
           )}
           {bottomNavigation === 1 && <Auth />}
           {bottomNavigation === 2 && (
-            <SwipeableViews>
-              <Notice userObj={userObj} borrow={true} />
-              <Notice userObj={userObj} borrow={false} />
-            </SwipeableViews>
+            <Notice userObj={userObj} borrow={true} />
+            // <SwipeableViews>
+            //   <Notice userObj={userObj} borrow={true} />
+            //   <Notice userObj={userObj} borrow={false} />
+            // </SwipeableViews>
           )}
         </>
       )}

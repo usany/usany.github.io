@@ -1,17 +1,8 @@
-import { useState, useEffect, useReducer } from "react";
 import Card from "@mui/material/Card";
-import { createPortal } from "react-dom";
 import {
-  BrowserRouter,
-  Routes,
-  Route,
-  useNavigate,
-  Link,
-  useLocation,
+  Link
 } from "react-router-dom";
 import ProfileMembersDrawers from "src/pages/profile/ProfileMembersDrawers";
-import { dbservice } from "src/baseApi/serverbase";
-import { doc } from "firebase/firestore";
 
 const ProfileMembers = ({ userObj, user }) => {
   return (

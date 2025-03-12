@@ -73,6 +73,7 @@ const AuthForm = ({ signIn }) => {
         profileColor: "#2196f3",
         followerNum: 0,
         followingNum: 0,
+        locationConfirmed: false,
       });
       await updateProfile(data.user, {
         displayName: data.user.email,
