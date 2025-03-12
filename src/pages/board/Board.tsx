@@ -9,47 +9,14 @@ import { useEffect, useState } from "react";
 import {
   dbservice
 } from "src/baseApi/serverbase";
-import Cards from "src/pages/main/card/Cards";
+// import Cards from "src/pages/main/card/Cards";
 import { SwipeableViews } from "src/navigate/SwipeableViews";
 import PageTitle from "src/pages/core/pageTitle/PageTitle";
 import BoardMap from "src/pages/board/boardMap/BoardMap";
 import FilterDialogs from "src/pages/board/FilterDialogs/FilterDialogs";
 import { useImmer } from "use-immer";
+import CardsList from "../main/card/CardsList";
 // import { AlarmCheck, AlertCircle, Building, Clock, DoorOpen, MessagesSquare, Pen, PenBox, Pencil, PenSquare, PenTool, Presentation, Search, SearchCheck, SearchCode, SearchSlash, Siren, TowerControl, Umbrella, UserCheck, UserRound, Watch } from "lucide-react";
-
-const CardsList = ({ choose, messages, selectedValues, userObj }) => {
-  return (
-    <div className="flex flex-wrap justify-between p-3 gap-1">
-      {messages.map((message, index) => {
-        const isOwner = message?.creatorId === userObj?.uid;
-        if (message?.text.choose === choose && message?.round === 1) {
-          if (
-            selectedValues[0].value === "전체" ||
-            selectedValues[0].value === message?.item ||
-            !selectedValues[0].value
-          ) {
-            if (
-              selectedValues[1].value === "전체" ||
-              selectedValues[1].value === message?.text.count ||
-              !selectedValues[1].value
-            ) {
-              return (
-                <Cards
-                  key={index}
-                  msgObj={message}
-                  isOwner={isOwner}
-                  userObj={userObj}
-                  num={null}
-                  points={null}
-                />
-              );
-            }
-          }
-        }
-      })}
-    </div>
-  )
-}
 
 interface Props {
   userObj: User | null;

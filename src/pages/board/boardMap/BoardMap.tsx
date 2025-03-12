@@ -31,6 +31,41 @@ interface Props {
   onMarkerFalse: () => void;
 }
 
+const markers = [
+  {
+    label: '중도',
+    location: { lat: 37.5970966, lng: 127.0527314 }
+  },
+  {
+    label: '네오르네상스관',
+    location: { lat: 37.5948201, lng: 127.053091 }
+  },
+  {
+    label: '푸른솔',
+    location: { lat: 37.5941125, lng: 127.0557743 }
+  },
+  {
+    label: '이과대학',
+    location: { lat: 37.5960528, lng: 127.0536951 }
+  },
+  {
+    label: '문과대학',
+    location: { lat: 37.5971991, lng: 127.0539612 }
+  },
+  {
+    label: '청운',
+    location: { lat: 37.594732, lng: 127.0517775 }
+  },
+  {
+    label: '의과대학',
+    location: { lat: 37.59390, lng: 127.0549 }
+  },
+  {
+    label: '경영대학',
+    location: { lat: 37.5967052, lng: 127.0552861 }
+  },
+]
+const defaultLocation = markers[0].location
 function BoardMap({ mapAccordion, mapAccordionToggle, onMarker, onMarkerTrue, onMarkerFalse }: Props) {
   const [messages, setMessages] = useState<Array<object>>([]);
   const [selectedValues, setSelectedValues] = useImmer([
@@ -49,7 +84,6 @@ function BoardMap({ mapAccordion, mapAccordionToggle, onMarker, onMarkerTrue, on
   ]);
   // const [mapAccordion, setMapAccordion] = useState(false);
   const [choose, setChoose] = useState(false);
-
   const handleSelectedValues = ({
     id,
     newValue,
@@ -133,12 +167,30 @@ function BoardMap({ mapAccordion, mapAccordionToggle, onMarker, onMarkerTrue, on
             <div className="w-full h-[300px]">
               <Map
                 mapId={'77db85c9c2270baa'}
-                defaultCenter={{ lat: 59.9156636, lng: 10.7507967 }}
-                defaultZoom={18}
+                defaultCenter={defaultLocation}
+                // defaultCenter={{ lat: 37.5968367, lng: 127.0518435 }}
+                defaultZoom={17}
                 gestureHandling={"greedy"}
                 disableDefaultUI={true}
               >
-                <AdvancedMarker
+                {markers.map((value, index) => {
+                  return (
+                    <AdvancedMarker
+                      onClick={() => {
+                        onClickMarker("청운");
+                        onMarkerTrue();
+                      }}
+                      position={value.location}
+                    >
+                      <Pin
+                        background={"#0f9d58"}
+                        borderColor={"#006425"}
+                        glyphColor={"#60d98f"}
+                      />
+                    </AdvancedMarker>
+                  )
+                })}
+                {/* <AdvancedMarker
                   onClick={() => {
                     onClickMarker("중도");
                     onMarkerTrue();
@@ -150,15 +202,56 @@ function BoardMap({ mapAccordion, mapAccordionToggle, onMarker, onMarkerTrue, on
                     borderColor={"#006425"}
                     glyphColor={"#60d98f"}
                   />
-                </AdvancedMarker>
-                <Marker
+                </AdvancedMarker> */}
+                {/* <Marker
                   onClick={() => {
-                    onClickMarker("청운");
+                    onClickMarker("문과대학");
                     onMarkerTrue();
                   }}
-                  position={{ lat: 59.9166636, lng: 10.7517967 }}
-                />
-                {selectedValues[1].value === "중도" && (
+                  position={{ lat: 37.5971991, lng: 127.0539612 }}
+                /> */}
+                {selectedValues[1].value !== '전체' &&
+                  <InfoWindow
+                    position={markers.find((element) => element.label === selectedValues[1].value)?.location}
+                    onClose={() => {
+                      onClickMarker("전체 장소");
+                      if (choose) {
+                        onClickMarkerItem("전체 아이템");
+                        setChoose(false);
+                      }
+                      onMarkerFalse();
+                    }}
+                  >
+                    <div className="flex flex-col">
+                      <div className='flex justify-center'>{selectedValues[1].value}</div>
+                      <div className="flex">
+                        <div className="pt-1">
+                          <Chip
+                            label={`우산`}
+                            onClick={() => {
+                              setChoose(true);
+                              onClickMarkerItem("우산");
+                            }}
+                          />
+                        </div>
+                        <div className="pt-3">: {messages.length} 요청</div>
+                      </div>
+                      <div className="flex">
+                        <div className="pt-1">
+                          <Chip
+                            label={`양산`}
+                            onClick={() => {
+                              setChoose(true);
+                              onClickMarkerItem("양산");
+                            }}
+                          />
+                        </div>
+                        <div className="pt-3">: {messages.length} 요청</div>
+                      </div>
+                    </div>
+                  </InfoWindow>
+                }
+                {/* {selectedValues[1].value === "중도" && (
                   <InfoWindow
                     position={{ lat: 59.9156636, lng: 10.7507967 }}
                     onClose={() => {
@@ -237,7 +330,7 @@ function BoardMap({ mapAccordion, mapAccordionToggle, onMarker, onMarkerTrue, on
                       </div>
                     </div>
                   </InfoWindow>
-                )}
+                )} */}
               </Map>
             </div>
           </AccordionContent>
