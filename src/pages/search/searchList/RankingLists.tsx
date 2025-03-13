@@ -91,8 +91,39 @@ function RankingLists({ userObj, userSearch }: Props) {
       }
       setIsLoading(false);
     };
-    if (isLoading || rank.length === 0) {
-      membersList();
+    const searchingMembersList = async () => {
+      const searchingCollectionQuery = query(
+        collection(dbservice, "members"),
+        orderBy("points", "desc"),
+      );
+      const docs = await getDocs(searchingCollectionQuery);
+      const newArray = docs.docs.map((document, index) => {
+        console.log(rank.indexOf(document));
+        if (rank.indexOf(document) === -1) {
+          getDownloadURL(ref(storage, `${document.data()?.uid}`))
+            .then((url) => {
+              setLoadedImage([...loadedImage, { url: url, index: index }]);
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+          if (index + 1 === docs.docs.length) {
+            setContinuing(document);
+          }
+          return {
+            ...document.data(),
+          };
+        }
+      });
+      setRank([...rank, ...newArray]);
+      setIsLoading(false);
+    };
+    if (userSearch || isLoading || rank.length === 0) {
+      if (!userSearch) {
+        membersList();
+      } else {
+        searchingMembersList()
+      }
     }
     // onSnapshot(query(collection(dbservice, 'members'), orderBy('points', 'desc'), limit(10), startAfter(continuing: continuing : '')), (snapshot) => {
     //   const newArray = snapshot.docs.map((document, index) => {
