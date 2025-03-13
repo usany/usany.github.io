@@ -46,7 +46,7 @@ function RankingLists({ userObj, userSearch }: Props) {
   const [loadedImage, setLoadedImage] = useState([]);
   const [continuing, setContinuing] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [scroll, setScroll] = useState(false);
+  // const [scroll, setScroll] = useState(false);
   const scrollNumber = 20;
   useEffect(() => {
     const membersList = async () => {
