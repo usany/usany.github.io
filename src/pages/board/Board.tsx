@@ -28,11 +28,11 @@ function Notice({ userObj, borrow }: Props) {
   const [selectedValues, setSelectedValues] = useImmer([
     {
       id: "selectedValueOne",
-      value: "전체",
+      value: "전체 아이템",
     },
     {
       id: "selectedValueTwo",
-      value: "전체",
+      value: "전체 장소",
     },
     {
       id: "selectedValueThree",

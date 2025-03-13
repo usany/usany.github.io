@@ -27,6 +27,7 @@ const locationsCollection = {
   m: ["복사실"],
   e: ["1열(5F)", "2열(6F)"],
   c: ["1층 로비"],
+  n: ["1층 로비"]
 };
 
 const settingSeats = (number) => {
@@ -101,6 +102,7 @@ function Selects({
           <MenuItem value={"문과대"}>문과대</MenuItem>
           <MenuItem value={"의과대"}>의과대</MenuItem>
           <MenuItem value={"치과병원"}>치과병원</MenuItem>
+          <MenuItem value={"네오르네상스관"}>네오르네상스관</MenuItem>
           <MenuItem value={"직접 입력"}>직접 입력</MenuItem>
         </Select>
       </FormControl>

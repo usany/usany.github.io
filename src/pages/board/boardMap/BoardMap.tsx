@@ -30,6 +30,14 @@ interface Props {
   onMarkerTrue: () => void;
   onMarkerFalse: () => void;
 }
+const area = [
+  {
+    westSouth: {lat: 37.5927551, lng: 127.047462},
+    westNorth: {lat: 37.6010743, lng: 127.047462},
+    eastSouth: {lat: 37.5927551, lng: 127.0571999},
+    eastNorth: {lat: 37.6010743, lng: 127.0571999},
+  }
+]
 
 const markers = [
   {
@@ -45,11 +53,11 @@ const markers = [
     location: { lat: 37.5941125, lng: 127.0557743 }
   },
   {
-    label: '이과대학',
+    label: '간호이과대',
     location: { lat: 37.5960528, lng: 127.0536951 }
   },
   {
-    label: '문과대학',
+    label: '문과대',
     location: { lat: 37.5971991, lng: 127.0539612 }
   },
   {
@@ -57,12 +65,16 @@ const markers = [
     location: { lat: 37.594732, lng: 127.0517775 }
   },
   {
-    label: '의과대학',
+    label: '의과대',
     location: { lat: 37.59390, lng: 127.0549 }
   },
   {
-    label: '경영대학',
+    label: '경영대',
     location: { lat: 37.5967052, lng: 127.0552861 }
+  },
+  {
+    label: '치과병원',
+    location: { lat: 37.594054, lng: 127.0531189 }
   },
 ]
 const defaultLocation = markers[0].location
@@ -75,7 +87,7 @@ function BoardMap({ mapAccordion, mapAccordionToggle, onMarker, onMarkerTrue, on
     },
     {
       id: "selectedValueTwo",
-      value: "전체",
+      value: "전체 장소",
     },
     {
       id: "selectedValueThree",
@@ -177,7 +189,7 @@ function BoardMap({ mapAccordion, mapAccordionToggle, onMarker, onMarkerTrue, on
                   return (
                     <AdvancedMarker
                       onClick={() => {
-                        onClickMarker("청운");
+                        onClickMarker(value.label);
                         onMarkerTrue();
                       }}
                       position={value.location}

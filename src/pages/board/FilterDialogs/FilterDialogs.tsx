@@ -20,6 +20,44 @@ import {
 } from "@/components/ui/select";
 // import { Filter } from "lucide-react";
 import { Chip } from "@mui/material";
+const markers = [
+  {
+    label: '중도',
+    location: { lat: 37.5970966, lng: 127.0527314 }
+  },
+  {
+    label: '네오르네상스관',
+    location: { lat: 37.5948201, lng: 127.053091 }
+  },
+  {
+    label: '푸른솔',
+    location: { lat: 37.5941125, lng: 127.0557743 }
+  },
+  {
+    label: '간호이과대',
+    location: { lat: 37.5960528, lng: 127.0536951 }
+  },
+  {
+    label: '문과대',
+    location: { lat: 37.5971991, lng: 127.0539612 }
+  },
+  {
+    label: '청운',
+    location: { lat: 37.594732, lng: 127.0517775 }
+  },
+  {
+    label: '의과대',
+    location: { lat: 37.59390, lng: 127.0549 }
+  },
+  {
+    label: '경영대',
+    location: { lat: 37.5967052, lng: 127.0552861 }
+  },
+  {
+    label: '치과병원',
+    location: { lat: 37.594054, lng: 127.0531189 }
+  },
+]
 
 function FilterDialogs({ selectedValues, handleSelectedValues }) {
   const [selected, setSelected] = useState(null);
@@ -102,9 +140,13 @@ function FilterDialogs({ selectedValues, handleSelectedValues }) {
             <SelectContent className="bg-light-1 dark:bg-dark-1">
               <SelectGroup id="location">
                 <SelectItem value="전체 장소">전체 장소</SelectItem>
-                <SelectItem value="중도">중도</SelectItem>
-                <SelectItem value="청운">청운</SelectItem>
-                <SelectItem value="이과대">이과대</SelectItem>
+                {markers.map((value, index) => {
+                  return (
+                    <SelectItem value={value.label}>{value.label}</SelectItem>
+                  )
+                })}
+                {/* <SelectItem value="청운">청운</SelectItem>
+                <SelectItem value="이과대">이과대</SelectItem> */}
               </SelectGroup>
             </SelectContent>
           </Select>

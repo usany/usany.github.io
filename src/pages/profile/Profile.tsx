@@ -41,6 +41,14 @@ import { useQuery } from "@tanstack/react-query";
 import { Button, Chip } from "@mui/material";
 import ProfileLocations from "./ProfileLocations";
 
+const area = [
+  {
+    westSouth: {lat: 37.5927551, lng: 127.047462},
+    westNorth: {lat: 37.6010743, lng: 127.047462},
+    eastSouth: {lat: 37.5927551, lng: 127.0571999},
+    eastNorth: {lat: 37.6010743, lng: 127.0571999},
+  }
+]
 interface Props {
   userObj: User;
 }
@@ -191,7 +199,7 @@ function Profile({ userObj }: Props) {
         reject(new Error("Permission API is not supported"))
     )
   }
-  getCoords().then(coords => console.log(coords))
+  // getCoords().then(coords => console.log(coords))
   // console.log(weather)
 
   return (
@@ -222,7 +230,7 @@ function Profile({ userObj }: Props) {
         title={`${userUid === userObj.uid ? "내" : shortenName} 프로필`}
       />
       <div onClick={() => {
-        // const navigators = navigator.geolocation.getCurrentPosition(position => console.log(position))
+        // const navigators = navigator.geolocation.getCurrentPosition(position => console.log(position.coords))
         // console.log(navigators)
       }
       }>위치 latitude:37.5682 longitude:126.9977</div>
