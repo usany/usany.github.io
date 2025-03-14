@@ -1,1 +1,0 @@
-import{j as r}from"./index-ZsZT7NV9.js";const s=()=>r.jsx("div",{className:"flex justify-center",children:r.jsx("div",{className:"bg-light-2 dark:bg-dark-2 h-2 w-[100px] rounded-full bg-muted",children:" "})});export{s as D};
