@@ -14,10 +14,12 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer"
 import Lists from 'src/pages/search/searchList/searchListViews/Lists'
-import { getStorage, ref, uploadBytes, uploadString, uploadBytesResumable, getDownloadURL,  } from "firebase/storage";
+import { getStorage, ref, uploadBytes, uploadString, uploadBytesResumable, getDownloadURL, } from "firebase/storage";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import Card from '@mui/material/Card';
 import { ScrollArea } from '@radix-ui/react-scroll-area';
+import colors from '../core/cardsBackground';
+import useCardsBackground from '../core/useCardsBackground';
 
 interface Props {
   violationUser: {} | null
@@ -96,15 +98,16 @@ function ContactFormDrawers({ violationUser, changeViolationUser }: Props) {
     //   setRank(newArray)
     // })
   }, [])
+  const { color } = useCardsBackground()
 
-  return (  
+  return (
     <>
       <Drawer>
         <DrawerTrigger className='w-screen' onClick={() => setUserSearch('')}>
-          {violationUser ? 
+          {violationUser ?
             <Card sx={{
               width: '100%',
-              bgcolor: theme === 'dark' ? '#5c6778' : ''
+              bgcolor: color
             }}>
               <div className='flex'>
                 <div className='flex flex-col justify-center'>신고 유저:</div>
@@ -117,24 +120,24 @@ function ContactFormDrawers({ violationUser, changeViolationUser }: Props) {
                 <div className='flex flex-col justify-center'>{violationUser.displayName}</div>
               </div>
             </Card>
-          :
-            <Button sx={{width: '100%'}} variant='outlined' form='auth'>신고 유저 등록</Button>
+            :
+            <Button sx={{ width: '100%' }} variant='outlined' form='auth'>신고 유저 등록</Button>
           }
         </DrawerTrigger>
         <DrawerContent className='h-[50%] bg-light-3 dark:bg-dark-3'>
-          <TextField label='유저 이름' onChange={onChangeUserSearch}/>
-          {userSearch && 
+          <TextField label='유저 이름' onChange={onChangeUserSearch} />
+          {userSearch &&
             <ScrollArea className='overflow-y-scroll'>
               <div className='flex flex-col'>
-                  <DrawerClose>
-                    <Lists elements={rank} multiple={true} userSearch={userSearch} ranking={false} handleUser={(newValue) => changeViolationUser(newValue)}/>
-                  </DrawerClose>
+                <DrawerClose>
+                  <Lists elements={rank} multiple={true} userSearch={userSearch} ranking={false} handleUser={(newValue) => changeViolationUser(newValue)} />
+                </DrawerClose>
               </div>
-            </ScrollArea>    
+            </ScrollArea>
           }
         </DrawerContent>
       </Drawer>
-      {violationUser && <Button sx={{width: '25%'}} variant='outlined' onClick={() => changeViolationUser(null)}>신고 등록 취소</Button>}
+      {violationUser && <Button sx={{ width: '25%' }} variant='outlined' onClick={() => changeViolationUser(null)}>신고 등록 취소</Button>}
     </>
   )
 }

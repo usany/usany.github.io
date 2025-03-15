@@ -47,6 +47,8 @@ import SpecificsDimensions from "./SpecificsDimensions";
 import SpecificsActions from "./SpecificsActions";
 import SpecificsSteppers from "./SpecificsSteppers";
 import SpecificsTrades from "./SpecificsTrades";
+import colors from "../cardsBackground";
+import useCardsBackground from "../useCardsBackground";
 
 interface Props {
   userObj: User | null;
@@ -122,15 +124,17 @@ function Specifics({ userObj, message }: Props) {
   const mergedArray = letters.concat(numbers);
   shadowColor =
     shadowColorArray[
-      mergedArray.indexOf(String(message.id[0]).toUpperCase()) %
-        shadowColorArray.length
+    mergedArray.indexOf(String(message.id[0]).toUpperCase()) %
+    shadowColorArray.length
     ];
+  const { color } = useCardsBackground()
 
   return (
     <div className="truncate">
       <Card
         sx={{
           boxShadow: `1.9px 1.9px 1.9px 1.9px ${shadowColor}`,
+          bgcolor: color
         }}
       >
         <CardContent>

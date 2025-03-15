@@ -44,13 +44,15 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import TextField from "@mui/material/TextField";
 import { Card, Chip } from "@mui/material";
 import { useSelector } from "react-redux";
+import colors from "src/pages/core/cardsBackground";
+import useCardsBackground from "../core/useCardsBackground";
 
 const ProfileMembersDrawers = ({ userObj, user }) => {
   const [confirmEmail, setConfirmEmail] = useState(false);
   const [process, setProcess] = useState(false);
   const navigate = useNavigate();
   const theme = useSelector((state) => state.theme)
-  
+
   const onChange = (event) => {
     const {
       target: { value },
@@ -89,16 +91,18 @@ const ProfileMembersDrawers = ({ userObj, user }) => {
       setProcess(false)
     }
   }, [user]);
+  const { color } = useCardsBackground()
+
   return (
     <Drawer>
       <DrawerTrigger>
         {/* <div id="member" /> */}
-        <Card sx={{ width: "100%", bgcolor: theme === 'dark' ? '#5c6778' : '' }}>
+        <Card sx={{ width: "100%", bgcolor: color }}>
           <div
             className="flex justify-center p-5"
-            // onClick={() => {
-            //   document.getElementById("member")?.click();
-            // }}
+          // onClick={() => {
+          //   document.getElementById("member")?.click();
+          // }}
           >
             회원 탈퇴
           </div>
@@ -112,11 +116,11 @@ const ProfileMembersDrawers = ({ userObj, user }) => {
             </div>
             {process ? (
               <div className='flex justify-center'>
-                <Chip label={'진행 카드가 없습니다'} color="primary"/>
+                <Chip label={'진행 카드가 없습니다'} color="primary" />
               </div>
             ) : (
               <div className='flex justify-center'>
-                <Chip label={'진행 카드가 있습니다'} color="error"/>
+                <Chip label={'진행 카드가 있습니다'} color="error" />
               </div>
             )}
             <div>정말로 회원 탈퇴를 하시려면 이메일을 입력해 주세요</div>

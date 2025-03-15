@@ -37,6 +37,8 @@ import Avatars from "../../core/Avatars";
 import { useSelector } from "react-redux";
 import { User } from "firebase/auth";
 import { Building, Clock, Watch } from "lucide-react";
+import colors from "src/pages/core/cardsBackground";
+import useCardsBackground from "src/pages/core/useCardsBackground";
 
 interface Props {
   msgObj: { id: string; text: object };
@@ -68,8 +70,8 @@ const CardsViews = ({ msgObj, isOwner, userObj, num, points }: Props) => {
   const [staticImage, setStaticImage] = useState("");
   const shadowColor =
     shadowColorArray[
-      mergedArray.indexOf(String(msgObj.id[0]).toUpperCase()) %
-        shadowColorArray.length
+    mergedArray.indexOf(String(msgObj.id[0]).toUpperCase()) %
+    shadowColorArray.length
     ];
   const profileColor = useSelector((state) => state.profileColor.value);
   // const profileImage = useSelector((state) => state.profileImage.value);
@@ -84,6 +86,8 @@ const CardsViews = ({ msgObj, isOwner, userObj, num, points }: Props) => {
     }
   }, [msgObj]);
   const profileUrl = msgObj?.creatorUrl;
+  const { color } = useCardsBackground()
+
   return (
     <div>
       <Card
@@ -91,7 +95,7 @@ const CardsViews = ({ msgObj, isOwner, userObj, num, points }: Props) => {
           width: 200,
           height: 280,
           boxShadow: `1.5px 1.5px 1.5px 1.5px ${shadowColor}`,
-          bgcolor: theme === 'dark' ? '#5c6778' : ''
+          bgcolor: color
         }}
       >
         <CardContent sx={{ padding: "5px" }}>

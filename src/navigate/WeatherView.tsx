@@ -72,7 +72,7 @@ const WeatherView = () => {
     <div>
       <div className='flex flex-col px-5'>
         <img className='size-10' src={`https://openweathermap.org/img/wn/${data?.data.weather[0].icon}@2x.png`} />
-        <span>회기동 섭씨 {data?.data.main.temp}°C</span>
+        <span>회기동 {data?.data.main.temp}°C</span>
       </div>
       {/* {!isLoading ?
             :

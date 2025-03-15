@@ -1,13 +1,11 @@
-import AddItemSelects from 'src/pages/add/AddItemSelects'
-import AddStepTitle from 'src/pages/add/AddStepTitle'
+import { Chip } from '@mui/material';
 import Card from '@mui/material/Card';
-import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
-import staticImg from 'src/assets/pwa-512x512.png';
-import { CardHeader, Chip } from '@mui/material';
-import Avatars from 'src/pages/core/Avatars';
+import CardMedia from '@mui/material/CardMedia';
 import { useSelector } from 'react-redux';
-
+import staticImg from 'src/assets/pwa-512x512.png';
+import Avatars from 'src/pages/core/Avatars';
+import useCardsBackground from '../core/useCardsBackground';
 const AddCards = ({ borrow, userObj, addSteps, item, fromTo, locationState, display }) => {
   const profileColor = useSelector(state => state.profileColor.value)
   const profileUrl = useSelector(state => state.profileUrl.value)
@@ -31,14 +29,15 @@ const AddCards = ({ borrow, userObj, addSteps, item, fromTo, locationState, disp
   if (display) {
     shadowColor = shadowColorArray[letters.indexOf(String(display.id[0]).toUpperCase()) % shadowColorArray.length];
   }
-
+  const { color } = useCardsBackground()
   return (
     <div className='flex justify-center pt-5 p-1'>
       <Card
         sx={{
           width: 200,
           height: 280,
-          boxShadow: `1.9px 1.9px 1.9px 1.9px ${shadowColor}`
+          boxShadow: `1.9px 1.9px 1.9px 1.9px ${shadowColor}`,
+          bgcolor: color
         }}
       >
         <CardContent sx={{ padding: '5px' }}>

@@ -13,6 +13,8 @@ import { dbservice } from 'src/baseApi/serverbase'
 import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnapshot, deleteDoc, updateDoc } from 'firebase/firestore';
 import { useDispatch, useSelector } from 'react-redux';
 import { changePiazzaSwitch } from 'src/stateSlices/piazzaSwitchSlice';
+import colors from 'src/pages/core/cardsBackground';
+import useCardsBackground from 'src/pages/core/useCardsBackground';
 
 interface Props {
   userObj: User
@@ -38,7 +40,7 @@ const Chats = ({ userObj, profileUrl, conversation, displayName, chattingUid, mu
   useLongPress(chatsRef, () => {
     if (longPressChat && !onLongPress) {
       setLongPressed(true)
-      changeOnLongPress(onLongPress+1)
+      changeOnLongPress(onLongPress + 1)
     }
   })
   useEffect(() => {
@@ -47,87 +49,89 @@ const Chats = ({ userObj, profileUrl, conversation, displayName, chattingUid, mu
       changeOnLongPress(0)
     }
   }, [longPressChat, onLongPress])
-  
+  const { color } = useCardsBackground()
+
   return (
     <div className={`${longPressed && 'flex py-5'}`}>
-    <ClickAwayListener onClickAway={() => {
-      changeLongPressChat(null)
-      changeOnLongPress(0)
-    }}>
-    <div ref={chatsRef} className={`${longPressed && 'longPress flex w-[calc(100%-48px)] py-5'}`}
-      onMouseDownCapture={() => {
-        const longPress = conversation || 'piazza'
-        changeLongPressChat(longPress)
-      }}
-      // onMouseUp={() => {
-      //   setPressed(true)
-      // }}
-      onTouchStartCapture={() => {
-        const longPress = conversation || 'piazza'
-        changeLongPressChat(longPress)
-      }}
-    >
-      <Card sx={{ 
-        flexGrow: 1, overflow: 'hidden', bgcolor: theme === 'dark' ? '#5c6778' : '' }}>
-        <CardActionArea>
-          {!onLongPress ?
-          <Link to='/piazza' state={{
-            conversation: conversation, 
-            displayName: displayName, 
-            userUid: userObj.uid, 
-            chattingUid: chattingUid,
-            multiple: multiple,
-          }}>
-            <ChatsBoxes userObj={userObj} profileUrl={profileUrl} displayName={displayName} multiple={multiple} clock={clock} message={message} />
-          </Link>
-          :
-          <div
-            onClick={() => {
-              if (onLongPress) {
-                setLongPressed(!longPressed)
-                if (longPressed) {
-                  changeOnLongPress(onLongPress-1)
-                } else {
-                  changeOnLongPress(onLongPress+1)
-                }
-              }
-            }}
-          >
-            <ChatsBoxes userObj={userObj} profileUrl={profileUrl} displayName={displayName} multiple={multiple} clock={clock} message={message} />
-          </div>
-          }
-        </CardActionArea>
-      </Card>
-    </div>
-    </ClickAwayListener>
-    {longPressed && 
-      // <>
-      //   {conversation ?
-      //     <div className='h-full' onClick={() => onDelete({conversation: conversation})}>
-      //       <Chip label={<DeleteIcon />} color='error'/>
-      //     </div>
-      //   :
-      //     <div className='h-full' onClick={() => {
-      //       if (conversation) {
-      //         onDelete({conversation: conversation})
-      //       } else {
-      //         dispatch(changePiazzaSwitch('false'))
-      //       }
-      //     }}>
-      //       <Chip label={<DeleteIcon />} color='error'/>
-      //     </div>
-      //   }
-      // </>
-      <div className='flex justify-end h-full w-1/6' onClick={() => {
-        if (conversation) {
-          onDelete({conversation: conversation})
-        } else {
-          dispatch(changePiazzaSwitch('false'))
-        }
+      <ClickAwayListener onClickAway={() => {
+        changeLongPressChat(null)
+        changeOnLongPress(0)
       }}>
-        <Chip label={<DeleteIcon />} color='error'/>
-      </div>
-    }
+        <div ref={chatsRef} className={`${longPressed && 'longPress flex w-[calc(100%-48px)] py-5'}`}
+          onMouseDownCapture={() => {
+            const longPress = conversation || 'piazza'
+            changeLongPressChat(longPress)
+          }}
+          // onMouseUp={() => {
+          //   setPressed(true)
+          // }}
+          onTouchStartCapture={() => {
+            const longPress = conversation || 'piazza'
+            changeLongPressChat(longPress)
+          }}
+        >
+          <Card sx={{
+            flexGrow: 1, overflow: 'hidden', bgcolor: color
+          }}>
+            <CardActionArea>
+              {!onLongPress ?
+                <Link to='/piazza' state={{
+                  conversation: conversation,
+                  displayName: displayName,
+                  userUid: userObj.uid,
+                  chattingUid: chattingUid,
+                  multiple: multiple,
+                }}>
+                  <ChatsBoxes userObj={userObj} profileUrl={profileUrl} displayName={displayName} multiple={multiple} clock={clock} message={message} />
+                </Link>
+                :
+                <div
+                  onClick={() => {
+                    if (onLongPress) {
+                      setLongPressed(!longPressed)
+                      if (longPressed) {
+                        changeOnLongPress(onLongPress - 1)
+                      } else {
+                        changeOnLongPress(onLongPress + 1)
+                      }
+                    }
+                  }}
+                >
+                  <ChatsBoxes userObj={userObj} profileUrl={profileUrl} displayName={displayName} multiple={multiple} clock={clock} message={message} />
+                </div>
+              }
+            </CardActionArea>
+          </Card>
+        </div>
+      </ClickAwayListener>
+      {longPressed &&
+        // <>
+        //   {conversation ?
+        //     <div className='h-full' onClick={() => onDelete({conversation: conversation})}>
+        //       <Chip label={<DeleteIcon />} color='error'/>
+        //     </div>
+        //   :
+        //     <div className='h-full' onClick={() => {
+        //       if (conversation) {
+        //         onDelete({conversation: conversation})
+        //       } else {
+        //         dispatch(changePiazzaSwitch('false'))
+        //       }
+        //     }}>
+        //       <Chip label={<DeleteIcon />} color='error'/>
+        //     </div>
+        //   }
+        // </>
+        <div className='flex justify-end h-full w-1/6' onClick={() => {
+          if (conversation) {
+            onDelete({ conversation: conversation })
+          } else {
+            dispatch(changePiazzaSwitch('false'))
+          }
+        }}>
+          <Chip label={<DeleteIcon />} color='error' />
+        </div>
+      }
     </div>
   )
 }
