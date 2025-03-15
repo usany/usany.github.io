@@ -197,10 +197,8 @@ function Btn({ msgObj, isOwner, uid, displayName, userObj, num, points }) {
             <div className='flex justify-center'>
               <Button variant='outlined' onClick={() => {
                 if (userObj) {
-                  return (
-                    // onClick('supporting')
-                    onSupporting({ message: msgObj, uid: uid, displayName: displayName })
-                  )
+                  // onClick('supporting')
+                  onSupporting({ message: msgObj, uid: uid, displayName: displayName })
                 } else {
                   setMove(true)
                 }
@@ -216,10 +214,8 @@ function Btn({ msgObj, isOwner, uid, displayName, userObj, num, points }) {
               >승낙 메시지 전송 완료</Button>
               <Button variant='outlined' onClick={() => {
                 if (userObj) {
-                  return (
-                    // onClick('stop supporting')
-                    onStopSupporting({ message: msgObj, uid: uid, displayName: displayName })
-                  )
+                  // onClick('stop supporting')
+                  onStopSupporting({ message: msgObj, uid: uid, displayName: displayName })
                 }
               }}
                 startIcon={<SendIcon />}>취소</Button>
@@ -231,10 +227,8 @@ function Btn({ msgObj, isOwner, uid, displayName, userObj, num, points }) {
                 <Button variant='outlined' disabled>{msgObj.displayName} 님이 빌리는 중</Button>}
               {msgObj.text.choose == 2 &&
                 <Button variant='outlined' onClick={() => {
-                  return (
-                    // onClick('returning')
-                    onReturning({ message: msgObj, uid: uid, displayName: displayName })
-                  )
+                  // onClick('returning')
+                  onReturning({ message: msgObj, uid: uid, displayName: displayName })
                 }}
                   startIcon={<SendIcon />}>반납하기</Button>
               }
