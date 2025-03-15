@@ -107,6 +107,7 @@ const CardsViews = ({ msgObj, isOwner, userObj, num, points }: Props) => {
                 profileUrl={profileUrl}
                 // profileImage={profileImage}
                 fallback={msgObj.displayName ? msgObj.displayName[0] : ""}
+                piazza={null}
               />
               {
                 <Chip

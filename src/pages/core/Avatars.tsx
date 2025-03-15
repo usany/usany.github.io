@@ -32,7 +32,8 @@ const Avatars = ({
         >
           <AvatarImage src={profileUrl} />
           <AvatarFallback className="text-8xl border-none">
-            {fallback}
+            <img className='h-full' src={staticImage} />
+            {/* {fallback} */}
           </AvatarFallback>
         </Avatar>
       ) : (
