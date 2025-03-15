@@ -12,7 +12,6 @@ const ProfileMembers = ({ userObj, user }) => {
     <div className="flex flex-col p-5">
       {user.uid === userObj.uid ? (
         <div className="flex justify-center">
-
           <ProfileMembersDrawers userObj={userObj} user={user} />
         </div>
       ) : (
