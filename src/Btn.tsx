@@ -243,7 +243,10 @@ function Btn({ msgObj, isOwner, uid, displayName, userObj, num, points }) {
           {msgObj.round === 4 &&
             <div className='flex justify-center'>
               {msgObj.text.choose == 1 &&
-                <Button variant='outlined' onClick={() => onClick('confirm return')} endIcon={<SendIcon />}>반납 완료 확인</Button>}
+                <Button variant='outlined' onClick={() => {
+                  // onClick('confirm return')
+                  onConfirmReturn({ num: num, points: points, message: msgObj, uid: uid, displayName: displayName, data: data, messagingToken: messagingToken })
+                }} endIcon={<SendIcon />}>반납 완료 확인</Button>}
               {msgObj.text.choose == 2 &&
                 <Button variant='outlined' disabled>주인에게 확인 중</Button>}
             </div>
