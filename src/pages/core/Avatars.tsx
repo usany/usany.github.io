@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useSelector, useDispatch } from "react-redux";
-import staticImage from "src/assets/blue.png";
+import staticImage from "src/assets/blue01.png";
 
 interface Props {
   profile: boolean;
@@ -40,7 +40,7 @@ const Avatars = ({
           <AvatarImage src={profileUrl} />
           <AvatarFallback className="border">
             {/* {fallback} */}
-            {/* <img src={staticImage} /> */}
+            <img className='h-full' src={staticImage} />
           </AvatarFallback>
         </Avatar>
       )}
