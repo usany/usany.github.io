@@ -86,7 +86,6 @@ function Btn({ msgObj, isOwner, uid, displayName, userObj, num, points }) {
     // const toUser = await getDoc(toUserRef)
     // const messagingToken = toUser.data().messagingToken
     if (action === 'delete') {
-      // deleteDoc(data)
       onDelete()
     } else if (action === 'confirm return') {
       // updateDoc(data, { round: 5 });
@@ -113,7 +112,6 @@ function Btn({ msgObj, isOwner, uid, displayName, userObj, num, points }) {
       //   updateDoc(connectedPoint, { borrowDoneCount: [...connectedBorrowDone, msgObj.id] });
       //   webSocket.emit('confirm return', { choose: msgObj.text.choose, sendingToken: messagingToken, creatorId: msgObj.creatorId, creatorName: msgObj.displayName, connectedId: uid, connectedName: displayName, })
       // }
-      // console.log('practice')
       // updateDoc(point, {
       //   done:
       //     [...creatorDone, msgObj.id]
