@@ -78,38 +78,11 @@ const markers = [
   },
 ]
 const defaultLocation = markers[0].location
-function BoardMap({ mapAccordion, mapAccordionToggle, onMarker, onMarkerTrue, onMarkerFalse }: Props) {
+function BoardMap({ mapAccordion, mapAccordionToggle, onMarker, onMarkerTrue, onMarkerFalse, selectedValues, handleSelectedValues }: Props) {
   const [messages, setMessages] = useState<Array<object>>([]);
-  const [selectedValues, setSelectedValues] = useImmer([
-    {
-      id: "selectedValueOne",
-      value: "전체",
-    },
-    {
-      id: "selectedValueTwo",
-      value: "전체 장소",
-    },
-    {
-      id: "selectedValueThree",
-      value: "최신순",
-    },
-  ]);
   // const [mapAccordion, setMapAccordion] = useState(false);
   const [choose, setChoose] = useState(false);
-  const handleSelectedValues = ({
-    id,
-    newValue,
-  }: {
-    id: string;
-    newValue: string;
-  }) => {
-    setSelectedValues((values) => {
-      const value = values.find((value) => value.id === id);
-      if (value) {
-        value.value = newValue;
-      }
-    });
-  };
+
 
   useEffect(() => {
     document.documentElement.scrollTo({
@@ -162,19 +135,34 @@ function BoardMap({ mapAccordion, mapAccordionToggle, onMarker, onMarkerTrue, on
           <AccordionTrigger onClick={() => mapAccordionToggle()}>
             등록 지도
           </AccordionTrigger>
-          <div className="sticky top-10 z-30 bg-light-3 dark:bg-dark-3"></div>
+          {/* <div className="sticky top-10 z-30 bg-light-3 dark:bg-dark-3"></div> */}
           <AccordionContent>
-            <div className="flex">
-              <div className="p-5">
+            <div>
+              {/* <div className="p-5">
                 59.9156636,10.7507967 표시된 곳을 선택하면 해당하는 내용만
                 확인할 수 있어요
-              </div>
-              {mapAccordion && onMarker && (
-                <FilterDialogs
-                  selectedValues={selectedValues}
-                  handleSelectedValues={handleSelectedValues}
-                />
-              )}
+              </div> */}
+              {selectedValues[1].value === '전체 장소' ?
+                <div className="flex p-5">
+                  표시된 곳을 선택하면 해당하는 내용만
+                  확인할 수 있어요
+                </div>
+                :
+                <div className='flex p-5'>
+                  <FilterDialogs
+                    selectedValues={selectedValues}
+                    handleSelectedValues={handleSelectedValues}
+                  />
+                </div>
+              }
+              {/* {mapAccordion && onMarker && (
+                <div className='flex justify-end'>
+                  <FilterDialogs
+                    selectedValues={selectedValues}
+                    handleSelectedValues={handleSelectedValues}
+                  />
+                </div>
+              )} */}
             </div>
             <div className="w-full h-[300px]">
               <Map
@@ -222,47 +210,47 @@ function BoardMap({ mapAccordion, mapAccordionToggle, onMarker, onMarkerTrue, on
                   }}
                   position={{ lat: 37.5971991, lng: 127.0539612 }}
                 /> */}
-                {selectedValues[1].value !== '전체' &&
-                  <InfoWindow
-                    position={markers.find((element) => element.label === selectedValues[1].value)?.location}
-                    onClose={() => {
-                      onClickMarker("전체 장소");
-                      if (choose) {
-                        onClickMarkerItem("전체 아이템");
-                        setChoose(false);
-                      }
-                      onMarkerFalse();
-                    }}
-                  >
-                    <div className="flex flex-col">
-                      <div className='flex justify-center'>{selectedValues[1].value}</div>
-                      <div className="flex">
-                        <div className="pt-1">
-                          <Chip
-                            label={`우산`}
-                            onClick={() => {
-                              setChoose(true);
-                              onClickMarkerItem("우산");
-                            }}
-                          />
-                        </div>
-                        <div className="pt-3">: {messages.length} 요청</div>
+                <InfoWindow
+                  position={markers.find((element) => element.label === selectedValues[1].value)?.location}
+                  onClose={() => {
+                    onClickMarker("전체 장소");
+                    if (choose) {
+                      onClickMarkerItem("전체 아이템");
+                      setChoose(false);
+                    }
+                    onMarkerFalse();
+                  }}
+                >
+                  <div className="flex flex-col">
+                    <div className='flex justify-center'>{selectedValues[1].value}</div>
+                    <div className="flex">
+                      <div className="pt-1">
+                        <Chip
+                          label={`우산`}
+                          onClick={() => {
+                            setChoose(true);
+                            onClickMarkerItem("우산");
+                          }}
+                        />
                       </div>
-                      <div className="flex">
-                        <div className="pt-1">
-                          <Chip
-                            label={`양산`}
-                            onClick={() => {
-                              setChoose(true);
-                              onClickMarkerItem("양산");
-                            }}
-                          />
-                        </div>
-                        <div className="pt-3">: {messages.length} 요청</div>
-                      </div>
+                      <div className="pt-3">: {messages.length} 요청</div>
                     </div>
-                  </InfoWindow>
-                }
+                    <div className="flex">
+                      <div className="pt-1">
+                        <Chip
+                          label={`양산`}
+                          onClick={() => {
+                            setChoose(true);
+                            onClickMarkerItem("양산");
+                          }}
+                        />
+                      </div>
+                      <div className="pt-3">: {messages.length} 요청</div>
+                    </div>
+                  </div>
+                </InfoWindow>
+                {/* {selectedValues[1].value !== '전체' &&
+                } */}
                 {/* {selectedValues[1].value === "중도" && (
                   <InfoWindow
                     position={{ lat: 59.9156636, lng: 10.7507967 }}

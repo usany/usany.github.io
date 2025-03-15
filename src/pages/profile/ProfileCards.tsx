@@ -10,21 +10,29 @@ const ProfileCards = ({
   alliesCollection,
   cards,
 }) => {
-
+  const color = localStorage.theme === 'dark' ? '#5c6778' : ''
+  // const color = 
   return (
     <div className='flex flex-col pt-5'>
       <div className='flex justify-center'>
-        <Card>
+        <Card sx={{
+          bgcolor: color
+          // bgcolor: theme === 'dark' ? '#5c6778' : ''
+        }}>
           <CardActionArea>
             <ProfileDrawers user={user} cards={cards} followers={null} alliesCollection={null} selection={'points'}/>
           </CardActionArea>
         </Card>
-        <Card>
+        <Card sx={{
+          bgcolor: color
+        }}>
           <CardActionArea>
             <ProfileDrawers user={user} cards={null} followers={true} alliesCollection={alliesCollection[0].list} selection={'allies'}/>
           </CardActionArea>
         </Card>
-        <Card>
+        <Card sx={{
+          bgcolor: color
+        }}>
           <CardActionArea>
             <ProfileDrawers user={user} cards={null} followers={false} alliesCollection={alliesCollection[1].list} selection={'allies'}/>
           </CardActionArea>

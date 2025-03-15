@@ -72,7 +72,8 @@ const CardsViews = ({ msgObj, isOwner, userObj, num, points }: Props) => {
         shadowColorArray.length
     ];
   const profileColor = useSelector((state) => state.profileColor.value);
-  const profileImage = useSelector((state) => state.profileImage.value);
+  // const profileImage = useSelector((state) => state.profileImage.value);
+  const theme = useSelector((state) => state.theme)
   useEffect(() => {
     if (msgObj.text.count === "중도") {
       setStaticImage(staticImageJ);
@@ -83,7 +84,6 @@ const CardsViews = ({ msgObj, isOwner, userObj, num, points }: Props) => {
     }
   }, [msgObj]);
   const profileUrl = msgObj?.creatorUrl;
-  console.log(profileUrl);
   return (
     <div>
       <Card
@@ -91,6 +91,7 @@ const CardsViews = ({ msgObj, isOwner, userObj, num, points }: Props) => {
           width: 200,
           height: 280,
           boxShadow: `1.5px 1.5px 1.5px 1.5px ${shadowColor}`,
+          bgcolor: theme === 'dark' ? '#5c6778' : ''
         }}
       >
         <CardContent sx={{ padding: "5px" }}>

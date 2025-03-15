@@ -11,7 +11,7 @@ import ChatsBoxes from 'src/pages/main/chatting/ChatsBoxes'
 import DeleteIcon from '@mui/icons-material/Delete';
 import { dbservice } from 'src/baseApi/serverbase'
 import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnapshot, deleteDoc, updateDoc } from 'firebase/firestore';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { changePiazzaSwitch } from 'src/stateSlices/piazzaSwitchSlice';
 
 interface Props {
@@ -32,6 +32,7 @@ interface Props {
 
 const Chats = ({ userObj, profileUrl, conversation, displayName, chattingUid, multiple, clock, message, longPressChat, changeLongPressChat, onLongPress, changeOnLongPress, onDelete }: Props) => {
   const [longPressed, setLongPressed] = useState(false)
+  const theme = useSelector((state) => state.theme)
   const dispatch = useDispatch()
   const chatsRef = useRef()
   useLongPress(chatsRef, () => {
@@ -66,7 +67,8 @@ const Chats = ({ userObj, profileUrl, conversation, displayName, chattingUid, mu
         changeLongPressChat(longPress)
       }}
     >
-      <Card sx={{ flexGrow: 1, overflow: 'hidden' }}>
+      <Card sx={{ 
+        flexGrow: 1, overflow: 'hidden', bgcolor: theme === 'dark' ? '#5c6778' : '' }}>
         <CardActionArea>
           {!onLongPress ?
           <Link to='/piazza' state={{

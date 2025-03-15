@@ -46,7 +46,7 @@ function RankingLists({ userObj, userSearch }: Props) {
   const [loadedImage, setLoadedImage] = useState([]);
   const [continuing, setContinuing] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  // const [scroll, setScroll] = useState(false);
+  const [scroll, setScroll] = useState(false);
   const scrollNumber = 20;
   useEffect(() => {
     const membersList = async () => {
@@ -92,11 +92,13 @@ function RankingLists({ userObj, userSearch }: Props) {
       setIsLoading(false);
     };
     const searchingMembersList = async () => {
-      const searchingCollectionQuery = query(
+      const collectionQuery = query(
         collection(dbservice, "members"),
         orderBy("points", "desc"),
+        // limit(scrollNumber),
+        startAfter(continuing ? continuing : "")
       );
-      const docs = await getDocs(searchingCollectionQuery);
+      const docs = await getDocs(collectionQuery);
       const newArray = docs.docs.map((document, index) => {
         console.log(rank.indexOf(document));
         if (rank.indexOf(document) === -1) {
@@ -116,14 +118,27 @@ function RankingLists({ userObj, userSearch }: Props) {
         }
       });
       setRank([...rank, ...newArray]);
+      // if (ranker.length === 0) {
+      //   const docRef = doc(dbservice, `members/${userObj.uid}`)
+      //   const myDocSnap = await getDoc(docRef)
+      //   const myDocSnapData = myDocSnap.data()
+      //   console.log(myDocSnapData)
+      //   newArray.map((document, index) => {
+      //     if (document.uid === userObj.uid) {
+      //       console.log(document?.ranking)
+      //       newArray[index].rank = index + 1;
+      //     }
+      //   });
+      //   setRanker([myDocSnapData]);
+      // }
       setIsLoading(false);
     };
-    if (userSearch || isLoading || rank.length === 0) {
-      if (!userSearch) {
-        membersList();
-      } else {
-        searchingMembersList()
-      }
+    if (isLoading || rank.length === 0) {
+      membersList();
+    }
+    if (userSearch) {
+      searchingMembersList()
+      console.log(userSearch)
     }
     // onSnapshot(query(collection(dbservice, 'members'), orderBy('points', 'desc'), limit(10), startAfter(continuing: continuing : '')), (snapshot) => {
     //   const newArray = snapshot.docs.map((document, index) => {
@@ -153,7 +168,7 @@ function RankingLists({ userObj, userSearch }: Props) {
     // } else {
 
     // }
-  }, [isLoading]);
+  }, [isLoading, userSearch]);
   const handleScroll = () => {
     if (
       window.innerHeight + Math.round(document.documentElement.scrollTop) !==

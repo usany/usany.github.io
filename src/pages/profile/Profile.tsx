@@ -229,11 +229,11 @@ function Profile({ userObj }: Props) {
       <PageTitle
         title={`${userUid === userObj.uid ? "내" : shortenName} 프로필`}
       />
-      <div onClick={() => {
-        // const navigators = navigator.geolocation.getCurrentPosition(position => console.log(position.coords))
-        // console.log(navigators)
+      {/* <div onClick={() => {
+        const navigators = navigator.geolocation.getCurrentPosition(position => console.log(position.coords))
+        console.log(navigators)
       }
-      }>위치 latitude:37.5682 longitude:126.9977</div>
+      }>위치 latitude:37.5682 longitude:126.9977</div> */}
 
       <ProfileAvatar
         userObj={userObj}

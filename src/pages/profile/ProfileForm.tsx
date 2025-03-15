@@ -54,7 +54,6 @@ const ProfileForm = ({ userObj, }) => {
       target: { value },
     } = event
     setNewDisplayName(value)
-    setName(value)
     const tmp = query(collection(dbservice, `members`))
     const querySnapshot = await getDocs(tmp);
     let profileConfirmed = true
@@ -75,7 +74,7 @@ const ProfileForm = ({ userObj, }) => {
       <div className='flex justify-center pt-10'>
         {/* <div className='flex pt-5 px-3'>유저 이름 바꾸기:</div> */}
         <div className='flex flex-col'>
-          <TextField label='유저 이름 바꾸기' placeholder='유저 이름 바꾸기' value={name} type='text' onChange={onChange} />
+          <TextField label='유저 이름 바꾸기' placeholder='유저 이름 바꾸기' value={newDisplayName} type='text' onChange={onChange} />
           <div className='flex justify-start'>
             {profileChangeConfirmed ?
               <div className='flex'>

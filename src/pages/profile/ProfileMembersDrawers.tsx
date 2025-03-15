@@ -43,12 +43,14 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area";
 import TextField from "@mui/material/TextField";
 import { Card, Chip } from "@mui/material";
+import { useSelector } from "react-redux";
 
 const ProfileMembersDrawers = ({ userObj, user }) => {
   const [confirmEmail, setConfirmEmail] = useState(false);
   const [process, setProcess] = useState(false);
   const navigate = useNavigate();
-
+  const theme = useSelector((state) => state.theme)
+  
   const onChange = (event) => {
     const {
       target: { value },
@@ -91,7 +93,7 @@ const ProfileMembersDrawers = ({ userObj, user }) => {
     <Drawer>
       <DrawerTrigger>
         {/* <div id="member" /> */}
-        <Card sx={{ width: "100%" }}>
+        <Card sx={{ width: "100%", bgcolor: theme === 'dark' ? '#5c6778' : '' }}>
           <div
             className="flex justify-center p-5"
             // onClick={() => {
