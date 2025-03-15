@@ -8,6 +8,7 @@ interface Props {
   profileColor: string;
   profileUrl: string;
   fallback: string;
+  piazza: () => void | null
 }
 
 const Avatars = ({
@@ -15,6 +16,7 @@ const Avatars = ({
   profileColor,
   profileUrl,
   fallback,
+  piazza
   //   profileImage,
 }: Props) => {
   // const profileImage = useSelector(state => state.profileImage.value)
@@ -35,6 +37,7 @@ const Avatars = ({
         </Avatar>
       ) : (
         <Avatar
+          onClick={piazza}
         // className={`bg-${(profileColor || "#")[0] === "#" ? "profile-blue" : profileColor}`}
         >
           <AvatarImage src={profileUrl} />

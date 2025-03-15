@@ -7,6 +7,7 @@ import { User } from "firebase/auth";
 import { Link, useLocation } from 'react-router-dom'
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import PiazzaDialogs from 'src/pages/piazza/piazzaScreen/piazzaDialogs/PiazzaDialogs'
+import Avatars from "src/pages/core/Avatars";
 
 interface Props {
   userObj: User
@@ -15,6 +16,7 @@ interface Props {
   handleMessagesList: (newValue: []) => void
   multiple: boolean
 }
+
 function PiazzaScreen({ userObj, multiple, handleMultiple, messagesList, handleMessagesList }: Props) {
   const messagesEndRef = useRef(null);
   const [user, setUser] = useState(null)
@@ -31,6 +33,10 @@ function PiazzaScreen({ userObj, multiple, handleMultiple, messagesList, handleM
     setUser(userElement)
     setDisplayedName(displayName)
   };
+  const onDrawer = ({ userUid, displayName }) => {
+    document.getElementById('drawer')?.click()
+    onPrivate({ userUid: userUid, displayName: displayName })
+  }
 
   useEffect(() => {
     if (!webSocket) return;
@@ -228,25 +234,27 @@ function PiazzaScreen({ userObj, multiple, handleMultiple, messagesList, handleM
                       <div className={`flex justify-${value.userUid !== userObj.uid ? 'start' : 'end'}`}>
                         {userDirection === 'text-left' ?
                           <div className='flex gap-3'>
-                            <Avatar onClick={() => {
+                            <Avatars profile={false} profileColor="" profileUrl={value?.profileImageUrl} fallback="" piazza={() => onDrawer({ userUid: value.userUid, displayName: value.id })} />
+                            {/* <Avatar onClick={() => {
                               document.getElementById('drawer')?.click()
                               onPrivate({ userUid: value.userUid, displayName: value.id })
                             }} className={'bg-profile-blue'}>
                               <AvatarImage src={value?.profileImageUrl} />
                               <AvatarFallback className='text-xl border-none	'>{value?.id[0]}</AvatarFallback>
-                            </Avatar>
+                            </Avatar> */}
                             <div>{value.id}</div>
                           </div>
                           :
                           <div className='flex gap-3'>
                             <div>{value.id}</div>
-                            <Avatar onClick={() => {
+                            <Avatars profile={false} profileColor="" profileUrl={value?.profileImageUrl} fallback="" piazza={() => onDrawer({ userUid: value.userUid, displayName: value.id })} />
+                            {/* <Avatar onClick={() => {
                               document.getElementById('drawer')?.click()
                               onPrivate({ userUid: value.userUid, displayName: value.id })
                             }} className={'bg-profile-blue'}>
                               <AvatarImage src={value?.profileImageUrl} />
                               <AvatarFallback className='text-xl border-none	'>{value?.id[0]}</AvatarFallback>
-                            </Avatar>
+                            </Avatar> */}
                           </div>
                         }
                       </div>
