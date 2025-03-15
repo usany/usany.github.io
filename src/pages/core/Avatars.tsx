@@ -8,7 +8,7 @@ interface Props {
   profileColor: string;
   profileUrl: string;
   fallback: string;
-  piazza: () => void | null
+  piazza: () => void
 }
 
 const Avatars = ({
