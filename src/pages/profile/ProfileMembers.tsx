@@ -5,7 +5,7 @@ import {
 } from "react-router-dom";
 import ProfileMembersDrawers from "src/pages/profile/ProfileMembersDrawers";
 import colors from "../core/cardsBackground";
-import useCardsBackground from "../core/useCardsBackground";
+import useCardsBackground from "../../hooks/useCardsBackground";
 
 const ProfileMembers = ({ userObj, user }) => {
   const theme = useSelector((state) => state.theme)

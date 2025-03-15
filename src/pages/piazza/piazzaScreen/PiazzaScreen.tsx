@@ -21,9 +21,9 @@ function PiazzaScreen({ userObj, multiple, handleMultiple, messagesList, handleM
   const [displayedName, setDisplayedName] = useState('')
   const profileColor = useSelector(state => state.profileColor.value)
   const profileUrl = useSelector(state => state.profileUrl.value)
-  const {state} = useLocation()
+  const { state } = useLocation()
   const conversation = state?.conversation
-  
+
   const onPrivate = async ({ userUid, displayName }) => {
     const userRef = doc(dbservice, `members/${userUid}`)
     const userDoc = await getDoc(userRef)
@@ -88,7 +88,7 @@ function PiazzaScreen({ userObj, multiple, handleMultiple, messagesList, handleM
 
   useEffect(() => {
     scrollToBottom();
-    
+
     const checkMessage = async () => {
       if (multiple) {
         const piazzaRef = collection(dbservice, 'chats_group')
@@ -102,7 +102,7 @@ function PiazzaScreen({ userObj, multiple, handleMultiple, messagesList, handleM
           if (piazzaCheckedList.indexOf(userObj.uid) === -1) {
             piazzaCheckedList.push(userObj.uid)
             await updateDoc(myDocRef, {
-              ...myChattings, 
+              ...myChattings,
               piazzaChecked: piazzaCheckedList,
             })
           }
@@ -114,7 +114,7 @@ function PiazzaScreen({ userObj, multiple, handleMultiple, messagesList, handleM
         myChattings[conversation].messageCount = 0
         await updateDoc(myDocRef, {
           chattings: myChattings
-        })    
+        })
       }
     }
     checkMessage()
@@ -123,7 +123,7 @@ function PiazzaScreen({ userObj, multiple, handleMultiple, messagesList, handleM
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView();
   };
-    
+
   useEffect(() => {
     const messageList = async () => {
       const messagesArray = []
@@ -167,112 +167,112 @@ function PiazzaScreen({ userObj, multiple, handleMultiple, messagesList, handleM
   return (
     <>
       <div className="flex flex-col pt-5">
-        <div className="p-1 border-t rounded-xl h-[350px] overflow-auto">
+        <div className="p-1 border-t rounded-xl max-h-[60vh] overflow-auto">
           <ul>
             {messagesList.map((value, index) => {
-                let userDirection
-                const clock = new Date(value.messageClock)
-                if (value.userUid === userObj.uid) {
-                  userDirection = 'text-right'
-                } else {
-                  userDirection = 'text-left'
-                }
-                let previousUid
-                let passingClock
-                let displayClock = 0
-                if (index > 0) {
-                  previousUid = messagesList[index-1].userUid
-                }
-                if (index < messagesList.length-1) {
-                  if (messagesList[index+1].userUid === userObj.uid) {
-                    passingClock = new Date(messagesList[index+1].messageClock)
-                    if (clock.getFullYear() === passingClock.getFullYear()) {
-                      if (clock.getMonth() === passingClock.getMonth()) {
-                        if (clock.getDate() === passingClock.getDate()) {
-                          if (clock.getHours() === passingClock.getHours()) {
-                            if (clock.getMinutes() === passingClock.getMinutes()) {
-                              displayClock = 1
-                            }
+              let userDirection
+              const clock = new Date(value.messageClock)
+              if (value.userUid === userObj.uid) {
+                userDirection = 'text-right'
+              } else {
+                userDirection = 'text-left'
+              }
+              let previousUid
+              let passingClock
+              let displayClock = 0
+              if (index > 0) {
+                previousUid = messagesList[index - 1].userUid
+              }
+              if (index < messagesList.length - 1) {
+                if (messagesList[index + 1].userUid === userObj.uid) {
+                  passingClock = new Date(messagesList[index + 1].messageClock)
+                  if (clock.getFullYear() === passingClock.getFullYear()) {
+                    if (clock.getMonth() === passingClock.getMonth()) {
+                      if (clock.getDate() === passingClock.getDate()) {
+                        if (clock.getHours() === passingClock.getHours()) {
+                          if (clock.getMinutes() === passingClock.getMinutes()) {
+                            displayClock = 1
                           }
                         }
                       }
                     }
                   }
                 }
-                let messageAmpm
-                let messageHours = clock.getHours()
-                let messageMonth = (clock.getMonth()+1).toString()
-                let messageDate = (clock.getDate()).toString()
-                if (messageHours >= 13) {
-                  messageAmpm = '오후'
-                  if (messageHours !== 12) {
-                    messageHours = messageHours-12
-                  }
-                } else {
-                  messageAmpm = '오전'
-                  if (messageHours === 0) {
-                    messageHours = messageHours+12
-                  }
+              }
+              let messageAmpm
+              let messageHours = clock.getHours()
+              let messageMonth = (clock.getMonth() + 1).toString()
+              let messageDate = (clock.getDate()).toString()
+              if (messageHours >= 13) {
+                messageAmpm = '오후'
+                if (messageHours !== 12) {
+                  messageHours = messageHours - 12
                 }
-                if (clock.getMonth()+1 < 10) {
-                  messageMonth = '0'+messageMonth
-                } 
-                if (messageDate.length === 1) {
-                  messageDate = '0'+messageDate
+              } else {
+                messageAmpm = '오전'
+                if (messageHours === 0) {
+                  messageHours = messageHours + 12
                 }
-                
-                return (
-                    <li key={index} className={userDirection}>
-                      {previousUid !== value.userUid &&
-                        <div>
-                          <div className={`flex justify-${value.userUid !== userObj.uid ? 'start' : 'end'}`}>
-                            {userDirection === 'text-left' ?
-                            <div className='flex gap-3'>
-                              <Avatar onClick={() => {
-                                document.getElementById('drawer')?.click()
-                                onPrivate({userUid: value.userUid, displayName: value.id})
-                              }} className={'bg-profile-blue'}>
-                                  <AvatarImage src={value?.profileImageUrl} />
-                                  <AvatarFallback className='text-xl border-none	'>{value?.id[0]}</AvatarFallback>
-                              </Avatar>
-                              <div>{value.id}</div>
-                            </div>
-                            :
-                            <div className='flex gap-3'>
-                              <div>{value.id}</div>
-                              <Avatar onClick={() => {
-                                document.getElementById('drawer')?.click()
-                                onPrivate({userUid: value.userUid, displayName: value.id})
-                              }} className={'bg-profile-blue'}>
-                                  <AvatarImage src={value?.profileImageUrl} />
-                                  <AvatarFallback className='text-xl border-none	'>{value?.id[0]}</AvatarFallback>
-                              </Avatar>
-                            </div>
-                            }
+              }
+              if (clock.getMonth() + 1 < 10) {
+                messageMonth = '0' + messageMonth
+              }
+              if (messageDate.length === 1) {
+                messageDate = '0' + messageDate
+              }
+
+              return (
+                <li key={index} className={userDirection}>
+                  {previousUid !== value.userUid &&
+                    <div>
+                      <div className={`flex justify-${value.userUid !== userObj.uid ? 'start' : 'end'}`}>
+                        {userDirection === 'text-left' ?
+                          <div className='flex gap-3'>
+                            <Avatar onClick={() => {
+                              document.getElementById('drawer')?.click()
+                              onPrivate({ userUid: value.userUid, displayName: value.id })
+                            }} className={'bg-profile-blue'}>
+                              <AvatarImage src={value?.profileImageUrl} />
+                              <AvatarFallback className='text-xl border-none	'>{value?.id[0]}</AvatarFallback>
+                            </Avatar>
+                            <div>{value.id}</div>
                           </div>
-                        </div>
-                      }
-                      {value.userUid !== userObj.uid ? 
-                        <div className='flex gap-3 justify-start'>
-                          <div className='other rounded-tr-lg rounded-bl-lg rounded-br-lg p-1 bg-light-1 dark:bg-dark-1'>{value.msg}</div>
-                          <div>{clock.getFullYear()}-{messageMonth}-{messageDate} {messageAmpm} {messageHours}:{clock.getMinutes() < 10 && '0'}{clock.getMinutes()}</div>
-                        </div>
-                      :
-                        <div className='flex gap-3 justify-end'>
-                          <div>{clock.getFullYear()}-{messageMonth}-{messageDate} {messageAmpm} {messageHours}:{clock.getMinutes() < 10 && '0'}{clock.getMinutes()}</div>
-                          <div className='me rounded-tl-lg rounded-bl-lg rounded-br-lg p-1 bg-light-1 dark:bg-dark-1'>{value.msg}</div>
-                        </div>
-                      }
-                    </li>
-                )
-                }
+                          :
+                          <div className='flex gap-3'>
+                            <div>{value.id}</div>
+                            <Avatar onClick={() => {
+                              document.getElementById('drawer')?.click()
+                              onPrivate({ userUid: value.userUid, displayName: value.id })
+                            }} className={'bg-profile-blue'}>
+                              <AvatarImage src={value?.profileImageUrl} />
+                              <AvatarFallback className='text-xl border-none	'>{value?.id[0]}</AvatarFallback>
+                            </Avatar>
+                          </div>
+                        }
+                      </div>
+                    </div>
+                  }
+                  {value.userUid !== userObj.uid ?
+                    <div className='flex gap-3 justify-start'>
+                      <div className='other rounded-tr-lg rounded-bl-lg rounded-br-lg p-1 bg-light-1 dark:bg-dark-1'>{value.msg}</div>
+                      <div>{clock.getFullYear()}-{messageMonth}-{messageDate} {messageAmpm} {messageHours}:{clock.getMinutes() < 10 && '0'}{clock.getMinutes()}</div>
+                    </div>
+                    :
+                    <div className='flex gap-3 justify-end'>
+                      <div>{clock.getFullYear()}-{messageMonth}-{messageDate} {messageAmpm} {messageHours}:{clock.getMinutes() < 10 && '0'}{clock.getMinutes()}</div>
+                      <div className='me rounded-tl-lg rounded-bl-lg rounded-br-lg p-1 bg-light-1 dark:bg-dark-1'>{value.msg}</div>
+                    </div>
+                  }
+                </li>
               )
+            }
+            )
             }
             <li ref={messagesEndRef} />
           </ul>
         </div>
       </div>
-      <PiazzaDialogs multiple={multiple} handleMultiple={handleMultiple} user={user} userObj={userObj} handleMessagesList={handleMessagesList} displayedName={displayedName}/>
+      <PiazzaDialogs multiple={multiple} handleMultiple={handleMultiple} user={user} userObj={userObj} handleMessagesList={handleMessagesList} displayedName={displayedName} />
     </>
   );
 }

@@ -45,7 +45,7 @@ import TextField from "@mui/material/TextField";
 import { Card, Chip } from "@mui/material";
 import { useSelector } from "react-redux";
 import colors from "src/pages/core/cardsBackground";
-import useCardsBackground from "../core/useCardsBackground";
+import useCardsBackground from "../../hooks/useCardsBackground";
 
 const ProfileMembersDrawers = ({ userObj, user }) => {
   const [confirmEmail, setConfirmEmail] = useState(false);

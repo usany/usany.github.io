@@ -38,7 +38,7 @@ import { useSelector } from "react-redux";
 import { User } from "firebase/auth";
 import { Building, Clock, Watch } from "lucide-react";
 import colors from "src/pages/core/cardsBackground";
-import useCardsBackground from "src/pages/core/useCardsBackground";
+import useCardsBackground from "src/hooks/useCardsBackground";
 
 interface Props {
   msgObj: { id: string; text: object };
@@ -125,22 +125,27 @@ const CardsViews = ({ msgObj, isOwner, userObj, num, points }: Props) => {
             </div>
             {/* {locationState.locationOne &&
                         } */}
-            <div className="flex flex-col">
-              <div className="flex justify-center">
+            <div className="flex flex-col gap-3">
+              <div className="flex gap-3">
                 <Building />
-                {msgObj.text.count} {msgObj.text.counter}
-                {msgObj.text.counting !== "" && msgObj.text.counting}
+                <div>
+                  {msgObj.text.count} {msgObj.text.counter} {msgObj.text.counting !== "" && msgObj.text.counting}
+                </div>
               </div>
-              <div className="flex justify-center">
+              <div className='flex gap-3'>
                 <Watch />
-                {msgObj.text.clock?.year}.{msgObj.text.clock?.month}.
-                {msgObj.text.clock?.day} {msgObj.text.clock?.hour}:
-                {msgObj.text.clock?.minute} 부터
-              </div>
-              <div className="flex justify-center">
-                {msgObj.text.clocker?.year}.{msgObj.text.clocker?.month}.
-                {msgObj.text.clock?.day} {msgObj.text.clocker?.hour}:
-                {msgObj.text.clocker?.minute} 까지
+                <div className='flex flex-col'>
+                  <div className="flex">
+                    {msgObj.text.clock?.year}.{msgObj.text.clock?.month}.
+                    {msgObj.text.clock?.day} {msgObj.text.clock?.hour}:
+                    {msgObj.text.clock?.minute} 부터
+                  </div>
+                  <div className="flex">
+                    {msgObj.text.clocker?.year}.{msgObj.text.clocker?.month}.
+                    {msgObj.text.clock?.day} {msgObj.text.clocker?.hour}:
+                    {msgObj.text.clocker?.minute} 까지
+                  </div>
+                </div>
               </div>
             </div>
             {/* <div className='flex flex-col justify-center pt-1'>

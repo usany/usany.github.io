@@ -48,7 +48,7 @@ import SpecificsActions from "./SpecificsActions";
 import SpecificsSteppers from "./SpecificsSteppers";
 import SpecificsTrades from "./SpecificsTrades";
 import colors from "../cardsBackground";
-import useCardsBackground from "../useCardsBackground";
+import useCardsBackground from "../../../hooks/useCardsBackground";
 
 interface Props {
   userObj: User | null;

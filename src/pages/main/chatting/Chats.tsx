@@ -14,7 +14,7 @@ import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnap
 import { useDispatch, useSelector } from 'react-redux';
 import { changePiazzaSwitch } from 'src/stateSlices/piazzaSwitchSlice';
 import colors from 'src/pages/core/cardsBackground';
-import useCardsBackground from 'src/pages/core/useCardsBackground';
+import useCardsBackground from 'src/hooks/useCardsBackground';
 
 interface Props {
   userObj: User

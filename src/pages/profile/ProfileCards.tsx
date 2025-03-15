@@ -5,7 +5,7 @@ import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnap
 import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
 import ProfileDrawers from 'src/pages/profile/ProfileDrawers'
 import colors from '../core/cardsBackground';
-import useCardsBackground from '../core/useCardsBackground';
+import useCardsBackground from '../../hooks/useCardsBackground';
 
 const ProfileCards = ({
   user,

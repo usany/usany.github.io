@@ -19,7 +19,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import Card from '@mui/material/Card';
 import { ScrollArea } from '@radix-ui/react-scroll-area';
 import colors from '../core/cardsBackground';
-import useCardsBackground from '../core/useCardsBackground';
+import useCardsBackground from '../../hooks/useCardsBackground';
 
 interface Props {
   violationUser: {} | null

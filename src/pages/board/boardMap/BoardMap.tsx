@@ -32,10 +32,10 @@ interface Props {
 }
 const area = [
   {
-    westSouth: {lat: 37.5927551, lng: 127.047462},
-    westNorth: {lat: 37.6010743, lng: 127.047462},
-    eastSouth: {lat: 37.5927551, lng: 127.0571999},
-    eastNorth: {lat: 37.6010743, lng: 127.0571999},
+    westSouth: { lat: 37.5927551, lng: 127.047462 },
+    westNorth: { lat: 37.6010743, lng: 127.047462 },
+    eastSouth: { lat: 37.5927551, lng: 127.0571999 },
+    eastNorth: { lat: 37.6010743, lng: 127.0571999 },
   }
 ]
 
@@ -166,7 +166,7 @@ function BoardMap({ mapAccordion, mapAccordionToggle, onMarker, onMarkerTrue, on
             </div>
             <div className="w-full h-[300px]">
               <Map
-                mapId={'77db85c9c2270baa'}
+                mapId={import.meta.env.VITE_MAPID}
                 defaultCenter={defaultLocation}
                 // defaultCenter={{ lat: 37.5968367, lng: 127.0518435 }}
                 defaultZoom={17}
@@ -183,7 +183,7 @@ function BoardMap({ mapAccordion, mapAccordionToggle, onMarker, onMarkerTrue, on
                       position={value.location}
                     >
                       <Pin
-                        background={"#0f9d58"}
+                        background={"#1f9d58"}
                         borderColor={"#006425"}
                         glyphColor={"#60d98f"}
                       />

@@ -5,7 +5,7 @@ import CardMedia from '@mui/material/CardMedia';
 import { useSelector } from 'react-redux';
 import staticImg from 'src/assets/pwa-512x512.png';
 import Avatars from 'src/pages/core/Avatars';
-import useCardsBackground from '../core/useCardsBackground';
+import useCardsBackground from '../../hooks/useCardsBackground';
 const AddCards = ({ borrow, userObj, addSteps, item, fromTo, locationState, display }) => {
   const profileColor = useSelector(state => state.profileColor.value)
   const profileUrl = useSelector(state => state.profileUrl.value)

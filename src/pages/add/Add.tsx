@@ -270,7 +270,7 @@ function Add({ userObj, borrow }: Props) {
         }
         const user = doc(dbservice, `members/${userObj.uid}`);
         const getDocUser = await getDoc(user);
-        const userCreatedCards = getDocUser.data()?.createdCards;
+        const userCreatedCards = getDocUser.data()?.createdCards || [];
         const userProfileUrl = getDocUser.data()?.profileImageUrl;
         const card = await addDoc(collection(dbservice, "num"), {
           point: calculatePoint,
@@ -292,6 +292,7 @@ function Add({ userObj, borrow }: Props) {
           connectedUrl: null,
           item: item,
         });
+        console.log(user)
         await updateDoc(user, { createdCards: [...userCreatedCards, card.id] });
         // setCardId(card.id)
         // setSnackBar(true)

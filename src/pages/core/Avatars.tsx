@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useSelector, useDispatch } from "react-redux";
+import staticImage from "src/assets/blue.png";
 
 interface Props {
   profile: boolean;
@@ -19,6 +20,7 @@ const Avatars = ({
   // const profileImage = useSelector(state => state.profileImage.value)
   // const profileUrl = useSelector(state => state.profileUrl.value)
   // console.log(profileImage)
+
   return (
     <div>
       {profile ? (
@@ -33,11 +35,12 @@ const Avatars = ({
         </Avatar>
       ) : (
         <Avatar
-          className={`bg-${(profileColor || "#")[0] === "#" ? "profile-blue" : profileColor}`}
+        // className={`bg-${(profileColor || "#")[0] === "#" ? "profile-blue" : profileColor}`}
         >
           <AvatarImage src={profileUrl} />
-          <AvatarFallback className="text-xl border-none">
-            {fallback}
+          <AvatarFallback className="border">
+            {/* {fallback} */}
+            {/* <img src={staticImage} /> */}
           </AvatarFallback>
         </Avatar>
       )}
