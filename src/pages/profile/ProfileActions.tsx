@@ -8,7 +8,6 @@ const ProfileActions = ({
   handleFollowers,
   handleFollowings
 }) => {
-
   return (
     <div>
       {userObj.uid === user.uid ?
