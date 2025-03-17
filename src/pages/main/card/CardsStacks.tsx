@@ -5,7 +5,6 @@ import {
   collection,
   doc,
   getDocs,
-  onSnapshot,
   orderBy,
   query,
   updateDoc
@@ -63,35 +62,43 @@ function CardsStacks({ userObj }: Props) {
         if (element.data().creatorId === userObj.uid) {
           const newObject = { id: element.id, ...element.data() }
           newArray.push(newObject)
+        } else if (
+          element.data().connectedId === userObj.uid && element.data().round !== 1
+        ) {
+          const newObject = { id: element.id, ...element.data() }
+          newArray.push(newObject)
         }
       })
+      setMessages(newArray)
+      setCardLoaded(true)
     }
-    onSnapshot(
-      query(collection(dbservice, "num"), orderBy("creatorClock", "desc")),
-      (snapshot) => {
-        const newArray = snapshot.docs.map((document) => {
-          if (document.data().creatorId === userObj.uid) {
-            return {
-              id: document.id,
-              ...document.data(),
-            };
-          } else if (
-            document.data().connectedId === userObj.uid &&
-            document.data().round !== 1
-          ) {
-            return {
-              id: document.id,
-              ...document.data(),
-            };
-          }
-        });
-        const newArraySelection = newArray.filter((element) => {
-          return element !== undefined;
-        });
-        setMessages(newArraySelection);
-        setCardLoaded(true);
-      }
-    );
+    bringCards()
+    // onSnapshot(
+    //   query(collection(dbservice, "num"), orderBy("creatorClock", "desc")),
+    //   (snapshot) => {
+    //     const newArray = snapshot.docs.map((document) => {
+    //       if (document.data().creatorId === userObj.uid) {
+    //         return {
+    //           id: document.id,
+    //           ...document.data(),
+    //         };
+    //       } else if (
+    //         document.data().connectedId === userObj.uid &&
+    //         document.data().round !== 1
+    //       ) {
+    //         return {
+    //           id: document.id,
+    //           ...document.data(),
+    //         };
+    //       }
+    //     });
+    //     const newArraySelection = newArray.filter((element) => {
+    //       return element !== undefined;
+    //     });
+    //     setMessages(newArraySelection);
+    //     setCardLoaded(true);
+    //   }
+    // );
   }, []);
 
   useEffect(() => {
@@ -104,7 +111,6 @@ function CardsStacks({ userObj }: Props) {
       setOnLongPress(0);
     }
   }, [longPressCard]);
-  // console.log(messages)
   return (
     <div>
       {cardLoaded ? (
