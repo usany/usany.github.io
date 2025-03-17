@@ -4,6 +4,7 @@ import { User } from "firebase/auth";
 import {
   collection,
   doc,
+  getDocs,
   onSnapshot,
   orderBy,
   query,
@@ -54,6 +55,17 @@ function CardsStacks({ userObj }: Props) {
   }, []);
 
   useEffect(() => {
+    const bringCards = async () => {
+      const collectionQuery = query(collection(dbservice, "num"), orderBy("creatorClock", "desc"))
+      const documents = await getDocs(collectionQuery)
+      const newArray = []
+      documents.forEach((element) => {
+        if (element.data().creatorId === userObj.uid) {
+          const newObject = { id: element.id, ...element.data() }
+          newArray.push(newObject)
+        }
+      })
+    }
     onSnapshot(
       query(collection(dbservice, "num"), orderBy("creatorClock", "desc")),
       (snapshot) => {
