@@ -200,7 +200,6 @@ function Profile({ userObj }: Props) {
     )
   }
   // getCoords().then(coords => console.log(coords))
-  // console.log(weather)
 
   return (
     <div>

@@ -46,20 +46,20 @@ interface Props {
   num: number | null;
   points: number | null;
 }
-const shadowColorArray = [
-  "lightblue",
-  "lightcoral",
-  "lightcyan",
-  "lightgoldenrodyellow",
-  "lightgray",
-  "lightgreen",
-  "lightpink",
-  "lightsalmon",
-  "lightseagreen",
-  "lightskyblue",
-  "lightsteelblue",
-  "lightyellow",
-];
+// const shadowColorArray = [
+//   "lightblue",
+//   "lightcoral",
+//   "lightcyan",
+//   "lightgoldenrodyellow",
+//   "lightgray",
+//   "lightgreen",
+//   "lightpink",
+//   "lightsalmon",
+//   "lightseagreen",
+//   "lightskyblue",
+//   "lightsteelblue",
+//   "lightyellow",
+// ];
 const alpha = Array.from(Array(26)).map((e, i) => i + 65);
 const letters = alpha.map((x) => String.fromCharCode(x));
 const numbers = Array.from({ length: 10 }, (e, i) => `${i}`);
