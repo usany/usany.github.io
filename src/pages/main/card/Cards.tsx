@@ -14,7 +14,7 @@ import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import { CardActionArea, CardActions, ClickAwayListener } from "@mui/material";
 import { Link } from "react-router-dom";
-import Btn from "src/pages/Btn";
+import Btn from "src/Btn";
 import Specifics from "src/pages/core/specifics/Specifics";
 import Chip from "@mui/material/Chip";
 import staticImg from "src/assets/pwa-512x512.png";
@@ -120,7 +120,7 @@ const Cards = ({
               />
             </div>
           </ClickAwayListener>
-          {/* {longPressed && 
+          {/* {longPressed &&
             <div className='z-10 h-full' onClick={() => {
               const data = doc(dbservice, `num/${msgObj.id}`)
               deleteDoc(data)

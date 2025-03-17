@@ -1,12 +1,11 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { useSelector, useDispatch } from 'react-redux'
+import { createSlice } from '@reduxjs/toolkit'
 
 interface CardAccordionState {
-  value: boolean
+  value: string
 }
 
 const initialState: CardAccordionState = {
-  value: true
+  value: 'item-1'
 }
 const cardAccordionReducer = createSlice({
   name: 'cardAccordion',
@@ -15,9 +14,15 @@ const cardAccordionReducer = createSlice({
     change: state => {
       state.value = !state.value
     },
+    cardOn: state => {
+      state.value = 'item-1'
+    },
+    cardOff: state => {
+      state.value = ''
+    },
   }
 })
-const { change } = cardAccordionReducer.actions
+const { change, cardOn, cardOff } = cardAccordionReducer.actions
 
-export { cardAccordionReducer, change, }
+export { cardAccordionReducer, cardOff, cardOn, change }
 

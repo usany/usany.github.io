@@ -1,22 +1,28 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 
 interface MessageAccordionState {
-  value: boolean
+  value: string
 }
 
 const initialState: MessageAccordionState = {
-  value: true
+  value: 'item-2'
 }
 const messageAccordionReducer = createSlice({
   name: 'messageAccordion',
   initialState,
   reducers: {
     changeMessageAccordion: state => {
-      state.value = !state.value
+      state.value = 'item-2'
+    },
+    messageOn: state => {
+      state.value = 'item-2'
+    },
+    messageOff: state => {
+      state.value = ''
     },
   }
 })
-const { changeMessageAccordion } = messageAccordionReducer.actions
+const { changeMessageAccordion, messageOn, messageOff } = messageAccordionReducer.actions
 
-export { messageAccordionReducer, changeMessageAccordion, }
+export { changeMessageAccordion, messageAccordionReducer, messageOff, messageOn }
 

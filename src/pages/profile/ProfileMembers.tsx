@@ -1,19 +1,15 @@
-import { useState, useEffect, useReducer } from "react";
 import Card from "@mui/material/Card";
-import { createPortal } from "react-dom";
+import { useSelector } from "react-redux";
 import {
-  BrowserRouter,
-  Routes,
-  Route,
-  useNavigate,
-  Link,
-  useLocation,
+  Link
 } from "react-router-dom";
 import ProfileMembersDrawers from "src/pages/profile/ProfileMembersDrawers";
-import { dbservice } from "src/baseApi/serverbase";
-import { doc } from "firebase/firestore";
+import useCardsBackground from "../../hooks/useCardsBackground";
 
 const ProfileMembers = ({ userObj, user }) => {
+  const theme = useSelector((state) => state.theme)
+  const { color } = useCardsBackground()
+
   return (
     <div className="flex flex-col p-5">
       {user.uid === userObj.uid ? (
@@ -33,7 +29,7 @@ const ProfileMembers = ({ userObj, user }) => {
       ) : (
         <Link to="/contact" state={{ user: user }}>
           <div className="flex justify-center">
-            <Card sx={{ width: "50%" }}>
+            <Card sx={{ width: "50%", bgcolor: color }}>
               <div className="flex justify-center p-5">신고하기</div>
             </Card>
           </div>

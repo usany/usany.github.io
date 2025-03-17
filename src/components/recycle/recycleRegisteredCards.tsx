@@ -5,26 +5,26 @@ import CardContent from '@mui/material/CardContent';
 // import Typography from '@mui/material/Typography';
 import { CardActionArea, CardActions } from '@mui/material';
 import { Link } from 'react-router-dom'
-import Btn from 'src/pages/Btn';
+import Btn from 'src/Btn';
 import Chip from '@mui/material/Chip';
 import staticImg from 'src/assets/pwa-512x512.png';
 
-function RegisteredCards({ 
+function RegisteredCards({
   msgObj,
   isOwner,
 }) {
   const shadowColorArray = [
-    'lightblue', 
+    'lightblue',
     'lightcoral',
     'lightcyan',
     'lightgoldenrodyellow',
     'lightgray',
-    'lightgreen', 
+    'lightgreen',
     'lightpink',
     'lightsalmon',
     'lightseagreen',
     'lightskyblue',
-    'lightsteelblue', 
+    'lightsteelblue',
     'lightyellow'
   ]
   let shadowColor;
@@ -47,7 +47,7 @@ function RegisteredCards({
             <div className='flex justify-center'>
               {msgObj.text.choose === 1 && <Chip label='빌리기' />}
               {msgObj.text.choose === 2 && <Chip label='빌려주기' />}
-              {isOwner && 
+              {isOwner &&
                 <Chip label='내가 작성함' />
               }
             </div>

@@ -1,42 +1,19 @@
-import {
-  useState,
-  useEffect,
-  useRef,
-  useMemo,
-  useLayoutEffect,
-  useContext,
-  useReducer,
-  Suspense,
-  lazy,
-} from "react";
 import Card from "@mui/material/Card";
-import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
-import { CardActionArea, CardActions, ClickAwayListener } from "@mui/material";
-import { Link } from "react-router-dom";
-import Btn from "src/pages/Btn";
-import Specifics from "src/pages/core/specifics/Specifics";
+import CardMedia from "@mui/material/CardMedia";
 import Chip from "@mui/material/Chip";
-import staticImg from "src/assets/pwa-512x512.png";
-import staticImageJ from "src/assets/blue-01.png";
-import staticImageC from "src/assets/screen-01.png";
-import {
-  MorphingDialog,
-  MorphingDialogTrigger,
-  MorphingDialogContent,
-  MorphingDialogTitle,
-  MorphingDialogImage,
-  MorphingDialogSubtitle,
-  MorphingDialogClose,
-  MorphingDialogDescription,
-  MorphingDialogContainer,
-} from "@/components/ui/morphing-dialog";
-import DeleteIcon from "@mui/icons-material/Delete";
-import useLongPress from "src/hooks/useLongPress";
-import Avatars from "../../core/Avatars";
-import { useSelector } from "react-redux";
 import { User } from "firebase/auth";
-import { Building, Clock, Watch } from "lucide-react";
+import { Building, Watch } from "lucide-react";
+import {
+  useEffect,
+  useState
+} from "react";
+import { useSelector } from "react-redux";
+import staticImageJ from "src/assets/blue-01.png";
+import staticImg from "src/assets/pwa-512x512.png";
+import staticImageC from "src/assets/screen-01.png";
+import useCardsBackground from "src/hooks/useCardsBackground";
+import Avatars from "../../core/Avatars";
 
 interface Props {
   msgObj: { id: string; text: object };
@@ -66,13 +43,15 @@ const mergedArray = letters.concat(numbers);
 
 const CardsViews = ({ msgObj, isOwner, userObj, num, points }: Props) => {
   const [staticImage, setStaticImage] = useState("");
+  const id = msgObj?.id || ''
   const shadowColor =
     shadowColorArray[
-      mergedArray.indexOf(String(msgObj.id[0]).toUpperCase()) %
-        shadowColorArray.length
+    mergedArray.indexOf(String(id[0]).toUpperCase()) %
+    shadowColorArray.length
     ];
   const profileColor = useSelector((state) => state.profileColor.value);
-  const profileImage = useSelector((state) => state.profileImage.value);
+  // const profileImage = useSelector((state) => state.profileImage.value);
+  const theme = useSelector((state) => state.theme)
   useEffect(() => {
     if (msgObj.text.count === "중도") {
       setStaticImage(staticImageJ);
@@ -83,7 +62,8 @@ const CardsViews = ({ msgObj, isOwner, userObj, num, points }: Props) => {
     }
   }, [msgObj]);
   const profileUrl = msgObj?.creatorUrl;
-  console.log(profileUrl);
+  const { color } = useCardsBackground()
+
   return (
     <div>
       <Card
@@ -91,6 +71,7 @@ const CardsViews = ({ msgObj, isOwner, userObj, num, points }: Props) => {
           width: 200,
           height: 280,
           boxShadow: `1.5px 1.5px 1.5px 1.5px ${shadowColor}`,
+          bgcolor: color
         }}
       >
         <CardContent sx={{ padding: "5px" }}>
@@ -102,6 +83,7 @@ const CardsViews = ({ msgObj, isOwner, userObj, num, points }: Props) => {
                 profileUrl={profileUrl}
                 // profileImage={profileImage}
                 fallback={msgObj.displayName ? msgObj.displayName[0] : ""}
+                piazza={null}
               />
               {
                 <Chip
@@ -115,27 +97,35 @@ const CardsViews = ({ msgObj, isOwner, userObj, num, points }: Props) => {
                                 빈 카드입니다
                             </div>
                         } */}
-            <div className="pt-1">
-              <CardMedia sx={{ height: 140 }} image={staticImg} />
+            <div className="flex justify-center pt-1">
+              <CardMedia sx={{
+                width: 159,
+                height: 141
+              }} image={staticImg} />
             </div>
-            {/* {locationState.locationOne && 
+            {/* {locationState.locationOne &&
                         } */}
-            <div className="flex flex-col">
-              <div className="flex justify-center">
+            <div className="flex flex-col gap-3 p-1">
+              <div className="flex gap-3">
                 <Building />
-                {msgObj.text.count} {msgObj.text.counter}
-                {msgObj.text.counting !== "" && msgObj.text.counting}
+                <div>
+                  {msgObj.text.count} {msgObj.text.counter} {msgObj.text.counting !== "" && msgObj.text.counting}
+                </div>
               </div>
-              <div className="flex justify-center">
+              <div className='flex gap-3'>
                 <Watch />
-                {msgObj.text.clock?.year}.{msgObj.text.clock?.month}.
-                {msgObj.text.clock?.day} {msgObj.text.clock?.hour}:
-                {msgObj.text.clock?.minute} 부터
-              </div>
-              <div className="flex justify-center">
-                {msgObj.text.clocker?.year}.{msgObj.text.clocker?.month}.
-                {msgObj.text.clock?.day} {msgObj.text.clocker?.hour}:
-                {msgObj.text.clocker?.minute} 까지
+                <div className='flex flex-col'>
+                  <div className="flex">
+                    {msgObj.text.clock?.year}.{msgObj.text.clock?.month}.
+                    {msgObj.text.clock?.day} {msgObj.text.clock?.hour}:
+                    {msgObj.text.clock?.minute} 부터
+                  </div>
+                  <div className="flex">
+                    {msgObj.text.clocker?.year}.{msgObj.text.clocker?.month}.
+                    {msgObj.text.clock?.day} {msgObj.text.clocker?.hour}:
+                    {msgObj.text.clocker?.minute} 까지
+                  </div>
+                </div>
               </div>
             </div>
             {/* <div className='flex flex-col justify-center pt-1'>

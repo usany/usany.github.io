@@ -1,34 +1,31 @@
-import { useState, useEffect, useRef, useMemo, useLayoutEffect, useContext, useReducer, Suspense, lazy } from 'react'
-import Specifics from 'src/pages/core/specifics/Specifics';
 import {
   MorphingDialog,
-  MorphingDialogTrigger,
-  MorphingDialogContent,
-  MorphingDialogTitle,
-  MorphingDialogImage,
-  MorphingDialogSubtitle,
-  MorphingDialogClose,
-  MorphingDialogDescription,
   MorphingDialogContainer,
+  MorphingDialogContent,
+  MorphingDialogTrigger
 } from '@/components/ui/morphing-dialog';
-import CardsViews from '../../main/card/CardsViews';
 import { User } from 'firebase/auth';
+import { useState } from 'react';
+import Specifics from 'src/pages/core/specifics/Specifics';
+import CardsViews from '../../main/card/CardsViews';
 
 interface Props {
-  msgObj: {id: string, text: object},
+  msgObj: { id: string, text: object },
   isOwner: boolean,
   userObj: User | null,
   num: number | null,
   points: number | null,
 }
 
-const MorphingDialogs = ({ 
+const MorphingDialogs = ({
   msgObj,
   isOwner,
   userObj,
   num,
   points,
 }: Props) => {
+  const [deleted, setDeleted] = useState(false)
+  const changeDeleted = (newValue) => setDeleted(newValue)
   return (
     <MorphingDialog
       transition={{
@@ -41,7 +38,7 @@ const MorphingDialogs = ({
       </MorphingDialogTrigger>
       <MorphingDialogContainer>
         <MorphingDialogContent>
-          <Specifics userObj={userObj} message={msgObj} />
+          <Specifics deleted={deleted} changeDeleted={changeDeleted} userObj={userObj} message={msgObj} />
         </MorphingDialogContent>
       </MorphingDialogContainer>
     </MorphingDialog>

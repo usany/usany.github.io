@@ -1,12 +1,14 @@
 import { useState, useEffect, useMemo } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useSelector, useDispatch } from "react-redux";
+import staticImage from "src/assets/blue01.png";
 
 interface Props {
   profile: boolean;
   profileColor: string;
   profileUrl: string;
   fallback: string;
+  piazza: () => void
 }
 
 const Avatars = ({
@@ -14,11 +16,13 @@ const Avatars = ({
   profileColor,
   profileUrl,
   fallback,
+  piazza
   //   profileImage,
 }: Props) => {
   // const profileImage = useSelector(state => state.profileImage.value)
   // const profileUrl = useSelector(state => state.profileUrl.value)
   // console.log(profileImage)
+
   return (
     <div>
       {profile ? (
@@ -28,16 +32,19 @@ const Avatars = ({
         >
           <AvatarImage src={profileUrl} />
           <AvatarFallback className="text-8xl border-none">
-            {fallback}
+            <img className='h-full' src={staticImage} />
+            {/* {fallback} */}
           </AvatarFallback>
         </Avatar>
       ) : (
         <Avatar
-          className={`bg-${(profileColor || "#")[0] === "#" ? "profile-blue" : profileColor}`}
+          onClick={piazza}
+        // className={`bg-${(profileColor || "#")[0] === "#" ? "profile-blue" : profileColor}`}
         >
           <AvatarImage src={profileUrl} />
-          <AvatarFallback className="text-xl border-none">
-            {fallback}
+          <AvatarFallback className="border">
+            {/* {fallback} */}
+            <img className='h-full' src={staticImage} />
           </AvatarFallback>
         </Avatar>
       )}
