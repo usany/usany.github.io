@@ -104,7 +104,7 @@ function CardsStacks({ userObj }: Props) {
       setOnLongPress(0);
     }
   }, [longPressCard]);
-  console.log(messages)
+  // console.log(messages)
   return (
     <div>
       {cardLoaded ? (
