@@ -103,13 +103,12 @@ function Notice({ userObj, borrow }: Props) {
       const docs = await getDocs(collectionQuery)
       const newArray = []
       docs.forEach((doc) => {
-        newArray.push(doc.data())
+        newArray.push({ id: doc.id, ...doc.data() })
       })
       setMessages(newArray)
     }
     bringMessages()
   }, [selectedValues[2].value]);
-  console.log(messages)
   return (
     <div>
       {/* <AlarmCheck />
