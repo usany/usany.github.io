@@ -203,28 +203,6 @@ function Profile({ userObj }: Props) {
 
   return (
     <div>
-      {/* <div>
-        <div className="sticky top-20 p-5 bg-white">카드 목록</div>
-        <div>
-          <div>목록 카드 목록</div>
-          <div>목록 카드 목록</div>
-          <div>목록 카드 목록</div>
-          <div>목록 카드 목록</div>
-          <div>목록 카드 목록</div>
-          <div>목록 카드 목록</div>
-        </div>
-      </div>
-      <div>
-        <div className="sticky top-20 p-5 bg-white">목록 카드 목록 목록</div>
-        <div>
-          <div>목록 카드 목록</div>
-          <div>목록 카드 목록</div>
-          <div>목록 카드 목록</div>
-          <div>목록 카드 목록</div>
-          <div>목록 카드 목록</div>
-          <div>목록 카드 목록</div>
-        </div>
-      </div> */}
       <PageTitle
         title={`${userUid === userObj.uid ? "내" : shortenName} 프로필`}
       />
