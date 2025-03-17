@@ -100,7 +100,6 @@ function CardsStacks({ userObj }: Props) {
     //   }
     // );
   }, []);
-
   useEffect(() => {
     if (!onLongPress) {
       setLongPressCard(null);
