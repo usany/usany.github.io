@@ -8,13 +8,6 @@ const ProfileActions = ({
   handleFollowers,
   handleFollowings
 }) => {
-  // useEffect(() => {
-  //   onSnapshot(doc(dbservice, `members/${user.uid}`), (snapshot) => {
-  //     const points = snapshot.data().points
-  //     const doneCards = snapshot.data().done || []
-  //     setCards({point: points, done: doneCards})
-  //   })
-  // }, [])
   return (
     <div>
       {userObj.uid === user.uid ?
