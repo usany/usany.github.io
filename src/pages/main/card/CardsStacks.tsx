@@ -73,6 +73,7 @@ function CardsStacks({ userObj }: Props) {
       setCardLoaded(true)
     }
     bringCards()
+
     // onSnapshot(
     //   query(collection(dbservice, "num"), orderBy("creatorClock", "desc")),
     //   (snapshot) => {
