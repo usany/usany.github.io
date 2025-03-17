@@ -1,29 +1,22 @@
-import { useState, useEffect, useRef, Suspense, lazy } from "react";
-import {
-  auth,
-  onSocialClick,
-  dbservice,
-  storage,
-  messaging,
-} from "src/baseApi/serverbase";
+import { Skeleton } from "@/components/ui/skeleton";
+import { ClickAwayListener } from "@mui/material";
+import { User } from "firebase/auth";
 import {
   collection,
-  query,
-  where,
-  orderBy,
-  addDoc,
-  getDocs,
   doc,
   onSnapshot,
-  deleteDoc,
-  updateDoc,
+  orderBy,
+  query,
+  updateDoc
 } from "firebase/firestore";
 import { getToken } from "firebase/messaging";
-import { Skeleton } from "@/components/ui/skeleton";
-import { User } from "firebase/auth";
-import Cards from "src/pages/main/card/Cards";
-import { Chip, ClickAwayListener } from "@mui/material";
+import { useEffect, useState } from "react";
+import {
+  dbservice,
+  messaging
+} from "src/baseApi/serverbase";
 import { AnimatedList } from "src/components/ui/animated-list";
+import Cards from "src/pages/main/card/Cards";
 
 interface Props {
   userObj: User;
@@ -99,6 +92,7 @@ function CardsStacks({ userObj }: Props) {
       setOnLongPress(0);
     }
   }, [longPressCard]);
+  console.log(messages)
   return (
     <div>
       {cardLoaded ? (

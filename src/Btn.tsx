@@ -1,11 +1,11 @@
-import { useState } from 'react'
-import { dbservice } from 'src/baseApi/serverbase'
-import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnapshot, deleteDoc, updateDoc } from 'firebase/firestore';
-import Dialogs from 'src/pages/core/morphingDialogs/Dialogs';
-import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';
 import SendIcon from '@mui/icons-material/Send';
-import { webSocket, onClick } from 'src/webSocket.tsx'
+import Button from '@mui/material/Button';
+import { deleteDoc, doc, getDoc, updateDoc } from 'firebase/firestore';
+import { useState } from 'react';
+import { dbservice } from 'src/baseApi/serverbase';
+import Dialogs from 'src/pages/core/morphingDialogs/Dialogs';
+import { webSocket } from 'src/webSocket.tsx';
 
 const onConfirm = async ({ message, uid, displayName }) => {
   const { data, messagingToken } = await specificProcess({ message: message })
@@ -31,7 +31,7 @@ const onSupporting = async ({ message, uid, displayName }) => {
   updateDoc(data, { round: 2, connectedId: uid, connectedName: displayName });
   webSocket.emit('supporting', passingObject)
 }
-const onDelete = async () => {
+const onDelete = async ({ message }) => {
   const { data, messagingToken } = await specificProcess({ message: message })
   deleteDoc(data)
 }
@@ -76,69 +76,84 @@ const specificProcess = async ({ message }) => {
   const messagingToken = toUser.data().messagingToken
   return { data: data, messagingToken: messagingToken }
 }
+const ConfirmButton = ({ message, uid, displayName }) => {
+  return (
+    <Button variant='outlined' onClick={() => {
+      return (
+        onConfirm({ message: message, uid: uid, displayName: displayName })
+      )
+    }}
+      startIcon={<SendIcon />}>승낙 메시지 확인</Button>
+  )
+}
+const StopSupportButton = ({ userObj, message, uid, displayName }) => {
+  return (
+    <div className='flex flex-col justify-center'>
+      <Button variant='contained'
+        disabled
+      >승낙 메시지 전송 완료</Button>
+      <Button variant='outlined' onClick={() => {
+        if (userObj) {
+          onStopSupporting({ message: message, uid: uid, displayName: displayName })
+        }
+      }}
+        startIcon={<SendIcon />}>취소</Button>
+    </div>
+  )
+}
+const ReturningButton = ({ message, uid, displayName }) => {
+  return (
+    <Button variant='outlined' onClick={() => {
+      return (
+        onReturning({ message: message, uid: uid, displayName: displayName })
+      )
+    }}
+      startIcon={<SendIcon />}>반납하기</Button>
+  )
+}
+const SupportButton = ({ userObj, move, handleClose, handleDialog, message, uid, displayName }) => {
+  return (
+    <div className='flex justify-center'>
+      <Button variant='outlined' onClick={() => {
+        if (userObj) {
+          onSupporting({ message: message, uid: uid, displayName: displayName })
+        } else {
+          handleDialog()
+        }
+      }}
+        startIcon={<SendIcon />}>승낙하기</Button>
+      <Dialogs move={move} handleClose={handleClose} />
+    </div>
+  )
+}
+const DeleteButton = ({ message, deleteMessage }) => {
+  return (
+    <div className='flex flex-col justify-center'>
+      <Button variant='outlined' onClick={() => {
+        onDelete({ message: message })
+        deleteMessage()
+      }} startIcon={<DeleteIcon />}>지우기</Button>
+    </div>
+  )
+}
+const ConfirmReturnButton = ({ num, points, message, uid, displayName, }) => {
+  return (
+    <Button variant='outlined'
+      onClick={() => {
+        onConfirmReturn({ num: num, points: points, message: message, uid: uid, displayName: displayName, })
+      }}
+      startIcon={<SendIcon />}>반납 완료 확인</Button>
+  )
+}
 // const webSocket = io("http://localhost:5000");
-function Btn({ msgObj, isOwner, uid, displayName, userObj, num, points }) {
+function Btn({ msgObj, isOwner, uid, displayName, userObj, num, points, deleteMessage }) {
   const [move, setMove] = useState(false)
-  const onClick = async (action) => {
-    const { data, messagingToken } = await specificProcess({ message: msgObj })
-    // const data = doc(dbservice, `num/${msgObj.id}`)
-    // const toUserRef = doc(dbservice, `members/${msgObj.creatorId}`)
-    // const toUser = await getDoc(toUserRef)
-    // const messagingToken = toUser.data().messagingToken
-    if (action === 'delete') {
-      onDelete()
-    } else if (action === 'confirm return') {
-      // updateDoc(data, { round: 5 });
-      // const point = doc(dbservice, `members/${msgObj.creatorId}`)
-      // const connectedPoint = doc(dbservice, `members/${msgObj.connectedId}`)
-      // const creatorSnap = await getDoc(point)
-      // const connectedSnap = await getDoc(connectedPoint)
-      // const creatorDone = creatorSnap.data().done || []
-      // const connectedDone = connectedSnap.data().done || []
-      // if (msgObj.text.choose == 1) {
-      //   const creatorBorrowDone = creatorSnap.data().borrowDoneCount || []
-      //   const connectedLendDone = connectedSnap.data().lendDoneCount || []
-      //   updateDoc(point, { points: num - msgObj.point });
-      //   updateDoc(connectedPoint, { points: points + msgObj.point });
-      //   updateDoc(point, { borrowDoneCount: [...creatorBorrowDone, msgObj.id] });
-      //   updateDoc(connectedPoint, { lendDoneCount: [...connectedLendDone, msgObj.id] });
-      //   webSocket.emit('confirm return', { choose: msgObj.text.choose, sendingToken: messagingToken, creatorId: msgObj.creatorId, creatorName: msgObj.displayName, connectedId: uid, connectedName: displayName, })
-      // } else {
-      //   const creatorLendDone = creatorSnap.data().lendDoneCount || []
-      //   const connectedBorrowDone = connectedSnap.data().borrowDoneCount || []
-      //   updateDoc(point, { points: num + msgObj.point });
-      //   updateDoc(connectedPoint, { points: points - msgObj.point });
-      //   updateDoc(point, { lendDoneCount: [...creatorLendDone, msgObj.id] });
-      //   updateDoc(connectedPoint, { borrowDoneCount: [...connectedBorrowDone, msgObj.id] });
-      //   webSocket.emit('confirm return', { choose: msgObj.text.choose, sendingToken: messagingToken, creatorId: msgObj.creatorId, creatorName: msgObj.displayName, connectedId: uid, connectedName: displayName, })
-      // }
-      // updateDoc(point, {
-      //   done:
-      //     [...creatorDone, msgObj.id]
-      // });
-      // updateDoc(connectedPoint, {
-      //   done:
-      //     [...connectedDone, msgObj.id]
-      // });
-    } else if (action === 'confirm') {
-      onConfirm({ message: msgObj, uid: uid, displayName: displayName, data: data, messagingToken: messagingToken })
-    } else if (action === 'returning') {
-      onReturning({ message: msgObj, uid: uid, displayName: displayName, data: data, messagingToken: messagingToken })
-    } else if (action === 'supporting') {
-      if (userObj) {
-        onSupporting({ message: msgObj, uid: uid, displayName: displayName, data: data, messagingToken: messagingToken })
-      } else {
-        setMove(true)
-      }
-    } else if (action === 'stop supporting') {
-      if (userObj) {
-        onStopSupporting({ message: msgObj, uid: uid, displayName: displayName, data: data, messagingToken: messagingToken })
-      }
-    }
-  }
   const handleClose = () => {
     setMove(false);
   };
+  const handleDialog = () => {
+    setMove(true)
+  }
   const passingObject = { message: msgObj, uid: uid, displayName: displayName }
   const passingConfirmReturnObject = { num: num, points: points, message: msgObj, uid: uid, displayName: displayName }
   return (
@@ -146,32 +161,19 @@ function Btn({ msgObj, isOwner, uid, displayName, userObj, num, points }) {
       {isOwner ?
         <>
           {msgObj.round === 1 &&
-            <div className='flex flex-col justify-center'>
-              <Button variant='outlined' onClick={() => {
-                // onClick('delete')
-                onDelete()
-              }} startIcon={<DeleteIcon />}>지우기</Button>
-            </div>
+            <DeleteButton message={msgObj} deleteMessage={deleteMessage} />
           }
           {msgObj.round === 2 &&
-            <Button variant='outlined' onClick={() => {
-              return (
-                // onClick('confirm')
-                onConfirm({ message: msgObj, uid: uid, displayName: displayName })
-              )
-            }}
-              startIcon={<SendIcon />}>승낙 메시지 확인</Button>
+            <ConfirmButton message={msgObj} uid={uid} displayName={displayName} />
           }
           {msgObj.round === 3 &&
             <div className='flex justify-center'>
               {msgObj.text.choose == 1 &&
-                <Button variant='outlined' onClick={() => {
-                  return (
-                    // onClick('returning')
-                    onReturning({ message: msgObj, uid: uid, displayName: displayName })
-                  )
-                }}
-                  startIcon={<SendIcon />}>반납하기</Button>
+                <ReturningButton message={msgObj} uid={uid} displayName={displayName} />
+                // <Button variant='outlined' onClick={() => {
+                //   onReturning({ message: msgObj, uid: uid, displayName: displayName })
+                // }}
+                //   startIcon={<SendIcon />}>반납하기</Button>
               }
               {msgObj.text.choose == 2 &&
                 <Button variant='outlined' disabled>{msgObj.connectedName} 님이 빌리는 중</Button>}
@@ -182,65 +184,51 @@ function Btn({ msgObj, isOwner, uid, displayName, userObj, num, points }) {
               {msgObj.text.choose == 1 &&
                 <Button variant='outlined' disabled>주인에게 확인 중</Button>}
               {msgObj.text.choose == 2 &&
-                <Button variant='outlined'
-                  onClick={() => {
-                    // onClick('confirm return')
-                    onConfirmReturn({ num: num, points: points, message: msgObj, uid: uid, displayName: displayName, data: data, messagingToken: messagingToken })
-                  }}
-                  startIcon={<SendIcon />}>반납 완료 확인</Button>}
+                <ConfirmReturnButton num={num} points={points} message={msgObj} uid={uid} displayName={displayName} />
+              }
             </div>
           }
         </>
         :
         <>
           {msgObj.round === 1 &&
-            <div className='flex justify-center'>
-              <Button variant='outlined' onClick={() => {
-                if (userObj) {
-                  // onClick('supporting')
-                  onSupporting({ message: msgObj, uid: uid, displayName: displayName })
-                } else {
-                  setMove(true)
-                }
-              }}
-                startIcon={<SendIcon />}>승낙하기</Button>
-              <Dialogs move={move} handleClose={handleClose} />
-            </div>
+            <SupportButton userObj={userObj} move={move} handleClose={handleClose} handleDialog={handleDialog} message={msgObj} uid={uid} displayName={displayName} />
           }
           {msgObj.round === 2 &&
-            <div className='flex flex-col justify-center'>
-              <Button variant='contained'
-                disabled
-              >승낙 메시지 전송 완료</Button>
-              <Button variant='outlined' onClick={() => {
-                if (userObj) {
-                  // onClick('stop supporting')
-                  onStopSupporting({ message: msgObj, uid: uid, displayName: displayName })
-                }
-              }}
-                startIcon={<SendIcon />}>취소</Button>
-            </div>
+            <StopSupportButton userObj={userObj} message={msgObj} uid={uid} displayName={displayName} />
+            // <div className='flex flex-col justify-center'>
+            //   <Button variant='contained'
+            //     disabled
+            //   >승낙 메시지 전송 완료</Button>
+            //   <Button variant='outlined' onClick={() => {
+            //     if (userObj) {
+            //       onStopSupporting({ message: msgObj, uid: uid, displayName: displayName })
+            //     }
+            //   }}
+            //     startIcon={<SendIcon />}>취소</Button>
+            // </div>
           }
           {msgObj.round === 3 &&
             <div className='flex justify-center'>
               {msgObj.text.choose == 1 &&
                 <Button variant='outlined' disabled>{msgObj.displayName} 님이 빌리는 중</Button>}
               {msgObj.text.choose == 2 &&
-                <Button variant='outlined' onClick={() => {
-                  // onClick('returning')
-                  onReturning({ message: msgObj, uid: uid, displayName: displayName })
-                }}
-                  startIcon={<SendIcon />}>반납하기</Button>
+                <ReturningButton message={msgObj} uid={uid} displayName={displayName} />
+                // <Button variant='outlined' onClick={() => {
+                //   onReturning({ message: msgObj, uid: uid, displayName: displayName })
+                // }}
+                //   startIcon={<SendIcon />}>반납하기</Button>
               }
             </div>
           }
           {msgObj.round === 4 &&
             <div className='flex justify-center'>
               {msgObj.text.choose == 1 &&
-                <Button variant='outlined' onClick={() => {
-                  // onClick('confirm return')
-                  onConfirmReturn({ num: num, points: points, message: msgObj, uid: uid, displayName: displayName, data: data, messagingToken: messagingToken })
-                }} endIcon={<SendIcon />}>반납 완료 확인</Button>}
+                <ConfirmReturnButton num={num} points={points} message={msgObj} uid={uid} displayName={displayName} />
+                // <Button variant='outlined' onClick={() => {
+                //   onConfirmReturn({ num: num, points: points, message: msgObj, uid: uid, displayName: displayName, data: data, messagingToken: messagingToken })
+                // }} endIcon={<SendIcon />}>반납 완료 확인</Button>
+              }
               {msgObj.text.choose == 2 &&
                 <Button variant='outlined' disabled>주인에게 확인 중</Button>}
             </div>

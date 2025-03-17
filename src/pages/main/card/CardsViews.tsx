@@ -1,44 +1,19 @@
-import {
-  useState,
-  useEffect,
-  useRef,
-  useMemo,
-  useLayoutEffect,
-  useContext,
-  useReducer,
-  Suspense,
-  lazy,
-} from "react";
 import Card from "@mui/material/Card";
-import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
-import { CardActionArea, CardActions, ClickAwayListener } from "@mui/material";
-import { Link } from "react-router-dom";
-import Btn from "src/Btn";
-import Specifics from "src/pages/core/specifics/Specifics";
+import CardMedia from "@mui/material/CardMedia";
 import Chip from "@mui/material/Chip";
-import staticImg from "src/assets/pwa-512x512.png";
-import staticImageJ from "src/assets/blue-01.png";
-import staticImageC from "src/assets/screen-01.png";
-import {
-  MorphingDialog,
-  MorphingDialogTrigger,
-  MorphingDialogContent,
-  MorphingDialogTitle,
-  MorphingDialogImage,
-  MorphingDialogSubtitle,
-  MorphingDialogClose,
-  MorphingDialogDescription,
-  MorphingDialogContainer,
-} from "@/components/ui/morphing-dialog";
-import DeleteIcon from "@mui/icons-material/Delete";
-import useLongPress from "src/hooks/useLongPress";
-import Avatars from "../../core/Avatars";
-import { useSelector } from "react-redux";
 import { User } from "firebase/auth";
-import { Building, Clock, Watch } from "lucide-react";
-import colors from "src/pages/core/cardsBackground";
+import { Building, Watch } from "lucide-react";
+import {
+  useEffect,
+  useState
+} from "react";
+import { useSelector } from "react-redux";
+import staticImageJ from "src/assets/blue-01.png";
+import staticImg from "src/assets/pwa-512x512.png";
+import staticImageC from "src/assets/screen-01.png";
 import useCardsBackground from "src/hooks/useCardsBackground";
+import Avatars from "../../core/Avatars";
 
 interface Props {
   msgObj: { id: string; text: object };
@@ -68,9 +43,10 @@ const mergedArray = letters.concat(numbers);
 
 const CardsViews = ({ msgObj, isOwner, userObj, num, points }: Props) => {
   const [staticImage, setStaticImage] = useState("");
+  const id = msgObj?.id || ''
   const shadowColor =
     shadowColorArray[
-    mergedArray.indexOf(String(msgObj.id[0]).toUpperCase()) %
+    mergedArray.indexOf(String(id[0]).toUpperCase()) %
     shadowColorArray.length
     ];
   const profileColor = useSelector((state) => state.profileColor.value);
@@ -121,12 +97,15 @@ const CardsViews = ({ msgObj, isOwner, userObj, num, points }: Props) => {
                                 빈 카드입니다
                             </div>
                         } */}
-            <div className="pt-1">
-              <CardMedia sx={{ height: 140 }} image={staticImg} />
+            <div className="flex justify-center pt-1">
+              <CardMedia sx={{
+                width: 159,
+                height: 141
+              }} image={staticImg} />
             </div>
             {/* {locationState.locationOne &&
                         } */}
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-3 p-1">
               <div className="flex gap-3">
                 <Building />
                 <div>

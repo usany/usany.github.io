@@ -4,7 +4,6 @@ import {
   Link
 } from "react-router-dom";
 import ProfileMembersDrawers from "src/pages/profile/ProfileMembersDrawers";
-import colors from "../core/cardsBackground";
 import useCardsBackground from "../../hooks/useCardsBackground";
 
 const ProfileMembers = ({ userObj, user }) => {

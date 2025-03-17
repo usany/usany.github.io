@@ -9,12 +9,11 @@ import {
   AdvancedMarker,
   InfoWindow,
   Map,
-  Marker,
   Pin
 } from "@vis.gl/react-google-maps";
 import {
   collection,
-  onSnapshot,
+  getDocs,
   orderBy,
   query
 } from "firebase/firestore";
@@ -23,7 +22,6 @@ import {
   dbservice
 } from "src/baseApi/serverbase";
 import FilterDialogs from "src/pages/board/FilterDialogs/FilterDialogs";
-import { useImmer } from "use-immer";
 
 interface Props {
   onMarker: boolean;
@@ -93,33 +91,45 @@ function BoardMap({ mapAccordion, mapAccordionToggle, onMarker, onMarkerTrue, on
   }, []);
 
   useEffect(() => {
-    if (selectedValues[2].value === "최신순" || !selectedValues[2].value) {
-      onSnapshot(
-        query(collection(dbservice, "num"), orderBy("creatorClock", "desc")),
-        (snapshot) => {
-          const newArray = snapshot.docs.map((document) => {
-            return {
-              id: document.id,
-              ...document.data(),
-            };
-          });
-          setMessages(newArray);
-        }
-      );
-    } else {
-      onSnapshot(
-        query(collection(dbservice, "num"), orderBy("creatorClock")),
-        (snapshot) => {
-          const newArray = snapshot.docs.map((document) => {
-            return {
-              id: document.id,
-              ...document.data(),
-            };
-          });
-          setMessages(newArray);
-        }
-      );
+    const bringMessages = async () => {
+      let order = 'asc'
+      if (selectedValues[2].value === "최신순" || !selectedValues[2].value) {
+        order = 'desc'
+        // onSnapshot(
+        //   query(collection(dbservice, "num"), orderBy("creatorClock", order)),
+        //   (snapshot) => {
+        //     const newArray = snapshot.docs.map((document) => {
+        //       return {
+        //         id: document.id,
+        //         ...document.data(),
+        //       };
+        //     });
+        //     setMessages(newArray);
+        //   }
+        // );
+      } else {
+        // onSnapshot(
+        //   query(collection(dbservice, "num"), orderBy("creatorClock", order)),
+        //   (snapshot) => {
+        //     const newArray = snapshot.docs.map((document) => {
+        //       return {
+        //         id: document.id,
+        //         ...document.data(),
+        //       };
+        //     });
+        //     setMessages(newArray);
+        //   }
+        // );
+      }
+      const collectionQuery = query(collection(dbservice, "num"), orderBy("creatorClock", order))
+      const docs = await getDocs(collectionQuery)
+      const newArray = []
+      docs.forEach((doc) => {
+        newArray.push(doc.data())
+      })
+      setMessages(newArray)
     }
+    bringMessages()
   }, [selectedValues[2].value]);
 
   const onClickMarker = (newValue) => {

@@ -1,42 +1,29 @@
-import {
-  useState,
-  useEffect,
-  useRef,
-  useLayoutEffect,
-  useMemo,
-  Suspense,
-  lazy,
-} from "react";
-import WeatherView from "src/navigate/WeatherView";
-import Navigation from "src/navigate/Navigation";
-import Points from "src/pages/search/Points";
-import Avatar from "@mui/material/Avatar";
-import ToggleTabs from "src/pages/core/ToggleTabs";
-import { getStorage, ref, getDownloadURL } from "firebase/storage";
-import { doc, getDoc } from "firebase/firestore";
-import { auth, dbservice } from "src/baseApi/serverbase";
-import Checkbox from "@mui/material/Checkbox";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import FormGroup from "@mui/material/FormGroup";
 import Divider from "@mui/material/Divider";
-import { Link } from "react-router-dom";
-import { CreditCard } from "lucide-react";
-import { MessageCircle, Minimize2, Maximize2 } from "lucide-react";
-import { useSelector, useDispatch } from "react-redux";
+import { User } from "firebase/auth";
+import { doc, getDoc } from "firebase/firestore";
+import { getDownloadURL, getStorage, ref } from "firebase/storage";
+import { CreditCard, MessageCircle } from "lucide-react";
 import {
-  cardAccordionReducer,
-  change,
+  useEffect,
+  useState
+} from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import staticImage from "src/assets/blue.png";
+import { dbservice } from "src/baseApi/serverbase";
+import { useSelectors } from "src/hooks/useSelectors";
+import Navigation from "src/navigate/Navigation";
+import WeatherView from "src/navigate/WeatherView";
+import Avatars from "src/pages/core/Avatars";
+import ToggleTabs from "src/pages/core/ToggleTabs";
+import {
+  cardOff,
+  cardOn
 } from "src/stateSlices/cardAccordionSlice";
-import { changeBottomNavigation } from "src/stateSlices/bottomNavigationSlice";
-import { changeMessageAccordion } from "src/stateSlices/messageAccordionSlice";
-import { changeProfileUrl } from "src/stateSlices/profileUrlSlice";
+import { messageOff, messageOn } from "src/stateSlices/messageAccordionSlice";
 import { changeProfileColor } from "src/stateSlices/profileColorSlice";
 import { changeProfileImage } from "src/stateSlices/profileImageSlice";
-import { User } from "firebase/auth";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import Avatars from "src/pages/core/Avatars";
-import staticImage from "src/assets/blue.png";
-import { useSelectors } from "src/hooks/useSelectors";
+import { changeProfileUrl } from "src/stateSlices/profileUrlSlice";
 
 // const Puller = styled('div')(({ theme }) => ({
 //     width: 30,
@@ -181,10 +168,12 @@ const HeaderViews = ({ userObj }: Props) => {
                     {cardAccordion ? (
                       <CreditCard
                         color="#2196f3"
-                        onClick={() => dispatch(change())}
+                        onClick={() =>
+                          dispatch(cardOff())
+                        }
                       />
                     ) : (
-                      <CreditCard onClick={() => dispatch(change())} />
+                      <CreditCard onClick={() => dispatch(cardOn())} />
                     )}
                   </div>
                   <Divider
@@ -210,11 +199,11 @@ const HeaderViews = ({ userObj }: Props) => {
                     {messageAccordion ? (
                       <MessageCircle
                         color="#2196f3"
-                        onClick={() => dispatch(changeMessageAccordion())}
+                        onClick={() => dispatch(messageOff())}
                       />
                     ) : (
                       <MessageCircle
-                        onClick={() => dispatch(changeMessageAccordion())}
+                        onClick={() => dispatch(messageOn())}
                       />
                     )}
                   </div>

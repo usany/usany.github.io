@@ -1,7 +1,7 @@
 import { User } from "firebase/auth";
 import {
   collection,
-  onSnapshot,
+  getDocs,
   orderBy,
   query
 } from "firebase/firestore";
@@ -11,9 +11,9 @@ import {
 } from "src/baseApi/serverbase";
 // import Cards from "src/pages/main/card/Cards";
 import { SwipeableViews } from "src/navigate/SwipeableViews";
-import PageTitle from "src/pages/core/pageTitle/PageTitle";
 import BoardMap from "src/pages/board/boardMap/BoardMap";
 import FilterDialogs from "src/pages/board/FilterDialogs/FilterDialogs";
+import PageTitle from "src/pages/core/pageTitle/PageTitle";
 import { useImmer } from "use-immer";
 import CardsList from "../main/card/CardsList";
 // import { AlarmCheck, AlertCircle, Building, Clock, DoorOpen, MessagesSquare, Pen, PenBox, Pencil, PenSquare, PenTool, Presentation, Search, SearchCheck, SearchCode, SearchSlash, Siren, TowerControl, Umbrella, UserCheck, UserRound, Watch } from "lucide-react";
@@ -68,37 +68,48 @@ function Notice({ userObj, borrow }: Props) {
       behavior: "instant", // Optional if you want to skip the scrolling animation
     });
   }, []);
-
   useEffect(() => {
-    if (selectedValues[2].value === "최신순" || !selectedValues[2].value) {
-      onSnapshot(
-        query(collection(dbservice, "num"), orderBy("creatorClock", "desc")),
-        (snapshot) => {
-          const newArray = snapshot.docs.map((document) => {
-            return {
-              id: document.id,
-              ...document.data(),
-            };
-          });
-          setMessages(newArray);
-        }
-      );
-    } else {
-      onSnapshot(
-        query(collection(dbservice, "num"), orderBy("creatorClock")),
-        (snapshot) => {
-          const newArray = snapshot.docs.map((document) => {
-            return {
-              id: document.id,
-              ...document.data(),
-            };
-          });
-          setMessages(newArray);
-        }
-      );
+    const bringMessages = async () => {
+      let order = 'asc'
+      if (selectedValues[2].value === "최신순" || !selectedValues[2].value) {
+        order = 'desc'
+        // onSnapshot(
+        //   query(collection(dbservice, "num"), orderBy("creatorClock", order)),
+        //   (snapshot) => {
+        //     const newArray = snapshot.docs.map((document) => {
+        //       return {
+        //         id: document.id,
+        //         ...document.data(),
+        //       };
+        //     });
+        //     setMessages(newArray);
+        //   }
+        // );
+      } else {
+        // onSnapshot(
+        //   query(collection(dbservice, "num"), orderBy("creatorClock", order)),
+        //   (snapshot) => {
+        //     const newArray = snapshot.docs.map((document) => {
+        //       return {
+        //         id: document.id,
+        //         ...document.data(),
+        //       };
+        //     });
+        //     setMessages(newArray);
+        //   }
+        // );
+      }
+      const collectionQuery = query(collection(dbservice, "num"), orderBy("creatorClock", order))
+      const docs = await getDocs(collectionQuery)
+      const newArray = []
+      docs.forEach((doc) => {
+        newArray.push(doc.data())
+      })
+      setMessages(newArray)
     }
+    bringMessages()
   }, [selectedValues[2].value]);
-
+  console.log(messages)
   return (
     <div>
       {/* <AlarmCheck />
