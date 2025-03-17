@@ -1,4 +1,3 @@
-import { useState, useEffect, useReducer } from 'react'
 import ProfileForm from 'src/pages/profile/ProfileForm'
 import ProfileConnects from 'src/pages/profile/ProfileConnects'
 
@@ -16,13 +15,12 @@ const ProfileActions = ({
   //     setCards({point: points, done: doneCards})
   //   })
   // }, [])
-
   return (
     <div>
-      {userObj.uid === user.uid ? 
+      {userObj.uid === user.uid ?
         <ProfileForm userObj={userObj} />
         :
-        <ProfileConnects userObj={userObj} user={user} alliesCollection={alliesCollection} handleFollowers={handleFollowers} handleFollowings={handleFollowings}/>      
+        <ProfileConnects userObj={userObj} user={user} alliesCollection={alliesCollection} handleFollowers={handleFollowers} handleFollowings={handleFollowings}/>
       }
     </div>
   );
