@@ -1,31 +1,46 @@
 import {
+  useState,
+  useEffect,
+  useRef,
+  useMemo,
+  useLayoutEffect,
+  useContext,
+  useReducer,
+  Suspense,
+  lazy,
+} from 'react'
+import Specifics from 'src/pages/core/specifics/Specifics'
+import {
   MorphingDialog,
-  MorphingDialogContainer,
+  MorphingDialogTrigger,
   MorphingDialogContent,
-  MorphingDialogTrigger
-} from '@/components/ui/morphing-dialog';
-import { User } from 'firebase/auth';
-import { useState } from 'react';
-import Specifics from 'src/pages/core/specifics/Specifics';
-import CardsViews from '../../main/card/CardsViews';
+  MorphingDialogTitle,
+  MorphingDialogImage,
+  MorphingDialogSubtitle,
+  MorphingDialogClose,
+  MorphingDialogDescription,
+  MorphingDialogContainer,
+} from '@/components/ui/morphing-dialog'
+import CardsViews from '../../main/card/CardsViews'
+import { User } from 'firebase/auth'
+import Morphings from './Morphings'
 
 interface Props {
-  msgObj: { id: string, text: object },
-  isOwner: boolean,
-  userObj: User | null,
-  num: number | null,
-  points: number | null,
+  msgObj: { id: string; text: object }
+  isOwner: boolean
+  userObj: User | null
+  num: number | null
+  points: number | null
 }
 
-const MorphingDialogs = ({
-  msgObj,
-  isOwner,
-  userObj,
-  num,
-  points,
-}: Props) => {
-  const [deleted, setDeleted] = useState(false)
-  const changeDeleted = (newValue) => setDeleted(newValue)
+const MorphingDialogs = ({ msgObj, isOwner, userObj, num, points }: Props) => {
+  // const [drawerOpen, setDrawerOpen] = useState(false)
+  // const drawerOpenTrue = () => {
+  //   setDrawerOpen(true)
+  // }
+  // const drawerOpenFalse = () => {
+  //   setDrawerOpen(false)
+  // }
   return (
     <MorphingDialog
       transition={{
@@ -34,15 +49,22 @@ const MorphingDialogs = ({
       }}
     >
       <MorphingDialogTrigger>
-        <CardsViews msgObj={msgObj} isOwner={isOwner} userObj={userObj} num={num} points={points} />
+        <CardsViews
+          msgObj={msgObj}
+          isOwner={isOwner}
+          userObj={userObj}
+          num={num}
+          points={points}
+        />
       </MorphingDialogTrigger>
       <MorphingDialogContainer>
-        <MorphingDialogContent>
-          <Specifics deleted={deleted} changeDeleted={changeDeleted} userObj={userObj} message={msgObj} />
-        </MorphingDialogContent>
+        <Morphings userObj={userObj} message={msgObj} />
+        {/* <MorphingDialogContent drawerOpen={drawerOpen} drawerOpenFalse={drawerOpenFalse}>
+          <Specifics drawerOpenTrue={drawerOpenTrue} userObj={userObj} message={msgObj} />
+        </MorphingDialogContent> */}
       </MorphingDialogContainer>
     </MorphingDialog>
-  );
+  )
 }
 
 export default MorphingDialogs

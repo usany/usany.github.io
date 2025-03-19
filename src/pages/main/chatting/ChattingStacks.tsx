@@ -1,21 +1,54 @@
 import { useState, useEffect, useLayoutEffect } from 'react'
 import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
-import { collection, query, QuerySnapshot, where, orderBy, addDoc, getDoc, getDocs, doc, onSnapshot, deleteDoc, updateDoc, limit } from 'firebase/firestore';
+import {
+  collection,
+  query,
+  QuerySnapshot,
+  where,
+  orderBy,
+  addDoc,
+  getDoc,
+  getDocs,
+  doc,
+  onSnapshot,
+  deleteDoc,
+  updateDoc,
+  limit,
+} from 'firebase/firestore'
 import { webSocket, onClick } from 'src/webSocket.tsx'
-import { User } from 'firebase/auth';
-import { getStorage, ref, uploadBytes, uploadString, uploadBytesResumable, getDownloadURL,  } from "firebase/storage";
+import { User } from 'firebase/auth'
+import {
+  getStorage,
+  ref,
+  uploadBytes,
+  uploadString,
+  uploadBytesResumable,
+  getDownloadURL,
+} from 'firebase/storage'
 import Chats from 'src/pages/main/chatting/Chats'
+import { AnimatedList } from 'src/components/ui/animated-list'
 
 interface Props {
   userObj: User
 }
 
-const ChattingStacks = ({ userObj, longPressChat, changeLongPressChat, onLongPress, changeOnLongPress }: Props) => {
+const ChattingStacks = ({
+  userObj,
+  longPressChat,
+  changeLongPressChat,
+  onLongPress,
+  changeOnLongPress,
+}: Props) => {
   // const [sortedMyConversationUid, setSortedMyConversationUid] = useState([])
   // const [profileUrls, setProfileUrls] = useState([])
   // const [newMessage, setNewMessage] = useState(true)
   const [chattings, setChattings] = useState({})
-  const sorted = Object.keys(chattings).sort((elementOne, elementTwo) => {return chattings[elementTwo].messageClockNumber-chattings[elementOne].messageClockNumber})
+  const sorted = Object.keys(chattings).sort((elementOne, elementTwo) => {
+    return (
+      chattings[elementTwo].messageClockNumber -
+      chattings[elementOne].messageClockNumber
+    )
+  })
   // console.log(sorted)
   useEffect(() => {
     const bringChattings = async () => {
@@ -34,16 +67,27 @@ const ChattingStacks = ({ userObj, longPressChat, changeLongPressChat, onLongPre
   }, [])
 
   useEffect(() => {
-    if (!webSocket) return;
+    if (!webSocket) return
     function sMessageCallback(message) {
-      const { msg, userUid, id, target, messageClock, messageClockNumber, conversation, conversationUid, conversationName, profileUrl } = message;
+      const {
+        msg,
+        userUid,
+        id,
+        target,
+        messageClock,
+        messageClockNumber,
+        conversation,
+        conversationUid,
+        conversationName,
+        profileUrl,
+      } = message
       let userOne
       let userTwo
       let userOneDisplayName
       let userTwoDisplayName
       let userOneProfileUrl
       let userTwoProfileUrl
-      const messageCount = chattings[conversation].messageCount+1
+      const messageCount = chattings[conversation].messageCount + 1
       if (userUid < conversationUid) {
         userOne = userUid
         userTwo = conversationUid
@@ -57,22 +101,50 @@ const ChattingStacks = ({ userObj, longPressChat, changeLongPressChat, onLongPre
         userTwoDisplayName = id
         userTwoProfileUrl = profileUrl
       }
-      const replaceObj = {userUid: userUid, userName: id, userOne: userOne, userOneDisplayName: userOneDisplayName, userTwo: userTwo, userTwoDisplayName: userTwoDisplayName, message: msg, messageClock: messageClock, messageClockNumber: messageClockNumber, userOneProfileUrl: userOneProfileUrl, userTwoProfileUrl: userTwoProfileUrl, messageCount: messageCount}      // const location = chats.map((element) => element.conversation).indexOf(conversation)
-      const newChattings = {...chattings, [conversation]: replaceObj}
+      const replaceObj = {
+        userUid: userUid,
+        userName: id,
+        userOne: userOne,
+        userOneDisplayName: userOneDisplayName,
+        userTwo: userTwo,
+        userTwoDisplayName: userTwoDisplayName,
+        message: msg,
+        messageClock: messageClock,
+        messageClockNumber: messageClockNumber,
+        userOneProfileUrl: userOneProfileUrl,
+        userTwoProfileUrl: userTwoProfileUrl,
+        messageCount: messageCount,
+      } // const location = chats.map((element) => element.conversation).indexOf(conversation)
+      const newChattings = { ...chattings, [conversation]: replaceObj }
       setChattings(newChattings)
     }
-    const sorted = Object.keys(chattings).sort((elementOne, elementTwo) => {return chattings[elementTwo].messageClockNumber-chattings[elementOne].messageClockNumber})
-    sorted.map((element) => {
-      webSocket.on(`sMessage${element}`, sMessageCallback);
-      return () => {
-        webSocket.off(`sMessage${element}`, sMessageCallback);
-      };
+    const sorted = Object.keys(chattings).sort((elementOne, elementTwo) => {
+      return (
+        chattings[elementTwo].messageClockNumber -
+        chattings[elementOne].messageClockNumber
+      )
     })
-  });
+    sorted.map((element) => {
+      webSocket.on(`sMessage${element}`, sMessageCallback)
+      return () => {
+        webSocket.off(`sMessage${element}`, sMessageCallback)
+      }
+    })
+  })
   useEffect(() => {
-    if (!webSocket) return;
+    if (!webSocket) return
     function sNewMessageCallback(message) {
-      const { msg, userUid, id, target, messageClock, messageClockNumber, conversation, conversationUid, conversationName } = message;
+      const {
+        msg,
+        userUid,
+        id,
+        target,
+        messageClock,
+        messageClockNumber,
+        conversation,
+        conversationUid,
+        conversationName,
+      } = message
       let userOne
       let userTwo
       let userOneDisplayName
@@ -89,16 +161,27 @@ const ChattingStacks = ({ userObj, longPressChat, changeLongPressChat, onLongPre
         userOneDisplayName = conversationName
         userTwoDisplayName = id
       }
-      const replaceObj = {userUid: userUid, userName: id, userOne: userOne, userOneDisplayName: userOneDisplayName, userTwo: userTwo, userTwoDisplayName: userTwoDisplayName, message: msg, messageClock: messageClock, messageClockNumber: messageClockNumber, messageCount: messageCount}
-      const newChattings = {...chattings, [conversation]: replaceObj}
+      const replaceObj = {
+        userUid: userUid,
+        userName: id,
+        userOne: userOne,
+        userOneDisplayName: userOneDisplayName,
+        userTwo: userTwo,
+        userTwoDisplayName: userTwoDisplayName,
+        message: msg,
+        messageClock: messageClock,
+        messageClockNumber: messageClockNumber,
+        messageCount: messageCount,
+      }
+      const newChattings = { ...chattings, [conversation]: replaceObj }
       setChattings(newChattings)
     }
-    webSocket.on(`sNewMessage`, sNewMessageCallback);
+    webSocket.on(`sNewMessage`, sNewMessageCallback)
     return () => {
-      webSocket.off(`sNewMessage`, sNewMessageCallback);
-    };
-  });
-  
+      webSocket.off(`sNewMessage`, sNewMessageCallback)
+    }
+  })
+
   // useEffect(() => {
   //   const sorted = Object.keys(chattings).sort((elementOne, elementTwo) => {return chattings[elementTwo].messageClockNumber-chattings[elementOne].messageClockNumber})
   //   setSortedMyConversationUid(sorted)
@@ -120,8 +203,8 @@ const ChattingStacks = ({ userObj, longPressChat, changeLongPressChat, onLongPre
       userConversation.splice(userConversation.indexOf(conversation), 1)
     }
     setChattings(userChattings)
-    updateDoc(userRef, {chattings: userChattings});
-    updateDoc(userRef, {conversation: userConversation});
+    updateDoc(userRef, { chattings: userChattings })
+    updateDoc(userRef, { conversation: userConversation })
   }
 
   return (
@@ -142,12 +225,28 @@ const ChattingStacks = ({ userObj, longPressChat, changeLongPressChat, onLongPre
             profileUrl = chattings[element].userOneProfileUrl
           }
           return (
-            <Chats userObj={userObj} profileUrl={profileUrl} conversation={element} displayName={displayName} chattingUid={chattingUid} multiple={false} clock={clock} message={chattings[element]} longPressChat={longPressChat} changeLongPressChat={changeLongPressChat} onLongPress={onLongPress} changeOnLongPress={changeOnLongPress} onDelete={onDelete}/>
+            <AnimatedList>
+              <Chats
+                userObj={userObj}
+                profileUrl={profileUrl}
+                conversation={element}
+                displayName={displayName}
+                chattingUid={chattingUid}
+                multiple={false}
+                clock={clock}
+                message={chattings[element]}
+                longPressChat={longPressChat}
+                changeLongPressChat={changeLongPressChat}
+                onLongPress={onLongPress}
+                changeOnLongPress={changeOnLongPress}
+                onDelete={onDelete}
+              />
+            </AnimatedList>
           )
         }
       })}
     </>
-  );
+  )
 }
 
 export default ChattingStacks

@@ -73,7 +73,6 @@ function CardsStacks({ userObj }: Props) {
       setCardLoaded(true)
     }
     bringCards()
-
     // onSnapshot(
     //   query(collection(dbservice, "num"), orderBy("creatorClock", "desc")),
     //   (snapshot) => {
@@ -101,6 +100,7 @@ function CardsStacks({ userObj }: Props) {
     //   }
     // );
   }, []);
+
   useEffect(() => {
     if (!onLongPress) {
       setLongPressCard(null);

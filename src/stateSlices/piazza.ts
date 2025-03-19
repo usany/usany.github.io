@@ -3,10 +3,23 @@ import { useState, useEffect, useLayoutEffect, Suspense } from 'react'
 // import Card from '@mui/material/Card';
 // import { CardActionArea, CardActions } from '@mui/material';
 import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
-import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnapshot, deleteDoc, updateDoc, limit } from 'firebase/firestore';
+import {
+  collection,
+  query,
+  where,
+  orderBy,
+  addDoc,
+  getDoc,
+  getDocs,
+  doc,
+  onSnapshot,
+  deleteDoc,
+  updateDoc,
+  limit,
+} from 'firebase/firestore'
 import { Link } from 'react-router-dom'
 import { webSocket, onClick } from 'src/webSocket.tsx'
-import { User } from 'firebase/auth';
+import { User } from 'firebase/auth'
 import ChattingStacks from 'src/pages/main/chatting/ChattingStacks'
 import Chats from 'src/pages/main/chatting/Chats'
 import { useQuery } from '@tanstack/react-query'
@@ -15,9 +28,13 @@ import { useQuery } from '@tanstack/react-query'
 // import Badge from '@mui/material/Badge';
 // import Chip from '@mui/material/Chip';
 import { useSelector, useDispatch } from 'react-redux'
-import { AnimatedList } from 'src/src/components/ui/animated-list';
-import { CardActionArea, CardActions, ClickAwayListener } from '@mui/material';
-import { createApi, fetchBaseQuery, fakeBaseQuery,  } from '@reduxjs/toolkit/query/react'
+import { AnimatedList } from 'src/components/ui/animated-list'
+import { CardActionArea, CardActions, ClickAwayListener } from '@mui/material'
+import {
+  createApi,
+  fetchBaseQuery,
+  fakeBaseQuery,
+} from '@reduxjs/toolkit/query/react'
 
 export const piazza = createApi({
   reducerPath: 'piazza',
@@ -27,7 +44,11 @@ export const piazza = createApi({
       async queryFn(arg) {
         try {
           const piazzaRef = collection(dbservice, 'chats_group')
-          const piazzaCollection = query(piazzaRef, orderBy('messageClockNumber', 'desc'), limit(1))
+          const piazzaCollection = query(
+            piazzaRef,
+            orderBy('messageClockNumber', 'desc'),
+            limit(1),
+          )
           const piazzaMessages = await getDocs(piazzaCollection)
           // console.log(piazzaMessages)
           // piazzaMessages.forEach((element) => console.log(element.data()))
@@ -36,7 +57,7 @@ export const piazza = createApi({
         } catch (error) {
           return { error: error }
         }
-      }
+      },
       // query: (arg) => {
       //   return arg
       // }
@@ -61,6 +82,6 @@ export const piazza = createApi({
       // },
     }),
   }),
-})  
+})
 
 export const { useGetPiazzaQuery } = piazza

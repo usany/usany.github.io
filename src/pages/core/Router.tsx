@@ -61,10 +61,10 @@ const Router = ({ userObj }: Props) => {
                     path="/ranking"
                     Component={() => <Ranking userObj={userObj} />}
                   />
-                  <Route
+                  {/* <Route
                     path="/specific"
                     Component={() => <Specific userObj={userObj} />}
-                  />
+                  /> */}
                   <Route
                     path="/contact"
                     Component={() => <Contact userObj={userObj} />}
@@ -81,9 +81,17 @@ const Router = ({ userObj }: Props) => {
                     Component={() => <Home userObj={userObj} />}
                   />
                   <Route
+                    path="/add"
+                    Component={() => <Home userObj={userObj} />}
+                  />
+                  <Route
+                    path="/board"
+                    Component={() => <Home userObj={userObj} />}
+                  />
+                  {/* <Route
                     path="/specific"
                     Component={() => <Specific userObj={userObj} />}
-                  />
+                  /> */}
                 </Route>
               )}
             </Routes>

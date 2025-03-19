@@ -3,10 +3,23 @@ import { useState, useEffect, useLayoutEffect, Suspense } from 'react'
 // import Card from '@mui/material/Card';
 // import { CardActionArea, CardActions } from '@mui/material';
 import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
-import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnapshot, deleteDoc, updateDoc, limit } from 'firebase/firestore';
+import {
+  collection,
+  query,
+  where,
+  orderBy,
+  addDoc,
+  getDoc,
+  getDocs,
+  doc,
+  onSnapshot,
+  deleteDoc,
+  updateDoc,
+  limit,
+} from 'firebase/firestore'
 import { Link } from 'react-router-dom'
 import { webSocket, onClick } from 'src/webSocket.tsx'
-import { User } from 'firebase/auth';
+import { User } from 'firebase/auth'
 import ChattingStacks from 'src/pages/main/chatting/ChattingStacks'
 import Chats from 'src/pages/main/chatting/Chats'
 import { useQuery } from '@tanstack/react-query'
@@ -15,9 +28,13 @@ import { useQuery } from '@tanstack/react-query'
 // import Badge from '@mui/material/Badge';
 // import Chip from '@mui/material/Chip';
 import { useSelector, useDispatch } from 'react-redux'
-import { AnimatedList } from 'src/src/components/ui/animated-list';
-import { CardActionArea, CardActions, ClickAwayListener } from '@mui/material';
-import { createApi, fetchBaseQuery, fakeBaseQuery, } from '@reduxjs/toolkit/query/react'
+import { AnimatedList } from 'src/components/ui/animated-list'
+import { CardActionArea, CardActions, ClickAwayListener } from '@mui/material'
+import {
+  createApi,
+  fetchBaseQuery,
+  fakeBaseQuery,
+} from '@reduxjs/toolkit/query/react'
 import axios from 'axios'
 
 const getCurrentWeather = () => {
@@ -25,7 +42,9 @@ const getCurrentWeather = () => {
   const latitude = 37.5948
   const longitude = 127.0531
 
-  const response = axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&APPID=${APIKEY}&units=metric`)
+  const response = axios.get(
+    `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&APPID=${APIKEY}&units=metric`,
+  )
   return response
   // .then((response) => {
   //     setWeatherInfo({
@@ -56,12 +75,14 @@ export const weather = createApi({
           const latitude = 37.5948
           const longitude = 127.0531
 
-          const response = axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&APPID=${APIKEY}&units=metric`)
+          const response = axios.get(
+            `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&APPID=${APIKEY}&units=metric`,
+          )
           return { data: response }
         } catch (error) {
           return { error: error }
         }
-      }
+      },
       // query: (arg) => {
       //   return arg
       // }
