@@ -1,35 +1,15 @@
 import {
-  useState,
-  useEffect,
-  useRef,
-  useMemo,
-  useLayoutEffect,
-  useContext,
-  useReducer,
-  Suspense,
-  lazy,
+  MorphingDialogContent
+} from '@/components/ui/morphing-dialog'
+import { User } from 'firebase/auth'
+import {
+  useState
 } from 'react'
 import Specifics from 'src/pages/core/specifics/Specifics'
-import {
-  MorphingDialog,
-  MorphingDialogTrigger,
-  MorphingDialogContent,
-  MorphingDialogTitle,
-  MorphingDialogImage,
-  MorphingDialogSubtitle,
-  MorphingDialogClose,
-  MorphingDialogDescription,
-  MorphingDialogContainer,
-} from '@/components/ui/morphing-dialog'
-import CardsViews from '../../main/card/CardsViews'
-import { User } from 'firebase/auth'
 
 interface Props {
-  msgObj: { id: string; text: object }
-  isOwner: boolean
+  message: { id: string; text: object }
   userObj: User | null
-  num: number | null
-  points: number | null
 }
 
 const Morphings = ({ message, userObj }: Props) => {

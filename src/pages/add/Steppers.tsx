@@ -1,6 +1,6 @@
-import Stepper from '@mui/material/Stepper'
 import Step from '@mui/material/Step'
 import StepLabel from '@mui/material/StepLabel'
+import Stepper from '@mui/material/Stepper'
 
 const authSteps = ['계정 입력', '프로필 입력']
 const borrowSteps = [
@@ -18,17 +18,17 @@ const lendSteps = [
   '반납 완료',
 ]
 
-function Steppers({ msgObj }) {
+function Steppers({ message }) {
   return (
     <div>
-      <Stepper activeStep={msgObj.round - 1} alternativeLabel>
-        {msgObj.text.choose === 1 &&
+      <Stepper activeStep={message.round - 1} alternativeLabel>
+        {message.text.choose === 1 &&
           borrowSteps.map((label) => (
             <Step key={label}>
               <StepLabel>{label}</StepLabel>
             </Step>
           ))}
-        {msgObj.text.choose === 2 &&
+        {message.text.choose === 2 &&
           lendSteps.map((label) => (
             <Step key={label}>
               <StepLabel>{label}</StepLabel>

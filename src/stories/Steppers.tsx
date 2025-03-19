@@ -20,19 +20,19 @@ const lendSteps = [
     '반납 확인 중',
     '반납 완료',
 ];
-  
-function Steppers({ msgObj }) {
+
+function Steppers({ message }) {
     return (
         <div>
-            <Stepper activeStep={msgObj.round-1} alternativeLabel>
-                {msgObj.text.choose === 1 && 
+            <Stepper activeStep={message.round-1} alternativeLabel>
+                {message.text.choose === 1 &&
                     borrowSteps.map((label) => (
                         <Step key={label}>
                             <StepLabel>{label}</StepLabel>
                         </Step>
                     ))
                 }
-                {msgObj.text.choose === 2 && 
+                {message.text.choose === 2 &&
                     lendSteps.map((label) => (
                         <Step key={label}>
                             <StepLabel>{label}</StepLabel>
@@ -41,7 +41,7 @@ function Steppers({ msgObj }) {
                 }
             </Stepper>
             <button onClick={() => {
-                msgObj.round = msgObj.round+1
+                message.round = message.round+1
             }}>continue</button>
         </div>
     )

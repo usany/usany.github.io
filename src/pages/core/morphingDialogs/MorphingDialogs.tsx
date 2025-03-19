@@ -1,39 +1,21 @@
 import {
-  useState,
-  useEffect,
-  useRef,
-  useMemo,
-  useLayoutEffect,
-  useContext,
-  useReducer,
-  Suspense,
-  lazy,
-} from 'react'
-import Specifics from 'src/pages/core/specifics/Specifics'
-import {
   MorphingDialog,
-  MorphingDialogTrigger,
-  MorphingDialogContent,
-  MorphingDialogTitle,
-  MorphingDialogImage,
-  MorphingDialogSubtitle,
-  MorphingDialogClose,
-  MorphingDialogDescription,
   MorphingDialogContainer,
+  MorphingDialogTrigger
 } from '@/components/ui/morphing-dialog'
-import CardsViews from '../../main/card/CardsViews'
 import { User } from 'firebase/auth'
+import CardsViews from '../../main/card/CardsViews'
 import Morphings from './Morphings'
 
 interface Props {
-  msgObj: { id: string; text: object }
+  message: { id: string; text: object }
   isOwner: boolean
   userObj: User | null
   num: number | null
   points: number | null
 }
 
-const MorphingDialogs = ({ msgObj, isOwner, userObj, num, points }: Props) => {
+const MorphingDialogs = ({ message, isOwner, userObj, num, points }: Props) => {
   // const [drawerOpen, setDrawerOpen] = useState(false)
   // const drawerOpenTrue = () => {
   //   setDrawerOpen(true)
@@ -50,7 +32,7 @@ const MorphingDialogs = ({ msgObj, isOwner, userObj, num, points }: Props) => {
     >
       <MorphingDialogTrigger>
         <CardsViews
-          msgObj={msgObj}
+          message={message}
           isOwner={isOwner}
           userObj={userObj}
           num={num}
@@ -58,9 +40,9 @@ const MorphingDialogs = ({ msgObj, isOwner, userObj, num, points }: Props) => {
         />
       </MorphingDialogTrigger>
       <MorphingDialogContainer>
-        <Morphings userObj={userObj} message={msgObj} />
+        <Morphings userObj={userObj} message={message} />
         {/* <MorphingDialogContent drawerOpen={drawerOpen} drawerOpenFalse={drawerOpenFalse}>
-          <Specifics drawerOpenTrue={drawerOpenTrue} userObj={userObj} message={msgObj} />
+          <Specifics drawerOpenTrue={drawerOpenTrue} userObj={userObj} message={message} />
         </MorphingDialogContent> */}
       </MorphingDialogContainer>
     </MorphingDialog>
