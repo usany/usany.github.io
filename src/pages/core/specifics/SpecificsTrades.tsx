@@ -88,12 +88,18 @@ const DrawerProfile = ({
         <ScrollArea className="overflow-y-scroll">
           <DrawersBar />
           <div className="flex flex-col items-center pt-5">
-            <Avatar className={'bg-profile-blue'}>
+            <Avatars
+              profile={true}
+              profileColor=""
+              profileUrl={message.creatorUrl}
+              piazza={null}
+            />
+            {/* <Avatar className={'bg-profile-blue'}>
               <AvatarImage src={url} />
               <AvatarFallback className="text-xl border-none	">
                 {displayName && displayName[0]}
               </AvatarFallback>
-            </Avatar>
+            </Avatar> */}
             <div>{displayName}</div>
             {/* {message?.displayName !== displayedName &&
                   <div>
