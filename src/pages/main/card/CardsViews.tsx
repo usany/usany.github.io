@@ -1,143 +1,252 @@
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Chip from "@mui/material/Chip";
-import { User } from "firebase/auth";
-import { Building, Watch } from "lucide-react";
+import { useState, useEffect, useLayoutEffect } from 'react'
+import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
 import {
-  useEffect,
-  useState
-} from "react";
-import { useSelector } from "react-redux";
-import staticImageJ from "src/assets/blue-01.png";
-import staticImg from "src/assets/pwa-512x512.png";
-import staticImageC from "src/assets/screen-01.png";
-import useCardsBackground from "src/hooks/useCardsBackground";
-import Avatars from "../../core/Avatars";
+  collection,
+  query,
+  QuerySnapshot,
+  where,
+  orderBy,
+  addDoc,
+  getDoc,
+  getDocs,
+  doc,
+  onSnapshot,
+  deleteDoc,
+  updateDoc,
+  limit,
+} from 'firebase/firestore'
+import { webSocket, onClick } from 'src/webSocket.tsx'
+import { User } from 'firebase/auth'
+import {
+  getStorage,
+  ref,
+  uploadBytes,
+  uploadString,
+  uploadBytesResumable,
+  getDownloadURL,
+} from 'firebase/storage'
+import Chats from 'src/pages/main/chatting/Chats'
+import { AnimatedList } from 'src/components/ui/animated-list'
 
 interface Props {
-  msgObj: { id: string; text: object };
-  isOwner: boolean;
-  userObj: User | null;
-  num: number | null;
-  points: number | null;
+  userObj: User
 }
-const shadowColorArray = [
-  "lightblue",
-  "lightcoral",
-  "lightcyan",
-  "lightgoldenrodyellow",
-  "lightgray",
-  "lightgreen",
-  "lightpink",
-  "lightsalmon",
-  "lightseagreen",
-  "lightskyblue",
-  "lightsteelblue",
-  "lightyellow",
-];
-const alpha = Array.from(Array(26)).map((e, i) => i + 65);
-const letters = alpha.map((x) => String.fromCharCode(x));
-const numbers = Array.from({ length: 10 }, (e, i) => `${i}`);
-const mergedArray = letters.concat(numbers);
 
-const CardsViews = ({ msgObj, isOwner, userObj, num, points }: Props) => {
-  const [staticImage, setStaticImage] = useState("");
-  const id = msgObj?.id || ''
-  const shadowColor =
-    shadowColorArray[
-    mergedArray.indexOf(String(id[0]).toUpperCase()) %
-    shadowColorArray.length
-    ];
-  const profileColor = useSelector((state) => state.profileColor.value);
-  // const profileImage = useSelector((state) => state.profileImage.value);
-  const theme = useSelector((state) => state.theme)
+const ChattingStacks = ({
+  userObj,
+  longPressChat,
+  changeLongPressChat,
+  onLongPress,
+  changeOnLongPress,
+}: Props) => {
+  // const [sortedMyConversationUid, setSortedMyConversationUid] = useState([])
+  // const [profileUrls, setProfileUrls] = useState([])
+  // const [newMessage, setNewMessage] = useState(true)
+  const [chattings, setChattings] = useState({})
+  const sorted = Object.keys(chattings).sort((elementOne, elementTwo) => {
+    return (
+      chattings[elementTwo].messageClockNumber -
+      chattings[elementOne].messageClockNumber
+    )
+  })
+  // console.log(sorted)
   useEffect(() => {
-    if (msgObj.text.count === "중도") {
-      setStaticImage(staticImageJ);
-    } else if (msgObj.text.count === "청운") {
-      setStaticImage(staticImageC);
-    } else {
-      setStaticImage(staticImg);
+    const bringChattings = async () => {
+      const docRef = doc(dbservice, `members/${userObj.uid}`)
+      const docSnap = await getDoc(docRef)
+      const newChattings = docSnap.data()?.chattings || {}
+      setChattings(newChattings)
     }
-  }, [msgObj]);
-  const profileUrl = msgObj?.creatorUrl;
-  const { color } = useCardsBackground()
+    bringChattings()
+    // onSnapshot(doc(dbservice, `members/${userObj.uid}`), (snapshot) => {
+    //   const newChattings = snapshot.data()?.chattings || {}
+    //   if (!sorted.length) {
+    //     setChattings(newChattings)
+    //   }
+    // })
+  }, [])
+
+  useEffect(() => {
+    if (!webSocket) return
+    function sMessageCallback(message) {
+      const {
+        msg,
+        userUid,
+        id,
+        target,
+        messageClock,
+        messageClockNumber,
+        conversation,
+        conversationUid,
+        conversationName,
+        profileUrl,
+      } = message
+      let userOne
+      let userTwo
+      let userOneDisplayName
+      let userTwoDisplayName
+      let userOneProfileUrl
+      let userTwoProfileUrl
+      const messageCount = chattings[conversation].messageCount + 1
+      if (userUid < conversationUid) {
+        userOne = userUid
+        userTwo = conversationUid
+        userOneDisplayName = id
+        userTwoDisplayName = conversationName
+        userOneProfileUrl = profileUrl
+      } else {
+        userOne = conversationUid
+        userTwo = userUid
+        userOneDisplayName = conversationName
+        userTwoDisplayName = id
+        userTwoProfileUrl = profileUrl
+      }
+      const replaceObj = {
+        userUid: userUid,
+        userName: id,
+        userOne: userOne,
+        userOneDisplayName: userOneDisplayName,
+        userTwo: userTwo,
+        userTwoDisplayName: userTwoDisplayName,
+        message: msg,
+        messageClock: messageClock,
+        messageClockNumber: messageClockNumber,
+        userOneProfileUrl: userOneProfileUrl,
+        userTwoProfileUrl: userTwoProfileUrl,
+        messageCount: messageCount,
+      } // const location = chats.map((element) => element.conversation).indexOf(conversation)
+      const newChattings = { ...chattings, [conversation]: replaceObj }
+      setChattings(newChattings)
+    }
+    const sorted = Object.keys(chattings).sort((elementOne, elementTwo) => {
+      return (
+        chattings[elementTwo].messageClockNumber -
+        chattings[elementOne].messageClockNumber
+      )
+    })
+    sorted.map((element) => {
+      webSocket.on(`sMessage${element}`, sMessageCallback)
+      return () => {
+        webSocket.off(`sMessage${element}`, sMessageCallback)
+      }
+    })
+  })
+  useEffect(() => {
+    if (!webSocket) return
+    function sNewMessageCallback(message) {
+      const {
+        msg,
+        userUid,
+        id,
+        target,
+        messageClock,
+        messageClockNumber,
+        conversation,
+        conversationUid,
+        conversationName,
+      } = message
+      let userOne
+      let userTwo
+      let userOneDisplayName
+      let userTwoDisplayName
+      const messageCount = chattings[conversation].messageCount
+      if (userUid < conversationUid) {
+        userOne = userUid
+        userTwo = conversationUid
+        userOneDisplayName = id
+        userTwoDisplayName = conversationName
+      } else {
+        userOne = conversationUid
+        userTwo = userUid
+        userOneDisplayName = conversationName
+        userTwoDisplayName = id
+      }
+      const replaceObj = {
+        userUid: userUid,
+        userName: id,
+        userOne: userOne,
+        userOneDisplayName: userOneDisplayName,
+        userTwo: userTwo,
+        userTwoDisplayName: userTwoDisplayName,
+        message: msg,
+        messageClock: messageClock,
+        messageClockNumber: messageClockNumber,
+        messageCount: messageCount,
+      }
+      const newChattings = { ...chattings, [conversation]: replaceObj }
+      setChattings(newChattings)
+    }
+    webSocket.on(`sNewMessage`, sNewMessageCallback)
+    return () => {
+      webSocket.off(`sNewMessage`, sNewMessageCallback)
+    }
+  })
+
+  // useEffect(() => {
+  //   const sorted = Object.keys(chattings).sort((elementOne, elementTwo) => {return chattings[elementTwo].messageClockNumber-chattings[elementOne].messageClockNumber})
+  //   setSortedMyConversationUid(sorted)
+  // }, [chattings])
+
+  const onDelete = async ({ conversation }) => {
+    const newSortedMyConversationUid = sorted
+    newSortedMyConversationUid.splice(sorted.indexOf(conversation), 1)
+    // console.log(newSortedMyConversationUid)
+    // setSortedMyConversationUid(newSortedMyConversationUid)
+    // setNewMessage(true)
+    changeLongPressChat(null)
+    const userRef = doc(dbservice, `members/${userObj.uid}`)
+    const userDoc = await getDoc(userRef)
+    const userChattings = userDoc.data().chattings || {}
+    const userConversation = userDoc.data().conversation || []
+    Reflect.deleteProperty(userChattings, conversation)
+    if (userConversation.indexOf(conversation) !== -1) {
+      userConversation.splice(userConversation.indexOf(conversation), 1)
+    }
+    setChattings(userChattings)
+    updateDoc(userRef, { chattings: userChattings })
+    updateDoc(userRef, { conversation: userConversation })
+  }
 
   return (
-    <div>
-      <Card
-        sx={{
-          width: 200,
-          height: 280,
-          boxShadow: `1.5px 1.5px 1.5px 1.5px ${shadowColor}`,
-          bgcolor: color
-        }}
-      >
-        <CardContent sx={{ padding: "5px" }}>
-          <div>
-            <div className="flex justify-between gap-1">
-              <Avatars
-                profile={false}
-                profileColor={profileColor}
+    <>
+      {sorted.map((element, index) => {
+        const clock = new Date(chattings[element].messageClock)
+        if (chattings[element]) {
+          let displayName
+          let chattingUid
+          let profileUrl
+          if (userObj.uid === chattings[element].userOne) {
+            displayName = chattings[element].userTwoDisplayName
+            chattingUid = chattings[element].userTwo
+            profileUrl = chattings[element].userTwoProfileUrl
+          } else {
+            displayName = chattings[element].userOneDisplayName
+            chattingUid = chattings[element].userOne
+            profileUrl = chattings[element].userOneProfileUrl
+          }
+          return (
+            <AnimatedList>
+              <Chats
+                userObj={userObj}
                 profileUrl={profileUrl}
-                // profileImage={profileImage}
-                fallback={msgObj.displayName ? msgObj.displayName[0] : ""}
-                piazza={null}
+                conversation={element}
+                displayName={displayName}
+                chattingUid={chattingUid}
+                multiple={false}
+                clock={clock}
+                message={chattings[element]}
+                longPressChat={longPressChat}
+                changeLongPressChat={changeLongPressChat}
+                onLongPress={onLongPress}
+                changeOnLongPress={changeOnLongPress}
+                onDelete={onDelete}
               />
-              {
-                <Chip
-                  label={`${msgObj.item} ${msgObj.text.choose === 1 ? " 빌리기" : " 빌려주기"}`}
-                />
-              }
-              {/* {item && <Chip label='내가 작성함' />} */}
-            </div>
-            {/* {!item &&
-                            <div className='flex justify-center pt-5'>
-                                빈 카드입니다
-                            </div>
-                        } */}
-            <div className="flex justify-center pt-1">
-              <CardMedia sx={{
-                width: 159,
-                height: 141
-              }} image={staticImg} />
-            </div>
-            {/* {locationState.locationOne &&
-                        } */}
-            <div className="flex flex-col gap-3 p-1">
-              <div className="flex gap-3">
-                <Building />
-                <div>
-                  {msgObj.text.count} {msgObj.text.counter} {msgObj.text.counting !== "" && msgObj.text.counting}
-                </div>
-              </div>
-              <div className='flex gap-3'>
-                <Watch />
-                <div className='flex flex-col'>
-                  <div className="flex">
-                    {msgObj.text.clock?.year}.{msgObj.text.clock?.month}.
-                    {msgObj.text.clock?.day} {msgObj.text.clock?.hour}:
-                    {msgObj.text.clock?.minute} 부터
-                  </div>
-                  <div className="flex">
-                    {msgObj.text.clocker?.year}.{msgObj.text.clocker?.month}.
-                    {msgObj.text.clock?.day} {msgObj.text.clocker?.hour}:
-                    {msgObj.text.clocker?.minute} 까지
-                  </div>
-                </div>
-              </div>
-            </div>
-            {/* <div className='flex flex-col justify-center pt-1'>
-                            {locationState && <div className='flex justify-center'>{locationState?.locationOne} {locationState?.locationTwo} {locationState?.locationThree}</div>}
-                            {fromTo.from && <div className='flex justify-center'>{fromTo.from.year}.{fromTo.from.month < 10 && '0'}{fromTo.from.month}.{fromTo.from.day < 10 && '0'}{fromTo.from.day} {fromTo.from.hour < 10 && '0'}{fromTo.from.hour}:{fromTo.from.minute < 10 && '0'}{fromTo.from.minute} 부터</div>}
-                            {fromTo.to && <div className='flex justify-center'>{fromTo.to.year}.{fromTo.to.month < 10 && '0'}{fromTo.to.month}.{fromTo.from.day < 10 && '0'}{fromTo.to.day} {fromTo.to.hour < 10 && '0'}{fromTo.to.hour}:{fromTo.to.minute < 10 && '0'}{fromTo.to.minute} 까지</div>}
-                        </div> */}
-          </div>
-        </CardContent>
-      </Card>
-    </div>
-  );
-};
+            </AnimatedList>
+          )
+        }
+      })}
+    </>
+  )
+}
 
-export default CardsViews;
+export default ChattingStacks

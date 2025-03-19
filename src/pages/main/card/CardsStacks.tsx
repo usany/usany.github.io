@@ -1,116 +1,104 @@
-import { Skeleton } from "@/components/ui/skeleton";
-import { ClickAwayListener } from "@mui/material";
-import { User } from "firebase/auth";
+import { useState, useEffect, useRef, Suspense, lazy } from 'react'
+import {
+  auth,
+  onSocialClick,
+  dbservice,
+  storage,
+  messaging,
+} from 'src/baseApi/serverbase'
 import {
   collection,
-  doc,
-  getDocs,
-  orderBy,
   query,
-  updateDoc
-} from "firebase/firestore";
-import { getToken } from "firebase/messaging";
-import { useEffect, useState } from "react";
-import {
-  dbservice,
-  messaging
-} from "src/baseApi/serverbase";
-import { AnimatedList } from "src/components/ui/animated-list";
-import Cards from "src/pages/main/card/Cards";
+  where,
+  orderBy,
+  addDoc,
+  getDocs,
+  doc,
+  onSnapshot,
+  deleteDoc,
+  updateDoc,
+} from 'firebase/firestore'
+import { getToken } from 'firebase/messaging'
+import { Skeleton } from '@/components/ui/skeleton'
+import { User } from 'firebase/auth'
+import Cards from 'src/pages/main/card/Cards'
+import { Chip, ClickAwayListener } from '@mui/material'
+import { AnimatedList } from 'src/components/ui/animated-list'
 
 interface Props {
-  userObj: User;
+  userObj: User
 }
 function CardsStacks({ userObj }: Props) {
-  const [messages, setMessages] = useState([]);
-  const [cardLoaded, setCardLoaded] = useState(false);
-  const [longPressCard, setLongPressCard] = useState(null);
-  const [onLongPress, setOnLongPress] = useState(0);
+  const [messages, setMessages] = useState([])
+  const [cardLoaded, setCardLoaded] = useState(false)
+  const [longPressCard, setLongPressCard] = useState(null)
+  const [onLongPress, setOnLongPress] = useState(0)
 
   useEffect(() => {
     const requestPermission = async () => {
       try {
         const token = await getToken(messaging, {
           vapidKey:
-            "BC6ZRwx8Ke48uprRA17AlLOqJ8HCMIwIVYLy32evgnACjpf0aH5yxHhkvEe5D8I73kjn69E2jF-bnMLeRbbzRRE",
-        });
+            'BC6ZRwx8Ke48uprRA17AlLOqJ8HCMIwIVYLy32evgnACjpf0aH5yxHhkvEe5D8I73kjn69E2jF-bnMLeRbbzRRE',
+        })
         if (token) {
-          console.log("Token generated:", token);
+          console.log('Token generated:', token)
           // Send this token to your server to store it for later use
           // webSocket.on('messagingToken', token)
           // return (
           //     webSocket.off('messagingToken', token)
           // )
-          const myDoc = doc(dbservice, `members/${userObj.uid}`);
-          updateDoc(myDoc, { messagingToken: token });
+          const myDoc = doc(dbservice, `members/${userObj.uid}`)
+          updateDoc(myDoc, { messagingToken: token })
         } else {
-          console.log("No registration token available.");
+          console.log('No registration token available.')
         }
       } catch (err) {
-        console.error("Error getting token:", err);
+        console.error('Error getting token:', err)
       }
-    };
-    requestPermission();
-  }, []);
+    }
+    requestPermission()
+  }, [])
 
   useEffect(() => {
-    const bringCards = async () => {
-      const collectionQuery = query(collection(dbservice, "num"), orderBy("creatorClock", "desc"))
-      const documents = await getDocs(collectionQuery)
-      const newArray = []
-      documents.forEach((element) => {
-        if (element.data().creatorId === userObj.uid) {
-          const newObject = { id: element.id, ...element.data() }
-          newArray.push(newObject)
-        } else if (
-          element.data().connectedId === userObj.uid && element.data().round !== 1
-        ) {
-          const newObject = { id: element.id, ...element.data() }
-          newArray.push(newObject)
-        }
-      })
-      setMessages(newArray)
-      setCardLoaded(true)
-    }
-    bringCards()
+    onSnapshot(
+      query(collection(dbservice, 'num'), orderBy('creatorClock', 'desc')),
+      (snapshot) => {
+        const newArray = snapshot.docs.map((document) => {
+          if (document.data().creatorId === userObj.uid) {
+            return {
+              id: document.id,
+              ...document.data(),
+            }
+          } else if (
+            document.data().connectedId === userObj.uid &&
+            document.data().round !== 1
+          ) {
+            return {
+              id: document.id,
+              ...document.data(),
+            }
+          }
+        })
+        const newArraySelection = newArray.filter((element) => {
+          return element !== undefined
+        })
+        setMessages(newArraySelection)
+        setCardLoaded(true)
+      },
+    )
+  }, [])
 
-    // onSnapshot(
-    //   query(collection(dbservice, "num"), orderBy("creatorClock", "desc")),
-    //   (snapshot) => {
-    //     const newArray = snapshot.docs.map((document) => {
-    //       if (document.data().creatorId === userObj.uid) {
-    //         return {
-    //           id: document.id,
-    //           ...document.data(),
-    //         };
-    //       } else if (
-    //         document.data().connectedId === userObj.uid &&
-    //         document.data().round !== 1
-    //       ) {
-    //         return {
-    //           id: document.id,
-    //           ...document.data(),
-    //         };
-    //       }
-    //     });
-    //     const newArraySelection = newArray.filter((element) => {
-    //       return element !== undefined;
-    //     });
-    //     setMessages(newArraySelection);
-    //     setCardLoaded(true);
-    //   }
-    // );
-  }, []);
   useEffect(() => {
     if (!onLongPress) {
-      setLongPressCard(null);
+      setLongPressCard(null)
     }
-  }, [onLongPress]);
+  }, [onLongPress])
   useEffect(() => {
     if (!longPressCard) {
-      setOnLongPress(0);
+      setOnLongPress(0)
     }
-  }, [longPressCard]);
+  }, [longPressCard])
   return (
     <div>
       {cardLoaded ? (
@@ -125,29 +113,29 @@ function CardsStacks({ userObj }: Props) {
             <>
               <div className="flex flex-wrap justify-around gap-5">
                 {messages.map((msg) => {
-                  const isOwner = msg.creatorId === userObj.uid;
+                  const isOwner = msg.creatorId === userObj.uid
                   if (msg.round !== 5) {
                     if (msg.creatorId === userObj.uid) {
                       return (
                         <ClickAwayListener
                           onClickAway={() => {
                             if (longPressCard === msg.id) {
-                              setOnLongPress(0);
-                              setLongPressCard(null);
+                              setOnLongPress(0)
+                              setLongPressCard(null)
                             }
                           }}
                         >
                           <div
                             onMouseDownCapture={() => {
-                              const longPress = msg.id;
-                              setLongPressCard(longPress);
+                              const longPress = msg.id
+                              setLongPressCard(longPress)
                             }}
                             // onMouseUp={() => {
                             //   setPressed(true)
                             // }}
                             onTouchStartCapture={() => {
-                              const longPress = msg.id;
-                              setLongPressCard(longPress);
+                              const longPress = msg.id
+                              setLongPressCard(longPress)
                             }}
                           >
                             <AnimatedList>
@@ -169,7 +157,7 @@ function CardsStacks({ userObj }: Props) {
                             </AnimatedList>
                           </div>
                         </ClickAwayListener>
-                      );
+                      )
                     } else if (
                       msg.connectedId === userObj.uid &&
                       msg.round !== 1
@@ -177,31 +165,33 @@ function CardsStacks({ userObj }: Props) {
                       return (
                         <div
                           onMouseDownCapture={() => {
-                            const longPress = msg.id;
-                            setLongPressCard(longPress);
+                            const longPress = msg.id
+                            setLongPressCard(longPress)
                           }}
                           // onMouseUp={() => {
                           //   setPressed(true)
                           // }}
                           onTouchStartCapture={() => {
-                            const longPress = msg.id;
-                            setLongPressCard(longPress);
+                            const longPress = msg.id
+                            setLongPressCard(longPress)
                           }}
                         >
-                          <Cards
-                            msgObj={msg}
-                            isOwner={isOwner}
-                            userObj={userObj}
-                            num={null}
-                            points={null}
-                            onLongPress={onLongPress}
-                            changeOnLongPress={(newValue) =>
-                              setOnLongPress(newValue)
-                            }
-                            longPressCard={longPressCard}
-                          />
+                          <AnimatedList>
+                            <Cards
+                              msgObj={msg}
+                              isOwner={isOwner}
+                              userObj={userObj}
+                              num={null}
+                              points={null}
+                              onLongPress={onLongPress}
+                              changeOnLongPress={(newValue) =>
+                                setOnLongPress(newValue)
+                              }
+                              longPressCard={longPressCard}
+                            />
+                          </AnimatedList>
                         </div>
-                      );
+                      )
                     }
                   }
                 })}
@@ -213,7 +203,7 @@ function CardsStacks({ userObj }: Props) {
         <Skeleton />
       )}
     </div>
-  );
+  )
 }
 
-export default CardsStacks;
+export default CardsStacks
