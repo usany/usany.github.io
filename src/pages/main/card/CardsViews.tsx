@@ -16,7 +16,7 @@ import useCardsBackground from "src/hooks/useCardsBackground";
 import Avatars from "../../core/Avatars";
 
 interface Props {
-  msgObj: { id: string; text: object };
+  message: { id: string; text: object };
   isOwner: boolean;
   userObj: User | null;
   num: number | null;
@@ -41,9 +41,9 @@ const letters = alpha.map((x) => String.fromCharCode(x));
 const numbers = Array.from({ length: 10 }, (e, i) => `${i}`);
 const mergedArray = letters.concat(numbers);
 
-const CardsViews = ({ msgObj, isOwner, userObj, num, points }: Props) => {
+const CardsViews = ({ message, isOwner, userObj, num, points }: Props) => {
   const [staticImage, setStaticImage] = useState("");
-  const id = msgObj?.id || ''
+  const id = message?.id || ''
   const shadowColor =
     shadowColorArray[
     mergedArray.indexOf(String(id[0]).toUpperCase()) %
@@ -53,15 +53,15 @@ const CardsViews = ({ msgObj, isOwner, userObj, num, points }: Props) => {
   // const profileImage = useSelector((state) => state.profileImage.value);
   const theme = useSelector((state) => state.theme)
   useEffect(() => {
-    if (msgObj.text.count === "중도") {
+    if (message.text.count === "중도") {
       setStaticImage(staticImageJ);
-    } else if (msgObj.text.count === "청운") {
+    } else if (message.text.count === "청운") {
       setStaticImage(staticImageC);
     } else {
       setStaticImage(staticImg);
     }
-  }, [msgObj]);
-  const profileUrl = msgObj?.creatorUrl;
+  }, [message]);
+  const profileUrl = message?.creatorUrl;
   const { color } = useCardsBackground()
 
   return (
@@ -82,12 +82,12 @@ const CardsViews = ({ msgObj, isOwner, userObj, num, points }: Props) => {
                 profileColor={profileColor}
                 profileUrl={profileUrl}
                 // profileImage={profileImage}
-                fallback={msgObj.displayName ? msgObj.displayName[0] : ""}
+                fallback={message.displayName ? message.displayName[0] : ""}
                 piazza={null}
               />
               {
                 <Chip
-                  label={`${msgObj.item} ${msgObj.text.choose === 1 ? " 빌리기" : " 빌려주기"}`}
+                  label={`${message.item} ${message.text.choose === 1 ? " 빌리기" : " 빌려주기"}`}
                 />
               }
               {/* {item && <Chip label='내가 작성함' />} */}
@@ -109,21 +109,21 @@ const CardsViews = ({ msgObj, isOwner, userObj, num, points }: Props) => {
               <div className="flex gap-3">
                 <Building />
                 <div>
-                  {msgObj.text.count} {msgObj.text.counter} {msgObj.text.counting !== "" && msgObj.text.counting}
+                  {message.text.count} {message.text.counter} {message.text.counting !== "" && message.text.counting}
                 </div>
               </div>
               <div className='flex gap-3'>
                 <Watch />
                 <div className='flex flex-col'>
                   <div className="flex">
-                    {msgObj.text.clock?.year}.{msgObj.text.clock?.month}.
-                    {msgObj.text.clock?.day} {msgObj.text.clock?.hour}:
-                    {msgObj.text.clock?.minute} 부터
+                    {message.text.clock?.year}.{message.text.clock?.month}.
+                    {message.text.clock?.day} {message.text.clock?.hour}:
+                    {message.text.clock?.minute} 부터
                   </div>
                   <div className="flex">
-                    {msgObj.text.clocker?.year}.{msgObj.text.clocker?.month}.
-                    {msgObj.text.clock?.day} {msgObj.text.clocker?.hour}:
-                    {msgObj.text.clocker?.minute} 까지
+                    {message.text.clocker?.year}.{message.text.clocker?.month}.
+                    {message.text.clock?.day} {message.text.clocker?.hour}:
+                    {message.text.clocker?.minute} 까지
                   </div>
                 </div>
               </div>

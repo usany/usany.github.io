@@ -200,9 +200,32 @@ function Profile({ userObj }: Props) {
     )
   }
   // getCoords().then(coords => console.log(coords))
+  // console.log(weather)
 
   return (
     <div>
+      {/* <div>
+        <div className="sticky top-20 p-5 bg-white">카드 목록</div>
+        <div>
+          <div>목록 카드 목록</div>
+          <div>목록 카드 목록</div>
+          <div>목록 카드 목록</div>
+          <div>목록 카드 목록</div>
+          <div>목록 카드 목록</div>
+          <div>목록 카드 목록</div>
+        </div>
+      </div>
+      <div>
+        <div className="sticky top-20 p-5 bg-white">목록 카드 목록 목록</div>
+        <div>
+          <div>목록 카드 목록</div>
+          <div>목록 카드 목록</div>
+          <div>목록 카드 목록</div>
+          <div>목록 카드 목록</div>
+          <div>목록 카드 목록</div>
+          <div>목록 카드 목록</div>
+        </div>
+      </div> */}
       <PageTitle
         title={`${userUid === userObj.uid ? "내" : shortenName} 프로필`}
       />

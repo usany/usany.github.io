@@ -5,7 +5,6 @@ import {
   collection,
   doc,
   getDocs,
-  onSnapshot,
   orderBy,
   query,
   updateDoc
@@ -112,11 +111,14 @@ function CardsStacks({ userObj }: Props) {
       setOnLongPress(0);
     }
   }, [longPressCard]);
+  console.log(messages)
   return (
     <div>
       {cardLoaded ? (
         <div>
-          {!messages.length ? (
+          {!messages.filter((value) => {
+            if (value.round !== 5) return value
+          }).length ? (
             <div className="flex items-center flex-col">
               <div className="flex justify-center border border-dashed rounded w-1/2 p-5">
                 진행 카드가 없습니다
@@ -125,14 +127,14 @@ function CardsStacks({ userObj }: Props) {
           ) : (
             <>
               <div className="flex flex-wrap justify-around gap-5">
-                {messages.map((msg) => {
-                  const isOwner = msg.creatorId === userObj.uid;
-                  if (msg.round !== 5) {
-                    if (msg.creatorId === userObj.uid) {
+                {messages.map((value) => {
+                  const isOwner = value.creatorId === userObj.uid;
+                  if (value.round !== 5) {
+                    if (value.creatorId === userObj.uid) {
                       return (
                         <ClickAwayListener
                           onClickAway={() => {
-                            if (longPressCard === msg.id) {
+                            if (longPressCard === value.id) {
                               setOnLongPress(0);
                               setLongPressCard(null);
                             }
@@ -140,20 +142,20 @@ function CardsStacks({ userObj }: Props) {
                         >
                           <div
                             onMouseDownCapture={() => {
-                              const longPress = msg.id;
+                              const longPress = value.id;
                               setLongPressCard(longPress);
                             }}
                             // onMouseUp={() => {
                             //   setPressed(true)
                             // }}
                             onTouchStartCapture={() => {
-                              const longPress = msg.id;
+                              const longPress = value.id;
                               setLongPressCard(longPress);
                             }}
                           >
                             <AnimatedList>
                               <Cards
-                                msgObj={msg}
+                                message={value}
                                 isOwner={isOwner}
                                 userObj={userObj}
                                 num={null}
@@ -172,25 +174,25 @@ function CardsStacks({ userObj }: Props) {
                         </ClickAwayListener>
                       );
                     } else if (
-                      msg.connectedId === userObj.uid &&
-                      msg.round !== 1
+                      value.connectedId === userObj.uid &&
+                      value.round !== 1
                     ) {
                       return (
                         <div
                           onMouseDownCapture={() => {
-                            const longPress = msg.id;
+                            const longPress = value.id;
                             setLongPressCard(longPress);
                           }}
                           // onMouseUp={() => {
                           //   setPressed(true)
                           // }}
                           onTouchStartCapture={() => {
-                            const longPress = msg.id;
+                            const longPress = value.id;
                             setLongPressCard(longPress);
                           }}
                         >
                           <Cards
-                            msgObj={msg}
+                            message={value}
                             isOwner={isOwner}
                             userObj={userObj}
                             num={null}
