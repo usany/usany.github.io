@@ -116,7 +116,9 @@ function CardsStacks({ userObj }: Props) {
     <div>
       {cardLoaded ? (
         <div>
-          {!messages.length ? (
+          {!messages.filter((value) => {
+            if (value.round !== 5) return value
+          }).length ? (
             <div className="flex items-center flex-col">
               <div className="flex justify-center border border-dashed rounded w-1/2 p-5">
                 진행 카드가 없습니다

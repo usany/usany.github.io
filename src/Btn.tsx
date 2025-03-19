@@ -294,10 +294,10 @@ function Btn({
     <>
       {isOwner ? (
         <>
-          {messageObj.round === 1 && (
+          {round === 1 && (
             <DeleteButton message={messageObj} deleteMessage={deleteMessage} decreaseRound={decreaseRound} />
           )}
-          {messageObj.round === 2 && (
+          {round === 2 && (
             <ConfirmButton
               message={messageObj}
               uid={uid}
@@ -305,7 +305,7 @@ function Btn({
               increaseRound={increaseRound}
             />
           )}
-          {messageObj.round === 3 && (
+          {round === 3 && (
             <div className="flex justify-center">
               {
                 messageObj.text.choose === 1 && (
@@ -328,7 +328,7 @@ function Btn({
               )}
             </div>
           )}
-          {messageObj.round === 4 && (
+          {round === 4 && (
             <div className="flex justify-center">
               {messageObj.text.choose === 1 && (
                 <div>
@@ -347,11 +347,11 @@ function Btn({
               )}
             </div>
           )}
-          {messageObj.round === 5 && <div>완료된 카드입니다</div>}
+          {round === 5 && <div>완료된 카드입니다</div>}
         </>
       ) : (
         <>
-          {messageObj.round === 1 && (
+          {round === 1 && (
             <SupportButton
               userObj={userObj}
               move={move}
@@ -364,7 +364,7 @@ function Btn({
             />
           )}
           {
-            messageObj.round === 2 && (
+            round === 2 && (
               <StopSupportButton
                 userObj={userObj}
                 message={messageObj}
@@ -385,7 +385,7 @@ function Btn({
             //     startIcon={<SendIcon />}>취소</Button>
             // </div>
           }
-          {messageObj.round === 3 && (
+          {round === 3 && (
             <div className="flex justify-center">
               {messageObj.text.choose === 1 && (
                 <div>
@@ -408,7 +408,7 @@ function Btn({
               }
             </div>
           )}
-          {messageObj.round === 4 && (
+          {round === 4 && (
             <div className="flex justify-center">
               {
                 messageObj.text.choose === 1 && (
@@ -432,7 +432,7 @@ function Btn({
               )}
             </div>
           )}
-          {messageObj.round === 5 && <div>완료된 카드입니다</div>}
+          {round === 5 && <div>완료된 카드입니다</div>}
         </>
       )}
     </>

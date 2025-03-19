@@ -18,10 +18,10 @@ const lendSteps = [
   '반납 완료',
 ]
 
-function Steppers({ message }) {
+function Steppers({ message, round }) {
   return (
     <div>
-      <Stepper activeStep={message.round - 1} alternativeLabel>
+      <Stepper activeStep={round - 1} alternativeLabel>
         {message.text.choose === 1 &&
           borrowSteps.map((label) => (
             <Step key={label}>

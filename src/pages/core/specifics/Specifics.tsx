@@ -2,7 +2,7 @@ import Button from '@mui/material/Button'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
-import { collection, doc, onSnapshot, query } from 'firebase/firestore'
+import { doc, getDoc } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 import { dbservice } from 'src/baseApi/serverbase'
 import Btn from 'src/Btn'
@@ -51,61 +51,60 @@ function Specifics({
     // changeDeleted(true)
     setDeleted(true)
   }
+  // useEffect(() => {
+  //   if (!messageObj) {
+  //     setMessageObj(message)
+  //   }
+  // })
   useEffect(() => {
-    if (!messageObj) {
-      setMessageObj(message)
+    const bringMessage = async ({ message }) => {
+      const docRef = doc(dbservice, `num/${message.id}`)
+      const docSnap = await getDoc(docRef)
+      setMessageObj({ id: message.id, round: docSnap.data().round, ...docSnap.data() })
+      setRound(docSnap.data().round)
     }
-  })
-  useEffect(() => {
-    // const bringMessage = async ({ message }) => {
-    //   const docRef = doc(dbservice, `num/${message.id}`)
-    //   const docSnap = await getDoc(docRef)
-    //   setMessageObj({ id: message.id, round: docSnap.data().round, ...docSnap.data() })
-    //   setRound(docSnap.data().round)
-    // }
-    // bringMessage({ message: message })
-    onSnapshot(query(collection(dbservice, "num")), (snapshot) => {
-      snapshot.docs.map((document) => {
-        if (document.id === message.id) {
-          setMessageObj({ id: document.id, ...document.data() });
-        }
-      });
-      const newArrayId = snapshot.docs.map((document) => document.id);
-      if (newArrayId.indexOf(message.id) === -1) {
-        setDeleted(true);
-      }
-    });
-  }, [])
-  console.log(messageObj)
-  useEffect(() => {
-    // const creatorPoints = async () => {
-    //   const docRef = doc(dbservice, `members/${message.creatorId}`)
-    //   const docSnap = await getDoc(docRef)
-    //   const points = docSnap.data()?.points
-    //   setNum(points)
-    // }
-    // creatorPoints()
-    onSnapshot(doc(dbservice, `members/${message.creatorId}`), (snapshot) => {
-      const number = snapshot.data()?.points;
-      setNum(number);
-    });
+    bringMessage({ message: message })
+    // onSnapshot(query(collection(dbservice, "num")), (snapshot) => {
+    //   snapshot.docs.map((document) => {
+    //     if (document.id === message.id) {
+    //       setMessageObj({ id: document.id, ...document.data() });
+    //     }
+    //   });
+    //   const newArrayId = snapshot.docs.map((document) => document.id);
+    //   if (newArrayId.indexOf(message.id) === -1) {
+    //     setDeleted(true);
+    //   }
+    // });
   }, [])
   useEffect(() => {
-    // const connectedPoints = async () => {
-    //   const docRef = doc(dbservice, `members/${message?.connectedId}`)
-    //   const docSnap = await getDoc(docRef)
-    //   const points = docSnap.data()?.points
-    //   setPoints(points)
-    // }
+    const creatorPoints = async () => {
+      const docRef = doc(dbservice, `members/${message.creatorId}`)
+      const docSnap = await getDoc(docRef)
+      const points = docSnap.data()?.points
+      setNum(points)
+    }
+    creatorPoints()
+    // onSnapshot(doc(dbservice, `members/${message.creatorId}`), (snapshot) => {
+    //   const number = snapshot.data()?.points;
+    //   setNum(number);
+    // });
+  }, [])
+  useEffect(() => {
+    const connectedPoints = async () => {
+      const docRef = doc(dbservice, `members/${message?.connectedId}`)
+      const docSnap = await getDoc(docRef)
+      const points = docSnap.data()?.points
+      setPoints(points)
+    }
     if (message.connectedId !== null) {
-      // connectedPoints()
-      onSnapshot(
-        doc(dbservice, `members/${message.connectedId}`),
-        (snapshot) => {
-          const element = snapshot.data()?.points;
-          setPoints(element);
-        }
-      );
+      connectedPoints()
+      // onSnapshot(
+      //   doc(dbservice, `members/${message.connectedId}`),
+      //   (snapshot) => {
+      //     const element = snapshot.data()?.points;
+      //     setPoints(element);
+      //   }
+      // );
     }
   })
   const shadowColorArray = [
@@ -122,13 +121,13 @@ function Specifics({
     'lightsteelblue',
     'lightyellow',
   ]
-  let shadowColor
+  // let shadowColor
   const alpha = Array.from(Array(26)).map((e, i) => i + 65)
   const letters = alpha.map((x) => String.fromCharCode(x))
   const numbers = Array.from({ length: 10 }, (e, i) => `${i}`)
   const mergedArray = letters.concat(numbers)
   const id = message?.id || ''
-  shadowColor =
+  const shadowColor =
     shadowColorArray[
     mergedArray.indexOf(String(id[0]).toUpperCase()) % shadowColorArray.length
     ]
@@ -165,7 +164,7 @@ function Specifics({
               message={message}
             />
             <Divider />
-            <SpecificsSteppers message={message} />
+            <SpecificsSteppers message={message} round={round} />
             <Divider />
             <div className="flex justify-center pt-5">
               {deleted === false && userObj !== null && (
