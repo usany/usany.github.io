@@ -91,7 +91,7 @@ const DrawerProfile = ({
             <Avatars
               profile={true}
               profileColor=""
-              profileUrl={message.creatorUrl}
+              profileUrl={url}
               piazza={null}
             />
             {/* <Avatar className={'bg-profile-blue'}>
