@@ -52,16 +52,20 @@ function Specifics({
     setDeleted(true)
   }
   // useEffect(() => {
-  //   if (!messageObj) {
-  //     setMessageObj(message)
+  //   if (!round) {
+  //     setDeleted(true)
   //   }
   // })
+  console.log(round)
   useEffect(() => {
     const bringMessage = async ({ message }) => {
       const docRef = doc(dbservice, `num/${message.id}`)
       const docSnap = await getDoc(docRef)
       setMessageObj({ id: message.id, round: docSnap.data().round, ...docSnap.data() })
       setRound(docSnap.data().round)
+      if (!docSnap.data().round) {
+        setDeleted(true)
+      }
     }
     bringMessage({ message: message })
     // onSnapshot(query(collection(dbservice, "num")), (snapshot) => {
@@ -76,6 +80,7 @@ function Specifics({
     //   }
     // });
   }, [])
+  console.log(deleted)
   useEffect(() => {
     const creatorPoints = async () => {
       const docRef = doc(dbservice, `members/${message.creatorId}`)
