@@ -23,7 +23,7 @@ import ChattingStacks from 'src/pages/main/chatting/ChattingStacks'
 import Chats from 'src/pages/main/chatting/Chats'
 import { useQuery } from '@tanstack/react-query'
 import { useSelector, useDispatch } from 'react-redux'
-import { AnimatedList } from 'src/src/components/ui/animated-list'
+import { AnimatedList } from 'src/components/ui/animated-list'
 import { CardActionArea, CardActions, ClickAwayListener } from '@mui/material'
 import { useGetPiazzaQuery } from 'src/stateSlices/piazza'
 

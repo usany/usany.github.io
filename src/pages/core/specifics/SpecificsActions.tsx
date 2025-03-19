@@ -96,12 +96,18 @@ function SpecificsActions({ drawerOpenTrue, userObj, message }: Props) {
               <ScrollArea className="overflow-y-scroll">
                 <DrawersBar />
                 <div className="flex flex-col items-center pt-5">
-                  <Avatar className={'bg-profile-blue'}>
+                  <Avatars
+                    profile={true}
+                    profileColor=""
+                    profileUrl={message.creatorUrl}
+                    piazza={null}
+                  />
+                  {/* <Avatar className={'bg-profile-blue'}>
                     <AvatarImage src={message.creatorUrl} />
                     <AvatarFallback className="text-xl border-none	">
                       {message?.displayName[0]}
                     </AvatarFallback>
-                  </Avatar>
+                  </Avatar> */}
                   <div>{message?.displayName}</div>
                   {/* {message?.displayName !== displayedName &&
                     <div>
@@ -172,9 +178,7 @@ function SpecificsActions({ drawerOpenTrue, userObj, message }: Props) {
         </div>
         <div className="flex items-center">
           <Chip
-            label={`${message.item} ${
-              message.text.choose === 1 ? ' 빌리기' : ' 빌려주기'
-            }`}
+            label={`${message.item} ${message.text.choose === 1 ? ' 빌리기' : ' 빌려주기'}`}
           />
         </div>
       </div>

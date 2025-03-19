@@ -23,8 +23,8 @@ interface Props {
 
 function Specifics({
   drawerOpenTrue,
-  deleted,
-  changeDeleted,
+  // deleted,
+  // changeDeleted,
   userObj,
   message,
 }: Props) {
@@ -39,9 +39,10 @@ function Specifics({
   } | null>(null)
   const [num, setNum] = useState<number | null>(null)
   const [points, setPoints] = useState<number | null>(null)
-  // const [deleted, setDeleted] = useState<boolean>(false);
+  const [deleted, setDeleted] = useState<boolean>(false)
   const deleteMessage = () => {
-    changeDeleted(true)
+    // changeDeleted(true)
+    setDeleted(true)
   }
   useEffect(() => {
     if (!msgObj) {
@@ -172,6 +173,7 @@ function Specifics({
                     userObj={userObj}
                     num={num}
                     points={points}
+                    deleteMessage={deleteMessage}
                   />
                 </div>
               )}
@@ -185,6 +187,7 @@ function Specifics({
                     userObj={userObj}
                     num={num}
                     points={points}
+                    deleteMessage={deleteMessage}
                   />
                 </div>
               )}
