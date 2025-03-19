@@ -56,7 +56,7 @@ function Specifics({
   //     setDeleted(true)
   //   }
   // })
-  console.log(round)
+  // console.log(round)
   useEffect(() => {
     const bringMessage = async ({ message }) => {
       const docRef = doc(dbservice, `num/${message.id}`)
