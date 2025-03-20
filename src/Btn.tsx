@@ -2,7 +2,7 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import SendIcon from '@mui/icons-material/Send'
 import Button from '@mui/material/Button'
 import { deleteDoc, doc, getDoc, updateDoc } from 'firebase/firestore'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { dbservice } from 'src/baseApi/serverbase'
 import { webSocket } from 'src/webSocket.tsx'
@@ -10,6 +10,7 @@ import { webSocket } from 'src/webSocket.tsx'
 const onConfirm = async ({ message, uid, displayName }) => {
   const { data, messagingToken } = await specificProcess({ message: message })
   const passingObject = {
+    id: message.id,
     choose: message.text.choose,
     sendingToken: messagingToken,
     creatorId: message.creatorId,
@@ -23,6 +24,7 @@ const onConfirm = async ({ message, uid, displayName }) => {
 const onStopSupporting = async ({ message, uid, displayName }) => {
   const { data, messagingToken } = await specificProcess({ message: message })
   const passingObject = {
+    id: message.id,
     choose: message.text.choose,
     sendingToken: messagingToken,
     creatorId: message.creatorId,
@@ -41,6 +43,7 @@ const onStopSupporting = async ({ message, uid, displayName }) => {
 const onReturning = async ({ message, uid, displayName }) => {
   const { data, messagingToken } = await specificProcess({ message: message })
   const passingObject = {
+    id: message.id,
     choose: message.text.choose,
     sendingToken: messagingToken,
     creatorId: message.creatorId,
@@ -55,6 +58,7 @@ const onSupporting = async ({ message, uid, displayName, profileUrl }) => {
   // const profileUrl = useSelector((state) => state.profileUrl.value)
   const { data, messagingToken } = await specificProcess({ message: message })
   const passingObject = {
+    id: message.id,
     choose: message.text.choose,
     sendingToken: messagingToken,
     creatorId: message.creatorId,
@@ -81,11 +85,11 @@ const onConfirmReturn = async ({ num, points, message, uid, displayName }) => {
   const connectedPoint = doc(dbservice, `members/${message.connectedId}`)
   const creatorSnap = await getDoc(point)
   const connectedSnap = await getDoc(connectedPoint)
-  const creatorDone = creatorSnap.data().done || []
-  const connectedDone = connectedSnap.data().done || []
+  const creatorDone = creatorSnap.data()?.done || []
+  const connectedDone = connectedSnap.data()?.done || []
   if (message.text.choose === 1) {
-    const creatorBorrowDone = creatorSnap.data().borrowDoneCount || []
-    const connectedLendDone = connectedSnap.data().lendDoneCount || []
+    const creatorBorrowDone = creatorSnap.data()?.borrowDoneCount || []
+    const connectedLendDone = connectedSnap.data()?.lendDoneCount || []
     updateDoc(point, { points: num - message.point })
     updateDoc(connectedPoint, { points: points + message.point })
     updateDoc(point, { borrowDoneCount: [...creatorBorrowDone, message.id] })
@@ -93,8 +97,8 @@ const onConfirmReturn = async ({ num, points, message, uid, displayName }) => {
       lendDoneCount: [...connectedLendDone, message.id],
     })
   } else {
-    const creatorLendDone = creatorSnap.data().lendDoneCount || []
-    const connectedBorrowDone = connectedSnap.data().borrowDoneCount || []
+    const creatorLendDone = creatorSnap.data()?.lendDoneCount || []
+    const connectedBorrowDone = connectedSnap.data()?.borrowDoneCount || []
     updateDoc(point, { points: num + message.point })
     updateDoc(connectedPoint, { points: points - message.point })
     updateDoc(point, { lendDoneCount: [...creatorLendDone, message.id] })
@@ -102,20 +106,41 @@ const onConfirmReturn = async ({ num, points, message, uid, displayName }) => {
       borrowDoneCount: [...connectedBorrowDone, message.id],
     })
   }
-  webSocket.emit('confirm return', {
+  const passingObject = {
+    id: message.id,
     choose: message.text.choose,
     sendingToken: messagingToken,
     creatorId: message.creatorId,
     creatorName: message.displayName,
     connectedId: uid,
     connectedName: displayName,
-  })
+  }
   updateDoc(point, {
     done: [...creatorDone, message.id],
   })
   updateDoc(connectedPoint, {
     done: [...connectedDone, message.id],
   })
+
+  webSocket.emit('confirmReturn', passingObject)
+  // webSocket.emit('confirm return', {
+  //   id: message.id,
+  //   choose: message.text.choose,
+  //   sendingToken: messagingToken,
+  //   creatorId: message.creatorId,
+  //   creatorName: message.displayName,
+  //   connectedId: uid,
+  //   connectedName: displayName,
+  // })
+  // webSocket.emit('confirm return', {
+  //   id: message.id,
+  //   choose: message.text.choose,
+  //   sendingToken: messagingToken,
+  //   creatorId: message.creatorId,
+  //   creatorName: message.displayName,
+  //   connectedId: uid,
+  //   connectedName: displayName,
+  // })
 }
 const specificProcess = async ({ message }) => {
   const data = doc(dbservice, `num/${message.id}`)
@@ -290,6 +315,26 @@ function Btn({
     uid: uid,
     displayName: displayName,
   }
+  useEffect(() => {
+    if (!webSocket) return
+    function sIncreaseCardCallback(card) {
+      increaseRound()
+    }
+    webSocket.on(`sIncrease${messageObj.id}`, sIncreaseCardCallback)
+    return () => {
+      webSocket.off(`sIncrease${messageObj.id}`, sIncreaseCardCallback)
+    }
+  })
+  useEffect(() => {
+    if (!webSocket) return
+    function sDecreaseCardCallback(card) {
+      decreaseRound()
+    }
+    webSocket.on(`sDecrease${messageObj.id}`, sDecreaseCardCallback)
+    return () => {
+      webSocket.off(`sDecrease${messageObj.id}`, sDecreaseCardCallback)
+    }
+  })
   return (
     <>
       {isOwner ? (
