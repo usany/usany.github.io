@@ -198,6 +198,7 @@ io.sockets.on('connection', (socket) => {
     }
     admin.messaging().send(message)
     socket.broadcast.emit(`sIncrease${id}`, res)
+    socket.broadcast.emit(`sOnPulse${id}`, res)
   })
   socket.on('stop supporting', (res) => {
     const {
@@ -218,6 +219,7 @@ io.sockets.on('connection', (socket) => {
     }
     admin.messaging().send(message)
     socket.broadcast.emit(`sDecrease${id}`, res)
+    socket.broadcast.emit(`sOnPulse${id}`, res)
   })
   socket.on('confirm', (res) => {
     const {
@@ -238,6 +240,7 @@ io.sockets.on('connection', (socket) => {
     }
     admin.messaging().send(message)
     socket.broadcast.emit(`sIncrease${id}`, res)
+    socket.broadcast.emit(`sOnPulse${id}`, res)
   })
   socket.on('returning', (res) => {
     const {
@@ -265,6 +268,7 @@ io.sockets.on('connection', (socket) => {
     }
     admin.messaging().send(choose === 1 ? messageBorrow : messageLend)
     socket.broadcast.emit(`sIncrease${id}`, res)
+    socket.broadcast.emit(`sOnPulse${id}`, res)
   })
   socket.on('confirmReturn', (res) => {
     const {
@@ -293,6 +297,7 @@ io.sockets.on('connection', (socket) => {
     }
     admin.messaging().send(choose === 1 ? messageBorrow : messageLend)
     socket.broadcast.emit(`sIncrease${id}`, res)
+    socket.broadcast.emit(`sOnPulse${id}`, res)
   })
   socket.on('disconnect', () => {
     console.log('user disconnected')

@@ -120,6 +120,14 @@ module.exports = {
             height: '0'
           }
         },
+        pulse: {
+          '0%, 100%': {
+            boxShadow: '0 0 0 0 var(--pulse-color)'
+          },
+          '50%': {
+            boxShadow: '0 0 0 8px var(--pulse-color)'
+          }
+        },
         rippling: {
           '0%': {
             opacity: '1'
@@ -128,7 +136,7 @@ module.exports = {
             transform: 'scale(2)',
             opacity: '0'
           }
-        }
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',

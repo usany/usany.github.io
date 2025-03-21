@@ -22,11 +22,16 @@ interface Props {
 }
 
 function Specifics({
+  round,
+  increaseRound,
+  decreaseRound,
   drawerOpenTrue,
   // deleted,
   // changeDeleted,
   userObj,
   message,
+  onPulse,
+  changeOnPulse
 }: Props) {
   const [messageObj, setMessageObj] = useState<{
     id: string
@@ -40,13 +45,13 @@ function Specifics({
   const [num, setNum] = useState<number | null>(null)
   const [points, setPoints] = useState<number | null>(null)
   const [deleted, setDeleted] = useState<boolean>(false)
-  const [round, setRound] = useState(0)
-  const increaseRound = () => {
-    setRound(round + 1)
-  }
-  const decreaseRound = () => {
-    setRound(round - 1)
-  }
+  // const [round, setRound] = useState(0)
+  // const increaseRound = () => {
+  //   setRound(round + 1)
+  // }
+  // const decreaseRound = () => {
+  //   setRound(round - 1)
+  // }
   const deleteMessage = () => {
     // changeDeleted(true)
     setDeleted(true)
@@ -62,7 +67,7 @@ function Specifics({
       const docRef = doc(dbservice, `num/${message.id}`)
       const docSnap = await getDoc(docRef)
       setMessageObj({ id: message.id, round: docSnap.data().round, ...docSnap.data() })
-      setRound(docSnap.data().round)
+      // setRound(docSnap.data().round)
       if (!docSnap.data().round) {
         setDeleted(true)
       }
@@ -186,6 +191,8 @@ function Specifics({
                     round={round}
                     increaseRound={increaseRound}
                     decreaseRound={decreaseRound}
+                    onPulse={onPulse}
+                    changeOnPulse={changeOnPulse}
                   />
                 </div>
               )}
@@ -203,6 +210,8 @@ function Specifics({
                     round={round}
                     increaseRound={increaseRound}
                     decreaseRound={decreaseRound}
+                    onPulse={onPulse}
+                    changeOnPulse={changeOnPulse}
                   />
                 </div>
               )}

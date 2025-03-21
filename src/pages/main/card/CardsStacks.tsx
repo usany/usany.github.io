@@ -191,18 +191,20 @@ function CardsStacks({ userObj }: Props) {
                             setLongPressCard(longPress);
                           }}
                         >
-                          <Cards
-                            message={value}
-                            isOwner={isOwner}
-                            userObj={userObj}
-                            num={null}
-                            points={null}
-                            onLongPress={onLongPress}
-                            changeOnLongPress={(newValue) =>
-                              setOnLongPress(newValue)
-                            }
-                            longPressCard={longPressCard}
-                          />
+                          <AnimatedList>
+                            <Cards
+                              message={value}
+                              isOwner={isOwner}
+                              userObj={userObj}
+                              num={null}
+                              points={null}
+                              onLongPress={onLongPress}
+                              changeOnLongPress={(newValue) =>
+                                setOnLongPress(newValue)
+                              }
+                              longPressCard={longPressCard}
+                            />
+                          </AnimatedList>
                         </div>
                       );
                     }
@@ -214,8 +216,9 @@ function CardsStacks({ userObj }: Props) {
         </div>
       ) : (
         <Skeleton />
-      )}
-    </div>
+      )
+      }
+    </div >
   );
 }
 

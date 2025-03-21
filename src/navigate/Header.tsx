@@ -1,43 +1,20 @@
-import {
-  useState,
-  useEffect,
-  useRef,
-  useLayoutEffect,
-  useMemo,
-  Suspense,
-  lazy,
-} from "react";
-import WeatherView from "src/navigate/WeatherView";
-import Navigation from "src/navigate/Navigation";
-import Points from "src/pages/search/Points";
-import Avatar from "@mui/material/Avatar";
-import ToggleTabs from "src/pages/core/ToggleTabs";
-import { getStorage, ref, getDownloadURL } from "firebase/storage";
-import { doc, getDoc } from "firebase/firestore";
-import { auth, dbservice } from "src/baseApi/serverbase";
-import Checkbox from "@mui/material/Checkbox";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import FormGroup from "@mui/material/FormGroup";
-import Divider from "@mui/material/Divider";
-import { Link } from "react-router-dom";
-import { CreditCard } from "lucide-react";
-import { MessageCircle, Minimize2, Maximize2 } from "lucide-react";
-import { useSelector, useDispatch } from "react-redux";
-import {
-  cardAccordionReducer,
-  change,
-} from "src/stateSlices/cardAccordionSlice";
-import { changeBottomNavigation } from "src/stateSlices/bottomNavigationSlice";
-import { changeMessageAccordion } from "src/stateSlices/messageAccordionSlice";
-import { changeProfileUrl } from "src/stateSlices/profileUrlSlice";
-import { changeProfileColor } from "src/stateSlices/profileColorSlice";
-import { changeProfileImage } from "src/stateSlices/profileImageSlice";
 import { User } from "firebase/auth";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import Avatars from "src/pages/core/Avatars";
+import { doc, getDoc } from "firebase/firestore";
+import { getDownloadURL, getStorage, ref } from "firebase/storage";
+import {
+  useEffect,
+  useMemo,
+  useState
+} from "react";
+import { useDispatch, useSelector } from "react-redux";
 import staticImage from "src/assets/blue.png";
+import { dbservice } from "src/baseApi/serverbase";
 import { useSelectors } from "src/hooks/useSelectors";
 import HeaderViews from "src/navigate/HeaderViews";
+import Avatars from "src/pages/core/Avatars";
+import { changeProfileColor } from "src/stateSlices/profileColorSlice";
+import { changeProfileImage } from "src/stateSlices/profileImageSlice";
+import { changeProfileUrl } from "src/stateSlices/profileUrlSlice";
 
 // const Puller = styled('div')(({ theme }) => ({
 //     width: 30,
@@ -79,13 +56,13 @@ const Header = ({ userObj }: Props) => {
     const currentScrollPos = window.scrollY;
     if (prevScrollPos >= currentScrollPos) {
       // setScroll('fixed z-20 bg-light-3/50 dark:bg-dark-3/50')
-      setScroll("scroll");
+      // setScroll("scroll");
       // user has scrolled up
       // document.querySelector('#navigationSelectorOne')?.classList.add('overflow-hidden fixed top-0 z-20 bg-light-3 dark:bg-dark-3')
       // document.querySelector('#navigationSelectorTwo')?.classList.add('fixed', 'top-0', 'z-10', 'bg-light-3', 'dark:bg-dark-3')
       // document.querySelector('#contentSelector')?.classList.add('pt-16')
     } else {
-      setScroll("");
+      // setScroll("");
       // user has scrolled down
       // document.querySelector('#navigationSelectorOne')?.classList.remove('overflow-hidden', 'fixed', 'top-0', 'z-20', 'bg-light-3', 'dark:bg-dark-3')
       // document.querySelector('#navigationSelectorTwo')?.classList.remove('fixed', 'top-0', 'z-10', 'bg-light-3', 'dark:bg-dark-3')

@@ -2,7 +2,7 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import SendIcon from '@mui/icons-material/Send'
 import Button from '@mui/material/Button'
 import { deleteDoc, doc, getDoc, updateDoc } from 'firebase/firestore'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { dbservice } from 'src/baseApi/serverbase'
 import { webSocket } from 'src/webSocket.tsx'
@@ -219,7 +219,7 @@ const SupportButton = ({
   message,
   uid,
   displayName,
-  increaseRound
+  increaseRound,
 }) => {
   const profileUrl = useSelector((state) => state.profileUrl.value)
 
@@ -299,6 +299,8 @@ function Btn({
   round,
   increaseRound,
   decreaseRound,
+  onPulse,
+  changeOnPulse
 }) {
   const [move, setMove] = useState(false)
   const handleClose = () => {
@@ -315,26 +317,67 @@ function Btn({
     uid: uid,
     displayName: displayName,
   }
-  useEffect(() => {
-    if (!webSocket) return
-    function sIncreaseCardCallback(card) {
-      increaseRound()
-    }
-    webSocket.on(`sIncrease${messageObj.id}`, sIncreaseCardCallback)
-    return () => {
-      webSocket.off(`sIncrease${messageObj.id}`, sIncreaseCardCallback)
-    }
-  })
-  useEffect(() => {
-    if (!webSocket) return
-    function sDecreaseCardCallback(card) {
-      decreaseRound()
-    }
-    webSocket.on(`sDecrease${messageObj.id}`, sDecreaseCardCallback)
-    return () => {
-      webSocket.off(`sDecrease${messageObj.id}`, sDecreaseCardCallback)
-    }
-  })
+  // useEffect(() => {
+  //   if (!webSocket) return
+  //   function sIncreaseCardCallback() {
+  //     increaseRound()
+  //   }
+  //   webSocket.on(`sIncrease${messageObj.id}`, sIncreaseCardCallback)
+  //   return () => {
+  //     webSocket.off(`sIncrease${messageObj.id}`, sIncreaseCardCallback)
+  //   }
+  // })
+  // useEffect(() => {
+  //   if (!webSocket) return
+  //   function sDecreaseCardCallback() {
+  //     decreaseRound()
+  //   }
+  //   webSocket.on(`sDecrease${messageObj.id}`, sDecreaseCardCallback)
+  //   return () => {
+  //     webSocket.off(`sDecrease${messageObj.id}`, sDecreaseCardCallback)
+  //   }
+  // })
+  // useEffect(() => {
+  //   if (!webSocket) return
+  //   function sOnPulseTrueCallback(message) {
+  //     if (message.choose === 1) {
+  //       if (message.creatorId === userObj.uid) {
+  //         if (message.round === 2 || message.round === 3) {
+  //           changeOnPulse(true)
+  //         } else if (message.connectedId === userObj.uid) {
+  //           if (message.round === 4) {
+  //             changeOnPulse(true)
+  //           }
+  //         }
+  //       } else {
+  //         if (message.creatorId === userObj.uid) {
+  //           if (message.round === 2 || message.round === 4) {
+  //             changeOnPulse(true)
+  //           }
+  //         } else if (message.connectedId === userObj.uid) {
+  //           if (message.round === 3) {
+  //             changeOnPulse(true)
+  //           }
+  //         }
+  //       }
+  //       changeOnPulse(true)
+  //     }
+  //   }
+  //   webSocket.on(`sOnPulseTrue${messageObj.id}`, sOnPulseTrueCallback)
+  //   return () => {
+  //     webSocket.off(`sOnPulseTrue${messageObj.id}`, sOnPulseTrueCallback)
+  //   }
+  // })
+  // useEffect(() => {
+  //   if (!webSocket) return
+  //   function sOnPulseFalseCallback(message) {
+  //     changeOnPulse(false)
+  //   }
+  //   webSocket.on(`sOnPulseFalse${messageObj.id}`, sOnPulseFalseCallback)
+  //   return () => {
+  //     webSocket.off(`sOnPulseFalse${messageObj.id}`, sOnPulseFalseCallback)
+  //   }
+  // })
   return (
     <>
       {isOwner ? (
@@ -444,6 +487,7 @@ function Btn({
                     uid={uid}
                     displayName={displayName}
                     increaseRound={increaseRound}
+                    changeOnPulse={changeOnPulse}
                   />
                 )
                 // <Button variant='outlined' onClick={() => {
