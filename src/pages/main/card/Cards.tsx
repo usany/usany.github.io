@@ -1,46 +1,20 @@
+import DeleteIcon from "@mui/icons-material/Delete";
+import { ClickAwayListener } from "@mui/material";
+import Chip from "@mui/material/Chip";
+import { User } from "firebase/auth";
+import { deleteDoc, doc } from "firebase/firestore";
 import {
-  useState,
   useEffect,
   useRef,
-  useMemo,
-  useLayoutEffect,
-  useContext,
-  useReducer,
-  Suspense,
-  lazy,
+  useState
 } from "react";
-import Card from "@mui/material/Card";
-import CardMedia from "@mui/material/CardMedia";
-import CardContent from "@mui/material/CardContent";
-import { CardActionArea, CardActions, ClickAwayListener } from "@mui/material";
-import { Link } from "react-router-dom";
-import Btn from "src/Btn";
-import Specifics from "src/pages/core/specifics/Specifics";
-import Chip from "@mui/material/Chip";
-import staticImg from "src/assets/pwa-512x512.png";
-import staticImageJ from "src/assets/blue-01.png";
-import staticImageC from "src/assets/screen-01.png";
-import {
-  MorphingDialog,
-  MorphingDialogTrigger,
-  MorphingDialogContent,
-  MorphingDialogTitle,
-  MorphingDialogImage,
-  MorphingDialogSubtitle,
-  MorphingDialogClose,
-  MorphingDialogDescription,
-  MorphingDialogContainer,
-} from "@/components/ui/morphing-dialog";
-import DeleteIcon from "@mui/icons-material/Delete";
-import useLongPress from "src/hooks/useLongPress";
-import CardsViews from "./CardsViews";
-import MorphingDialogs from "../../core/morphingDialogs/MorphingDialogs";
-import { deleteDoc, doc } from "firebase/firestore";
 import { dbservice } from "src/baseApi/serverbase";
-import { User } from "firebase/auth";
+import useLongPress from "src/hooks/useLongPress";
+import MorphingDialogs from "../../core/morphingDialogs/MorphingDialogs";
+import CardsViews from "./CardsViews";
 
 interface Props {
-  msgObj: { id: string; text: object };
+  message: { id: string; text: object };
   isOwner: boolean;
   userObj: User | null;
   num: number | null;
@@ -66,7 +40,7 @@ const numbers = Array.from({ length: 10 }, (e, i) => `${i}`);
 const mergedArray = letters.concat(numbers);
 
 const Cards = ({
-  msgObj,
+  message,
   isOwner,
   userObj,
   num,
@@ -98,7 +72,7 @@ const Cards = ({
           <ClickAwayListener
             onClickAway={() => {
               console.log("practice");
-              if (longPressCard === msgObj.id) {
+              if (longPressCard === message.id) {
                 changeOnLongPress(0);
                 changeLongPressCard(null);
               }
@@ -112,7 +86,7 @@ const Cards = ({
               }}
             >
               <CardsViews
-                msgObj={msgObj}
+                message={message}
                 isOwner={isOwner}
                 userObj={userObj}
                 num={num}
@@ -132,7 +106,7 @@ const Cards = ({
           <div
             className="z-10 h-full"
             onClick={() => {
-              const data = doc(dbservice, `num/${msgObj.id}`);
+              const data = doc(dbservice, `num/${message.id}`);
               deleteDoc(data);
               changeOnLongPress(null);
             }}
@@ -145,7 +119,7 @@ const Cards = ({
           {onLongPress ? (
             <ClickAwayListener
               onClickAway={() => {
-                if (longPressCard === msgObj.id) {
+                if (longPressCard === message.id) {
                   changeOnLongPress(0);
                   changeLongPressCard(null);
                 }
@@ -158,7 +132,7 @@ const Cards = ({
                 }}
               >
                 <CardsViews
-                  msgObj={msgObj}
+                  message={message}
                   isOwner={isOwner}
                   userObj={userObj}
                   num={num}
@@ -168,7 +142,7 @@ const Cards = ({
             </ClickAwayListener>
           ) : (
             <MorphingDialogs
-              msgObj={msgObj}
+              message={message}
               isOwner={isOwner}
               userObj={userObj}
               num={num}

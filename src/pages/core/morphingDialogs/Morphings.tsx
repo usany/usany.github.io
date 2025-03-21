@@ -1,38 +1,18 @@
 import {
-  useState,
-  useEffect,
-  useRef,
-  useMemo,
-  useLayoutEffect,
-  useContext,
-  useReducer,
-  Suspense,
-  lazy,
+  MorphingDialogContent
+} from '@/components/ui/morphing-dialog'
+import { User } from 'firebase/auth'
+import {
+  useState
 } from 'react'
 import Specifics from 'src/pages/core/specifics/Specifics'
-import {
-  MorphingDialog,
-  MorphingDialogTrigger,
-  MorphingDialogContent,
-  MorphingDialogTitle,
-  MorphingDialogImage,
-  MorphingDialogSubtitle,
-  MorphingDialogClose,
-  MorphingDialogDescription,
-  MorphingDialogContainer,
-} from '@/components/ui/morphing-dialog'
-import CardsViews from '../../main/card/CardsViews'
-import { User } from 'firebase/auth'
 
 interface Props {
-  msgObj: { id: string; text: object }
-  isOwner: boolean
+  message: { id: string; text: object }
   userObj: User | null
-  num: number | null
-  points: number | null
 }
 
-const Morphings = ({ message, userObj }: Props) => {
+const Morphings = ({ round, increaseRound, decreaseRound, message, userObj, onPulse, changeOnPulse }: Props) => {
   const [drawerOpen, setDrawerOpen] = useState(false)
   const drawerOpenTrue = () => {
     setDrawerOpen(true)
@@ -46,9 +26,14 @@ const Morphings = ({ message, userObj }: Props) => {
       drawerOpenFalse={drawerOpenFalse}
     >
       <Specifics
+        round={round}
+        increaseRound={increaseRound}
+        decreaseRound={decreaseRound}
         drawerOpenTrue={drawerOpenTrue}
         userObj={userObj}
         message={message}
+        onPulse={onPulse}
+        changeOnPulse={changeOnPulse}
       />
     </MorphingDialogContent>
   )

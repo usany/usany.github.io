@@ -179,15 +179,16 @@ io.sockets.on('connection', (socket) => {
   //   console.log(age)
   //   admin.messaging().send(message)
   // });
-  socket.on('supporting', (data) => {
+  socket.on('supporting', (res) => {
     const {
+      id,
       choose,
       sendingToken,
       creatorId,
       creatorName,
       connectedId,
       connectedName,
-    } = data
+    } = res
     const message = {
       notification: {
         title: 'supporting!',
@@ -196,16 +197,19 @@ io.sockets.on('connection', (socket) => {
       token: sendingToken,
     }
     admin.messaging().send(message)
+    socket.broadcast.emit(`sIncrease${id}`, res)
+    socket.broadcast.emit(`sOnPulse${id}`, res)
   })
-  socket.on('stop supporting', (data) => {
+  socket.on('stop supporting', (res) => {
     const {
+      id,
       choose,
       sendingToken,
       creatorId,
       creatorName,
       connectedId,
       connectedName,
-    } = data
+    } = res
     const message = {
       notification: {
         title: 'stop supporting!',
@@ -214,16 +218,19 @@ io.sockets.on('connection', (socket) => {
       token: sendingToken,
     }
     admin.messaging().send(message)
+    socket.broadcast.emit(`sDecrease${id}`, res)
+    socket.broadcast.emit(`sOnPulse${id}`, res)
   })
-  socket.on('confirm', (data) => {
+  socket.on('confirm', (res) => {
     const {
+      id,
       choose,
       sendingToken,
       creatorId,
       creatorName,
       connectedId,
       connectedName,
-    } = data
+    } = res
     const message = {
       notification: {
         title: 'confirm!',
@@ -232,16 +239,19 @@ io.sockets.on('connection', (socket) => {
       token: sendingToken,
     }
     admin.messaging().send(message)
+    socket.broadcast.emit(`sIncrease${id}`, res)
+    socket.broadcast.emit(`sOnPulse${id}`, res)
   })
-  socket.on('returning', (data) => {
+  socket.on('returning', (res) => {
     const {
+      id,
       choose,
       sendingToken,
       creatorId,
       creatorName,
       connectedId,
       connectedName,
-    } = data
+    } = res
     const messageBorrow = {
       notification: {
         title: 'returning!',
@@ -256,17 +266,21 @@ io.sockets.on('connection', (socket) => {
       },
       token: sendingToken,
     }
-    admin.messaging().send(message)
+    admin.messaging().send(choose === 1 ? messageBorrow : messageLend)
+    socket.broadcast.emit(`sIncrease${id}`, res)
+    socket.broadcast.emit(`sOnPulse${id}`, res)
   })
-  socket.on('confirm return', (data) => {
+  socket.on('confirmReturn', (res) => {
     const {
+      id,
       choose,
       sendingToken,
       creatorId,
       creatorName,
       connectedId,
       connectedName,
-    } = data
+    } = res
+    console.log(choose)
     const messageBorrow = {
       notification: {
         title: 'confirm return!',
@@ -281,7 +295,9 @@ io.sockets.on('connection', (socket) => {
       },
       token: sendingToken,
     }
-    admin.messaging().send(message)
+    admin.messaging().send(choose === 1 ? messageBorrow : messageLend)
+    socket.broadcast.emit(`sIncrease${id}`, res)
+    socket.broadcast.emit(`sOnPulse${id}`, res)
   })
   socket.on('disconnect', () => {
     console.log('user disconnected')

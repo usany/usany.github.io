@@ -22,13 +22,18 @@ interface Props {
 }
 
 function Specifics({
+  round,
+  increaseRound,
+  decreaseRound,
   drawerOpenTrue,
   // deleted,
   // changeDeleted,
   userObj,
   message,
+  onPulse,
+  changeOnPulse
 }: Props) {
-  const [msgObj, setMsgObj] = useState<{
+  const [messageObj, setMessageObj] = useState<{
     id: string
     round: number
     displayName: string
@@ -40,33 +45,38 @@ function Specifics({
   const [num, setNum] = useState<number | null>(null)
   const [points, setPoints] = useState<number | null>(null)
   const [deleted, setDeleted] = useState<boolean>(false)
+  // const [round, setRound] = useState(0)
+  // const increaseRound = () => {
+  //   setRound(round + 1)
+  // }
+  // const decreaseRound = () => {
+  //   setRound(round - 1)
+  // }
   const deleteMessage = () => {
     // changeDeleted(true)
     setDeleted(true)
   }
-  useEffect(() => {
-    if (!msgObj) {
-      setMsgObj(message)
-    }
-  })
+  // useEffect(() => {
+  //   if (!round) {
+  //     setDeleted(true)
+  //   }
+  // })
+  // console.log(round)
   useEffect(() => {
     const bringMessage = async ({ message }) => {
       const docRef = doc(dbservice, `num/${message.id}`)
       const docSnap = await getDoc(docRef)
-      setMsgObj({ id: message.id, ...docSnap.data() })
-      // const collectionQuery = query(collection(dbservice, "num"))
-      // const docs = await getDocs(collectionQuery)
-      // docs.forEach((doc) => {
-      //   if (doc.id === message.id) {
-      //     setMsgObj({ id: document.id, ...document.data() });
-      //   }
-      // })
+      setMessageObj({ id: message.id, round: docSnap.data().round, ...docSnap.data() })
+      // setRound(docSnap.data().round)
+      if (!docSnap.data().round) {
+        setDeleted(true)
+      }
     }
     bringMessage({ message: message })
     // onSnapshot(query(collection(dbservice, "num")), (snapshot) => {
-    //   const newArray = snapshot.docs.map((document) => {
+    //   snapshot.docs.map((document) => {
     //     if (document.id === message.id) {
-    //       setMsgObj({ id: document.id, ...document.data() });
+    //       setMessageObj({ id: document.id, ...document.data() });
     //     }
     //   });
     //   const newArrayId = snapshot.docs.map((document) => document.id);
@@ -75,6 +85,7 @@ function Specifics({
     //   }
     // });
   }, [])
+  console.log(deleted)
   useEffect(() => {
     const creatorPoints = async () => {
       const docRef = doc(dbservice, `members/${message.creatorId}`)
@@ -120,15 +131,15 @@ function Specifics({
     'lightsteelblue',
     'lightyellow',
   ]
-  let shadowColor
+  // let shadowColor
   const alpha = Array.from(Array(26)).map((e, i) => i + 65)
   const letters = alpha.map((x) => String.fromCharCode(x))
   const numbers = Array.from({ length: 10 }, (e, i) => `${i}`)
   const mergedArray = letters.concat(numbers)
   const id = message?.id || ''
-  shadowColor =
+  const shadowColor =
     shadowColorArray[
-      mergedArray.indexOf(String(id[0]).toUpperCase()) % shadowColorArray.length
+    mergedArray.indexOf(String(id[0]).toUpperCase()) % shadowColorArray.length
     ]
   const { color } = useCardsBackground()
 
@@ -146,10 +157,13 @@ function Specifics({
               userObj={userObj}
               message={message}
             />
-            <div className="pt-5">
+            <div className="flex justify-center pt-5">
               <CardMedia
-                sx={{ height: 140 }}
-                image={'src/assets/pwa-512x512.png'}
+                sx={{
+                  width: 212,
+                  height: 188
+                }}
+                image={"src/assets/pwa-512x512.png"}
               />
             </div>
             <SpecificsDimensions message={message} />
@@ -160,13 +174,13 @@ function Specifics({
               message={message}
             />
             <Divider />
-            <SpecificsSteppers message={message} />
+            <SpecificsSteppers message={message} round={round} />
             <Divider />
             <div className="flex justify-center pt-5">
               {deleted === false && userObj !== null && (
                 <div className="flex justify-center">
                   <Btn
-                    msgObj={message}
+                    messageObj={message}
                     isOwner={message.creatorId === userObj.uid}
                     uid={userObj.uid}
                     displayName={userObj.displayName}
@@ -174,13 +188,18 @@ function Specifics({
                     num={num}
                     points={points}
                     deleteMessage={deleteMessage}
+                    round={round}
+                    increaseRound={increaseRound}
+                    decreaseRound={decreaseRound}
+                    onPulse={onPulse}
+                    changeOnPulse={changeOnPulse}
                   />
                 </div>
               )}
               {deleted === false && userObj === null && (
                 <div className="flex justify-center">
                   <Btn
-                    msgObj={message}
+                    messageObj={message}
                     isOwner={false}
                     uid={null}
                     displayName={null}
@@ -188,6 +207,11 @@ function Specifics({
                     num={num}
                     points={points}
                     deleteMessage={deleteMessage}
+                    round={round}
+                    increaseRound={increaseRound}
+                    decreaseRound={decreaseRound}
+                    onPulse={onPulse}
+                    changeOnPulse={changeOnPulse}
                   />
                 </div>
               )}

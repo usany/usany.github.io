@@ -3,14 +3,14 @@ import SendIcon from '@mui/icons-material/Send'
 import Button from '@mui/material/Button'
 import { deleteDoc, doc, getDoc, updateDoc } from 'firebase/firestore'
 import { useState } from 'react'
-import { dbservice } from 'src/baseApi/serverbase'
-import Dialogs from 'src/pages/core/morphingDialogs/Dialogs'
-import { webSocket } from 'src/webSocket.tsx'
 import { useSelector } from 'react-redux'
+import { dbservice } from 'src/baseApi/serverbase'
+import { webSocket } from 'src/webSocket.tsx'
 
 const onConfirm = async ({ message, uid, displayName }) => {
   const { data, messagingToken } = await specificProcess({ message: message })
   const passingObject = {
+    id: message.id,
     choose: message.text.choose,
     sendingToken: messagingToken,
     creatorId: message.creatorId,
@@ -24,6 +24,7 @@ const onConfirm = async ({ message, uid, displayName }) => {
 const onStopSupporting = async ({ message, uid, displayName }) => {
   const { data, messagingToken } = await specificProcess({ message: message })
   const passingObject = {
+    id: message.id,
     choose: message.text.choose,
     sendingToken: messagingToken,
     creatorId: message.creatorId,
@@ -42,6 +43,7 @@ const onStopSupporting = async ({ message, uid, displayName }) => {
 const onReturning = async ({ message, uid, displayName }) => {
   const { data, messagingToken } = await specificProcess({ message: message })
   const passingObject = {
+    id: message.id,
     choose: message.text.choose,
     sendingToken: messagingToken,
     creatorId: message.creatorId,
@@ -52,10 +54,11 @@ const onReturning = async ({ message, uid, displayName }) => {
   updateDoc(data, { round: 4 })
   webSocket.emit('returning', passingObject)
 }
-const onSupporting = async ({ message, uid, displayName }) => {
-  const profileUrl = useSelector((state) => state.profileUrl.value)
+const onSupporting = async ({ message, uid, displayName, profileUrl }) => {
+  // const profileUrl = useSelector((state) => state.profileUrl.value)
   const { data, messagingToken } = await specificProcess({ message: message })
   const passingObject = {
+    id: message.id,
     choose: message.text.choose,
     sendingToken: messagingToken,
     creatorId: message.creatorId,
@@ -82,11 +85,11 @@ const onConfirmReturn = async ({ num, points, message, uid, displayName }) => {
   const connectedPoint = doc(dbservice, `members/${message.connectedId}`)
   const creatorSnap = await getDoc(point)
   const connectedSnap = await getDoc(connectedPoint)
-  const creatorDone = creatorSnap.data().done || []
-  const connectedDone = connectedSnap.data().done || []
+  const creatorDone = creatorSnap.data()?.done || []
+  const connectedDone = connectedSnap.data()?.done || []
   if (message.text.choose === 1) {
-    const creatorBorrowDone = creatorSnap.data().borrowDoneCount || []
-    const connectedLendDone = connectedSnap.data().lendDoneCount || []
+    const creatorBorrowDone = creatorSnap.data()?.borrowDoneCount || []
+    const connectedLendDone = connectedSnap.data()?.lendDoneCount || []
     updateDoc(point, { points: num - message.point })
     updateDoc(connectedPoint, { points: points + message.point })
     updateDoc(point, { borrowDoneCount: [...creatorBorrowDone, message.id] })
@@ -94,8 +97,8 @@ const onConfirmReturn = async ({ num, points, message, uid, displayName }) => {
       lendDoneCount: [...connectedLendDone, message.id],
     })
   } else {
-    const creatorLendDone = creatorSnap.data().lendDoneCount || []
-    const connectedBorrowDone = connectedSnap.data().borrowDoneCount || []
+    const creatorLendDone = creatorSnap.data()?.lendDoneCount || []
+    const connectedBorrowDone = connectedSnap.data()?.borrowDoneCount || []
     updateDoc(point, { points: num + message.point })
     updateDoc(connectedPoint, { points: points - message.point })
     updateDoc(point, { lendDoneCount: [...creatorLendDone, message.id] })
@@ -103,20 +106,41 @@ const onConfirmReturn = async ({ num, points, message, uid, displayName }) => {
       borrowDoneCount: [...connectedBorrowDone, message.id],
     })
   }
-  webSocket.emit('confirm return', {
+  const passingObject = {
+    id: message.id,
     choose: message.text.choose,
     sendingToken: messagingToken,
     creatorId: message.creatorId,
     creatorName: message.displayName,
     connectedId: uid,
     connectedName: displayName,
-  })
+  }
   updateDoc(point, {
     done: [...creatorDone, message.id],
   })
   updateDoc(connectedPoint, {
     done: [...connectedDone, message.id],
   })
+
+  webSocket.emit('confirmReturn', passingObject)
+  // webSocket.emit('confirm return', {
+  //   id: message.id,
+  //   choose: message.text.choose,
+  //   sendingToken: messagingToken,
+  //   creatorId: message.creatorId,
+  //   creatorName: message.displayName,
+  //   connectedId: uid,
+  //   connectedName: displayName,
+  // })
+  // webSocket.emit('confirm return', {
+  //   id: message.id,
+  //   choose: message.text.choose,
+  //   sendingToken: messagingToken,
+  //   creatorId: message.creatorId,
+  //   creatorName: message.displayName,
+  //   connectedId: uid,
+  //   connectedName: displayName,
+  // })
 }
 const specificProcess = async ({ message }) => {
   const data = doc(dbservice, `num/${message.id}`)
@@ -125,16 +149,17 @@ const specificProcess = async ({ message }) => {
   const messagingToken = toUser.data().messagingToken
   return { data: data, messagingToken: messagingToken }
 }
-const ConfirmButton = ({ message, uid, displayName }) => {
+const ConfirmButton = ({ message, uid, displayName, increaseRound }) => {
   return (
     <Button
       variant="outlined"
       onClick={() => {
-        return onConfirm({
+        onConfirm({
           message: message,
           uid: uid,
           displayName: displayName,
         })
+        increaseRound()
       }}
       startIcon={<SendIcon />}
     >
@@ -142,12 +167,13 @@ const ConfirmButton = ({ message, uid, displayName }) => {
     </Button>
   )
 }
-const StopSupportButton = ({ userObj, message, uid, displayName }) => {
+const StopSupportButton = ({ userObj, message, uid, displayName, decreaseRound }) => {
   return (
-    <div className="flex flex-col justify-center">
-      <Button variant="contained" disabled>
+    <div className="flex justify-center">
+      {/* <Button variant="contained" disabled>
         승낙 메시지 전송 완료
-      </Button>
+      </Button> */}
+      <div className='px-5'>승낙 메시지 전송 완료</div>
       <Button
         variant="outlined"
         onClick={() => {
@@ -157,6 +183,7 @@ const StopSupportButton = ({ userObj, message, uid, displayName }) => {
               uid: uid,
               displayName: displayName,
             })
+            decreaseRound()
           }
         }}
         startIcon={<SendIcon />}
@@ -166,12 +193,13 @@ const StopSupportButton = ({ userObj, message, uid, displayName }) => {
     </div>
   )
 }
-const ReturningButton = ({ message, uid, displayName }) => {
+const ReturningButton = ({ message, uid, displayName, increaseRound }) => {
   return (
     <Button
       variant="outlined"
       onClick={() => {
-        return onReturning({
+        increaseRound()
+        onReturning({
           message: message,
           uid: uid,
           displayName: displayName,
@@ -191,7 +219,10 @@ const SupportButton = ({
   message,
   uid,
   displayName,
+  increaseRound,
 }) => {
+  const profileUrl = useSelector((state) => state.profileUrl.value)
+
   return (
     <div className="flex justify-center">
       <Button
@@ -202,27 +233,31 @@ const SupportButton = ({
               message: message,
               uid: uid,
               displayName: displayName,
+              profileUrl: profileUrl
             })
-          } else {
-            handleDialog()
+            increaseRound()
           }
+          // else {
+          //   handleDialog()
+          // }
         }}
         startIcon={<SendIcon />}
       >
         승낙하기
       </Button>
-      <Dialogs move={move} handleClose={handleClose} />
+      {/* <Dialogs move={move} handleClose={handleClose} /> */}
     </div>
   )
 }
-const DeleteButton = ({ message, deleteMessage }) => {
+const DeleteButton = ({ message, deleteMessage, decreaseRound }) => {
   return (
-    <div className="flex flex-col justify-center">
+    <div className="flex justify-center">
       <Button
         variant="outlined"
         onClick={() => {
           onDelete({ message: message })
           deleteMessage()
+          decreaseRound()
         }}
         startIcon={<DeleteIcon />}
       >
@@ -231,7 +266,7 @@ const DeleteButton = ({ message, deleteMessage }) => {
     </div>
   )
 }
-const ConfirmReturnButton = ({ num, points, message, uid, displayName }) => {
+const ConfirmReturnButton = ({ num, points, message, uid, displayName, increaseRound }) => {
   return (
     <Button
       variant="outlined"
@@ -243,6 +278,7 @@ const ConfirmReturnButton = ({ num, points, message, uid, displayName }) => {
           uid: uid,
           displayName: displayName,
         })
+        increaseRound()
       }}
       startIcon={<SendIcon />}
     >
@@ -252,7 +288,7 @@ const ConfirmReturnButton = ({ num, points, message, uid, displayName }) => {
 }
 // const webSocket = io("http://localhost:5000");
 function Btn({
-  msgObj,
+  messageObj,
   isOwner,
   uid,
   displayName,
@@ -260,6 +296,11 @@ function Btn({
   num,
   points,
   deleteMessage,
+  round,
+  increaseRound,
+  decreaseRound,
+  onPulse,
+  changeOnPulse
 }) {
   const [move, setMove] = useState(false)
   const handleClose = () => {
@@ -268,89 +309,156 @@ function Btn({
   const handleDialog = () => {
     setMove(true)
   }
-  const passingObject = { message: msgObj, uid: uid, displayName: displayName }
+  const passingObject = { message: messageObj, uid: uid, displayName: displayName }
   const passingConfirmReturnObject = {
     num: num,
     points: points,
-    message: msgObj,
+    message: messageObj,
     uid: uid,
     displayName: displayName,
   }
+  // useEffect(() => {
+  //   if (!webSocket) return
+  //   function sIncreaseCardCallback() {
+  //     increaseRound()
+  //   }
+  //   webSocket.on(`sIncrease${messageObj.id}`, sIncreaseCardCallback)
+  //   return () => {
+  //     webSocket.off(`sIncrease${messageObj.id}`, sIncreaseCardCallback)
+  //   }
+  // })
+  // useEffect(() => {
+  //   if (!webSocket) return
+  //   function sDecreaseCardCallback() {
+  //     decreaseRound()
+  //   }
+  //   webSocket.on(`sDecrease${messageObj.id}`, sDecreaseCardCallback)
+  //   return () => {
+  //     webSocket.off(`sDecrease${messageObj.id}`, sDecreaseCardCallback)
+  //   }
+  // })
+  // useEffect(() => {
+  //   if (!webSocket) return
+  //   function sOnPulseTrueCallback(message) {
+  //     if (message.choose === 1) {
+  //       if (message.creatorId === userObj.uid) {
+  //         if (message.round === 2 || message.round === 3) {
+  //           changeOnPulse(true)
+  //         } else if (message.connectedId === userObj.uid) {
+  //           if (message.round === 4) {
+  //             changeOnPulse(true)
+  //           }
+  //         }
+  //       } else {
+  //         if (message.creatorId === userObj.uid) {
+  //           if (message.round === 2 || message.round === 4) {
+  //             changeOnPulse(true)
+  //           }
+  //         } else if (message.connectedId === userObj.uid) {
+  //           if (message.round === 3) {
+  //             changeOnPulse(true)
+  //           }
+  //         }
+  //       }
+  //       changeOnPulse(true)
+  //     }
+  //   }
+  //   webSocket.on(`sOnPulseTrue${messageObj.id}`, sOnPulseTrueCallback)
+  //   return () => {
+  //     webSocket.off(`sOnPulseTrue${messageObj.id}`, sOnPulseTrueCallback)
+  //   }
+  // })
+  // useEffect(() => {
+  //   if (!webSocket) return
+  //   function sOnPulseFalseCallback(message) {
+  //     changeOnPulse(false)
+  //   }
+  //   webSocket.on(`sOnPulseFalse${messageObj.id}`, sOnPulseFalseCallback)
+  //   return () => {
+  //     webSocket.off(`sOnPulseFalse${messageObj.id}`, sOnPulseFalseCallback)
+  //   }
+  // })
   return (
     <>
       {isOwner ? (
         <>
-          {msgObj.round === 1 && (
-            <DeleteButton message={msgObj} deleteMessage={deleteMessage} />
+          {round === 1 && (
+            <DeleteButton message={messageObj} deleteMessage={deleteMessage} decreaseRound={decreaseRound} />
           )}
-          {msgObj.round === 2 && (
+          {round === 2 && (
             <ConfirmButton
-              message={msgObj}
+              message={messageObj}
               uid={uid}
               displayName={displayName}
+              increaseRound={increaseRound}
             />
           )}
-          {msgObj.round === 3 && (
+          {round === 3 && (
             <div className="flex justify-center">
               {
-                msgObj.text.choose == 1 && (
+                messageObj.text.choose === 1 && (
                   <ReturningButton
-                    message={msgObj}
+                    message={messageObj}
                     uid={uid}
                     displayName={displayName}
+                    increaseRound={increaseRound}
                   />
                 )
                 // <Button variant='outlined' onClick={() => {
-                //   onReturning({ message: msgObj, uid: uid, displayName: displayName })
+                //   onReturning({ message: messageObj, uid: uid, displayName: displayName })
                 // }}
                 //   startIcon={<SendIcon />}>반납하기</Button>
               }
-              {msgObj.text.choose == 2 && (
-                <Button variant="outlined" disabled>
-                  {msgObj.connectedName} 님이 빌리는 중
-                </Button>
+              {messageObj.text.choose === 2 && (
+                <div>
+                  {messageObj.connectedName} 님이 빌리는 중
+                </div>
               )}
             </div>
           )}
-          {msgObj.round === 4 && (
+          {round === 4 && (
             <div className="flex justify-center">
-              {msgObj.text.choose == 1 && (
-                <Button variant="outlined" disabled>
+              {messageObj.text.choose === 1 && (
+                <div>
                   주인에게 확인 중
-                </Button>
+                </div>
               )}
-              {msgObj.text.choose == 2 && (
+              {messageObj.text.choose === 2 && (
                 <ConfirmReturnButton
                   num={num}
                   points={points}
-                  message={msgObj}
+                  message={messageObj}
                   uid={uid}
                   displayName={displayName}
+                  increaseRound={increaseRound}
                 />
               )}
             </div>
           )}
+          {round === 5 && <div>완료된 카드입니다</div>}
         </>
       ) : (
         <>
-          {msgObj.round === 1 && (
+          {round === 1 && (
             <SupportButton
               userObj={userObj}
               move={move}
               handleClose={handleClose}
               handleDialog={handleDialog}
-              message={msgObj}
+              message={messageObj}
               uid={uid}
               displayName={displayName}
+              increaseRound={increaseRound}
             />
           )}
           {
-            msgObj.round === 2 && (
+            round === 2 && (
               <StopSupportButton
                 userObj={userObj}
-                message={msgObj}
+                message={messageObj}
                 uid={uid}
                 displayName={displayName}
+                decreaseRound={decreaseRound}
               />
             )
             // <div className='flex flex-col justify-center'>
@@ -359,57 +467,61 @@ function Btn({
             //   >승낙 메시지 전송 완료</Button>
             //   <Button variant='outlined' onClick={() => {
             //     if (userObj) {
-            //       onStopSupporting({ message: msgObj, uid: uid, displayName: displayName })
+            //       onStopSupporting({ message: messageObj, uid: uid, displayName: displayName })
             //     }
             //   }}
             //     startIcon={<SendIcon />}>취소</Button>
             // </div>
           }
-          {msgObj.round === 3 && (
+          {round === 3 && (
             <div className="flex justify-center">
-              {msgObj.text.choose == 1 && (
-                <Button variant="outlined" disabled>
-                  {msgObj.displayName} 님이 빌리는 중
-                </Button>
+              {messageObj.text.choose === 1 && (
+                <div>
+                  {messageObj.displayName} 님이 빌리는 중
+                </div>
               )}
               {
-                msgObj.text.choose == 2 && (
+                messageObj.text.choose === 2 && (
                   <ReturningButton
-                    message={msgObj}
+                    message={messageObj}
                     uid={uid}
                     displayName={displayName}
+                    increaseRound={increaseRound}
+                    changeOnPulse={changeOnPulse}
                   />
                 )
                 // <Button variant='outlined' onClick={() => {
-                //   onReturning({ message: msgObj, uid: uid, displayName: displayName })
+                //   onReturning({ message: messageObj, uid: uid, displayName: displayName })
                 // }}
                 //   startIcon={<SendIcon />}>반납하기</Button>
               }
             </div>
           )}
-          {msgObj.round === 4 && (
+          {round === 4 && (
             <div className="flex justify-center">
               {
-                msgObj.text.choose == 1 && (
+                messageObj.text.choose === 1 && (
                   <ConfirmReturnButton
                     num={num}
                     points={points}
-                    message={msgObj}
+                    message={messageObj}
                     uid={uid}
                     displayName={displayName}
+                    increaseRound={increaseRound}
                   />
                 )
                 // <Button variant='outlined' onClick={() => {
-                //   onConfirmReturn({ num: num, points: points, message: msgObj, uid: uid, displayName: displayName, data: data, messagingToken: messagingToken })
+                //   onConfirmReturn({ num: num, points: points, message: messageObj, uid: uid, displayName: displayName, data: data, messagingToken: messagingToken })
                 // }} endIcon={<SendIcon />}>반납 완료 확인</Button>
               }
-              {msgObj.text.choose == 2 && (
-                <Button variant="outlined" disabled>
-                  주인에게 확인 중
-                </Button>
+              {messageObj.text.choose === 2 && (
+                <div>
+                  {messageObj.item} 주인에게 확인 중
+                </div>
               )}
             </div>
           )}
+          {round === 5 && <div>완료된 카드입니다</div>}
         </>
       )}
     </>

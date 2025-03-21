@@ -19,7 +19,7 @@ const CardsList = ({ choose, messages, selectedValues, userObj }) => {
               return (
                 <Cards
                   key={index}
-                  msgObj={message}
+                  message={message}
                   isOwner={isOwner}
                   userObj={userObj}
                   num={null}
