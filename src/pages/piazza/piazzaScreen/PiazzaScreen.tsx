@@ -167,7 +167,6 @@ function PiazzaScreen({
     }
     checkMessage()
   }, [messagesList])
-
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView()
   }
