@@ -208,10 +208,6 @@ function PiazzaScreen({
           profileColor: profileColor,
           profileImageUrl: profileImageUrl,
         })
-        // if (index === 0) {
-        //   console.log(document)
-        //   setContinuing(document)
-        // }
       })
       messagesArray.reverse()
       handleMessagesList([...messagesArray, ...messagesList])
