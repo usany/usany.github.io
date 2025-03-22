@@ -1,40 +1,24 @@
-import { useState, useEffect, useLayoutEffect } from "react";
-import {
-  auth,
-  onSocialClick,
-  dbservice,
-  storage,
-} from "src/baseApi/serverbase";
+import { User } from "firebase/auth";
 import {
   collection,
-  query,
-  where,
-  orderBy,
-  addDoc,
+  doc,
   getDoc,
   getDocs,
-  doc,
-  onSnapshot,
-  deleteDoc,
-  updateDoc,
   limit,
-  startAfter,
+  orderBy,
+  query,
+  startAfter
 } from "firebase/firestore";
-import TextField from "@mui/material/TextField";
-import Skeleton from "@mui/material/Skeleton";
-import PageTitle from "src/pages/core/pageTitle/PageTitle";
-import RankingListsTitle from "src/pages/search/searchList/searchListViews/searchListViewsTitle/RankingListsTitle";
-import RankingSearch from "src/pages/search/searchBar/RankingSearch";
-import Lists from "src/pages/search/searchList/searchListViews/Lists";
 import {
-  getStorage,
-  ref,
-  uploadBytes,
-  uploadString,
-  uploadBytesResumable,
   getDownloadURL,
+  ref
 } from "firebase/storage";
-import { User } from "firebase/auth";
+import { useEffect, useState } from "react";
+import {
+  dbservice,
+  storage
+} from "src/baseApi/serverbase";
+import Lists from "src/pages/search/searchList/searchListViews/Lists";
 
 interface Props {
   userObj: User;

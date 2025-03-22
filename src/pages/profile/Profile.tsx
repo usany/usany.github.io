@@ -1,52 +1,38 @@
 import {
-  useState,
   useEffect,
-  useMemo,
-  useCallback,
-  Suspense,
-  lazy,
+  useState
 } from "react";
-import ProfileDialogs from "src/pages/profile/profileAvatar/profileDialogs/ProfileDialogs";
+import {
+  dbservice
+} from "src/baseApi/serverbase";
 import PageTitle from "src/pages/core/pageTitle/PageTitle";
+import ProfileActions from "src/pages/profile/ProfileActions";
 import ProfileAvatar from "src/pages/profile/profileAvatar/ProfileAvatar";
+import ProfileDialogs from "src/pages/profile/profileAvatar/profileDialogs/ProfileDialogs";
 import ProfileCards from "src/pages/profile/ProfileCards";
 import ProfileCompleted from "src/pages/profile/ProfileCompleted";
 import ProfileMembers from "src/pages/profile/ProfileMembers";
-import ProfileActions from "src/pages/profile/ProfileActions";
-import {
-  auth,
-  onSocialClick,
-  dbservice,
-  storage,
-} from "src/baseApi/serverbase";
 // import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnapshot, updateDoc, setDoc } from 'firebase/firestore';
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  useNavigate,
-  Link,
-  useLocation,
-  useParams,
-} from "react-router-dom";
-import { useImmer } from "use-immer";
-import { useSelector, useDispatch } from "react-redux";
-import { changeBottomNavigation } from "src/stateSlices/bottomNavigationSlice";
 import { User } from "firebase/auth";
+import { useDispatch } from "react-redux";
+import {
+  useLocation,
+  useParams
+} from "react-router-dom";
+import { changeBottomNavigation } from "src/stateSlices/bottomNavigationSlice";
+import { useImmer } from "use-immer";
 // import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 // import Skeleton from '@mui/material/Skeleton';
-import { getAuth, deleteUser } from "firebase/auth";
-import { doc, deleteDoc, getDoc } from "firebase/firestore";
 import { useQuery } from "@tanstack/react-query";
-import { Button, Chip } from "@mui/material";
+import { doc, getDoc } from "firebase/firestore";
 import ProfileLocations from "./ProfileLocations";
 
 const area = [
   {
-    westSouth: {lat: 37.5927551, lng: 127.047462},
-    westNorth: {lat: 37.6010743, lng: 127.047462},
-    eastSouth: {lat: 37.5927551, lng: 127.0571999},
-    eastNorth: {lat: 37.6010743, lng: 127.0571999},
+    westSouth: { lat: 37.5927551, lng: 127.047462 },
+    westNorth: { lat: 37.6010743, lng: 127.047462 },
+    eastSouth: { lat: 37.5927551, lng: 127.0571999 },
+    eastNorth: { lat: 37.6010743, lng: 127.0571999 },
   }
 ]
 interface Props {
@@ -261,7 +247,7 @@ function Profile({ userObj }: Props) {
           </Button>
         }
       </div> */}
-      <ProfileLocations user={state.element.uid} userObj={userObj} />
+      <ProfileLocations user={state?.element.uid} userObj={userObj} />
       {/* <Suspense fallback={<Skeleton />}>
         <ProfileAvatar userObj={userObj} user={state.element} handleProfileDialog={() => setProfileDialog(true)} />
       </Suspense> */}

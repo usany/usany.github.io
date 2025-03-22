@@ -1,36 +1,23 @@
-import { useState, useEffect, useReducer } from 'react'
-import Card from '@mui/material/Card';
-import { CardActionArea, CardActions } from '@mui/material';
-import { createPortal } from 'react-dom'
-import { Link } from 'react-router-dom'
-import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnapshot, updateDoc, setDoc } from 'firebase/firestore';
-import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
-import { Label, Pie, PieChart } from "recharts"
 import {
   ChartConfig,
   ChartContainer,
   ChartLegend,
-  ChartLegendContent,
-  ChartTooltip,
-  ChartTooltipContent,
-} from "@/components/ui/chart"
+  ChartLegendContent
+} from "@/components/ui/chart";
 import {
   Drawer,
-  DrawerClose,
   DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
   DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from "@/components/ui/drawer"
-import { ScrollArea } from "@/components/ui/scroll-area"
-import { useCompletedDrawerStore } from 'src/store'
-import ProfileDrawers from 'src/pages/profile/ProfileDrawers'
-import Cards from 'src/pages/main/card/Cards'
-import Message from 'src/pages/Message'
-import { useSelector, useDispatch } from 'react-redux'
-import { changeCompletedAction } from 'src/stateSlices/completedActionSlice'
+  DrawerTrigger
+} from "@/components/ui/drawer";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { collection, getDocs, query } from 'firebase/firestore';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Label, Pie, PieChart } from "recharts";
+import { dbservice } from 'src/baseApi/serverbase';
+import Cards from 'src/pages/main/card/Cards';
+import { changeCompletedAction } from 'src/stateSlices/completedActionSlice';
 
 const ProfileCompleted = ({
   user,
@@ -39,16 +26,20 @@ const ProfileCompleted = ({
   const [messagesList, setMessagesList] = useState([])
   const completedAction = useSelector(state => state.completedAction.value)
   const dispatch = useDispatch()
-  
+
   const actions = [
     // { action: 'borrow', number: cards.borrowDone.length,
     //   fill: 'red'},
     // { action: 'lend', number: cards.lendDone.length,
     //   fill: 'blue'},
-    { action: 'borrow', number: cards.borrowDone.length,
-      fill: '#e76e50'},
-    { action: 'lend', number: cards.lendDone.length,
-      fill: '#7fc4bc'},
+    {
+      action: 'borrow', number: cards.borrowDone.length,
+      fill: '#e76e50'
+    },
+    {
+      action: 'lend', number: cards.lendDone.length,
+      fill: '#7fc4bc'
+    },
   ]
   const labels = {
     number: {
@@ -64,7 +55,7 @@ const ProfileCompleted = ({
     },
   } satisfies ChartConfig
   const totalNumber = actions.reduce((acc, curr) => acc + curr.number, 0)
-  
+
   useEffect(() => {
     const getMessage = async () => {
       const messagesRef = query(collection(dbservice, 'num'))
@@ -73,7 +64,7 @@ const ProfileCompleted = ({
       querySnap.forEach((docSnap) => {
         const messageId = docSnap.id
         const messageObj = docSnap.data()
-        const message = {id: messageId, ...messageObj}
+        const message = { id: messageId, ...messageObj }
         if (messageObj.creatorId === user.uid || messageObj.connectedId === user.uid) {
           messagesArray.push(message)
         }
@@ -85,9 +76,10 @@ const ProfileCompleted = ({
 
   // useEffect(() => {
   //   if (document.getElementById('completedAction').asChild) {
-      
+
   //   }
   // })
+  console.log(messagesList)
   return (
     <div className='flex flex-col pt-5'>
       <Drawer>
@@ -98,7 +90,7 @@ const ProfileCompleted = ({
               left: 0,
               behavior: "instant", // Optional if you want to skip the scrolling animation
             });
-          }}/>
+          }} />
         </DrawerTrigger>
         <DrawerContent className='max-h-[50%] bg-light-2 dark:bg-dark-2'>
           <ScrollArea className='overflow-y-scroll'>
@@ -111,11 +103,11 @@ const ProfileCompleted = ({
                   if (element.round === 5) {
                     if (element.creatorId === user.uid && element.text.choose === 1) {
                       return (
-                        <Cards key={element.id} msgObj={element} isOwner={true} userObj={user} num={null} points={null} />
+                        <Cards key={element.id} message={element} isOwner={true} userObj={user} num={null} points={null} />
                       )
                     } else if (element.creatorId !== user.uid && element.text.choose === 2) {
                       return (
-                        <Cards key={element.id} msgObj={element} isOwner={false} userObj={user} num={null} points={null} />
+                        <Cards key={element.id} message={element} isOwner={false} userObj={user} num={null} points={null} />
                       )
                     }
                   }
@@ -127,11 +119,11 @@ const ProfileCompleted = ({
                   if (element.round === 5) {
                     if (element.creatorId === user.uid && element.text.choose === 2) {
                       return (
-                        <Cards key={element.id} msgObj={element} isOwner={true} userObj={user} num={null} points={null} />
+                        <Cards key={element.id} message={element} isOwner={true} userObj={user} num={null} points={null} />
                       )
                     } else if (element.creatorId !== user.uid && element.text.choose === 1) {
                       return (
-                        <Cards key={element.id} msgObj={element} isOwner={false} userObj={user} num={null} points={null} />
+                        <Cards key={element.id} message={element} isOwner={false} userObj={user} num={null} points={null} />
                       )
                     }
                   }
@@ -148,7 +140,7 @@ const ProfileCompleted = ({
         <PieChart>
           <ChartLegend
             content={
-              <ChartLegendContent nameKey="action" /> 
+              <ChartLegendContent nameKey="action" />
             }
             className="text-base font-bold gap-2 [&>*]:basis-1/4 [&>*]:justify-center"
             verticalAlign='top'

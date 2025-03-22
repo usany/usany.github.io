@@ -1,7 +1,7 @@
 import {
   MorphingDialog,
   MorphingDialogContainer,
-  MorphingDialogTrigger
+  MorphingDialogTrigger,
 } from '@/components/ui/morphing-dialog'
 import { User } from 'firebase/auth'
 import { useEffect, useState } from 'react'
@@ -17,7 +17,7 @@ interface Props {
   points: number | null
 }
 
-const MorphingDialogs = ({ message, isOwner, userObj, num, points }: Props) => {
+const MorphingDialogs = ({ message, isOwner, userObj, num, points, round, increaseRound, decreaseRound }: Props) => {
   // const [drawerOpen, setDrawerOpen] = useState(false)
   // const drawerOpenTrue = () => {
   //   setDrawerOpen(true)
@@ -25,20 +25,9 @@ const MorphingDialogs = ({ message, isOwner, userObj, num, points }: Props) => {
   // const drawerOpenFalse = () => {
   //   setDrawerOpen(false)
   // }
-  const [round, setRound] = useState(0)
   const [onPulse, setOnPulse] = useState(false)
-  const increaseRound = () => {
-    setRound(round + 1)
-  }
-  const decreaseRound = () => {
-    setRound(round - 1)
-  }
   const changeOnPulse = (newValue) => setOnPulse(newValue)
-  useEffect(() => {
-    if (!round) {
-      setRound(message.round)
-    }
-  })
+
   useEffect(() => {
     if (message.text.choose === 1) {
       if (message.creatorId === userObj.uid) {
@@ -72,7 +61,7 @@ const MorphingDialogs = ({ message, isOwner, userObj, num, points }: Props) => {
   }, [round])
   useEffect(() => {
     if (!webSocket) return
-    function sOnPulseTrueCallback(res) {
+    function sOnPulseCallback(res) {
       if (res.choose === 1) {
         if (res.creatorId === userObj.uid) {
           if (round === 1 || round === 2) {
@@ -156,7 +145,15 @@ const MorphingDialogs = ({ message, isOwner, userObj, num, points }: Props) => {
         />
       </MorphingDialogTrigger>
       <MorphingDialogContainer>
-        <Morphings round={round} increaseRound={increaseRound} decreaseRound={decreaseRound} userObj={userObj} message={message} onPulse={onPulse} changeOnPulse={changeOnPulse} />
+        <Morphings
+          round={round}
+          increaseRound={increaseRound}
+          decreaseRound={decreaseRound}
+          userObj={userObj}
+          message={message}
+          onPulse={onPulse}
+          changeOnPulse={changeOnPulse}
+        />
         {/* <MorphingDialogContent drawerOpen={drawerOpen} drawerOpenFalse={drawerOpenFalse}>
           <Specifics drawerOpenTrue={drawerOpenTrue} userObj={userObj} message={message} />
         </MorphingDialogContent> */}

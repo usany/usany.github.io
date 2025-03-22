@@ -51,6 +51,18 @@ const Cards = ({
   changeLongPressCard,
 }: Props) => {
   const [longPressed, setLongPressed] = useState(false);
+  const [round, setRound] = useState(0)
+  const increaseRound = () => {
+    setRound(round + 1)
+  }
+  const decreaseRound = () => {
+    setRound(round - 1)
+  }
+  useEffect(() => {
+    if (!round) {
+      setRound(message.round)
+    }
+  })
 
   const cardsRef = useRef();
   useLongPress(cardsRef, () => {
@@ -64,14 +76,13 @@ const Cards = ({
       setLongPressed(false);
     }
   }, [onLongPress]);
-
   return (
     <div className="max-w-60 min-w-20 p-1" ref={cardsRef}>
       {longPressed ? (
         <div className="flex gap-3 scale-75 w-[200px]">
           <ClickAwayListener
             onClickAway={() => {
-              console.log("practice");
+              // console.log("practice");
               if (longPressCard === message.id) {
                 changeOnLongPress(0);
                 changeLongPressCard(null);
@@ -103,16 +114,20 @@ const Cards = ({
               <Chip label={<DeleteIcon />} color='error'/>
             </div>
           } */}
-          <div
-            className="z-10 h-full"
-            onClick={() => {
-              const data = doc(dbservice, `num/${message.id}`);
-              deleteDoc(data);
-              changeOnLongPress(null);
-            }}
-          >
-            <Chip label={<DeleteIcon />} color="error" />
-          </div>
+          {round < 2 ?
+            <div
+              className="z-10 h-full"
+              onClick={() => {
+                const data = doc(dbservice, `num/${message.id}`);
+                deleteDoc(data);
+                changeOnLongPress(null);
+              }}
+            >
+              <Chip label={<DeleteIcon />} color="error" />
+            </div>
+            :
+            <Chip label={<DeleteIcon />} color="error" disabled />
+          }
         </div>
       ) : (
         <div>
@@ -147,6 +162,9 @@ const Cards = ({
               userObj={userObj}
               num={num}
               points={points}
+              round={round}
+              increaseRound={increaseRound}
+              decreaseRound={decreaseRound}
             />
           )}
         </div>
