@@ -223,6 +223,9 @@ function PiazzaScreen({
       )
       const messages = await getDocs(messagesCollection)
       const messagesArray = []
+      if (!messages.docs.length) {
+        setContinueNumber(messages.docs.length)
+      }
       messages.forEach((doc, index) => {
         if (messagesArray.length === messages.docs.length - 1) {
           setContinuing(doc)
