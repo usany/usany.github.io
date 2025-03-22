@@ -17,7 +17,7 @@ interface Props {
   points: number | null
 }
 
-const MorphingDialogs = ({ message, isOwner, userObj, num, points }: Props) => {
+const MorphingDialogs = ({ message, isOwner, userObj, num, points, round, increaseRound, decreaseRound }: Props) => {
   // const [drawerOpen, setDrawerOpen] = useState(false)
   // const drawerOpenTrue = () => {
   //   setDrawerOpen(true)
@@ -25,20 +25,9 @@ const MorphingDialogs = ({ message, isOwner, userObj, num, points }: Props) => {
   // const drawerOpenFalse = () => {
   //   setDrawerOpen(false)
   // }
-  const [round, setRound] = useState(0)
   const [onPulse, setOnPulse] = useState(false)
-  const increaseRound = () => {
-    setRound(round + 1)
-  }
-  const decreaseRound = () => {
-    setRound(round - 1)
-  }
   const changeOnPulse = (newValue) => setOnPulse(newValue)
-  useEffect(() => {
-    if (!round) {
-      setRound(message.round)
-    }
-  })
+
   useEffect(() => {
     if (message.text.choose === 1) {
       if (message.creatorId === userObj.uid) {

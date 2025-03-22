@@ -43,7 +43,6 @@ const CardView = ({ message, shadowColor }) => {
   const profileColor = useSelector((state) => state.profileColor.value)
   const profileUrl = message?.creatorUrl
   const { color } = useCardsBackground()
-
   return (
     <Card
       sx={{
@@ -69,7 +68,7 @@ const CardView = ({ message, shadowColor }) => {
                 label={`${message.item} ${message.text.choose === 1 ? ' 빌리기' : ' 빌려주기'}`}
               />
             </div>
-            {}
+            { }
             {/* {item && <Chip label='내가 작성함' />} */}
           </div>
           {/* {!item &&
@@ -167,7 +166,7 @@ const CardsViews = ({
   const id = message?.id || ''
   const shadowColor =
     shadowColorArray[
-      mergedArray.indexOf(String(id[0]).toUpperCase()) % shadowColorArray.length
+    mergedArray.indexOf(String(id[0]).toUpperCase()) % shadowColorArray.length
     ]
   const profileColor = useSelector((state) => state.profileColor.value)
   // const profileImage = useSelector((state) => state.profileImage.value);

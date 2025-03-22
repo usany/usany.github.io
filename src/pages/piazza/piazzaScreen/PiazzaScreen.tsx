@@ -1,13 +1,12 @@
-import { useRef, useEffect, useState, useMemo, lazy } from "react";
-import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnapshot, deleteDoc, updateDoc, limit } from 'firebase/firestore';
-import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
-import { webSocket, onClick } from 'src/webSocket.tsx'
-import { useSelector, useDispatch } from 'react-redux'
 import { User } from "firebase/auth";
-import { Link, useLocation } from 'react-router-dom'
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import PiazzaDialogs from 'src/pages/piazza/piazzaScreen/piazzaDialogs/PiazzaDialogs'
+import { collection, doc, getDoc, getDocs, limit, orderBy, query, startAfter, updateDoc } from 'firebase/firestore';
+import { useEffect, useRef, useState } from "react";
+import { useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
+import { dbservice } from 'src/baseApi/serverbase';
 import Avatars from "src/pages/core/Avatars";
+import PiazzaDialogs from 'src/pages/piazza/piazzaScreen/piazzaDialogs/PiazzaDialogs';
+import { webSocket } from 'src/webSocket.tsx';
 
 interface Props {
   userObj: User
@@ -19,8 +18,11 @@ interface Props {
 
 function PiazzaScreen({ userObj, multiple, handleMultiple, messagesList, handleMessagesList }: Props) {
   const messagesEndRef = useRef(null);
+  const boxRef = useRef(null);
   const [user, setUser] = useState(null)
   const [displayedName, setDisplayedName] = useState('')
+  const [isLoading, setIsLoading] = useState(false);
+  const [continuing, setContinuing] = useState(null);
   const profileColor = useSelector(state => state.profileColor.value)
   const profileUrl = useSelector(state => state.profileUrl.value)
   const { state } = useLocation()
@@ -37,7 +39,7 @@ function PiazzaScreen({ userObj, multiple, handleMultiple, messagesList, handleM
     document.getElementById('drawer')?.click()
     onPrivate({ userUid: userUid, displayName: displayName })
   }
-
+  const scrollNumber = 10
   useEffect(() => {
     if (!webSocket) return;
     function sMessageCallback(message) {
@@ -94,6 +96,8 @@ function PiazzaScreen({ userObj, multiple, handleMultiple, messagesList, handleM
 
   useEffect(() => {
     scrollToBottom();
+    // if (!continuing) {
+    // }
 
     const checkMessage = async () => {
       if (multiple) {
@@ -106,6 +110,7 @@ function PiazzaScreen({ userObj, multiple, handleMultiple, messagesList, handleM
           const myChattings = myDocSnap.data()
           const piazzaCheckedList = myChattings.piazzaChecked || []
           if (piazzaCheckedList.indexOf(userObj.uid) === -1) {
+            piazzaCheckedList.splice(-1, userObj.uid, 0)
             piazzaCheckedList.push(userObj.uid)
             await updateDoc(myDocRef, {
               ...myChattings,
@@ -129,14 +134,18 @@ function PiazzaScreen({ userObj, multiple, handleMultiple, messagesList, handleM
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView();
   };
-
+  console.log(continuing?.data())
   useEffect(() => {
     const messageList = async () => {
       const messagesArray = []
       const messageRef = collection(dbservice, 'chats_group')
-      const messagesCollection = query(messageRef, orderBy('messageClockNumber'))
+      const messagesCollection = query(messageRef, orderBy('messageClockNumber', 'desc'), limit(scrollNumber),
+        startAfter(continuing ? continuing : ""))
       const messages = await getDocs(messagesCollection);
       messages.forEach((document) => {
+        if (messagesArray.length === scrollNumber - 1) {
+          setContinuing(document)
+        }
         const message = document.data().message
         const userUid = document.data().userUid
         const userName = document.data().userName
@@ -145,36 +154,69 @@ function PiazzaScreen({ userObj, multiple, handleMultiple, messagesList, handleM
         const profileColor = document.data()?.profileColor
         const profileImageUrl = document.data()?.profileImageUrl
         messagesArray.push({ msg: message, type: "me", userUid: userUid, id: userName, messageClockNumber: messageClockNumber, messageClock: messageClock, conversation: null, profileColor: profileColor, profileImageUrl: profileImageUrl })
-        handleMessagesList(messagesArray);
+        // if (index === 0) {
+        //   console.log(document)
+        //   setContinuing(document)
+        // }
       });
+      messagesArray.reverse()
+      // handleMessagesList(messagesArray)
+      handleMessagesList([...messagesArray, ...messagesList]);
+      setIsLoading(false)
     }
     const messageListMembers = async (conversation) => {
       const messageRef = collection(dbservice, `chats_${conversation}`)
-      const messagesCollection = query(messageRef, orderBy('messageClockNumber'))
+      const messagesCollection = query(messageRef, orderBy('messageClockNumber', 'desc'), limit(scrollNumber),
+        startAfter(continuing ? continuing : ""))
       const messages = await getDocs(messagesCollection);
       const messagesArray = []
-      messages.forEach((doc) => {
+      messages.forEach((doc, index) => {
         const message = doc.data().message
         const userUid = doc.data().userUid
         const userName = doc.data().userName
         const messageClock = doc.data().messageClock
         const messageClockNumber = doc.data().messageClockNumber || 0
         messagesArray.push({ msg: message, type: "me", userUid: userUid, id: userName, messageClock: messageClock, messageClockNumber: messageClockNumber })
-        handleMessagesList(messagesArray)
       });
+      messagesArray.reverse()
+      handleMessagesList(messagesArray)
+      setIsLoading(false)
     }
     if (multiple) {
-      messageList()
+      if (isLoading || !messagesList.length) {
+        messageList()
+      }
     } else {
-      messageListMembers(conversation)
+      if (isLoading || !messagesList.length) {
+        messageListMembers(conversation)
+      }
     }
-  }, [multiple])
-
+  }, [isLoading])
+  // console.log(isLoading)
+  const handleScroll = () => {
+    if (
+      // boxRef.current.getBoundingClientRect().height + Math.round(boxRef.current.scrollTop) !==
+      // boxRef.current.offsetHeight ||
+      boxRef.current.scrollTop !== 0 ||
+      isLoading
+    ) {
+      // console.log(document.documentElement.offsetHeight);
+      return;
+    } else {
+      console.log("scroll");
+      setIsLoading(true);
+    }
+  };
+  useEffect(() => {
+    boxRef.current?.addEventListener("scroll", handleScroll);
+    return () => boxRef.current?.removeEventListener("scroll", handleScroll);
+  }, [isLoading]);
   return (
     <>
       <div className="flex flex-col pt-5">
-        <div className="p-1 border-t rounded-xl max-h-[60vh] overflow-auto">
+        <div ref={boxRef} className="p-1 border-t rounded-xl max-h-[60vh] overflow-auto">
           <ul>
+            {isLoading && <div>loading</div>}
             {messagesList.map((value, index) => {
               let userDirection
               const clock = new Date(value.messageClock)
@@ -228,7 +270,7 @@ function PiazzaScreen({ userObj, multiple, handleMultiple, messagesList, handleM
               }
 
               return (
-                <li key={index} className={userDirection}>
+                <li key={index} ref={index === scrollNumber - 1 ? messagesEndRef : null} className={userDirection}>
                   {previousUid !== value.userUid &&
                     <div>
                       <div className={`flex justify-${value.userUid !== userObj.uid ? 'start' : 'end'}`}>
