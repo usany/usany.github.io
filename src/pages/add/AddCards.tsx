@@ -58,10 +58,10 @@ const AddCards = ({
             <div>
               <div className="flex justify-between gap-1">
                 <Avatars
+                  uid={userObj.uid}
                   profile={false}
                   profileColor={profileColor}
                   profileUrl={profileUrl}
-                  fallback={userObj.displayName ? userObj.displayName[0] : ''}
                 />
                 {item &&
                   <div className='flex items-center'>

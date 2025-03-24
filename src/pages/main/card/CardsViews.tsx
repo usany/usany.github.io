@@ -56,11 +56,10 @@ const CardView = ({ message, shadowColor }) => {
         <div>
           <div className="flex justify-between gap-1">
             <Avatars
+              uid={message.creatorId}
               profile={false}
               profileColor={profileColor}
               profileUrl={profileUrl}
-              // profileImage={profileImage}
-              fallback={message.displayName ? message.displayName[0] : ''}
               piazza={null}
             />
             <div className="flex items-center">

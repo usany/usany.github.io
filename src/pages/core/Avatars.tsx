@@ -1,10 +1,10 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { useSelector } from "react-redux";
 import static01 from "src/assets/blue01.png";
 import static02 from "src/assets/blue02.png";
 import static03 from "src/assets/blue03.png";
 
 interface Props {
+  uid: string
   profile: boolean;
   profileColor: string;
   profileUrl: string;
@@ -13,26 +13,23 @@ interface Props {
 }
 
 const Avatars = ({
-  userObj,
+  uid,
   profile,
-  profileColor,
+  // profileColor,
   profileUrl,
-  fallback,
   piazza
   //   profileImage,
 }: Props) => {
-  // const profileImage = useSelector(state => state.profileImage.value)
-  // const profileUrl = useSelector(state => state.profileUrl.value)
-  // console.log(profileImage)
-  const profileImageArray = [static01, static02, static03]
-  let designatedProfile;
+  // const defaultProfile = useSelector((state) => state.defaultProfile.value)
+  // console.log(defaultProfile)
+  const profileImageArray = [static01, static02, static03, static01, static02, static03]
   const alpha = Array.from(Array(26)).map((e, i) => i + 65);
   const letters = alpha.map((x) => String.fromCharCode(x));
-  if (userObj) {
-    designatedProfile = profileImageArray[letters.indexOf(String(userObj?.uid[0]).toUpperCase()) % 3];
+  let defaultProfile
+  if (uid) {
+    defaultProfile = profileImageArray[letters.indexOf(String(uid[0]).toUpperCase()) % 6];
   }
-  const defaultProfile = useSelector((state) => state.defaultProfile.value)
-  console.log(defaultProfile)
+
   return (
     <div>
       {profile ? (

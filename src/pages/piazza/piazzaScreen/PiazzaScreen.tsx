@@ -354,10 +354,10 @@ function PiazzaScreen({
                         {userDirection === 'text-left' ? (
                           <div className="flex gap-3">
                             <Avatars
+                              uid={userObj.uid}
                               profile={false}
                               profileColor=""
                               profileUrl={value?.profileImageUrl}
-                              fallback=""
                               piazza={() =>
                                 onDrawer({
                                   userUid: value.userUid,
@@ -378,10 +378,10 @@ function PiazzaScreen({
                           <div className="flex gap-3">
                             <div>{value.id}</div>
                             <Avatars
+                              uid={userObj.uid}
                               profile={false}
                               profileColor=""
                               profileUrl={value?.profileImageUrl}
-                              fallback=""
                               piazza={() =>
                                 onDrawer({
                                   userUid: value.userUid,

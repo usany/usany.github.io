@@ -1,56 +1,21 @@
-import { useState, useEffect } from 'react'
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  useNavigate,
-  Link,
-  useLocation,
-} from 'react-router-dom'
-import Btn from 'src/Btn'
-import Steppers from 'src/pages/add/Steppers'
-import PageTitle from 'src/pages/core/pageTitle/PageTitle'
 import Button from '@mui/material/Button'
+import { useEffect, useState } from 'react'
 import {
-  collection,
-  addDoc,
-  getDocs,
-  doc,
-  onSnapshot,
-  query,
-  orderBy,
-} from 'firebase/firestore'
-import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
-import Card from '@mui/material/Card'
-import CardMedia from '@mui/material/CardMedia'
-import CardContent from '@mui/material/CardContent'
+  Link
+} from 'react-router-dom'
 // import { CardActionArea, CardActions } from '@mui/material';
 import Chip from '@mui/material/Chip'
 // import { useBottomNavigationStore } from 'src/store'
-import BeachAccess from '@mui/icons-material/BeachAccess'
-import EastIcon from '@mui/icons-material/East'
-import WestIcon from '@mui/icons-material/West'
-import HorizontalRuleIcon from '@mui/icons-material/HorizontalRule'
-import Divider from '@mui/material/Divider'
-import { useSelector, useDispatch } from 'react-redux'
-import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
-import { User } from 'firebase/auth'
-import Avatars from 'src/pages/core/Avatars'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import staticImg from 'src/assets/pwa-512x512.png'
-import SpecificsDimensions from './SpecificsDimensions'
 import {
   Drawer,
   DrawerClose,
   DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
+  DrawerTrigger
 } from '@/components/ui/drawer'
-import DrawersBar from 'src/pages/core/DrawersBar'
 import { ScrollArea } from '@radix-ui/react-scroll-area'
+import { User } from 'firebase/auth'
+import Avatars from 'src/pages/core/Avatars'
+import DrawersBar from 'src/pages/core/DrawersBar'
 
 interface Props {
   userObj: User | null
@@ -86,10 +51,10 @@ function SpecificsActions({ drawerOpenTrue, userObj, message }: Props) {
           <Drawer>
             <DrawerTrigger onClick={drawerOpenTrue}>
               <Avatars
+                uid={userObj.uid}
                 profile={false}
                 profileColor={''}
                 profileUrl={message.creatorUrl}
-                fallback={message.displayName && message.displayName[0]}
               />
             </DrawerTrigger>
             <DrawerContent className="flex flex-col justify-center px-5 bg-light-2 dark:bg-dark-2 max-h-[60%]">
@@ -97,6 +62,7 @@ function SpecificsActions({ drawerOpenTrue, userObj, message }: Props) {
                 <DrawersBar />
                 <div className="flex flex-col items-center pt-5">
                   <Avatars
+                    uid={userObj.uid}
                     profile={true}
                     profileColor=""
                     profileUrl={message.creatorUrl}

@@ -137,17 +137,17 @@ const HeaderViews = ({ userObj }: Props) => {
               >
                 {userObj ? (
                   <Avatars
+                    uid={userObj.uid}
                     profile={false}
                     profileColor={profileColor}
                     profileUrl={profileUrl}
-                    fallback={userObj.displayName ? userObj.displayName[0] : ""}
                   />
                 ) : (
                   <Avatars
+                    uid={''}
                     profile={false}
                     profileColor={"profile-blue"}
                     profileUrl={staticImage}
-                    fallback={""}
                   />
                 )}
               </div>

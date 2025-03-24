@@ -1,10 +1,8 @@
-import { useState, useEffect } from "react";
-import Badge from "@mui/material/Badge";
-import Avatar from "@mui/material/Avatar";
 import BeachAccess from "@mui/icons-material/BeachAccess";
-import { useSelector, useDispatch } from "react-redux";
-import Avatars from "src/pages/core/Avatars";
+import Badge from "@mui/material/Badge";
+import { useSelector } from "react-redux";
 import LoadingsSkeletons from "src/components/recycle/recycleLoadingsSkeletons";
+import Avatars from "src/pages/core/Avatars";
 
 const ProfileAvatar = ({ userObj, user, handleProfileDialog }) => {
   const profileColor = useSelector((state) => state.profileColor.value);
@@ -28,11 +26,11 @@ const ProfileAvatar = ({ userObj, user, handleProfileDialog }) => {
         >
           {profileUrl ? (
             <Avatars
+              uid={userObj.uid}
               profile={true}
               profileColor={profileColor}
               profileUrl={profileUrl}
-              // profileImage={profileImage}
-              fallback={userObj.displayName[0]}
+            // profileImage={profileImage}
             />
           ) : (
             <LoadingsSkeletons height={"[192px]"} width={"[192px]"} />
@@ -58,10 +56,10 @@ const ProfileAvatar = ({ userObj, user, handleProfileDialog }) => {
         <>
           {user?.profileImageUrl ? (
             <Avatars
+              uid={userObj.uid}
               profile={true}
               profileColor={user.profileColor}
               profileImage={user?.profileImageUrl}
-              fallback={user.displayName[0]}
             />
           ) : (
             <LoadingsSkeletons height={"[192px]"} width={"[192px]"} />

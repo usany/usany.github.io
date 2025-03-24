@@ -108,17 +108,17 @@ const Header = ({ userObj }: Props) => {
           >
             {userObj ? (
               <Avatars
+                uid={userObj.uid}
                 profile={false}
                 profileColor={profileColor}
-                profileImage={profileImage}
-                fallback={userObj.displayName ? userObj.displayName[0] : ""}
+                profileUrl={profileImage}
               />
             ) : (
               <Avatars
+                uid={''}
                 profile={false}
                 profileColor={"profile-blue"}
-                profileImage={staticImage}
-                fallback={""}
+                profileUrl={staticImage}
               />
             )}
           </div>

@@ -1,25 +1,13 @@
-import { useState, useEffect, useLayoutEffect } from "react";
 import Divider from "@mui/material/Divider";
+import { useState } from "react";
 // import Avatar from '@mui/material/Avatar';
-import CommentIcon from "@mui/icons-material/Comment";
-import IconButton from "@mui/material/IconButton";
-import { Link } from "react-router-dom";
-import Avatars from "src/pages/core/Avatars";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import {
-  MessageCircle,
-  Minimize2,
-  Maximize2,
-  Captions,
-  Bike,
-  Ellipsis,
-  ChevronRight,
-} from "lucide-react";
-import staticImg from "src/assets/pwa-512x512.png";
-import RankingListsTitle from "src/pages/search/searchList/searchListViews/searchListViewsTitle/RankingListsTitle";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
-import { dbservice } from "src/baseApi/serverbase";
 import { Chip } from "@mui/material";
+import { doc, updateDoc } from "firebase/firestore";
+import { Link } from "react-router-dom";
+import { dbservice } from "src/baseApi/serverbase";
+import Avatars from "src/pages/core/Avatars";
+import RankingListsTitle from "src/pages/search/searchList/searchListViews/searchListViewsTitle/RankingListsTitle";
 
 function Lists({
   userObj,
@@ -91,7 +79,7 @@ function Lists({
                               {samePointIndex ? samePointIndex + 1 : index + 1}
                             </div>
                           )}
-                          <Avatars profile={false} profileColor="" profileUrl={element?.profileImageUrl} fallback="" />
+                          <Avatars uid={element.uid} piazza={null} profile={false} profileColor="" profileUrl={element?.profileImageUrl} />
                           {/* <Avatar
                             className={`bg-${profileColor?.indexOf("#") === -1 ? element?.profileColor : "profile-blue"}`}
                           >
