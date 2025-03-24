@@ -30,13 +30,13 @@ const MorphingDialogs = ({ message, isOwner, userObj, num, points, round, increa
 
   useEffect(() => {
     if (message.text.choose === 1) {
-      if (message.creatorId === userObj.uid) {
+      if (message.creatorId === userObj?.uid) {
         if (round === 2 || round === 3) {
           changeOnPulse(true)
         } else {
           changeOnPulse(false)
         }
-      } else if (message.connectedId === userObj.uid) {
+      } else if (message.connectedId === userObj?.uid) {
         if (round === 4) {
           changeOnPulse(true)
         } else {

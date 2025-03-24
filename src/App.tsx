@@ -10,7 +10,6 @@ import 'src/global.css'
 import Lotties from 'src/lottiesAnimation/Lotties'
 import Router from 'src/pages/core/Router'
 import ThemeRootState from './interfaces/ThemeRootState copy'
-import { changeDefaultProfile } from './stateSlices/defaultProfile'
 
 const lightTheme = createTheme({
   palette: {
@@ -44,7 +43,7 @@ function App() {
     const letters = alpha.map((x) => String.fromCharCode(x));
     if (userObj) {
       const designatedProfile = profileImageArray[letters.indexOf(String(userObj?.uid[0]).toUpperCase()) % 6];
-      dispatch(changeDefaultProfile(designatedProfile))
+      // dispatch(changeDefaultProfile(designatedProfile))
     }
   }, [userObj])
   // const onAuthQuery = () => {
