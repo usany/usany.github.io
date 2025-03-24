@@ -10,6 +10,8 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import staticImage from "src/assets/blue.png";
+import static01 from "src/assets/blue01.png";
+import static02 from "src/assets/blue02.png";
 import { dbservice } from "src/baseApi/serverbase";
 import { useSelectors } from "src/hooks/useSelectors";
 import Navigation from "src/navigate/Navigation";
@@ -22,7 +24,6 @@ import {
 } from "src/stateSlices/cardAccordionSlice";
 import { messageOff, messageOn } from "src/stateSlices/messageAccordionSlice";
 import { changeProfileColor } from "src/stateSlices/profileColorSlice";
-import { changeProfileImage } from "src/stateSlices/profileImageSlice";
 import { changeProfileUrl } from "src/stateSlices/profileUrlSlice";
 
 // const Puller = styled('div')(({ theme }) => ({
@@ -38,6 +39,8 @@ import { changeProfileUrl } from "src/stateSlices/profileUrlSlice";
 //     }),
 //   }));
 
+const profileImageArray = [static01, static02]
+
 interface Props {
   userObj: User | null;
 }
@@ -47,7 +50,7 @@ const HeaderViews = ({ userObj }: Props) => {
     (state) => state.bottomNavigation.value
   );
   const profileColor = useSelector((state) => state.profileColor.value);
-  const profileImage = useSelector((state) => state.profileImage.value);
+  const profileUrl = useSelector((state) => state.profileUrl.value);
   const [sideNavigation, setSideNavigation] = useState(false);
   const handleSideNavigation = () => {
     setSideNavigation(!sideNavigation);
@@ -56,7 +59,12 @@ const HeaderViews = ({ userObj }: Props) => {
   const cardAccordion = useSelector((state) => state.cardAccordion.value);
   const messageAccordion = useSelector((state) => state.messageAccordion.value);
   const dispatch = useDispatch();
-
+  let designatedProfile;
+  const alpha = Array.from(Array(26)).map((e, i) => i + 65);
+  const letters = alpha.map((x) => String.fromCharCode(x));
+  if (userObj) {
+    designatedProfile = profileImageArray[letters.indexOf(String(userObj?.uid[0]).toUpperCase()) % 2];
+  }
   useEffect(() => {
     if (userObj) {
       getDownloadURL(ref(storage, `${userObj?.uid}`))
@@ -76,7 +84,7 @@ const HeaderViews = ({ userObj }: Props) => {
       const userColor = docSnap.data()?.profileColor || "#2196f3";
       const userImage = docSnap.data()?.profileImageUrl || "null";
       dispatch(changeProfileColor(userColor));
-      dispatch(changeProfileImage(userImage));
+      dispatch(changeProfileUrl(userImage));
     };
     setProfile();
   }, [userObj]);
@@ -121,7 +129,7 @@ const HeaderViews = ({ userObj }: Props) => {
       <div className="flex justify-between w-screen">
         <div className="px-5 pt-1">
           <div>
-            {profileImage ? (
+            {profileUrl ? (
               <div
                 onClick={() => {
                   handleSideNavigation();
@@ -131,7 +139,7 @@ const HeaderViews = ({ userObj }: Props) => {
                   <Avatars
                     profile={false}
                     profileColor={profileColor}
-                    profileUrl={profileImage}
+                    profileUrl={profileUrl}
                     fallback={userObj.displayName ? userObj.displayName[0] : ""}
                   />
                 ) : (

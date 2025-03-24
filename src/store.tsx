@@ -1,17 +1,18 @@
 // import { create } from 'zustand'
 import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit'
+import { bottomNavigationReducer } from 'src/stateSlices/bottomNavigationSlice'
+import { cardAccordionReducer } from 'src/stateSlices/cardAccordionSlice'
+import { completedActionReducer } from 'src/stateSlices/completedActionSlice'
+import { messageAccordionReducer } from 'src/stateSlices/messageAccordionSlice'
+import { newMessageReducer } from 'src/stateSlices/newMessageSlice'
 import { piazzaSwitchReducer } from 'src/stateSlices/piazzaSwitchSlice'
-import { profileUrlReducer } from 'src/stateSlices/profileUrlSlice'
 import { profileColorReducer } from 'src/stateSlices/profileColorSlice'
 import { profileImageReducer } from 'src/stateSlices/profileImageSlice'
-import { cardAccordionReducer } from 'src/stateSlices/cardAccordionSlice'
-import { messageAccordionReducer } from 'src/stateSlices/messageAccordionSlice'
-import { themeReducer } from 'src/stateSlices/themeSlice'
-import { bottomNavigationReducer } from 'src/stateSlices/bottomNavigationSlice'
+import { profileUrlReducer } from 'src/stateSlices/profileUrlSlice'
 import { tabsReducer } from 'src/stateSlices/tabsSlice'
-import { completedActionReducer } from 'src/stateSlices/completedActionSlice'
-import { newMessageReducer } from 'src/stateSlices/newMessageSlice'
-import { createMachine } from 'xstate';
+import { themeReducer } from 'src/stateSlices/themeSlice'
+import { createMachine } from 'xstate'
+import { defaultProfileReducer } from './stateSlices/defaultProfile'
 import { piazza } from './stateSlices/piazza'
 import { weather } from './stateSlices/weather'
 
@@ -49,7 +50,8 @@ export const store = configureStore({
     completedAction: completedActionReducer.reducer,
     newMessage: newMessageReducer.reducer,
     piazza: piazza.reducer,
-    weather: weather.reducer
+    weather: weather.reducer,
+    defaultProfile: defaultProfileReducer.reducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
@@ -67,6 +69,6 @@ export type AppThunk<ThunkReturnType = void> = ThunkAction<
   Action
 >
 
-// export { store, 
+// export { store,
 // };
-// useSideNavigationStore, useCardAccordionStore, useMessageAccordionStore, useBottomNavigationStore, useAvatarColorStore, useTabsStore, useThemeStore, usePiazzaSwitchStore, useNewMessageStore, useAvatarImageStore, useProfileUrlStore, useCompletedDrawerStore 
+// useSideNavigationStore, useCardAccordionStore, useMessageAccordionStore, useBottomNavigationStore, useAvatarColorStore, useTabsStore, useThemeStore, usePiazzaSwitchStore, useNewMessageStore, useAvatarImageStore, useProfileUrlStore, useCompletedDrawerStore

@@ -1,7 +1,8 @@
-import { useState, useEffect, useMemo } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { useSelector, useDispatch } from "react-redux";
-import staticImage from "src/assets/blue01.png";
+import { useSelector } from "react-redux";
+import static01 from "src/assets/blue01.png";
+import static02 from "src/assets/blue02.png";
+import static03 from "src/assets/blue03.png";
 
 interface Props {
   profile: boolean;
@@ -12,6 +13,7 @@ interface Props {
 }
 
 const Avatars = ({
+  userObj,
   profile,
   profileColor,
   profileUrl,
@@ -22,7 +24,15 @@ const Avatars = ({
   // const profileImage = useSelector(state => state.profileImage.value)
   // const profileUrl = useSelector(state => state.profileUrl.value)
   // console.log(profileImage)
-
+  const profileImageArray = [static01, static02, static03]
+  let designatedProfile;
+  const alpha = Array.from(Array(26)).map((e, i) => i + 65);
+  const letters = alpha.map((x) => String.fromCharCode(x));
+  if (userObj) {
+    designatedProfile = profileImageArray[letters.indexOf(String(userObj?.uid[0]).toUpperCase()) % 3];
+  }
+  const defaultProfile = useSelector((state) => state.defaultProfile.value)
+  console.log(defaultProfile)
   return (
     <div>
       {profile ? (
@@ -32,7 +42,7 @@ const Avatars = ({
         >
           <AvatarImage src={profileUrl} />
           <AvatarFallback className="text-8xl border-none">
-            <img className='h-full' src={staticImage} />
+            <img className='h-full' src={defaultProfile} />
             {/* {fallback} */}
           </AvatarFallback>
         </Avatar>
@@ -44,7 +54,7 @@ const Avatars = ({
           <AvatarImage src={profileUrl} />
           <AvatarFallback className="border">
             {/* {fallback} */}
-            <img className='h-full' src={staticImage} />
+            <img className='h-full' src={defaultProfile} />
           </AvatarFallback>
         </Avatar>
       )}

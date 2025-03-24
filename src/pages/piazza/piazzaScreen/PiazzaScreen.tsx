@@ -1,12 +1,22 @@
-import { User } from "firebase/auth";
-import { collection, doc, getDoc, getDocs, limit, orderBy, query, startAfter, updateDoc } from 'firebase/firestore';
-import { useEffect, useRef, useState } from "react";
-import { useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
-import { dbservice } from 'src/baseApi/serverbase';
-import Avatars from "src/pages/core/Avatars";
-import PiazzaDialogs from 'src/pages/piazza/piazzaScreen/piazzaDialogs/PiazzaDialogs';
-import { webSocket } from 'src/webSocket.tsx';
+import { User } from 'firebase/auth'
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  limit,
+  orderBy,
+  query,
+  startAfter,
+  updateDoc,
+} from 'firebase/firestore'
+import { useEffect, useRef, useState } from 'react'
+import { useSelector } from 'react-redux'
+import { useLocation } from 'react-router-dom'
+import { dbservice } from 'src/baseApi/serverbase'
+import Avatars from 'src/pages/core/Avatars'
+import PiazzaDialogs from 'src/pages/piazza/piazzaScreen/piazzaDialogs/PiazzaDialogs'
+import { webSocket } from 'src/webSocket.tsx'
 
 interface Props {
   userObj: User
@@ -16,15 +26,22 @@ interface Props {
   multiple: boolean
 }
 
-function PiazzaScreen({ userObj, multiple, handleMultiple, messagesList, handleMessagesList }: Props) {
-  const messagesEndRef = useRef(null);
-  const boxRef = useRef(null);
+function PiazzaScreen({
+  userObj,
+  multiple,
+  handleMultiple,
+  messagesList,
+  handleMessagesList,
+}: Props) {
+  const messagesEndRef = useRef(null)
+  const boxRef = useRef(null)
   const [user, setUser] = useState(null)
   const [displayedName, setDisplayedName] = useState('')
-  const [isLoading, setIsLoading] = useState(false);
-  const [continuing, setContinuing] = useState(null);
-  const profileColor = useSelector(state => state.profileColor.value)
-  const profileUrl = useSelector(state => state.profileUrl.value)
+  const [isLoading, setIsLoading] = useState(false)
+  const [continuing, setContinuing] = useState(null)
+  const [continueNumber, setContinueNumber] = useState(0)
+  const profileColor = useSelector((state) => state.profileColor.value)
+  const profileUrl = useSelector((state) => state.profileUrl.value)
   const { state } = useLocation()
   const conversation = state?.conversation
 
@@ -34,75 +51,95 @@ function PiazzaScreen({ userObj, multiple, handleMultiple, messagesList, handleM
     const userElement = userDoc.data()
     setUser(userElement)
     setDisplayedName(displayName)
-  };
+  }
   const onDrawer = ({ userUid, displayName }) => {
     document.getElementById('drawer')?.click()
     onPrivate({ userUid: userUid, displayName: displayName })
   }
   const scrollNumber = 10
   useEffect(() => {
-    if (!webSocket) return;
+    if (!webSocket) return
     function sMessageCallback(message) {
-      const { msg, userUid, id, target, messageClock, messageClockNumber, conversation } = message;
+      const {
+        msg,
+        userUid,
+        id,
+        target,
+        messageClock,
+        messageClockNumber,
+        conversation,
+      } = message
       handleMessagesList((prev) => [
         ...prev,
         {
           msg: msg,
-          type: target ? "private" : "other",
+          type: target ? 'private' : 'other',
           userUid: userUid,
           id: id,
           messageClock: messageClock,
           messageClockNumber: messageClockNumber,
           conversation: null,
           profileImageUrl: profileUrl,
-          profileColor: profileColor
+          profileColor: profileColor,
         },
-      ]);
+      ])
     }
-    webSocket.on("sMessagePiazza", sMessageCallback);
+    webSocket.on('sMessagePiazza', sMessageCallback)
     return () => {
-      webSocket.off("sMessagePiazza", sMessageCallback);
-    };
-  }, []);
+      webSocket.off('sMessagePiazza', sMessageCallback)
+    }
+  }, [])
   useEffect(() => {
-    if (!webSocket) return;
+    if (!webSocket) return
     function sMessageCallback(message) {
-      const { msg, userUid, id, target, messageClock, messageClockNumber, conversation } = message;
+      const {
+        msg,
+        userUid,
+        id,
+        target,
+        messageClock,
+        messageClockNumber,
+        conversation,
+      } = message
       handleMessagesList((prev) => [
         ...prev,
         {
           msg: msg,
-          type: target ? "private" : "other",
+          type: target ? 'private' : 'other',
           userUid: userUid,
           id: id,
           messageClock: messageClock,
           messageClockNumber: messageClockNumber,
-          conversation: null
+          conversation: null,
         },
-      ]);
+      ])
     }
-    webSocket.on(`sMessage${conversation}`, sMessageCallback);
+    webSocket.on(`sMessage${conversation}`, sMessageCallback)
     return () => {
-      webSocket.off(`sMessage${conversation}`, sMessageCallback);
-    };
-  }, []);
+      webSocket.off(`sMessage${conversation}`, sMessageCallback)
+    }
+  }, [])
   useEffect(() => {
     document.documentElement.scrollTo({
       top: 0,
       left: 0,
-      behavior: "instant", // Optional if you want to skip the scrolling animation
-    });
-  }, []);
+      behavior: 'instant', // Optional if you want to skip the scrolling animation
+    })
+  }, [])
 
   useEffect(() => {
-    scrollToBottom();
+    scrollToBottom()
     // if (!continuing) {
     // }
 
     const checkMessage = async () => {
       if (multiple) {
         const piazzaRef = collection(dbservice, 'chats_group')
-        const piazzaCollection = query(piazzaRef, orderBy('messageClockNumber', 'desc'), limit(1))
+        const piazzaCollection = query(
+          piazzaRef,
+          orderBy('messageClockNumber', 'desc'),
+          limit(1),
+        )
         const piazzaMessages = await getDocs(piazzaCollection)
         piazzaMessages.forEach(async (document) => {
           const myDocRef = doc(dbservice, `chats_group/${document.id}`)
@@ -124,27 +161,33 @@ function PiazzaScreen({ userObj, multiple, handleMultiple, messagesList, handleM
         const myChattings = myDocSnap.data().chattings
         myChattings[conversation].messageCount = 0
         await updateDoc(myDocRef, {
-          chattings: myChattings
+          chattings: myChattings,
         })
       }
     }
     checkMessage()
-  }, [messagesList]);
-
+  }, [messagesList])
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView();
-  };
-  console.log(continuing?.data())
+    messagesEndRef.current?.scrollIntoView()
+  }
   useEffect(() => {
     const messageList = async () => {
       const messagesArray = []
       const messageRef = collection(dbservice, 'chats_group')
-      const messagesCollection = query(messageRef, orderBy('messageClockNumber', 'desc'), limit(scrollNumber),
-        startAfter(continuing ? continuing : ""))
-      const messages = await getDocs(messagesCollection);
+      const messagesCollection = query(
+        messageRef,
+        orderBy('messageClockNumber', 'desc'),
+        limit(scrollNumber),
+        startAfter(continuing ? continuing : ''),
+      )
+      const messages = await getDocs(messagesCollection)
+      if (!messages.docs.length) {
+        setContinueNumber(messages.docs.length)
+      }
       messages.forEach((document) => {
-        if (messagesArray.length === scrollNumber - 1) {
+        if (messagesArray.length === messages.docs.length - 1) {
           setContinuing(document)
+          setContinueNumber(messages.docs.length - 1)
         }
         const message = document.data().message
         const userUid = document.data().userUid
@@ -153,33 +196,56 @@ function PiazzaScreen({ userObj, multiple, handleMultiple, messagesList, handleM
         const messageClockNumber = document.data().messageClockNumber
         const profileColor = document.data()?.profileColor
         const profileImageUrl = document.data()?.profileImageUrl
-        messagesArray.push({ msg: message, type: "me", userUid: userUid, id: userName, messageClockNumber: messageClockNumber, messageClock: messageClock, conversation: null, profileColor: profileColor, profileImageUrl: profileImageUrl })
-        // if (index === 0) {
-        //   console.log(document)
-        //   setContinuing(document)
-        // }
-      });
+        messagesArray.push({
+          msg: message,
+          type: 'me',
+          userUid: userUid,
+          id: userName,
+          messageClockNumber: messageClockNumber,
+          messageClock: messageClock,
+          conversation: null,
+          profileColor: profileColor,
+          profileImageUrl: profileImageUrl,
+        })
+      })
       messagesArray.reverse()
-      // handleMessagesList(messagesArray)
-      handleMessagesList([...messagesArray, ...messagesList]);
+      handleMessagesList([...messagesArray, ...messagesList])
       setIsLoading(false)
     }
     const messageListMembers = async (conversation) => {
       const messageRef = collection(dbservice, `chats_${conversation}`)
-      const messagesCollection = query(messageRef, orderBy('messageClockNumber', 'desc'), limit(scrollNumber),
-        startAfter(continuing ? continuing : ""))
-      const messages = await getDocs(messagesCollection);
+      const messagesCollection = query(
+        messageRef,
+        orderBy('messageClockNumber', 'desc'),
+        limit(scrollNumber),
+        startAfter(continuing ? continuing : ''),
+      )
+      const messages = await getDocs(messagesCollection)
       const messagesArray = []
+      if (!messages.docs.length) {
+        setContinueNumber(messages.docs.length)
+      }
       messages.forEach((doc, index) => {
+        if (messagesArray.length === messages.docs.length - 1) {
+          setContinuing(doc)
+          setContinueNumber(messages.docs.length - 1)
+        }
         const message = doc.data().message
         const userUid = doc.data().userUid
         const userName = doc.data().userName
         const messageClock = doc.data().messageClock
         const messageClockNumber = doc.data().messageClockNumber || 0
-        messagesArray.push({ msg: message, type: "me", userUid: userUid, id: userName, messageClock: messageClock, messageClockNumber: messageClockNumber })
-      });
+        messagesArray.push({
+          msg: message,
+          type: 'me',
+          userUid: userUid,
+          id: userName,
+          messageClock: messageClock,
+          messageClockNumber: messageClockNumber,
+        })
+      })
       messagesArray.reverse()
-      handleMessagesList(messagesArray)
+      handleMessagesList([...messagesArray, ...messagesList])
       setIsLoading(false)
     }
     if (multiple) {
@@ -201,20 +267,23 @@ function PiazzaScreen({ userObj, multiple, handleMultiple, messagesList, handleM
       isLoading
     ) {
       // console.log(document.documentElement.offsetHeight);
-      return;
+      return
     } else {
-      console.log("scroll");
-      setIsLoading(true);
+      console.log('scroll')
+      setIsLoading(true)
     }
-  };
+  }
   useEffect(() => {
-    boxRef.current?.addEventListener("scroll", handleScroll);
-    return () => boxRef.current?.removeEventListener("scroll", handleScroll);
-  }, [isLoading]);
+    boxRef.current?.addEventListener('scroll', handleScroll)
+    return () => boxRef.current?.removeEventListener('scroll', handleScroll)
+  }, [isLoading])
   return (
     <>
       <div className="flex flex-col pt-5">
-        <div ref={boxRef} className="p-1 border-t rounded-xl max-h-[60vh] overflow-auto">
+        <div
+          ref={boxRef}
+          className="p-1 border-t rounded-xl max-h-[60vh] overflow-auto"
+        >
           <ul>
             {isLoading && <div>loading</div>}
             {messagesList.map((value, index) => {
@@ -238,7 +307,9 @@ function PiazzaScreen({ userObj, multiple, handleMultiple, messagesList, handleM
                     if (clock.getMonth() === passingClock.getMonth()) {
                       if (clock.getDate() === passingClock.getDate()) {
                         if (clock.getHours() === passingClock.getHours()) {
-                          if (clock.getMinutes() === passingClock.getMinutes()) {
+                          if (
+                            clock.getMinutes() === passingClock.getMinutes()
+                          ) {
                             displayClock = 1
                           }
                         }
@@ -250,7 +321,7 @@ function PiazzaScreen({ userObj, multiple, handleMultiple, messagesList, handleM
               let messageAmpm
               let messageHours = clock.getHours()
               let messageMonth = (clock.getMonth() + 1).toString()
-              let messageDate = (clock.getDate()).toString()
+              let messageDate = clock.getDate().toString()
               if (messageHours >= 13) {
                 messageAmpm = '오후'
                 if (messageHours !== 12) {
@@ -270,13 +341,30 @@ function PiazzaScreen({ userObj, multiple, handleMultiple, messagesList, handleM
               }
 
               return (
-                <li key={index} ref={index === scrollNumber - 1 ? messagesEndRef : null} className={userDirection}>
-                  {previousUid !== value.userUid &&
+                <li
+                  key={index}
+                  ref={index === continueNumber ? messagesEndRef : null}
+                  className={userDirection}
+                >
+                  {previousUid !== value.userUid && (
                     <div>
-                      <div className={`flex justify-${value.userUid !== userObj.uid ? 'start' : 'end'}`}>
-                        {userDirection === 'text-left' ?
-                          <div className='flex gap-3'>
-                            <Avatars profile={false} profileColor="" profileUrl={value?.profileImageUrl} fallback="" piazza={() => onDrawer({ userUid: value.userUid, displayName: value.id })} />
+                      <div
+                        className={`flex justify-${value.userUid !== userObj.uid ? 'start' : 'end'}`}
+                      >
+                        {userDirection === 'text-left' ? (
+                          <div className="flex gap-3">
+                            <Avatars
+                              profile={false}
+                              profileColor=""
+                              profileUrl={value?.profileImageUrl}
+                              fallback=""
+                              piazza={() =>
+                                onDrawer({
+                                  userUid: value.userUid,
+                                  displayName: value.id,
+                                })
+                              }
+                            />
                             {/* <Avatar onClick={() => {
                               document.getElementById('drawer')?.click()
                               onPrivate({ userUid: value.userUid, displayName: value.id })
@@ -286,10 +374,21 @@ function PiazzaScreen({ userObj, multiple, handleMultiple, messagesList, handleM
                             </Avatar> */}
                             <div>{value.id}</div>
                           </div>
-                          :
-                          <div className='flex gap-3'>
+                        ) : (
+                          <div className="flex gap-3">
                             <div>{value.id}</div>
-                            <Avatars profile={false} profileColor="" profileUrl={value?.profileImageUrl} fallback="" piazza={() => onDrawer({ userUid: value.userUid, displayName: value.id })} />
+                            <Avatars
+                              profile={false}
+                              profileColor=""
+                              profileUrl={value?.profileImageUrl}
+                              fallback=""
+                              piazza={() =>
+                                onDrawer({
+                                  userUid: value.userUid,
+                                  displayName: value.id,
+                                })
+                              }
+                            />
                             {/* <Avatar onClick={() => {
                               document.getElementById('drawer')?.click()
                               onPrivate({ userUid: value.userUid, displayName: value.id })
@@ -298,33 +397,52 @@ function PiazzaScreen({ userObj, multiple, handleMultiple, messagesList, handleM
                               <AvatarFallback className='text-xl border-none	'>{value?.id[0]}</AvatarFallback>
                             </Avatar> */}
                           </div>
-                        }
+                        )}
                       </div>
                     </div>
-                  }
-                  {value.userUid !== userObj.uid ?
-                    <div className='flex gap-3 justify-start'>
-                      <div className='other rounded-tr-lg rounded-bl-lg rounded-br-lg p-1 bg-light-1 dark:bg-dark-1'>{value.msg}</div>
-                      <div>{clock.getFullYear()}-{messageMonth}-{messageDate} {messageAmpm} {messageHours}:{clock.getMinutes() < 10 && '0'}{clock.getMinutes()}</div>
+                  )}
+                  {value.userUid !== userObj.uid ? (
+                    <div className="flex gap-3 justify-start">
+                      <div className="other rounded-tr-lg rounded-bl-lg rounded-br-lg p-1 bg-light-1 dark:bg-dark-1">
+                        {value.msg}
+                      </div>
+                      <div>
+                        {clock.getFullYear()}-{messageMonth}-{messageDate}{' '}
+                        {messageAmpm} {messageHours}:
+                        {clock.getMinutes() < 10 && '0'}
+                        {clock.getMinutes()}
+                      </div>
                     </div>
-                    :
-                    <div className='flex gap-3 justify-end'>
-                      <div>{clock.getFullYear()}-{messageMonth}-{messageDate} {messageAmpm} {messageHours}:{clock.getMinutes() < 10 && '0'}{clock.getMinutes()}</div>
-                      <div className='me rounded-tl-lg rounded-bl-lg rounded-br-lg p-1 bg-light-1 dark:bg-dark-1'>{value.msg}</div>
+                  ) : (
+                    <div className="flex gap-3 justify-end">
+                      <div>
+                        {clock.getFullYear()}-{messageMonth}-{messageDate}{' '}
+                        {messageAmpm} {messageHours}:
+                        {clock.getMinutes() < 10 && '0'}
+                        {clock.getMinutes()}
+                      </div>
+                      <div className="me rounded-tl-lg rounded-bl-lg rounded-br-lg p-1 bg-light-1 dark:bg-dark-1">
+                        {value.msg}
+                      </div>
                     </div>
-                  }
+                  )}
                 </li>
               )
-            }
-            )
-            }
+            })}
             <li ref={messagesEndRef} />
           </ul>
         </div>
       </div>
-      <PiazzaDialogs multiple={multiple} handleMultiple={handleMultiple} user={user} userObj={userObj} handleMessagesList={handleMessagesList} displayedName={displayedName} />
+      <PiazzaDialogs
+        multiple={multiple}
+        handleMultiple={handleMultiple}
+        user={user}
+        userObj={userObj}
+        handleMessagesList={handleMessagesList}
+        displayedName={displayedName}
+      />
     </>
-  );
+  )
 }
 
-export default PiazzaScreen;
+export default PiazzaScreen
