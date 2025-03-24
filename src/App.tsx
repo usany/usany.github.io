@@ -38,12 +38,12 @@ function App() {
     // dispatch(changeBottomNavigation(1))
   }, [])
 
-  const profileImageArray = [static01, static02, static03]
+  const profileImageArray = [static01, static02, static03, static01, static02, static03]
   useEffect(() => {
     const alpha = Array.from(Array(26)).map((e, i) => i + 65);
     const letters = alpha.map((x) => String.fromCharCode(x));
     if (userObj) {
-      const designatedProfile = profileImageArray[letters.indexOf(String(userObj?.uid[0]).toUpperCase()) % 3];
+      const designatedProfile = profileImageArray[letters.indexOf(String(userObj?.uid[0]).toUpperCase()) % 6];
       dispatch(changeDefaultProfile(designatedProfile))
     }
   }, [userObj])
