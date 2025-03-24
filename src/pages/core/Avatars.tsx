@@ -15,7 +15,7 @@ interface Props {
 const Avatars = ({
   uid,
   profile,
-  // profileColor,
+  profileColor,
   profileUrl,
   piazza
   //   profileImage,
