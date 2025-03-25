@@ -123,7 +123,7 @@ function ContactFormDrawers({ violationUser, changeViolationUser }: Props) {
         <DrawerContent className="flex flex-col justify-center px-5 bg-light-2 dark:bg-dark-2 max-h-[60%]">
           <ScrollArea className="overflow-y-scroll">
             <DrawersBar />
-            <div className={`flex flex-col ${!userSearch && 'h-[60vh]'}`} >
+            <div className={`flex flex-col p-5 ${!userSearch && 'h-[60vh]'}`} >
               <TextField label='유저 이름' onChange={onChangeUserSearch} />
               {userSearch &&
                 <div className='flex flex-col'>
