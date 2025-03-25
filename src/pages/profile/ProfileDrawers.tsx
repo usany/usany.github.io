@@ -1,27 +1,14 @@
-import { useState, useEffect, useReducer } from 'react'
-import { Link } from 'react-router-dom'
-import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnapshot, updateDoc, setDoc } from 'firebase/firestore';
-import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
 import {
   Drawer,
-  DrawerClose,
   DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from "@/components/ui/drawer"
-import { ScrollArea } from "@/components/ui/scroll-area"
-import Divider from '@mui/material/Divider';
-import Avatar from '@mui/material/Avatar';
-import CommentIcon from '@mui/icons-material/Comment';
-import IconButton from '@mui/material/IconButton';
-import ProfileDrawersPoints from 'src/pages/profile/ProfileDrawersPoints'
-import ProfileDrawersAllies from 'src/pages/profile/ProfileDrawersAllies'
+  DrawerTrigger
+} from "@/components/ui/drawer";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import ProfileDrawersAllies from 'src/pages/profile/ProfileDrawersAllies';
+import ProfileDrawersPoints from 'src/pages/profile/ProfileDrawersPoints';
+import DrawersBar from "../core/DrawersBar";
 
 const ProfileDrawers = ({ user, cards, followers, alliesCollection, selection }) => {
-
 
   return (
     <Drawer>
@@ -43,19 +30,20 @@ const ProfileDrawers = ({ user, cards, followers, alliesCollection, selection })
           </div>
         }
       </DrawerTrigger>
-      <DrawerContent className='max-h-[50%] bg-light-2 dark:bg-dark-2'>
-        <ScrollArea className='overflow-y-scroll'>
-          <div>
-            <DrawerHeader>
+      <DrawerContent className="flex flex-col justify-center px-5 bg-light-2 dark:bg-dark-2 max-h-[60%]">
+        <ScrollArea className="overflow-y-scroll">
+          <DrawersBar />
+          <div className='p-5'>
+            <div>
               {selection === 'points' &&
-                <DrawerTitle>{`${user.displayName}의 포인트 적립 영수증`}</DrawerTitle>
+                <div className='flex justify-center'>{`${user.displayName}의 포인트 적립 영수증`}</div>
               }
               {selection === 'allies' &&
-                <DrawerTitle>{user.displayName}의 {followers ? '팔로워' : '팔로잉'}</DrawerTitle>
+                <div className='flex justify-center'>{user.displayName}의 {followers ? '팔로워' : '팔로잉'}</div>
               }
-            </DrawerHeader>
-            {selection === 'points' && <ProfileDrawersPoints user={user} cards={cards}/>}
-            {selection === 'allies' && <ProfileDrawersAllies followers={followers} alliesCollection={alliesCollection}/>}
+            </div>
+            {selection === 'points' && <ProfileDrawersPoints user={user} cards={cards} />}
+            {selection === 'allies' && <ProfileDrawersAllies followers={followers} alliesCollection={alliesCollection} />}
           </div>
         </ScrollArea>
       </DrawerContent>

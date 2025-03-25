@@ -1,8 +1,7 @@
-import * as React from "react"
-import * as RechartsPrimitive from "recharts"
-import { useCompletedDrawerStore } from 'src/store'
 import { cn } from "@/lib/utils"
-import { useSelector, useDispatch } from 'react-redux'
+import * as React from "react"
+import { useDispatch } from 'react-redux'
+import * as RechartsPrimitive from "recharts"
 import { changeCompletedAction } from 'src/stateSlices/completedActionSlice'
 
 // Format: { THEME_NAME: CSS_SELECTOR }
@@ -84,13 +83,13 @@ const ChartStyle = ({ id, config }: { id: string; config: ChartConfig }) => {
             ([theme, prefix]) => `
 ${prefix} [data-chart=${id}] {
 ${colorConfig
-  .map(([key, itemConfig]) => {
-    const color =
-      itemConfig.theme?.[theme as keyof typeof itemConfig.theme] ||
-      itemConfig.color
-    return color ? `  --color-${key}: ${color};` : null
-  })
-  .join("\n")}
+                .map(([key, itemConfig]) => {
+                  const color =
+                    itemConfig.theme?.[theme as keyof typeof itemConfig.theme] ||
+                    itemConfig.color
+                  return color ? `  --color-${key}: ${color};` : null
+                })
+                .join("\n")}
 }
 `
           )
@@ -105,13 +104,13 @@ const ChartTooltip = RechartsPrimitive.Tooltip
 const ChartTooltipContent = React.forwardRef<
   HTMLDivElement,
   React.ComponentProps<typeof RechartsPrimitive.Tooltip> &
-    React.ComponentProps<"div"> & {
-      hideLabel?: boolean
-      hideIndicator?: boolean
-      indicator?: "line" | "dot" | "dashed"
-      nameKey?: string
-      labelKey?: string
-    }
+  React.ComponentProps<"div"> & {
+    hideLabel?: boolean
+    hideIndicator?: boolean
+    indicator?: "line" | "dot" | "dashed"
+    nameKey?: string
+    labelKey?: string
+  }
 >(
   (
     {
@@ -261,10 +260,10 @@ const ChartLegend = RechartsPrimitive.Legend
 const ChartLegendContent = React.forwardRef<
   HTMLDivElement,
   React.ComponentProps<"div"> &
-    Pick<RechartsPrimitive.LegendProps, "payload" | "verticalAlign"> & {
-      hideIcon?: boolean
-      nameKey?: string
-    }
+  Pick<RechartsPrimitive.LegendProps, "payload" | "verticalAlign"> & {
+    hideIcon?: boolean
+    nameKey?: string
+  }
 >(
   (
     { className, hideIcon = false, payload, verticalAlign = "top", nameKey },
@@ -272,7 +271,7 @@ const ChartLegendContent = React.forwardRef<
   ) => {
     const { config } = useChart()
     const dispatch = useDispatch()
-    
+
     if (!payload?.length) {
       return null
     }
@@ -286,38 +285,38 @@ const ChartLegendContent = React.forwardRef<
           className
         )}
       >
-        <div className='flex'>
-        {payload.map((item) => {
-          const key = `${nameKey || item.dataKey || "value"}`
-          const itemConfig = getPayloadConfigFromPayload(config, item, key)
+        <div className='flex gap-5'>
+          {payload.map((item) => {
+            const key = `${nameKey || item.dataKey || "value"}`
+            const itemConfig = getPayloadConfigFromPayload(config, item, key)
 
-          return (
-            <div
-              key={item.value}
-              className={cn(
-                "flex items-center gap-1.5 [&>svg]:h-3 [&>svg]:w-3 [&>svg]:text-neutral-500 dark:[&>svg]:text-neutral-400 px-5"
-              )}
-              onClick={(value) => {
-                console.log(item)
-                // document.getElementById('completedAction')?.parentNode?.click()
-                document.getElementById('completedAction')?.click()
-                dispatch(changeCompletedAction(item.payload.action))
-              }}
-            >
-              {itemConfig?.icon && !hideIcon ? (
-                <itemConfig.icon />
-              ) : (
-                <div
-                  className="h-2 w-2 shrink-0 rounded-[2px]"
-                  style={{
-                    backgroundColor: item.color,
-                  }}
-                />
-              )}
-              {itemConfig?.label}: {item.payload.number}회
-            </div>
-          )
-        })}
+            return (
+              <div
+                key={item.value}
+                className={cn(
+                  "flex items-center gap-1.5 [&>svg]:h-3 [&>svg]:w-3 [&>svg]:text-neutral-500 dark:[&>svg]:text-neutral-400 px-5 rounded bg-light-2 dark:bg-dark-2"
+                )}
+                onClick={(value) => {
+                  console.log(item)
+                  // document.getElementById('completedAction')?.parentNode?.click()
+                  document.getElementById('completedAction')?.click()
+                  dispatch(changeCompletedAction(item.payload.action))
+                }}
+              >
+                {itemConfig?.icon && !hideIcon ? (
+                  <itemConfig.icon />
+                ) : (
+                  <div
+                    className="h-2 w-2 shrink-0 rounded-[2px]"
+                    style={{
+                      backgroundColor: item.color,
+                    }}
+                  />
+                )}
+                {itemConfig?.label}: {item.payload.number}회
+              </div>
+            )
+          })}
         </div>
         {!payload[0].payload.number && !payload[1].payload.number && <div className='flex border border-dashed rounded w-1/2 p-5'>완료 활동이 없습니다</div>}
       </div>
@@ -338,8 +337,8 @@ function getPayloadConfigFromPayload(
 
   const payloadPayload =
     "payload" in payload &&
-    typeof payload.payload === "object" &&
-    payload.payload !== null
+      typeof payload.payload === "object" &&
+      payload.payload !== null
       ? payload.payload
       : undefined
 
@@ -366,10 +365,9 @@ function getPayloadConfigFromPayload(
 }
 
 export {
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-  ChartLegend,
+  ChartContainer, ChartLegend,
   ChartLegendContent,
-  ChartStyle,
+  ChartStyle, ChartTooltip,
+  ChartTooltipContent
 }
+

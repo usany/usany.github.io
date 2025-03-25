@@ -14,6 +14,8 @@ import {
 import { useState } from "react";
 // import { Filter } from "lucide-react";
 import { Chip } from "@mui/material";
+import { ScrollArea } from "@radix-ui/react-scroll-area";
+import DrawersBar from "src/pages/core/DrawersBar";
 const markers = [
   {
     label: '중도',
@@ -90,83 +92,88 @@ function FilterDialogs({ selectedValues, handleSelectedValues }) {
             )}
           </div>
         </DrawerTrigger>
-        <DrawerContent className="flex flex-col justify-center px-5 bg-light-2 dark:bg-dark-2">
-          <div className="flex justify-center">우산 / 양산 선택</div>
-          <Select
-            defaultValue={selectedValues[0].value || "전체 아이템"}
-            onValueChange={(newValue) =>
-              handleSelectedValues({
-                id: "selectedValueOne",
-                newValue: newValue,
-              })
-            }
-          >
-            <SelectTrigger
-              className="bg-light-1 dark:bg-dark-1"
-              autoFocus={selected === selectedValues[0].id}
-            >
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent className="bg-light-1 dark:bg-dark-1">
-              <SelectGroup>
-                <SelectItem value="전체 아이템">전체 아이템</SelectItem>
-                <SelectItem value="우산">우산</SelectItem>
-                <SelectItem value="양산">양산</SelectItem>
-              </SelectGroup>
-            </SelectContent>
-          </Select>
-          <div className="flex justify-center">장소 선택</div>
-          <Select
-            defaultValue={selectedValues[1].value || "전체 장소"}
-            onValueChange={(newValue) =>
-              handleSelectedValues({
-                id: "selectedValueTwo",
-                newValue: newValue,
-              })
-            }
-          >
-            <SelectTrigger
-              className="bg-light-1 dark:bg-dark-1"
-              autoFocus={selected === selectedValues[1].id}
-            >
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent className="bg-light-1 dark:bg-dark-1">
-              <SelectGroup id="location">
-                <SelectItem value="전체 장소">전체 장소</SelectItem>
-                {markers.map((value, index) => {
-                  return (
-                    <SelectItem value={value.label}>{value.label}</SelectItem>
-                  )
-                })}
-                {/* <SelectItem value="청운">청운</SelectItem>
+        <DrawerContent className="flex flex-col justify-center px-5 bg-light-2 dark:bg-dark-2 max-h-[60%]">
+          <ScrollArea className="overflow-y-scroll">
+            <DrawersBar />
+            <div className='p-5'>
+              <div className="flex justify-center">우산 / 양산 선택</div>
+              <Select
+                defaultValue={selectedValues[0].value || "전체 아이템"}
+                onValueChange={(newValue) =>
+                  handleSelectedValues({
+                    id: "selectedValueOne",
+                    newValue: newValue,
+                  })
+                }
+              >
+                <SelectTrigger
+                  className="bg-light-1 dark:bg-dark-1"
+                  autoFocus={selected === selectedValues[0].id}
+                >
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent className="bg-light-1 dark:bg-dark-1">
+                  <SelectGroup>
+                    <SelectItem value="전체 아이템">전체 아이템</SelectItem>
+                    <SelectItem value="우산">우산</SelectItem>
+                    <SelectItem value="양산">양산</SelectItem>
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+              <div className="flex justify-center">장소 선택</div>
+              <Select
+                defaultValue={selectedValues[1].value || "전체 장소"}
+                onValueChange={(newValue) =>
+                  handleSelectedValues({
+                    id: "selectedValueTwo",
+                    newValue: newValue,
+                  })
+                }
+              >
+                <SelectTrigger
+                  className="bg-light-1 dark:bg-dark-1"
+                  autoFocus={selected === selectedValues[1].id}
+                >
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent className="bg-light-1 dark:bg-dark-1">
+                  <SelectGroup id="location">
+                    <SelectItem value="전체 장소">전체 장소</SelectItem>
+                    {markers.map((value, index) => {
+                      return (
+                        <SelectItem value={value.label}>{value.label}</SelectItem>
+                      )
+                    })}
+                    {/* <SelectItem value="청운">청운</SelectItem>
                 <SelectItem value="이과대">이과대</SelectItem> */}
-              </SelectGroup>
-            </SelectContent>
-          </Select>
-          <div className="flex justify-center">시간 정렬</div>
-          <Select
-            defaultValue={selectedValues[2].value || "최신순"}
-            onValueChange={(newValue) =>
-              handleSelectedValues({
-                id: "selectedValueThree",
-                newValue: newValue,
-              })
-            }
-          >
-            <SelectTrigger
-              className="bg-light-1 dark:bg-dark-1"
-              autoFocus={selected === selectedValues[2].id}
-            >
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent className="bg-light-1 dark:bg-dark-1">
-              <SelectGroup>
-                <SelectItem value="최신순">최신순</SelectItem>
-                <SelectItem value="오래된">오래된</SelectItem>
-              </SelectGroup>
-            </SelectContent>
-          </Select>
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+              <div className="flex justify-center">시간 정렬</div>
+              <Select
+                defaultValue={selectedValues[2].value || "최신순"}
+                onValueChange={(newValue) =>
+                  handleSelectedValues({
+                    id: "selectedValueThree",
+                    newValue: newValue,
+                  })
+                }
+              >
+                <SelectTrigger
+                  className="bg-light-1 dark:bg-dark-1"
+                  autoFocus={selected === selectedValues[2].id}
+                >
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent className="bg-light-1 dark:bg-dark-1">
+                  <SelectGroup>
+                    <SelectItem value="최신순">최신순</SelectItem>
+                    <SelectItem value="오래된">오래된</SelectItem>
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+            </div>
+          </ScrollArea>
         </DrawerContent>
       </Drawer>
       {/* <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>

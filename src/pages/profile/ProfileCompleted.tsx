@@ -7,7 +7,6 @@ import {
 import {
   Drawer,
   DrawerContent,
-  DrawerHeader,
   DrawerTrigger
 } from "@/components/ui/drawer";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -18,6 +17,7 @@ import { Label, Pie, PieChart } from "recharts";
 import { dbservice } from 'src/baseApi/serverbase';
 import Cards from 'src/pages/main/card/Cards';
 import { changeCompletedAction } from 'src/stateSlices/completedActionSlice';
+import DrawersBar from "../core/DrawersBar";
 
 const ProfileCompleted = ({
   user,
@@ -80,6 +80,36 @@ const ProfileCompleted = ({
   //   }
   // })
   console.log(messagesList)
+  const borrowList = messagesList.map((element) => {
+    if (element.round === 5) {
+      if (element.creatorId === user.uid && element.text.choose === 1) {
+        return (
+          <Cards key={element.id} message={element} isOwner={true} userObj={user} num={null} points={null} />
+        )
+      } else if (element.creatorId !== user.uid && element.text.choose === 2) {
+        return (
+          <Cards key={element.id} message={element} isOwner={false} userObj={user} num={null} points={null} />
+        )
+      }
+    }
+  }).filter((element) => {
+    if (element) return element
+  })
+  const lendList = messagesList.map((element) => {
+    if (element.round === 5) {
+      if (element.creatorId === user.uid && element.text.choose === 2) {
+        return (
+          <Cards key={element.id} message={element} isOwner={true} userObj={user} num={null} points={null} />
+        )
+      } else if (element.creatorId !== user.uid && element.text.choose === 1) {
+        return (
+          <Cards key={element.id} message={element} isOwner={false} userObj={user} num={null} points={null} />
+        )
+      }
+    }
+  }).filter((element) => {
+    if (element) return element
+  })
   return (
     <div className='flex flex-col pt-5'>
       <Drawer>
@@ -92,44 +122,23 @@ const ProfileCompleted = ({
             });
           }} />
         </DrawerTrigger>
-        <DrawerContent className='max-h-[50%] bg-light-2 dark:bg-dark-2'>
-          <ScrollArea className='overflow-y-scroll'>
-            <DrawerHeader>
+        <DrawerContent className="flex flex-col justify-center px-5 bg-light-2 dark:bg-dark-2 max-h-[60%]">
+          <ScrollArea className="overflow-y-scroll">
+            <DrawersBar />
+            <div className='flex justify-center pt-5'>
               완료된 {`${completedAction === 'borrow' ? '빌리기' : '빌려주기'}`}
-            </DrawerHeader>
-            {completedAction === 'borrow' ?
-              <div className='flex justify-center flex-wrap'>
-                {messagesList.map((element) => {
-                  if (element.round === 5) {
-                    if (element.creatorId === user.uid && element.text.choose === 1) {
-                      return (
-                        <Cards key={element.id} message={element} isOwner={true} userObj={user} num={null} points={null} />
-                      )
-                    } else if (element.creatorId !== user.uid && element.text.choose === 2) {
-                      return (
-                        <Cards key={element.id} message={element} isOwner={false} userObj={user} num={null} points={null} />
-                      )
-                    }
-                  }
-                })}
-              </div>
-              :
-              <div className='flex justify-center flex-wrap'>
-                {messagesList.map((element) => {
-                  if (element.round === 5) {
-                    if (element.creatorId === user.uid && element.text.choose === 2) {
-                      return (
-                        <Cards key={element.id} message={element} isOwner={true} userObj={user} num={null} points={null} />
-                      )
-                    } else if (element.creatorId !== user.uid && element.text.choose === 1) {
-                      return (
-                        <Cards key={element.id} message={element} isOwner={false} userObj={user} num={null} points={null} />
-                      )
-                    }
-                  }
-                })}
-              </div>
-            }
+            </div>
+            <div className='p-5'>
+              {completedAction === 'borrow' ?
+                <div className='flex justify-center flex-wrap'>
+                  {borrowList.length ? borrowList : <div className='flex justify-center border border-dashed p-5'>완료된 빌리기가 없습니다</div>}
+                </div>
+                :
+                <div className='flex justify-center flex-wrap'>
+                  {lendList.length ? lendList : <div className='flex justify-center border border-dashed p-5'>완료된 빌려주기가 없습니다</div>}
+                </div>
+              }
+            </div>
           </ScrollArea>
         </DrawerContent>
       </Drawer>
@@ -175,6 +184,7 @@ const ProfileCompleted = ({
                       <tspan
                         x={viewBox.cx}
                         y={(viewBox.cy || 0) + 24}
+                        className="fill-foreground"
                       >
                         활동 횟수
                       </tspan>
