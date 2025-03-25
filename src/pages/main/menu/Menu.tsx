@@ -122,7 +122,7 @@ function Menu({ userObj }: Props) {
           }}>
             메세지
           </AccordionTrigger>
-          <AccordionContent>
+          <AccordionContent className="text-sm">
             <Suspense fallback={<Skeleton />}>
               <MessageStacks userObj={userObj} />
             </Suspense>

@@ -1,20 +1,15 @@
-import { useState, useEffect, useLayoutEffect, useRef } from 'react'
-import Card from '@mui/material/Card';
-import { CardActionArea, CardActions, ClickAwayListener } from '@mui/material';
-import { Link } from 'react-router-dom'
-import { User } from 'firebase/auth';
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import Chip from '@mui/material/Chip';
-import staticImage from 'src/assets/blue.png';
-import useLongPress from 'src/hooks/useLongPress';
-import ChatsBoxes from 'src/pages/main/chatting/ChatsBoxes'
 import DeleteIcon from '@mui/icons-material/Delete';
-import { dbservice } from 'src/baseApi/serverbase'
-import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnapshot, deleteDoc, updateDoc } from 'firebase/firestore';
+import { CardActionArea, ClickAwayListener } from '@mui/material';
+import Card from '@mui/material/Card';
+import Chip from '@mui/material/Chip';
+import { User } from 'firebase/auth';
+import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { changePiazzaSwitch } from 'src/stateSlices/piazzaSwitchSlice';
-import colors from 'src/pages/core/cardsBackground';
+import { Link } from 'react-router-dom';
 import useCardsBackground from 'src/hooks/useCardsBackground';
+import useLongPress from 'src/hooks/useLongPress';
+import ChatsBoxes from 'src/pages/main/chatting/ChatsBoxes';
+import { changePiazzaSwitch } from 'src/stateSlices/piazzaSwitchSlice';
 
 interface Props {
   userObj: User

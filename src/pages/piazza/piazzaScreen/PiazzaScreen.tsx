@@ -285,7 +285,7 @@ function PiazzaScreen({
           className="p-1 border-t rounded-xl max-h-[60vh] overflow-auto"
         >
           <ul>
-            {isLoading && <div>loading</div>}
+            {isLoading && <div className='flex justify-center bg-light-2 dark:bg-dark-2 rounded'>loading</div>}
             {messagesList.map((value, index) => {
               let userDirection
               const clock = new Date(value.messageClock)

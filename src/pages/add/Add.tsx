@@ -1,38 +1,28 @@
-import { useState, useEffect, useReducer } from "react";
-import {
-  auth,
-  onSocialClick,
-  dbservice,
-  storage,
-} from "src/baseApi/serverbase";
-import {
-  collection,
-  query,
-  where,
-  orderBy,
-  addDoc,
-  getDoc,
-  getDocs,
-  doc,
-  onSnapshot,
-  deleteDoc,
-  updateDoc,
-  DocumentSnapshot,
-} from "firebase/firestore";
-import AddSteppers from "src/pages/add/AddSteppers";
-import AddStepOne from "src/pages/add/AddStepOne";
-import AddStepTwo from "src/pages/add/AddStepTwo";
-import AddStepThree from "src/pages/add/AddStepThree";
-import AddStepFour from "src/pages/add/AddStepFour";
-import AddRegisterButton from "src/pages/add/AddRegisterButton";
-import AddSnackBar from "src/pages/add/AddSnackBar";
-import PageTitle from "src/pages/core/pageTitle/PageTitle";
+import { useMediaQuery } from "@mui/material";
 import { User } from "firebase/auth";
-import { useSelector, useDispatch } from "react-redux";
+import {
+  addDoc,
+  collection,
+  doc,
+  getDoc,
+  updateDoc
+} from "firebase/firestore";
+import { useEffect, useReducer, useState } from "react";
+import { useSelector } from "react-redux";
+import { useParams, useSearchParams } from "react-router-dom";
+import {
+  dbservice
+} from "src/baseApi/serverbase";
 import TabsRootState from "src/interfaces/TabsRootState";
 import AddCards from "src/pages/add/AddCards";
-import { useMediaQuery } from "@mui/material";
-import { useParams, useSearchParams } from "react-router-dom";
+import AddRegisterButton from "src/pages/add/AddRegisterButton";
+import AddSnackBar from "src/pages/add/AddSnackBar";
+import AddStepFour from "src/pages/add/AddStepFour";
+import AddStepOne from "src/pages/add/AddStepOne";
+import AddSteppers from "src/pages/add/AddSteppers";
+import AddStepThree from "src/pages/add/AddStepThree";
+import AddStepTwo from "src/pages/add/AddStepTwo";
+import PageTitle from "src/pages/core/pageTitle/PageTitle";
 
 interface Props {
   userObj: User;
