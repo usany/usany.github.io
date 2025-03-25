@@ -1,25 +1,21 @@
-import { useState, useEffect } from 'react'
-import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
-import { collection, query, where, orderBy, addDoc, getDocs, doc, onSnapshot, updateDoc } from 'firebase/firestore';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   Drawer,
   DrawerClose,
   DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from "@/components/ui/drawer"
-import Lists from 'src/pages/search/searchList/searchListViews/Lists'
-import { getStorage, ref, uploadBytes, uploadString, uploadBytesResumable, getDownloadURL, } from "firebase/storage";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+  DrawerTrigger
+} from "@/components/ui/drawer";
+import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
+import TextField from '@mui/material/TextField';
 import { ScrollArea } from '@radix-ui/react-scroll-area';
-import colors from '../core/cardsBackground';
+import { collection, getDocs, orderBy, query } from 'firebase/firestore';
+import { getDownloadURL, ref } from "firebase/storage";
+import { useEffect, useState } from 'react';
+import { dbservice, storage } from 'src/baseApi/serverbase';
+import Lists from 'src/pages/search/searchList/searchListViews/Lists';
 import useCardsBackground from '../../hooks/useCardsBackground';
+import DrawersBar from "../core/DrawersBar";
 
 interface Props {
   violationUser: {} | null
@@ -124,20 +120,24 @@ function ContactFormDrawers({ violationUser, changeViolationUser }: Props) {
             <Button sx={{ width: '100%' }} variant='outlined' form='auth'>신고 유저 등록</Button>
           }
         </DrawerTrigger>
-        <DrawerContent className='h-[50%] bg-light-3 dark:bg-dark-3'>
-          <TextField label='유저 이름' onChange={onChangeUserSearch} />
-          {userSearch &&
-            <ScrollArea className='overflow-y-scroll'>
-              <div className='flex flex-col'>
-                <DrawerClose>
-                  <Lists elements={rank} multiple={true} userSearch={userSearch} ranking={false} handleUser={(newValue) => changeViolationUser(newValue)} />
-                </DrawerClose>
-              </div>
-            </ScrollArea>
-          }
+        <DrawerContent className="flex flex-col justify-center px-5 bg-light-2 dark:bg-dark-2 max-h-[60%]">
+          <ScrollArea className="overflow-y-scroll">
+            <DrawersBar />
+            <div className={`flex flex-col ${!userSearch && 'h-[60vh]'}`} >
+              <TextField label='유저 이름' onChange={onChangeUserSearch} />
+              {userSearch &&
+                <div className='flex flex-col'>
+                  <DrawerClose>
+                    <Lists elements={rank} multiple={true} userSearch={userSearch} ranking={false} handleUser={(newValue) => changeViolationUser(newValue)} />
+                  </DrawerClose>
+                </div>
+              }
+            </div>
+          </ScrollArea>
         </DrawerContent>
-      </Drawer>
-      {violationUser && <Button sx={{ width: '25%' }} variant='outlined' onClick={() => changeViolationUser(null)}>신고 등록 취소</Button>}
+      </Drawer >
+      {violationUser && <Button sx={{ width: '25%' }} variant='outlined' onClick={() => changeViolationUser(null)}>신고 등록 취소</Button>
+      }
     </>
   )
 }
