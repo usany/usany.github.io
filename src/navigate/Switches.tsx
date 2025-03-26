@@ -1,12 +1,10 @@
-import Switch from '@mui/material/Switch';
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
 import { styled } from '@mui/material/styles';
+import Switch from '@mui/material/Switch';
 
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   width: 62,
   height: 34,
-  padding: 10,
+  // padding: 10,
   '& .MuiSwitch-switchBase': {
     padding: 0,
     transform: 'translateX(6px)',
@@ -51,14 +49,15 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
 
 function Switches({ onClick }) {
   return (
-    <FormGroup>
-      <FormControlLabel
-        control={
-          <MaterialUISwitch onClick={onClick} defaultChecked={window.localStorage.theme === 'dark'} />
-        }
-        label=""
-      />
-    </FormGroup>
+    // <FormGroup>
+    //   <FormControlLabel
+    //     control={
+    //       <MaterialUISwitch onClick={onClick} defaultChecked={window.localStorage.theme === 'dark'} />
+    //     }
+    //     label=""
+    //   />
+    // </FormGroup>
+    <MaterialUISwitch onClick={onClick} defaultChecked={window.localStorage.theme === 'dark'} />
   );
 }
 

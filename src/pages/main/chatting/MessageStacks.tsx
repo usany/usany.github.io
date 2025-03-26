@@ -1,31 +1,24 @@
-import { useState, useEffect, useLayoutEffect, Suspense } from 'react'
+import { useEffect, useState } from 'react'
 // import Typography from '@mui/material/Typography';
 // import Card from '@mui/material/Card';
 // import { CardActionArea, CardActions } from '@mui/material';
-import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
+import { ClickAwayListener } from '@mui/material'
+import { useQuery } from '@tanstack/react-query'
+import { User } from 'firebase/auth'
 import {
   collection,
-  query,
-  where,
-  orderBy,
-  addDoc,
-  getDoc,
   getDocs,
-  doc,
-  onSnapshot,
-  deleteDoc,
-  updateDoc,
   limit,
+  orderBy,
+  query
 } from 'firebase/firestore'
-import { webSocket, onClick } from 'src/webSocket.tsx'
-import { User } from 'firebase/auth'
-import ChattingStacks from 'src/pages/main/chatting/ChattingStacks'
-import Chats from 'src/pages/main/chatting/Chats'
-import { useQuery } from '@tanstack/react-query'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
+import { dbservice } from 'src/baseApi/serverbase'
 import { AnimatedList } from 'src/components/ui/animated-list'
-import { CardActionArea, CardActions, ClickAwayListener } from '@mui/material'
+import Chats from 'src/pages/main/chatting/Chats'
+import ChattingStacks from 'src/pages/main/chatting/ChattingStacks'
 import { useGetPiazzaQuery } from 'src/stateSlices/piazza'
+import { webSocket } from 'src/webSocket.tsx'
 
 interface Props {
   userObj: User

@@ -1,13 +1,16 @@
+import { useDispatch, useSelector } from 'react-redux'
 import Switches from 'src/navigate/Switches'
-import { useSelector, useDispatch } from 'react-redux'
-import { changeLight, changeDark } from 'src/stateSlices/themeSlice'
+import { changeEn, changeKo } from 'src/stateSlices/languagesSlice'
+import { changeDark, changeLight } from 'src/stateSlices/themeSlice'
+import SwitchesLanguages from './SwitchesLanguages'
 
 const Modes = () => {
   const theme = useSelector((state) => state.theme)
+  const languages = useSelector((state) => state.languages)
   const dispatch = useDispatch()
-
+  console.log(languages)
   return (
-    <div className="flex justify-center">
+    <div className="flex flex-col justify-center">
       <Switches
         onClick={() => {
           document.documentElement.classList.toggle('dark')
@@ -17,6 +20,17 @@ const Modes = () => {
           } else {
             localStorage.setItem('theme', 'light')
             dispatch(changeLight())
+          }
+        }}
+      />
+      <SwitchesLanguages
+        onClick={() => {
+          if (languages === 'ko') {
+            localStorage.setItem('languages', 'en')
+            dispatch(changeEn())
+          } else {
+            localStorage.setItem('languages', 'ko')
+            dispatch(changeKo())
           }
         }}
       />

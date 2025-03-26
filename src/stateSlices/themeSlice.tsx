@@ -14,6 +14,6 @@ const themeReducer = createSlice({
 })
 const { changeLight, changeDark } = themeReducer.actions
 
-export { themeReducer, changeLight, changeDark, }
+export { changeDark, changeLight, themeReducer }
 // export default counterSlice
 

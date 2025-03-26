@@ -12,8 +12,6 @@ import { User } from 'firebase/auth'
 import Header from 'src/navigate/Header'
 import Navigations from 'src/navigate/Navigations'
 import Loadings from 'src/pages/core/loadings/Loadings'
-import { useSelector } from 'react-redux'
-import ThemeRootState from 'src/interfaces/ThemeRootState copy'
 
 interface Props {
   userObj: User | null

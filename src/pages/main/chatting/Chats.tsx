@@ -77,7 +77,7 @@ const Chats = ({ userObj, profileUrl, conversation, displayName, chattingUid, mu
                   chattingUid: chattingUid,
                   multiple: multiple,
                 }}>
-                  <ChatsBoxes userObj={userObj} profileUrl={profileUrl} displayName={displayName} multiple={multiple} clock={clock} message={message} />
+                  <ChatsBoxes chattingUid={chattingUid} userObj={userObj} profileUrl={profileUrl} displayName={displayName} multiple={multiple} clock={clock} message={message} />
                 </Link>
                 :
                 <div
@@ -92,7 +92,7 @@ const Chats = ({ userObj, profileUrl, conversation, displayName, chattingUid, mu
                     }
                   }}
                 >
-                  <ChatsBoxes userObj={userObj} profileUrl={profileUrl} displayName={displayName} multiple={multiple} clock={clock} message={message} />
+                  <ChatsBoxes chattingUid={chattingUid} userObj={userObj} profileUrl={profileUrl} displayName={displayName} multiple={multiple} clock={clock} message={message} />
                 </div>
               }
             </CardActionArea>

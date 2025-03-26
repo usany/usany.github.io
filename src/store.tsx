@@ -12,6 +12,7 @@ import { profileUrlReducer } from 'src/stateSlices/profileUrlSlice'
 import { tabsReducer } from 'src/stateSlices/tabsSlice'
 import { themeReducer } from 'src/stateSlices/themeSlice'
 import { createMachine } from 'xstate'
+import { languagesReducer } from './stateSlices/languagesSlice'
 import { piazza } from './stateSlices/piazza'
 import { weather } from './stateSlices/weather'
 
@@ -50,6 +51,7 @@ export const store = configureStore({
     newMessage: newMessageReducer.reducer,
     piazza: piazza.reducer,
     weather: weather.reducer,
+    languages: languagesReducer.reducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

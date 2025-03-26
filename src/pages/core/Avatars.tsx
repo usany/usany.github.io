@@ -26,8 +26,13 @@ const Avatars = ({
   const alpha = Array.from(Array(26)).map((e, i) => i + 65);
   const letters = alpha.map((x) => String.fromCharCode(x));
   let defaultProfile
+  let index
+  index = letters.indexOf(String(uid[0]).toUpperCase()) % 6
+  if (index === -1) {
+    index = Number(uid[0]) % 6
+  }
   if (uid) {
-    defaultProfile = profileImageArray[letters.indexOf(String(uid[0]).toUpperCase()) % 6];
+    defaultProfile = profileImageArray[index];
   }
 
   return (
