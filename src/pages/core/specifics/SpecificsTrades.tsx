@@ -4,7 +4,6 @@ import {
   Link
 } from 'react-router-dom'
 // import { CardActionArea, CardActions } from '@mui/material';
-import Chip from '@mui/material/Chip'
 // import { useBottomNavigationStore } from 'src/store'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import {
@@ -17,6 +16,7 @@ import BeachAccess from '@mui/icons-material/BeachAccess'
 import EastIcon from '@mui/icons-material/East'
 import HorizontalRuleIcon from '@mui/icons-material/HorizontalRule'
 import WestIcon from '@mui/icons-material/West'
+import Chip from '@mui/material/Chip'
 import { ScrollArea } from '@radix-ui/react-scroll-area'
 import { User } from 'firebase/auth'
 import Avatars from 'src/pages/core/Avatars'
