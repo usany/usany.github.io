@@ -1,7 +1,11 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import static01 from "src/assets/blue01.png";
 import static02 from "src/assets/blue02.png";
-import static03 from "src/assets/blue03.png";
+import statics from "src/assets/blue03.png";
+import static05 from "src/assets/gold1.png";
+import static06 from "src/assets/gold2.png";
+import static03 from "src/assets/red1.png";
+import static04 from "src/assets/red2.png";
 
 interface Props {
   uid: string
@@ -22,14 +26,14 @@ const Avatars = ({
 }: Props) => {
   // const defaultProfile = useSelector((state) => state.defaultProfile.value)
   // console.log(defaultProfile)
-  const profileImageArray = [static01, static02, static03, static01, static02, static03]
+  const profileImageArray = [static01, static02, static03, static04, static05, static06, statics]
   const alpha = Array.from(Array(26)).map((e, i) => i + 65);
   const letters = alpha.map((x) => String.fromCharCode(x));
   let defaultProfile
   let index
-  index = letters.indexOf(String(uid[0]).toUpperCase()) % 6
+  index = letters.indexOf(String(uid[0]).toUpperCase()) % profileImageArray.length
   if (index === -1) {
-    index = Number(uid[0]) % 6
+    index = Number(uid[0]) % profileImageArray.length
   }
   if (uid) {
     defaultProfile = profileImageArray[index];

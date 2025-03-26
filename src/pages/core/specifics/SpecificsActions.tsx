@@ -51,7 +51,7 @@ function SpecificsActions({ drawerOpenTrue, userObj, message }: Props) {
           <Drawer>
             <DrawerTrigger onClick={drawerOpenTrue}>
               <Avatars
-                uid={userObj.uid}
+                uid={message.creatorId}
                 profile={false}
                 profileColor={''}
                 profileUrl={message.creatorUrl}
@@ -62,7 +62,7 @@ function SpecificsActions({ drawerOpenTrue, userObj, message }: Props) {
                 <DrawersBar />
                 <div className="flex flex-col items-center pt-5">
                   <Avatars
-                    uid={userObj.uid}
+                    uid={message.creatorId}
                     profile={true}
                     profileColor=""
                     profileUrl={message.creatorUrl}

@@ -46,7 +46,7 @@ const DrawerProfile = ({
     <Drawer>
       <DrawerTrigger onClick={drawerOpenTrue}>
         <Avatars
-          uid={userObj.uid}
+          uid={message.creatorId}
           profile={false}
           profileColor={''}
           profileUrl={url}
@@ -57,7 +57,7 @@ const DrawerProfile = ({
           <DrawersBar />
           <div className="flex flex-col items-center pt-5">
             <Avatars
-              uid={userObj.uid}
+              uid={message.creatorId}
               profile={true}
               profileColor=""
               profileUrl={url}

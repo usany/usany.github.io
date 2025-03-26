@@ -38,7 +38,7 @@ const ChatsBoxes = ({ chattingUid, userObj, profileUrl, displayName, multiple, c
   if (messageDate.length === 1) {
     messageDate = '0' + messageDate
   }
-  console.log(chattingUid)
+  // console.log(chattingUid)
   return (
     <div className='flex p-3'>
       {multiple ?
