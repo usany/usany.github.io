@@ -23,6 +23,16 @@ import MessageStacks from "src/pages/main/chatting/MessageStacks";
 import { cardOff, cardOn } from "src/stateSlices/cardAccordionSlice";
 import { messageOff, messageOn } from "src/stateSlices/messageAccordionSlice";
 // import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+import { MorphingText } from "src/components/magicui/morphing-text";
 
 interface Props {
   userObj: User;
@@ -87,9 +97,30 @@ function Menu({ userObj }: Props) {
       rootElement.removeEventListener("contextmenu", handleContextMenu);
     };
   }, []);
-
+  const texts = ['umbrella', 'umbrellas']
   return (
     <div id="sample" className="flex justify-center flex-col pb-5">
+          <Dialog>
+      <DialogTrigger asChild>
+        <div>name</div>
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-[425px]">
+        <DialogHeader>
+          <DialogTitle>Edit profile</DialogTitle>
+          <DialogDescription>
+            Make changes to your profile here. Click save when you're done.
+          </DialogDescription>
+        </DialogHeader>
+        <div className="grid gap-4 py-4">
+          <div className="grid grid-cols-4 items-center gap-4">
+          names
+          </div>
+        </div>
+        <DialogFooter>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+    <MorphingText texts={texts}/>
       <PageTitle title={"내 상태"} />
       <Accordion
         value={[cardAccordion, messageAccordion]}
