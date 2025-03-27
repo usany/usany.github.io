@@ -1,19 +1,47 @@
 import BeachAccess from "@mui/icons-material/BeachAccess";
 import Badge from "@mui/material/Badge";
+import { ScrollArea } from "@radix-ui/react-scroll-area";
 import { useSelector } from "react-redux";
 import LoadingsSkeletons from "src/components/recycle/recycleLoadingsSkeletons";
+import { Dialog, DialogContent, DialogTrigger } from 'src/components/ui/dialog';
+import useLargeMedia from "src/hooks/useLargeMedia";
 import Avatars from "src/pages/core/Avatars";
+import DrawersBar from "src/pages/core/DrawersBar";
 
 const ProfileAvatar = ({ userObj, user, handleProfileDialog }) => {
   const profileColor = useSelector((state) => state.profileColor.value);
-  const profileImage = useSelector((state) => state.profileImage.value);
   const profileUrl = useSelector((state) => state.profileUrl.value);
-  console.log(user?.profileImageUrl);
+  const largeMedia = useLargeMedia()
+
+  if (largeMedia) {
+    return (
+      <Dialog>
+        <DialogTrigger>
+        </DialogTrigger>
+        <DialogContent>
+          <ScrollArea className="overflow-y-scroll">
+            <DrawersBar />
+            <div className="flex flex-col items-center pt-5">
+              <Avatars
+                uid={message.creatorId}
+                profile={true}
+                profileColor=""
+                profileUrl={message.creatorUrl}
+                piazza={null}
+              />
+              <div>{message?.displayName}</div>
+            </div>
+            <div className="flex justify-center p-5">
+            </div>
+          </ScrollArea>
+        </DialogContent>
+      </Dialog>
+    )
+  }
   return (
     <div className="flex justify-center">
       {user.uid === userObj.uid ? (
         <Badge
-          // overlap="circular"
           anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
           badgeContent={
             <button
@@ -35,24 +63,8 @@ const ProfileAvatar = ({ userObj, user, handleProfileDialog }) => {
           ) : (
             <LoadingsSkeletons height={"[192px]"} width={"[192px]"} />
           )}
-          {/* <Avatar alt={userObj.displayName} sx={{ fontSize:'100px', width: '200px', height: '200px', bgcolor: profileColor || '#2196f3' }} src={profileImage} variant='rounded' /> */}
         </Badge>
       ) : (
-        //   {profileImage === 'null' &&
-        //     <Avatar alt={userObj.displayName} sx={{ fontSize:'100px', width: '200px', height: '200px', bgcolor: profileColor || '#2196f3' }} src={'./src'} variant='rounded' />
-        //   }
-        //   {profileImage && profileImage !== 'null' &&
-        //     <Avatar alt={userObj.displayName} sx={{ fontSize:'100px', width: '200px', height: '200px', bgcolor: profileColor || '#2196f3' }} src={profileImage} variant='rounded' />
-        //   }
-        //   {!profileImage &&
-        //     <Avatar alt={userObj.displayName} sx={{ fontSize:'100px', width: '200px', height: '200px', bgcolor: profileColor || '#2196f3' }}
-        //     src={'./src'}
-        //     variant='rounded' />
-        //   }
-        // <div>
-        //   {profileImage &&
-        //   }
-        // </div>
         <>
           {user?.profileImageUrl ? (
             <Avatars
@@ -64,7 +76,6 @@ const ProfileAvatar = ({ userObj, user, handleProfileDialog }) => {
           ) : (
             <LoadingsSkeletons height={"[192px]"} width={"[192px]"} />
           )}
-          {/* <Avatar alt={user.displayName} sx={{ fontSize:'100px', width: '200px', height: '200px', bgcolor: user?.profileColor || '#2196f3' }} src={user?.profileImageUrl} variant='rounded'/> */}
         </>
       )}
     </div>

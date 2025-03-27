@@ -14,16 +14,19 @@ import {
 } from '@/components/ui/drawer'
 import { ScrollArea } from '@radix-ui/react-scroll-area'
 import { User } from 'firebase/auth'
+import { Dialog, DialogContent, DialogTrigger } from 'src/components/ui/dialog'
+import useLargeMedia from 'src/hooks/useLargeMedia'
 import Avatars from 'src/pages/core/Avatars'
 import DrawersBar from 'src/pages/core/DrawersBar'
-import SpecificsActionsPopups from './SpecificsActionsPopups'
 
 interface Props {
   userObj: User | null
   message: {}
 }
 
-function SpecificsActions({ drawerOpenTrue, userObj, message }: Props) {
+function SpecificsActionsPopups({ drawerOpenTrue, userObj, message }: Props) {
+  // const largeMedia = useMediaQuery("(min-width:850px)")
+  const largeMedia = useLargeMedia()
   const [conversation, setConversation] = useState('')
   const messageDisplayName = message.displayName
   let messageName
@@ -45,15 +48,97 @@ function SpecificsActions({ drawerOpenTrue, userObj, message }: Props) {
       }
     }
   }, [message])
+  if (largeMedia) {
+    return (
+      <Dialog>
+        <DialogTrigger>
+          <Avatars
+            uid={message.creatorId}
+            profile={false}
+            profileColor={''}
+            profileUrl={message.creatorUrl}
+          />
+        </DialogTrigger>
+        <DialogContent>
+          <ScrollArea className="overflow-y-scroll">
+            <DrawersBar />
+            <div className="flex flex-col items-center pt-5">
+              <Avatars
+                uid={message.creatorId}
+                profile={true}
+                profileColor=""
+                profileUrl={message.creatorUrl}
+                piazza={null}
+              />
+              {/* <Avatar className={'bg-profile-blue'}>
+                    <AvatarImage src={message.creatorUrl} />
+                    <AvatarFallback className="text-xl border-none	">
+                      {message?.displayName[0]}
+                    </AvatarFallback>
+                  </Avatar> */}
+              <div>{message?.displayName}</div>
+              {/* {message?.displayName !== displayedName &&
+                    <div>
+                        ({displayedName}에서 개명)
+                    </div>
+                } */}
+            </div>
+            <div className="flex justify-center p-5">
+              <Link
+                to="/profile"
+                state={{
+                  element: {
+                    uid: message.creatorId,
+                    displayName: message.displayName,
+                    profileUrl: message.creatorUrl,
+                  },
+                }}
+              >
+                <Button
+                  variant="outlined"
+                  onClick={() => {
+                    // handleClose()
+                  }}
+                >
+                  프로필 확인
+                </Button>
+              </Link>
+              {userObj.uid !== message?.creatorId && (
+                <Link
+                  to="/piazza"
+                  state={{
+                    conversation: conversation,
+                    displayName: message?.displayName,
+                    userUid: userObj.uid,
+                    chattingUid: message?.creatorId,
+                    multiple: false,
+                    profileUrl: message?.creatorUrl,
+                  }}
+                >
+                  <DrawerClose>
+                    <Button
+                      variant="outlined"
+                      onClick={() => {
+                        // handleMessagesList([])
+                        // handleMultiple(false)
+                      }}
+                    >
+                      개인 대화
+                    </Button>
+                  </DrawerClose>
+                </Link>
+              )}
+            </div>
+          </ScrollArea>
+        </DialogContent>
+      </Dialog>
+    )
+  }
+
   return (
     <>
       <div className="flex justify-between gap-1">
         <div className="flex flex-col gap-1 items-center">
-          <SpecificsActionsPopups
-            drawerOpenTrue={drawerOpenTrue}
-            userObj={userObj}
-            message={message}
-          />
           <Drawer>
             <DrawerTrigger onClick={drawerOpenTrue}>
               <Avatars
@@ -158,4 +243,4 @@ function SpecificsActions({ drawerOpenTrue, userObj, message }: Props) {
   )
 }
 
-export default SpecificsActions
+export default SpecificsActionsPopups

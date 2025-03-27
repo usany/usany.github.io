@@ -190,28 +190,6 @@ function Profile({ userObj }: Props) {
 
   return (
     <div>
-      {/* <div>
-        <div className="sticky top-20 p-5 bg-white">카드 목록</div>
-        <div>
-          <div>목록 카드 목록</div>
-          <div>목록 카드 목록</div>
-          <div>목록 카드 목록</div>
-          <div>목록 카드 목록</div>
-          <div>목록 카드 목록</div>
-          <div>목록 카드 목록</div>
-        </div>
-      </div>
-      <div>
-        <div className="sticky top-20 p-5 bg-white">목록 카드 목록 목록</div>
-        <div>
-          <div>목록 카드 목록</div>
-          <div>목록 카드 목록</div>
-          <div>목록 카드 목록</div>
-          <div>목록 카드 목록</div>
-          <div>목록 카드 목록</div>
-          <div>목록 카드 목록</div>
-        </div>
-      </div> */}
       <PageTitle
         title={`${userUid === userObj.uid ? "내" : shortenName} 프로필`}
       />
@@ -233,20 +211,6 @@ function Profile({ userObj }: Props) {
         changeAttachment={(newState: string) => setAttachment(newState)}
         handleClose={handleClose}
       />
-      {/* <div className='flex flex-col items-center pt-5'>
-        <div>
-          캠퍼스에 계세요?
-        </div>
-        <div>
-          위치 확인으로 캠퍼스에 있음을 알리세요.
-        </div>
-        {locationConfirmed ? <Chip color="success" label={'캠퍼스 위치 확인'} /> : <Chip label={'캠퍼스 위치 미확인'} />}
-        {state.element.uid === userObj.uid && !locationConfirmed &&
-          <Button onClick={() => setLocationConfirmed(true)} variant="outlined">
-            캠퍼스 위치 확인
-          </Button>
-        }
-      </div> */}
       <ProfileLocations user={state?.element.uid} userObj={userObj} />
       {/* <Suspense fallback={<Skeleton />}>
         <ProfileAvatar userObj={userObj} user={state.element} handleProfileDialog={() => setProfileDialog(true)} />
