@@ -1,11 +1,18 @@
+import { useSelector } from "react-redux"
+
 const NavigationUser = ({ userObj, points }) => {
+  const languages = useSelector((state) => state.languages)
   return (
     <div>
       <div className="max-w-[200px] max-h-[200px] overflow-hidden">
-        좋은 날씨네요 {userObj && `${userObj.displayName} 님`}
-        {/* {userObj.displayName} 님 */}
+        {languages === 'ko' ?
+          `좋은 날씨네요 `
+          :
+          `Nice Weather `
+        }
+        {userObj && `${userObj.displayName} ${languages === 'ko' ? '님' : ''}`}
       </div>
-      {userObj ? <div>내 포인트: {points}</div> : <div>로그인을 해 주세요</div>}
+      {userObj ? <div>{languages === 'ko' ? '내 포인트: ' : 'My Points: '}{points}</div> : <div>{languages === 'ko' ? '로그인을 해 주세요' : 'Please Sign in'}</div>}
     </div>
   )
 }

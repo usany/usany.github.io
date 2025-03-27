@@ -1,4 +1,3 @@
-import { User } from "firebase/auth";
 import {
   collection,
   getDocs,
@@ -20,16 +19,11 @@ import {
   AccordionTrigger
 } from "@/components/ui/accordion";
 import { Chip } from "@mui/material";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { changeBottomNavigation } from "src/stateSlices/bottomNavigationSlice";
 
-interface Props {
-  userObj: User | null;
-  borrow: boolean;
-}
-
-function LayoutBoard({ userObj, borrow }: Props) {
+function LayoutBoard() {
   const [messages, setMessages] = useState<Array<object>>([]);
   const [selectedValues, setSelectedValues] = useImmer([
     {
@@ -66,6 +60,7 @@ function LayoutBoard({ userObj, borrow }: Props) {
       }
     });
   };
+  const languages = useSelector((state) => state.languagse)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -160,7 +155,7 @@ function LayoutBoard({ userObj, borrow }: Props) {
       </div>
       <Link to={'/'}>
         <div className='flex fixed justify-center top-[30%] left-[10%] right-[10%]' onClick={() => dispatch(changeBottomNavigation(1))}>
-          <div className='flex border border-dashed rounded w-1/2 p-5 justify-center'>로그인이 필요합니다</div>
+          <div className='flex border border-dashed rounded w-1/2 p-5 justify-center'>{languages === 'ko' ? '로그인이 필요합니다' : 'Need to Sign In'}</div>
         </div>
       </Link>
     </div>

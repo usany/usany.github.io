@@ -32,6 +32,7 @@ function Navigation({ userObj, sideNavigation, handleSideNavigation }: Props) {
   const theme = useSelector((state) => state.theme)
   const [profileColor, setProfileColor] = useState<string>('')
   const [userData, setUserData] = useState(null)
+  const languages = useSelector((state) => state.languages)
   const dispatch = useDispatch()
   useEffect(() => {
     if (userObj) {

@@ -1,8 +1,6 @@
-import { useState, useEffect, useRef } from 'react'
-import axios from 'axios'
 import { useQuery } from '@tanstack/react-query'
-import { useGetWeatherQuery } from 'src/stateSlices/weather'
-import { createApi, fetchBaseQuery, fakeBaseQuery, } from '@reduxjs/toolkit/query/react'
+import axios from 'axios'
+import { useSelector } from 'react-redux'
 // import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 // import Snackbars from 'src/components/Snackbars'
 
@@ -67,12 +65,13 @@ const WeatherView = () => {
     queryKey: ['weather'], queryFn: getCurrentWeather,
     // suspense: true
   })
+  const languages = useSelector((state) => state.languages)
   if (isLoading) return <div>waiting</div>
   return (
     <div>
       <div className='flex flex-col px-5'>
         <img className='size-10' src={`https://openweathermap.org/img/wn/${data?.data.weather[0].icon}@2x.png`} />
-        <span>회기동 {data?.data.main.temp}°C</span>
+        <span>{languages === 'ko' ? '회기동' : 'Hoegi'} {data?.data.main.temp}°C</span>
       </div>
       {/* {!isLoading ?
             :

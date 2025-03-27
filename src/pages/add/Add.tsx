@@ -58,6 +58,7 @@ function Add({ userObj, borrow }: Props) {
   const tabs = useSelector((state: TabsRootState) => state.tabs.value);
   const [fromTo, setFromTo] = useState<FromTo>({ from: null, to: null });
   const matches = useMediaQuery("(min-width:850px)");
+  const languages = useSelector((state) => state.languages)
   // const [cardId, setCardId] = useState<string | null>(null)
   // const [from, setFrom] = useState(null);
   // const [to, setTo] = useState(null);
@@ -337,7 +338,7 @@ function Add({ userObj, borrow }: Props) {
 
   return (
     <div className="flex flex-col h-screen">
-      <PageTitle title={`${borrow ? "빌리기 " : "빌려주기 "} 카드 등록`} />
+      <PageTitle title={`${borrow ? `${languages === 'ko' ? '빌리기 ' : 'Borrowing '}` : `${languages === 'ko' ? '빌려주기 ' : 'Lending '}`} ${languages === 'ko' ? '카드 등록' : 'Card Registeration'}`} />
       <AddSteppers addSteps={addSteps} borrow={borrow} />
       {/* <div className='flex justify-around'>
           <AddCards borrow={borrow} userObj={userObj} addSteps={addSteps} item={item} fromTo={fromTo} locationState={locationState} />
