@@ -23,7 +23,7 @@ interface Props {
   borrow: boolean;
 }
 
-function Notice({ userObj, borrow }: Props) {
+function Board({ userObj, borrow }: Props) {
   const [messages, setMessages] = useState<Array<object>>([]);
   const [selectedValues, setSelectedValues] = useImmer([
     {
@@ -258,4 +258,4 @@ function Notice({ userObj, borrow }: Props) {
   );
 }
 
-export default Notice;
+export default Board;

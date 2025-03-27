@@ -12,6 +12,7 @@ import { User } from 'firebase/auth'
 import Header from 'src/navigate/Header'
 import Navigations from 'src/navigate/Navigations'
 import Loadings from 'src/pages/core/loadings/Loadings'
+import Adds from '../add/Adds'
 
 interface Props {
   userObj: User | null
@@ -23,8 +24,6 @@ const Router = ({ userObj }: Props) => {
   const Ranking = lazy(() => import('src/pages/search/Ranking'))
   const Contact = lazy(() => import('src/pages/contact/Contact'))
   const Piazza = lazy(() => import('src/pages/piazza/Piazza'))
-  // const Specific = lazy(() => import("src/pages/Specific"))
-  // const theme = useSelector((state: ThemeRootState) => state.theme)
 
   return (
     <BrowserRouter>
@@ -41,7 +40,7 @@ const Router = ({ userObj }: Props) => {
                   />
                   <Route
                     path="/add"
-                    Component={() => <Home userObj={userObj} />}
+                    Component={() => <Adds userObj={userObj} />}
                   />
                   <Route
                     path="/board"
@@ -59,10 +58,6 @@ const Router = ({ userObj }: Props) => {
                     path="/ranking"
                     Component={() => <Ranking userObj={userObj} />}
                   />
-                  {/* <Route
-                    path="/specific"
-                    Component={() => <Specific userObj={userObj} />}
-                  /> */}
                   <Route
                     path="/contact"
                     Component={() => <Contact userObj={userObj} />}
@@ -86,10 +81,6 @@ const Router = ({ userObj }: Props) => {
                     path="/board"
                     Component={() => <Home userObj={userObj} />}
                   />
-                  {/* <Route
-                    path="/specific"
-                    Component={() => <Specific userObj={userObj} />}
-                  /> */}
                 </Route>
               )}
             </Routes>

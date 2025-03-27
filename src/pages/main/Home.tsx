@@ -4,7 +4,7 @@ import { useSelectors } from "src/hooks/useSelectors";
 import UserObjProps from "src/interfaces/UserObjProps";
 import { SwipeableViews } from "src/navigate/SwipeableViews";
 import Layout from "src/pages/add/Layout";
-import Notice from "src/pages/board/Board";
+import Board from "src/pages/board/Board";
 import Auth from "src/pages/main/auth/Auth";
 import Menu from "src/pages/main/menu/Menu";
 import { changeBottomNavigation } from "src/stateSlices/bottomNavigationSlice";
@@ -21,44 +21,6 @@ function Home({ userObj }: UserObjProps) {
       dispatch(changeBottomNavigation(1));
     }
   }, [userObj]);
-  // const tabs = useSelector((state: TabsRootState) => state.tabs)
-  // const [profileUrl, setProfileUrl] = useState(null)
-
-  // useEffect(() => {
-  //     const userSetting = async () => {
-  //         const userRef = doc(dbservice, `members/${userObj?.uid}`)
-  //         const userSnap = await getDoc(userRef)
-  //         const user = userSnap.data()
-  //         getDownloadURL(ref(storage, userObj.uid))
-  //         .then((url) => {
-  //             setProfileUrl(url)
-  //         })
-  //         .catch((error) => {
-  //         console.log(error)
-  //         });
-  //         if (!user && userObj) {
-  //             console.log(profileUrl)
-  //             await setDoc(userRef, {
-  //                 uid: userObj.uid,
-  //                 displayName: userObj.displayName,
-  //                 points: 0,
-  //                 profileColor: 'profile-lime',
-  //                 profileImage: null,
-  //                 profileImageUrl: profileUrl,
-  //                 followerNum: 0,
-  //                 followingNum: 0,
-  //                 followers: [],
-  //                 followings: [],
-  //                 messagingToken: null
-  //             })
-  //             const storageRef = ref(storage, userObj.uid);
-  //             uploadString(storageRef, 'null', 'raw').then(() => {
-  //                 console.log('Uploaded a blob or file!');
-  //             });
-  //         }
-  //     }
-  //     userSetting()
-  // }, [userObj])
   return (
     <>
       {userObj ? (
@@ -71,11 +33,7 @@ function Home({ userObj }: UserObjProps) {
           )}
           {bottomNavigation === 1 && <Menu userObj={userObj} />}
           {bottomNavigation === 2 && (
-            // <SwipeableViews>
-            //   <Notice userObj={userObj} borrow={true} />
-            //   <Notice userObj={userObj} borrow={false} />
-            // </SwipeableViews>
-            <Notice userObj={userObj} borrow={true} />
+            <Board userObj={userObj} borrow={true} />
           )}
         </>
       ) : (
