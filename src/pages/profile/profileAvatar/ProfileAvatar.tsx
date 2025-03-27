@@ -58,7 +58,6 @@ const ProfileAvatar = ({ userObj, user, handleProfileDialog }) => {
               profile={true}
               profileColor={profileColor}
               profileUrl={profileUrl}
-            // profileImage={profileImage}
             />
           ) : (
             <LoadingsSkeletons height={"[192px]"} width={"[192px]"} />
