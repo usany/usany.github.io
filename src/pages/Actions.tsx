@@ -23,20 +23,9 @@ const Actions = ({ userObj }: {
         messagesArray.push(message)
       })
       setMessagesList(messagesArray)
-      // const messagesList = state.cards.done.map(async (element) => {
-      //   const docRef = query(collection(dbservice, `num`))
-      //   const docSnap = await getDoc(docRef)
-      //   const messageId = docSnap.id
-      //   const message = docSnap.data()
-      //   messagesArray.push({messageId, message})
-      //   return {messageId, message}
-      // })
-      // console.log(messagesArray[0])
-      // setMessagesList(messagesList)
     }
     getMessage()
   }, [])
-  console.log(messagesList)
   return (
     <div>
       <div className='flex text-2xl p-5'>
@@ -58,8 +47,6 @@ const Actions = ({ userObj }: {
               return <Cards key={element.id} msgObj={element} isOwner={element.creatorId === userObj.uid} userObj={userObj} num={null} points={null} />
             }
           })}
-          {/* {state.lendRegisteredMessage.map((msg) => <Message key={msg.id} msgObj={msg} isOwner={true} userObj={userObj} />)}
-          {state.lendMessage.map((msg) => <Message key={msg.id} msgObj={msg} isOwner={false} userObj={userObj} />)} */}
         </div>
       }
       {state.actions === 'completedBorrow' &&
@@ -69,9 +56,6 @@ const Actions = ({ userObj }: {
               return <Cards key={element.id} msgObj={element} isOwner={element.creatorId === userObj.uid} userObj={userObj} num={null} points={null} />
             }
           })}
-          {/* {messagesList.map((element) => <Message key={element.messageId} msgObj={element.message} isOwner={element.message.creatorId === userObj.uid} userObj={userObj} />)}
-          {state.borrowRegisteredMessage.map((msg) => <Message key={msg.id} msgObj={msg} isOwner={true} userObj={userObj} />)}
-          {state.borrowMessage.map((msg) => <Message key={msg.id} msgObj={msg} isOwner={false} userObj={userObj} />)} */}
         </div>
       }
       <div className='flex justify-center p-10'>

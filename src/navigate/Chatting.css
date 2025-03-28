@@ -9,6 +9,7 @@
   /* justify-content: center;
   width: screen; */
 }
+
 /* .app-container > .wrap > .login-box > .login-title {
   display: flex;
   flex-direction: row;
@@ -44,19 +45,20 @@
   color: #fff;
 } */
 
-.app-container > .wrap > .chat-box {
+.app-container>.wrap>.chat-box {
   padding: 10px;
   border-width: 1px 0px 0px 0px;
   border-radius: 10px;
   height: 350px;
   overflow: auto;
 }
+
 /* .app-container > .wrap > .chat-box .chat li.me {
   text-align: right;
 } */
 /* .app-container > .wrap > .chat-box .chat li.other {
   text-align: left; */
-  /* cursor: pointer; */
+/* cursor: pointer; */
 /* } */
 /* .app-container > .wrap > .chat-box .chat li.private {
   text-align: right;
@@ -77,7 +79,7 @@
   padding: 0 10px;
   background-color: #cecece;
 } */
-.app-container > .wrap > .chat-box .chat div.me {
+.app-container>.wrap>.chat-box .chat div.me {
   /* display: inline-block; */
   /* padding: 5px; */
   /* border-top-left-radius: 20px;
@@ -86,7 +88,8 @@
   /* background-color: lemonchiffon;
   color: black; */
 }
-.app-container > .wrap > .chat-box .chat div.other {
+
+.app-container>.wrap>.chat-box .chat div.other {
   /* display: inline-block; */
   /* padding: 5px; */
   /* border-top-right-radius: 20px;
@@ -95,6 +98,7 @@
   /* background-color: white;
   color: black; */
 }
+
 /* .app-container > .wrap > .chat-box .chat div.private {
   padding: 5px;
   display: inline-block;
@@ -119,19 +123,19 @@
   display: flex;
   flex-direction: row;
   gap: 1px; */
-  /* align-items: center; */
+/* align-items: center; */
 /* } */
 /* .app-container > .wrap > .chat-box .send-form input { */
-  /* border: 0; */
-  /* width: 90%; */
-  /* padding: 10px; */
-  /* border-radius: 5px; */
-  /* background-color: #f6f6f6; */
+/* border: 0; */
+/* width: 90%; */
+/* padding: 10px; */
+/* border-radius: 5px; */
+/* background-color: #f6f6f6; */
 /* } */
 /* .app-container > .wrap > .chat-box .send-form button { */
-  /* border: 0; */
-  /* padding: 10px; */
-  /* width: 10%;
+/* border: 0; */
+/* padding: 10px; */
+/* width: 10%;
   border-radius: 5px;
   background-color: lemonchiffon; */
 /* } */

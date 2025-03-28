@@ -1,8 +1,6 @@
-import { useEffect, useState } from 'react'
-// import { CardActionArea, CardActions } from '@mui/material';
 import Chip from '@mui/material/Chip'
-// import { useBottomNavigationStore } from 'src/store'
 import { User } from 'firebase/auth'
+import { useEffect, useState } from 'react'
 import SpecificsActionsPopups from './SpecificsActionsPopups'
 
 interface Props {
