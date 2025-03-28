@@ -1,5 +1,5 @@
 import { User } from "firebase/auth";
 
-export default interface UserObjProps  {
-    userObj: User | null
+export default interface UserObjProps {
+  userObj: User | null
 }

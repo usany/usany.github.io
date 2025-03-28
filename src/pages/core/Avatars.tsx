@@ -12,7 +12,6 @@ interface Props {
   profile: boolean;
   profileColor: string;
   profileUrl: string;
-  fallback: string;
   piazza: () => void
 }
 
@@ -22,10 +21,7 @@ const Avatars = ({
   profileColor,
   profileUrl,
   piazza
-  //   profileImage,
 }: Props) => {
-  // const defaultProfile = useSelector((state) => state.defaultProfile.value)
-  // console.log(defaultProfile)
   const profileImageArray = [static01, static02, static03, static04, static05, static06, statics]
   const alpha = Array.from(Array(26)).map((e, i) => i + 65);
   const letters = alpha.map((x) => String.fromCharCode(x));
@@ -42,24 +38,20 @@ const Avatars = ({
   return (
     <div>
       {profile ? (
-        // <Avatar className={`w-48 h-48 bg-${(profileColor || '')[0] === '#' ? 'profile-blue' : profileColor}`}>
         <Avatar
           className={`w-48 h-48 bg-${(profileColor || "#")[0] === "#" ? "profile-blue" : profileColor}`}
         >
           <AvatarImage src={profileUrl} />
           <AvatarFallback className="text-8xl border-none">
             <img className='h-full' src={defaultProfile} />
-            {/* {fallback} */}
           </AvatarFallback>
         </Avatar>
       ) : (
         <Avatar
           onClick={piazza}
-        // className={`bg-${(profileColor || "#")[0] === "#" ? "profile-blue" : profileColor}`}
         >
           <AvatarImage src={profileUrl} />
           <AvatarFallback className="border">
-            {/* {fallback} */}
             <img className='h-full' src={defaultProfile} />
           </AvatarFallback>
         </Avatar>

@@ -26,19 +26,6 @@ import { messageOff, messageOn } from "src/stateSlices/messageAccordionSlice";
 import { changeProfileColor } from "src/stateSlices/profileColorSlice";
 import { changeProfileUrl } from "src/stateSlices/profileUrlSlice";
 
-// const Puller = styled('div')(({ theme }) => ({
-//     width: 30,
-//     height: 6,
-//     backgroundColor: grey[300],
-//     borderRadius: 3,
-//     position: 'absolute',
-//     top: 8,
-//     left: 'calc(50% - 15px)',
-//     ...theme.applyStyles('dark', {
-//       backgroundColor: grey[900],
-//     }),
-//   }));
-
 const profileImageArray = [static01, static02]
 
 interface Props {
@@ -88,39 +75,8 @@ const HeaderViews = ({ userObj }: Props) => {
     };
     setProfile();
   }, [userObj]);
-  // const profile = useMemo(() => {
-  //   return (
-  //     <div>
-  //       {profileImage ? (
-  //         <div
-  //           onClick={() => {
-  //             handleSideNavigation();
-  //           }}
-  //         >
-  //           {userObj ? (
-  //             <Avatars
-  //               profile={false}
-  //               profileColor={profileColor}
-  //               profileImage={profileImage}
-  //               fallback={userObj.displayName ? userObj.displayName[0] : ""}
-  //             />
-  //           ) : (
-  //             <Avatars
-  //               profile={false}
-  //               profileColor={"profile-blue"}
-  //               profileImage={staticImage}
-  //               fallback={""}
-  //             />
-  //           )}
-  //         </div>
-  //       ) : (
-  //         <div>loading</div>
-  //       )}
-  //     </div>
-  //   );
-  // }, []);
   return (
-    <>
+    <div className="fixed z-50 bg-light-3 dark:bg-dark-3 truncate">
       <Navigation
         userObj={userObj}
         handleSideNavigation={handleSideNavigation}
@@ -240,7 +196,7 @@ const HeaderViews = ({ userObj }: Props) => {
           <WeatherView />
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

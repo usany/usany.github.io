@@ -9,9 +9,9 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 // import Chatting from 'src/pages/Chatting'
 // import Chats from 'src/pages/Chats'
 import { User } from 'firebase/auth'
-import Header from 'src/navigate/Header'
 import Navigations from 'src/navigate/Navigations'
 import Loadings from 'src/pages/core/loadings/Loadings'
+import NavigationTop from 'src/pages/core/navigationTop/NavigationTop'
 import Adds from '../add/Adds'
 import Board from '../board/Board'
 
@@ -29,7 +29,8 @@ const Router = ({ userObj }: Props) => {
   return (
     <BrowserRouter>
       <div className="flex flex-col">
-        <Header userObj={userObj} />
+        <NavigationTop userObj={userObj} />
+        <div className='h-16'></div>
         <div className="">
           <Suspense fallback={<Loadings />}>
             <Routes>
