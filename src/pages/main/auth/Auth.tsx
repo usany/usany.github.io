@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from 'react'
+import { useMemo } from 'react';
 // import { auth, onSocialClick, dbservice } from 'src/baseApi/serverbase'
 // import { updateProfile, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 // import { doc, setDoc } from 'firebase/firestore';
@@ -8,9 +8,7 @@ import { useState, useMemo, useEffect } from 'react'
 import PageTitle from 'src/pages/core/pageTitle/PageTitle';
 import AuthButtons from 'src/pages/main/auth/AuthButtons';
 import AuthForm from 'src/pages/main/auth/AuthForm';
-import SignInDialogs from 'src/components/SignInDialogs';
 import Motions from 'src/pages/main/auth/Motions';
-import {supabase} from 'src/baseApi/base';
 
 function Auth() {
   const motions = useMemo(() => <Motions />, [])

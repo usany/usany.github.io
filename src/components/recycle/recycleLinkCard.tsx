@@ -1,11 +1,7 @@
+import { CardActionArea } from '@mui/material';
 import Card from '@mui/material/Card';
-import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
-import { CardActionArea, CardActions } from '@mui/material';
-import { Link } from 'react-router-dom'
-import Btn from 'src/Btn';
-import Chip from '@mui/material/Chip';
-import staticImg from 'src/assets/pwa-512x512.png';
+import { Link } from 'react-router-dom';
 
 const Cards = ({
   msgObj,
@@ -14,13 +10,13 @@ const Cards = ({
   num,
   points,
 }:
-{
-  msgObj: {id: string, text: object},
-  isOwner: boolean,
-  userObj: {uid: string, displayName: string},
-  num: number,
-  points: number,
-}) => {
+  {
+    msgObj: { id: string, text: object },
+    isOwner: boolean,
+    userObj: { uid: string, displayName: string },
+    num: number,
+    points: number,
+  }) => {
   const shadowColorArray = [
     'lightblue',
     'lightcoral',
@@ -40,7 +36,7 @@ const Cards = ({
   const letters = alpha.map((x) => String.fromCharCode(x));
   const numbers = Array.from({ length: 10 }, (e, i) => `${i}`)
   const mergedArray = letters.concat(numbers)
-  shadowColor = shadowColorArray[mergedArray.indexOf(String(msgObj.id[0]).toUpperCase())%shadowColorArray.length];
+  shadowColor = shadowColorArray[mergedArray.indexOf(String(msgObj.id[0]).toUpperCase()) % shadowColorArray.length];
 
   return (
     <div className='flex justify-center'>
@@ -57,10 +53,10 @@ const Cards = ({
               borrowMessage: borrowMessage
             }}
           >
-          <CardContent>
-          <div>포인트</div>
-          <div className='flex justify-center'>{num}</div>
-          </CardContent>
+            <CardContent>
+              <div>포인트</div>
+              <div className='flex justify-center'>{num}</div>
+            </CardContent>
           </Link>
         </CardActionArea>
       </Card>
@@ -73,7 +69,7 @@ const Cards = ({
               followerList: myFollowerList,
               allies: 'followers',
               alliesCollection: followersName,
-          }}>
+            }}>
             <div className='p-5'>
               <div className='flex justify-center'>
                 팔로워
@@ -94,7 +90,7 @@ const Cards = ({
               followingsList: myFollowingList,
               allies: 'followings',
               alliesCollection: followingsName,
-          }}>
+            }}>
             <div className='p-5'>
               <div className='flex justify-center'>
                 팔로잉

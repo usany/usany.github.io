@@ -1,13 +1,3 @@
-import { useState, useEffect, useLayoutEffect } from 'react'
-import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
-import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnapshot, deleteDoc, updateDoc } from 'firebase/firestore';
-import TextField from '@mui/material/TextField';
-import Skeleton from '@mui/material/Skeleton';
-import PageTitle from 'src/pages/core/pageTitle/PageTitle'
-import RankingSearch from 'src/pages/search/searchBar/RankingSearch'
-import Lists from 'src/pages/search/searchList/searchListViews/Lists'
-import { getStorage, ref, uploadBytes, uploadString, uploadBytesResumable, getDownloadURL, } from "firebase/storage";
-import { User } from 'firebase/auth';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 interface Props {

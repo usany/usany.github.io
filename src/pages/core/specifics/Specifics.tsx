@@ -5,7 +5,7 @@ import CardMedia from '@mui/material/CardMedia'
 import { doc, getDoc } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 import { dbservice } from 'src/baseApi/serverbase'
-import Btn from 'src/Btn'
+import Btn from 'src/buttons/Buttons'
 // import { CardActionArea, CardActions } from '@mui/material';
 // import { useBottomNavigationStore } from 'src/store'
 import Divider from '@mui/material/Divider'

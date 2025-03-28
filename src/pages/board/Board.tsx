@@ -11,10 +11,10 @@ import {
 } from "src/baseApi/serverbase";
 // import Cards from "src/pages/main/card/Cards";
 import { useSelector } from "react-redux";
-import { SwipeableViews } from "src/navigate/SwipeableViews";
 import BoardMap from "src/pages/board/boardMap/BoardMap";
 import FilterDialogs from "src/pages/board/FilterDialogs/FilterDialogs";
 import PageTitle from "src/pages/core/pageTitle/PageTitle";
+import { SwipeableViews } from "src/pages/core/SwipeableViews";
 import { useImmer } from "use-immer";
 import CardsList from "../core/card/CardsList";
 import LayoutBoard from "./LayoutBoard";

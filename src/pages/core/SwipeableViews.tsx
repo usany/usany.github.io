@@ -1,8 +1,8 @@
-import "./SwipeableViews.css";
 import React, { useCallback, useEffect, useRef } from "react";
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux';
 import TabsRootState from "src/interfaces/TabsRootState";
-import { changeTabs } from 'src/stateSlices/tabsSlice'
+import { changeTabs } from 'src/stateSlices/tabsSlice';
+import "../../navigate/SwipeableViews.css";
 
 export function SwipeableViews({
   className = "",
@@ -83,7 +83,7 @@ export function SwipeableViews({
       }, 100);
     },
   );
-  
+
   return (
     <div
       {...rootProps}
