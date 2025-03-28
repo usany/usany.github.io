@@ -299,7 +299,6 @@ function Btn({
   round,
   increaseRound,
   decreaseRound,
-  onPulse,
   changeOnPulse
 }) {
   const [move, setMove] = useState(false)
@@ -309,75 +308,6 @@ function Btn({
   const handleDialog = () => {
     setMove(true)
   }
-  const passingObject = { message: messageObj, uid: uid, displayName: displayName }
-  const passingConfirmReturnObject = {
-    num: num,
-    points: points,
-    message: messageObj,
-    uid: uid,
-    displayName: displayName,
-  }
-  // useEffect(() => {
-  //   if (!webSocket) return
-  //   function sIncreaseCardCallback() {
-  //     increaseRound()
-  //   }
-  //   webSocket.on(`sIncrease${messageObj.id}`, sIncreaseCardCallback)
-  //   return () => {
-  //     webSocket.off(`sIncrease${messageObj.id}`, sIncreaseCardCallback)
-  //   }
-  // })
-  // useEffect(() => {
-  //   if (!webSocket) return
-  //   function sDecreaseCardCallback() {
-  //     decreaseRound()
-  //   }
-  //   webSocket.on(`sDecrease${messageObj.id}`, sDecreaseCardCallback)
-  //   return () => {
-  //     webSocket.off(`sDecrease${messageObj.id}`, sDecreaseCardCallback)
-  //   }
-  // })
-  // useEffect(() => {
-  //   if (!webSocket) return
-  //   function sOnPulseTrueCallback(message) {
-  //     if (message.choose === 1) {
-  //       if (message.creatorId === userObj.uid) {
-  //         if (message.round === 2 || message.round === 3) {
-  //           changeOnPulse(true)
-  //         } else if (message.connectedId === userObj.uid) {
-  //           if (message.round === 4) {
-  //             changeOnPulse(true)
-  //           }
-  //         }
-  //       } else {
-  //         if (message.creatorId === userObj.uid) {
-  //           if (message.round === 2 || message.round === 4) {
-  //             changeOnPulse(true)
-  //           }
-  //         } else if (message.connectedId === userObj.uid) {
-  //           if (message.round === 3) {
-  //             changeOnPulse(true)
-  //           }
-  //         }
-  //       }
-  //       changeOnPulse(true)
-  //     }
-  //   }
-  //   webSocket.on(`sOnPulseTrue${messageObj.id}`, sOnPulseTrueCallback)
-  //   return () => {
-  //     webSocket.off(`sOnPulseTrue${messageObj.id}`, sOnPulseTrueCallback)
-  //   }
-  // })
-  // useEffect(() => {
-  //   if (!webSocket) return
-  //   function sOnPulseFalseCallback(message) {
-  //     changeOnPulse(false)
-  //   }
-  //   webSocket.on(`sOnPulseFalse${messageObj.id}`, sOnPulseFalseCallback)
-  //   return () => {
-  //     webSocket.off(`sOnPulseFalse${messageObj.id}`, sOnPulseFalseCallback)
-  //   }
-  // })
   return (
     <>
       {isOwner ? (
