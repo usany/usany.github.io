@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import Switches from 'src/navigate/Switches'
 import { changeEn, changeKo } from 'src/stateSlices/languagesSlice'
 import { changeDark, changeLight } from 'src/stateSlices/themeSlice'
-import SwitchesLanguages from './SwitchesLanguages'
+import SwitchesLanguages from '../../../../navigate/SwitchesLanguages'
 
 const Modes = () => {
   const theme = useSelector((state) => state.theme)

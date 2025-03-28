@@ -15,8 +15,8 @@ import {
 import { useSelector } from 'react-redux'
 import { dbservice } from 'src/baseApi/serverbase'
 import { AnimatedList } from 'src/components/ui/animated-list'
-import Chats from 'src/pages/main/chatting/Chats'
-import ChattingStacks from 'src/pages/main/chatting/ChattingStacks'
+import Chats from 'src/pages/core/chatting/Chats'
+import ChattingStacks from 'src/pages/core/chatting/ChattingStacks'
 import { useGetPiazzaQuery } from 'src/stateSlices/piazza'
 import { webSocket } from 'src/webSocket.tsx'
 

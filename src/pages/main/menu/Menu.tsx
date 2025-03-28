@@ -17,9 +17,9 @@ import {
   dbservice,
   messaging
 } from "src/baseApi/serverbase";
+import CardsStacks from "src/pages/core/card/CardsStacks";
+import MessageStacks from "src/pages/core/chatting/MessageStacks";
 import PageTitle from "src/pages/core/pageTitle/PageTitle";
-import CardsStacks from "src/pages/main/card/CardsStacks";
-import MessageStacks from "src/pages/main/chatting/MessageStacks";
 import { cardOff, cardOn } from "src/stateSlices/cardAccordionSlice";
 import { messageOff, messageOn } from "src/stateSlices/messageAccordionSlice";
 // import { QueryClient, QueryClientProvider } from '@tanstack/react-query'

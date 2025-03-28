@@ -1,6 +1,5 @@
-import Modes from 'src/navigate/Modes'
-import { useDispatch, useSelector } from 'react-redux'
-import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
+import { useDispatch } from 'react-redux'
+import Modes from 'src/pages/core/navigationTop/sideNavigation/Modes'
 import NavigationUser from '../navigationUser/NavigationUser'
 
 const NavigationSignedOut = ({ userObj, points, checkbox }) => {

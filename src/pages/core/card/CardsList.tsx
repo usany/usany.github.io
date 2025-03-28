@@ -1,4 +1,4 @@
-import Cards from "src/pages/main/card/Cards";
+import Cards from "src/pages/core/card/Cards";
 
 const CardsList = ({ choose, messages, selectedValues, userObj }) => {
   return (

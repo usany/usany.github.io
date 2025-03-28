@@ -10,7 +10,7 @@ import {
 } from "react";
 import { dbservice } from "src/baseApi/serverbase";
 import useLongPress from "src/hooks/useLongPress";
-import MorphingDialogs from "../../core/morphingDialogs/MorphingDialogs";
+import MorphingDialogs from "../morphingDialogs/MorphingDialogs";
 import CardsViews from "./CardsViews";
 
 interface Props {

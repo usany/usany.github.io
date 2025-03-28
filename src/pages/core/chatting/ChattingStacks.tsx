@@ -1,32 +1,14 @@
-import { useState, useEffect, useLayoutEffect } from 'react'
-import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
-import {
-  collection,
-  query,
-  QuerySnapshot,
-  where,
-  orderBy,
-  addDoc,
-  getDoc,
-  getDocs,
-  doc,
-  onSnapshot,
-  deleteDoc,
-  updateDoc,
-  limit,
-} from 'firebase/firestore'
-import { webSocket, onClick } from 'src/webSocket.tsx'
 import { User } from 'firebase/auth'
 import {
-  getStorage,
-  ref,
-  uploadBytes,
-  uploadString,
-  uploadBytesResumable,
-  getDownloadURL,
-} from 'firebase/storage'
-import Chats from 'src/pages/main/chatting/Chats'
+  doc,
+  getDoc,
+  updateDoc
+} from 'firebase/firestore'
+import { useEffect, useState } from 'react'
+import { dbservice } from 'src/baseApi/serverbase'
 import { AnimatedList } from 'src/components/ui/animated-list'
+import Chats from 'src/pages/core/chatting/Chats'
+import { webSocket } from 'src/webSocket.tsx'
 
 interface Props {
   userObj: User

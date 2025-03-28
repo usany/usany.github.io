@@ -11,7 +11,7 @@ import staticImg from 'src/assets/pwa-512x512.png'
 import staticImageC from 'src/assets/screen-01.png'
 import { PulsatingButton } from 'src/components/ui/pulsating-button'
 import useCardsBackground from 'src/hooks/useCardsBackground'
-import Avatars from '../../core/Avatars'
+import Avatars from '../Avatars'
 
 interface Props {
   message: { id: string; text: object }

@@ -16,7 +16,7 @@ import BoardMap from "src/pages/board/boardMap/BoardMap";
 import FilterDialogs from "src/pages/board/FilterDialogs/FilterDialogs";
 import PageTitle from "src/pages/core/pageTitle/PageTitle";
 import { useImmer } from "use-immer";
-import CardsList from "../main/card/CardsList";
+import CardsList from "../core/card/CardsList";
 import LayoutBoard from "./LayoutBoard";
 // import { AlarmCheck, AlertCircle, Building, Clock, DoorOpen, MessagesSquare, Pen, PenBox, Pencil, PenSquare, PenTool, Presentation, Search, SearchCheck, SearchCode, SearchSlash, Siren, TowerControl, Umbrella, UserCheck, UserRound, Watch } from "lucide-react";
 

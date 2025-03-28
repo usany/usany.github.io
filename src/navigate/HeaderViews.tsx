@@ -14,9 +14,9 @@ import static01 from "src/assets/blue01.png";
 import static02 from "src/assets/blue02.png";
 import { dbservice } from "src/baseApi/serverbase";
 import { useSelectors } from "src/hooks/useSelectors";
-import Navigation from "src/navigate/Navigation";
-import WeatherView from "src/navigate/WeatherView";
 import Avatars from "src/pages/core/Avatars";
+import Navigation from "src/pages/core/navigationTop/sideNavigation/Navigation";
+import WeatherView from "src/pages/core/navigationTop/WeatherView";
 import ToggleTabs from "src/pages/core/ToggleTabs";
 import {
   cardOff,

@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import useCardsBackground from 'src/hooks/useCardsBackground';
 import useLongPress from 'src/hooks/useLongPress';
-import ChatsBoxes from 'src/pages/main/chatting/ChatsBoxes';
+import ChatsBoxes from 'src/pages/core/chatting/ChatsBoxes';
 import { changePiazzaSwitch } from 'src/stateSlices/piazzaSwitchSlice';
 
 interface Props {

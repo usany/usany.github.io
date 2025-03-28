@@ -9,13 +9,13 @@ import { useDispatch, useSelector } from "react-redux";
 import staticImage from "src/assets/blue.png";
 import { dbservice } from "src/baseApi/serverbase";
 import { useSelectors } from "src/hooks/useSelectors";
-import Navigation from "src/navigate/Navigation";
-import WeatherView from "src/navigate/WeatherView";
 import Avatars from "src/pages/core/Avatars";
+import Navigation from "src/pages/core/navigationTop/sideNavigation/Navigation";
+import WeatherView from "src/pages/core/navigationTop/WeatherView";
 import ToggleTabs from "src/pages/core/ToggleTabs";
 import { changeProfileColor } from "src/stateSlices/profileColorSlice";
 import { changeProfileUrl } from "src/stateSlices/profileUrlSlice";
-import NavigationTopCards from "./naviagtionTopCards/NavigationTopCards";
+import NavigationTopCards from "./navigationTopCards/NavigationTopCards";
 import NavigationTopLogOut from "./navigationTopLogOut/NavigationTopLogOut";
 import NavigationTopMessages from "./navigationTopMessages/NavigationTopMessages";
 

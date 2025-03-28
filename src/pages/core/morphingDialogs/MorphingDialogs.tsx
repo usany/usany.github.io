@@ -6,7 +6,7 @@ import {
 import { User } from 'firebase/auth'
 import { useEffect, useState } from 'react'
 import { webSocket } from 'src/webSocket'
-import CardsViews from '../../main/card/CardsViews'
+import CardsViews from '../card/CardsViews'
 import Morphings from './Morphings'
 
 interface Props {

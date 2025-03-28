@@ -16,7 +16,7 @@ import {
   messaging
 } from "src/baseApi/serverbase";
 import { AnimatedList } from "src/components/ui/animated-list";
-import Cards from "src/pages/main/card/Cards";
+import Cards from "src/pages/core/card/Cards";
 
 interface Props {
   userObj: User;

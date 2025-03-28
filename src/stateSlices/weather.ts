@@ -1,39 +1,13 @@
-import { useState, useEffect, useLayoutEffect, Suspense } from 'react'
 // import Typography from '@mui/material/Typography';
 // import Card from '@mui/material/Card';
 // import { CardActionArea, CardActions } from '@mui/material';
-import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
-import {
-  collection,
-  query,
-  where,
-  orderBy,
-  addDoc,
-  getDoc,
-  getDocs,
-  doc,
-  onSnapshot,
-  deleteDoc,
-  updateDoc,
-  limit,
-} from 'firebase/firestore'
-import { Link } from 'react-router-dom'
-import { webSocket, onClick } from 'src/webSocket.tsx'
-import { User } from 'firebase/auth'
-import ChattingStacks from 'src/pages/main/chatting/ChattingStacks'
-import Chats from 'src/pages/main/chatting/Chats'
-import { useQuery } from '@tanstack/react-query'
 // import { useSelector, useDispatch } from 'react-redux'
 // import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 // import Badge from '@mui/material/Badge';
 // import Chip from '@mui/material/Chip';
-import { useSelector, useDispatch } from 'react-redux'
-import { AnimatedList } from 'src/components/ui/animated-list'
-import { CardActionArea, CardActions, ClickAwayListener } from '@mui/material'
 import {
   createApi,
-  fetchBaseQuery,
-  fakeBaseQuery,
+  fakeBaseQuery
 } from '@reduxjs/toolkit/query/react'
 import axios from 'axios'
 

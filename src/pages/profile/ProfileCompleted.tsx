@@ -15,7 +15,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Label, Pie, PieChart } from "recharts";
 import { dbservice } from 'src/baseApi/serverbase';
-import Cards from 'src/pages/main/card/Cards';
+import Cards from 'src/pages/core/card/Cards';
 import { changeCompletedAction } from 'src/stateSlices/completedActionSlice';
 import DrawersBar from "../core/DrawersBar";
 
