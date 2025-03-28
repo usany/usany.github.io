@@ -3,6 +3,7 @@ import Chip from '@mui/material/Chip';
 import { User } from 'firebase/auth';
 import staticImage from 'src/assets/blue.png';
 import Avatars from "src/pages/core/Avatars";
+
 interface Props {
   userObj: User
   profileUrl: string
@@ -38,7 +39,7 @@ const ChatsBoxes = ({ chattingUid, userObj, profileUrl, displayName, multiple, c
   if (messageDate.length === 1) {
     messageDate = '0' + messageDate
   }
-  // console.log(chattingUid)
+
   return (
     <div className='flex p-3'>
       {multiple ?
