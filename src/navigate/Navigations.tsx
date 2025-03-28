@@ -1,19 +1,14 @@
-import { useState, useEffect, useRef } from 'react'
-import { Link, useNavigate, useLocation, useParams, useSearchParams } from 'react-router-dom'
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
-import ChevronRight from '@mui/icons-material/ChevronRight'
-import ChevronLeft from '@mui/icons-material/ChevronLeft'
-import Checklist from '@mui/icons-material/Checklist'
-import ChecklistRtl from '@mui/icons-material/ChecklistRtl'
-import BeachAccess from '@mui/icons-material/BeachAccess'
+import { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 // import Badges from 'src/components/Badges'
-import { useSelector, useDispatch } from 'react-redux'
-import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
-import { User } from 'firebase/auth';
 import { alpha } from "@mui/material";
-import { useSelectors } from 'src/hooks/useSelectors';
+import { User } from 'firebase/auth';
 import { Pencil, Presentation, Umbrella } from 'lucide-react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useSelectors } from 'src/hooks/useSelectors';
+import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice';
 
 interface Props {
   userObj: User | null
@@ -33,7 +28,16 @@ function Navigations({ userObj }: Props) {
       setBackgroundColor('#e2e8f0')
     }
   }, [theme])
-
+  const location = useLocation()
+  useEffect(() => {
+    if (location.pathname === '/add') {
+      dispatch(changeBottomNavigation(0))
+    } else if (location.pathname === '/') {
+      dispatch(changeBottomNavigation(1))
+    } else if (location.pathname === '/board') {
+      dispatch(changeBottomNavigation(2))
+    }
+  })
   const navigate = useNavigate()
 
   return (

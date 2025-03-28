@@ -14,9 +14,10 @@ import AddSteppers from './AddSteppers';
 const Layout = ({ borrow }) => {
   const dispatch = useDispatch()
   const languages = useSelector((state) => state.languages)
+
   return (
     <div className='flex flex-col h-screen'>
-      <PageTitle title={`${borrow ? '빌리기 ' : '빌려주기 '} 카드 등록`} />
+      <PageTitle title={`${borrow ? `${languages === 'ko' ? '빌리기 ' : 'Borrowing '}` : `${languages === 'ko' ? '빌려주기 ' : 'Lending '}`} ${languages === 'ko' ? '카드 등록' : 'Card Registeration'}`} />
       <>
         <div className="blur-md flex flex-col justify-around px-5">
           <AddSteppers addSteps={0} borrow={borrow} />
