@@ -1,12 +1,12 @@
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
-import Chip from '@mui/material/Chip'
 import { User } from 'firebase/auth'
 import { Building, Watch } from 'lucide-react'
 import { useSelector } from 'react-redux'
 import staticImg from 'src/assets/pwa-512x512.png'
 import useCardsBackground from 'src/hooks/useCardsBackground'
+import Chips from 'src/myChips'
 import Avatars from '../Avatars'
 
 interface Props {
@@ -42,8 +42,12 @@ const CardView = ({ message, shadowColor }) => {
                 piazza={null}
               />
               <div className="flex items-center">
-                <Chip
+                {/* <Chip
                   label={`${message.item} ${message.text.choose === 1 ? ' 빌리기' : ' 빌려주기'}`}
+                /> */}
+                <Chips
+                  label={`${message.item} ${message.text.choose === 1 ? ' 빌리기' : ' 빌려주기'}`}
+                  className='bg-white'
                 />
               </div>
             </div>
@@ -94,8 +98,12 @@ const CardView = ({ message, shadowColor }) => {
               piazza={null}
             />
             <div className="flex items-center">
-              <Chip
+              {/* <Chip
                 label={`${message.item} ${message.text.choose === 1 ? ' 빌리기' : ' 빌려주기'}`}
+              /> */}
+              <Chips
+                label={`${message.item} ${message.text.choose === 1 ? ' 빌리기' : ' 빌려주기'}`}
+                className='bg-white dark:bg-dark-0.5'
               />
             </div>
           </div>

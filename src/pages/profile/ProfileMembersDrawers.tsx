@@ -4,7 +4,7 @@ import {
   DrawerTrigger
 } from "@/components/ui/drawer";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Card, Chip } from "@mui/material";
+import { Card } from "@mui/material";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { deleteUser } from "firebase/auth";
@@ -20,6 +20,7 @@ import {
 import {
   dbservice
 } from "src/baseApi/serverbase";
+import Chips from "src/myChips";
 import useCardsBackground from "../../hooks/useCardsBackground";
 import DrawersBar from "../core/DrawersBar";
 
@@ -93,11 +94,13 @@ const ProfileMembersDrawers = ({ userObj, user }) => {
             </div>
             {process ? (
               <div className='flex justify-center'>
-                <Chip label={'진행 카드가 없습니다'} color="primary" />
+                {/* <Chip label={'진행 카드가 없습니다'} color="primary" /> */}
+                <Chips label={'진행 카드가 없습니다'} className='bg-profile-blue' />
               </div>
             ) : (
               <div className='flex justify-center'>
-                <Chip label={'진행 카드가 있습니다'} color="error" />
+                {/* <Chip label={'진행 카드가 있습니다'} color="error" /> */}
+                <Chips label={'진행 카드가 있습니다'} className='bg-profile-red' />
               </div>
             )}
             <div>정말로 회원 탈퇴를 하시려면 이메일을 입력해 주세요</div>

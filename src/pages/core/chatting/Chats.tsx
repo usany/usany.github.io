@@ -1,13 +1,13 @@
 import DeleteIcon from '@mui/icons-material/Delete';
 import { CardActionArea, ClickAwayListener } from '@mui/material';
 import Card from '@mui/material/Card';
-import Chip from '@mui/material/Chip';
 import { User } from 'firebase/auth';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import useCardsBackground from 'src/hooks/useCardsBackground';
 import useLongPress from 'src/hooks/useLongPress';
+import Chips from 'src/myChips';
 import ChatsBoxes from 'src/pages/core/chatting/ChatsBoxes';
 import { changePiazzaSwitch } from 'src/stateSlices/piazzaSwitchSlice';
 
@@ -103,7 +103,7 @@ const Chats = ({ userObj, profileUrl, conversation, displayName, chattingUid, mu
         // <>
         //   {conversation ?
         //     <div className='h-full' onClick={() => onDelete({conversation: conversation})}>
-        //       <Chip label={<DeleteIcon />} color='error'/>
+        //       <Chip label={<DeleteIcon />} color=''/>
         //     </div>
         //   :
         //     <div className='h-full' onClick={() => {
@@ -124,7 +124,8 @@ const Chats = ({ userObj, profileUrl, conversation, displayName, chattingUid, mu
             dispatch(changePiazzaSwitch('false'))
           }
         }}>
-          <Chip label={<DeleteIcon />} color='error' />
+          {/* <Chip label={<DeleteIcon />} color='error' /> */}
+          <Chips label={<DeleteIcon />} className='bg-profile-red text-white' />
         </div>
       }
     </div>

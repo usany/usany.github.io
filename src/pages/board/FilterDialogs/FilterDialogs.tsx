@@ -13,8 +13,8 @@ import {
 } from "@/components/ui/select";
 import { useState } from "react";
 // import { Filter } from "lucide-react";
-import { Chip } from "@mui/material";
 import { ScrollArea } from "@radix-ui/react-scroll-area";
+import Chips from "src/myChips";
 import DrawersBar from "src/pages/core/DrawersBar";
 const markers = [
   {
@@ -66,7 +66,7 @@ function FilterDialogs({ selectedValues, handleSelectedValues }) {
       <Drawer>
         <DrawerTrigger>
           <div className="flex gap-1">
-            {selectedValues[0].value && (
+            {/* {selectedValues[0].value && (
               <Chip
                 label={selectedValues[0].value}
                 onClick={() => {
@@ -89,7 +89,18 @@ function FilterDialogs({ selectedValues, handleSelectedValues }) {
                   onClick({ id: selectedValues[2].id });
                 }}
               />
-            )}
+            )} */}
+            {selectedValues.map((element, index) => {
+              return (
+                <Chips
+                  key={index}
+                  label={element.value}
+                  onClick={() => {
+                    onClick({ id: element.id });
+                  }}
+                />
+              )
+            })}
           </div>
         </DrawerTrigger>
         <DrawerContent className="flex flex-col justify-center px-5 bg-light-2 dark:bg-dark-2 max-h-[60%]">

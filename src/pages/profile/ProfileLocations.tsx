@@ -1,7 +1,8 @@
-import { useState, useEffect, useReducer } from 'react'
-import { Button, Chip } from "@mui/material";
+import { Button } from "@mui/material";
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
+import { useEffect, useState } from 'react';
 import { dbservice } from 'src/baseApi/serverbase';
+import Chips from 'src/myChips';
 
 const area = {
   westSouth: { lat: 37.5927551, lng: 127.047462 },
@@ -54,7 +55,13 @@ const ProfileLocations = ({
       <div>
         위치 확인으로 캠퍼스에 있음을 알리세요.
       </div>
-      {locationConfirmed ? <Chip color="success" label={'캠퍼스 위치 확인'} /> : <Chip label={'캠퍼스 위치 미확인'} />}
+      {locationConfirmed ?
+        // <Chip color="success" label={'캠퍼스 위치 확인'} />
+        <Chips label={'캠퍼스 위치 확인'} className='bg-profile-green' />
+        :
+        // <Chip label={'캠퍼스 위치 미확인'} />
+        <Chips label={'캠퍼스 위치 미확인'} />
+      }
       {user === userObj.uid && !locationConfirmed &&
         <Button onClick={onClickLocation} variant="outlined">
           캠퍼스 위치 확인

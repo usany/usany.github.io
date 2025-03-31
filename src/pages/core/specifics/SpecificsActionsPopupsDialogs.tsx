@@ -5,7 +5,6 @@ import {
   DrawerTrigger
 } from '@/components/ui/drawer'
 import Button from '@mui/material/Button'
-import Chip from '@mui/material/Chip'
 import { ScrollArea } from '@radix-ui/react-scroll-area'
 import { User } from 'firebase/auth'
 import { useEffect, useState } from 'react'
@@ -14,6 +13,7 @@ import {
 } from 'react-router-dom'
 import { Dialog, DialogContent, DialogTrigger } from 'src/components/ui/dialog'
 import useLargeMedia from 'src/hooks/useLargeMedia'
+import Chips from 'src/myChips'
 import Avatars from 'src/pages/core/Avatars'
 import DrawersBar from 'src/pages/core/DrawersBar'
 
@@ -208,15 +208,18 @@ function SpecificsActionsPopupsDialogs({ drawerOpenTrue, userObj, message }: Pro
             </DrawerContent>
           </Drawer>
           {message.creatorId === userObj?.uid ? (
-            <Chip label="내가 작성함" />
+            // <Chip label="내가 작성함" />
+            <Chips label="내가 작성함" />
           ) : (
-            <Chip label={`${messageName} 작성함`} />
+            // <Chip label={`${messageName} 작성함`} />
+            <Chips label={`${messageName} 작성함`} />
           )}
         </div>
         <div className="flex items-center">
-          <Chip
+          {/* <Chip
             label={`${message.item} ${message.text.choose === 1 ? ' 빌리기' : ' 빌려주기'}`}
-          />
+          /> */}
+          <Chips label={`${message.item} ${message.text.choose === 1 ? ' 빌리기' : ' 빌려주기'}`} />
         </div>
       </div>
     </>

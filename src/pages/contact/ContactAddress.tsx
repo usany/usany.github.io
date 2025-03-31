@@ -1,5 +1,4 @@
-import { useState, useEffect } from 'react'
-import Chip from '@mui/material/Chip';
+import Chips from 'src/myChips';
 
 interface Props {
   action: string,
@@ -7,12 +6,13 @@ interface Props {
 }
 
 function ContactAddress({ action, label }: Props) {
-  return (  
+  return (
     <div className='px-5'>
       <span>
         {action}:&emsp;
       </span>
-      <Chip label={label}/>
+      {/* <Chip label={label} /> */}
+      <Chips label={label} onClick={null} />
     </div>
   )
 }

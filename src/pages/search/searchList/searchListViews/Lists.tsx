@@ -2,10 +2,10 @@ import Divider from "@mui/material/Divider";
 import { useState } from "react";
 // import Avatar from '@mui/material/Avatar';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Chip } from "@mui/material";
 import { doc, updateDoc } from "firebase/firestore";
 import { Link } from "react-router-dom";
 import { dbservice } from "src/baseApi/serverbase";
+import Chips from "src/myChips";
 import Avatars from "src/pages/core/Avatars";
 import RankingListsTitle from "src/pages/search/searchList/searchListViews/searchListViewsTitle/RankingListsTitle";
 
@@ -104,7 +104,8 @@ function Lists({
                         </div>
                         <div className='flex items-center'>
                           {element.locationConfirmed ?
-                            <Chip color="success" label={'캠퍼스 위치 확인'} /> : <Chip label={'캠퍼스 위치 미확인'} />
+                            // <Chip color="success" label={'캠퍼스 위치 확인'} /> : <Chip label={'캠퍼스 위치 미확인'} />
+                            <Chips label={'캠퍼스 위치 확인'} className='bg-profile-green' /> : <Chips label={'캠퍼스 위치 미확인'} />
                           }
                         </div>
                       </div>
@@ -180,7 +181,8 @@ function Lists({
                       </div>
                       <div className='flex items-center'>
                         {element.locationConfirmed ?
-                          <Chip color="success" label={'캠퍼스 위치 확인'} /> : <Chip label={'캠퍼스 위치 미확인'} />
+                          // <Chip color="success" label={'캠퍼스 위치 확인'} /> : <Chip label={'캠퍼스 위치 미확인'} />
+                          <Chips label={'캠퍼스 위치 확인'} className='bg-profile-green' /> : <Chips label={'캠퍼스 위치 미확인'} />
                         }
                       </div>
                     </div>

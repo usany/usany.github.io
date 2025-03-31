@@ -23,6 +23,7 @@ module.exports = {
       'dark-1': '#3a4556',
       'dark-2': '#2d3848',
       'dark-3': '#1a202c',
+      'dark-0.5': '#4d4556',
       'ranking-1': '#565584',
       'ranking-2': '#565584',
       'ranking-3': '#565584',

@@ -16,9 +16,9 @@ import BeachAccess from '@mui/icons-material/BeachAccess'
 import EastIcon from '@mui/icons-material/East'
 import HorizontalRuleIcon from '@mui/icons-material/HorizontalRule'
 import WestIcon from '@mui/icons-material/West'
-import Chip from '@mui/material/Chip'
 import { ScrollArea } from '@radix-ui/react-scroll-area'
 import { User } from 'firebase/auth'
+import Chips from 'src/myChips'
 import Avatars from 'src/pages/core/Avatars'
 import DrawersBar from 'src/pages/core/DrawersBar'
 
@@ -175,7 +175,8 @@ function SpecificsTrades({ drawerOpenTrue, userObj, message }: Props) {
               profileUrl={message.creatorUrl}
               fallback={userObj.displayName ? userObj.displayName[0] : ""}
             /> */}
-            <Chip label={messageName} />
+            {/* <Chip label={messageName} /> */}
+            <Chips label={messageName} />
           </div>
         ) : (
           <div className="flex flex-col items-center">
@@ -204,9 +205,11 @@ function SpecificsTrades({ drawerOpenTrue, userObj, message }: Props) {
               </Avatar>
             )}
             {message.connectedName ? (
-              <Chip label={message.connectedName} />
+              // <Chip label={message.connectedName} />
+              <Chips label={message.connectedName} />
             ) : (
-              <Chip variant="outlined" label={'아직 없음'} />
+              // <Chip variant="outlined" label={'아직 없음'} />
+              <Chips label={'아직 없음'} className='border' />
             )}
           </div>
         )}
@@ -258,9 +261,11 @@ function SpecificsTrades({ drawerOpenTrue, userObj, message }: Props) {
               </Avatar>
             )}
             {message.connectedName ? (
-              <Chip label={message.connectedName} />
+              // <Chip label={message.connectedName} />
+              <Chips label={message.connectedName} />
             ) : (
-              <Chip variant="outlined" label={'아직 없음'} />
+              // <Chip variant="outlined" label={'아직 없음'} />
+              <Chips label={'아직 없음'} className='border' />
             )}
           </div>
         ) : (
@@ -278,7 +283,8 @@ function SpecificsTrades({ drawerOpenTrue, userObj, message }: Props) {
               profileUrl={message.creatorUrl}
               fallback={userObj.displayName ? userObj.displayName[0] : ""}
             /> */}
-            <Chip label={messageName} />
+            {/* <Chip label={messageName} /> */}
+            <Chips label={messageName} />
           </div>
         )}
       </div>

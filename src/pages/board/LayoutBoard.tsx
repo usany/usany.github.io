@@ -18,9 +18,9 @@ import {
   AccordionItem,
   AccordionTrigger
 } from "@/components/ui/accordion";
-import { Chip } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import Chips from "src/myChips";
 import { changeBottomNavigation } from "src/stateSlices/bottomNavigationSlice";
 
 function LayoutBoard() {
@@ -132,7 +132,7 @@ function LayoutBoard() {
                 selectedValues={selectedValues}
                 handleSelectedValues={handleSelectedValues}
               /> */}
-              <Chip
+              {/* <Chip
                 label={selectedValues[0].value}
                 disabled
               />
@@ -143,7 +143,12 @@ function LayoutBoard() {
               <Chip
                 label={selectedValues[2].value}
                 disabled
-              />
+              /> */}
+              {selectedValues.map((element, index) => {
+                return (
+                  <Chips key={index} label={element.value} onClick={null} />
+                )
+              })}
             </div>
           </div>
           {/* <SwipeableViews>

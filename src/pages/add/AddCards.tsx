@@ -1,4 +1,3 @@
-import { Chip } from '@mui/material'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
@@ -6,6 +5,7 @@ import { Building, Watch } from 'lucide-react'
 import { useSelector } from 'react-redux'
 import staticImg from 'src/assets/pwa-512x512.png'
 import { AnimatedList } from 'src/components/ui/animated-list'
+import Chips from 'src/myChips'
 import Avatars from 'src/pages/core/Avatars'
 
 const AddCards = ({
@@ -65,7 +65,8 @@ const AddCards = ({
                 />
                 {item &&
                   <div className='flex items-center'>
-                    <Chip label={`${item} ${borrow ? ' 빌리기' : ' 빌려주기'}`} />
+                    {/* <Chip label={`${item} ${borrow ? ' 빌리기' : ' 빌려주기'}`} /> */}
+                    <Chips label={`${item} ${borrow ? ' 빌리기' : ' 빌려주기'}`} onClick={null} />
                   </div>
                 }
                 {/* {item && <Chip label='내가 작성함' />} */}
