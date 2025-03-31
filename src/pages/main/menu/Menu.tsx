@@ -17,6 +17,7 @@ import {
   dbservice,
   messaging
 } from "src/baseApi/serverbase";
+import Buttonings from "src/myButtons";
 import CardsStacks from "src/pages/core/card/CardsStacks";
 import MessageStacks from "src/pages/core/chatting/MessageStacks";
 import PageTitle from "src/pages/core/pageTitle/PageTitle";
@@ -91,6 +92,10 @@ function Menu({ userObj }: Props) {
   return (
     <div id="sample" className="flex justify-center flex-col pb-5">
       <PageTitle title={"내 상태"} />
+      <Buttonings button={'practice'} />
+      {/* <div className='flex justify-center'>
+        <Cardings cards={'sample'} shadowColor={'lightblue'} />
+      </div> */}
       <Accordion
         value={[cardAccordion, messageAccordion]}
         // defaultValue={accordionValues}

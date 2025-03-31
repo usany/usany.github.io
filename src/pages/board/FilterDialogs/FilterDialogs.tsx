@@ -141,7 +141,7 @@ function FilterDialogs({ selectedValues, handleSelectedValues }) {
                     <SelectItem value="전체 장소">전체 장소</SelectItem>
                     {markers.map((value, index) => {
                       return (
-                        <SelectItem value={value.label}>{value.label}</SelectItem>
+                        <SelectItem key={index} value={value.label}>{value.label}</SelectItem>
                       )
                     })}
                     {/* <SelectItem value="청운">청운</SelectItem>

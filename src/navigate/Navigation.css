@@ -27,6 +27,7 @@
   color: #eee;
   background: #121212;
 }
+
 .mode {
   color: #fff;
   text-align: center;
@@ -35,10 +36,10 @@
 }
 
 @font-face {
-	font-family: 'maruburi';
-	/* font-weight: 300;
+  font-family: 'maruburi';
+  /* font-weight: 300;
 	font-style: normal; */
-	src: url('src/assets/fonts/OTF/MaruBuri-Bold.otf') format('opentype')
+  src: url('src/assets/fonts/OTF/MaruBuri-Bold.otf') format('opentype')
 }
 
 .navigation {
@@ -48,6 +49,7 @@
   overflow: hidden; */
   left: -100%;
 }
+
 .navigationChecked {
   background: rgba(0, 0, 0, 0.7);
   font-family: maruburi;
@@ -84,34 +86,34 @@
 } */
 
 /* .toggle-button { */
-  /* display: block; */
-  /* padding: 10px; */
-  /* position: absolute;
+/* display: block; */
+/* padding: 10px; */
+/* position: absolute;
 		top:0;
 		left:0; */
-  /* z-index: 101; */
+/* z-index: 101; */
 
-  /* .wolverine { */
-    /* display: inline-block; */
-    /* height: 26px; */
-    /* padding: 0px 0px; */
-    /* cursor: pointer; */
-    /* opacity: 1; */
-    /* transition: all .3s ease; */
-    /* span { */
-      /* display:inline-block; */
-      /* text-transform: uppercase; */
-      /* line-height: 18px; */
-      /* font-family: Arial, Helvetica, sans-serif; */
-      /* font-size: 18px; */
-      /* font-weight: bold; */
-      /* color: #fff; */
-      /* margin-left: 0px; */
-      /* width:0px; */
-      /* overflow:hidden; */
-    /* } */
+/* .wolverine { */
+/* display: inline-block; */
+/* height: 26px; */
+/* padding: 0px 0px; */
+/* cursor: pointer; */
+/* opacity: 1; */
+/* transition: all .3s ease; */
+/* span { */
+/* display:inline-block; */
+/* text-transform: uppercase; */
+/* line-height: 18px; */
+/* font-family: Arial, Helvetica, sans-serif; */
+/* font-size: 18px; */
+/* font-weight: bold; */
+/* color: #fff; */
+/* margin-left: 0px; */
+/* width:0px; */
+/* overflow:hidden; */
+/* } */
 
-    /* .claws {
+/* .claws {
       position: relative;
       width: 20px;
       height: 4px;
@@ -139,7 +141,7 @@
         top: -8px;
       }
     } */
-  /* } */
+/* } */
 /* } */
 
 /* .nav-control {
