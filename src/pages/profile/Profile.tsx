@@ -8,7 +8,6 @@ import {
 import PageTitle from "src/pages/core/pageTitle/PageTitle";
 import ProfileActions from "src/pages/profile/ProfileActions";
 import ProfileAvatar from "src/pages/profile/profileAvatar/ProfileAvatar";
-import ProfileDialogs from "src/pages/profile/profileAvatar/profileDialogs/ProfileDialogs";
 import ProfileCards from "src/pages/profile/ProfileCards";
 import ProfileCompleted from "src/pages/profile/ProfileCompleted";
 import ProfileMembers from "src/pages/profile/ProfileMembers";
@@ -198,19 +197,22 @@ function Profile({ userObj }: Props) {
         console.log(navigators)
       }
       }>위치 latitude:37.5682 longitude:126.9977</div> */}
-
       <ProfileAvatar
         userObj={userObj}
         user={state?.element || userObj}
         handleProfileDialog={() => setProfileDialog(true)}
-      />
-      <ProfileDialogs
-        userObj={userObj}
         profileDialog={profileDialog}
         attachment={attachment}
         changeAttachment={(newState: string) => setAttachment(newState)}
         handleClose={handleClose}
       />
+      {/* <ProfileDialogs
+        userObj={userObj}
+        profileDialog={profileDialog}
+        attachment={attachment}
+        changeAttachment={(newState: string) => setAttachment(newState)}
+        handleClose={handleClose}
+      /> */}
       <ProfileLocations user={state?.element.uid} userObj={userObj} />
       {/* <Suspense fallback={<Skeleton />}>
         <ProfileAvatar userObj={userObj} user={state.element} handleProfileDialog={() => setProfileDialog(true)} />

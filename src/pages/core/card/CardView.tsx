@@ -103,7 +103,7 @@ const CardView = ({ message, shadowColor }) => {
               /> */}
               <Chips
                 label={`${message.item} ${message.text.choose === 1 ? ' 빌리기' : ' 빌려주기'}`}
-                className='bg-white dark:bg-dark-0.5'
+                className='bg-white dark:bg-dark-4'
               />
             </div>
           </div>

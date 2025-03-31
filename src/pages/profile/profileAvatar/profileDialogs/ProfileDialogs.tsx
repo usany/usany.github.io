@@ -1,7 +1,4 @@
 import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
 import { doc, updateDoc } from 'firebase/firestore';
 import { ref, uploadString } from "firebase/storage";
 import { useEffect, useState } from 'react';
@@ -67,8 +64,8 @@ const ProfileDialogs = ({ userObj, profileDialog, attachment, changeAttachment, 
     }
   }, [])
   useEffect(() => {
-    setAttachmentFile(profileImage)
-  }, [profileImage])
+    setAttachmentFile(profileUrl)
+  }, [profileUrl])
 
   const onFileChange = (event) => {
     const {
@@ -95,13 +92,13 @@ const ProfileDialogs = ({ userObj, profileDialog, attachment, changeAttachment, 
   }
 
   return (
-    <Dialog open={profileDialog} onClose={handleClose}>
-      <DialogContent>
-        <div>
+    <>
+      <>
+        <div className='flex justify-center p-5'>
           프로필 변경
         </div>
-        <div className='flex'>
-          <Avatars uid={userObj.uid} profile={true} profileColor={selectedColor} profileImage={attachmentFile} fallback={userObj.displayName[0]} />
+        <div className='flex justify-center p-5'>
+          <Avatars uid={userObj.uid} profile={true} profileColor={selectedColor} profileUrl={attachmentFile} piazza={null} />
           {/* <Avatar alt={userObj.displayName} sx={{ fontSize:'100px', width: '200px', height: '200px', bgcolor: selectedColor }} src={attachmentFile || './src'} onClick={() => {
                     }} variant='rounded' /> */}
           <div className='flex-col px-5 content-center'>
@@ -114,9 +111,9 @@ const ProfileDialogs = ({ userObj, profileDialog, attachment, changeAttachment, 
                         } */}
           </div>
         </div>
-      </DialogContent>
+      </>
       <div className='flex'>색깔을 선택하면 배경에 반영됩니다.&emsp;</div>
-      <div className='flex px-1'>
+      <div className='flex p-5'>
         <div className='w-10 bg-profile-red' onClick={() => switchColor('profile-red')}>&emsp;</div>
         <div className='w-10 bg-profile-pink' onClick={() => switchColor('profile-pink')}>&emsp;</div>
         <div className='w-10 bg-profile-purple' onClick={() => switchColor('profile-purple')}>&emsp;</div>
@@ -134,7 +131,7 @@ const ProfileDialogs = ({ userObj, profileDialog, attachment, changeAttachment, 
         <div className='w-10 bg-profile-orange' onClick={() => switchColor('profile-orange')}>&emsp;</div>
         <div className='w-10 bg-profile-deeporange' onClick={() => switchColor('profile-deeporange')}>&emsp;</div>
       </div>
-      <DialogActions>
+      <div className='flex justify-center p-5'>
         <Button variant='outlined' onClick={() => {
           handleClose()
           changeAttachment(attachmentFile)
@@ -151,8 +148,8 @@ const ProfileDialogs = ({ userObj, profileDialog, attachment, changeAttachment, 
         }} autoFocus>
           닫기
         </Button>
-      </DialogActions>
-    </Dialog>
+      </div>
+    </>
   )
 }
 
