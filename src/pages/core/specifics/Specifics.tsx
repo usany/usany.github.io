@@ -15,6 +15,7 @@ import SpecificsActions from './SpecificsActions'
 import SpecificsDimensions from './SpecificsDimensions'
 import SpecificsSteppers from './SpecificsSteppers'
 import SpecificsTrades from './SpecificsTrades'
+import { RippleButton } from '../ui/ripple-button'
 
 interface Props {
   userObj: User | null
@@ -145,6 +146,7 @@ function Specifics({
 
   return (
     <div className="truncate p-1">
+      <RippleButton rippleColor="#ADD8E6">Click me</RippleButton>;
       {userObj ? (
         <Card
           sx={{

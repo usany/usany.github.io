@@ -33,6 +33,15 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import { MorphingText } from "src/components/magicui/morphing-text";
+import { Toast, ToastAction } from "@radix-ui/react-toast";
+import { Textarea } from "src/components/ui/textarea";
+import { Button } from "@mui/material";
+import { useToast } from "src/hooks/use-toast";
+import { Toaster } from "src/components/ui/toaster";
+import { Switch } from "src/components/ui/switch";
+import { Label } from "src/components/ui/label";
+import { Badge } from "src/components/ui/badge";
+import { Card, CardContent, CardTitle } from "src/components/ui/card";
 
 interface Props {
   userObj: User;
@@ -82,6 +91,7 @@ function Menu({ userObj }: Props) {
     };
     requestPermission();
   }, []);
+  const { toast } = useToast()
 
   const accordionValues = ["카드", "메세지"];
   useEffect(() => {
@@ -100,6 +110,31 @@ function Menu({ userObj }: Props) {
   const texts = ['umbrella', 'umbrellas']
   return (
     <div id="sample" className="flex justify-center flex-col pb-5">
+          <button
+            onClick={() => {
+              toast({
+                title: "Scheduled: Catch up",
+                description: "Friday, February 10, 2023 at 5:57 PM",
+                action: (
+                  <ToastAction altText="Goto schedule to undo">Undo</ToastAction>
+                ),
+              })
+            }}
+          >
+            Add to calendar
+          </button>
+          <Toaster />
+          <Badge>practice</Badge>
+          <Card>
+            <CardTitle>practices</CardTitle>
+            <CardContent>
+              practice
+            </CardContent>
+          </Card>
+          <div className="flex items-center space-x-2">
+            <Switch id="airplaneMode" />
+          </div>
+
           <Dialog>
       <DialogTrigger asChild>
         <div>name</div>
@@ -116,6 +151,20 @@ function Menu({ userObj }: Props) {
           names
           </div>
         </div>
+        <Button
+      onClick={() => {
+        toast({
+          title: "Scheduled: Catch up ",
+          description: "Friday, February 10, 2023 at 5:57 PM",
+          action: (
+            <ToastAction altText="Goto schedule to undo">Undo</ToastAction>
+          ),
+        })
+      }}
+    >
+      Add to calendar
+    </Button>
+        <Textarea>area</Textarea>
         <DialogFooter>
         </DialogFooter>
       </DialogContent>
