@@ -7,14 +7,13 @@ import { dbservice, storage } from 'src/baseApi/serverbase';
 import { useDispatch, useSelector } from 'react-redux';
 import Avatars from 'src/pages/core/Avatars';
 import { changeProfileColor } from 'src/stateSlices/profileColorSlice';
-import { changeProfileImage } from 'src/stateSlices/profileImageSlice';
+import { changeProfileUrl } from 'src/stateSlices/profileUrlSlice';
 
 const ProfileDialogs = ({ userObj, profileDialog, attachment, changeAttachment, handleClose }) => {
   const [selectedColor, setSelectedColor] = useState('')
   const [attachmentFile, setAttachmentFile] = useState('null')
   const [onClear, setOnClear] = useState(false)
   const profileColor = useSelector(state => state.profileColor.value)
-  const profileImage = useSelector(state => state.profileImage.value)
   const profileUrl = useSelector(state => state.profileUrl.value)
   const dispatch = useDispatch()
   const onClick = async () => {
@@ -38,9 +37,9 @@ const ProfileDialogs = ({ userObj, profileDialog, attachment, changeAttachment, 
       });
       const docRef = doc(dbservice, `members/${userObj?.uid}`)
       updateDoc(docRef, { profileImage: attachmentFile });
-      dispatch(changeProfileImage(attachmentFile))
+      dispatch(changeProfileUrl(attachmentFile))
     } else if (onClear) {
-      dispatch(changeProfileImage('null'))
+      dispatch(changeProfileUrl('null'))
       setOnClear(false)
       const storageRef = ref(storage, userObj.uid);
       uploadString(storageRef, 'null', 'raw').then((snapshot) => {
@@ -80,7 +79,6 @@ const ProfileDialogs = ({ userObj, profileDialog, attachment, changeAttachment, 
       } = finishedEvent;
       setAttachmentFile(result)
     }
-    console.log(theFile)
     reader.readAsDataURL(theFile)
     setOnClear(false)
   }
@@ -90,6 +88,7 @@ const ProfileDialogs = ({ userObj, profileDialog, attachment, changeAttachment, 
     const fileInput = document.getElementById('file') || { value: null }
     fileInput.value = null
   }
+  console.log(attachmentFile)
 
   return (
     <>
@@ -138,7 +137,7 @@ const ProfileDialogs = ({ userObj, profileDialog, attachment, changeAttachment, 
           onClick()
           dispatch(changeProfileColor(selectedColor))
         }}>저장</Button>
-        <Button variant='outlined' onClick={() => {
+        {/* <Button variant='outlined' onClick={() => {
           handleClose()
           if (onClear) {
             setAttachmentFile(profileImage)
@@ -147,7 +146,7 @@ const ProfileDialogs = ({ userObj, profileDialog, attachment, changeAttachment, 
           setSelectedColor(profileColor)
         }} autoFocus>
           닫기
-        </Button>
+        </Button> */}
       </div>
     </>
   )

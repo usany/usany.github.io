@@ -6,25 +6,19 @@ import {
 import BeachAccess from "@mui/icons-material/BeachAccess";
 import Badge from "@mui/material/Badge";
 import { ScrollArea } from "@radix-ui/react-scroll-area";
-import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import LoadingsSkeletons from "src/components/recycle/recycleLoadingsSkeletons";
 import { Dialog, DialogContent, DialogTrigger } from 'src/components/ui/dialog';
 import useLargeMedia from "src/hooks/useLargeMedia";
 import Avatars from "src/pages/core/Avatars";
 import DrawersBar from "src/pages/core/DrawersBar";
-import ProfileDialogs from "./profileDialogs/ProfileDialogs";
+import ProfileDialogs from "../profile/profileAvatar/profileDialogs/ProfileDialogs";
 
 const ProfileAvatar = ({ userObj, user, handleProfileDialog, profileDialog, attachment, changeAttachment, handleClose }) => {
   const profileColor = useSelector((state) => state.profileColor.value);
   const profileUrl = useSelector((state) => state.profileUrl.value);
-  const profileImage = useSelector((state) => state.profileImage.value);
   const largeMedia = useLargeMedia()
-  const [profile, setProfile] = useState(null)
-  console.log(profileImage)
-  useEffect(() => {
-    setProfile(profileUrl)
-  }, [profileImage])
+
   if (largeMedia) {
     return (
       <div className='flex justify-center'>
@@ -48,7 +42,7 @@ const ProfileAvatar = ({ userObj, user, handleProfileDialog, profileDialog, atta
                       uid={userObj.uid}
                       profile={true}
                       profileColor={profileColor}
-                      profileUrl={profile}
+                      profileUrl={profileUrl}
                     />
                   ) : (
                     <LoadingsSkeletons height={"[192px]"} width={"[192px]"} />
@@ -61,7 +55,7 @@ const ProfileAvatar = ({ userObj, user, handleProfileDialog, profileDialog, atta
                       uid={userObj.uid}
                       profile={true}
                       profileColor={user.profileColor}
-                      profileUrl={user?.profileImageUrl}
+                      profileImage={user?.profileImageUrl}
                     />
                   ) : (
                     <LoadingsSkeletons height={"[192px]"} width={"[192px]"} />
@@ -146,7 +140,7 @@ const ProfileAvatar = ({ userObj, user, handleProfileDialog, profileDialog, atta
               userObj={userObj}
               profileDialog={profileDialog}
               attachment={attachment}
-              changeAttachment={changeAttachment}
+              changeAttachment={(newState: string) => setAttachment(newState)}
               handleClose={handleClose}
             />
             {/* <div className="flex flex-col items-center pt-5">
