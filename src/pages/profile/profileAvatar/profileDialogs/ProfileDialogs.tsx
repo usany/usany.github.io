@@ -5,12 +5,25 @@ import { dbservice, storage } from 'src/baseApi/serverbase';
 // import { useAvatarColorStore, useAvatarImageStore } from 'src/store'
 import { Button } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import static05 from "src/assets/gold1.png";
-import static06 from "src/assets/gold2.png";
+import staticBlue01 from "src/assets/blue01.png";
+import staticBlue02 from "src/assets/blue02.png";
+import staticGold01 from "src/assets/gold1.png";
+import staticGold02 from "src/assets/gold2.png";
+import staticRed01 from "src/assets/red1.png";
+import staticRed02 from "src/assets/red2.png";
 import Avatars from 'src/pages/core/Avatars';
 import { changeProfileColor } from 'src/stateSlices/profileColorSlice';
 import { changeProfileUrl } from 'src/stateSlices/profileUrlSlice';
 
+const images = {
+  'profile-red': [staticRed01, staticRed02],
+  '#2196f3': [staticBlue01, staticBlue02],
+  'profile-amber': [staticGold01, staticGold02],
+  'profile-red': [staticRed01, staticRed02],
+  'profile-blue': [staticBlue01, staticBlue02],
+  'profile-amber': [staticGold01, staticGold02],
+  gold: [staticGold01, staticGold02],
+}
 const ProfileDialogs = ({ userObj, profileDialog, attachment, changeAttachment, handleClose }) => {
   const [selectedColor, setSelectedColor] = useState('')
   const [attachmentFile, setAttachmentFile] = useState('null')
@@ -93,6 +106,7 @@ const ProfileDialogs = ({ userObj, profileDialog, attachment, changeAttachment, 
   }
   console.log(attachmentFile)
   console.log(attachment)
+  console.log(selectedColor)
   return (
     <>
       <>
@@ -112,27 +126,27 @@ const ProfileDialogs = ({ userObj, profileDialog, attachment, changeAttachment, 
         </div>
       </>
       <div className='flex justify-center gap-5'>
-        <Avatars uid='' profile={false} profileColor={selectedColor} profileUrl={static05} piazza={null} />
-        <Avatars uid='' profile={false} profileColor={selectedColor} profileUrl={static06} piazza={null} />
+        <Avatars uid='' profile={false} profileColor={selectedColor} profileUrl={images[selectedColor || 'gold'][0]} piazza={null} />
+        <Avatars uid='' profile={false} profileColor={selectedColor} profileUrl={images[selectedColor || 'gold'][1]} piazza={null} />
       </div>
       <div className='flex px-5'>색깔을 선택하면 배경에 반영됩니다.&emsp;</div>
       <div className='flex p-5'>
         <div className='w-10 bg-profile-red' onClick={() => switchColor('profile-red')}>&emsp;</div>
-        <div className='w-10 bg-profile-pink' onClick={() => switchColor('profile-pink')}>&emsp;</div>
+        {/* <div className='w-10 bg-profile-pink' onClick={() => switchColor('profile-pink')}>&emsp;</div>
         <div className='w-10 bg-profile-purple' onClick={() => switchColor('profile-purple')}>&emsp;</div>
         <div className='w-10 bg-profile-deeppurple' onClick={() => switchColor('profile-deeppurple')}>&emsp;</div>
-        <div className='w-10 bg-profile-indigo' onClick={() => switchColor('profile-indigo')}>&emsp;</div>
+        <div className='w-10 bg-profile-indigo' onClick={() => switchColor('profile-indigo')}>&emsp;</div> */}
         <div className='w-10 bg-profile-blue' onClick={() => switchColor('profile-blue')}>&emsp;</div>
-        <div className='w-10 bg-profile-lightblue' onClick={() => switchColor('profile-lightblue')}>&emsp;</div>
+        {/* <div className='w-10 bg-profile-lightblue' onClick={() => switchColor('profile-lightblue')}>&emsp;</div>
         <div className='w-10 bg-profile-cyan' onClick={() => switchColor('profile-cyan')}>&emsp;</div>
         <div className='w-10 bg-profile-teal' onClick={() => switchColor('profile-teal')}>&emsp;</div>
         <div className='w-10 bg-profile-green' onClick={() => switchColor('profile-green')}>&emsp;</div>
         <div className='w-10 bg-profile-lightgreen' onClick={() => switchColor('profile-lightgreen')}>&emsp;</div>
         <div className='w-10 bg-profile-lime' onClick={() => switchColor('profile-lime')}>&emsp;</div>
-        <div className='w-10 bg-profile-yellow' onClick={() => switchColor('profile-yellow')}>&emsp;</div>
+        <div className='w-10 bg-profile-yellow' onClick={() => switchColor('profile-yellow')}>&emsp;</div> */}
         <div className='w-10 bg-profile-amber' onClick={() => switchColor('profile-amber')}>&emsp;</div>
-        <div className='w-10 bg-profile-orange' onClick={() => switchColor('profile-orange')}>&emsp;</div>
-        <div className='w-10 bg-profile-deeporange' onClick={() => switchColor('profile-deeporange')}>&emsp;</div>
+        {/* <div className='w-10 bg-profile-orange' onClick={() => switchColor('profile-orange')}>&emsp;</div>
+        <div className='w-10 bg-profile-deeporange' onClick={() => switchColor('profile-deeporange')}>&emsp;</div> */}
       </div>
       {!attachment &&
         <div className='flex justify-center p-5'>
