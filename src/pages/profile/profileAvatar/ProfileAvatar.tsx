@@ -13,7 +13,10 @@ import { Dialog, DialogContent, DialogTrigger } from 'src/components/ui/dialog';
 import useLargeMedia from "src/hooks/useLargeMedia";
 import Avatars from "src/pages/core/Avatars";
 import DrawersBar from "src/pages/core/DrawersBar";
+import Popups from "src/pages/core/Popups";
+import ProfileClose from "./ProfileClose";
 import ProfileDialogs from "./profileDialogs/ProfileDialogs";
+import ProfileView from "./ProfileView";
 
 const ProfileAvatar = ({ userObj, user, handleProfileDialog, profileDialog, attachment, changeAttachment, handleClose }) => {
   const profileColor = useSelector((state) => state.profileColor.value);
@@ -25,6 +28,16 @@ const ProfileAvatar = ({ userObj, user, handleProfileDialog, profileDialog, atta
   useEffect(() => {
     setProfile(profileUrl)
   }, [profileImage])
+
+  return (
+    <Popups
+      trigger={<ProfileView userObj={userObj} user={user} attachment={attachment} changeAttachment={changeAttachment} />}
+      title={'프로필 변경'}
+      content={<ProfileDialogs userObj={userObj} attachment={attachment} changeAttachment={changeAttachment} handleClose={handleClose} />}
+      close={<ProfileClose userObj={userObj} attachment={attachment} changeAttachment={changeAttachment} handleClose={handleClose} />}
+      attachment={attachment}
+    />
+  )
   if (largeMedia) {
     return (
       <div className='flex justify-center'>

@@ -1,10 +1,12 @@
-import Button from '@mui/material/Button';
 import { doc, updateDoc } from 'firebase/firestore';
 import { ref, uploadString } from "firebase/storage";
 import { useEffect, useState } from 'react';
 import { dbservice, storage } from 'src/baseApi/serverbase';
 // import { useAvatarColorStore, useAvatarImageStore } from 'src/store'
+import { Button } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
+import static05 from "src/assets/gold1.png";
+import static06 from "src/assets/gold2.png";
 import Avatars from 'src/pages/core/Avatars';
 import { changeProfileColor } from 'src/stateSlices/profileColorSlice';
 import { changeProfileUrl } from 'src/stateSlices/profileUrlSlice';
@@ -84,18 +86,16 @@ const ProfileDialogs = ({ userObj, profileDialog, attachment, changeAttachment, 
   }
   const onClearAttachment = () => {
     setAttachmentFile('null')
+    changeAttachment('null')
     setOnClear(true)
     const fileInput = document.getElementById('file') || { value: null }
     fileInput.value = null
   }
   console.log(attachmentFile)
-
+  console.log(attachment)
   return (
     <>
       <>
-        <div className='flex justify-center p-5'>
-          프로필 변경
-        </div>
         <div className='flex justify-center p-5'>
           <Avatars uid={userObj.uid} profile={true} profileColor={selectedColor} profileUrl={attachmentFile} piazza={null} />
           {/* <Avatar alt={userObj.displayName} sx={{ fontSize:'100px', width: '200px', height: '200px', bgcolor: selectedColor }} src={attachmentFile || './src'} onClick={() => {
@@ -103,15 +103,19 @@ const ProfileDialogs = ({ userObj, profileDialog, attachment, changeAttachment, 
           <div className='flex-col px-5 content-center'>
             <label htmlFor='file'>내 파일 업로드</label>
             <input id='file' type='file' onChange={onFileChange} hidden />
-            <div className='flex justify-center pt-5'>
+            {attachment && <div className='flex justify-center pt-5'>
               <button className='factoryClear' onClick={onClearAttachment}>업로드 파일 삭제</button>
-            </div>
-            {/* {attachmentFile && attachmentFile !== 'null' &&
-                        } */}
+            </div>}
           </div>
+          {/* {attachmentFile && attachmentFile !== 'null' &&
+                        } */}
         </div>
       </>
-      <div className='flex'>색깔을 선택하면 배경에 반영됩니다.&emsp;</div>
+      <div className='flex justify-center gap-5'>
+        <Avatars uid='' profile={false} profileColor={selectedColor} profileUrl={static05} piazza={null} />
+        <Avatars uid='' profile={false} profileColor={selectedColor} profileUrl={static06} piazza={null} />
+      </div>
+      <div className='flex px-5'>색깔을 선택하면 배경에 반영됩니다.&emsp;</div>
       <div className='flex p-5'>
         <div className='w-10 bg-profile-red' onClick={() => switchColor('profile-red')}>&emsp;</div>
         <div className='w-10 bg-profile-pink' onClick={() => switchColor('profile-pink')}>&emsp;</div>
@@ -130,24 +134,16 @@ const ProfileDialogs = ({ userObj, profileDialog, attachment, changeAttachment, 
         <div className='w-10 bg-profile-orange' onClick={() => switchColor('profile-orange')}>&emsp;</div>
         <div className='w-10 bg-profile-deeporange' onClick={() => switchColor('profile-deeporange')}>&emsp;</div>
       </div>
-      <div className='flex justify-center p-5'>
-        <Button variant='outlined' onClick={() => {
-          handleClose()
-          changeAttachment(attachmentFile)
-          onClick()
-          dispatch(changeProfileColor(selectedColor))
-        }}>저장</Button>
-        {/* <Button variant='outlined' onClick={() => {
-          handleClose()
-          if (onClear) {
-            setAttachmentFile(profileImage)
-          }
-          setOnClear(false)
-          setSelectedColor(profileColor)
-        }} autoFocus>
-          닫기
-        </Button> */}
-      </div>
+      {!attachment &&
+        <div className='flex justify-center p-5'>
+          <Button variant='outlined' onClick={() => {
+            handleClose()
+            changeAttachment(attachmentFile)
+            onClick()
+            dispatch(changeProfileColor(selectedColor))
+          }} disabled>저장</Button>
+        </div>
+      }
     </>
   )
 }
