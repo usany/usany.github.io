@@ -12,7 +12,7 @@ const ProfileView = ({ userObj, user, changeAttachment }) => {
   const [profile, setProfile] = useState(null)
   useEffect(() => {
     setProfile(profileUrl)
-  }, [profileImage])
+  }, [profileUrl])
 
   return (
     <div onClick={() => {

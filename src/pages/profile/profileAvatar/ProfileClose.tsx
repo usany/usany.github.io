@@ -31,12 +31,12 @@ const ProfileClose = ({ userObj, profileDialog, attachment, changeAttachment, ha
     // });
     if (attachmentFile && !onClear) {
       const storageRef = ref(storage, userObj.uid);
-      uploadString(storageRef, attachmentFile, 'data_url').then((snapshot) => {
+      uploadString(storageRef, attachment, 'data_url').then((snapshot) => {
         console.log('Uploaded a blob or file!');
       });
       const docRef = doc(dbservice, `members/${userObj?.uid}`)
-      updateDoc(docRef, { profileImage: attachmentFile });
-      dispatch(changeProfileUrl(attachmentFile))
+      // updateDoc(docRef, { profileImage: attachmentFile });
+      dispatch(changeProfileUrl(attachment))
     } else if (onClear) {
       dispatch(changeProfileUrl('null'))
       setOnClear(false)
@@ -50,7 +50,7 @@ const ProfileClose = ({ userObj, profileDialog, attachment, changeAttachment, ha
       // });
 
       const docRef = doc(dbservice, `members/${userObj?.uid}`)
-      updateDoc(docRef, { profileImage: attachmentFile });
+      // updateDoc(docRef, { profileImage: attachmentFile });
     }
   }
   useEffect(() => {

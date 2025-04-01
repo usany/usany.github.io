@@ -51,8 +51,8 @@ const ProfileDialogs = ({ userObj, profileDialog, attachment, changeAttachment, 
         console.log('Uploaded a blob or file!');
       });
       const docRef = doc(dbservice, `members/${userObj?.uid}`)
-      updateDoc(docRef, { profileImage: attachmentFile });
-      dispatch(changeProfileUrl(attachmentFile))
+      // updateDoc(docRef, { profileImage: attachmentFile });
+      dispatch(changeProfileUrl(attachment))
     } else if (onClear) {
       dispatch(changeProfileUrl('null'))
       setOnClear(false)
@@ -92,13 +92,14 @@ const ProfileDialogs = ({ userObj, profileDialog, attachment, changeAttachment, 
       const {
         currentTarget: { result },
       } = finishedEvent;
-      setAttachmentFile(result)
+      // setAttachmentFile(result)
+      changeAttachment(result)
     }
     reader.readAsDataURL(theFile)
     setOnClear(false)
   }
   const onClearAttachment = () => {
-    setAttachmentFile('null')
+    // setAttachmentFile('null')
     changeAttachment('null')
     setOnClear(true)
     const fileInput = document.getElementById('file') || { value: null }
@@ -110,43 +111,45 @@ const ProfileDialogs = ({ userObj, profileDialog, attachment, changeAttachment, 
   return (
     <>
       <>
-        <div className='flex justify-center p-5'>
-          <Avatars uid={userObj.uid} profile={true} profileColor={selectedColor} profileUrl={attachmentFile} piazza={null} />
+        <div className='flex flex-col items-center gap-5 p-5'>
+          <Avatars uid={userObj.uid} profile={true} profileColor={selectedColor} profileUrl={attachment || profileUrl} piazza={null} />
           {/* <Avatar alt={userObj.displayName} sx={{ fontSize:'100px', width: '200px', height: '200px', bgcolor: selectedColor }} src={attachmentFile || './src'} onClick={() => {
                     }} variant='rounded' /> */}
-          <div className='flex-col px-5 content-center'>
-            <label htmlFor='file'>내 파일 업로드</label>
+          <div className='flex-col px-5 content-center p-5'>
+            <label htmlFor='file' className='p-5 border border-dashed'>내 파일 업로드</label>
             <input id='file' type='file' onChange={onFileChange} hidden />
-            {attachment && <div className='flex justify-center pt-5'>
+            {/* {attachment && <div className='flex justify-center pt-5'>
               <button className='factoryClear' onClick={onClearAttachment}>업로드 파일 삭제</button>
-            </div>}
+            </div>} */}
           </div>
           {/* {attachmentFile && attachmentFile !== 'null' &&
                         } */}
         </div>
       </>
-      <div className='flex justify-center gap-5'>
-        <Avatars uid='' profile={false} profileColor={selectedColor} profileUrl={images[selectedColor || 'gold'][0]} piazza={null} />
-        <Avatars uid='' profile={false} profileColor={selectedColor} profileUrl={images[selectedColor || 'gold'][1]} piazza={null} />
-      </div>
-      <div className='flex px-5'>색깔을 선택하면 배경에 반영됩니다.&emsp;</div>
-      <div className='flex p-5'>
-        <div className='w-10 bg-profile-red' onClick={() => switchColor('profile-red')}>&emsp;</div>
-        {/* <div className='w-10 bg-profile-pink' onClick={() => switchColor('profile-pink')}>&emsp;</div>
+      <div className='flex flex-col gap-1'>
+        <div className='flex justify-center'>캐릭터 배경으로 저장하면 업로드 파일이 삭제됩니다.</div>
+        <div className='flex justify-center gap-5'>
+          <Avatars uid='' profile={false} profileColor={selectedColor} profileUrl={images[selectedColor || 'gold'][0]} piazza={null} />
+          <Avatars uid='' profile={false} profileColor={selectedColor} profileUrl={images[selectedColor || 'gold'][1]} piazza={null} />
+        </div>
+        <div className='flex justify-center'>
+          <div className='w-10 bg-profile-red' onClick={() => switchColor('profile-red')}>&emsp;</div>
+          {/* <div className='w-10 bg-profile-pink' onClick={() => switchColor('profile-pink')}>&emsp;</div>
         <div className='w-10 bg-profile-purple' onClick={() => switchColor('profile-purple')}>&emsp;</div>
         <div className='w-10 bg-profile-deeppurple' onClick={() => switchColor('profile-deeppurple')}>&emsp;</div>
         <div className='w-10 bg-profile-indigo' onClick={() => switchColor('profile-indigo')}>&emsp;</div> */}
-        <div className='w-10 bg-profile-blue' onClick={() => switchColor('profile-blue')}>&emsp;</div>
-        {/* <div className='w-10 bg-profile-lightblue' onClick={() => switchColor('profile-lightblue')}>&emsp;</div>
+          <div className='w-10 bg-profile-blue' onClick={() => switchColor('profile-blue')}>&emsp;</div>
+          {/* <div className='w-10 bg-profile-lightblue' onClick={() => switchColor('profile-lightblue')}>&emsp;</div>
         <div className='w-10 bg-profile-cyan' onClick={() => switchColor('profile-cyan')}>&emsp;</div>
         <div className='w-10 bg-profile-teal' onClick={() => switchColor('profile-teal')}>&emsp;</div>
         <div className='w-10 bg-profile-green' onClick={() => switchColor('profile-green')}>&emsp;</div>
         <div className='w-10 bg-profile-lightgreen' onClick={() => switchColor('profile-lightgreen')}>&emsp;</div>
         <div className='w-10 bg-profile-lime' onClick={() => switchColor('profile-lime')}>&emsp;</div>
         <div className='w-10 bg-profile-yellow' onClick={() => switchColor('profile-yellow')}>&emsp;</div> */}
-        <div className='w-10 bg-profile-amber' onClick={() => switchColor('profile-amber')}>&emsp;</div>
-        {/* <div className='w-10 bg-profile-orange' onClick={() => switchColor('profile-orange')}>&emsp;</div>
+          <div className='w-10 bg-profile-amber' onClick={() => switchColor('profile-amber')}>&emsp;</div>
+          {/* <div className='w-10 bg-profile-orange' onClick={() => switchColor('profile-orange')}>&emsp;</div>
         <div className='w-10 bg-profile-deeporange' onClick={() => switchColor('profile-deeporange')}>&emsp;</div> */}
+        </div>
       </div>
       {!attachment &&
         <div className='flex justify-center p-5'>
