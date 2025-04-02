@@ -1,30 +1,19 @@
-import { useState, useEffect } from 'react'
-import AvatarDialogs from 'src/pages/profile/profileAvatar/profileDialogs/ProfileDialogs'
-import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
-import { updateProfile, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
-import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnapshot, updateDoc, setDoc } from 'firebase/firestore';
-import Button from '@mui/material/Button';
-import Badge from '@mui/material/Badge';
-import Avatar from '@mui/material/Avatar';
-import Checklist from '@mui/icons-material/Checklist'
-import { BrowserRouter, Routes, Route, useNavigate, Link, useLocation } from 'react-router-dom'
-import TextField from '@mui/material/TextField';
-import { blue } from '@mui/material/colors';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import Divider from '@mui/material/Divider';
-import ListItemText from '@mui/material/ListItemText';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
 import CommentIcon from '@mui/icons-material/Comment';
+import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
+import { collection, getDocs, orderBy, query } from 'firebase/firestore';
+import { useEffect, useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { dbservice } from 'src/baseApi/serverbase';
+import Avatars from './core/Avatars';
 
 function Allies() {
   // const [followers, setFollowers] = useState([])
   // const [followings, setFollowings] = useState([])
   const [elements, setElements] = useState([])
-  const {state} = useLocation()
+  const { state } = useLocation()
   const navigate = useNavigate()
- 
+
   useEffect(() => {
     usersCollection()
   }, [])
@@ -49,14 +38,14 @@ function Allies() {
   return (
     <div>
       <div className='flex text-2xl p-5'>
-        {state.user.displayName}의 {state.followers ? '팔로워' : '팔로잉'} 
-          {/* {state.followers &&
+        {state.user.displayName}의 {state.followers ? '팔로워' : '팔로잉'}
+        {/* {state.followers &&
             <div>
             </div>
           }
           {!state.followers &&
             <div>
-              {state.user.displayName}의 팔로잉 
+              {state.user.displayName}의 팔로잉
             </div>
           } */}
       </div>
@@ -98,43 +87,44 @@ function Allies() {
             })}
           </div>
           : */}
-          <div className='flex flex-col justify-center flex-wrap'>
-            {elements?.map((element, index) => {
-              return (
-                <div key={index}>
-                  <div className='flex justify-between w-screen px-5'>
-                      <div>
-                        <ListItemAvatar>
-                          <Avatar alt={element.displayName} sx={{ bgcolor: element.profileColor || '#2196f3' }} src="./src" />
-                        </ListItemAvatar>
-                      </div>
-                      <div>
-                        <div className='flex flex-col overflow-hidden'>
-                          <div>
-                            {element.displayName}
-                          </div>
-                          <div>
-                            {element.points}
-                          </div>
-                        </div>
-                      </div>
-                      <div>
-                        <IconButton aria-label="comment">
-                          <Link to='/profile'
-                            state = {{
-                              element: element,
-                            }}
-                          >
-                            <CommentIcon />
-                          </Link>
-                        </IconButton>
-                      </div>
+        <div className='flex flex-col justify-center flex-wrap'>
+          {elements?.map((element, index) => {
+            return (
+              <div key={index}>
+                <div className='flex justify-between w-screen px-5'>
+                  <div>
+                    <Avatars element={element} uid={element.uid} profileColor={element.profileColor} profileUrl={element.profileUrl} profile={false} piazza={null} />
+                    {/* <ListItemAvatar>
+                      <Avatar alt={element.displayName} sx={{ bgcolor: element.profileColor || '#2196f3' }} src="./src" />
+                    </ListItemAvatar> */}
                   </div>
-                  <Divider variant="inset" component="li" />
+                  <div>
+                    <div className='flex flex-col overflow-hidden'>
+                      <div>
+                        {element.displayName}
+                      </div>
+                      <div>
+                        {element.points}
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <IconButton aria-label="comment">
+                      <Link to='/profile'
+                        state={{
+                          element: element,
+                        }}
+                      >
+                        <CommentIcon />
+                      </Link>
+                    </IconButton>
+                  </div>
                 </div>
-              )
-            })}
-          </div>
+                <Divider variant="inset" component="li" />
+              </div>
+            )
+          })}
+        </div>
         {/* } */}
       </div>
       {/* <div className='flex justify-center p-10'>

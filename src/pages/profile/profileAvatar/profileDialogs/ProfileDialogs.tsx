@@ -171,12 +171,12 @@ const ProfileDialogs = ({ userObj, profileDialog, attachment, changeAttachment, 
           })}
         </div>
         <div className='flex justify-center'>
-          <div className='w-10 bg-profile-red' onClick={() => switchColor('profileRed')}>&emsp;</div>
+          <div className='rounded-xl w-10 bg-profile-red' onClick={() => switchColor('profileRed')}>&emsp;</div>
           {/* <div className='w-10 bg-profile-pink' onClick={() => switchColor('profile-pink')}>&emsp;</div>
         <div className='w-10 bg-profile-purple' onClick={() => switchColor('profile-purple')}>&emsp;</div>
         <div className='w-10 bg-profile-deeppurple' onClick={() => switchColor('profile-deeppurple')}>&emsp;</div>
         <div className='w-10 bg-profile-indigo' onClick={() => switchColor('profile-indigo')}>&emsp;</div> */}
-          <div className='w-10 bg-profile-blue' onClick={() => switchColor('profileBlue')}>&emsp;</div>
+          <div className='rounded-xl w-10 bg-profile-blue' onClick={() => switchColor('profileBlue')}>&emsp;</div>
           {/* <div className='w-10 bg-profile-lightblue' onClick={() => switchColor('profile-lightblue')}>&emsp;</div>
         <div className='w-10 bg-profile-cyan' onClick={() => switchColor('profile-cyan')}>&emsp;</div>
         <div className='w-10 bg-profile-teal' onClick={() => switchColor('profile-teal')}>&emsp;</div>
@@ -184,7 +184,7 @@ const ProfileDialogs = ({ userObj, profileDialog, attachment, changeAttachment, 
         <div className='w-10 bg-profile-lightgreen' onClick={() => switchColor('profile-lightgreen')}>&emsp;</div>
         <div className='w-10 bg-profile-lime' onClick={() => switchColor('profile-lime')}>&emsp;</div>
         <div className='w-10 bg-profile-yellow' onClick={() => switchColor('profile-yellow')}>&emsp;</div> */}
-          <div className='w-10 bg-profile-amber' onClick={() => switchColor('profileGold')}>&emsp;</div>
+          <div className='rounded-xl w-10 bg-profile-amber' onClick={() => switchColor('profileGold')}>&emsp;</div>
           {/* <div className='w-10 bg-profile-orange' onClick={() => switchColor('profile-orange')}>&emsp;</div>
         <div className='w-10 bg-profile-deeporange' onClick={() => switchColor('profile-deeporange')}>&emsp;</div> */}
         </div>
