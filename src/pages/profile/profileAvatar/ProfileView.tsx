@@ -42,7 +42,7 @@ const ProfileView = ({ userObj, user, changeAttachment }) => {
         </Badge>
       ) : (
         <>
-          {user?.profileImageUrl ? (
+          {/* {user?.profileImageUrl ? (
             <Avatars
               uid={userObj.uid}
               profile={true}
@@ -51,7 +51,7 @@ const ProfileView = ({ userObj, user, changeAttachment }) => {
             />
           ) : (
             <LoadingsSkeletons height={"[192px]"} width={"[192px]"} />
-          )}
+          )} */}
         </>
       )}
     </div>

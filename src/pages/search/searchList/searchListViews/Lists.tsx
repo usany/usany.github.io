@@ -79,7 +79,7 @@ function Lists({
                               {samePointIndex ? samePointIndex + 1 : index + 1}
                             </div>
                           )}
-                          <Avatars uid={element.uid} piazza={null} profile={false} profileColor="" profileUrl={element?.profileImageUrl} />
+                          <Avatars user={element} uid={element.uid} piazza={null} profile={false} profileColor="" profileUrl={element?.profileImageUrl} />
                           {/* <Avatar
                             className={`bg-${profileColor?.indexOf("#") === -1 ? element?.profileColor : "profile-blue"}`}
                           >

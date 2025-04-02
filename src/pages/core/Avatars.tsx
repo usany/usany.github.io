@@ -1,4 +1,5 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import { AvatarFallback } from "@radix-ui/react-avatar";
 import static01 from "src/assets/blue01.png";
 import static02 from "src/assets/blue02.png";
 import statics from "src/assets/blue03.png";
@@ -16,6 +17,7 @@ interface Props {
 }
 
 const Avatars = ({
+  element,
   uid,
   profile,
   profileColor,
@@ -34,7 +36,7 @@ const Avatars = ({
   if (uid) {
     defaultProfile = profileImageArray[index];
   }
-
+  const profileImage = element?.profileImage
   return (
     <div>
       {profile ? (
@@ -42,18 +44,22 @@ const Avatars = ({
           className={`w-48 h-48 bg-${(profileColor || "#")[0] === "#" ? "profile-blue" : profileColor}`}
         >
           <AvatarImage src={profileUrl} />
-          <AvatarFallback className="text-8xl border-none">
-            <img className='h-full' src={defaultProfile} />
-          </AvatarFallback>
+          {!profileImage &&
+            <AvatarFallback className="text-8xl border-none">
+              <img className='h-full' src={defaultProfile} />
+            </AvatarFallback>
+          }
         </Avatar>
       ) : (
         <Avatar
           onClick={piazza}
         >
           <AvatarImage src={profileUrl} />
-          <AvatarFallback className="border">
-            <img className='h-full' src={defaultProfile} />
-          </AvatarFallback>
+          {!profileImage &&
+            <AvatarFallback className="border">
+              <img className='h-full' src={defaultProfile} />
+            </AvatarFallback>
+          }
         </Avatar>
       )}
     </div>

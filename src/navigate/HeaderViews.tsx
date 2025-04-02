@@ -1,7 +1,7 @@
 import Divider from "@mui/material/Divider";
 import { User } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
-import { getDownloadURL, getStorage, ref } from "firebase/storage";
+import { getStorage } from "firebase/storage";
 import { CreditCard, MessageCircle } from "lucide-react";
 import {
   useEffect,
@@ -53,25 +53,32 @@ const HeaderViews = ({ userObj }: Props) => {
     designatedProfile = profileImageArray[letters.indexOf(String(userObj?.uid[0]).toUpperCase()) % 2];
   }
   useEffect(() => {
-    if (userObj) {
-      getDownloadURL(ref(storage, `${userObj?.uid}`))
-        .then((url) => {
-          dispatch(changeProfileUrl(url));
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
+    // if (userObj) {
+    //   getDownloadURL(ref(storage, `${userObj?.uid}`))
+    //     .then((url) => {
+    //       dispatch(changeProfileUrl(url));
+    //     })
+    //     .catch((error) => {
+    //       console.log(error);
+    //     });
+    // }
   }, [userObj]);
-
+  console.log(profileUrl)
   useEffect(() => {
     const setProfile = async () => {
       const docRef = doc(dbservice, `members/${userObj?.uid}`);
       const docSnap = await getDoc(docRef);
       const userColor = docSnap.data()?.profileColor || "#2196f3";
       const userImage = docSnap.data()?.profileImageUrl || "null";
+      const userProfileImage = docSnap.data()?.profileImage || false;
+      const userDefaultProfile = docSnap.data()?.defaultProfile || '';
+      console.log(userDefaultProfile)
       dispatch(changeProfileColor(userColor));
-      dispatch(changeProfileUrl(userImage));
+      if (userProfileImage) {
+        dispatch(changeProfileUrl(userImage));
+      } else {
+        dispatch(changeProfileUrl(userDefaultProfile));
+      }
     };
     setProfile();
   }, [userObj]);

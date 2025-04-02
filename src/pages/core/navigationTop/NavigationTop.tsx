@@ -1,6 +1,6 @@
 import { User } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
-import { getDownloadURL, getStorage, ref } from "firebase/storage";
+import { getStorage } from "firebase/storage";
 import {
   useEffect,
   useState
@@ -35,17 +35,17 @@ const NavigationTop = ({ userObj }: Props) => {
   };
   const storage = getStorage();
   const dispatch = useDispatch();
-  useEffect(() => {
-    if (userObj) {
-      getDownloadURL(ref(storage, `${userObj?.uid}`))
-        .then((url) => {
-          dispatch(changeProfileUrl(url));
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
-  }, [userObj]);
+  // useEffect(() => {
+  //   if (userObj) {
+  //     getDownloadURL(ref(storage, `${userObj?.uid}`))
+  //       .then((url) => {
+  //         dispatch(changeProfileUrl(url));
+  //       })
+  //       .catch((error) => {
+  //         console.log(error);
+  //       });
+  //   }
+  // }, [userObj]);
 
   useEffect(() => {
     const setProfile = async () => {
@@ -53,8 +53,16 @@ const NavigationTop = ({ userObj }: Props) => {
       const docSnap = await getDoc(docRef);
       const userColor = docSnap.data()?.profileColor || "#2196f3";
       const userImage = docSnap.data()?.profileImageUrl || "null";
+      // dispatch(changeProfileColor(userColor));
+      // dispatch(changeProfileUrl(userImage));
+      const userProfileImage = docSnap.data()?.profileImage || false;
+      const userDefaultProfile = docSnap.data()?.defaultProfile || '';
       dispatch(changeProfileColor(userColor));
-      dispatch(changeProfileUrl(userImage));
+      if (userProfileImage) {
+        dispatch(changeProfileUrl(userImage));
+      } else {
+        dispatch(changeProfileUrl(userDefaultProfile));
+      }
     };
     setProfile();
   }, [userObj]);
