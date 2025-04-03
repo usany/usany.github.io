@@ -44,7 +44,7 @@ function PiazzaScreen({
   const profileUrl = useSelector((state) => state.profileUrl.value)
   const { state } = useLocation()
   const conversation = state?.conversation
-
+  console.log(conversation)
   const onPrivate = async ({ userUid, displayName }) => {
     const userRef = doc(dbservice, `members/${userUid}`)
     const userDoc = await getDoc(userRef)
@@ -248,7 +248,7 @@ function PiazzaScreen({
       handleMessagesList([...messagesArray, ...messagesList])
       setIsLoading(false)
     }
-    if (multiple) {
+    if (!conversation) {
       if (isLoading || !messagesList.length) {
         messageList()
       }
@@ -257,7 +257,7 @@ function PiazzaScreen({
         messageListMembers(conversation)
       }
     }
-  }, [isLoading])
+  }, [isLoading, conversation])
   // console.log(isLoading)
   const handleScroll = () => {
     if (
@@ -282,7 +282,7 @@ function PiazzaScreen({
       <div className="flex flex-col pt-5">
         <div
           ref={boxRef}
-          className="p-1 border-t rounded-xl max-h-[60vh] overflow-auto"
+          className="p-1 border-t rounded-xl h-[60vh] overflow-auto"
         >
           <ul>
             {isLoading && <div className='flex justify-center bg-light-2 dark:bg-dark-2 rounded'>로딩</div>}
@@ -440,6 +440,7 @@ function PiazzaScreen({
         userObj={userObj}
         handleMessagesList={handleMessagesList}
         displayedName={displayedName}
+        initiateContinuing={() => setContinuing(null)}
       />
     </>
   )

@@ -13,7 +13,7 @@ import { ScrollArea } from '@radix-ui/react-scroll-area';
 import Avatars from 'src/pages/core/Avatars';
 import DrawersBar from 'src/pages/core/DrawersBar';
 
-const PiazzaDialogs = ({ multiple, handleMultiple, user, userObj, handleMessagesList, displayedName, }) => {
+const PiazzaDialogs = ({ initiateContinuing, multiple, handleMultiple, user, userObj, handleMessagesList, displayedName, }) => {
   const [conversation, setConversation] = useState(null)
   useEffect(() => {
     if (user) {
@@ -101,6 +101,7 @@ const PiazzaDialogs = ({ multiple, handleMultiple, user, userObj, handleMessages
                       handleMessagesList([])
                       // handleChangeMessage(true)
                       handleMultiple(false)
+                      initiateContinuing()
                       // handleClose()
                     }}>
                       개인 대화

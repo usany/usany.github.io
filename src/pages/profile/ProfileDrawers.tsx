@@ -9,7 +9,9 @@ import ProfileDrawersPoints from 'src/pages/profile/ProfileDrawersPoints';
 import DrawersBar from "../core/DrawersBar";
 
 const ProfileDrawers = ({ user, cards, followers, alliesCollection, selection }) => {
-
+  // return (
+  //   <Popups trigger={}/>
+  // )
   return (
     <Drawer>
       <DrawerTrigger>
@@ -43,8 +45,15 @@ const ProfileDrawers = ({ user, cards, followers, alliesCollection, selection })
               }
             </div>
             {selection === 'points' && <ProfileDrawersPoints user={user} cards={cards} />}
-            {selection === 'allies' && <ProfileDrawersAllies followers={followers} alliesCollection={alliesCollection} />}
+            {/* {selection === 'allies' &&
+              <DrawerClose>
+                <ProfileDrawersAllies followers={followers} alliesCollection={alliesCollection} />
+              </DrawerClose>
+            } */}
           </div>
+          {selection === 'allies' &&
+            <ProfileDrawersAllies user={user} followers={followers} alliesCollection={alliesCollection} />
+          }
         </ScrollArea>
       </DrawerContent>
     </Drawer>

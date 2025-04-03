@@ -1,7 +1,6 @@
 import Divider from "@mui/material/Divider";
 import { useState } from "react";
 // import Avatar from '@mui/material/Avatar';
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { doc, updateDoc } from "firebase/firestore";
 import { Link } from "react-router-dom";
 import { dbservice } from "src/baseApi/serverbase";
@@ -157,15 +156,7 @@ function Lists({
                             {samePointIndex ? samePointIndex + 1 : index + 1}
                           </div>
                         )}
-                        <Avatar
-                          className={`bg-${profileColor?.indexOf("#") === -1 ? element?.profileColor : "profile-blue"}`}
-                        >
-                          <AvatarImage src={element?.profileImageUrl} />
-                          <AvatarFallback className="text-xl border-none">
-                            {element?.displayName[0]}
-                          </AvatarFallback>
-                        </Avatar>
-                        {/* <Avatars profile={false} profileColor={'profile-blue'} profileImage={element?.profileImageUrl || 'null'} fallback={element.displayName[0]}/> */}
+                        <Avatars element={element} uid={element.uid} piazza={null} profile={false} profileColor={''} profileUrl={element?.profileImageUrl || 'null'} fallback={element.displayName[0]} />
                         {/* {element?.profileImageUrl &&
                           <Avatar alt={element.displayName} sx={{ bgcolor: element.profileColor || '#2196f3' }} src={element?.profileImageUrl || './src'} variant="rounded" />
                         }

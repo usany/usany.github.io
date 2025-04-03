@@ -136,6 +136,9 @@ function Profile({ userObj }: Props) {
   const handleClose = () => {
     setProfileDialog(false);
   };
+  const changeProfileDialog = (newValue) => {
+    setProfileDialog(newValue)
+  }
   // const actions = [
   //   { action: 'borrow', number: borrowMessage.length+borrowRegisteredMessage.length,
   //     fill: 'red'},
@@ -186,7 +189,7 @@ function Profile({ userObj }: Props) {
   }
   // getCoords().then(coords => console.log(coords))
   // console.log(weather)
-
+  console.log(profileDialog)
   return (
     <div>
       <PageTitle
@@ -228,6 +231,7 @@ function Profile({ userObj }: Props) {
         user={state?.element || userObj}
         alliesCollection={alliesCollection}
         cards={cards}
+        changeProfileDialog={changeProfileDialog}
       />
       <ProfileCompleted user={state?.element || userObj} cards={cards} />
       {/* {state.element.uid === userObj.uid ?

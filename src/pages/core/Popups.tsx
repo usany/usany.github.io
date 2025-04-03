@@ -11,11 +11,11 @@ import { Dialog, DialogClose, DialogContent, DialogTitle, DialogTrigger } from '
 import useLargeMedia from "src/hooks/useLargeMedia";
 import DrawersBar from "src/pages/core/DrawersBar";
 
-const Popups = ({ trigger, title, content, close, attachment }) => {
+const Popups = ({ trigger, title, content, close, attachment, onLink }) => {
   const profileColor = useSelector((state) => state.profileColor.value);
   const profileUrl = useSelector((state) => state.profileUrl.value);
   const largeMedia = useLargeMedia()
-
+  console.log(onLink?.state)
   if (largeMedia) {
     return (
       <div className='flex justify-center'>
@@ -28,7 +28,15 @@ const Popups = ({ trigger, title, content, close, attachment }) => {
               <DrawersBar />
               <DialogTitle className='flex justify-center p-5'>{title}</DialogTitle>
               {content}
-              <DialogClose className='flex justify-center p-5'>{close}</DialogClose>
+              {attachment && <div className='flex justify-center p-5'>
+                {onLink ?
+                  <div>
+                    {close}
+                  </div>
+                  :
+                  <DialogClose>{close}</DialogClose>
+                }
+              </div>}
             </ScrollArea>
           </DialogContent>
         </Dialog >
@@ -47,7 +55,13 @@ const Popups = ({ trigger, title, content, close, attachment }) => {
             <DrawerTitle className='flex justify-center p-5'>{title}</DrawerTitle>
             {content}
             {attachment && <div className='flex justify-center p-5'>
-              <DrawerClose>{close}</DrawerClose>
+              {onLink ?
+                <div>
+                  {close}
+                </div>
+                :
+                <DrawerClose>{close}</DrawerClose>
+              }
             </div>}
             {/* <div className="flex flex-col items-center pt-5">
               <Avatars

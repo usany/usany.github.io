@@ -1,14 +1,10 @@
-import {
-  DrawerClose
-} from "@/components/ui/drawer";
-import Divider from '@mui/material/Divider';
 import { collection, getDocs, orderBy, query } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { dbservice } from 'src/baseApi/serverbase';
-import Avatars from "../core/Avatars";
+import { DrawerClose } from 'src/components/ui/drawer';
+import ProfileLists from '../search/searchList/searchListViews/ProfileLists';
 
-const ProfileDrawersAllies = ({ followers, alliesCollection }) => {
+const ProfileDrawersAllies = ({ user, followers, alliesCollection }) => {
   const [elements, setElements] = useState([])
 
   const usersCollection = async () => {
@@ -28,40 +24,64 @@ const ProfileDrawersAllies = ({ followers, alliesCollection }) => {
     }
   }, [alliesCollection])
 
-  const alliesList = elements?.map((element, index) => {
+  const AlliesList = () => {
     return (
-      <DrawerClose key={index}>
-        <Link to='/profile'
-          state={{
-            element: element,
-          }}
-          onClick={() => {
-            setElements([])
-          }}
-        >
-          <div className='flex justify-between items-center'>
-            <Avatars element={element} uid={element.uid} profileColor={element.profileColor} profileUrl={element.profileUrl} profile={false} piazza={null} />
-            {/* <Avatar alt={element.displayName} sx={{ bgcolor: element.profileColor || '#2196f3' }} src="./src" /> */}
-            <div className='overflow-hidden'>
-              {element.displayName}
-            </div>
-            <Divider variant='inset' />
-          </div >
-        </Link>
+      <DrawerClose>
+        {/* <Lists
+          userObj={user}
+          elements={elements}
+          multiple={true}
+          userSearch={null}
+          ranking={false}
+          handleUser={null}
+        /> */}
+        <ProfileLists
+          elements={elements}
+          multiple={true}
+          userSearch={null}
+          handleUser={null}
+        />
       </DrawerClose>
     )
-  })
+  }
+  // const alliesList = elements?.map((element, index) => {
+  //   return (
+  //     <div key={index}>
+  //       <Link to='/profile'
+  //         state={{
+  //           element: element,
+  //         }}
+  //         onClick={() => {
+  //           setElements([])
+  //         }}
+  //       >
+  //         <DrawerClose>
+  //           <div>practice</div>
+  //           <Lists
+  //             userObj={user}
+  //             elements={elements}
+  //             multiple={true}
+  //             userSearch={null}
+  //             ranking={true}
+  //             handleUser={null}
+  //           />
+  //         </DrawerClose>
+  //       </Link>
+  //       <Divider variant='inset' />
+  //     </div>
+  //   )
+  // })
 
   return (
     <div>
-      {alliesList.length === 0 ?
+      {elements.length === 0 ?
         <div className='flex justify-center'>
           <div className='border border-dashed p-5'>
             {followers ? '팔로워가' : '팔로잉이'} 없습니다
           </div>
         </div>
         :
-        <div>{alliesList}</div>
+        <AlliesList />
       }
     </div>
   );
