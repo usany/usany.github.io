@@ -1,5 +1,5 @@
 import DeleteIcon from "@mui/icons-material/Delete";
-import { ClickAwayListener } from "@mui/material";
+import { Chip, ClickAwayListener } from "@mui/material";
 import { User } from "firebase/auth";
 import { deleteDoc, doc } from "firebase/firestore";
 import {
@@ -9,7 +9,6 @@ import {
 } from "react";
 import { dbservice } from "src/baseApi/serverbase";
 import useLongPress from "src/hooks/useLongPress";
-import Chips from "src/myChips";
 import MorphingDialogs from "../morphingDialogs/MorphingDialogs";
 import CardsViews from "./CardsViews";
 
@@ -123,12 +122,12 @@ const Cards = ({
                 changeOnLongPress(null);
               }}
             >
-              {/* <Chip label={<DeleteIcon />} color="error" /> */}
-              <Chips label={<DeleteIcon />} className={'bg-profile-red'} onClick={null} />
+              <Chip label={<DeleteIcon />} color="error" />
+              {/* <Chips label={<DeleteIcon />} className={'bg-profile-red'} onClick={null} /> */}
             </div>
             :
-            // <Chip label={<DeleteIcon />} color="error" disabled />
-            <Chips label={<DeleteIcon />} className={'bg-profile-red'} onClick={null} />
+            <Chip label={<DeleteIcon />} color="error" disabled />
+            // <Chips label={<DeleteIcon />} className={'bg-profile-red'} onClick={null} />
           }
         </div>
       ) : (

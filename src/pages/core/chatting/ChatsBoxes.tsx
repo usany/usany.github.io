@@ -1,7 +1,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Chip } from "@mui/material";
 import { User } from 'firebase/auth';
 import staticImage from 'src/assets/blue.png';
-import Chips from "src/myChips";
 import Avatars from "src/pages/core/Avatars";
 
 interface Props {
@@ -66,12 +66,12 @@ const ChatsBoxes = ({ chattingUid, userObj, profileUrl, displayName, multiple, c
           <div>{message?.message}</div>
           <div>
             {message?.piazzaChecked && message?.piazzaChecked.indexOf(userObj.uid) === -1 &&
-              // <Chip sx={{ height: '20px' }} label={'새 대화'} color='primary' />
-              <Chips label={'새 대화'} className={'bg-profile-blue'} onClick={null} />
+              <Chip sx={{ height: '20px' }} label={'새 대화'} color='primary' />
+              // <Chips label={'새 대화'} className={'bg-profile-blue'} onClick={null} />
             }
             {message?.messageCount > 0 &&
-              // <Chip sx={{ height: '20px' }} label={message.messageCount} color='primary' />
-              <Chips label={message.messageCount} className={'bg-profile-blue'} onClick={null} />
+              <Chip sx={{ height: '20px' }} label={message.messageCount} color='primary' />
+              // <Chips label={message.messageCount} className={'bg-profile-blue'} onClick={null} />
             }
           </div>
         </div>

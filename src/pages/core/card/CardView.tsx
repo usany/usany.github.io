@@ -1,3 +1,4 @@
+import { Chip } from '@mui/material'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
@@ -42,13 +43,13 @@ const CardView = ({ message, shadowColor }) => {
                 piazza={null}
               />
               <div className="flex items-center">
-                {/* <Chip
+                <Chip
                   label={`${message.item} ${message.text.choose === 1 ? ' 빌리기' : ' 빌려주기'}`}
-                /> */}
-                <Chips
+                />
+                {/* <Chips
                   label={`${message.item} ${message.text.choose === 1 ? ' 빌리기' : ' 빌려주기'}`}
                   className='bg-white'
-                />
+                /> */}
               </div>
             </div>
             <div className="flex justify-center pt-1">
@@ -98,13 +99,13 @@ const CardView = ({ message, shadowColor }) => {
               piazza={null}
             />
             <div className="flex items-center">
-              {/* <Chip
+              <Chip
                 label={`${message.item} ${message.text.choose === 1 ? ' 빌리기' : ' 빌려주기'}`}
-              /> */}
-              <Chips
+              />
+              {/* <Chips
                 label={`${message.item} ${message.text.choose === 1 ? ' 빌리기' : ' 빌려주기'}`}
                 className='bg-white dark:bg-dark-4'
-              />
+              /> */}
             </div>
           </div>
           <div className="flex justify-center pt-1">

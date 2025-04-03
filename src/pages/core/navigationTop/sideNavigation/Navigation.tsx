@@ -53,7 +53,7 @@ function Navigation({ userObj, sideNavigation, handleSideNavigation }: Props) {
   const logOut = () => {
     onLogOutClick()
     dispatch(changeProfileUrl(''))
-    dispatch(changeProfileImage('null'))
+    dispatch(changeProfileImage(''))
     dispatch(changeProfileColor(''))
     checkbox()
   }

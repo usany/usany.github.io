@@ -4,6 +4,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { Chip } from "@mui/material";
 import {
   AdvancedMarker,
   InfoWindow,
@@ -20,7 +21,6 @@ import { useEffect, useState } from "react";
 import {
   dbservice
 } from "src/baseApi/serverbase";
-import Chips from "src/myChips";
 import FilterDialogs from "src/pages/board/FilterDialogs/FilterDialogs";
 
 interface Props {
@@ -235,39 +235,39 @@ function BoardMap({ mapAccordion, mapAccordionToggle, onMarker, onMarkerTrue, on
                     <div className='flex justify-center'>{selectedValues[1].value}</div>
                     <div className="flex">
                       <div className="pt-1">
-                        {/* <Chip
-                          label={`우산`}
-                          onClick={() => {
-                            setChoose(true);
-                            onClickMarkerItem("우산");
-                          }}
-                        /> */}
-                        <Chips
+                        <Chip
                           label={`우산`}
                           onClick={() => {
                             setChoose(true);
                             onClickMarkerItem("우산");
                           }}
                         />
+                        {/* <Chips
+                          label={`우산`}
+                          onClick={() => {
+                            setChoose(true);
+                            onClickMarkerItem("우산");
+                          }}
+                        /> */}
                       </div>
                       <div className="pt-3">: {messages.length} 요청</div>
                     </div>
                     <div className="flex">
                       <div className="pt-1">
-                        {/* <Chip
-                          label={`양산`}
-                          onClick={() => {
-                            setChoose(true);
-                            onClickMarkerItem("양산");
-                          }}
-                        /> */}
-                        <Chips
+                        <Chip
                           label={`양산`}
                           onClick={() => {
                             setChoose(true);
                             onClickMarkerItem("양산");
                           }}
                         />
+                        {/* <Chips
+                          label={`양산`}
+                          onClick={() => {
+                            setChoose(true);
+                            onClickMarkerItem("양산");
+                          }}
+                        /> */}
                       </div>
                       <div className="pt-3">: {messages.length} 요청</div>
                     </div>

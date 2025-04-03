@@ -13,8 +13,8 @@ import {
 } from "@/components/ui/select";
 import { useState } from "react";
 // import { Filter } from "lucide-react";
+import { Chip } from "@mui/material";
 import { ScrollArea } from "@radix-ui/react-scroll-area";
-import Chips from "src/myChips";
 import DrawersBar from "src/pages/core/DrawersBar";
 const markers = [
   {
@@ -92,13 +92,19 @@ function FilterDialogs({ selectedValues, handleSelectedValues }) {
             )} */}
             {selectedValues.map((element, index) => {
               return (
-                <Chips
-                  key={index}
+                <Chip
                   label={element.value}
                   onClick={() => {
                     onClick({ id: element.id });
                   }}
                 />
+                // <Chips
+                //   key={index}
+                //   label={element.value}
+                //   onClick={() => {
+                //     onClick({ id: element.id });
+                //   }}
+                // />
               )
             })}
           </div>

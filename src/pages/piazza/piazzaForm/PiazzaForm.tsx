@@ -1,11 +1,10 @@
-import { useRef, useEffect, useState, useMemo, lazy } from "react";
-import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnapshot, deleteDoc, updateDoc, limit } from 'firebase/firestore';
-import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
-import { webSocket, onClick } from 'src/webSocket.tsx'
-import { useSelector, useDispatch } from 'react-redux'
 import { User } from "firebase/auth";
-import { Link, useLocation } from 'react-router-dom'
-import { changeNewMessageTrue } from 'src/stateSlices/newMessageSlice'
+import { addDoc, collection, doc, getDoc, updateDoc } from 'firebase/firestore';
+import { useDispatch, useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
+import { dbservice } from 'src/baseApi/serverbase';
+import { changeNewMessageTrue } from 'src/stateSlices/newMessageSlice';
+import { webSocket } from 'src/webSocket.tsx';
 
 interface Props {
   userObj: User
@@ -19,9 +18,9 @@ function PiazzaForm({ userObj, multiple, messages, handleMessages, messagesList,
   const profileColor = useSelector(state => state.profileColor.value)
   const profileUrl = useSelector(state => state.profileUrl.value)
   const dispatch = useDispatch()
-  const {state} = useLocation()
+  const { state } = useLocation()
   const conversation = state?.conversation
-  
+
   const onSendSubmitHandler = async (event) => {
     event.preventDefault();
     const message = messages
@@ -37,7 +36,7 @@ function PiazzaForm({ userObj, multiple, messages, handleMessages, messagesList,
       toUser = await getDoc(toUserRef)
       messagingToken = toUser.data()?.messagingToken
     }
-    
+
     const sendData = {
       msg: message,
       userUid: userUid,
@@ -74,7 +73,7 @@ function PiazzaForm({ userObj, multiple, messages, handleMessages, messagesList,
 
   const onChangeMsgHandler = (e) => {
     handleMessages(e.target.value);
-  };  
+  };
 
   const onForm = async () => {
     try {
@@ -100,7 +99,7 @@ function PiazzaForm({ userObj, multiple, messages, handleMessages, messagesList,
       console.log(error)
     }
   }
-  
+
   const onFormConversation = async () => {
     const message = messages
     try {
@@ -155,7 +154,7 @@ function PiazzaForm({ userObj, multiple, messages, handleMessages, messagesList,
           userOneProfileUrl: userOneProfileUrl,
           userTwoProfileUrl: userTwoProfileUrl
         }
-        
+
         await addDoc(collection(dbservice, `chats_${conversation}`), messageObj)
         const myDocRef = doc(dbservice, `members/${userUid}`)
         const myDocSnap = await getDoc(myDocRef)
@@ -165,7 +164,7 @@ function PiazzaForm({ userObj, multiple, messages, handleMessages, messagesList,
         const userChattings = userDocSnap.data().chattings || {}
         const userChattingsNumber = userChattings[conversation]?.messageCount || 0
         myChattings[conversation] = messageObj
-        userChattings[conversation] = {...messageObj, messageCount: userChattingsNumber+1}
+        userChattings[conversation] = { ...messageObj, messageCount: userChattingsNumber + 1 }
         await updateDoc(myDocRef, {
           chattings: myChattings
         })
@@ -194,7 +193,7 @@ function PiazzaForm({ userObj, multiple, messages, handleMessages, messagesList,
         })
         dispatch(changeNewMessageTrue())
       }
-      if (userConversation.indexOf(conversation) === -1) { 
+      if (userConversation.indexOf(conversation) === -1) {
         await updateDoc(userDocRef, {
           conversation: [...userConversation, conversation]
         })

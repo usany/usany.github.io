@@ -1,17 +1,10 @@
-import { useState, useEffect } from "react";
-import {
-  auth,
-  onSocialClick,
-  dbservice,
-  storage,
-} from "src/baseApi/serverbase";
-import {
-  updateProfile,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  updateProfile,
+} from "firebase/auth";
 import {
   collection,
   doc,
@@ -21,14 +14,17 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import {
-  getStorage,
-  ref,
-  uploadBytes,
-  uploadString,
-  uploadBytesResumable,
   getDownloadURL,
+  ref,
+  uploadString
 } from "firebase/storage";
+import { useState } from "react";
 import staticMail from "src/assets/signMail.svg";
+import {
+  auth,
+  dbservice,
+  storage
+} from "src/baseApi/serverbase";
 import AuthDialogs from "./AuthDialogs.tsx";
 // import storeSetDoc from "../../../components/setDocUser.ts";
 
@@ -74,6 +70,7 @@ const AuthForm = ({ signIn }) => {
         followerNum: 0,
         followingNum: 0,
         locationConfirmed: false,
+        defaultProfile: ''
       });
       await updateProfile(data.user, {
         displayName: data.user.email,

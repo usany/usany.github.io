@@ -1,4 +1,4 @@
-import Chips from 'src/myChips';
+import { Chip } from '@mui/material';
 
 interface Props {
   action: string,
@@ -11,8 +11,8 @@ function ContactAddress({ action, label }: Props) {
       <span>
         {action}:&emsp;
       </span>
-      {/* <Chip label={label} /> */}
-      <Chips label={label} onClick={null} />
+      <Chip label={label} />
+      {/* <Chips label={label} onClick={null} /> */}
     </div>
   )
 }

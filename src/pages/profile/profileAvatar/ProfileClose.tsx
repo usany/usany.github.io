@@ -14,6 +14,7 @@ const ProfileClose = ({ userObj, profileDialog, attachment, changeAttachment, ha
   const profileColor = useSelector(state => state.profileColor.value)
   const profileImage = useSelector(state => state.profileImage.value)
   const profileUrl = useSelector(state => state.profileUrl.value)
+
   const dispatch = useDispatch()
   const onClick = async () => {
     const data = doc(dbservice, `members/${userObj.uid}`)
@@ -29,7 +30,7 @@ const ProfileClose = ({ userObj, profileDialog, attachment, changeAttachment, ha
     // .catch((error) => {
     //   console.log(error)
     // });
-    if (attachment && !onClear) {
+    if (attachment) {
       console.log(attachment)
       dispatch(changeProfileUrl(attachment))
       const storage = getStorage();
@@ -44,9 +45,10 @@ const ProfileClose = ({ userObj, profileDialog, attachment, changeAttachment, ha
       // const docRef = doc(dbservice, `members/${userObj?.uid}`)
       // updateDoc(docRef, { profileImage: attachmentFile });
       // dispatch(changeProfileUrl(attachment))
-    } else if (onClear) {
-      dispatch(changeProfileUrl('null'))
-      setOnClear(false)
+    }
+    if (profileImage) {
+      // dispatch(changeProfileUrl('null'))
+      // setOnClear(false)
       const storageRef = ref(storage, userObj.uid);
       uploadString(storageRef, 'null', 'raw').then((snapshot) => {
         console.log('Uploaded a blob or file!');

@@ -1,10 +1,10 @@
 import Divider from "@mui/material/Divider";
 import { useState } from "react";
 // import Avatar from '@mui/material/Avatar';
+import { Chip } from "@mui/material";
 import { doc, updateDoc } from "firebase/firestore";
 import { Link } from "react-router-dom";
 import { dbservice } from "src/baseApi/serverbase";
-import Chips from "src/myChips";
 import Avatars from "src/pages/core/Avatars";
 import RankingListsTitle from "src/pages/search/searchList/searchListViews/searchListViewsTitle/RankingListsTitle";
 
@@ -57,6 +57,7 @@ function Lists({
                 } else {
                   displayName = element.displayName;
                 }
+                const profileUrl = element?.profile ? element?.profileImageUrl : element?.defaultProfile
                 return (
                   <div key={index} className="px-3 pt-3">
                     <Link
@@ -78,7 +79,7 @@ function Lists({
                               {samePointIndex ? samePointIndex + 1 : index + 1}
                             </div>
                           )}
-                          <Avatars user={element} uid={element.uid} piazza={null} profile={false} profileColor="" profileUrl={element?.profileImageUrl} />
+                          <Avatars user={element} uid={element.uid} piazza={null} profile={false} profileColor="" profileUrl={profileUrl} />
                           {/* <Avatar
                             className={`bg-${profileColor?.indexOf("#") === -1 ? element?.profileColor : "profile-blue"}`}
                           >
@@ -103,8 +104,8 @@ function Lists({
                         </div>
                         <div className='flex items-center'>
                           {element.locationConfirmed ?
-                            // <Chip color="success" label={'캠퍼스 위치 확인'} /> : <Chip label={'캠퍼스 위치 미확인'} />
-                            <Chips label={'캠퍼스 위치 확인'} className='bg-profile-green' /> : <Chips label={'캠퍼스 위치 미확인'} />
+                            <Chip color="success" label={'캠퍼스 위치 확인'} /> : <Chip label={'캠퍼스 위치 미확인'} />
+                            // <Chips label={'캠퍼스 위치 확인'} className='bg-profile-green' /> : <Chips label={'캠퍼스 위치 미확인'} />
                           }
                         </div>
                       </div>
@@ -137,6 +138,8 @@ function Lists({
                 } else {
                   displayName = element.displayName.slice(0, 10) + "......";
                 }
+                const profileUrl = element?.profile ? element?.profileImageUrl : element?.defaultProfile
+
                 return (
                   <div
                     key={index}
@@ -156,7 +159,7 @@ function Lists({
                             {samePointIndex ? samePointIndex + 1 : index + 1}
                           </div>
                         )}
-                        <Avatars element={element} uid={element.uid} piazza={null} profile={false} profileColor={''} profileUrl={element?.profileImageUrl || 'null'} fallback={element.displayName[0]} />
+                        <Avatars element={element} uid={element.uid} piazza={null} profile={false} profileColor={''} profileUrl={profileUrl} />
                         {/* {element?.profileImageUrl &&
                           <Avatar alt={element.displayName} sx={{ bgcolor: element.profileColor || '#2196f3' }} src={element?.profileImageUrl || './src'} variant="rounded" />
                         }
@@ -172,8 +175,8 @@ function Lists({
                       </div>
                       <div className='flex items-center'>
                         {element.locationConfirmed ?
-                          // <Chip color="success" label={'캠퍼스 위치 확인'} /> : <Chip label={'캠퍼스 위치 미확인'} />
-                          <Chips label={'캠퍼스 위치 확인'} className='bg-profile-green' /> : <Chips label={'캠퍼스 위치 미확인'} />
+                          <Chip color="success" label={'캠퍼스 위치 확인'} /> : <Chip label={'캠퍼스 위치 미확인'} />
+                          // <Chips label={'캠퍼스 위치 확인'} className='bg-profile-green' /> : <Chips label={'캠퍼스 위치 미확인'} />
                         }
                       </div>
                     </div>

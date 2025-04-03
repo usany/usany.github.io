@@ -1,15 +1,11 @@
-import { useState, useEffect } from 'react'
-import { auth, onSocialClick, dbservice } from 'src/baseApi/serverbase'
-import { updateProfile, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { doc, setDoc } from 'firebase/firestore';
-import { connectStorageEmulator } from 'firebase/storage';
-import { storage } from "src/baseApi/serverbase";
-import { getStorage, ref, uploadBytes, uploadString, uploadBytesResumable, getDownloadURL,  } from "firebase/storage";
+import { ref, uploadString } from "firebase/storage";
+import { useState } from 'react';
+import { auth, dbservice, storage } from 'src/baseApi/serverbase';
 
 const SignUpForm = () => {
-  const [account, setAccount] = useState({email: '', password: ''})
+  const [account, setAccount] = useState({ email: '', password: '' })
   const [error, setError] = useState('')
   const onSubmit = async (event) => {
     event.preventDefault()
@@ -28,6 +24,7 @@ const SignUpForm = () => {
         followers: [],
         followings: [],
         messagingToken: null,
+        defaultProfile: ''
       })
       await updateProfile(data.user, {
         displayName: data.user.email
@@ -36,7 +33,7 @@ const SignUpForm = () => {
       })
       const storageRef = ref(storage, data.user.uid);
       uploadString(storageRef, 'null', 'raw').then((snapshot) => {
-          console.log('Uploaded a blob or file!');
+        console.log('Uploaded a blob or file!');
       });
     } catch (error) {
       if (error.message === 'Firebase: Error (auth/invalid-credential).') {
@@ -59,12 +56,12 @@ const SignUpForm = () => {
       target: { name, value }
     } = event
     if (name === 'email') {
-      setAccount({email: value, password: account.password})
+      setAccount({ email: value, password: account.password })
     } else if (name === 'password') {
-      setAccount({...account, password: value})
+      setAccount({ ...account, password: value })
     }
   }
-  
+
   return (
     <form id='signUp' onSubmit={onSubmit}>
       {/* <div className='flex justify-center px-3'>

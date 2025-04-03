@@ -1,6 +1,6 @@
+import { Chip } from '@mui/material'
 import { User } from 'firebase/auth'
 import { useEffect, useState } from 'react'
-import Chips from 'src/myChips'
 import SpecificsActionsPopups from './SpecificsActionsPopups'
 
 interface Props {
@@ -39,14 +39,14 @@ function SpecificsActions({ drawerOpenTrue, userObj, message }: Props) {
             userObj={userObj}
             message={message}
           />
-          {/* <Chip label={`${message.creatorId === userObj?.uid ? '내가' : messageName} 작성함`} /> */}
-          <Chips label={`${message.creatorId === userObj?.uid ? '내가' : messageName} 작성함`} onClick={null} className='' />
+          <Chip label={`${message.creatorId === userObj?.uid ? '내가' : messageName} 작성함`} />
+          {/* <Chips label={`${message.creatorId === userObj?.uid ? '내가' : messageName} 작성함`} onClick={null} className='' /> */}
         </div>
         <div className="flex items-center">
-          {/* <Chip
+          <Chip
             label={`${message.item} ${message.text.choose === 1 ? ' 빌리기' : ' 빌려주기'}`}
-          /> */}
-          <Chips label={`${message.item} ${message.text.choose === 1 ? ' 빌리기' : ' 빌려주기'}`} onClick={null} className='' />
+          />
+          {/* <Chips label={`${message.item} ${message.text.choose === 1 ? ' 빌리기' : ' 빌려주기'}`} onClick={null} className='' /> */}
         </div>
       </div>
     </>

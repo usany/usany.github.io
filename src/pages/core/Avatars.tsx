@@ -37,6 +37,7 @@ const Avatars = ({
     defaultProfile = profileImageArray[index];
   }
   const profileImage = element?.profileImage
+  console.log(profileUrl)
   return (
     <div>
       {profile ? (
