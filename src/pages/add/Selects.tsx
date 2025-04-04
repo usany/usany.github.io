@@ -1,9 +1,9 @@
+import { useMediaQuery } from "@mui/material";
+import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import TextField from "@mui/material/TextField";
-import { useMediaQuery } from "@mui/material";
 
 const locationsCollection = {
   cl: [
@@ -73,10 +73,10 @@ function Selects({
   changeSeat,
   changeLocationInput,
 }) {
-  const matches = useMediaQuery("(min-width:850px)");
+  const matches = useMediaQuery("(min-width:990px)");
   return (
-    <div className={`flex ${matches ? "" : "flex-col"} px-5`}>
-      <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+    <div className={`flex ${matches ? "" : "flex-col"} gap-1 px-5`}>
+      <FormControl variant="standard" sx={{ width: 150 }}>
         <InputLabel
         // id="demo-simple-select-standard-label"
         >
@@ -87,7 +87,7 @@ function Selects({
           // id="demo-simple-select-standard"
           value={locationState.locationOne}
           onChange={changeBuilding}
-          // label="Age"
+        // label="Age"
         >
           {/* <MenuItem value={'one'}>one</MenuItem>
                     <MenuItem value={'focus'}>focus</MenuItem>
@@ -108,7 +108,7 @@ function Selects({
       </FormControl>
       {locationState.locationOne !== "" &&
         locationState.locationOne !== "직접 입력" && (
-          <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+          <FormControl variant="standard" sx={{ width: 150 }}>
             <InputLabel
             // id="demo-simple-select-standard-label1"
             >
@@ -119,7 +119,7 @@ function Selects({
               // id="demo-simple-select-standard"
               value={locationState.locationTwo}
               onChange={changeRoom}
-              // label="Age"
+            // label="Age"
             >
               {locationState.locationOne == "중도" && location.cl}
               {locationState.locationOne == "청운" && location.cw}
@@ -135,27 +135,27 @@ function Selects({
       {["1열(1F)", "2열(2F)", "3열(2F)", "4열(4F)", "집중열(1F)"].indexOf(
         locationState.locationTwo
       ) !== -1 && (
-        <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-          <InputLabel
-          // id="demo-simple-select-standard-label1"
-          >
-            좌석이 어디인가요
-          </InputLabel>
-          <Select
-            // labelId="demo-simple-select-standard-label1"
-            // id="demo-simple-select-standard"
-            value={locationState.locationThree}
-            onChange={changeSeat}
+          <FormControl variant="standard" sx={{ width: 150 }}>
+            <InputLabel
+            // id="demo-simple-select-standard-label1"
+            >
+              좌석이 어디인가요
+            </InputLabel>
+            <Select
+              // labelId="demo-simple-select-standard-label1"
+              // id="demo-simple-select-standard"
+              value={locationState.locationThree}
+              onChange={changeSeat}
             // label="Age"
-          >
-            {locationState.locationTwo == "1열(1F)" && location.one}
-            {locationState.locationTwo == "2열(2F)" && location.two}
-            {locationState.locationTwo == "3열(2F)" && location.three}
-            {locationState.locationTwo == "4열(4F)" && location.four}
-            {locationState.locationTwo == "집중열(1F)" && location.focus}
-          </Select>
-        </FormControl>
-      )}
+            >
+              {locationState.locationTwo == "1열(1F)" && location.one}
+              {locationState.locationTwo == "2열(2F)" && location.two}
+              {locationState.locationTwo == "3열(2F)" && location.three}
+              {locationState.locationTwo == "4열(4F)" && location.four}
+              {locationState.locationTwo == "집중열(1F)" && location.focus}
+            </Select>
+          </FormControl>
+        )}
       {locationState.locationOne === "직접 입력" && (
         <div className="pt-7">
           <TextField onChange={changeLocationInput} required autoFocus />
