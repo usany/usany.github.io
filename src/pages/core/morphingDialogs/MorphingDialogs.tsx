@@ -27,7 +27,12 @@ const MorphingDialogs = ({ message, isOwner, userObj, num, points, round, increa
   // }
   const [onPulse, setOnPulse] = useState(false)
   const changeOnPulse = (newValue) => setOnPulse(newValue)
-
+  const [connectedUser, setConnectedUser] = useState({
+    uid: '',
+    displayName: '',
+    url: ''
+  })
+  const changeConnectedUser = (newValue) => setConnectedUser(newValue)
   useEffect(() => {
     if (message.text.choose === 1) {
       if (message.creatorId === userObj?.uid) {
@@ -127,6 +132,39 @@ const MorphingDialogs = ({ message, isOwner, userObj, num, points, round, increa
       webSocket.off(`sDecrease${message.id}`, sDecreaseCardCallback)
     }
   })
+  useEffect(() => {
+    if (!webSocket) return
+    function sSupportTradesCallback(res) {
+      console.log(res)
+      const user = {
+        uid: res.connectedId,
+        displayName: res.connectedName,
+        url: res.connectedUrl
+      }
+      setConnectedUser(user)
+    }
+    webSocket.on(`sSupportTrades${message.id}`, sSupportTradesCallback)
+    return () => {
+      webSocket.off(`sSupportTrades${message.id}`, sSupportTradesCallback)
+    }
+  })
+  useEffect(() => {
+    if (!webSocket) return
+    function sStopSupportingTradesCallback(res) {
+      const user = {
+        uid: '',
+        displayName: '',
+        url: ''
+      }
+      setConnectedUser(user)
+      console.log('practice')
+    }
+    webSocket.on(`sStopSupportingTrades${message.id}`, sStopSupportingTradesCallback)
+    return () => {
+      webSocket.off(`sStopSupportingTrades${message.id}`, sStopSupportingTradesCallback)
+    }
+  })
+  console.log(connectedUser)
   return (
     <MorphingDialog
       transition={{
@@ -153,6 +191,8 @@ const MorphingDialogs = ({ message, isOwner, userObj, num, points, round, increa
           message={message}
           onPulse={onPulse}
           changeOnPulse={changeOnPulse}
+          connectedUser={connectedUser}
+          changeConnectedUser={changeConnectedUser}
         />
         {/* <MorphingDialogContent drawerOpen={drawerOpen} drawerOpenFalse={drawerOpenFalse}>
           <Specifics drawerOpenTrue={drawerOpenTrue} userObj={userObj} message={message} />

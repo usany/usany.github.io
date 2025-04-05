@@ -15,6 +15,7 @@ const onSupporting = async ({ message, uid, displayName, profileUrl }) => {
     creatorName: message.displayName,
     connectedId: uid,
     connectedName: displayName,
+    connectedUrl: profileUrl
   }
   updateDoc(data, {
     round: 2,
@@ -33,6 +34,7 @@ const SupportButton = ({
   uid,
   displayName,
   increaseRound,
+  changeConnectedUser
 }) => {
   const profileUrl = useSelector((state) => state.profileUrl.value)
 
@@ -49,6 +51,11 @@ const SupportButton = ({
               profileUrl: profileUrl
             })
             increaseRound()
+            changeConnectedUser({
+              uid: uid,
+              displayName: displayName,
+              url: profileUrl
+            })
           }
         }}
         startIcon={<SendIcon />}

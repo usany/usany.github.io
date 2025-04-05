@@ -23,7 +23,7 @@ const onStopSupporting = async ({ message, uid, displayName }) => {
   })
   webSocket.emit('stop supporting', passingObject)
 }
-const StopSupportButton = ({ userObj, message, uid, displayName, decreaseRound }) => {
+const StopSupportButton = ({ userObj, message, uid, displayName, decreaseRound, changeConnectedUser }) => {
   return (
     <div className="flex justify-center">
       {/* <Button variant="contained" disabled>
@@ -40,6 +40,11 @@ const StopSupportButton = ({ userObj, message, uid, displayName, decreaseRound }
               displayName: displayName,
             })
             decreaseRound()
+            changeConnectedUser({
+              uid: '',
+              displayName: '',
+              url: ''
+            })
           }
         }}
         startIcon={<SendIcon />}

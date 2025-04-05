@@ -19,7 +19,9 @@ function Btn({
   round,
   increaseRound,
   decreaseRound,
-  changeOnPulse
+  changeOnPulse,
+  connectedUser,
+  changeConnectedUser
 }) {
   const [move, setMove] = useState(false)
   const handleClose = () => {
@@ -99,6 +101,7 @@ function Btn({
               uid={uid}
               displayName={displayName}
               increaseRound={increaseRound}
+              changeConnectedUser={changeConnectedUser}
             />
           )}
           {
@@ -109,6 +112,7 @@ function Btn({
                 uid={uid}
                 displayName={displayName}
                 decreaseRound={decreaseRound}
+                changeConnectedUser={changeConnectedUser}
               />
             )
             // <div className='flex flex-col justify-center'>

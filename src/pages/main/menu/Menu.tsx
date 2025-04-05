@@ -102,30 +102,38 @@ function Menu({ userObj }: Props) {
         className="px-3"
       >
         <AccordionItem value="item-1">
-          <AccordionTrigger onClick={() => {
-            if (cardAccordion) {
-              dispatch(cardOff())
-            } else {
-              dispatch(cardOn())
-            }
-          }}>
-            카드
-          </AccordionTrigger>
+          <button onClick={() => {
+            document.getElementById('cardAccordion')?.click()
+          }} className='flex sticky top-16 z-30 w-full items-center justify-between bg-light-3 dark:bg-dark-3'>
+            <div>카드</div>
+            <AccordionTrigger id="cardAccordion" onClick={() => {
+              if (cardAccordion) {
+                dispatch(cardOff())
+              } else {
+                dispatch(cardOn())
+              }
+            }}>
+            </AccordionTrigger>
+          </button>
           <AccordionContent>
             <CardsStacks userObj={userObj} />
           </AccordionContent>
         </AccordionItem>
         <AccordionItem value="item-2">
-          <AccordionTrigger onClick={() => {
-            if (messageAccordion) {
-              dispatch(messageOff())
-            } else {
-              dispatch(messageOn())
-            }
-            // dispatch(changeMessageAccordion())
-          }}>
-            메세지
-          </AccordionTrigger>
+          <button onClick={() => {
+            document.getElementById('messageAccordion')?.click()
+          }} className='flex sticky top-16 z-30 w-full items-center justify-between bg-light-3 dark:bg-dark-3'>
+            <div>메세지</div>
+            <AccordionTrigger id="messageAccordion" onClick={() => {
+              if (messageAccordion) {
+                dispatch(messageOff())
+              } else {
+                dispatch(messageOn())
+              }
+              // dispatch(changeMessageAccordion())
+            }}>
+            </AccordionTrigger>
+          </button>
           <AccordionContent className="text-sm">
             <Suspense fallback={<Skeleton />}>
               <MessageStacks userObj={userObj} />

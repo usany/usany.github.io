@@ -142,9 +142,13 @@ function BoardMap({ mapAccordion, mapAccordionToggle, onMarker, onMarkerTrue, on
     <div>
       <Accordion type="single" collapsible className="px-3">
         <AccordionItem value="item-1">
-          <AccordionTrigger onClick={() => mapAccordionToggle()}>
-            등록 지도
-          </AccordionTrigger>
+          <button onClick={() => {
+            document.getElementById('boardMap')?.click()
+          }} className='flex sticky top-16 z-30 w-full items-center justify-between bg-light-3 dark:bg-dark-3'>
+            <div>등록 지도</div>
+            <AccordionTrigger id='boardMap' onClick={() => mapAccordionToggle()}>
+            </AccordionTrigger>
+          </button>
           {/* <div className="sticky top-10 z-30 bg-light-3 dark:bg-dark-3"></div> */}
           <AccordionContent>
             <div>
@@ -359,8 +363,8 @@ function BoardMap({ mapAccordion, mapAccordionToggle, onMarker, onMarkerTrue, on
             </div>
           </AccordionContent>
         </AccordionItem>
-      </Accordion>
-    </div>
+      </Accordion >
+    </div >
   );
 }
 

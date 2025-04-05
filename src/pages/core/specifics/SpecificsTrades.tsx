@@ -19,7 +19,6 @@ import WestIcon from '@mui/icons-material/West'
 import { Chip } from '@mui/material'
 import { ScrollArea } from '@radix-ui/react-scroll-area'
 import { User } from 'firebase/auth'
-import Chips from 'src/myChips'
 import Avatars from 'src/pages/core/Avatars'
 import DrawersBar from 'src/pages/core/DrawersBar'
 
@@ -39,15 +38,15 @@ const DrawerProfile = ({
     displayName = message.displayName
     url = message.creatorUrl
   } else {
-    uid = message?.connectedId
-    displayName = message.connectedName
-    url = message.connectedUrl
+    uid = message?.connectedId || message?.uid
+    displayName = message?.connectedName || message?.displayName
+    url = message?.connectedUrl || message?.url
   }
   return (
     <Drawer>
       <DrawerTrigger onClick={drawerOpenTrue}>
         <Avatars
-          uid={message.creatorId}
+          uid={uid}
           profile={false}
           profileColor={''}
           profileUrl={url}
@@ -58,7 +57,7 @@ const DrawerProfile = ({
           <DrawersBar />
           <div className="flex flex-col items-center pt-5">
             <Avatars
-              uid={message.creatorId}
+              uid={uid}
               profile={true}
               profileColor=""
               profileUrl={url}
@@ -133,8 +132,9 @@ interface Props {
   userObj: User | null
   message: {}
 }
-function SpecificsTrades({ drawerOpenTrue, userObj, message }: Props) {
+function SpecificsTrades({ drawerOpenTrue, userObj, message, round, connectedUser }: Props) {
   const [conversation, setConversation] = useState('')
+  // const [connectedName, setConnectedName] = useState('')
   const messageDisplayName = message.displayName
   let messageName
   if (messageDisplayName.length > 10) {
@@ -156,7 +156,7 @@ function SpecificsTrades({ drawerOpenTrue, userObj, message }: Props) {
       }
     }
   }, [message])
-
+  console.log(connectedUser)
   return (
     <div className="flex justify-center pt-3">
       <div className="flex flex-col items-center px-5 gap-1">
@@ -181,11 +181,11 @@ function SpecificsTrades({ drawerOpenTrue, userObj, message }: Props) {
           </div>
         ) : (
           <div className="flex flex-col items-center">
-            {message.connectedName ? (
+            {connectedUser.uid ? (
               <DrawerProfile
                 isCreator={false}
                 userObj={userObj}
-                message={message}
+                message={connectedUser}
                 conversation={conversation}
                 drawerOpenTrue={drawerOpenTrue}
               />
@@ -237,11 +237,11 @@ function SpecificsTrades({ drawerOpenTrue, userObj, message }: Props) {
         <div>빌려주는 분</div>
         {message.text.choose === 1 ? (
           <div className="flex flex-col items-center">
-            {message.connectedName ? (
+            {connectedUser.uid ? (
               <DrawerProfile
                 isCreator={false}
                 userObj={userObj}
-                message={message}
+                message={connectedUser}
                 conversation={conversation}
                 drawerOpenTrue={drawerOpenTrue}
               />
@@ -262,11 +262,11 @@ function SpecificsTrades({ drawerOpenTrue, userObj, message }: Props) {
               </Avatar>
             )}
             {message.connectedName ? (
-              // <Chip label={message.connectedName} />
-              <Chips label={message.connectedName} />
+              <Chip label={message.connectedName} />
+              // <Chips label={message.connectedName} />
             ) : (
-              // <Chip variant="outlined" label={'아직 없음'} />
-              <Chips label={'아직 없음'} className='border' />
+              <Chip variant="outlined" label={'아직 없음'} />
+              // <Chips label={'아직 없음'} className='border' />
             )}
           </div>
         ) : (
@@ -284,8 +284,8 @@ function SpecificsTrades({ drawerOpenTrue, userObj, message }: Props) {
               profileUrl={message.creatorUrl}
               fallback={userObj.displayName ? userObj.displayName[0] : ""}
             /> */}
-            {/* <Chip label={messageName} /> */}
-            <Chips label={messageName} />
+            <Chip label={messageName} />
+            {/* <Chips label={messageName} /> */}
           </div>
         )}
       </div>

@@ -31,7 +31,9 @@ function Specifics({
   userObj,
   message,
   onPulse,
-  changeOnPulse
+  changeOnPulse,
+  connectedUser,
+  changeConnectedUser
 }: Props) {
   const [messageObj, setMessageObj] = useState<{
     id: string
@@ -172,6 +174,8 @@ function Specifics({
               drawerOpenTrue={drawerOpenTrue}
               userObj={userObj}
               message={message}
+              round={round}
+              connectedUser={connectedUser}
             />
             <Divider />
             <SpecificsSteppers message={message} round={round} />
@@ -193,6 +197,8 @@ function Specifics({
                     decreaseRound={decreaseRound}
                     onPulse={onPulse}
                     changeOnPulse={changeOnPulse}
+                    connectedUser={connectedUser}
+                    changeConnectedUser={changeConnectedUser}
                   />
                 </div>
               )}
@@ -212,6 +218,8 @@ function Specifics({
                     decreaseRound={decreaseRound}
                     onPulse={onPulse}
                     changeOnPulse={changeOnPulse}
+                    connectedUser={connectedUser}
+                    changeConnectedUser={changeConnectedUser}
                   />
                 </div>
               )}
