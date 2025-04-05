@@ -68,7 +68,7 @@ const NavigationTop = ({ userObj }: Props) => {
   }, [userObj]);
 
   return (
-    <div className="fixed z-50 bg-light-3 dark:bg-dark-3 truncate">
+    <div className="shadow-md fixed z-50 bg-light-3 dark:bg-dark-3 truncate">
       <Navigation
         userObj={userObj}
         handleSideNavigation={handleSideNavigation}

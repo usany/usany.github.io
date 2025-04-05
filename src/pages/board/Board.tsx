@@ -151,7 +151,7 @@ function Board({ userObj }: Props) {
             handleSelectedValues={handleSelectedValues}
           />
           <div>
-            <div className="flex p-3 sticky top-16 z-30 justify-between bg-light-3 dark:bg-dark-3">
+            <div className="shadow-md flex p-3 sticky top-16 z-30 justify-between bg-light-3 dark:bg-dark-3">
               <div className="pt-1">카드 목록</div>
               <div className="flex gap-1">
                 <FilterDialogs

@@ -99,12 +99,11 @@ function Menu({ userObj }: Props) {
         value={[cardAccordion, messageAccordion]}
         // defaultValue={accordionValues}
         type="multiple"
-        className="px-3"
       >
         <AccordionItem value="item-1">
           <button onClick={() => {
             document.getElementById('cardAccordion')?.click()
-          }} className='flex sticky top-16 z-30 w-full items-center justify-between bg-light-3 dark:bg-dark-3'>
+          }} className='shadow-md px-3 flex sticky top-16 z-30 w-full items-center justify-between bg-light-3 dark:bg-dark-3'>
             <div>카드</div>
             <AccordionTrigger id="cardAccordion" onClick={() => {
               if (cardAccordion) {
@@ -122,7 +121,7 @@ function Menu({ userObj }: Props) {
         <AccordionItem value="item-2">
           <button onClick={() => {
             document.getElementById('messageAccordion')?.click()
-          }} className='flex sticky top-16 z-30 w-full items-center justify-between bg-light-3 dark:bg-dark-3'>
+          }} className='shadow-md px-3 flex sticky top-16 z-30 w-full items-center justify-between bg-light-3 dark:bg-dark-3'>
             <div>메세지</div>
             <AccordionTrigger id="messageAccordion" onClick={() => {
               if (messageAccordion) {

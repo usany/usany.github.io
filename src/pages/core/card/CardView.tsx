@@ -7,7 +7,6 @@ import { Building, Watch } from 'lucide-react'
 import { useSelector } from 'react-redux'
 import staticImg from 'src/assets/pwa-512x512.png'
 import useCardsBackground from 'src/hooks/useCardsBackground'
-import Chips from 'src/myChips'
 import Avatars from '../Avatars'
 
 interface Props {
@@ -88,7 +87,7 @@ const CardView = ({ message, shadowColor }) => {
           </div>
         </CardContent>
       </Card>
-      <div className={`w-[200px] h-[280px] rounded-lg bg-light-2 dark:bg-dark-2 shadow-md shadow-profile-blue`}>
+      {/* <div className={`w-[200px] h-[280px] rounded-lg bg-light-2 dark:bg-dark-2 shadow-md shadow-profile-blue`}>
         <div className='p-1'>
           <div className="flex justify-between gap-1">
             <Avatars
@@ -102,10 +101,10 @@ const CardView = ({ message, shadowColor }) => {
               <Chip
                 label={`${message.item} ${message.text.choose === 1 ? ' 빌리기' : ' 빌려주기'}`}
               />
-              {/* <Chips
+              <Chips
                 label={`${message.item} ${message.text.choose === 1 ? ' 빌리기' : ' 빌려주기'}`}
                 className='bg-white dark:bg-dark-4'
-              /> */}
+              />
             </div>
           </div>
           <div className="flex justify-center pt-1">
@@ -142,7 +141,7 @@ const CardView = ({ message, shadowColor }) => {
             </div>
           </div>
         </div>
-      </div >
+      </div > */}
     </div>
   )
 }
