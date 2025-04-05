@@ -16,15 +16,7 @@ interface Props {
   num: number | null
   points: number | null
 }
-
 const MorphingDialogs = ({ message, isOwner, userObj, num, points, round, increaseRound, decreaseRound }: Props) => {
-  // const [drawerOpen, setDrawerOpen] = useState(false)
-  // const drawerOpenTrue = () => {
-  //   setDrawerOpen(true)
-  // }
-  // const drawerOpenFalse = () => {
-  //   setDrawerOpen(false)
-  // }
   const [onPulse, setOnPulse] = useState(false)
   const changeOnPulse = (newValue) => setOnPulse(newValue)
   const [connectedUser, setConnectedUser] = useState({
@@ -102,16 +94,6 @@ const MorphingDialogs = ({ message, isOwner, userObj, num, points, round, increa
       webSocket.off(`sOnPulse${message.id}`, sOnPulseCallback)
     }
   })
-  // useEffect(() => {
-  //   if (!webSocket) return
-  //   function sOnPulseFalseCallback(res) {
-  //     changeOnPulse(false)
-  //   }
-  //   webSocket.on(`sOnPulseFalse${message.id}`, sOnPulseFalseCallback)
-  //   return () => {
-  //     webSocket.off(`sOnPulseFalse${message.id}`, sOnPulseFalseCallback)
-  //   }
-  // })
   useEffect(() => {
     if (!webSocket) return
     function sIncreaseCardCallback() {
@@ -135,7 +117,6 @@ const MorphingDialogs = ({ message, isOwner, userObj, num, points, round, increa
   useEffect(() => {
     if (!webSocket) return
     function sSupportTradesCallback(res) {
-      console.log(res)
       const user = {
         uid: res.connectedId,
         displayName: res.connectedName,
@@ -157,14 +138,13 @@ const MorphingDialogs = ({ message, isOwner, userObj, num, points, round, increa
         url: ''
       }
       setConnectedUser(user)
-      console.log('practice')
     }
     webSocket.on(`sStopSupportingTrades${message.id}`, sStopSupportingTradesCallback)
     return () => {
       webSocket.off(`sStopSupportingTrades${message.id}`, sStopSupportingTradesCallback)
     }
   })
-  console.log(connectedUser)
+
   return (
     <MorphingDialog
       transition={{
