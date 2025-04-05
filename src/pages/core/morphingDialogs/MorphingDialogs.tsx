@@ -131,7 +131,7 @@ const MorphingDialogs = ({ message, isOwner, userObj, num, points, round, increa
   })
   useEffect(() => {
     if (!webSocket) return
-    function sStopSupportingTradesCallback(res) {
+    function sStopSupportingTradesCallback() {
       const user = {
         uid: '',
         displayName: '',
