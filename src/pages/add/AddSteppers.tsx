@@ -39,7 +39,7 @@ const lendStepsLanguages = [
 ]
 const stepsCollectionLanguages = [borrowStepsLanguages, lendStepsLanguages]
 function AddSteppers({ addSteps, borrow }: Props) {
-  const languages = useSelector((state) => state.languages)
+  const languages = useSelector((state) => state.languages.value)
   return (
     <div className='w-full'>
       <Stepper

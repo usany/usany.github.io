@@ -60,7 +60,7 @@ function LayoutBoard() {
       }
     });
   };
-  const languages = useSelector((state) => state.languages)
+  const languages = useSelector((state) => state.languages.value)
   const dispatch = useDispatch()
   useEffect(() => {
     document.documentElement.scrollTo({

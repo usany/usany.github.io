@@ -6,7 +6,7 @@ import SwitchesLanguages from './SwitchesLanguages'
 
 const Modes = () => {
   const theme = useSelector((state) => state.theme)
-  const languages = useSelector((state) => state.languages)
+  const languages = useSelector((state) => state.languages.value)
   const dispatch = useDispatch()
   console.log(languages)
   return (

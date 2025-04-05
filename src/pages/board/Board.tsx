@@ -59,7 +59,7 @@ function Board({ userObj }: Props) {
       }
     });
   };
-  const languages = useSelector((state) => state.languages)
+  const languages = useSelector((state) => state.languages.value)
 
   useEffect(() => {
     document.documentElement.scrollTo({

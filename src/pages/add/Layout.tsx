@@ -13,7 +13,7 @@ import AddSteppers from './AddSteppers';
 
 const Layout = ({ borrow }) => {
   const dispatch = useDispatch()
-  const languages = useSelector((state) => state.languages)
+  const languages = useSelector((state) => state.languages.value)
 
   return (
     <div className='flex flex-col h-screen'>

@@ -1,14 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit'
-
+interface languagesState {
+  value: string
+}
+const initialState: languagesState = { value: localStorage.getItem('languages') || 'ko' }
 const languagesReducer = createSlice({
   name: 'languages',
-  initialState: localStorage.getItem('languages') || 'ko',
+  initialState: initialState,
   reducers: {
     changeKo: state => {
-      return (state = 'ko')
+      state.value = 'ko'
     },
     changeEn: state => {
-      return (state = 'en')
+      state.value = 'en'
     },
   }
 })

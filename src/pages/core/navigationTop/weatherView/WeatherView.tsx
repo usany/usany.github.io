@@ -16,7 +16,7 @@ const WeatherView = () => {
     queryKey: ['weather'], queryFn: getCurrentWeather,
     // suspense: true
   })
-  const languages = useSelector((state) => state.languages)
+  const languages = useSelector((state) => state.languages.value)
   if (isLoading) return <div>waiting</div>
   return (
     <div>

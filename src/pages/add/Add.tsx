@@ -58,7 +58,7 @@ function Add({ userObj, borrow }: Props) {
   const tabs = useSelector((state: TabsRootState) => state.tabs.value);
   const [fromTo, setFromTo] = useState<FromTo>({ from: null, to: null });
   const matches = useMediaQuery("(min-width:850px)");
-  const languages = useSelector((state) => state.languages)
+  const languages = useSelector((state) => state.languages.value)
   // const [cardId, setCardId] = useState<string | null>(null)
   // const [from, setFrom] = useState(null);
   // const [to, setTo] = useState(null);
