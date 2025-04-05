@@ -57,7 +57,7 @@ const Avatars = ({
         >
           <AvatarImage src={profileUrl} />
           {!profileImage &&
-            <AvatarFallback className="border">
+            <AvatarFallback className="">
               <img className='h-full' src={defaultProfile} />
             </AvatarFallback>
           }
