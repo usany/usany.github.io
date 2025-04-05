@@ -22,5 +22,4 @@ function Lotties() {
     // <Lottie animationData={rain} />
   )
 }
-
 export default Lotties
