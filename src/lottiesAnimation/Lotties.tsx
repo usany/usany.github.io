@@ -17,7 +17,7 @@ function Lotties() {
     <div>
       {/* <SparklesText text={texts[0]}/> */}
       <div className='flex flex-col items-center'>
-        <TextRoll className='text-5xl'>usan</TextRoll>
+        <TextRoll className='text-5xl'>umbrellas</TextRoll>
       </div>
       <Lottie options={defaultOptions} height={400} width={400} />
     </div>
