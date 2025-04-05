@@ -4,6 +4,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import TextField from "@mui/material/TextField";
+import { useSelectors } from "src/hooks/useSelectors";
 
 const locationsCollection = {
   cl: [
@@ -32,7 +33,7 @@ const locationsCollection = {
 
 const settingSeats = (number) => {
   return Array(number)
-    .fill()
+    .fill(null)
     .map((value, index) => (
       <MenuItem key={index + 1} value={index + 1}>
         {index + 1}
@@ -66,25 +67,30 @@ const location = {
   e: settingLocations(locationsCollection.e),
   c: settingLocations(locationsCollection.c),
 };
+interface Props {
+  locationState: { locationOne: string | undefined, locationTwo: string | undefined, locationThree: string | undefined, locationInput: string | undefined }
+  changeBuilding: (event: { preventDefault: () => void, target: { value: string } }) => void
+  changeRoom: (event: { preventDefault: () => void, target: { value: string } }) => void
+  changeSeat: (event: { preventDefault: () => void, target: { value: string } }) => void
+  changeLocationInput: (event: { preventDefault: () => void, target: { value: string } }) => void
+}
 function Selects({
   locationState,
   changeBuilding,
   changeRoom,
   changeSeat,
   changeLocationInput,
-}) {
+}: Props) {
   const matches = useMediaQuery("(min-width:990px)");
+  const languages = useSelectors((state) => state.languages.value)
+
   return (
     <div className={`flex ${matches ? "" : "flex-col"} gap-1 px-5`}>
       <FormControl variant="standard" sx={{ width: 150 }}>
-        <InputLabel
-        // id="demo-simple-select-standard-label"
-        >
-          위치가 어디인가요
+        <InputLabel        >
+          {languages === 'ko' ? '위치가 어디인가요' : 'Which location?'}
         </InputLabel>
         <Select
-          // labelId="demo-simple-select-standard-label"
-          // id="demo-simple-select-standard"
           value={locationState.locationOne}
           onChange={changeBuilding}
         // label="Age"
@@ -94,8 +100,8 @@ function Selects({
                     <MenuItem value={'two'}>two</MenuItem>
                     <MenuItem value={'three'}>three</MenuItem>
                     <MenuItem value={'four'}>four</MenuItem> */}
-          <MenuItem value={"중도"}>중도</MenuItem>
-          <MenuItem value={"청운"}>청운</MenuItem>
+          <MenuItem value={"중도"}>{languages === 'ko' ? '중도' : 'Central Library'}</MenuItem>
+          <MenuItem value={"청운"}>{languages === 'ko' ? '청운' : 'Cheongwoon'}</MenuItem>
           <MenuItem value={"푸른솔"}>푸른솔</MenuItem>
           <MenuItem value={"간호이과대"}>간호이과대</MenuItem>
           <MenuItem value={"경영대"}>경영대</MenuItem>

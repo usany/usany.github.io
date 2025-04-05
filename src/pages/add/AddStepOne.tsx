@@ -5,7 +5,7 @@ import AddStepTitle from 'src/pages/add/AddStepTitle'
 interface Props {
   borrow: boolean
   item: string
-  changeItem: (event: PointerEvent) => void
+  changeItem: () => void
 }
 const AddStepOne = ({ borrow, item, changeItem }: Props) => {
   const languages = useSelectors((state) => state.languages.value)
