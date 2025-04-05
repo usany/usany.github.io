@@ -15,7 +15,6 @@ function Lotties() {
 
   return (
     <div>
-      {/* <SparklesText text={texts[0]}/> */}
       <div className='flex flex-col items-center'>
         <TextRoll className='text-5xl'>umbrellas</TextRoll>
       </div>
