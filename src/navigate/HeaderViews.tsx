@@ -16,7 +16,7 @@ import { dbservice } from "src/baseApi/serverbase";
 import { useSelectors } from "src/hooks/useSelectors";
 import Avatars from "src/pages/core/Avatars";
 import Navigation from "src/pages/core/navigationTop/sideNavigation/Navigation";
-import WeatherView from "src/pages/core/navigationTop/weatherView/WeatherView/WeatherView";
+import WeatherView from "src/pages/core/navigationTop/weatherView/WeatherView";
 import ToggleTabs from "src/pages/core/ToggleTabs";
 import {
   cardOff,
