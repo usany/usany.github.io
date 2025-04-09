@@ -4,12 +4,6 @@ import {
   ChartLegend,
   ChartLegendContent
 } from "@/components/ui/chart";
-import {
-  Drawer,
-  DrawerContent,
-  DrawerTrigger
-} from "@/components/ui/drawer";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { collection, getDocs, query } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -18,7 +12,9 @@ import { dbservice } from 'src/baseApi/serverbase';
 import { useSelectors } from "src/hooks/useSelectors";
 import Cards from 'src/pages/core/card/Cards';
 import { changeCompletedAction } from 'src/stateSlices/completedActionSlice';
-import DrawersBar from "../core/DrawersBar";
+import Popups from "../core/Popups";
+import ProfileCompletedContent from "./ProfileCompletedContent";
+import ProfileCompletedTitle from "./ProfileCompletedTitle";
 
 const ProfileCompleted = ({
   user,
@@ -113,36 +109,7 @@ const ProfileCompleted = ({
   })
   return (
     <div className='flex flex-col pt-5'>
-      <Drawer>
-        <DrawerTrigger>
-          <div id='completedAction' onClick={() => {
-            // document.documentElement.scrollTo({
-            //   top: 0,
-            //   left: 0,
-            //   behavior: "instant",
-            // });
-          }} />
-        </DrawerTrigger>
-        <DrawerContent className="flex flex-col justify-center px-5 bg-light-2 dark:bg-dark-2 max-h-[60%]">
-          <ScrollArea className="overflow-y-scroll">
-            <DrawersBar />
-            <div className='flex justify-center pt-5'>
-              완료된 {`${completedAction === 'borrow' ? '빌리기' : '빌려주기'}`}
-            </div>
-            <div className='p-5'>
-              {completedAction === 'borrow' ?
-                <div className='flex justify-center flex-wrap'>
-                  {borrowList.length ? borrowList : <div className='flex justify-center border border-dashed p-5'>완료된 빌리기가 없습니다</div>}
-                </div>
-                :
-                <div className='flex justify-center flex-wrap'>
-                  {lendList.length ? lendList : <div className='flex justify-center border border-dashed p-5'>완료된 빌려주기가 없습니다</div>}
-                </div>
-              }
-            </div>
-          </ScrollArea>
-        </DrawerContent>
-      </Drawer>
+      <Popups trigger={<div id='completedAction' />} title={<ProfileCompletedTitle />} content={<ProfileCompletedContent user={user} />} />
       <ChartContainer
         config={labels}
         className="aspect-square max-h-[250px] pt-5"
@@ -197,7 +164,7 @@ const ProfileCompleted = ({
           </Pie>
         </PieChart>
       </ChartContainer>
-    </div>
+    </div >
   );
 }
 
