@@ -2,6 +2,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Chip } from "@mui/material";
 import { User } from 'firebase/auth';
 import staticImage from 'src/assets/blue.png';
+import { useSelectors } from "src/hooks/useSelectors";
 import Avatars from "src/pages/core/Avatars";
 
 interface Props {
@@ -18,6 +19,7 @@ interface Props {
 }
 
 const ChatsBoxes = ({ chattingUid, userObj, profileUrl, displayName, multiple, clock, message }: Props) => {
+  const languages = useSelectors((state) => state.languages.value)
   let messageAmpm
   let messageHours = clock.getHours()
   let messageMonth = (clock.getMonth() + 1).toString()
@@ -57,16 +59,16 @@ const ChatsBoxes = ({ chattingUid, userObj, profileUrl, displayName, multiple, c
       }
       <div className='flex flex-col w-screen'>
         <div className='flex justify-between'>
-          <div className='w-1/2 px-3 overflow-hidden'>{multiple ? '단체 대화' : displayName}</div>
+          <div className='w-1/2 px-3 overflow-hidden'>{multiple ? `${languages === 'ko' ? '단체 대화' : 'Group Messaging'}` : displayName}</div>
           <div className='flex flex-col px-3'>
-            <div className='flex justify-end'>{clock.getFullYear()}-{messageMonth}-{messageDate} {messageAmpm} {messageHours}:{clock.getMinutes() < 10 && '0'}{clock.getMinutes()}</div>
+            <div className='flex justify-end'>{clock.getFullYear()}-{messageMonth}-{messageDate} {languages === 'ko' && messageAmpm} {messageHours}:{clock.getMinutes() < 10 && '0'}{clock.getMinutes()}{languages === 'en' && (messageAmpm === '오전' ? 'am' : 'pm')}</div>
           </div>
         </div>
         <div className='flex  justify-between px-3'>
           <div>{message?.message}</div>
           <div>
             {message?.piazzaChecked && message?.piazzaChecked.indexOf(userObj.uid) === -1 &&
-              <Chip sx={{ height: '20px' }} label={'새 대화'} color='primary' />
+              <Chip sx={{ height: '20px' }} label={`${languages === 'ko' ? '새 대화' : 'New Chats'}`} color='primary' />
               // <Chips label={'새 대화'} className={'bg-profile-blue'} onClick={null} />
             }
             {message?.messageCount > 0 &&

@@ -10,7 +10,7 @@ import {
   dbservice
 } from "src/baseApi/serverbase";
 // import Cards from "src/pages/main/card/Cards";
-import { useSelector } from "react-redux";
+import { useSelectors } from "src/hooks/useSelectors";
 import BoardMap from "src/pages/board/boardMap/BoardMap";
 import FilterDialogs from "src/pages/board/FilterDialogs/FilterDialogs";
 import PageTitle from "src/pages/core/pageTitle/PageTitle";
@@ -20,6 +20,14 @@ import CardsList from "../core/card/CardsList";
 import LayoutBoard from "./LayoutBoard";
 // import { AlarmCheck, AlertCircle, Building, Clock, DoorOpen, MessagesSquare, Pen, PenBox, Pencil, PenSquare, PenTool, Presentation, Search, SearchCheck, SearchCode, SearchSlash, Siren, TowerControl, Umbrella, UserCheck, UserRound, Watch } from "lucide-react";
 
+const registeredMap = {
+  ko: '등록 지도',
+  en: 'Registered map'
+}
+const cardList = {
+  ko: '카드 목록',
+  en: 'Card list'
+}
 interface Props {
   userObj: User | null;
 }
@@ -59,7 +67,8 @@ function Board({ userObj }: Props) {
       }
     });
   };
-  const languages = useSelector((state) => state.languages.value)
+  const languages = useSelectors((state) => state.languages.value)
+  const index = (languages === 'ko' || languages === 'en') ? languages : 'ko'
 
   useEffect(() => {
     document.documentElement.scrollTo({
@@ -152,7 +161,7 @@ function Board({ userObj }: Props) {
           />
           <div>
             <div className="shadow-md flex p-3 sticky top-16 z-30 justify-between bg-light-3 dark:bg-dark-3">
-              <div className="pt-1">카드 목록</div>
+              <div className="pt-1">{cardList[index]}</div>
               <div className="flex gap-1">
                 <FilterDialogs
                   selectedValues={selectedValues}

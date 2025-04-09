@@ -1,9 +1,11 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useSelectors } from "src/hooks/useSelectors";
 
 interface Props {
   multiple: boolean
 }
 function RankingListsTitle({ multiple }: Props) {
+  const languages = useSelectors((state) => state.languages.value)
 
   return (
     <div className='px-3 pt-3'>
@@ -12,7 +14,7 @@ function RankingListsTitle({ multiple }: Props) {
       >
         <div className="flex gap-5">
           <div className="flex items-center justify-center w-20">
-            {multiple ? '유저' : '내'} 랭킹
+            {multiple ? (languages === 'ko' ? '유저' : 'User') : (languages === 'ko' ? '내' : 'My')} {languages === 'ko' ? '랭킹' : 'ranking'}
           </div>
           <div className='flex items-center justify-center'>
             <Avatar
@@ -49,12 +51,12 @@ function RankingListsTitle({ multiple }: Props) {
             <Avatar alt={element.displayName} sx={{ bgcolor: element.profileColor || '#2196f3' }} src={'./src'} variant="rounded" />
           } */}
           <div className="flex flex-col justify-center overflow-hidden px-5 w-40">
-            <div>{multiple ? '유저' : '내'} 이름</div>
-            <div>포인트</div>
+            <div>{multiple ? (languages === 'ko' ? '유저' : 'User') : (languages === 'ko' ? '내' : 'My')} {languages === 'ko' ? '이름' : 'name'}</div>
+            <div>{languages === 'ko' ? '포인트' : 'Points'}</div>
           </div>
         </div>
         <div className='flex items-center'>
-          위치 확인
+          {languages === 'ko' ? '위치 확인' : 'Location Confirm'}
         </div>
       </div>
 

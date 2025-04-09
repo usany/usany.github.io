@@ -3,13 +3,14 @@ import { useSelector } from "react-redux";
 import {
   Link
 } from "react-router-dom";
+import { useSelectors } from "src/hooks/useSelectors";
 import ProfileMembersDrawers from "src/pages/profile/ProfileMembersDrawers";
 import useCardsBackground from "../../hooks/useCardsBackground";
 
 const ProfileMembers = ({ userObj, user }) => {
   const theme = useSelector((state) => state.theme)
   const { color } = useCardsBackground()
-
+  const languages = useSelectors((state) => state.languages.value)
   return (
     <div className="flex flex-col p-5">
       {user.uid === userObj.uid ? (
@@ -30,7 +31,7 @@ const ProfileMembers = ({ userObj, user }) => {
         <Link to="/contact" state={{ user: user }}>
           <div className="flex justify-center">
             <Card sx={{ width: "50%", bgcolor: color }}>
-              <div className="flex justify-center p-5">신고하기</div>
+              <div className="flex justify-center p-5">{languages === 'ko' ? '신고하기' : 'Report'}</div>
             </Card>
           </div>
         </Link>

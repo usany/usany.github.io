@@ -14,6 +14,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useLocation } from 'react-router-dom'
 import { dbservice } from 'src/baseApi/serverbase'
+import { useSelectors } from 'src/hooks/useSelectors'
 import Avatars from 'src/pages/core/Avatars'
 import PiazzaDialogs from 'src/pages/piazza/piazzaScreen/piazzaDialogs/PiazzaDialogs'
 import { webSocket } from 'src/webSocket.tsx'
@@ -44,7 +45,7 @@ function PiazzaScreen({
   const profileUrl = useSelector((state) => state.profileUrl.value)
   const { state } = useLocation()
   const conversation = state?.conversation
-  console.log(conversation)
+  const languages = useSelectors((state) => state.languages.value)
   const onPrivate = async ({ userUid, displayName }) => {
     const userRef = doc(dbservice, `members/${userUid}`)
     const userDoc = await getDoc(userRef)
@@ -408,18 +409,20 @@ function PiazzaScreen({
                       </div>
                       <div>
                         {clock.getFullYear()}-{messageMonth}-{messageDate}{' '}
-                        {messageAmpm} {messageHours}:
+                        {languages === 'ko' && messageAmpm} {messageHours}:
                         {clock.getMinutes() < 10 && '0'}
                         {clock.getMinutes()}
+                        {languages === 'en' && (messageAmpm === '오전' ? 'am' : 'pm')}
                       </div>
                     </div>
                   ) : (
                     <div className="flex gap-3 justify-end">
                       <div>
                         {clock.getFullYear()}-{messageMonth}-{messageDate}{' '}
-                        {messageAmpm} {messageHours}:
+                        {languages === 'ko' && messageAmpm} {messageHours}:
                         {clock.getMinutes() < 10 && '0'}
                         {clock.getMinutes()}
+                        {languages === 'en' && (messageAmpm === '오전' ? 'am' : 'pm')}
                       </div>
                       <div className="me rounded-tl-lg rounded-bl-lg rounded-br-lg p-1 bg-light-1 dark:bg-dark-1">
                         {value.msg}

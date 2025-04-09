@@ -1,6 +1,7 @@
 import { User } from 'firebase/auth';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useSelectors } from 'src/hooks/useSelectors';
 import PageTitle from 'src/pages/core/pageTitle/PageTitle';
 import RankingSearch from 'src/pages/search/searchBar/RankingSearch';
 import RankingLists from 'src/pages/search/searchList/RankingLists';
@@ -11,6 +12,7 @@ interface Props {
 }
 function Ranking({ userObj }: Props) {
   const [userSearch, setUserSearch] = useState('')
+  const languages = useSelectors((state) => state.languages.value)
   // const [rank, setRank] = useState([])
   // const [ranker, setRanker] = useState([])
   // const [loadedImage, setLoadedImage] = useState([])
@@ -23,7 +25,7 @@ function Ranking({ userObj }: Props) {
 
   return (
     <>
-      <PageTitle title='유저 랭킹' />
+      <PageTitle title={languages === 'ko' ? '유저 랭킹' : 'User Ranking'} />
       <RankingSearch changeUserSearch={(newValue: string) => setUserSearch(newValue)} />
       <RankingLists userObj={userObj} userSearch={userSearch} />
     </>

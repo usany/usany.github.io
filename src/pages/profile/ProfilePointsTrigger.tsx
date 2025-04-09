@@ -1,7 +1,10 @@
+import { useSelectors } from "src/hooks/useSelectors"
+
 const ProfilePointsTrigger = ({ user, cards, followers, alliesCollection, selection }) => {
+  const languages = useSelectors((state) => state.languages.value)
   return (
     <div className='p-5'>
-      <div>포인트</div>
+      <div>{languages === 'ko' ? '포인트' : 'Points'}</div>
       <div className='flex justify-center'>{cards.point}</div>
     </div>
   )

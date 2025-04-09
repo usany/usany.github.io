@@ -15,7 +15,33 @@ import { useState } from "react";
 // import { Filter } from "lucide-react";
 import { Chip } from "@mui/material";
 import { ScrollArea } from "@radix-ui/react-scroll-area";
+import { useSelectors } from "src/hooks/useSelectors";
+import locationsBuildings from "src/pages/add/locationsBuildings";
 import DrawersBar from "src/pages/core/DrawersBar";
+const itemsTitle = {
+  ko: '우산 / 양산 선택',
+  en: 'Select Usan / Yangsan'
+}
+const items = {
+  ko: ['전체 아이템', '우산', '양산'],
+  en: ['All items', 'Usan', 'Yangsan']
+}
+const locationsTitle = {
+  ko: '장소 선택',
+  en: 'All locations'
+}
+const locations = {
+  ko: ['전체 장소', ...locationsBuildings['ko']],
+  en: ['All locations', ...locationsBuildings['en']]
+}
+const timeTitle = {
+  ko: '시간 정렬',
+  en: 'Time order'
+}
+const time = {
+  ko: ['최신순', '오래된'],
+  en: ['Recent', 'Older']
+}
 const markers = [
   {
     label: '중도',
@@ -56,6 +82,8 @@ const markers = [
 ]
 
 function FilterDialogs({ selectedValues, handleSelectedValues }) {
+  const languages = useSelectors((state) => state.languages.value)
+  const index = (languages === 'ko' || languages === 'en') ? languages : 'ko'
   const [selected, setSelected] = useState(null);
   const onClick = ({ id }) => {
     setSelected(id);
@@ -91,9 +119,18 @@ function FilterDialogs({ selectedValues, handleSelectedValues }) {
               />
             )} */}
             {selectedValues.map((element, index) => {
+              let label
+              if (index === 0) {
+                label = items['en'][items['ko'].indexOf(element.value)]
+              } else if (index === 1) {
+                label = locations['en'][locations['ko'].indexOf(element.value)]
+              } else {
+                label = time['en'][time['ko'].indexOf(element.value)]
+              }
               return (
                 <Chip
-                  label={element.value}
+                  key={index}
+                  label={label}
                   onClick={() => {
                     onClick({ id: element.id });
                   }}
@@ -113,7 +150,7 @@ function FilterDialogs({ selectedValues, handleSelectedValues }) {
           <ScrollArea className="overflow-y-scroll">
             <DrawersBar />
             <div className='p-5'>
-              <div className="flex justify-center">우산 / 양산 선택</div>
+              <div className="flex justify-center">{itemsTitle[index]}</div>
               <Select
                 defaultValue={selectedValues[0].value || "전체 아이템"}
                 onValueChange={(newValue) =>
@@ -131,13 +168,18 @@ function FilterDialogs({ selectedValues, handleSelectedValues }) {
                 </SelectTrigger>
                 <SelectContent className="bg-light-1 dark:bg-dark-1">
                   <SelectGroup>
-                    <SelectItem value="전체 아이템">전체 아이템</SelectItem>
+                    {items[index].map((value, index) => {
+                      return (
+                        <SelectItem key={index} value={items['ko'][index]} > {value}</SelectItem>
+                      )
+                    })}
+                    {/* <SelectItem value="전체 아이템">전체 아이템</SelectItem>
                     <SelectItem value="우산">우산</SelectItem>
-                    <SelectItem value="양산">양산</SelectItem>
+                    <SelectItem value="양산">양산</SelectItem> */}
                   </SelectGroup>
                 </SelectContent>
               </Select>
-              <div className="flex justify-center">장소 선택</div>
+              <div className="flex justify-center">{locationsTitle[index]}</div>
               <Select
                 defaultValue={selectedValues[1].value || "전체 장소"}
                 onValueChange={(newValue) =>
@@ -155,18 +197,23 @@ function FilterDialogs({ selectedValues, handleSelectedValues }) {
                 </SelectTrigger>
                 <SelectContent className="bg-light-1 dark:bg-dark-1">
                   <SelectGroup id="location">
-                    <SelectItem value="전체 장소">전체 장소</SelectItem>
-                    {markers.map((value, index) => {
+                    {locations[index].map((value, index) => {
+                      return (
+                        <SelectItem key={index} value={locations['ko'][index]}>{value}</SelectItem>
+                      )
+                    })}
+                    {/* <SelectItem value="전체 장소">전체 장소</SelectItem> */}
+                    {/* {markers.map((value, index) => {
                       return (
                         <SelectItem key={index} value={value.label}>{value.label}</SelectItem>
                       )
-                    })}
+                    })} */}
                     {/* <SelectItem value="청운">청운</SelectItem>
                 <SelectItem value="이과대">이과대</SelectItem> */}
                   </SelectGroup>
                 </SelectContent>
               </Select>
-              <div className="flex justify-center">시간 정렬</div>
+              <div className="flex justify-center">{timeTitle[index]}</div>
               <Select
                 defaultValue={selectedValues[2].value || "최신순"}
                 onValueChange={(newValue) =>
@@ -184,8 +231,13 @@ function FilterDialogs({ selectedValues, handleSelectedValues }) {
                 </SelectTrigger>
                 <SelectContent className="bg-light-1 dark:bg-dark-1">
                   <SelectGroup>
-                    <SelectItem value="최신순">최신순</SelectItem>
-                    <SelectItem value="오래된">오래된</SelectItem>
+                    {time[index].map((value, index) => {
+                      return (
+                        <SelectItem key={index} value={time['ko'][index]}>{value}</SelectItem>
+                      )
+                    })}
+                    {/* <SelectItem value="최신순">최신순</SelectItem>
+                    <SelectItem value="오래된">오래된</SelectItem> */}
                   </SelectGroup>
                 </SelectContent>
               </Select>
@@ -286,7 +338,7 @@ function FilterDialogs({ selectedValues, handleSelectedValues }) {
             </Button>
             </DialogActions>
         </Dialog> */}
-    </div>
+    </div >
   );
 }
 

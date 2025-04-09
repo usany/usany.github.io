@@ -15,6 +15,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Label, Pie, PieChart } from "recharts";
 import { dbservice } from 'src/baseApi/serverbase';
+import { useSelectors } from "src/hooks/useSelectors";
 import Cards from 'src/pages/core/card/Cards';
 import { changeCompletedAction } from 'src/stateSlices/completedActionSlice';
 import DrawersBar from "../core/DrawersBar";
@@ -26,7 +27,7 @@ const ProfileCompleted = ({
   const [messagesList, setMessagesList] = useState([])
   const completedAction = useSelector(state => state.completedAction.value)
   const dispatch = useDispatch()
-
+  const languages = useSelectors((state) => state.languages.value)
   const actions = [
     // { action: 'borrow', number: cards.borrowDone.length,
     //   fill: 'red'},
@@ -46,11 +47,11 @@ const ProfileCompleted = ({
       label: 'total',
     },
     borrow: {
-      label: '빌리기',
+      label: languages === 'ko' ? '빌리기' : 'Borrowing',
       color: '#e76e50',
     },
     lend: {
-      label: '빌려주기',
+      label: languages === 'ko' ? '빌려주기' : 'Lending',
       color: '#7fc4bc',
     },
   } satisfies ChartConfig
@@ -186,7 +187,7 @@ const ProfileCompleted = ({
                         y={(viewBox.cy || 0) + 24}
                         className="fill-foreground"
                       >
-                        활동 횟수
+                        {languages === 'ko' ? '활동 횟수' : 'Activities Count'}
                       </tspan>
                     </text>
                   )

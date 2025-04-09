@@ -10,11 +10,13 @@ import {
   DrawerTrigger
 } from "@/components/ui/drawer";
 import { ScrollArea } from '@radix-ui/react-scroll-area';
+import { useSelectors } from 'src/hooks/useSelectors';
 import Avatars from 'src/pages/core/Avatars';
 import DrawersBar from 'src/pages/core/DrawersBar';
 
 const PiazzaDialogs = ({ initiateContinuing, multiple, handleMultiple, user, userObj, handleMessagesList, displayedName, }) => {
   const [conversation, setConversation] = useState(null)
+  const languages = useSelectors((state) => state.languages.value)
   useEffect(() => {
     if (user) {
       if (user?.uid < userObj.uid) {
@@ -82,7 +84,15 @@ const PiazzaDialogs = ({ initiateContinuing, multiple, handleMultiple, user, use
               </div>
               {user?.displayName !== displayedName &&
                 <div>
-                  ({displayedName}에서 개명)
+                  {languages === 'ko' ?
+                    <div>
+                      ({displayedName}에서 개명)
+                    </div>
+                    :
+                    <div>
+                      (Changed name from {displayedName})
+                    </div>
+                  }
                 </div>
               }
             </div>
@@ -91,7 +101,7 @@ const PiazzaDialogs = ({ initiateContinuing, multiple, handleMultiple, user, use
                 <Button variant='outlined' onClick={() => {
                   // handleClose()
                 }}>
-                  프로필 확인
+                  {languages === 'ko' ? '프로필 확인' : 'Check Profile'}
                 </Button>
               </Link>
               {multiple && userObj.uid !== user?.uid &&
@@ -104,7 +114,7 @@ const PiazzaDialogs = ({ initiateContinuing, multiple, handleMultiple, user, use
                       initiateContinuing()
                       // handleClose()
                     }}>
-                      개인 대화
+                      {languages === 'ko' ? '개인 대화' : 'Private messaging'}
                     </Button>
                   </DrawerClose>
                 </Link>

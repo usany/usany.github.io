@@ -108,7 +108,7 @@ const ProfileDialogs = ({ userObj, profileDialog, attachment, changeAttachment, 
     const fileInput = document.getElementById('file') || { value: null }
     fileInput.value = null
   }
-  const selectedImages = images[profileColor || 'gold']
+  const selectedImages = images[profileColor] || images['gold']
   console.log(attachmentFile)
   console.log(attachment)
   console.log(profileColor)

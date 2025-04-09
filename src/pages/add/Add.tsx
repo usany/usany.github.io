@@ -13,6 +13,7 @@ import { useParams, useSearchParams } from "react-router-dom";
 import {
   dbservice
 } from "src/baseApi/serverbase";
+import { useSelectors } from "src/hooks/useSelectors";
 import TabsRootState from "src/interfaces/TabsRootState";
 import AddCards from "src/pages/add/AddCards";
 import AddRegisterButton from "src/pages/add/AddRegisterButton";
@@ -58,7 +59,7 @@ function Add({ userObj, borrow }: Props) {
   const tabs = useSelector((state: TabsRootState) => state.tabs.value);
   const [fromTo, setFromTo] = useState<FromTo>({ from: null, to: null });
   const matches = useMediaQuery("(min-width:850px)");
-  const languages = useSelector((state) => state.languages.value)
+  const languages = useSelectors((state) => state.languages.value)
   // const [cardId, setCardId] = useState<string | null>(null)
   // const [from, setFrom] = useState(null);
   // const [to, setTo] = useState(null);

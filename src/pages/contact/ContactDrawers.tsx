@@ -18,12 +18,20 @@ import {
 } from "@/components/ui/drawer";
 import Divider from '@mui/material/Divider';
 import { ScrollArea } from '@radix-ui/react-scroll-area';
+import { useSelectors } from 'src/hooks/useSelectors';
 import Lists from 'src/pages/search/searchList/searchListViews/Lists';
 import DrawersBar from '../core/DrawersBar';
 
+const reportList = {
+  ko: '신고하기 내역',
+  en: 'Report list'
+}
 const ContactDrawers = ({ userObj }) => {
   const [sendMessages, setSendMessages] = useState([])
   const [deletedMessage, setDeletedMessage] = useState()
+  const languages = useSelectors((state) => state.languages.value)
+  const index = (languages === 'ko' || languages === 'en') ? languages : 'ko'
+
   const collectionQuery = query(collection(dbservice, 'violations'))
   const deleteMessage = (value) => {
     const deletedId = value.id
@@ -60,13 +68,13 @@ const ContactDrawers = ({ userObj }) => {
     <>
       <Drawer>
         <DrawerTrigger>
-          <Button variant='outlined' form='auth'>신고하기 내역</Button>
+          <Button variant='outlined' form='auth'>{reportList[index]}</Button>
         </DrawerTrigger>
         <DrawerContent className="flex flex-col justify-center px-5 bg-light-2 dark:bg-dark-2 max-h-[60%]">
           <ScrollArea className="overflow-y-scroll">
             <DrawersBar />
             <div className='flex justify-center pt-5'>
-              신고하기 내역
+              {reportList[index]}
             </div>
             <div className='p-5'>
               {sendMessages.length !== 0 ? sendMessages.map((value, index) => {
@@ -79,14 +87,14 @@ const ContactDrawers = ({ userObj }) => {
                           <div>{value.message}</div>
                           {value?.violationUser ?
                             <div>
-                              <div className='pt-5'>신고 등록 유저</div>
+                              <div className='pt-5'>{languages === 'ko' ? '신고 등록 유저' : 'Report registered user'}</div>
                               <Lists elements={[value.violationUser]} multiple={true} userSearch={true} ranking={false} handleUser={(value) => console.log(value)} />
                             </div>
                             :
                             <Divider variant="inset" />
                           }
                           <div className='flex pt-3 justify-center'>
-                            <Button variant='outlined' onClick={() => deleteMessage(value)}>지우기</Button>
+                            <Button variant='outlined' onClick={() => deleteMessage(value)}>{languages === 'ko' ? '지우기' : 'Delete'}</Button>
                           </div>
                         </AccordionContent>
                       </AccordionItem>
@@ -95,7 +103,7 @@ const ContactDrawers = ({ userObj }) => {
                 )
               })
                 :
-                <div>신고하기 내역이 없습니다.</div>
+                <div>{languages === 'ko' ? '신고하기 내역이 없습니다.' : 'No report'}</div>
               }
             </div>
           </ScrollArea>

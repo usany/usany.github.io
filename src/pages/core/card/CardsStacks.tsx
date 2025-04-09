@@ -16,8 +16,13 @@ import {
   messaging
 } from "src/baseApi/serverbase";
 import { AnimatedList } from "src/components/ui/animated-list";
+import { useSelectors } from "src/hooks/useSelectors";
 import Cards from "src/pages/core/card/Cards";
 
+const emptyCards = {
+  ko: '진행 카드가 없습니다',
+  en: 'No cards'
+}
 interface Props {
   userObj: User;
 }
@@ -26,7 +31,8 @@ function CardsStacks({ userObj }: Props) {
   const [cardLoaded, setCardLoaded] = useState(false);
   const [longPressCard, setLongPressCard] = useState(null);
   const [onLongPress, setOnLongPress] = useState(0);
-
+  const languages = useSelectors((state) => state.languages.value)
+  const index = (languages === 'ko' || languages === 'en') ? languages : 'ko'
   useEffect(() => {
     const requestPermission = async () => {
       try {
@@ -121,7 +127,7 @@ function CardsStacks({ userObj }: Props) {
           }).length ? (
             <div className="flex items-center flex-col">
               <div className="flex justify-center border border-dashed rounded w-1/2 p-5">
-                진행 카드가 없습니다
+                {emptyCards[index]}
               </div>
             </div>
           ) : (

@@ -17,6 +17,7 @@ import {
   dbservice,
   messaging
 } from "src/baseApi/serverbase";
+import { useSelectors } from "src/hooks/useSelectors";
 import CardsStacks from "src/pages/core/card/CardsStacks";
 import MessageStacks from "src/pages/core/chatting/MessageStacks";
 import PageTitle from "src/pages/core/pageTitle/PageTitle";
@@ -28,11 +29,26 @@ interface Props {
   userObj: User;
 }
 
+const titles = {
+  ko: '내 상태',
+  en: 'My Status'
+}
+const cards = {
+  ko: '카드',
+  en: 'Cards'
+}
+const messages = {
+  ko: '메세지',
+  en: 'Messages'
+}
+
 function Menu({ userObj }: Props) {
   // const [accordions, setAccordions] = useState({
   //   cards: "item-1",
   //   messages: "item-2",
   // });
+  const languages = useSelectors((state) => state.languages.value)
+  const index = (languages === 'ko' || languages === 'en') ? languages : 'ko'
   const cardAccordion = useSelector((state) => state.cardAccordion.value);
   const messageAccordion = useSelector((state) => state.messageAccordion.value);
   const dispatch = useDispatch();
@@ -90,7 +106,7 @@ function Menu({ userObj }: Props) {
 
   return (
     <div id="sample" className="flex justify-center flex-col pb-5">
-      <PageTitle title={"내 상태"} />
+      <PageTitle title={titles[index]} />
       {/* <Buttonings button={'practice'} /> */}
       {/* <div className='flex justify-center'>
         <Cardings cards={'sample'} shadowColor={'lightblue'} />
@@ -104,7 +120,7 @@ function Menu({ userObj }: Props) {
           <button onClick={() => {
             document.getElementById('cardAccordion')?.click()
           }} className='shadow-md px-3 flex sticky top-16 z-30 w-full items-center justify-between bg-light-3 dark:bg-dark-3'>
-            <div>카드</div>
+            <div>{cards[index]}</div>
             <AccordionTrigger id="cardAccordion" onClick={() => {
               if (cardAccordion) {
                 dispatch(cardOff())
@@ -122,7 +138,7 @@ function Menu({ userObj }: Props) {
           <button onClick={() => {
             document.getElementById('messageAccordion')?.click()
           }} className='shadow-md px-3 flex sticky top-16 z-30 w-full items-center justify-between bg-light-3 dark:bg-dark-3'>
-            <div>메세지</div>
+            <div>{messages[index]}</div>
             <AccordionTrigger id="messageAccordion" onClick={() => {
               if (messageAccordion) {
                 dispatch(messageOff())

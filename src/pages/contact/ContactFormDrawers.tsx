@@ -13,6 +13,7 @@ import { collection, getDocs, orderBy, query } from 'firebase/firestore';
 import { getDownloadURL, ref } from "firebase/storage";
 import { useEffect, useState } from 'react';
 import { dbservice, storage } from 'src/baseApi/serverbase';
+import { useSelectors } from "src/hooks/useSelectors";
 import Lists from 'src/pages/search/searchList/searchListViews/Lists';
 import useCardsBackground from '../../hooks/useCardsBackground';
 import DrawersBar from "../core/DrawersBar";
@@ -26,7 +27,7 @@ function ContactFormDrawers({ violationUser, changeViolationUser }: Props) {
   const [rank, setRank] = useState([])
   const [loadedImage, setLoadedImage] = useState([])
   const [userSearch, setUserSearch] = useState('')
-
+  const languages = useSelectors((state) => state.languages.value)
   const onChangeUserSearch = (event) => {
     const { target: { value } } = event
     setUserSearch(value)
@@ -106,7 +107,7 @@ function ContactFormDrawers({ violationUser, changeViolationUser }: Props) {
               bgcolor: color
             }}>
               <div className='flex'>
-                <div className='flex flex-col justify-center'>신고 유저:</div>
+                <div className='flex flex-col justify-center'>{languages === 'ko' ? '신고 유저:' : 'Reporting User'}</div>
                 <div className='px-5'>
                   <Avatar className={`bg-${(violationUser?.profileColor || []).indexOf('#') === -1 ? violationUser?.profileColor : 'profile-blue'}`}>
                     <AvatarImage src={violationUser?.profileImageUrl} />
@@ -117,14 +118,14 @@ function ContactFormDrawers({ violationUser, changeViolationUser }: Props) {
               </div>
             </Card>
             :
-            <Button sx={{ width: '100%' }} variant='outlined' form='auth'>신고 유저 등록</Button>
+            <Button sx={{ width: '100%' }} variant='outlined' form='auth'>{languages === 'ko' ? '신고 등록 유저' : 'Register reporting user'}</Button>
           }
         </DrawerTrigger>
         <DrawerContent className="flex flex-col justify-center px-5 bg-light-2 dark:bg-dark-2 max-h-[60%]">
           <ScrollArea className="overflow-y-scroll">
             <DrawersBar />
             <div className={`flex flex-col p-5 ${!userSearch && 'h-[60vh]'}`} >
-              <TextField label='유저 이름' onChange={onChangeUserSearch} />
+              <TextField label={languages === 'ko' ? '유저 이름' : 'User name'} onChange={onChangeUserSearch} />
               {userSearch &&
                 <div className='flex flex-col'>
                   <DrawerClose>
@@ -136,7 +137,7 @@ function ContactFormDrawers({ violationUser, changeViolationUser }: Props) {
           </ScrollArea>
         </DrawerContent>
       </Drawer >
-      {violationUser && <Button sx={{ width: '25%' }} variant='outlined' onClick={() => changeViolationUser(null)}>신고 등록 취소</Button>
+      {violationUser && <Button sx={{ width: '25%' }} variant='outlined' onClick={() => changeViolationUser(null)}>{languages === 'ko' ? '신고 등록 취소' : 'Cancel reporting'}</Button>
       }
     </>
   )

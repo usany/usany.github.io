@@ -20,6 +20,7 @@ import {
 import {
   dbservice
 } from "src/baseApi/serverbase";
+import { useSelectors } from "src/hooks/useSelectors";
 import useCardsBackground from "../../hooks/useCardsBackground";
 import DrawersBar from "../core/DrawersBar";
 
@@ -28,7 +29,7 @@ const ProfileMembersDrawers = ({ userObj, user }) => {
   const [process, setProcess] = useState(false);
   const navigate = useNavigate();
   const theme = useSelector((state) => state.theme)
-
+  const languages = useSelectors((state) => state.languages.value)
   const onChange = (event) => {
     const {
       target: { value },
@@ -80,7 +81,11 @@ const ProfileMembersDrawers = ({ userObj, user }) => {
           //   document.getElementById("member")?.click();
           // }}
           >
-            회원 탈퇴
+            {languages === 'ko' ?
+              '회원 탈퇴'
+              :
+              'Delete Account'
+            }
           </div>
         </Card>
       </DrawerTrigger>

@@ -21,7 +21,17 @@ import { useEffect, useState } from "react";
 import {
   dbservice
 } from "src/baseApi/serverbase";
+import { useSelectors } from "src/hooks/useSelectors";
 import FilterDialogs from "src/pages/board/FilterDialogs/FilterDialogs";
+
+const registeredMap = {
+  ko: '등록 지도',
+  en: 'Registered map'
+}
+const registeredMapExplanation = {
+  ko: '표시된 곳을 선택하면 해당하는 내용만 확인할 수 있어요',
+  en: 'Click a marker to filter specific location'
+}
 
 interface Props {
   onMarker: boolean;
@@ -80,8 +90,8 @@ function BoardMap({ mapAccordion, mapAccordionToggle, onMarker, onMarkerTrue, on
   const [messages, setMessages] = useState<Array<object>>([]);
   // const [mapAccordion, setMapAccordion] = useState(false);
   const [choose, setChoose] = useState(false);
-
-
+  const languages = useSelectors((state) => state.languages.value)
+  const index = (languages === 'ko' || languages === 'en') ? languages : 'ko'
   useEffect(() => {
     document.documentElement.scrollTo({
       top: 0,
@@ -145,7 +155,7 @@ function BoardMap({ mapAccordion, mapAccordionToggle, onMarker, onMarkerTrue, on
           <button onClick={() => {
             document.getElementById('boardMap')?.click()
           }} className='shadow-md px-3 flex sticky top-16 z-30 w-full items-center justify-between bg-light-3 dark:bg-dark-3'>
-            <div>등록 지도</div>
+            <div>{registeredMap[index]}</div>
             <AccordionTrigger id='boardMap' onClick={() => mapAccordionToggle()}>
             </AccordionTrigger>
           </button>
@@ -158,8 +168,7 @@ function BoardMap({ mapAccordion, mapAccordionToggle, onMarker, onMarkerTrue, on
               </div> */}
               {selectedValues[1].value === '전체 장소' ?
                 <div className="flex p-5">
-                  표시된 곳을 선택하면 해당하는 내용만
-                  확인할 수 있어요
+                  {registeredMapExplanation[index]}
                 </div>
                 :
                 <div className='flex p-5'>

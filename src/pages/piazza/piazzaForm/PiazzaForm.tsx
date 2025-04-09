@@ -3,9 +3,18 @@ import { addDoc, collection, doc, getDoc, updateDoc } from 'firebase/firestore';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { dbservice } from 'src/baseApi/serverbase';
+import { useSelectors } from "src/hooks/useSelectors";
 import { changeNewMessageTrue } from 'src/stateSlices/newMessageSlice';
 import { webSocket } from 'src/webSocket.tsx';
 
+const forms = {
+  ko: '메세지를 작성해 주세요',
+  en: 'Input message'
+}
+const send = {
+  ko: '전송',
+  en: 'send'
+}
 interface Props {
   userObj: User
   multiple: boolean
@@ -20,7 +29,8 @@ function PiazzaForm({ userObj, multiple, messages, handleMessages, messagesList,
   const dispatch = useDispatch()
   const { state } = useLocation()
   const conversation = state?.conversation
-
+  const languages = useSelectors((state) => state.languages.value)
+  const index = (languages === 'ko' || languages === 'en') ? languages : 'ko'
   const onSendSubmitHandler = async (event) => {
     event.preventDefault();
     const message = messages
@@ -208,12 +218,12 @@ function PiazzaForm({ userObj, multiple, messages, handleMessages, messagesList,
       <form className="flex gap-px" onSubmit={onSendSubmitHandler}>
         <input
           className='w-full p-3 rounded bg-light-1 dark:bg-dark-1'
-          placeholder="메세지를 작성해 주세요"
+          placeholder={forms[index]}
           onChange={onChangeMsgHandler}
           value={messages}
           autoFocus
         />
-        <button className='w-1/6 rounded bg-light-2 dark:bg-dark-2' type="submit">전송</button>
+        <button className='w-1/6 rounded bg-light-2 dark:bg-dark-2' type="submit">{send[index]}</button>
       </form>
     </>
   );

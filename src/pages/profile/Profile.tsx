@@ -24,6 +24,7 @@ import { useImmer } from "use-immer";
 // import Skeleton from '@mui/material/Skeleton';
 import { useQuery } from "@tanstack/react-query";
 import { doc, getDoc } from "firebase/firestore";
+import { useSelectors } from "src/hooks/useSelectors";
 import ProfileLocations from "./ProfileLocations";
 
 const area = [
@@ -40,6 +41,7 @@ interface Props {
 function Profile({ userObj }: Props) {
   const params = useParams()
   console.log(params)
+  const languages = useSelectors((state) => state.languages.value)
   const [attachment, setAttachment] = useState("");
   const { state } = useLocation();
   const [profileDialog, setProfileDialog] = useState(false);
@@ -190,10 +192,11 @@ function Profile({ userObj }: Props) {
   // getCoords().then(coords => console.log(coords))
   // console.log(weather)
   console.log(profileDialog)
+  console.log(state)
   return (
     <div>
       <PageTitle
-        title={`${userUid === userObj.uid ? "내" : shortenName} 프로필`}
+        title={`${userUid === userObj.uid ? (languages === 'ko' ? "내" : 'My') : shortenName} ${languages === 'ko' ? '프로필' : 'Profile'}`}
       />
       {/* <div onClick={() => {
         const navigators = navigator.geolocation.getCurrentPosition(position => console.log(position.coords))

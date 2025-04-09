@@ -7,6 +7,10 @@ import { Building, Watch } from 'lucide-react'
 import { useSelector } from 'react-redux'
 import staticImg from 'src/assets/pwa-512x512.png'
 import useCardsBackground from 'src/hooks/useCardsBackground'
+import { useSelectors } from 'src/hooks/useSelectors'
+import locationsBuildings from 'src/pages/add/locationsBuildings'
+import locationsCollection from 'src/pages/add/locationsCollection'
+import locationsCollectionLetters from 'src/pages/add/locationsCollectionLetters'
 import Avatars from '../Avatars'
 
 interface Props {
@@ -21,6 +25,39 @@ const CardView = ({ message, shadowColor }) => {
   const profileColor = useSelector((state) => state.profileColor.value)
   const profileUrl = message?.creatorUrl
   const { color } = useCardsBackground()
+  const languages = useSelectors((state) => state.languages.value)
+  let item
+  let action
+  let locationOne
+  let locationTwo
+  let location
+  if (languages === 'ko') {
+    item = message.item
+    if (message.text.choose === 1) {
+      action = ' 빌리기'
+    } else {
+      action = ' 빌려주기'
+    }
+    location = message.text.count + ' ' + message.text.counter + ' ' + message.text.counting
+  } else {
+    if (message.item === '우산') {
+      item = 'Usan'
+    } else {
+      item = 'Yangsan'
+    }
+    if (message.text.choose === 1) {
+      action = ' borrowing'
+    } else {
+      action = ' lending'
+    }
+    locationOne = locationsBuildings['en'][locationsBuildings['ko'].indexOf(message.text.count)]
+    locationTwo = locationsCollection['en'][Object.keys(locationsCollectionLetters).find((key) => locationsCollectionLetters[key] === message.text.count)][locationsCollection['ko'][Object.keys(locationsCollectionLetters).find((key) => locationsCollectionLetters[key] === message.text.count)].indexOf(message.text.counter)]
+    location = locationOne + ' ' + locationTwo + ' ' + message.text.counting
+  }
+  locationsBuildings
+  locationsCollection
+  locationsCollectionLetters
+
   return (
     <div className='flex flex-col gap-5'>
       <Card
@@ -43,7 +80,7 @@ const CardView = ({ message, shadowColor }) => {
               />
               <div className="flex items-center">
                 <Chip
-                  label={`${message.item} ${message.text.choose === 1 ? ' 빌리기' : ' 빌려주기'}`}
+                  label={`${item} ${action}`}
                 />
                 {/* <Chips
                   label={`${message.item} ${message.text.choose === 1 ? ' 빌리기' : ' 빌려주기'}`}
@@ -60,26 +97,33 @@ const CardView = ({ message, shadowColor }) => {
                 image={staticImg}
               />
             </div>
-            <div className="flex flex-col gap-3 p-1">
-              <div className="flex gap-3">
+            <div className="flex flex-col pt-1">
+              <div className="flex gap-1">
                 <Building />
                 <div>
-                  {message.text.count} {message.text.counter}{' '}
-                  {message.text.counting !== '' && message.text.counting}
+                  {location}
+                  {/* {message.text.count} {message.text.counter}{' '}
+                  {message.text.counting !== '' && message.text.counting} */}
                 </div>
               </div>
-              <div className="flex gap-3">
+              <div className="flex gap-1">
                 <Watch />
                 <div className="flex flex-col">
                   <div className="flex">
+                    {languages === 'en' &&
+                      <div className='w-[40px]'>From</div>
+                    }
                     {message.text.clock?.year}.{message.text.clock?.month}.
                     {message.text.clock?.day} {message.text.clock?.hour}:
-                    {message.text.clock?.minute} 부터
+                    {message.text.clock?.minute} {languages === 'ko' && ' 부터'}
                   </div>
                   <div className="flex">
+                    {languages === 'en' &&
+                      <div className='w-[40px]'>To</div>
+                    }
                     {message.text.clocker?.year}.{message.text.clocker?.month}.
                     {message.text.clock?.day} {message.text.clocker?.hour}:
-                    {message.text.clocker?.minute} 까지
+                    {message.text.clocker?.minute} {languages === 'ko' && ' 까지'}
                   </div>
                 </div>
               </div>
