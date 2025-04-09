@@ -23,7 +23,7 @@ const Popups = ({ trigger, title, content, close, attachment, onLink }) => {
           <DialogTrigger>
             {trigger}
           </DialogTrigger>
-          <DialogContent className='bg-light-2 dark:bg-dark-2'>
+          <DialogContent className='bg-light-2 dark:bg-dark-2 h-[50vh]'>
             <ScrollArea className="overflow-y-scroll">
               <DrawersBar />
               <DialogTitle className='flex justify-center p-5'>{title}</DialogTitle>
@@ -49,7 +49,7 @@ const Popups = ({ trigger, title, content, close, attachment, onLink }) => {
         <DrawerTrigger>
           {trigger}
         </DrawerTrigger>
-        <DrawerContent className='bg-light-2 dark:bg-dark-2'>
+        <DrawerContent className='bg-light-2 dark:bg-dark-2 max-h-[50vh]'>
           <ScrollArea className="overflow-y-scroll">
             <DrawersBar />
             <DrawerTitle className='flex justify-center p-5'>{title}</DrawerTitle>

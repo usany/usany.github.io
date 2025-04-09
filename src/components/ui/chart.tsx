@@ -2,6 +2,7 @@ import { cn } from "@/lib/utils"
 import * as React from "react"
 import { useDispatch } from 'react-redux'
 import * as RechartsPrimitive from "recharts"
+import { useSelectors } from "src/hooks/useSelectors"
 import { changeCompletedAction } from 'src/stateSlices/completedActionSlice'
 
 // Format: { THEME_NAME: CSS_SELECTOR }
@@ -271,7 +272,7 @@ const ChartLegendContent = React.forwardRef<
   ) => {
     const { config } = useChart()
     const dispatch = useDispatch()
-
+    const languages = useSelectors((state) => state.languages.value)
     if (!payload?.length) {
       return null
     }
@@ -313,12 +314,12 @@ const ChartLegendContent = React.forwardRef<
                     }}
                   />
                 )}
-                {itemConfig?.label}: {item.payload.number}회
+                {itemConfig?.label}: {item.payload.number}{languages === 'ko' && '회'}
               </div>
             )
           })}
         </div>
-        {!payload[0].payload.number && !payload[1].payload.number && <div className='flex border border-dashed rounded w-1/2 p-5'>완료 활동이 없습니다</div>}
+        {!payload[0].payload.number && !payload[1].payload.number && <div className='flex border border-dashed rounded w-1/2 p-5'>{languages === 'ko' ? '완료 활동이 없습니다' : 'No completed activities'}</div>}
       </div>
     )
   }

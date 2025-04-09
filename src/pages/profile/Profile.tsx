@@ -191,8 +191,8 @@ function Profile({ userObj }: Props) {
   }
   // getCoords().then(coords => console.log(coords))
   // console.log(weather)
-  console.log(profileDialog)
-  console.log(state)
+  // console.log(profileDialog)
+  // console.log(state)
   return (
     <div>
       <PageTitle

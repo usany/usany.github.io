@@ -114,13 +114,13 @@ const ProfileCompleted = ({
   return (
     <div className='flex flex-col pt-5'>
       <Drawer>
-        <DrawerTrigger id='completedAction'>
-          <div onClick={() => {
-            document.documentElement.scrollTo({
-              top: 0,
-              left: 0,
-              behavior: "instant", // Optional if you want to skip the scrolling animation
-            });
+        <DrawerTrigger>
+          <div id='completedAction' onClick={() => {
+            // document.documentElement.scrollTo({
+            //   top: 0,
+            //   left: 0,
+            //   behavior: "instant",
+            // });
           }} />
         </DrawerTrigger>
         <DrawerContent className="flex flex-col justify-center px-5 bg-light-2 dark:bg-dark-2 max-h-[60%]">
