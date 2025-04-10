@@ -1,21 +1,16 @@
-import Button from '@mui/material/Button';
 import { collection, getDocs, orderBy, query } from 'firebase/firestore';
 import { getDownloadURL, ref } from "firebase/storage";
 import { useEffect, useState } from 'react';
 import { dbservice, storage } from 'src/baseApi/serverbase';
 import { useSelectors } from "src/hooks/useSelectors";
 import useCardsBackground from '../../hooks/useCardsBackground';
-import Popups from "../core/Popups";
-import ContactFormDrawersContent from "./ContactFormDrawersContent";
-import ContactFormDrawersTitle from "./ContactFormDrawersTitle";
-import ContactFormDrawersTrigger from "./ContactFormDrawersTrigger";
 
 interface Props {
   violationUser: {} | null
   changeViolationUser: (newValue) => void
 }
 
-function ContactFormDrawers({ violationUser, changeViolationUser }: Props) {
+function ContactFormDrawersTitle({ violationUser, changeViolationUser }: Props) {
   const [rank, setRank] = useState([])
   const [loadedImage, setLoadedImage] = useState([])
   const [userSearch, setUserSearch] = useState('')
@@ -90,50 +85,10 @@ function ContactFormDrawers({ violationUser, changeViolationUser }: Props) {
   const { color } = useCardsBackground()
 
   return (
-    <>
-      {/* <Drawer>
-        <DrawerTrigger className='w-screen' onClick={() => setUserSearch('')}>
-          {violationUser ?
-            <Card sx={{
-              width: '100%',
-              bgcolor: color
-            }}>
-              <div className='flex'>
-                <div className='flex flex-col justify-center'>{languages === 'ko' ? '신고 유저:' : 'Reporting User'}</div>
-                <div className='px-5'>
-                  <Avatar className={`bg-${(violationUser?.profileColor || []).indexOf('#') === -1 ? violationUser?.profileColor : 'profile-blue'}`}>
-                    <AvatarImage src={violationUser?.profileImageUrl} />
-                    <AvatarFallback className='text-xl border-none'>{violationUser?.displayName[0]}</AvatarFallback>
-                  </Avatar>
-                </div>
-                <div className='flex flex-col justify-center'>{violationUser.displayName}</div>
-              </div>
-            </Card>
-            :
-            <Button sx={{ width: '100%' }} variant='outlined' form='auth'>{languages === 'ko' ? '신고 등록 유저' : 'Register reporting user'}</Button>
-          }
-        </DrawerTrigger>
-        <DrawerContent className="flex flex-col justify-center px-5 bg-light-2 dark:bg-dark-2 max-h-[60%]">
-          <ScrollArea className="overflow-y-scroll">
-            <DrawersBar />
-            <div className={`flex flex-col p-5 ${!userSearch && 'h-[60vh]'}`} >
-              <TextField label={languages === 'ko' ? '유저 이름' : 'User name'} onChange={onChangeUserSearch} />
-              {userSearch &&
-                <div className='flex flex-col'>
-                  <DrawerClose>
-                    <Lists elements={rank} multiple={true} userSearch={userSearch} ranking={false} handleUser={(newValue) => changeViolationUser(newValue)} />
-                  </DrawerClose>
-                </div>
-              }
-            </div>
-          </ScrollArea>
-        </DrawerContent>
-      </Drawer > */}
-      <Popups trigger={<ContactFormDrawersTrigger violationUser={violationUser} />} title={<ContactFormDrawersTitle />} content={<ContactFormDrawersContent changeViolationUser={changeViolationUser} />} />
-      {violationUser && <Button sx={{ width: '25%' }} variant='outlined' onClick={() => changeViolationUser(null)}>{languages === 'ko' ? '신고 등록 취소' : 'Cancel reporting'}</Button>
-      }
-    </>
+    <div>
+      유저 검색
+    </div>
   )
 }
 
-export default ContactFormDrawers
+export default ContactFormDrawersTitle

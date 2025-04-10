@@ -10,10 +10,9 @@ import { Chip } from '@mui/material'
 import { User } from 'firebase/auth'
 import { useSelectors } from 'src/hooks/useSelectors'
 import Popups from '../Popups'
-import DrawerProfile from './DrawerProfile'
-import SpecificsTradesTitle from './SpecificsTradeTitle'
+import { default as SpecificsTradesContent } from './SpecificsTradesContent'
+import SpecificsTradesTitle from './SpecificsTradesTitle'
 import SpecificsTradesTrigger from './SpecificsTradeTrigger'
-import SpecificsTradeContent from './SpecificsTradesContent'
 
 
 interface Props {
@@ -59,7 +58,7 @@ function SpecificsTrades({ drawerOpenTrue, userObj, message, round, connectedUse
               conversation={conversation}
               drawerOpenTrue={drawerOpenTrue}
             /> */}
-            <Popups trigger={<SpecificsTradesTrigger isCreator={true} message={message} />} title={<SpecificsTradesTitle />} content={<SpecificsTradeContent isCreator={true} userObj={userObj} message={message} conversation={conversation} drawerOpenTrue={drawerOpenTrue} />} />
+            <Popups trigger={<SpecificsTradesTrigger isCreator={true} message={message} />} title={<SpecificsTradesTitle />} content={<SpecificsTradesContent isCreator={true} userObj={userObj} message={message} conversation={conversation} drawerOpenTrue={drawerOpenTrue} />} />
             {/* <Avatars
               profile={false}
               profileColor={""}
@@ -72,13 +71,14 @@ function SpecificsTrades({ drawerOpenTrue, userObj, message, round, connectedUse
         ) : (
           <div className="flex flex-col items-center">
             {connectedUser.uid ? (
-              <DrawerProfile
-                isCreator={false}
-                userObj={userObj}
-                message={connectedUser}
-                conversation={conversation}
-                drawerOpenTrue={drawerOpenTrue}
-              />
+              // <DrawerProfile
+              //   isCreator={false}
+              //   userObj={userObj}
+              //   message={connectedUser}
+              //   conversation={conversation}
+              //   drawerOpenTrue={drawerOpenTrue}
+              // />
+              <Popups trigger={<SpecificsTradesTrigger isCreator={false} message={message} />} title={<SpecificsTradesTitle />} content={<SpecificsTradesContent isCreator={false} userObj={userObj} message={message} conversation={conversation} drawerOpenTrue={drawerOpenTrue} />} />
             ) : (
               // <Avatars
               //   profile={false}
@@ -128,13 +128,14 @@ function SpecificsTrades({ drawerOpenTrue, userObj, message, round, connectedUse
         {message.text.choose === 1 ? (
           <div className="flex flex-col items-center">
             {connectedUser.uid ? (
-              <DrawerProfile
-                isCreator={false}
-                userObj={userObj}
-                message={connectedUser}
-                conversation={conversation}
-                drawerOpenTrue={drawerOpenTrue}
-              />
+              // <DrawerProfile
+              //   isCreator={false}
+              //   userObj={userObj}
+              //   message={connectedUser}
+              //   conversation={conversation}
+              //   drawerOpenTrue={drawerOpenTrue}
+              // />
+              <Popups trigger={<SpecificsTradesTrigger isCreator={false} message={connectedUser} />} title={<SpecificsTradesTitle />} content={<SpecificsTradesContent isCreator={false} userObj={userObj} message={connectedUser} conversation={conversation} drawerOpenTrue={drawerOpenTrue} />} />
             ) : (
               // <Avatars
               //   profile={false}
@@ -161,13 +162,14 @@ function SpecificsTrades({ drawerOpenTrue, userObj, message, round, connectedUse
           </div>
         ) : (
           <div className="flex flex-col items-center">
-            <DrawerProfile
+            {/* <DrawerProfile
               isCreator={true}
               userObj={userObj}
               message={message}
               conversation={conversation}
               drawerOpenTrue={drawerOpenTrue}
-            />
+            /> */}
+            <Popups trigger={<SpecificsTradesTrigger isCreator={true} message={message} />} title={<SpecificsTradesTitle />} content={<SpecificsTradesContent isCreator={false} userObj={userObj} message={message} conversation={conversation} drawerOpenTrue={drawerOpenTrue} />} />
             {/* <Avatars
               profile={false}
               profileColor={""}
@@ -179,7 +181,7 @@ function SpecificsTrades({ drawerOpenTrue, userObj, message, round, connectedUse
           </div>
         )}
       </div>
-    </div>
+    </div >
   )
 }
 

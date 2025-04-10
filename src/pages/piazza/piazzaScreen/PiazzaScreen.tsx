@@ -16,8 +16,10 @@ import { useLocation } from 'react-router-dom'
 import { dbservice } from 'src/baseApi/serverbase'
 import { useSelectors } from 'src/hooks/useSelectors'
 import Avatars from 'src/pages/core/Avatars'
-import PiazzaDialogs from 'src/pages/piazza/piazzaScreen/piazzaDialogs/PiazzaDialogs'
+import Popups from 'src/pages/core/Popups'
+import SpecificsTradesTitle from 'src/pages/core/specifics/SpecificsTradesTitle'
 import { webSocket } from 'src/webSocket.tsx'
+import PiazzaDialogsContent from './piazzaDialogs/PiazzaDialogsContent'
 
 interface Props {
   userObj: User
@@ -354,7 +356,33 @@ function PiazzaScreen({
                       >
                         {userDirection === 'text-left' ? (
                           <div className="flex gap-3">
-                            <Avatars
+                            <Popups
+                              trigger={
+                                <Avatars
+                                  uid={userObj.uid}
+                                  profile={false}
+                                  profileColor=""
+                                  profileUrl={value?.profileImageUrl}
+                                  piazza={() =>
+                                    onDrawer({
+                                      userUid: value.userUid,
+                                      displayName: value.id,
+                                    })
+                                  }
+                                />
+                              }
+                              title={<SpecificsTradesTitle />}
+                              content={<PiazzaDialogsContent
+                                initiateContinuing={() => setContinuing(null)}
+                                multiple={multiple}
+                                handleMultiple={handleMultiple}
+                                user={user}
+                                userObj={userObj}
+                                handleMessagesList={handleMessagesList}
+                                displayedName={displayedName}
+                              />}
+                            />
+                            {/* <Avatars
                               uid={userObj.uid}
                               profile={false}
                               profileColor=""
@@ -365,7 +393,7 @@ function PiazzaScreen({
                                   displayName: value.id,
                                 })
                               }
-                            />
+                            /> */}
                             {/* <Avatar onClick={() => {
                               document.getElementById('drawer')?.click()
                               onPrivate({ userUid: value.userUid, displayName: value.id })
@@ -378,7 +406,33 @@ function PiazzaScreen({
                         ) : (
                           <div className="flex gap-3">
                             <div>{value.id}</div>
-                            <Avatars
+                            <Popups
+                              trigger={
+                                <Avatars
+                                  uid={userObj.uid}
+                                  profile={false}
+                                  profileColor=""
+                                  profileUrl={value?.profileImageUrl}
+                                  piazza={() =>
+                                    onDrawer({
+                                      userUid: value.userUid,
+                                      displayName: value.id,
+                                    })
+                                  }
+                                />
+                              }
+                              title={<SpecificsTradesTitle />}
+                              content={<PiazzaDialogsContent
+                                initiateContinuing={() => setContinuing(null)}
+                                multiple={multiple}
+                                handleMultiple={handleMultiple}
+                                user={user}
+                                userObj={userObj}
+                                handleMessagesList={handleMessagesList}
+                                displayedName={displayedName}
+                              />}
+                            />
+                            {/* <Avatars
                               uid={userObj.uid}
                               profile={false}
                               profileColor=""
@@ -389,7 +443,7 @@ function PiazzaScreen({
                                   displayName: value.id,
                                 })
                               }
-                            />
+                            /> */}
                             {/* <Avatar onClick={() => {
                               document.getElementById('drawer')?.click()
                               onPrivate({ userUid: value.userUid, displayName: value.id })
@@ -436,7 +490,7 @@ function PiazzaScreen({
           </ul>
         </div>
       </div>
-      <PiazzaDialogs
+      {/* <PiazzaDialogs
         multiple={multiple}
         handleMultiple={handleMultiple}
         user={user}
@@ -444,7 +498,7 @@ function PiazzaScreen({
         handleMessagesList={handleMessagesList}
         displayedName={displayedName}
         initiateContinuing={() => setContinuing(null)}
-      />
+      /> */}
     </>
   )
 }

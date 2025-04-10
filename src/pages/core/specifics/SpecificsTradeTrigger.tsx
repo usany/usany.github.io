@@ -22,6 +22,7 @@ const SpecificsTradesTrigger = ({
     displayName = message?.connectedName || message?.displayName
     url = message?.connectedUrl || message?.url
   }
+  console.log(uid)
   return (
     <Avatars
       uid={uid}

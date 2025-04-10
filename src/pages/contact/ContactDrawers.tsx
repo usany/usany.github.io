@@ -1,26 +1,14 @@
 import { useEffect, useState } from 'react';
 // import Dialog from '@mui/material/Dialog';
 // import DialogContent from '@mui/material/DialogContent';
-import Button from '@mui/material/Button';
 import { collection, deleteDoc, doc, getDocs, query } from 'firebase/firestore';
 import { dbservice } from 'src/baseApi/serverbase';
 // import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
-import {
-  Drawer,
-  DrawerContent,
-  DrawerTrigger
-} from "@/components/ui/drawer";
-import Divider from '@mui/material/Divider';
-import { ScrollArea } from '@radix-ui/react-scroll-area';
 import { useSelectors } from 'src/hooks/useSelectors';
-import Lists from 'src/pages/search/searchList/searchListViews/Lists';
-import DrawersBar from '../core/DrawersBar';
+import Popups from '../core/Popups';
+import ContactDrawersContent from './ContactDrawersContent';
+import ContactDrawersTitle from './ContactDrawersTitle';
+import ContactDrawersTrigger from './ContactDrawersTrigger';
 
 const reportList = {
   ko: '신고하기 내역',
@@ -63,10 +51,9 @@ const ContactDrawers = ({ userObj }) => {
     }
     docs()
   }, [])
-  console.log(sendMessages)
   return (
     <>
-      <Drawer>
+      {/* <Drawer>
         <DrawerTrigger>
           <Button variant='outlined' form='auth'>{reportList[index]}</Button>
         </DrawerTrigger>
@@ -108,39 +95,8 @@ const ContactDrawers = ({ userObj }) => {
             </div>
           </ScrollArea>
         </DrawerContent>
-      </Drawer>
-      {/* <Dialog fullWidth={true} open={move} onClose={handleClose}>
-            <DialogContent>
-              <div>
-                신고하기 내역
-              </div>
-              <div>
-                {sendMessages?.map((element, index) => {
-                    return (
-                        <div>
-                            <Accordion>
-                                <AccordionSummary
-                                    expandIcon={<ExpandMoreIcon />}
-                                    id={index}
-                                >
-                                    {element.messageTitle}
-                                </AccordionSummary>
-                                <AccordionDetails>
-                                    {element.message}
-                                </AccordionDetails>
-                                <AccordionActions>
-                                    <Button variant='outlined' onClick={() => deleteMessage(element)}>지우기</Button>
-                                </AccordionActions>
-                            </Accordion>
-                        </div>
-                    )
-                })}
-              </div>
-              <Button variant='outlined' onClick={handleClose}>
-                  닫기
-              </Button>
-            </DialogContent>
-        </Dialog> */}
+      </Drawer> */}
+      <Popups trigger={<ContactDrawersTrigger />} title={<ContactDrawersTitle userObj={userObj} />} content={<ContactDrawersContent userObj={userObj} />} />
     </>
   )
 }

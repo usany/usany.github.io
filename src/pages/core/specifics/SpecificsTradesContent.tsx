@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/drawer'
 import Avatars from 'src/pages/core/Avatars'
 
-const SpecificsTradeContent = ({
+const SpecificsTradesContent = ({
   isCreator,
   userObj,
   message,
@@ -103,4 +103,4 @@ const SpecificsTradeContent = ({
 }
 
 
-export default SpecificsTradeContent
+export default SpecificsTradesContent
