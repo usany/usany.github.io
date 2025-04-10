@@ -77,13 +77,19 @@ function FilterDialogsTrigger({ selectedValues, handleSelectedValues }) {
   return (
     <div className="flex gap-1">
       {selectedValues.map((element, index) => {
-        let label
+        let label = element.value
         if (index === 0) {
-          label = items['en'][items['ko'].indexOf(element.value)]
+          if (languages === 'en') {
+            label = items['en'][items['ko'].indexOf(element.value)]
+          }
         } else if (index === 1) {
-          label = locations['en'][locations['ko'].indexOf(element.value)]
+          if (languages === 'en') {
+            label = locations['en'][locations['ko'].indexOf(element.value)]
+          }
         } else {
-          label = time['en'][time['ko'].indexOf(element.value)]
+          if (languages === 'en') {
+            label = time['en'][time['ko'].indexOf(element.value)]
+          }
         }
         return (
           <Chip

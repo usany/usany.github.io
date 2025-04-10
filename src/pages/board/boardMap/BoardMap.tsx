@@ -49,7 +49,10 @@ const area = [
 
 const markers = [
   {
-    label: '중도',
+    label: {
+      ko: '중도',
+      en: 'Central library'
+    },
     location: { lat: 37.5970966, lng: 127.0527314 }
   },
   {
@@ -196,11 +199,11 @@ function BoardMap({ mapAccordion, mapAccordionToggle, onMarker, onMarkerTrue, on
                 gestureHandling={"greedy"}
                 disableDefaultUI={true}
               >
-                {markers.map((value, index) => {
+                {markers.map((value) => {
                   return (
                     <AdvancedMarker
                       onClick={() => {
-                        onClickMarker(value.label);
+                        onClickMarker(value.label[index]);
                         onMarkerTrue();
                       }}
                       position={value.location}
