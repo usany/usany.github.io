@@ -226,7 +226,7 @@ function Specifics({
               {deleted === true && (
                 <div className="flex justify-center">
                   <Button variant="outlined" disabled>
-                    지워졌습니다
+                    {languages === 'ko' ? '지워졌습니다' : 'Deleted'}
                   </Button>
                 </div>
               )}

@@ -1,8 +1,13 @@
 import { Chip } from '@mui/material'
 import { User } from 'firebase/auth'
 import { useEffect, useState } from 'react'
+import { useSelectors } from 'src/hooks/useSelectors'
 import SpecificsActionsPopups from './SpecificsActionsPopups'
 
+const items = {
+  Usan: '우산',
+  Yangsan: '양산'
+}
 interface Props {
   userObj: User | null
   message: {}
@@ -11,6 +16,7 @@ interface Props {
 function SpecificsActions({ drawerOpenTrue, userObj, message }: Props) {
   const [conversation, setConversation] = useState('')
   const messageDisplayName = message.displayName
+  const languages = useSelectors((state) => state.languages.value)
   let messageName
   if (messageDisplayName.length > 10) {
     messageName = messageDisplayName.slice(0, 10) + '......'
@@ -39,12 +45,12 @@ function SpecificsActions({ drawerOpenTrue, userObj, message }: Props) {
             userObj={userObj}
             message={message}
           />
-          <Chip label={`${message.creatorId === userObj?.uid ? '내가' : messageName} 작성함`} />
+          <Chip label={`${message.creatorId === userObj?.uid ? (languages === 'ko' ? '내가' : 'My') : messageName} ${languages === 'ko' ? '작성함' : 'registration'}`} />
           {/* <Chips label={`${message.creatorId === userObj?.uid ? '내가' : messageName} 작성함`} onClick={null} className='' /> */}
         </div>
         <div className="flex items-center">
           <Chip
-            label={`${message.item} ${message.text.choose === 1 ? ' 빌리기' : ' 빌려주기'}`}
+            label={`${languages === 'ko' ? message.item : Object.keys(items).find((key) => items[key] === message.item)} ${message.text.choose === 1 ? (languages === 'ko' ? ' 빌리기' : ' borrowing') : (languages === 'ko' ? ' 빌려주기' : ' lending')}`}
           />
           {/* <Chips label={`${message.item} ${message.text.choose === 1 ? ' 빌리기' : ' 빌려주기'}`} onClick={null} className='' /> */}
         </div>

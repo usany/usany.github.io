@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { useSelectors } from "src/hooks/useSelectors"
 import ConfirmButton from "./ConfirmButton"
 import ConfirmReturnButton from "./ConfirmReturnButton"
 import DeleteButton from "./DeleteButton"
@@ -24,6 +25,7 @@ function Btn({
   changeConnectedUser
 }) {
   const [move, setMove] = useState(false)
+  const languages = useSelectors((state) => state.languages.value)
   const handleClose = () => {
     setMove(false)
   }
@@ -72,7 +74,7 @@ function Btn({
             <div className="flex justify-center">
               {messageObj.text.choose === 1 && (
                 <div>
-                  주인에게 확인 중
+                  {languages === 'ko' ? '주인에게 확인 중' : 'Asking the owner to confirm'}
                 </div>
               )}
               {messageObj.text.choose === 2 && (
@@ -87,7 +89,7 @@ function Btn({
               )}
             </div>
           )}
-          {round === 5 && <div>완료된 카드입니다</div>}
+          {round === 5 && <div>{languages === 'ko' ? '완료된 카드입니다' : 'Sharing completed'}</div>}
         </>
       ) : (
         <>
@@ -131,7 +133,7 @@ function Btn({
             <div className="flex justify-center">
               {messageObj.text.choose === 1 && (
                 <div>
-                  {messageObj.displayName} 님이 빌리는 중
+                  {messageObj.displayName} {languages === 'ko' ? '님이 빌리는 중' : 'is borrowing'}
                 </div>
               )}
               {
@@ -170,12 +172,12 @@ function Btn({
               }
               {messageObj.text.choose === 2 && (
                 <div>
-                  {messageObj.item} 주인에게 확인 중
+                  {messageObj.item} {languages === 'ko' ? '주인에게 확인 중' : 'Asking the owner to confirm'}
                 </div>
               )}
             </div>
           )}
-          {round === 5 && <div>완료된 카드입니다</div>}
+          {round === 5 && <div>{languages === 'ko' ? '완료된 카드입니다' : 'Sharing completed'}</div>}
         </>
       )}
     </>

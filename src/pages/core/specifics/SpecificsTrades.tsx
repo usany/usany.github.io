@@ -1,132 +1,20 @@
-import Button from '@mui/material/Button'
 import { useEffect, useState } from 'react'
-import {
-  Link
-} from 'react-router-dom'
 // import { CardActionArea, CardActions } from '@mui/material';
 // import { useBottomNavigationStore } from 'src/store'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerTrigger
-} from '@/components/ui/drawer'
 import BeachAccess from '@mui/icons-material/BeachAccess'
 import EastIcon from '@mui/icons-material/East'
 import HorizontalRuleIcon from '@mui/icons-material/HorizontalRule'
 import WestIcon from '@mui/icons-material/West'
 import { Chip } from '@mui/material'
-import { ScrollArea } from '@radix-ui/react-scroll-area'
 import { User } from 'firebase/auth'
-import Avatars from 'src/pages/core/Avatars'
-import DrawersBar from 'src/pages/core/DrawersBar'
+import { useSelectors } from 'src/hooks/useSelectors'
+import Popups from '../Popups'
+import DrawerProfile from './DrawerProfile'
+import SpecificsTradesTitle from './SpecificsTradeTitle'
+import SpecificsTradesTrigger from './SpecificsTradeTrigger'
+import SpecificsTradeContent from './SpecificsTradesContent'
 
-const DrawerProfile = ({
-  isCreator,
-  userObj,
-  message,
-  conversation,
-  drawerOpenTrue,
-}) => {
-  // console.log(message)
-  let uid
-  let displayName
-  let url
-  if (isCreator) {
-    uid = message?.creatorId
-    displayName = message.displayName
-    url = message.creatorUrl
-  } else {
-    uid = message?.connectedId || message?.uid
-    displayName = message?.connectedName || message?.displayName
-    url = message?.connectedUrl || message?.url
-  }
-  return (
-    <Drawer>
-      <DrawerTrigger onClick={drawerOpenTrue}>
-        <Avatars
-          uid={uid}
-          profile={false}
-          profileColor={''}
-          profileUrl={url}
-        />
-      </DrawerTrigger>
-      <DrawerContent className="flex flex-col justify-center px-5 bg-light-2 dark:bg-dark-2">
-        <ScrollArea className="overflow-y-scroll">
-          <DrawersBar />
-          <div className="flex flex-col items-center pt-5">
-            <Avatars
-              uid={uid}
-              profile={true}
-              profileColor=""
-              profileUrl={url}
-              piazza={null}
-            />
-            {/* <Avatar className={'bg-profile-blue'}>
-              <AvatarImage src={url} />
-              <AvatarFallback className="text-xl border-none	">
-                {displayName && displayName[0]}
-              </AvatarFallback>
-            </Avatar> */}
-            <div>{displayName}</div>
-            {/* {message?.displayName !== displayedName &&
-                  <div>
-                      ({displayedName}에서 개명)
-                  </div>
-              } */}
-          </div>
-          <div className="flex justify-center p-5">
-            <Link
-              to="/profile"
-              state={{
-                element: {
-                  uid: uid,
-                  displayName: displayName,
-                  profileUrl: url,
-                },
-              }}
-            >
-              <Button
-                variant="outlined"
-                onClick={() => {
-                  // handleClose()
-                }}
-              >
-                프로필 확인
-              </Button>
-            </Link>
-            {userObj.uid !== message?.creatorId && (
-              <Link
-                to="/piazza"
-                state={{
-                  conversation: conversation,
-                  displayName: displayName,
-                  userUid: userObj.uid,
-                  chattingUid: uid,
-                  multiple: false,
-                  profileUrl: url,
-                }}
-              >
-                <DrawerClose>
-                  <Button
-                    variant="outlined"
-                    onClick={() => {
-                      // handleMessagesList([])
-                      // handleMultiple(false)
-                    }}
-                  >
-                    개인 대화
-                  </Button>
-                </DrawerClose>
-              </Link>
-            )}
-          </div>
-        </ScrollArea>
-      </DrawerContent>
-    </Drawer>
-  )
-}
 
 interface Props {
   userObj: User | null
@@ -136,6 +24,7 @@ function SpecificsTrades({ drawerOpenTrue, userObj, message, round, connectedUse
   const [conversation, setConversation] = useState('')
   // const [connectedName, setConnectedName] = useState('')
   const messageDisplayName = message.displayName
+  const languages = useSelectors((state) => state.languages.value)
   let messageName
   if (messageDisplayName.length > 10) {
     messageName = messageDisplayName.slice(0, 10) + '......'
@@ -156,20 +45,21 @@ function SpecificsTrades({ drawerOpenTrue, userObj, message, round, connectedUse
       }
     }
   }, [message])
-  console.log(connectedUser)
+
   return (
     <div className="flex justify-center pt-3">
       <div className="flex flex-col items-center px-5 gap-1">
-        <div>빌리는 분</div>
+        <div>{languages === 'ko' ? '빌리는 분' : 'Borrowing user'}</div>
         {message.text.choose === 1 ? (
           <div className="flex flex-col items-center">
-            <DrawerProfile
+            {/* <DrawerProfile
               isCreator={true}
               userObj={userObj}
               message={message}
               conversation={conversation}
               drawerOpenTrue={drawerOpenTrue}
-            />
+            /> */}
+            <Popups trigger={<SpecificsTradesTrigger isCreator={true} message={message} />} title={<SpecificsTradesTitle />} content={<SpecificsTradeContent isCreator={true} userObj={userObj} message={message} conversation={conversation} drawerOpenTrue={drawerOpenTrue} />} />
             {/* <Avatars
               profile={false}
               profileColor={""}
@@ -216,7 +106,7 @@ function SpecificsTrades({ drawerOpenTrue, userObj, message, round, connectedUse
         )}
       </div>
       <div className="flex flex-col">
-        <div>{message.point} 포인트 지급</div>
+        <div>{message.point} {languages === 'ko' ? '포인트 지급' : 'points reward'}</div>
         <div className="flex justify-start">
           <HorizontalRuleIcon />
           <EastIcon />
@@ -234,7 +124,7 @@ function SpecificsTrades({ drawerOpenTrue, userObj, message, round, connectedUse
         </div>
       </div>
       <div className="flex flex-col items-center px-5 gap-1">
-        <div>빌려주는 분</div>
+        <div>{languages === 'ko' ? '빌려주는 분' : 'Lending user'}</div>
         {message.text.choose === 1 ? (
           <div className="flex flex-col items-center">
             {connectedUser.uid ? (
@@ -265,7 +155,7 @@ function SpecificsTrades({ drawerOpenTrue, userObj, message, round, connectedUse
               <Chip label={message.connectedName} />
               // <Chips label={message.connectedName} />
             ) : (
-              <Chip variant="outlined" label={'아직 없음'} />
+              <Chip variant="outlined" label={languages === 'ko' ? '아직 없음' : 'No one yet'} />
               // <Chips label={'아직 없음'} className='border' />
             )}
           </div>

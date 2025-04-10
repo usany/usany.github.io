@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 
 const ProfileCompletedTitle = ({
   user,
-  cards,
+  card
 }) => {
   const completedAction = useSelector(state => state.completedAction.value)
   return (

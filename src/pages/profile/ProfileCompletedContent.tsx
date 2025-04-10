@@ -6,7 +6,6 @@ import Cards from 'src/pages/core/card/Cards';
 
 const ProfileCompletedContent = ({
   user,
-  cards,
 }) => {
   const [messagesList, setMessagesList] = useState([])
   const completedAction = useSelector(state => state.completedAction.value)

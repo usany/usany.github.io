@@ -4,8 +4,11 @@ import {
   Link
 } from "react-router-dom";
 import { useSelectors } from "src/hooks/useSelectors";
-import ProfileMembersDrawers from "src/pages/profile/ProfileMembersDrawers";
 import useCardsBackground from "../../hooks/useCardsBackground";
+import Popups from "../core/Popups";
+import ProfileMembersDrawersContent from "./ProfileMembersDrawersContent";
+import ProfileMembersDrawersTitle from "./ProfileMembersDrawersTitle";
+import ProfileMembersDrawersTrigger from "./ProfileMembersDrawersTrigger";
 
 const ProfileMembers = ({ userObj, user }) => {
   const theme = useSelector((state) => state.theme)
@@ -25,7 +28,8 @@ const ProfileMembers = ({ userObj, user }) => {
               회원 탈퇴
             </div>
           </Card> */}
-          <ProfileMembersDrawers userObj={userObj} user={user} />
+          <Popups trigger={<ProfileMembersDrawersTrigger />} title={<ProfileMembersDrawersTitle />} content={<ProfileMembersDrawersContent userObj={userObj} user={user} />} />
+          {/* <ProfileMembersDrawers userObj={userObj} user={user} /> */}
         </div>
       ) : (
         <Link to="/contact" state={{ user: user }}>
