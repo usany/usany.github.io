@@ -1,6 +1,7 @@
 import SendIcon from '@mui/icons-material/Send'
 import Button from '@mui/material/Button'
 import { updateDoc } from 'firebase/firestore'
+import { useSelectors } from 'src/hooks/useSelectors'
 import { webSocket } from 'src/webSocket.tsx'
 import specificProcess from './specificProcess'
 
@@ -24,12 +25,14 @@ const onStopSupporting = async ({ message, uid, displayName }) => {
   webSocket.emit('stop supporting', passingObject)
 }
 const StopSupportButton = ({ userObj, message, uid, displayName, decreaseRound, changeConnectedUser }) => {
+  const languages = useSelectors((state) => state.languages.value)
+
   return (
     <div className="flex justify-center">
       {/* <Button variant="contained" disabled>
         승낙 메시지 전송 완료
       </Button> */}
-      <div className='px-5'>승낙 메시지 전송 완료</div>
+      <div className='px-5'>{languages === 'ko' ? '승낙 메시지 전송 완료' : 'Support message sent'}</div>
       <Button
         variant="outlined"
         onClick={() => {
@@ -49,7 +52,7 @@ const StopSupportButton = ({ userObj, message, uid, displayName, decreaseRound, 
         }}
         startIcon={<SendIcon />}
       >
-        취소
+        {languages === 'ko' ? '취소' : 'Cancel'}
       </Button>
     </div>
   )

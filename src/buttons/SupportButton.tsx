@@ -2,6 +2,7 @@ import SendIcon from '@mui/icons-material/Send'
 import Button from '@mui/material/Button'
 import { updateDoc } from 'firebase/firestore'
 import { useSelector } from 'react-redux'
+import { useSelectors } from 'src/hooks/useSelectors'
 import { webSocket } from 'src/webSocket.tsx'
 import specificProcess from './specificProcess'
 
@@ -37,6 +38,7 @@ const SupportButton = ({
   changeConnectedUser
 }) => {
   const profileUrl = useSelector((state) => state.profileUrl.value)
+  const languages = useSelectors((state) => state.languages.value)
 
   return (
     <div className="flex justify-center">
@@ -60,7 +62,7 @@ const SupportButton = ({
         }}
         startIcon={<SendIcon />}
       >
-        승낙하기
+        {languages === 'ko' ? '승낙하기' : 'Confirm'}
       </Button>
     </div>
   )

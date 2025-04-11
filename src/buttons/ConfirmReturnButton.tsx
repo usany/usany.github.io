@@ -2,6 +2,7 @@ import SendIcon from '@mui/icons-material/Send'
 import Button from '@mui/material/Button'
 import { doc, getDoc, updateDoc } from 'firebase/firestore'
 import { dbservice } from 'src/baseApi/serverbase'
+import { useSelectors } from 'src/hooks/useSelectors'
 import { webSocket } from 'src/webSocket.tsx'
 import specificProcess from './specificProcess'
 
@@ -52,6 +53,7 @@ const onConfirmReturn = async ({ num, points, message, uid, displayName }) => {
   webSocket.emit('confirmReturn', passingObject)
 }
 const ConfirmReturnButton = ({ num, points, message, uid, displayName, increaseRound }) => {
+  const languages = useSelectors((state) => state.languages.value)
   return (
     <Button
       variant="outlined"
@@ -67,7 +69,11 @@ const ConfirmReturnButton = ({ num, points, message, uid, displayName, increaseR
       }}
       startIcon={<SendIcon />}
     >
-      반납 완료 확인
+      {languages === 'ko' ?
+        '반납 완료 확인'
+        :
+        'Confirm return complete'
+      }
     </Button>
   )
 }

@@ -1,6 +1,7 @@
 import SendIcon from '@mui/icons-material/Send'
 import Button from '@mui/material/Button'
 import { updateDoc } from 'firebase/firestore'
+import { useSelectors } from 'src/hooks/useSelectors'
 import { webSocket } from 'src/webSocket.tsx'
 import specificProcess from './specificProcess'
 
@@ -20,6 +21,7 @@ const onConfirm = async ({ message, uid, displayName }) => {
 }
 
 const ConfirmButton = ({ message, uid, displayName, increaseRound }) => {
+  const languages = useSelectors((state) => state.languages.value)
   return (
     <Button
       variant="outlined"
@@ -33,7 +35,11 @@ const ConfirmButton = ({ message, uid, displayName, increaseRound }) => {
       }}
       startIcon={<SendIcon />}
     >
-      승낙 메시지 확인
+      {languages === 'ko' ?
+        '승낙 메시지 확인'
+        :
+        'Confirm support message'
+      }
     </Button>
   )
 }

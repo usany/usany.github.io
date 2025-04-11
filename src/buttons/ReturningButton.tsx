@@ -1,10 +1,12 @@
 import SendIcon from '@mui/icons-material/Send'
 import Button from '@mui/material/Button'
 import { updateDoc } from 'firebase/firestore'
+import { useSelectors } from 'src/hooks/useSelectors'
 import { webSocket } from 'src/webSocket.tsx'
 import specificProcess from './specificProcess'
 
 const onReturning = async ({ message, uid, displayName }) => {
+
   const { data, messagingToken } = await specificProcess({ message: message })
   const passingObject = {
     id: message.id,
@@ -20,6 +22,8 @@ const onReturning = async ({ message, uid, displayName }) => {
 }
 
 const ReturningButton = ({ message, uid, displayName, increaseRound }) => {
+  const languages = useSelectors((state) => state.languages.value)
+
   return (
     <Button
       variant="outlined"
@@ -33,7 +37,11 @@ const ReturningButton = ({ message, uid, displayName, increaseRound }) => {
       }}
       startIcon={<SendIcon />}
     >
-      반납하기
+      {languages === 'ko' ?
+        '반납하기'
+        :
+        'Return'
+      }
     </Button>
   )
 }
