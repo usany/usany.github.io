@@ -66,7 +66,6 @@ function SpecificsTrades({ drawerOpenTrue, userObj, message, round, connectedUse
               fallback={userObj.displayName ? userObj.displayName[0] : ""}
             /> */}
             <Chip label={messageName} />
-            {/* <Chips label={messageName} /> */}
           </div>
         ) : (
           <div className="flex flex-col items-center">
