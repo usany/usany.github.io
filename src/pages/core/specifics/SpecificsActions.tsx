@@ -1,6 +1,6 @@
 import { Chip } from '@mui/material'
 import { User } from 'firebase/auth'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useSelectors } from 'src/hooks/useSelectors'
 import SpecificsActionsPopups from './SpecificsActionsPopups'
 
@@ -23,19 +23,19 @@ function SpecificsActions({ drawerOpenTrue, userObj, message }: Props) {
   } else {
     messageName = messageDisplayName
   }
-  useEffect(() => {
-    if (drawerOpenTrue) {
-      if (message?.creatorId < userObj.uid) {
-        setConversation(
-          message?.creatorId.slice(0, 5) + userObj.uid.slice(0, 5),
-        )
-      } else {
-        setConversation(
-          userObj.uid.slice(0, 5) + message?.creatorId.slice(0, 5),
-        )
-      }
-    }
-  }, [message])
+  // useEffect(() => {
+  //   if (drawerOpenTrue) {
+  //     if (message?.creatorId < userObj.uid) {
+  //       setConversation(
+  //         message?.creatorId.slice(0, 5) + userObj.uid.slice(0, 5),
+  //       )
+  //     } else {
+  //       setConversation(
+  //         userObj.uid.slice(0, 5) + message?.creatorId.slice(0, 5),
+  //       )
+  //     }
+  //   }
+  // }, [message])
   return (
     <>
       <div className="flex justify-between gap-1">

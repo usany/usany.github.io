@@ -32,6 +32,16 @@ const registeredMapExplanation = {
   ko: '표시된 곳을 선택하면 해당하는 내용만 확인할 수 있어요',
   en: 'Click a marker to filter specific location'
 }
+const selectItems = [
+  {
+    ko: '우산',
+    en: 'Usan'
+  },
+  {
+    ko: '양산',
+    en: 'Yangsan'
+  }
+]
 
 interface Props {
   onMarker: boolean;
@@ -56,35 +66,59 @@ const markers = [
     location: { lat: 37.5970966, lng: 127.0527314 }
   },
   {
-    label: '네오르네상스관',
+    label: {
+      ko: '네오르네상스관',
+      en: 'Neo-Renaissance'
+    },
     location: { lat: 37.5948201, lng: 127.053091 }
   },
   {
-    label: '푸른솔',
+    label: {
+      ko: '푸른솔',
+      en: 'Pureunsol'
+    },
     location: { lat: 37.5941125, lng: 127.0557743 }
   },
   {
-    label: '간호이과대',
+    label: {
+      ko: '간호이과대',
+      en: 'Nursing Science & Science'
+    },
     location: { lat: 37.5960528, lng: 127.0536951 }
   },
   {
-    label: '문과대',
+    label: {
+      ko: '문과대',
+      en: 'Humanities'
+    },
     location: { lat: 37.5971991, lng: 127.0539612 }
   },
   {
-    label: '청운',
+    label: {
+      ko: '청운',
+      en: 'Cheongwoon'
+    },
     location: { lat: 37.594732, lng: 127.0517775 }
   },
   {
-    label: '의과대',
+    label: {
+      ko: '의과대',
+      en: 'Medicine'
+    },
     location: { lat: 37.59390, lng: 127.0549 }
   },
   {
-    label: '경영대',
+    label: {
+      ko: '경영대',
+      en: 'Business'
+    },
     location: { lat: 37.5967052, lng: 127.0552861 }
   },
   {
-    label: '치과병원',
+    label: {
+      ko: '치과병원',
+      en: 'Dental Hospital'
+    },
     location: { lat: 37.594054, lng: 127.0531189 }
   },
 ]
@@ -92,9 +126,16 @@ const defaultLocation = markers[0].location
 function BoardMap({ mapAccordion, mapAccordionToggle, onMarker, onMarkerTrue, onMarkerFalse, selectedValues, handleSelectedValues }: Props) {
   const [messages, setMessages] = useState<Array<object>>([]);
   // const [mapAccordion, setMapAccordion] = useState(false);
+  const [selectedLocation, setSelectedLocation] = useState(null)
+  const [items, setItems] = useState({
+    usanOne: 0,
+    usanTwo: 0,
+    yangsanOne: 0,
+    yangsanTwo: 0,
+  })
   const [choose, setChoose] = useState(false);
   const languages = useSelectors((state) => state.languages.value)
-  const index = (languages === 'ko' || languages === 'en') ? languages : 'ko'
+  const selection = (languages === 'ko' || languages === 'en') ? languages : 'ko'
   useEffect(() => {
     document.documentElement.scrollTo({
       top: 0,
@@ -137,20 +178,43 @@ function BoardMap({ mapAccordion, mapAccordionToggle, onMarker, onMarkerTrue, on
       const collectionQuery = query(collection(dbservice, "num"), orderBy("creatorClock", order))
       const docs = await getDocs(collectionQuery)
       const newArray = []
+      let usanOneCount = 0
+      let usanTwoCount = 0
+      let yangsanOneCount = 0
+      let yangsanTwoCount = 0
       docs.forEach((doc) => {
         newArray.push(doc.data())
+        if (doc.data().text.count === selectedValues[1].value) {
+          if (doc.data().item === '우산') {
+            if (doc.data().text.choose === 1) {
+              usanOneCount += 1
+            } else if (doc.data().text.choose === 2) {
+              usanTwoCount += 1
+            }
+          } else if (doc.data().item === '양산') {
+            if (doc.data().text.choose === 1) {
+              yangsanOneCount += 1
+            } else if (doc.data().text.choose === 2) {
+              yangsanTwoCount += 1
+            }
+          }
+        }
+        console.log(doc.data())
       })
       setMessages(newArray)
+      setItems({ usanOne: usanOneCount, usanTwo: usanTwoCount, yangsanOne: yangsanOneCount, yangsanTwo: yangsanTwoCount })
     }
     bringMessages()
-  }, [selectedValues[2].value]);
+  }, [selectedValues[1].value]);
 
   const onClickMarker = (newValue) => {
-    handleSelectedValues({ id: "selectedValueTwo", newValue: newValue });
+    handleSelectedValues({ id: "selectedValueTwo", newValue: newValue.ko });
+    setSelectedLocation(newValue.en)
   };
   const onClickMarkerItem = (newValue) => {
     handleSelectedValues({ id: "selectedValueOne", newValue: newValue });
   };
+  console.log(items)
   return (
     <div>
       <Accordion type="single" collapsible>
@@ -158,7 +222,7 @@ function BoardMap({ mapAccordion, mapAccordionToggle, onMarker, onMarkerTrue, on
           <button onClick={() => {
             document.getElementById('boardMap')?.click()
           }} className='shadow-md px-3 flex sticky top-16 z-30 w-full items-center justify-between bg-light-3 dark:bg-dark-3'>
-            <div>{registeredMap[index]}</div>
+            <div>{registeredMap[selection]}</div>
             <AccordionTrigger id='boardMap' onClick={() => mapAccordionToggle()}>
             </AccordionTrigger>
           </button>
@@ -171,7 +235,7 @@ function BoardMap({ mapAccordion, mapAccordionToggle, onMarker, onMarkerTrue, on
               </div> */}
               {selectedValues[1].value === '전체 장소' ?
                 <div className="flex p-5">
-                  {registeredMapExplanation[index]}
+                  {registeredMapExplanation[selection]}
                 </div>
                 :
                 <div className='flex p-5'>
@@ -203,7 +267,7 @@ function BoardMap({ mapAccordion, mapAccordionToggle, onMarker, onMarkerTrue, on
                   return (
                     <AdvancedMarker
                       onClick={() => {
-                        onClickMarker(value.label[index]);
+                        onClickMarker(value.label);
                         onMarkerTrue();
                       }}
                       position={value.location}
@@ -237,9 +301,9 @@ function BoardMap({ mapAccordion, mapAccordionToggle, onMarker, onMarkerTrue, on
                   position={{ lat: 37.5971991, lng: 127.0539612 }}
                 /> */}
                 <InfoWindow
-                  position={markers.find((element) => element.label === selectedValues[1].value)?.location}
+                  position={markers.find((element) => element.label.ko === selectedValues[1].value)?.location}
                   onClose={() => {
-                    onClickMarker("전체 장소");
+                    onClickMarker({ ko: "전체 장소" });
                     if (choose) {
                       onClickMarkerItem("전체 아이템");
                       setChoose(false);
@@ -248,45 +312,27 @@ function BoardMap({ mapAccordion, mapAccordionToggle, onMarker, onMarkerTrue, on
                   }}
                 >
                   <div className="flex flex-col">
-                    <div className='flex justify-center'>{selectedValues[1].value}</div>
-                    <div className="flex">
-                      <div className="pt-1">
-                        <Chip
-                          label={`우산`}
-                          onClick={() => {
-                            setChoose(true);
-                            onClickMarkerItem("우산");
-                          }}
-                        />
-                        {/* <Chips
-                          label={`우산`}
-                          onClick={() => {
-                            setChoose(true);
-                            onClickMarkerItem("우산");
-                          }}
-                        /> */}
-                      </div>
+                    <div className='flex justify-center'>{languages === 'ko' ? selectedValues[1].value : selectedLocation}</div>
+                    {selectItems.map((value, index) => {
+                      return (
+                        <div className="flex gap-5">
+                          <div className="pt-1">
+                            <Chip
+                              label={`${selectItems[index][selection]}`}
+                              onClick={() => {
+                                setChoose(true);
+                                onClickMarkerItem(`${selectItems[index].ko}`);
+                              }}
+                            />
+                          </div>
+                          <div className="pt-3">{languages === 'ko' ? '빌리기' : 'Borrowing'}: {index ? items.yangsanOne : items.usanOne} {languages === 'ko' ? '요청' : 'requests'}</div>
+                          <div className="pt-3">{languages === 'ko' ? '빌려주기' : 'Lending'}: {index ? items.yangsanTwo : items.usanTwo} {languages === 'ko' ? '요청' : 'requests'}</div>
+                        </div>
+                      )
+                    })}
+                    {/* <div className="flex">
                       <div className="pt-3">: {messages.length} 요청</div>
-                    </div>
-                    <div className="flex">
-                      <div className="pt-1">
-                        <Chip
-                          label={`양산`}
-                          onClick={() => {
-                            setChoose(true);
-                            onClickMarkerItem("양산");
-                          }}
-                        />
-                        {/* <Chips
-                          label={`양산`}
-                          onClick={() => {
-                            setChoose(true);
-                            onClickMarkerItem("양산");
-                          }}
-                        /> */}
-                      </div>
-                      <div className="pt-3">: {messages.length} 요청</div>
-                    </div>
+                    </div> */}
                   </div>
                 </InfoWindow>
                 {/* {selectedValues[1].value !== '전체' &&

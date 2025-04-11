@@ -1,16 +1,11 @@
 import {
   Drawer,
-  DrawerClose,
   DrawerContent,
   DrawerTrigger
 } from '@/components/ui/drawer'
-import Button from '@mui/material/Button'
 import { ScrollArea } from '@radix-ui/react-scroll-area'
 import { User } from 'firebase/auth'
 import { useEffect, useState } from 'react'
-import {
-  Link
-} from 'react-router-dom'
 import { Dialog, DialogContent, DialogTrigger } from 'src/components/ui/dialog'
 import useLargeMedia from 'src/hooks/useLargeMedia'
 import Avatars from 'src/pages/core/Avatars'
@@ -48,7 +43,7 @@ function SpecificsActionsPopups({ drawerOpenTrue, userObj, message }: Props) {
   if (largeMedia) {
     return (
       <Dialog>
-        <DialogTrigger>
+        <DialogTrigger onClick={drawerOpenTrue}>
           <Avatars
             uid={message.creatorId}
             profile={false}
@@ -59,7 +54,8 @@ function SpecificsActionsPopups({ drawerOpenTrue, userObj, message }: Props) {
         <DialogContent>
           <ScrollArea className="overflow-y-scroll">
             <DrawersBar />
-            <div className="flex flex-col items-center pt-5">
+            <SpecificsActionsPopupsContents drawerOpenTrue={drawerOpenTrue} userObj={userObj} message={message} />
+            {/* <div className="flex flex-col items-center pt-5">
               <Avatars
                 uid={message.creatorId}
                 profile={true}
@@ -83,7 +79,6 @@ function SpecificsActionsPopups({ drawerOpenTrue, userObj, message }: Props) {
                 <Button
                   variant="outlined"
                   onClick={() => {
-                    // handleClose()
                   }}
                 >
                   프로필 확인
@@ -105,8 +100,6 @@ function SpecificsActionsPopups({ drawerOpenTrue, userObj, message }: Props) {
                     <Button
                       variant="outlined"
                       onClick={() => {
-                        // handleMessagesList([])
-                        // handleMultiple(false)
                       }}
                     >
                       개인 대화
@@ -114,7 +107,7 @@ function SpecificsActionsPopups({ drawerOpenTrue, userObj, message }: Props) {
                   </DrawerClose>
                 </Link>
               )}
-            </div>
+            </div> */}
           </ScrollArea>
         </DialogContent>
       </Dialog>
@@ -125,24 +118,24 @@ function SpecificsActionsPopups({ drawerOpenTrue, userObj, message }: Props) {
     <>
       <div className="flex justify-between gap-1">
         <div className="flex flex-col gap-1 items-center">
-          <Drawer>
-            <DrawerTrigger onClick={drawerOpenTrue}>
-              <Avatars
-                uid={message.creatorId}
-                profile={false}
-                profileColor={''}
-                profileUrl={message.creatorUrl}
-              />
-            </DrawerTrigger>
-            <DrawerContent className="flex flex-col justify-center px-5 bg-light-2 dark:bg-dark-2 max-h-[60%]">
-              <ScrollArea className="overflow-y-scroll">
-                <DrawersBar />
-                <SpecificsActionsPopupsContents drawerOpenTrue={drawerOpenTrue} userObj={userObj} message={message} />
-              </ScrollArea>
-            </DrawerContent>
-          </Drawer>
         </div>
       </div>
+      <Drawer>
+        <DrawerTrigger onClick={drawerOpenTrue}>
+          <Avatars
+            uid={message.creatorId}
+            profile={false}
+            profileColor={''}
+            profileUrl={message.creatorUrl}
+          />
+        </DrawerTrigger>
+        <DrawerContent className="flex flex-col justify-center px-5 bg-light-2 dark:bg-dark-2 max-h-[60%]">
+          <ScrollArea className="overflow-y-scroll">
+            <DrawersBar />
+            <SpecificsActionsPopupsContents drawerOpenTrue={drawerOpenTrue} userObj={userObj} message={message} />
+          </ScrollArea>
+        </DrawerContent>
+      </Drawer>
     </>
   )
 }

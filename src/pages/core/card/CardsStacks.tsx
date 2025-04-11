@@ -31,6 +31,90 @@ function CardsStacks({ userObj }: Props) {
   const [cardLoaded, setCardLoaded] = useState(false);
   const [longPressCard, setLongPressCard] = useState(null);
   const [onLongPress, setOnLongPress] = useState(0);
+  const chosenMessages = messages.map((value) => {
+    const isOwner = value.creatorId === userObj.uid;
+    if (value.round !== 5) {
+      if (value.creatorId === userObj.uid) {
+        return (
+          <ClickAwayListener
+            onClickAway={() => {
+              if (longPressCard === value.id) {
+                setOnLongPress(0);
+                setLongPressCard(null);
+              }
+            }}
+          >
+            <div
+              onMouseDownCapture={() => {
+                const longPress = value.id;
+                setLongPressCard(longPress);
+              }}
+              // onMouseUp={() => {
+              //   setPressed(true)
+              // }}
+              onTouchStartCapture={() => {
+                const longPress = value.id;
+                setLongPressCard(longPress);
+              }}
+            >
+              <AnimatedList>
+                <Cards
+                  message={value}
+                  isOwner={isOwner}
+                  userObj={userObj}
+                  num={null}
+                  points={null}
+                  onLongPress={onLongPress}
+                  changeOnLongPress={(newValue) =>
+                    setOnLongPress(newValue)
+                  }
+                  longPressCard={longPressCard}
+                  changeLongPressCard={(newValue) =>
+                    setLongPressCard(newValue)
+                  }
+                />
+              </AnimatedList>
+            </div>
+          </ClickAwayListener>
+        );
+      } else if (
+        value.connectedId === userObj.uid &&
+        value.round !== 1
+      ) {
+        return (
+          <div
+            onMouseDownCapture={() => {
+              const longPress = value.id;
+              setLongPressCard(longPress);
+            }}
+            // onMouseUp={() => {
+            //   setPressed(true)
+            // }}
+            onTouchStartCapture={() => {
+              const longPress = value.id;
+              setLongPressCard(longPress);
+            }}
+          >
+            <AnimatedList>
+              <Cards
+                message={value}
+                isOwner={isOwner}
+                userObj={userObj}
+                num={null}
+                points={null}
+                onLongPress={onLongPress}
+                changeOnLongPress={(newValue) =>
+                  setOnLongPress(newValue)
+                }
+                longPressCard={longPressCard}
+              />
+            </AnimatedList>
+          </div>
+        );
+      }
+    }
+  }).filter((value) => value !== undefined)
+
   const languages = useSelectors((state) => state.languages.value)
   const index = (languages === 'ko' || languages === 'en') ? languages : 'ko'
   useEffect(() => {

@@ -58,7 +58,7 @@ function SpecificsTrades({ drawerOpenTrue, userObj, message, round, connectedUse
               conversation={conversation}
               drawerOpenTrue={drawerOpenTrue}
             /> */}
-            <Popups trigger={<SpecificsTradesTrigger isCreator={true} message={message} />} title={<SpecificsTradesTitle />} content={<SpecificsTradesContent isCreator={true} userObj={userObj} message={message} conversation={conversation} drawerOpenTrue={drawerOpenTrue} />} />
+            <Popups trigger={<SpecificsTradesTrigger onClick={drawerOpenTrue} isCreator={true} message={message} />} title={<SpecificsTradesTitle />} content={<SpecificsTradesContent isCreator={true} userObj={userObj} message={message} conversation={conversation} drawerOpenTrue={drawerOpenTrue} />} />
             {/* <Avatars
               profile={false}
               profileColor={""}
@@ -78,7 +78,7 @@ function SpecificsTrades({ drawerOpenTrue, userObj, message, round, connectedUse
               //   conversation={conversation}
               //   drawerOpenTrue={drawerOpenTrue}
               // />
-              <Popups trigger={<SpecificsTradesTrigger isCreator={false} message={message} />} title={<SpecificsTradesTitle />} content={<SpecificsTradesContent isCreator={false} userObj={userObj} message={message} conversation={conversation} drawerOpenTrue={drawerOpenTrue} />} />
+              <Popups trigger={<SpecificsTradesTrigger onClick={drawerOpenTrue} isCreator={false} message={message} />} title={<SpecificsTradesTitle />} content={<SpecificsTradesContent isCreator={false} userObj={userObj} message={message} conversation={conversation} drawerOpenTrue={drawerOpenTrue} />} />
             ) : (
               // <Avatars
               //   profile={false}
@@ -135,7 +135,7 @@ function SpecificsTrades({ drawerOpenTrue, userObj, message, round, connectedUse
               //   conversation={conversation}
               //   drawerOpenTrue={drawerOpenTrue}
               // />
-              <Popups trigger={<SpecificsTradesTrigger isCreator={false} message={connectedUser} />} title={<SpecificsTradesTitle />} content={<SpecificsTradesContent isCreator={false} userObj={userObj} message={connectedUser} conversation={conversation} drawerOpenTrue={drawerOpenTrue} />} />
+              <Popups trigger={<SpecificsTradesTrigger onClick={drawerOpenTrue} isCreator={false} message={connectedUser} />} title={<SpecificsTradesTitle />} content={<SpecificsTradesContent isCreator={false} userObj={userObj} message={connectedUser} conversation={conversation} drawerOpenTrue={drawerOpenTrue} />} />
             ) : (
               // <Avatars
               //   profile={false}
@@ -169,7 +169,7 @@ function SpecificsTrades({ drawerOpenTrue, userObj, message, round, connectedUse
               conversation={conversation}
               drawerOpenTrue={drawerOpenTrue}
             /> */}
-            <Popups trigger={<SpecificsTradesTrigger isCreator={true} message={message} />} title={<SpecificsTradesTitle />} content={<SpecificsTradesContent isCreator={false} userObj={userObj} message={message} conversation={conversation} drawerOpenTrue={drawerOpenTrue} />} />
+            <Popups trigger={<SpecificsTradesTrigger onClick={drawerOpenTrue} isCreator={true} message={message} />} title={<SpecificsTradesTitle />} content={<SpecificsTradesContent isCreator={false} userObj={userObj} message={message} conversation={conversation} drawerOpenTrue={drawerOpenTrue} />} />
             {/* <Avatars
               profile={false}
               profileColor={""}

@@ -3,6 +3,7 @@
 import Avatars from 'src/pages/core/Avatars'
 
 const SpecificsTradesTrigger = ({
+  onClick,
   isCreator,
   userObj,
   message,
@@ -24,12 +25,14 @@ const SpecificsTradesTrigger = ({
   }
   console.log(uid)
   return (
-    <Avatars
-      uid={uid}
-      profile={false}
-      profileColor={''}
-      profileUrl={url}
-    />
+    <div onClick={onClick}>
+      <Avatars
+        uid={uid}
+        profile={false}
+        profileColor={''}
+        profileUrl={url}
+      />
+    </div>
   )
 }
 
