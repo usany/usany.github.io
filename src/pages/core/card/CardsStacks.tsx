@@ -79,32 +79,6 @@ function CardsStacks({ userObj }: Props) {
       setCardLoaded(true)
     }
     bringCards()
-    // onSnapshot(
-    //   query(collection(dbservice, "num"), orderBy("creatorClock", "desc")),
-    //   (snapshot) => {
-    //     const newArray = snapshot.docs.map((document) => {
-    //       if (document.data().creatorId === userObj.uid) {
-    //         return {
-    //           id: document.id,
-    //           ...document.data(),
-    //         };
-    //       } else if (
-    //         document.data().connectedId === userObj.uid &&
-    //         document.data().round !== 1
-    //       ) {
-    //         return {
-    //           id: document.id,
-    //           ...document.data(),
-    //         };
-    //       }
-    //     });
-    //     const newArraySelection = newArray.filter((element) => {
-    //       return element !== undefined;
-    //     });
-    //     setMessages(newArraySelection);
-    //     setCardLoaded(true);
-    //   }
-    // );
   }, []);
 
   useEffect(() => {
