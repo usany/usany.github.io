@@ -30,8 +30,7 @@ function CardsStacks({ userObj }: Props) {
   const [messages, setMessages] = useState([]);
   const [cardLoaded, setCardLoaded] = useState(false);
   const [longPressCard, setLongPressCard] = useState(null);
-  const [onLongPress, setOnLongPress] = useState(0);
-
+  const [onLongPress, setOnLongPress] = useState(0)
   const languages = useSelectors((state) => state.languages.value)
   const index = (languages === 'ko' || languages === 'en') ? languages : 'ko'
   useEffect(() => {
