@@ -31,6 +31,7 @@ const mergedArray = letters.concat(numbers)
 const CardsViews = ({
   message,
   onPulse,
+  onTransfer
 }: Props) => {
   const id = message?.id || ''
   const shadowColor = shadowColorArray[mergedArray.indexOf(String(id[0]).toUpperCase()) % shadowColorArray.length]
@@ -41,7 +42,7 @@ const CardsViews = ({
           <CardView message={message} shadowColor={shadowColor} />
         </PulsatingButton>
       ) : (
-        <CardView message={message} shadowColor={shadowColor} />
+        <CardView onTransfer={onTransfer} message={message} shadowColor={shadowColor} />
       )}
     </div>
   )

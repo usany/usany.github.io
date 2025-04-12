@@ -10,6 +10,7 @@ import Btn from 'src/buttons/Buttons'
 // import { useBottomNavigationStore } from 'src/store'
 import Divider from '@mui/material/Divider'
 import { User } from 'firebase/auth'
+import { useSelectors } from 'src/hooks/useSelectors'
 import useCardsBackground from '../../../hooks/useCardsBackground'
 import SpecificsActions from './SpecificsActions'
 import SpecificsDimensions from './SpecificsDimensions'
@@ -33,7 +34,8 @@ function Specifics({
   onPulse,
   changeOnPulse,
   connectedUser,
-  changeConnectedUser
+  changeConnectedUser,
+  onTransferTrue
 }: Props) {
   const [messageObj, setMessageObj] = useState<{
     id: string
@@ -47,6 +49,7 @@ function Specifics({
   const [num, setNum] = useState<number | null>(null)
   const [points, setPoints] = useState<number | null>(null)
   const [deleted, setDeleted] = useState<boolean>(false)
+  const languages = useSelectors((state) => state.languages.value)
   // const [round, setRound] = useState(0)
   // const increaseRound = () => {
   //   setRound(round + 1)
@@ -56,6 +59,7 @@ function Specifics({
   // }
   const deleteMessage = () => {
     // changeDeleted(true)
+    onTransferTrue()
     setDeleted(true)
   }
   // useEffect(() => {
@@ -68,9 +72,9 @@ function Specifics({
     const bringMessage = async ({ message }) => {
       const docRef = doc(dbservice, `num/${message.id}`)
       const docSnap = await getDoc(docRef)
-      setMessageObj({ id: message.id, round: docSnap.data().round, ...docSnap.data() })
+      setMessageObj({ id: message.id, round: docSnap.data()?.round, ...docSnap.data() })
       // setRound(docSnap.data().round)
-      if (!docSnap.data().round) {
+      if (!docSnap.data()?.round) {
         setDeleted(true)
       }
     }

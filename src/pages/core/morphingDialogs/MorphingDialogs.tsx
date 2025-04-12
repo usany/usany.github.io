@@ -24,6 +24,10 @@ const MorphingDialogs = ({ message, isOwner, userObj, num, points, round, increa
     displayName: '',
     url: ''
   })
+  const [onTransfer, setOnTransfer] = useState(false)
+  const onTransferTrue = () => setOnTransfer(true)
+  const onTransferFalse = () => setOnTransfer(false)
+
   console.log(message)
   useEffect(() => {
     setConnectedUser({
@@ -163,11 +167,8 @@ const MorphingDialogs = ({ message, isOwner, userObj, num, points, round, increa
       <MorphingDialogTrigger>
         <CardsViews
           message={message}
-          isOwner={isOwner}
-          userObj={userObj}
-          num={num}
-          points={points}
           onPulse={onPulse}
+          onTransfer={onTransfer}
         />
       </MorphingDialogTrigger>
       <MorphingDialogContainer>
@@ -181,6 +182,7 @@ const MorphingDialogs = ({ message, isOwner, userObj, num, points, round, increa
           changeOnPulse={changeOnPulse}
           connectedUser={connectedUser}
           changeConnectedUser={changeConnectedUser}
+          onTransferTrue={onTransferTrue}
         />
         {/* <MorphingDialogContent drawerOpen={drawerOpen} drawerOpenFalse={drawerOpenFalse}>
           <Specifics drawerOpenTrue={drawerOpenTrue} userObj={userObj} message={message} />

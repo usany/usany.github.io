@@ -12,7 +12,7 @@ interface Props {
   userObj: User | null
 }
 
-const Morphings = ({ round, increaseRound, decreaseRound, message, userObj, onPulse, changeOnPulse, connectedUser, changeConnectedUser }: Props) => {
+const Morphings = ({ round, increaseRound, decreaseRound, message, userObj, onPulse, changeOnPulse, connectedUser, changeConnectedUser, onTransferTrue }: Props) => {
   const [drawerOpen, setDrawerOpen] = useState(false)
   const drawerOpenTrue = () => {
     setDrawerOpen(true)
@@ -35,7 +35,9 @@ const Morphings = ({ round, increaseRound, decreaseRound, message, userObj, onPu
         onPulse={onPulse}
         changeOnPulse={changeOnPulse}
         connectedUser={connectedUser}
-        changeConnectedUser={changeConnectedUser} />
+        changeConnectedUser={changeConnectedUser}
+        onTransferTrue={onTransferTrue}
+      />
     </MorphingDialogContent>
   )
 }

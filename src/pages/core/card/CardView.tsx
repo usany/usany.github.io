@@ -1,4 +1,4 @@
-import { Chip } from '@mui/material'
+import { alpha, Chip } from '@mui/material'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
@@ -21,7 +21,7 @@ interface Props {
   points: number | null
 }
 
-const CardView = ({ message, shadowColor }) => {
+const CardView = ({ onTransfer, message, shadowColor }) => {
   const profileColor = useSelector((state) => state.profileColor.value)
   const profileUrl = message?.creatorUrl
   const { color } = useCardsBackground()
@@ -68,7 +68,7 @@ const CardView = ({ message, shadowColor }) => {
           bgcolor: color,
         }}
       >
-        <CardContent sx={{ padding: '5px' }}>
+        <CardContent sx={{ padding: '5px', bgcolor: onTransfer && alpha('#000000', 0.5), }}>
           <div>
             <div className="flex justify-between gap-1">
               <Avatars
