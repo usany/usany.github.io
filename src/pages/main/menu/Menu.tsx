@@ -112,6 +112,7 @@ function Menu({ userObj }: Props) {
         <Cardings cards={'sample'} shadowColor={'lightblue'} />
       </div> */}
       <Accordion
+        className='px-5'
         value={[cardAccordion, messageAccordion]}
         // defaultValue={accordionValues}
         type="multiple"
