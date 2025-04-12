@@ -87,7 +87,7 @@ function Specifics({
     //   }
     // });
   }, [])
-  console.log(deleted)
+  console.log(connectedUser)
   useEffect(() => {
     const creatorPoints = async () => {
       const docRef = doc(dbservice, `members/${message.creatorId}`)

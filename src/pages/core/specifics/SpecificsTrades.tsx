@@ -88,14 +88,14 @@ function SpecificsTrades({ drawerOpenTrue, userObj, message, round, connectedUse
               <Avatar
                 className={`bg-light-3 dark:bg-dark-3 border border-dashed`}
               >
-                <AvatarImage src={message?.connectedUrl} />
+                <AvatarImage src={connectedUser.url} />
                 <AvatarFallback className="text-xl border-none">
                   ?
                 </AvatarFallback>
               </Avatar>
             )}
-            {message.connectedName ? (
-              <Chip label={message.connectedName} />
+            {connectedUser.uid ? (
+              <Chip label={connectedUser.displayName} />
               // <Chips label={message.connectedName} />
             ) : (
               <Chip variant="outlined" label={'아직 없음'} />
@@ -145,14 +145,14 @@ function SpecificsTrades({ drawerOpenTrue, userObj, message, round, connectedUse
               <Avatar
                 className={`bg-light-3 dark:bg-dark-3 border border-dashed`}
               >
-                <AvatarImage src={message?.connectedUrl} />
+                <AvatarImage src={connectedUser.url} />
                 <AvatarFallback className="text-xl border-none">
                   ?
                 </AvatarFallback>
               </Avatar>
             )}
-            {message.connectedName ? (
-              <Chip label={message.connectedName} />
+            {connectedUser.uid ? (
+              <Chip label={connectedUser.displayName} />
               // <Chips label={message.connectedName} />
             ) : (
               <Chip variant="outlined" label={languages === 'ko' ? '아직 없음' : 'No one yet'} />

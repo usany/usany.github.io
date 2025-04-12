@@ -24,6 +24,14 @@ const MorphingDialogs = ({ message, isOwner, userObj, num, points, round, increa
     displayName: '',
     url: ''
   })
+  console.log(message)
+  useEffect(() => {
+    setConnectedUser({
+      uid: message.connectedId,
+      displayName: message.connectedName,
+      url: message.connectedUrl
+    })
+  }, [])
   const changeConnectedUser = (newValue) => setConnectedUser(newValue)
   useEffect(() => {
     if (message.text.choose === 1) {
