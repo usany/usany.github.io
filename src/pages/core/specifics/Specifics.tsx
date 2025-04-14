@@ -51,7 +51,6 @@ function Specifics({
   const [points, setPoints] = useState<number | null>(null)
   const [deleted, setDeleted] = useState<boolean>(false)
   const languages = useSelectors((state) => state.languages.value)
-  // const [round, setRound] = useState(0)
   // const increaseRound = () => {
   //   setRound(round + 1)
   // }
@@ -59,7 +58,6 @@ function Specifics({
   //   setRound(round - 1)
   // }
   const deleteMessage = () => {
-    // changeDeleted(true)
     onTransferTrue()
     setDeleted(true)
     removeMessage(message)
