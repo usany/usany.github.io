@@ -61,7 +61,7 @@ const CardView = ({ onTransfer, message, shadowColor }) => {
 
   return (
     <div className='flex flex-col gap-5'>
-      <div className='flex justify-center items-center z-30 rounded-md bg-black/50 text-profile-blue w-full h-full absolute'>
+      <div className='flex justify-center items-center z-30 rounded bg-black/50 text-white w-full h-full absolute'>
         <div className='flex justify-center items-center gap-1 h-full'>
           <West />
           <div>
