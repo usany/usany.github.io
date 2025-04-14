@@ -9,7 +9,6 @@ import { useEffect, useState } from "react";
 import {
   dbservice
 } from "src/baseApi/serverbase";
-// import Cards from "src/pages/main/card/Cards";
 import { useSelectors } from "src/hooks/useSelectors";
 import BoardMap from "src/pages/board/boardMap/BoardMap";
 import FilterDialogs from "src/pages/board/FilterDialogs/FilterDialogs";
