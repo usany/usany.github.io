@@ -61,14 +61,16 @@ const CardView = ({ onTransfer, message, shadowColor }) => {
 
   return (
     <div className='flex flex-col gap-5'>
-      <div className='flex justify-center items-center z-30 rounded bg-black/50 text-white w-full h-full absolute'>
-        <div className='flex justify-center items-center gap-1 h-full'>
-          <West />
-          <div>
-            {languages === 'ko' ? '내 상태로 카드 전송됨' : 'Moved to board'}
+      {onTransfer &&
+        <div className='flex justify-center items-center z-30 rounded bg-black/50 text-white w-full h-full absolute'>
+          <div className='flex justify-center items-center gap-1 h-full'>
+            <West />
+            <div>
+              {languages === 'ko' ? '내 상태로 카드 전송됨' : 'Moved to board'}
+            </div>
           </div>
         </div>
-      </div>
+      }
       <Card
         sx={{
           width: 200,

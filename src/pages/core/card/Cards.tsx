@@ -48,6 +48,7 @@ const Cards = ({
   changeOnLongPress,
   longPressCard,
   changeLongPressCard,
+  deleteMessage
 }: Props) => {
   const [longPressed, setLongPressed] = useState(false);
   const [round, setRound] = useState(0)
@@ -101,6 +102,7 @@ const Cards = ({
                 userObj={userObj}
                 num={num}
                 points={points}
+                deleteMessage={deleteMessage}
               />
             </div>
           </ClickAwayListener>
@@ -120,6 +122,7 @@ const Cards = ({
                 const data = doc(dbservice, `num/${message.id}`);
                 deleteDoc(data);
                 changeOnLongPress(null);
+                deleteMessage(message)
               }}
             >
               <Chip label={<DeleteIcon />} color="error" />
@@ -153,6 +156,7 @@ const Cards = ({
                   userObj={userObj}
                   num={num}
                   points={points}
+                  deleteMessage={deleteMessage}
                 />
               </div>
             </ClickAwayListener>
@@ -166,6 +170,7 @@ const Cards = ({
               round={round}
               increaseRound={increaseRound}
               decreaseRound={decreaseRound}
+              deleteMessage={deleteMessage}
             />
           )}
         </div>

@@ -16,7 +16,7 @@ interface Props {
   num: number | null
   points: number | null
 }
-const MorphingDialogs = ({ message, isOwner, userObj, num, points, round, increaseRound, decreaseRound }: Props) => {
+const MorphingDialogs = ({ message, isOwner, userObj, num, points, round, increaseRound, decreaseRound, deleteMessage }: Props) => {
   const [onPulse, setOnPulse] = useState(false)
   const changeOnPulse = (newValue) => setOnPulse(newValue)
   const [connectedUser, setConnectedUser] = useState({
@@ -183,6 +183,7 @@ const MorphingDialogs = ({ message, isOwner, userObj, num, points, round, increa
           connectedUser={connectedUser}
           changeConnectedUser={changeConnectedUser}
           onTransferTrue={onTransferTrue}
+          deleteMessage={deleteMessage}
         />
         {/* <MorphingDialogContent drawerOpen={drawerOpen} drawerOpenFalse={drawerOpenFalse}>
           <Specifics drawerOpenTrue={drawerOpenTrue} userObj={userObj} message={message} />

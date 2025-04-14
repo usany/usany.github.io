@@ -33,6 +33,12 @@ function CardsStacks({ userObj }: Props) {
   const [onLongPress, setOnLongPress] = useState(0)
   const languages = useSelectors((state) => state.languages.value)
   const index = (languages === 'ko' || languages === 'en') ? languages : 'ko'
+  const deleteMessage = (deletingMessage) => {
+    const newMessages = [...messages]
+    newMessages.splice(newMessages.indexOf(deletingMessage), 1)
+    setMessages(newMessages)
+  }
+
   useEffect(() => {
     const requestPermission = async () => {
       try {
@@ -148,6 +154,7 @@ function CardsStacks({ userObj }: Props) {
                                 changeLongPressCard={(newValue) =>
                                   setLongPressCard(newValue)
                                 }
+                                deleteMessage={deleteMessage}
                               />
                             </AnimatedList>
                           </div>
@@ -183,6 +190,7 @@ function CardsStacks({ userObj }: Props) {
                                 setOnLongPress(newValue)
                               }
                               longPressCard={longPressCard}
+                              deleteMessage={deleteMessage}
                             />
                           </AnimatedList>
                         </div>

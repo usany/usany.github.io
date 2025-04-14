@@ -35,7 +35,8 @@ function Specifics({
   changeOnPulse,
   connectedUser,
   changeConnectedUser,
-  onTransferTrue
+  onTransferTrue,
+  removeMessage
 }: Props) {
   const [messageObj, setMessageObj] = useState<{
     id: string
@@ -61,6 +62,7 @@ function Specifics({
     // changeDeleted(true)
     onTransferTrue()
     setDeleted(true)
+    removeMessage(message)
   }
   // useEffect(() => {
   //   if (!round) {
