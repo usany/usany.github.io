@@ -96,7 +96,7 @@ function Board({ userObj }: Props) {
   return (
     <div>
       {userObj ?
-        <div>
+        <div className='px-5'>
           {/* <AlarmCheck />
             <AlertCircle />
             <Siren />

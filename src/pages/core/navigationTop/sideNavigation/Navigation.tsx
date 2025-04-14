@@ -1,4 +1,4 @@
-import SwipeableDrawer from '@mui/material/SwipeableDrawer'
+import { Drawer } from '@mui/material'
 import { User } from 'firebase/auth'
 import { doc, onSnapshot } from 'firebase/firestore'
 import {
@@ -109,7 +109,7 @@ function Navigation({ userObj, sideNavigation, handleSideNavigation }: Props) {
     },
   ]
   return (
-    <SwipeableDrawer
+    <Drawer
       PaperProps={{
         sx: {
           backgroundColor: { backgroundColor },
@@ -119,9 +119,9 @@ function Navigation({ userObj, sideNavigation, handleSideNavigation }: Props) {
       anchor={'left'}
       open={sideNavigation}
       onClose={handleSideNavigation}
-      onOpen={handleSideNavigation}
-      aria-hidden="false"
-      swipeAreaWidth={20}
+    // onOpen={handleSideNavigation}
+    // aria-hidden="false"
+    // swipeAreaWidth={20}
     >
       <nav className="flex flex-col justify-between w-[350px]">
         {userObj ? (
@@ -153,7 +153,7 @@ function Navigation({ userObj, sideNavigation, handleSideNavigation }: Props) {
         )}
         {userObj && <IframePlayer mode={theme} />}
       </nav>
-    </SwipeableDrawer>
+    </Drawer>
   )
 }
 
