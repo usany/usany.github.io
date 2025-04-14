@@ -121,6 +121,7 @@ const Chats = ({ userObj, profileUrl, conversation, displayName, chattingUid, mu
             onDelete({ conversation: conversation })
           } else {
             dispatch(changePiazzaSwitch('false'))
+            localStorage.setItem('piazza', 'false')
           }
         }}>
           <Chip label={<DeleteIcon />} color='error' />

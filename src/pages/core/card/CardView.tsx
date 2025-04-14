@@ -1,17 +1,18 @@
-import { alpha, Chip } from '@mui/material'
-import Card from '@mui/material/Card'
-import CardContent from '@mui/material/CardContent'
-import CardMedia from '@mui/material/CardMedia'
-import { User } from 'firebase/auth'
-import { Building, Watch } from 'lucide-react'
-import { useSelector } from 'react-redux'
-import staticImg from 'src/assets/pwa-512x512.png'
-import useCardsBackground from 'src/hooks/useCardsBackground'
-import { useSelectors } from 'src/hooks/useSelectors'
-import locationsBuildings from 'src/pages/add/locationsBuildings'
-import locationsCollection from 'src/pages/add/locationsCollection'
-import locationsCollectionLetters from 'src/pages/add/locationsCollectionLetters'
-import Avatars from '../Avatars'
+import West from '@mui/icons-material/West';
+import { alpha, Chip } from '@mui/material';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import { User } from 'firebase/auth';
+import { Building, Watch } from 'lucide-react';
+import { useSelector } from 'react-redux';
+import staticImg from 'src/assets/pwa-512x512.png';
+import useCardsBackground from 'src/hooks/useCardsBackground';
+import { useSelectors } from 'src/hooks/useSelectors';
+import locationsBuildings from 'src/pages/add/locationsBuildings';
+import locationsCollection from 'src/pages/add/locationsCollection';
+import locationsCollectionLetters from 'src/pages/add/locationsCollectionLetters';
+import Avatars from '../Avatars';
 
 interface Props {
   message: { id: string; text: object }
@@ -69,7 +70,19 @@ const CardView = ({ onTransfer, message, shadowColor }) => {
         }}
       >
         <CardContent sx={{ padding: '5px', bgcolor: onTransfer && alpha('#000000', 0.5), }}>
+          {/* <div className='flex flex-col justify-center items-center absolute z-30 pt-20 text-profile-blue text-3xl w-full'>
+            <div>
+              {languages === 'ko' ? '게시판으로' : 'Move to board'}
+            </div>
+            <West style={{ fontSize: '100px' }} />
+          </div> */}
           <div>
+            <div className='flex justify-center gap-3 items-center z-30 text-profile-blue w-full'>
+              <West />
+              <div>
+                {languages === 'ko' ? '게시판으로' : 'Moved to board'}
+              </div>
+            </div>
             <div className="flex justify-between gap-1">
               <Avatars
                 uid={message.creatorId}

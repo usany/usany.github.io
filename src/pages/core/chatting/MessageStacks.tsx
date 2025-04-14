@@ -39,7 +39,6 @@ const MessageStacks = ({ userObj }: Props) => {
     }
   }, [longPressChat])
   const { data, error, isLoading } = useGetPiazzaQuery('query')
-
   const piazza = async () => {
     const piazzaRef = collection(dbservice, 'chats_group')
     const piazzaCollection = query(
