@@ -77,12 +77,6 @@ const CardView = ({ onTransfer, message, shadowColor }) => {
             <West style={{ fontSize: '100px' }} />
           </div> */}
           <div>
-            <div className='flex justify-center gap-3 items-center z-30 text-profile-blue w-full'>
-              <West />
-              <div>
-                {languages === 'ko' ? '게시판으로' : 'Moved to board'}
-              </div>
-            </div>
             <div className="flex justify-between gap-1">
               <Avatars
                 uid={message.creatorId}
@@ -101,7 +95,15 @@ const CardView = ({ onTransfer, message, shadowColor }) => {
                 /> */}
               </div>
             </div>
-            <div className="flex justify-center pt-1">
+            <div className='flex justify-center items-center z-30 text-profile-blue w-full absolute top-20'>
+              <div className='flex justify-center items-center gap-1 bg-light-1 dark:bg-dark-1 rounded-md'>
+                <West />
+                <div>
+                  {languages === 'ko' ? '내 상태로 카드 전송됨' : 'Moved to board'}
+                </div>
+              </div>
+            </div>
+            <div className="flex justify-center pt-1 blur">
               <CardMedia
                 sx={{
                   width: 159,

@@ -25,7 +25,6 @@ interface Props {
   }
 }
 
-
 const Chats = ({ userObj, profileUrl, conversation, displayName, chattingUid, multiple, clock, message, longPressChat, changeLongPressChat, onLongPress, changeOnLongPress, onDelete }: Props) => {
   const [longPressed, setLongPressed] = useState(false)
   const theme = useSelector((state) => state.theme)
