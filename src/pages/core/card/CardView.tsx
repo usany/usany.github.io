@@ -114,7 +114,9 @@ const CardView = ({ onTransfer, message, shadowColor }) => {
             </div>
             <div className="flex flex-col pt-1">
               <div className="flex gap-1">
-                <Building />
+                <div className='flex items-center'>
+                  <Building />
+                </div>
                 <div>
                   {location}
                   {/* {message.text.count} {message.text.counter}{' '}
@@ -122,7 +124,9 @@ const CardView = ({ onTransfer, message, shadowColor }) => {
                 </div>
               </div>
               <div className="flex gap-1">
-                <Watch />
+                <div className='flex items-center'>
+                  <Watch />
+                </div>
                 <div className="flex flex-col">
                   <div className="flex">
                     {languages === 'en' &&
