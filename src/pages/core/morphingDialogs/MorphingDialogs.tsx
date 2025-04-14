@@ -25,10 +25,8 @@ const MorphingDialogs = ({ message, isOwner, userObj, num, points, round, increa
     url: ''
   })
   const [onTransfer, setOnTransfer] = useState(false)
-  const onTransferTrue = () => setOnTransfer(true)
-  const onTransferFalse = () => setOnTransfer(false)
-
-  console.log(message)
+  const toggleOnTransfer = () => setOnTransfer(!onTransfer)
+  // console.log(message)
   useEffect(() => {
     setConnectedUser({
       uid: message.connectedId,
@@ -182,7 +180,7 @@ const MorphingDialogs = ({ message, isOwner, userObj, num, points, round, increa
           changeOnPulse={changeOnPulse}
           connectedUser={connectedUser}
           changeConnectedUser={changeConnectedUser}
-          onTransferTrue={onTransferTrue}
+          toggleOnTransfer={toggleOnTransfer}
           deleteMessage={deleteMessage}
         />
         {/* <MorphingDialogContent drawerOpen={drawerOpen} drawerOpenFalse={drawerOpenFalse}>

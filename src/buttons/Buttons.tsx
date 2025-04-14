@@ -22,7 +22,8 @@ function Btn({
   decreaseRound,
   changeOnPulse,
   connectedUser,
-  changeConnectedUser
+  changeConnectedUser,
+  toggleOnTransfer
 }) {
   const [move, setMove] = useState(false)
   const languages = useSelectors((state) => state.languages.value)
@@ -104,6 +105,7 @@ function Btn({
               displayName={displayName}
               increaseRound={increaseRound}
               changeConnectedUser={changeConnectedUser}
+              toggleOnTransfer={toggleOnTransfer}
             />
           )}
           {
@@ -115,6 +117,7 @@ function Btn({
                 displayName={displayName}
                 decreaseRound={decreaseRound}
                 changeConnectedUser={changeConnectedUser}
+                toggleOnTransfer={toggleOnTransfer}
               />
             )
             // <div className='flex flex-col justify-center'>

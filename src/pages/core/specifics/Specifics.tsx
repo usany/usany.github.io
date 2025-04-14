@@ -11,7 +11,6 @@ import Btn from 'src/buttons/Buttons'
 import Divider from '@mui/material/Divider'
 import { User } from 'firebase/auth'
 import { useSelectors } from 'src/hooks/useSelectors'
-import useCardsBackground from '../../../hooks/useCardsBackground'
 import SpecificsActions from './SpecificsActions'
 import SpecificsDimensions from './SpecificsDimensions'
 import SpecificsSteppers from './SpecificsSteppers'
@@ -35,7 +34,7 @@ function Specifics({
   changeOnPulse,
   connectedUser,
   changeConnectedUser,
-  onTransferTrue,
+  toggleOnTransfer,
   removeMessage
 }: Props) {
   const [messageObj, setMessageObj] = useState<{
@@ -58,7 +57,6 @@ function Specifics({
   //   setRound(round - 1)
   // }
   const deleteMessage = () => {
-    onTransferTrue()
     setDeleted(true)
     removeMessage(message)
   }
@@ -91,7 +89,7 @@ function Specifics({
     //   }
     // });
   }, [])
-  console.log(connectedUser)
+  // console.log(connectedUser)
   useEffect(() => {
     const creatorPoints = async () => {
       const docRef = doc(dbservice, `members/${message.creatorId}`)
@@ -147,7 +145,7 @@ function Specifics({
     shadowColorArray[
     mergedArray.indexOf(String(id[0]).toUpperCase()) % shadowColorArray.length
     ]
-  const { color } = useCardsBackground()
+  // const { color } = useCardsBackground()
 
   return (
     <div className="truncate p-1">
@@ -203,6 +201,7 @@ function Specifics({
                     changeOnPulse={changeOnPulse}
                     connectedUser={connectedUser}
                     changeConnectedUser={changeConnectedUser}
+                    toggleOnTransfer={toggleOnTransfer}
                   />
                 </div>
               )}
@@ -224,6 +223,7 @@ function Specifics({
                     changeOnPulse={changeOnPulse}
                     connectedUser={connectedUser}
                     changeConnectedUser={changeConnectedUser}
+                    toggleOnTransfer={toggleOnTransfer}
                   />
                 </div>
               )}

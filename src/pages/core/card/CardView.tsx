@@ -1,3 +1,4 @@
+import East from '@mui/icons-material/East';
 import West from '@mui/icons-material/West';
 import { alpha, Chip } from '@mui/material';
 import Card from '@mui/material/Card';
@@ -6,6 +7,7 @@ import CardMedia from '@mui/material/CardMedia';
 import { User } from 'firebase/auth';
 import { Building, Watch } from 'lucide-react';
 import { useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import staticImg from 'src/assets/pwa-512x512.png';
 import useCardsBackground from 'src/hooks/useCardsBackground';
 import { useSelectors } from 'src/hooks/useSelectors';
@@ -27,6 +29,7 @@ const CardView = ({ onTransfer, message, shadowColor }) => {
   const profileUrl = message?.creatorUrl
   const { color } = useCardsBackground()
   const languages = useSelectors((state) => state.languages.value)
+  const locations = useLocation()
   let item
   let action
   let locationOne
@@ -63,12 +66,21 @@ const CardView = ({ onTransfer, message, shadowColor }) => {
     <div className='flex flex-col gap-5'>
       {onTransfer &&
         <div className='flex justify-center items-center z-30 rounded bg-black/50 text-white w-full h-full absolute'>
-          <div className='flex justify-center items-center gap-1 h-full'>
-            <West />
-            <div>
-              {languages === 'ko' ? '내 상태로 카드 전송됨' : 'Moved to board'}
+          {locations.pathname === '/' ?
+            <div className='flex justify-center items-center gap-1 h-full'>
+              <East />
+              <div>
+                {languages === 'ko' ? '내 상태로 카드 전송됨' : 'Moved to board'}
+              </div>
             </div>
-          </div>
+            :
+            <div className='flex justify-center items-center gap-1 h-full'>
+              <West />
+              <div>
+                {languages === 'ko' ? '내 상태로 카드 전송됨' : 'Moved to board'}
+              </div>
+            </div>
+          }
         </div>
       }
       <Card

@@ -35,7 +35,8 @@ const SupportButton = ({
   uid,
   displayName,
   increaseRound,
-  changeConnectedUser
+  changeConnectedUser,
+  toggleOnTransfer
 }) => {
   const profileUrl = useSelector((state) => state.profileUrl.value)
   const languages = useSelectors((state) => state.languages.value)
@@ -58,6 +59,7 @@ const SupportButton = ({
               displayName: displayName,
               url: profileUrl
             })
+            toggleOnTransfer()
           }
         }}
         startIcon={<SendIcon />}

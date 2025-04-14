@@ -24,7 +24,7 @@ const onStopSupporting = async ({ message, uid, displayName }) => {
   })
   webSocket.emit('stop supporting', passingObject)
 }
-const StopSupportButton = ({ userObj, message, uid, displayName, decreaseRound, changeConnectedUser }) => {
+const StopSupportButton = ({ userObj, message, uid, displayName, decreaseRound, changeConnectedUser, toggleOnTransfer }) => {
   const languages = useSelectors((state) => state.languages.value)
 
   return (
@@ -48,6 +48,7 @@ const StopSupportButton = ({ userObj, message, uid, displayName, decreaseRound, 
               displayName: '',
               url: ''
             })
+            toggleOnTransfer()
           }
         }}
         startIcon={<SendIcon />}
