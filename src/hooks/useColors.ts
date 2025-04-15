@@ -1,6 +1,7 @@
 import { createTheme } from '@mui/material';
 import { useSelector } from 'react-redux';
 import useCardsBackground from './useCardsBackground';
+import { blue } from '@mui/material/colors';
 
 const useColors = () => {
   const theme = useSelector((state) => state.theme)
@@ -33,11 +34,19 @@ const useColors = () => {
         styleOverrides: {
           // Name of the slot
           root: {
-            // Some CSS
-            bgcolor: colorTwo,
-          },
+            variants: [
+              {
+                // `dashed` is an example value, it can be any name.
+                props: { className: 'signin' },
+                style: {
+                  textTransform: 'none',
+                  backgroundColor: colorTwo
+                },
+              },
+            ],
         },
       },
+    },
       MuiChip: {
         defaultProps: {
           sx: {

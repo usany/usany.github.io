@@ -165,7 +165,7 @@ const AuthForm = ({ signIn }) => {
             <span>{error}</span>
           </div>
         </form>
-        <AuthDialogs />
+        {signIn && <AuthDialogs />}
       </div>
     </div>
   );
