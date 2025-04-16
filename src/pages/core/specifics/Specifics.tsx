@@ -151,6 +151,7 @@ function Specifics({
     <div className="truncate p-1">
       {userObj ? (
         <Card
+          className='colorTwo'
           sx={{
             boxShadow: `1.9px 1.9px 1.9px 1.9px ${shadowColor}`,
           }}
@@ -249,8 +250,9 @@ function Specifics({
             <div className="flex justify-center pt-5">로그인을 해 주세요</div>
           </CardContent>
         </Card>
-      )}
-    </div>
+      )
+      }
+    </div >
   )
 }
 

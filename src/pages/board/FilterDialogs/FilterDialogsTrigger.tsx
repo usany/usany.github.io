@@ -1,6 +1,7 @@
 import { useState } from "react";
 // import { Filter } from "lucide-react";
 import { Chip } from "@mui/material";
+import useCardsBackground from "src/hooks/useCardsBackground";
 import { useSelectors } from "src/hooks/useSelectors";
 import locationsBuildings from "src/pages/add/locationsBuildings";
 const itemsTitle = {
@@ -73,6 +74,7 @@ function FilterDialogsTrigger({ selectedValues, handleSelectedValues }) {
   const onClick = ({ id }) => {
     setSelected(id);
   };
+  const { colorTwo } = useCardsBackground()
 
   return (
     <div className="flex gap-1">
@@ -93,6 +95,13 @@ function FilterDialogsTrigger({ selectedValues, handleSelectedValues }) {
         }
         return (
           <Chip
+            sx={{
+              bgcolor: colorTwo,
+              ":hover": {
+                bgcolor: colorTwo
+              }
+            }
+            }
             key={index}
             label={label}
             onClick={() => {

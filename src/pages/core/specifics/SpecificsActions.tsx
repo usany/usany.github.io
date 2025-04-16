@@ -1,9 +1,8 @@
 import { Chip } from '@mui/material'
 import { User } from 'firebase/auth'
-import { useState } from 'react'
+import useCardsBackground from 'src/hooks/useCardsBackground'
 import { useSelectors } from 'src/hooks/useSelectors'
 import SpecificsActionsPopups from './SpecificsActionsPopups'
-
 const items = {
   Usan: '우산',
   Yangsan: '양산'
@@ -14,7 +13,7 @@ interface Props {
 }
 
 function SpecificsActions({ drawerOpenTrue, userObj, message }: Props) {
-  const [conversation, setConversation] = useState('')
+  // const [conversation, setConversation] = useState('')
   const messageDisplayName = message.displayName
   const languages = useSelectors((state) => state.languages.value)
   let messageName
@@ -23,6 +22,7 @@ function SpecificsActions({ drawerOpenTrue, userObj, message }: Props) {
   } else {
     messageName = messageDisplayName
   }
+  const { colorOne } = useCardsBackground()
   // useEffect(() => {
   //   if (drawerOpenTrue) {
   //     if (message?.creatorId < userObj.uid) {

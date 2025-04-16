@@ -171,7 +171,7 @@ const ProfileDialogs = ({ userObj, profileDialog, attachment, changeAttachment, 
             )
           })}
         </div>
-        <div className='flex justify-center'>
+        <div className='flex justify-center p-5'>
           <div className='flex justify-center rounded-xl w-10 bg-profile-red' onClick={() => switchColor('profileRed')}>{profileColor === 'profileRed' &&
             <Check />}</div>
           {/* <div className='w-10 bg-profile-pink' onClick={() => switchColor('profile-pink')}>&emsp;</div>

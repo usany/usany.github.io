@@ -53,6 +53,7 @@ const AddCards = ({
     <div className="flex justify-center text-sm pt-5 p-1">
       <AnimatedList>
         <Card
+          className='colorTwo'
           sx={{
             width: 200,
             height: 280,

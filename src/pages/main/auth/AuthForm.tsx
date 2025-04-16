@@ -138,7 +138,6 @@ const AuthForm = ({ signIn }) => {
               type="email"
               fullWidth
               required
-              autoFocus
             />
           </div>
           <div className="flex justify-center px-3">
