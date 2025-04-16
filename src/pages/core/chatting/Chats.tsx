@@ -1,5 +1,5 @@
 import DeleteIcon from '@mui/icons-material/Delete';
-import { CardActionArea, Chip, ClickAwayListener } from '@mui/material';
+import { Chip, ClickAwayListener } from '@mui/material';
 import Card from '@mui/material/Card';
 import { User } from 'firebase/auth';
 import { useEffect, useRef, useState } from 'react';
@@ -42,7 +42,7 @@ const Chats = ({ userObj, profileUrl, conversation, displayName, chattingUid, mu
       changeOnLongPress(0)
     }
   }, [longPressChat, onLongPress])
-  const { color } = useCardsBackground()
+  const { color, colorTwo } = useCardsBackground()
 
   return (
     <div className={`${longPressed && 'flex py-5'}`}>
@@ -63,10 +63,16 @@ const Chats = ({ userObj, profileUrl, conversation, displayName, chattingUid, mu
             changeLongPressChat(longPress)
           }}
         >
-          <Card sx={{
-            flexGrow: 1, overflow: 'hidden', bgcolor: color
-          }}>
-            <CardActionArea>
+          <Card
+            sx={{
+              flexGrow: 1, overflow: 'hidden',
+              bgcolor: colorTwo,
+              ":hover": {
+                bgcolor: colorTwo
+              }
+            }}
+          >
+            <>
               {!onLongPress ?
                 <Link to='/piazza' state={{
                   conversation: conversation,
@@ -93,7 +99,7 @@ const Chats = ({ userObj, profileUrl, conversation, displayName, chattingUid, mu
                   <ChatsBoxes chattingUid={chattingUid} userObj={userObj} profileUrl={profileUrl} displayName={displayName} multiple={multiple} clock={clock} message={message} />
                 </div>
               }
-            </CardActionArea>
+            </>
           </Card>
         </div>
       </ClickAwayListener>

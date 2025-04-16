@@ -52,10 +52,10 @@ const ProfileCards = ({
         <Card sx={{
           bgcolor: color
         }}>
-          <CardActionArea>
+          <>
             <Popups trigger={<ProfilePointsTrigger cards={cards} />} title={<ProfilePointsTitle user={user} />} content={<ProfileDrawersPoints user={user} cards={cards} />} close={null} attachment={null} />
             {/* <ProfileDrawers user={user} cards={cards} followers={null} alliesCollection={null} selection={'points'} /> */}
-          </CardActionArea>
+          </>
         </Card>
         {followerList.map((value, index) => {
           const onLink = {
@@ -67,9 +67,9 @@ const ProfileCards = ({
               bgcolor: color
             }}
             >
-              <CardActionArea>
+              <>
                 <Popups trigger={<ProfileCompaniesTrigger followers={value} alliesCollection={alliesCollection[index].list} onClick={() => onClick({ lend: index })} />} title={<ProfileCompaniesTitle user={user} followers={value} />} content={!companies.length && <ProfileDrawersEmptyCompanies followers={index} />} close={<ProfileLists elements={companies} changeSelectedUser={(newValue) => setSelectedUser(newValue)} />} attachment={true} onLink={onLink} />
-              </CardActionArea>
+              </>
             </Card>
           )
         })}
