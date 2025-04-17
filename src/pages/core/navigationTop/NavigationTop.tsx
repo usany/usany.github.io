@@ -9,7 +9,6 @@ import { useDispatch, useSelector } from "react-redux";
 import staticImage from "src/assets/blue.png";
 import { dbservice } from "src/baseApi/serverbase";
 import { useSelectors } from "src/hooks/useSelectors";
-import Avatars from "src/pages/core/Avatars";
 import Navigation from "src/pages/core/navigationTop/sideNavigation/Navigation";
 import WeatherView from "src/pages/core/navigationTop/weatherView/WeatherView";
 import ToggleTabs from "src/pages/core/ToggleTabs";
@@ -74,8 +73,13 @@ const NavigationTop = ({ userObj }: Props) => {
           userObj={userObj}
           handleSideNavigation={handleSideNavigation}
           sideNavigation={sideNavigation}
+          uid={userObj ? userObj.uid : ''}
+          profile={false}
+          profileColor={userObj ? profileColor : 'profile-blue'}
+          profileUrl={userObj ? profileUrl : staticImage}
+          piazza={() => null}
         />
-        <div
+        {/* <div
           className="px-5 pt-1 cursor-pointer"
           onClick={() => {
             handleSideNavigation();
@@ -88,7 +92,7 @@ const NavigationTop = ({ userObj }: Props) => {
             profileUrl={userObj ? profileUrl : staticImage}
             piazza={() => null}
           />
-        </div>
+        </div> */}
         <div>
           {bottomNavigation % 2 === 0 && <ToggleTabs />}
           {bottomNavigation === 1 && (

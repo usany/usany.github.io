@@ -79,7 +79,7 @@ const ProfileLocations = ({ user, userObj }) => {
       {
         locationConfirmed ? (
           <Chip
-            // sx={{}}
+            sx={{}}
             color='success'
             label={
               languages === 'ko' ? '캠퍼스 위치 확인' : 'Location confirmed'
