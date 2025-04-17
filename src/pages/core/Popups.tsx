@@ -16,8 +16,9 @@ import DrawersBar from "src/pages/core/DrawersBar";
 const Popups = ({ trigger, title, content, close, attachment, onLink }) => {
   // const profileColor = useSelector((state) => state.profileColor.value);
   // const profileUrl = useSelector((state) => state.profileUrl.value);
+  // console.log(onLink?.state)
+
   const largeMedia = useLargeMedia()
-  console.log(onLink?.state)
   if (largeMedia) {
     return (
       <div className='flex justify-center'>
