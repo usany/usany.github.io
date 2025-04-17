@@ -80,17 +80,6 @@ const Popups = ({ trigger, title, content, close, attachment, onLink }) => {
                 <DrawerClose>{close}</DrawerClose>
               }
             </div>}
-            {/* <div className="flex flex-col items-center pt-5">
-              <Avatars
-                uid={userObj.uid}
-                profile={true}
-                profileColor={profileColor}
-                profileUrl={profileUrl}
-              />
-              <div>{message?.displayName}</div>
-            </div>
-            <div className="flex justify-center p-5">
-            </div> */}
           </ScrollArea>
         </DrawerContent>
       </Drawer>
