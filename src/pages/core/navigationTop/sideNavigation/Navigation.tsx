@@ -123,7 +123,7 @@ function Navigation({ userObj, sideNavigation, handleSideNavigation,
           piazza={() => null}
         />
       </DrawerTrigger>
-      <DrawerContent className="bg-light-2 dark:bg-dark-2 right-auto top-0 mt-0 w-[355px] overflow-hidden rounded-[10px]">
+      <DrawerContent className="border-none bg-light-2 dark:bg-dark-2 right-auto top-0 mt-0 w-[355px] overflow-hidden rounded-[10px]">
         <nav className="flex flex-col justify-between w-[350px]">
           {userObj ? (
             <div>
