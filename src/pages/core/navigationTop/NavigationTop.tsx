@@ -67,7 +67,7 @@ const NavigationTop = ({ userObj }: Props) => {
   }, [userObj]);
 
   return (
-    <div className="shadow-md fixed z-50 bg-light-3 dark:bg-dark-3 truncate">
+    <div className="shadow-md fixed z-50 bg-light-2 dark:bg-dark-2 rounded truncate">
       <div className="flex justify-between w-screen">
         <Navigation
           userObj={userObj}
