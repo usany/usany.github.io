@@ -9,14 +9,13 @@ import {
   DrawerTrigger
 } from "@/components/ui/drawer";
 import { ScrollArea } from "@radix-ui/react-scroll-area";
-import { useSelector } from "react-redux";
 import { Dialog, DialogClose, DialogContent, DialogTitle, DialogTrigger } from 'src/components/ui/dialog';
 import useLargeMedia from "src/hooks/useLargeMedia";
 import DrawersBar from "src/pages/core/DrawersBar";
 
 const Popups = ({ trigger, title, content, close, attachment, onLink }) => {
-  const profileColor = useSelector((state) => state.profileColor.value);
-  const profileUrl = useSelector((state) => state.profileUrl.value);
+  // const profileColor = useSelector((state) => state.profileColor.value);
+  // const profileUrl = useSelector((state) => state.profileUrl.value);
   const largeMedia = useLargeMedia()
   console.log(onLink?.state)
   if (largeMedia) {
