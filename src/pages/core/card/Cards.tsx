@@ -125,11 +125,11 @@ const Cards = ({
                 deleteMessage(message)
               }}
             >
-              <Chip label={<DeleteIcon />} color="error" />
+              <Chip sx={{}} label={<DeleteIcon />} color="error" />
               {/* <Chips label={<DeleteIcon />} className={'bg-profile-red'} onClick={null} /> */}
             </div>
             :
-            <Chip label={<DeleteIcon />} color="error" disabled />
+            <Chip sx={{}} label={<DeleteIcon />} color="error" disabled />
             // <Chips label={<DeleteIcon />} className={'bg-profile-red'} onClick={null} />
           }
         </div>

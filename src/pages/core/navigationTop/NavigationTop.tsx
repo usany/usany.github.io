@@ -69,12 +69,12 @@ const NavigationTop = ({ userObj }: Props) => {
 
   return (
     <div className="shadow-md fixed z-50 bg-light-3 dark:bg-dark-3 truncate">
-      <Navigation
-        userObj={userObj}
-        handleSideNavigation={handleSideNavigation}
-        sideNavigation={sideNavigation}
-      />
       <div className="flex justify-between w-screen">
+        <Navigation
+          userObj={userObj}
+          handleSideNavigation={handleSideNavigation}
+          sideNavigation={sideNavigation}
+        />
         <div
           className="px-5 pt-1 cursor-pointer"
           onClick={() => {
