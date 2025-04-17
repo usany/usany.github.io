@@ -74,7 +74,7 @@ function FilterDialogsTrigger({ selectedValues, handleSelectedValues }) {
   const onClick = ({ id }) => {
     setSelected(id);
   };
-  const { colorTwo } = useCardsBackground()
+  const { colorOne } = useCardsBackground()
 
   return (
     <div className="flex gap-1">
@@ -96,9 +96,9 @@ function FilterDialogsTrigger({ selectedValues, handleSelectedValues }) {
         return (
           <Chip
             sx={{
-              bgcolor: colorTwo,
+              bgcolor: colorOne,
               ":hover": {
-                bgcolor: colorTwo
+                bgcolor: colorOne
               }
             }
             }
