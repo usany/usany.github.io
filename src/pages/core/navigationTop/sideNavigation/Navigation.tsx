@@ -11,7 +11,7 @@ import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import staticImage from "src/assets/blue.png"
 import { auth, dbservice } from 'src/baseApi/serverbase'
-import { Drawer, DrawerContent, DrawerTrigger } from 'src/components/ui/drawer'
+import { Drawer, DrawerClose, DrawerContent, DrawerTrigger } from 'src/components/ui/drawer'
 import { changeProfileColor } from 'src/stateSlices/profileColorSlice'
 import { changeProfileImage } from 'src/stateSlices/profileImageSlice'
 import { changeProfileUrl } from 'src/stateSlices/profileUrlSlice'
@@ -34,7 +34,6 @@ function Navigation({ userObj, sideNavigation, handleSideNavigation,
   const [backgroundColor, setBackgroundColor] = useState<string>('#e2e8f0')
   const [points, setPoints] = useState<number>(0)
   const theme = useSelector((state) => state.theme)
-  // const [profileColor, setProfileColor] = useState<string>('')
   const [userData, setUserData] = useState(null)
   const languages = useSelector((state) => state.languages.value)
   const profileColor = useSelector((state) => state.profileColor.value);
@@ -131,26 +130,28 @@ function Navigation({ userObj, sideNavigation, handleSideNavigation,
               <div className="flex flex-col justify-between pt-5 gap-5">
                 {links.map((value, index) => {
                   return (
-                    <Links
-                      key={index}
-                      href={value.href}
-                      passingState={value.passingState}
-                      onClick={value.onClick}
-                      icon={value.icon}
-                      description={value.description}
-                    />
+                    <DrawerClose>
+                      <Links
+                        key={index}
+                        href={value.href}
+                        passingState={value.passingState}
+                        onClick={value.onClick}
+                        icon={value.icon}
+                        description={value.description}
+                      />
+                    </DrawerClose>
                   )
                 })}
               </div>
             </div>
           ) : (
-            <div>
+            <DrawerClose>
               <NavigationSignedOut
                 userObj={userObj}
                 points={points}
                 checkbox={checkbox}
               />
-            </div>
+            </DrawerClose>
           )}
           {userObj && <IframePlayer mode={theme} />}
         </nav>

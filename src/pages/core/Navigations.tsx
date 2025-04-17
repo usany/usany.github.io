@@ -43,7 +43,7 @@ function Navigations({ userObj }: Props) {
   return (
     <div className='w-screen z-50 fixed border border-sky-500 rounded-t bottom-0 start-0 end-0'>
       <BottomNavigation
-        sx={{ bgcolor: alpha(backgroundColor, 0.8) }}
+        sx={{ bgcolor: alpha(backgroundColor, 0.8), border: 'none' }}
         showLabels
         value={bottomNavigation}
         onChange={(event, newValue) => {
