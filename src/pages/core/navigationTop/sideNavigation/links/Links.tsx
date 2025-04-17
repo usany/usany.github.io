@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { DrawerClose } from "src/components/ui/drawer";
 
 const Links = ({ href, passingState, onClick, icon, description }) => {
   return (
@@ -9,10 +10,10 @@ const Links = ({ href, passingState, onClick, icon, description }) => {
           state={passingState}
           onClick={onClick}
         >
-          <div className="flex px-3">
+          <DrawerClose className="flex px-3">
             {icon}
             <div className="px-3">{description}</div>
-          </div>
+          </DrawerClose>
         </Link>
       </div>
     </h1>

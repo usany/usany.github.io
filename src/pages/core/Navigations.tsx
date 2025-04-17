@@ -41,7 +41,7 @@ function Navigations({ userObj }: Props) {
   const navigate = useNavigate()
 
   return (
-    <div className='z-50 fixed rounded-t bottom-0 start-0 end-0'>
+    <div className='w-screen border-t z-50 fixed rounded-t bottom-0 start-0 end-0'>
       <BottomNavigation
         sx={{ bgcolor: alpha(backgroundColor, 0.8) }}
         showLabels
