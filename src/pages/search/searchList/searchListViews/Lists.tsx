@@ -116,6 +116,7 @@ function Lists({
                           {
                             element.locationConfirmed ? (
                               <Chip
+                                sx={{}}
                                 color="success"
                                 label={
                                   languages === 'ko'
@@ -212,7 +213,7 @@ function Lists({
                       <div className="flex items-center">
                         {
                           element.locationConfirmed ? (
-                            <Chip color="success" label={'캠퍼스 위치 확인'} />
+                            <Chip sx={{}} color="success" label={'캠퍼스 위치 확인'} />
                           ) : (
                             <Chip label={'캠퍼스 위치 미확인'} />
                           )

@@ -1,5 +1,5 @@
 import { createTheme } from '@mui/material'
-import { green, red } from '@mui/material/colors'
+import { red } from '@mui/material/colors'
 import { useSelector } from 'react-redux'
 import useCardsBackground from './useCardsBackground'
 
@@ -77,12 +77,12 @@ const useColors = () => {
                   backgroundColor: red,
                 },
               },
-              {
-                props: { color: 'success' },
-                style: {
-                  backgroundColor: green[500],
-                },
-              },
+              // {
+              //   props: { color: 'success' },
+              //   style: {
+              //     backgroundColor: green[500],
+              //   },
+              // },
             ],
           },
         },
