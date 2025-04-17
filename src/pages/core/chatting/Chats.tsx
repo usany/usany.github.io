@@ -129,7 +129,7 @@ const Chats = ({ userObj, profileUrl, conversation, displayName, chattingUid, mu
             localStorage.setItem('piazza', 'false')
           }
         }}>
-          <Chip label={<DeleteIcon />} color='error' />
+          <Chip sx={{}} label={<DeleteIcon />} color='error' />
           {/* <Chips label={<DeleteIcon />} className='bg-profile-red text-white' /> */}
         </div>
       }

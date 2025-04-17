@@ -1,6 +1,7 @@
-import { createTheme } from '@mui/material';
-import { useSelector } from 'react-redux';
-import useCardsBackground from './useCardsBackground';
+import { createTheme } from '@mui/material'
+import { green, red } from '@mui/material/colors'
+import { useSelector } from 'react-redux'
+import useCardsBackground from './useCardsBackground'
 
 const useColors = () => {
   const theme = useSelector((state) => state.theme)
@@ -12,9 +13,9 @@ const useColors = () => {
         defaultProps: {
           sx: {
             bgcolor: colorThree,
-            ":hover": {
-              bgcolor: colorThree
-            }
+            ':hover': {
+              bgcolor: colorThree,
+            },
           },
         },
         styleOverrides: {
@@ -23,7 +24,7 @@ const useColors = () => {
               {
                 props: { className: 'colorTwo' },
                 style: {
-                  backgroundColor: colorTwo
+                  backgroundColor: colorTwo,
                 },
               },
             ],
@@ -34,9 +35,9 @@ const useColors = () => {
         defaultProps: {
           sx: {
             bgcolor: colorTwo,
-            ":hover": {
-              bgcolor: colorTwo
-            }
+            ':hover': {
+              bgcolor: colorTwo,
+            },
           },
         },
         styleOverrides: {
@@ -45,7 +46,7 @@ const useColors = () => {
               {
                 props: { className: 'colorTwo' },
                 style: {
-                  backgroundColor: colorTwo
+                  backgroundColor: colorTwo,
                 },
               },
             ],
@@ -56,9 +57,9 @@ const useColors = () => {
         defaultProps: {
           sx: {
             bgcolor: colorOne,
-            ":hover": {
-              bgcolor: colorOne
-            }
+            ':hover': {
+              bgcolor: colorOne,
+            },
           },
         },
         styleOverrides: {
@@ -67,28 +68,40 @@ const useColors = () => {
               {
                 props: { className: 'colorOne' },
                 style: {
-                  backgroundColor: colorOne
+                  backgroundColor: colorOne,
+                },
+              },
+              {
+                props: { className: 'error' },
+                style: {
+                  backgroundColor: red,
+                },
+              },
+              {
+                props: { color: 'success' },
+                style: {
+                  backgroundColor: green[500],
                 },
               },
             ],
           },
         },
       },
-    }
+    },
   }
   const lightTheme = createTheme({
     palette: {
       mode: 'light',
     },
-    ...common
+    ...common,
   })
   const darkTheme = createTheme({
     palette: {
       mode: 'dark',
     },
-    ...common
+    ...common,
   })
 
-  return ({ lightTheme, darkTheme })
+  return { lightTheme, darkTheme }
 }
 export default useColors
