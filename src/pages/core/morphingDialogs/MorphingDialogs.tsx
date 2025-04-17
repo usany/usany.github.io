@@ -6,7 +6,7 @@ import {
 import { User } from 'firebase/auth'
 import { useEffect, useState } from 'react'
 import { webSocket } from 'src/webSocket'
-import CardsViews from '../../main/card/CardsViews'
+import CardsViews from '../card/CardsViews'
 import Morphings from './Morphings'
 
 interface Props {
@@ -16,27 +16,34 @@ interface Props {
   num: number | null
   points: number | null
 }
-
-const MorphingDialogs = ({ message, isOwner, userObj, num, points, round, increaseRound, decreaseRound }: Props) => {
-  // const [drawerOpen, setDrawerOpen] = useState(false)
-  // const drawerOpenTrue = () => {
-  //   setDrawerOpen(true)
-  // }
-  // const drawerOpenFalse = () => {
-  //   setDrawerOpen(false)
-  // }
+const MorphingDialogs = ({ message, isOwner, userObj, num, points, round, increaseRound, decreaseRound, deleteMessage }: Props) => {
   const [onPulse, setOnPulse] = useState(false)
   const changeOnPulse = (newValue) => setOnPulse(newValue)
-
+  const [connectedUser, setConnectedUser] = useState({
+    uid: '',
+    displayName: '',
+    url: ''
+  })
+  const [onTransfer, setOnTransfer] = useState(false)
+  const toggleOnTransfer = () => setOnTransfer(!onTransfer)
+  // console.log(message)
+  useEffect(() => {
+    setConnectedUser({
+      uid: message.connectedId,
+      displayName: message.connectedName,
+      url: message.connectedUrl
+    })
+  }, [])
+  const changeConnectedUser = (newValue) => setConnectedUser(newValue)
   useEffect(() => {
     if (message.text.choose === 1) {
-      if (message.creatorId === userObj.uid) {
+      if (message.creatorId === userObj?.uid) {
         if (round === 2 || round === 3) {
           changeOnPulse(true)
         } else {
           changeOnPulse(false)
         }
-      } else if (message.connectedId === userObj.uid) {
+      } else if (message.connectedId === userObj?.uid) {
         if (round === 4) {
           changeOnPulse(true)
         } else {
@@ -97,16 +104,6 @@ const MorphingDialogs = ({ message, isOwner, userObj, num, points, round, increa
       webSocket.off(`sOnPulse${message.id}`, sOnPulseCallback)
     }
   })
-  // useEffect(() => {
-  //   if (!webSocket) return
-  //   function sOnPulseFalseCallback(res) {
-  //     changeOnPulse(false)
-  //   }
-  //   webSocket.on(`sOnPulseFalse${message.id}`, sOnPulseFalseCallback)
-  //   return () => {
-  //     webSocket.off(`sOnPulseFalse${message.id}`, sOnPulseFalseCallback)
-  //   }
-  // })
   useEffect(() => {
     if (!webSocket) return
     function sIncreaseCardCallback() {
@@ -127,6 +124,37 @@ const MorphingDialogs = ({ message, isOwner, userObj, num, points, round, increa
       webSocket.off(`sDecrease${message.id}`, sDecreaseCardCallback)
     }
   })
+  useEffect(() => {
+    if (!webSocket) return
+    function sSupportTradesCallback(res) {
+      const user = {
+        uid: res.connectedId,
+        displayName: res.connectedName,
+        url: res.connectedUrl
+      }
+      setConnectedUser(user)
+    }
+    webSocket.on(`sSupportTrades${message.id}`, sSupportTradesCallback)
+    return () => {
+      webSocket.off(`sSupportTrades${message.id}`, sSupportTradesCallback)
+    }
+  })
+  useEffect(() => {
+    if (!webSocket) return
+    function sStopSupportingTradesCallback() {
+      const user = {
+        uid: '',
+        displayName: '',
+        url: ''
+      }
+      setConnectedUser(user)
+    }
+    webSocket.on(`sStopSupportingTrades${message.id}`, sStopSupportingTradesCallback)
+    return () => {
+      webSocket.off(`sStopSupportingTrades${message.id}`, sStopSupportingTradesCallback)
+    }
+  })
+
   return (
     <MorphingDialog
       transition={{
@@ -137,11 +165,8 @@ const MorphingDialogs = ({ message, isOwner, userObj, num, points, round, increa
       <MorphingDialogTrigger>
         <CardsViews
           message={message}
-          isOwner={isOwner}
-          userObj={userObj}
-          num={num}
-          points={points}
           onPulse={onPulse}
+          onTransfer={onTransfer}
         />
       </MorphingDialogTrigger>
       <MorphingDialogContainer>
@@ -153,6 +178,10 @@ const MorphingDialogs = ({ message, isOwner, userObj, num, points, round, increa
           message={message}
           onPulse={onPulse}
           changeOnPulse={changeOnPulse}
+          connectedUser={connectedUser}
+          changeConnectedUser={changeConnectedUser}
+          toggleOnTransfer={toggleOnTransfer}
+          deleteMessage={deleteMessage}
         />
         {/* <MorphingDialogContent drawerOpen={drawerOpen} drawerOpenFalse={drawerOpenFalse}>
           <Specifics drawerOpenTrue={drawerOpenTrue} userObj={userObj} message={message} />

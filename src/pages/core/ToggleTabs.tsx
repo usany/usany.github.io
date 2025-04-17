@@ -1,17 +1,15 @@
-import { useState, useEffect, useMemo } from 'react'
-import PropTypes from 'prop-types';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
-import { useTabsStore } from 'src/store'
-import { Minimize2 } from 'lucide-react';
-import { Maximize2 } from 'lucide-react';
-import { useSelector, useDispatch } from 'react-redux'
-import { changeTabs } from 'src/stateSlices/tabsSlice'
+import Tab from '@mui/material/Tab';
+import Tabs from '@mui/material/Tabs';
+import { Maximize2, Minimize2 } from 'lucide-react';
+import PropTypes from 'prop-types';
+import { useMemo } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { changeTabs } from 'src/stateSlices/tabsSlice';
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
-  
+
   return (
     <div
       role="tabpanel"
@@ -39,7 +37,7 @@ function a11yProps(index) {
 }
 
 export default function ToggleTabs() {
-  
+
   const handleChange = (event, newValue) => {
     dispatch(changeTabs(newValue))
   };
@@ -47,10 +45,12 @@ export default function ToggleTabs() {
   const dispatch = useDispatch()
   const tabsBox = useMemo(() => {
     return (
-      <Box sx={{ paddingX: '10px'
-        }}>
+      <Box sx={{
+        paddingX: '10px'
+      }}>
         <Tabs
-          sx={{animation: 0,
+          sx={{
+            animation: 0,
             animationDuration: 0
           }}
           value={tabs} onChange={handleChange} aria-label="basic tabs example"

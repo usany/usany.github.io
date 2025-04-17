@@ -1,7 +1,7 @@
-import { getAuth, GoogleAuthProvider, OAuthProvider, GithubAuthProvider, signInWithPopup, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithRedirect, getRedirectResult, TwitterAuthProvider, FacebookAuthProvider } from "firebase/auth";
-import { getFirestore, collection, addDoc, getDoc } from "firebase/firestore";
-import { getStorage, ref, uploadString } from "firebase/storage";
+import { FacebookAuthProvider, getAuth, GithubAuthProvider, GoogleAuthProvider, OAuthProvider, signInWithPopup, TwitterAuthProvider } from "firebase/auth";
+import { getDoc, getFirestore } from "firebase/firestore";
 import { getMessaging } from "firebase/messaging";
+import { getStorage, ref, uploadString } from "firebase/storage";
 
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
@@ -144,6 +144,7 @@ const onSocialClickMicrosoft = () => {
         followerNum: 0,
         followingNum: 0,
         locationConfirmed: false,
+        defaultProfile: ''
       })
       const storageRef = ref(storage, result.user.uid);
       uploadString(storageRef, 'null', 'raw').then((snapshot) => {
@@ -227,4 +228,5 @@ const onSocialClickFacebook = () => {
 // })
 
 
-export { auth, onSocialClick, onSocialClickMicrosoft, onSocialClickTwitter, onSocialClickFacebook, dbservice, storage, messaging }
+export { auth, dbservice, messaging, onSocialClick, onSocialClickFacebook, onSocialClickMicrosoft, onSocialClickTwitter, storage };
+

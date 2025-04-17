@@ -9,7 +9,7 @@ interface RippleButtonProps
   duration?: string;
 }
 
-export const RippleButton = React.forwardRef<
+const RippleButton = React.forwardRef<
   HTMLButtonElement,
   RippleButtonProps
 >(
@@ -17,7 +17,7 @@ export const RippleButton = React.forwardRef<
     {
       className,
       children,
-      rippleColor = "#ffffff",
+      rippleColor = "#000",
       duration = "600ms",
       onClick,
       ...props
@@ -39,7 +39,7 @@ export const RippleButton = React.forwardRef<
       const size = Math.max(rect.width, rect.height);
       const x = event.clientX - rect.left - size / 2;
       const y = event.clientY - rect.top - size / 2;
-
+      // const newRipple = { x: x, y: y, size: size, key: Date.now() };
       const newRipple = { x, y, size, key: Date.now() };
       setButtonRipples((prevRipples) => [...prevRipples, newRipple]);
     };
@@ -55,11 +55,11 @@ export const RippleButton = React.forwardRef<
         return () => clearTimeout(timeout);
       }
     }, [buttonRipples, duration]);
-
+    console.log(buttonRipples)
     return (
       <button
         className={cn(
-          "relative flex cursor-pointer items-center justify-center overflow-hidden rounded-lg border-2 bg-white px-4 py-2 text-center text-neutral-900 dark:bg-neutral-950 dark:text-neutral-50",
+          "relative flex cursor-pointer items-center justify-center overflow-hidden rounded-lg border-2 px-4 py-2 text-center text-neutral-900 dark:bg-neutral-950 dark:text-neutral-50",
           className,
         )}
         onClick={handleClick}
@@ -68,20 +68,22 @@ export const RippleButton = React.forwardRef<
       >
         <div className="relative z-10">{children}</div>
         <span className="pointer-events-none absolute inset-0">
-          {buttonRipples.map((ripple) => (
-            <span
-              className="absolute animate-rippling rounded-full bg-white opacity-30 dark:bg-neutral-950"
-              key={ripple.key}
-              style={{
-                width: `${ripple.size}px`,
-                height: `${ripple.size}px`,
-                top: `${ripple.y}px`,
-                left: `${ripple.x}px`,
-                backgroundColor: rippleColor,
-                transform: `scale(0)`,
-              }}
-            />
-          ))}
+          {buttonRipples.map((ripple) => {
+            return (
+              <span
+                className="absolute animate-rippling rounded-full bg-black opacity-30 dark:bg-neutral-950"
+                key={ripple.key}
+                style={{
+                  width: `${ripple.size}px`,
+                  height: `${ripple.size}px`,
+                  top: `${ripple.y}px`,
+                  left: `${ripple.x}px`,
+                  backgroundColor: rippleColor,
+                  transform: `scale(1)`,
+                }}
+              />
+            )
+          })}
         </span>
       </button>
     );
@@ -89,3 +91,5 @@ export const RippleButton = React.forwardRef<
 );
 
 RippleButton.displayName = "RippleButton";
+export { RippleButton };
+

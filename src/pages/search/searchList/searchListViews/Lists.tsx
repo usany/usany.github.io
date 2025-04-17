@@ -1,25 +1,13 @@
-import { useState, useEffect, useLayoutEffect } from "react";
-import Divider from "@mui/material/Divider";
+import Divider from '@mui/material/Divider'
+import { useState } from 'react'
 // import Avatar from '@mui/material/Avatar';
-import CommentIcon from "@mui/icons-material/Comment";
-import IconButton from "@mui/material/IconButton";
-import { Link } from "react-router-dom";
-import Avatars from "src/pages/core/Avatars";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import {
-  MessageCircle,
-  Minimize2,
-  Maximize2,
-  Captions,
-  Bike,
-  Ellipsis,
-  ChevronRight,
-} from "lucide-react";
-import staticImg from "src/assets/pwa-512x512.png";
-import RankingListsTitle from "src/pages/search/searchList/searchListViews/searchListViewsTitle/RankingListsTitle";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
-import { dbservice } from "src/baseApi/serverbase";
-import { Chip } from "@mui/material";
+import { Chip } from '@mui/material'
+import { doc, updateDoc } from 'firebase/firestore'
+import { Link } from 'react-router-dom'
+import { dbservice } from 'src/baseApi/serverbase'
+import { useSelectors } from 'src/hooks/useSelectors'
+import Avatars from 'src/pages/core/Avatars'
+import RankingListsTitle from 'src/pages/search/searchList/searchListViews/searchListViewsTitle/RankingListsTitle'
 
 function Lists({
   userObj,
@@ -29,10 +17,10 @@ function Lists({
   ranking,
   handleUser,
 }) {
-  let point;
-  let samePointIndex;
-  const [newRanking, setNewRanking] = useState(0);
-
+  let point
+  let samePointIndex
+  const [newRanking, setNewRanking] = useState(0)
+  const languages = useSelectors((state) => state.languages.value)
   return (
     <div>
       {ranking && (
@@ -41,35 +29,38 @@ function Lists({
           <div className="bg-light-3 dark:bg-dark-3">
             {elements.map((element, index) => {
               if (element.points !== point) {
-                point = element.points;
-                samePointIndex = index;
+                point = element.points
+                samePointIndex = index
               }
               if (element.uid === userObj.uid) {
                 // console.log(element.uid);
                 // console.log(samePointIndex);
-                const user = doc(dbservice, `members/${userObj.uid}`);
-                const newRank = samePointIndex ? samePointIndex + 1 : index + 1;
+                const user = doc(dbservice, `members/${userObj.uid}`)
+                const newRank = samePointIndex ? samePointIndex + 1 : index + 1
                 if (!newRanking && multiple) {
-                  updateDoc(user, { ranking: newRank });
-                  setNewRanking(newRank);
+                  updateDoc(user, { ranking: newRank })
+                  setNewRanking(newRank)
                 }
               }
-              const profileColor = element?.profileColor;
-              let userNameConfirm = true;
+              const profileColor = element?.profileColor
+              let userNameConfirm = true
               if (userSearch) {
                 for (let number = 0; number < userSearch.length; number++) {
                   if (element?.displayName[number] !== userSearch[number]) {
-                    userNameConfirm = false;
+                    userNameConfirm = false
                   }
                 }
               }
               if (userNameConfirm) {
-                let displayName;
+                let displayName
                 if (element.displayName.length > 10) {
-                  displayName = element.displayName.slice(0, 10) + "......";
+                  displayName = element.displayName.slice(0, 10) + '......'
                 } else {
-                  displayName = element.displayName;
+                  displayName = element.displayName
                 }
+                const profileUrl = element?.profile
+                  ? element?.profileImageUrl
+                  : element?.defaultProfile
                 return (
                   <div key={index} className="px-3 pt-3">
                     <Link
@@ -91,7 +82,14 @@ function Lists({
                               {samePointIndex ? samePointIndex + 1 : index + 1}
                             </div>
                           )}
-                          <Avatars profile={false} profileColor="" profileUrl={element?.profileImageUrl} fallback="" />
+                          <Avatars
+                            user={element}
+                            uid={element.uid}
+                            piazza={null}
+                            profile={false}
+                            profileColor=""
+                            profileUrl={element.profileImageUrl}
+                          />
                           {/* <Avatar
                             className={`bg-${profileColor?.indexOf("#") === -1 ? element?.profileColor : "profile-blue"}`}
                           >
@@ -114,16 +112,34 @@ function Lists({
                             </div>
                           </div>
                         </div>
-                        <div className='flex items-center'>
-                          {element.locationConfirmed ?
-                            <Chip color="success" label={'캠퍼스 위치 확인'} /> : <Chip label={'캠퍼스 위치 미확인'} />
+                        <div className="flex items-center">
+                          {
+                            element.locationConfirmed ? (
+                              <Chip
+                                color="success"
+                                label={
+                                  languages === 'ko'
+                                    ? '캠퍼스 위치 확인'
+                                    : 'Location confirmed'
+                                }
+                              />
+                            ) : (
+                              <Chip
+                                label={
+                                  languages === 'ko'
+                                    ? '캠퍼스 위치 미확인'
+                                    : 'Location unconfirmed'
+                                }
+                              />
+                            )
+                            // <Chips label={'캠퍼스 위치 확인'} className='bg-profile-green' /> : <Chips label={'캠퍼스 위치 미확인'} />
                           }
                         </div>
                       </div>
                     </Link>
                     <Divider />
                   </div>
-                );
+                )
               }
             })}
           </div>
@@ -133,22 +149,26 @@ function Lists({
         <div>
           <div className="bg-light-3 dark:bg-dark-3">
             {elements.map((element, index) => {
-              const profileColor = element?.profileColor;
-              let userNameConfirm = true;
+              const profileColor = element?.profileColor
+              let userNameConfirm = true
               if (userSearch) {
                 for (let number = 0; number < userSearch.length; number++) {
                   if (element?.displayName[number] !== userSearch[number]) {
-                    userNameConfirm = false;
+                    userNameConfirm = false
                   }
                 }
               }
               if (userNameConfirm) {
-                let displayName;
+                let displayName
                 if (element.displayName.length > 10) {
-                  displayName = element.displayName.slice(0, 10) + "......";
+                  displayName = element.displayName.slice(0, 10) + '......'
                 } else {
-                  displayName = element.displayName.slice(0, 10) + "......";
+                  displayName = element.displayName.slice(0, 10) + '......'
                 }
+                const profileUrl = element?.profile
+                  ? element?.profileImageUrl
+                  : element?.defaultProfile
+
                 return (
                   <div
                     key={index}
@@ -168,15 +188,14 @@ function Lists({
                             {samePointIndex ? samePointIndex + 1 : index + 1}
                           </div>
                         )}
-                        <Avatar
-                          className={`bg-${profileColor?.indexOf("#") === -1 ? element?.profileColor : "profile-blue"}`}
-                        >
-                          <AvatarImage src={element?.profileImageUrl} />
-                          <AvatarFallback className="text-xl border-none">
-                            {element?.displayName[0]}
-                          </AvatarFallback>
-                        </Avatar>
-                        {/* <Avatars profile={false} profileColor={'profile-blue'} profileImage={element?.profileImageUrl || 'null'} fallback={element.displayName[0]}/> */}
+                        <Avatars
+                          element={element}
+                          uid={element.uid}
+                          piazza={null}
+                          profile={false}
+                          profileColor={''}
+                          profileUrl={element.profileImageUrl}
+                        />
                         {/* {element?.profileImageUrl &&
                           <Avatar alt={element.displayName} sx={{ bgcolor: element.profileColor || '#2196f3' }} src={element?.profileImageUrl || './src'} variant="rounded" />
                         }
@@ -190,22 +209,27 @@ function Lists({
                           </div>
                         </div>
                       </div>
-                      <div className='flex items-center'>
-                        {element.locationConfirmed ?
-                          <Chip color="success" label={'캠퍼스 위치 확인'} /> : <Chip label={'캠퍼스 위치 미확인'} />
+                      <div className="flex items-center">
+                        {
+                          element.locationConfirmed ? (
+                            <Chip color="success" label={'캠퍼스 위치 확인'} />
+                          ) : (
+                            <Chip label={'캠퍼스 위치 미확인'} />
+                          )
+                          // <Chips label={'캠퍼스 위치 확인'} className='bg-profile-green' /> : <Chips label={'캠퍼스 위치 미확인'} />
                         }
                       </div>
                     </div>
                     <Divider />
                   </div>
-                );
+                )
               }
             })}
           </div>
         </div>
       )}
     </div>
-  );
+  )
 }
 
-export default Lists;
+export default Lists

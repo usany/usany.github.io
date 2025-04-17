@@ -207,7 +207,7 @@ function RankingLists({ userObj, userSearch }: Props) {
           />
           {!isLoading && <div className="p-28"></div>}
           {isLoading && (
-            <div className="flex justify-center text-2xl p-28">loading</div>
+            <div className="flex justify-center text-2xl p-28 bg-light-2 dark:bg-dark-2 rounded">로딩</div>
           )}
           {/* {isLoading && <div className='flex justify-center text-2xl pb-36'>loading</div>} */}
         </div>

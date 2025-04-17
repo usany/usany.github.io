@@ -1,10 +1,8 @@
-import { useState, useEffect, useRef, Suspense, lazy } from 'react'
-import PageTitle from 'src/pages/core/pageTitle/PageTitle'
-import { useSelector, useDispatch } from 'react-redux'
-import { change } from 'src/stateSlices/cardAccordionSlice'
 import Skeleton from '@mui/material/Skeleton';
 import { User } from 'firebase/auth';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import PageTitle from 'src/pages/core/pageTitle/PageTitle';
 
 interface Props {
     userObj: User
@@ -16,16 +14,16 @@ function Loadings({ userObj }: Props) {
     const messageAccordion = useSelector(state => state.messageAccordion.value)
     const dispatch = useDispatch()
     const [cardLoaded, setCardLoaded] = useState(false)
-    const [accordions, setAccordions] = useState({cards: '', messages: '' })
+    const [accordions, setAccordions] = useState({ cards: '', messages: '' })
     useEffect(() => {
         if (cardAccordion && messageAccordion) {
-            setAccordions({cards: 'item-1', messages: 'item-2'})
+            setAccordions({ cards: 'item-1', messages: 'item-2' })
         } else if (cardAccordion && !messageAccordion) {
-            setAccordions({cards: 'item-1', messages: ''})
+            setAccordions({ cards: 'item-1', messages: '' })
         } else if (!cardAccordion && messageAccordion) {
-            setAccordions({cards: '', messages: 'item-2'})
+            setAccordions({ cards: '', messages: 'item-2' })
         } else {
-            setAccordions({cards: '', messages: ''})
+            setAccordions({ cards: '', messages: '' })
         }
     }, [cardAccordion, messageAccordion])
     useEffect(() => {
@@ -40,7 +38,7 @@ function Loadings({ userObj }: Props) {
                     //     webSocket.off('messagingToken', token)
                     // )
                     const myDoc = doc(dbservice, `members/${userObj.uid}`)
-                    updateDoc(myDoc, {messagingToken: token});
+                    updateDoc(myDoc, { messagingToken: token });
                 } else {
                     console.log('No registration token available.');
                 }
@@ -54,35 +52,35 @@ function Loadings({ userObj }: Props) {
     // uploadString(storageRef, 'null', 'raw').then((snapshot) => {
     //     console.log('Uploaded a blob or file!');
     // });
-    
+
     useEffect(() => {
-    onSnapshot(query(collection(dbservice, 'num'), orderBy('creatorClock', 'desc')), (snapshot) => {
-        const newArray = snapshot.docs.map((document) => {
-            if (document.data().creatorId === userObj.uid) {
-                return ({
-                    id: document.id,
-                    ...document.data(),
-                })
-            } else if (document.data().connectedId === userObj.uid && document.data().round !== 1) {
-                return ({
-                    id: document.id,
-                    ...document.data(),
-                })
-            }
-        });
-        const newArraySelection = newArray.filter((element) => {
-            return element !== undefined;
-        });
-        setMessages(newArraySelection)
-        setCardLoaded(true)
-    })
+        onSnapshot(query(collection(dbservice, 'num'), orderBy('creatorClock', 'desc')), (snapshot) => {
+            const newArray = snapshot.docs.map((document) => {
+                if (document.data().creatorId === userObj.uid) {
+                    return ({
+                        id: document.id,
+                        ...document.data(),
+                    })
+                } else if (document.data().connectedId === userObj.uid && document.data().round !== 1) {
+                    return ({
+                        id: document.id,
+                        ...document.data(),
+                    })
+                }
+            });
+            const newArraySelection = newArray.filter((element) => {
+                return element !== undefined;
+            });
+            setMessages(newArraySelection)
+            setCardLoaded(true)
+        })
     }, [])
-    
+
     return (
         <div className='flex justify-center flex-col pb-5'>
-            <PageTitle title={'내 상태'}/>
+            <PageTitle title={'내 상태'} />
             <Skeleton />
-        </div>  
+        </div>
     )
 }
 

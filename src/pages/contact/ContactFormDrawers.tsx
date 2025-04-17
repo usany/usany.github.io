@@ -1,25 +1,14 @@
-import { useState, useEffect } from 'react'
-import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
-import { collection, query, where, orderBy, addDoc, getDocs, doc, onSnapshot, updateDoc } from 'firebase/firestore';
 import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from "@/components/ui/drawer"
-import Lists from 'src/pages/search/searchList/searchListViews/Lists'
-import { getStorage, ref, uploadBytes, uploadString, uploadBytesResumable, getDownloadURL, } from "firebase/storage";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import Card from '@mui/material/Card';
-import { ScrollArea } from '@radix-ui/react-scroll-area';
-import colors from '../core/cardsBackground';
+import { collection, getDocs, orderBy, query } from 'firebase/firestore';
+import { getDownloadURL, ref } from "firebase/storage";
+import { useEffect, useState } from 'react';
+import { dbservice, storage } from 'src/baseApi/serverbase';
+import { useSelectors } from "src/hooks/useSelectors";
 import useCardsBackground from '../../hooks/useCardsBackground';
+import Popups from "../core/Popups";
+import ContactFormDrawersContent from "./ContactFormDrawersContent";
+import ContactFormDrawersTitle from "./ContactFormDrawersTitle";
+import ContactFormDrawersTrigger from "./ContactFormDrawersTrigger";
 
 interface Props {
   violationUser: {} | null
@@ -30,7 +19,7 @@ function ContactFormDrawers({ violationUser, changeViolationUser }: Props) {
   const [rank, setRank] = useState([])
   const [loadedImage, setLoadedImage] = useState([])
   const [userSearch, setUserSearch] = useState('')
-
+  const languages = useSelectors((state) => state.languages.value)
   const onChangeUserSearch = (event) => {
     const { target: { value } } = event
     setUserSearch(value)
@@ -102,7 +91,7 @@ function ContactFormDrawers({ violationUser, changeViolationUser }: Props) {
 
   return (
     <>
-      <Drawer>
+      {/* <Drawer>
         <DrawerTrigger className='w-screen' onClick={() => setUserSearch('')}>
           {violationUser ?
             <Card sx={{
@@ -110,7 +99,7 @@ function ContactFormDrawers({ violationUser, changeViolationUser }: Props) {
               bgcolor: color
             }}>
               <div className='flex'>
-                <div className='flex flex-col justify-center'>신고 유저:</div>
+                <div className='flex flex-col justify-center'>{languages === 'ko' ? '신고 유저:' : 'Reporting User'}</div>
                 <div className='px-5'>
                   <Avatar className={`bg-${(violationUser?.profileColor || []).indexOf('#') === -1 ? violationUser?.profileColor : 'profile-blue'}`}>
                     <AvatarImage src={violationUser?.profileImageUrl} />
@@ -121,23 +110,28 @@ function ContactFormDrawers({ violationUser, changeViolationUser }: Props) {
               </div>
             </Card>
             :
-            <Button sx={{ width: '100%' }} variant='outlined' form='auth'>신고 유저 등록</Button>
+            <Button sx={{ width: '100%' }} variant='outlined' form='auth'>{languages === 'ko' ? '신고 등록 유저' : 'Register reporting user'}</Button>
           }
         </DrawerTrigger>
-        <DrawerContent className='h-[50%] bg-light-3 dark:bg-dark-3'>
-          <TextField label='유저 이름' onChange={onChangeUserSearch} />
-          {userSearch &&
-            <ScrollArea className='overflow-y-scroll'>
-              <div className='flex flex-col'>
-                <DrawerClose>
-                  <Lists elements={rank} multiple={true} userSearch={userSearch} ranking={false} handleUser={(newValue) => changeViolationUser(newValue)} />
-                </DrawerClose>
-              </div>
-            </ScrollArea>
-          }
+        <DrawerContent className="flex flex-col justify-center px-5 bg-light-2 dark:bg-dark-2 max-h-[60%]">
+          <ScrollArea className="overflow-y-scroll">
+            <DrawersBar />
+            <div className={`flex flex-col p-5 ${!userSearch && 'h-[60vh]'}`} >
+              <TextField label={languages === 'ko' ? '유저 이름' : 'User name'} onChange={onChangeUserSearch} />
+              {userSearch &&
+                <div className='flex flex-col'>
+                  <DrawerClose>
+                    <Lists elements={rank} multiple={true} userSearch={userSearch} ranking={false} handleUser={(newValue) => changeViolationUser(newValue)} />
+                  </DrawerClose>
+                </div>
+              }
+            </div>
+          </ScrollArea>
         </DrawerContent>
-      </Drawer>
-      {violationUser && <Button sx={{ width: '25%' }} variant='outlined' onClick={() => changeViolationUser(null)}>신고 등록 취소</Button>}
+      </Drawer > */}
+      <Popups trigger={<ContactFormDrawersTrigger violationUser={violationUser} />} title={<ContactFormDrawersTitle />} content={<ContactFormDrawersContent changeViolationUser={changeViolationUser} />} />
+      {violationUser && <Button sx={{ width: '25%' }} variant='outlined' onClick={() => changeViolationUser(null)}>{languages === 'ko' ? '신고 등록 취소' : 'Cancel reporting'}</Button>
+      }
     </>
   )
 }

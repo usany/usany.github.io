@@ -1,23 +1,5 @@
-import { useState, useEffect } from "react";
-import { auth, onSocialClick, dbservice } from "src/baseApi/serverbase";
-import {
-  updateProfile,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
 import { doc, setDoc } from "firebase/firestore";
-import {
-  getStorage,
-  ref,
-  uploadBytes,
-  uploadString,
-  uploadBytesResumable,
-  getDownloadURL,
-} from "firebase/storage";
-import staticMail from "src/assets/signMail.svg";
-import AuthDialogs from "./AuthDialogs";
+import { dbservice } from "src/baseApi/serverbase";
 
 const storeSetDoc = async ({ uid, email }) => {
   const ranking = 10;
@@ -36,6 +18,7 @@ const storeSetDoc = async ({ uid, email }) => {
     profileColor: "#2196f3",
     followerNum: 0,
     followingNum: 0,
+    defaultProfile: ''
   });
 };
 

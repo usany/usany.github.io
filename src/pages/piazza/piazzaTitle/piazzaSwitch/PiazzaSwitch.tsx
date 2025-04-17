@@ -1,9 +1,9 @@
-import { useRef, useReducer, useEffect, useState, useMemo } from "react";
 import Switch from '@mui/material/Switch';
 import { styled } from '@mui/material/styles';
 // import { useBottomNavigationStore, usePiazzaSwitchStore } from 'src/store'
-import { useSelector, useDispatch } from 'react-redux'
-import { changePiazzaSwitch } from 'src/stateSlices/piazzaSwitchSlice'
+import { useDispatch, useSelector } from 'react-redux';
+import { useSelectors } from "src/hooks/useSelectors";
+import { changePiazzaSwitch } from 'src/stateSlices/piazzaSwitchSlice';
 
 const MessageSwitch = styled(Switch)(({ theme }) => ({
   padding: 8,
@@ -43,7 +43,7 @@ function PiazzaSwitch() {
   // useEffect(() => {
   //   if (!switches) {
   //     const piazza = window.localStorage.getItem('piazza')
-  //     setSwitches(piazza)    
+  //     setSwitches(piazza)
   //   }
   // })
   // console.log(switches)
@@ -51,9 +51,10 @@ function PiazzaSwitch() {
   // const handlePiazzaSwitchOn = usePiazzaSwitchStore((state) => state.handlePiazzaSwitchOn)
   // const handlePiazzaSwitchOff = usePiazzaSwitchStore((state) => state.handlePiazzaSwitchOff)
   // const handlePiazzaSwitch = usePiazzaSwitchStore((state) => state.handlePiazzaSwitch)
+  const languages = useSelectors((state) => state.languages.value)
   const piazzaSwitch = useSelector(state => state.piazzaSwitch.value)
   const dispatch = useDispatch()
-  
+
   const onClick = () => {
     if (piazzaSwitch === 'true') {
       window.localStorage.setItem('piazza', 'false')
@@ -68,10 +69,10 @@ function PiazzaSwitch() {
 
   return (
     <div className='flex flex-col'>
-      <div className='text-sm'>단체 대화 알림 받기</div>
+      <div className='text-sm'>{languages === 'ko' ? '단체 대화 알림 받기' : 'Receive Group Messaging notice'}</div>
       {/* <div className='text-sm'>알림 받기</div> */}
       <div className='flex justify-end'>
-        <MessageSwitch onClick={() => onClick()} inputProps={{ 'aria-label': 'ant design' }} checked={piazzaSwitch === 'true'}/>
+        <MessageSwitch onClick={() => onClick()} inputProps={{ 'aria-label': 'ant design' }} checked={piazzaSwitch === 'true'} />
         {/* <MessageSwitch /> */}
       </div>
     </div>

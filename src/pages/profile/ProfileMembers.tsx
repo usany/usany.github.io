@@ -3,13 +3,17 @@ import { useSelector } from "react-redux";
 import {
   Link
 } from "react-router-dom";
-import ProfileMembersDrawers from "src/pages/profile/ProfileMembersDrawers";
+import { useSelectors } from "src/hooks/useSelectors";
 import useCardsBackground from "../../hooks/useCardsBackground";
+import Popups from "../core/Popups";
+import ProfileMembersDrawersContent from "./ProfileMembersDrawersContent";
+import ProfileMembersDrawersTitle from "./ProfileMembersDrawersTitle";
+import ProfileMembersDrawersTrigger from "./ProfileMembersDrawersTrigger";
 
 const ProfileMembers = ({ userObj, user }) => {
   const theme = useSelector((state) => state.theme)
   const { color } = useCardsBackground()
-
+  const languages = useSelectors((state) => state.languages.value)
   return (
     <div className="flex flex-col p-5">
       {user.uid === userObj.uid ? (
@@ -24,13 +28,14 @@ const ProfileMembers = ({ userObj, user }) => {
               회원 탈퇴
             </div>
           </Card> */}
-          <ProfileMembersDrawers userObj={userObj} user={user} />
+          <Popups trigger={<ProfileMembersDrawersTrigger />} title={<ProfileMembersDrawersTitle />} content={<ProfileMembersDrawersContent userObj={userObj} user={user} />} />
+          {/* <ProfileMembersDrawers userObj={userObj} user={user} /> */}
         </div>
       ) : (
         <Link to="/contact" state={{ user: user }}>
           <div className="flex justify-center">
             <Card sx={{ width: "50%", bgcolor: color }}>
-              <div className="flex justify-center p-5">신고하기</div>
+              <div className="flex justify-center p-5">{languages === 'ko' ? '신고하기' : 'Report'}</div>
             </Card>
           </div>
         </Link>

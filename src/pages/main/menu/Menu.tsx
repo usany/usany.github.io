@@ -17,9 +17,10 @@ import {
   dbservice,
   messaging
 } from "src/baseApi/serverbase";
+import { useSelectors } from "src/hooks/useSelectors";
+import CardsStacks from "src/pages/core/card/CardsStacks";
+import MessageStacks from "src/pages/core/chatting/MessageStacks";
 import PageTitle from "src/pages/core/pageTitle/PageTitle";
-import CardsStacks from "src/pages/main/card/CardsStacks";
-import MessageStacks from "src/pages/main/chatting/MessageStacks";
 import { cardOff, cardOn } from "src/stateSlices/cardAccordionSlice";
 import { messageOff, messageOn } from "src/stateSlices/messageAccordionSlice";
 // import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
@@ -28,11 +29,26 @@ interface Props {
   userObj: User;
 }
 
+const titles = {
+  ko: '내 상태',
+  en: 'My Status'
+}
+const cards = {
+  ko: '카드',
+  en: 'Cards'
+}
+const messages = {
+  ko: '메세지',
+  en: 'Messages'
+}
+
 function Menu({ userObj }: Props) {
   // const [accordions, setAccordions] = useState({
   //   cards: "item-1",
   //   messages: "item-2",
   // });
+  const languages = useSelectors((state) => state.languages.value)
+  const index = (languages === 'ko' || languages === 'en') ? languages : 'ko'
   const cardAccordion = useSelector((state) => state.cardAccordion.value);
   const messageAccordion = useSelector((state) => state.messageAccordion.value);
   const dispatch = useDispatch();
@@ -90,39 +106,51 @@ function Menu({ userObj }: Props) {
 
   return (
     <div id="sample" className="flex justify-center flex-col pb-5">
-      <PageTitle title={"내 상태"} />
+      <PageTitle title={titles[index]} />
+      {/* <Buttonings button={'practice'} /> */}
+      {/* <div className='flex justify-center'>
+        <Cardings cards={'sample'} shadowColor={'lightblue'} />
+      </div> */}
       <Accordion
+        className='px-5'
         value={[cardAccordion, messageAccordion]}
         // defaultValue={accordionValues}
         type="multiple"
-        className="px-3"
       >
         <AccordionItem value="item-1">
-          <AccordionTrigger onClick={() => {
-            if (cardAccordion) {
-              dispatch(cardOff())
-            } else {
-              dispatch(cardOn())
-            }
-          }}>
-            카드
-          </AccordionTrigger>
+          <button onClick={() => {
+            document.getElementById('cardAccordion')?.click()
+          }} className='shadow-md px-3 flex sticky top-16 z-30 w-full items-center justify-between bg-light-3 dark:bg-dark-3'>
+            <div>{cards[index]}</div>
+            <AccordionTrigger id="cardAccordion" onClick={() => {
+              if (cardAccordion) {
+                dispatch(cardOff())
+              } else {
+                dispatch(cardOn())
+              }
+            }}>
+            </AccordionTrigger>
+          </button>
           <AccordionContent>
             <CardsStacks userObj={userObj} />
           </AccordionContent>
         </AccordionItem>
         <AccordionItem value="item-2">
-          <AccordionTrigger onClick={() => {
-            if (messageAccordion) {
-              dispatch(messageOff())
-            } else {
-              dispatch(messageOn())
-            }
-            // dispatch(changeMessageAccordion())
-          }}>
-            메세지
-          </AccordionTrigger>
-          <AccordionContent>
+          <button onClick={() => {
+            document.getElementById('messageAccordion')?.click()
+          }} className='shadow-md px-3 flex sticky top-16 z-30 w-full items-center justify-between bg-light-3 dark:bg-dark-3'>
+            <div>{messages[index]}</div>
+            <AccordionTrigger id="messageAccordion" onClick={() => {
+              if (messageAccordion) {
+                dispatch(messageOff())
+              } else {
+                dispatch(messageOn())
+              }
+              // dispatch(changeMessageAccordion())
+            }}>
+            </AccordionTrigger>
+          </button>
+          <AccordionContent className="text-sm">
             <Suspense fallback={<Skeleton />}>
               <MessageStacks userObj={userObj} />
             </Suspense>

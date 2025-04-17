@@ -188,6 +188,7 @@ io.sockets.on('connection', (socket) => {
       creatorName,
       connectedId,
       connectedName,
+      connectedUrl
     } = res
     const message = {
       notification: {
@@ -199,6 +200,7 @@ io.sockets.on('connection', (socket) => {
     admin.messaging().send(message)
     socket.broadcast.emit(`sIncrease${id}`, res)
     socket.broadcast.emit(`sOnPulse${id}`, res)
+    socket.broadcast.emit(`sSupportTrades${id}`, res)
   })
   socket.on('stop supporting', (res) => {
     const {
@@ -220,6 +222,7 @@ io.sockets.on('connection', (socket) => {
     admin.messaging().send(message)
     socket.broadcast.emit(`sDecrease${id}`, res)
     socket.broadcast.emit(`sOnPulse${id}`, res)
+    socket.broadcast.emit(`sStopSupportingTrades${id}`, res)
   })
   socket.on('confirm', (res) => {
     const {

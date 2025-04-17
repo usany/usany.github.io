@@ -1,28 +1,22 @@
-import { useState, useEffect } from 'react'
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
 import Button from '@mui/material/Button';
-import { Link } from 'react-router-dom'
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 // import Avatar from '@mui/material/Avatar';
 // import { blue } from '@mui/material/colors';
 import {
   Drawer,
   DrawerClose,
   DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from "@/components/ui/drawer"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import DrawersBar from 'src/pages/core/DrawersBar';
+  DrawerTrigger
+} from "@/components/ui/drawer";
 import { ScrollArea } from '@radix-ui/react-scroll-area';
+import { useSelectors } from 'src/hooks/useSelectors';
 import Avatars from 'src/pages/core/Avatars';
+import DrawersBar from 'src/pages/core/DrawersBar';
 
-const PiazzaDialogs = ({ multiple, handleMultiple, user, userObj, handleMessagesList, displayedName, }) => {
+const PiazzaDialogs = ({ initiateContinuing, multiple, handleMultiple, user, userObj, handleMessagesList, displayedName, }) => {
   const [conversation, setConversation] = useState(null)
+  const languages = useSelectors((state) => state.languages.value)
   useEffect(() => {
     if (user) {
       if (user?.uid < userObj.uid) {
@@ -80,7 +74,7 @@ const PiazzaDialogs = ({ multiple, handleMultiple, user, userObj, handleMessages
           <ScrollArea className='overflow-y-scroll'>
             <DrawersBar />
             <div className='flex flex-col items-center pt-5'>
-              <Avatars profile={false} profileColor="" profileUrl={user?.profileImageUrl} fallback="" piazza={null} />
+              <Avatars uid={userObj.uid} profile={false} profileColor="" profileUrl={user?.profileImageUrl} fallback="" piazza={null} />
               {/* <Avatar className={'bg-profile-blue'}>
                 <AvatarImage src={user?.profileImageUrl} />
                 <AvatarFallback className='text-xl border-none	'>{user?.displayName[0]}</AvatarFallback>
@@ -90,7 +84,15 @@ const PiazzaDialogs = ({ multiple, handleMultiple, user, userObj, handleMessages
               </div>
               {user?.displayName !== displayedName &&
                 <div>
-                  ({displayedName}에서 개명)
+                  {languages === 'ko' ?
+                    <div>
+                      ({displayedName}에서 개명)
+                    </div>
+                    :
+                    <div>
+                      (Changed name from {displayedName})
+                    </div>
+                  }
                 </div>
               }
             </div>
@@ -99,7 +101,7 @@ const PiazzaDialogs = ({ multiple, handleMultiple, user, userObj, handleMessages
                 <Button variant='outlined' onClick={() => {
                   // handleClose()
                 }}>
-                  프로필 확인
+                  {languages === 'ko' ? '프로필 확인' : 'Check Profile'}
                 </Button>
               </Link>
               {multiple && userObj.uid !== user?.uid &&
@@ -109,9 +111,10 @@ const PiazzaDialogs = ({ multiple, handleMultiple, user, userObj, handleMessages
                       handleMessagesList([])
                       // handleChangeMessage(true)
                       handleMultiple(false)
+                      initiateContinuing()
                       // handleClose()
                     }}>
-                      개인 대화
+                      {languages === 'ko' ? '개인 대화' : 'Private messaging'}
                     </Button>
                   </DrawerClose>
                 </Link>

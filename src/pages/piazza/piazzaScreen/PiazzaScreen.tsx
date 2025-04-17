@@ -14,9 +14,12 @@ import { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useLocation } from 'react-router-dom'
 import { dbservice } from 'src/baseApi/serverbase'
+import { useSelectors } from 'src/hooks/useSelectors'
 import Avatars from 'src/pages/core/Avatars'
-import PiazzaDialogs from 'src/pages/piazza/piazzaScreen/piazzaDialogs/PiazzaDialogs'
+import Popups from 'src/pages/core/Popups'
+import SpecificsTradesTitle from 'src/pages/core/specifics/SpecificsTradesTitle'
 import { webSocket } from 'src/webSocket.tsx'
+import PiazzaDialogsContent from './piazzaDialogs/PiazzaDialogsContent'
 
 interface Props {
   userObj: User
@@ -44,7 +47,7 @@ function PiazzaScreen({
   const profileUrl = useSelector((state) => state.profileUrl.value)
   const { state } = useLocation()
   const conversation = state?.conversation
-
+  const languages = useSelectors((state) => state.languages.value)
   const onPrivate = async ({ userUid, displayName }) => {
     const userRef = doc(dbservice, `members/${userUid}`)
     const userDoc = await getDoc(userRef)
@@ -248,7 +251,7 @@ function PiazzaScreen({
       handleMessagesList([...messagesArray, ...messagesList])
       setIsLoading(false)
     }
-    if (multiple) {
+    if (!conversation) {
       if (isLoading || !messagesList.length) {
         messageList()
       }
@@ -257,7 +260,7 @@ function PiazzaScreen({
         messageListMembers(conversation)
       }
     }
-  }, [isLoading])
+  }, [isLoading, conversation])
   // console.log(isLoading)
   const handleScroll = () => {
     if (
@@ -282,10 +285,10 @@ function PiazzaScreen({
       <div className="flex flex-col pt-5">
         <div
           ref={boxRef}
-          className="p-1 border-t rounded-xl max-h-[60vh] overflow-auto"
+          className="p-1 border-t rounded-xl h-[60vh] overflow-auto"
         >
           <ul>
-            {isLoading && <div>loading</div>}
+            {isLoading && <div className='flex justify-center bg-light-2 dark:bg-dark-2 rounded'>로딩</div>}
             {messagesList.map((value, index) => {
               let userDirection
               const clock = new Date(value.messageClock)
@@ -353,18 +356,44 @@ function PiazzaScreen({
                       >
                         {userDirection === 'text-left' ? (
                           <div className="flex gap-3">
-                            <Avatars
+                            <Popups
+                              trigger={
+                                <Avatars
+                                  uid={userObj.uid}
+                                  profile={false}
+                                  profileColor=""
+                                  profileUrl={value?.profileImageUrl}
+                                  piazza={() =>
+                                    onDrawer({
+                                      userUid: value.userUid,
+                                      displayName: value.id,
+                                    })
+                                  }
+                                />
+                              }
+                              title={<SpecificsTradesTitle />}
+                              content={<PiazzaDialogsContent
+                                initiateContinuing={() => setContinuing(null)}
+                                multiple={multiple}
+                                handleMultiple={handleMultiple}
+                                user={user}
+                                userObj={userObj}
+                                handleMessagesList={handleMessagesList}
+                                displayedName={displayedName}
+                              />}
+                            />
+                            {/* <Avatars
+                              uid={userObj.uid}
                               profile={false}
                               profileColor=""
                               profileUrl={value?.profileImageUrl}
-                              fallback=""
                               piazza={() =>
                                 onDrawer({
                                   userUid: value.userUid,
                                   displayName: value.id,
                                 })
                               }
-                            />
+                            /> */}
                             {/* <Avatar onClick={() => {
                               document.getElementById('drawer')?.click()
                               onPrivate({ userUid: value.userUid, displayName: value.id })
@@ -377,18 +406,44 @@ function PiazzaScreen({
                         ) : (
                           <div className="flex gap-3">
                             <div>{value.id}</div>
-                            <Avatars
+                            <Popups
+                              trigger={
+                                <Avatars
+                                  uid={userObj.uid}
+                                  profile={false}
+                                  profileColor=""
+                                  profileUrl={value?.profileImageUrl}
+                                  piazza={() =>
+                                    onDrawer({
+                                      userUid: value.userUid,
+                                      displayName: value.id,
+                                    })
+                                  }
+                                />
+                              }
+                              title={<SpecificsTradesTitle />}
+                              content={<PiazzaDialogsContent
+                                initiateContinuing={() => setContinuing(null)}
+                                multiple={multiple}
+                                handleMultiple={handleMultiple}
+                                user={user}
+                                userObj={userObj}
+                                handleMessagesList={handleMessagesList}
+                                displayedName={displayedName}
+                              />}
+                            />
+                            {/* <Avatars
+                              uid={userObj.uid}
                               profile={false}
                               profileColor=""
                               profileUrl={value?.profileImageUrl}
-                              fallback=""
                               piazza={() =>
                                 onDrawer({
                                   userUid: value.userUid,
                                   displayName: value.id,
                                 })
                               }
-                            />
+                            /> */}
                             {/* <Avatar onClick={() => {
                               document.getElementById('drawer')?.click()
                               onPrivate({ userUid: value.userUid, displayName: value.id })
@@ -408,18 +463,20 @@ function PiazzaScreen({
                       </div>
                       <div>
                         {clock.getFullYear()}-{messageMonth}-{messageDate}{' '}
-                        {messageAmpm} {messageHours}:
+                        {languages === 'ko' && messageAmpm} {messageHours}:
                         {clock.getMinutes() < 10 && '0'}
                         {clock.getMinutes()}
+                        {languages === 'en' && (messageAmpm === '오전' ? 'am' : 'pm')}
                       </div>
                     </div>
                   ) : (
                     <div className="flex gap-3 justify-end">
                       <div>
                         {clock.getFullYear()}-{messageMonth}-{messageDate}{' '}
-                        {messageAmpm} {messageHours}:
+                        {languages === 'ko' && messageAmpm} {messageHours}:
                         {clock.getMinutes() < 10 && '0'}
                         {clock.getMinutes()}
+                        {languages === 'en' && (messageAmpm === '오전' ? 'am' : 'pm')}
                       </div>
                       <div className="me rounded-tl-lg rounded-bl-lg rounded-br-lg p-1 bg-light-1 dark:bg-dark-1">
                         {value.msg}
@@ -433,14 +490,15 @@ function PiazzaScreen({
           </ul>
         </div>
       </div>
-      <PiazzaDialogs
+      {/* <PiazzaDialogs
         multiple={multiple}
         handleMultiple={handleMultiple}
         user={user}
         userObj={userObj}
         handleMessagesList={handleMessagesList}
         displayedName={displayedName}
-      />
+        initiateContinuing={() => setContinuing(null)}
+      /> */}
     </>
   )
 }

@@ -8,7 +8,6 @@ import {
 import PageTitle from "src/pages/core/pageTitle/PageTitle";
 import ProfileActions from "src/pages/profile/ProfileActions";
 import ProfileAvatar from "src/pages/profile/profileAvatar/ProfileAvatar";
-import ProfileDialogs from "src/pages/profile/profileAvatar/profileDialogs/ProfileDialogs";
 import ProfileCards from "src/pages/profile/ProfileCards";
 import ProfileCompleted from "src/pages/profile/ProfileCompleted";
 import ProfileMembers from "src/pages/profile/ProfileMembers";
@@ -25,6 +24,7 @@ import { useImmer } from "use-immer";
 // import Skeleton from '@mui/material/Skeleton';
 import { useQuery } from "@tanstack/react-query";
 import { doc, getDoc } from "firebase/firestore";
+import { useSelectors } from "src/hooks/useSelectors";
 import ProfileLocations from "./ProfileLocations";
 
 const area = [
@@ -41,6 +41,7 @@ interface Props {
 function Profile({ userObj }: Props) {
   const params = useParams()
   console.log(params)
+  const languages = useSelectors((state) => state.languages.value)
   const [attachment, setAttachment] = useState("");
   const { state } = useLocation();
   const [profileDialog, setProfileDialog] = useState(false);
@@ -137,6 +138,9 @@ function Profile({ userObj }: Props) {
   const handleClose = () => {
     setProfileDialog(false);
   };
+  const changeProfileDialog = (newValue) => {
+    setProfileDialog(newValue)
+  }
   // const actions = [
   //   { action: 'borrow', number: borrowMessage.length+borrowRegisteredMessage.length,
   //     fill: 'red'},
@@ -187,66 +191,34 @@ function Profile({ userObj }: Props) {
   }
   // getCoords().then(coords => console.log(coords))
   // console.log(weather)
-
+  // console.log(profileDialog)
+  // console.log(state)
   return (
     <div>
-      {/* <div>
-        <div className="sticky top-20 p-5 bg-white">카드 목록</div>
-        <div>
-          <div>목록 카드 목록</div>
-          <div>목록 카드 목록</div>
-          <div>목록 카드 목록</div>
-          <div>목록 카드 목록</div>
-          <div>목록 카드 목록</div>
-          <div>목록 카드 목록</div>
-        </div>
-      </div>
-      <div>
-        <div className="sticky top-20 p-5 bg-white">목록 카드 목록 목록</div>
-        <div>
-          <div>목록 카드 목록</div>
-          <div>목록 카드 목록</div>
-          <div>목록 카드 목록</div>
-          <div>목록 카드 목록</div>
-          <div>목록 카드 목록</div>
-          <div>목록 카드 목록</div>
-        </div>
-      </div> */}
       <PageTitle
-        title={`${userUid === userObj.uid ? "내" : shortenName} 프로필`}
+        title={`${userUid === userObj.uid ? (languages === 'ko' ? "내" : 'My') : shortenName} ${languages === 'ko' ? '프로필' : 'Profile'}`}
       />
       {/* <div onClick={() => {
         const navigators = navigator.geolocation.getCurrentPosition(position => console.log(position.coords))
         console.log(navigators)
       }
       }>위치 latitude:37.5682 longitude:126.9977</div> */}
-
       <ProfileAvatar
         userObj={userObj}
         user={state?.element || userObj}
         handleProfileDialog={() => setProfileDialog(true)}
-      />
-      <ProfileDialogs
-        userObj={userObj}
         profileDialog={profileDialog}
         attachment={attachment}
         changeAttachment={(newState: string) => setAttachment(newState)}
         handleClose={handleClose}
       />
-      {/* <div className='flex flex-col items-center pt-5'>
-        <div>
-          캠퍼스에 계세요?
-        </div>
-        <div>
-          위치 확인으로 캠퍼스에 있음을 알리세요.
-        </div>
-        {locationConfirmed ? <Chip color="success" label={'캠퍼스 위치 확인'} /> : <Chip label={'캠퍼스 위치 미확인'} />}
-        {state.element.uid === userObj.uid && !locationConfirmed &&
-          <Button onClick={() => setLocationConfirmed(true)} variant="outlined">
-            캠퍼스 위치 확인
-          </Button>
-        }
-      </div> */}
+      {/* <ProfileDialogs
+        userObj={userObj}
+        profileDialog={profileDialog}
+        attachment={attachment}
+        changeAttachment={(newState: string) => setAttachment(newState)}
+        handleClose={handleClose}
+      /> */}
       <ProfileLocations user={state?.element.uid} userObj={userObj} />
       {/* <Suspense fallback={<Skeleton />}>
         <ProfileAvatar userObj={userObj} user={state.element} handleProfileDialog={() => setProfileDialog(true)} />
@@ -262,6 +234,7 @@ function Profile({ userObj }: Props) {
         user={state?.element || userObj}
         alliesCollection={alliesCollection}
         cards={cards}
+        changeProfileDialog={changeProfileDialog}
       />
       <ProfileCompleted user={state?.element || userObj} cards={cards} />
       {/* {state.element.uid === userObj.uid ?

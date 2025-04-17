@@ -1,22 +1,7 @@
-import { useState, useEffect, useReducer } from 'react'
-import { Link } from 'react-router-dom'
-import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnapshot, updateDoc, setDoc } from 'firebase/firestore';
-import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
-import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from "@/components/ui/drawer"
-import { ScrollArea } from "@/components/ui/scroll-area"
 import Divider from '@mui/material/Divider';
-import Avatar from '@mui/material/Avatar';
-import CommentIcon from '@mui/icons-material/Comment';
-import IconButton from '@mui/material/IconButton';
+import { collection, getDocs, orderBy, query } from 'firebase/firestore';
+import { useEffect, useState } from 'react';
+import { dbservice } from 'src/baseApi/serverbase';
 
 const ProfileDrawersPoints = ({ user, cards }) => {
   const [messages, setMessages] = useState([])
@@ -43,13 +28,13 @@ const ProfileDrawersPoints = ({ user, cards }) => {
   const pointsList = messages.map((element, index) => {
     return (
       <div key={index}>
-        <div className='flex flex-col justify-center w-screen'>
-          {user.uid === element.creatorId && 
+        <div className='flex flex-col justify-center p-5'>
+          {user.uid === element.creatorId &&
             <div className='flex justify-center'>
               {element.connectedName}에게 {element.text.choose === 1 ? '빌림' : '빌려줌'}
             </div>
           }
-          {user.uid === element.connectedId && 
+          {user.uid === element.connectedId &&
             <div className='flex justify-center'>
               {element.displayName}에게 {element.text.choose === 1 ? '빌려줌' : '빌림'}
             </div>
@@ -58,30 +43,30 @@ const ProfileDrawersPoints = ({ user, cards }) => {
             {element.text.count} {element.text.counter} {element.text.counting}
           </div>
           <div className='flex justify-center'>
-            {element.text.clock.year}년 {element.text.clock.month}월 {element.text.clock.day}일 {element.text.clock.hour}시 {element.text.clock.minute}분부터 
+            {element.text.clock.year}년 {element.text.clock.month}월 {element.text.clock.day}일 {element.text.clock.hour}시 {element.text.clock.minute}분부터
           </div>
           <div className='flex justify-center'>
             {element.text.clocker.year}년 {element.text.clocker.month}월 {element.text.clocker.day}일 {element.text.clocker.hour}시 {element.text.clocker.minute}분까지
           </div>
-          {user.uid === element.creatorId && 
+          {user.uid === element.creatorId &&
             <div className='flex justify-center'>
               포인트 {element.text.choose === 1 ? '-' : '+'}{element.point}
             </div>
           }
-          {user.uid === element.connectedId && 
+          {user.uid === element.connectedId &&
             <div className='flex justify-center'>
               포인트 {element.text.choose === 1 ? '+' : '-'}{element.point}
             </div>
           }
         </div>
-        <Divider variant="inset" />
+        <Divider />
       </div>
     )
   })
 
   return (
     <div className='p-5'>
-      {pointsList.length === 0 ? 
+      {pointsList.length === 0 ?
         <div className='flex justify-center'>
           <div className='border border-dashed p-5'>
             적립 내역이 없습니다

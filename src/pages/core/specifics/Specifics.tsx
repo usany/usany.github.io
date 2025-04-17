@@ -5,12 +5,12 @@ import CardMedia from '@mui/material/CardMedia'
 import { doc, getDoc } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 import { dbservice } from 'src/baseApi/serverbase'
-import Btn from 'src/Btn'
+import Btn from 'src/buttons/Buttons'
 // import { CardActionArea, CardActions } from '@mui/material';
 // import { useBottomNavigationStore } from 'src/store'
 import Divider from '@mui/material/Divider'
 import { User } from 'firebase/auth'
-import useCardsBackground from '../../../hooks/useCardsBackground'
+import { useSelectors } from 'src/hooks/useSelectors'
 import SpecificsActions from './SpecificsActions'
 import SpecificsDimensions from './SpecificsDimensions'
 import SpecificsSteppers from './SpecificsSteppers'
@@ -31,7 +31,11 @@ function Specifics({
   userObj,
   message,
   onPulse,
-  changeOnPulse
+  changeOnPulse,
+  connectedUser,
+  changeConnectedUser,
+  toggleOnTransfer,
+  removeMessage
 }: Props) {
   const [messageObj, setMessageObj] = useState<{
     id: string
@@ -45,7 +49,7 @@ function Specifics({
   const [num, setNum] = useState<number | null>(null)
   const [points, setPoints] = useState<number | null>(null)
   const [deleted, setDeleted] = useState<boolean>(false)
-  // const [round, setRound] = useState(0)
+  const languages = useSelectors((state) => state.languages.value)
   // const increaseRound = () => {
   //   setRound(round + 1)
   // }
@@ -53,8 +57,8 @@ function Specifics({
   //   setRound(round - 1)
   // }
   const deleteMessage = () => {
-    // changeDeleted(true)
     setDeleted(true)
+    removeMessage(message)
   }
   // useEffect(() => {
   //   if (!round) {
@@ -66,9 +70,9 @@ function Specifics({
     const bringMessage = async ({ message }) => {
       const docRef = doc(dbservice, `num/${message.id}`)
       const docSnap = await getDoc(docRef)
-      setMessageObj({ id: message.id, round: docSnap.data().round, ...docSnap.data() })
+      setMessageObj({ id: message.id, round: docSnap.data()?.round, ...docSnap.data() })
       // setRound(docSnap.data().round)
-      if (!docSnap.data().round) {
+      if (!docSnap.data()?.round) {
         setDeleted(true)
       }
     }
@@ -85,7 +89,7 @@ function Specifics({
     //   }
     // });
   }, [])
-  console.log(deleted)
+  // console.log(connectedUser)
   useEffect(() => {
     const creatorPoints = async () => {
       const docRef = doc(dbservice, `members/${message.creatorId}`)
@@ -141,12 +145,13 @@ function Specifics({
     shadowColorArray[
     mergedArray.indexOf(String(id[0]).toUpperCase()) % shadowColorArray.length
     ]
-  const { color } = useCardsBackground()
+  // const { color } = useCardsBackground()
 
   return (
     <div className="truncate p-1">
       {userObj ? (
         <Card
+          className='colorTwo'
           sx={{
             boxShadow: `1.9px 1.9px 1.9px 1.9px ${shadowColor}`,
           }}
@@ -172,6 +177,8 @@ function Specifics({
               drawerOpenTrue={drawerOpenTrue}
               userObj={userObj}
               message={message}
+              round={round}
+              connectedUser={connectedUser}
             />
             <Divider />
             <SpecificsSteppers message={message} round={round} />
@@ -193,6 +200,9 @@ function Specifics({
                     decreaseRound={decreaseRound}
                     onPulse={onPulse}
                     changeOnPulse={changeOnPulse}
+                    connectedUser={connectedUser}
+                    changeConnectedUser={changeConnectedUser}
+                    toggleOnTransfer={toggleOnTransfer}
                   />
                 </div>
               )}
@@ -212,13 +222,16 @@ function Specifics({
                     decreaseRound={decreaseRound}
                     onPulse={onPulse}
                     changeOnPulse={changeOnPulse}
+                    connectedUser={connectedUser}
+                    changeConnectedUser={changeConnectedUser}
+                    toggleOnTransfer={toggleOnTransfer}
                   />
                 </div>
               )}
               {deleted === true && (
                 <div className="flex justify-center">
                   <Button variant="outlined" disabled>
-                    지워졌습니다
+                    {languages === 'ko' ? '지워졌습니다' : 'Deleted'}
                   </Button>
                 </div>
               )}
@@ -237,8 +250,9 @@ function Specifics({
             <div className="flex justify-center pt-5">로그인을 해 주세요</div>
           </CardContent>
         </Card>
-      )}
-    </div>
+      )
+      }
+    </div >
   )
 }
 

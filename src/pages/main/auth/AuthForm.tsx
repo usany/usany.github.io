@@ -1,17 +1,10 @@
-import { useState, useEffect } from "react";
-import {
-  auth,
-  onSocialClick,
-  dbservice,
-  storage,
-} from "src/baseApi/serverbase";
-import {
-  updateProfile,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  updateProfile,
+} from "firebase/auth";
 import {
   collection,
   doc,
@@ -21,20 +14,25 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import {
-  getStorage,
-  ref,
-  uploadBytes,
-  uploadString,
-  uploadBytesResumable,
   getDownloadURL,
+  ref,
+  uploadString
 } from "firebase/storage";
+import { useState } from "react";
 import staticMail from "src/assets/signMail.svg";
+import {
+  auth,
+  dbservice,
+  storage
+} from "src/baseApi/serverbase";
+import { useSelectors } from "src/hooks/useSelectors.tsx";
 import AuthDialogs from "./AuthDialogs.tsx";
 // import storeSetDoc from "../../../components/setDocUser.ts";
 
 const AuthForm = ({ signIn }) => {
   const [account, setAccount] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
+  const languages = useSelectors((state) => state.languages.value)
   const onSubmitSignIn = async (event) => {
     event.preventDefault();
     try {
@@ -74,6 +72,7 @@ const AuthForm = ({ signIn }) => {
         followerNum: 0,
         followingNum: 0,
         locationConfirmed: false,
+        defaultProfile: ''
       });
       await updateProfile(data.user, {
         displayName: data.user.email,
@@ -131,7 +130,7 @@ const AuthForm = ({ signIn }) => {
         >
           <div className="flex justify-center px-3">
             <TextField
-              label="이메일"
+              label={languages === 'ko' ? "이메일" : 'email'}
               value={account.email}
               onChange={onChange}
               variant="outlined"
@@ -139,12 +138,11 @@ const AuthForm = ({ signIn }) => {
               type="email"
               fullWidth
               required
-              autoFocus
             />
           </div>
           <div className="flex justify-center px-3">
             <TextField
-              label="비밀번호"
+              label={languages === 'ko' ? "비밀번호" : 'password'}
               value={account.password}
               onChange={onChange}
               variant="outlined"
@@ -161,7 +159,7 @@ const AuthForm = ({ signIn }) => {
               form={signIn ? "auth" : "signUp"}
               type="submit"
             >
-              {signIn ? "로그인" : "회원가입"}
+              {signIn ? (languages === 'ko' ? "로그인" : 'Sign in') : (languages === 'ko' ? "회원가입" : 'Register')}
             </Button>
             <span>{error}</span>
           </div>

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import Switches from './Switches';
+import Switches from '../pages/core/navigationTop/sideNavigation/Switches';
 
 const meta = {
   component: Switches,

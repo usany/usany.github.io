@@ -1,38 +1,29 @@
-import { useState, useEffect, useReducer } from "react";
-import {
-  auth,
-  onSocialClick,
-  dbservice,
-  storage,
-} from "src/baseApi/serverbase";
-import {
-  collection,
-  query,
-  where,
-  orderBy,
-  addDoc,
-  getDoc,
-  getDocs,
-  doc,
-  onSnapshot,
-  deleteDoc,
-  updateDoc,
-  DocumentSnapshot,
-} from "firebase/firestore";
-import AddSteppers from "src/pages/add/AddSteppers";
-import AddStepOne from "src/pages/add/AddStepOne";
-import AddStepTwo from "src/pages/add/AddStepTwo";
-import AddStepThree from "src/pages/add/AddStepThree";
-import AddStepFour from "src/pages/add/AddStepFour";
-import AddRegisterButton from "src/pages/add/AddRegisterButton";
-import AddSnackBar from "src/pages/add/AddSnackBar";
-import PageTitle from "src/pages/core/pageTitle/PageTitle";
+import { useMediaQuery } from "@mui/material";
 import { User } from "firebase/auth";
-import { useSelector, useDispatch } from "react-redux";
+import {
+  addDoc,
+  collection,
+  doc,
+  getDoc,
+  updateDoc
+} from "firebase/firestore";
+import { useEffect, useReducer, useState } from "react";
+import { useSelector } from "react-redux";
+import { useParams, useSearchParams } from "react-router-dom";
+import {
+  dbservice
+} from "src/baseApi/serverbase";
+import { useSelectors } from "src/hooks/useSelectors";
 import TabsRootState from "src/interfaces/TabsRootState";
 import AddCards from "src/pages/add/AddCards";
-import { useMediaQuery } from "@mui/material";
-import { useParams, useSearchParams } from "react-router-dom";
+import AddRegisterButton from "src/pages/add/AddRegisterButton";
+import AddSnackBar from "src/pages/add/AddSnackBar";
+import AddStepFour from "src/pages/add/AddStepFour";
+import AddStepOne from "src/pages/add/AddStepOne";
+import AddSteppers from "src/pages/add/AddSteppers";
+import AddStepThree from "src/pages/add/AddStepThree";
+import AddStepTwo from "src/pages/add/AddStepTwo";
+import PageTitle from "src/pages/core/pageTitle/PageTitle";
 
 interface Props {
   userObj: User;
@@ -68,6 +59,7 @@ function Add({ userObj, borrow }: Props) {
   const tabs = useSelector((state: TabsRootState) => state.tabs.value);
   const [fromTo, setFromTo] = useState<FromTo>({ from: null, to: null });
   const matches = useMediaQuery("(min-width:850px)");
+  const languages = useSelectors((state) => state.languages.value)
   // const [cardId, setCardId] = useState<string | null>(null)
   // const [from, setFrom] = useState(null);
   // const [to, setTo] = useState(null);
@@ -347,15 +339,15 @@ function Add({ userObj, borrow }: Props) {
 
   return (
     <div className="flex flex-col h-screen">
-      <PageTitle title={`${borrow ? "빌리기 " : "빌려주기 "} 카드 등록`} />
+      <PageTitle title={`${borrow ? `${languages === 'ko' ? '빌리기 ' : 'Borrowing '}` : `${languages === 'ko' ? '빌려주기 ' : 'Lending '}`} ${languages === 'ko' ? '카드 등록' : 'Card Registeration'}`} />
       <AddSteppers addSteps={addSteps} borrow={borrow} />
       {/* <div className='flex justify-around'>
-                <AddCards borrow={borrow} userObj={userObj} addSteps={addSteps} item={item} fromTo={fromTo} locationState={locationState} />
-                <div>
-                    <AddStepOne borrow={borrow} item={item} changeItem={changeItem} />
-                    {addSteps > 0 && <AddStepTwo locationState={locationState} changeBuilding={changeBuilding} changeRoom={changeRoom} changeSeat={changeSeat} changeLocationInput={changeLocationInput} />}
-                </div>
-            </div> */}
+          <AddCards borrow={borrow} userObj={userObj} addSteps={addSteps} item={item} fromTo={fromTo} locationState={locationState} />
+          <div>
+              <AddStepOne borrow={borrow} item={item} changeItem={changeItem} />
+              {addSteps > 0 && <AddStepTwo locationState={locationState} changeBuilding={changeBuilding} changeRoom={changeRoom} changeSeat={changeSeat} changeLocationInput={changeLocationInput} />}
+          </div>
+      </div> */}
       {matches ? (
         <div className="flex justify-around px-5">
           <AddCards
