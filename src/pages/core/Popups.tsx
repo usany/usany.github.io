@@ -2,6 +2,9 @@ import {
   Drawer,
   DrawerClose,
   DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
   DrawerTitle,
   DrawerTrigger
 } from "@/components/ui/drawer";
@@ -45,11 +48,25 @@ const Popups = ({ trigger, title, content, close, attachment, onLink }) => {
   }
   return (
     <div className="flex justify-center">
-      <Drawer>
+      <Drawer direction="left">
+        <DrawerTrigger>{trigger}</DrawerTrigger>
+        <DrawerContent className="bg-light-2 dark:bg-dark-2 right-auto top-0 mt-0 w-[310px] overflow-hidden rounded-[10px]">
+          <DrawerHeader>
+            <DrawerTitle>Are you absolutely sure?</DrawerTitle>
+            <DrawerDescription>This action cannot be undone.</DrawerDescription>
+          </DrawerHeader>
+          <DrawerFooter>
+            <DrawerClose>
+            </DrawerClose>
+          </DrawerFooter>
+        </DrawerContent>
+      </Drawer>
+
+      <Drawer direction="left">
         <DrawerTrigger>
           {trigger}
         </DrawerTrigger>
-        <DrawerContent className='bg-light-2 dark:bg-dark-2 max-h-[50vh]'>
+        <DrawerContent className="bg-light-2 dark:bg-dark-2 right-auto top-0 mt-0 w-[310px] overflow-hidden rounded-[10px]">
           <ScrollArea className="overflow-y-scroll">
             <DrawersBar />
             <DrawerTitle className='flex justify-center p-5'>{title}</DrawerTitle>

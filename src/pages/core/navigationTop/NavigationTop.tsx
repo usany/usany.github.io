@@ -76,7 +76,7 @@ const NavigationTop = ({ userObj }: Props) => {
       />
       <div className="flex justify-between w-screen">
         <div
-          className="px-5 pt-1"
+          className="px-5 pt-1 cursor-pointer"
           onClick={() => {
             handleSideNavigation();
           }}
