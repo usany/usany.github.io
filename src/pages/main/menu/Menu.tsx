@@ -8,14 +8,17 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { User } from "firebase/auth";
 import {
   doc,
+  getDoc,
   updateDoc
 } from "firebase/firestore";
 import { getToken } from "firebase/messaging";
+import { getDownloadURL, ref, uploadString } from "firebase/storage";
 import { Suspense, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   dbservice,
-  messaging
+  messaging,
+  storage
 } from "src/baseApi/serverbase";
 import { useSelectors } from "src/hooks/useSelectors";
 import CardsStacks from "src/pages/core/card/CardsStacks";
@@ -23,6 +26,8 @@ import MessageStacks from "src/pages/core/chatting/MessageStacks";
 import PageTitle from "src/pages/core/pageTitle/PageTitle";
 import { cardOff, cardOn } from "src/stateSlices/cardAccordionSlice";
 import { messageOff, messageOn } from "src/stateSlices/messageAccordionSlice";
+import { changeProfileColor } from "src/stateSlices/profileColorSlice";
+import { changeProfileUrl } from "src/stateSlices/profileUrlSlice";
 // import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 interface Props {
@@ -52,6 +57,28 @@ function Menu({ userObj }: Props) {
   const cardAccordion = useSelector((state) => state.cardAccordion.value);
   const messageAccordion = useSelector((state) => state.messageAccordion.value);
   const dispatch = useDispatch();
+  useEffect(() => {
+    const setProfile = async () => {
+      const docRef = doc(dbservice, `members/${userObj?.uid}`);
+      const docSnap = await getDoc(docRef);
+      const userColor = docSnap.data()?.profileColor || "#2196f3";
+      const userImage = docSnap.data()?.profileImageUrl || "null";
+      // dispatch(changeProfileColor(userColor));
+      // dispatch(changeProfileUrl(userImage));
+      const userProfileImage = docSnap.data()?.profileImage || false;
+      const userDefaultProfile = docSnap.data()?.defaultProfile || '';
+      dispatch(changeProfileColor(userColor));
+      console.log(userProfileImage)
+      console.log(userImage)
+      console.log(userDefaultProfile)
+      if (userProfileImage) {
+        dispatch(changeProfileUrl(userImage));
+      } else {
+        dispatch(changeProfileUrl(userDefaultProfile));
+      }
+    };
+    setProfile();
+  }, [userObj]);
   // useEffect(() => {
   //   if (cardAccordion && messageAccordion) {
   //     setAccordions({ cards: "item-1", messages: "item-2" });
@@ -63,6 +90,29 @@ function Menu({ userObj }: Props) {
   //     setAccordions({ cards: "", messages: "" });
   //   }
   // }, [cardAccordion, messageAccordion]);
+  useEffect(() => {
+    // if (userObj) {
+    //   getDownloadURL(ref(storage, `${userObj?.uid}`))
+    //     .then((url) => {
+    //       dispatch(changeProfileUrl(url));
+    //     })
+    //     .catch((error) => {
+    //       console.log(error);
+    //     });
+    // }
+    const user = doc(dbservice, `members/${userObj?.uid}`);
+    const storageRef = ref(storage, userObj?.uid);
+    uploadString(storageRef, "null", "raw").then((snapshot) => {
+      console.log("Uploaded a blob or file!");
+    });
+    getDownloadURL(storageRef)
+      .then(async (url) => {
+        await updateDoc(user, { profileImageUrl: url });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [])
   useEffect(() => {
     const requestPermission = async () => {
       try {
@@ -103,7 +153,7 @@ function Menu({ userObj }: Props) {
       rootElement.removeEventListener("contextmenu", handleContextMenu);
     };
   }, []);
-
+  console.log(userObj)
   return (
     <div id="sample" className="flex justify-center flex-col pb-5">
       <PageTitle title={titles[index]} />

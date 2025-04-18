@@ -13,6 +13,7 @@ interface Props {
   profile: boolean;
   profileColor: string;
   profileUrl: string;
+  defaultProfileUrl: string
   piazza: () => void
 }
 
@@ -22,22 +23,24 @@ const Avatars = ({
   profile,
   profileColor,
   profileUrl,
+  defaultProfileUrl,
   piazza
 }: Props) => {
   const profileImageArray = [static01, static02, static03, static04, static05, static06, statics]
-  const alpha = Array.from(Array(26)).map((e, i) => i + 65);
-  const letters = alpha.map((x) => String.fromCharCode(x));
-  let defaultProfile
-  let index
-  index = letters.indexOf(String(uid[0]).toUpperCase()) % profileImageArray.length
-  if (index === -1) {
-    index = Number(uid[0]) % profileImageArray.length
-  }
-  if (uid) {
-    defaultProfile = profileImageArray[index];
-  }
+  // const alpha = Array.from(Array(26)).map((e, i) => i + 65);
+  // const letters = alpha.map((x) => String.fromCharCode(x));
+  // let defaultProfile
+  // let index
+  // index = letters.indexOf(String(uid[0]).toUpperCase()) % profileImageArray.length
+  // if (index === -1) {
+  //   index = Number(uid[0]) % profileImageArray.length
+  // }
+  // if (uid) {
+  //   defaultProfile = profileImageArray[index];
+  // }
+  // console.log(element)
+  // console.log(profileUrl)
   const profileImage = element?.profileImage
-  console.log(profileUrl)
   return (
     <div>
       {profile ? (
@@ -47,7 +50,7 @@ const Avatars = ({
           <AvatarImage src={profileUrl} />
           {!profileImage &&
             <AvatarFallback className="text-8xl border-none">
-              <img className='h-full' src={defaultProfile} />
+              <img className='h-full' src={defaultProfileUrl || static05} />
             </AvatarFallback>
           }
         </Avatar>
@@ -58,7 +61,7 @@ const Avatars = ({
           <AvatarImage src={profileUrl} />
           {!profileImage &&
             <AvatarFallback className="">
-              <img className='h-full' src={defaultProfile} />
+              <img className='h-full' src={defaultProfileUrl || static05} />
             </AvatarFallback>
           }
         </Avatar>

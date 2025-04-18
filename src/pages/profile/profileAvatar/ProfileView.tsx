@@ -10,10 +10,10 @@ const ProfileView = ({ userObj, user, changeAttachment }) => {
   const profileUrl = useSelector((state) => state.profileUrl.value);
   const profileImage = useSelector((state) => state.profileImage.value);
   const [profile, setProfile] = useState(null)
+  console.log(profileUrl)
   useEffect(() => {
     setProfile(profileUrl)
   }, [profileUrl])
-
   return (
     <div onClick={() => {
       changeAttachment('')

@@ -1,7 +1,7 @@
-import { FacebookAuthProvider, getAuth, GithubAuthProvider, GoogleAuthProvider, OAuthProvider, signInWithPopup, TwitterAuthProvider } from "firebase/auth";
-import { getDoc, getFirestore } from "firebase/firestore";
+import { FacebookAuthProvider, getAuth, GithubAuthProvider, GoogleAuthProvider, OAuthProvider, signInWithPopup, TwitterAuthProvider, updateProfile } from "firebase/auth";
+import { collection, getDoc, getDocs, getFirestore, query, updateDoc } from "firebase/firestore";
 import { getMessaging } from "firebase/messaging";
-import { getStorage, ref, uploadString } from "firebase/storage";
+import { getDownloadURL, getStorage, ref, uploadString } from "firebase/storage";
 
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
@@ -45,33 +45,37 @@ const onSocialClick = (event) => {
   const {
     target: { name },
   } = event;
-  let provider
-  if (name === 'g') {
-    provider = new GoogleAuthProvider();
-  } else {
-    provider = new GithubAuthProvider();
-  }
+  // let provider
+  // if (name === 'g') {
+  // } else {
+  //   provider = new GithubAuthProvider();
+  // }
+  const provider = new GoogleAuthProvider();
   signInWithPopup(auth, provider)
     .then(async (result) => {
       // This gives you a Google Access Token. You can use it to access the Google API.
-      let credential
-      if (name === 'g') {
-        credential = GoogleAuthProvider.credentialFromResult(result)
-      } else {
-        credential = GithubAuthProvider.credentialFromResult(result)
-      }
+      const credential = GoogleAuthProvider.credentialFromResult(result)
+      // let credential
+      // if (name === 'g') {
+      // } else {
+      //   credential = GithubAuthProvider.credentialFromResult(result)
+      // }
       const uid = result.user.uid
       console.log(result.user)
+      console.log(result)
       // const credential = OAuthProvider.credentialFromResult(result);
       // const accessToken = credential.accessToken;
       // const idToken = credential.idToken;
       const docRef = doc(dbservice, `members/${uid}`)
       const docSnap = await getDoc(docRef)
+      const docsRef = query(collection(dbservice, "members"));
+      const docs = await getDocs(docsRef);
+      const docsLength = docs.docs.length;
       const userData = docSnap.data()
       if (!userData) {
         await setDoc(doc(dbservice, 'members', `${uid}`), {
-          uid: data.user.uid,
-          displayName: data.user.email,
+          uid: result.user.uid,
+          displayName: result.user.email,
           points: 0,
           profileImage: null,
           profileImageUrl: null,
@@ -86,10 +90,41 @@ const onSocialClick = (event) => {
           followingNum: 0,
           locationConfirmed: false,
         })
-        const storageRef = ref(storage, result.user.uid);
-        uploadString(storageRef, 'null', 'raw').then((snapshot) => {
-          console.log('Uploaded a blob or file!');
+        const user = doc(dbservice, `members/${uid}`);
+        const storageRef = ref(storage, uid);
+        uploadString(storageRef, "null", "raw").then((snapshot) => {
+          console.log("Uploaded a blob or file!");
         });
+        getDownloadURL(storageRef)
+          .then(async (url) => {
+            await updateDoc(user, { profileImageUrl: url });
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+
+        let profileImage
+        let profileColor
+        const profileImageNumber = Math.random()
+        const profileColorNumber = Math.random()
+        if (profileColorNumber < 1 / 3) {
+          profileColor = 'profileRed'
+        } else if (profileImageNumber < 2 / 3) {
+          profileColor = 'profileBlue'
+        } else {
+          profileColor = 'profileGold'
+        }
+        if (profileImageNumber < 0.5) {
+          profileImage = 'animal'
+        } else {
+          profileImage = 'plant'
+        }
+        const reference = ref(storage, `${profileImage}${profileColor}.png`);
+        console.log(reference)
+        getDownloadURL(reference).then((url) => {
+          console.log(url)
+          updateDoc(docRef, { profileImage: false, profileColor: profileColor, defaultProfile: url });
+        })
       }
       // const token = credential.accessToken;
       // The signed-in user info.
@@ -115,11 +150,17 @@ const onSocialClick = (event) => {
       // ...
     });
 }
+const onSocialClickGoogle = () => {
+  const providerGoogle = new GoogleAuthProvider();
+  const emails = providerGoogle.addScope('https://www.googleapis.com/auth/contacts.readonly');
+  console.log(emails)
+  signInWithPopup(auth, providerGoogle.addScope('email')).then(async (result) => {
+    // result.user.updateProfile({
+    //   displayName: result.user.email
+    // })
 
-const onSocialClickMicrosoft = () => {
-  const providerMicrosoft = new OAuthProvider('microsoft.com');
-  signInWithPopup(auth, providerMicrosoft).then(async (result) => {
     const uid = result.user.uid
+    console.log(result)
     console.log(result.user)
     // const credential = OAuthProvider.credentialFromResult(result);
     // const accessToken = credential.accessToken;
@@ -127,10 +168,25 @@ const onSocialClickMicrosoft = () => {
     const docRef = doc(dbservice, `members/${uid}`)
     const docSnap = await getDoc(docRef)
     const userData = docSnap.data()
+    const docsRef = query(collection(dbservice, "members"));
+    const docs = await getDocs(docsRef);
+    const docsLength = docs.docs.length;
     if (!userData) {
+      const auth = getAuth();
+      if (auth.currentUser) {
+        updateProfile(auth.currentUser, {
+          displayName: result.user.email,
+        }).then(() => {
+          // Profile updated!
+          // ...
+        }).catch((error) => {
+          // An error occurred
+          // ...
+        });
+      }
       await setDoc(doc(dbservice, 'members', `${uid}`), {
-        uid: data.user.uid,
-        displayName: data.user.email,
+        uid: result.user.uid,
+        displayName: result.user.email,
         points: 0,
         profileImage: null,
         profileImageUrl: null,
@@ -146,10 +202,122 @@ const onSocialClickMicrosoft = () => {
         locationConfirmed: false,
         defaultProfile: ''
       })
-      const storageRef = ref(storage, result.user.uid);
-      uploadString(storageRef, 'null', 'raw').then((snapshot) => {
-        console.log('Uploaded a blob or file!');
+      await updateProfile(result.user, {
+        displayName: result.user.email,
+      }).catch((error) => {
+        console.log("error");
       });
+      const user = doc(dbservice, `members/${uid}`);
+      const storageRef = ref(storage, uid);
+      uploadString(storageRef, "null", "raw").then((snapshot) => {
+        console.log("Uploaded a blob or file!");
+      });
+      getDownloadURL(storageRef)
+        .then(async (url) => {
+          await updateDoc(user, { profileImageUrl: url });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      let profileImage
+      let profileColor
+      const profileImageNumber = Math.random()
+      const profileColorNumber = Math.random()
+      if (profileColorNumber < 1 / 3) {
+        profileColor = 'profileRed'
+      } else if (profileImageNumber < 2 / 3) {
+        profileColor = 'profileBlue'
+      } else {
+        profileColor = 'profileGold'
+      }
+      if (profileImageNumber < 0.5) {
+        profileImage = 'animal'
+      } else {
+        profileImage = 'plant'
+      }
+      const reference = ref(storage, `${profileImage}${profileColor}.png`);
+      console.log(reference)
+      getDownloadURL(reference).then((url) => {
+        console.log(url)
+        updateDoc(docRef, { profileImage: false, profileColor: profileColor, defaultProfile: url });
+      })
+    }
+  }).catch((error) => {
+    console.log(error)
+  })
+}
+const onSocialClickMicrosoft = () => {
+  const providerMicrosoft = new OAuthProvider('microsoft.com');
+  signInWithPopup(auth, providerMicrosoft).then(async (result) => {
+    const uid = result.user.uid
+    console.log(result.user)
+    // const credential = OAuthProvider.credentialFromResult(result);
+    // const accessToken = credential.accessToken;
+    // const idToken = credential.idToken;
+    const docRef = doc(dbservice, `members/${uid}`)
+    const docSnap = await getDoc(docRef)
+    const userData = docSnap.data()
+    const docsRef = query(collection(dbservice, "members"));
+    const docs = await getDocs(docsRef);
+    const docsLength = docs.docs.length;
+    if (!userData) {
+      await setDoc(doc(dbservice, 'members', `${uid}`), {
+        uid: result.user.uid,
+        displayName: result.user.email,
+        points: 0,
+        profileImage: null,
+        profileImageUrl: null,
+        followers: [],
+        followings: [],
+        messagingToken: null,
+        ranking: docsLength,
+        createdCards: [],
+        connectedCards: [],
+        profileColor: "#2196f3",
+        followerNum: 0,
+        followingNum: 0,
+        locationConfirmed: false,
+        defaultProfile: ''
+      })
+      await updateProfile(result.user, {
+        displayName: result.user.email,
+      }).catch((error) => {
+        console.log("error");
+      });
+      const user = doc(dbservice, `members/${uid}`);
+      const storageRef = ref(storage, uid);
+      uploadString(storageRef, "null", "raw").then((snapshot) => {
+        console.log("Uploaded a blob or file!");
+      });
+      getDownloadURL(storageRef)
+        .then(async (url) => {
+          await updateDoc(user, { profileImageUrl: url });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      let profileImage
+      let profileColor
+      const profileImageNumber = Math.random()
+      const profileColorNumber = Math.random()
+      if (profileColorNumber < 1 / 3) {
+        profileColor = 'profileRed'
+      } else if (profileImageNumber < 2 / 3) {
+        profileColor = 'profileBlue'
+      } else {
+        profileColor = 'profileGold'
+      }
+      if (profileImageNumber < 0.5) {
+        profileImage = 'animal'
+      } else {
+        profileImage = 'plant'
+      }
+      const reference = ref(storage, `${profileImage}${profileColor}.png`);
+      console.log(reference)
+      getDownloadURL(reference).then((url) => {
+        console.log(url)
+        updateDoc(docRef, { profileImage: false, profileColor: profileColor, defaultProfile: url });
+      })
     }
   }).catch((error) => {
     console.log(error)
@@ -228,5 +396,5 @@ const onSocialClickFacebook = () => {
 // })
 
 
-export { auth, dbservice, messaging, onSocialClick, onSocialClickFacebook, onSocialClickMicrosoft, onSocialClickTwitter, storage };
+export { auth, dbservice, messaging, onSocialClick, onSocialClickFacebook, onSocialClickGoogle, onSocialClickMicrosoft, onSocialClickTwitter, storage };
 

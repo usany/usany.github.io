@@ -1,7 +1,7 @@
 import Button from '@mui/material/Button';
 import staticGoogle from 'src/assets/signGoogle.svg';
 import staticMicrosoft from 'src/assets/signMicrosoft.svg';
-import { onSocialClick, onSocialClickMicrosoft } from 'src/baseApi/serverbase';
+import { onSocialClick, onSocialClickGoogle, onSocialClickMicrosoft } from 'src/baseApi/serverbase';
 
 const AuthButtons = () => {
   return (
@@ -12,7 +12,7 @@ const AuthButtons = () => {
           마이크로소프트 로그인
         </div>
       </Button>
-      <Button className='colorTwo' sx={{ width: '50%' }} startIcon={<img src={staticGoogle} className='w-[20px]' />} variant='outlined' name='g' onClick={onSocialClick}>
+      <Button className='colorTwo' sx={{ width: '50%' }} startIcon={<img src={staticGoogle} className='w-[20px]' />} variant='outlined' name='g' onClick={onSocialClickGoogle}>
         <div className='truncate'>
           구글 로그인
         </div>

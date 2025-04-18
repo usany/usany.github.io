@@ -53,7 +53,7 @@ function Lists({
               }
               if (userNameConfirm) {
                 let displayName
-                if (element.displayName.length > 10) {
+                if ((element.displayName?.length || 0) > 10) {
                   displayName = element.displayName.slice(0, 10) + '......'
                 } else {
                   displayName = element.displayName
@@ -89,6 +89,7 @@ function Lists({
                             profile={false}
                             profileColor=""
                             profileUrl={element.profileImageUrl}
+                            defaultProfileUrl={element.defaultProfile}
                           />
                           {/* <Avatar
                             className={`bg-${profileColor?.indexOf("#") === -1 ? element?.profileColor : "profile-blue"}`}

@@ -24,10 +24,12 @@ const ProfileAvatar = ({ userObj, user, handleProfileDialog, profileDialog, atta
   const profileImage = useSelector((state) => state.profileImage.value);
   const largeMedia = useLargeMedia()
   const [profile, setProfile] = useState(null)
-  console.log(profileImage)
+  console.log(user?.profileImageUrl)
   useEffect(() => {
     setProfile(profileUrl)
   }, [profileImage])
+  console.log(userObj.uid)
+  console.log(user.uid)
   if (userObj.uid === user.uid) {
     return (
       <div>

@@ -45,7 +45,7 @@ const NavigationTop = ({ userObj }: Props) => {
   //       });
   //   }
   // }, [userObj]);
-
+  console.log(profileUrl)
   useEffect(() => {
     const setProfile = async () => {
       const docRef = doc(dbservice, `members/${userObj?.uid}`);
@@ -57,6 +57,7 @@ const NavigationTop = ({ userObj }: Props) => {
       const userProfileImage = docSnap.data()?.profileImage || false;
       const userDefaultProfile = docSnap.data()?.defaultProfile || '';
       dispatch(changeProfileColor(userColor));
+      console.log(userProfileImage)
       if (userProfileImage) {
         dispatch(changeProfileUrl(userImage));
       } else {

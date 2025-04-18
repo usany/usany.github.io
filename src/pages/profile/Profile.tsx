@@ -25,6 +25,8 @@ import { useImmer } from "use-immer";
 import { useQuery } from "@tanstack/react-query";
 import { doc, getDoc } from "firebase/firestore";
 import { useSelectors } from "src/hooks/useSelectors";
+import { changeProfileColor } from "src/stateSlices/profileColorSlice";
+import { changeProfileUrl } from "src/stateSlices/profileUrlSlice";
 import ProfileLocations from "./ProfileLocations";
 
 const area = [
@@ -106,7 +108,28 @@ function Profile({ userObj }: Props) {
     });
   };
   const dispatch = useDispatch();
-
+  useEffect(() => {
+    const setProfile = async () => {
+      const docRef = doc(dbservice, `members/${userObj?.uid}`);
+      const docSnap = await getDoc(docRef);
+      const userColor = docSnap.data()?.profileColor || "#2196f3";
+      const userImage = docSnap.data()?.profileImageUrl || "null";
+      // dispatch(changeProfileColor(userColor));
+      // dispatch(changeProfileUrl(userImage));
+      const userProfileImage = docSnap.data()?.profileImage || false;
+      const userDefaultProfile = docSnap.data()?.defaultProfile || '';
+      dispatch(changeProfileColor(userColor));
+      console.log(userProfileImage)
+      console.log(userImage)
+      console.log(userDefaultProfile)
+      if (userProfileImage) {
+        dispatch(changeProfileUrl(userImage));
+      } else {
+        dispatch(changeProfileUrl(userDefaultProfile));
+      }
+    };
+    setProfile();
+  }, [userObj]);
   useEffect(() => {
     const bringAllies = async () => {
       let docRef;
@@ -192,7 +215,7 @@ function Profile({ userObj }: Props) {
   // getCoords().then(coords => console.log(coords))
   // console.log(weather)
   // console.log(profileDialog)
-  // console.log(state)
+  console.log(state)
   return (
     <div>
       <PageTitle
@@ -205,7 +228,7 @@ function Profile({ userObj }: Props) {
       }>위치 latitude:37.5682 longitude:126.9977</div> */}
       <ProfileAvatar
         userObj={userObj}
-        user={state?.element || userObj}
+        user={state?.element.userData || userObj}
         handleProfileDialog={() => setProfileDialog(true)}
         profileDialog={profileDialog}
         attachment={attachment}
