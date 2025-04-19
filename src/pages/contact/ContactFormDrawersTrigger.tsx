@@ -88,7 +88,7 @@ function ContactFormDrawersTrigger({ violationUser, changeViolationUser }: Props
   const { color } = useCardsBackground()
 
   return (
-    <div className='w-screen' onClick={() => setUserSearch('')}>
+    <div className='w-full' onClick={() => setUserSearch('')}>
       {violationUser ?
         <Card sx={{
           width: '100%',

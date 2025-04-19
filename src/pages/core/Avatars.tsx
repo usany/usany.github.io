@@ -9,7 +9,6 @@ import static03 from "src/assets/red1.png";
 import static04 from "src/assets/red2.png";
 
 interface Props {
-  uid: string
   profile: boolean;
   profileColor: string;
   profileUrl: string;
@@ -19,7 +18,7 @@ interface Props {
 
 const Avatars = ({
   element,
-  uid,
+  // uid,
   profile,
   profileColor,
   profileUrl,
@@ -41,6 +40,12 @@ const Avatars = ({
   // console.log(element)
   // console.log(profileUrl)
   const profileImage = element?.profileImage
+  let defaultProfile
+  if (defaultProfileUrl) {
+    defaultProfile = defaultProfileUrl
+  } else {
+    defaultProfile = static05
+  }
   return (
     <div>
       {profile ? (
@@ -50,7 +55,7 @@ const Avatars = ({
           <AvatarImage src={profileUrl} />
           {!profileImage &&
             <AvatarFallback className="text-8xl border-none">
-              <img className='h-full' src={defaultProfileUrl || static05} />
+              <img className='h-full' src={defaultProfile} />
             </AvatarFallback>
           }
         </Avatar>
@@ -61,7 +66,7 @@ const Avatars = ({
           <AvatarImage src={profileUrl} />
           {!profileImage &&
             <AvatarFallback className="">
-              <img className='h-full' src={defaultProfileUrl || static05} />
+              <img className='h-full' src={defaultProfile} />
             </AvatarFallback>
           }
         </Avatar>
