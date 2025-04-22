@@ -71,7 +71,7 @@ const HeaderViews = ({ userObj }: Props) => {
       const userColor = docSnap.data()?.profileColor || "#2196f3";
       const userImage = docSnap.data()?.profileImageUrl || "null";
       const userProfileImage = docSnap.data()?.profileImage || false;
-      const userDefaultProfile = docSnap.data()?.defaultProfile || '';
+      const userDefaultProfile = docSnap.data()?.defaultProfile || 'null';
       console.log(userDefaultProfile)
       dispatch(changeProfileColor(userColor));
       if (userProfileImage) {

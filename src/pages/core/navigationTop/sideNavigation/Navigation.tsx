@@ -112,6 +112,7 @@ function Navigation({ userObj, sideNavigation, handleSideNavigation,
       onClick: () => logOut(),
     },
   ]
+  console.log()
   return (
     <Drawer direction="left">
       <DrawerTrigger className='px-5'>

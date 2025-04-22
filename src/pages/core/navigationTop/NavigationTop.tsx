@@ -55,7 +55,7 @@ const NavigationTop = ({ userObj }: Props) => {
       // dispatch(changeProfileColor(userColor));
       // dispatch(changeProfileUrl(userImage));
       const userProfileImage = docSnap.data()?.profileImage || false;
-      const userDefaultProfile = docSnap.data()?.defaultProfile || '';
+      const userDefaultProfile = docSnap.data()?.defaultProfile || 'null';
       dispatch(changeProfileColor(userColor));
       console.log(userProfileImage)
       if (userProfileImage) {

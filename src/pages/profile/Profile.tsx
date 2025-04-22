@@ -117,7 +117,7 @@ function Profile({ userObj }: Props) {
       // dispatch(changeProfileColor(userColor));
       // dispatch(changeProfileUrl(userImage));
       const userProfileImage = docSnap.data()?.profileImage || false;
-      const userDefaultProfile = docSnap.data()?.defaultProfile || '';
+      const userDefaultProfile = docSnap.data()?.defaultProfile || 'null';
       dispatch(changeProfileColor(userColor));
       console.log(userProfileImage)
       console.log(userImage)
@@ -215,7 +215,7 @@ function Profile({ userObj }: Props) {
   // getCoords().then(coords => console.log(coords))
   // console.log(weather)
   // console.log(profileDialog)
-  console.log(state)
+  // console.log(state)
   return (
     <div>
       <PageTitle

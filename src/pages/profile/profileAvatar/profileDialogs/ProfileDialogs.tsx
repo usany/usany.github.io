@@ -33,6 +33,9 @@ const ProfileDialogs = ({ userObj, profileDialog, attachment, changeAttachment, 
   const profileColor = useSelector(state => state.profileColor.value)
   const profileUrl = useSelector(state => state.profileUrl.value)
   const dispatch = useDispatch()
+  useEffect(() => {
+
+  })
   const onClick = async () => {
     const data = doc(dbservice, `members/${userObj.uid}`)
     // if (selectedColor) {
@@ -65,7 +68,7 @@ const ProfileDialogs = ({ userObj, profileDialog, attachment, changeAttachment, 
       // deleteObject(storageRef).then(() => {
       // }).catch((error) => {
       // });
-
+      
       const docRef = doc(dbservice, `members/${userObj?.uid}`)
       // updateDoc(docRef, { profileImage: attachmentFile });
     }

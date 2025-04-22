@@ -2,6 +2,7 @@ import BeachAccess from "@mui/icons-material/BeachAccess";
 import Badge from "@mui/material/Badge";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import staticImage from "src/assets/gold1.png";
 import LoadingsSkeletons from "src/components/recycle/recycleLoadingsSkeletons";
 import Avatars from "src/pages/core/Avatars";
 
@@ -12,7 +13,11 @@ const ProfileView = ({ userObj, user, changeAttachment }) => {
   const [profile, setProfile] = useState(null)
   console.log(profileUrl)
   useEffect(() => {
-    setProfile(profileUrl)
+    if (profileImage) {
+      setProfile(profileUrl)
+    } else {
+      setProfile(staticImage)
+    }
   }, [profileUrl])
   return (
     <div onClick={() => {
