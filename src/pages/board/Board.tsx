@@ -160,8 +160,8 @@ function Board({ userObj }: Props) {
           />
           <div>
             <div className="rounded shadow-md flex p-3 sticky top-16 z-30 justify-between bg-light-2/50 dark:bg-dark-2/50">
-              <div className="pt-1">{cardList[index]}</div>
-              <div className="flex gap-1">
+              <div className="truncate pt-1">{cardList[index]}</div>
+              <div className="truncate flex gap-1">
                 <FilterDialogs
                   selectedValues={selectedValues}
                   handleSelectedValues={handleSelectedValues}
