@@ -1,5 +1,5 @@
 import DeleteIcon from '@mui/icons-material/Delete';
-import { Chip, ClickAwayListener } from '@mui/material';
+import { Chip } from '@mui/material';
 import Card from '@mui/material/Card';
 import { User } from 'firebase/auth';
 import { useEffect, useRef, useState } from 'react';
@@ -25,7 +25,7 @@ interface Props {
   }
 }
 
-const Chats = ({ userObj, profileUrl, conversation, displayName, chattingUid, multiple, clock, message, longPressChat, changeLongPressChat, onLongPress, changeOnLongPress, onDelete }: Props) => {
+const Chats = ({ userObj, profileUrl, conversation, displayName, chattingUid, multiple, clock, message, longPressChat, changeLongPressChat, changeLongPressChatsList, onLongPress, changeOnLongPress, onDelete }: Props) => {
   const [longPressed, setLongPressed] = useState(false)
   const theme = useSelector((state) => state.theme)
   const dispatch = useDispatch()
@@ -34,6 +34,7 @@ const Chats = ({ userObj, profileUrl, conversation, displayName, chattingUid, mu
     if (longPressChat && !onLongPress) {
       setLongPressed(true)
       changeOnLongPress(onLongPress + 1)
+      changeLongPressChatsList(conversation || 'piazza')
     }
   })
   useEffect(() => {
@@ -46,64 +47,65 @@ const Chats = ({ userObj, profileUrl, conversation, displayName, chattingUid, mu
 
   return (
     <div className={`${longPressed && 'flex py-5'}`}>
-      <ClickAwayListener onClickAway={() => {
+      {/* <ClickAwayListener onClickAway={() => {
         changeLongPressChat(null)
         changeOnLongPress(0)
-      }}>
-        <div ref={chatsRef} className={`${longPressed && 'longPress flex w-[calc(100%-48px)] py-5'}`}
-          onMouseDownCapture={() => {
-            const longPress = conversation || 'piazza'
-            changeLongPressChat(longPress)
-          }}
-          // onMouseUp={() => {
-          //   setPressed(true)
-          // }}
-          onTouchStartCapture={() => {
-            const longPress = conversation || 'piazza'
-            changeLongPressChat(longPress)
+      }}> */}
+      <div ref={chatsRef} className={`${longPressed && 'longPress flex w-[calc(100%-48px)] py-5'}`}
+        onMouseDownCapture={() => {
+          const longPress = conversation || 'piazza'
+          changeLongPressChat(longPress)
+        }}
+        // onMouseUp={() => {
+        //   setPressed(true)
+        // }}
+        onTouchStartCapture={() => {
+          const longPress = conversation || 'piazza'
+          changeLongPressChat(longPress)
+        }}
+      >
+        <Card
+          sx={{
+            flexGrow: 1, overflow: 'hidden',
+            bgcolor: colorTwo,
+            ":hover": {
+              bgcolor: colorTwo
+            }
           }}
         >
-          <Card
-            sx={{
-              flexGrow: 1, overflow: 'hidden',
-              bgcolor: colorTwo,
-              ":hover": {
-                bgcolor: colorTwo
-              }
-            }}
-          >
-            <>
-              {!onLongPress ?
-                <Link to='/piazza' state={{
-                  conversation: conversation,
-                  displayName: displayName,
-                  userUid: userObj.uid,
-                  chattingUid: chattingUid,
-                  multiple: multiple,
-                }}>
-                  <ChatsBoxes chattingUid={chattingUid} userObj={userObj} profileUrl={profileUrl} displayName={displayName} multiple={multiple} clock={clock} message={message} />
-                </Link>
-                :
-                <div
-                  onClick={() => {
-                    if (onLongPress) {
-                      setLongPressed(!longPressed)
-                      if (longPressed) {
-                        changeOnLongPress(onLongPress - 1)
-                      } else {
-                        changeOnLongPress(onLongPress + 1)
-                      }
+          <>
+            {!onLongPress ?
+              <Link to='/piazza' state={{
+                conversation: conversation,
+                displayName: displayName,
+                userUid: userObj.uid,
+                chattingUid: chattingUid,
+                multiple: multiple,
+              }}>
+                <ChatsBoxes chattingUid={chattingUid} userObj={userObj} profileUrl={profileUrl} displayName={displayName} multiple={multiple} clock={clock} message={message} />
+              </Link>
+              :
+              <div
+                onClick={() => {
+                  if (onLongPress) {
+                    setLongPressed(!longPressed)
+                    if (longPressed) {
+                      changeOnLongPress(onLongPress - 1)
+                    } else {
+                      changeOnLongPress(onLongPress + 1)
                     }
-                  }}
-                >
-                  <ChatsBoxes chattingUid={chattingUid} userObj={userObj} profileUrl={profileUrl} displayName={displayName} multiple={multiple} clock={clock} message={message} />
-                </div>
-              }
-            </>
-          </Card>
-        </div>
-      </ClickAwayListener>
-      {longPressed &&
+                  }
+                }}
+              >
+                <ChatsBoxes chattingUid={chattingUid} userObj={userObj} profileUrl={profileUrl} displayName={displayName} multiple={multiple} clock={clock} message={message} />
+              </div>
+            }
+          </>
+        </Card>
+      </div>
+      {/* </ClickAwayListener> */}
+      {
+        longPressed &&
         // <>
         //   {conversation ?
         //     <div className='h-full' onClick={() => onDelete({conversation: conversation})}>
@@ -133,7 +135,7 @@ const Chats = ({ userObj, profileUrl, conversation, displayName, chattingUid, mu
           {/* <Chips label={<DeleteIcon />} className='bg-profile-red text-white' /> */}
         </div>
       }
-    </div>
+    </div >
   )
 }
 

@@ -18,6 +18,7 @@ const ChattingStacks = ({
   userObj,
   longPressChat,
   changeLongPressChat,
+  changeLongPressChatsList,
   onLongPress,
   changeOnLongPress,
 }: Props) => {
@@ -219,6 +220,7 @@ const ChattingStacks = ({
                 message={chattings[element]}
                 longPressChat={longPressChat}
                 changeLongPressChat={changeLongPressChat}
+                changeLongPressChatsList={changeLongPressChatsList}
                 onLongPress={onLongPress}
                 changeOnLongPress={changeOnLongPress}
                 onDelete={onDelete}

@@ -27,6 +27,7 @@ const MessageStacks = ({ userObj }: Props) => {
   } | null>(null)
   // const [chattings, setChattings] = useState({})
   const [longPressChat, setLongPressChat] = useState(null)
+  const [longPressChatsList, setLongPressChatsList] = useState([])
   const [onLongPress, setOnLongPress] = useState(0)
   useEffect(() => {
     if (!onLongPress) {
@@ -95,8 +96,11 @@ const MessageStacks = ({ userObj }: Props) => {
     <>
       <ClickAwayListener
         onClickAway={() => {
-          setLongPressChat(null)
-          setOnLongPress(0)
+          if (longPressChat === longPressChatsList[-1]) {
+            setLongPressChat(null)
+            setOnLongPress(0)
+            setLongPressChatsList([])
+          }
         }}
       >
         <div>
@@ -113,6 +117,7 @@ const MessageStacks = ({ userObj }: Props) => {
                 message={piazzaMessage}
                 longPressChat={longPressChat}
                 changeLongPressChat={(newValue) => setLongPressChat(newValue)}
+                changeLongPressChatsList={(newValue) => setLongPressChatsList([...longPressChatsList, newValue])}
                 onLongPress={onLongPress}
                 changeOnLongPress={(newValue) => setOnLongPress(newValue)}
               />
@@ -122,6 +127,7 @@ const MessageStacks = ({ userObj }: Props) => {
             userObj={userObj}
             longPressChat={longPressChat}
             changeLongPressChat={(newValue) => setLongPressChat(newValue)}
+            changeLongPressChatsList={(newValue) => setLongPressChatsList([...longPressChatsList, newValue])}
             onLongPress={onLongPress}
             changeOnLongPress={(newValue) => setOnLongPress(newValue)}
           />
