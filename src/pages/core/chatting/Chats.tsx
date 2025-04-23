@@ -106,23 +106,6 @@ const Chats = ({ userObj, profileUrl, conversation, displayName, chattingUid, mu
       {/* </ClickAwayListener> */}
       {
         longPressed &&
-        // <>
-        //   {conversation ?
-        //     <div className='h-full' onClick={() => onDelete({conversation: conversation})}>
-        //       <Chip label={<DeleteIcon />} color=''/>
-        //     </div>
-        //   :
-        //     <div className='h-full' onClick={() => {
-        //       if (conversation) {
-        //         onDelete({conversation: conversation})
-        //       } else {
-        //         dispatch(changePiazzaSwitch('false'))
-        //       }
-        //     }}>
-        //       <Chip label={<DeleteIcon />} color='error'/>
-        //     </div>
-        //   }
-        // </>
         <div className='flex justify-end h-full w-1/6' onClick={() => {
           if (conversation) {
             onDelete({ conversation: conversation })
