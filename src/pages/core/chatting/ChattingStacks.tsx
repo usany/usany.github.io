@@ -17,6 +17,7 @@ interface Props {
 const ChattingStacks = ({
   userObj,
   longPressChat,
+  longPressChatsList,
   changeLongPressChat,
   changeLongPressChatsList,
   onLongPress,
@@ -219,6 +220,7 @@ const ChattingStacks = ({
                 clock={clock}
                 message={chattings[element]}
                 longPressChat={longPressChat}
+                longPressChatsList={longPressChatsList}
                 changeLongPressChat={changeLongPressChat}
                 changeLongPressChatsList={changeLongPressChatsList}
                 onLongPress={onLongPress}

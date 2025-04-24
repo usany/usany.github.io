@@ -116,8 +116,9 @@ const MessageStacks = ({ userObj }: Props) => {
                 clock={clock}
                 message={piazzaMessage}
                 longPressChat={longPressChat}
+                longPressChatsList={longPressChatsList}
                 changeLongPressChat={(newValue) => setLongPressChat(newValue)}
-                changeLongPressChatsList={(newValue) => setLongPressChatsList([...longPressChatsList, newValue])}
+                changeLongPressChatsList={(newValue) => setLongPressChatsList(newValue)}
                 onLongPress={onLongPress}
                 changeOnLongPress={(newValue) => setOnLongPress(newValue)}
               />
@@ -126,8 +127,9 @@ const MessageStacks = ({ userObj }: Props) => {
           <ChattingStacks
             userObj={userObj}
             longPressChat={longPressChat}
+            longPressChatsList={longPressChatsList}
             changeLongPressChat={(newValue) => setLongPressChat(newValue)}
-            changeLongPressChatsList={(newValue) => setLongPressChatsList([...longPressChatsList, newValue])}
+            changeLongPressChatsList={(newValue) => setLongPressChatsList(newValue)}
             onLongPress={onLongPress}
             changeOnLongPress={(newValue) => setOnLongPress(newValue)}
           />

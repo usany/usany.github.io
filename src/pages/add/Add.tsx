@@ -349,7 +349,7 @@ function Add({ userObj, borrow }: Props) {
           </div>
       </div> */}
       {matches ? (
-        <div className="flex justify-around px-10">
+        <div className="flex justify-center">
           <AddCards
             borrow={borrow}
             userObj={userObj}
@@ -381,7 +381,7 @@ function Add({ userObj, borrow }: Props) {
           </div>
         </div>
       ) : (
-        <div className="flex justify-around px-10">
+        <div className="flex justify-center">
           <AddCards
             borrow={borrow}
             userObj={userObj}
