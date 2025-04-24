@@ -79,7 +79,9 @@ export function SwipeableViews({
         const pageWidth =
           currentTarget.scrollWidth / currentTarget.children.length;
         const currentPage = Math.round(currentTarget.scrollLeft / pageWidth);
-        dispatch(changeTabs(currentPage))
+        if (currentPage === 0 || currentPage === 1) {
+          dispatch(changeTabs(currentPage))
+        }
       }, 100);
     },
   );

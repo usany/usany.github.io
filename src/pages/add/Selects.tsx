@@ -178,7 +178,7 @@ function Selects({
             <InputLabel
             // id="demo-simple-select-standard-label1"
             >
-              {languages === 'en' && 'Where in '}{languages === 'ko' ? locationState.locationOne : locationsBuildings['en'][locationsBuildings['ko'].indexOf(locationState.locationOne)]}{languages === 'ko' && '어디인가요'}
+              {languages === 'en' && 'Where in '}{languages === 'ko' ? locationState.locationOne : locationsBuildings['en'][locationsBuildings['ko'].indexOf(locationState.locationOne)]}{languages === 'ko' && ' 어디인가요'}
             </InputLabel>
             <Select
               // labelId="demo-simple-select-standard-label1"
