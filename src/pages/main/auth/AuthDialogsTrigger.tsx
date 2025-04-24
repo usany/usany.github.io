@@ -7,7 +7,7 @@ function AuthDialogsTrigger() {
   const languages = useSelectors((state) => state.languages.value)
   return (
     <>
-      <div className="flex justify-center w-screen text-xs p-5">
+      <div className="flex justify-center text-xs p-5">
         <Divider sx={{ width: "15%", padding: "5px" }} />
         <div className="px-5">{languages === 'ko' ? '회원가입' : 'Register'}</div>
         <Divider sx={{ width: "15%", padding: "5px" }} />

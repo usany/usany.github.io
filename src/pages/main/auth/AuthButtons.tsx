@@ -5,7 +5,7 @@ import { onSocialClick, onSocialClickGoogle, onSocialClickMicrosoft } from 'src/
 
 const AuthButtons = () => {
   return (
-    <div className='flex flex-col w-screen items-center justify-center px-32'>
+    <div className='flex flex-col items-center justify-center px-32'>
       {/* <AuthDialogs /> */}
       <Button className='colorTwo' sx={{ width: '100%', }} startIcon={<img src={staticMicrosoft} className='w-[20px]' />} variant='outlined' onClick={onSocialClickMicrosoft}>
         <div className='truncate'>

@@ -59,6 +59,7 @@ const MessageStacks = ({ userObj }: Props) => {
   })
   useEffect(() => {
     if (piazzaSwitch === 'true') {
+      console.log(messages)
       messages.data?.forEach((doc) => {
         if (!piazzaMessage) {
           setPiazzaMessage({
