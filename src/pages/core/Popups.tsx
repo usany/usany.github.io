@@ -2,11 +2,8 @@ import {
   Drawer,
   DrawerClose,
   DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
   DrawerTitle,
-  DrawerTrigger,
+  DrawerTrigger
 } from '@/components/ui/drawer'
 import { ScrollArea } from '@radix-ui/react-scroll-area'
 import {
@@ -29,7 +26,7 @@ const Popups = ({ trigger, title, content, close, attachment, onLink }) => {
     return (
       <div className="flex justify-center">
         <Dialog>
-          <DialogTrigger>{trigger}</DialogTrigger>
+          <DialogTrigger className='w-full'>{trigger}</DialogTrigger>
           <DialogContent className="bg-light-2 dark:bg-dark-2 h-[50vh]">
             <ScrollArea className="overflow-y-scroll">
               <DrawersBar />
@@ -68,7 +65,7 @@ const Popups = ({ trigger, title, content, close, attachment, onLink }) => {
       </Drawer>
  */}
       <Drawer>
-        <DrawerTrigger>{trigger}</DrawerTrigger>
+        <DrawerTrigger className='w-full'>{trigger}</DrawerTrigger>
         <DrawerContent className="bg-light-2 dark:bg-dark-2 max-h-[50vh]">
           <ScrollArea className="overflow-y-scroll">
             <DrawersBar />

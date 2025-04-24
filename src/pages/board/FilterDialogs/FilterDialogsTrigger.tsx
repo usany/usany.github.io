@@ -104,9 +104,9 @@ function FilterDialogsTrigger({ selectedValues, handleSelectedValues }) {
             }
             key={index}
             label={label}
-            onClick={() => {
-              onClick({ id: element.id });
-            }}
+          // onClick={() => {
+          //   onClick({ id: element.id });
+          // }}
           />
         )
       })}
