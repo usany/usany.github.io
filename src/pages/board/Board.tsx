@@ -11,11 +11,14 @@ import {
 } from "src/baseApi/serverbase";
 import { useSelectors } from "src/hooks/useSelectors";
 import BoardMap from "src/pages/board/boardMap/BoardMap";
-import FilterDialogs from "src/pages/board/FilterDialogs/FilterDialogs";
 import PageTitle from "src/pages/core/pageTitle/PageTitle";
 import { SwipeableViews } from "src/pages/core/SwipeableViews";
 import { useImmer } from "use-immer";
 import CardsList from "../core/card/CardsList";
+import Popups from "../core/Popups";
+import BoardList from "./BoardList";
+import FilterDialogsContent from "./FilterDialogs/FilterDialogsContent";
+import FilterDialogsTitle from "./FilterDialogs/FilterDialogsTitle";
 import LayoutBoard from "./LayoutBoard";
 // import { AlarmCheck, AlertCircle, Building, Clock, DoorOpen, MessagesSquare, Pen, PenBox, Pencil, PenSquare, PenTool, Presentation, Search, SearchCheck, SearchCode, SearchSlash, Siren, TowerControl, Umbrella, UserCheck, UserRound, Watch } from "lucide-react";
 
@@ -95,7 +98,7 @@ function Board({ userObj }: Props) {
   return (
     <div>
       {userObj ?
-        <div className='px-5'>
+        <div>
           {/* <AlarmCheck />
             <AlertCircle />
             <Siren />
@@ -149,29 +152,34 @@ function Board({ userObj }: Props) {
             <PageTitle title={`${languages === 'ko' ? '빌리기 카드 목록' : 'Borrowing Card Board'}`} />
             <PageTitle title={`${languages === 'ko' ? '빌려주기 카드 목록' : 'Lending Card Board'}`} />
           </SwipeableViews>
-          <BoardMap
-            mapAccordion={mapAccordion}
-            mapAccordionToggle={mapAccordionToggle}
-            onMarker={onMarker}
-            onMarkerTrue={onMarkerTrue}
-            onMarkerFalse={onMarkerFalse}
-            selectedValues={selectedValues}
-            handleSelectedValues={handleSelectedValues}
-          />
-          <div>
-            <div className="rounded shadow-md flex p-3 sticky top-16 z-30 justify-between bg-light-2/50 dark:bg-dark-2/50">
-              <div className="truncate pt-1">{cardList[index]}</div>
-              <div className="truncate flex gap-1">
-                <FilterDialogs
-                  selectedValues={selectedValues}
-                  handleSelectedValues={handleSelectedValues}
-                />
-              </div>
+          <div className='px-5'>
+            <BoardMap
+              mapAccordion={mapAccordion}
+              mapAccordionToggle={mapAccordionToggle}
+              onMarker={onMarker}
+              onMarkerTrue={onMarkerTrue}
+              onMarkerFalse={onMarkerFalse}
+              selectedValues={selectedValues}
+              handleSelectedValues={handleSelectedValues}
+            />
+            <Popups trigger={
+              <BoardList />
+            } title={<FilterDialogsTitle />} content={<FilterDialogsContent selectedValues={selectedValues} handleSelectedValues={handleSelectedValues} />} />
+            <div>
+              {/* <div className="rounded shadow-md flex p-3 sticky top-16 z-30 justify-between bg-light-2/50 dark:bg-dark-2/50">
+                <div className="truncate pt-1">{cardList[index]}</div>
+                <div className="truncate flex gap-1">
+                  <FilterDialogs
+                    selectedValues={selectedValues}
+                    handleSelectedValues={handleSelectedValues}
+                  />
+                </div>
+              </div> */}
+              <SwipeableViews>
+                <CardsList choose={1} messages={messages} selectedValues={selectedValues} userObj={userObj} />
+                <CardsList choose={2} messages={messages} selectedValues={selectedValues} userObj={userObj} />
+              </SwipeableViews>
             </div>
-            <SwipeableViews>
-              <CardsList choose={1} messages={messages} selectedValues={selectedValues} userObj={userObj} />
-              <CardsList choose={2} messages={messages} selectedValues={selectedValues} userObj={userObj} />
-            </SwipeableViews>
           </div>
         </div>
         :
