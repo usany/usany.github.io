@@ -1,4 +1,3 @@
-import { useState } from "react";
 // import { Filter } from "lucide-react";
 import { useSelectors } from "src/hooks/useSelectors";
 import locationsBuildings from "src/pages/add/locationsBuildings";
@@ -68,11 +67,11 @@ const markers = [
 
 function FilterDialogs({ selectedValues, handleSelectedValues }) {
   const languages = useSelectors((state) => state.languages.value)
-  const index = (languages === 'ko' || languages === 'en') ? languages : 'ko'
-  const [selected, setSelected] = useState(null);
-  const onClick = ({ id }) => {
-    setSelected(id);
-  };
+  // const index = (languages === 'ko' || languages === 'en') ? languages : 'ko'
+  // const [selected, setSelected] = useState(null);
+  // const onClick = ({ id }) => {
+  //   setSelected(id);
+  // };
 
   return (
     <div>
