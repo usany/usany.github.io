@@ -58,9 +58,15 @@ const MessageStacks = ({ userObj }: Props) => {
     suspense: true,
   })
   useEffect(() => {
-    if (piazzaSwitch === 'true') {
-      console.log(messages)
-      messages.data?.forEach((doc) => {
+    const piazza = async () => {
+      const piazzaRef = collection(dbservice, 'chats_group')
+      const piazzaCollection = query(
+        piazzaRef,
+        orderBy('messageClockNumber', 'desc'),
+        limit(1),
+      )
+      const piazzaMessages = await getDocs(piazzaCollection)
+      piazzaMessages.forEach((doc) => {
         if (!piazzaMessage) {
           setPiazzaMessage({
             username: doc.data().userName,
@@ -71,6 +77,9 @@ const MessageStacks = ({ userObj }: Props) => {
           })
         }
       })
+    }
+    if (piazzaSwitch === 'true') {
+      piazza()
     }
   })
   useEffect(() => {
