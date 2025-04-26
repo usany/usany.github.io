@@ -74,11 +74,9 @@ const ChatsBoxes = ({ chattingUid, userObj, profileUrl, displayName, multiple, c
           <div>
             {message?.piazzaChecked && message?.piazzaChecked.indexOf(userObj.uid) === -1 &&
               <Chip sx={{ height: '20px' }} label={`${languages === 'ko' ? '새 대화' : 'New Chats'}`} color='primary' />
-              // <Chips label={'새 대화'} className={'bg-profile-blue'} onClick={null} />
             }
             {message?.messageCount > 0 &&
               <Chip sx={{ height: '20px' }} label={message.messageCount} color='primary' />
-              // <Chips label={message.messageCount} className={'bg-profile-blue'} onClick={null} />
             }
           </div>
         </div>
