@@ -12,6 +12,7 @@ import {
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { dbservice } from 'src/baseApi/serverbase'
+import { AnimatedList } from 'src/components/ui/animated-list'
 import Chats from 'src/pages/core/chatting/Chats'
 import { webSocket } from 'src/webSocket.tsx'
 
@@ -255,7 +256,7 @@ const ChattingStacks = ({
         if (element === 'piazza') {
           clock = new Date(piazzaMessage?.messageClock)
           return (
-            <>
+            <AnimatedList>
               <Chats
                 userObj={userObj}
                 profileUrl={''}
@@ -272,7 +273,7 @@ const ChattingStacks = ({
                 onLongPress={onLongPress}
                 changeOnLongPress={changeOnLongPress}
               />
-            </>
+            </AnimatedList>
           )
         } else {
           clock = new Date(chattings[element].messageClock)
@@ -290,7 +291,7 @@ const ChattingStacks = ({
               profileUrl = chattings[element].userOneProfileUrl
             }
             return (
-              <>
+              <AnimatedList>
                 <Chats
                   userObj={userObj}
                   profileUrl={profileUrl}
@@ -308,7 +309,7 @@ const ChattingStacks = ({
                   changeOnLongPress={changeOnLongPress}
                   onDelete={onDelete}
                 />
-              </>
+              </AnimatedList>
             )
           }
         }
