@@ -12,7 +12,6 @@ import {
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { dbservice } from 'src/baseApi/serverbase'
-import { AnimatedList } from 'src/components/ui/animated-list'
 import Chats from 'src/pages/core/chatting/Chats'
 import { webSocket } from 'src/webSocket.tsx'
 
@@ -250,28 +249,30 @@ const ChattingStacks = ({
   }
 
   return (
-    <>
+    <div className='flex flex-col gap-1'>
       {sorted.map((element, index) => {
         let clock
         if (element === 'piazza') {
           clock = new Date(piazzaMessage?.messageClock)
           return (
-            <Chats
-              userObj={userObj}
-              profileUrl={''}
-              conversation={''}
-              displayName={''}
-              chattingUid={''}
-              multiple={true}
-              clock={clock}
-              message={piazzaMessage}
-              longPressChat={longPressChat}
-              longPressChatsList={longPressChatsList}
-              changeLongPressChat={changeLongPressChat}
-              changeLongPressChatsList={changeLongPressChatsList}
-              onLongPress={onLongPress}
-              changeOnLongPress={changeOnLongPress}
-            />
+            <>
+              <Chats
+                userObj={userObj}
+                profileUrl={''}
+                conversation={''}
+                displayName={''}
+                chattingUid={''}
+                multiple={true}
+                clock={clock}
+                message={piazzaMessage}
+                longPressChat={longPressChat}
+                longPressChatsList={longPressChatsList}
+                changeLongPressChat={changeLongPressChat}
+                changeLongPressChatsList={changeLongPressChatsList}
+                onLongPress={onLongPress}
+                changeOnLongPress={changeOnLongPress}
+              />
+            </>
           )
         } else {
           clock = new Date(chattings[element].messageClock)
@@ -289,7 +290,7 @@ const ChattingStacks = ({
               profileUrl = chattings[element].userOneProfileUrl
             }
             return (
-              <AnimatedList>
+              <>
                 <Chats
                   userObj={userObj}
                   profileUrl={profileUrl}
@@ -307,12 +308,12 @@ const ChattingStacks = ({
                   changeOnLongPress={changeOnLongPress}
                   onDelete={onDelete}
                 />
-              </AnimatedList>
+              </>
             )
           }
         }
       })}
-    </>
+    </div>
   )
 }
 

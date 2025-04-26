@@ -44,20 +44,21 @@ const Chats = ({ userObj, profileUrl, conversation, displayName, chattingUid, mu
     }
   }, [longPressChat, onLongPress])
   const { color, colorTwo } = useCardsBackground()
-
+  const key = conversation || 'piazza'
   return (
-    <div className={`${longPressed && 'flex py-5'}`}>
-      <ClickAwayListener onClickAway={() => {
-        console.log(longPressChatsList.length)
-        console.log(longPressChatsList[-1])
-        if (longPressChat === longPressChatsList[-1]) {
+    <ClickAwayListener
+      key={key}
+      onClickAway={() => {
+        console.log('practice')
+        if (longPressChat === key) {
           changeLongPressChat(null)
           changeOnLongPress(0)
-          // const longPress = conversation || 'piazza'
           changeLongPressChatsList([])
         }
-      }}>
-        <div ref={chatsRef} className={`${longPressed && 'longPress flex w-[calc(100%-48px)] py-5'}`}
+      }}
+    >
+      <div className={`${longPressed && 'flex'}`}>
+        <div ref={chatsRef} className={`${longPressed && 'longPress flex w-[calc(100%-48px)]'}`}
           onMouseDownCapture={() => {
             const longPress = conversation || 'piazza'
             changeLongPressChat(longPress)
@@ -119,22 +120,22 @@ const Chats = ({ userObj, profileUrl, conversation, displayName, chattingUid, mu
             </>
           </Card>
         </div>
-      </ClickAwayListener>
-      {
-        longPressed &&
-        <div className='flex justify-end h-full w-1/6' onClick={() => {
-          if (conversation) {
-            onDelete({ conversation: conversation })
-          } else {
-            dispatch(changePiazzaSwitch('false'))
-            localStorage.setItem('piazza', 'false')
-          }
-        }}>
-          <Chip sx={{}} label={<DeleteIcon />} color='error' />
-          {/* <Chips label={<DeleteIcon />} className='bg-profile-red text-white' /> */}
-        </div>
-      }
-    </div >
+        {
+          longPressed &&
+          <div className='flex justify-end h-full w-1/6' onClick={() => {
+            if (conversation) {
+              onDelete({ conversation: conversation })
+            } else {
+              dispatch(changePiazzaSwitch('false'))
+              localStorage.setItem('piazza', 'false')
+            }
+          }}>
+            <Chip sx={{}} label={<DeleteIcon />} color='error' />
+            {/* <Chips label={<DeleteIcon />} className='bg-profile-red text-white' /> */}
+          </div>
+        }
+      </div >
+    </ClickAwayListener>
   )
 }
 

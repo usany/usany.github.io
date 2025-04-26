@@ -1,4 +1,3 @@
-import { ClickAwayListener } from '@mui/material'
 import { User } from 'firebase/auth'
 import { useEffect, useState } from 'react'
 import ChattingStacks from 'src/pages/core/chatting/ChattingStacks'
@@ -90,15 +89,7 @@ const MessageStacks = ({ userObj }: Props) => {
 
   return (
     <>
-      <ClickAwayListener
-        onClickAway={() => {
-          if (longPressChat === longPressChatsList[-1]) {
-            setLongPressChat(null)
-            setOnLongPress(0)
-            setLongPressChatsList([])
-          }
-        }}
-      >
+      <div>
         <div>
           {/* <AnimatedList>
             {piazzaSwitch === 'true' && (
@@ -130,7 +121,7 @@ const MessageStacks = ({ userObj }: Props) => {
             changeOnLongPress={(newValue) => setOnLongPress(newValue)}
           />
         </div>
-      </ClickAwayListener>
+      </div>
     </>
   )
 }
