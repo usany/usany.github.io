@@ -1,4 +1,4 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Chip } from "@mui/material";
 import { User } from 'firebase/auth';
 import staticImage from 'src/assets/blue.png';
@@ -52,7 +52,7 @@ const ChatsBoxes = ({ chattingUid, userObj, profileUrl, displayName, multiple, c
       {multiple ?
         <Avatar>
           <AvatarImage src={multiple ? staticImage : profileUrl} />
-          <AvatarFallback>{multiple ? "CN" : displayName[0]}</AvatarFallback>
+          {/* <AvatarFallback>{multiple ? "CN" : displayName[0]}</AvatarFallback> */}
         </Avatar>
         :
         <Avatars
