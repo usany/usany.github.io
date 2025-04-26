@@ -6,6 +6,7 @@ import { useSelectors } from "src/hooks/useSelectors";
 import Avatars from "src/pages/core/Avatars";
 
 interface Props {
+  chattingUid: string
   userObj: User
   profileUrl: string
   displayName: string
