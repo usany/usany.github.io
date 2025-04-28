@@ -181,7 +181,7 @@ function Menu({ userObj }: Props) {
             }}>
             </AccordionTrigger>
           </button>
-          <AccordionContent>
+          <AccordionContent className="text-sm">
             <CardsStacks userObj={userObj} />
           </AccordionContent>
         </AccordionItem>

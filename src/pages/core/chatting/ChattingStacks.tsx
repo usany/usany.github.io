@@ -260,7 +260,7 @@ const ChattingStacks = ({
       {!sorted.length &&
         <div className="flex items-center flex-col">
           <div className="flex justify-center rounded w-1/2 p-5 bg-light-2 dark:bg-dark-2 shadow-md">
-            진행 메세지가 없습니다
+            {emptyMessages[index]}
           </div>
         </div>
       }
