@@ -282,7 +282,7 @@ function PiazzaScreen({
   }, [isLoading])
   return (
     <>
-      <div className="flex flex-col pt-5">
+      <div className="fixed bottom-[110px] w-screen flex flex-col pt-5">
         <div
           ref={boxRef}
           className="p-1 border-t rounded-xl h-[60vh] overflow-auto"
