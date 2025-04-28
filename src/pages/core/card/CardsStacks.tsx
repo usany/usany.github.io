@@ -1,4 +1,3 @@
-import { Skeleton } from "@/components/ui/skeleton";
 import { ClickAwayListener } from "@mui/material";
 import { User } from "firebase/auth";
 import {
@@ -100,71 +99,31 @@ function CardsStacks({ userObj }: Props) {
   // console.log(messages)
   return (
     <div>
-      {cardLoaded ? (
-        <div>
-          {!messages.filter((value) => {
-            if (value.round !== 5) return value
-          }).length ? (
-            <div className="flex items-center flex-col">
-              <div className="flex justify-center border border-dashed rounded w-1/2 p-5">
-                {emptyCards[index]}
-              </div>
+      <div>
+        {!messages.filter((value) => {
+          if (value.round !== 5) return value
+        }).length ? (
+          <div className="flex items-center flex-col">
+            <div className="flex justify-center rounded w-1/2 p-5 bg-light-2 dark:bg-dark-2 shadow-md">
+              {emptyCards[index]}
             </div>
-          ) : (
-            <>
-              <div className="flex flex-wrap justify-around gap-5">
-                {messages.map((value) => {
-                  const isOwner = value.creatorId === userObj.uid;
-                  if (value.round !== 5) {
-                    if (value.creatorId === userObj.uid) {
-                      return (
-                        <ClickAwayListener
-                          onClickAway={() => {
-                            if (longPressCard === value.id) {
-                              setOnLongPress(0);
-                              setLongPressCard(null);
-                            }
-                          }}
-                        >
-                          <div
-                            onMouseDownCapture={() => {
-                              const longPress = value.id;
-                              setLongPressCard(longPress);
-                            }}
-                            // onMouseUp={() => {
-                            //   setPressed(true)
-                            // }}
-                            onTouchStartCapture={() => {
-                              const longPress = value.id;
-                              setLongPressCard(longPress);
-                            }}
-                          >
-                            <AnimatedList>
-                              <Cards
-                                message={value}
-                                isOwner={isOwner}
-                                userObj={userObj}
-                                num={null}
-                                points={null}
-                                onLongPress={onLongPress}
-                                changeOnLongPress={(newValue) =>
-                                  setOnLongPress(newValue)
-                                }
-                                longPressCard={longPressCard}
-                                changeLongPressCard={(newValue) =>
-                                  setLongPressCard(newValue)
-                                }
-                                deleteMessage={deleteMessage}
-                              />
-                            </AnimatedList>
-                          </div>
-                        </ClickAwayListener>
-                      );
-                    } else if (
-                      value.connectedId === userObj.uid &&
-                      value.round !== 1
-                    ) {
-                      return (
+          </div>
+        ) : (
+          <>
+            <div className="flex flex-wrap justify-around gap-5">
+              {messages.map((value) => {
+                const isOwner = value.creatorId === userObj.uid;
+                if (value.round !== 5) {
+                  if (value.creatorId === userObj.uid) {
+                    return (
+                      <ClickAwayListener
+                        onClickAway={() => {
+                          if (longPressCard === value.id) {
+                            setOnLongPress(0);
+                            setLongPressCard(null);
+                          }
+                        }}
+                      >
                         <div
                           onMouseDownCapture={() => {
                             const longPress = value.id;
@@ -190,22 +149,62 @@ function CardsStacks({ userObj }: Props) {
                                 setOnLongPress(newValue)
                               }
                               longPressCard={longPressCard}
+                              changeLongPressCard={(newValue) =>
+                                setLongPressCard(newValue)
+                              }
                               deleteMessage={deleteMessage}
                             />
                           </AnimatedList>
                         </div>
-                      );
-                    }
+                      </ClickAwayListener>
+                    );
+                  } else if (
+                    value.connectedId === userObj.uid &&
+                    value.round !== 1
+                  ) {
+                    return (
+                      <div
+                        onMouseDownCapture={() => {
+                          const longPress = value.id;
+                          setLongPressCard(longPress);
+                        }}
+                        // onMouseUp={() => {
+                        //   setPressed(true)
+                        // }}
+                        onTouchStartCapture={() => {
+                          const longPress = value.id;
+                          setLongPressCard(longPress);
+                        }}
+                      >
+                        <AnimatedList>
+                          <Cards
+                            message={value}
+                            isOwner={isOwner}
+                            userObj={userObj}
+                            num={null}
+                            points={null}
+                            onLongPress={onLongPress}
+                            changeOnLongPress={(newValue) =>
+                              setOnLongPress(newValue)
+                            }
+                            longPressCard={longPressCard}
+                            deleteMessage={deleteMessage}
+                          />
+                        </AnimatedList>
+                      </div>
+                    );
                   }
-                })}
-              </div>
-            </>
-          )}
-        </div>
+                }
+              })}
+            </div>
+          </>
+        )}
+      </div>
+      {/* {cardLoaded ? (
       ) : (
         <Skeleton />
       )
-      }
+      } */}
     </div >
   );
 }

@@ -13,11 +13,15 @@ import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { dbservice } from 'src/baseApi/serverbase'
 import { AnimatedList } from 'src/components/ui/animated-list'
+import { useSelectors } from 'src/hooks/useSelectors'
 import Chats from 'src/pages/core/chatting/Chats'
 import { webSocket } from 'src/webSocket.tsx'
-
 interface Props {
   userObj: User
+}
+const emptyMessages = {
+  ko: '진행  메세지가 없습니다',
+  en: 'No messages'
 }
 
 const ChattingStacks = ({
@@ -48,6 +52,8 @@ const ChattingStacks = ({
   if (piazzaSwitch === 'true') {
     sorted.splice(0, 0, 'piazza')
   }
+  const languages = useSelectors((state) => state.languages.value)
+  const index = (languages === 'ko' || languages === 'en') ? languages : 'ko'
 
   useEffect(() => {
     if (!webSocket) return
@@ -251,6 +257,13 @@ const ChattingStacks = ({
 
   return (
     <div className='flex flex-col gap-1'>
+      {!sorted.length &&
+        <div className="flex items-center flex-col">
+          <div className="flex justify-center rounded w-1/2 p-5 bg-light-2 dark:bg-dark-2 shadow-md">
+            진행 메세지가 없습니다
+          </div>
+        </div>
+      }
       {sorted.map((element, index) => {
         let clock
         if (element === 'piazza') {
