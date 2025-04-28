@@ -162,30 +162,32 @@ function Menu({ userObj }: Props) {
         <Cardings cards={'sample'} shadowColor={'lightblue'} />
       </div> */}
       <Accordion
-        className='px-5'
+        // className='px-5'
         value={[cardAccordion, messageAccordion]}
         // defaultValue={accordionValues}
         type="multiple"
       >
         <AccordionItem value="item-1">
-          <button onClick={() => {
-            document.getElementById('cardAccordion')?.click()
-          }} className='rounded shadow-md px-3 flex sticky top-16 z-30 w-full items-center justify-between bg-light-2/50 dark:bg-dark-2/50'>
-            <div>{cards[index]}</div>
-            <AccordionTrigger id="cardAccordion" onClick={() => {
-              if (cardAccordion) {
-                dispatch(cardOff())
-              } else {
-                dispatch(cardOn())
-              }
-            }}>
-            </AccordionTrigger>
-          </button>
+          <div className='px-5'>
+            <button onClick={() => {
+              document.getElementById('cardAccordion')?.click()
+            }} className='rounded shadow-md px-3 flex sticky top-16 z-30 w-full items-center justify-between bg-light-2/50 dark:bg-dark-2/50'>
+              <div>{cards[index]}</div>
+              <AccordionTrigger id="cardAccordion" onClick={() => {
+                if (cardAccordion) {
+                  dispatch(cardOff())
+                } else {
+                  dispatch(cardOn())
+                }
+              }}>
+              </AccordionTrigger>
+            </button>
+          </div>
           <AccordionContent className="text-sm">
             <CardsStacks userObj={userObj} />
           </AccordionContent>
         </AccordionItem>
-        <AccordionItem value="item-2">
+        <AccordionItem value="item-2" className='px-5'>
           <button onClick={() => {
             document.getElementById('messageAccordion')?.click()
           }} className='rounded shadow-md px-3 flex sticky top-16 z-30 w-full items-center justify-between bg-light-2/50 dark:bg-dark-2/50'>
