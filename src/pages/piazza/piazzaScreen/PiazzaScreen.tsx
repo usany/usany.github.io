@@ -59,7 +59,7 @@ function PiazzaScreen({
     document.getElementById('drawer')?.click()
     onPrivate({ userUid: userUid, displayName: displayName })
   }
-  const scrollNumber = 10
+  const scrollNumber = 20
   useEffect(() => {
     if (!webSocket) return
     function sMessageCallback(message) {

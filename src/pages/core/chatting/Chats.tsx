@@ -3,7 +3,7 @@ import { Chip, ClickAwayListener } from '@mui/material';
 import Card from '@mui/material/Card';
 import { User } from 'firebase/auth';
 import { useEffect, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import useCardsBackground from 'src/hooks/useCardsBackground';
 import useLongPress from 'src/hooks/useLongPress';
@@ -27,7 +27,7 @@ interface Props {
 
 const Chats = ({ userObj, profileUrl, conversation, displayName, chattingUid, multiple, clock, message, longPressChat, longPressChatsList, changeLongPressChat, changeLongPressChatsList, onLongPress, changeOnLongPress, onDelete }: Props) => {
   const [longPressed, setLongPressed] = useState(false)
-  const theme = useSelector((state) => state.theme)
+  // const theme = useSelector((state) => state.theme)
   const dispatch = useDispatch()
   const chatsRef = useRef()
   useLongPress(chatsRef, () => {
@@ -131,7 +131,6 @@ const Chats = ({ userObj, profileUrl, conversation, displayName, chattingUid, mu
             }
           }}>
             <Chip sx={{}} label={<DeleteIcon />} color='error' />
-            {/* <Chips label={<DeleteIcon />} className='bg-profile-red text-white' /> */}
           </div>
         }
       </div >
