@@ -134,7 +134,7 @@ const Cards = ({
           }
         </div>
       ) : (
-        <div>
+        <div className='scale-90'>
           {onLongPress ? (
             <ClickAwayListener
               onClickAway={() => {

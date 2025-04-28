@@ -85,8 +85,8 @@ const CardView = ({ onTransfer, message, shadowColor }) => {
       }
       <Card
         sx={{
-          width: 200,
-          height: 280,
+          width: 200 * 0.8,
+          height: 280 * 0.8,
           boxShadow: `1.5px 1.5px 1.5px 1.5px ${shadowColor}`,
           bgcolor: color,
         }}
@@ -109,7 +109,7 @@ const CardView = ({ onTransfer, message, shadowColor }) => {
               />
               <div className="flex items-center">
                 <Chip
-                  label={`${item} ${action}`}
+                  label={<div className='text-xs'>{item} {action}</div>}
                 />
                 {/* <Chips
                   label={`${message.item} ${message.text.choose === 1 ? ' 빌리기' : ' 빌려주기'}`}
@@ -128,13 +128,13 @@ const CardView = ({ onTransfer, message, shadowColor }) => {
             <div className="flex justify-center pt-1">
               <CardMedia
                 sx={{
-                  width: 159,
-                  height: 141,
+                  width: 159 * 0.8,
+                  height: 141 * 0.8,
                 }}
                 image={staticImg}
               />
             </div>
-            <div className="flex flex-col pt-1">
+            <div className="flex flex-col pt-1 text-xs">
               <div className="flex gap-1">
                 <div className='flex items-center'>
                   <Building />
