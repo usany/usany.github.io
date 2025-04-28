@@ -1,4 +1,5 @@
 import TextField from '@mui/material/TextField';
+import useCardsBackground from 'src/hooks/useCardsBackground';
 import { useSelectors } from 'src/hooks/useSelectors';
 // import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
 // import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnapshot, deleteDoc, updateDoc } from 'firebase/firestore';
@@ -19,10 +20,10 @@ function RankingSearch({ changeUserSearch }: Props) {
     const { target: { value } } = event
     changeUserSearch(value)
   }
-
+  const { colorOne, colorTwo } = useCardsBackground()
   return (
     <div className='px-5 flex flex-col'>
-      <TextField label={languages === 'ko' ? '유저 이름' : 'User name'} onChange={onChangeUserSearch} />
+      <TextField sx={{ bgcolor: colorOne, borderRadius: '5px' }} label={languages === 'ko' ? '유저 이름' : 'User name'} onChange={onChangeUserSearch} />
     </div>
   )
 }

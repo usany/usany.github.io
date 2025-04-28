@@ -4,6 +4,7 @@ import { updateProfile } from "firebase/auth";
 import { collection, doc, getDocs, query, updateDoc } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { dbservice } from 'src/baseApi/serverbase';
+import useCardsBackground from 'src/hooks/useCardsBackground';
 // import { useQueryState } from 'nuqs'
 import { useSelectors } from 'src/hooks/useSelectors';
 
@@ -15,6 +16,7 @@ const ProfileForm = ({ userObj, }) => {
   const [profileChangeConfirmed, setProfileChangeConfirmed] = useState(false)
   const [newDisplayName, setNewDisplayName] = useState('')
   const languages = useSelectors((state) => state.languages.value)
+  const { colorOne, colorTwo } = useCardsBackground()
   // const [name, setName] = useQueryState('name')
   useEffect(() => {
     setNewDisplayName(
@@ -75,7 +77,7 @@ const ProfileForm = ({ userObj, }) => {
       <div className='flex justify-center pt-10'>
         {/* <div className='flex pt-5 px-3'>유저 이름 바꾸기:</div> */}
         <div className='flex flex-col'>
-          <TextField label={languages === 'ko' ? '유저 이름 바꾸기' : 'Change user name'} placeholder='유저 이름 바꾸기' value={newDisplayName} type='text' onChange={onChange} />
+          <TextField sx={{ bgcolor: colorOne, borderRadius: '5px' }} label={languages === 'ko' ? '유저 이름 바꾸기' : 'Change user name'} placeholder='유저 이름 바꾸기' value={newDisplayName} type='text' onChange={onChange} />
           <div className='flex justify-start'>
             {profileChangeConfirmed ?
               <div className='flex'>
@@ -101,9 +103,9 @@ const ProfileForm = ({ userObj, }) => {
           </div>
         </div>
         {profileChangeConfirmed ?
-          <Button sx={{ height: '56px' }} variant='outlined' form='profile' type='submit'>{languages === 'ko' ? '바꾸기' : 'Change'}</Button>
+          <Button sx={{ bgcolor: colorTwo, height: '56px' }} variant='outlined' form='profile' type='submit'>{languages === 'ko' ? '바꾸기' : 'Change'}</Button>
           :
-          <Button sx={{ height: '56px' }} variant='outlined' form='profile' type='submit' disabled>{languages === 'ko' ? '바꾸기' : 'Change'}</Button>
+          <Button sx={{ bgcolor: colorTwo, height: '56px' }} variant='outlined' form='profile' type='submit' disabled>{languages === 'ko' ? '바꾸기' : 'Change'}</Button>
         }
       </div>
     </form>
