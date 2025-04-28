@@ -84,13 +84,13 @@ const ChartStyle = ({ id, config }: { id: string; config: ChartConfig }) => {
             ([theme, prefix]) => `
 ${prefix} [data-chart=${id}] {
 ${colorConfig
-  .map(([key, itemConfig]) => {
-    const color =
-      itemConfig.theme?.[theme as keyof typeof itemConfig.theme] ||
-      itemConfig.color
-    return color ? `  --color-${key}: ${color};` : null
-  })
-  .join('\n')}
+                .map(([key, itemConfig]) => {
+                  const color =
+                    itemConfig.theme?.[theme as keyof typeof itemConfig.theme] ||
+                    itemConfig.color
+                  return color ? `  --color-${key}: ${color};` : null
+                })
+                .join('\n')}
 }
 `,
           )
@@ -105,13 +105,13 @@ const ChartTooltip = RechartsPrimitive.Tooltip
 const ChartTooltipContent = React.forwardRef<
   HTMLDivElement,
   React.ComponentProps<typeof RechartsPrimitive.Tooltip> &
-    React.ComponentProps<'div'> & {
-      hideLabel?: boolean
-      hideIndicator?: boolean
-      indicator?: 'line' | 'dot' | 'dashed'
-      nameKey?: string
-      labelKey?: string
-    }
+  React.ComponentProps<'div'> & {
+    hideLabel?: boolean
+    hideIndicator?: boolean
+    indicator?: 'line' | 'dot' | 'dashed'
+    nameKey?: string
+    labelKey?: string
+  }
 >(
   (
     {
@@ -261,10 +261,10 @@ const ChartLegend = RechartsPrimitive.Legend
 const ChartLegendContent = React.forwardRef<
   HTMLDivElement,
   React.ComponentProps<'div'> &
-    Pick<RechartsPrimitive.LegendProps, 'payload' | 'verticalAlign'> & {
-      hideIcon?: boolean
-      nameKey?: string
-    }
+  Pick<RechartsPrimitive.LegendProps, 'payload' | 'verticalAlign'> & {
+    hideIcon?: boolean
+    nameKey?: string
+  }
 >(
   (
     { className, hideIcon = false, payload, verticalAlign = 'top', nameKey },
@@ -295,7 +295,7 @@ const ChartLegendContent = React.forwardRef<
               <div
                 key={item.value}
                 className={cn(
-                  'flex items-center gap-1.5 [&>svg]:h-3 [&>svg]:w-3 [&>svg]:text-neutral-500 dark:[&>svg]:text-neutral-400 px-5 rounded bg-light-2 dark:bg-dark-2 cursor-pointer',
+                  'flex items-center gap-1.5 [&>svg]:h-3 [&>svg]:w-3 [&>svg]:text-neutral-500 dark:[&>svg]:text-neutral-400 px-5 rounded bg-light-2 dark:bg-dark-2 cursor-pointer shadow-md',
                 )}
                 onClick={(value) => {
                   // console.log(item)
@@ -308,7 +308,7 @@ const ChartLegendContent = React.forwardRef<
                   <itemConfig.icon />
                 ) : (
                   <div
-                    className="h-2 w-2 shrink-0 rounded-[2px]"
+                    className="h-2 w-2 shrink-0 rounded-[2px] shadow-md"
                     style={{
                       backgroundColor: item.color,
                     }}
@@ -321,7 +321,7 @@ const ChartLegendContent = React.forwardRef<
           })}
         </div>
         {!payload[0].payload.number && !payload[1].payload.number && (
-          <div className="flex border border-dashed rounded w-1/2 p-5">
+          <div className="flex shadow-md bg-light-2 dark:bg-dark-2 rounded w-1/2 p-5">
             {languages === 'ko'
               ? '완료 활동이 없습니다'
               : 'No completed activities'}
@@ -345,8 +345,8 @@ function getPayloadConfigFromPayload(
 
   const payloadPayload =
     'payload' in payload &&
-    typeof payload.payload === 'object' &&
-    payload.payload !== null
+      typeof payload.payload === 'object' &&
+      payload.payload !== null
       ? payload.payload
       : undefined
 
@@ -378,5 +378,6 @@ export {
   ChartLegendContent,
   ChartStyle,
   ChartTooltip,
-  ChartTooltipContent,
+  ChartTooltipContent
 }
+

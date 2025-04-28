@@ -61,11 +61,11 @@ const ProfileCompletedContent = ({
     <div className='p-5'>
       {completedAction === 'borrow' ?
         <div className='flex justify-center flex-wrap'>
-          {borrowList.length ? borrowList : <div className='flex justify-center border border-dashed p-5'>완료된 빌리기가 없습니다</div>}
+          {borrowList.length ? borrowList : <div className='flex justify-center rounded shadow-md bg-light-1 dark:bg-dark-1 p-5'>완료된 빌리기가 없습니다</div>}
         </div>
         :
         <div className='flex justify-center flex-wrap'>
-          {lendList.length ? lendList : <div className='flex justify-center border border-dashed p-5'>완료된 빌려주기가 없습니다</div>}
+          {lendList.length ? lendList : <div className='flex justify-center rounded shadow-md bg-light-1 dark:bg-dark-1 p-5'>완료된 빌려주기가 없습니다</div>}
         </div>
       }
     </div>
