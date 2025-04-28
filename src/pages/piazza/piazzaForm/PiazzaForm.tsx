@@ -215,7 +215,7 @@ function PiazzaForm({ userObj, multiple, messages, handleMessages, messagesList,
 
   return (
     <>
-      <form className="flex gap-px" onSubmit={onSendSubmitHandler}>
+      <form className="fixed w-screen bottom-[60px] flex gap-px" onSubmit={onSendSubmitHandler}>
         <input
           className='w-full p-3 rounded bg-light-1 dark:bg-dark-1'
           placeholder={forms[index]}
