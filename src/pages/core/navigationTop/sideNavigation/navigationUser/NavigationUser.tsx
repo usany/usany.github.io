@@ -2,7 +2,6 @@ import { useSelector } from "react-redux"
 
 const NavigationUser = ({ userObj, points }) => {
   const languages = useSelector((state) => state.languages.value)
-
   return (
     <div>
       <div className="max-w-[200px] max-h-[200px] overflow-hidden">

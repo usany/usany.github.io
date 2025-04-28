@@ -24,7 +24,6 @@ interface Props {
 function ContactForm({ userObj, user }: Props) {
   const [messageTitle, setMessageTitle] = useState('')
   const [message, setMessage] = useState('')
-  const [formFilledOut, setFormFilledOut] = useState(false)
   const [violationUser, setViolationUser] = useState(null)
   const [initialViolationUser, setInitialViolationUser] = useState(true)
   const languages = useSelectors((state) => state.languages.value)
@@ -36,14 +35,6 @@ function ContactForm({ userObj, user }: Props) {
       setInitialViolationUser(false)
     }
   }, [user])
-
-  useEffect(() => {
-    if (messageTitle && message) {
-      setFormFilledOut(true)
-    } else {
-      setFormFilledOut(false)
-    }
-  }, [messageTitle, message])
 
   const onSubmit = async () => {
     try {
@@ -109,7 +100,7 @@ function ContactForm({ userObj, user }: Props) {
         </div>
         <div className='flex justify-center pt-2.5'>
           <ContactDrawers userObj={userObj} />
-          {formFilledOut ?
+          {(messageTitle && message) ?
             <Button variant='outlined' form='auth' onClick={onSubmit}>{languages === 'ko' ? '전송' : 'send'}</Button>
             :
             <Button variant='outlined' form='auth' disabled>{languages === 'ko' ? '전송' : 'send'}</Button>
