@@ -55,7 +55,7 @@ function ContactForm({ userObj, user }: Props) {
 
   const onChangeMessage = (event) => {
     const {
-      target: { name, value }
+      target: { value }
     } = event
     setMessage(value)
   }
