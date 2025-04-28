@@ -17,7 +17,7 @@ function RankingListsTitle({ multiple }: Props) {
         </div>
         <div className='flex items-center justify-center'>
           <Avatar
-            className={`bg-light-3 dark:bg-dark-3 border border-dashed`}
+            className={`bg-light-2 dark:bg-dark-2 border border-dashed`}
           >
             <AvatarImage src={''} />
             <AvatarFallback className="text-xl border-none">

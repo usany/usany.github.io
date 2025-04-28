@@ -23,7 +23,7 @@ function RankingSearch({ changeUserSearch }: Props) {
   const { colorOne, colorTwo } = useCardsBackground()
   return (
     <div className='px-5 flex flex-col'>
-      <TextField sx={{ bgcolor: colorOne, borderRadius: '5px' }} label={languages === 'ko' ? '유저 이름' : 'User name'} onChange={onChangeUserSearch} />
+      <TextField sx={{ bgcolor: colorTwo, borderRadius: '5px' }} label={languages === 'ko' ? '유저 이름' : 'User name'} onChange={onChangeUserSearch} />
     </div>
   )
 }
