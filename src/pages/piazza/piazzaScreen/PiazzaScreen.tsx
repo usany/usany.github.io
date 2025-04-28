@@ -285,7 +285,7 @@ function PiazzaScreen({
       <div className="fixed bottom-[110px] w-screen flex flex-col pt-5">
         <div
           ref={boxRef}
-          className="p-1 border-t rounded-xl h-[60vh] overflow-auto"
+          className="p-1 border-t rounded-xl h-[50vh] overflow-auto"
         >
           <ul>
             {isLoading && <div className='flex justify-center bg-light-2 dark:bg-dark-2 rounded'>로딩</div>}

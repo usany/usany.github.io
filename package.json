@@ -81,6 +81,7 @@
     "use-immer": "^0.10.0",
     "uuid": "^9.0.1",
     "vaul": "^1.1.1",
+    "virtual-keyboard-offset": "^1.0.10",
     "web-push": "^3.6.7",
     "xstate": "^5.19.2",
     "zustand": "^5.0.0"
