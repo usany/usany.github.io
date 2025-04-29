@@ -15,11 +15,8 @@ import { useSelector } from 'react-redux'
 import { useLocation } from 'react-router-dom'
 import { dbservice } from 'src/baseApi/serverbase'
 import { useSelectors } from 'src/hooks/useSelectors'
-import Avatars from 'src/pages/core/Avatars'
-import Popups from 'src/pages/core/Popups'
-import SpecificsTradesTitle from 'src/pages/core/specifics/SpecificsTradesTitle'
 import { webSocket } from 'src/webSocket.tsx'
-import PiazzaDialogsContent from './piazzaDialogs/PiazzaDialogsContent'
+import PiazzaScreenView from './PiazzaScreenView'
 
 interface Props {
   userObj: User
@@ -30,6 +27,7 @@ interface Props {
 }
 
 function PiazzaScreen({
+  isKeyboardOpen,
   userObj,
   multiple,
   handleMultiple,
@@ -283,223 +281,24 @@ function PiazzaScreen({
 
   return (
     <>
-      <div className="fixed bottom-[110px] w-screen flex flex-col pt-5">
-        <div
-          ref={boxRef}
-          className={`p-1 border-t rounded-xl h-[50vh] overflow-auto`}
-        >
-          <ul>
-            {isLoading && <div className='flex justify-center bg-light-2 dark:bg-dark-2 rounded'>로딩</div>}
-            {messagesList.map((value, index) => {
-              let userDirection
-              const clock = new Date(value.messageClock)
-              if (value.userUid === userObj.uid) {
-                userDirection = 'text-right'
-              } else {
-                userDirection = 'text-left'
-              }
-              let previousUid
-              let passingClock
-              let displayClock = 0
-              if (index > 0) {
-                previousUid = messagesList[index - 1].userUid
-              }
-              if (index < messagesList.length - 1) {
-                if (messagesList[index + 1].userUid === userObj.uid) {
-                  passingClock = new Date(messagesList[index + 1].messageClock)
-                  if (clock.getFullYear() === passingClock.getFullYear()) {
-                    if (clock.getMonth() === passingClock.getMonth()) {
-                      if (clock.getDate() === passingClock.getDate()) {
-                        if (clock.getHours() === passingClock.getHours()) {
-                          if (
-                            clock.getMinutes() === passingClock.getMinutes()
-                          ) {
-                            displayClock = 1
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-              let messageAmpm
-              let messageHours = clock.getHours()
-              let messageMonth = (clock.getMonth() + 1).toString()
-              let messageDate = clock.getDate().toString()
-              if (messageHours >= 13) {
-                messageAmpm = '오후'
-                if (messageHours !== 12) {
-                  messageHours = messageHours - 12
-                }
-              } else {
-                messageAmpm = '오전'
-                if (messageHours === 0) {
-                  messageHours = messageHours + 12
-                }
-              }
-              if (clock.getMonth() + 1 < 10) {
-                messageMonth = '0' + messageMonth
-              }
-              if (messageDate.length === 1) {
-                messageDate = '0' + messageDate
-              }
-
-              return (
-                <li
-                  key={index}
-                  ref={index === continueNumber ? messagesEndRef : null}
-                  className={userDirection}
-                >
-                  {previousUid !== value.userUid && (
-                    <div>
-                      <div
-                        className={`flex justify-${value.userUid !== userObj.uid ? 'start' : 'end'}`}
-                      >
-                        {userDirection === 'text-left' ? (
-                          <div className="flex gap-3">
-                            <Popups
-                              trigger={
-                                <Avatars
-                                  uid={userObj.uid}
-                                  profile={false}
-                                  profileColor=""
-                                  profileUrl={value?.profileImageUrl}
-                                  piazza={() =>
-                                    onDrawer({
-                                      userUid: value.userUid,
-                                      displayName: value.id,
-                                    })
-                                  }
-                                />
-                              }
-                              title={<SpecificsTradesTitle />}
-                              content={<PiazzaDialogsContent
-                                initiateContinuing={() => setContinuing(null)}
-                                multiple={multiple}
-                                handleMultiple={handleMultiple}
-                                user={user}
-                                userObj={userObj}
-                                handleMessagesList={handleMessagesList}
-                                displayedName={displayedName}
-                              />}
-                            />
-                            {/* <Avatars
-                              uid={userObj.uid}
-                              profile={false}
-                              profileColor=""
-                              profileUrl={value?.profileImageUrl}
-                              piazza={() =>
-                                onDrawer({
-                                  userUid: value.userUid,
-                                  displayName: value.id,
-                                })
-                              }
-                            /> */}
-                            {/* <Avatar onClick={() => {
-                              document.getElementById('drawer')?.click()
-                              onPrivate({ userUid: value.userUid, displayName: value.id })
-                            }} className={'bg-profile-blue'}>
-                              <AvatarImage src={value?.profileImageUrl} />
-                              <AvatarFallback className='text-xl border-none	'>{value?.id[0]}</AvatarFallback>
-                            </Avatar> */}
-                            <div>{value.id}</div>
-                          </div>
-                        ) : (
-                          <div className="flex gap-3">
-                            <div>{value.id}</div>
-                            <Popups
-                              trigger={
-                                <Avatars
-                                  uid={userObj.uid}
-                                  profile={false}
-                                  profileColor=""
-                                  profileUrl={value?.profileImageUrl}
-                                  piazza={() =>
-                                    onDrawer({
-                                      userUid: value.userUid,
-                                      displayName: value.id,
-                                    })
-                                  }
-                                />
-                              }
-                              title={<SpecificsTradesTitle />}
-                              content={<PiazzaDialogsContent
-                                initiateContinuing={() => setContinuing(null)}
-                                multiple={multiple}
-                                handleMultiple={handleMultiple}
-                                user={user}
-                                userObj={userObj}
-                                handleMessagesList={handleMessagesList}
-                                displayedName={displayedName}
-                              />}
-                            />
-                            {/* <Avatars
-                              uid={userObj.uid}
-                              profile={false}
-                              profileColor=""
-                              profileUrl={value?.profileImageUrl}
-                              piazza={() =>
-                                onDrawer({
-                                  userUid: value.userUid,
-                                  displayName: value.id,
-                                })
-                              }
-                            /> */}
-                            {/* <Avatar onClick={() => {
-                              document.getElementById('drawer')?.click()
-                              onPrivate({ userUid: value.userUid, displayName: value.id })
-                            }} className={'bg-profile-blue'}>
-                              <AvatarImage src={value?.profileImageUrl} />
-                              <AvatarFallback className='text-xl border-none	'>{value?.id[0]}</AvatarFallback>
-                            </Avatar> */}
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  )}
-                  {value.userUid !== userObj.uid ? (
-                    <div className="flex gap-3 justify-start">
-                      <div className="other rounded-tr-lg rounded-bl-lg rounded-br-lg p-1 bg-light-1 dark:bg-dark-1">
-                        {value.msg}
-                      </div>
-                      <div>
-                        {clock.getFullYear()}-{messageMonth}-{messageDate}{' '}
-                        {languages === 'ko' && messageAmpm} {messageHours}:
-                        {clock.getMinutes() < 10 && '0'}
-                        {clock.getMinutes()}
-                        {languages === 'en' && (messageAmpm === '오전' ? 'am' : 'pm')}
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="flex gap-3 justify-end">
-                      <div>
-                        {clock.getFullYear()}-{messageMonth}-{messageDate}{' '}
-                        {languages === 'ko' && messageAmpm} {messageHours}:
-                        {clock.getMinutes() < 10 && '0'}
-                        {clock.getMinutes()}
-                        {languages === 'en' && (messageAmpm === '오전' ? 'am' : 'pm')}
-                      </div>
-                      <div className="me rounded-tl-lg rounded-bl-lg rounded-br-lg p-1 bg-light-1 dark:bg-dark-1">
-                        {value.msg}
-                      </div>
-                    </div>
-                  )}
-                </li>
-              )
-            })}
-            <li ref={messagesEndRef} />
-          </ul>
+      {isKeyboardOpen ?
+        <div className='fixed bottom-[110px] w-screen h-full bg-light-3 dark:bg-dark-3 flex flex-col pt-5'>
+          <PiazzaScreenView isKeyboardOpen={isKeyboardOpen} userObj={userObj} multiple={multiple} handleMultiple={handleMultiple} messagesList={messagesList} handleMessagesList={handleMessagesList} />
+          {/* <PiazzaDialogs
+            multiple={multiple}
+            handleMultiple={handleMultiple}
+            user={user}
+            userObj={userObj}
+            handleMessagesList={handleMessagesList}
+            displayedName={displayedName}
+            initiateContinuing={() => setContinuing(null)}
+          /> */}
         </div>
-      </div>
-      {/* <PiazzaDialogs
-        multiple={multiple}
-        handleMultiple={handleMultiple}
-        user={user}
-        userObj={userObj}
-        handleMessagesList={handleMessagesList}
-        displayedName={displayedName}
-        initiateContinuing={() => setContinuing(null)}
-      /> */}
+        :
+        <div className='fixed bottom-[110px] w-screen h-[60%] bg-light-3 dark:bg-dark-3 flex flex-col pt-5'>
+          <PiazzaScreenView isKeyboardOpen={isKeyboardOpen} userObj={userObj} multiple={multiple} handleMultiple={handleMultiple} messagesList={messagesList} handleMessagesList={handleMessagesList} />
+        </div>
+      }
     </>
   )
 }
