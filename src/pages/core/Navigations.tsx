@@ -19,8 +19,8 @@ interface ThemeRootState {
 function Navigations({ userObj }: Props) {
   const [backgroundColor, setBackgroundColor] = useState('#e2e8f0');
   const theme = useSelector((state: ThemeRootState) => state.theme)
-  const piazzaForm = useSelector((state) => state.piazzaForm)
   const bottomNavigation = useSelectors(state => state.bottomNavigation.value)
+  const piazzaForm = useSelector((state) => state.piazzaForm.value)
   const dispatch = useDispatch()
   useEffect(() => {
     if (theme === 'dark') {
