@@ -19,6 +19,7 @@ import { webSocket } from 'src/webSocket.tsx'
 import PiazzaScreenView from './PiazzaScreenView'
 
 interface Props {
+  isKeyboardOpen: boolean
   userObj: User
   handleMultiple: (newValue: boolean) => void
   messagesList: []

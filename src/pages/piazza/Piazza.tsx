@@ -1,11 +1,12 @@
 import { User } from "firebase/auth";
 import { useEffect, useState } from "react";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import PiazzaForm from 'src/pages/piazza/piazzaForm/PiazzaForm';
 import PiazzaScreen from 'src/pages/piazza/piazzaScreen/PiazzaScreen';
 import PiazzaTitle from 'src/pages/piazza/piazzaTitle/PiazzaTitle';
 import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice';
+import { changePiazzaForm } from "src/stateSlices/piazzaFormSlice";
 // import { useKeyboardOffset } from 'virtual-keyboard-offset';
 
 interface Props {
@@ -18,17 +19,22 @@ function Piazza({ userObj }: Props) {
   const { state } = useLocation()
   const [multiple, setMultiple] = useState(true)
   const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
-
+  const piazzaForm = useSelector((state) => state.piazzaForm.value)
   useEffect(() => {
     const listener = () => {
       const newState = window.screen.height - 300 > (window.visualViewport?.height || window.screen.height)
       if (isKeyboardOpen !== newState) {
         setIsKeyboardOpen(newState);
+        dispatch(changePiazzaForm(newState))
       }
     };
     window.addEventListener('resize', listener)
     if (typeof visualViewport !== 'undefined') {
       window.visualViewport?.addEventListener('resize', listener);
+    }
+    visualViewport?.addEventListener('resize', listener)
+    if (typeof visualViewport !== 'undefined') {
+      visualViewport?.addEventListener('resize', listener);
     }
     return () => {
       if (typeof visualViewport !== 'undefined') {
@@ -72,7 +78,7 @@ function Piazza({ userObj }: Props) {
       {!isKeyboardOpen && <PiazzaTitle multiple={multiple} displayName={displayName} />}
       {/* {!isKeyboardOpen && <PiazzaTitle multiple={multiple} displayName={displayName} />} */}
       {/* {isKeyboardOpen ? <div>{window.visualViewport?.height}</div> : <div>{window.visualViewport?.height}</div>} */}
-      <PiazzaScreen isKeyboardOpen={isKeyboardOpen} userObj={userObj} multiple={multiple} handleMultiple={(newValue) => setMultiple(newValue)} messagesList={messagesList} handleMessagesList={(newValue) => setMessagesList(newValue)} />
+      <PiazzaScreen isKeyboardOpen={piazzaForm} userObj={userObj} multiple={multiple} handleMultiple={(newValue) => setMultiple(newValue)} messagesList={messagesList} handleMessagesList={(newValue) => setMessagesList(newValue)} />
       <PiazzaForm userObj={userObj} multiple={multiple} messages={messages} handleMessages={(newValue) => setMessages(newValue)} messagesList={messagesList} handleMessagesList={(newValue) => setMessagesList(newValue)} />
     </>
   );

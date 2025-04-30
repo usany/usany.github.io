@@ -20,6 +20,7 @@ function Navigations({ userObj }: Props) {
   const [backgroundColor, setBackgroundColor] = useState('#e2e8f0');
   const theme = useSelector((state: ThemeRootState) => state.theme)
   const bottomNavigation = useSelectors(state => state.bottomNavigation.value)
+  const piazzaForm = useSelector((state) => state.piazzaForm)
   const dispatch = useDispatch()
   useEffect(() => {
     if (theme === 'dark') {
@@ -41,20 +42,26 @@ function Navigations({ userObj }: Props) {
   const navigate = useNavigate()
 
   return (
-    <div className='w-screen border-t z-50 fixed rounded-t bottom-0 start-0 end-0'>
-      <BottomNavigation
-        sx={{ bgcolor: alpha(backgroundColor, 0.8) }}
-        showLabels
-        value={bottomNavigation}
-        onChange={(event, newValue) => {
-          dispatch(changeBottomNavigation(newValue))
-        }}
-      >
-        <BottomNavigationAction onClick={() => navigate('/add')} label={'등록'} icon={<Pencil />} />
-        <BottomNavigationAction onClick={() => navigate('/')} label={userObj ? '내 상태' : '로그인'} icon={<Umbrella />} />
-        <BottomNavigationAction onClick={() => navigate('/board')} label={'게시판'} icon={<Presentation />} />
-      </BottomNavigation>
-    </div>
+    <>
+      {!piazzaForm ?
+        <div></div>
+        :
+        <div className='w-screen border-t z-50 fixed rounded-t bottom-0 start-0 end-0'>
+          <BottomNavigation
+            sx={{ bgcolor: alpha(backgroundColor, 0.8) }}
+            showLabels
+            value={bottomNavigation}
+            onChange={(event, newValue) => {
+              dispatch(changeBottomNavigation(newValue))
+            }}
+          >
+            <BottomNavigationAction onClick={() => navigate('/add')} label={'등록'} icon={<Pencil />} />
+            <BottomNavigationAction onClick={() => navigate('/')} label={userObj ? '내 상태' : '로그인'} icon={<Umbrella />} />
+            <BottomNavigationAction onClick={() => navigate('/board')} label={'게시판'} icon={<Presentation />} />
+          </BottomNavigation>
+        </div>
+      }
+    </>
   )
 }
 

@@ -30,7 +30,6 @@ interface Props {
 }
 
 function PiazzaScreenView({
-  isKeyboardOpen,
   userObj,
   multiple,
   handleMultiple,
