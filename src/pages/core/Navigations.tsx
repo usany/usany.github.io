@@ -1,12 +1,11 @@
+import { alpha } from "@mui/material";
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
-import { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-// import Badges from 'src/components/Badges'
-import { alpha } from "@mui/material";
 import { User } from 'firebase/auth';
 import { Pencil, Presentation, Umbrella } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useSelectors } from 'src/hooks/useSelectors';
 import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice';
 
