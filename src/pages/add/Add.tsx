@@ -9,7 +9,6 @@ import {
 } from "firebase/firestore";
 import { useEffect, useReducer, useState } from "react";
 import { useSelector } from "react-redux";
-import { useParams, useSearchParams } from "react-router-dom";
 import {
   dbservice
 } from "src/baseApi/serverbase";
@@ -79,9 +78,9 @@ function Add({ userObj, borrow }: Props) {
   //         return {...state}
   //     }
   //   }
-  const params = useParams()
-  const search = useSearchParams()
-  console.log(useSearchParams())
+  // const params = useParams()
+  // const search = useSearchParams()
+  // console.log(useSearchParams())
   function changeAddSteps(newValue) {
     setAddSteps(newValue);
   }
