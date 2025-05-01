@@ -40,9 +40,10 @@ function Navigations({ userObj }: Props) {
       dispatch(changeBottomNavigation(2))
     }
   })
+  console.log(window.visualViewport?.height)
   useEffect(() => {
     const listener = () => {
-      const newState = window.screen.height - 300 > (window.visualViewport?.height || window.screen.height)
+      const newState = window.screen.height - window.screen.height > 1000 ? 500 : 300 > (window.visualViewport?.height || window.screen.height)
       if (isKeyboardOpen !== newState) {
         setIsKeyboardOpen(newState);
         dispatch(changePiazzaForm(newState))
@@ -66,6 +67,7 @@ function Navigations({ userObj }: Props) {
 
   return (
     <>
+      {window.screen.height}
       {!piazzaForm &&
         <div className='w-screen border-t z-50 fixed rounded-t bottom-0 start-0 end-0'>
           <BottomNavigation

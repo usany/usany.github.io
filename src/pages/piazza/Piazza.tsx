@@ -6,7 +6,6 @@ import PiazzaForm from 'src/pages/piazza/piazzaForm/PiazzaForm';
 import PiazzaScreen from 'src/pages/piazza/piazzaScreen/PiazzaScreen';
 import PiazzaTitle from 'src/pages/piazza/piazzaTitle/PiazzaTitle';
 import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice';
-import { changePiazzaForm } from "src/stateSlices/piazzaFormSlice";
 // import { useKeyboardOffset } from 'virtual-keyboard-offset';
 
 interface Props {
@@ -25,7 +24,7 @@ function Piazza({ userObj }: Props) {
       const newState = window.screen.height - 300 > (window.visualViewport?.height || window.screen.height)
       if (isKeyboardOpen !== newState) {
         setIsKeyboardOpen(newState);
-        dispatch(changePiazzaForm(newState))
+        // dispatch(changePiazzaForm(newState))
       }
     };
     window.addEventListener('resize', listener)
