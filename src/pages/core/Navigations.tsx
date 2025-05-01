@@ -39,10 +39,10 @@ function Navigations({ userObj }: Props) {
     }
   })
   const navigate = useNavigate()
-
+  console.log(piazzaForm)
   return (
     <>
-      {!piazzaForm ?
+      {piazzaForm ?
         <div></div>
         :
         <div className='w-screen border-t z-50 fixed rounded-t bottom-0 start-0 end-0'>

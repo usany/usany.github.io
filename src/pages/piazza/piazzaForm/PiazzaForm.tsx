@@ -26,6 +26,7 @@ interface Props {
 function PiazzaForm({ userObj, multiple, messages, handleMessages, messagesList, handleMessagesList }: Props) {
   const profileColor = useSelector(state => state.profileColor.value)
   const profileUrl = useSelector(state => state.profileUrl.value)
+  const piazzaForm = useSelector((state) => state.piazzaForm.value)
   const dispatch = useDispatch()
   const { state } = useLocation()
   const conversation = state?.conversation
@@ -215,16 +216,29 @@ function PiazzaForm({ userObj, multiple, messages, handleMessages, messagesList,
 
   return (
     <>
-      <form className="fixed w-screen bottom-[60px] flex gap-px" onSubmit={onSendSubmitHandler}>
-        <input
-          className='w-full p-3 rounded bg-light-1 dark:bg-dark-1'
-          placeholder={forms[index]}
-          onChange={onChangeMsgHandler}
-          value={messages}
-          autoFocus
-        />
-        <button className='w-1/6 rounded bg-light-2 dark:bg-dark-2' type="submit">{send[index]}</button>
-      </form>
+      {piazzaForm ?
+        <form className="fixed w-screen bottom-0 flex gap-px" onSubmit={onSendSubmitHandler}>
+          <input
+            className='w-full p-3 rounded bg-light-1 dark:bg-dark-1'
+            placeholder={forms[index]}
+            onChange={onChangeMsgHandler}
+            value={messages}
+            autoFocus
+          />
+          <button className='w-1/6 rounded bg-light-2 dark:bg-dark-2' type="submit">{send[index]}</button>
+        </form>
+        :
+        <form className="fixed w-screen bottom-[60px] flex gap-px" onSubmit={onSendSubmitHandler}>
+          <input
+            className='w-full p-3 rounded bg-light-1 dark:bg-dark-1'
+            placeholder={forms[index]}
+            onChange={onChangeMsgHandler}
+            value={messages}
+            autoFocus
+          />
+          <button className='w-1/6 rounded bg-light-2 dark:bg-dark-2' type="submit">{send[index]}</button>
+        </form>
+      }
     </>
   );
 }
