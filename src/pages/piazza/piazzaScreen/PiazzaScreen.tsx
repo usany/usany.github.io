@@ -283,7 +283,7 @@ function PiazzaScreen({
   return (
     <>
       {isKeyboardOpen ?
-        <div className='fixed bottom-[50px] w-screen h-full bg-light-3 dark:bg-dark-3 flex flex-col pt-5'>
+        <div className='fixed bottom-[50px] w-screen h-full top-[65px] bg-light-3 dark:bg-dark-3 flex flex-col'>
           <PiazzaScreenView isKeyboardOpen={isKeyboardOpen} userObj={userObj} multiple={multiple} handleMultiple={handleMultiple} messagesList={messagesList} handleMessagesList={handleMessagesList} />
           {/* <PiazzaDialogs
             multiple={multiple}
@@ -296,7 +296,7 @@ function PiazzaScreen({
           /> */}
         </div>
         :
-        <div className='fixed bottom-[110px] w-screen h-[60%] bg-light-3 dark:bg-dark-3 flex flex-col pt-5'>
+        <div className='fixed bottom-[110px] w-screen h-[65%] top-[150px] bg-light-3 dark:bg-dark-3 flex flex-col pt-5'>
           <PiazzaScreenView isKeyboardOpen={isKeyboardOpen} userObj={userObj} multiple={multiple} handleMultiple={handleMultiple} messagesList={messagesList} handleMessagesList={handleMessagesList} />
         </div>
       }
