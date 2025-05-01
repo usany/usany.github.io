@@ -14,7 +14,6 @@ import { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useLocation } from 'react-router-dom'
 import { dbservice } from 'src/baseApi/serverbase'
-import { webSocket } from 'src/webSocket.tsx'
 import PiazzaScreenView from './PiazzaScreenView'
 
 interface Props {
@@ -58,68 +57,6 @@ function PiazzaScreen({
   //   onPrivate({ userUid: userUid, displayName: displayName })
   // }
   const scrollNumber = 20
-  useEffect(() => {
-    if (!webSocket) return
-    function sMessageCallback(message) {
-      const {
-        msg,
-        userUid,
-        id,
-        target,
-        messageClock,
-        messageClockNumber,
-        conversation,
-      } = message
-      handleMessagesList((prev) => [
-        ...prev,
-        {
-          msg: msg,
-          type: target ? 'private' : 'other',
-          userUid: userUid,
-          id: id,
-          messageClock: messageClock,
-          messageClockNumber: messageClockNumber,
-          conversation: null,
-          profileImageUrl: profileUrl,
-          profileColor: profileColor,
-        },
-      ])
-    }
-    webSocket.on('sMessagePiazza', sMessageCallback)
-    return () => {
-      webSocket.off('sMessagePiazza', sMessageCallback)
-    }
-  }, [])
-  useEffect(() => {
-    if (!webSocket) return
-    function sMessageCallback(message) {
-      const {
-        msg,
-        userUid,
-        id,
-        target,
-        messageClock,
-        messageClockNumber,
-        conversation,
-      } = message
-      handleMessagesList((prev) => [
-        ...prev,
-        {
-          msg: msg,
-          type: target ? 'private' : 'other',
-          userUid: userUid,
-          id: id,
-          messageClock: messageClock,
-          messageClockNumber: messageClockNumber,
-          conversation: null,
-        },
-      ])
-    }
-    webSocket.on(`sMessage${conversation}`, sMessageCallback)
-    return () => {
-      webSocket.off(`sMessage${conversation}`, sMessageCallback)
-    }
-  }, [])
   useEffect(() => {
     document.documentElement.scrollTo({
       top: 0,
