@@ -14,7 +14,6 @@ import { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useLocation } from 'react-router-dom'
 import { dbservice } from 'src/baseApi/serverbase'
-import { useSelectors } from 'src/hooks/useSelectors'
 import { webSocket } from 'src/webSocket.tsx'
 import PiazzaScreenView from './PiazzaScreenView'
 
@@ -37,27 +36,27 @@ function PiazzaScreen({
 }: Props) {
   const messagesEndRef = useRef(null)
   const boxRef = useRef(null)
-  const [user, setUser] = useState(null)
-  const [displayedName, setDisplayedName] = useState('')
+  // const [user, setUser] = useState(null)
+  // const [displayedName, setDisplayedName] = useState('')
+  // const [continueNumber, setContinueNumber] = useState(0)
   const [isLoading, setIsLoading] = useState(false)
   const [continuing, setContinuing] = useState(null)
-  const [continueNumber, setContinueNumber] = useState(0)
   const profileColor = useSelector((state) => state.profileColor.value)
   const profileUrl = useSelector((state) => state.profileUrl.value)
   const { state } = useLocation()
   const conversation = state?.conversation
-  const languages = useSelectors((state) => state.languages.value)
-  const onPrivate = async ({ userUid, displayName }) => {
-    const userRef = doc(dbservice, `members/${userUid}`)
-    const userDoc = await getDoc(userRef)
-    const userElement = userDoc.data()
-    setUser(userElement)
-    setDisplayedName(displayName)
-  }
-  const onDrawer = ({ userUid, displayName }) => {
-    document.getElementById('drawer')?.click()
-    onPrivate({ userUid: userUid, displayName: displayName })
-  }
+  // const languages = useSelectors((state) => state.languages.value)
+  // const onPrivate = async ({ userUid, displayName }) => {
+  //   const userRef = doc(dbservice, `members/${userUid}`)
+  //   const userDoc = await getDoc(userRef)
+  //   const userElement = userDoc.data()
+  //   setUser(userElement)
+  //   setDisplayedName(displayName)
+  // }
+  // const onDrawer = ({ userUid, displayName }) => {
+  //   document.getElementById('drawer')?.click()
+  //   onPrivate({ userUid: userUid, displayName: displayName })
+  // }
   const scrollNumber = 20
   useEffect(() => {
     if (!webSocket) return
@@ -183,13 +182,13 @@ function PiazzaScreen({
         startAfter(continuing ? continuing : ''),
       )
       const messages = await getDocs(messagesCollection)
-      if (!messages.docs.length) {
-        setContinueNumber(messages.docs.length)
-      }
+      // if (!messages.docs.length) {
+      //   setContinueNumber(messages.docs.length)
+      // }
       messages.forEach((document) => {
         if (messagesArray.length === messages.docs.length - 1) {
           setContinuing(document)
-          setContinueNumber(messages.docs.length - 1)
+          // setContinueNumber(messages.docs.length - 1)
         }
         const message = document.data().message
         const userUid = document.data().userUid
@@ -224,13 +223,13 @@ function PiazzaScreen({
       )
       const messages = await getDocs(messagesCollection)
       const messagesArray = []
-      if (!messages.docs.length) {
-        setContinueNumber(messages.docs.length)
-      }
+      // if (!messages.docs.length) {
+      //   setContinueNumber(messages.docs.length)
+      // }
       messages.forEach((doc, index) => {
         if (messagesArray.length === messages.docs.length - 1) {
           setContinuing(doc)
-          setContinueNumber(messages.docs.length - 1)
+          // setContinueNumber(messages.docs.length - 1)
         }
         const message = doc.data().message
         const userUid = doc.data().userUid
@@ -282,11 +281,11 @@ function PiazzaScreen({
   return (
     <>
       {isKeyboardOpen ?
-        <div className='fixed bottom-[50px] w-screen h-full top-[65px] bg-light-3 dark:bg-dark-3 flex flex-col'>
+        <div className='fixed bottom-[50px] w-screen h-full bg-light-3 dark:bg-dark-3 flex flex-col pt-[120px]'>
           <PiazzaScreenView isKeyboardOpen={isKeyboardOpen} userObj={userObj} multiple={multiple} handleMultiple={handleMultiple} messagesList={messagesList} handleMessagesList={handleMessagesList} />
         </div>
         :
-        <div className='fixed bottom-[110px] w-screen h-[65%] top-[150px] bg-light-3 dark:bg-dark-3 flex flex-col'>
+        <div className='fixed bottom-[110px] w-screen h-[60%] bg-light-3 dark:bg-dark-3 flex flex-col'>
           <PiazzaScreenView isKeyboardOpen={isKeyboardOpen} userObj={userObj} multiple={multiple} handleMultiple={handleMultiple} messagesList={messagesList} handleMessagesList={handleMessagesList} />
         </div>
       }

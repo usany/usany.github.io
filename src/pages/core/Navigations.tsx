@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useSelectors } from 'src/hooks/useSelectors';
 import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice';
+import { changePiazzaForm } from "src/stateSlices/piazzaFormSlice";
 
 interface Props {
   userObj: User | null
@@ -17,6 +18,7 @@ interface ThemeRootState {
 }
 function Navigations({ userObj }: Props) {
   const [backgroundColor, setBackgroundColor] = useState('#e2e8f0');
+  const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
   const theme = useSelector((state: ThemeRootState) => state.theme)
   const piazzaForm = useSelector((state) => state.piazzaForm.value)
   const bottomNavigation = useSelectors(state => state.bottomNavigation.value)
@@ -38,6 +40,28 @@ function Navigations({ userObj }: Props) {
       dispatch(changeBottomNavigation(2))
     }
   })
+  useEffect(() => {
+    const listener = () => {
+      const newState = window.screen.height - 300 > (window.visualViewport?.height || window.screen.height)
+      if (isKeyboardOpen !== newState) {
+        setIsKeyboardOpen(newState);
+        dispatch(changePiazzaForm(newState))
+      }
+    };
+    window.addEventListener('resize', listener)
+    if (typeof visualViewport !== 'undefined') {
+      window.visualViewport?.addEventListener('resize', listener);
+    }
+    visualViewport?.addEventListener('resize', listener)
+    if (typeof visualViewport !== 'undefined') {
+      visualViewport?.addEventListener('resize', listener);
+    }
+    return () => {
+      if (typeof visualViewport !== 'undefined') {
+        window.visualViewport?.removeEventListener('resize', listener);
+      }
+    };
+  }, [isKeyboardOpen]);
   const navigate = useNavigate()
   console.log(piazzaForm)
   return (

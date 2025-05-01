@@ -43,7 +43,6 @@ function Piazza({ userObj }: Props) {
     };
   }, [isKeyboardOpen]);
 
-  console.log(isKeyboardOpen)
   useEffect(() => {
     if (state?.multiple !== undefined) {
       setMultiple(state?.multiple)
@@ -51,21 +50,21 @@ function Piazza({ userObj }: Props) {
   }, [])
   // const { keyBoardOffset, windowHeight } = useKeyboardOffset();
   // console.log(keyBoardOffset, windowHeight);
-  window.addEventListener('resize', () => {
-    // For the rare legacy browsers that don't support it
-    if (!window.visualViewport) {
-      return
-    }
-    const height = window.visualViewport.height - 200
-  })
-  visualViewport.addEventListener('resize', () => {
-    // For the rare legacy browsers that don't support it
-    if (!window.visualViewport) {
-      return
-    }
-    const height = window.visualViewport.height - 200
-    console.log(window.visualViewport.height)
-  })
+  // For the rare legacy browsers that don't support it
+  // window.addEventListener('resize', () => {
+  //   if (!window.visualViewport) {
+  //     return
+  //   }
+  //   const height = window.visualViewport.height - 200
+  // })
+  // For the rare legacy browsers that don't support it
+  // visualViewport.addEventListener('resize', () => {
+  //   if (!window.visualViewport) {
+  //     return
+  //   }
+  //   const height = window.visualViewport.height - 200
+  //   console.log(window.visualViewport.height)
+  // })
 
   useEffect(() => {
     dispatch(changeBottomNavigation(5))
