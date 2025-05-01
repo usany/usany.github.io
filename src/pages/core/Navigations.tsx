@@ -63,12 +63,10 @@ function Navigations({ userObj }: Props) {
     };
   }, [isKeyboardOpen]);
   const navigate = useNavigate()
-  console.log(piazzaForm)
+
   return (
     <>
-      {piazzaForm ?
-        <div></div>
-        :
+      {!piazzaForm &&
         <div className='w-screen border-t z-50 fixed rounded-t bottom-0 start-0 end-0'>
           <BottomNavigation
             sx={{ bgcolor: alpha(backgroundColor, 0.8) }}
