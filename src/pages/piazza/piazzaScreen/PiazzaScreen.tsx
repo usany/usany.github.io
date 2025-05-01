@@ -271,7 +271,6 @@ function PiazzaScreen({
       // console.log(document.documentElement.offsetHeight);
       return
     } else {
-      console.log('scroll')
       setIsLoading(true)
     }
   }
@@ -285,15 +284,6 @@ function PiazzaScreen({
       {isKeyboardOpen ?
         <div className='fixed bottom-[50px] w-screen h-full top-[65px] bg-light-3 dark:bg-dark-3 flex flex-col'>
           <PiazzaScreenView isKeyboardOpen={isKeyboardOpen} userObj={userObj} multiple={multiple} handleMultiple={handleMultiple} messagesList={messagesList} handleMessagesList={handleMessagesList} />
-          {/* <PiazzaDialogs
-            multiple={multiple}
-            handleMultiple={handleMultiple}
-            user={user}
-            userObj={userObj}
-            handleMessagesList={handleMessagesList}
-            displayedName={displayedName}
-            initiateContinuing={() => setContinuing(null)}
-          /> */}
         </div>
         :
         <div className='fixed bottom-[110px] w-screen h-[65%] top-[150px] bg-light-3 dark:bg-dark-3 flex flex-col'>
