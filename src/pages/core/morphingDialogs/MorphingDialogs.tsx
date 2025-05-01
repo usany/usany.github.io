@@ -5,7 +5,7 @@ import {
 } from '@/components/ui/morphing-dialog'
 import { User } from 'firebase/auth'
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import { webSocket } from 'src/webSocket'
 import CardsViews from '../card/CardsViews'
 import Morphings from './Morphings'
@@ -154,7 +154,13 @@ const MorphingDialogs = ({ message, isOwner, userObj, num, points, round, increa
       webSocket.off(`sStopSupportingTrades${message.id}`, sStopSupportingTradesCallback)
     }
   })
-  console.log(location.pathname)
+  const [searchParams] = useSearchParams();
+  const id = searchParams.get("id");
+  // useEffect(() => {
+  //   if (!id) {
+
+  //   }
+  // })
   return (
     <MorphingDialog
       transition={{

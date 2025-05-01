@@ -20,7 +20,7 @@ import React, {
   useState,
 } from 'react'
 import { createPortal } from 'react-dom'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 
 export type MorphingDialogContextType = {
   isOpen: boolean
@@ -152,7 +152,8 @@ function MorphingDialogContent({
   const [lastFocusableElement, setLastFocusableElement] =
     useState<HTMLElement | null>(null)
   const navigate = useNavigate()
-
+  const [searchParams] = useSearchParams();
+  const id = searchParams.get("id");
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
@@ -209,6 +210,11 @@ function MorphingDialogContent({
     }
     drawerOpenFalse()
   })
+  useEffect(() => {
+    if (!id) {
+      setIsOpen(false)
+    }
+  }, [id])
 
   return (
     <motion.div
