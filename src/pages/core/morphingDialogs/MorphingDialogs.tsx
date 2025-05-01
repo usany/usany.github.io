@@ -27,7 +27,6 @@ const MorphingDialogs = ({ message, isOwner, userObj, num, points, round, increa
   })
   const [onTransfer, setOnTransfer] = useState(false)
   const toggleOnTransfer = () => setOnTransfer(!onTransfer)
-  // console.log(message)
   useEffect(() => {
     setConnectedUser({
       uid: message.connectedId,
@@ -155,7 +154,7 @@ const MorphingDialogs = ({ message, isOwner, userObj, num, points, round, increa
       webSocket.off(`sStopSupportingTrades${message.id}`, sStopSupportingTradesCallback)
     }
   })
-
+  console.log(location.pathname)
   return (
     <MorphingDialog
       transition={{
@@ -167,7 +166,7 @@ const MorphingDialogs = ({ message, isOwner, userObj, num, points, round, increa
         <Link
           key={message.id}
           // Moving to the product page
-          to={`/?id=${message.id}`}
+          to={`${location.pathname}?id=${message.id}`}
         >
           <CardsViews
             message={message}
