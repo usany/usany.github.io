@@ -158,7 +158,8 @@ function MorphingDialogContent({
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
         setIsOpen(false)
-        navigate(`${location.pathname}`, { replace: true })
+        // navigate(`${location.pathname}`, { replace: true })
+        navigate(-1)
       }
       if (event.key === 'Tab') {
         if (!firstFocusableElement || !lastFocusableElement) return
@@ -206,7 +207,8 @@ function MorphingDialogContent({
   useClickOutside(containerRef, () => {
     if (isOpen && !drawerOpen) {
       setIsOpen(false)
-      navigate(`${location.pathname}`, { replace: true })
+      // navigate(`${location.pathname}`, { replace: true })
+      navigate(-1)
     }
     drawerOpenFalse()
   })
