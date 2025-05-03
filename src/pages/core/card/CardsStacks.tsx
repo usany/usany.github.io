@@ -110,14 +110,14 @@ function CardsStacks({ userObj }: Props) {
           </div>
         ) : (
           <>
-            <div className="flex flex-wrap gap-1">
-              {/* <div className="grid grid-cols-6 col-span-2 justify-around gap-1"> */}
+            {/* <div className="flex flex-wrap gap-3"> */}
+            <div className="grid grid-cols-[repeat(auto-fill,minmax(180px,1fr))] col-span-2 justify-around gap-1">
               {messages.map((value) => {
                 const isOwner = value.creatorId === userObj.uid;
                 if (value.round !== 5) {
                   if (value.creatorId === userObj.uid) {
                     return (
-                      <div className='flex justify-center col-span-3'>
+                      <div className='flex justify-center'>
                         <ClickAwayListener
                           onClickAway={() => {
                             if (longPressCard === value.id) {

@@ -142,7 +142,11 @@ module.exports = {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
         rippling: 'rippling var(--duration) ease-out'
-      }
+      },
+      gridTemplateColumns: {
+        'auto-fill-100': 'repeat(auto-fill, minmax(0, 1fr))',
+        'auto-fit-100': 'repeat(auto-fit, minmax(0, 1fr))',
+      },
     }
   },
   plugins: [require("tailwindcss-animate")],
