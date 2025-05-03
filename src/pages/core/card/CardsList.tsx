@@ -30,7 +30,7 @@ const CardsList = ({ choose, messages, selectedValues, userObj }) => {
   }).filter((value) => value !== undefined)
   return (
     <div>
-      {chosenMessages.length ? <div className="flex flex-wrap p-3 gap-1">{chosenMessages}</div> : <div className='flex justify-center p-5'>비었습니다</div>}
+      {chosenMessages.length ? <div className="grid grid-cols-[repeat(auto-fit,minmax(180px,1fr))] place-items-center col-span-full">{chosenMessages}</div> : <div className='flex justify-center p-5'>비었습니다</div>}
       {/* <div className="flex flex-wrap justify-between p-3 gap-1">
         {chosenMessages.length ? chosenMessages : <div className='flex justify-center p-5'>비었습니다</div>}
         {messages.map((message, index) => {

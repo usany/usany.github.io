@@ -176,10 +176,11 @@ function Board({ userObj }: Props) {
                   />
                 </div>
               </div> */}
-            <SwipeableViews>
+            <CardsList choose={1} messages={messages} selectedValues={selectedValues} userObj={userObj} />
+            {/* <SwipeableViews>
               <CardsList choose={1} messages={messages} selectedValues={selectedValues} userObj={userObj} />
               <CardsList choose={2} messages={messages} selectedValues={selectedValues} userObj={userObj} />
-            </SwipeableViews>
+            </SwipeableViews> */}
           </div>
         </div>
         :
