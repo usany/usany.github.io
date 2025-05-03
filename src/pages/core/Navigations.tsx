@@ -67,7 +67,7 @@ function Navigations({ userObj }: Props) {
 
   return (
     <>
-      <div className='flex justify-center'>
+      <div className='fixed bottom-[50px]'>
         {window.screen.height}
       </div>
       {!piazzaForm &&
