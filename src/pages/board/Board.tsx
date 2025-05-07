@@ -184,13 +184,16 @@ function Board({ userObj }: Props) {
                   />
                 </div>
               </div> */}
-            <div className='w-[1000px]'>
-              <CardsList choose={1} messages={messages} selectedValues={selectedValues} userObj={userObj} />
-            </div>
-            {/* <SwipeableViews>
-              <CardsList choose={1} messages={messages} selectedValues={selectedValues} userObj={userObj} />
-              <CardsList choose={2} messages={messages} selectedValues={selectedValues} userObj={userObj} />
-            </SwipeableViews> */}
+            <SwipeableViews>
+              <div className='w-[1000px]'>
+                <CardsList choose={1} messages={messages} selectedValues={selectedValues} userObj={userObj} />
+              </div>
+              <div className='w-[1000px]'>
+                <CardsList choose={2} messages={messages} selectedValues={selectedValues} userObj={userObj} />
+              </div>
+              {/* <CardsList choose={1} messages={messages} selectedValues={selectedValues} userObj={userObj} />
+              <CardsList choose={2} messages={messages} selectedValues={selectedValues} userObj={userObj} /> */}
+            </SwipeableViews>
           </div>
         </div>
         :
