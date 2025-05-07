@@ -213,13 +213,11 @@ function Menu({ userObj }: Props) {
             </div>
           </div>
           <div className='flex justify-center'>
-            <div className='w-[1000px]'>
-              <AccordionContent className="text-sm">
-                <Suspense fallback={<Skeleton />}>
-                  <MessageStacks userObj={userObj} />
-                </Suspense>
-              </AccordionContent>
-            </div>
+            <AccordionContent className="text-sm max-w-[1000px]">
+              <Suspense fallback={<Skeleton />}>
+                <MessageStacks userObj={userObj} />
+              </Suspense>
+            </AccordionContent>
           </div>
         </AccordionItem>
       </Accordion>
