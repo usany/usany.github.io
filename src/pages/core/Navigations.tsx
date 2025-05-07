@@ -67,9 +67,9 @@ function Navigations({ userObj }: Props) {
 
   return (
     <>
-      <div className='fixed bottom-[50px]'>
+      {/* <div className='fixed bottom-[50px]'>
         {window.screen.height}
-      </div>
+      </div> */}
       {!piazzaForm &&
         <div className='w-screen border-t z-50 fixed rounded-t bottom-0 start-0 end-0'>
           <BottomNavigation
