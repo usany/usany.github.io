@@ -10,6 +10,7 @@ import Btn from 'src/buttons/Buttons'
 // import { useBottomNavigationStore } from 'src/store'
 import Divider from '@mui/material/Divider'
 import { User } from 'firebase/auth'
+import staticImg from 'src/assets/pwa-512x512.png'
 import { useSelectors } from 'src/hooks/useSelectors'
 import SpecificsActions from './SpecificsActions'
 import SpecificsDimensions from './SpecificsDimensions'
@@ -145,8 +146,6 @@ function Specifics({
     shadowColorArray[
     mergedArray.indexOf(String(id[0]).toUpperCase()) % shadowColorArray.length
     ]
-  // const { color } = useCardsBackground()
-
   return (
     <div className="truncate p-1">
       {userObj ? (
@@ -168,7 +167,7 @@ function Specifics({
                   width: 212,
                   height: 188
                 }}
-                image={"src/assets/pwa-512x512.png"}
+                image={staticImg}
               />
             </div>
             <SpecificsDimensions message={message} />
