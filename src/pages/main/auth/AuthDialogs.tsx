@@ -5,7 +5,7 @@ import AuthDialogsContent from "./AuthDialogsContent";
 import AuthDialogsTrigger from "./AuthDialogsTrigger";
 
 function AuthDialogs() {
-  const theme = useSelector((state) => state.theme);
+  const theme = useSelector((state) => state.theme.value);
   const languages = useSelectors((state) => state.languages.value)
   return (
     <>

@@ -52,6 +52,10 @@ function Board({ userObj }: Props) {
   ]);
   const [onMarker, setOnMarker] = useState(false);
   const [mapAccordion, setMapAccordion] = useState(false)
+  const [scroll, setScroll] = useState(null)
+  const changeScroll = (newState) => {
+    setScroll(newState)
+  }
   const mapAccordionToggle = () => setMapAccordion(!mapAccordion)
   const onMarkerTrue = () => setOnMarker(true);
   const onMarkerFalse = () => setOnMarker(false);
