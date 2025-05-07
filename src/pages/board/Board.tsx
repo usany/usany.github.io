@@ -166,7 +166,7 @@ function Board({ userObj }: Props) {
                 />
               </div>
             </div>
-            <div className='flex justify-center'>
+            <div className='truncate flex justify-center shadow-md'>
               <div className='w-[1000px]'>
                 <Popups trigger={
                   <BoardList />
