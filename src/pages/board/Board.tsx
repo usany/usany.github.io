@@ -174,7 +174,7 @@ function Board({ userObj }: Props) {
               </div>
             </div>
           </div>
-          <div className='flex justify-center'>
+          <>
             {/* <div className="rounded shadow-md flex p-3 sticky top-16 z-30 justify-between bg-light-2/50 dark:bg-dark-2/50">
                 <div className="truncate pt-1">{cardList[index]}</div>
                 <div className="truncate flex gap-1">
@@ -185,16 +185,12 @@ function Board({ userObj }: Props) {
                 </div>
               </div> */}
             <SwipeableViews>
-              <div className='w-[1000px]'>
-                <CardsList choose={1} messages={messages} selectedValues={selectedValues} userObj={userObj} />
-              </div>
-              <div className='w-[1000px]'>
-                <CardsList choose={2} messages={messages} selectedValues={selectedValues} userObj={userObj} />
-              </div>
+              <CardsList choose={1} messages={messages} selectedValues={selectedValues} userObj={userObj} />
+              <CardsList choose={2} messages={messages} selectedValues={selectedValues} userObj={userObj} />
               {/* <CardsList choose={1} messages={messages} selectedValues={selectedValues} userObj={userObj} />
               <CardsList choose={2} messages={messages} selectedValues={selectedValues} userObj={userObj} /> */}
             </SwipeableViews>
-          </div>
+          </>
         </div>
         :
         <LayoutBoard />
