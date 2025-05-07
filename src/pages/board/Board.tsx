@@ -153,18 +153,26 @@ function Board({ userObj }: Props) {
             <PageTitle title={`${languages === 'ko' ? '빌려주기 카드 목록' : 'Lending Card Board'}`} />
           </SwipeableViews>
           <div className='px-5'>
-            <BoardMap
-              mapAccordion={mapAccordion}
-              mapAccordionToggle={mapAccordionToggle}
-              onMarker={onMarker}
-              onMarkerTrue={onMarkerTrue}
-              onMarkerFalse={onMarkerFalse}
-              selectedValues={selectedValues}
-              handleSelectedValues={handleSelectedValues}
-            />
-            <Popups trigger={
-              <BoardList />
-            } title={<FilterDialogsTitle />} content={<FilterDialogsContent selectedValues={selectedValues} handleSelectedValues={handleSelectedValues} />} />
+            <div className='flex justify-center'>
+              <div className='w-[1000px]'>
+                <BoardMap
+                  mapAccordion={mapAccordion}
+                  mapAccordionToggle={mapAccordionToggle}
+                  onMarker={onMarker}
+                  onMarkerTrue={onMarkerTrue}
+                  onMarkerFalse={onMarkerFalse}
+                  selectedValues={selectedValues}
+                  handleSelectedValues={handleSelectedValues}
+                />
+              </div>
+            </div>
+            <div className='flex justify-center'>
+              <div className='w-[1000px]'>
+                <Popups trigger={
+                  <BoardList />
+                } title={<FilterDialogsTitle />} content={<FilterDialogsContent selectedValues={selectedValues} handleSelectedValues={handleSelectedValues} />} />
+              </div>
+            </div>
           </div>
           <div>
             {/* <div className="rounded shadow-md flex p-3 sticky top-16 z-30 justify-between bg-light-2/50 dark:bg-dark-2/50">
@@ -186,7 +194,7 @@ function Board({ userObj }: Props) {
         :
         <LayoutBoard />
       }
-    </div>
+    </div >
   );
 }
 
