@@ -153,7 +153,7 @@ function Menu({ userObj }: Props) {
       rootElement.removeEventListener("contextmenu", handleContextMenu);
     };
   }, []);
-  console.log(userObj)
+  // console.log(userObj)
   return (
     <div id="sample" className="flex justify-center flex-col pb-5">
       <PageTitle title={titles[index]} />
@@ -167,25 +167,31 @@ function Menu({ userObj }: Props) {
         // defaultValue={accordionValues}
         type="multiple"
       >
-        <AccordionItem value="item-1">
-          <div className='px-5'>
-            <button onClick={() => {
-              document.getElementById('cardAccordion')?.click()
-            }} className='rounded shadow-md px-3 flex sticky top-16 z-30 w-full items-center justify-between bg-light-2/50 dark:bg-dark-2/50'>
-              <div>{cards[index]}</div>
-              <AccordionTrigger id="cardAccordion" onClick={() => {
-                if (cardAccordion) {
-                  dispatch(cardOff())
-                } else {
-                  dispatch(cardOn())
-                }
-              }}>
-              </AccordionTrigger>
-            </button>
+        <AccordionItem className='border' value="item-1">
+          <div className='flex justify-center px-5'>
+            <div className='w-[1000px]'>
+              <button onClick={() => {
+                document.getElementById('cardAccordion')?.click()
+              }} className='rounded shadow-md px-3 flex sticky top-16 z-30 w-full items-center justify-between bg-light-2/50 dark:bg-dark-2/50'>
+                <div>{cards[index]}</div>
+                <AccordionTrigger id="cardAccordion" onClick={() => {
+                  if (cardAccordion) {
+                    dispatch(cardOff())
+                  } else {
+                    dispatch(cardOn())
+                  }
+                }}>
+                </AccordionTrigger>
+              </button>
+            </div>
           </div>
-          <AccordionContent className="text-sm">
-            <CardsStacks userObj={userObj} />
-          </AccordionContent>
+          <div className='flex justify-center'>
+            <div className='w-[1000px]'>
+              <AccordionContent className="text-sm">
+                <CardsStacks userObj={userObj} />
+              </AccordionContent>
+            </div>
+          </div>
         </AccordionItem>
         <AccordionItem value="item-2" className='px-5'>
           <button onClick={() => {
