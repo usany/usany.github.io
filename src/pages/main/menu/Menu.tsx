@@ -167,7 +167,7 @@ function Menu({ userObj }: Props) {
         // defaultValue={accordionValues}
         type="multiple"
       >
-        <AccordionItem className='border' value="item-1">
+        <AccordionItem value="item-1">
           <div className='flex justify-center px-5'>
             <div className='w-[1000px]'>
               <button onClick={() => {
@@ -194,25 +194,33 @@ function Menu({ userObj }: Props) {
           </div>
         </AccordionItem>
         <AccordionItem value="item-2" className='px-5'>
-          <button onClick={() => {
-            document.getElementById('messageAccordion')?.click()
-          }} className='rounded shadow-md px-3 flex sticky top-16 z-30 w-full items-center justify-between bg-light-2/50 dark:bg-dark-2/50'>
-            <div>{messages[index]}</div>
-            <AccordionTrigger id="messageAccordion" onClick={() => {
-              if (messageAccordion) {
-                dispatch(messageOff())
-              } else {
-                dispatch(messageOn())
-              }
-              // dispatch(changeMessageAccordion())
-            }}>
-            </AccordionTrigger>
-          </button>
-          <AccordionContent className="text-sm">
-            <Suspense fallback={<Skeleton />}>
-              <MessageStacks userObj={userObj} />
-            </Suspense>
-          </AccordionContent>
+          <div className='flex justify-center'>
+            <div className='w-[1000px]'>
+              <button onClick={() => {
+                document.getElementById('messageAccordion')?.click()
+              }} className='rounded shadow-md px-3 flex sticky top-16 z-30 w-full items-center justify-between bg-light-2/50 dark:bg-dark-2/50'>
+                <div>{messages[index]}</div>
+                <AccordionTrigger id="messageAccordion" onClick={() => {
+                  if (messageAccordion) {
+                    dispatch(messageOff())
+                  } else {
+                    dispatch(messageOn())
+                  }
+                  // dispatch(changeMessageAccordion())
+                }}>
+                </AccordionTrigger>
+              </button>
+            </div>
+          </div>
+          <div className='flex justify-center'>
+            <div className='w-[1000px]'>
+              <AccordionContent className="text-sm">
+                <Suspense fallback={<Skeleton />}>
+                  <MessageStacks userObj={userObj} />
+                </Suspense>
+              </AccordionContent>
+            </div>
+          </div>
         </AccordionItem>
       </Accordion>
       {/* <Avatar sx={{ bgcolor: blue[500] }} alt="Remy Sharp" src="./assets/groups.png" />
