@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import staticImage from "src/assets/blue.png"
 import { auth, dbservice } from 'src/baseApi/serverbase'
 import { Drawer, DrawerClose, DrawerContent, DrawerTrigger } from 'src/components/ui/drawer'
+import { useSelectors } from 'src/hooks/useSelectors'
 import { changeProfileColor } from 'src/stateSlices/profileColorSlice'
 import { changeProfileImage } from 'src/stateSlices/profileImageSlice'
 import { changeProfileUrl } from 'src/stateSlices/profileUrlSlice'
@@ -33,7 +34,7 @@ function Navigation({ userObj, sideNavigation, handleSideNavigation,
 }: Props) {
   const [backgroundColor, setBackgroundColor] = useState<string>('#e2e8f0')
   const [points, setPoints] = useState<number>(0)
-  const theme = useSelector((state) => state.theme)
+  const theme = useSelectors((state) => state.theme.value)
   const [userData, setUserData] = useState(null)
   const languages = useSelector((state) => state.languages.value)
   const profileColor = useSelector((state) => state.profileColor.value);
