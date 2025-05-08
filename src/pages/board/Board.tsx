@@ -52,10 +52,7 @@ function Board({ userObj }: Props) {
   ]);
   const [onMarker, setOnMarker] = useState(false);
   const [mapAccordion, setMapAccordion] = useState(false)
-  const [scroll, setScroll] = useState(null)
-  const changeScroll = (newState) => {
-    setScroll(newState)
-  }
+  const [messageLoaded, setMessageLoaded] = useState(false)
   const mapAccordionToggle = () => setMapAccordion(!mapAccordion)
   const onMarkerTrue = () => setOnMarker(true);
   const onMarkerFalse = () => setOnMarker(false);
@@ -96,6 +93,7 @@ function Board({ userObj }: Props) {
         newArray.push({ id: doc.id, ...doc.data() })
       })
       setMessages(newArray)
+      setMessageLoaded(true)
     }
     bringMessages()
   }, [selectedValues[2].value]);
@@ -189,8 +187,12 @@ function Board({ userObj }: Props) {
                 </div>
               </div> */}
             <SwipeableViews>
-              <CardsList choose={1} messages={messages} selectedValues={selectedValues} userObj={userObj} />
-              <CardsList choose={2} messages={messages} selectedValues={selectedValues} userObj={userObj} />
+              {messageLoaded &&
+                <>
+                  <CardsList choose={1} messages={messages} selectedValues={selectedValues} userObj={userObj} />
+                  <CardsList choose={2} messages={messages} selectedValues={selectedValues} userObj={userObj} />
+                </>
+              }
               {/* <CardsList choose={1} messages={messages} selectedValues={selectedValues} userObj={userObj} />
               <CardsList choose={2} messages={messages} selectedValues={selectedValues} userObj={userObj} /> */}
             </SwipeableViews>

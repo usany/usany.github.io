@@ -4,7 +4,6 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { Skeleton } from "@/components/ui/skeleton";
 import { User } from "firebase/auth";
 import {
   doc,
@@ -13,7 +12,7 @@ import {
 } from "firebase/firestore";
 import { getToken } from "firebase/messaging";
 import { getDownloadURL, ref, uploadString } from "firebase/storage";
-import { Suspense, useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   dbservice,
@@ -214,9 +213,10 @@ function Menu({ userObj }: Props) {
           </div>
           <div className='flex justify-center'>
             <AccordionContent className="text-sm max-w-[1000px]">
-              <Suspense fallback={<Skeleton />}>
+              <MessageStacks userObj={userObj} />
+              {/* <Suspense fallback={<Skeleton />}>
                 <MessageStacks userObj={userObj} />
-              </Suspense>
+              </Suspense> */}
             </AccordionContent>
           </div>
         </AccordionItem>
