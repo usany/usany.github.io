@@ -85,8 +85,8 @@ const CardView = ({ onTransfer, message, shadowColor }) => {
       }
       <Card
         sx={{
-          width: 200 * 0.8,
-          height: 280 * 0.8,
+          width: 200 * 0.9,
+          height: 280 * 0.9,
           boxShadow: `1.5px 1.5px 1.5px 1.5px ${shadowColor}`,
           bgcolor: color,
         }}
@@ -128,8 +128,8 @@ const CardView = ({ onTransfer, message, shadowColor }) => {
             <div className="flex justify-center pt-1">
               <CardMedia
                 sx={{
-                  width: 159 * 0.8,
-                  height: 141 * 0.8,
+                  width: 159 * 0.9,
+                  height: 141 * 0.9,
                 }}
                 image={staticImg}
               />
