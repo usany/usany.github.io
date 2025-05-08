@@ -55,8 +55,8 @@ const AddCards = ({
         <Card
           className='colorTwo'
           sx={{
-            width: 200,
-            height: 280,
+            width: 200 * 0.8,
+            height: 280 * 0.8,
             boxShadow: `1.9px 1.9px 1.9px 1.9px ${shadowColor}`,
           }}
         >

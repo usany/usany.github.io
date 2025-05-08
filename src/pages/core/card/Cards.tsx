@@ -77,7 +77,7 @@ const Cards = ({
     }
   }, [onLongPress]);
   return (
-    <div className="max-w-60 min-w-20 text-sm p-3" ref={cardsRef}>
+    <div className="max-w-60 min-w-20 text-sm p-1" ref={cardsRef}>
       {longPressed ? (
         <div className="flex scale-75">
           <ClickAwayListener

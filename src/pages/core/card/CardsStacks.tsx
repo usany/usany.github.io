@@ -112,7 +112,7 @@ function CardsStacks({ userObj }: Props) {
           ) : (
             <>
               {/* <div className="flex flex-wrap gap-3"> */}
-              <div className="grid grid-cols-[repeat(auto-fit,minmax(180px,1fr))] col-span-full">
+              <div className="grid grid-cols-[repeat(auto-fit,minmax(170px,1fr))] col-span-full">
                 {messages.map((value) => {
                   const isOwner = value.creatorId === userObj.uid;
                   if (value.round !== 5) {
