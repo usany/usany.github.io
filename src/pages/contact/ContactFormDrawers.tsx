@@ -90,7 +90,7 @@ function ContactFormDrawers({ violationUser, changeViolationUser }: Props) {
   const { color } = useCardsBackground()
 
   return (
-    <>
+    <div className='w-full'>
       {/* <Drawer>
         <DrawerTrigger className='w-screen' onClick={() => setUserSearch('')}>
           {violationUser ?
@@ -132,7 +132,7 @@ function ContactFormDrawers({ violationUser, changeViolationUser }: Props) {
       <Popups trigger={<ContactFormDrawersTrigger violationUser={violationUser} />} title={<ContactFormDrawersTitle />} content={<ContactFormDrawersContent changeViolationUser={changeViolationUser} />} />
       {violationUser && <Button sx={{ width: '25%' }} variant='outlined' onClick={() => changeViolationUser(null)}>{languages === 'ko' ? '신고 등록 취소' : 'Cancel reporting'}</Button>
       }
-    </>
+    </div>
   )
 }
 

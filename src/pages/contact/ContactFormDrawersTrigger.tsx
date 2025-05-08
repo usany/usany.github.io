@@ -88,7 +88,7 @@ function ContactFormDrawersTrigger({ violationUser, changeViolationUser }: Props
   const { color, colorTwo } = useCardsBackground()
 
   return (
-    <div className='w-full' onClick={() => setUserSearch('')}>
+    <div onClick={() => setUserSearch('')}>
       {violationUser ?
         <Card sx={{
           width: '100%',
@@ -106,7 +106,7 @@ function ContactFormDrawersTrigger({ violationUser, changeViolationUser }: Props
           </div>
         </Card>
         :
-        <div className='flex justify-center w-screen'>
+        <div className='flex justify-center'>
           <Button sx={{
             width: '50%', bgcolor: colorTwo, ":hover": {
               bgcolor: colorTwo
