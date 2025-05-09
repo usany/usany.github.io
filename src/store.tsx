@@ -15,6 +15,7 @@ import { createMachine } from 'xstate'
 import { languagesReducer } from './stateSlices/languagesSlice'
 import { piazza } from './stateSlices/piazza'
 import { piazzaFormReducer } from './stateSlices/piazzaFormSlice'
+import { profileReducer } from './stateSlices/profileSlice'
 import { weather } from './stateSlices/weather'
 
 const toggleMachine = createMachine({
@@ -42,6 +43,7 @@ export const store = configureStore({
     profileUrl: profileUrlReducer.reducer,
     profileColor: profileColorReducer.reducer,
     profileImage: profileImageReducer.reducer,
+    profile: profileReducer.reducer,
     cardAccordion: cardAccordionReducer.reducer,
     messageAccordion: messageAccordionReducer.reducer,
     piazzaSwitch: piazzaSwitchReducer.reducer,

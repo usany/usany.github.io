@@ -49,11 +49,12 @@ const ChatsBoxes = ({ chattingUid, userObj, profileUrl, displayName, multiple, c
     displayingUserName = displayName
   }
   const clockValue = clock.getFullYear().toString() + '-' + messageMonth + '-' + messageDate + ' ' + (languages === 'ko' ? messageAmpm : '') + ' ' + messageHours + ':' + (clock.getMinutes() < 10 ? '0' : '') + clock.getMinutes() + (languages === 'en' ? (messageAmpm === '오전' ? 'am' : 'pm') : '')
+  console.log(message)
   return (
     <div className='flex p-3'>
       {multiple ?
         <Avatar>
-          <AvatarImage src={multiple ? staticImage : profileUrl} />
+          <AvatarImage src={staticImage} />
           {/* <AvatarFallback>{multiple ? "CN" : displayName[0]}</AvatarFallback> */}
         </Avatar>
         :
@@ -61,7 +62,7 @@ const ChatsBoxes = ({ chattingUid, userObj, profileUrl, displayName, multiple, c
           uid={chattingUid}
           profile={false}
           profileColor={''}
-          profileUrl={profileUrl}
+          profileUrl={message}
         />
       }
       <div className='flex flex-col w-screen'>

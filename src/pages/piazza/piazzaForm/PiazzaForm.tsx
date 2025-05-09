@@ -27,6 +27,7 @@ function PiazzaForm({ userObj, multiple, messages, handleMessages, messagesList,
   const profileColor = useSelector(state => state.profileColor.value)
   const profileUrl = useSelector(state => state.profileUrl.value)
   const piazzaForm = useSelector((state) => state.piazzaForm.value)
+  const profile = useSelectors(state => state.profile.value)
   const dispatch = useDispatch()
   const { state } = useLocation()
   const conversation = state?.conversation
@@ -47,7 +48,7 @@ function PiazzaForm({ userObj, multiple, messages, handleMessages, messagesList,
       toUser = await getDoc(toUserRef)
       messagingToken = toUser.data()?.messagingToken
     }
-
+    const profileImageUrl = profile.profileImage ? profile.profileUrl : profile.defaultProfile
     const sendData = {
       msg: message,
       userUid: userUid,
@@ -58,7 +59,7 @@ function PiazzaForm({ userObj, multiple, messages, handleMessages, messagesList,
       conversation: conversation,
       conversationUid: state.chattingUid,
       conversationName: state.displayName,
-      profileUrl: profileUrl,
+      profileUrl: profileImageUrl,
       sendingToken: messagingToken,
     };
     if (multiple) {
@@ -93,6 +94,7 @@ function PiazzaForm({ userObj, multiple, messages, handleMessages, messagesList,
       const userName = userObj.displayName
       const messageClock = new Date().toString()
       const messageClockNumber = Date.now()
+      const profileImageUrl = profile.profileImage ? profile.profileUrl : profile.defaultProfile
       if (message) {
         await addDoc(collection(dbservice, 'chats_group'), {
           userUid: userUid,
@@ -100,7 +102,7 @@ function PiazzaForm({ userObj, multiple, messages, handleMessages, messagesList,
           message: message,
           messageClock: messageClock,
           messageClockNumber: messageClockNumber,
-          profileImageUrl: profileUrl,
+          profileImageUrl: profileImageUrl,
           profileColor: profileColor,
           piazzaChecked: [userObj.uid]
         })
@@ -118,6 +120,8 @@ function PiazzaForm({ userObj, multiple, messages, handleMessages, messagesList,
       const userName = userObj.displayName
       const messageClockNumber = Date.now()
       const messageClock = new Date().toString()
+      const profileImageUrl = profile.profileImage ? profile.profileUrl : profile.defaultProfile
+      const otherProfileUrl = state.profileImage ? state.profileUrl : state.defaultProfile
       let userOne
       let userTwo
       let userOneDisplayName
@@ -129,15 +133,15 @@ function PiazzaForm({ userObj, multiple, messages, handleMessages, messagesList,
         userTwo = state.chattingUid
         userOneDisplayName = userObj.displayName
         userTwoDisplayName = state.displayName
-        userOneProfileUrl = profileUrl
-        userTwoProfileUrl = state.profileUrl
+        userOneProfileUrl = profileImageUrl
+        userTwoProfileUrl = otherProfileUrl
       } else {
         userOne = state.chattingUid
         userTwo = state.userUid
         userOneDisplayName = state.displayName
         userTwoDisplayName = userObj.displayName
-        userOneProfileUrl = state.profileUrl
-        userTwoProfileUrl = profileUrl
+        userOneProfileUrl = otherProfileUrl
+        userTwoProfileUrl = profileImageUrl
       }
       if (!userOneProfileUrl) {
         const userRef = doc(dbservice, `members/${userOne}`)
