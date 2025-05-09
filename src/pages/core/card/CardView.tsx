@@ -134,7 +134,7 @@ const CardView = ({ onTransfer, message, shadowColor }) => {
                 image={staticImg}
               />
             </div>
-            <div className="flex flex-col pt-1 text-xs">
+            <div className="flex flex-col pt-1 gap-1 text-xs">
               <div className="flex gap-1">
                 <div className='flex items-center'>
                   <Building />
@@ -149,7 +149,7 @@ const CardView = ({ onTransfer, message, shadowColor }) => {
                 <div className='flex items-center'>
                   <Watch />
                 </div>
-                <div className="flex flex-col">
+                <div className="flex flex-col justify-center">
                   <div className="flex">
                     {languages === 'en' &&
                       <div className='w-[40px]'>From</div>
