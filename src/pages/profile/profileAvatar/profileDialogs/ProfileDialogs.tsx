@@ -68,7 +68,7 @@ const ProfileDialogs = ({ userObj, profileDialog, attachment, changeAttachment, 
       // deleteObject(storageRef).then(() => {
       // }).catch((error) => {
       // });
-      
+
       const docRef = doc(dbservice, `members/${userObj?.uid}`)
       // updateDoc(docRef, { profileImage: attachmentFile });
     }

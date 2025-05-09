@@ -74,21 +74,21 @@ const onSocialClick = (event) => {
       const userData = docSnap.data()
       if (!userData) {
         await setDoc(doc(dbservice, 'members', `${uid}`), {
-          uid: result.user.uid,
-          displayName: result.user.email,
-          points: 0,
-          profileImage: null,
-          profileImageUrl: null,
-          followers: [],
-          followings: [],
-          messagingToken: null,
-          ranking: docsLength,
-          createdCards: [],
-          connectedCards: [],
-          profileColor: "#2196f3",
-          followerNum: 0,
-          followingNum: 0,
-          locationConfirmed: false,
+          // uid: result.user.uid,
+          // displayName: result.user.email,
+          // points: 0,
+          // profileImage: null,
+          // profileImageUrl: null,
+          // followers: [],
+          // followings: [],
+          // messagingToken: null,
+          // ranking: docsLength,
+          // createdCards: [],
+          // connectedCards: [],
+          // profileColor: "#2196f3",
+          // followerNum: 0,
+          // followingNum: 0,
+          // locationConfirmed: false,
         })
         const user = doc(dbservice, `members/${uid}`);
         const storageRef = ref(storage, uid);

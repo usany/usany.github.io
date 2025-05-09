@@ -7,7 +7,8 @@ import {
   limit,
   orderBy,
   query,
-  startAfter
+  startAfter,
+  updateDoc
 } from "firebase/firestore";
 import {
   getDownloadURL,
@@ -40,6 +41,7 @@ function RankingLists({ userObj, userSearch }: Props) {
         limit(scrollNumber),
         startAfter(continuing ? continuing : "")
       );
+      console.log('practices')
       const docs = await getDocs(collectionQuery);
       const newArray = docs.docs.map((document, index) => {
         console.log(rank.indexOf(document));
@@ -58,6 +60,39 @@ function RankingLists({ userObj, userSearch }: Props) {
             ...document.data(),
           };
         }
+
+        const storageRef = ref(storage, document.data()?.uid);
+        const user = doc(dbservice, `members/${document.data()?.uid}`);
+        getDownloadURL(storageRef)
+          .then(async (url) => {
+            await updateDoc(user, { profileImageUrl: url });
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+        let profileImage
+        let profileColor
+        const profileImageNumber = Math.random()
+        const profileColorNumber = Math.random()
+        if (profileColorNumber < 1 / 3) {
+          profileColor = 'profileRed'
+        } else if (profileImageNumber < 2 / 3) {
+          profileColor = 'profileBlue'
+        } else {
+          profileColor = 'profileGold'
+        }
+        if (profileImageNumber < 0.5) {
+          profileImage = 'animal'
+        } else {
+          profileImage = 'plant'
+        }
+        const reference = ref(storage, `${profileImage}${profileColor}.png`);
+        console.log(reference)
+        getDownloadURL(reference).then((url) => {
+          console.log(url)
+          updateDoc(docRef, { profileImage: false, profileColor: profileColor, defaultProfile: url });
+        })
+        console.log('practice')
       });
       setRank([...rank, ...newArray]);
       if (ranker.length === 0) {

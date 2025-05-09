@@ -139,7 +139,7 @@ const CardView = ({ onTransfer, message, shadowColor }) => {
                 <div className='flex items-center'>
                   <Building />
                 </div>
-                <div>
+                <div className='flex items-center'>
                   {location}
                   {/* {message.text.count} {message.text.counter}{' '}
                   {message.text.counting !== '' && message.text.counting} */}
