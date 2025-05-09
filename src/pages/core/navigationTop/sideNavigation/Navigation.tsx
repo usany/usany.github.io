@@ -1,5 +1,5 @@
 import { User } from 'firebase/auth'
-import { doc, onSnapshot } from 'firebase/firestore'
+import { doc, DocumentData, onSnapshot } from 'firebase/firestore'
 import {
   DoorOpen,
   MessagesSquare,
@@ -9,7 +9,6 @@ import {
 } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import staticImage from "src/assets/blue.png"
 import { auth, dbservice } from 'src/baseApi/serverbase'
 import { Drawer, DrawerClose, DrawerContent, DrawerTrigger } from 'src/components/ui/drawer'
 import { useSelectors } from 'src/hooks/useSelectors'
@@ -23,13 +22,14 @@ import NavigationSignedIn from './navigationSignedIn/NavigationSignedIn'
 import NavigationSignedOut from './navigationSignedOut/NavigationSignedOut'
 
 interface Props {
+  user: DocumentData | undefined
   userObj: User | null
   sideNavigation: boolean
   handleSideNavigation: () => void
 }
 
 const onLogOutClick = () => auth.signOut()
-function Navigation({ userObj, sideNavigation, handleSideNavigation,
+function Navigation({ user, userObj, sideNavigation, handleSideNavigation,
   uid, profile, piazza
 }: Props) {
   const [backgroundColor, setBackgroundColor] = useState<string>('#e2e8f0')
@@ -69,12 +69,13 @@ function Navigation({ userObj, sideNavigation, handleSideNavigation,
       setBackgroundColor('#e2e8f0')
     }
   }, [theme])
-  const element = {
-    uid: userObj?.uid,
-    displayName: userObj?.displayName,
-    profileColor: profileColor,
-    userData: userData,
-  }
+  // const element = {
+  //   uid: userObj?.uid,
+  //   displayName: userObj?.displayName,
+  //   profileColor: profileColor,
+  //   userData: userData,
+  // }
+  const element = user
   const links = [
     {
       href: '/profile',
@@ -116,13 +117,22 @@ function Navigation({ userObj, sideNavigation, handleSideNavigation,
   return (
     <Drawer direction="left">
       <DrawerTrigger className='px-5'>
-        <Avatars
-          uid={userObj ? userObj.uid : ''}
-          profile={false}
-          profileColor={userObj ? profileColor : 'profile-blue'}
-          profileUrl={userObj ? profileUrl : staticImage}
-          piazza={() => null}
-        />
+        {user &&
+          <Avatars
+            user={user}
+            uid={user.uid}
+            piazza={null}
+            profile={false}
+            profileColor=""
+            profileUrl={user.profileImageUrl}
+            defaultProfileUrl={user.defaultProfile}
+          // uid={userObj ? userObj.uid : ''}
+          // profile={false}
+          // profileColor={userObj ? profileColor : 'profile-blue'}
+          // profileUrl={userObj ? profileUrl : staticImage}
+          // piazza={() => null}
+          />
+        }
       </DrawerTrigger>
       <DrawerContent className="border-none bg-light-2 dark:bg-dark-2 right-auto top-0 mt-0 w-[355px] overflow-hidden rounded-[10px]">
         <nav className="flex flex-col justify-between w-[350px]">

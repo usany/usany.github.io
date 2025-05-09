@@ -1,5 +1,5 @@
 import { User } from "firebase/auth";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, DocumentData, getDoc } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 import {
   useEffect,
@@ -29,6 +29,7 @@ const NavigationTop = ({ userObj }: Props) => {
   const profileColor = useSelector((state) => state.profileColor.value);
   const profileUrl = useSelector((state) => state.profileUrl.value);
   const [sideNavigation, setSideNavigation] = useState(false);
+  const [user, setUser] = useState<DocumentData | undefined>(undefined)
   const handleSideNavigation = () => {
     setSideNavigation(!sideNavigation);
   };
@@ -49,6 +50,8 @@ const NavigationTop = ({ userObj }: Props) => {
     const setProfile = async () => {
       const docRef = doc(dbservice, `members/${userObj?.uid}`);
       const docSnap = await getDoc(docRef);
+      const userData = docSnap.data()
+      setUser(userData)
       const userColor = docSnap.data()?.profileColor || "#2196f3";
       const userImage = docSnap.data()?.profileImageUrl || "null";
       // dispatch(changeProfileColor(userColor));
@@ -65,11 +68,12 @@ const NavigationTop = ({ userObj }: Props) => {
     };
     setProfile();
   }, [userObj]);
-
+  console.log(user)
   return (
     <div className="shadow-md fixed z-50 bg-light-2 dark:bg-dark-2 rounded truncate">
       <div className="flex justify-between w-screen">
         <Navigation
+          user={user}
           userObj={userObj}
           handleSideNavigation={handleSideNavigation}
           sideNavigation={sideNavigation}
