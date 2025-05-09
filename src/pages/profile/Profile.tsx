@@ -228,7 +228,7 @@ function Profile({ userObj }: Props) {
       }>위치 latitude:37.5682 longitude:126.9977</div> */}
       <ProfileAvatar
         userObj={userObj}
-        user={state?.element.userData || userObj}
+        user={state?.element || userObj}
         handleProfileDialog={() => setProfileDialog(true)}
         profileDialog={profileDialog}
         attachment={attachment}

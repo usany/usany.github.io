@@ -30,6 +30,7 @@ const ProfileAvatar = ({ userObj, user, handleProfileDialog, profileDialog, atta
   // console.log(user?.profileImageUrl)
   // console.log(userObj.uid)
   // console.log(user.uid)
+  console.log(user)
   if (userObj.uid === user.uid) {
     return (
       <div>
