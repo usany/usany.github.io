@@ -46,7 +46,7 @@ const Avatars = ({
   } else {
     defaultProfile = static05
   }
-  console.log(defaultProfile)
+  // console.log(defaultProfile)
 
   return (
     <div>

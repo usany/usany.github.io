@@ -75,7 +75,6 @@ function Navigation({ userObj, sideNavigation, handleSideNavigation,
     profileColor: profileColor,
     userData: userData,
   }
-  console.log(element)
   const links = [
     {
       href: '/profile',

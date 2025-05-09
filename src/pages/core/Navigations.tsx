@@ -40,7 +40,7 @@ function Navigations({ userObj }: Props) {
       dispatch(changeBottomNavigation(2))
     }
   })
-  console.log(window.visualViewport?.height)
+  // console.log(window.visualViewport?.height)
   useEffect(() => {
     const listener = () => {
       const newState = window.screen.height - window.screen.height > 1000 ? 500 : 300 > (window.visualViewport?.height || window.screen.height)

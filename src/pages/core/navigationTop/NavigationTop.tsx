@@ -44,8 +44,7 @@ const NavigationTop = ({ userObj }: Props) => {
   //         console.log(error);
   //       });
   //   }
-  // }, [userObj]);
-  console.log(profileUrl)
+  // }, [userObj])
   useEffect(() => {
     const setProfile = async () => {
       const docRef = doc(dbservice, `members/${userObj?.uid}`);

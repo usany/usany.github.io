@@ -7,17 +7,11 @@ import {
   limit,
   orderBy,
   query,
-  startAfter,
-  updateDoc
+  startAfter
 } from "firebase/firestore";
-import {
-  getDownloadURL,
-  ref
-} from "firebase/storage";
 import { useEffect, useState } from "react";
 import {
-  dbservice,
-  storage
+  dbservice
 } from "src/baseApi/serverbase";
 import Lists from "src/pages/search/searchList/searchListViews/Lists";
 
@@ -28,9 +22,9 @@ interface Props {
 function RankingLists({ userObj, userSearch }: Props) {
   const [rank, setRank] = useState([]);
   const [ranker, setRanker] = useState([]);
-  const [loadedImage, setLoadedImage] = useState([]);
   const [continuing, setContinuing] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [loadedImage, setLoadedImage] = useState([]);
   const [scroll, setScroll] = useState(false);
   const scrollNumber = 20;
   useEffect(() => {
@@ -41,18 +35,10 @@ function RankingLists({ userObj, userSearch }: Props) {
         limit(scrollNumber),
         startAfter(continuing ? continuing : "")
       );
-      console.log('practices')
+      // console.log('practices')
       const docs = await getDocs(collectionQuery);
       const newArray = docs.docs.map((document, index) => {
-        console.log(rank.indexOf(document));
         if (rank.indexOf(document) === -1) {
-          getDownloadURL(ref(storage, `${document.data()?.uid}`))
-            .then((url) => {
-              setLoadedImage([...loadedImage, { url: url, index: index }]);
-            })
-            .catch((error) => {
-              console.log(error);
-            });
           if (index + 1 === docs.docs.length) {
             setContinuing(document);
           }
@@ -61,48 +47,46 @@ function RankingLists({ userObj, userSearch }: Props) {
           };
         }
 
-        const storageRef = ref(storage, document.data()?.uid);
-        const user = doc(dbservice, `members/${document.data()?.uid}`);
-        getDownloadURL(storageRef)
-          .then(async (url) => {
-            await updateDoc(user, { profileImageUrl: url });
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-        let profileImage
-        let profileColor
-        const profileImageNumber = Math.random()
-        const profileColorNumber = Math.random()
-        if (profileColorNumber < 1 / 3) {
-          profileColor = 'profileRed'
-        } else if (profileImageNumber < 2 / 3) {
-          profileColor = 'profileBlue'
-        } else {
-          profileColor = 'profileGold'
-        }
-        if (profileImageNumber < 0.5) {
-          profileImage = 'animal'
-        } else {
-          profileImage = 'plant'
-        }
-        const reference = ref(storage, `${profileImage}${profileColor}.png`);
-        console.log(reference)
-        getDownloadURL(reference).then((url) => {
-          console.log(url)
-          updateDoc(docRef, { profileImage: false, profileColor: profileColor, defaultProfile: url });
-        })
-        console.log('practice')
+        // console.log(document.data()?.uid)
+        // const storageRef = ref(storage, document.data()?.uid);
+        // const user = doc(dbservice, `members/${document.data()?.uid}`);
+        // getDownloadURL(storageRef)
+        //   .then(async (url) => {
+        //     await updateDoc(user, { profileImageUrl: url });
+        //   })
+        //   .catch((error) => {
+        //     console.log(error);
+        //   });
+        // let profileImage
+        // let profileColor
+        // const profileImageNumber = Math.random()
+        // const profileColorNumber = Math.random()
+        // if (profileColorNumber < 1 / 3) {
+        //   profileColor = 'profileRed'
+        // } else if (profileColorNumber < 2 / 3) {
+        //   profileColor = 'profileBlue'
+        // } else {
+        //   profileColor = 'profileGold'
+        // }
+        // if (profileImageNumber < 0.5) {
+        //   profileImage = 'animal'
+        // } else {
+        //   profileImage = 'plant'
+        // }
+        // const reference = ref(storage, `${profileImage}${profileColor}.png`);
+        // getDownloadURL(reference).then((url) => {
+        //   updateDoc(user, { profileImage: false, profileColor: profileColor, defaultProfile: url });
+        // })
       });
       setRank([...rank, ...newArray]);
       if (ranker.length === 0) {
         const docRef = doc(dbservice, `members/${userObj.uid}`)
         const myDocSnap = await getDoc(docRef)
         const myDocSnapData = myDocSnap.data()
-        console.log(myDocSnapData)
+        // console.log(myDocSnapData)
         newArray.map((document, index) => {
           if (document.uid === userObj.uid) {
-            console.log(document?.ranking)
+            // console.log(document?.ranking)
             newArray[index].rank = index + 1;
           }
         });
@@ -121,13 +105,13 @@ function RankingLists({ userObj, userSearch }: Props) {
       const newArray = docs.docs.map((document, index) => {
         console.log(rank.indexOf(document));
         if (rank.indexOf(document) === -1) {
-          getDownloadURL(ref(storage, `${document.data()?.uid}`))
-            .then((url) => {
-              setLoadedImage([...loadedImage, { url: url, index: index }]);
-            })
-            .catch((error) => {
-              console.log(error);
-            });
+          // getDownloadURL(ref(storage, `${document.data()?.uid}`))
+          //   .then((url) => {
+          //     setLoadedImage([...loadedImage, { url: url, index: index }]);
+          //   })
+          //   .catch((error) => {
+          //     console.log(error);
+          //   });
           if (index + 1 === docs.docs.length) {
             setContinuing(document);
           }

@@ -17,7 +17,6 @@ function App() {
   const theme = useSelectors((state) => state.theme.value)
   const userObj = useUserObject()
   const { lightTheme, darkTheme } = useColors()
-  console.log(theme)
   return (
     <>
       <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>

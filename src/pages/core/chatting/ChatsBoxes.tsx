@@ -48,7 +48,7 @@ const ChatsBoxes = ({ chattingUid, userObj, profileUrl, displayName, multiple, c
   } else {
     displayingUserName = displayName
   }
-  const clockValue = clock.getFullYear().toString() + '-' + messageMonth + '-' + messageDate + ' ' + (languages === 'ko' ? messageAmpm : '') + ' ' + messageHours + ':' + (clock.getMinutes() < 10 ? '0' : '') + clock.getMinutes() + (languages === 'en' && (messageAmpm === '오전' ? 'am' : 'pm'))
+  const clockValue = clock.getFullYear().toString() + '-' + messageMonth + '-' + messageDate + ' ' + (languages === 'ko' ? messageAmpm : '') + ' ' + messageHours + ':' + (clock.getMinutes() < 10 ? '0' : '') + clock.getMinutes() + (languages === 'en' ? (messageAmpm === '오전' ? 'am' : 'pm') : '')
   return (
     <div className='flex p-3'>
       {multiple ?
@@ -74,7 +74,7 @@ const ChatsBoxes = ({ chattingUid, userObj, profileUrl, displayName, multiple, c
             </div>
           }
         </div>
-        <div className='flex  justify-between px-3'>
+        <div className='flex justify-between px-3'>
           <div>{message?.message}</div>
           <div>
             {message?.piazzaChecked && message?.piazzaChecked.indexOf(userObj.uid) === -1 &&
