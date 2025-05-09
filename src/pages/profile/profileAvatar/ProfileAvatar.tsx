@@ -37,7 +37,7 @@ const ProfileAvatar = ({ userObj, user, handleProfileDialog, profileDialog, atta
         <Popups
           trigger={<ProfileView userObj={userObj} user={user} attachment={attachment} changeAttachment={changeAttachment} />}
           title={'프로필 변경'}
-          content={<ProfileDialogs userObj={userObj} attachment={attachment} changeAttachment={changeAttachment} handleClose={handleClose} />}
+          content={<ProfileDialogs userObj={userObj} user={user} attachment={attachment} changeAttachment={changeAttachment} handleClose={handleClose} />}
           close={<ProfileClose userObj={userObj} attachment={attachment} changeAttachment={changeAttachment} handleClose={handleClose} />}
           attachment={attachment}
         />
@@ -48,10 +48,13 @@ const ProfileAvatar = ({ userObj, user, handleProfileDialog, profileDialog, atta
       <div className='flex justify-center'>
         {user?.profileImageUrl ? (
           <Avatars
+            user={user}
             uid={user.uid}
+            piazza={null}
             profile={true}
-            profileColor={user.profileColor}
-            profileUrl={user?.profileImageUrl}
+            profileColor=""
+            profileUrl={user.profileImageUrl}
+            defaultProfileUrl={user.defaultProfile}
           />
         ) : (
           <LoadingsSkeletons height={"[192px]"} width={"[192px]"} />

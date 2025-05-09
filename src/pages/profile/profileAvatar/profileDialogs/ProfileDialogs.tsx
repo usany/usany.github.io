@@ -26,7 +26,7 @@ const images = {
   'profileGold': [staticGold01, staticGold02],
   gold: [staticGold01, staticGold02],
 }
-const ProfileDialogs = ({ userObj, profileDialog, attachment, changeAttachment, handleClose }) => {
+const ProfileDialogs = ({ userObj, user, profileDialog, attachment, changeAttachment, handleClose }) => {
   // const [selectedColor, setSelectedColor] = useState('')
   const [attachmentFile, setAttachmentFile] = useState('null')
   const [onClear, setOnClear] = useState(false)
@@ -119,7 +119,15 @@ const ProfileDialogs = ({ userObj, profileDialog, attachment, changeAttachment, 
     <>
       <>
         <div className='flex flex-col items-center gap-5 p-5'>
-          <Avatars uid={userObj.uid} profile={true} profileColor={profileColor} profileUrl={attachment || profileUrl} piazza={null} />
+          <Avatars
+            user={user}
+            uid={user.uid}
+            piazza={null}
+            profile={true}
+            profileColor=""
+            profileUrl={user.profileImageUrl}
+            defaultProfileUrl={user.defaultProfile}
+          />
           {/* <Avatar alt={userObj.displayName} sx={{ fontSize:'100px', width: '200px', height: '200px', bgcolor: selectedColor }} src={attachmentFile || './src'} onClick={() => {
                     }} variant='rounded' /> */}
           <div className='flex-col px-5 content-center p-5'>

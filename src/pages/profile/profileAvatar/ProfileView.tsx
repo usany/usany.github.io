@@ -34,10 +34,13 @@ const ProfileView = ({ userObj, user, changeAttachment }) => {
         >
           {profileUrl ? (
             <Avatars
-              uid={userObj.uid}
+              user={user}
+              uid={user.uid}
+              piazza={null}
               profile={true}
-              profileColor={profileColor}
-              profileUrl={profileUrl}
+              profileColor=""
+              profileUrl={user.profileImageUrl}
+              defaultProfileUrl={user.defaultProfile}
             />
           ) : (
             <LoadingsSkeletons height={"[192px]"} width={"[192px]"} />
@@ -45,16 +48,19 @@ const ProfileView = ({ userObj, user, changeAttachment }) => {
         </Badge>
       ) : (
         <>
-          {/* {user?.profileImageUrl ? (
+          {user?.profileImageUrl ? (
             <Avatars
-              uid={userObj.uid}
+              user={user}
+              uid={user.uid}
+              piazza={null}
               profile={true}
-              profileColor={user.profileColor}
-              profileUrl={user?.profileImageUrl}
+              profileColor=""
+              profileUrl={user.profileImageUrl}
+              defaultProfileUrl={user.defaultProfile}
             />
           ) : (
             <LoadingsSkeletons height={"[192px]"} width={"[192px]"} />
-          )} */}
+          )}
         </>
       )}
     </div>

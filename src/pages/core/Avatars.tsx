@@ -1,5 +1,4 @@
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
-import { AvatarFallback } from "@radix-ui/react-avatar";
 import static01 from "src/assets/blue01.png";
 import static02 from "src/assets/blue02.png";
 import statics from "src/assets/blue03.png";
@@ -54,23 +53,23 @@ const Avatars = ({
         <Avatar
           className={`w-48 h-48 bg-${(profileColor || "#")[0] === "#" ? "profile-blue" : profileColor}`}
         >
-          <AvatarImage src={profileUrl} />
-          {!profileImage &&
+          <AvatarImage src={profileImage ? profileUrl : defaultProfile} />
+          {/* {!profileImage &&
             <AvatarFallback className="text-8xl border-none">
               <img className='h-full' src={defaultProfile} />
             </AvatarFallback>
-          }
+          } */}
         </Avatar>
       ) : (
         <Avatar
           onClick={piazza}
         >
-          <AvatarImage src={profileUrl} />
-          {!profileImage &&
+          <AvatarImage src={profileImage ? profileUrl : defaultProfile} />
+          {/* {!profileImage &&
             <AvatarFallback className="">
               <img className='h-full' src={defaultProfile} />
             </AvatarFallback>
-          }
+          } */}
         </Avatar>
       )}
     </div>
