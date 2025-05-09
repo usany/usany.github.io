@@ -66,7 +66,7 @@ const ChatsBoxes = ({ chattingUid, userObj, profileUrl, displayName, multiple, c
       <div className='flex flex-col w-screen'>
         <div className='flex justify-between'>
           <div className='truncate w-1/2 px-3 overflow-hidden'>{multiple ? `${languages === 'ko' ? '단체 대화' : 'Group Messaging'}` : displayingUserName}</div>
-          {clock.getFullYear() &&
+          {clock.getFullYear() && clock.getMonth() && clock.getDate() && clock.getHours() && clock.getMinutes() &&
             <div className='flex flex-col px-3'>
               <div className='truncate flex justify-end'>{clock.getFullYear()}-{messageMonth}-{messageDate} {languages === 'ko' && messageAmpm} {messageHours}:{clock.getMinutes() < 10 && '0'}{clock.getMinutes()}{languages === 'en' && (messageAmpm === '오전' ? 'am' : 'pm')}</div>
             </div>

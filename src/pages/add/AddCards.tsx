@@ -92,7 +92,7 @@ const AddCards = ({
                       }} image={staticImg} />
                     </div>
                   )}
-                  <div className="flex flex-col justify-center pt-1 text-xs">
+                  <div className="flex flex-col pt-1 gap-1 text-xs">
                     {locationState && (
                       <div className="flex gap-1">
                         {locationState?.locationOne &&
@@ -100,7 +100,7 @@ const AddCards = ({
                             <Building />
                           </div>
                         }
-                        <div>
+                        <div className='flex items-center'>
                           {languages === 'ko' ? locationState?.locationOne : locationsBuildings['en'][locationsBuildings['ko'].indexOf(locationState?.locationOne)]}
                           {' '}
                           {languages === 'ko' ? locationState?.locationTwo : (locationState?.locationOne && locationsCollection['en'][Object.keys(locationsCollectionLetters).find((key) => locationsCollectionLetters[key] === locationState?.locationOne)][locationsCollection['ko'][Object.keys(locationsCollectionLetters).find((key) => locationsCollectionLetters[key] === locationState?.locationOne)].indexOf(locationState?.locationTwo)])}
@@ -112,9 +112,11 @@ const AddCards = ({
                     {fromTo.from && (
                       <div className="flex gap-1">
                         <Watch />
-                        <div className='flex flex-col'>
+                        <div className='flex flex-col justify-center'>
                           <div className='flex'>
-                            {languages === 'en' && 'From '}
+                            <div className='w-[40px]'>
+                              {languages === 'en' && 'From '}
+                            </div>
                             {fromTo.from.year}.{fromTo.from.month < 10 && '0'}
                             {fromTo.from.month}.{fromTo.from.day < 10 && '0'}
                             {fromTo.from.day} {fromTo.from.hour < 10 && '0'}
@@ -123,7 +125,9 @@ const AddCards = ({
                           </div>
                           {fromTo.to && (
                             <div className="flex">
-                              {languages === 'en' && 'To '}
+                              <div className='w-[40px]'>
+                                {languages === 'en' && 'To '}
+                              </div>
                               {fromTo.to.year}.{fromTo.to.month < 10 && '0'}
                               {fromTo.to.month}.{fromTo.from.day < 10 && '0'}
                               {fromTo.to.day} {fromTo.to.hour < 10 && '0'}
