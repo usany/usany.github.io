@@ -62,6 +62,7 @@ function Lists({
                 const profileUrl = element?.profile
                   ? element?.profileImageUrl
                   : element?.defaultProfile
+                console.log(element)
                 return (
                   <div key={index} className="px-1 pt-3">
                     <Link
@@ -84,13 +85,12 @@ function Lists({
                         )}
                         <div className="flex gap-1">
                           <Avatars
-                            user={element}
-                            uid={element.uid}
+                            element={element}
                             piazza={null}
                             profile={false}
-                            profileColor=""
-                            profileUrl={element.profileImageUrl}
-                            defaultProfileUrl={element.defaultProfile}
+                          // profileColor=""
+                          // profileUrl={element.profileImageUrl}
+                          // defaultProfileUrl={element.defaultProfile}
                           />
                           {/* <Avatar
                             className={`bg-${profileColor?.indexOf("#") === -1 ? element?.profileColor : "profile-blue"}`}

@@ -113,14 +113,13 @@ function Navigation({ user, userObj, sideNavigation, handleSideNavigation,
       onClick: () => logOut(),
     },
   ]
-  console.log()
   return (
     <Drawer direction="left">
       <DrawerTrigger className='px-5'>
         {user &&
           <Avatars
-            user={user}
-            uid={user.uid}
+            element={user}
+            // uid={user.uid}
             piazza={null}
             profile={false}
             profileColor=""

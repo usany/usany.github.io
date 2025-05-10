@@ -67,9 +67,9 @@ function Menu({ userObj }: Props) {
       const userProfileImage = docSnap.data()?.profileImage || false;
       const userDefaultProfile = docSnap.data()?.defaultProfile || 'null';
       dispatch(changeProfileColor(userColor));
-      console.log(userProfileImage)
-      console.log(userImage)
-      console.log(userDefaultProfile)
+      // console.log(userProfileImage)
+      // console.log(userImage)
+      // console.log(userDefaultProfile)
       if (userProfileImage) {
         dispatch(changeProfileUrl(userImage));
       } else {

@@ -120,13 +120,9 @@ const ProfileDialogs = ({ userObj, user, profileDialog, attachment, changeAttach
       <>
         <div className='flex flex-col items-center gap-5 p-5'>
           <Avatars
-            user={user}
-            uid={user.uid}
+            element={user}
             piazza={null}
             profile={true}
-            profileColor=""
-            profileUrl={user.profileImageUrl}
-            defaultProfileUrl={user.defaultProfile}
           />
           {/* <Avatar alt={userObj.displayName} sx={{ fontSize:'100px', width: '200px', height: '200px', bgcolor: selectedColor }} src={attachmentFile || './src'} onClick={() => {
                     }} variant='rounded' /> */}
@@ -144,12 +140,6 @@ const ProfileDialogs = ({ userObj, user, profileDialog, attachment, changeAttach
       <div className='flex flex-col gap-1'>
         <div className='flex justify-center'>캐릭터 배경으로 저장하면 업로드 파일이 삭제됩니다.</div>
         <div className='flex justify-center gap-5'>
-          {/* <div onClick={() => {
-            changeAttachment(selectedImages[0])
-          }}>
-            <Avatars uid='' profile={false} profileColor={selectedColor} profileUrl={images[selectedColor || 'gold'][0]} piazza={null} />
-          </div>
-          <Avatars uid='' profile={false} profileColor={selectedColor} profileUrl={images[selectedColor || 'gold'][1]} piazza={null} /> */}
           {selectedImages.map((value, index) => {
             return (
               <div onClick={() => {
@@ -177,7 +167,7 @@ const ProfileDialogs = ({ userObj, user, profileDialog, attachment, changeAttach
                 dispatch(changeProfileImage(index ? 'plant' : 'animal'))
                 changeAttachment(value)
               }}>
-                <Avatars uid='' profile={false} profileColor={''} profileUrl={value} piazza={null} />
+                <Avatars element={{ profileImage: true, defaultProfile: value, profileImageUrl: value }} uid='' profile={false} profileColor={''} profileUrl={value} piazza={null} />
               </div>
             )
           })}

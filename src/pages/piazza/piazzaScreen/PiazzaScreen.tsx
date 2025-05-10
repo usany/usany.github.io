@@ -1,19 +1,4 @@
 import { User } from 'firebase/auth'
-import {
-  collection,
-  doc,
-  getDoc,
-  getDocs,
-  limit,
-  orderBy,
-  query,
-  startAfter,
-  updateDoc,
-} from 'firebase/firestore'
-import { useEffect, useRef, useState } from 'react'
-import { useSelector } from 'react-redux'
-import { useLocation } from 'react-router-dom'
-import { dbservice } from 'src/baseApi/serverbase'
 import PiazzaScreenView from './PiazzaScreenView'
 
 interface Props {
@@ -33,197 +18,16 @@ function PiazzaScreen({
   messagesList,
   handleMessagesList,
 }: Props) {
-  const messagesEndRef = useRef(null)
-  const boxRef = useRef(null)
-  // const [user, setUser] = useState(null)
-  // const [displayedName, setDisplayedName] = useState('')
-  // const [continueNumber, setContinueNumber] = useState(0)
-  const [isLoading, setIsLoading] = useState(false)
-  const [continuing, setContinuing] = useState(null)
-  const profileColor = useSelector((state) => state.profileColor.value)
-  const profileUrl = useSelector((state) => state.profileUrl.value)
-  const { state } = useLocation()
-  const conversation = state?.conversation
-  // const languages = useSelectors((state) => state.languages.value)
-  // const onPrivate = async ({ userUid, displayName }) => {
-  //   const userRef = doc(dbservice, `members/${userUid}`)
-  //   const userDoc = await getDoc(userRef)
-  //   const userElement = userDoc.data()
-  //   setUser(userElement)
-  //   setDisplayedName(displayName)
-  // }
-  // const onDrawer = ({ userUid, displayName }) => {
-  //   document.getElementById('drawer')?.click()
-  //   onPrivate({ userUid: userUid, displayName: displayName })
-  // }
-  const scrollNumber = 20
-  useEffect(() => {
-    document.documentElement.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: 'instant', // Optional if you want to skip the scrolling animation
-    })
-  }, [])
-
-  useEffect(() => {
-    scrollToBottom()
-    // if (!continuing) {
-    // }
-
-    const checkMessage = async () => {
-      if (multiple) {
-        const piazzaRef = collection(dbservice, 'chats_group')
-        const piazzaCollection = query(
-          piazzaRef,
-          orderBy('messageClockNumber', 'desc'),
-          limit(1),
-        )
-        const piazzaMessages = await getDocs(piazzaCollection)
-        piazzaMessages.forEach(async (document) => {
-          const myDocRef = doc(dbservice, `chats_group/${document.id}`)
-          const myDocSnap = await getDoc(myDocRef)
-          const myChattings = myDocSnap.data()
-          const piazzaCheckedList = myChattings.piazzaChecked || []
-          if (piazzaCheckedList.indexOf(userObj.uid) === -1) {
-            piazzaCheckedList.splice(-1, userObj.uid, 0)
-            piazzaCheckedList.push(userObj.uid)
-            await updateDoc(myDocRef, {
-              ...myChattings,
-              piazzaChecked: piazzaCheckedList,
-            })
-          }
-        })
-      } else {
-        const myDocRef = doc(dbservice, `members/${userObj.uid}`)
-        const myDocSnap = await getDoc(myDocRef)
-        const myChattings = myDocSnap.data().chattings
-        myChattings[conversation].messageCount = 0
-        await updateDoc(myDocRef, {
-          chattings: myChattings,
-        })
-      }
-    }
-    checkMessage()
-  }, [messagesList])
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView()
-  }
-  useEffect(() => {
-    const messageList = async () => {
-      const messagesArray = []
-      const messageRef = collection(dbservice, 'chats_group')
-      const messagesCollection = query(
-        messageRef,
-        orderBy('messageClockNumber', 'desc'),
-        limit(scrollNumber),
-        startAfter(continuing ? continuing : ''),
-      )
-      const messages = await getDocs(messagesCollection)
-      // if (!messages.docs.length) {
-      //   setContinueNumber(messages.docs.length)
-      // }
-      messages.forEach((document) => {
-        if (messagesArray.length === messages.docs.length - 1) {
-          setContinuing(document)
-          // setContinueNumber(messages.docs.length - 1)
-        }
-        const message = document.data().message
-        const userUid = document.data().userUid
-        const userName = document.data().userName
-        const messageClock = document.data().messageClock
-        const messageClockNumber = document.data().messageClockNumber
-        const profileColor = document.data()?.profileColor
-        const profileImageUrl = document.data()?.profileImageUrl
-        messagesArray.push({
-          msg: message,
-          type: 'me',
-          userUid: userUid,
-          id: userName,
-          messageClockNumber: messageClockNumber,
-          messageClock: messageClock,
-          conversation: null,
-          profileColor: profileColor,
-          profileImageUrl: profileImageUrl,
-        })
-      })
-      messagesArray.reverse()
-      handleMessagesList([...messagesArray, ...messagesList])
-      setIsLoading(false)
-    }
-    const messageListMembers = async (conversation) => {
-      const messageRef = collection(dbservice, `chats_${conversation}`)
-      const messagesCollection = query(
-        messageRef,
-        orderBy('messageClockNumber', 'desc'),
-        limit(scrollNumber),
-        startAfter(continuing ? continuing : ''),
-      )
-      const messages = await getDocs(messagesCollection)
-      const messagesArray = []
-      // if (!messages.docs.length) {
-      //   setContinueNumber(messages.docs.length)
-      // }
-      messages.forEach((doc, index) => {
-        if (messagesArray.length === messages.docs.length - 1) {
-          setContinuing(doc)
-          // setContinueNumber(messages.docs.length - 1)
-        }
-        const message = doc.data().message
-        const userUid = doc.data().userUid
-        const userName = doc.data().userName
-        const messageClock = doc.data().messageClock
-        const messageClockNumber = doc.data().messageClockNumber || 0
-        messagesArray.push({
-          msg: message,
-          type: 'me',
-          userUid: userUid,
-          id: userName,
-          messageClock: messageClock,
-          messageClockNumber: messageClockNumber,
-        })
-      })
-      messagesArray.reverse()
-      handleMessagesList([...messagesArray, ...messagesList])
-      setIsLoading(false)
-    }
-    if (!conversation) {
-      if (isLoading || !messagesList.length) {
-        messageList()
-      }
-    } else {
-      if (isLoading || !messagesList.length) {
-        messageListMembers(conversation)
-      }
-    }
-  }, [isLoading, conversation])
-  // console.log(isLoading)
-  const handleScroll = () => {
-    if (
-      // boxRef.current.getBoundingClientRect().height + Math.round(boxRef.current.scrollTop) !==
-      // boxRef.current.offsetHeight ||
-      boxRef.current.scrollTop !== 0 ||
-      isLoading
-    ) {
-      // console.log(document.documentElement.offsetHeight);
-      return
-    } else {
-      setIsLoading(true)
-    }
-  }
-  useEffect(() => {
-    boxRef.current?.addEventListener('scroll', handleScroll)
-    return () => boxRef.current?.removeEventListener('scroll', handleScroll)
-  }, [isLoading])
 
   return (
     <>
       {isKeyboardOpen ?
         <div className='fixed bottom-[50px] w-screen h-full bg-light-3 dark:bg-dark-3 flex flex-col pt-[120px]'>
-          <PiazzaScreenView isKeyboardOpen={isKeyboardOpen} userObj={userObj} multiple={multiple} handleMultiple={handleMultiple} messagesList={messagesList} handleMessagesList={handleMessagesList} />
+          <PiazzaScreenView userObj={userObj} multiple={multiple} handleMultiple={handleMultiple} messagesList={messagesList} handleMessagesList={handleMessagesList} />
         </div>
         :
         <div className='fixed bottom-[110px] w-screen h-[60%] bg-light-3 dark:bg-dark-3 flex flex-col'>
-          <PiazzaScreenView isKeyboardOpen={isKeyboardOpen} userObj={userObj} multiple={multiple} handleMultiple={handleMultiple} messagesList={messagesList} handleMessagesList={handleMessagesList} />
+          <PiazzaScreenView userObj={userObj} multiple={multiple} handleMultiple={handleMultiple} messagesList={messagesList} handleMessagesList={handleMessagesList} />
         </div>
       }
     </>

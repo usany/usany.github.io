@@ -34,13 +34,13 @@ const ProfileView = ({ userObj, user, changeAttachment }) => {
         >
           {profileUrl ? (
             <Avatars
-              user={user}
-              uid={user.uid}
+              element={user}
               piazza={null}
               profile={true}
-              profileColor=""
-              profileUrl={user.profileImageUrl}
-              defaultProfileUrl={user.defaultProfile}
+            // uid={user.uid}
+            // profileColor=""
+            // profileUrl={user.profileImageUrl}
+            // defaultProfileUrl={user.defaultProfile}
             />
           ) : (
             <LoadingsSkeletons height={"[192px]"} width={"[192px]"} />
@@ -50,13 +50,13 @@ const ProfileView = ({ userObj, user, changeAttachment }) => {
         <>
           {user?.profileImageUrl ? (
             <Avatars
-              user={user}
-              uid={user.uid}
+              element={user}
               piazza={null}
               profile={true}
-              profileColor=""
-              profileUrl={user.profileImageUrl}
-              defaultProfileUrl={user.defaultProfile}
+            // uid={user.uid}
+            // profileColor=""
+            // profileUrl={user.profileImageUrl}
+            // defaultProfileUrl={user.defaultProfile}
             />
           ) : (
             <LoadingsSkeletons height={"[192px]"} width={"[192px]"} />

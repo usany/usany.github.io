@@ -95,6 +95,7 @@ function PiazzaForm({ userObj, multiple, messages, handleMessages, messagesList,
       const messageClock = new Date().toString()
       const messageClockNumber = Date.now()
       const profileImageUrl = profile.profileImage ? profile.profileUrl : profile.defaultProfile
+      const profileImage = profile.profileImage
       if (message) {
         await addDoc(collection(dbservice, 'chats_group'), {
           userUid: userUid,
@@ -104,9 +105,15 @@ function PiazzaForm({ userObj, multiple, messages, handleMessages, messagesList,
           messageClockNumber: messageClockNumber,
           profileImageUrl: profileImageUrl,
           profileColor: profileColor,
-          piazzaChecked: [userObj.uid]
+          piazzaChecked: [userObj.uid],
+          profileImage: profileImage
         })
-        handleMessagesList((prev) => [...prev, { msg: message, type: "me", userUid: userObj.uid, id: userObj.displayName, messageClock: messageClock, conversation: null, profileImageUrl: profileUrl, profileColor: profileColor }]);
+        handleMessagesList((prev) => [...prev, {
+          msg: message, type: "me", userUid: userObj.uid, id: userObj.displayName, messageClock: messageClock, conversation: null, profileImageUrl: profileUrl, profileColor: profileColor,
+          messageClockNumber: messageClockNumber,
+          profileImageUrl: profileImageUrl,
+          profileImage: profileImage || false,
+        }]);
       }
     } catch (error) {
       console.log(error)
@@ -128,6 +135,8 @@ function PiazzaForm({ userObj, multiple, messages, handleMessages, messagesList,
       let userTwoDisplayName
       let userOneProfileUrl
       let userTwoProfileUrl
+      let userOneProfileImage
+      let userTwoProfileImage
       if (state.userUid < state.chattingUid) {
         userOne = state.userUid
         userTwo = state.chattingUid
@@ -135,6 +144,8 @@ function PiazzaForm({ userObj, multiple, messages, handleMessages, messagesList,
         userTwoDisplayName = state.displayName
         userOneProfileUrl = profileImageUrl
         userTwoProfileUrl = otherProfileUrl
+        userOneProfileImage = profile.profileImage
+        userTwoProfileImage = state.profileImage
       } else {
         userOne = state.chattingUid
         userTwo = state.userUid
@@ -142,6 +153,8 @@ function PiazzaForm({ userObj, multiple, messages, handleMessages, messagesList,
         userTwoDisplayName = userObj.displayName
         userOneProfileUrl = otherProfileUrl
         userTwoProfileUrl = profileImageUrl
+        userOneProfileImage = state.profileImage
+        userTwoProfileImage = profile.profileImage
       }
       if (!userOneProfileUrl) {
         const userRef = doc(dbservice, `members/${userOne}`)
@@ -167,7 +180,9 @@ function PiazzaForm({ userObj, multiple, messages, handleMessages, messagesList,
           userOneDisplayName: userOneDisplayName,
           userTwoDisplayName: userTwoDisplayName,
           userOneProfileUrl: userOneProfileUrl,
-          userTwoProfileUrl: userTwoProfileUrl
+          userTwoProfileUrl: userTwoProfileUrl,
+          userOneProfileImage: userOneProfileImage,
+          userTwoProfileImage: userTwoProfileImage
         }
 
         await addDoc(collection(dbservice, `chats_${conversation}`), messageObj)

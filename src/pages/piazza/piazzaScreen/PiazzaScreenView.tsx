@@ -84,6 +84,7 @@ function PiazzaScreenView({
           conversation: null,
           profileImageUrl: profileUrl,
           profileColor: profileColor,
+          profileImage: profileImage
         },
       ])
     }
@@ -103,6 +104,7 @@ function PiazzaScreenView({
         messageClock,
         messageClockNumber,
         conversation,
+        piazzaData
       } = message
       handleMessagesList((prev) => [
         ...prev,
@@ -114,6 +116,7 @@ function PiazzaScreenView({
           messageClock: messageClock,
           messageClockNumber: messageClockNumber,
           conversation: null,
+          ...piazzaData
         },
       ])
     }
@@ -199,6 +202,8 @@ function PiazzaScreenView({
         const messageClockNumber = document.data().messageClockNumber
         const profileColor = document.data()?.profileColor
         const profileImageUrl = document.data()?.profileImageUrl
+        const profileImage = document.data()?.profileImage
+        const piazzaData = document.data()
         messagesArray.push({
           msg: message,
           type: 'me',
@@ -209,6 +214,8 @@ function PiazzaScreenView({
           conversation: null,
           profileColor: profileColor,
           profileImageUrl: profileImageUrl,
+          profileImage: profileImage || false,
+          ...piazzaData
         })
       })
       messagesArray.reverse()
@@ -238,6 +245,7 @@ function PiazzaScreenView({
         const userName = doc.data().userName
         const messageClock = doc.data().messageClock
         const messageClockNumber = doc.data().messageClockNumber || 0
+        const piazzaData = doc.data()
         messagesArray.push({
           msg: message,
           type: 'me',
@@ -245,6 +253,7 @@ function PiazzaScreenView({
           id: userName,
           messageClock: messageClock,
           messageClockNumber: messageClockNumber,
+          ...piazzaData
         })
       })
       messagesArray.reverse()
@@ -280,7 +289,6 @@ function PiazzaScreenView({
     boxRef.current?.addEventListener('scroll', handleScroll)
     return () => boxRef.current?.removeEventListener('scroll', handleScroll)
   }, [isLoading])
-
   return (
     <>
       <>
@@ -343,7 +351,7 @@ function PiazzaScreenView({
               if (messageDate.length === 1) {
                 messageDate = '0' + messageDate
               }
-
+              console.log(value.profileImageUrl)
               return (
                 <li
                   key={index}
@@ -360,16 +368,28 @@ function PiazzaScreenView({
                             <Popups
                               trigger={
                                 <Avatars
-                                  uid={userObj.uid}
-                                  profile={false}
-                                  profileColor=""
-                                  profileUrl={value?.profileImageUrl}
+                                  element={value}
+                                  // uid={userObj.uid}
                                   piazza={() =>
                                     onDrawer({
                                       userUid: value.userUid,
                                       displayName: value.id,
                                     })
                                   }
+                                  profile={false}
+                                  profileColor=""
+                                  profileUrl={value.profileImageUrl}
+                                  defaultProfileUrl={value.profileImageUrl}
+                                // uid={userObj.uid}
+                                // profile={false}
+                                // profileColor=""
+                                // profileUrl={value?.profileImageUrl}
+                                // piazza={() =>
+                                //   onDrawer({
+                                //     userUid: value.userUid,
+                                //     displayName: value.id,
+                                //   })
+                                // }
                                 />
                               }
                               title={<SpecificsTradesTitle />}
@@ -410,16 +430,18 @@ function PiazzaScreenView({
                             <Popups
                               trigger={
                                 <Avatars
-                                  uid={userObj.uid}
-                                  profile={false}
-                                  profileColor=""
-                                  profileUrl={value?.profileImageUrl}
+                                  element={value}
+                                  // uid={userObj.uid}
                                   piazza={() =>
                                     onDrawer({
                                       userUid: value.userUid,
                                       displayName: value.id,
                                     })
                                   }
+                                  profile={false}
+                                  profileColor=""
+                                  profileUrl={value.profileImageUrl}
+                                  defaultProfileUrl={value.defaultProfile}
                                 />
                               }
                               title={<SpecificsTradesTitle />}

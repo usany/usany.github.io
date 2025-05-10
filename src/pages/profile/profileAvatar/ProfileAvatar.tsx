@@ -48,13 +48,13 @@ const ProfileAvatar = ({ userObj, user, handleProfileDialog, profileDialog, atta
       <div className='flex justify-center'>
         {user?.profileImageUrl ? (
           <Avatars
-            user={user}
-            uid={user.uid}
+            element={user}
             piazza={null}
             profile={true}
-            profileColor=""
-            profileUrl={user.profileImageUrl}
-            defaultProfileUrl={user.defaultProfile}
+          // uid={user.uid}
+          // profileColor=""
+          // profileUrl={user.profileImageUrl}
+          // defaultProfileUrl={user.defaultProfile}
           />
         ) : (
           <LoadingsSkeletons height={"[192px]"} width={"[192px]"} />
