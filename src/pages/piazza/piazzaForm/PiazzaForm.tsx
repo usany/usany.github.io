@@ -88,14 +88,16 @@ function PiazzaForm({ userObj, multiple, messages, handleMessages, messagesList,
   };
 
   const onForm = async () => {
+    console.log(profile)
     try {
       const message = messages
       const userUid = userObj.uid
       const userName = userObj.displayName
       const messageClock = new Date().toString()
       const messageClockNumber = Date.now()
-      const profileImageUrl = profile.profileImage ? profile.profileUrl : profile.defaultProfile
-      const profileImage = profile.profileImage
+      const profileImageUrl = profile?.profileImageUrl
+      const defaultProfile = profile?.defaultProfile
+      const profileImage = profile?.profileImage
       if (message) {
         await addDoc(collection(dbservice, 'chats_group'), {
           userUid: userUid,
@@ -104,6 +106,7 @@ function PiazzaForm({ userObj, multiple, messages, handleMessages, messagesList,
           messageClock: messageClock,
           messageClockNumber: messageClockNumber,
           profileImageUrl: profileImageUrl,
+          defaultProfile: defaultProfile,
           profileColor: profileColor,
           piazzaChecked: [userObj.uid],
           profileImage: profileImage
@@ -111,6 +114,7 @@ function PiazzaForm({ userObj, multiple, messages, handleMessages, messagesList,
         handleMessagesList((prev) => [...prev, {
           msg: message, type: "me", userUid: userObj.uid, id: userObj.displayName, messageClock: messageClock, conversation: null, profileImageUrl: profileUrl, profileColor: profileColor,
           messageClockNumber: messageClockNumber,
+          defaultProfile: defaultProfile,
           profileImageUrl: profileImageUrl,
           profileImage: profileImage || false,
         }]);
@@ -201,7 +205,9 @@ function PiazzaForm({ userObj, multiple, messages, handleMessages, messagesList,
         await updateDoc(userDocRef, {
           chattings: userChattings
         })
-        handleMessagesList((prev) => [...prev, { msg: message, type: "me", userUid: userObj.uid, id: userObj.displayName, messageClock: messageClock, conversation: conversation }]);
+        handleMessagesList((prev) => [...prev, {
+          msg: message, type: "me", userUid: userObj.uid, id: userObj.displayName, messageClock: messageClock, conversation: conversation
+        }]);
       }
     } catch (error) {
       console.log(error)

@@ -70,6 +70,9 @@ function PiazzaScreenView({
         target,
         messageClock,
         messageClockNumber,
+        profileImageUrl,
+        defaultProfile,
+        profileImage,
         conversation,
       } = message
       handleMessagesList((prev) => [
@@ -82,9 +85,10 @@ function PiazzaScreenView({
           messageClock: messageClock,
           messageClockNumber: messageClockNumber,
           conversation: null,
-          profileImageUrl: profileUrl,
-          profileColor: profileColor,
+          profileImageUrl: profileImageUrl,
+          defaultProfile: defaultProfile,
           profileImage: profileImage
+          // profileColor: profileColor,
         },
       ])
     }
@@ -202,18 +206,20 @@ function PiazzaScreenView({
         const messageClockNumber = document.data().messageClockNumber
         const profileColor = document.data()?.profileColor
         const profileImageUrl = document.data()?.profileImageUrl
+        const defaultProfile = document.data()?.defaultProfile
         const profileImage = document.data()?.profileImage
         const piazzaData = document.data()
         messagesArray.push({
           msg: message,
-          type: 'me',
+          // type: 'me',
           userUid: userUid,
           id: userName,
           messageClockNumber: messageClockNumber,
           messageClock: messageClock,
           conversation: null,
-          profileColor: profileColor,
+          // profileColor: profileColor,
           profileImageUrl: profileImageUrl,
+          defaultProfile: defaultProfile,
           profileImage: profileImage || false,
           ...piazzaData
         })
@@ -351,7 +357,7 @@ function PiazzaScreenView({
               if (messageDate.length === 1) {
                 messageDate = '0' + messageDate
               }
-              console.log(value.profileImageUrl)
+              console.log(value)
               return (
                 <li
                   key={index}
@@ -369,7 +375,6 @@ function PiazzaScreenView({
                               trigger={
                                 <Avatars
                                   element={value}
-                                  // uid={userObj.uid}
                                   piazza={() =>
                                     onDrawer({
                                       userUid: value.userUid,
@@ -377,9 +382,10 @@ function PiazzaScreenView({
                                     })
                                   }
                                   profile={false}
-                                  profileColor=""
-                                  profileUrl={value.profileImageUrl}
-                                  defaultProfileUrl={value.profileImageUrl}
+                                // uid={userObj.uid}
+                                // profileColor=""
+                                // profileUrl={value.profileImageUrl}
+                                // defaultProfileUrl={value.profileImageUrl}
                                 // uid={userObj.uid}
                                 // profile={false}
                                 // profileColor=""
@@ -431,7 +437,6 @@ function PiazzaScreenView({
                               trigger={
                                 <Avatars
                                   element={value}
-                                  // uid={userObj.uid}
                                   piazza={() =>
                                     onDrawer({
                                       userUid: value.userUid,
@@ -439,9 +444,10 @@ function PiazzaScreenView({
                                     })
                                   }
                                   profile={false}
-                                  profileColor=""
-                                  profileUrl={value.profileImageUrl}
-                                  defaultProfileUrl={value.defaultProfile}
+                                // uid={userObj.uid}
+                                // profileColor=""
+                                // profileUrl={value.profileImageUrl}
+                                // defaultProfileUrl={value.defaultProfile}
                                 />
                               }
                               title={<SpecificsTradesTitle />}
