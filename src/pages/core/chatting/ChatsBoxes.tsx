@@ -49,7 +49,27 @@ const ChatsBoxes = ({ chattingUid, userObj, profileUrl, displayName, multiple, c
     displayingUserName = displayName
   }
   const clockValue = clock.getFullYear().toString() + '-' + messageMonth + '-' + messageDate + ' ' + (languages === 'ko' ? messageAmpm : '') + ' ' + messageHours + ':' + (clock.getMinutes() < 10 ? '0' : '') + clock.getMinutes() + (languages === 'en' ? (messageAmpm === '오전' ? 'am' : 'pm') : '')
+  let messageProfileImage
+  let messageProfileImageUrl
+  let messageDefaultProfile
+  let passingValue
   // console.log(message)
+  if (!multiple) {
+    if (message.userUid !== message.userOne) {
+      messageProfileImage = message.userOneProfileImage
+      messageProfileImageUrl = message.userOneProfileUrl
+      messageDefaultProfile = message.userOneDefaultProfile
+    } else {
+      messageProfileImage = message.userTwoProfileImage
+      messageProfileImageUrl = message.userTwoProfileUrl
+      messageDefaultProfile = message.userTwoDefaultProfile
+    }
+    passingValue = {
+      profileImage: messageProfileImage,
+      profileImageUrl: messageProfileImageUrl,
+      defaultProfile: messageDefaultProfile
+    }
+  }
   return (
     <div className='flex p-3'>
       {multiple ?
@@ -59,6 +79,7 @@ const ChatsBoxes = ({ chattingUid, userObj, profileUrl, displayName, multiple, c
         </Avatar>
         :
         <Avatars
+          element={passingValue}
           uid={chattingUid}
           profile={false}
           profileColor={''}
