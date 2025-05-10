@@ -158,7 +158,7 @@ function PiazzaForm({ chattingUser, userObj, multiple, messages, handleMessages,
         userOneDefaultProfile = defaultProfile
         userTwoDefaultProfile = otherDefaultProfile
         userOneProfileImage = profile.profileImage
-        userTwoProfileImage = state.profileImage
+        userTwoProfileImage = chattingUser.profileImage
       } else {
         userOne = state.chattingUid
         userTwo = state.userUid
@@ -168,7 +168,7 @@ function PiazzaForm({ chattingUser, userObj, multiple, messages, handleMessages,
         userTwoProfileUrl = profileImageUrl
         userOneDefaultProfile = otherDefaultProfile
         userTwoDefaultProfile = defaultProfile
-        userOneProfileImage = state.profileImage
+        userOneProfileImage = chattingUser.profileImage
         userTwoProfileImage = profile.profileImage
       }
       if (!userOneProfileUrl) {
