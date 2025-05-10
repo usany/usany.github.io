@@ -53,9 +53,9 @@ const ChatsBoxes = ({ chattingUid, userObj, profileUrl, displayName, multiple, c
   let messageProfileImageUrl
   let messageDefaultProfile
   let passingValue
-  // console.log(message)
+  console.log(message)
   if (!multiple) {
-    if (message.userUid !== message.userOne) {
+    if (userObj.uid !== message.userOne) {
       messageProfileImage = message.userOneProfileImage
       messageProfileImageUrl = message.userOneProfileUrl
       messageDefaultProfile = message.userOneDefaultProfile
