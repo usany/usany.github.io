@@ -27,6 +27,12 @@ function SpecificsActionsPopups({ drawerOpenTrue, userObj, message }: Props) {
   } else {
     messageName = messageDisplayName
   }
+  const passingProfile = {
+    profileImage: message?.creatorProfileImage,
+    defaultProfile: message?.creatorDefaultProfile,
+    profileImageUrl: message?.creatorProfileImageUrl
+  }
+  console.log(message)
   useEffect(() => {
     if (drawerOpenTrue) {
       if (message?.creatorId < userObj.uid) {
@@ -45,6 +51,7 @@ function SpecificsActionsPopups({ drawerOpenTrue, userObj, message }: Props) {
       <Dialog>
         <DialogTrigger onClick={drawerOpenTrue}>
           <Avatars
+            element={passingProfile}
             uid={message.creatorId}
             profile={false}
             profileColor={''}
@@ -123,6 +130,7 @@ function SpecificsActionsPopups({ drawerOpenTrue, userObj, message }: Props) {
       <Drawer>
         <DrawerTrigger onClick={drawerOpenTrue}>
           <Avatars
+            element={passingProfile}
             uid={message.creatorId}
             profile={false}
             profileColor={''}

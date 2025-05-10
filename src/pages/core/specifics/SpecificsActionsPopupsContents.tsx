@@ -36,11 +36,17 @@ function SpecificsActionsPopupsContents({ drawerOpenTrue, userObj, message }: Pr
       }
     }
   }, [message])
+  const passingProfile = {
+    profileImage: message?.creatorProfileImage,
+    defaultProfile: message?.creatorDefaultProfile,
+    profileImageUrl: message?.creatorProfileImageUrl
+  }
 
   return (
     <>
       <div className="flex flex-col items-center pt-5">
         <Avatars
+          element={passingProfile}
           uid={message.creatorId}
           profile={true}
           profileColor=""
