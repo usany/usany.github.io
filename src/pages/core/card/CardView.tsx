@@ -58,9 +58,11 @@ const CardView = ({ onTransfer, message, shadowColor }) => {
     locationTwo = locationsCollection['en'][Object.keys(locationsCollectionLetters).find((key) => locationsCollectionLetters[key] === message.text.count)][locationsCollection['ko'][Object.keys(locationsCollectionLetters).find((key) => locationsCollectionLetters[key] === message.text.count)].indexOf(message.text.counter)]
     location = locationOne + ' ' + locationTwo + ' ' + message.text.counting
   }
-  locationsBuildings
-  locationsCollection
-  locationsCollectionLetters
+  const passingValue = {
+    profileImage: message.creatorProfileImage,
+    defaultProfile: message.creatorDefaultProfile,
+    profileImageUrl: message.creatorProfileImageUrl
+  }
 
   return (
     <div className='flex flex-col gap-5'>
@@ -101,6 +103,7 @@ const CardView = ({ onTransfer, message, shadowColor }) => {
           <div>
             <div className="flex justify-between gap-1">
               <Avatars
+                element={passingValue}
                 uid={message.creatorId}
                 profile={false}
                 profileColor={profileColor}

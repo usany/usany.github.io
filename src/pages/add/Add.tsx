@@ -59,6 +59,7 @@ function Add({ userObj, borrow }: Props) {
   const [fromTo, setFromTo] = useState<FromTo>({ from: null, to: null });
   const matches = useMediaQuery("(min-width:850px)");
   const languages = useSelectors((state) => state.languages.value)
+  const profile = useSelectors(state => state.profile.value)
   // const [cardId, setCardId] = useState<string | null>(null)
   // const [from, setFrom] = useState(null);
   // const [to, setTo] = useState(null);
@@ -282,6 +283,12 @@ function Add({ userObj, borrow }: Props) {
           connectedName: null,
           connectedUrl: null,
           item: item,
+          creatorProfileImage: profile?.profileImage,
+          creatorDefaultProfile: profile?.defaultProfile,
+          creatorProfileImageUrl: profile?.profileImageUrl,
+          connectedProfileImage: null,
+          connectedDefaultProfile: null,
+          connectedProfileImageUrl: null,
         });
         console.log(user)
         await updateDoc(user, { createdCards: [...userCreatedCards, card.id] });
