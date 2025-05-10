@@ -62,7 +62,7 @@ function Lists({
                 const profileUrl = element?.profile
                   ? element?.profileImageUrl
                   : element?.defaultProfile
-                console.log(element)
+                // console.log(element)
                 return (
                   <div key={index} className="px-1 pt-3">
                     <Link

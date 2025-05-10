@@ -23,7 +23,7 @@ interface Props {
   messagesList: []
   handleMessagesList: (newValue: []) => void
 }
-function PiazzaForm({ userObj, multiple, messages, handleMessages, messagesList, handleMessagesList }: Props) {
+function PiazzaForm({ chattingUser, userObj, multiple, messages, handleMessages, messagesList, handleMessagesList }: Props) {
   const profileColor = useSelector(state => state.profileColor.value)
   const profileUrl = useSelector(state => state.profileUrl.value)
   const piazzaForm = useSelector((state) => state.piazzaForm.value)
@@ -33,6 +33,7 @@ function PiazzaForm({ userObj, multiple, messages, handleMessages, messagesList,
   const conversation = state?.conversation
   const languages = useSelectors((state) => state.languages.value)
   const index = (languages === 'ko' || languages === 'en') ? languages : 'ko'
+  console.log(chattingUser)
   const onSendSubmitHandler = async (event) => {
     event.preventDefault();
     const message = messages
@@ -123,7 +124,7 @@ function PiazzaForm({ userObj, multiple, messages, handleMessages, messagesList,
       console.log(error)
     }
   }
-
+  console.log(profile)
   const onFormConversation = async () => {
     const message = messages
     try {
@@ -132,11 +133,11 @@ function PiazzaForm({ userObj, multiple, messages, handleMessages, messagesList,
       const messageClockNumber = Date.now()
       const messageClock = new Date().toString()
       const profileImage = profile.profileImage
-      const otherProfileImage = state.profileImage
+      const otherProfileImage = chattingUser.profileImage
       const profileImageUrl = profile.profileImageUrl
-      const otherProfileUrl = state.profileImageUrl
+      const otherProfileUrl = chattingUser.profileImageUrl
       const defaultProfile = profile.defaultProfile
-      const otherDefaultProfile = state.defaultProfile
+      const otherDefaultProfile = chattingUser.defaultProfile
       let userOne
       let userTwo
       let userOneDisplayName
@@ -195,6 +196,8 @@ function PiazzaForm({ userObj, multiple, messages, handleMessages, messagesList,
           userTwoDisplayName: userTwoDisplayName,
           userOneProfileUrl: userOneProfileUrl,
           userTwoProfileUrl: userTwoProfileUrl,
+          userOneDefaultProfile: userOneDefaultProfile,
+          userTwoDefaultProfile: userTwoDefaultProfile,
           userOneProfileImage: userOneProfileImage,
           userTwoProfileImage: userTwoProfileImage
         }
@@ -216,7 +219,19 @@ function PiazzaForm({ userObj, multiple, messages, handleMessages, messagesList,
           chattings: userChattings
         })
         handleMessagesList((prev) => [...prev, {
-          msg: message, type: "me", userUid: userObj.uid, id: userObj.displayName, messageClock: messageClock, conversation: conversation
+          msg: message, type: "me", userUid: userObj.uid, id: userObj.displayName, messageClock: messageClock, conversation: conversation,
+          userName: userName,
+          messageClockNumber: messageClockNumber,
+          userOne: userOne,
+          userTwo: userTwo,
+          userOneDisplayName: userOneDisplayName,
+          userTwoDisplayName: userTwoDisplayName,
+          userOneProfileUrl: userOneProfileUrl,
+          userTwoProfileUrl: userTwoProfileUrl,
+          userOneDefaultProfile: userOneDefaultProfile,
+          userTwoDefaultProfile: userTwoDefaultProfile,
+          userOneProfileImage: userOneProfileImage,
+          userTwoProfileImage: userTwoProfileImage
         }]);
       }
     } catch (error) {

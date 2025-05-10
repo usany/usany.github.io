@@ -1,7 +1,9 @@
 import { User } from "firebase/auth";
+import { doc, getDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
+import { dbservice } from "src/baseApi/serverbase";
 import PiazzaForm from 'src/pages/piazza/piazzaForm/PiazzaForm';
 import PiazzaScreen from 'src/pages/piazza/piazzaScreen/PiazzaScreen';
 import PiazzaTitle from 'src/pages/piazza/piazzaTitle/PiazzaTitle';
@@ -18,6 +20,19 @@ function Piazza({ userObj }: Props) {
   const { state } = useLocation()
   const [multiple, setMultiple] = useState(true)
   const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
+  const [chattingUser, setChattingUser] = useState(null)
+  useEffect(() => {
+    const bringChattingUser = async () => {
+      if (state.chattingUid) {
+        const toUserRef = doc(dbservice, `members/${state.chattingUid}`)
+        const toUser = await getDoc(toUserRef)
+        setChattingUser(toUser.data())
+      }
+    }
+    if (!state.multiple) {
+      bringChattingUser()
+    }
+  }, [])
   const piazzaForm = useSelector((state) => state.piazzaForm.value)
   useEffect(() => {
     const listener = () => {
@@ -76,8 +91,8 @@ function Piazza({ userObj }: Props) {
       {!isKeyboardOpen && <PiazzaTitle multiple={multiple} displayName={displayName} />}
       {/* {!isKeyboardOpen && <PiazzaTitle multiple={multiple} displayName={displayName} />} */}
       {/* {isKeyboardOpen ? <div>{window.visualViewport?.height}</div> : <div>{window.visualViewport?.height}</div>} */}
-      <PiazzaScreen isKeyboardOpen={piazzaForm} userObj={userObj} multiple={multiple} handleMultiple={(newValue) => setMultiple(newValue)} messagesList={messagesList} handleMessagesList={(newValue) => setMessagesList(newValue)} />
-      <PiazzaForm userObj={userObj} multiple={multiple} messages={messages} handleMessages={(newValue) => setMessages(newValue)} messagesList={messagesList} handleMessagesList={(newValue) => setMessagesList(newValue)} />
+      <PiazzaScreen chattingUser={chattingUser} isKeyboardOpen={piazzaForm} userObj={userObj} multiple={multiple} handleMultiple={(newValue) => setMultiple(newValue)} messagesList={messagesList} handleMessagesList={(newValue) => setMessagesList(newValue)} />
+      <PiazzaForm chattingUser={chattingUser} userObj={userObj} multiple={multiple} messages={messages} handleMessages={(newValue) => setMessages(newValue)} messagesList={messagesList} handleMessagesList={(newValue) => setMessagesList(newValue)} />
     </>
   );
 }

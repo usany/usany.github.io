@@ -30,6 +30,7 @@ interface Props {
 }
 
 function PiazzaScreenView({
+  chattingUser,
   userObj,
   multiple,
   handleMultiple,
@@ -59,6 +60,7 @@ function PiazzaScreenView({
     document.getElementById('drawer')?.click()
     onPrivate({ userUid: userUid, displayName: displayName })
   }
+  console.log(chattingUser)
   const scrollNumber = 20
   useEffect(() => {
     if (!webSocket) return
@@ -357,7 +359,7 @@ function PiazzaScreenView({
               if (messageDate.length === 1) {
                 messageDate = '0' + messageDate
               }
-              console.log(value)
+              // console.log(value)
               return (
                 <li
                   key={index}
