@@ -131,14 +131,20 @@ function PiazzaForm({ userObj, multiple, messages, handleMessages, messagesList,
       const userName = userObj.displayName
       const messageClockNumber = Date.now()
       const messageClock = new Date().toString()
-      const profileImageUrl = profile.profileImage ? profile.profileUrl : profile.defaultProfile
-      const otherProfileUrl = state.profileImage ? state.profileUrl : state.defaultProfile
+      const profileImage = profile.profileImage
+      const otherProfileImage = state.profileImage
+      const profileImageUrl = profile.profileImageUrl
+      const otherProfileUrl = state.profileImageUrl
+      const defaultProfile = profile.defaultProfile
+      const otherDefaultProfile = state.defaultProfile
       let userOne
       let userTwo
       let userOneDisplayName
       let userTwoDisplayName
       let userOneProfileUrl
       let userTwoProfileUrl
+      let userOneDefaultProfile
+      let userTwoDefaultProfile
       let userOneProfileImage
       let userTwoProfileImage
       if (state.userUid < state.chattingUid) {
@@ -148,6 +154,8 @@ function PiazzaForm({ userObj, multiple, messages, handleMessages, messagesList,
         userTwoDisplayName = state.displayName
         userOneProfileUrl = profileImageUrl
         userTwoProfileUrl = otherProfileUrl
+        userOneDefaultProfile = defaultProfile
+        userTwoDefaultProfile = otherDefaultProfile
         userOneProfileImage = profile.profileImage
         userTwoProfileImage = state.profileImage
       } else {
@@ -157,6 +165,8 @@ function PiazzaForm({ userObj, multiple, messages, handleMessages, messagesList,
         userTwoDisplayName = userObj.displayName
         userOneProfileUrl = otherProfileUrl
         userTwoProfileUrl = profileImageUrl
+        userOneDefaultProfile = otherDefaultProfile
+        userTwoDefaultProfile = defaultProfile
         userOneProfileImage = state.profileImage
         userTwoProfileImage = profile.profileImage
       }

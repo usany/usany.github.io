@@ -49,7 +49,7 @@ const ChatsBoxes = ({ chattingUid, userObj, profileUrl, displayName, multiple, c
     displayingUserName = displayName
   }
   const clockValue = clock.getFullYear().toString() + '-' + messageMonth + '-' + messageDate + ' ' + (languages === 'ko' ? messageAmpm : '') + ' ' + messageHours + ':' + (clock.getMinutes() < 10 ? '0' : '') + clock.getMinutes() + (languages === 'en' ? (messageAmpm === '오전' ? 'am' : 'pm') : '')
-  console.log(message)
+  // console.log(message)
   return (
     <div className='flex p-3'>
       {multiple ?
