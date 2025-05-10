@@ -33,7 +33,7 @@ function PiazzaForm({ chattingUser, userObj, multiple, messages, handleMessages,
   const conversation = state?.conversation
   const languages = useSelectors((state) => state.languages.value)
   const index = (languages === 'ko' || languages === 'en') ? languages : 'ko'
-  console.log(chattingUser)
+  // console.log(chattingUser)
   const onSendSubmitHandler = async (event) => {
     event.preventDefault();
     const message = messages
@@ -89,7 +89,7 @@ function PiazzaForm({ chattingUser, userObj, multiple, messages, handleMessages,
   };
 
   const onForm = async () => {
-    console.log(profile)
+    // console.log(profile)
     try {
       const message = messages
       const userUid = userObj.uid
@@ -124,7 +124,7 @@ function PiazzaForm({ chattingUser, userObj, multiple, messages, handleMessages,
       console.log(error)
     }
   }
-  console.log(profile)
+  // console.log(profile)
   const onFormConversation = async () => {
     const message = messages
     try {

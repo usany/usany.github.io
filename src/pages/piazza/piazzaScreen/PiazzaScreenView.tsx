@@ -253,14 +253,22 @@ function PiazzaScreenView({
         const userName = doc.data().userName
         const messageClock = doc.data().messageClock
         const messageClockNumber = doc.data().messageClockNumber || 0
+        const profileImageUrl = doc.data()?.profileImageUrl
+        const defaultProfile = doc.data()?.defaultProfile
+        const profileImage = doc.data()?.profileImage
         const piazzaData = doc.data()
         messagesArray.push({
           msg: message,
-          type: 'me',
+          // type: 'me',
           userUid: userUid,
           id: userName,
-          messageClock: messageClock,
           messageClockNumber: messageClockNumber,
+          messageClock: messageClock,
+          conversation: null,
+          // profileColor: profileColor,
+          profileImageUrl: profileImageUrl,
+          defaultProfile: defaultProfile,
+          profileImage: profileImage || false,
           ...piazzaData
         })
       })
@@ -307,6 +315,29 @@ function PiazzaScreenView({
           <ul>
             {isLoading && <div className='flex justify-center bg-light-2 dark:bg-dark-2 rounded'>로딩</div>}
             {messagesList.map((value, index) => {
+              let passingValue
+              if (multiple) {
+                passingValue = value
+              } else {
+                console.log(value.userUid === userObj.uid)
+                if (value.userUid === value.userOne) {
+                  passingValue = {
+                    userUid: value.userOne,
+                    id: value.userOneDisplayName,
+                    profileImage: value.userOneProfileImage,
+                    defaultProfile: value.userOneDefaultProfile,
+                    profileImageUrl: value.userOneProfileUrl
+                  }
+                } else {
+                  passingValue = {
+                    userUid: value.userTwo,
+                    id: value.userTwoDisplayName,
+                    profileImage: value.userTwoProfileImage,
+                    defaultProfile: value.userTwoDefaultProfile,
+                    profileImageUrl: value.userTwoProfileUrl
+                  }
+                }
+              }
               let userDirection
               const clock = new Date(value.messageClock)
               if (value.userUid === userObj.uid) {
@@ -359,7 +390,7 @@ function PiazzaScreenView({
               if (messageDate.length === 1) {
                 messageDate = '0' + messageDate
               }
-              // console.log(value)
+              console.log(value)
               return (
                 <li
                   key={index}
@@ -376,11 +407,11 @@ function PiazzaScreenView({
                             <Popups
                               trigger={
                                 <Avatars
-                                  element={value}
+                                  element={passingValue}
                                   piazza={() =>
                                     onDrawer({
-                                      userUid: value.userUid,
-                                      displayName: value.id,
+                                      userUid: passingValue.userUid,
+                                      displayName: passingValue.id,
                                     })
                                   }
                                   profile={false}
@@ -438,11 +469,11 @@ function PiazzaScreenView({
                             <Popups
                               trigger={
                                 <Avatars
-                                  element={value}
+                                  element={passingValue}
                                   piazza={() =>
                                     onDrawer({
-                                      userUid: value.userUid,
-                                      displayName: value.id,
+                                      userUid: passingValue.userUid,
+                                      displayName: passingValue.id,
                                     })
                                   }
                                   profile={false}
