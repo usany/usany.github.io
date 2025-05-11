@@ -1,5 +1,5 @@
 import DeleteIcon from '@mui/icons-material/Delete';
-import { Chip, ClickAwayListener } from '@mui/material';
+import { ClickAwayListener } from '@mui/material';
 import Card from '@mui/material/Card';
 import { User } from 'firebase/auth';
 import { useEffect, useRef, useState } from 'react';
@@ -122,7 +122,7 @@ const Chats = ({ userObj, profileUrl, conversation, displayName, chattingUid, mu
         </div>
         {
           longPressed &&
-          <div className='flex justify-end h-full w-1/6' onClick={() => {
+          <div className='flex h-[60px] rounded items-center justify-center w-1/6 bg-profile-red text-white' onClick={() => {
             if (conversation) {
               onDelete({ conversation: conversation })
             } else {
@@ -130,7 +130,9 @@ const Chats = ({ userObj, profileUrl, conversation, displayName, chattingUid, mu
               localStorage.setItem('piazza', 'false')
             }
           }}>
-            <Chip sx={{}} label={<DeleteIcon />} color='error' />
+            <DeleteIcon />
+            {/* <div className='h-full bg-profile-red text-white'><DeleteIcon /></div> */}
+            {/* <Chip sx={{}} label={<DeleteIcon />} color='error' /> */}
           </div>
         }
       </div >
