@@ -223,11 +223,11 @@ function RankingLists({ userObj, userSearch }: Props) {
             ranking={true}
             handleUser={null}
           />
-          {/* {!isLoading && <div className="p-28"></div>} */}
           {isLoading && (
             <div className="flex justify-center text-2xl bg-light-2 dark:bg-dark-2 rounded">로딩</div>
           )}
           {/* {isLoading && <div className='flex justify-center text-2xl pb-36'>loading</div>} */}
+          {/* {!isLoading && <div className="p-28"></div>} */}
         </div>
       )}
     </div>
