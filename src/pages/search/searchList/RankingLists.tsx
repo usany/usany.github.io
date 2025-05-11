@@ -193,7 +193,7 @@ function RankingLists({ userObj, userSearch }: Props) {
   //   console.log(continuing)
   // })
   return (
-    <>
+    <div>
       {userSearch ? (
         <div>
           <Lists
@@ -230,7 +230,7 @@ function RankingLists({ userObj, userSearch }: Props) {
           {/* {isLoading && <div className='flex justify-center text-2xl pb-36'>loading</div>} */}
         </div>
       )}
-    </>
+    </div>
   );
 }
 
