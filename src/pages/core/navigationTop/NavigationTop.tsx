@@ -16,6 +16,7 @@ import { changeProfileColor } from "src/stateSlices/profileColorSlice";
 import { changeProfile } from "src/stateSlices/profileSlice";
 import { changeProfileUrl } from "src/stateSlices/profileUrlSlice";
 import useScroll from "../useScroll";
+import NavigationScroll from "./NavigationScroll";
 import NavigationTopCards from "./navigationTopCards/NavigationTopCards";
 import NavigationTopLogOut from "./navigationTopLogOut/NavigationTopLogOut";
 import NavigationTopMessages from "./navigationTopMessages/NavigationTopMessages";
@@ -77,7 +78,7 @@ const NavigationTop = ({ userObj }: Props) => {
   console.log(scrollNavigation)
   return (
     <div className="shadow-md fixed z-50 bg-light-2 dark:bg-dark-2 rounded truncate">
-      <div className="flex justify-between w-screen">
+      <div className="flex justify-between w-screen items-center">
         <Navigation
           user={profile}
           userObj={userObj}
@@ -90,7 +91,7 @@ const NavigationTop = ({ userObj }: Props) => {
           piazza={() => null}
         />
         {scrollNavigation &&
-          <div>practice</div>
+          <NavigationScroll />
         }
         {/* <div
           className="px-5 pt-1 cursor-pointer"
