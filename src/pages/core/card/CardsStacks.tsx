@@ -1,3 +1,4 @@
+import DeleteIcon from "@mui/icons-material/Delete";
 import { ClickAwayListener } from "@mui/material";
 import { User } from "firebase/auth";
 import {
@@ -111,6 +112,13 @@ function CardsStacks({ userObj }: Props) {
             </div>
           ) : (
             <>
+              {longPressCard &&
+                <div className='p-5'>
+                  <div className='flex justify-center rounded bg-profile-green text-white'>
+                    <DeleteIcon />
+                  </div>
+                </div>
+              }
               {/* <div className="flex flex-wrap gap-3"> */}
               <div className="grid grid-cols-[repeat(auto-fit,minmax(180px,1fr))] col-span-full">
                 {messages.map((value) => {
