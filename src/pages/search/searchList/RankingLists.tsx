@@ -193,7 +193,7 @@ function RankingLists({ userObj, userSearch }: Props) {
   //   console.log(continuing)
   // })
   return (
-    <div>
+    <div className='flex justify-center w-screen'>
       {userSearch ? (
         <div>
           <Lists
@@ -206,7 +206,7 @@ function RankingLists({ userObj, userSearch }: Props) {
           />
         </div>
       ) : (
-        <div>
+        <div className='w-[1000px]'>
           <Lists
             userObj={userObj}
             elements={ranker}
