@@ -193,8 +193,6 @@ function Board({ userObj }: Props) {
                   <CardsList choose={2} messages={messages} selectedValues={selectedValues} userObj={userObj} />
                 </>
               }
-              {/* <CardsList choose={1} messages={messages} selectedValues={selectedValues} userObj={userObj} />
-              <CardsList choose={2} messages={messages} selectedValues={selectedValues} userObj={userObj} /> */}
             </SwipeableViews>
           </>
         </div>
