@@ -8,12 +8,12 @@ const useScroll = () => {
   const dispatch = useDispatch()
   const scrollEffect = () => {
     console.log(document.scrollingElement.scrollTop)
-    if (document.scrollingElement.scrollTop > 100) {
+    if (document.scrollingElement.scrollTop > 80) {
       dispatch(changeScrollNavigation(true))
     } else {
-      if (scrollNavigation) {
-        dispatch(changeScrollNavigation(false))
-      }
+      dispatch(changeScrollNavigation(false))
+      // if (scrollNavigation) {
+      // }
     }
   }
   useEffect(() => {
