@@ -167,7 +167,7 @@ function Menu({ userObj }: Props) {
         type="multiple"
       >
         <AccordionItem value="item-1">
-          <div className='flex justify-center px-5'>
+          <div className='flex justify-center sticky top-16 z-30 px-5'>
             <div className='w-[1000px]'>
               <button onClick={() => {
                 document.getElementById('cardAccordion')?.click()
@@ -193,7 +193,7 @@ function Menu({ userObj }: Props) {
           </div>
         </AccordionItem>
         <AccordionItem value="item-2" className='px-5'>
-          <div className='flex justify-center'>
+          <div className='flex justify-center sticky top-16 z-30'>
             <div className='w-[1000px]'>
               <button onClick={() => {
                 document.getElementById('messageAccordion')?.click()
