@@ -168,15 +168,15 @@ function Board({ userObj }: Props) {
                 />
               </div>
             </div>
-            <div className='truncate flex justify-center pb-5'>
-              <div className='w-[1000px] shadow-md'>
+          </div>
+          <>
+            <div className='truncate flex justify-center sticky top-16 z-30 pb-5 px-5'>
+              <div className='w-[1000px] shadow-md sticky top-16 z-30'>
                 <Popups trigger={
                   <BoardList />
                 } title={<FilterDialogsTitle />} content={<FilterDialogsContent selectedValues={selectedValues} handleSelectedValues={handleSelectedValues} />} />
               </div>
             </div>
-          </div>
-          <>
             {/* <div className="rounded shadow-md flex p-3 sticky top-16 z-30 justify-between bg-light-2/50 dark:bg-dark-2/50">
                 <div className="truncate pt-1">{cardList[index]}</div>
                 <div className="truncate flex gap-1">

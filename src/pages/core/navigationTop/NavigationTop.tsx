@@ -90,9 +90,6 @@ const NavigationTop = ({ userObj }: Props) => {
           profileUrl={userObj ? profileUrl : staticImage}
           piazza={() => null}
         />
-        {scrollNavigation &&
-          <NavigationScroll />
-        }
         {/* <div
           className="px-5 pt-1 cursor-pointer"
           onClick={() => {
@@ -107,7 +104,10 @@ const NavigationTop = ({ userObj }: Props) => {
             piazza={() => null}
           />
         </div> */}
-        <div>
+        <div className='flex items-center gap-5'>
+          {scrollNavigation &&
+            <NavigationScroll />
+          }
           {bottomNavigation % 2 === 0 && <ToggleTabs />}
           {bottomNavigation === 1 && (
             <>
