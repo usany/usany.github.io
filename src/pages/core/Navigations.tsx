@@ -60,6 +60,7 @@ function Navigations({ userObj }: Props) {
     return () => {
       if (typeof visualViewport !== 'undefined') {
         window.visualViewport?.removeEventListener('resize', listener);
+        visualViewport?.removeEventListener('resize', listener);
       }
     };
   }, [isKeyboardOpen]);
