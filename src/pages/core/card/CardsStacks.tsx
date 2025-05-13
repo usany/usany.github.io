@@ -112,7 +112,7 @@ function CardsStacks({ userObj }: Props) {
             </div>
           ) : (
             <>
-              {longPressCard &&
+              {onLongPress > 0 &&
                 <div className='p-5'>
                   <div className='flex justify-center rounded bg-profile-green text-white'>
                     <DeleteIcon />

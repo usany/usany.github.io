@@ -18,20 +18,29 @@ const authSteps = ['계정 입력', '프로필 입력']
 //   '반납 확인 중',
 //   '반납 완료',
 // ]
-const borrowSteps = {
+// {
+//   en: [
+//     'Borrowing request',
+//     'Request confirming',
+//     'Sharing on process',
+//     'Confirming return',
+//     'Return confirmed'
+//   ],
+// }
+const steps = {
   ko: [
-    '빌리기 요청',
-    '요청 확인 중',
-    '공유 진행 중',
-    '반납 확인 중',
+    '등록',
+    '요청 중',
+    '공유 중',
+    '반납 중',
     '반납 완료',
   ],
   en: [
-    'Borrowing request',
-    'Request confirming',
-    'Sharing on process',
-    'Confirming return',
-    'Return confirmed'
+    'Registered',
+    'Requesting',
+    'Sharing',
+    'Returning',
+    'Returned'
   ]
 }
 const lendSteps = {
@@ -60,13 +69,13 @@ function Steppers({ message, round }) {
       <Stepper
         activeStep={round - 1} alternativeLabel>
         {message.text.choose === 1 &&
-          borrowSteps[index].map((label) => (
+          steps[index].map((label) => (
             <Step key={label}>
               <StepLabel>{label}</StepLabel>
             </Step>
           ))}
         {message.text.choose === 2 &&
-          lendSteps[index].map((label) => (
+          steps[index].map((label) => (
             <Step key={label}>
               <StepLabel>{label}</StepLabel>
             </Step>
