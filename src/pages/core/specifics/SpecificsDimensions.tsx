@@ -30,7 +30,7 @@ function SpecificsDimensions({ message }: Props) {
     <div className={`flex ${!largeMedia && 'flex-col'} justify-around gap-1 pt-5`}>
       <div className="flex items-center">
         <Building />
-        <div className="px-1">{languages === 'ko' ? '전달 장소:' : 'location: '}</div>
+        <div className="px-1">{languages === 'ko' ? '전달 장소:' : 'Meeting at'}</div>
         <Chip
           label={location}
         />
@@ -45,10 +45,10 @@ function SpecificsDimensions({ message }: Props) {
             <div className="px-1">{languages === 'ko' ? '대여 시간:' :
               <div className='flex items-center'>
                 <div className='flex flex-col'>
-                  <div>Passing</div>
-                  <div>time:</div>
+                  <div>Passing at</div>
+                  {/* <div>time:</div> */}
                 </div>
-                <div>:</div>
+                {/* <div>:</div> */}
               </div>
               // 'Passing time:'
             }</div>
@@ -63,10 +63,10 @@ function SpecificsDimensions({ message }: Props) {
             <div className="px-1">{languages === 'ko' ? '반납 시간:' :
               <div className='flex items-center'>
                 <div className='flex flex-col'>
-                  <div>Returning</div>
-                  <div>time:</div>
+                  <div>Returning at</div>
+                  {/* <div>time:</div> */}
                 </div>
-                <div>:</div>
+                {/* <div>:</div> */}
               </div>
               // 'Returning time:'
             }</div>

@@ -148,7 +148,7 @@ function Specifics({
     mergedArray.indexOf(String(id[0]).toUpperCase()) % shadowColorArray.length
     ]
   return (
-    <div className="truncate p-1 scale-90">
+    <div className="truncate p-1">
       <ClickAwayListener onClickAway={() => console.log('practice')}>
         {userObj ? (
           <Card

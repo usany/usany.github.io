@@ -65,7 +65,7 @@ function Steppers({ message, round }) {
   const index = (languages === 'ko' || languages === 'en') ? languages : 'ko'
 
   return (
-    <div>
+    <div className='scale-90'>
       <Stepper
         activeStep={round - 1} alternativeLabel>
         {message.text.choose === 1 &&
