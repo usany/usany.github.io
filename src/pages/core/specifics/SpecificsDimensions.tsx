@@ -40,7 +40,7 @@ function SpecificsDimensions({ message }: Props) {
       </div>
       <div className="flex items-center">
         <Watch />
-        <div>
+        <div className={`${!largeMedia && 'flex'}`}>
           <div className="flex items-center">
             <div className="px-1">{languages === 'ko' ? '대여 시간:' :
               <div className='flex items-center'>
@@ -63,7 +63,7 @@ function SpecificsDimensions({ message }: Props) {
             <div className="px-1">{languages === 'ko' ? '반납 시간:' :
               <div className='flex items-center'>
                 <div className='flex flex-col'>
-                  <div>Returning at</div>
+                  <div>Returning</div>
                   {/* <div>time:</div> */}
                 </div>
                 {/* <div>:</div> */}
