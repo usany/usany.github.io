@@ -15,7 +15,7 @@ function RankingListsTitle({ multiple }: Props) {
       >
         {largeMedia ?
           <div className="flex items-center justify-center w-20">
-            {multiple ? (languages === 'ko' ? '유저' : 'User') : (languages === 'ko' ? '내' : 'My')} {languages === 'ko' ? '랭킹' : 'ranking'}
+            {multiple ? (languages === 'ko' ? '유저' : 'User') : (languages === 'ko' ? '내' : 'My')} {languages === 'ko' ? '랭킹' : 'Ranking'}
           </div>
           :
           <div className="flex flex-col items-center justify-center w-20">
