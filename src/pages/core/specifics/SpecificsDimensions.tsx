@@ -2,6 +2,7 @@
 // import { useBottomNavigationStore } from 'src/store'
 import { Chip } from '@mui/material'
 import { Building, Watch } from 'lucide-react'
+import useLargeMedia from 'src/hooks/useLargeMedia'
 import { useSelectors } from 'src/hooks/useSelectors'
 import locationsBuildings from 'src/pages/add/locationsBuildings'
 import locationsCollection from 'src/pages/add/locationsCollection'
@@ -13,6 +14,7 @@ interface Props {
 
 function SpecificsDimensions({ message }: Props) {
   const languages = useSelectors((state) => state.languages.value)
+  const largeMedia = useLargeMedia()
   let locationOne
   let locationTwo
   let location
@@ -25,7 +27,7 @@ function SpecificsDimensions({ message }: Props) {
   }
 
   return (
-    <div className="flex justify-around gap-1 pt-5">
+    <div className={`flex ${!largeMedia && 'flex-col'} justify-around gap-1 pt-5`}>
       <div className="flex items-center">
         <Building />
         <div className="px-1">{languages === 'ko' ? '전달 장소:' : 'Passing location: '}</div>

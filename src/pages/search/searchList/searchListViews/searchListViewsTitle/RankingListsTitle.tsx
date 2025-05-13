@@ -76,9 +76,11 @@ function RankingListsTitle({ multiple }: Props) {
             <div>
               {languages === 'ko' ? '위치 확인' : 'Location'}
             </div>
-            <div>
-              {languages === 'ko' ? '위치 확인' : 'Confirm'}
-            </div>
+            {languages !== 'ko' &&
+              <div>
+                Confirm
+              </div>
+            }
             {/* {languages === 'ko' ? '위치 확인' : 'Location Confirm'} */}
           </div>
         }
