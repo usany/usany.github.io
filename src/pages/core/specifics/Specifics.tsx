@@ -152,6 +152,8 @@ function Specifics({
         <Card
           className='colorTwo'
           sx={{
+            width: 200 * 2.5,
+            height: 280 * 2.5,
             boxShadow: `1.9px 1.9px 1.9px 1.9px ${shadowColor}`,
           }}
         >
@@ -164,8 +166,8 @@ function Specifics({
             <div className="flex justify-center pt-5">
               <CardMedia
                 sx={{
-                  width: 212,
-                  height: 188
+                  width: 212 * 0.9,
+                  height: 188 * 0.9
                 }}
                 image={staticImg}
               />
