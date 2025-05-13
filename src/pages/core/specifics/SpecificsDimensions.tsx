@@ -30,7 +30,7 @@ function SpecificsDimensions({ message }: Props) {
     <div className={`flex ${!largeMedia && 'flex-col'} justify-around gap-1 pt-5`}>
       <div className="flex items-center">
         <Building />
-        <div className="px-1">{languages === 'ko' ? '전달 장소:' : 'Passing location: '}</div>
+        <div className="px-1">{languages === 'ko' ? '전달 장소:' : 'location: '}</div>
         <Chip
           label={location}
         />
@@ -42,7 +42,16 @@ function SpecificsDimensions({ message }: Props) {
         <Watch />
         <div>
           <div className="flex items-center">
-            <div className="px-1">{languages === 'ko' ? '대여 시간:' : 'Passing time:'}</div>
+            <div className="px-1">{languages === 'ko' ? '대여 시간:' :
+              <div className='flex items-center'>
+                <div className='flex flex-col'>
+                  <div>Passing</div>
+                  <div>time:</div>
+                </div>
+                <div>:</div>
+              </div>
+              // 'Passing time:'
+            }</div>
             <Chip
               label={`${message.text.clock.year}.${message.text.clock.month}.${message.text.clock.day} ${message.text.clock.hour}:${message.text.clock.minute}`}
             />
@@ -51,8 +60,17 @@ function SpecificsDimensions({ message }: Props) {
             /> */}
           </div>
           <div className="flex items-center">
-            <div className="px-1">{languages === 'ko' ? '반납 시간:' : 'Returning time:'}</div>
-            < Chip
+            <div className="px-1">{languages === 'ko' ? '반납 시간:' :
+              <div className='flex items-center'>
+                <div className='flex flex-col'>
+                  <div>Returning</div>
+                  <div>time:</div>
+                </div>
+                <div>:</div>
+              </div>
+              // 'Returning time:'
+            }</div>
+            <Chip
               label={`${message.text.clocker.year}.${message.text.clocker.month}.${message.text.clocker.day} ${message.text.clocker.hour}:${message.text.clocker.minute}`}
             />
             {/* <Chips
