@@ -13,9 +13,20 @@ function RankingListsTitle({ multiple }: Props) {
       <div
         className={`flex truncate w-full justify-around gap-1 p-3 rounded`}
       >
-        <div className="flex items-center justify-center w-20">
-          {multiple ? (languages === 'ko' ? '유저' : 'User') : (languages === 'ko' ? '내' : 'My')} {languages === 'ko' ? '랭킹' : 'ranking'}
-        </div>
+        {largeMedia ?
+          <div className="flex items-center justify-center w-20">
+            {multiple ? (languages === 'ko' ? '유저' : 'User') : (languages === 'ko' ? '내' : 'My')} {languages === 'ko' ? '랭킹' : 'ranking'}
+          </div>
+          :
+          <div className="flex flex-col items-center justify-center w-20">
+            <div>
+              {multiple ? (languages === 'ko' ? '유저' : 'User') : (languages === 'ko' ? '내' : 'My')}
+            </div>
+            <div>
+              {languages === 'ko' ? '랭킹' : 'Ranking'}
+            </div>
+          </div>
+        }
         <div className='flex items-center justify-center'>
           <Avatar
             className={`bg-light-2 dark:bg-dark-2 border border-dashed`}
