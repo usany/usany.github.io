@@ -55,7 +55,7 @@ function RankingListsTitle({ multiple }: Props) {
           <div>{multiple ? (languages === 'ko' ? '유저' : 'User') : (languages === 'ko' ? '내' : 'My')} {languages === 'ko' ? '이름' : 'name'}</div>
           <div>{languages === 'ko' ? '포인트' : 'Points'}</div>
         </div>
-        <div className='flex items-center w-[67px]'>
+        <div className='flex justify-center items-center w-[67px]'>
           {languages === 'ko' ? '위치 확인' : 'Location Confirm'}
         </div>
       </div>

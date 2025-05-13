@@ -53,14 +53,14 @@ function Navigations({ userObj }: Props) {
     if (typeof visualViewport !== 'undefined') {
       window.visualViewport?.addEventListener('resize', listener);
     }
-    visualViewport?.addEventListener('resize', listener)
-    if (typeof visualViewport !== 'undefined') {
-      visualViewport?.addEventListener('resize', listener);
-    }
+    // visualViewport?.addEventListener('resize', listener)
+    // if (typeof visualViewport !== 'undefined') {
+    //   visualViewport?.addEventListener('resize', listener);
+    // }
     return () => {
       if (typeof visualViewport !== 'undefined') {
         window.visualViewport?.removeEventListener('resize', listener);
-        visualViewport?.removeEventListener('resize', listener);
+        // visualViewport?.removeEventListener('resize', listener);
       }
     };
   }, [isKeyboardOpen]);
