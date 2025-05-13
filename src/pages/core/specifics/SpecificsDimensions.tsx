@@ -63,7 +63,7 @@ function SpecificsDimensions({ message }: Props) {
             <div className="px-1">{languages === 'ko' ? '반납 시간:' :
               <div className='flex items-center'>
                 <div className='flex flex-col'>
-                  <div>Returning</div>
+                  <div>Returning at</div>
                   {/* <div>time:</div> */}
                 </div>
                 {/* <div>:</div> */}
