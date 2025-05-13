@@ -163,7 +163,7 @@ function Specifics({
               userObj={userObj}
               message={message}
             />
-            <div className="flex justify-center pt-5">
+            <div className="flex justify-center pt-1">
               <CardMedia
                 sx={{
                   width: 212 * 0.9,
