@@ -49,7 +49,6 @@ const Chats = ({ userObj, profileUrl, conversation, displayName, chattingUid, mu
     <ClickAwayListener
       key={key}
       onClickAway={() => {
-        console.log('practice')
         if (longPressChat === key) {
           changeLongPressChat(null)
           changeOnLongPress(0)
