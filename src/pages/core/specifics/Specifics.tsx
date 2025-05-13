@@ -154,8 +154,8 @@ function Specifics({
           <Card
             className='colorTwo'
             sx={{
-              width: 200 * 2.5,
-              height: 280 * 2.5,
+              // width: 200 * 2.5,
+              // height: 280 * 2.5,
               boxShadow: `1.9px 1.9px 1.9px 1.9px ${shadowColor}`,
             }}
           >
