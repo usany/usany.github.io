@@ -56,9 +56,21 @@ function RankingListsTitle({ multiple }: Props) {
           <div>{multiple ? (languages === 'ko' ? '유저' : 'User') : (languages === 'ko' ? '내' : 'My')} {languages === 'ko' ? '이름' : 'name'}</div>
           <div>{languages === 'ko' ? '포인트' : 'Points'}</div>
         </div>
-        <div className='flex justify-center items-center w-[67px]'>
-          {languages === 'ko' ? '위치 확인' : 'Location Confirm'}
-        </div>
+        {largeMedia ?
+          <div className='flex justify-center items-center w-[67px]'>
+            {languages === 'ko' ? '위치 확인' : 'Location Confirm'}
+          </div>
+          :
+          <div className='flex flex-col justify-center items-center w-[67px]'>
+            <div>
+              {languages === 'ko' ? '위치 확인' : 'Location'}
+            </div>
+            <div>
+              {languages === 'ko' ? '위치 확인' : 'Confirm'}
+            </div>
+            {/* {languages === 'ko' ? '위치 확인' : 'Location Confirm'} */}
+          </div>
+        }
       </div>
     </div >
     // <div className='flex justify-between w-screen pt-5'>
