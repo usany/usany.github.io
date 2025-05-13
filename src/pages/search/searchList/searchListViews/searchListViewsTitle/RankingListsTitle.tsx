@@ -1,4 +1,5 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import useLargeMedia from "src/hooks/useLargeMedia";
 import { useSelectors } from "src/hooks/useSelectors";
 
 interface Props {
@@ -6,7 +7,7 @@ interface Props {
 }
 function RankingListsTitle({ multiple }: Props) {
   const languages = useSelectors((state) => state.languages.value)
-
+  const largeMedia = useLargeMedia()
   return (
     <div className='px-1 pt-3'>
       <div
