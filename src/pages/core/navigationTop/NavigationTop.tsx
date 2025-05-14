@@ -8,6 +8,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import staticImage from "src/assets/blue.png";
 import { dbservice } from "src/baseApi/serverbase";
+import useLargeMedia from "src/hooks/useLargeMedia";
 import { useSelectors } from "src/hooks/useSelectors";
 import Navigation from "src/pages/core/navigationTop/sideNavigation/Navigation";
 import WeatherView from "src/pages/core/navigationTop/weatherView/WeatherView";
@@ -40,6 +41,7 @@ const NavigationTop = ({ userObj }: Props) => {
   const scrollNavigation = useSelectors(state => state.scrollNavigation.value)
   const storage = getStorage();
   const dispatch = useDispatch();
+  const largeMedia = useLargeMedia()
   // useEffect(() => {
   //   if (userObj) {
   //     getDownloadURL(ref(storage, `${userObj?.uid}`))
@@ -104,23 +106,28 @@ const NavigationTop = ({ userObj }: Props) => {
             piazza={() => null}
           />
         </div> */}
-        <div className='flex items-center gap-5'>
-          {scrollNavigation &&
+        <div className={`flex ${!largeMedia && 'flex-col'} items-center`}>
+          {largeMedia && scrollNavigation &&
             <NavigationScroll />
           }
-          {bottomNavigation % 2 === 0 && <ToggleTabs />}
-          {bottomNavigation === 1 && (
-            <>
-              {userObj ?
-                <div className='flex gap-5'>
-                  <NavigationTopCards />
-                  <NavigationTopMessages />
-                </div>
-                :
-                <NavigationTopLogOut />
-              }
-            </>
-          )}
+          <div>
+            {bottomNavigation % 2 === 0 && <ToggleTabs />}
+            {bottomNavigation === 1 && (
+              <>
+                {userObj ?
+                  <div className='flex gap-5'>
+                    <NavigationTopCards />
+                    <NavigationTopMessages />
+                  </div>
+                  :
+                  <NavigationTopLogOut />
+                }
+              </>
+            )}
+          </div>
+          {!largeMedia && scrollNavigation &&
+            <NavigationScroll />
+          }
         </div>
         <WeatherView />
       </div>
