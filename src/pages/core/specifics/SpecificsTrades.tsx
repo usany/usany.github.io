@@ -48,7 +48,7 @@ function SpecificsTrades({ drawerOpenTrue, userObj, message, round, connectedUse
   return (
     <div className="flex justify-center pt-3">
       <div className="flex flex-col items-center px-5 gap-1">
-        <div>{languages === 'ko' ? '빌리는 분' : 'Borrowing user'}</div>
+        <div>{languages === 'ko' ? '빌리는 분' : 'Borrowing'}</div>
         {message.text.choose === 1 ? (
           <div className="flex flex-col items-center">
             {/* <DrawerProfile
@@ -123,7 +123,7 @@ function SpecificsTrades({ drawerOpenTrue, userObj, message, round, connectedUse
         </div>
       </div>
       <div className="flex flex-col items-center px-5 gap-1">
-        <div>{languages === 'ko' ? '빌려주는 분' : 'Lending user'}</div>
+        <div>{languages === 'ko' ? '빌려주는 분' : 'Lending'}</div>
         {message.text.choose === 1 ? (
           <div className="flex flex-col items-center">
             {connectedUser.uid ? (

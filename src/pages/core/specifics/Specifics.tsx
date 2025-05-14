@@ -184,7 +184,9 @@ function Specifics({
                 connectedUser={connectedUser}
               />
               <Divider />
-              <SpecificsSteppers message={message} round={round} />
+              <div>
+                <SpecificsSteppers message={message} round={round} />
+              </div>
               <Divider />
               <div className="flex justify-center pt-5">
                 {deleted === false && userObj !== null && (
