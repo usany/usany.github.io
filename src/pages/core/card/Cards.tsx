@@ -1,3 +1,4 @@
+import { DndContext } from "@dnd-kit/core";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { Chip, ClickAwayListener } from "@mui/material";
 import { User } from "firebase/auth";
@@ -9,6 +10,7 @@ import {
 } from "react";
 import { dbservice } from "src/baseApi/serverbase";
 import useLongPress from "src/hooks/useLongPress";
+import Draggable from "src/pages/main/menu/Draggable";
 import MorphingDialogs from "../morphingDialogs/MorphingDialogs";
 import CardsViews from "./CardsViews";
 
@@ -89,22 +91,26 @@ const Cards = ({
               }
             }}
           >
-            <div
-              className="longPress"
-              onClick={() => {
-                setLongPressed(false);
-                changeOnLongPress(onLongPress - 1);
-              }}
-            >
-              <CardsViews
-                message={message}
-                isOwner={isOwner}
-                userObj={userObj}
-                num={num}
-                points={points}
-                deleteMessage={deleteMessage}
-              />
-            </div>
+            <DndContext>
+              <Draggable>
+                <div
+                  className="longPress"
+                  onClick={() => {
+                    setLongPressed(false);
+                    changeOnLongPress(onLongPress - 1);
+                  }}
+                >
+                  <CardsViews
+                    message={message}
+                    isOwner={isOwner}
+                    userObj={userObj}
+                    num={num}
+                    points={points}
+                    deleteMessage={deleteMessage}
+                  />
+                </div>
+              </Draggable>
+            </DndContext>
           </ClickAwayListener>
           {/* {longPressed &&
             <div className='z-10 h-full' onClick={() => {

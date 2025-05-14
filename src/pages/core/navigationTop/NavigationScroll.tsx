@@ -34,8 +34,8 @@ const texts: Props = {
     '/': 'My Status',
     '/add': 'Registeration',
     '/board': 'Board',
-    '/profile': 'Profile',
-    '/ranking': 'Ranking',
+    '/profile': 'User Profile',
+    '/ranking': 'User Ranking',
     '/piazza': 'Chats',
     '/contact': 'Report'
   }
