@@ -4,7 +4,9 @@ import { ClickAwayListener } from "@mui/material";
 import { User } from "firebase/auth";
 import {
   collection,
+  deleteDoc,
   doc,
+  getDoc,
   getDocs,
   orderBy,
   query,
@@ -100,9 +102,22 @@ function CardsStacks({ userObj }: Props) {
     }
   }, [longPressCard]);
 
+  const handleDelete = async (id) => {
+    console.log('practice')
+    const data = doc(dbservice, `num/${id}`)
+    const message = await getDoc(data)
+    deleteMessage(message.data())
+    deleteDoc(data)
+    setOnLongPress(null)
+  }
   return (
     <div>
-      <DndContext>
+      <DndContext onDragEnd={(element) => {
+        console.log(element)
+        if (element.over) {
+          handleDelete(element.active.id)
+        }
+      }}>
         {cardLoaded &&
           <div>
             {!messages.filter((value) => {

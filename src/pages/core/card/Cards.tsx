@@ -88,7 +88,7 @@ const Cards = ({
             }}
           >
             <div>
-              <Draggable>
+              <Draggable id={message.id}>
                 <div
                   className="longPress touch-none"
                   onClick={() => {
