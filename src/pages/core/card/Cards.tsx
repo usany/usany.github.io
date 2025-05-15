@@ -1,14 +1,10 @@
-import { DndContext } from "@dnd-kit/core";
-import DeleteIcon from "@mui/icons-material/Delete";
-import { Chip, ClickAwayListener } from "@mui/material";
+import { ClickAwayListener } from "@mui/material";
 import { User } from "firebase/auth";
-import { deleteDoc, doc } from "firebase/firestore";
 import {
   useEffect,
   useRef,
   useState
 } from "react";
-import { dbservice } from "src/baseApi/serverbase";
 import useLongPress from "src/hooks/useLongPress";
 import Draggable from "src/pages/main/menu/Draggable";
 import MorphingDialogs from "../morphingDialogs/MorphingDialogs";
@@ -91,10 +87,10 @@ const Cards = ({
               }
             }}
           >
-            <DndContext>
+            <div>
               <Draggable>
                 <div
-                  className="longPress"
+                  className="longPress touch-none"
                   onClick={() => {
                     setLongPressed(false);
                     changeOnLongPress(onLongPress - 1);
@@ -110,7 +106,7 @@ const Cards = ({
                   />
                 </div>
               </Draggable>
-            </DndContext>
+            </div>
           </ClickAwayListener>
           {/* {longPressed &&
             <div className='z-10 h-full' onClick={() => {
@@ -121,7 +117,7 @@ const Cards = ({
               <Chip label={<DeleteIcon />} color='error'/>
             </div>
           } */}
-          {round < 2 ?
+          {/* {round < 2 ?
             <div
               className="z-10 h-full"
               onClick={() => {
@@ -132,12 +128,10 @@ const Cards = ({
               }}
             >
               <Chip sx={{}} label={<DeleteIcon />} color="error" />
-              {/* <Chips label={<DeleteIcon />} className={'bg-profile-red'} onClick={null} /> */}
             </div>
             :
             <Chip sx={{}} label={<DeleteIcon />} color="error" disabled />
-            // <Chips label={<DeleteIcon />} className={'bg-profile-red'} onClick={null} />
-          }
+          } */}
         </div>
       ) : (
         <div>
