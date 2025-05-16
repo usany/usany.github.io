@@ -41,10 +41,15 @@ function CardsStacks({ userObj }: Props) {
     // console.log(newMessages[0])
     // console.log(deletingMessage)
     // console.log(newMessages.indexOf(deletingMessage))
-    const newMessages = messages.filter((value) => value.id !== deletingMessage.id)
+    const item = document.getElementById(deletingMessage.id)
+    item?.classList.add('transition')
+    item?.addEventListener("transitionend", () => {
+      item?.remove()
+    })
+    // const newMessages = messages.filter((value) => value.id !== deletingMessage.id)
     // console.log(newArray)
     // newMessages.splice(newMessages.indexOf(deletingMessage), 1)
-    setMessages(newMessages)
+    // setMessages(newMessages)
   }
 
   useEffect(() => {
@@ -117,6 +122,17 @@ function CardsStacks({ userObj }: Props) {
     setOnLongPress(null)
   }
   console.log(messages)
+  const items = document.getElementById("items")
+
+  // items.addEventListener("click", e => {
+  //   if (e.target.classList.contains("btn")) {
+  //     const listItem = e.target.parentElement
+  //     listItem.classList.add("transition")
+  //     listItem.addEventListener("transitionend", () => {
+  //       listItem.remove()
+  //     })
+  //   }
+  // })
   return (
     <div>
       <DndContext onDragEnd={(element) => {
@@ -147,14 +163,15 @@ function CardsStacks({ userObj }: Props) {
                   }
                 </Droppable>
                 {/* <div className="flex flex-wrap gap-3"> */}
-                <div className="grid grid-cols-[repeat(auto-fit,minmax(180px,1fr))] col-span-full">
+                <div id='items' className="grid grid-cols-[repeat(auto-fit,minmax(180px,1fr))] col-span-full">
+                  {/* <div id='items' className="flex flex-wrap justify-center"> */}
                   {messages.map((value) => {
                     // console.log(value)
                     const isOwner = value.creatorId === userObj.uid;
                     if (value.round !== 5) {
                       if (value.creatorId === userObj.uid) {
                         return (
-                          <div className='flex justify-center'>
+                          <div id={value.id} className='item-list flex justify-center'>
                             <ClickAwayListener
                               onClickAway={() => {
                                 if (longPressCard === value.id) {
