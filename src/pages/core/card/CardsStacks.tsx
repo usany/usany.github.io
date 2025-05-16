@@ -176,7 +176,7 @@ function CardsStacks({ userObj }: Props) {
                                   setLongPressCard(longPress);
                                 }}
                               >
-                                <AnimatedList>
+                                <>
                                   <Cards
                                     message={value}
                                     isOwner={isOwner}
@@ -193,7 +193,7 @@ function CardsStacks({ userObj }: Props) {
                                     }
                                     deleteMessage={deleteMessage}
                                   />
-                                </AnimatedList>
+                                </>
                               </div>
                             </ClickAwayListener>
                           </div>
