@@ -37,14 +37,14 @@ function CardsStacks({ userObj }: Props) {
   const languages = useSelectors((state) => state.languages.value)
   const index = (languages === 'ko' || languages === 'en') ? languages : 'ko'
   const deleteMessage = (deletingMessage) => {
-    const newMessages = [...messages]
+    // const newMessages = [...messages]
     // console.log(newMessages[0])
     // console.log(deletingMessage)
     // console.log(newMessages.indexOf(deletingMessage))
-    const newArray = newMessages.filter((value) => value.id !== deletingMessage.id)
-    console.log(newArray)
+    const newMessages = messages.filter((value) => value.id !== deletingMessage.id)
+    // console.log(newArray)
     // newMessages.splice(newMessages.indexOf(deletingMessage), 1)
-    setMessages(newArray)
+    setMessages(newMessages)
   }
 
   useEffect(() => {
