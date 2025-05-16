@@ -4,7 +4,6 @@ import { ClickAwayListener } from "@mui/material";
 import { User } from "firebase/auth";
 import {
   collection,
-  deleteDoc,
   doc,
   getDoc,
   getDocs,
@@ -39,8 +38,13 @@ function CardsStacks({ userObj }: Props) {
   const index = (languages === 'ko' || languages === 'en') ? languages : 'ko'
   const deleteMessage = (deletingMessage) => {
     const newMessages = [...messages]
-    newMessages.splice(newMessages.indexOf(deletingMessage), 1)
-    setMessages(newMessages)
+    // console.log(newMessages[0])
+    // console.log(deletingMessage)
+    // console.log(newMessages.indexOf(deletingMessage))
+    const newArray = newMessages.filter((value) => value.id !== deletingMessage.id)
+    console.log(newArray)
+    // newMessages.splice(newMessages.indexOf(deletingMessage), 1)
+    setMessages(newArray)
   }
 
   useEffect(() => {
@@ -106,10 +110,13 @@ function CardsStacks({ userObj }: Props) {
     console.log('practice')
     const data = doc(dbservice, `num/${id}`)
     const message = await getDoc(data)
-    deleteMessage(message.data())
-    deleteDoc(data)
+    const deletingMessage = { id: data.id, ...message.data() }
+    console.log(deletingMessage)
+    deleteMessage(deletingMessage)
+    // deleteDoc(data)
     setOnLongPress(null)
   }
+  console.log(messages)
   return (
     <div>
       <DndContext onDragEnd={(element) => {

@@ -8,4 +8,5 @@ const onClick = () => {
   webSocket.emit('button', { name: 'John Doe', age: 30 })
 }
 
-export { webSocket, onClick }
+export { onClick, webSocket }
+
