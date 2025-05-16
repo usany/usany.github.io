@@ -11,6 +11,11 @@ const SpecificsTradesTrigger = ({
   drawerOpenTrue,
 }) => {
   // console.log(message)
+  const passingProfile = {
+    profileImage: message.creatorProfileImage,
+    defaultProfile: message.creatorDefaultProfile,
+    profileImageUrl: message.creatorProfileImageUrl
+  }
   let uid
   let displayName
   let url
@@ -23,10 +28,10 @@ const SpecificsTradesTrigger = ({
     displayName = message?.connectedName || message?.displayName
     url = message?.connectedUrl || message?.url
   }
-  console.log(uid)
   return (
     <div onClick={onClick}>
       <Avatars
+        element={passingProfile}
         uid={uid}
         profile={false}
         profileColor={''}

@@ -9,7 +9,6 @@ import {
 } from "firebase/firestore";
 import { useEffect, useReducer, useState } from "react";
 import { useSelector } from "react-redux";
-import { useParams, useSearchParams } from "react-router-dom";
 import {
   dbservice
 } from "src/baseApi/serverbase";
@@ -60,6 +59,7 @@ function Add({ userObj, borrow }: Props) {
   const [fromTo, setFromTo] = useState<FromTo>({ from: null, to: null });
   const matches = useMediaQuery("(min-width:850px)");
   const languages = useSelectors((state) => state.languages.value)
+  const profile = useSelectors(state => state.profile.value)
   // const [cardId, setCardId] = useState<string | null>(null)
   // const [from, setFrom] = useState(null);
   // const [to, setTo] = useState(null);
@@ -79,9 +79,9 @@ function Add({ userObj, borrow }: Props) {
   //         return {...state}
   //     }
   //   }
-  const params = useParams()
-  const search = useSearchParams()
-  console.log(useSearchParams())
+  // const params = useParams()
+  // const search = useSearchParams()
+  // console.log(useSearchParams())
   function changeAddSteps(newValue) {
     setAddSteps(newValue);
   }
@@ -283,6 +283,12 @@ function Add({ userObj, borrow }: Props) {
           connectedName: null,
           connectedUrl: null,
           item: item,
+          creatorProfileImage: profile?.profileImage,
+          creatorDefaultProfile: profile?.defaultProfile,
+          creatorProfileImageUrl: profile?.profileImageUrl,
+          connectedProfileImage: null,
+          connectedDefaultProfile: null,
+          connectedProfileImageUrl: null,
         });
         console.log(user)
         await updateDoc(user, { createdCards: [...userCreatedCards, card.id] });
@@ -349,7 +355,7 @@ function Add({ userObj, borrow }: Props) {
           </div>
       </div> */}
       {matches ? (
-        <div className="flex justify-around px-5">
+        <div className="flex justify-center">
           <AddCards
             borrow={borrow}
             userObj={userObj}
@@ -381,7 +387,7 @@ function Add({ userObj, borrow }: Props) {
           </div>
         </div>
       ) : (
-        <div className="flex justify-around px-5">
+        <div className="flex justify-center">
           <AddCards
             borrow={borrow}
             userObj={userObj}

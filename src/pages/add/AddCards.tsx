@@ -53,9 +53,10 @@ const AddCards = ({
     <div className="flex justify-center text-sm pt-5 p-1">
       <AnimatedList>
         <Card
+          className='colorTwo'
           sx={{
-            width: 200,
-            height: 280,
+            width: 200 * 0.9,
+            height: 280 * 0.9,
             boxShadow: `1.9px 1.9px 1.9px 1.9px ${shadowColor}`,
           }}
         >
@@ -70,11 +71,14 @@ const AddCards = ({
                 />
                 {item &&
                   <div className='flex items-center'>
-                    <Chip label={`${languages === 'ko' ? item : (item === '우산' ? 'Umbrella' : 'Yangsan')} ${languages === 'ko' ? (borrow ? ' 빌리기' : ' 빌려주기') : (borrow ? ' borrowing' : ' lending')}`} />
+                    <Chip label={
+                      <div className='text-xs'>
+                        {languages === 'ko' ? item : (item === '우산' ? 'Umbrella' : 'Yangsan')} {languages === 'ko' ? (borrow ? ' 빌리기' : ' 빌려주기') : (borrow ? ' borrowing' : ' lending')}
+                      </div>
+                    } />
                     {/* <Chips label={`${item} ${borrow ? ' 빌리기' : ' 빌려주기'}`} onClick={null} /> */}
                   </div>
                 }
-                {/* {item && <Chip label='내가 작성함' />} */}
               </div>
               {!item ?
                 <div className="flex justify-center pt-5">{languages === 'ko' ? '빈 카드입니다' : 'Empty card'}</div>
@@ -83,12 +87,12 @@ const AddCards = ({
                   {locationState.locationOne && (
                     <div className="flex justify-center pt-1">
                       <CardMedia sx={{
-                        width: 159,
-                        height: 141,
+                        width: 159 * 0.9,
+                        height: 141 * 0.9,
                       }} image={staticImg} />
                     </div>
                   )}
-                  <div className="flex flex-col justify-center pt-1">
+                  <div className="flex flex-col pt-1 gap-1 text-xs">
                     {locationState && (
                       <div className="flex gap-1">
                         {locationState?.locationOne &&
@@ -96,7 +100,7 @@ const AddCards = ({
                             <Building />
                           </div>
                         }
-                        <div>
+                        <div className='flex items-center'>
                           {languages === 'ko' ? locationState?.locationOne : locationsBuildings['en'][locationsBuildings['ko'].indexOf(locationState?.locationOne)]}
                           {' '}
                           {languages === 'ko' ? locationState?.locationTwo : (locationState?.locationOne && locationsCollection['en'][Object.keys(locationsCollectionLetters).find((key) => locationsCollectionLetters[key] === locationState?.locationOne)][locationsCollection['ko'][Object.keys(locationsCollectionLetters).find((key) => locationsCollectionLetters[key] === locationState?.locationOne)].indexOf(locationState?.locationTwo)])}
@@ -108,9 +112,11 @@ const AddCards = ({
                     {fromTo.from && (
                       <div className="flex gap-1">
                         <Watch />
-                        <div className='flex flex-col'>
+                        <div className='flex flex-col justify-center'>
                           <div className='flex'>
-                            {languages === 'en' && 'From '}
+                            <div className='w-[40px]'>
+                              {languages === 'en' && 'From '}
+                            </div>
                             {fromTo.from.year}.{fromTo.from.month < 10 && '0'}
                             {fromTo.from.month}.{fromTo.from.day < 10 && '0'}
                             {fromTo.from.day} {fromTo.from.hour < 10 && '0'}
@@ -119,7 +125,9 @@ const AddCards = ({
                           </div>
                           {fromTo.to && (
                             <div className="flex">
-                              {languages === 'en' && 'To '}
+                              <div className='w-[40px]'>
+                                {languages === 'en' && 'To '}
+                              </div>
                               {fromTo.to.year}.{fromTo.to.month < 10 && '0'}
                               {fromTo.to.month}.{fromTo.from.day < 10 && '0'}
                               {fromTo.to.day} {fromTo.to.hour < 10 && '0'}

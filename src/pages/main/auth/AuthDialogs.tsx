@@ -1,32 +1,22 @@
-import {
-  Drawer,
-  DrawerContent,
-  DrawerTitle,
-  DrawerTrigger
-} from "@/components/ui/drawer";
-import { Divider } from "@mui/material";
-import { ScrollArea } from "@radix-ui/react-scroll-area";
 import { useSelector } from "react-redux";
 import { useSelectors } from "src/hooks/useSelectors";
-import DrawersBar from "src/pages/core/DrawersBar";
 import Popups from "src/pages/core/Popups";
-import AuthForm from "src/pages/main/auth/AuthForm";
-import AuthDialogsTrigger from "./AuthDialogsTrigger";
 import AuthDialogsContent from "./AuthDialogsContent";
+import AuthDialogsTrigger from "./AuthDialogsTrigger";
 
 function AuthDialogs() {
-  const theme = useSelector((state) => state.theme);
+  const theme = useSelector((state) => state.theme.value);
   const languages = useSelectors((state) => state.languages.value)
   return (
     <>
-    <Popups trigger={<AuthDialogsTrigger />}
-      title={<div>{languages === 'ko' ? '환영합니다' : 'Welcome'}</div>}
-      content={<AuthDialogsContent />}
-    />
+      <Popups trigger={<AuthDialogsTrigger />}
+        title={<div>{languages === 'ko' ? '환영합니다' : 'Welcome'}</div>}
+        content={<AuthDialogsContent />}
+      />
       {/* <Drawer>
         <div className="flex justify-center w-full"> */}
-          {/* <Button sx={{width: '100%'}} variant='outlined'>회원가입</Button> */}
-          {/* <div className="flex justify-center w-full text-xs p-5">
+      {/* <Button sx={{width: '100%'}} variant='outlined'>회원가입</Button> */}
+      {/* <div className="flex justify-center w-full text-xs p-5">
             <Divider sx={{ width: "25%", padding: "5px" }} />
             <div className="px-5">{languages === 'ko' ? '회원가입' : 'Register'}</div>
             < Divider sx={{ width: "25%", padding: "5px" }} />

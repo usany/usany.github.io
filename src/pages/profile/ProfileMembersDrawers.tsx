@@ -28,7 +28,7 @@ const ProfileMembersDrawers = ({ userObj, user }) => {
   const [confirmEmail, setConfirmEmail] = useState(false);
   const [process, setProcess] = useState(false);
   const navigate = useNavigate();
-  const theme = useSelector((state) => state.theme)
+  const theme = useSelector((state) => state.theme.value)
   const languages = useSelectors((state) => state.languages.value)
   const onChange = (event) => {
     const {

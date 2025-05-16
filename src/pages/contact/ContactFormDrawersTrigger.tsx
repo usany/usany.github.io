@@ -85,10 +85,10 @@ function ContactFormDrawersTrigger({ violationUser, changeViolationUser }: Props
     //   setRank(newArray)
     // })
   }, [])
-  const { color } = useCardsBackground()
+  const { color, colorTwo } = useCardsBackground()
 
   return (
-    <div className='w-screen' onClick={() => setUserSearch('')}>
+    <div onClick={() => setUserSearch('')}>
       {violationUser ?
         <Card sx={{
           width: '100%',
@@ -106,7 +106,13 @@ function ContactFormDrawersTrigger({ violationUser, changeViolationUser }: Props
           </div>
         </Card>
         :
-        <Button sx={{ width: '100%' }} variant='outlined' form='auth'>{languages === 'ko' ? '신고 등록 유저' : 'Register reporting user'}</Button>
+        <div className='flex justify-center'>
+          <Button sx={{
+            width: '50%', bgcolor: colorTwo, ":hover": {
+              bgcolor: colorTwo
+            }
+          }} variant='outlined' form='auth'>{languages === 'ko' ? '신고 등록 유저' : 'Register reporting user'}</Button>
+        </div>
       }
     </div>
   )

@@ -2,13 +2,13 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const themeReducer = createSlice({
   name: 'theme',
-  initialState: localStorage.getItem('theme') || 'light',
+  initialState: { value: localStorage.getItem('theme') || 'light' },
   reducers: {
     changeLight: state => {
-      return (state = 'light')
+      state.value = 'light'
     },
     changeDark: state => {
-      return (state = 'dark')
+      state.value = 'dark'
     },
   }
 })

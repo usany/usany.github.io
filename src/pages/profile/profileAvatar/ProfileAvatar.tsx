@@ -24,17 +24,20 @@ const ProfileAvatar = ({ userObj, user, handleProfileDialog, profileDialog, atta
   const profileImage = useSelector((state) => state.profileImage.value);
   const largeMedia = useLargeMedia()
   const [profile, setProfile] = useState(null)
-  console.log(profileImage)
   useEffect(() => {
     setProfile(profileUrl)
   }, [profileImage])
+  // console.log(user?.profileImageUrl)
+  // console.log(userObj.uid)
+  // console.log(user.uid)
+  console.log(user)
   if (userObj.uid === user.uid) {
     return (
       <div>
         <Popups
           trigger={<ProfileView userObj={userObj} user={user} attachment={attachment} changeAttachment={changeAttachment} />}
           title={'프로필 변경'}
-          content={<ProfileDialogs userObj={userObj} attachment={attachment} changeAttachment={changeAttachment} handleClose={handleClose} />}
+          content={<ProfileDialogs userObj={userObj} user={user} attachment={attachment} changeAttachment={changeAttachment} handleClose={handleClose} />}
           close={<ProfileClose userObj={userObj} attachment={attachment} changeAttachment={changeAttachment} handleClose={handleClose} />}
           attachment={attachment}
         />
@@ -45,10 +48,13 @@ const ProfileAvatar = ({ userObj, user, handleProfileDialog, profileDialog, atta
       <div className='flex justify-center'>
         {user?.profileImageUrl ? (
           <Avatars
-            uid={user.uid}
+            element={user}
+            piazza={null}
             profile={true}
-            profileColor={user.profileColor}
-            profileUrl={user?.profileImageUrl}
+          // uid={user.uid}
+          // profileColor=""
+          // profileUrl={user.profileImageUrl}
+          // defaultProfileUrl={user.defaultProfile}
           />
         ) : (
           <LoadingsSkeletons height={"[192px]"} width={"[192px]"} />

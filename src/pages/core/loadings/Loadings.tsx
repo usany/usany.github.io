@@ -15,6 +15,12 @@ function Loadings() {
       {location.pathname === '/' &&
         <LoadingsMain />
       }
+      {location.pathname === '/add' &&
+        <LoadingsMain />
+      }
+      {location.pathname === '/board' &&
+        <LoadingsMain />
+      }
       {location.pathname === '/profile' &&
         <LoadingsProfile />
       }

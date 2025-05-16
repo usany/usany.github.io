@@ -68,7 +68,7 @@ const ProfileDrawersPoints = ({ user, cards }) => {
     <div className='p-5'>
       {pointsList.length === 0 ?
         <div className='flex justify-center'>
-          <div className='border border-dashed p-5'>
+          <div className='rounded shadow-md bg-light-1 dark:bg-dark-1 p-5'>
             적립 내역이 없습니다
           </div>
         </div>

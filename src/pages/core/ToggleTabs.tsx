@@ -46,7 +46,8 @@ export default function ToggleTabs() {
   const tabsBox = useMemo(() => {
     return (
       <Box sx={{
-        paddingX: '10px'
+        width: '148px'
+        // paddingX: '10px'
       }}>
         <Tabs
           sx={{
@@ -55,8 +56,12 @@ export default function ToggleTabs() {
           }}
           value={tabs} onChange={handleChange} aria-label="basic tabs example"
         >
-          <Tab label={<Minimize2 />} {...a11yProps(0)} />
-          <Tab label={<Maximize2 />} {...a11yProps(1)} />
+          <Tab
+            sx={{ width: '64px' }}
+            label={<Minimize2 />} {...a11yProps(0)} />
+          <Tab
+            sx={{ width: '64px' }}
+            label={<Maximize2 />} {...a11yProps(1)} />
         </Tabs>
       </Box>
     )

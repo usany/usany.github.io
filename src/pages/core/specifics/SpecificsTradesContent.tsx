@@ -17,6 +17,11 @@ const SpecificsTradesContent = ({
   drawerOpenTrue,
 }) => {
   // console.log(message)
+  const passingProfile = {
+    profileImage: message.creatorProfileImage,
+    defaultProfile: message.creatorDefaultProfile,
+    profileImageUrl: message.creatorProfileImageUrl
+  }
   let uid
   let displayName
   let url
@@ -33,6 +38,7 @@ const SpecificsTradesContent = ({
     <div>
       <div className="flex flex-col items-center pt-5">
         <Avatars
+          element={passingProfile}
           uid={uid}
           profile={true}
           profileColor=""

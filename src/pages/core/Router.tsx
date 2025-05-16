@@ -67,6 +67,10 @@ const Router = ({ userObj }: Props) => {
                   path="/piazza"
                   Component={() => <Piazza userObj={userObj} />}
                 />
+                <Route
+                  path="/specific"
+                  Component={() => <Piazza userObj={userObj} />}
+                />
               </Route>
               {/* {userObj ? (
               ): (

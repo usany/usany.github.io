@@ -1,5 +1,5 @@
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
-import { AvatarFallback } from "@radix-ui/react-avatar";
+import { DocumentData } from "firebase/firestore";
 import static01 from "src/assets/blue01.png";
 import static02 from "src/assets/blue02.png";
 import statics from "src/assets/blue03.png";
@@ -9,61 +9,60 @@ import static03 from "src/assets/red1.png";
 import static04 from "src/assets/red2.png";
 
 interface Props {
-  uid: string
+  element: DocumentData | undefined
   profile: boolean;
   profileColor: string;
   profileUrl: string;
+  defaultProfileUrl: string
   piazza: () => void
 }
 
 const Avatars = ({
   element,
-  uid,
   profile,
-  profileColor,
-  profileUrl,
   piazza
+  // uid,
+  // profileColor,
+  // profileUrl,
+  // defaultProfileUrl,
 }: Props) => {
   const profileImageArray = [static01, static02, static03, static04, static05, static06, statics]
-  const alpha = Array.from(Array(26)).map((e, i) => i + 65);
-  const letters = alpha.map((x) => String.fromCharCode(x));
-  let defaultProfile
-  let index
-  index = letters.indexOf(String(uid[0]).toUpperCase()) % profileImageArray.length
-  if (index === -1) {
-    index = Number(uid[0]) % profileImageArray.length
-  }
-  if (uid) {
-    defaultProfile = profileImageArray[index];
-  }
   const profileImage = element?.profileImage
-  console.log(profileUrl)
+  let defaultProfile
+  if (element?.defaultProfile) {
+    defaultProfile = element?.defaultProfile
+  } else {
+    defaultProfile = static05
+  }
+  console.log(element)
+  // console.log(element?.defaultProfile)
+
   return (
     <div>
       {profile ? (
         <Avatar
-          className={`w-48 h-48 bg-${(profileColor || "#")[0] === "#" ? "profile-blue" : profileColor}`}
+          className='w-48 h-48'
         >
-          <AvatarImage src={profileUrl} />
-          {!profileImage &&
+          <AvatarImage src={profileImage ? element.profileImageUrl : defaultProfile} />
+          {/* {!profileImage &&
             <AvatarFallback className="text-8xl border-none">
               <img className='h-full' src={defaultProfile} />
-            </AvatarFallback>
-          }
-        </Avatar>
+    </AvatarFallback>
+          } */}
+        </Avatar >
       ) : (
         <Avatar
           onClick={piazza}
         >
-          <AvatarImage src={profileUrl} />
-          {!profileImage &&
+          <AvatarImage src={profileImage ? element.profileImageUrl : defaultProfile} />
+          {/* {!profileImage &&
             <AvatarFallback className="">
               <img className='h-full' src={defaultProfile} />
             </AvatarFallback>
-          }
+          } */}
         </Avatar>
       )}
-    </div>
+    </div >
   );
 };
 

@@ -11,7 +11,7 @@ const NavigationTopCards = () => {
   const dispatch = useDispatch();
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col h-[48px]">
       <div className="flex justify-center w-16 h-[45px] pt-3">
         {cardAccordion ? (
           <CreditCard

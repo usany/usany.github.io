@@ -1,10 +1,6 @@
-import { useState } from "react";
 // import { Filter } from "lucide-react";
 import { useSelectors } from "src/hooks/useSelectors";
 import locationsBuildings from "src/pages/add/locationsBuildings";
-import Popups from "src/pages/core/Popups";
-import FilterDialogsContent from "./FilterDialogsContent";
-import FilterDialogsTitle from "./FilterDialogsTitle";
 import FilterDialogsTrigger from "./FilterDialogsTrigger";
 const itemsTitle = {
   ko: '우산 / 양산 선택',
@@ -71,15 +67,16 @@ const markers = [
 
 function FilterDialogs({ selectedValues, handleSelectedValues }) {
   const languages = useSelectors((state) => state.languages.value)
-  const index = (languages === 'ko' || languages === 'en') ? languages : 'ko'
-  const [selected, setSelected] = useState(null);
-  const onClick = ({ id }) => {
-    setSelected(id);
-  };
+  // const index = (languages === 'ko' || languages === 'en') ? languages : 'ko'
+  // const [selected, setSelected] = useState(null);
+  // const onClick = ({ id }) => {
+  //   setSelected(id);
+  // };
 
   return (
     <div>
-      <Popups trigger={<FilterDialogsTrigger selectedValues={selectedValues} />} title={<FilterDialogsTitle />} content={<FilterDialogsContent selectedValues={selectedValues} handleSelectedValues={handleSelectedValues} />} />
+      <FilterDialogsTrigger selectedValues={selectedValues} />
+      {/* <Popups trigger={<FilterDialogsTrigger selectedValues={selectedValues} />} title={<FilterDialogsTitle />} content={<FilterDialogsContent selectedValues={selectedValues} handleSelectedValues={handleSelectedValues} />} /> */}
     </div >
   );
 }

@@ -79,7 +79,7 @@ const Cards = ({
   return (
     <div className="max-w-60 min-w-20 text-sm p-1" ref={cardsRef}>
       {longPressed ? (
-        <div className="flex gap-3 scale-75 w-[200px]">
+        <div className="flex scale-75">
           <ClickAwayListener
             onClickAway={() => {
               // console.log("practice");
@@ -125,11 +125,11 @@ const Cards = ({
                 deleteMessage(message)
               }}
             >
-              <Chip label={<DeleteIcon />} color="error" />
+              <Chip sx={{}} label={<DeleteIcon />} color="error" />
               {/* <Chips label={<DeleteIcon />} className={'bg-profile-red'} onClick={null} /> */}
             </div>
             :
-            <Chip label={<DeleteIcon />} color="error" disabled />
+            <Chip sx={{}} label={<DeleteIcon />} color="error" disabled />
             // <Chips label={<DeleteIcon />} className={'bg-profile-red'} onClick={null} />
           }
         </div>

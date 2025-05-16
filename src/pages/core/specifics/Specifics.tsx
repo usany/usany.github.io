@@ -8,8 +8,10 @@ import { dbservice } from 'src/baseApi/serverbase'
 import Btn from 'src/buttons/Buttons'
 // import { CardActionArea, CardActions } from '@mui/material';
 // import { useBottomNavigationStore } from 'src/store'
+import { ClickAwayListener } from '@mui/material'
 import Divider from '@mui/material/Divider'
 import { User } from 'firebase/auth'
+import staticImg from 'src/assets/pwa-512x512.png'
 import { useSelectors } from 'src/hooks/useSelectors'
 import SpecificsActions from './SpecificsActions'
 import SpecificsDimensions from './SpecificsDimensions'
@@ -145,112 +147,116 @@ function Specifics({
     shadowColorArray[
     mergedArray.indexOf(String(id[0]).toUpperCase()) % shadowColorArray.length
     ]
-  // const { color } = useCardsBackground()
-
   return (
     <div className="truncate p-1">
-      {userObj ? (
-        <Card
-          sx={{
-            boxShadow: `1.9px 1.9px 1.9px 1.9px ${shadowColor}`,
-          }}
-        >
-          <CardContent>
-            <SpecificsActions
-              drawerOpenTrue={drawerOpenTrue}
-              userObj={userObj}
-              message={message}
-            />
-            <div className="flex justify-center pt-5">
-              <CardMedia
-                sx={{
-                  width: 212,
-                  height: 188
-                }}
-                image={"src/assets/pwa-512x512.png"}
+      <ClickAwayListener onClickAway={() => console.log('practice')}>
+        {userObj ? (
+          <Card
+            className='colorTwo'
+            sx={{
+              // width: 200 * 2.5,
+              // height: 280 * 2.5,
+              boxShadow: `1.9px 1.9px 1.9px 1.9px ${shadowColor}`,
+            }}
+          >
+            <CardContent>
+              <SpecificsActions
+                drawerOpenTrue={drawerOpenTrue}
+                userObj={userObj}
+                message={message}
               />
-            </div>
-            <SpecificsDimensions message={message} />
-            <Divider />
-            <SpecificsTrades
-              drawerOpenTrue={drawerOpenTrue}
-              userObj={userObj}
-              message={message}
-              round={round}
-              connectedUser={connectedUser}
-            />
-            <Divider />
-            <SpecificsSteppers message={message} round={round} />
-            <Divider />
-            <div className="flex justify-center pt-5">
-              {deleted === false && userObj !== null && (
-                <div className="flex justify-center">
-                  <Btn
-                    messageObj={message}
-                    isOwner={message.creatorId === userObj.uid}
-                    uid={userObj.uid}
-                    displayName={userObj.displayName}
-                    userObj={userObj}
-                    num={num}
-                    points={points}
-                    deleteMessage={deleteMessage}
-                    round={round}
-                    increaseRound={increaseRound}
-                    decreaseRound={decreaseRound}
-                    onPulse={onPulse}
-                    changeOnPulse={changeOnPulse}
-                    connectedUser={connectedUser}
-                    changeConnectedUser={changeConnectedUser}
-                    toggleOnTransfer={toggleOnTransfer}
-                  />
-                </div>
-              )}
-              {deleted === false && userObj === null && (
-                <div className="flex justify-center">
-                  <Btn
-                    messageObj={message}
-                    isOwner={false}
-                    uid={null}
-                    displayName={null}
-                    userObj={userObj}
-                    num={num}
-                    points={points}
-                    deleteMessage={deleteMessage}
-                    round={round}
-                    increaseRound={increaseRound}
-                    decreaseRound={decreaseRound}
-                    onPulse={onPulse}
-                    changeOnPulse={changeOnPulse}
-                    connectedUser={connectedUser}
-                    changeConnectedUser={changeConnectedUser}
-                    toggleOnTransfer={toggleOnTransfer}
-                  />
-                </div>
-              )}
-              {deleted === true && (
-                <div className="flex justify-center">
-                  <Button variant="outlined" disabled>
-                    {languages === 'ko' ? '지워졌습니다' : 'Deleted'}
-                  </Button>
-                </div>
-              )}
-            </div>
-          </CardContent>
-        </Card>
-      ) : (
-        <Card
-          sx={{
-            boxShadow: `1.9px 1.9px 1.9px 1.9px ${shadowColor}`,
-            width: '481px',
-            height: '640px',
-          }}
-        >
-          <CardContent>
-            <div className="flex justify-center pt-5">로그인을 해 주세요</div>
-          </CardContent>
-        </Card>
-      )}
-    </div>
+              <div className="flex justify-center pt-1">
+                <CardMedia
+                  sx={{
+                    width: 212 * 0.9,
+                    height: 188 * 0.9
+                  }}
+                  image={staticImg}
+                />
+              </div>
+              <SpecificsDimensions message={message} />
+              <Divider />
+              <SpecificsTrades
+                drawerOpenTrue={drawerOpenTrue}
+                userObj={userObj}
+                message={message}
+                round={round}
+                connectedUser={connectedUser}
+              />
+              <Divider />
+              <SpecificsSteppers message={message} round={round} />
+              <Divider />
+              <div className="flex justify-center pt-5">
+                {deleted === false && userObj !== null && (
+                  <div className="flex justify-center">
+                    <Btn
+                      messageObj={message}
+                      isOwner={message.creatorId === userObj.uid}
+                      uid={userObj.uid}
+                      displayName={userObj.displayName}
+                      userObj={userObj}
+                      num={num}
+                      points={points}
+                      deleteMessage={deleteMessage}
+                      round={round}
+                      increaseRound={increaseRound}
+                      decreaseRound={decreaseRound}
+                      onPulse={onPulse}
+                      changeOnPulse={changeOnPulse}
+                      connectedUser={connectedUser}
+                      changeConnectedUser={changeConnectedUser}
+                      toggleOnTransfer={toggleOnTransfer}
+                    />
+                  </div>
+                )}
+                {deleted === false && userObj === null && (
+                  <div className="flex justify-center">
+                    <Btn
+                      messageObj={message}
+                      isOwner={false}
+                      uid={null}
+                      displayName={null}
+                      userObj={userObj}
+                      num={num}
+                      points={points}
+                      deleteMessage={deleteMessage}
+                      round={round}
+                      increaseRound={increaseRound}
+                      decreaseRound={decreaseRound}
+                      onPulse={onPulse}
+                      changeOnPulse={changeOnPulse}
+                      connectedUser={connectedUser}
+                      changeConnectedUser={changeConnectedUser}
+                      toggleOnTransfer={toggleOnTransfer}
+                    />
+                  </div>
+                )}
+                {deleted === true && (
+                  <div className="flex justify-center">
+                    <Button variant="outlined" disabled>
+                      {languages === 'ko' ? '지워졌습니다' : 'Deleted'}
+                    </Button>
+                  </div>
+                )}
+              </div>
+            </CardContent>
+          </Card>
+        ) : (
+          <Card
+            sx={{
+              boxShadow: `1.9px 1.9px 1.9px 1.9px ${shadowColor}`,
+              width: '481px',
+              height: '640px',
+            }}
+          >
+            <CardContent>
+              <div className="flex justify-center pt-5">로그인을 해 주세요</div>
+            </CardContent>
+          </Card>
+        )
+        }
+      </ClickAwayListener>
+    </div >
   )
 }
 

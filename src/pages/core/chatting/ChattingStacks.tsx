@@ -1,23 +1,35 @@
 import { User } from 'firebase/auth'
 import {
+  collection,
   doc,
   getDoc,
+  getDocs,
+  limit,
+  orderBy,
+  query,
   updateDoc
 } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
 import { dbservice } from 'src/baseApi/serverbase'
 import { AnimatedList } from 'src/components/ui/animated-list'
+import { useSelectors } from 'src/hooks/useSelectors'
 import Chats from 'src/pages/core/chatting/Chats'
 import { webSocket } from 'src/webSocket.tsx'
-
 interface Props {
   userObj: User
+}
+const emptyMessages = {
+  ko: '진행  메세지가 없습니다',
+  en: 'No messages'
 }
 
 const ChattingStacks = ({
   userObj,
   longPressChat,
+  longPressChatsList,
   changeLongPressChat,
+  changeLongPressChatsList,
   onLongPress,
   changeOnLongPress,
 }: Props) => {
@@ -30,6 +42,60 @@ const ChattingStacks = ({
       chattings[elementTwo].messageClockNumber -
       chattings[elementOne].messageClockNumber
     )
+  })
+  const [piazzaMessage, setPiazzaMessage] = useState<{
+    username: string
+    message: string
+  } | null>(null)
+
+  const piazzaSwitch = useSelector<boolean>((state) => state.piazzaSwitch.value)
+  if (piazzaSwitch === 'true') {
+    sorted.splice(0, 0, 'piazza')
+  }
+  const languages = useSelectors((state) => state.languages.value)
+  const index = (languages === 'ko' || languages === 'en') ? languages : 'ko'
+
+  useEffect(() => {
+    if (!webSocket) return
+    function sMessageCallback(message) {
+      const { msg, userUid, id, target, messageClock, conversation } = message
+      console.log(msg)
+      setPiazzaMessage({
+        message: msg,
+        messageClock: messageClock,
+        username: id,
+        piazzaChecked: [id],
+      })
+    }
+    webSocket.on('sMessagePiazza', sMessageCallback)
+    return () => {
+      webSocket.off('sMessagePiazza', sMessageCallback)
+    }
+  }, [])
+  useEffect(() => {
+    const piazza = async () => {
+      const piazzaRef = collection(dbservice, 'chats_group')
+      const piazzaCollection = query(
+        piazzaRef,
+        orderBy('messageClockNumber', 'desc'),
+        limit(1),
+      )
+      const piazzaMessages = await getDocs(piazzaCollection)
+      piazzaMessages.forEach((doc) => {
+        if (!piazzaMessage) {
+          setPiazzaMessage({
+            username: doc.data().userName,
+            messageClock: doc.data().messageClock,
+            messageClockNumber: doc.data().messageClockNumber,
+            message: doc.data().message,
+            piazzaChecked: doc.data().piazzaChecked || [],
+          })
+        }
+      })
+    }
+    if (piazzaSwitch === 'true') {
+      piazza()
+    }
   })
   // console.log(sorted)
   useEffect(() => {
@@ -190,44 +256,78 @@ const ChattingStacks = ({
   }
 
   return (
-    <>
+    <div className='flex flex-col gap-1'>
+      {!sorted.length &&
+        <div className="flex items-center flex-col">
+          <div className="flex justify-center rounded w-1/2 p-5 bg-light-2 dark:bg-dark-2 shadow-md">
+            {emptyMessages[index]}
+          </div>
+        </div>
+      }
       {sorted.map((element, index) => {
-        const clock = new Date(chattings[element].messageClock)
-        if (chattings[element]) {
-          let displayName
-          let chattingUid
-          let profileUrl
-          if (userObj.uid === chattings[element].userOne) {
-            displayName = chattings[element].userTwoDisplayName
-            chattingUid = chattings[element].userTwo
-            profileUrl = chattings[element].userTwoProfileUrl
-          } else {
-            displayName = chattings[element].userOneDisplayName
-            chattingUid = chattings[element].userOne
-            profileUrl = chattings[element].userOneProfileUrl
-          }
+        let clock
+        if (element === 'piazza') {
+          clock = new Date(piazzaMessage?.messageClock)
           return (
             <AnimatedList>
               <Chats
                 userObj={userObj}
-                profileUrl={profileUrl}
-                conversation={element}
-                displayName={displayName}
-                chattingUid={chattingUid}
-                multiple={false}
+                profileUrl={''}
+                conversation={''}
+                displayName={''}
+                chattingUid={''}
+                multiple={true}
                 clock={clock}
-                message={chattings[element]}
+                message={piazzaMessage}
                 longPressChat={longPressChat}
+                longPressChatsList={longPressChatsList}
                 changeLongPressChat={changeLongPressChat}
+                changeLongPressChatsList={changeLongPressChatsList}
                 onLongPress={onLongPress}
                 changeOnLongPress={changeOnLongPress}
-                onDelete={onDelete}
               />
             </AnimatedList>
           )
+        } else {
+          clock = new Date(chattings[element].messageClock)
+          if (chattings[element]) {
+            let displayName
+            let chattingUid
+            let profileUrl
+            if (userObj.uid === chattings[element].userOne) {
+              displayName = chattings[element].userTwoDisplayName
+              chattingUid = chattings[element].userTwo
+              profileUrl = chattings[element].userTwoProfileUrl
+            } else {
+              displayName = chattings[element].userOneDisplayName
+              chattingUid = chattings[element].userOne
+              profileUrl = chattings[element].userOneProfileUrl
+            }
+            return (
+              <AnimatedList>
+                <Chats
+                  userObj={userObj}
+                  profileUrl={profileUrl}
+                  conversation={element}
+                  displayName={displayName}
+                  chattingUid={chattingUid}
+                  multiple={false}
+                  clock={clock}
+                  message={chattings[element]}
+                  longPressChat={longPressChat}
+                  longPressChatsList={longPressChatsList}
+                  changeLongPressChat={changeLongPressChat}
+                  changeLongPressChatsList={changeLongPressChatsList}
+                  onLongPress={onLongPress}
+                  changeOnLongPress={changeOnLongPress}
+                  onDelete={onDelete}
+                />
+              </AnimatedList>
+            )
+          }
         }
       })}
-    </>
+    </div>
   )
 }
 

@@ -1,6 +1,5 @@
 import BeachAccess from "@mui/icons-material/BeachAccess";
 import Badge from "@mui/material/Badge";
-import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import LoadingsSkeletons from "src/components/recycle/recycleLoadingsSkeletons";
 import Avatars from "src/pages/core/Avatars";
@@ -8,12 +7,16 @@ import Avatars from "src/pages/core/Avatars";
 const ProfileView = ({ userObj, user, changeAttachment }) => {
   const profileColor = useSelector((state) => state.profileColor.value);
   const profileUrl = useSelector((state) => state.profileUrl.value);
-  const profileImage = useSelector((state) => state.profileImage.value);
-  const [profile, setProfile] = useState(null)
-  useEffect(() => {
-    setProfile(profileUrl)
-  }, [profileUrl])
-
+  // const profileImage = useSelector((state) => state.profileImage.value);
+  // const [profile, setProfile] = useState(null)
+  // console.log(profileUrl)
+  // useEffect(() => {
+  //   if (profileImage) {
+  //     setProfile(profileUrl)
+  //   } else {
+  //     setProfile(staticImage)
+  //   }
+  // }, [profileUrl])
   return (
     <div onClick={() => {
       changeAttachment('')
@@ -31,10 +34,13 @@ const ProfileView = ({ userObj, user, changeAttachment }) => {
         >
           {profileUrl ? (
             <Avatars
-              uid={userObj.uid}
+              element={user}
+              piazza={null}
               profile={true}
-              profileColor={profileColor}
-              profileUrl={profile}
+            // uid={user.uid}
+            // profileColor=""
+            // profileUrl={user.profileImageUrl}
+            // defaultProfileUrl={user.defaultProfile}
             />
           ) : (
             <LoadingsSkeletons height={"[192px]"} width={"[192px]"} />
@@ -42,16 +48,19 @@ const ProfileView = ({ userObj, user, changeAttachment }) => {
         </Badge>
       ) : (
         <>
-          {/* {user?.profileImageUrl ? (
+          {user?.profileImageUrl ? (
             <Avatars
-              uid={userObj.uid}
+              element={user}
+              piazza={null}
               profile={true}
-              profileColor={user.profileColor}
-              profileUrl={user?.profileImageUrl}
+            // uid={user.uid}
+            // profileColor=""
+            // profileUrl={user.profileImageUrl}
+            // defaultProfileUrl={user.defaultProfile}
             />
           ) : (
             <LoadingsSkeletons height={"[192px]"} width={"[192px]"} />
-          )} */}
+          )}
         </>
       )}
     </div>

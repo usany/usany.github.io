@@ -14,6 +14,9 @@ import { themeReducer } from 'src/stateSlices/themeSlice'
 import { createMachine } from 'xstate'
 import { languagesReducer } from './stateSlices/languagesSlice'
 import { piazza } from './stateSlices/piazza'
+import { piazzaFormReducer } from './stateSlices/piazzaFormSlice'
+import { profileReducer } from './stateSlices/profileSlice'
+import { scrollNavigationReducer } from './stateSlices/scrollNavigationSlice'
 import { weather } from './stateSlices/weather'
 
 const toggleMachine = createMachine({
@@ -38,12 +41,15 @@ const toggleMachine = createMachine({
 
 export const store = configureStore({
   reducer: {
+    scrollNavigation: scrollNavigationReducer,
     profileUrl: profileUrlReducer.reducer,
     profileColor: profileColorReducer.reducer,
     profileImage: profileImageReducer.reducer,
+    profile: profileReducer.reducer,
     cardAccordion: cardAccordionReducer.reducer,
     messageAccordion: messageAccordionReducer.reducer,
     piazzaSwitch: piazzaSwitchReducer.reducer,
+    piazzaForm: piazzaFormReducer.reducer,
     theme: themeReducer.reducer,
     bottomNavigation: bottomNavigationReducer,
     tabs: tabsReducer.reducer,

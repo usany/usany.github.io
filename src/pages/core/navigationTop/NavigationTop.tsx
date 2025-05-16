@@ -9,12 +9,14 @@ import { useDispatch, useSelector } from "react-redux";
 import staticImage from "src/assets/blue.png";
 import { dbservice } from "src/baseApi/serverbase";
 import { useSelectors } from "src/hooks/useSelectors";
-import Avatars from "src/pages/core/Avatars";
 import Navigation from "src/pages/core/navigationTop/sideNavigation/Navigation";
 import WeatherView from "src/pages/core/navigationTop/weatherView/WeatherView";
 import ToggleTabs from "src/pages/core/ToggleTabs";
 import { changeProfileColor } from "src/stateSlices/profileColorSlice";
+import { changeProfile } from "src/stateSlices/profileSlice";
 import { changeProfileUrl } from "src/stateSlices/profileUrlSlice";
+import useScroll from "../useScroll";
+import NavigationScroll from "./NavigationScroll";
 import NavigationTopCards from "./navigationTopCards/NavigationTopCards";
 import NavigationTopLogOut from "./navigationTopLogOut/NavigationTopLogOut";
 import NavigationTopMessages from "./navigationTopMessages/NavigationTopMessages";
@@ -30,9 +32,12 @@ const NavigationTop = ({ userObj }: Props) => {
   const profileColor = useSelector((state) => state.profileColor.value);
   const profileUrl = useSelector((state) => state.profileUrl.value);
   const [sideNavigation, setSideNavigation] = useState(false);
+  // const [user, setUser] = useState<DocumentData | undefined>(undefined)
+  const profile = useSelectors(state => state.profile.value)
   const handleSideNavigation = () => {
     setSideNavigation(!sideNavigation);
   };
+  const scrollNavigation = useSelectors(state => state.scrollNavigation.value)
   const storage = getStorage();
   const dispatch = useDispatch();
   // useEffect(() => {
@@ -45,19 +50,22 @@ const NavigationTop = ({ userObj }: Props) => {
   //         console.log(error);
   //       });
   //   }
-  // }, [userObj]);
-
+  // }, [userObj])
   useEffect(() => {
     const setProfile = async () => {
       const docRef = doc(dbservice, `members/${userObj?.uid}`);
       const docSnap = await getDoc(docRef);
+      const userData = docSnap.data()
+      dispatch(changeProfile(userData))
+      // setUser(userData)
       const userColor = docSnap.data()?.profileColor || "#2196f3";
       const userImage = docSnap.data()?.profileImageUrl || "null";
       // dispatch(changeProfileColor(userColor));
       // dispatch(changeProfileUrl(userImage));
       const userProfileImage = docSnap.data()?.profileImage || false;
-      const userDefaultProfile = docSnap.data()?.defaultProfile || '';
+      const userDefaultProfile = docSnap.data()?.defaultProfile || 'null';
       dispatch(changeProfileColor(userColor));
+      // console.log(userProfileImage)
       if (userProfileImage) {
         dispatch(changeProfileUrl(userImage));
       } else {
@@ -66,17 +74,24 @@ const NavigationTop = ({ userObj }: Props) => {
     };
     setProfile();
   }, [userObj]);
-
+  useScroll()
+  console.log(scrollNavigation)
   return (
-    <div className="shadow-md fixed z-50 bg-light-3 dark:bg-dark-3 truncate">
-      <Navigation
-        userObj={userObj}
-        handleSideNavigation={handleSideNavigation}
-        sideNavigation={sideNavigation}
-      />
-      <div className="flex justify-between w-screen">
-        <div
-          className="px-5 pt-1"
+    <div className="shadow-md fixed z-50 bg-light-2 dark:bg-dark-2 rounded truncate">
+      <div className="flex justify-between w-screen items-center">
+        <Navigation
+          user={profile}
+          userObj={userObj}
+          handleSideNavigation={handleSideNavigation}
+          sideNavigation={sideNavigation}
+          uid={userObj ? userObj.uid : ''}
+          profile={false}
+          profileColor={userObj ? profileColor : 'profile-blue'}
+          profileUrl={userObj ? profileUrl : staticImage}
+          piazza={() => null}
+        />
+        {/* <div
+          className="px-5 pt-1 cursor-pointer"
           onClick={() => {
             handleSideNavigation();
           }}
@@ -88,8 +103,11 @@ const NavigationTop = ({ userObj }: Props) => {
             profileUrl={userObj ? profileUrl : staticImage}
             piazza={() => null}
           />
-        </div>
-        <div>
+        </div> */}
+        <div className='flex items-center gap-5'>
+          {scrollNavigation &&
+            <NavigationScroll />
+          }
           {bottomNavigation % 2 === 0 && <ToggleTabs />}
           {bottomNavigation === 1 && (
             <>

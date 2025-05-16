@@ -1,5 +1,15 @@
 'use client'
 
+import useClickOutside from '@/hooks/useClickOutside'
+import { cn } from '@/lib/utils'
+import { XIcon } from 'lucide-react'
+import {
+  AnimatePresence,
+  motion,
+  MotionConfig,
+  Transition,
+  Variant,
+} from 'motion/react'
 import React, {
   useCallback,
   useContext,
@@ -9,17 +19,8 @@ import React, {
   useRef,
   useState,
 } from 'react'
-import {
-  motion,
-  AnimatePresence,
-  MotionConfig,
-  Transition,
-  Variant,
-} from 'motion/react'
 import { createPortal } from 'react-dom'
-import { cn } from '@/lib/utils'
-import { XIcon } from 'lucide-react'
-import useClickOutside from '@/hooks/useClickOutside'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 
 export type MorphingDialogContextType = {
   isOpen: boolean
@@ -98,7 +99,6 @@ function MorphingDialogTrigger({
   triggerRef,
 }: MorphingDialogTriggerProps) {
   const { setIsOpen, isOpen, uniqueId } = useMorphingDialog()
-
   const handleClick = useCallback(() => {
     setIsOpen(!isOpen)
   }, [isOpen, setIsOpen])
@@ -151,11 +151,15 @@ function MorphingDialogContent({
     useState<HTMLElement | null>(null)
   const [lastFocusableElement, setLastFocusableElement] =
     useState<HTMLElement | null>(null)
-
+  const navigate = useNavigate()
+  const [searchParams] = useSearchParams();
+  const id = searchParams.get("id");
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
         setIsOpen(false)
+        // navigate(`${location.pathname}`, { replace: true })
+        navigate(-1)
       }
       if (event.key === 'Tab') {
         if (!firstFocusableElement || !lastFocusableElement) return
@@ -192,7 +196,7 @@ function MorphingDialogContent({
         setLastFocusableElement(
           focusableElements[focusableElements.length - 1] as HTMLElement,
         )
-        ;(focusableElements[0] as HTMLElement).focus()
+          ; (focusableElements[0] as HTMLElement).focus()
       }
     } else {
       document.body.classList.remove('overflow-hidden')
@@ -203,9 +207,16 @@ function MorphingDialogContent({
   useClickOutside(containerRef, () => {
     if (isOpen && !drawerOpen) {
       setIsOpen(false)
+      // navigate(`${location.pathname}`, { replace: true })
+      navigate(-1)
     }
     drawerOpenFalse()
   })
+  useEffect(() => {
+    if (!id) {
+      setIsOpen(false)
+    }
+  }, [id])
 
   return (
     <motion.div
@@ -414,13 +425,8 @@ function MorphingDialogClose({
 }
 
 export {
-  MorphingDialog,
-  MorphingDialogTrigger,
-  MorphingDialogContainer,
-  MorphingDialogContent,
-  MorphingDialogClose,
-  MorphingDialogTitle,
-  MorphingDialogSubtitle,
-  MorphingDialogDescription,
-  MorphingDialogImage,
+  MorphingDialog, MorphingDialogClose, MorphingDialogContainer,
+  MorphingDialogContent, MorphingDialogDescription,
+  MorphingDialogImage, MorphingDialogSubtitle, MorphingDialogTitle, MorphingDialogTrigger
 }
+

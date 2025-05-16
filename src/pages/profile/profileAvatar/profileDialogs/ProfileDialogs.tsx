@@ -26,13 +26,16 @@ const images = {
   'profileGold': [staticGold01, staticGold02],
   gold: [staticGold01, staticGold02],
 }
-const ProfileDialogs = ({ userObj, profileDialog, attachment, changeAttachment, handleClose }) => {
+const ProfileDialogs = ({ userObj, user, profileDialog, attachment, changeAttachment, handleClose }) => {
   // const [selectedColor, setSelectedColor] = useState('')
   const [attachmentFile, setAttachmentFile] = useState('null')
   const [onClear, setOnClear] = useState(false)
   const profileColor = useSelector(state => state.profileColor.value)
   const profileUrl = useSelector(state => state.profileUrl.value)
   const dispatch = useDispatch()
+  useEffect(() => {
+
+  })
   const onClick = async () => {
     const data = doc(dbservice, `members/${userObj.uid}`)
     // if (selectedColor) {
@@ -116,7 +119,11 @@ const ProfileDialogs = ({ userObj, profileDialog, attachment, changeAttachment, 
     <>
       <>
         <div className='flex flex-col items-center gap-5 p-5'>
-          <Avatars uid={userObj.uid} profile={true} profileColor={profileColor} profileUrl={attachment || profileUrl} piazza={null} />
+          <Avatars
+            element={user}
+            piazza={null}
+            profile={true}
+          />
           {/* <Avatar alt={userObj.displayName} sx={{ fontSize:'100px', width: '200px', height: '200px', bgcolor: selectedColor }} src={attachmentFile || './src'} onClick={() => {
                     }} variant='rounded' /> */}
           <div className='flex-col px-5 content-center p-5'>
@@ -133,12 +140,6 @@ const ProfileDialogs = ({ userObj, profileDialog, attachment, changeAttachment, 
       <div className='flex flex-col gap-1'>
         <div className='flex justify-center'>캐릭터 배경으로 저장하면 업로드 파일이 삭제됩니다.</div>
         <div className='flex justify-center gap-5'>
-          {/* <div onClick={() => {
-            changeAttachment(selectedImages[0])
-          }}>
-            <Avatars uid='' profile={false} profileColor={selectedColor} profileUrl={images[selectedColor || 'gold'][0]} piazza={null} />
-          </div>
-          <Avatars uid='' profile={false} profileColor={selectedColor} profileUrl={images[selectedColor || 'gold'][1]} piazza={null} /> */}
           {selectedImages.map((value, index) => {
             return (
               <div onClick={() => {
@@ -166,12 +167,12 @@ const ProfileDialogs = ({ userObj, profileDialog, attachment, changeAttachment, 
                 dispatch(changeProfileImage(index ? 'plant' : 'animal'))
                 changeAttachment(value)
               }}>
-                <Avatars uid='' profile={false} profileColor={''} profileUrl={value} piazza={null} />
+                <Avatars element={{ profileImage: true, defaultProfile: value, profileImageUrl: value }} uid='' profile={false} profileColor={''} profileUrl={value} piazza={null} />
               </div>
             )
           })}
         </div>
-        <div className='flex justify-center'>
+        <div className='flex justify-center h-5'>
           <div className='flex justify-center rounded-xl w-10 bg-profile-red' onClick={() => switchColor('profileRed')}>{profileColor === 'profileRed' &&
             <Check />}</div>
           {/* <div className='w-10 bg-profile-pink' onClick={() => switchColor('profile-pink')}>&emsp;</div>

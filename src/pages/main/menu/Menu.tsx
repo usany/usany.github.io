@@ -4,18 +4,20 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { Skeleton } from "@/components/ui/skeleton";
 import { User } from "firebase/auth";
 import {
   doc,
+  getDoc,
   updateDoc
 } from "firebase/firestore";
 import { getToken } from "firebase/messaging";
-import { Suspense, useEffect } from "react";
+import { getDownloadURL, ref, uploadString } from "firebase/storage";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   dbservice,
-  messaging
+  messaging,
+  storage
 } from "src/baseApi/serverbase";
 import { useSelectors } from "src/hooks/useSelectors";
 import CardsStacks from "src/pages/core/card/CardsStacks";
@@ -23,6 +25,8 @@ import MessageStacks from "src/pages/core/chatting/MessageStacks";
 import PageTitle from "src/pages/core/pageTitle/PageTitle";
 import { cardOff, cardOn } from "src/stateSlices/cardAccordionSlice";
 import { messageOff, messageOn } from "src/stateSlices/messageAccordionSlice";
+import { changeProfileColor } from "src/stateSlices/profileColorSlice";
+import { changeProfileUrl } from "src/stateSlices/profileUrlSlice";
 // import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 interface Props {
@@ -52,6 +56,28 @@ function Menu({ userObj }: Props) {
   const cardAccordion = useSelector((state) => state.cardAccordion.value);
   const messageAccordion = useSelector((state) => state.messageAccordion.value);
   const dispatch = useDispatch();
+  useEffect(() => {
+    const setProfile = async () => {
+      const docRef = doc(dbservice, `members/${userObj?.uid}`);
+      const docSnap = await getDoc(docRef);
+      const userColor = docSnap.data()?.profileColor || "#2196f3";
+      const userImage = docSnap.data()?.profileImageUrl || "null";
+      // dispatch(changeProfileColor(userColor));
+      // dispatch(changeProfileUrl(userImage));
+      const userProfileImage = docSnap.data()?.profileImage || false;
+      const userDefaultProfile = docSnap.data()?.defaultProfile || 'null';
+      dispatch(changeProfileColor(userColor));
+      // console.log(userProfileImage)
+      // console.log(userImage)
+      // console.log(userDefaultProfile)
+      if (userProfileImage) {
+        dispatch(changeProfileUrl(userImage));
+      } else {
+        dispatch(changeProfileUrl(userDefaultProfile));
+      }
+    };
+    setProfile();
+  }, [userObj]);
   // useEffect(() => {
   //   if (cardAccordion && messageAccordion) {
   //     setAccordions({ cards: "item-1", messages: "item-2" });
@@ -63,6 +89,29 @@ function Menu({ userObj }: Props) {
   //     setAccordions({ cards: "", messages: "" });
   //   }
   // }, [cardAccordion, messageAccordion]);
+  useEffect(() => {
+    // if (userObj) {
+    //   getDownloadURL(ref(storage, `${userObj?.uid}`))
+    //     .then((url) => {
+    //       dispatch(changeProfileUrl(url));
+    //     })
+    //     .catch((error) => {
+    //       console.log(error);
+    //     });
+    // }
+    const user = doc(dbservice, `members/${userObj?.uid}`);
+    const storageRef = ref(storage, userObj?.uid);
+    uploadString(storageRef, "null", "raw").then((snapshot) => {
+      console.log("Uploaded a blob or file!");
+    });
+    getDownloadURL(storageRef)
+      .then(async (url) => {
+        await updateDoc(user, { profileImageUrl: url });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [])
   useEffect(() => {
     const requestPermission = async () => {
       try {
@@ -103,7 +152,7 @@ function Menu({ userObj }: Props) {
       rootElement.removeEventListener("contextmenu", handleContextMenu);
     };
   }, []);
-
+  // console.log(userObj)
   return (
     <div id="sample" className="flex justify-center flex-col pb-5">
       <PageTitle title={titles[index]} />
@@ -112,49 +161,64 @@ function Menu({ userObj }: Props) {
         <Cardings cards={'sample'} shadowColor={'lightblue'} />
       </div> */}
       <Accordion
-        className='px-5'
+        // className='px-5'
         value={[cardAccordion, messageAccordion]}
         // defaultValue={accordionValues}
         type="multiple"
       >
         <AccordionItem value="item-1">
-          <button onClick={() => {
-            document.getElementById('cardAccordion')?.click()
-          }} className='shadow-md px-3 flex sticky top-16 z-30 w-full items-center justify-between bg-light-3 dark:bg-dark-3'>
-            <div>{cards[index]}</div>
-            <AccordionTrigger id="cardAccordion" onClick={() => {
-              if (cardAccordion) {
-                dispatch(cardOff())
-              } else {
-                dispatch(cardOn())
-              }
-            }}>
-            </AccordionTrigger>
-          </button>
-          <AccordionContent>
-            <CardsStacks userObj={userObj} />
-          </AccordionContent>
+          <div className='flex justify-center sticky top-16 z-30 px-5'>
+            <div className='w-[1000px]'>
+              <button onClick={() => {
+                document.getElementById('cardAccordion')?.click()
+              }} className='rounded shadow-md px-3 flex sticky top-16 z-30 w-full items-center justify-between bg-light-2/50 dark:bg-dark-2/50'>
+                <div>{cards[index]}</div>
+                <AccordionTrigger id="cardAccordion" onClick={() => {
+                  if (cardAccordion) {
+                    dispatch(cardOff())
+                  } else {
+                    dispatch(cardOn())
+                  }
+                }}>
+                </AccordionTrigger>
+              </button>
+            </div>
+          </div>
+          <div className='flex justify-center'>
+            <div className='w-[1000px]'>
+              <AccordionContent className="text-sm">
+                <CardsStacks userObj={userObj} />
+              </AccordionContent>
+            </div>
+          </div>
         </AccordionItem>
-        <AccordionItem value="item-2">
-          <button onClick={() => {
-            document.getElementById('messageAccordion')?.click()
-          }} className='shadow-md px-3 flex sticky top-16 z-30 w-full items-center justify-between bg-light-3 dark:bg-dark-3'>
-            <div>{messages[index]}</div>
-            <AccordionTrigger id="messageAccordion" onClick={() => {
-              if (messageAccordion) {
-                dispatch(messageOff())
-              } else {
-                dispatch(messageOn())
-              }
-              // dispatch(changeMessageAccordion())
-            }}>
-            </AccordionTrigger>
-          </button>
-          <AccordionContent className="text-sm">
-            <Suspense fallback={<Skeleton />}>
+        <AccordionItem value="item-2" className='px-5'>
+          <div className='flex justify-center sticky top-16 z-30'>
+            <div className='w-[1000px]'>
+              <button onClick={() => {
+                document.getElementById('messageAccordion')?.click()
+              }} className='rounded shadow-md px-3 flex sticky top-16 z-30 w-full items-center justify-between bg-light-2/50 dark:bg-dark-2/50'>
+                <div>{messages[index]}</div>
+                <AccordionTrigger id="messageAccordion" onClick={() => {
+                  if (messageAccordion) {
+                    dispatch(messageOff())
+                  } else {
+                    dispatch(messageOn())
+                  }
+                  // dispatch(changeMessageAccordion())
+                }}>
+                </AccordionTrigger>
+              </button>
+            </div>
+          </div>
+          <div className='flex justify-center'>
+            <AccordionContent className="text-sm max-w-[1000px]">
               <MessageStacks userObj={userObj} />
-            </Suspense>
-          </AccordionContent>
+              {/* <Suspense fallback={<Skeleton />}>
+                <MessageStacks userObj={userObj} />
+              </Suspense> */}
+            </AccordionContent>
+          </div>
         </AccordionItem>
       </Accordion>
       {/* <Avatar sx={{ bgcolor: blue[500] }} alt="Remy Sharp" src="./assets/groups.png" />

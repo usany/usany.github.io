@@ -5,6 +5,7 @@ import { User } from 'firebase/auth'
 import {
   useState
 } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import Specifics from 'src/pages/core/specifics/Specifics'
 
 interface Props {
@@ -20,6 +21,9 @@ const Morphings = ({ round, increaseRound, decreaseRound, message, userObj, onPu
   const drawerOpenFalse = () => {
     setDrawerOpen(false)
   }
+  const [searchParams] = useSearchParams();
+  const id = searchParams.get("id");
+  console.log(id)
   return (
     <MorphingDialogContent
       drawerOpen={drawerOpen}

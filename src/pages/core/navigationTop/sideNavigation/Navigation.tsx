@@ -1,6 +1,5 @@
-import { Drawer } from '@mui/material'
 import { User } from 'firebase/auth'
-import { doc, onSnapshot } from 'firebase/firestore'
+import { doc, DocumentData, onSnapshot } from 'firebase/firestore'
 import {
   DoorOpen,
   MessagesSquare,
@@ -11,36 +10,41 @@ import {
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { auth, dbservice } from 'src/baseApi/serverbase'
+import { Drawer, DrawerClose, DrawerContent, DrawerTrigger } from 'src/components/ui/drawer'
+import { useSelectors } from 'src/hooks/useSelectors'
 import { changeProfileColor } from 'src/stateSlices/profileColorSlice'
 import { changeProfileImage } from 'src/stateSlices/profileImageSlice'
 import { changeProfileUrl } from 'src/stateSlices/profileUrlSlice'
+import Avatars from '../../Avatars'
 import IframePlayer from './iframePlayer/IframePlayer'
 import Links from './links/Links'
 import NavigationSignedIn from './navigationSignedIn/NavigationSignedIn'
 import NavigationSignedOut from './navigationSignedOut/NavigationSignedOut'
 
 interface Props {
+  user: DocumentData | undefined
   userObj: User | null
   sideNavigation: boolean
   handleSideNavigation: () => void
 }
 
 const onLogOutClick = () => auth.signOut()
-function Navigation({ userObj, sideNavigation, handleSideNavigation }: Props) {
+function Navigation({ user, userObj, sideNavigation, handleSideNavigation,
+  uid, profile, piazza
+}: Props) {
   const [backgroundColor, setBackgroundColor] = useState<string>('#e2e8f0')
   const [points, setPoints] = useState<number>(0)
-  const theme = useSelector((state) => state.theme)
-  const [profileColor, setProfileColor] = useState<string>('')
+  const theme = useSelectors((state) => state.theme.value)
   const [userData, setUserData] = useState(null)
   const languages = useSelector((state) => state.languages.value)
+  const profileColor = useSelector((state) => state.profileColor.value);
+  const profileUrl = useSelector((state) => state.profileUrl.value);
   const dispatch = useDispatch()
   useEffect(() => {
     if (userObj) {
       onSnapshot(doc(dbservice, `members/${userObj.uid}`), (snapshot) => {
         const number = snapshot.data()?.points
         setPoints(number)
-        const color = snapshot.data()?.profileColor
-        setProfileColor(color)
         const element = snapshot.data()
         setUserData(element)
       })
@@ -65,12 +69,13 @@ function Navigation({ userObj, sideNavigation, handleSideNavigation }: Props) {
       setBackgroundColor('#e2e8f0')
     }
   }, [theme])
-  const element = {
-    uid: userObj?.uid,
-    displayName: userObj?.displayName,
-    profileColor: profileColor,
-    userData: userData,
-  }
+  // const element = {
+  //   uid: userObj?.uid,
+  //   displayName: userObj?.displayName,
+  //   profileColor: profileColor,
+  //   userData: userData,
+  // }
+  const element = user
   const links = [
     {
       href: '/profile',
@@ -109,51 +114,103 @@ function Navigation({ userObj, sideNavigation, handleSideNavigation }: Props) {
     },
   ]
   return (
-    <Drawer
-      PaperProps={{
-        sx: {
-          backgroundColor: { backgroundColor },
-          opacity: 0.9,
-        },
-      }}
-      anchor={'left'}
-      open={sideNavigation}
-      onClose={handleSideNavigation}
-    // onOpen={handleSideNavigation}
-    // aria-hidden="false"
-    // swipeAreaWidth={20}
-    >
-      <nav className="flex flex-col justify-between w-[350px]">
-        {userObj ? (
-          <div>
-            <NavigationSignedIn userObj={userObj} points={points} />
-            <div className="flex flex-col justify-between pt-5 gap-5">
-              {links.map((value, index) => {
-                return (
-                  <Links
-                    key={index}
-                    href={value.href}
-                    passingState={value.passingState}
-                    onClick={value.onClick}
-                    icon={value.icon}
-                    description={value.description}
-                  />
-                )
-              })}
+    <Drawer direction="left">
+      <DrawerTrigger className='px-5'>
+        {user &&
+          <Avatars
+            element={user}
+            // uid={user.uid}
+            piazza={null}
+            profile={false}
+            profileColor=""
+            profileUrl={user.profileImageUrl}
+            defaultProfileUrl={user.defaultProfile}
+          // uid={userObj ? userObj.uid : ''}
+          // profile={false}
+          // profileColor={userObj ? profileColor : 'profile-blue'}
+          // profileUrl={userObj ? profileUrl : staticImage}
+          // piazza={() => null}
+          />
+        }
+      </DrawerTrigger>
+      <DrawerContent className="border-none bg-light-2 dark:bg-dark-2 right-auto top-0 mt-0 w-[355px] overflow-hidden rounded-[10px]">
+        <nav className="flex flex-col justify-between w-[350px]">
+          {userObj ? (
+            <div>
+              <NavigationSignedIn userObj={userObj} points={points} />
+              <div className="flex flex-col justify-between pt-5 gap-5">
+                {links.map((value, index) => {
+                  return (
+                    <DrawerClose>
+                      <Links
+                        key={index}
+                        href={value.href}
+                        passingState={value.passingState}
+                        onClick={value.onClick}
+                        icon={value.icon}
+                        description={value.description}
+                      />
+                    </DrawerClose>
+                  )
+                })}
+              </div>
             </div>
-          </div>
-        ) : (
-          <div>
-            <NavigationSignedOut
-              userObj={userObj}
-              points={points}
-              checkbox={checkbox}
-            />
-          </div>
-        )}
-        {userObj && <IframePlayer mode={theme} />}
-      </nav>
+          ) : (
+            <DrawerClose>
+              <NavigationSignedOut
+                userObj={userObj}
+                points={points}
+                checkbox={checkbox}
+              />
+            </DrawerClose>
+          )}
+          {userObj && <IframePlayer mode={theme} />}
+        </nav>
+      </DrawerContent>
     </Drawer>
+    //     <Drawer
+    //       PaperProps = {{
+    //     sx: {
+    //       backgroundColor: { backgroundColor },
+    //       opacity: 0.9,
+    //         },
+    //   }
+    // }
+    // anchor = { 'left'}
+    // open = { sideNavigation }
+    // onClose = { handleSideNavigation }
+    //   >
+    //   <nav className="flex flex-col justify-between w-[350px]">
+    //     {userObj ? (
+    //       <div>
+    //         <NavigationSignedIn userObj={userObj} points={points} />
+    //         <div className="flex flex-col justify-between pt-5 gap-5">
+    //           {links.map((value, index) => {
+    //             return (
+    //               <Links
+    //                 key={index}
+    //                 href={value.href}
+    //                 passingState={value.passingState}
+    //                 onClick={value.onClick}
+    //                 icon={value.icon}
+    //                 description={value.description}
+    //               />
+    //             )
+    //           })}
+    //         </div>
+    //       </div>
+    //     ) : (
+    //       <div>
+    //         <NavigationSignedOut
+    //           userObj={userObj}
+    //           points={points}
+    //           checkbox={checkbox}
+    //         />
+    //       </div>
+    //     )}
+    //     {userObj && <IframePlayer mode={theme} />}
+    //   </nav>
+    //     </Drawer>
   )
 }
 

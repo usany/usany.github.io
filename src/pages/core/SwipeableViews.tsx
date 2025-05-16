@@ -7,6 +7,8 @@ import "../../navigate/SwipeableViews.css";
 export function SwipeableViews({
   className = "",
   onScroll,
+  scroll,
+  changeScroll,
   ...rootProps
 }: {
 } & React.HTMLProps<HTMLDivElement>) {
@@ -73,13 +75,16 @@ export function SwipeableViews({
     (event: React.UIEvent<HTMLDivElement>) => {
       onScroll?.(event);
       const { currentTarget } = event;
+      console.log(currentTarget.scrollLeft)
       if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
       scrollTimeout.current = window.setTimeout(() => {
         // update current page index
         const pageWidth =
           currentTarget.scrollWidth / currentTarget.children.length;
         const currentPage = Math.round(currentTarget.scrollLeft / pageWidth);
-        dispatch(changeTabs(currentPage))
+        if (currentPage === 0 || currentPage === 1) {
+          dispatch(changeTabs(currentPage))
+        }
       }, 100);
     },
   );

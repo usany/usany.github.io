@@ -58,9 +58,11 @@ const CardView = ({ onTransfer, message, shadowColor }) => {
     locationTwo = locationsCollection['en'][Object.keys(locationsCollectionLetters).find((key) => locationsCollectionLetters[key] === message.text.count)][locationsCollection['ko'][Object.keys(locationsCollectionLetters).find((key) => locationsCollectionLetters[key] === message.text.count)].indexOf(message.text.counter)]
     location = locationOne + ' ' + locationTwo + ' ' + message.text.counting
   }
-  locationsBuildings
-  locationsCollection
-  locationsCollectionLetters
+  const passingValue = {
+    profileImage: message.creatorProfileImage,
+    defaultProfile: message.creatorDefaultProfile,
+    profileImageUrl: message.creatorProfileImageUrl
+  }
 
   return (
     <div className='flex flex-col gap-5'>
@@ -85,8 +87,8 @@ const CardView = ({ onTransfer, message, shadowColor }) => {
       }
       <Card
         sx={{
-          width: 200,
-          height: 280,
+          width: 200 * 0.9,
+          height: 280 * 0.9,
           boxShadow: `1.5px 1.5px 1.5px 1.5px ${shadowColor}`,
           bgcolor: color,
         }}
@@ -101,6 +103,7 @@ const CardView = ({ onTransfer, message, shadowColor }) => {
           <div>
             <div className="flex justify-between gap-1">
               <Avatars
+                element={passingValue}
                 uid={message.creatorId}
                 profile={false}
                 profileColor={profileColor}
@@ -109,7 +112,7 @@ const CardView = ({ onTransfer, message, shadowColor }) => {
               />
               <div className="flex items-center">
                 <Chip
-                  label={`${item} ${action}`}
+                  label={<div className='text-xs'>{item} {action}</div>}
                 />
                 {/* <Chips
                   label={`${message.item} ${message.text.choose === 1 ? ' 빌리기' : ' 빌려주기'}`}
@@ -128,18 +131,18 @@ const CardView = ({ onTransfer, message, shadowColor }) => {
             <div className="flex justify-center pt-1">
               <CardMedia
                 sx={{
-                  width: 159,
-                  height: 141,
+                  width: 159 * 0.9,
+                  height: 141 * 0.9,
                 }}
                 image={staticImg}
               />
             </div>
-            <div className="flex flex-col pt-1">
+            <div className="flex flex-col pt-1 gap-1 text-xs">
               <div className="flex gap-1">
                 <div className='flex items-center'>
                   <Building />
                 </div>
-                <div>
+                <div className='flex items-center'>
                   {location}
                   {/* {message.text.count} {message.text.counter}{' '}
                   {message.text.counting !== '' && message.text.counting} */}
@@ -149,7 +152,7 @@ const CardView = ({ onTransfer, message, shadowColor }) => {
                 <div className='flex items-center'>
                   <Watch />
                 </div>
-                <div className="flex flex-col">
+                <div className="flex flex-col justify-center">
                   <div className="flex">
                     {languages === 'en' &&
                       <div className='w-[40px]'>From</div>

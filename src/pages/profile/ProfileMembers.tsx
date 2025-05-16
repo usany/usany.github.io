@@ -11,7 +11,7 @@ import ProfileMembersDrawersTitle from "./ProfileMembersDrawersTitle";
 import ProfileMembersDrawersTrigger from "./ProfileMembersDrawersTrigger";
 
 const ProfileMembers = ({ userObj, user }) => {
-  const theme = useSelector((state) => state.theme)
+  const theme = useSelector((state) => state.theme.value)
   const { color } = useCardsBackground()
   const languages = useSelectors((state) => state.languages.value)
   return (

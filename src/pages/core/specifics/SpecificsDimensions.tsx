@@ -2,6 +2,7 @@
 // import { useBottomNavigationStore } from 'src/store'
 import { Chip } from '@mui/material'
 import { Building, Watch } from 'lucide-react'
+import useLargeMedia from 'src/hooks/useLargeMedia'
 import { useSelectors } from 'src/hooks/useSelectors'
 import locationsBuildings from 'src/pages/add/locationsBuildings'
 import locationsCollection from 'src/pages/add/locationsCollection'
@@ -13,6 +14,7 @@ interface Props {
 
 function SpecificsDimensions({ message }: Props) {
   const languages = useSelectors((state) => state.languages.value)
+  const largeMedia = useLargeMedia()
   let locationOne
   let locationTwo
   let location
@@ -25,10 +27,10 @@ function SpecificsDimensions({ message }: Props) {
   }
 
   return (
-    <div className="flex justify-around gap-1 pt-5">
+    <div className={`flex ${!largeMedia && 'flex-col'} justify-around gap-1 pt-5`}>
       <div className="flex items-center">
         <Building />
-        <div className="px-1">{languages === 'ko' ? '전달 장소:' : 'Passing location: '}</div>
+        <div className="px-1">{languages === 'ko' ? '전달 장소:' : 'Meeting at'}</div>
         <Chip
           label={location}
         />
@@ -38,9 +40,18 @@ function SpecificsDimensions({ message }: Props) {
       </div>
       <div className="flex items-center">
         <Watch />
-        <div>
+        <div className={`${!largeMedia && 'flex'}`}>
           <div className="flex items-center">
-            <div className="px-1">{languages === 'ko' ? '대여 시간:' : 'Passing time:'}</div>
+            <div className="px-1">{languages === 'ko' ? '대여 시간:' :
+              <div className='flex items-center'>
+                <div className='flex flex-col'>
+                  <div>Passing at</div>
+                  {/* <div>time:</div> */}
+                </div>
+                {/* <div>:</div> */}
+              </div>
+              // 'Passing time:'
+            }</div>
             <Chip
               label={`${message.text.clock.year}.${message.text.clock.month}.${message.text.clock.day} ${message.text.clock.hour}:${message.text.clock.minute}`}
             />
@@ -49,8 +60,17 @@ function SpecificsDimensions({ message }: Props) {
             /> */}
           </div>
           <div className="flex items-center">
-            <div className="px-1">{languages === 'ko' ? '반납 시간:' : 'Returning time:'}</div>
-            < Chip
+            <div className="px-1">{languages === 'ko' ? '반납 시간:' :
+              <div className='flex items-center'>
+                <div className='flex flex-col'>
+                  <div>Returning at</div>
+                  {/* <div>time:</div> */}
+                </div>
+                {/* <div>:</div> */}
+              </div>
+              // 'Returning time:'
+            }</div>
+            <Chip
               label={`${message.text.clocker.year}.${message.text.clocker.month}.${message.text.clocker.day} ${message.text.clocker.hour}:${message.text.clocker.minute}`}
             />
             {/* <Chips

@@ -24,7 +24,8 @@ const PiazzaDialogsContent = ({ initiateContinuing, multiple, handleMultiple, us
   return (
     <div>
       <div className='flex flex-col items-center pt-5'>
-        <Avatars uid={userObj.uid} profile={true} profileColor="" profileUrl={user?.profileImageUrl} fallback="" piazza={null} />
+        <Avatars element={user}
+          uid={userObj.uid} profile={true} profileColor="" profileUrl={user?.profileImageUrl} fallback="" piazza={null} />
         {/* <Avatar className={'bg-profile-blue'}>
                 <AvatarImage src={user?.profileImageUrl} />
                 <AvatarFallback className='text-xl border-none	'>{user?.displayName[0]}</AvatarFallback>

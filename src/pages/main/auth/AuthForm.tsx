@@ -53,6 +53,7 @@ const AuthForm = ({ signIn }) => {
         account.password
       );
       // storeSetDoc({ uid: data.user.uid, email: data.user.email });
+
       const docsRef = query(collection(dbservice, "members"));
       const docs = await getDocs(docsRef);
       const docsLength = docs.docs.length;
@@ -91,6 +92,29 @@ const AuthForm = ({ signIn }) => {
         .catch((error) => {
           console.log(error);
         });
+      let profileImage
+      let profileColor
+      const profileImageNumber = Math.random()
+      const profileColorNumber = Math.random()
+      if (profileColorNumber < 1 / 3) {
+        profileColor = 'profileRed'
+      } else if (profileImageNumber < 2 / 3) {
+        profileColor = 'profileBlue'
+      } else {
+        profileColor = 'profileGold'
+      }
+      if (profileImageNumber < 0.5) {
+        profileImage = 'animal'
+      } else {
+        profileImage = 'plant'
+      }
+      const reference = ref(storage, `${profileImage}${profileColor}.png`);
+      console.log(reference)
+      const docRef = doc(dbservice, `members/${data.user.uid}`)
+      getDownloadURL(reference).then((url) => {
+        console.log(url)
+        updateDoc(docRef, { profileImage: false, profileColor: profileColor, defaultProfile: url });
+      })
       // console.log(storageRef);
     } catch (error) {
       if (error.message === "Firebase: Error (auth/invalid-credential).") {
@@ -122,7 +146,7 @@ const AuthForm = ({ signIn }) => {
   };
   return (
     <div className="flex justify-center">
-      <div className="flex flex-col border border-solid w-1/2 rounded-lg pt-5">
+      <div className="flex flex-col border border-solid w-[470px] rounded-lg pt-5">
         <form
           id={signIn ? "auth" : "signUp"}
           className="pt-3"
@@ -138,7 +162,6 @@ const AuthForm = ({ signIn }) => {
               type="email"
               fullWidth
               required
-              autoFocus
             />
           </div>
           <div className="flex justify-center px-3">
@@ -165,7 +188,7 @@ const AuthForm = ({ signIn }) => {
             <span>{error}</span>
           </div>
         </form>
-        {signIn && <AuthDialogs />}
+        <AuthDialogs />
       </div>
     </div>
   );

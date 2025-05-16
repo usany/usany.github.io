@@ -64,12 +64,14 @@ const ProfileMembersDrawersContent = ({ userObj, user }) => {
         </div>
         {process ? (
           <div className='flex justify-center'>
-            <Chip label={'진행 카드가 없습니다'} color="primary" />
+            <Chip label={'진행 카드가 없습니다'} sx={{ bgcolor: '#7fc4bc', color: 'white' }} />
             {/* <Chips label={'진행 카드가 없습니다'} className='bg-profile-blue' /> */}
           </div>
         ) : (
           <div className='flex justify-center'>
-            <Chip label={'진행 카드가 있습니다'} color="error" />
+            <Chip label={'진행 카드가 있습니다'} sx={{
+              bgcolor: '#e76e50', color: 'white'
+            }} />
             {/* <Chips label={'진행 카드가 있습니다'} className='bg-profile-red' /> */}
           </div>
         )}

@@ -1,4 +1,4 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Chip } from "@mui/material";
 import { User } from 'firebase/auth';
 import staticImage from 'src/assets/blue.png';
@@ -6,6 +6,7 @@ import { useSelectors } from "src/hooks/useSelectors";
 import Avatars from "src/pages/core/Avatars";
 
 interface Props {
+  chattingUid: string
   userObj: User
   profileUrl: string
   displayName: string
@@ -41,39 +42,68 @@ const ChatsBoxes = ({ chattingUid, userObj, profileUrl, displayName, multiple, c
   if (messageDate.length === 1) {
     messageDate = '0' + messageDate
   }
-
+  let displayingUserName
+  if (displayName.length > 6) {
+    displayingUserName = displayName.slice(0, 5) + '......'
+  } else {
+    displayingUserName = displayName
+  }
+  const clockValue = clock.getFullYear().toString() + '-' + messageMonth + '-' + messageDate + ' ' + (languages === 'ko' ? messageAmpm : '') + ' ' + messageHours + ':' + (clock.getMinutes() < 10 ? '0' : '') + clock.getMinutes() + (languages === 'en' ? (messageAmpm === '오전' ? 'am' : 'pm') : '')
+  let messageProfileImage
+  let messageProfileImageUrl
+  let messageDefaultProfile
+  let passingValue
+  // console.log(message)
+  if (!multiple) {
+    if (userObj.uid !== message.userOne) {
+      messageProfileImage = message.userOneProfileImage
+      messageProfileImageUrl = message.userOneProfileUrl
+      messageDefaultProfile = message.userOneDefaultProfile
+    } else {
+      messageProfileImage = message.userTwoProfileImage
+      messageProfileImageUrl = message.userTwoProfileUrl
+      messageDefaultProfile = message.userTwoDefaultProfile
+    }
+    passingValue = {
+      profileImage: messageProfileImage,
+      profileImageUrl: messageProfileImageUrl,
+      defaultProfile: messageDefaultProfile
+    }
+  }
   return (
     <div className='flex p-3'>
       {multiple ?
         <Avatar>
-          <AvatarImage src={multiple ? staticImage : profileUrl} />
-          <AvatarFallback>{multiple ? "CN" : displayName[0]}</AvatarFallback>
+          <AvatarImage src={staticImage} />
+          {/* <AvatarFallback>{multiple ? "CN" : displayName[0]}</AvatarFallback> */}
         </Avatar>
         :
         <Avatars
+          element={passingValue}
           uid={chattingUid}
           profile={false}
           profileColor={''}
-          profileUrl={profileUrl}
+          profileUrl={message}
         />
       }
       <div className='flex flex-col w-screen'>
         <div className='flex justify-between'>
-          <div className='w-1/2 px-3 overflow-hidden'>{multiple ? `${languages === 'ko' ? '단체 대화' : 'Group Messaging'}` : displayName}</div>
-          <div className='flex flex-col px-3'>
-            <div className='flex justify-end'>{clock.getFullYear()}-{messageMonth}-{messageDate} {languages === 'ko' && messageAmpm} {messageHours}:{clock.getMinutes() < 10 && '0'}{clock.getMinutes()}{languages === 'en' && (messageAmpm === '오전' ? 'am' : 'pm')}</div>
-          </div>
+          <div className='truncate w-1/2 px-3 overflow-hidden'>{multiple ? `${languages === 'ko' ? '단체 대화' : 'Group Messaging'}` : displayingUserName}</div>
+          {clockValue.length > 10 && clock.getFullYear() && clock.getMonth() && clock.getDate() && clock.getHours() && clock.getMinutes() &&
+            <div className='flex flex-col px-3'>
+              {/* <div className='truncate flex justify-end'>{clock.getFullYear()}-{messageMonth}-{messageDate} {languages === 'ko' && messageAmpm} {messageHours}:{clock.getMinutes() < 10 && '0'}{clock.getMinutes()}{languages === 'en' && (messageAmpm === '오전' ? 'am' : 'pm')}</div> */}
+              <div className='truncate flex justify-end'>{clockValue}</div>
+            </div>
+          }
         </div>
-        <div className='flex  justify-between px-3'>
+        <div className='flex justify-between px-3'>
           <div>{message?.message}</div>
           <div>
             {message?.piazzaChecked && message?.piazzaChecked.indexOf(userObj.uid) === -1 &&
               <Chip sx={{ height: '20px' }} label={`${languages === 'ko' ? '새 대화' : 'New Chats'}`} color='primary' />
-              // <Chips label={'새 대화'} className={'bg-profile-blue'} onClick={null} />
             }
             {message?.messageCount > 0 &&
               <Chip sx={{ height: '20px' }} label={message.messageCount} color='primary' />
-              // <Chips label={message.messageCount} className={'bg-profile-blue'} onClick={null} />
             }
           </div>
         </div>

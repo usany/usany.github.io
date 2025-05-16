@@ -1,24 +1,31 @@
-import { createTheme } from '@mui/material';
-import { useSelector } from 'react-redux';
-import useCardsBackground from './useCardsBackground';
-import { blue } from '@mui/material/colors';
+import { createTheme } from '@mui/material'
+import useCardsBackground from './useCardsBackground'
 
 const useColors = () => {
-  const theme = useSelector((state) => state.theme)
-  const color = theme === 'dark' ? '#2d3848' : '#e2e8f0'
+  // const theme = useSelector((state) => state.theme.value)
+  // const color = theme === 'dark' ? '#2d3848' : '#e2e8f0'
   const { colorOne, colorTwo, colorThree } = useCardsBackground()
-  const lightTheme = createTheme({
-    palette: {
-      mode: 'light',
-    },
+  const common = {
     components: {
-      MuiCardContent: {
+      MuiCard: {
         defaultProps: {
           sx: {
             bgcolor: colorThree,
-            ":hover": {
-              bgcolor: colorThree
-            }
+            ':hover': {
+              bgcolor: colorThree,
+            },
+          },
+        },
+        styleOverrides: {
+          root: {
+            variants: [
+              {
+                props: { className: 'colorTwo' },
+                style: {
+                  backgroundColor: colorTwo,
+                },
+              },
+            ],
           },
         },
       },
@@ -26,45 +33,73 @@ const useColors = () => {
         defaultProps: {
           sx: {
             bgcolor: colorTwo,
-            ":hover": {
-              bgcolor: colorTwo
-            }
+            ':hover': {
+              bgcolor: colorTwo,
+            },
           },
         },
         styleOverrides: {
-          // Name of the slot
           root: {
             variants: [
               {
-                // `dashed` is an example value, it can be any name.
-                props: { className: 'signin' },
+                props: { className: 'colorTwo' },
                 style: {
-                  textTransform: 'none',
-                  backgroundColor: colorTwo
+                  backgroundColor: colorTwo,
                 },
               },
             ],
-        },
-      },
-    },
-      MuiChip: {
-        defaultProps: {
-          sx: {
-            bgcolor: colorTwo,
-            ":hover": {
-              bgcolor: colorTwo
-            }
           },
         },
       },
-    }
+      MuiChip: {
+        defaultProps: {
+          sx: {
+            bgcolor: colorOne,
+            ':hover': {
+              bgcolor: colorOne,
+            },
+          },
+        },
+        styleOverrides: {
+          root: {
+            variants: [
+              {
+                props: { className: 'colorOne' },
+                style: {
+                  backgroundColor: colorOne,
+                },
+              },
+              // {
+              //   props: { className: 'error' },
+              //   style: {
+              //     backgroundColor: red,
+              //   },
+              // },
+              // {
+              //   props: { color: 'success' },
+              //   style: {
+              //     backgroundColor: green[500],
+              //   },
+              // },
+            ],
+          },
+        },
+      },
+    },
+  }
+  const lightTheme = createTheme({
+    palette: {
+      mode: 'light',
+    },
+    ...common,
   })
   const darkTheme = createTheme({
     palette: {
       mode: 'dark',
     },
+    ...common,
   })
 
-  return ({ lightTheme, darkTheme })
+  return { lightTheme, darkTheme }
 }
 export default useColors

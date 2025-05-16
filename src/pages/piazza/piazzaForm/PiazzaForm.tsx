@@ -23,14 +23,17 @@ interface Props {
   messagesList: []
   handleMessagesList: (newValue: []) => void
 }
-function PiazzaForm({ userObj, multiple, messages, handleMessages, messagesList, handleMessagesList }: Props) {
+function PiazzaForm({ chattingUser, userObj, multiple, messages, handleMessages, messagesList, handleMessagesList }: Props) {
   const profileColor = useSelector(state => state.profileColor.value)
   const profileUrl = useSelector(state => state.profileUrl.value)
+  const piazzaForm = useSelector((state) => state.piazzaForm.value)
+  const profile = useSelectors(state => state.profile.value)
   const dispatch = useDispatch()
   const { state } = useLocation()
   const conversation = state?.conversation
   const languages = useSelectors((state) => state.languages.value)
   const index = (languages === 'ko' || languages === 'en') ? languages : 'ko'
+  // console.log(chattingUser)
   const onSendSubmitHandler = async (event) => {
     event.preventDefault();
     const message = messages
@@ -46,7 +49,7 @@ function PiazzaForm({ userObj, multiple, messages, handleMessages, messagesList,
       toUser = await getDoc(toUserRef)
       messagingToken = toUser.data()?.messagingToken
     }
-
+    const profileImageUrl = profile.profileImage ? profile.profileUrl : profile.defaultProfile
     const sendData = {
       msg: message,
       userUid: userUid,
@@ -57,7 +60,7 @@ function PiazzaForm({ userObj, multiple, messages, handleMessages, messagesList,
       conversation: conversation,
       conversationUid: state.chattingUid,
       conversationName: state.displayName,
-      profileUrl: profileUrl,
+      profileUrl: profileImageUrl,
       sendingToken: messagingToken,
     };
     if (multiple) {
@@ -86,12 +89,16 @@ function PiazzaForm({ userObj, multiple, messages, handleMessages, messagesList,
   };
 
   const onForm = async () => {
+    // console.log(profile)
     try {
       const message = messages
       const userUid = userObj.uid
       const userName = userObj.displayName
       const messageClock = new Date().toString()
       const messageClockNumber = Date.now()
+      const profileImageUrl = profile?.profileImageUrl
+      const defaultProfile = profile?.defaultProfile
+      const profileImage = profile?.profileImage
       if (message) {
         await addDoc(collection(dbservice, 'chats_group'), {
           userUid: userUid,
@@ -99,17 +106,25 @@ function PiazzaForm({ userObj, multiple, messages, handleMessages, messagesList,
           message: message,
           messageClock: messageClock,
           messageClockNumber: messageClockNumber,
-          profileImageUrl: profileUrl,
+          profileImageUrl: profileImageUrl,
+          defaultProfile: defaultProfile,
           profileColor: profileColor,
-          piazzaChecked: [userObj.uid]
+          piazzaChecked: [userObj.uid],
+          profileImage: profileImage
         })
-        handleMessagesList((prev) => [...prev, { msg: message, type: "me", userUid: userObj.uid, id: userObj.displayName, messageClock: messageClock, conversation: null, profileImageUrl: profileUrl, profileColor: profileColor }]);
+        handleMessagesList((prev) => [...prev, {
+          msg: message, type: "me", userUid: userObj.uid, id: userObj.displayName, messageClock: messageClock, conversation: null, profileImageUrl: profileUrl, profileColor: profileColor,
+          messageClockNumber: messageClockNumber,
+          defaultProfile: defaultProfile,
+          profileImageUrl: profileImageUrl,
+          profileImage: profileImage || false,
+        }]);
       }
     } catch (error) {
       console.log(error)
     }
   }
-
+  // console.log(profile)
   const onFormConversation = async () => {
     const message = messages
     try {
@@ -117,26 +132,44 @@ function PiazzaForm({ userObj, multiple, messages, handleMessages, messagesList,
       const userName = userObj.displayName
       const messageClockNumber = Date.now()
       const messageClock = new Date().toString()
+      const profileImage = profile.profileImage
+      const otherProfileImage = chattingUser.profileImage
+      const profileImageUrl = profile.profileImageUrl
+      const otherProfileUrl = chattingUser.profileImageUrl
+      const defaultProfile = profile.defaultProfile
+      const otherDefaultProfile = chattingUser.defaultProfile
       let userOne
       let userTwo
       let userOneDisplayName
       let userTwoDisplayName
       let userOneProfileUrl
       let userTwoProfileUrl
+      let userOneDefaultProfile
+      let userTwoDefaultProfile
+      let userOneProfileImage
+      let userTwoProfileImage
       if (state.userUid < state.chattingUid) {
         userOne = state.userUid
         userTwo = state.chattingUid
         userOneDisplayName = userObj.displayName
         userTwoDisplayName = state.displayName
-        userOneProfileUrl = profileUrl
-        userTwoProfileUrl = state.profileUrl
+        userOneProfileUrl = profileImageUrl
+        userTwoProfileUrl = otherProfileUrl
+        userOneDefaultProfile = defaultProfile
+        userTwoDefaultProfile = otherDefaultProfile
+        userOneProfileImage = profile.profileImage
+        userTwoProfileImage = chattingUser.profileImage
       } else {
         userOne = state.chattingUid
         userTwo = state.userUid
         userOneDisplayName = state.displayName
         userTwoDisplayName = userObj.displayName
-        userOneProfileUrl = state.profileUrl
-        userTwoProfileUrl = profileUrl
+        userOneProfileUrl = otherProfileUrl
+        userTwoProfileUrl = profileImageUrl
+        userOneDefaultProfile = otherDefaultProfile
+        userTwoDefaultProfile = defaultProfile
+        userOneProfileImage = chattingUser.profileImage
+        userTwoProfileImage = profile.profileImage
       }
       if (!userOneProfileUrl) {
         const userRef = doc(dbservice, `members/${userOne}`)
@@ -162,7 +195,11 @@ function PiazzaForm({ userObj, multiple, messages, handleMessages, messagesList,
           userOneDisplayName: userOneDisplayName,
           userTwoDisplayName: userTwoDisplayName,
           userOneProfileUrl: userOneProfileUrl,
-          userTwoProfileUrl: userTwoProfileUrl
+          userTwoProfileUrl: userTwoProfileUrl,
+          userOneDefaultProfile: userOneDefaultProfile,
+          userTwoDefaultProfile: userTwoDefaultProfile,
+          userOneProfileImage: userOneProfileImage,
+          userTwoProfileImage: userTwoProfileImage
         }
 
         await addDoc(collection(dbservice, `chats_${conversation}`), messageObj)
@@ -181,7 +218,21 @@ function PiazzaForm({ userObj, multiple, messages, handleMessages, messagesList,
         await updateDoc(userDocRef, {
           chattings: userChattings
         })
-        handleMessagesList((prev) => [...prev, { msg: message, type: "me", userUid: userObj.uid, id: userObj.displayName, messageClock: messageClock, conversation: conversation }]);
+        handleMessagesList((prev) => [...prev, {
+          msg: message, type: "me", userUid: userObj.uid, id: userObj.displayName, messageClock: messageClock, conversation: conversation,
+          userName: userName,
+          messageClockNumber: messageClockNumber,
+          userOne: userOne,
+          userTwo: userTwo,
+          userOneDisplayName: userOneDisplayName,
+          userTwoDisplayName: userTwoDisplayName,
+          userOneProfileUrl: userOneProfileUrl,
+          userTwoProfileUrl: userTwoProfileUrl,
+          userOneDefaultProfile: userOneDefaultProfile,
+          userTwoDefaultProfile: userTwoDefaultProfile,
+          userOneProfileImage: userOneProfileImage,
+          userTwoProfileImage: userTwoProfileImage
+        }]);
       }
     } catch (error) {
       console.log(error)
@@ -215,16 +266,29 @@ function PiazzaForm({ userObj, multiple, messages, handleMessages, messagesList,
 
   return (
     <>
-      <form className="flex gap-px" onSubmit={onSendSubmitHandler}>
-        <input
-          className='w-full p-3 rounded bg-light-1 dark:bg-dark-1'
-          placeholder={forms[index]}
-          onChange={onChangeMsgHandler}
-          value={messages}
-          autoFocus
-        />
-        <button className='w-1/6 rounded bg-light-2 dark:bg-dark-2' type="submit">{send[index]}</button>
-      </form>
+      {piazzaForm ?
+        <form className="fixed w-screen bottom-0 flex gap-px" onSubmit={onSendSubmitHandler}>
+          <input
+            className='w-full p-3 rounded bg-light-1 dark:bg-dark-1'
+            placeholder={forms[index]}
+            onChange={onChangeMsgHandler}
+            value={messages}
+            autoFocus
+          />
+          <button className='w-1/6 rounded bg-light-2 dark:bg-dark-2' type="submit">{send[index]}</button>
+        </form>
+        :
+        <form className="fixed w-screen bottom-[60px] flex gap-px" onSubmit={onSendSubmitHandler}>
+          <input
+            className='w-full p-3 rounded bg-light-1 dark:bg-dark-1'
+            placeholder={forms[index]}
+            onChange={onChangeMsgHandler}
+            value={messages}
+            autoFocus
+          />
+          <button className='w-1/6 rounded bg-light-2 dark:bg-dark-2' type="submit">{send[index]}</button>
+        </form>
+      }
     </>
   );
 }

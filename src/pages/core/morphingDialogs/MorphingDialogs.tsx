@@ -5,6 +5,7 @@ import {
 } from '@/components/ui/morphing-dialog'
 import { User } from 'firebase/auth'
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { webSocket } from 'src/webSocket'
 import CardsViews from '../card/CardsViews'
 import Morphings from './Morphings'
@@ -26,7 +27,6 @@ const MorphingDialogs = ({ message, isOwner, userObj, num, points, round, increa
   })
   const [onTransfer, setOnTransfer] = useState(false)
   const toggleOnTransfer = () => setOnTransfer(!onTransfer)
-  // console.log(message)
   useEffect(() => {
     setConnectedUser({
       uid: message.connectedId,
@@ -154,7 +154,6 @@ const MorphingDialogs = ({ message, isOwner, userObj, num, points, round, increa
       webSocket.off(`sStopSupportingTrades${message.id}`, sStopSupportingTradesCallback)
     }
   })
-
   return (
     <MorphingDialog
       transition={{
@@ -163,11 +162,17 @@ const MorphingDialogs = ({ message, isOwner, userObj, num, points, round, increa
       }}
     >
       <MorphingDialogTrigger>
-        <CardsViews
-          message={message}
-          onPulse={onPulse}
-          onTransfer={onTransfer}
-        />
+        <Link
+          key={message.id}
+          // Moving to the product page
+          to={`${location.pathname}?id=${message.id}`}
+        >
+          <CardsViews
+            message={message}
+            onPulse={onPulse}
+            onTransfer={onTransfer}
+          />
+        </Link>
       </MorphingDialogTrigger>
       <MorphingDialogContainer>
         <Morphings
