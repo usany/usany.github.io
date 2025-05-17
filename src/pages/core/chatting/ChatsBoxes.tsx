@@ -58,17 +58,19 @@ const ChatsBoxes = ({ chattingUid, userObj, profileUrl, displayName, multiple, c
     if (userObj.uid !== message.userOne) {
       messageProfileImage = message.userOneProfileImage
       messageProfileImageUrl = message.userOneProfileUrl
-      messageDefaultProfile = message.userOneDefaultProfile
+      messageDefaultProfile = message.userOneDefaultProfile ? message.userOneDefaultProfile : message.userOneProfileUrl
     } else {
       messageProfileImage = message.userTwoProfileImage
       messageProfileImageUrl = message.userTwoProfileUrl
-      messageDefaultProfile = message.userTwoDefaultProfile
+      messageDefaultProfile = message.userTwoDefaultProfile ? message.userTwoDefaultProfile : message.userTwoProfileUrl
     }
     passingValue = {
       profileImage: messageProfileImage,
       profileImageUrl: messageProfileImageUrl,
       defaultProfile: messageDefaultProfile
     }
+    console.log(message)
+    console.log(passingValue)
   }
   return (
     <div className='flex p-3'>

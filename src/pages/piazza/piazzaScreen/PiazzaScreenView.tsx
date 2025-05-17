@@ -60,7 +60,6 @@ function PiazzaScreenView({
     document.getElementById('drawer')?.click()
     onPrivate({ userUid: userUid, displayName: displayName })
   }
-  console.log(chattingUser)
   const scrollNumber = 20
   useEffect(() => {
     if (!webSocket) return
