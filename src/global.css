@@ -31,10 +31,14 @@
 
 .transition {
   opacity: 0;
-  transform: translateX(-100px);
+  transform: translate();
   /* margin: 0; */
   /* width: 0;
   height: 0; */
+}
+
+.hidden {
+  display: hidden;
 }
 
 @keyframes shaking {

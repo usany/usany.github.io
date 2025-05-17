@@ -43,6 +43,7 @@ function CardsStacks({ userObj }: Props) {
     // console.log(newMessages.indexOf(deletingMessage))
     const item = document.getElementById(deletingMessage.id)
     item?.classList.add('transition')
+    // item?.classList.add('hidden')
     item?.addEventListener("transitionend", () => {
       item?.remove()
     })
@@ -135,12 +136,14 @@ function CardsStacks({ userObj }: Props) {
   // })
   return (
     <div>
-      <DndContext onDragEnd={(element) => {
-        console.log(element)
-        if (element.over) {
-          handleDelete(element.active.id)
-        }
-      }}>
+      <DndContext
+        onDragEnd={(element) => {
+          console.log(element)
+          if (element.over) {
+            handleDelete(element.active.id)
+            // document.getElementById(element.active.id).
+          }
+        }}>
         {cardLoaded &&
           <div>
             {!messages.filter((value) => {
