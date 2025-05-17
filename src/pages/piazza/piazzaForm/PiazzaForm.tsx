@@ -113,7 +113,7 @@ function PiazzaForm({ chattingUser, userObj, multiple, messages, handleMessages,
           profileImage: profileImage
         })
         handleMessagesList((prev) => [...prev, {
-          msg: message, type: "me", userUid: userObj.uid, id: userObj.displayName, messageClock: messageClock, conversation: null, profileImageUrl: profileUrl, profileColor: profileColor,
+          msg: message, type: "me", userUid: userObj.uid, id: userObj.displayName, messageClock: messageClock, conversation: null, profileColor: profileColor,
           messageClockNumber: messageClockNumber,
           defaultProfile: defaultProfile,
           profileImageUrl: profileImageUrl,

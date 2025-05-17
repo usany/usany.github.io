@@ -15,7 +15,7 @@ admin.initializeApp({
   databaseURL:
     'https://remake-36fe0-default-rtdb.asia-southeast1.firebasedatabase.app',
 })
-const message = {
+const sampleMessage = {
   notification: {
     title: 'greetings!',
     body: 'You have new messages.',

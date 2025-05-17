@@ -1,17 +1,19 @@
 import { useDroppable } from '@dnd-kit/core';
 
-export function Droppable(props) {
-  const { isOver, setNodeRef } = useDroppable({
-    id: props.id,
+function Droppable(props) {
+  const { isOver, over, setNodeRef } = useDroppable({
+    id: 'droppable',
   });
   const style = {
-    opacity: isOver ? 1 : 0.5,
+    color: isOver ? 'red' : undefined,
   };
-
+  // console.log(isOver)
+  // console.log(over)
   return (
-    <div ref={setNodeRef} style={style}>
+    <div ref={setNodeRef} className={isOver ? 'text-profile-red' : undefined
+    }>
       {props.children}
-    </div>
+    </div >
   );
 }
 

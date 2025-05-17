@@ -25,16 +25,24 @@ const lendSteps = [
 const stepsCollection = [borrowSteps, lendSteps]
 const stepOneItemsLanguages = 'Usan / Yangsan selection'
 const stepsTwoToFourLanguages = [
-  ['Location Input'],
-  ['Time Input'],
-  ['Register Complete'],
+  ['Location', 'Input'],
+  ['Time', 'Input'],
+  ['Registeration', 'Complete'],
 ]
+// const borrowStepsLanguages = [
+//   ['What are you borrowing?', stepOneItemsLanguages],
+//   ...stepsTwoToFourLanguages
+// ]
+// const lendStepsLanguages = [
+//   ['What are you lending?', stepOneItemsLanguages],
+//   ...stepsTwoToFourLanguages
+// ]
 const borrowStepsLanguages = [
-  ['What are you borrowing?', stepOneItemsLanguages],
+  ['What are you', 'borrowing?'],
   ...stepsTwoToFourLanguages
 ]
 const lendStepsLanguages = [
-  ['What are you lending?', stepOneItemsLanguages],
+  ['What are you', 'lending?'],
   ...stepsTwoToFourLanguages
 ]
 const stepsCollectionLanguages = [borrowStepsLanguages, lendStepsLanguages]
@@ -67,7 +75,7 @@ function AddSteppers({ addSteps, borrow }: Props) {
                 <StepLabel>
                   {label.map((element, index) => {
                     return (
-                      <div key={index} className='truncate'>{element}</div>
+                      <div key={index} className='truncate text-xs'>{element}</div>
                     )
                   })}
                 </StepLabel>

@@ -27,7 +27,7 @@ function SpecificsDimensions({ message }: Props) {
   }
 
   return (
-    <div className={`flex ${!largeMedia && 'flex-col'} justify-around gap-1 pt-5`}>
+    <div className={`flex text-xs scale-90 ${!largeMedia && 'flex-col'} justify-around gap-1 pt-5`}>
       <div className="flex items-center">
         <Building />
         <div className="px-1">{languages === 'ko' ? '전달 장소:' : 'Meeting at'}</div>

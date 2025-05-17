@@ -1,6 +1,6 @@
-import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import { useSelector } from 'react-redux'
+import { useGetWeatherQuery } from 'src/stateSlices/weather'
 
 const getCurrentWeather = () => {
   const APIKEY = 'e9f8a415cef0c0bb87f7da5e167bdaf1'
@@ -12,11 +12,9 @@ const getCurrentWeather = () => {
 }
 
 const WeatherView = () => {
-  const { data, isLoading } = useQuery({
-    queryKey: ['weather'], queryFn: getCurrentWeather,
-    // suspense: true
-  })
+
   const languages = useSelector((state) => state.languages.value)
+  const { data, error, isLoading } = useGetWeatherQuery()
   if (isLoading) return <div>waiting</div>
   return (
     <div>

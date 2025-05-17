@@ -34,18 +34,23 @@ const texts: Props = {
     '/': 'My Status',
     '/add': 'Registeration',
     '/board': 'Board',
-    '/profile': 'Profile',
-    '/ranking': 'Ranking',
+    '/profile': 'User Profile',
+    '/ranking': 'User Ranking',
     '/piazza': 'Chats',
     '/contact': 'Report'
   }
 }
-
+const actions = {
+  'ko': ['빌리기', '빌려주기'],
+  'en': ['Borrowing', 'Lending']
+}
 const NavigationScroll = () => {
   const languages = useSelectors(state => state.languages.value)
+  const tabs = useSelectors(state => state.tabs.value)
   return (
-    <div>
-      <div className='text-lg'>{texts[languages][location.pathname]}</div>
+    <div className='flex gap-1'>
+      {(location.pathname === '/add' || location.pathname === '/board') && <div>{actions[languages][tabs]}</div>}
+      <div>{texts[languages][location.pathname]}</div>
     </div>
   )
 };

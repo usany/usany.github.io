@@ -117,7 +117,7 @@ function Menu({ userObj }: Props) {
       try {
         const token = await getToken(messaging, {
           vapidKey:
-            "BC6ZRwx8Ke48uprRA17AlLOqJ8HCMIwIVYLy32evgnACjpf0aH5yxHhkvEe5D8I73kjn69E2jF-bnMLeRbbzRRE",
+            "BOEjdiKjNUn1CuyitURLOGBbbE7GaPIM5MCLsVEIwgqXcmiXzp5-BrGzPRuBmlpVEk2SizRb6PXuXy77oJ4kLxA",
         });
         if (token) {
           console.log("Token generated:", token);

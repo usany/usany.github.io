@@ -1,14 +1,12 @@
-import DeleteIcon from "@mui/icons-material/Delete";
-import { Chip, ClickAwayListener } from "@mui/material";
+import { ClickAwayListener } from "@mui/material";
 import { User } from "firebase/auth";
-import { deleteDoc, doc } from "firebase/firestore";
 import {
   useEffect,
   useRef,
   useState
 } from "react";
-import { dbservice } from "src/baseApi/serverbase";
 import useLongPress from "src/hooks/useLongPress";
+import Draggable from "src/pages/main/menu/Draggable";
 import MorphingDialogs from "../morphingDialogs/MorphingDialogs";
 import CardsViews from "./CardsViews";
 
@@ -89,21 +87,25 @@ const Cards = ({
               }
             }}
           >
-            <div
-              className="longPress"
-              onClick={() => {
-                setLongPressed(false);
-                changeOnLongPress(onLongPress - 1);
-              }}
-            >
-              <CardsViews
-                message={message}
-                isOwner={isOwner}
-                userObj={userObj}
-                num={num}
-                points={points}
-                deleteMessage={deleteMessage}
-              />
+            <div>
+              <Draggable id={message.id}>
+                <div
+                  className="longPress touch-none"
+                  onClick={() => {
+                    setLongPressed(false);
+                    changeOnLongPress(onLongPress - 1);
+                  }}
+                >
+                  <CardsViews
+                    message={message}
+                    isOwner={isOwner}
+                    userObj={userObj}
+                    num={num}
+                    points={points}
+                    deleteMessage={deleteMessage}
+                  />
+                </div>
+              </Draggable>
             </div>
           </ClickAwayListener>
           {/* {longPressed &&
@@ -115,7 +117,7 @@ const Cards = ({
               <Chip label={<DeleteIcon />} color='error'/>
             </div>
           } */}
-          {round < 2 ?
+          {/* {round < 2 ?
             <div
               className="z-10 h-full"
               onClick={() => {
@@ -126,12 +128,10 @@ const Cards = ({
               }}
             >
               <Chip sx={{}} label={<DeleteIcon />} color="error" />
-              {/* <Chips label={<DeleteIcon />} className={'bg-profile-red'} onClick={null} /> */}
             </div>
             :
             <Chip sx={{}} label={<DeleteIcon />} color="error" disabled />
-            // <Chips label={<DeleteIcon />} className={'bg-profile-red'} onClick={null} />
-          }
+          } */}
         </div>
       ) : (
         <div>
