@@ -19,6 +19,7 @@ import { cardOff, cardOn } from 'src/stateSlices/cardAccordionSlice'
 import { messageOff, messageOn } from 'src/stateSlices/messageAccordionSlice'
 import { changeProfileColor } from 'src/stateSlices/profileColorSlice'
 import { changeProfileUrl } from 'src/stateSlices/profileUrlSlice'
+import useSetProfile from './useSetProfile'
 // import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 interface Props {
@@ -44,37 +45,7 @@ function Menu({ userObj }: Props) {
   const cardAccordion = useSelector((state) => state.cardAccordion.value)
   const messageAccordion = useSelector((state) => state.messageAccordion.value)
   const dispatch = useDispatch()
-  useEffect(() => {
-    const setProfile = async () => {
-      const docRef = doc(dbservice, `members/${userObj?.uid}`)
-      const docSnap = await getDoc(docRef)
-      const userColor = docSnap.data()?.profileColor || '#2196f3'
-      const userImage = docSnap.data()?.profileImageUrl || 'null'
-      const userProfileImage = docSnap.data()?.profileImage || false
-      const userDefaultProfile = docSnap.data()?.defaultProfile || 'null'
-      dispatch(changeProfileColor(userColor))
-      if (userProfileImage) {
-        dispatch(changeProfileUrl(userImage))
-      } else {
-        dispatch(changeProfileUrl(userDefaultProfile))
-      }
-    }
-    setProfile()
-  }, [userObj])
-  useEffect(() => {
-    const user = doc(dbservice, `members/${userObj?.uid}`)
-    const storageRef = ref(storage, userObj?.uid)
-    uploadString(storageRef, 'null', 'raw').then((snapshot) => {
-      console.log('Uploaded a blob or file!')
-    })
-    getDownloadURL(storageRef)
-      .then(async (url) => {
-        await updateDoc(user, { profileImageUrl: url })
-      })
-      .catch((error) => {
-        console.log(error)
-      })
-  }, [])
+  useSetProfile(userObj)
   useEffect(() => {
     const requestPermission = async () => {
       try {
