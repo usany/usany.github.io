@@ -20,6 +20,7 @@ import { messageOff, messageOn } from 'src/stateSlices/messageAccordionSlice'
 import { changeProfileColor } from 'src/stateSlices/profileColorSlice'
 import { changeProfileUrl } from 'src/stateSlices/profileUrlSlice'
 import useSetProfile from './useSetProfile'
+import useGetToken from './useGetToken'
 // import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 interface Props {
@@ -46,46 +47,20 @@ function Menu({ userObj }: Props) {
   const messageAccordion = useSelector((state) => state.messageAccordion.value)
   const dispatch = useDispatch()
   useSetProfile(userObj)
-  useEffect(() => {
-    const requestPermission = async () => {
-      try {
-        const token = await getToken(messaging, {
-          vapidKey:
-            'BOEjdiKjNUn1CuyitURLOGBbbE7GaPIM5MCLsVEIwgqXcmiXzp5-BrGzPRuBmlpVEk2SizRb6PXuXy77oJ4kLxA',
-        })
-        if (token) {
-          console.log('Token generated:', token)
-          // Send this token to your server to store it for later use
-          // webSocket.on('messagingToken', token)
-          // return (
-          //     webSocket.off('messagingToken', token)
-          // )
-          const myDoc = doc(dbservice, `members/${userObj.uid}`)
-          updateDoc(myDoc, { messagingToken: token })
-        } else {
-          console.log('No registration token available.')
-        }
-      } catch (err) {
-        console.error('Error getting token:', err)
-      }
-    }
-    requestPermission()
-  }, [])
-
+  useGetToken(userObj)
   useEffect(() => {
     function handleContextMenu(e) {
       e.preventDefault() // prevents the default right-click menu from appearing
     }
     // add the event listener to the component's root element
     const rootElement = document.getElementById('sample')
-    rootElement.addEventListener('contextmenu', handleContextMenu)
+    rootElement?.addEventListener('contextmenu', handleContextMenu)
     // remove the event listener when the component is unmounted
 
     return () => {
-      rootElement.removeEventListener('contextmenu', handleContextMenu)
+      rootElement?.removeEventListener('contextmenu', handleContextMenu)
     }
   }, [])
-  // console.log(userObj)
   return (
     <div id="sample" className="flex justify-center flex-col pb-5">
       <PageTitle title={titles[index]} />
