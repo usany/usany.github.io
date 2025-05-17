@@ -21,6 +21,7 @@ import { changeProfileColor } from 'src/stateSlices/profileColorSlice'
 import { changeProfileUrl } from 'src/stateSlices/profileUrlSlice'
 import useSetProfile from './useSetProfile'
 import useGetToken from './useGetToken'
+import useContextMenu from './useContextMenu'
 // import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 interface Props {
@@ -48,19 +49,7 @@ function Menu({ userObj }: Props) {
   const dispatch = useDispatch()
   useSetProfile(userObj)
   useGetToken(userObj)
-  useEffect(() => {
-    function handleContextMenu(e) {
-      e.preventDefault() // prevents the default right-click menu from appearing
-    }
-    // add the event listener to the component's root element
-    const rootElement = document.getElementById('sample')
-    rootElement?.addEventListener('contextmenu', handleContextMenu)
-    // remove the event listener when the component is unmounted
-
-    return () => {
-      rootElement?.removeEventListener('contextmenu', handleContextMenu)
-    }
-  }, [])
+  useContextMenu()
   return (
     <div id="sample" className="flex justify-center flex-col pb-5">
       <PageTitle title={titles[index]} />
