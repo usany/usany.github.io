@@ -11,7 +11,6 @@ import { profileImageReducer } from 'src/stateSlices/profileImageSlice'
 import { profileUrlReducer } from 'src/stateSlices/profileUrlSlice'
 import { tabsReducer } from 'src/stateSlices/tabsSlice'
 import { themeReducer } from 'src/stateSlices/themeSlice'
-import { createMachine } from 'xstate'
 import { languagesReducer } from './stateSlices/languagesSlice'
 import { piazza } from './stateSlices/piazza'
 import { piazzaFormReducer } from './stateSlices/piazzaFormSlice'
@@ -19,24 +18,24 @@ import { profileReducer } from './stateSlices/profileSlice'
 import { scrollNavigationReducer } from './stateSlices/scrollNavigationSlice'
 import { weather } from './stateSlices/weather'
 
-const toggleMachine = createMachine({
-  /** @xstate-layout N4IgpgJg5mDOIC5QBcD2UoBswDoCSAdgIYDGyAlgG5gDEaG2A2gAwC6ioADqrORagQ4gAHogCMANgk4ATM3nMxAZgAsSpTICsYgDQgAnuKVicCxSuYB2CwA4JGgL4O99LLgCCZKrVdM2Q7l5+QSQRcSlZM2U1DW09QwQbEyUzSxsbaxsZFTEnZxACVAg4IV8wAJ4+cgEhUQQAWgl4xHrLEwBOTs7NZgt2u2ZNJxd0N3xiL2oKoOqQ0DqVGWbE6X71FU1NG1VmCSzhkDKcTwop0MCqmtC6mWscS1T2zUtLGSUM5Zt2nBVtpU2HpoNBobAcjgQwAB3AAEsGQRGQYGhYmmlzmYQQMhsmhwYi67QkG3aGw0yzEOJSCjSGV+2WYoLyQA */
-  id: 'toggle',
-  initial: 'Inactive',
-  states: {
-    Inactive: {
-      on: {
-        toggle: 'Active'
-      },
-    },
+/** @xstate-layout N4IgpgJg5mDOIC5QBcD2UoBswDoCSAdgIYDGyAlgG5gDEaG2A2gAwC6ioADqrORagQ4gAHogCMANgk4ATM3nMxAZgAsSpTICsYgDQgAnuKVicCxSuYB2CwA4JGgL4O99LLgCCZKrVdM2Q7l5+QSQRcSlZM2U1DW09QwQbEyUzSxsbaxsZFTEnZxACVAg4IV8wAJ4+cgEhUQQAWgl4xHrLEwBOTs7NZgt2u2ZNJxd0N3xiL2oKoOqQ0DqVGWbE6X71FU1NG1VmCSzhkDKcTwop0MCqmtC6mWscS1T2zUtLGSUM5Zt2nBVtpU2HpoNBobAcjgQwAB3AAEsGQRGQYGhYmmlzmYQQMhsmhwYi67QkG3aGw0yzEOJSCjSGV+2WYoLyQA */
+// const toggleMachine = createMachine({
+//   id: 'toggle',
+//   initial: 'Inactive',
+//   states: {
+//     Inactive: {
+//       on: {
+//         toggle: 'Active'
+//       },
+//     },
 
-    Active: {
-      on: { toggle: 'Inactive' },
-    },
+//     Active: {
+//       on: { toggle: 'Inactive' },
+//     },
 
-    "new state 1": {}
-  },
-});
+//     "new state 1": {}
+//   },
+// });
 
 
 export const store = configureStore({

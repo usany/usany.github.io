@@ -389,7 +389,6 @@ function PiazzaScreenView({
               if (messageDate.length === 1) {
                 messageDate = '0' + messageDate
               }
-              console.log(value)
               return (
                 <li
                   key={index}
