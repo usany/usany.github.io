@@ -5,14 +5,15 @@ function Droppable(props) {
     id: 'droppable',
   });
   const style = {
-    color: isOver ? 'green' : undefined,
+    color: isOver ? 'red' : undefined,
   };
   // console.log(isOver)
   // console.log(over)
   return (
-    <div ref={setNodeRef} style={style}>
+    <div ref={setNodeRef} className={isOver ? 'text-profile-red' : undefined
+    }>
       {props.children}
-    </div>
+    </div >
   );
 }
 

@@ -1,5 +1,4 @@
 import { DndContext } from "@dnd-kit/core";
-import DeleteIcon from "@mui/icons-material/Delete";
 import { ClickAwayListener } from "@mui/material";
 import { User } from "firebase/auth";
 import {
@@ -12,6 +11,7 @@ import {
   updateDoc
 } from "firebase/firestore";
 import { getToken } from "firebase/messaging";
+import { Ban } from "lucide-react";
 import { useEffect, useState } from "react";
 import {
   dbservice,
@@ -159,8 +159,9 @@ function CardsStacks({ userObj }: Props) {
                 <Droppable>
                   {onLongPress > 0 &&
                     <div className='px-10'>
-                      <div className='flex justify-center rounded bg-profile-green p-10'>
-                        <DeleteIcon />
+                      <div className='flex justify-center rounded bg-light-2 dark:bg-dark-2 p-5'>
+                        {/* <DeleteIcon /> */}
+                        <Ban />
                       </div>
                     </div>
                   }
