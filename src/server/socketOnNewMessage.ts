@@ -1,8 +1,8 @@
 import { messaging } from 'firebase-admin'
 import { Socket } from 'socket.io'
 
-const socketOnMessage = (socket: Socket) => {
-  socket.on('message', (res) => {
+const socketOnNewMessage = (socket: Socket) => {
+  socket.on('messageNew', (res) => {
     const { conversation, sendingToken } = res
     console.log(res)
     const message = {
@@ -14,11 +14,11 @@ const socketOnMessage = (socket: Socket) => {
     }
     messaging().send(message)
     if (conversation) {
-      socket.broadcast.emit(`sMessage${conversation}`, res)
+      socket.broadcast.emit(`sNewMessage`, res)
     } else {
-      socket.broadcast.emit('sMessagePiazza', res)
+      socket.broadcast.emit('sNewMessagePiazza', res)
     }
   })
 }
 
-export default socketOnMessage
+export default socketOnNewMessage
