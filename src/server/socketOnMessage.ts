@@ -1,4 +1,4 @@
-import { messaging } from 'firebase-admin'
+import admin from 'firebase-admin'
 import { Socket } from 'socket.io'
 
 const socketOnMessage = (socket: Socket) => {
@@ -12,7 +12,7 @@ const socketOnMessage = (socket: Socket) => {
       },
       token: sendingToken,
     }
-    messaging().send(message)
+    admin.messaging().send(message)
     if (conversation) {
       socket.broadcast.emit(`sMessage${conversation}`, res)
     } else {
