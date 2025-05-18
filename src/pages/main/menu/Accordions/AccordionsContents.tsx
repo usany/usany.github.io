@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import { AccordionContent } from 'src/components/ui/accordion'
+import AccordionsContentsViews from './AccordionsContentsViews'
 
 interface Props {
   content: ReactNode
@@ -10,14 +10,10 @@ function AccordionsContents({ content, index }: Props) {
     <div className={`flex justify-center ${index && 'px-5'}`}>
       {!index ? (
         <div className="w-[1000px]">
-          <AccordionContent className="text-sm max-w-[1000px]">
-            {content}
-          </AccordionContent>
+          <AccordionsContentsViews content={content} />
         </div>
       ) : (
-        <AccordionContent className="text-sm max-w-[1000px]">
-          {content}
-        </AccordionContent>
+        <AccordionsContentsViews content={content} />
       )}
     </div>
   )
