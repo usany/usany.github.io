@@ -7,7 +7,6 @@ import MessageStacks from 'src/pages/core/chatting/MessageStacks'
 import { cardOff, cardOn } from 'src/stateSlices/cardAccordionSlice'
 import { messageOff, messageOn } from 'src/stateSlices/messageAccordionSlice'
 import AccordionsContents from './AccordionsContents'
-import Content from './AccordionsContentsViews'
 import AccordionsTriggers from './AccordionsTriggers'
 // import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
@@ -65,10 +64,7 @@ function Accordions({ userObj }: Props) {
         return (
           <AccordionItem key={value.id} value={value.value}>
             <AccordionsTriggers value={value} />
-            <AccordionsContents
-              content={<Content value={value} />}
-              index={index}
-            />
+            <AccordionsContents content={value.content} index={index} />
           </AccordionItem>
         )
       })}
