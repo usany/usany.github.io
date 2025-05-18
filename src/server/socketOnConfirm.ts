@@ -1,4 +1,4 @@
-import { messaging } from 'firebase-admin'
+import admin from 'firebase-admin'
 import { Socket } from 'socket.io'
 
 const socketOnConfirm = (socket: Socket) => {
@@ -11,7 +11,7 @@ const socketOnConfirm = (socket: Socket) => {
       },
       token: sendingToken,
     }
-    messaging().send(message)
+    admin.messaging().send(message)
     socket.broadcast.emit(`sIncrease${id}`, res)
     socket.broadcast.emit(`sOnPulse${id}`, res)
   })
