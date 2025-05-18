@@ -1,5 +1,3 @@
-// import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-
 import { AccordionContent } from '@radix-ui/react-accordion'
 import { ReactNode } from 'react'
 
