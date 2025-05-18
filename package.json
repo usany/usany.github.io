@@ -116,6 +116,7 @@
     "globals": "^15.15.0",
     "storybook": "^8.1.10",
     "supabase": "^1.188.1",
+    "tsx": "^4.19.4",
     "typescript": "^5.2.2",
     "typescript-eslint": "^8.24.1",
     "vite": "^5.4.10",
