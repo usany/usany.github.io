@@ -17,10 +17,6 @@ interface Props {
   userObj: User
 }
 
-const titles = {
-  ko: '내 상태',
-  en: 'My Status',
-}
 const cards = {
   ko: '카드',
   en: 'Cards',

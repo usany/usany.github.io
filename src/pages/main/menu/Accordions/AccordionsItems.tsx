@@ -27,7 +27,7 @@ const messages = {
   en: 'Messages',
 }
 
-function Accordions({ userObj }: Props) {
+function AccordionsItems({ userObj }: Props) {
   const languages = useSelectors((state) => state.languages.value)
   const index = languages === 'ko' || languages === 'en' ? languages : 'ko'
   const cardAccordion = useSelector((state) => state.cardAccordion.value)
@@ -68,4 +68,4 @@ function Accordions({ userObj }: Props) {
   )
 }
 
-export default Accordions
+export default AccordionsItems
