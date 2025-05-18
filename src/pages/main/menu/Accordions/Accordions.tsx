@@ -1,10 +1,5 @@
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-} from '@/components/ui/accordion'
+import { Accordion, AccordionItem } from '@/components/ui/accordion'
 import { User } from 'firebase/auth'
-import { ReactNode } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useSelectors } from 'src/hooks/useSelectors'
 import CardsStacks from 'src/pages/core/card/CardsStacks'
@@ -12,6 +7,7 @@ import MessageStacks from 'src/pages/core/chatting/MessageStacks'
 import { cardOff, cardOn } from 'src/stateSlices/cardAccordionSlice'
 import { messageOff, messageOn } from 'src/stateSlices/messageAccordionSlice'
 import AccordionsContents from './AccordionsContents'
+import Content from './AccordionsContentsViews'
 import AccordionsTriggers from './AccordionsTriggers'
 // import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
@@ -63,13 +59,6 @@ function Accordions({ userObj }: Props) {
       content: <MessageStacks userObj={userObj} />,
     },
   ]
-  const Content = ({ value }: { value: { content: ReactNode } }) => {
-    return (
-      <AccordionContent className="text-sm max-w-[1000px]">
-        {value.content}
-      </AccordionContent>
-    )
-  }
   return (
     <Accordion value={[cardAccordion, messageAccordion]} type="multiple">
       {accordionItems.map((value, index) => {
