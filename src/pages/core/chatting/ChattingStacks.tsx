@@ -7,7 +7,7 @@ import {
   limit,
   orderBy,
   query,
-  updateDoc
+  updateDoc,
 } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
@@ -21,7 +21,7 @@ interface Props {
 }
 const emptyMessages = {
   ko: '진행  메세지가 없습니다',
-  en: 'No messages'
+  en: 'No messages',
 }
 
 const ChattingStacks = ({
@@ -53,7 +53,7 @@ const ChattingStacks = ({
     sorted.splice(0, 0, 'piazza')
   }
   const languages = useSelectors((state) => state.languages.value)
-  const index = (languages === 'ko' || languages === 'en') ? languages : 'ko'
+  const index = languages === 'ko' || languages === 'en' ? languages : 'ko'
 
   useEffect(() => {
     if (!webSocket) return
@@ -256,14 +256,14 @@ const ChattingStacks = ({
   }
 
   return (
-    <div className='flex flex-col gap-1'>
-      {!sorted.length &&
+    <div className="flex flex-col gap-1 w-full">
+      {!sorted.length && (
         <div className="flex items-center flex-col">
           <div className="flex justify-center rounded w-1/2 p-5 bg-light-2 dark:bg-dark-2 shadow-md">
             {emptyMessages[index]}
           </div>
         </div>
-      }
+      )}
       {sorted.map((element, index) => {
         let clock
         if (element === 'piazza') {

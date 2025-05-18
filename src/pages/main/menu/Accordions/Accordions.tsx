@@ -4,6 +4,7 @@ import {
   AccordionItem,
 } from '@/components/ui/accordion'
 import { User } from 'firebase/auth'
+import { ReactNode } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useSelectors } from 'src/hooks/useSelectors'
 import CardsStacks from 'src/pages/core/card/CardsStacks'
@@ -62,26 +63,23 @@ function Accordions({ userObj }: Props) {
       content: <MessageStacks userObj={userObj} />,
     },
   ]
+  const Content = ({ value }: { value: { content: ReactNode } }) => {
+    return (
+      <AccordionContent className="text-sm max-w-[1000px]">
+        {value.content}
+      </AccordionContent>
+    )
+  }
   return (
     <Accordion value={[cardAccordion, messageAccordion]} type="multiple">
       {accordionItems.map((value, index) => {
         return (
           <AccordionItem key={value.id} value={value.value}>
             <AccordionsTriggers value={value} />
-            <AccordionsContents value={value} index={index} />
-            <div className={`flex justify-center ${index && 'px-5'}`}>
-              {!index ? (
-                <div className="w-[1000px]">
-                  <AccordionContent className="text-sm max-w-[1000px]">
-                    {value.content}
-                  </AccordionContent>
-                </div>
-              ) : (
-                <AccordionContent className="text-sm max-w-[1000px]">
-                  {value.content}
-                </AccordionContent>
-              )}
-            </div>
+            <AccordionsContents
+              content={<Content value={value} />}
+              index={index}
+            />
           </AccordionItem>
         )
       })}
