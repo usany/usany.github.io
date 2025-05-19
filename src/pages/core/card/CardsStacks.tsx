@@ -12,6 +12,7 @@ import Cards from 'src/pages/core/card/Cards'
 import Droppable from 'src/pages/main/menu/Droppable'
 
 const deleteMessage = (id: string) => {
+  console.log(id)
   const item = document.getElementById(id)
   item?.classList.add('transition')
   item?.addEventListener('transitionend', () => {
@@ -82,41 +83,39 @@ const CardsStacksViewsCollection = ({ userObj, messages, longPressed, changeLong
                 id={value.id}
                 className="item-list flex justify-center"
               >
-                <>
-                  <div
-                    onMouseDownCapture={() => {
-                      if (!longPressCard) {
-                        const longPress = value.id
-                        setLongPressCard(longPress)
-                      }
-                    }}
-                    onTouchStartCapture={() => {
-                      if (!longPressCard) {
-                        const longPress = value.id
-                        setLongPressCard(longPress)
-                      }
-                    }}
-                  >
-                    <Cards
-                      message={value}
-                      isOwner={isOwner}
-                      userObj={userObj}
-                      num={null}
-                      points={null}
-                      onLongPress={onLongPress}
-                      changeOnLongPress={(newValue) =>
-                        setOnLongPress(newValue)
-                      }
-                      longPressCard={longPressCard}
-                      changeLongPressCard={(newValue) =>
-                        setLongPressCard(newValue)
-                      }
-                      deleteMessage={deleteMessage}
-                      longPressed={longPressed}
-                      changeLongPressed={changeLongPressed}
-                    />
-                  </div>
-                </>
+                <div
+                  onMouseDownCapture={() => {
+                    if (!longPressCard) {
+                      const longPress = value.id
+                      setLongPressCard(longPress)
+                    }
+                  }}
+                  onTouchStartCapture={() => {
+                    if (!longPressCard) {
+                      const longPress = value.id
+                      setLongPressCard(longPress)
+                    }
+                  }}
+                >
+                  <Cards
+                    message={value}
+                    isOwner={isOwner}
+                    userObj={userObj}
+                    num={null}
+                    points={null}
+                    onLongPress={onLongPress}
+                    changeOnLongPress={(newValue) =>
+                      setOnLongPress(newValue)
+                    }
+                    longPressCard={longPressCard}
+                    changeLongPressCard={(newValue) =>
+                      setLongPressCard(newValue)
+                    }
+                    deleteMessage={deleteMessage}
+                    longPressed={longPressed}
+                    changeLongPressed={changeLongPressed}
+                  />
+                </div>
               </div>
             )
           }
@@ -125,7 +124,7 @@ const CardsStacksViewsCollection = ({ userObj, messages, longPressed, changeLong
     </div>
   )
 }
-const CardsStacksViews = ({ userObj, messages }: { userObj: User, messages: { round: number, creatorId: string }[] }) => {
+const CardsStacksViews = ({ userObj, messages, changeLongPressCard }: { userObj: User, messages: { round: number, creatorId: string }[], changeLongPressCard: (newValue: string | null) => void }) => {
   const [longPressed, setLongPressed] = useState(false)
   const changeLongPressed = (newValue: boolean) => setLongPressed(newValue)
   return (
@@ -149,6 +148,7 @@ function CardsStacks({ userObj }: Props) {
   const [longPressCard, setLongPressCard] = useState<string | null>(null)
   const [onLongPress, setOnLongPress] = useState(0)
   const { messages, cardLoaded }: { messages: { round: number, creatorId: string }[], cardLoaded: boolean } = useBringCards(userObj)
+  const changeLongPressCard = (newValue: string | null) => setLongPressCard(newValue)
   useEffect(() => {
     if (!onLongPress) {
       setLongPressCard(null)
@@ -169,7 +169,7 @@ function CardsStacks({ userObj }: Props) {
           }).length ? (
             <EmptyCard />
           ) : (
-            <CardsStacksViews userObj={userObj} messages={messages} />
+            <CardsStacksViews userObj={userObj} messages={messages} changeLongPressCard={changeLongPressCard} />
           )}
         </div>
       )}
