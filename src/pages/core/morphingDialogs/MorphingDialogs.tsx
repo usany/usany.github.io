@@ -6,6 +6,7 @@ import {
 import { User } from 'firebase/auth'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useConnectedUser } from 'src/hooks/useBottomNavigation'
 import { webSocket } from 'src/webSocket'
 import CardsViews from '../card/CardsViews'
 import Morphings from './Morphings'
@@ -19,10 +20,7 @@ interface Props {
 }
 const MorphingDialogs = ({
   message,
-  isOwner,
   userObj,
-  num,
-  points,
   round,
   increaseRound,
   decreaseRound,
@@ -30,21 +28,11 @@ const MorphingDialogs = ({
 }: Props) => {
   const [onPulse, setOnPulse] = useState(false)
   const changeOnPulse = (newValue) => setOnPulse(newValue)
-  const [connectedUser, setConnectedUser] = useState({
-    uid: '',
-    displayName: '',
-    url: '',
-  })
   const [onTransfer, setOnTransfer] = useState(false)
   const toggleOnTransfer = () => setOnTransfer(!onTransfer)
-  useEffect(() => {
-    setConnectedUser({
-      uid: message.connectedId,
-      displayName: message.connectedName,
-      url: message.connectedUrl,
-    })
-  }, [])
-  const changeConnectedUser = (newValue) => setConnectedUser(newValue)
+  const { connectedUser, changeConnectedUser } = useConnectedUser({
+    message: message,
+  })
   useEffect(() => {
     if (message.text.choose === 1) {
       if (message.creatorId === userObj?.uid) {

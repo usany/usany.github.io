@@ -28,9 +28,6 @@ const Morphings = ({
   const drawerOpenFalse = () => {
     setDrawerOpen(false)
   }
-  // const [searchParams] = useSearchParams()
-  // const id = searchParams.get('id')
-  // console.log(id)
   return (
     <MorphingDialogContent
       drawerOpen={drawerOpen}
