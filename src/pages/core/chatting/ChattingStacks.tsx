@@ -153,7 +153,6 @@ const ChattingStacks = ({
         userTwoProfileUrl: userTwoProfileUrl,
         messageCount: messageCount,
       }
-      // const location = chats.map((element) => element.conversation).indexOf(conversation)
       const newChattings = { ...chattings, [conversation]: replaceObj }
       setChattings(newChattings)
     }
@@ -220,18 +219,9 @@ const ChattingStacks = ({
       webSocket.off(`sNewMessage`, sNewMessageCallback)
     }
   })
-
-  // useEffect(() => {
-  //   const sorted = Object.keys(chattings).sort((elementOne, elementTwo) => {return chattings[elementTwo].messageClockNumber-chattings[elementOne].messageClockNumber})
-  //   setSortedMyConversationUid(sorted)
-  // }, [chattings])
-
   const onDelete = async ({ conversation }) => {
     const newSortedMyConversationUid = sorted
     newSortedMyConversationUid.splice(sorted.indexOf(conversation), 1)
-    // console.log(newSortedMyConversationUid)
-    // setSortedMyConversationUid(newSortedMyConversationUid)
-    // setNewMessage(true)
     changeLongPressChat(null)
     const userRef = doc(dbservice, `members/${userObj.uid}`)
     const userDoc = await getDoc(userRef)
