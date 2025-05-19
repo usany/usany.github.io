@@ -46,9 +46,11 @@ const Cards = ({
   changeOnLongPress,
   longPressCard,
   changeLongPressCard,
-  deleteMessage
+  deleteMessage,
+  longPressed,
+  changeLongPressed
 }: Props) => {
-  const [longPressed, setLongPressed] = useState(false);
+  // const [longPressed, setLongPressed] = useState(false);
   const [round, setRound] = useState(0)
   const increaseRound = () => {
     setRound(round + 1)
@@ -65,22 +67,21 @@ const Cards = ({
   const cardsRef = useRef();
   useLongPress(cardsRef, () => {
     if (longPressCard && !onLongPress) {
-      setLongPressed(true);
+      changeLongPressed(true);
       changeOnLongPress(onLongPress + 1);
     }
   });
   useEffect(() => {
     if (!onLongPress) {
-      setLongPressed(false);
+      changeLongPressed(false);
     }
   }, [onLongPress]);
   return (
     <div className="max-w-60 min-w-20 text-sm p-1" ref={cardsRef}>
-      {longPressed ? (
+      {longPressCard === message.id ? (
         <div className="flex scale-75">
           <ClickAwayListener
             onClickAway={() => {
-              // console.log("practice");
               if (longPressCard === message.id) {
                 changeOnLongPress(0);
                 changeLongPressCard(null);
@@ -92,7 +93,7 @@ const Cards = ({
                 <div
                   className="longPress touch-none"
                   onClick={() => {
-                    setLongPressed(false);
+                    changeLongPressed(false);
                     changeOnLongPress(onLongPress - 1);
                   }}
                 >
@@ -108,30 +109,6 @@ const Cards = ({
               </Draggable>
             </div>
           </ClickAwayListener>
-          {/* {longPressed &&
-            <div className='z-10 h-full' onClick={() => {
-              const data = doc(dbservice, `num/${msgObj.id}`)
-              deleteDoc(data)
-              changeOnLongPress(null)
-            }}>
-              <Chip label={<DeleteIcon />} color='error'/>
-            </div>
-          } */}
-          {/* {round < 2 ?
-            <div
-              className="z-10 h-full"
-              onClick={() => {
-                const data = doc(dbservice, `num/${message.id}`);
-                deleteDoc(data);
-                changeOnLongPress(null);
-                deleteMessage(message)
-              }}
-            >
-              <Chip sx={{}} label={<DeleteIcon />} color="error" />
-            </div>
-            :
-            <Chip sx={{}} label={<DeleteIcon />} color="error" disabled />
-          } */}
         </div>
       ) : (
         <div>
@@ -146,7 +123,7 @@ const Cards = ({
             >
               <div
                 onClick={() => {
-                  setLongPressed(true);
+                  changeLongPressed(true);
                   changeOnLongPress(onLongPress + 1);
                 }}
               >

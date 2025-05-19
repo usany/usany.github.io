@@ -1,5 +1,4 @@
 import { DndContext } from '@dnd-kit/core'
-import { ClickAwayListener } from '@mui/material'
 import { User } from 'firebase/auth'
 import {
   doc
@@ -55,7 +54,7 @@ const CardDroppable = ({ longPressed }: { longPressed: boolean }) => {
     </Droppable>
   )
 }
-const CardsStacksViewsCollection = ({ userObj, messages, changeLongPressed }: { userObj: User, messages: { round: number, creatorId: string }[], changeLongPressed: (newValue: boolean) => void }) => {
+const CardsStacksViewsCollection = ({ userObj, messages, longPressed, changeLongPressed }: { userObj: User, messages: { round: number, creatorId: string }[], longPressed: boolean, changeLongPressed: (newValue: boolean) => void }) => {
   const [longPressCard, setLongPressCard] = useState<string | null>(null)
   const [onLongPress, setOnLongPress] = useState(0)
   useEffect(() => {
@@ -83,14 +82,7 @@ const CardsStacksViewsCollection = ({ userObj, messages, changeLongPressed }: { 
                 id={value.id}
                 className="item-list flex justify-center"
               >
-                <ClickAwayListener
-                  onClickAway={() => {
-                    if (longPressCard === value.id) {
-                      setLongPressCard(null)
-                      changeLongPressed(false)
-                    }
-                  }}
-                >
+                <>
                   <div
                     onMouseDownCapture={() => {
                       const longPress = value.id
@@ -116,10 +108,11 @@ const CardsStacksViewsCollection = ({ userObj, messages, changeLongPressed }: { 
                         setLongPressCard(newValue)
                       }
                       deleteMessage={deleteMessage}
+                      longPressed={longPressed}
                       changeLongPressed={changeLongPressed}
                     />
                   </div>
-                </ClickAwayListener>
+                </>
               </div>
             )
           }
@@ -141,7 +134,7 @@ const CardsStacksViews = ({ userObj, messages }: { userObj: User, messages: { ro
       }}
     >
       <CardDroppable longPressed={longPressed} />
-      <CardsStacksViewsCollection userObj={userObj} messages={messages} changeLongPressed={changeLongPressed} />
+      <CardsStacksViewsCollection userObj={userObj} messages={messages} longPressed={longPressed} changeLongPressed={changeLongPressed} />
     </DndContext>
   )
 }
