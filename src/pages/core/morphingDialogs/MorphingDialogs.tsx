@@ -4,7 +4,7 @@ import {
   MorphingDialogTrigger,
 } from '@/components/ui/morphing-dialog'
 import { User } from 'firebase/auth'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import {
   useConnectedUser,
@@ -14,7 +14,6 @@ import {
   usePulse,
   useStopSupportingTradesCallback,
 } from 'src/hooks/useBottomNavigation'
-import { webSocket } from 'src/webSocket'
 import { useSupportTradesCallback } from '../../../hooks/useBottomNavigation'
 import CardsViews from '../card/CardsViews'
 import Morphings from './Morphings'
@@ -54,27 +53,6 @@ const MorphingDialogs = ({
   useDecreaseCardCallback({ decreaseRound, message })
   useSupportTradesCallback({ changeConnectedUser, message })
   useStopSupportingTradesCallback({ changeConnectedUser, message })
-  useEffect(() => {
-    if (!webSocket) return
-    function sStopSupportingTradesCallback() {
-      const user = {
-        uid: '',
-        displayName: '',
-        url: '',
-      }
-      changeConnectedUser(user)
-    }
-    webSocket.on(
-      `sStopSupportingTrades${message.id}`,
-      sStopSupportingTradesCallback,
-    )
-    return () => {
-      webSocket.off(
-        `sStopSupportingTrades${message.id}`,
-        sStopSupportingTradesCallback,
-      )
-    }
-  })
   return (
     <MorphingDialog
       transition={{
