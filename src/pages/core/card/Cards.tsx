@@ -46,7 +46,6 @@ const Cards = ({
   longPressed,
   changeLongPressed,
 }: Props) => {
-  // const [longPressed, setLongPressed] = useState(false);
   const [round, setRound] = useState(0)
   const increaseRound = () => {
     setRound(round + 1)
