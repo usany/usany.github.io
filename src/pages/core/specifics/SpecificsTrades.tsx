@@ -14,14 +14,18 @@ import { default as SpecificsTradesContent } from './SpecificsTradesContent'
 import SpecificsTradesTitle from './SpecificsTradesTitle'
 import SpecificsTradesTrigger from './SpecificsTradeTrigger'
 
-
 interface Props {
   userObj: User | null
   message: {}
 }
-function SpecificsTrades({ drawerOpenTrue, userObj, message, round, connectedUser }: Props) {
+function SpecificsTrades({
+  drawerOpenTrue,
+  userObj,
+  message,
+  round,
+  connectedUser,
+}: Props) {
   const [conversation, setConversation] = useState('')
-  // const [connectedName, setConnectedName] = useState('')
   const messageDisplayName = message.displayName
   const languages = useSelectors((state) => state.languages.value)
   let messageName
@@ -51,40 +55,50 @@ function SpecificsTrades({ drawerOpenTrue, userObj, message, round, connectedUse
         <div>{languages === 'ko' ? '빌리는 분' : 'Borrowing'}</div>
         {message.text.choose === 1 ? (
           <div className="flex flex-col items-center">
-            {/* <DrawerProfile
-              isCreator={true}
-              userObj={userObj}
-              message={message}
-              conversation={conversation}
-              drawerOpenTrue={drawerOpenTrue}
-            /> */}
-            <Popups trigger={<SpecificsTradesTrigger onClick={drawerOpenTrue} isCreator={true} message={message} />} title={<SpecificsTradesTitle />} content={<SpecificsTradesContent isCreator={true} userObj={userObj} message={message} conversation={conversation} drawerOpenTrue={drawerOpenTrue} />} />
-            {/* <Avatars
-              profile={false}
-              profileColor={""}
-              profileUrl={message.creatorUrl}
-              fallback={userObj.displayName ? userObj.displayName[0] : ""}
-            /> */}
+            <Popups
+              trigger={
+                <SpecificsTradesTrigger
+                  onClick={drawerOpenTrue}
+                  isCreator={true}
+                  message={message}
+                />
+              }
+              title={<SpecificsTradesTitle />}
+              content={
+                <SpecificsTradesContent
+                  isCreator={true}
+                  userObj={userObj}
+                  message={message}
+                  conversation={conversation}
+                  drawerOpenTrue={drawerOpenTrue}
+                />
+              }
+            />
             <Chip label={messageName} />
           </div>
         ) : (
           <div className="flex flex-col items-center">
             {connectedUser.uid ? (
-              // <DrawerProfile
-              //   isCreator={false}
-              //   userObj={userObj}
-              //   message={connectedUser}
-              //   conversation={conversation}
-              //   drawerOpenTrue={drawerOpenTrue}
-              // />
-              <Popups trigger={<SpecificsTradesTrigger onClick={drawerOpenTrue} isCreator={false} message={message} />} title={<SpecificsTradesTitle />} content={<SpecificsTradesContent isCreator={false} userObj={userObj} message={message} conversation={conversation} drawerOpenTrue={drawerOpenTrue} />} />
+              <Popups
+                trigger={
+                  <SpecificsTradesTrigger
+                    onClick={drawerOpenTrue}
+                    isCreator={false}
+                    message={message}
+                  />
+                }
+                title={<SpecificsTradesTitle />}
+                content={
+                  <SpecificsTradesContent
+                    isCreator={false}
+                    userObj={userObj}
+                    message={message}
+                    conversation={conversation}
+                    drawerOpenTrue={drawerOpenTrue}
+                  />
+                }
+              />
             ) : (
-              // <Avatars
-              //   profile={false}
-              //   profileColor={""}
-              //   profileUrl={message.creatorUrl}
-              //   fallback={message.connectedName ? message.connectedName[0] : ""}
-              // />
               <Avatar
                 className={`bg-light-3 dark:bg-dark-3 border border-dashed`}
               >
@@ -96,16 +110,16 @@ function SpecificsTrades({ drawerOpenTrue, userObj, message, round, connectedUse
             )}
             {connectedUser.uid ? (
               <Chip label={connectedUser.displayName} />
-              // <Chips label={message.connectedName} />
             ) : (
               <Chip variant="outlined" label={'아직 없음'} />
-              // <Chips label={'아직 없음'} className='border' />
             )}
           </div>
         )}
       </div>
       <div className="flex flex-col">
-        <div>{message.point} {languages === 'ko' ? '포인트 지급' : 'points reward'}</div>
+        <div>
+          {message.point} {languages === 'ko' ? '포인트 지급' : 'points reward'}
+        </div>
         <div className="flex justify-start">
           <HorizontalRuleIcon />
           <EastIcon />
@@ -127,21 +141,26 @@ function SpecificsTrades({ drawerOpenTrue, userObj, message, round, connectedUse
         {message.text.choose === 1 ? (
           <div className="flex flex-col items-center">
             {connectedUser.uid ? (
-              // <DrawerProfile
-              //   isCreator={false}
-              //   userObj={userObj}
-              //   message={connectedUser}
-              //   conversation={conversation}
-              //   drawerOpenTrue={drawerOpenTrue}
-              // />
-              <Popups trigger={<SpecificsTradesTrigger onClick={drawerOpenTrue} isCreator={false} message={connectedUser} />} title={<SpecificsTradesTitle />} content={<SpecificsTradesContent isCreator={false} userObj={userObj} message={connectedUser} conversation={conversation} drawerOpenTrue={drawerOpenTrue} />} />
+              <Popups
+                trigger={
+                  <SpecificsTradesTrigger
+                    onClick={drawerOpenTrue}
+                    isCreator={false}
+                    message={connectedUser}
+                  />
+                }
+                title={<SpecificsTradesTitle />}
+                content={
+                  <SpecificsTradesContent
+                    isCreator={false}
+                    userObj={userObj}
+                    message={connectedUser}
+                    conversation={conversation}
+                    drawerOpenTrue={drawerOpenTrue}
+                  />
+                }
+              />
             ) : (
-              // <Avatars
-              //   profile={false}
-              //   profileColor={""}
-              //   profileUrl={message.connectedUrl}
-              //   fallback={message.connectedName ? message.connectedName[0] : ""}
-              // />
               <Avatar
                 className={`bg-light-3 dark:bg-dark-3 border border-dashed`}
               >
@@ -153,30 +172,17 @@ function SpecificsTrades({ drawerOpenTrue, userObj, message, round, connectedUse
             )}
             {connectedUser.uid ? (
               <Chip label={connectedUser.displayName} />
-              // <Chips label={message.connectedName} />
             ) : (
-              <Chip variant="outlined" label={languages === 'ko' ? '아직 없음' : 'No one yet'} />
-              // <Chips label={'아직 없음'} className='border' />
+              <Chip
+                variant="outlined"
+                label={languages === 'ko' ? '아직 없음' : 'No one yet'}
+              />
             )}
           </div>
         ) : (
           <div className="flex flex-col items-center">
-            {/* <DrawerProfile
-              isCreator={true}
-              userObj={userObj}
-              message={message}
-              conversation={conversation}
-              drawerOpenTrue={drawerOpenTrue}
-            /> */}
             <Popups trigger={<SpecificsTradesTrigger onClick={drawerOpenTrue} isCreator={true} message={message} />} title={<SpecificsTradesTitle />} content={<SpecificsTradesContent isCreator={false} userObj={userObj} message={message} conversation={conversation} drawerOpenTrue={drawerOpenTrue} />} />
-            {/* <Avatars
-              profile={false}
-              profileColor={""}
-              profileUrl={message.creatorUrl}
-              fallback={userObj.displayName ? userObj.displayName[0] : ""}
-            /> */}
             <Chip label={messageName} />
-            {/* <Chips label={messageName} /> */}
           </div>
         )}
       </div>
