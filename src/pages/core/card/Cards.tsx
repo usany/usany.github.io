@@ -1,40 +1,36 @@
-import { ClickAwayListener } from "@mui/material";
-import { User } from "firebase/auth";
-import {
-  useEffect,
-  useRef,
-  useState
-} from "react";
-import useLongPress from "src/hooks/useLongPress";
-import Draggable from "src/pages/main/menu/Draggable";
-import MorphingDialogs from "../morphingDialogs/MorphingDialogs";
-import CardsViews from "./CardsViews";
+import { ClickAwayListener } from '@mui/material'
+import { User } from 'firebase/auth'
+import { useEffect, useRef, useState } from 'react'
+import useLongPress from 'src/hooks/useLongPress'
+import Draggable from 'src/pages/main/menu/Draggable'
+import MorphingDialogs from '../morphingDialogs/MorphingDialogs'
+import CardsViews from './CardsViews'
 
 interface Props {
-  message: { id: string; text: object };
-  isOwner: boolean;
-  userObj: User | null;
-  num: number | null;
-  points: number | null;
+  message: { id: string; text: object }
+  isOwner: boolean
+  userObj: User | null
+  num: number | null
+  points: number | null
 }
 const shadowColorArray = [
-  "lightblue",
-  "lightcoral",
-  "lightcyan",
-  "lightgoldenrodyellow",
-  "lightgray",
-  "lightgreen",
-  "lightpink",
-  "lightsalmon",
-  "lightseagreen",
-  "lightskyblue",
-  "lightsteelblue",
-  "lightyellow",
-];
-const alpha = Array.from(Array(26)).map((e, i) => i + 65);
-const letters = alpha.map((x) => String.fromCharCode(x));
-const numbers = Array.from({ length: 10 }, (e, i) => `${i}`);
-const mergedArray = letters.concat(numbers);
+  'lightblue',
+  'lightcoral',
+  'lightcyan',
+  'lightgoldenrodyellow',
+  'lightgray',
+  'lightgreen',
+  'lightpink',
+  'lightsalmon',
+  'lightseagreen',
+  'lightskyblue',
+  'lightsteelblue',
+  'lightyellow',
+]
+const alpha = Array.from(Array(26)).map((e, i) => i + 65)
+const letters = alpha.map((x) => String.fromCharCode(x))
+const numbers = Array.from({ length: 10 }, (e, i) => `${i}`)
+const mergedArray = letters.concat(numbers)
 
 const Cards = ({
   message,
@@ -46,9 +42,11 @@ const Cards = ({
   changeOnLongPress,
   longPressCard,
   changeLongPressCard,
-  deleteMessage
+  deleteMessage,
+  longPressed,
+  changeLongPressed,
 }: Props) => {
-  const [longPressed, setLongPressed] = useState(false);
+  // const [longPressed, setLongPressed] = useState(false);
   const [round, setRound] = useState(0)
   const increaseRound = () => {
     setRound(round + 1)
@@ -62,28 +60,28 @@ const Cards = ({
     }
   })
 
-  const cardsRef = useRef();
+  const cardsRef = useRef()
   useLongPress(cardsRef, () => {
     if (longPressCard && !onLongPress) {
-      setLongPressed(true);
-      changeOnLongPress(onLongPress + 1);
+      changeLongPressed(true)
+      changeOnLongPress(onLongPress + 1)
     }
-  });
+  })
   useEffect(() => {
     if (!onLongPress) {
-      setLongPressed(false);
+      changeLongPressed(false)
     }
-  }, [onLongPress]);
+  }, [onLongPress])
   return (
     <div className="max-w-60 min-w-20 text-sm p-1" ref={cardsRef}>
-      {longPressed ? (
+      {longPressCard === message.id && longPressed ? (
         <div className="flex scale-75">
           <ClickAwayListener
             onClickAway={() => {
-              // console.log("practice");
               if (longPressCard === message.id) {
-                changeOnLongPress(0);
-                changeLongPressCard(null);
+                changeOnLongPress(0)
+                changeLongPressCard(null)
+                changeLongPressed(false)
               }
             }}
           >
@@ -92,8 +90,8 @@ const Cards = ({
                 <div
                   className="longPress touch-none"
                   onClick={() => {
-                    setLongPressed(false);
-                    changeOnLongPress(onLongPress - 1);
+                    changeLongPressed(false)
+                    changeOnLongPress(onLongPress - 1)
                   }}
                 >
                   <CardsViews
@@ -108,48 +106,12 @@ const Cards = ({
               </Draggable>
             </div>
           </ClickAwayListener>
-          {/* {longPressed &&
-            <div className='z-10 h-full' onClick={() => {
-              const data = doc(dbservice, `num/${msgObj.id}`)
-              deleteDoc(data)
-              changeOnLongPress(null)
-            }}>
-              <Chip label={<DeleteIcon />} color='error'/>
-            </div>
-          } */}
-          {/* {round < 2 ?
-            <div
-              className="z-10 h-full"
-              onClick={() => {
-                const data = doc(dbservice, `num/${message.id}`);
-                deleteDoc(data);
-                changeOnLongPress(null);
-                deleteMessage(message)
-              }}
-            >
-              <Chip sx={{}} label={<DeleteIcon />} color="error" />
-            </div>
-            :
-            <Chip sx={{}} label={<DeleteIcon />} color="error" disabled />
-          } */}
         </div>
       ) : (
         <div>
-          {onLongPress ? (
-            <ClickAwayListener
-              onClickAway={() => {
-                if (longPressCard === message.id) {
-                  changeOnLongPress(0);
-                  changeLongPressCard(null);
-                }
-              }}
-            >
-              <div
-                onClick={() => {
-                  setLongPressed(true);
-                  changeOnLongPress(onLongPress + 1);
-                }}
-              >
+          {longPressed ? (
+            <>
+              <div>
                 <CardsViews
                   message={message}
                   isOwner={isOwner}
@@ -159,7 +121,7 @@ const Cards = ({
                   deleteMessage={deleteMessage}
                 />
               </div>
-            </ClickAwayListener>
+            </>
           ) : (
             <MorphingDialogs
               message={message}
@@ -176,7 +138,7 @@ const Cards = ({
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default Cards;
+export default Cards
