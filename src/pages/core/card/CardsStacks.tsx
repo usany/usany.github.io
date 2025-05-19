@@ -55,7 +55,7 @@ const CardDroppable = ({ longPressed }: { longPressed: boolean }) => {
     </Droppable>
   )
 }
-const CardsStacksViewsCollection = ({ userObj, messages, changeLongPressed }) => {
+const CardsStacksViewsCollection = ({ userObj, messages, changeLongPressed }: { userObj: User, messages: { round: number, creatorId: string }[], changeLongPressed: (newValue: boolean) => void }) => {
   const [longPressCard, setLongPressCard] = useState<string | null>(null)
   const [onLongPress, setOnLongPress] = useState(0)
   useEffect(() => {
@@ -128,7 +128,7 @@ const CardsStacksViewsCollection = ({ userObj, messages, changeLongPressed }) =>
     </div>
   )
 }
-const CardsStacksViews = ({ userObj, messages }) => {
+const CardsStacksViews = ({ userObj, messages }: { userObj: User, messages: { round: number, creatorId: string }[] }) => {
   const [longPressed, setLongPressed] = useState(false)
   const changeLongPressed = (newValue: boolean) => setLongPressed(newValue)
   return (
@@ -151,7 +151,7 @@ interface Props {
 function CardsStacks({ userObj }: Props) {
   const [longPressCard, setLongPressCard] = useState<string | null>(null)
   const [onLongPress, setOnLongPress] = useState(0)
-  const { messages, cardLoaded } = useBringCards(userObj)
+  const { messages, cardLoaded }: { messages: { round: number, creatorId: string }[], cardLoaded: boolean } = useBringCards(userObj)
   useEffect(() => {
     if (!onLongPress) {
       setLongPressCard(null)

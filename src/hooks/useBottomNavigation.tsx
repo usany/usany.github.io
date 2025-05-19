@@ -14,6 +14,17 @@ import { dbservice } from 'src/baseApi/serverbase'
 //     }
 //     return {pathname, changePathname}
 // }
+interface messagesProps {
+  connectedDefaultProfile?: string | null
+  connectedId: string | null
+  connectedName: string | null
+  connectedProfileImage?: boolean | null
+  connectedProfileImageUrl?: boolean | null
+  creatorId: string
+  id: string
+
+
+}
 export const useBringCards = (userObj) => {
   const [messages, setMessages] = useState([])
   const [cardLoaded, setCardLoaded] = useState(false)
@@ -39,6 +50,7 @@ export const useBringCards = (userObj) => {
       })
       setMessages(newArray)
       setCardLoaded(true)
+      console.log(messages)
     }
     bringCards()
   }, [])
