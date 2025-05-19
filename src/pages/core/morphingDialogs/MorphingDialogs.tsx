@@ -6,8 +6,16 @@ import {
 import { User } from 'firebase/auth'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { useConnectedUser, usePulse } from 'src/hooks/useBottomNavigation'
+import {
+  useConnectedUser,
+  useDecreaseCardCallback,
+  useIncreaseCardCallback,
+  useOnPulseCallback,
+  usePulse,
+  useStopSupportingTradesCallback,
+} from 'src/hooks/useBottomNavigation'
 import { webSocket } from 'src/webSocket'
+import { useSupportTradesCallback } from '../../../hooks/useBottomNavigation'
 import CardsViews from '../card/CardsViews'
 import Morphings from './Morphings'
 
@@ -36,79 +44,16 @@ const MorphingDialogs = ({
     round: round,
     userObj: userObj,
   })
-  useEffect(() => {
-    if (!webSocket) return
-    function sOnPulseCallback(res) {
-      if (res.choose === 1) {
-        if (res.creatorId === userObj.uid) {
-          if (round === 1 || round === 2) {
-            changeOnPulse(true)
-          } else {
-            changeOnPulse(false)
-          }
-        } else if (res.connectedId === userObj.uid) {
-          if (round === 4) {
-            changeOnPulse(true)
-          } else {
-            changeOnPulse(false)
-          }
-        }
-      } else {
-        if (res.creatorId === userObj.uid) {
-          if (round === 2 || round === 4) {
-            changeOnPulse(true)
-          } else {
-            changeOnPulse(false)
-          }
-        } else if (res.connectedId === userObj.uid) {
-          if (round === 3) {
-            changeOnPulse(true)
-          } else {
-            changeOnPulse(false)
-          }
-        }
-      }
-    }
-    webSocket.on(`sOnPulse${message.id}`, sOnPulseCallback)
-    return () => {
-      webSocket.off(`sOnPulse${message.id}`, sOnPulseCallback)
-    }
+  useOnPulseCallback({
+    userObj: userObj,
+    round: round,
+    changeOnPulse: changeOnPulse,
+    message: message,
   })
-  useEffect(() => {
-    if (!webSocket) return
-    function sIncreaseCardCallback() {
-      increaseRound()
-    }
-    webSocket.on(`sIncrease${message.id}`, sIncreaseCardCallback)
-    return () => {
-      webSocket.off(`sIncrease${message.id}`, sIncreaseCardCallback)
-    }
-  })
-  useEffect(() => {
-    if (!webSocket) return
-    function sDecreaseCardCallback() {
-      decreaseRound()
-    }
-    webSocket.on(`sDecrease${message.id}`, sDecreaseCardCallback)
-    return () => {
-      webSocket.off(`sDecrease${message.id}`, sDecreaseCardCallback)
-    }
-  })
-  useEffect(() => {
-    if (!webSocket) return
-    function sSupportTradesCallback(res) {
-      const user = {
-        uid: res.connectedId,
-        displayName: res.connectedName,
-        url: res.connectedUrl,
-      }
-      changeConnectedUser(user)
-    }
-    webSocket.on(`sSupportTrades${message.id}`, sSupportTradesCallback)
-    return () => {
-      webSocket.off(`sSupportTrades${message.id}`, sSupportTradesCallback)
-    }
-  })
+  useIncreaseCardCallback({ increaseRound, message })
+  useDecreaseCardCallback({ decreaseRound, message })
+  useSupportTradesCallback({ changeConnectedUser, message })
+  useStopSupportingTradesCallback({ changeConnectedUser, message })
   useEffect(() => {
     if (!webSocket) return
     function sStopSupportingTradesCallback() {
