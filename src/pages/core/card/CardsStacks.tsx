@@ -98,7 +98,6 @@ const CardsStacksViews = ({ userObj, messages }) => {
                   <ClickAwayListener
                     onClickAway={() => {
                       if (longPressCard === value.id) {
-                        // setOnLongPress(0)
                         setLongPressCard(null)
                         setLongPressed(false)
                       }
