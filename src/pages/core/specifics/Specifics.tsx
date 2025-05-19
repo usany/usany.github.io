@@ -1,17 +1,15 @@
+import { ClickAwayListener } from '@mui/material'
 import Button from '@mui/material/Button'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
-import { doc, getDoc } from 'firebase/firestore'
-import { useEffect, useState } from 'react'
-import { dbservice } from 'src/baseApi/serverbase'
-import Btn from 'src/buttons/Buttons'
-// import { CardActionArea, CardActions } from '@mui/material';
-// import { useBottomNavigationStore } from 'src/store'
-import { ClickAwayListener } from '@mui/material'
 import Divider from '@mui/material/Divider'
 import { User } from 'firebase/auth'
+import { doc, getDoc } from 'firebase/firestore'
+import { useEffect, useState } from 'react'
 import staticImg from 'src/assets/pwa-512x512.png'
+import { dbservice } from 'src/baseApi/serverbase'
+import Btn from 'src/buttons/Buttons'
 import { useSelectors } from 'src/hooks/useSelectors'
 import SpecificsActions from './SpecificsActions'
 import SpecificsDimensions from './SpecificsDimensions'
@@ -28,8 +26,6 @@ function Specifics({
   increaseRound,
   decreaseRound,
   drawerOpenTrue,
-  // deleted,
-  // changeDeleted,
   userObj,
   message,
   onPulse,
@@ -37,61 +33,16 @@ function Specifics({
   connectedUser,
   changeConnectedUser,
   toggleOnTransfer,
-  removeMessage
+  removeMessage,
 }: Props) {
-  const [messageObj, setMessageObj] = useState<{
-    id: string
-    round: number
-    displayName: string
-    connectedName: string
-    point: number
-    connectedId: string | null
-    creatorId: string
-  } | null>(null)
   const [num, setNum] = useState<number | null>(null)
   const [points, setPoints] = useState<number | null>(null)
   const [deleted, setDeleted] = useState<boolean>(false)
   const languages = useSelectors((state) => state.languages.value)
-  // const increaseRound = () => {
-  //   setRound(round + 1)
-  // }
-  // const decreaseRound = () => {
-  //   setRound(round - 1)
-  // }
   const deleteMessage = () => {
     setDeleted(true)
     removeMessage(message)
   }
-  // useEffect(() => {
-  //   if (!round) {
-  //     setDeleted(true)
-  //   }
-  // })
-  // console.log(round)
-  useEffect(() => {
-    const bringMessage = async ({ message }) => {
-      const docRef = doc(dbservice, `num/${message.id}`)
-      const docSnap = await getDoc(docRef)
-      setMessageObj({ id: message.id, round: docSnap.data()?.round, ...docSnap.data() })
-      // setRound(docSnap.data().round)
-      if (!docSnap.data()?.round) {
-        setDeleted(true)
-      }
-    }
-    bringMessage({ message: message })
-    // onSnapshot(query(collection(dbservice, "num")), (snapshot) => {
-    //   snapshot.docs.map((document) => {
-    //     if (document.id === message.id) {
-    //       setMessageObj({ id: document.id, ...document.data() });
-    //     }
-    //   });
-    //   const newArrayId = snapshot.docs.map((document) => document.id);
-    //   if (newArrayId.indexOf(message.id) === -1) {
-    //     setDeleted(true);
-    //   }
-    // });
-  }, [])
-  // console.log(connectedUser)
   useEffect(() => {
     const creatorPoints = async () => {
       const docRef = doc(dbservice, `members/${message.creatorId}`)
@@ -100,10 +51,6 @@ function Specifics({
       setNum(points)
     }
     creatorPoints()
-    // onSnapshot(doc(dbservice, `members/${message.creatorId}`), (snapshot) => {
-    //   const number = snapshot.data()?.points;
-    //   setNum(number);
-    // });
   }, [])
   useEffect(() => {
     const connectedPoints = async () => {
@@ -114,13 +61,6 @@ function Specifics({
     }
     if (message.connectedId !== null) {
       connectedPoints()
-      // onSnapshot(
-      //   doc(dbservice, `members/${message.connectedId}`),
-      //   (snapshot) => {
-      //     const element = snapshot.data()?.points;
-      //     setPoints(element);
-      //   }
-      // );
     }
   })
   const shadowColorArray = [
@@ -137,7 +77,6 @@ function Specifics({
     'lightsteelblue',
     'lightyellow',
   ]
-  // let shadowColor
   const alpha = Array.from(Array(26)).map((e, i) => i + 65)
   const letters = alpha.map((x) => String.fromCharCode(x))
   const numbers = Array.from({ length: 10 }, (e, i) => `${i}`)
@@ -145,17 +84,15 @@ function Specifics({
   const id = message?.id || ''
   const shadowColor =
     shadowColorArray[
-    mergedArray.indexOf(String(id[0]).toUpperCase()) % shadowColorArray.length
+      mergedArray.indexOf(String(id[0]).toUpperCase()) % shadowColorArray.length
     ]
   return (
     <div className="truncate p-1">
       <ClickAwayListener onClickAway={() => console.log('practice')}>
         {userObj ? (
           <Card
-            className='colorTwo'
+            className="colorTwo"
             sx={{
-              // width: 200 * 2.5,
-              // height: 280 * 2.5,
               boxShadow: `1.9px 1.9px 1.9px 1.9px ${shadowColor}`,
             }}
           >
@@ -169,7 +106,7 @@ function Specifics({
                 <CardMedia
                   sx={{
                     width: 212 * 0.9,
-                    height: 188 * 0.9
+                    height: 188 * 0.9,
                   }}
                   image={staticImg}
                 />
@@ -255,10 +192,9 @@ function Specifics({
               <div className="flex justify-center pt-5">로그인을 해 주세요</div>
             </CardContent>
           </Card>
-        )
-        }
+        )}
       </ClickAwayListener>
-    </div >
+    </div>
   )
 }
 
