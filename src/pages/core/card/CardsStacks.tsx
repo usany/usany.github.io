@@ -7,7 +7,6 @@ import {
 import { Ban } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { dbservice } from 'src/baseApi/serverbase'
-import { AnimatedList } from 'src/components/ui/animated-list'
 import { useBringCards } from 'src/hooks/useBottomNavigation'
 import { useSelectors } from 'src/hooks/useSelectors'
 import Cards from 'src/pages/core/card/Cards'
@@ -89,7 +88,7 @@ const CardsStacksViews = ({ userObj, messages }) => {
         {messages.map((value) => {
           const isOwner = value.creatorId === userObj.uid
           if (value.round !== 5) {
-            if (value.creatorId === userObj.uid) {
+            if ((value.creatorId === userObj.uid) || (value.connectedId === userObj.uid && value.round !== 1)) {
               return (
                 <div
                   key={value.id}
@@ -134,37 +133,6 @@ const CardsStacksViews = ({ userObj, messages }) => {
                       />
                     </div>
                   </ClickAwayListener>
-                </div>
-              )
-            } else if (value.connectedId === userObj.uid && value.round !== 1) {
-              return (
-                <div
-                  key={value.id}
-                  onMouseDownCapture={() => {
-                    const longPress = value.id
-                    setLongPressCard(longPress)
-                  }}
-                  onTouchStartCapture={() => {
-                    const longPress = value.id
-                    setLongPressCard(longPress)
-                  }}
-                >
-                  <AnimatedList>
-                    <Cards
-                      message={value}
-                      isOwner={isOwner}
-                      userObj={userObj}
-                      num={null}
-                      points={null}
-                      onLongPress={onLongPress}
-                      changeOnLongPress={(newValue) =>
-                        setOnLongPress(newValue)
-                      }
-                      longPressCard={longPressCard}
-                      deleteMessage={deleteMessage}
-                      changeLongPressed={changeLongPressed}
-                    />
-                  </AnimatedList>
                 </div>
               )
             }
