@@ -26,8 +26,6 @@ const MorphingDialogs = ({
   decreaseRound,
   deleteMessage,
 }: Props) => {
-  // const [onPulse, setOnPulse] = useState(false)
-  // const changeOnPulse = (newValue) => setOnPulse(newValue)
   const [onTransfer, setOnTransfer] = useState(false)
   const toggleOnTransfer = () => setOnTransfer(!onTransfer)
   const { connectedUser, changeConnectedUser } = useConnectedUser({
@@ -38,37 +36,6 @@ const MorphingDialogs = ({
     round: round,
     userObj: userObj,
   })
-  useEffect(() => {
-    if (message.text.choose === 1) {
-      if (message.creatorId === userObj?.uid) {
-        if (round === 2 || round === 3) {
-          changeOnPulse(true)
-        } else {
-          changeOnPulse(false)
-        }
-      } else if (message.connectedId === userObj?.uid) {
-        if (round === 4) {
-          changeOnPulse(true)
-        } else {
-          changeOnPulse(false)
-        }
-      }
-    } else {
-      if (message.creatorId === userObj.uid) {
-        if (round === 2 || round === 4) {
-          changeOnPulse(true)
-        } else {
-          changeOnPulse(false)
-        }
-      } else if (message.connectedId === userObj.uid) {
-        if (round === 3) {
-          changeOnPulse(true)
-        } else {
-          changeOnPulse(false)
-        }
-      }
-    }
-  }, [round])
   useEffect(() => {
     if (!webSocket) return
     function sOnPulseCallback(res) {
@@ -135,7 +102,7 @@ const MorphingDialogs = ({
         displayName: res.connectedName,
         url: res.connectedUrl,
       }
-      setConnectedUser(user)
+      changeConnectedUser(user)
     }
     webSocket.on(`sSupportTrades${message.id}`, sSupportTradesCallback)
     return () => {
@@ -150,7 +117,7 @@ const MorphingDialogs = ({
         displayName: '',
         url: '',
       }
-      setConnectedUser(user)
+      changeConnectedUser(user)
     }
     webSocket.on(
       `sStopSupportingTrades${message.id}`,
