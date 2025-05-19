@@ -58,9 +58,6 @@ const CardDroppable = ({ longPressed }: { longPressed: boolean }) => {
 const CardsStacksViewsCollection = ({ userObj, messages, changeLongPressed }) => {
   const [longPressCard, setLongPressCard] = useState<string | null>(null)
   const [onLongPress, setOnLongPress] = useState(0)
-  // const [longPressed, setLongPressed] = useState(false)
-  // const changeLongPressCard = (newValue: string | null) => setLongPressCard(newValue)
-  // const changeLongPressed = (newValue: boolean) => setLongPressed(newValue)
   useEffect(() => {
     if (!onLongPress) {
       setLongPressCard(null)
@@ -134,19 +131,6 @@ const CardsStacksViewsCollection = ({ userObj, messages, changeLongPressed }) =>
 const CardsStacksViews = ({ userObj, messages }) => {
   const [longPressed, setLongPressed] = useState(false)
   const changeLongPressed = (newValue: boolean) => setLongPressed(newValue)
-  // const [longPressCard, setLongPressCard] = useState<string | null>(null)
-  // const [onLongPress, setOnLongPress] = useState(0)
-  // const changeLongPressCard = (newValue: string | null) => setLongPressCard(newValue)
-  // useEffect(() => {
-  //   if (!onLongPress) {
-  //     setLongPressCard(null)
-  //   }
-  // }, [onLongPress])
-  // useEffect(() => {
-  //   if (!longPressCard) {
-  //     setOnLongPress(0)
-  //   }
-  // }, [longPressCard]);
   return (
     <DndContext
       onDragEnd={(element) => {
