@@ -1,14 +1,9 @@
-import { messaging } from 'firebase-admin'
+import admin from 'firebase-admin'
 import { Socket } from 'socket.io'
 
 const socketOnSupporting = (socket: Socket) => {
   socket.on('supporting', (res) => {
-    const {
-      id,
-      sendingToken,
-      creatorName,
-      connectedName,
-    } = res
+    const { id, sendingToken, creatorName, connectedName } = res
     const message = {
       notification: {
         title: 'supporting!',
@@ -16,7 +11,7 @@ const socketOnSupporting = (socket: Socket) => {
       },
       token: sendingToken,
     }
-    messaging().send(message)
+    admin.messaging().send(message)
     socket.broadcast.emit(`sIncrease${id}`, res)
     socket.broadcast.emit(`sOnPulse${id}`, res)
     socket.broadcast.emit(`sSupportTrades${id}`, res)

@@ -89,39 +89,15 @@ const MessageStacks = ({ userObj }: Props) => {
 
   return (
     <>
-      <div>
-        <div>
-          {/* <AnimatedList>
-            {piazzaSwitch === 'true' && (
-              <Chats
-                userObj={userObj}
-                profileUrl={''}
-                conversation={''}
-                displayName={''}
-                chattingUid={''}
-                multiple={true}
-                clock={clock}
-                message={piazzaMessage}
-                longPressChat={longPressChat}
-                longPressChatsList={longPressChatsList}
-                changeLongPressChat={(newValue) => setLongPressChat(newValue)}
-                changeLongPressChatsList={(newValue) => setLongPressChatsList(newValue)}
-                onLongPress={onLongPress}
-                changeOnLongPress={(newValue) => setOnLongPress(newValue)}
-              />
-            )}
-          </AnimatedList> */}
-          <ChattingStacks
-            userObj={userObj}
-            longPressChat={longPressChat}
-            longPressChatsList={longPressChatsList}
-            changeLongPressChat={(newValue) => setLongPressChat(newValue)}
-            changeLongPressChatsList={(newValue) => setLongPressChatsList(newValue)}
-            onLongPress={onLongPress}
-            changeOnLongPress={(newValue) => setOnLongPress(newValue)}
-          />
-        </div>
-      </div>
+      <ChattingStacks
+        userObj={userObj}
+        longPressChat={longPressChat}
+        longPressChatsList={longPressChatsList}
+        changeLongPressChat={(newValue) => setLongPressChat(newValue)}
+        changeLongPressChatsList={(newValue) => setLongPressChatsList(newValue)}
+        onLongPress={onLongPress}
+        changeOnLongPress={(newValue) => setOnLongPress(newValue)}
+      />
     </>
   )
 }

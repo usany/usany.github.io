@@ -1,11 +1,28 @@
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion'
 import { User } from 'firebase/auth'
+import { doc, getDoc, updateDoc } from 'firebase/firestore'
+import { getToken } from 'firebase/messaging'
+import { getDownloadURL, ref, uploadString } from 'firebase/storage'
+import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { dbservice, messaging, storage } from 'src/baseApi/serverbase'
 import { useSelectors } from 'src/hooks/useSelectors'
+import CardsStacks from 'src/pages/core/card/CardsStacks'
+import MessageStacks from 'src/pages/core/chatting/MessageStacks'
 import PageTitle from 'src/pages/core/pageTitle/PageTitle'
-import Accordions from './Accordions/Accordions'
-import useContextMenu from './useContextMenu'
-import useGetToken from './useGetToken'
+import { cardOff, cardOn } from 'src/stateSlices/cardAccordionSlice'
+import { messageOff, messageOn } from 'src/stateSlices/messageAccordionSlice'
+import { changeProfileColor } from 'src/stateSlices/profileColorSlice'
+import { changeProfileUrl } from 'src/stateSlices/profileUrlSlice'
 import useSetProfile from './useSetProfile'
+import useGetToken from './useGetToken'
+import useContextMenu from './useContextMenu'
+import Accordions from './Accordions/Accordions'
 // import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 interface Props {
