@@ -20,7 +20,6 @@ function Btn({
   increaseRound,
   decreaseRound,
   changeOnPulse,
-  connectedUser,
   changeConnectedUser,
   toggleOnTransfer,
 }) {
