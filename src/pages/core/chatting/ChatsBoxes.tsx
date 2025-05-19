@@ -125,7 +125,6 @@ const ChatsBoxes = ({
             clock.getHours() &&
             clock.getMinutes() && (
               <div className="flex flex-col px-3">
-                {/* <div className='truncate flex justify-end'>{clock.getFullYear()}-{messageMonth}-{messageDate} {languages === 'ko' && messageAmpm} {messageHours}:{clock.getMinutes() < 10 && '0'}{clock.getMinutes()}{languages === 'en' && (messageAmpm === '오전' ? 'am' : 'pm')}</div> */}
                 <div className="truncate flex justify-end">{clockValue}</div>
               </div>
             )}
