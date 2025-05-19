@@ -22,7 +22,6 @@ interface Props {
 const ChatsBoxes = ({
   chattingUid,
   userObj,
-  profileUrl,
   displayName,
   multiple,
   clock,
