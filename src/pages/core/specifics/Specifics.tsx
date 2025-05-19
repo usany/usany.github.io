@@ -139,7 +139,6 @@ function Specifics({
                   round={round}
                   increaseRound={increaseRound}
                   decreaseRound={decreaseRound}
-                  onPulse={onPulse}
                   changeOnPulse={changeOnPulse}
                   changeConnectedUser={changeConnectedUser}
                   toggleOnTransfer={toggleOnTransfer}
