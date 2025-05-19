@@ -7,6 +7,48 @@ import Draggable from 'src/pages/main/menu/Draggable'
 import MorphingDialogs from '../morphingDialogs/MorphingDialogs'
 import CardsViews from './CardsViews'
 
+const CardsLongPressed = ({
+  longPressCard,
+  message,
+  changeLongPressCard,
+  changeLongPressed,
+  isOwner,
+  userObj,
+  num,
+  points,
+  deleteMessage,
+}) => {
+  return (
+    <ClickAwayListener
+      onClickAway={() => {
+        if (longPressCard === message.id) {
+          changeLongPressCard(null)
+          changeLongPressed(false)
+        }
+      }}
+    >
+      <div className="flex scale-75">
+        <Draggable id={message.id}>
+          <div
+            className="longPress touch-none"
+            onClick={() => {
+              changeLongPressed(false)
+            }}
+          >
+            <CardsViews
+              message={message}
+              isOwner={isOwner}
+              userObj={userObj}
+              num={num}
+              points={points}
+              deleteMessage={deleteMessage}
+            />
+          </div>
+        </Draggable>
+      </div>
+    </ClickAwayListener>
+  )
+}
 interface Props {
   message: { id: string; text: object }
   isOwner: boolean
@@ -39,34 +81,17 @@ const Cards = ({
       {longPressed ? (
         <>
           {longPressCard === message.id ? (
-            <ClickAwayListener
-              onClickAway={() => {
-                if (longPressCard === message.id) {
-                  changeLongPressCard(null)
-                  changeLongPressed(false)
-                }
-              }}
-            >
-              <div className="flex scale-75">
-                <Draggable id={message.id}>
-                  <div
-                    className="longPress touch-none"
-                    onClick={() => {
-                      changeLongPressed(false)
-                    }}
-                  >
-                    <CardsViews
-                      message={message}
-                      isOwner={isOwner}
-                      userObj={userObj}
-                      num={num}
-                      points={points}
-                      deleteMessage={deleteMessage}
-                    />
-                  </div>
-                </Draggable>
-              </div>
-            </ClickAwayListener>
+            <CardsLongPressed
+              longPressCard={longPressCard}
+              message={message}
+              changeLongPressCard={changeLongPressCard}
+              changeLongPressed={changeLongPressed}
+              isOwner={isOwner}
+              userObj={userObj}
+              num={num}
+              points={points}
+              deleteMessage={deleteMessage}
+            />
           ) : (
             <CardsViews
               message={message}

@@ -17,13 +17,23 @@ interface Props {
   num: number | null
   points: number | null
 }
-const MorphingDialogs = ({ message, isOwner, userObj, num, points, round, increaseRound, decreaseRound, deleteMessage }: Props) => {
+const MorphingDialogs = ({
+  message,
+  isOwner,
+  userObj,
+  num,
+  points,
+  round,
+  increaseRound,
+  decreaseRound,
+  deleteMessage,
+}: Props) => {
   const [onPulse, setOnPulse] = useState(false)
   const changeOnPulse = (newValue) => setOnPulse(newValue)
   const [connectedUser, setConnectedUser] = useState({
     uid: '',
     displayName: '',
-    url: ''
+    url: '',
   })
   const [onTransfer, setOnTransfer] = useState(false)
   const toggleOnTransfer = () => setOnTransfer(!onTransfer)
@@ -31,7 +41,7 @@ const MorphingDialogs = ({ message, isOwner, userObj, num, points, round, increa
     setConnectedUser({
       uid: message.connectedId,
       displayName: message.connectedName,
-      url: message.connectedUrl
+      url: message.connectedUrl,
     })
   }, [])
   const changeConnectedUser = (newValue) => setConnectedUser(newValue)
@@ -130,7 +140,7 @@ const MorphingDialogs = ({ message, isOwner, userObj, num, points, round, increa
       const user = {
         uid: res.connectedId,
         displayName: res.connectedName,
-        url: res.connectedUrl
+        url: res.connectedUrl,
       }
       setConnectedUser(user)
     }
@@ -145,13 +155,19 @@ const MorphingDialogs = ({ message, isOwner, userObj, num, points, round, increa
       const user = {
         uid: '',
         displayName: '',
-        url: ''
+        url: '',
       }
       setConnectedUser(user)
     }
-    webSocket.on(`sStopSupportingTrades${message.id}`, sStopSupportingTradesCallback)
+    webSocket.on(
+      `sStopSupportingTrades${message.id}`,
+      sStopSupportingTradesCallback,
+    )
     return () => {
-      webSocket.off(`sStopSupportingTrades${message.id}`, sStopSupportingTradesCallback)
+      webSocket.off(
+        `sStopSupportingTrades${message.id}`,
+        sStopSupportingTradesCallback,
+      )
     }
   })
   return (
@@ -188,9 +204,6 @@ const MorphingDialogs = ({ message, isOwner, userObj, num, points, round, increa
           toggleOnTransfer={toggleOnTransfer}
           deleteMessage={deleteMessage}
         />
-        {/* <MorphingDialogContent drawerOpen={drawerOpen} drawerOpenFalse={drawerOpenFalse}>
-          <Specifics drawerOpenTrue={drawerOpenTrue} userObj={userObj} message={message} />
-        </MorphingDialogContent> */}
       </MorphingDialogContainer>
     </MorphingDialog>
   )
