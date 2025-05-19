@@ -181,12 +181,30 @@ function SpecificsTrades({
           </div>
         ) : (
           <div className="flex flex-col items-center">
-            <Popups trigger={<SpecificsTradesTrigger onClick={drawerOpenTrue} isCreator={true} message={message} />} title={<SpecificsTradesTitle />} content={<SpecificsTradesContent isCreator={false} userObj={userObj} message={message} conversation={conversation} drawerOpenTrue={drawerOpenTrue} />} />
+            <Popups
+              trigger={
+                <SpecificsTradesTrigger
+                  onClick={drawerOpenTrue}
+                  isCreator={true}
+                  message={message}
+                />
+              }
+              title={<SpecificsTradesTitle />}
+              content={
+                <SpecificsTradesContent
+                  isCreator={false}
+                  userObj={userObj}
+                  message={message}
+                  conversation={conversation}
+                  drawerOpenTrue={drawerOpenTrue}
+                />
+              }
+            />
             <Chip label={messageName} />
           </div>
         )}
       </div>
-    </div >
+    </div>
   )
 }
 
