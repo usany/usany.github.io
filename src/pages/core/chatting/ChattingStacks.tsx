@@ -33,9 +33,6 @@ const ChattingStacks = ({
   onLongPress,
   changeOnLongPress,
 }: Props) => {
-  // const [sortedMyConversationUid, setSortedMyConversationUid] = useState([])
-  // const [profileUrls, setProfileUrls] = useState([])
-  // const [newMessage, setNewMessage] = useState(true)
   const [chattings, setChattings] = useState({})
   const sorted = Object.keys(chattings).sort((elementOne, elementTwo) => {
     return (
@@ -97,7 +94,6 @@ const ChattingStacks = ({
       piazza()
     }
   })
-  // console.log(sorted)
   useEffect(() => {
     const bringChattings = async () => {
       const docRef = doc(dbservice, `members/${userObj.uid}`)
@@ -106,12 +102,6 @@ const ChattingStacks = ({
       setChattings(newChattings)
     }
     bringChattings()
-    // onSnapshot(doc(dbservice, `members/${userObj.uid}`), (snapshot) => {
-    //   const newChattings = snapshot.data()?.chattings || {}
-    //   if (!sorted.length) {
-    //     setChattings(newChattings)
-    //   }
-    // })
   }, [])
 
   useEffect(() => {
@@ -162,7 +152,8 @@ const ChattingStacks = ({
         userOneProfileUrl: userOneProfileUrl,
         userTwoProfileUrl: userTwoProfileUrl,
         messageCount: messageCount,
-      } // const location = chats.map((element) => element.conversation).indexOf(conversation)
+      }
+      // const location = chats.map((element) => element.conversation).indexOf(conversation)
       const newChattings = { ...chattings, [conversation]: replaceObj }
       setChattings(newChattings)
     }
