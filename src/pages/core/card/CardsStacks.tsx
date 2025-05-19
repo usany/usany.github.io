@@ -2,8 +2,7 @@ import { DndContext } from '@dnd-kit/core'
 import { ClickAwayListener } from '@mui/material'
 import { User } from 'firebase/auth'
 import {
-  doc,
-  getDoc
+  doc
 } from 'firebase/firestore'
 import { Ban } from 'lucide-react'
 import { useEffect, useState } from 'react'
@@ -14,20 +13,20 @@ import { useSelectors } from 'src/hooks/useSelectors'
 import Cards from 'src/pages/core/card/Cards'
 import Droppable from 'src/pages/main/menu/Droppable'
 
-const deleteMessage = (deletingMessage: { id: string }) => {
-  const item = document.getElementById(deletingMessage.id)
+const deleteMessage = (id: string) => {
+  const item = document.getElementById(id)
   item?.classList.add('transition')
   item?.addEventListener('transitionend', () => {
     item?.remove()
   })
 }
-const handleDelete = async ({ id, changeLongPressCard }: { id: string }) => {
+const handleDelete = async ({ id, changeLongPressCard }: { id: string, changeLongPressCard: (newValue: null) => void }) => {
   const data = doc(dbservice, `num/${id}`)
-  const message = await getDoc(data)
-  const deletingMessage = { id: data.id, ...message.data() }
-  deleteMessage(deletingMessage)
+  // const message = await getDoc(data)
+  const messageId = data.id
+  deleteMessage(messageId)
   // deleteDoc(data)
-  // changeLongPressCard(null)
+  changeLongPressCard(null)
 }
 const emptyCards = {
   ko: '진행 카드가 없습니다',
@@ -44,10 +43,10 @@ const EmptyCard = () => {
     </div>
   )
 }
-const CardDroppable = ({ longPressCard }: { longPressCard: string }) => {
+const CardDroppable = ({ longPressed }: { longPressed: boolean }) => {
   return (
     <Droppable>
-      {longPressCard && (
+      {longPressed && (
         <div className="px-10">
           <div className="flex justify-center rounded bg-light-2 dark:bg-dark-2 p-5">
             <Ban />
@@ -57,11 +56,129 @@ const CardDroppable = ({ longPressCard }: { longPressCard: string }) => {
     </Droppable>
   )
 }
+const CardsStacksViews = ({ userObj, messages }) => {
+  const [longPressCard, setLongPressCard] = useState<string | null>(null)
+  const [longPressed, setLongPressed] = useState(false)
+  const [onLongPress, setOnLongPress] = useState(0)
+  const changeLongPressCard = (newValue: string | null) => setLongPressCard(newValue)
+  const changeLongPressed = (newValue: boolean) => setLongPressed(newValue)
+  useEffect(() => {
+    if (!onLongPress) {
+      setLongPressCard(null)
+    }
+  }, [onLongPress])
+  useEffect(() => {
+    if (!longPressCard) {
+      setOnLongPress(0)
+    }
+  }, [longPressCard]);
+  return (
+    <DndContext
+      onDragEnd={(element) => {
+        if (element.over) {
+          const id = element.active.id.toString()
+          handleDelete({ id: id, changeLongPressCard: changeLongPressCard })
+        }
+      }}
+    >
+      <CardDroppable longPressed={longPressed} />
+      <div
+        id="items"
+        className="grid grid-cols-[repeat(auto-fit,minmax(180px,1fr))] col-span-full"
+      >
+        {messages.map((value) => {
+          const isOwner = value.creatorId === userObj.uid
+          if (value.round !== 5) {
+            if (value.creatorId === userObj.uid) {
+              return (
+                <div
+                  key={value.id}
+                  id={value.id}
+                  className="item-list flex justify-center"
+                >
+                  <ClickAwayListener
+                    onClickAway={() => {
+                      if (longPressCard === value.id) {
+                        // setOnLongPress(0)
+                        setLongPressCard(null)
+                        setLongPressed(false)
+                      }
+                    }}
+                  >
+                    <div
+                      onMouseDownCapture={() => {
+                        const longPress = value.id
+                        setLongPressCard(longPress)
+                      }}
+                      onTouchStartCapture={() => {
+                        const longPress = value.id
+                        setLongPressCard(longPress)
+                      }}
+                    >
+                      <Cards
+                        message={value}
+                        isOwner={isOwner}
+                        userObj={userObj}
+                        num={null}
+                        points={null}
+                        onLongPress={onLongPress}
+                        changeOnLongPress={(newValue) =>
+                          setOnLongPress(newValue)
+                        }
+                        longPressCard={longPressCard}
+                        changeLongPressCard={(newValue) =>
+                          setLongPressCard(newValue)
+                        }
+                        deleteMessage={deleteMessage}
+                        changeLongPressed={changeLongPressed}
+                      />
+                    </div>
+                  </ClickAwayListener>
+                </div>
+              )
+            } else if (value.connectedId === userObj.uid && value.round !== 1) {
+              return (
+                <div
+                  key={value.id}
+                  onMouseDownCapture={() => {
+                    const longPress = value.id
+                    setLongPressCard(longPress)
+                  }}
+                  onTouchStartCapture={() => {
+                    const longPress = value.id
+                    setLongPressCard(longPress)
+                  }}
+                >
+                  <AnimatedList>
+                    <Cards
+                      message={value}
+                      isOwner={isOwner}
+                      userObj={userObj}
+                      num={null}
+                      points={null}
+                      onLongPress={onLongPress}
+                      changeOnLongPress={(newValue) =>
+                        setOnLongPress(newValue)
+                      }
+                      longPressCard={longPressCard}
+                      deleteMessage={deleteMessage}
+                      changeLongPressed={changeLongPressed}
+                    />
+                  </AnimatedList>
+                </div>
+              )
+            }
+          }
+        })}
+      </div>
+    </DndContext>
+  )
+}
 interface Props {
   userObj: User
 }
 function CardsStacks({ userObj }: Props) {
-  const [longPressCard, setLongPressCard] = useState(null)
+  const [longPressCard, setLongPressCard] = useState<string | null>(null)
   const [onLongPress, setOnLongPress] = useState(0)
   const { messages, cardLoaded } = useBringCards(userObj)
   useEffect(() => {
@@ -77,114 +194,17 @@ function CardsStacks({ userObj }: Props) {
 
   return (
     <div>
-      <DndContext
-        onDragEnd={(element) => {
-          if (element.over) {
-            const id = element.active.id.toString()
-            handleDelete({ id: id, changeLongPressCard: changeLongPressCard })
-          }
-        }}
-      >
-        {cardLoaded && (
-          <div>
-            {!messages.filter((value) => {
-              if (value.round !== 5) return value
-            }).length ? (
-              <EmptyCard />
-            ) : (
-              <>
-                <CardDroppable longPressCard={longPressCard} />
-                <div
-                  id="items"
-                  className="grid grid-cols-[repeat(auto-fit,minmax(180px,1fr))] col-span-full"
-                >
-                  {messages.map((value) => {
-                    const isOwner = value.creatorId === userObj.uid
-                    if (value.round !== 5) {
-                      if (value.creatorId === userObj.uid) {
-                        return (
-                          <div
-                            key={value.id}
-                            id={value.id}
-                            className="item-list flex justify-center"
-                          >
-                            <ClickAwayListener
-                              onClickAway={() => {
-                                if (longPressCard === value.id) {
-                                  setOnLongPress(0)
-                                  setLongPressCard(null)
-                                }
-                              }}
-                            >
-                              <div
-                                onMouseDownCapture={() => {
-                                  const longPress = value.id
-                                  setLongPressCard(longPress)
-                                }}
-                                onTouchStartCapture={() => {
-                                  const longPress = value.id
-                                  setLongPressCard(longPress)
-                                }}
-                              >
-                                <Cards
-                                  message={value}
-                                  isOwner={isOwner}
-                                  userObj={userObj}
-                                  num={null}
-                                  points={null}
-                                  onLongPress={onLongPress}
-                                  changeOnLongPress={(newValue) =>
-                                    setOnLongPress(newValue)
-                                  }
-                                  longPressCard={longPressCard}
-                                  changeLongPressCard={(newValue) =>
-                                    setLongPressCard(newValue)
-                                  }
-                                  deleteMessage={deleteMessage}
-                                />
-                              </div>
-                            </ClickAwayListener>
-                          </div>
-                        )
-                      } else if (value.connectedId === userObj.uid && value.round !== 1) {
-                        return (
-                          <div
-                            key={value.id}
-                            onMouseDownCapture={() => {
-                              const longPress = value.id
-                              setLongPressCard(longPress)
-                            }}
-                            onTouchStartCapture={() => {
-                              const longPress = value.id
-                              setLongPressCard(longPress)
-                            }}
-                          >
-                            <AnimatedList>
-                              <Cards
-                                message={value}
-                                isOwner={isOwner}
-                                userObj={userObj}
-                                num={null}
-                                points={null}
-                                onLongPress={onLongPress}
-                                changeOnLongPress={(newValue) =>
-                                  setOnLongPress(newValue)
-                                }
-                                longPressCard={longPressCard}
-                                deleteMessage={deleteMessage}
-                              />
-                            </AnimatedList>
-                          </div>
-                        )
-                      }
-                    }
-                  })}
-                </div>
-              </>
-            )}
-          </div>
-        )}
-      </DndContext>
+      {cardLoaded && (
+        <div>
+          {!messages.filter((value) => {
+            if (value.round !== 5) return value
+          }).length ? (
+            <EmptyCard />
+          ) : (
+            <CardsStacksViews userObj={userObj} messages={messages} />
+          )}
+        </div>
+      )}
     </div>
   )
 }
