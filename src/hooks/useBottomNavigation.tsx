@@ -1,9 +1,4 @@
-import {
-  collection,
-  getDocs,
-  orderBy,
-  query
-} from 'firebase/firestore'
+import { collection, getDocs, orderBy, query } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 import { dbservice } from 'src/baseApi/serverbase'
 
@@ -22,8 +17,6 @@ interface messagesProps {
   connectedProfileImageUrl?: boolean | null
   creatorId: string
   id: string
-
-
 }
 export const useBringCards = (userObj) => {
   const [messages, setMessages] = useState([])
@@ -54,15 +47,29 @@ export const useBringCards = (userObj) => {
     }
     bringCards()
   }, [])
-  return { messages: messages, handleMessages: (newValue) => setMessages(newValue), cardLoaded: cardLoaded }
+  return {
+    messages: messages,
+    handleMessages: (newValue) => setMessages(newValue),
+    cardLoaded: cardLoaded,
+  }
 }
 
-const useLongPressCard = () => {
-  const [longPressCard, setLongPressCard] = useState(null)
+export const useRound = (message) => {
+  const [round, setRound] = useState(0)
+  const increaseRound = () => {
+    setRound(round + 1)
+  }
+  const decreaseRound = () => {
+    setRound(round - 1)
+  }
   useEffect(() => {
-    if (!onLongPress) {
-      setLongPressCard(null)
+    if (!round) {
+      setRound(message.round)
     }
-  }, [onLongPress])
-  return longPressCard
+  })
+  return {
+    round: round,
+    increaseRound: increaseRound,
+    decreaseRound: decreaseRound,
+  }
 }
