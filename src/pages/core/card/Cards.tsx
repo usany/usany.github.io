@@ -78,13 +78,14 @@ const Cards = ({
   }, [onLongPress]);
   return (
     <div className="max-w-60 min-w-20 text-sm p-1" ref={cardsRef}>
-      {longPressCard === message.id ? (
+      {longPressCard === message.id && longPressed ? (
         <div className="flex scale-75">
           <ClickAwayListener
             onClickAway={() => {
               if (longPressCard === message.id) {
                 changeOnLongPress(0);
                 changeLongPressCard(null);
+                changeLongPressed(false)
               }
             }}
           >
@@ -112,20 +113,14 @@ const Cards = ({
         </div>
       ) : (
         <div>
-          {onLongPress ? (
-            <ClickAwayListener
-              onClickAway={() => {
-                if (longPressCard === message.id) {
-                  changeOnLongPress(0);
-                  changeLongPressCard(null);
-                }
-              }}
-            >
+          {longPressed ? (
+            <>
               <div
-                onClick={() => {
-                  changeLongPressed(true);
-                  changeOnLongPress(onLongPress + 1);
-                }}
+              // onClick={() => {
+              //   changeLongPressCard(null)
+              //   changeLongPressed(false);
+              //   console.log('practice')
+              // }}
               >
                 <CardsViews
                   message={message}
@@ -136,7 +131,7 @@ const Cards = ({
                   deleteMessage={deleteMessage}
                 />
               </div>
-            </ClickAwayListener>
+            </>
           ) : (
             <MorphingDialogs
               message={message}

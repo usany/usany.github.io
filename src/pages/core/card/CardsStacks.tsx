@@ -85,12 +85,16 @@ const CardsStacksViewsCollection = ({ userObj, messages, longPressed, changeLong
                 <>
                   <div
                     onMouseDownCapture={() => {
-                      const longPress = value.id
-                      setLongPressCard(longPress)
+                      if (!longPressCard) {
+                        const longPress = value.id
+                        setLongPressCard(longPress)
+                      }
                     }}
                     onTouchStartCapture={() => {
-                      const longPress = value.id
-                      setLongPressCard(longPress)
+                      if (!longPressCard) {
+                        const longPress = value.id
+                        setLongPressCard(longPress)
+                      }
                     }}
                   >
                     <Cards
