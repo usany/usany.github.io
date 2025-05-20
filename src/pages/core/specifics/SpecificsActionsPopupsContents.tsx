@@ -1,12 +1,8 @@
-import {
-  DrawerClose
-} from '@/components/ui/drawer'
+import { DrawerClose } from '@/components/ui/drawer'
 import Button from '@mui/material/Button'
 import { User } from 'firebase/auth'
 import { useEffect, useState } from 'react'
-import {
-  Link
-} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import Avatars from 'src/pages/core/Avatars'
 
 interface Props {
@@ -14,7 +10,11 @@ interface Props {
   message: {}
 }
 
-function SpecificsActionsPopupsContents({ drawerOpenTrue, userObj, message }: Props) {
+function SpecificsActionsPopupsContents({
+  drawerOpenTrue,
+  userObj,
+  message,
+}: Props) {
   const [conversation, setConversation] = useState('')
   const messageDisplayName = message.displayName
   let messageName
@@ -39,7 +39,7 @@ function SpecificsActionsPopupsContents({ drawerOpenTrue, userObj, message }: Pr
   const passingProfile = {
     profileImage: message?.creatorProfileImage,
     defaultProfile: message?.creatorDefaultProfile,
-    profileImageUrl: message?.creatorProfileImageUrl
+    profileImageUrl: message?.creatorProfileImageUrl,
   }
 
   return (
@@ -66,11 +66,7 @@ function SpecificsActionsPopupsContents({ drawerOpenTrue, userObj, message }: Pr
             },
           }}
         >
-          <Button
-            variant="outlined"
-          >
-            프로필 확인
-          </Button>
+          <Button variant="outlined">프로필 확인</Button>
         </Link>
         {userObj.uid !== message?.creatorId && (
           <Link
@@ -85,11 +81,7 @@ function SpecificsActionsPopupsContents({ drawerOpenTrue, userObj, message }: Pr
             }}
           >
             <DrawerClose>
-              <Button
-                variant="outlined"
-                onClick={() => {
-                }}
-              >
+              <Button variant="outlined" onClick={() => {}}>
                 개인 대화
               </Button>
             </DrawerClose>

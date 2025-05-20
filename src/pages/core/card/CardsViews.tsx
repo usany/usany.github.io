@@ -1,6 +1,6 @@
-import { User } from 'firebase/auth';
-import { PulsatingButton } from 'src/components/ui/pulsating-button';
-import CardView from './CardView';
+import { User } from 'firebase/auth'
+import { PulsatingButton } from 'src/components/ui/pulsating-button'
+import CardView from './CardView'
 
 interface Props {
   message: { id: string; text: object }
@@ -28,21 +28,28 @@ const letters = alpha.map((x) => String.fromCharCode(x))
 const numbers = Array.from({ length: 10 }, (e, i) => `${i}`)
 const mergedArray = letters.concat(numbers)
 
-const CardsViews = ({
-  message,
-  onPulse,
-  onTransfer
-}: Props) => {
+const CardsViews = ({ message, onPulse, onTransfer }: Props) => {
   const id = message?.id || ''
-  const shadowColor = shadowColorArray[mergedArray.indexOf(String(id[0]).toUpperCase()) % shadowColorArray.length]
+  const shadowColor =
+    shadowColorArray[
+      mergedArray.indexOf(String(id[0]).toUpperCase()) % shadowColorArray.length
+    ]
   return (
     <div>
       {onPulse ? (
         <PulsatingButton pulseColor={shadowColor}>
-          <CardView message={message} shadowColor={shadowColor} />
+          <CardView
+            onTransfer={null}
+            message={message}
+            shadowColor={shadowColor}
+          />
         </PulsatingButton>
       ) : (
-        <CardView onTransfer={onTransfer} message={message} shadowColor={shadowColor} />
+        <CardView
+          onTransfer={onTransfer}
+          message={message}
+          shadowColor={shadowColor}
+        />
       )}
     </div>
   )

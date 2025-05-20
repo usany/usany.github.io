@@ -1,11 +1,7 @@
-import {
-  collection,
-  getDocs,
-  orderBy,
-  query
-} from 'firebase/firestore'
+import { collection, getDocs, orderBy, query } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 import { dbservice } from 'src/baseApi/serverbase'
+import { webSocket } from 'src/webSocket'
 
 // export default function useBottomNavigation() {
 //     const [pathname, setPathname] = useState('/')
@@ -22,8 +18,6 @@ interface messagesProps {
   connectedProfileImageUrl?: boolean | null
   creatorId: string
   id: string
-
-
 }
 export const useBringCards = (userObj) => {
   const [messages, setMessages] = useState([])
@@ -54,15 +48,198 @@ export const useBringCards = (userObj) => {
     }
     bringCards()
   }, [])
-  return { messages: messages, handleMessages: (newValue) => setMessages(newValue), cardLoaded: cardLoaded }
+  return {
+    messages: messages,
+    handleMessages: (newValue) => setMessages(newValue),
+    cardLoaded: cardLoaded,
+  }
 }
 
-const useLongPressCard = () => {
-  const [longPressCard, setLongPressCard] = useState(null)
+export const useRound = (message) => {
+  const [round, setRound] = useState(0)
+  const increaseRound = () => {
+    setRound(round + 1)
+  }
+  const decreaseRound = () => {
+    setRound(round - 1)
+  }
   useEffect(() => {
-    if (!onLongPress) {
-      setLongPressCard(null)
+    if (!round) {
+      setRound(message.round)
     }
-  }, [onLongPress])
-  return longPressCard
+  })
+  return {
+    round: round,
+    increaseRound: increaseRound,
+    decreaseRound: decreaseRound,
+  }
+}
+
+export const useConnectedUser = ({ message }) => {
+  const [connectedUser, setConnectedUser] = useState({
+    uid: '',
+    displayName: '',
+    url: '',
+  })
+  const changeConnectedUser = (newValue) => setConnectedUser(newValue)
+  useEffect(() => {
+    setConnectedUser({
+      uid: message.connectedId,
+      displayName: message.connectedName,
+      url: message.connectedUrl,
+    })
+  }, [])
+  return {
+    connectedUser: connectedUser,
+    changeConnectedUser: changeConnectedUser,
+  }
+}
+export const usePulse = ({ message, round, userObj }) => {
+  const [onPulse, setOnPulse] = useState(false)
+  const changeOnPulse = (newValue) => setOnPulse(newValue)
+  useEffect(() => {
+    if (message.text.choose === 1) {
+      if (message.creatorId === userObj?.uid) {
+        if (round === 2 || round === 3) {
+          changeOnPulse(true)
+        } else {
+          changeOnPulse(false)
+        }
+      } else if (message.connectedId === userObj?.uid) {
+        if (round === 4) {
+          changeOnPulse(true)
+        } else {
+          changeOnPulse(false)
+        }
+      }
+    } else {
+      if (message.creatorId === userObj.uid) {
+        if (round === 2 || round === 4) {
+          changeOnPulse(true)
+        } else {
+          changeOnPulse(false)
+        }
+      } else if (message.connectedId === userObj.uid) {
+        if (round === 3) {
+          changeOnPulse(true)
+        } else {
+          changeOnPulse(false)
+        }
+      }
+    }
+  }, [round])
+  return { onPulse: onPulse, changeOnPulse: changeOnPulse }
+}
+
+export const useOnPulseCallback = ({
+  userObj,
+  round,
+  changeOnPulse,
+  message,
+}) => {
+  useEffect(() => {
+    if (!webSocket) return
+    function sOnPulseCallback(res) {
+      if (res.choose === 1) {
+        if (res.creatorId === userObj.uid) {
+          if (round === 1 || round === 2) {
+            changeOnPulse(true)
+          } else {
+            changeOnPulse(false)
+          }
+        } else if (res.connectedId === userObj.uid) {
+          if (round === 4) {
+            changeOnPulse(true)
+          } else {
+            changeOnPulse(false)
+          }
+        }
+      } else {
+        if (res.creatorId === userObj.uid) {
+          if (round === 2 || round === 4) {
+            changeOnPulse(true)
+          } else {
+            changeOnPulse(false)
+          }
+        } else if (res.connectedId === userObj.uid) {
+          if (round === 3) {
+            changeOnPulse(true)
+          } else {
+            changeOnPulse(false)
+          }
+        }
+      }
+    }
+    webSocket.on(`sOnPulse${message.id}`, sOnPulseCallback)
+    return () => {
+      webSocket.off(`sOnPulse${message.id}`, sOnPulseCallback)
+    }
+  })
+}
+export const useIncreaseCardCallback = ({ increaseRound, message }) => {
+  useEffect(() => {
+    if (!webSocket) return
+    function sIncreaseCardCallback() {
+      increaseRound()
+    }
+    webSocket.on(`sIncrease${message.id}`, sIncreaseCardCallback)
+    return () => {
+      webSocket.off(`sIncrease${message.id}`, sIncreaseCardCallback)
+    }
+  })
+}
+export const useDecreaseCardCallback = ({ decreaseRound, message }) => {
+  useEffect(() => {
+    if (!webSocket) return
+    function sDecreaseCardCallback() {
+      decreaseRound()
+    }
+    webSocket.on(`sDecrease${message.id}`, sDecreaseCardCallback)
+    return () => {
+      webSocket.off(`sDecrease${message.id}`, sDecreaseCardCallback)
+    }
+  })
+}
+export const useSupportTradesCallback = ({ changeConnectedUser, message }) => {
+  useEffect(() => {
+    if (!webSocket) return
+    function sSupportTradesCallback(res) {
+      const user = {
+        uid: res.connectedId,
+        displayName: res.connectedName,
+        url: res.connectedUrl,
+      }
+      changeConnectedUser(user)
+    }
+    webSocket.on(`sSupportTrades${message.id}`, sSupportTradesCallback)
+    return () => {
+      webSocket.off(`sSupportTrades${message.id}`, sSupportTradesCallback)
+    }
+  })
+}
+export const useStopSupportingTradesCallback = ({
+  changeConnectedUser,
+  message,
+}) => {
+  useEffect(() => {
+    if (!webSocket) return
+    function sStopSupportingTradesCallback() {
+      const user = {
+        uid: '',
+        displayName: '',
+        url: '',
+      }
+      changeConnectedUser(user)
+    }
+    webSocket.on(
+      `sStopSupportingTrades${message.id}`,
+      sStopSupportingTradesCallback,
+    )
+    return () => {
+      webSocket.off(
+        `sStopSupportingTrades${message.id}`,
+        sStopSupportingTradesCallback,
+      )
+    }
+  })
 }
