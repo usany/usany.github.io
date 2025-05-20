@@ -146,12 +146,6 @@ const ChattingStacks = ({
       const newChattings = { ...chattings, [conversation]: replaceObj }
       changeChattings(newChattings)
     }
-    // const sorted = Object.keys(chattings).sort((elementOne, elementTwo) => {
-    //   return (
-    //     chattings[elementTwo].messageClockNumber -
-    //     chattings[elementOne].messageClockNumber
-    //   )
-    // })
     sorted.map((element) => {
       webSocket.on(`sMessage${element}`, sMessageCallback)
       return () => {
