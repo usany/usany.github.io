@@ -80,7 +80,6 @@ const Chats = ({
     updateDoc(userRef, { chattings: userChattings })
     updateDoc(userRef, { conversation: userConversation })
   }
-  console.log(chattings)
   return (
     <ClickAwayListener
       key={key}

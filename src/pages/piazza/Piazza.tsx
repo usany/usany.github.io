@@ -83,7 +83,6 @@ function Piazza({ userObj }: Props) {
   useEffect(() => {
     dispatch(changeBottomNavigation(5))
   })
-
   const displayName = state?.displayName
   return (
     <>

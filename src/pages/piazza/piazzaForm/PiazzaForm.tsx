@@ -33,7 +33,7 @@ function PiazzaForm({ chattingUser, userObj, multiple, messages, handleMessages,
   const conversation = state?.conversation
   const languages = useSelectors((state) => state.languages.value)
   const index = (languages === 'ko' || languages === 'en') ? languages : 'ko'
-  console.log(chattingUser)
+
   const onSendSubmitHandler = async (event) => {
     event.preventDefault();
     const message = messages

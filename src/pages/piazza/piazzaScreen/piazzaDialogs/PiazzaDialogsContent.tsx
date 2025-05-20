@@ -48,7 +48,9 @@ const PiazzaDialogsContent = ({ initiateContinuing, multiple, handleMultiple, us
         }
       </div>
       <div className='flex justify-center p-5'>
-        <Link to='/profile' state={{ element: user }}>
+        <Link
+          to={`${location.pathname}?id=${conversation}`}
+          state={{ element: user }}>
           <Button variant='outlined' onClick={() => {
             // handleClose()
           }}>
@@ -56,7 +58,9 @@ const PiazzaDialogsContent = ({ initiateContinuing, multiple, handleMultiple, us
           </Button>
         </Link>
         {multiple && userObj.uid !== user?.uid &&
-          <Link to='/piazza' state={{ conversation: conversation, displayName: user?.displayName, userUid: userObj.uid, chattingUid: user?.uid, multiple: false, profileUrl: user?.profileImageUrl }}>
+          <Link
+            to={`${location.pathname}?id=${conversation}`}
+            state={{ conversation: conversation, displayName: user?.displayName, userUid: userObj.uid, chattingUid: user?.uid, multiple: false, profileUrl: user?.profileImageUrl }}>
             <DrawerClose>
               <Button variant='outlined' onClick={() => {
                 handleMessagesList([])

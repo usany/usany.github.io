@@ -92,8 +92,6 @@ const ChatsBoxes = ({
       profileImageUrl: messageProfileImageUrl,
       defaultProfile: messageDefaultProfile,
     }
-    console.log(message)
-    console.log(passingValue)
   }
   return (
     <div className="flex p-3">
@@ -117,16 +115,11 @@ const ChatsBoxes = ({
               ? `${languages === 'ko' ? '단체 대화' : 'Group Messaging'}`
               : displayingUserName}
           </div>
-          {clockValue.length > 10 &&
-            clock.getFullYear() &&
-            clock.getMonth() &&
-            clock.getDate() &&
-            clock.getHours() &&
-            clock.getMinutes() && (
-              <div className="flex flex-col px-3">
-                <div className="truncate flex justify-end">{clockValue}</div>
-              </div>
-            )}
+          {clockValue.length > 10 && (
+            <div className="flex flex-col px-3">
+              <div className="truncate flex justify-end">{clockValue}</div>
+            </div>
+          )}
         </div>
         <div className="flex justify-between px-3">
           <div>{message?.message}</div>
