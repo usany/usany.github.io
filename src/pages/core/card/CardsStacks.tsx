@@ -42,16 +42,14 @@ const EmptyCard = () => {
     </div>
   )
 }
-const CardDroppable = ({ longPressed }: { longPressed: boolean }) => {
+const CardDroppable = () => {
   return (
     <Droppable>
-      {longPressed && (
-        <div className="px-10">
-          <div className="flex justify-center rounded bg-light-2 dark:bg-dark-2 p-5">
-            <Ban />
-          </div>
+      <div className="px-10">
+        <div className="flex justify-center rounded bg-light-2 dark:bg-dark-2 p-5">
+          <Ban />
         </div>
-      )}
+      </div>
     </Droppable>
   )
 }
@@ -133,10 +131,11 @@ const CardsStacksViews = ({ userObj, messages, changeLongPressCard }: { userObj:
         if (element.over) {
           const id = element.active.id.toString()
           handleDelete({ id: id, changeLongPressCard: changeLongPressCard })
+          setLongPressed(false)
         }
       }}
     >
-      <CardDroppable longPressed={longPressed} />
+      {longPressed && <CardDroppable />}
       <CardsStacksViewsCollection userObj={userObj} messages={messages} longPressed={longPressed} changeLongPressed={changeLongPressed} />
     </DndContext>
   )
