@@ -21,8 +21,8 @@ const ChatsDelete = ({
 }) => {
   const dispatch = useDispatch()
   const onDelete = async ({ conversation }) => {
-    const newSortedMyConversationUid = sorted
-    newSortedMyConversationUid.splice(sorted.indexOf(conversation), 1)
+    // const newSortedMyConversationUid = sorted
+    // newSortedMyConversationUid.splice(sorted.indexOf(conversation), 1)
     changeLongPressChat(null)
     const userRef = doc(dbservice, `members/${userObj.uid}`)
     const userDoc = await getDoc(userRef)
@@ -69,11 +69,11 @@ interface Props {
 
 const Chats = ({
   userObj,
-  profileUrl,
   conversation,
-  displayName,
-  chattingUid,
-  multiple,
+  // profileUrl,
+  // displayName,
+  // chattingUid,
+  // multiple,
   clock,
   message,
   longPressChat,
@@ -87,8 +87,26 @@ const Chats = ({
   changeChattings,
 }: Props) => {
   const [longPressed, setLongPressed] = useState(false)
-  const dispatch = useDispatch()
   const chatsRef = useRef()
+  const multiple = conversation === 'piazza' ? true : false
+  let displayName
+  let chattingUid
+  let profileUrl
+  if (conversation !== 'piazza') {
+    if (userObj.uid === chattings[conversation].userOne) {
+      displayName = chattings[conversation].userTwoDisplayName
+      chattingUid = chattings[conversation].userTwo
+      profileUrl = chattings[conversation].userTwoProfileUrl
+    } else {
+      displayName = chattings[conversation].userOneDisplayName
+      chattingUid = chattings[conversation].userOne
+      profileUrl = chattings[conversation].userOneProfileUrl
+    }
+  } else {
+    displayName = ''
+    chattingUid = ''
+    profileUrl = ''
+  }
   useLongPress(chatsRef, () => {
     if (longPressChat && !onLongPress) {
       setLongPressed(true)
@@ -104,7 +122,7 @@ const Chats = ({
   }, [longPressChat, onLongPress])
   const { colorTwo } = useCardsBackground()
   const key = conversation || 'piazza'
-
+  console.log(chattings)
   return (
     <ClickAwayListener
       key={key}
@@ -152,7 +170,7 @@ const Chats = ({
             <>
               {!onLongPress ? (
                 <Link
-                  to="/piazza"
+                  to={conversation ? `/piazza?id=${conversation}` : '/piazza'}
                   state={{
                     conversation: conversation,
                     displayName: displayName,

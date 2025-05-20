@@ -1,11 +1,5 @@
 import { User } from 'firebase/auth'
-import {
-  collection,
-  getDocs,
-  limit,
-  orderBy,
-  query
-} from 'firebase/firestore'
+import { collection, getDocs, limit, orderBy, query } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { dbservice } from 'src/baseApi/serverbase'
@@ -21,7 +15,7 @@ const ChattingStacks = ({
   userObj,
   chattings,
   changeChattings,
-  sorted
+  sorted,
 }: Props) => {
   const [longPressChat, setLongPressChat] = useState(null)
   const [longPressChatsList, setLongPressChatsList] = useState([])
@@ -214,7 +208,7 @@ const ChattingStacks = ({
               <Chats
                 userObj={userObj}
                 profileUrl={''}
-                conversation={''}
+                conversation={element}
                 displayName={''}
                 chattingUid={''}
                 multiple={true}
