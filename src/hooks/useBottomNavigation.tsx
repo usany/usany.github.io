@@ -1,4 +1,4 @@
-import { collection, getDocs, orderBy, query } from 'firebase/firestore'
+import { collection, doc, getDoc, getDocs, orderBy, query } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 import { dbservice } from 'src/baseApi/serverbase'
 import { webSocket } from 'src/webSocket'
@@ -242,4 +242,25 @@ export const useStopSupportingTradesCallback = ({
       )
     }
   })
+}
+
+export const useSortedChattings = ({ userObj }) => {
+  const [chattings, setChattings] = useState({})
+  const sorted = Object.keys(chattings).sort((elementOne, elementTwo) => {
+    return (
+      chattings[elementTwo].messageClockNumber -
+      chattings[elementOne].messageClockNumber
+    )
+  })
+
+  useEffect(() => {
+    const bringChattings = async () => {
+      const docRef = doc(dbservice, `members/${userObj.uid}`)
+      const docSnap = await getDoc(docRef)
+      const newChattings = docSnap.data()?.chattings || {}
+      setChattings(newChattings)
+    }
+    bringChattings()
+  }, [])
+  return sorted
 }

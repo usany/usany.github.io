@@ -16,30 +16,32 @@ import { AnimatedList } from 'src/components/ui/animated-list'
 import { useSelectors } from 'src/hooks/useSelectors'
 import Chats from 'src/pages/core/chatting/Chats'
 import { webSocket } from 'src/webSocket.tsx'
+
 interface Props {
   userObj: User
-}
-const emptyMessages = {
-  ko: '진행  메세지가 없습니다',
-  en: 'No messages',
 }
 
 const ChattingStacks = ({
   userObj,
-  longPressChat,
-  longPressChatsList,
-  changeLongPressChat,
-  changeLongPressChatsList,
-  onLongPress,
-  changeOnLongPress,
+  sorted
 }: Props) => {
+  const [longPressChat, setLongPressChat] = useState(null)
+  const [longPressChatsList, setLongPressChatsList] = useState([])
+  const changeLongPressChat = (newValue) => setLongPressChat(newValue)
+  const changeLongPressChatsList = (newValue) => setLongPressChatsList(newValue)
+  const [onLongPress, setOnLongPress] = useState(0)
+  const changeOnLongPress = (newValue) => setOnLongPress(newValue)
+  useEffect(() => {
+    if (!onLongPress) {
+      setLongPressChat(null)
+    }
+  }, [onLongPress])
+  useEffect(() => {
+    if (!longPressChat) {
+      setOnLongPress(0)
+    }
+  }, [longPressChat])
   const [chattings, setChattings] = useState({})
-  const sorted = Object.keys(chattings).sort((elementOne, elementTwo) => {
-    return (
-      chattings[elementTwo].messageClockNumber -
-      chattings[elementOne].messageClockNumber
-    )
-  })
   const [piazzaMessage, setPiazzaMessage] = useState<{
     username: string
     message: string
@@ -237,14 +239,7 @@ const ChattingStacks = ({
   }
 
   return (
-    <div className="flex flex-col gap-1 w-full">
-      {!sorted.length && (
-        <div className="flex items-center flex-col">
-          <div className="flex justify-center rounded w-1/2 p-5 bg-light-2 dark:bg-dark-2 shadow-md">
-            {emptyMessages[index]}
-          </div>
-        </div>
-      )}
+    <>
       {sorted.map((element, index) => {
         let clock
         if (element === 'piazza') {
@@ -308,7 +303,7 @@ const ChattingStacks = ({
           }
         }
       })}
-    </div>
+    </>
   )
 }
 
