@@ -1,5 +1,4 @@
 import { User } from 'firebase/auth'
-import { useDispatch, useSelector } from 'react-redux'
 import { useSelectors } from 'src/hooks/useSelectors'
 import PageTitle from 'src/pages/core/pageTitle/PageTitle'
 import Accordions from './Accordions/Accordions'
@@ -16,21 +15,10 @@ const titles = {
   ko: '내 상태',
   en: 'My Status',
 }
-const cards = {
-  ko: '카드',
-  en: 'Cards',
-}
-const messages = {
-  ko: '메세지',
-  en: 'Messages',
-}
 
 function Menu({ userObj }: Props) {
   const languages = useSelectors((state) => state.languages.value)
   const index = languages === 'ko' || languages === 'en' ? languages : 'ko'
-  const cardAccordion = useSelector((state) => state.cardAccordion.value)
-  const messageAccordion = useSelector((state) => state.messageAccordion.value)
-  const dispatch = useDispatch()
   useSetProfile(userObj)
   useGetToken(userObj)
   useContextMenu()

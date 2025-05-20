@@ -1,45 +1,44 @@
 import { User } from 'firebase/auth'
 import {
   collection,
-  doc,
-  getDoc,
   getDocs,
   limit,
   orderBy,
-  query,
-  updateDoc,
+  query
 } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { dbservice } from 'src/baseApi/serverbase'
 import { AnimatedList } from 'src/components/ui/animated-list'
-import { useSelectors } from 'src/hooks/useSelectors'
 import Chats from 'src/pages/core/chatting/Chats'
 import { webSocket } from 'src/webSocket.tsx'
+
 interface Props {
   userObj: User
-}
-const emptyMessages = {
-  ko: '진행  메세지가 없습니다',
-  en: 'No messages',
 }
 
 const ChattingStacks = ({
   userObj,
-  longPressChat,
-  longPressChatsList,
-  changeLongPressChat,
-  changeLongPressChatsList,
-  onLongPress,
-  changeOnLongPress,
+  chattings,
+  changeChattings,
+  sorted
 }: Props) => {
-  const [chattings, setChattings] = useState({})
-  const sorted = Object.keys(chattings).sort((elementOne, elementTwo) => {
-    return (
-      chattings[elementTwo].messageClockNumber -
-      chattings[elementOne].messageClockNumber
-    )
-  })
+  const [longPressChat, setLongPressChat] = useState(null)
+  const [longPressChatsList, setLongPressChatsList] = useState([])
+  const changeLongPressChat = (newValue) => setLongPressChat(newValue)
+  const changeLongPressChatsList = (newValue) => setLongPressChatsList(newValue)
+  const [onLongPress, setOnLongPress] = useState(0)
+  const changeOnLongPress = (newValue) => setOnLongPress(newValue)
+  useEffect(() => {
+    if (!onLongPress) {
+      setLongPressChat(null)
+    }
+  }, [onLongPress])
+  useEffect(() => {
+    if (!longPressChat) {
+      setOnLongPress(0)
+    }
+  }, [longPressChat])
   const [piazzaMessage, setPiazzaMessage] = useState<{
     username: string
     message: string
@@ -47,10 +46,10 @@ const ChattingStacks = ({
 
   const piazzaSwitch = useSelector<boolean>((state) => state.piazzaSwitch.value)
   if (piazzaSwitch === 'true') {
-    sorted.splice(0, 0, 'piazza')
+    if (sorted.indexOf('piazza') === -1) {
+      sorted.splice(0, 0, 'piazza')
+    }
   }
-  const languages = useSelectors((state) => state.languages.value)
-  const index = languages === 'ko' || languages === 'en' ? languages : 'ko'
 
   useEffect(() => {
     if (!webSocket) return
@@ -94,15 +93,6 @@ const ChattingStacks = ({
       piazza()
     }
   })
-  useEffect(() => {
-    const bringChattings = async () => {
-      const docRef = doc(dbservice, `members/${userObj.uid}`)
-      const docSnap = await getDoc(docRef)
-      const newChattings = docSnap.data()?.chattings || {}
-      setChattings(newChattings)
-    }
-    bringChattings()
-  }, [])
 
   useEffect(() => {
     if (!webSocket) return
@@ -154,14 +144,8 @@ const ChattingStacks = ({
         messageCount: messageCount,
       }
       const newChattings = { ...chattings, [conversation]: replaceObj }
-      setChattings(newChattings)
+      changeChattings(newChattings)
     }
-    const sorted = Object.keys(chattings).sort((elementOne, elementTwo) => {
-      return (
-        chattings[elementTwo].messageClockNumber -
-        chattings[elementOne].messageClockNumber
-      )
-    })
     sorted.map((element) => {
       webSocket.on(`sMessage${element}`, sMessageCallback)
       return () => {
@@ -212,39 +196,15 @@ const ChattingStacks = ({
         messageCount: messageCount,
       }
       const newChattings = { ...chattings, [conversation]: replaceObj }
-      setChattings(newChattings)
+      changeChattings(newChattings)
     }
     webSocket.on(`sNewMessage`, sNewMessageCallback)
     return () => {
       webSocket.off(`sNewMessage`, sNewMessageCallback)
     }
   })
-  const onDelete = async ({ conversation }) => {
-    const newSortedMyConversationUid = sorted
-    newSortedMyConversationUid.splice(sorted.indexOf(conversation), 1)
-    changeLongPressChat(null)
-    const userRef = doc(dbservice, `members/${userObj.uid}`)
-    const userDoc = await getDoc(userRef)
-    const userChattings = userDoc.data().chattings || {}
-    const userConversation = userDoc.data().conversation || []
-    Reflect.deleteProperty(userChattings, conversation)
-    if (userConversation.indexOf(conversation) !== -1) {
-      userConversation.splice(userConversation.indexOf(conversation), 1)
-    }
-    setChattings(userChattings)
-    updateDoc(userRef, { chattings: userChattings })
-    updateDoc(userRef, { conversation: userConversation })
-  }
-
   return (
-    <div className="flex flex-col gap-1 w-full">
-      {!sorted.length && (
-        <div className="flex items-center flex-col">
-          <div className="flex justify-center rounded w-1/2 p-5 bg-light-2 dark:bg-dark-2 shadow-md">
-            {emptyMessages[index]}
-          </div>
-        </div>
-      )}
+    <>
       {sorted.map((element, index) => {
         let clock
         if (element === 'piazza') {
@@ -266,6 +226,9 @@ const ChattingStacks = ({
                 changeLongPressChatsList={changeLongPressChatsList}
                 onLongPress={onLongPress}
                 changeOnLongPress={changeOnLongPress}
+                sorted={sorted}
+                chattings={chattings}
+                changeChattings={changeChattings}
               />
             </AnimatedList>
           )
@@ -301,14 +264,16 @@ const ChattingStacks = ({
                   changeLongPressChatsList={changeLongPressChatsList}
                   onLongPress={onLongPress}
                   changeOnLongPress={changeOnLongPress}
-                  onDelete={onDelete}
+                  sorted={sorted}
+                  chattings={chattings}
+                  changeChattings={changeChattings}
                 />
               </AnimatedList>
             )
           }
         }
       })}
-    </div>
+    </>
   )
 }
 
