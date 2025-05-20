@@ -43,6 +43,7 @@ const Chats = ({
   onLongPress,
   changeOnLongPress,
   sorted,
+  chattings,
   changeChattings
 }: Props) => {
   const [longPressed, setLongPressed] = useState(false)
@@ -79,6 +80,7 @@ const Chats = ({
     updateDoc(userRef, { chattings: userChattings })
     updateDoc(userRef, { conversation: userConversation })
   }
+  console.log(chattings)
   return (
     <ClickAwayListener
       key={key}

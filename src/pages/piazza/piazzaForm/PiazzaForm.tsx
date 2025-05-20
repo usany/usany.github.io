@@ -33,7 +33,7 @@ function PiazzaForm({ chattingUser, userObj, multiple, messages, handleMessages,
   const conversation = state?.conversation
   const languages = useSelectors((state) => state.languages.value)
   const index = (languages === 'ko' || languages === 'en') ? languages : 'ko'
-  // console.log(chattingUser)
+  console.log(chattingUser)
   const onSendSubmitHandler = async (event) => {
     event.preventDefault();
     const message = messages
@@ -44,8 +44,8 @@ function PiazzaForm({ chattingUser, userObj, multiple, messages, handleMessages,
     let toUserRef
     let toUser
     let messagingToken
-    if (state.chattingUid) {
-      toUserRef = doc(dbservice, `members/${state.chattingUid}`)
+    if (chattingUser) {
+      toUserRef = doc(dbservice, `members/${chattingUser.uid}`)
       toUser = await getDoc(toUserRef)
       messagingToken = toUser.data()?.messagingToken
     }
@@ -58,8 +58,8 @@ function PiazzaForm({ chattingUser, userObj, multiple, messages, handleMessages,
       messageClock: messageClock,
       // target: privateTarget,
       conversation: conversation,
-      conversationUid: state.chattingUid,
-      conversationName: state.displayName,
+      conversationUid: chattingUser.uid,
+      conversationName: chattingUser.displayName,
       profileUrl: profileImageUrl,
       sendingToken: messagingToken,
     };
@@ -148,11 +148,11 @@ function PiazzaForm({ chattingUser, userObj, multiple, messages, handleMessages,
       let userTwoDefaultProfile
       let userOneProfileImage
       let userTwoProfileImage
-      if (state.userUid < state.chattingUid) {
-        userOne = state.userUid
-        userTwo = state.chattingUid
+      if (userObj.uid < chattingUser.uid) {
+        userOne = userObj.uid
+        userTwo = chattingUser.uid
         userOneDisplayName = userObj.displayName
-        userTwoDisplayName = state.displayName
+        userTwoDisplayName = chattingUser.displayName
         userOneProfileUrl = profileImageUrl
         userTwoProfileUrl = otherProfileUrl
         userOneDefaultProfile = defaultProfile
@@ -160,9 +160,9 @@ function PiazzaForm({ chattingUser, userObj, multiple, messages, handleMessages,
         userOneProfileImage = profile.profileImage
         userTwoProfileImage = chattingUser.profileImage
       } else {
-        userOne = state.chattingUid
-        userTwo = state.userUid
-        userOneDisplayName = state.displayName
+        userOne = chattingUser.uid
+        userTwo = userObj.uid
+        userOneDisplayName = chattingUser.displayName
         userTwoDisplayName = userObj.displayName
         userOneProfileUrl = otherProfileUrl
         userTwoProfileUrl = profileImageUrl
@@ -206,7 +206,7 @@ function PiazzaForm({ chattingUser, userObj, multiple, messages, handleMessages,
         const myDocRef = doc(dbservice, `members/${userUid}`)
         const myDocSnap = await getDoc(myDocRef)
         const myChattings = myDocSnap.data().chattings || {}
-        const userDocRef = doc(dbservice, `members/${state.chattingUid}`)
+        const userDocRef = doc(dbservice, `members/${chattingUser.uid}`)
         const userDocSnap = await getDoc(userDocRef)
         const userChattings = userDocSnap.data().chattings || {}
         const userChattingsNumber = userChattings[conversation]?.messageCount || 0
@@ -241,7 +241,7 @@ function PiazzaForm({ chattingUser, userObj, multiple, messages, handleMessages,
   const onMembersConversation = async () => {
     try {
       const userUid = userObj.uid
-      const chattingUid = state.chattingUid
+      const chattingUid = chattingUser.uid
       const myDocRef = doc(dbservice, `members/${userUid}`)
       const myDocSnap = await getDoc(myDocRef)
       const myConversation = myDocSnap.data().conversation || []

@@ -227,6 +227,7 @@ const ChattingStacks = ({
                 onLongPress={onLongPress}
                 changeOnLongPress={changeOnLongPress}
                 sorted={sorted}
+                chattings={chattings}
                 changeChattings={changeChattings}
               />
             </AnimatedList>
@@ -264,6 +265,7 @@ const ChattingStacks = ({
                   onLongPress={onLongPress}
                   changeOnLongPress={changeOnLongPress}
                   sorted={sorted}
+                  chattings={chattings}
                   changeChattings={changeChattings}
                 />
               </AnimatedList>
