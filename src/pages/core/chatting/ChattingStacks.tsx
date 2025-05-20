@@ -1,13 +1,10 @@
 import { User } from 'firebase/auth'
 import {
   collection,
-  doc,
-  getDoc,
   getDocs,
   limit,
   orderBy,
-  query,
-  updateDoc,
+  query
 } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
@@ -212,23 +209,6 @@ const ChattingStacks = ({
       webSocket.off(`sNewMessage`, sNewMessageCallback)
     }
   })
-  const onDelete = async ({ conversation }) => {
-    const newSortedMyConversationUid = sorted
-    newSortedMyConversationUid.splice(sorted.indexOf(conversation), 1)
-    changeLongPressChat(null)
-    const userRef = doc(dbservice, `members/${userObj.uid}`)
-    const userDoc = await getDoc(userRef)
-    const userChattings = userDoc.data().chattings || {}
-    const userConversation = userDoc.data().conversation || []
-    Reflect.deleteProperty(userChattings, conversation)
-    if (userConversation.indexOf(conversation) !== -1) {
-      userConversation.splice(userConversation.indexOf(conversation), 1)
-    }
-    changeChattings(userChattings)
-    updateDoc(userRef, { chattings: userChattings })
-    updateDoc(userRef, { conversation: userConversation })
-  }
-  // console.log(sorted)
   return (
     <>
       {sorted.map((element, index) => {
