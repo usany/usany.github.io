@@ -246,6 +246,7 @@ export const useStopSupportingTradesCallback = ({
 
 export const useSortedChattings = ({ userObj }) => {
   const [chattings, setChattings] = useState({})
+  const changeChattings = (newValue) => setChattings(newValue)
   const sorted = Object.keys(chattings).sort((elementOne, elementTwo) => {
     return (
       chattings[elementTwo].messageClockNumber -
@@ -262,5 +263,5 @@ export const useSortedChattings = ({ userObj }) => {
     }
     bringChattings()
   }, [])
-  return sorted
+  return { chattings: chattings, changeChattings: changeChattings, sorted: sorted }
 }

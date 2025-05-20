@@ -13,7 +13,6 @@ import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { dbservice } from 'src/baseApi/serverbase'
 import { AnimatedList } from 'src/components/ui/animated-list'
-import { useSelectors } from 'src/hooks/useSelectors'
 import Chats from 'src/pages/core/chatting/Chats'
 import { webSocket } from 'src/webSocket.tsx'
 
@@ -23,6 +22,8 @@ interface Props {
 
 const ChattingStacks = ({
   userObj,
+  chattings,
+  changeChattings,
   sorted
 }: Props) => {
   const [longPressChat, setLongPressChat] = useState(null)
@@ -41,7 +42,6 @@ const ChattingStacks = ({
       setOnLongPress(0)
     }
   }, [longPressChat])
-  const [chattings, setChattings] = useState({})
   const [piazzaMessage, setPiazzaMessage] = useState<{
     username: string
     message: string
@@ -49,10 +49,10 @@ const ChattingStacks = ({
 
   const piazzaSwitch = useSelector<boolean>((state) => state.piazzaSwitch.value)
   if (piazzaSwitch === 'true') {
-    sorted.splice(0, 0, 'piazza')
+    if (sorted.indexOf('piazza') === -1) {
+      sorted.splice(0, 0, 'piazza')
+    }
   }
-  const languages = useSelectors((state) => state.languages.value)
-  const index = languages === 'ko' || languages === 'en' ? languages : 'ko'
 
   useEffect(() => {
     if (!webSocket) return
@@ -96,15 +96,6 @@ const ChattingStacks = ({
       piazza()
     }
   })
-  useEffect(() => {
-    const bringChattings = async () => {
-      const docRef = doc(dbservice, `members/${userObj.uid}`)
-      const docSnap = await getDoc(docRef)
-      const newChattings = docSnap.data()?.chattings || {}
-      setChattings(newChattings)
-    }
-    bringChattings()
-  }, [])
 
   useEffect(() => {
     if (!webSocket) return
@@ -156,14 +147,14 @@ const ChattingStacks = ({
         messageCount: messageCount,
       }
       const newChattings = { ...chattings, [conversation]: replaceObj }
-      setChattings(newChattings)
+      changeChattings(newChattings)
     }
-    const sorted = Object.keys(chattings).sort((elementOne, elementTwo) => {
-      return (
-        chattings[elementTwo].messageClockNumber -
-        chattings[elementOne].messageClockNumber
-      )
-    })
+    // const sorted = Object.keys(chattings).sort((elementOne, elementTwo) => {
+    //   return (
+    //     chattings[elementTwo].messageClockNumber -
+    //     chattings[elementOne].messageClockNumber
+    //   )
+    // })
     sorted.map((element) => {
       webSocket.on(`sMessage${element}`, sMessageCallback)
       return () => {
@@ -214,7 +205,7 @@ const ChattingStacks = ({
         messageCount: messageCount,
       }
       const newChattings = { ...chattings, [conversation]: replaceObj }
-      setChattings(newChattings)
+      changeChattings(newChattings)
     }
     webSocket.on(`sNewMessage`, sNewMessageCallback)
     return () => {
@@ -233,11 +224,11 @@ const ChattingStacks = ({
     if (userConversation.indexOf(conversation) !== -1) {
       userConversation.splice(userConversation.indexOf(conversation), 1)
     }
-    setChattings(userChattings)
+    changeChattings(userChattings)
     updateDoc(userRef, { chattings: userChattings })
     updateDoc(userRef, { conversation: userConversation })
   }
-
+  // console.log(sorted)
   return (
     <>
       {sorted.map((element, index) => {
@@ -261,6 +252,8 @@ const ChattingStacks = ({
                 changeLongPressChatsList={changeLongPressChatsList}
                 onLongPress={onLongPress}
                 changeOnLongPress={changeOnLongPress}
+                sorted={sorted}
+                changeChattings={changeChattings}
               />
             </AnimatedList>
           )
@@ -296,7 +289,8 @@ const ChattingStacks = ({
                   changeLongPressChatsList={changeLongPressChatsList}
                   onLongPress={onLongPress}
                   changeOnLongPress={changeOnLongPress}
-                  onDelete={onDelete}
+                  sorted={sorted}
+                  changeChattings={changeChattings}
                 />
               </AnimatedList>
             )

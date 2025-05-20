@@ -2,9 +2,11 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import { ClickAwayListener } from '@mui/material'
 import Card from '@mui/material/Card'
 import { User } from 'firebase/auth'
+import { doc, getDoc, updateDoc } from 'firebase/firestore'
 import { useEffect, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { dbservice } from 'src/baseApi/serverbase'
 import useCardsBackground from 'src/hooks/useCardsBackground'
 import useLongPress from 'src/hooks/useLongPress'
 import ChatsBoxes from 'src/pages/core/chatting/ChatsBoxes'
@@ -40,7 +42,8 @@ const Chats = ({
   changeLongPressChatsList,
   onLongPress,
   changeOnLongPress,
-  onDelete,
+  sorted,
+  changeChattings
 }: Props) => {
   const [longPressed, setLongPressed] = useState(false)
   const dispatch = useDispatch()
@@ -60,6 +63,22 @@ const Chats = ({
   }, [longPressChat, onLongPress])
   const { colorTwo } = useCardsBackground()
   const key = conversation || 'piazza'
+  const onDelete = async ({ conversation }) => {
+    const newSortedMyConversationUid = sorted
+    newSortedMyConversationUid.splice(sorted.indexOf(conversation), 1)
+    changeLongPressChat(null)
+    const userRef = doc(dbservice, `members/${userObj.uid}`)
+    const userDoc = await getDoc(userRef)
+    const userChattings = userDoc.data()?.chattings || {}
+    const userConversation = userDoc.data()?.conversation || []
+    Reflect.deleteProperty(userChattings, conversation)
+    if (userConversation.indexOf(conversation) !== -1) {
+      userConversation.splice(userConversation.indexOf(conversation), 1)
+    }
+    changeChattings(userChattings)
+    updateDoc(userRef, { chattings: userChattings })
+    updateDoc(userRef, { conversation: userConversation })
+  }
   return (
     <ClickAwayListener
       key={key}
