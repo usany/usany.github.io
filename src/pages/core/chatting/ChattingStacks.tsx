@@ -1,9 +1,8 @@
 import { User } from 'firebase/auth'
-import { collection, getDocs, limit, orderBy, query } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { dbservice } from 'src/baseApi/serverbase'
 import { AnimatedList } from 'src/components/ui/animated-list'
+import { usePiazzaMessage } from 'src/hooks/useBottomNavigation'
 import Chats from 'src/pages/core/chatting/Chats'
 import { webSocket } from 'src/webSocket.tsx'
 
@@ -33,10 +32,6 @@ const ChattingStacks = ({
       setOnLongPress(0)
     }
   }, [longPressChat])
-  const [piazzaMessage, setPiazzaMessage] = useState<{
-    username: string
-    message: string
-  } | null>(null)
 
   const piazzaSwitch = useSelector<boolean>((state) => state.piazzaSwitch.value)
   if (piazzaSwitch === 'true') {
@@ -44,13 +39,13 @@ const ChattingStacks = ({
       sorted.splice(0, 0, 'piazza')
     }
   }
+  const { piazzaMessage, changePiazzaMessage } = usePiazzaMessage()
 
   useEffect(() => {
     if (!webSocket) return
     function sMessageCallback(message) {
       const { msg, userUid, id, target, messageClock, conversation } = message
-      console.log(msg)
-      setPiazzaMessage({
+      changePiazzaMessage({
         message: msg,
         messageClock: messageClock,
         username: id,
@@ -62,31 +57,6 @@ const ChattingStacks = ({
       webSocket.off('sMessagePiazza', sMessageCallback)
     }
   }, [])
-  useEffect(() => {
-    const piazza = async () => {
-      const piazzaRef = collection(dbservice, 'chats_group')
-      const piazzaCollection = query(
-        piazzaRef,
-        orderBy('messageClockNumber', 'desc'),
-        limit(1),
-      )
-      const piazzaMessages = await getDocs(piazzaCollection)
-      piazzaMessages.forEach((doc) => {
-        if (!piazzaMessage) {
-          setPiazzaMessage({
-            username: doc.data().userName,
-            messageClock: doc.data().messageClock,
-            messageClockNumber: doc.data().messageClockNumber,
-            message: doc.data().message,
-            piazzaChecked: doc.data().piazzaChecked || [],
-          })
-        }
-      })
-    }
-    if (piazzaSwitch === 'true') {
-      piazza()
-    }
-  })
 
   useEffect(() => {
     if (!webSocket) return
@@ -200,9 +170,8 @@ const ChattingStacks = ({
   return (
     <>
       {sorted.map((element, index) => {
-        let clock
         if (element === 'piazza') {
-          clock = new Date(piazzaMessage?.messageClock)
+          const clock = new Date(piazzaMessage?.messageClock)
           return (
             <AnimatedList>
               <Chats
@@ -227,7 +196,7 @@ const ChattingStacks = ({
             </AnimatedList>
           )
         } else {
-          clock = new Date(chattings[element].messageClock)
+          const clock = new Date(chattings[element].messageClock)
           if (chattings[element]) {
             let displayName
             let chattingUid

@@ -3,12 +3,14 @@ import {
   doc,
   getDoc,
   getDocs,
+  limit,
   orderBy,
   query,
 } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 import { dbservice } from 'src/baseApi/serverbase'
 import { webSocket } from 'src/webSocket'
+import { useSelectors } from './useSelectors'
 
 // export default function useBottomNavigation() {
 //     const [pathname, setPathname] = useState('/')
@@ -274,4 +276,38 @@ export const useSortedChattings = ({ userObj }) => {
     changeChattings: changeChattings,
     sorted: sorted,
   }
+}
+export const usePiazzaMessage = () => {
+  const [piazzaMessage, setPiazzaMessage] = useState<{
+    username: string
+    message: string
+  } | null>(null)
+  const changePiazzaMessage = (newValue: string) => setPiazzaMessage(newValue)
+  const piazzaSwitch = useSelectors((state) => state.piazzaSwitch.value)
+  useEffect(() => {
+    const piazza = async () => {
+      const piazzaRef = collection(dbservice, 'chats_group')
+      const piazzaCollection = query(
+        piazzaRef,
+        orderBy('messageClockNumber', 'desc'),
+        limit(1),
+      )
+      const piazzaMessages = await getDocs(piazzaCollection)
+      piazzaMessages.forEach((doc) => {
+        if (!piazzaMessage) {
+          setPiazzaMessage({
+            username: doc.data().userName,
+            messageClock: doc.data().messageClock,
+            messageClockNumber: doc.data().messageClockNumber,
+            message: doc.data().message,
+            piazzaChecked: doc.data().piazzaChecked || [],
+          })
+        }
+      })
+    }
+    if (piazzaSwitch === 'true') {
+      piazza()
+    }
+  }, [])
+  return { piazzaMessage, changePiazzaMessage }
 }
