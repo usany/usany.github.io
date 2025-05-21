@@ -14,7 +14,6 @@ import { changePiazzaSwitch } from 'src/stateSlices/piazzaSwitchSlice'
 
 const ChatsDelete = ({
   userObj,
-  sorted,
   conversation,
   changeLongPressChat,
   changeChattings,
@@ -70,10 +69,6 @@ interface Props {
 const Chats = ({
   userObj,
   conversation,
-  // profileUrl,
-  // displayName,
-  // chattingUid,
-  // multiple,
   clock,
   message,
   longPressChat,
@@ -82,7 +77,6 @@ const Chats = ({
   changeLongPressChatsList,
   onLongPress,
   changeOnLongPress,
-  sorted,
   chattings,
   changeChattings,
 }: Props) => {
@@ -219,7 +213,6 @@ const Chats = ({
         {longPressed && (
           <ChatsDelete
             userObj={userObj}
-            sorted={sorted}
             conversation={conversation}
             changeLongPressChat={changeLongPressChat}
             changeChattings={changeChattings}
