@@ -12,6 +12,46 @@ import useLongPress from 'src/hooks/useLongPress'
 import ChatsBoxes from 'src/pages/core/chatting/ChatsBoxes'
 import { changePiazzaSwitch } from 'src/stateSlices/piazzaSwitchSlice'
 
+const ChatsDelete = ({
+  userObj,
+  sorted,
+  conversation,
+  changeLongPressChat,
+  changeChattings,
+}) => {
+  const dispatch = useDispatch()
+  const onDelete = async ({ conversation }) => {
+    // const newSortedMyConversationUid = sorted
+    // newSortedMyConversationUid.splice(sorted.indexOf(conversation), 1)
+    changeLongPressChat(null)
+    const userRef = doc(dbservice, `members/${userObj.uid}`)
+    const userDoc = await getDoc(userRef)
+    const userChattings = userDoc.data()?.chattings || {}
+    const userConversation = userDoc.data()?.conversation || []
+    Reflect.deleteProperty(userChattings, conversation)
+    if (userConversation.indexOf(conversation) !== -1) {
+      userConversation.splice(userConversation.indexOf(conversation), 1)
+    }
+    changeChattings(userChattings)
+    updateDoc(userRef, { chattings: userChattings })
+    updateDoc(userRef, { conversation: userConversation })
+  }
+  return (
+    <div
+      className="flex h-[60px] rounded items-center justify-center w-1/6 bg-profile-red text-white"
+      onClick={() => {
+        if (conversation) {
+          onDelete({ conversation: conversation })
+        } else {
+          dispatch(changePiazzaSwitch('false'))
+          localStorage.setItem('piazza', 'false')
+        }
+      }}
+    >
+      <DeleteIcon />
+    </div>
+  )
+}
 interface Props {
   userObj: User
   profileUrl: string
@@ -29,11 +69,11 @@ interface Props {
 
 const Chats = ({
   userObj,
-  profileUrl,
   conversation,
-  displayName,
-  chattingUid,
-  multiple,
+  // profileUrl,
+  // displayName,
+  // chattingUid,
+  // multiple,
   clock,
   message,
   longPressChat,
@@ -44,11 +84,29 @@ const Chats = ({
   changeOnLongPress,
   sorted,
   chattings,
-  changeChattings
+  changeChattings,
 }: Props) => {
   const [longPressed, setLongPressed] = useState(false)
-  const dispatch = useDispatch()
   const chatsRef = useRef()
+  const multiple = conversation === 'piazza' ? true : false
+  let displayName
+  let chattingUid
+  let profileUrl
+  if (conversation !== 'piazza') {
+    if (userObj.uid === chattings[conversation].userOne) {
+      displayName = chattings[conversation].userTwoDisplayName
+      chattingUid = chattings[conversation].userTwo
+      profileUrl = chattings[conversation].userTwoProfileUrl
+    } else {
+      displayName = chattings[conversation].userOneDisplayName
+      chattingUid = chattings[conversation].userOne
+      profileUrl = chattings[conversation].userOneProfileUrl
+    }
+  } else {
+    displayName = ''
+    chattingUid = ''
+    profileUrl = ''
+  }
   useLongPress(chatsRef, () => {
     if (longPressChat && !onLongPress) {
       setLongPressed(true)
@@ -64,22 +122,7 @@ const Chats = ({
   }, [longPressChat, onLongPress])
   const { colorTwo } = useCardsBackground()
   const key = conversation || 'piazza'
-  const onDelete = async ({ conversation }) => {
-    const newSortedMyConversationUid = sorted
-    newSortedMyConversationUid.splice(sorted.indexOf(conversation), 1)
-    changeLongPressChat(null)
-    const userRef = doc(dbservice, `members/${userObj.uid}`)
-    const userDoc = await getDoc(userRef)
-    const userChattings = userDoc.data()?.chattings || {}
-    const userConversation = userDoc.data()?.conversation || []
-    Reflect.deleteProperty(userChattings, conversation)
-    if (userConversation.indexOf(conversation) !== -1) {
-      userConversation.splice(userConversation.indexOf(conversation), 1)
-    }
-    changeChattings(userChattings)
-    updateDoc(userRef, { chattings: userChattings })
-    updateDoc(userRef, { conversation: userConversation })
-  }
+  console.log(chattings)
   return (
     <ClickAwayListener
       key={key}
@@ -127,7 +170,7 @@ const Chats = ({
             <>
               {!onLongPress ? (
                 <Link
-                  to="/piazza"
+                  to={conversation ? `/piazza?id=${conversation}` : '/piazza'}
                   state={{
                     conversation: conversation,
                     displayName: displayName,
@@ -174,19 +217,13 @@ const Chats = ({
           </Card>
         </div>
         {longPressed && (
-          <div
-            className="flex h-[60px] rounded items-center justify-center w-1/6 bg-profile-red text-white"
-            onClick={() => {
-              if (conversation) {
-                onDelete({ conversation: conversation })
-              } else {
-                dispatch(changePiazzaSwitch('false'))
-                localStorage.setItem('piazza', 'false')
-              }
-            }}
-          >
-            <DeleteIcon />
-          </div>
+          <ChatsDelete
+            userObj={userObj}
+            sorted={sorted}
+            conversation={conversation}
+            changeLongPressChat={changeLongPressChat}
+            changeChattings={changeChattings}
+          />
         )}
       </div>
     </ClickAwayListener>

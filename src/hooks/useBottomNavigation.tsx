@@ -1,4 +1,11 @@
-import { collection, doc, getDoc, getDocs, orderBy, query } from 'firebase/firestore'
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  orderBy,
+  query,
+} from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 import { dbservice } from 'src/baseApi/serverbase'
 import { webSocket } from 'src/webSocket'
@@ -253,7 +260,6 @@ export const useSortedChattings = ({ userObj }) => {
       chattings[elementOne].messageClockNumber
     )
   })
-
   useEffect(() => {
     const bringChattings = async () => {
       const docRef = doc(dbservice, `members/${userObj.uid}`)
@@ -263,5 +269,9 @@ export const useSortedChattings = ({ userObj }) => {
     }
     bringChattings()
   }, [])
-  return { chattings: chattings, changeChattings: changeChattings, sorted: sorted }
+  return {
+    chattings: chattings,
+    changeChattings: changeChattings,
+    sorted: sorted,
+  }
 }
