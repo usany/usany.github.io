@@ -4,6 +4,22 @@ import { User } from 'firebase/auth'
 import staticImage from 'src/assets/blue.png'
 import { useSelectors } from 'src/hooks/useSelectors'
 import Avatars from 'src/pages/core/Avatars'
+const ChatsBoxesRoom = ({ displayName, multiple }) => {
+  const languages = useSelectors((state) => state.languages.value)
+  let displayingUserName
+  if (displayName.length > 6) {
+    displayingUserName = displayName.slice(0, 5) + '......'
+  } else {
+    displayingUserName = displayName
+  }
+  return (
+    <div className="truncate w-1/2 px-3 overflow-hidden">
+      {multiple
+        ? `${languages === 'ko' ? '단체 대화' : 'Group Messaging'}`
+        : displayingUserName}
+    </div>
+  )
+}
 const ChatsBoxesChips = ({ userObj, message }) => {
   return (
     <div>
@@ -130,6 +146,7 @@ const ChatsBoxes = ({
       )}
       <div className="flex flex-col w-screen">
         <div className="flex justify-between">
+          <ChatsBoxesRoom displayName={displayName} multiple={multiple} />
           <div className="truncate w-1/2 px-3 overflow-hidden">
             {multiple
               ? `${languages === 'ko' ? '단체 대화' : 'Group Messaging'}`
