@@ -147,11 +147,6 @@ const ChatsBoxes = ({
       <div className="flex flex-col w-screen">
         <div className="flex justify-between">
           <ChatsBoxesRoom displayName={displayName} multiple={multiple} />
-          <div className="truncate w-1/2 px-3 overflow-hidden">
-            {multiple
-              ? `${languages === 'ko' ? '단체 대화' : 'Group Messaging'}`
-              : displayingUserName}
-          </div>
           {clockValue.length > 10 && (
             <div className="flex flex-col px-3">
               <div className="truncate flex justify-end">{clockValue}</div>
