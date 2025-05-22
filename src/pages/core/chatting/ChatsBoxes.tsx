@@ -144,23 +144,6 @@ const ChatsBoxes = ({
         <div className="flex justify-between px-3">
           <div>{message?.message}</div>
           <ChatsBoxesChips userObj={userObj} message={message} />
-          <div>
-            {/* {message?.piazzaChecked &&
-              message?.piazzaChecked.indexOf(userObj.uid) === -1 && (
-                <Chip
-                  sx={{ height: '20px' }}
-                  label={`${languages === 'ko' ? '새 대화' : 'New Chats'}`}
-                  color="primary"
-                />
-              )}
-            {message?.messageCount > 0 && (
-              <Chip
-                sx={{ height: '20px' }}
-                label={message.messageCount}
-                color="primary"
-              />
-            )} */}
-          </div>
         </div>
       </div>
     </div>
