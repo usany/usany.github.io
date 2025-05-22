@@ -31,6 +31,7 @@ const ChatsBoxesClock = ({ clockValue }) => {
   )
 }
 const ChatsBoxesChips = ({ userObj, message }) => {
+  const languages = useSelectors((state) => state.languages.value)
   return (
     <div>
       {message?.piazzaChecked &&
