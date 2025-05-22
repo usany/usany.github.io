@@ -95,12 +95,6 @@ const ChatsBoxes = ({
   if (messageDate.length === 1) {
     messageDate = '0' + messageDate
   }
-  let displayingUserName
-  if (displayName.length > 6) {
-    displayingUserName = displayName.slice(0, 5) + '......'
-  } else {
-    displayingUserName = displayName
-  }
   const clockValue =
     clock.getFullYear().toString() +
     '-' +
