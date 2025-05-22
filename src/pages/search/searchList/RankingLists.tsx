@@ -193,7 +193,7 @@ function RankingLists({ userObj, userSearch }: Props) {
   //   console.log(continuing)
   // })
   return (
-    <div className='flex justify-center'>
+    <div className='flex truncate justify-center'>
       {userSearch ? (
         <div>
           <Lists

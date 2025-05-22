@@ -72,7 +72,7 @@ function Lists({
                       }}
                     >
                       <div
-                        className={`flex truncate w-full justify-around gap-1 p-3 rounded ranking-${multiple ? index + 1 : element.rank}`}
+                        className={`flex truncate justify-around gap-1 p-3 rounded ranking-${multiple ? index + 1 : element.rank}`}
                       >
                         {!multiple ? (
                           <div className="flex items-center justify-center w-20">
