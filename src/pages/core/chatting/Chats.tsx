@@ -116,7 +116,6 @@ const Chats = ({
   }, [longPressChat, onLongPress])
   const { colorTwo } = useCardsBackground()
   const key = conversation || 'piazza'
-  console.log(chattings)
   return (
     <ClickAwayListener
       key={key}
