@@ -20,6 +20,16 @@ const ChatsBoxesRoom = ({ displayName, multiple }) => {
     </div>
   )
 }
+const ChatsBoxesClock = ({ clockValue }) => {
+  return (
+    <>
+      {clockValue.length > 10 && (
+        <div className="flex flex-col px-3">
+          <div className="truncate flex justify-end">{clockValue}</div>
+        </div>
+      )}</>
+  )
+}
 const ChatsBoxesChips = ({ userObj, message }) => {
   return (
     <div>
@@ -147,11 +157,7 @@ const ChatsBoxes = ({
       <div className="flex flex-col w-screen">
         <div className="flex justify-between">
           <ChatsBoxesRoom displayName={displayName} multiple={multiple} />
-          {clockValue.length > 10 && (
-            <div className="flex flex-col px-3">
-              <div className="truncate flex justify-end">{clockValue}</div>
-            </div>
-          )}
+          <ChatsBoxesClock clockValue={clockValue} />
         </div>
         <div className="flex justify-between px-3">
           <div>{message?.message}</div>
