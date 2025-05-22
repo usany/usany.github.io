@@ -4,9 +4,25 @@ import { User } from 'firebase/auth'
 import staticImage from 'src/assets/blue.png'
 import { useSelectors } from 'src/hooks/useSelectors'
 import Avatars from 'src/pages/core/Avatars'
-const ChatsBoxesChips = () => {
+const ChatsBoxesChips = ({ userObj, message }) => {
   return (
-    
+    <div>
+      {message?.piazzaChecked &&
+        message?.piazzaChecked.indexOf(userObj.uid) === -1 && (
+          <Chip
+            sx={{ height: '20px' }}
+            label={`${languages === 'ko' ? '새 대화' : 'New Chats'}`}
+            color="primary"
+          />
+        )}
+      {message?.messageCount > 0 && (
+        <Chip
+          sx={{ height: '20px' }}
+          label={message.messageCount}
+          color="primary"
+        />
+      )}
+    </div>
   )
 }
 interface Props {
@@ -127,8 +143,9 @@ const ChatsBoxes = ({
         </div>
         <div className="flex justify-between px-3">
           <div>{message?.message}</div>
+          <ChatsBoxesChips userObj={userObj} message={message} />
           <div>
-            {message?.piazzaChecked &&
+            {/* {message?.piazzaChecked &&
               message?.piazzaChecked.indexOf(userObj.uid) === -1 && (
                 <Chip
                   sx={{ height: '20px' }}
@@ -142,7 +159,7 @@ const ChatsBoxes = ({
                 label={message.messageCount}
                 color="primary"
               />
-            )}
+            )} */}
           </div>
         </div>
       </div>
