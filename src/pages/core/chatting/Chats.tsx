@@ -20,8 +20,6 @@ const ChatsDelete = ({
 }) => {
   const dispatch = useDispatch()
   const onDelete = async ({ conversation }) => {
-    // const newSortedMyConversationUid = sorted
-    // newSortedMyConversationUid.splice(sorted.indexOf(conversation), 1)
     changeLongPressChat(null)
     const userRef = doc(dbservice, `members/${userObj.uid}`)
     const userDoc = await getDoc(userRef)
