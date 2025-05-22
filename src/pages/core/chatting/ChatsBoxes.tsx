@@ -4,7 +4,11 @@ import { User } from 'firebase/auth'
 import staticImage from 'src/assets/blue.png'
 import { useSelectors } from 'src/hooks/useSelectors'
 import Avatars from 'src/pages/core/Avatars'
-
+const ChatsBoxesChips = () => {
+  return (
+    
+  )
+}
 interface Props {
   chattingUid: string
   userObj: User
