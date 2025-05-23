@@ -4,8 +4,16 @@ import Card from '@mui/material/Card';
 import { useSelectors } from "src/hooks/useSelectors";
 import useCardsBackground from '../../hooks/useCardsBackground';
 
-const ContactUserSelected = ({ violationUser, color }) => {
-  const profile = violationUser.profileImage ? violationUser.profileImageUrl : violationUser.defaultProfile
+const ContactUserSelected = ({ violationUser, color }: {
+  violationUser: {
+    profileImage: boolean
+    profileImageUrl: string
+    defaultProfile: string
+    displayName: string
+  } | null
+  color: string
+}) => {
+  const profile = violationUser?.profileImage ? violationUser.profileImageUrl : violationUser?.defaultProfile
   const languages = useSelectors((state) => state.languages.value)
 
   return (
@@ -18,14 +26,18 @@ const ContactUserSelected = ({ violationUser, color }) => {
         <Avatar>
           <AvatarImage src={profile} />
         </Avatar>
-        <div className='flex items-center'>{violationUser.displayName}</div>
+        <div className='flex items-center'>{violationUser?.displayName}</div>
       </div>
     </Card>
   )
 }
 interface Props {
-  violationUser: {} | null
-  changeViolationUser: (newValue) => void
+  violationUser: {
+    profileImage: boolean
+    profileImageUrl: string
+    defaultProfile: string
+    displayName: string
+  } | null
 }
 
 function ContactFormDrawersTrigger({ violationUser }: Props) {

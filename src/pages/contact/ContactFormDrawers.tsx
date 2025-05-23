@@ -6,8 +6,18 @@ import ContactFormDrawersTitle from "./ContactFormDrawersTitle";
 import ContactFormDrawersTrigger from "./ContactFormDrawersTrigger";
 
 interface Props {
-  violationUser: {} | null
-  changeViolationUser: (newValue) => void
+  violationUser: {
+    profileImage: boolean
+    profileImageUrl: string
+    defaultProfile: string
+    displayName: string
+  } | null
+  changeViolationUser: (newValue: {
+    profileImage: boolean
+    profileImageUrl: string
+    defaultProfile: string
+    displayName: string
+  } | null) => void
 }
 
 function ContactFormDrawers({ violationUser, changeViolationUser }: Props) {
