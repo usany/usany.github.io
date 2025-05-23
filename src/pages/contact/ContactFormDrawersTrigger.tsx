@@ -4,8 +4,9 @@ import Card from '@mui/material/Card';
 import { useSelectors } from "src/hooks/useSelectors";
 import useCardsBackground from '../../hooks/useCardsBackground';
 
-const ContactUserSelected = ({ violationUser }) => {
+const ContactUserSelected = ({ violationUser, color }) => {
   const profile = violationUser.profileImage ? violationUser.profileImageUrl : violationUser.defaultProfile
+  const languages = useSelectors((state) => state.languages.value)
 
   return (
     <Card sx={{
@@ -31,11 +32,11 @@ interface Props {
 
 function ContactFormDrawersTrigger({ violationUser }: Props) {
   const languages = useSelectors((state) => state.languages.value)
-  const { color, colorTwo } = useCardsBackground()
+  const { colorTwo } = useCardsBackground()
   return (
     <div>
       {violationUser ?
-        <ContactUserSelected violationUser={violationUser} />
+        <ContactUserSelected violationUser={violationUser} color={colorTwo} />
         :
         <div className='flex justify-center'>
           <Button sx={{
