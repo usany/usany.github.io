@@ -4,13 +4,14 @@ import { useState } from 'react'
 import { Chip } from '@mui/material'
 import { doc, updateDoc } from 'firebase/firestore'
 import { Ban, Check } from 'lucide-react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { dbservice } from 'src/baseApi/serverbase'
 import Avatars from 'src/pages/core/Avatars'
 import RankingListsTitle from 'src/pages/search/searchList/searchListViews/searchListViewsTitle/RankingListsTitle'
 
 const ListsView = ({ userObj, elements, userSearch, multiple }) => {
   const [newRanking, setNewRanking] = useState(0)
+  const navigate = useNavigate()
   let point
   let samePointIndex
   return (
