@@ -60,7 +60,7 @@ function ContactFormDrawersContent({ changeViolationUser }: Props) {
       <TextField label={languages === 'ko' ? '유저 이름' : 'User name'} onChange={onChangeUserSearch} />
       {userSearch &&
         <div className='flex justify-center'>
-          <Lists userObj={null} elements={users} multiple={true} userSearch={userSearch} ranking={false} handleUser={(newValue) => changeViolationUser(newValue)} />
+          <Lists userObj={null} elements={users} multiple={true} userSearch={userSearch} ranking={false} handleUser={changeViolationUser} />
         </div>
       }
     </div>
