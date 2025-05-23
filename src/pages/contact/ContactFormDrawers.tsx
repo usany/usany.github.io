@@ -12,7 +12,7 @@ interface Props {
 
 function ContactFormDrawers({ violationUser, changeViolationUser }: Props) {
   return (
-    <div className='flex justify-center w-full'>
+    <div className='flex justify-center w-full gap-5'>
       <Popups trigger={<ContactFormDrawersTrigger violationUser={violationUser} />} title={<ContactFormDrawersTitle />} content={<ContactFormDrawersContent changeViolationUser={changeViolationUser} />} />
       {violationUser &&
         <Button variant='outlined' onClick={() => changeViolationUser(null)}><Ban /></Button>
