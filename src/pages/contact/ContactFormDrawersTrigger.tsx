@@ -18,7 +18,7 @@ const ContactUserSelected = ({ violationUser, color }) => {
         <Avatar className={`bg-${(violationUser?.profileColor || []).indexOf('#') === -1 ? violationUser?.profileColor : 'profile-blue'}`}>
           <AvatarImage src={profile} />
         </Avatar>
-        <div className='flex flex-col justify-center'>{violationUser.displayName}</div>
+        <div className='flex items-center'>{violationUser.displayName}</div>
       </div>
     </Card>
   )

@@ -48,6 +48,7 @@ function ContactForm({ userObj, user }: Props) {
       alert('등록되었습니다')
       setMessageTitle('')
       setMessage('')
+      setViolationUser(null)
     } catch (error) {
       console.log(error)
     }
