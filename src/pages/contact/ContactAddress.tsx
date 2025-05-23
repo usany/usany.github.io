@@ -7,12 +7,11 @@ interface Props {
 
 function ContactAddress({ action, label }: Props) {
   return (
-    <div className='px-5'>
-      <span>
-        {action}:&emsp;
-      </span>
+    <div className='flex gap-5 pt-1 px-5'>
+      <div className='flex items-center'>
+        {action}:
+      </div>
       <Chip label={label} />
-      {/* <Chips label={label} onClick={null} /> */}
     </div>
   )
 }
