@@ -15,7 +15,7 @@ const ContactUserSelected = ({ violationUser, color }) => {
     }}>
       <div className='flex p-3 gap-3'>
         <div className='flex items-center'>{languages === 'ko' ? '신고 유저:' : 'Reporting User'}</div>
-        <Avatar className={`bg-${(violationUser?.profileColor || []).indexOf('#') === -1 ? violationUser?.profileColor : 'profile-blue'}`}>
+        <Avatar>
           <AvatarImage src={profile} />
         </Avatar>
         <div className='flex items-center'>{violationUser.displayName}</div>
