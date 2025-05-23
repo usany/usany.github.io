@@ -6,10 +6,12 @@ import { doc, updateDoc } from 'firebase/firestore'
 import { Ban, Check } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { dbservice } from 'src/baseApi/serverbase'
-import { useSelectors } from 'src/hooks/useSelectors'
 import Avatars from 'src/pages/core/Avatars'
 import RankingListsTitle from 'src/pages/search/searchList/searchListViews/searchListViewsTitle/RankingListsTitle'
 
+const ListsView = () => {
+
+}
 function Lists({
   userObj,
   elements,
@@ -21,7 +23,6 @@ function Lists({
   let point
   let samePointIndex
   const [newRanking, setNewRanking] = useState(0)
-  const languages = useSelectors((state) => state.languages.value)
   return (
     <div>
       {ranking && (
@@ -34,8 +35,6 @@ function Lists({
                 samePointIndex = index
               }
               if (element.uid === userObj.uid) {
-                // console.log(element.uid);
-                // console.log(samePointIndex);
                 const user = doc(dbservice, `members/${userObj.uid}`)
                 const newRank = samePointIndex ? samePointIndex + 1 : index + 1
                 if (!newRanking && multiple) {
@@ -43,7 +42,6 @@ function Lists({
                   setNewRanking(newRank)
                 }
               }
-              const profileColor = element?.profileColor
               let userNameConfirm = true
               if (userSearch) {
                 for (let number = 0; number < userSearch.length; number++) {
@@ -59,10 +57,7 @@ function Lists({
                 } else {
                   displayName = element.displayName
                 }
-                const profileUrl = element?.profile
-                  ? element?.profileImageUrl
-                  : element?.defaultProfile
-                // console.log(element)
+
                 return (
                   <div key={index} className="px-1 pt-3">
                     <Link
@@ -88,25 +83,7 @@ function Lists({
                             element={element}
                             piazza={null}
                             profile={false}
-                          // profileColor=""
-                          // profileUrl={element.profileImageUrl}
-                          // defaultProfileUrl={element.defaultProfile}
                           />
-                          {/* <Avatar
-                            className={`bg-${profileColor?.indexOf("#") === -1 ? element?.profileColor : "profile-blue"}`}
-                          >
-                            <AvatarImage src={element?.profileImageUrl} />
-                            <AvatarFallback className="text-xl border-none">
-                              {element?.displayName[0]}
-                            </AvatarFallback>
-                          </Avatar> */}
-                          {/* <Avatars profile={false} profileColor={'profile-blue'} profileImage={element?.profileImageUrl || 'null'} fallback={element.displayName[0]}/> */}
-                          {/* {element?.profileImageUrl &&
-                            <Avatar alt={element.displayName} sx={{ bgcolor: element.profileColor || '#2196f3' }} src={element?.profileImageUrl || './src'} variant="rounded" />
-                          }
-                          {!element?.profileImageUrl &&
-                            <Avatar alt={element.displayName} sx={{ bgcolor: element.profileColor || '#2196f3' }} src={'./src'} variant="rounded" />
-                          } */}
                         </div>
                         <div className="flex flex-col justify-center overflow-hidden px-5 w-40">
                           <div className="overflow-hidden">{displayName}</div>
@@ -131,7 +108,6 @@ function Lists({
                                 }
                               />
                             )
-                            // <Chips label={'캠퍼스 위치 확인'} className='bg-profile-green' /> : <Chips label={'캠퍼스 위치 미확인'} />
                           }
                         </div>
                       </div>
