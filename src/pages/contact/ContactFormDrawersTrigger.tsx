@@ -11,7 +11,6 @@ interface Props {
 
 function ContactFormDrawersTrigger({ violationUser }: Props) {
   const languages = useSelectors((state) => state.languages.value)
-
   const { color, colorTwo } = useCardsBackground()
 
   return (
