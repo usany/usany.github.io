@@ -37,14 +37,13 @@ function Contact({ userObj }: Props) {
   useEffect(() => {
     dispatch(changeBottomNavigation(5))
   })
-  console.log(state.user)
   return (
-    <div>
+    <>
       <PageTitle title={titles[index]} />
       <ContactAddress action={sending[index]} label={userObj.displayName} />
       <ContactAddress action={receiving[index]} label={user[index]} />
       <ContactForm userObj={userObj} user={state?.user} />
-    </div>
+    </>
   )
 }
 
