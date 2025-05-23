@@ -7,12 +7,6 @@ import { useSelectors } from "src/hooks/useSelectors";
 import Lists from 'src/pages/search/searchList/searchListViews/Lists';
 
 interface Props {
-  violationUser: {
-    profileImage: boolean
-    profileImageUrl: string
-    defaultProfile: string
-    displayName: string
-  } | null
   changeViolationUser: (newValue: {
     profileImage: boolean
     profileImageUrl: string
