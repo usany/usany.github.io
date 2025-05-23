@@ -4,12 +4,12 @@ import { useState } from 'react'
 import { Chip } from '@mui/material'
 import { doc, updateDoc } from 'firebase/firestore'
 import { Ban, Check } from 'lucide-react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { dbservice } from 'src/baseApi/serverbase'
 import Avatars from 'src/pages/core/Avatars'
 import RankingListsTitle from 'src/pages/search/searchList/searchListViews/searchListViewsTitle/RankingListsTitle'
 
-const ListsView = ({ userObj, elements, userSearch, multiple }) => {
+const ListsView = ({ userObj, elements, userSearch, multiple, link }) => {
   const [newRanking, setNewRanking] = useState(0)
   const navigate = useNavigate()
   let point
@@ -46,13 +46,12 @@ const ListsView = ({ userObj, elements, userSearch, multiple }) => {
           }
 
           return (
-            <div key={index} className="px-1 pt-3">
-              <Link
-                to="/profile"
-                state={{
-                  element: element,
-                }}
-              >
+            <div key={index} className="px-1 pt-3 cursor-pointer" onClick={() => navigate(link, {
+              state: {
+                element: element,
+              }
+            })}>
+              <>
                 <div
                   className={`flex truncate justify-around gap-1 p-3 rounded ranking-${multiple ? index + 1 : element.rank}`}
                 >
@@ -98,7 +97,7 @@ const ListsView = ({ userObj, elements, userSearch, multiple }) => {
                     }
                   </div>
                 </div>
-              </Link>
+              </>
               <Divider />
             </div>
           )
@@ -123,7 +122,7 @@ function Lists({
       {ranking && (
         <div>
           <RankingListsTitle multiple={multiple} />
-          <ListsView userObj={userObj} elements={elements} userSearch={userSearch} multiple={multiple} />
+          <ListsView userObj={userObj} elements={elements} userSearch={userSearch} multiple={multiple} link={'/profile'} />
         </div>
       )}
       {!ranking && (
