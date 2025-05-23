@@ -4,6 +4,7 @@ import { DialogClose } from "src/components/ui/dialog";
 import { DrawerClose } from "src/components/ui/drawer";
 import useLargeMedia from "src/hooks/useLargeMedia";
 // import Avatar from '@mui/material/Avatar';
+import Lists from "./Lists";
 import ProfileListsView from "./ProfileListsView";
 
 function ProfileLists({
@@ -23,7 +24,8 @@ function ProfileLists({
 
   return (
     <div>
-      {elements.map((element, index) => {
+      <Lists userObj={null} elements={elements} multiple={true} userSearch={null} ranking={false} handleUser={null} />
+      {/* {elements.map((element, index) => {
         const userNameConfirm = true;
         if (userNameConfirm) {
           let displayName;
@@ -55,7 +57,7 @@ function ProfileLists({
             </Link>
           );
         }
-      })}
+      })} */}
     </div >
   );
 }
