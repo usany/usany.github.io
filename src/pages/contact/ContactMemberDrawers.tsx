@@ -2,18 +2,6 @@ import { useEffect, useState } from 'react'
 // import Dialog from '@mui/material/Dialog';
 // import DialogContent from '@mui/material/DialogContent';
 import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from '@/components/ui/accordion'
-import {
-  Drawer,
-  DrawerContent,
-  DrawerTrigger
-} from '@/components/ui/drawer'
-import Button from '@mui/material/Button'
-import {
   collection,
   deleteDoc,
   doc,
@@ -55,7 +43,7 @@ const ContactMemberDrawers = ({ userObj }) => {
 
   return (
     <>
-      <Drawer>
+      {/* <Drawer>
         <DrawerTrigger>
           <Button variant="outlined" form="auth">
             신고하기 내역
@@ -97,7 +85,7 @@ const ContactMemberDrawers = ({ userObj }) => {
             )}
           </div>
         </DrawerContent>
-      </Drawer>
+      </Drawer> */}
       {/* <Dialog fullWidth={true} open={move} onClose={handleClose}>
             <DialogContent>
               <div>
