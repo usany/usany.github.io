@@ -53,7 +53,7 @@ const ListsView = ({ userObj, elements, userSearch, multiple, link, handleUser }
             handleUser(element)
           return (
             <div key={index} className="px-1 pt-3 cursor-pointer" onClick={onClick}>
-              <>
+              <DrawerClose>
                 <div
                   className={`flex truncate justify-around gap-1 p-3 rounded ranking-${multiple ? index + 1 : element.rank}`}
                 >
@@ -99,7 +99,7 @@ const ListsView = ({ userObj, elements, userSearch, multiple, link, handleUser }
                     }
                   </div>
                 </div>
-              </>
+              </DrawerClose>
               <Divider />
             </div>
           )
@@ -117,6 +117,9 @@ function Lists({
   handleUser,
 }) {
   let link
+  if (location.pathname === '/profile') {
+    link = '/profile'
+  }
   if (location.pathname === '/ranking') {
     link = '/profile'
   }
