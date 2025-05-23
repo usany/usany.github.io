@@ -27,8 +27,12 @@ interface Props {
 }
 
 function ContactForm({ userObj, user }: Props) {
+  const [message, setMessage] = useState({
+    'title': '',
+    'content': ''
+  })
   const [messageTitle, setMessageTitle] = useState('')
-  const [message, setMessage] = useState('')
+  const [messageContent, setMessageContent] = useState('')
   const [violationUser, setViolationUser] = useState<{
     profileImage: boolean
     profileImageUrl: string
@@ -52,23 +56,29 @@ function ContactForm({ userObj, user }: Props) {
         userUid: userObj.uid,
         userName: userObj.displayName,
         messageTitle: messageTitle,
-        message: message,
+        message: messageContent,
         violationUser: violationUser
       })
       alert('등록되었습니다')
       setMessageTitle('')
-      setMessage('')
+      setMessageContent('')
       setViolationUser(null)
     } catch (error) {
       console.log(error)
     }
   }
 
-  const onChangeMessage = (event: { target: { value: string } }) => {
+  const onChangeMessage = (event: { target: { name: string, value: string } }) => {
+    const {
+      target: { name, value }
+    } = event
+    setMessage({ ...message, [name]: value })
+  }
+  const onChangeMessageContent = (event: { target: { value: string } }) => {
     const {
       target: { value }
     } = event
-    setMessage(value)
+    setMessageContent(value)
   }
   const onChangeMessageTitle = (event: { target: { value: string } }) => {
     const {
@@ -80,17 +90,17 @@ function ContactForm({ userObj, user }: Props) {
   return (
     <form id='auth'>
       <div className='flex justify-center pt-5 px-5'>
-        <TextField label={reportTitle[index]} multiline value={messageTitle} onChange={onChangeMessageTitle} variant="outlined" fullWidth />
+        <TextField name='title' label={reportTitle[index]} multiline value={messageTitle} onChange={onChangeMessageTitle} variant="outlined" fullWidth />
       </div>
       <div className='flex justify-center pt-5 px-5'>
-        <TextField label={reportContent[index]} multiline rows={5} value={message} onChange={onChangeMessage} variant="outlined" fullWidth />
+        <TextField name='content' label={reportContent[index]} multiline rows={5} value={messageContent} onChange={onChangeMessageContent} variant="outlined" fullWidth />
       </div>
       <div className='flex pt-3 px-5 gap-1'>
         <ContactFormDrawers violationUser={violationUser} changeViolationUser={(newValue) => setViolationUser(newValue)} />
       </div>
       <div className='flex justify-center pt-2.5'>
         <ContactDrawers userObj={userObj} />
-        {(messageTitle && message) ?
+        {(messageTitle && messageContent) ?
           <Button variant='outlined' form='auth' onClick={onSubmit}>{languages === 'ko' ? '전송' : 'send'}</Button>
           :
           <Button variant='outlined' form='auth' disabled>{languages === 'ko' ? '전송' : 'send'}</Button>

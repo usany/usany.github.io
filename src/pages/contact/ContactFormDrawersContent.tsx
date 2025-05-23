@@ -7,8 +7,18 @@ import { useSelectors } from "src/hooks/useSelectors";
 import Lists from 'src/pages/search/searchList/searchListViews/Lists';
 
 interface Props {
-  violationUser: {} | null
-  changeViolationUser: (newValue) => void
+  violationUser: {
+    profileImage: boolean
+    profileImageUrl: string
+    defaultProfile: string
+    displayName: string
+  } | null
+  changeViolationUser: (newValue: {
+    profileImage: boolean
+    profileImageUrl: string
+    defaultProfile: string
+    displayName: string
+  } | null) => void
 }
 
 function ContactFormDrawersContent({ changeViolationUser }: Props) {
