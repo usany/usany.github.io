@@ -54,59 +54,57 @@ const ListsView = ({ userObj, elements, userSearch, multiple, link, handleUser }
             handleUser(element)
           return (
             <div key={index} className="px-1 pt-3 cursor-pointer" onClick={onClick}>
-              <>
-                <div
-                  className={`flex truncate justify-around gap-1 p-3 rounded ranking-${multiple ? index + 1 : element.rank}`}
-                >
-                  {!multiple ? (
-                    <div className="flex items-center justify-center w-20">
-                      {newRanking ? newRanking : element.ranking}
-                    </div>
-                  ) : (
-                    <div className="flex items-center justify-center px-5 w-20">
-                      {samePointIndex ? samePointIndex + 1 : index + 1}
-                    </div>
-                  )}
-                  <div className="flex gap-1">
-                    <Avatars
-                      element={element}
-                      piazza={null}
-                      profile={false}
-                    />
+              <div
+                className={`flex truncate justify-around gap-1 p-3 rounded ranking-${location.pathname === '/ranking' && (multiple ? index + 1 : element.rank)}`}
+              >
+                {!multiple ? (
+                  <div className="flex items-center justify-center w-20">
+                    {newRanking ? newRanking : element.ranking}
                   </div>
-                  <div className="flex flex-col justify-center overflow-hidden px-5 w-40">
-                    <div className="overflow-hidden">{displayName}</div>
-                    <div className="overflow-hidden">
-                      {element.points}
-                    </div>
+                ) : (
+                  <div className="flex items-center justify-center px-5 w-20">
+                    {samePointIndex ? samePointIndex + 1 : index + 1}
                   </div>
-                  <div className="flex justify-center items-center w-[67px]">
-                    {
-                      element.locationConfirmed ? (
-                        <Chip
-                          sx={{}}
-                          color="success"
-                          label={
-                            <Check />
-                          }
-                        />
-                      ) : (
-                        <Chip
-                          label={
-                            <Ban />
-                          }
-                        />
-                      )
-                    }
+                )}
+                <div className="flex gap-1">
+                  <Avatars
+                    element={element}
+                    piazza={null}
+                    profile={false}
+                  />
+                </div>
+                <div className="flex flex-col justify-center overflow-hidden px-5 w-40">
+                  <div className="overflow-hidden">{displayName}</div>
+                  <div className="overflow-hidden">
+                    {element.points}
                   </div>
                 </div>
-              </>
+                <div className="flex justify-center items-center w-[67px]">
+                  {
+                    element.locationConfirmed ? (
+                      <Chip
+                        sx={{}}
+                        color="success"
+                        label={
+                          <Check />
+                        }
+                      />
+                    ) : (
+                      <Chip
+                        label={
+                          <Ban />
+                        }
+                      />
+                    )
+                  }
+                </div>
+              </div>
               <Divider />
             </div>
           )
         }
       })}
-    </div>
+    </div >
   )
 }
 function Lists({
