@@ -18,13 +18,23 @@ const reportContent = {
 }
 interface Props {
   userObj: User
-  user: {} | null
+  user: {
+    profileImage: boolean
+    profileImageUrl: string
+    defaultProfile: string
+    displayName: string
+  } | null
 }
 
 function ContactForm({ userObj, user }: Props) {
   const [messageTitle, setMessageTitle] = useState('')
   const [message, setMessage] = useState('')
-  const [violationUser, setViolationUser] = useState(null)
+  const [violationUser, setViolationUser] = useState<{
+    profileImage: boolean
+    profileImageUrl: string
+    defaultProfile: string
+    displayName: string
+  } | null>(null)
   const [initialViolationUser, setInitialViolationUser] = useState(true)
   const languages = useSelectors((state) => state.languages.value)
   const index = (languages === 'ko' || languages === 'en') ? languages : 'ko'
@@ -54,13 +64,13 @@ function ContactForm({ userObj, user }: Props) {
     }
   }
 
-  const onChangeMessage = (event) => {
+  const onChangeMessage = (event: { target: { value: string } }) => {
     const {
       target: { value }
     } = event
     setMessage(value)
   }
-  const onChangeMessageTitle = (event) => {
+  const onChangeMessageTitle = (event: { target: { value: string } }) => {
     const {
       target: { value }
     } = event
