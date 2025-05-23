@@ -18,10 +18,10 @@ function ContactFormDrawersTrigger({ violationUser, changeViolationUser }: Props
   const [loadedImage, setLoadedImage] = useState([])
   const [userSearch, setUserSearch] = useState('')
   const languages = useSelectors((state) => state.languages.value)
-  const onChangeUserSearch = (event) => {
-    const { target: { value } } = event
-    setUserSearch(value)
-  }
+  // const onChangeUserSearch = (event) => {
+  //   const { target: { value } } = event
+  //   setUserSearch(value)
+  // }
 
   useEffect(() => {
     const searchingMembersList = async () => {
