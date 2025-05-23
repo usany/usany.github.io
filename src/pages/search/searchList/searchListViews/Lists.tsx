@@ -9,7 +9,7 @@ import { dbservice } from 'src/baseApi/serverbase'
 import Avatars from 'src/pages/core/Avatars'
 import RankingListsTitle from 'src/pages/search/searchList/searchListViews/searchListViewsTitle/RankingListsTitle'
 
-const ListsView = ({ userObj, elements, userSearch, multiple, link }) => {
+const ListsView = ({ userObj, elements, userSearch, multiple, link, handleUser }) => {
   const [newRanking, setNewRanking] = useState(0)
   const navigate = useNavigate()
   let point
@@ -21,8 +21,8 @@ const ListsView = ({ userObj, elements, userSearch, multiple, link }) => {
           point = element.points
           samePointIndex = index
         }
-        if (element.uid === userObj.uid) {
-          const user = doc(dbservice, `members/${userObj.uid}`)
+        if (element.uid === userObj?.uid) {
+          const user = doc(dbservice, `members/${userObj?.uid}`)
           const newRank = samePointIndex ? samePointIndex + 1 : index + 1
           if (!newRanking && multiple) {
             updateDoc(user, { ranking: newRank })
@@ -44,13 +44,15 @@ const ListsView = ({ userObj, elements, userSearch, multiple, link }) => {
           } else {
             displayName = element.displayName
           }
-
+          const onClick = () => link ? navigate(link, {
+            state: {
+              element: element,
+            }
+          })
+            :
+            handleUser(element)
           return (
-            <div key={index} className="px-1 pt-3 cursor-pointer" onClick={() => navigate(link, {
-              state: {
-                element: element,
-              }
-            })}>
+            <div key={index} className="px-1 pt-3 cursor-pointer" onClick={onClick}>
               <>
                 <div
                   className={`flex truncate justify-around gap-1 p-3 rounded ranking-${multiple ? index + 1 : element.rank}`}
@@ -116,17 +118,22 @@ function Lists({
 }) {
   let point
   let samePointIndex
+  let link
+  if (location.pathname === '/ranking') {
+    link = '/profile'
+  }
   const [newRanking, setNewRanking] = useState(0)
   return (
     <div>
       {ranking && (
         <div>
           <RankingListsTitle multiple={multiple} />
-          <ListsView userObj={userObj} elements={elements} userSearch={userSearch} multiple={multiple} link={'/profile'} />
+          <ListsView userObj={userObj} elements={elements} userSearch={userSearch} multiple={multiple} link={link} handleUser={handleUser} />
         </div>
       )}
       {!ranking && (
         <div>
+          <ListsView userObj={userObj} elements={elements} userSearch={userSearch} multiple={multiple} link={link} handleUser={handleUser} />
           <div className="bg-light-3 dark:bg-dark-3">
             {elements.map((element, index) => {
               const profileColor = element?.profileColor

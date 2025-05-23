@@ -54,7 +54,7 @@ function ContactFormDrawersContent({ changeViolationUser }: Props) {
       {userSearch &&
         <div className='flex flex-col'>
           <DrawerClose>
-            <Lists elements={rank} multiple={true} userSearch={userSearch} ranking={false} handleUser={(newValue) => changeViolationUser(newValue)} />
+            <Lists userObj={null} elements={rank} multiple={true} userSearch={userSearch} ranking={false} handleUser={(newValue) => changeViolationUser(newValue)} />
           </DrawerClose>
         </div>
       }
