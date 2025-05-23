@@ -1,6 +1,3 @@
-import {
-  DrawerClose
-} from "@/components/ui/drawer";
 import TextField from '@mui/material/TextField';
 import { collection, getDocs, orderBy, query } from 'firebase/firestore';
 import { getDownloadURL, ref } from "firebase/storage";
@@ -53,9 +50,7 @@ function ContactFormDrawersContent({ changeViolationUser }: Props) {
       <TextField label={languages === 'ko' ? '유저 이름' : 'User name'} onChange={onChangeUserSearch} />
       {userSearch &&
         <div className='flex flex-col'>
-          <DrawerClose>
-            <Lists userObj={null} elements={rank} multiple={true} userSearch={userSearch} ranking={false} handleUser={(newValue) => changeViolationUser(newValue)} />
-          </DrawerClose>
+          <Lists userObj={null} elements={rank} multiple={true} userSearch={userSearch} ranking={false} handleUser={(newValue) => changeViolationUser(newValue)} />
         </div>
       }
     </div>

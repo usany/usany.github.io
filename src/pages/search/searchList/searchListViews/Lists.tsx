@@ -6,6 +6,7 @@ import { doc, updateDoc } from 'firebase/firestore'
 import { Ban, Check } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { dbservice } from 'src/baseApi/serverbase'
+import { DrawerClose } from 'src/components/ui/drawer'
 import Avatars from 'src/pages/core/Avatars'
 import RankingListsTitle from 'src/pages/search/searchList/searchListViews/searchListViewsTitle/RankingListsTitle'
 
