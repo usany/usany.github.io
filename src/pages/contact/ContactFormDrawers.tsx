@@ -90,7 +90,7 @@ function ContactFormDrawers({ violationUser, changeViolationUser }: Props) {
   const { color } = useCardsBackground()
 
   return (
-    <div className='w-full'>
+    <div className='flex flex-col w-full'>
       {/* <Drawer>
         <DrawerTrigger className='w-screen' onClick={() => setUserSearch('')}>
           {violationUser ?
