@@ -44,7 +44,7 @@ function ContactFormDrawersTrigger({ violationUser }: Props) {
   const languages = useSelectors((state) => state.languages.value)
   const { colorTwo } = useCardsBackground()
   return (
-    <div>
+    <>
       {violationUser ?
         <ContactUserSelected violationUser={violationUser} color={colorTwo} />
         :
@@ -56,7 +56,7 @@ function ContactFormDrawersTrigger({ violationUser }: Props) {
           }} variant='outlined' form='auth'>{languages === 'ko' ? '신고 등록 유저' : 'Register reporting user'}</Button>
         </div>
       }
-    </div>
+    </>
   )
 }
 
