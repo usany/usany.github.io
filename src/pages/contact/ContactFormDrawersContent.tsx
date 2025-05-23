@@ -23,7 +23,7 @@ interface Props {
 
 function ContactFormDrawersContent({ changeViolationUser }: Props) {
   const [users, setUsers] = useState([])
-  const [loadedImage, setLoadedImage] = useState([])
+  const [loadedImage, setLoadedImage] = useState<{ url: string, index: number }[]>([])
   const [userSearch, setUserSearch] = useState('')
   const languages = useSelectors((state) => state.languages.value)
   const onChangeUserSearch = (event: { target: { value: string } }) => {
