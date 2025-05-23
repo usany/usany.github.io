@@ -11,12 +11,12 @@ interface Props {
 }
 
 function ContactFormDrawers({ violationUser, changeViolationUser }: Props) {
-  const languages = useSelectors((state) => state.languages.value) 
+  const languages = useSelectors((state) => state.languages.value)
 
   return (
-    <div className='flex flex-col w-full'>
+    <div className='flex justify-center w-full'>
       <Popups trigger={<ContactFormDrawersTrigger violationUser={violationUser} />} title={<ContactFormDrawersTitle />} content={<ContactFormDrawersContent changeViolationUser={changeViolationUser} />} />
-      {violationUser && <Button sx={{ width: '25%' }} variant='outlined' onClick={() => changeViolationUser(null)}>{languages === 'ko' ? '신고 등록 취소' : 'Cancel reporting'}</Button>
+      {violationUser && <Button variant='outlined' onClick={() => changeViolationUser(null)}>{languages === 'ko' ? '신고 등록 취소' : 'Cancel reporting'}</Button>
       }
     </div>
   )

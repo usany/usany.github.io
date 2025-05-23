@@ -108,7 +108,7 @@ function ContactFormDrawersTrigger({ violationUser, changeViolationUser }: Props
         :
         <div className='flex justify-center'>
           <Button sx={{
-            width: '50%', bgcolor: colorTwo, ":hover": {
+            bgcolor: colorTwo, ":hover": {
               bgcolor: colorTwo
             }
           }} variant='outlined' form='auth'>{languages === 'ko' ? '신고 등록 유저' : 'Register reporting user'}</Button>
