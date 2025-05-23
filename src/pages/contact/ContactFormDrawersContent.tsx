@@ -22,11 +22,11 @@ interface Props {
 }
 
 function ContactFormDrawersContent({ changeViolationUser }: Props) {
-  const [rank, setRank] = useState([])
+  const [users, setUsers] = useState([])
   const [loadedImage, setLoadedImage] = useState([])
   const [userSearch, setUserSearch] = useState('')
   const languages = useSelectors((state) => state.languages.value)
-  const onChangeUserSearch = (event) => {
+  const onChangeUserSearch = (event: { target: { value: string } }) => {
     const { target: { value } } = event
     setUserSearch(value)
   }
@@ -50,7 +50,7 @@ function ContactFormDrawersContent({ changeViolationUser }: Props) {
           ...document.data(),
         };
       });
-      setRank(newArray);
+      setUsers(newArray);
     };
     searchingMembersList()
   }, [])
@@ -60,7 +60,7 @@ function ContactFormDrawersContent({ changeViolationUser }: Props) {
       <TextField label={languages === 'ko' ? '유저 이름' : 'User name'} onChange={onChangeUserSearch} />
       {userSearch &&
         <div className='flex justify-center'>
-          <Lists userObj={null} elements={rank} multiple={true} userSearch={userSearch} ranking={false} handleUser={(newValue) => changeViolationUser(newValue)} />
+          <Lists userObj={null} elements={users} multiple={true} userSearch={userSearch} ranking={false} handleUser={(newValue) => changeViolationUser(newValue)} />
         </div>
       }
     </div>
