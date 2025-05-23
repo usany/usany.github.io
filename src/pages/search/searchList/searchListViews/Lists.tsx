@@ -116,13 +116,10 @@ function Lists({
   ranking,
   handleUser,
 }) {
-  let point
-  let samePointIndex
   let link
   if (location.pathname === '/ranking') {
     link = '/profile'
   }
-  const [newRanking, setNewRanking] = useState(0)
   return (
     <div>
       {ranking && (
