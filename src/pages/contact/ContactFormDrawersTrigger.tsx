@@ -13,13 +13,11 @@ const ContactUserSelected = ({ violationUser, color }) => {
       width: '100%',
       bgcolor: color
     }}>
-      <div className='flex'>
-        <div className='flex flex-col justify-center'>{languages === 'ko' ? '신고 유저:' : 'Reporting User'}</div>
-        <div className='px-5'>
-          <Avatar className={`bg-${(violationUser?.profileColor || []).indexOf('#') === -1 ? violationUser?.profileColor : 'profile-blue'}`}>
-            <AvatarImage src={profile} />
-          </Avatar>
-        </div>
+      <div className='flex p-3 gap-3'>
+        <div className='flex items-center'>{languages === 'ko' ? '신고 유저:' : 'Reporting User'}</div>
+        <Avatar className={`bg-${(violationUser?.profileColor || []).indexOf('#') === -1 ? violationUser?.profileColor : 'profile-blue'}`}>
+          <AvatarImage src={profile} />
+        </Avatar>
         <div className='flex flex-col justify-center'>{violationUser.displayName}</div>
       </div>
     </Card>
