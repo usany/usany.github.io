@@ -1,4 +1,5 @@
 import Button from '@mui/material/Button';
+import { Ban } from 'lucide-react';
 import { useSelectors } from "src/hooks/useSelectors";
 import Popups from "../core/Popups";
 import ContactFormDrawersContent from "./ContactFormDrawersContent";
@@ -16,7 +17,8 @@ function ContactFormDrawers({ violationUser, changeViolationUser }: Props) {
   return (
     <div className='flex justify-center w-full'>
       <Popups trigger={<ContactFormDrawersTrigger violationUser={violationUser} />} title={<ContactFormDrawersTitle />} content={<ContactFormDrawersContent changeViolationUser={changeViolationUser} />} />
-      {violationUser && <Button variant='outlined' onClick={() => changeViolationUser(null)}>{languages === 'ko' ? '신고 등록 취소' : 'Cancel reporting'}</Button>
+      {violationUser &&
+        <Button variant='outlined' onClick={() => changeViolationUser(null)}><Ban /></Button>
       }
     </div>
   )
