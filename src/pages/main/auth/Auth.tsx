@@ -1,11 +1,5 @@
 import { useMemo } from 'react';
 import { useSelectors } from 'src/hooks/useSelectors';
-// import { auth, onSocialClick, dbservice } from 'src/baseApi/serverbase'
-// import { updateProfile, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
-// import { doc, setDoc } from 'firebase/firestore';
-// import Button from '@mui/material/Button';
-// import TextField from '@mui/material/TextField';
-// import Dialogs from 'src/components/Dialogs';
 import PageTitle from 'src/pages/core/pageTitle/PageTitle';
 import AuthButtons from 'src/pages/main/auth/AuthButtons';
 import AuthForm from 'src/pages/main/auth/AuthForm';

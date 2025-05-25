@@ -30,7 +30,6 @@ interface Props {
 }
 
 function PiazzaScreenView({
-  chattingUser,
   userObj,
   multiple,
   handleMultiple,

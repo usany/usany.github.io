@@ -1,35 +1,14 @@
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 // import Dialog from '@mui/material/Dialog';
 // import DialogContent from '@mui/material/DialogContent';
-import Button from '@mui/material/Button'
-import { auth, onSocialClick, dbservice } from 'src/baseApi/serverbase'
 import {
-  doc,
-  getDoc,
-  getDocs,
-  setDoc,
   collection,
-  where,
-  query,
   deleteDoc,
+  doc,
+  getDocs,
+  query
 } from 'firebase/firestore'
-// import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from '@/components/ui/drawer'
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from '@/components/ui/accordion'
+import { dbservice } from 'src/baseApi/serverbase'
 
 const ContactMemberDrawers = ({ userObj }) => {
   const [sendMessages, setSendMessages] = useState([])
@@ -64,7 +43,7 @@ const ContactMemberDrawers = ({ userObj }) => {
 
   return (
     <>
-      <Drawer>
+      {/* <Drawer>
         <DrawerTrigger>
           <Button variant="outlined" form="auth">
             신고하기 내역
@@ -106,7 +85,7 @@ const ContactMemberDrawers = ({ userObj }) => {
             )}
           </div>
         </DrawerContent>
-      </Drawer>
+      </Drawer> */}
       {/* <Dialog fullWidth={true} open={move} onClose={handleClose}>
             <DialogContent>
               <div>

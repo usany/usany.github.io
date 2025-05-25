@@ -29,21 +29,20 @@ interface Props {
 }
 
 function Contact({ userObj }: Props) {
-  const dispatch = useDispatch()
   const { state } = useLocation()
   const languages = useSelectors((state) => state.languages.value)
   const index = (languages === 'ko' || languages === 'en') ? languages : 'ko'
-
+  const dispatch = useDispatch()
   useEffect(() => {
     dispatch(changeBottomNavigation(5))
   })
   return (
-    <div>
+    <>
       <PageTitle title={titles[index]} />
       <ContactAddress action={sending[index]} label={userObj.displayName} />
       <ContactAddress action={receiving[index]} label={user[index]} />
       <ContactForm userObj={userObj} user={state?.user} />
-    </div>
+    </>
   )
 }
 

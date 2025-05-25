@@ -14,15 +14,12 @@ import { changePiazzaSwitch } from 'src/stateSlices/piazzaSwitchSlice'
 
 const ChatsDelete = ({
   userObj,
-  sorted,
   conversation,
   changeLongPressChat,
   changeChattings,
 }) => {
   const dispatch = useDispatch()
   const onDelete = async ({ conversation }) => {
-    // const newSortedMyConversationUid = sorted
-    // newSortedMyConversationUid.splice(sorted.indexOf(conversation), 1)
     changeLongPressChat(null)
     const userRef = doc(dbservice, `members/${userObj.uid}`)
     const userDoc = await getDoc(userRef)
@@ -70,10 +67,6 @@ interface Props {
 const Chats = ({
   userObj,
   conversation,
-  // profileUrl,
-  // displayName,
-  // chattingUid,
-  // multiple,
   clock,
   message,
   longPressChat,
@@ -82,7 +75,6 @@ const Chats = ({
   changeLongPressChatsList,
   onLongPress,
   changeOnLongPress,
-  sorted,
   chattings,
   changeChattings,
 }: Props) => {
@@ -122,7 +114,6 @@ const Chats = ({
   }, [longPressChat, onLongPress])
   const { colorTwo } = useCardsBackground()
   const key = conversation || 'piazza'
-  console.log(chattings)
   return (
     <ClickAwayListener
       key={key}
@@ -219,7 +210,6 @@ const Chats = ({
         {longPressed && (
           <ChatsDelete
             userObj={userObj}
-            sorted={sorted}
             conversation={conversation}
             changeLongPressChat={changeLongPressChat}
             changeChattings={changeChattings}

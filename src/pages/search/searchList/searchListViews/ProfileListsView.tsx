@@ -1,20 +1,19 @@
 import { Chip } from "@mui/material";
 import Divider from "@mui/material/Divider";
-import Chips from "src/myChips";
 // import Avatar from '@mui/material/Avatar';
 import Avatars from "src/pages/core/Avatars";
+import Lists from "./Lists";
 
 function ProfileListsView({
   element,
   displayName,
   changeSelectedUser,
 }) {
-  console.log(element?.uid)
-  console.log(element?.profileImageUrl)
   return (
     <div
       className="px-5"
     >
+      <Lists userObj={null} elements={element} multiple={true} userSearch={userSearch} ranking={false} handleUser={(newValue) => changeViolationUser(newValue)} />
       <div
         className={`flex w-full justify-between p-3 rounded`}
         onClick={() => {

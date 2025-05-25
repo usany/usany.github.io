@@ -39,7 +39,6 @@ function Piazza({ userObj }: Props) {
       const newState = window.screen.height - 300 > (window.visualViewport?.height || window.screen.height)
       if (isKeyboardOpen !== newState) {
         setIsKeyboardOpen(newState);
-        // dispatch(changePiazzaForm(newState))
       }
     };
     window.addEventListener('resize', listener)
@@ -84,13 +83,11 @@ function Piazza({ userObj }: Props) {
     dispatch(changeBottomNavigation(5))
   })
   const displayName = state?.displayName
+  console.log(chattingUser)
   return (
     <>
-      {/* {isKeyboardOpen && <PiazzaTitle multiple={multiple} displayName={displayName} />} */}
       {!isKeyboardOpen && <PiazzaTitle multiple={multiple} displayName={displayName} />}
-      {/* {!isKeyboardOpen && <PiazzaTitle multiple={multiple} displayName={displayName} />} */}
-      {/* {isKeyboardOpen ? <div>{window.visualViewport?.height}</div> : <div>{window.visualViewport?.height}</div>} */}
-      <PiazzaScreen chattingUser={chattingUser} isKeyboardOpen={piazzaForm} userObj={userObj} multiple={multiple} handleMultiple={(newValue) => setMultiple(newValue)} messagesList={messagesList} handleMessagesList={(newValue) => setMessagesList(newValue)} />
+      <PiazzaScreen isKeyboardOpen={piazzaForm} userObj={userObj} multiple={multiple} handleMultiple={(newValue) => setMultiple(newValue)} messagesList={messagesList} handleMessagesList={(newValue) => setMessagesList(newValue)} />
       <PiazzaForm chattingUser={chattingUser} userObj={userObj} multiple={multiple} messages={messages} handleMessages={(newValue) => setMessages(newValue)} messagesList={messagesList} handleMessagesList={(newValue) => setMessagesList(newValue)} />
     </>
   );
