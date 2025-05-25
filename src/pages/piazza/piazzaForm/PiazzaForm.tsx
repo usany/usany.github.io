@@ -19,6 +19,9 @@ interface Props {
   chattingUser: {
     uid: string
     displayName: string
+    profileImage: boolean
+    defaulProfile: string
+    profileUrl: string
   } | null
   userObj: User
   multiple: boolean
