@@ -26,7 +26,6 @@ interface Props {
 }
 function PiazzaForm({ chattingUser, userObj, multiple, messages, handleMessages, messagesList, handleMessagesList }: Props) {
   const profileColor = useSelector(state => state.profileColor.value)
-  const profileUrl = useSelector(state => state.profileUrl.value)
   const piazzaForm = useSelector((state) => state.piazzaForm.value)
   const profile = useSelectors(state => state.profile.value)
   const dispatch = useDispatch()
@@ -90,7 +89,6 @@ function PiazzaForm({ chattingUser, userObj, multiple, messages, handleMessages,
   };
 
   const onForm = async () => {
-    // console.log(profile)
     try {
       const message = messages
       const userUid = userObj.uid
@@ -125,7 +123,6 @@ function PiazzaForm({ chattingUser, userObj, multiple, messages, handleMessages,
       console.log(error)
     }
   }
-  // console.log(profile)
   const onFormConversation = async () => {
     const message = messages
     try {
