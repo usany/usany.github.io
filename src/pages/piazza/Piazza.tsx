@@ -86,8 +86,8 @@ function Piazza({ userObj }: Props) {
   const displayName = state?.displayName
   return (
     <>
-      {/* {isKeyboardOpen && <PiazzaTitle multiple={multiple} displayName={displayName} />} */}
       {!isKeyboardOpen && <PiazzaTitle multiple={multiple} displayName={displayName} />}
+      {/* {isKeyboardOpen && <PiazzaTitle multiple={multiple} displayName={displayName} />} */}
       {/* {!isKeyboardOpen && <PiazzaTitle multiple={multiple} displayName={displayName} />} */}
       {/* {isKeyboardOpen ? <div>{window.visualViewport?.height}</div> : <div>{window.visualViewport?.height}</div>} */}
       <PiazzaScreen chattingUser={chattingUser} isKeyboardOpen={piazzaForm} userObj={userObj} multiple={multiple} handleMultiple={(newValue) => setMultiple(newValue)} messagesList={messagesList} handleMessagesList={(newValue) => setMessagesList(newValue)} />
