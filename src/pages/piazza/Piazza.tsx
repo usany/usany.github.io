@@ -87,7 +87,7 @@ function Piazza({ userObj }: Props) {
   return (
     <>
       {!isKeyboardOpen && <PiazzaTitle multiple={multiple} displayName={displayName} />}
-      <PiazzaScreen chattingUser={chattingUser} isKeyboardOpen={piazzaForm} userObj={userObj} multiple={multiple} handleMultiple={(newValue) => setMultiple(newValue)} messagesList={messagesList} handleMessagesList={(newValue) => setMessagesList(newValue)} />
+      <PiazzaScreen isKeyboardOpen={piazzaForm} userObj={userObj} multiple={multiple} handleMultiple={(newValue) => setMultiple(newValue)} messagesList={messagesList} handleMessagesList={(newValue) => setMessagesList(newValue)} />
       <PiazzaForm chattingUser={chattingUser} userObj={userObj} multiple={multiple} messages={messages} handleMessages={(newValue) => setMessages(newValue)} messagesList={messagesList} handleMessagesList={(newValue) => setMessagesList(newValue)} />
     </>
   );
