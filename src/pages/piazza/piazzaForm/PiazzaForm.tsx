@@ -16,7 +16,10 @@ const send = {
   en: 'send'
 }
 interface Props {
-  chattingUser: {} | null
+  chattingUser: {
+    uid: string
+    displayName: string
+  } | null
   userObj: User
   multiple: boolean
   messages: string
