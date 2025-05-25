@@ -2,6 +2,7 @@ import { User } from 'firebase/auth'
 import PiazzaScreenView from './PiazzaScreenView'
 
 interface Props {
+  chattingUser: {} | null
   isKeyboardOpen: boolean
   userObj: User
   handleMultiple: (newValue: boolean) => void

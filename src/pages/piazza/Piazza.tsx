@@ -83,6 +83,7 @@ function Piazza({ userObj }: Props) {
     dispatch(changeBottomNavigation(5))
   })
   const displayName = state?.displayName
+  console.log(chattingUser)
   return (
     <>
       {!isKeyboardOpen && <PiazzaTitle multiple={multiple} displayName={displayName} />}
