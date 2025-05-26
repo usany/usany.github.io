@@ -120,7 +120,11 @@ const Chats = ({
             <>
               {!onLongPress ? (
                 <Link
-                  to={conversation ? `/piazza?id=${conversation}` : '/piazza'}
+                  to={
+                    conversation !== 'piazza'
+                      ? `/piazza?id=${conversation}`
+                      : '/piazza'
+                  }
                   state={{
                     conversation: conversation,
                     displayName: displayName,

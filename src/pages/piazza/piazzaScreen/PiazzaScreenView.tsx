@@ -87,7 +87,7 @@ function PiazzaScreenView({
           conversation: null,
           profileImageUrl: profileImageUrl,
           defaultProfile: defaultProfile,
-          profileImage: profileImage
+          profileImage: profileImage,
           // profileColor: profileColor,
         },
       ])
@@ -108,7 +108,7 @@ function PiazzaScreenView({
         messageClock,
         messageClockNumber,
         conversation,
-        piazzaData
+        piazzaData,
       } = message
       handleMessagesList((prev) => [
         ...prev,
@@ -120,7 +120,7 @@ function PiazzaScreenView({
           messageClock: messageClock,
           messageClockNumber: messageClockNumber,
           conversation: null,
-          ...piazzaData
+          ...piazzaData,
         },
       ])
     }
@@ -221,7 +221,7 @@ function PiazzaScreenView({
           profileImageUrl: profileImageUrl,
           defaultProfile: defaultProfile,
           profileImage: profileImage || false,
-          ...piazzaData
+          ...piazzaData,
         })
       })
       messagesArray.reverse()
@@ -267,14 +267,14 @@ function PiazzaScreenView({
           profileImageUrl: profileImageUrl,
           defaultProfile: defaultProfile,
           profileImage: profileImage || false,
-          ...piazzaData
+          ...piazzaData,
         })
       })
       messagesArray.reverse()
       handleMessagesList([...messagesArray, ...messagesList])
       setIsLoading(false)
     }
-    if (!conversation) {
+    if (conversation === 'piazza') {
       if (isLoading || !messagesList.length) {
         messageList()
       }
@@ -303,15 +303,17 @@ function PiazzaScreenView({
     boxRef.current?.addEventListener('scroll', handleScroll)
     return () => boxRef.current?.removeEventListener('scroll', handleScroll)
   }, [isLoading])
+  console.log(messagesList)
   return (
     <>
       <>
-        <div
-          ref={boxRef}
-          className={`p-1 border-t rounded-xl overflow-auto`}
-        >
+        <div ref={boxRef} className={`p-1 border-t rounded-xl overflow-auto`}>
           <ul>
-            {isLoading && <div className='flex justify-center bg-light-2 dark:bg-dark-2 rounded'>로딩</div>}
+            {isLoading && (
+              <div className="flex justify-center bg-light-2 dark:bg-dark-2 rounded">
+                로딩
+              </div>
+            )}
             {messagesList.map((value, index) => {
               let passingValue
               if (multiple) {
@@ -324,7 +326,7 @@ function PiazzaScreenView({
                     id: value.userOneDisplayName,
                     profileImage: value.userOneProfileImage,
                     defaultProfile: value.userOneDefaultProfile,
-                    profileImageUrl: value.userOneProfileUrl
+                    profileImageUrl: value.userOneProfileUrl,
                   }
                 } else {
                   passingValue = {
@@ -332,7 +334,7 @@ function PiazzaScreenView({
                     id: value.userTwoDisplayName,
                     profileImage: value.userTwoProfileImage,
                     defaultProfile: value.userTwoDefaultProfile,
-                    profileImageUrl: value.userTwoProfileUrl
+                    profileImageUrl: value.userTwoProfileUrl,
                   }
                 }
               }
@@ -412,32 +414,34 @@ function PiazzaScreenView({
                                     })
                                   }
                                   profile={false}
-                                // uid={userObj.uid}
-                                // profileColor=""
-                                // profileUrl={value.profileImageUrl}
-                                // defaultProfileUrl={value.profileImageUrl}
-                                // uid={userObj.uid}
-                                // profile={false}
-                                // profileColor=""
-                                // profileUrl={value?.profileImageUrl}
-                                // piazza={() =>
-                                //   onDrawer({
-                                //     userUid: value.userUid,
-                                //     displayName: value.id,
-                                //   })
-                                // }
+                                  // uid={userObj.uid}
+                                  // profileColor=""
+                                  // profileUrl={value.profileImageUrl}
+                                  // defaultProfileUrl={value.profileImageUrl}
+                                  // uid={userObj.uid}
+                                  // profile={false}
+                                  // profileColor=""
+                                  // profileUrl={value?.profileImageUrl}
+                                  // piazza={() =>
+                                  //   onDrawer({
+                                  //     userUid: value.userUid,
+                                  //     displayName: value.id,
+                                  //   })
+                                  // }
                                 />
                               }
                               title={<SpecificsTradesTitle />}
-                              content={<PiazzaDialogsContent
-                                initiateContinuing={() => setContinuing(null)}
-                                multiple={multiple}
-                                handleMultiple={handleMultiple}
-                                user={user}
-                                userObj={userObj}
-                                handleMessagesList={handleMessagesList}
-                                displayedName={displayedName}
-                              />}
+                              content={
+                                <PiazzaDialogsContent
+                                  initiateContinuing={() => setContinuing(null)}
+                                  multiple={multiple}
+                                  handleMultiple={handleMultiple}
+                                  user={user}
+                                  userObj={userObj}
+                                  handleMessagesList={handleMessagesList}
+                                  displayedName={displayedName}
+                                />
+                              }
                             />
                             {/* <Avatars
                               uid={userObj.uid}
@@ -474,22 +478,24 @@ function PiazzaScreenView({
                                     })
                                   }
                                   profile={false}
-                                // uid={userObj.uid}
-                                // profileColor=""
-                                // profileUrl={value.profileImageUrl}
-                                // defaultProfileUrl={value.defaultProfile}
+                                  // uid={userObj.uid}
+                                  // profileColor=""
+                                  // profileUrl={value.profileImageUrl}
+                                  // defaultProfileUrl={value.defaultProfile}
                                 />
                               }
                               title={<SpecificsTradesTitle />}
-                              content={<PiazzaDialogsContent
-                                initiateContinuing={() => setContinuing(null)}
-                                multiple={multiple}
-                                handleMultiple={handleMultiple}
-                                user={user}
-                                userObj={userObj}
-                                handleMessagesList={handleMessagesList}
-                                displayedName={displayedName}
-                              />}
+                              content={
+                                <PiazzaDialogsContent
+                                  initiateContinuing={() => setContinuing(null)}
+                                  multiple={multiple}
+                                  handleMultiple={handleMultiple}
+                                  user={user}
+                                  userObj={userObj}
+                                  handleMessagesList={handleMessagesList}
+                                  displayedName={displayedName}
+                                />
+                              }
                             />
                             {/* <Avatars
                               uid={userObj.uid}
@@ -525,7 +531,8 @@ function PiazzaScreenView({
                         {languages === 'ko' && messageAmpm} {messageHours}:
                         {clock.getMinutes() < 10 && '0'}
                         {clock.getMinutes()}
-                        {languages === 'en' && (messageAmpm === '오전' ? 'am' : 'pm')}
+                        {languages === 'en' &&
+                          (messageAmpm === '오전' ? 'am' : 'pm')}
                       </div>
                     </div>
                   ) : (
@@ -535,7 +542,8 @@ function PiazzaScreenView({
                         {languages === 'ko' && messageAmpm} {messageHours}:
                         {clock.getMinutes() < 10 && '0'}
                         {clock.getMinutes()}
-                        {languages === 'en' && (messageAmpm === '오전' ? 'am' : 'pm')}
+                        {languages === 'en' &&
+                          (messageAmpm === '오전' ? 'am' : 'pm')}
                       </div>
                       <div className="me rounded-tl-lg rounded-bl-lg rounded-br-lg p-1 bg-light-1 dark:bg-dark-1">
                         {value.msg}
