@@ -46,7 +46,7 @@ function PiazzaScreenView({
   const profileColor = useSelector((state) => state.profileColor.value)
   const profileUrl = useSelector((state) => state.profileUrl.value)
   const { state } = useLocation()
-  const conversation = state?.conversation
+  const conversation = state?.conversation || 'piazza'
   const languages = useSelectors((state) => state.languages.value)
   const onPrivate = async ({ userUid, displayName }) => {
     const userRef = doc(dbservice, `members/${userUid}`)
