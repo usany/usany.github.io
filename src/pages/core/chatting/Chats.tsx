@@ -1,54 +1,13 @@
-import DeleteIcon from '@mui/icons-material/Delete'
 import { ClickAwayListener } from '@mui/material'
 import Card from '@mui/material/Card'
 import { User } from 'firebase/auth'
-import { doc, getDoc, updateDoc } from 'firebase/firestore'
 import { useEffect, useRef, useState } from 'react'
-import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { dbservice } from 'src/baseApi/serverbase'
 import useCardsBackground from 'src/hooks/useCardsBackground'
 import useLongPress from 'src/hooks/useLongPress'
 import ChatsBoxes from 'src/pages/core/chatting/ChatsBoxes'
-import { changePiazzaSwitch } from 'src/stateSlices/piazzaSwitchSlice'
+import ChatsDelete from './ChatsDelete'
 
-const ChatsDelete = ({
-  userObj,
-  conversation,
-  changeLongPressChat,
-  changeChattings,
-}) => {
-  const dispatch = useDispatch()
-  const onDelete = async ({ conversation }) => {
-    changeLongPressChat(null)
-    const userRef = doc(dbservice, `members/${userObj.uid}`)
-    const userDoc = await getDoc(userRef)
-    const userChattings = userDoc.data()?.chattings || {}
-    const userConversation = userDoc.data()?.conversation || []
-    Reflect.deleteProperty(userChattings, conversation)
-    if (userConversation.indexOf(conversation) !== -1) {
-      userConversation.splice(userConversation.indexOf(conversation), 1)
-    }
-    changeChattings(userChattings)
-    updateDoc(userRef, { chattings: userChattings })
-    updateDoc(userRef, { conversation: userConversation })
-  }
-  return (
-    <div
-      className="flex h-[60px] rounded items-center justify-center w-1/6 bg-profile-red text-white"
-      onClick={() => {
-        if (conversation) {
-          onDelete({ conversation: conversation })
-        } else {
-          dispatch(changePiazzaSwitch('false'))
-          localStorage.setItem('piazza', 'false')
-        }
-      }}
-    >
-      <DeleteIcon />
-    </div>
-  )
-}
 interface Props {
   userObj: User
   profileUrl: string
