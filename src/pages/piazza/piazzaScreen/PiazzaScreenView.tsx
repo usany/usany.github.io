@@ -139,8 +139,6 @@ function PiazzaScreenView({
 
   useEffect(() => {
     scrollToBottom()
-    // if (!continuing) {
-    // }
 
     const checkMessage = async () => {
       if (multiple) {
