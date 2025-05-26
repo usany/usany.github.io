@@ -414,20 +414,6 @@ function PiazzaScreenView({
                                     })
                                   }
                                   profile={false}
-                                  // uid={userObj.uid}
-                                  // profileColor=""
-                                  // profileUrl={value.profileImageUrl}
-                                  // defaultProfileUrl={value.profileImageUrl}
-                                  // uid={userObj.uid}
-                                  // profile={false}
-                                  // profileColor=""
-                                  // profileUrl={value?.profileImageUrl}
-                                  // piazza={() =>
-                                  //   onDrawer({
-                                  //     userUid: value.userUid,
-                                  //     displayName: value.id,
-                                  //   })
-                                  // }
                                 />
                               }
                               title={<SpecificsTradesTitle />}
