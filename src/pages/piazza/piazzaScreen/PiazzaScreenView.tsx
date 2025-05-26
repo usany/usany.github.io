@@ -557,15 +557,6 @@ function PiazzaScreenView({
           </ul>
         </div>
       </>
-      {/* <PiazzaDialogs
-        multiple={multiple}
-        handleMultiple={handleMultiple}
-        user={user}
-        userObj={userObj}
-        handleMessagesList={handleMessagesList}
-        displayedName={displayedName}
-        initiateContinuing={() => setContinuing(null)}
-      /> */}
     </>
   )
 }
