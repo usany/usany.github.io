@@ -245,7 +245,7 @@ const useStopSupportingTradesCallback = ({ changeConnectedUser, message }) => {
   })
 }
 
-export const useSortedChattings = ({ userObj }) => {
+const useSortedChattings = ({ userObj }) => {
   const [chattings, setChattings] = useState({})
   const changeChattings = (newValue) => setChattings(newValue)
   const sorted = Object.keys(chattings).sort((elementOne, elementTwo) => {
@@ -269,7 +269,7 @@ export const useSortedChattings = ({ userObj }) => {
     sorted: sorted,
   }
 }
-export const usePiazzaMessage = () => {
+const usePiazzaMessage = () => {
   const [piazzaMessage, setPiazzaMessage] = useState<{
     username: string
     message: string

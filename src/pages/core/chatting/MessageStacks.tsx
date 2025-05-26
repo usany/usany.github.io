@@ -1,8 +1,8 @@
 import { User } from 'firebase/auth'
-import { useSortedChattings } from 'src/hooks/useBottomNavigation'
 import { useSelectors } from 'src/hooks/useSelectors'
 import ChattingStacks from './ChattingStacks'
 import EmptyChattingStacks from './EmptyChattingStacks'
+import { useSortedChattings } from './useSortedChattings'
 
 interface Props {
   userObj: User
