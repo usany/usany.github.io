@@ -1,53 +1,50 @@
-import { Chip } from '@mui/material'
-import { useSelector } from 'react-redux'
-import { useSelectors } from 'src/hooks/useSelectors'
-import Avatars from '../Avatars'
+import { alpha } from '@mui/material'
+import Card from '@mui/material/Card'
+import CardContent from '@mui/material/CardContent'
+import CardMedia from '@mui/material/CardMedia'
+import staticImg from 'src/assets/pwa-512x512.png'
+import useCardsBackground from 'src/hooks/useCardsBackground'
+import CardViewLocation from './CardViewLocation'
+import CardViewTime from './CardViewTime'
+import CardViewTop from './CardViewTop'
+import CardViewTransfer from './CardViewTransfer'
 
-const CardViewTop = ({ message }) => {
-  const languages = useSelectors((state) => state.languages.value)
-  const profileColor = useSelector((state) => state.profileColor.value)
-  const profileUrl = message?.creatorUrl
-  const item = message.item
-  let action
-  if (languages === 'ko') {
-    if (message.text.choose === 1) {
-      action = ' 빌리기'
-    } else {
-      action = ' 빌려주기'
-    }
-  } else {
-    if (message.text.choose === 1) {
-      action = ' borrowing'
-    } else {
-      action = ' lending'
-    }
-  }
-  const passingValue = {
-    profileImage: message.creatorProfileImage,
-    defaultProfile: message.creatorDefaultProfile,
-    profileImageUrl: message.creatorProfileImageUrl,
-  }
+const CardView = ({ onTransfer, message, shadowColor }) => {
+  const { color } = useCardsBackground()
 
   return (
-    <div className="flex justify-between gap-1">
-      <Avatars
-        element={passingValue}
-        uid={message.creatorId}
-        profile={false}
-        profileColor={profileColor}
-        profileUrl={profileUrl}
-        piazza={null}
-      />
-      <div className="flex items-center">
-        <Chip
-          label={
-            <div className="text-xs">
-              {item} {action}
+    <div className="flex flex-col gap-5">
+      {onTransfer && <CardViewTransfer />}
+      <Card
+        sx={{
+          width: 200 * 0.9,
+          height: 280 * 0.9,
+          boxShadow: `1.5px 1.5px 1.5px 1.5px ${shadowColor}`,
+          bgcolor: color,
+        }}
+      >
+        <CardContent
+          sx={{ padding: '5px', bgcolor: onTransfer && alpha('#000000', 0.5) }}
+        >
+          <div>
+            <CardViewTop message={message} />
+            <div className="flex justify-center pt-1">
+              <CardMedia
+                sx={{
+                  width: 159 * 0.9,
+                  height: 141 * 0.9,
+                }}
+                image={staticImg}
+              />
             </div>
-          }
-        />
-      </div>
+            <div className="flex flex-col pt-1 gap-1 text-xs">
+              <CardViewLocation message={message} />
+              <CardViewTime message={message} />
+            </div>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   )
 }
-export default CardViewTop
+export default CardView
