@@ -1,8 +1,8 @@
 import { User } from 'firebase/auth'
 import { useEffect, useState } from 'react'
-import { useBringCards } from 'src/hooks/useBottomNavigation'
 import CardsStacksViews from './CardsStacksViews'
 import EmptyCard from './EmptyCard'
+import { useBringCards } from './useBringCards'
 
 interface Props {
   userObj: User

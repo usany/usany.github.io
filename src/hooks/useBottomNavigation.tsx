@@ -28,7 +28,7 @@ interface messagesProps {
   creatorId: string
   id: string
 }
-export const useBringCards = (userObj) => {
+const useBringCards = (userObj) => {
   const [messages, setMessages] = useState([])
   const [cardLoaded, setCardLoaded] = useState(false)
   useEffect(() => {
@@ -64,7 +64,7 @@ export const useBringCards = (userObj) => {
   }
 }
 
-export const useRound = (message) => {
+const useRound = (message) => {
   const [round, setRound] = useState(0)
   const increaseRound = () => {
     setRound(round + 1)
@@ -84,7 +84,7 @@ export const useRound = (message) => {
   }
 }
 
-export const useConnectedUser = ({ message }) => {
+const useConnectedUser = ({ message }) => {
   const [connectedUser, setConnectedUser] = useState({
     uid: '',
     displayName: '',
@@ -103,7 +103,7 @@ export const useConnectedUser = ({ message }) => {
     changeConnectedUser: changeConnectedUser,
   }
 }
-export const usePulse = ({ message, round, userObj }) => {
+const usePulse = ({ message, round, userObj }) => {
   const [onPulse, setOnPulse] = useState(false)
   const changeOnPulse = (newValue) => setOnPulse(newValue)
   useEffect(() => {
@@ -140,12 +140,7 @@ export const usePulse = ({ message, round, userObj }) => {
   return { onPulse: onPulse, changeOnPulse: changeOnPulse }
 }
 
-export const useOnPulseCallback = ({
-  userObj,
-  round,
-  changeOnPulse,
-  message,
-}) => {
+const useOnPulseCallback = ({ userObj, round, changeOnPulse, message }) => {
   useEffect(() => {
     if (!webSocket) return
     function sOnPulseCallback(res) {
@@ -185,7 +180,7 @@ export const useOnPulseCallback = ({
     }
   })
 }
-export const useIncreaseCardCallback = ({ increaseRound, message }) => {
+const useIncreaseCardCallback = ({ increaseRound, message }) => {
   useEffect(() => {
     if (!webSocket) return
     function sIncreaseCardCallback() {
@@ -197,7 +192,7 @@ export const useIncreaseCardCallback = ({ increaseRound, message }) => {
     }
   })
 }
-export const useDecreaseCardCallback = ({ decreaseRound, message }) => {
+const useDecreaseCardCallback = ({ decreaseRound, message }) => {
   useEffect(() => {
     if (!webSocket) return
     function sDecreaseCardCallback() {
@@ -209,7 +204,7 @@ export const useDecreaseCardCallback = ({ decreaseRound, message }) => {
     }
   })
 }
-export const useSupportTradesCallback = ({ changeConnectedUser, message }) => {
+const useSupportTradesCallback = ({ changeConnectedUser, message }) => {
   useEffect(() => {
     if (!webSocket) return
     function sSupportTradesCallback(res) {
@@ -226,10 +221,7 @@ export const useSupportTradesCallback = ({ changeConnectedUser, message }) => {
     }
   })
 }
-export const useStopSupportingTradesCallback = ({
-  changeConnectedUser,
-  message,
-}) => {
+const useStopSupportingTradesCallback = ({ changeConnectedUser, message }) => {
   useEffect(() => {
     if (!webSocket) return
     function sStopSupportingTradesCallback() {
@@ -311,4 +303,3 @@ export const usePiazzaMessage = () => {
   }, [])
   return { piazzaMessage, changePiazzaMessage }
 }
-
