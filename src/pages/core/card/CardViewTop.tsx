@@ -2,7 +2,6 @@ import { Chip } from '@mui/material'
 import { useSelector } from 'react-redux'
 import { useSelectors } from 'src/hooks/useSelectors'
 import Avatars from '../Avatars'
-import CardViewTop from './CardView'
 
 const CardViewTop = ({ message }) => {
   const languages = useSelectors((state) => state.languages.value)

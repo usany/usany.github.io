@@ -1,6 +1,14 @@
 import { User } from 'firebase/auth'
 import { useEffect, useState } from 'react'
 import Cards from './Cards'
+const deleteMessage = (id: string) => {
+  console.log(id)
+  const item = document.getElementById(id)
+  item?.classList.add('transition')
+  item?.addEventListener('transitionend', () => {
+    item?.remove()
+  })
+}
 
 const CardsStacksViewsCollection = ({
   userObj,
