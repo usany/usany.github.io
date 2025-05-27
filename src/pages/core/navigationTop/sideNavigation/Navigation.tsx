@@ -9,6 +9,7 @@ import {
 } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import staticImage from "src/assets/blue.png"
 import { auth, dbservice } from 'src/baseApi/serverbase'
 import { Drawer, DrawerClose, DrawerContent, DrawerTrigger } from 'src/components/ui/drawer'
 import { useSelectors } from 'src/hooks/useSelectors'
@@ -116,7 +117,7 @@ function Navigation({ user, userObj, sideNavigation, handleSideNavigation,
   return (
     <Drawer direction="left">
       <DrawerTrigger className='px-5'>
-        {user &&
+        {user ?
           <Avatars
             element={user}
             // uid={user.uid}
@@ -130,6 +131,12 @@ function Navigation({ user, userObj, sideNavigation, handleSideNavigation,
           // profileColor={userObj ? profileColor : 'profile-blue'}
           // profileUrl={userObj ? profileUrl : staticImage}
           // piazza={() => null}
+          />
+          :
+          <Avatars
+            element={{ defaultProfile: staticImage }}
+            piazza={null}
+            profile={false}
           />
         }
       </DrawerTrigger>
