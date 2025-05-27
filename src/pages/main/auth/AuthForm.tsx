@@ -19,7 +19,6 @@ import staticMail from 'src/assets/signMail.svg'
 import { auth, dbservice, storage } from 'src/baseApi/serverbase'
 import { useSelectors } from 'src/hooks/useSelectors.tsx'
 import AuthDialogs from './AuthDialogs.tsx'
-// import storeSetDoc from "../../../components/setDocUser.ts";
 
 const AuthForm = ({ signIn }) => {
   const [account, setAccount] = useState({ email: '', password: '' })
@@ -44,7 +43,6 @@ const AuthForm = ({ signIn }) => {
         account.email,
         account.password,
       )
-      // storeSetDoc({ uid: data.user.uid, email: data.user.email });
 
       const docsRef = query(collection(dbservice, 'members'))
       const docs = await getDocs(docsRef)
@@ -111,7 +109,6 @@ const AuthForm = ({ signIn }) => {
           defaultProfile: url,
         })
       })
-      // console.log(storageRef);
     } catch (error) {
       if (error.message === 'Firebase: Error (auth/invalid-credential).') {
         const errorMessage = '로그인 실패: 계정을 확인해 주세요'
