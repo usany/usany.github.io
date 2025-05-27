@@ -6,17 +6,15 @@ import {
 import { User } from 'firebase/auth'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import {
-  useConnectedUser,
-  useDecreaseCardCallback,
-  useIncreaseCardCallback,
-  useOnPulseCallback,
-  usePulse,
-  useStopSupportingTradesCallback,
-} from 'src/hooks/useBottomNavigation'
-import { useSupportTradesCallback } from '../../../hooks/useBottomNavigation'
 import CardsViews from '../card/CardsViews'
 import Morphings from './Morphings'
+import { useConnectedUser } from './useConnectedUser'
+import { useDecreaseCardCallback } from './useDecreaseCardCallback'
+import { useIncreaseCardCallback } from './useIncreaseCardCallback'
+import { useOnPulseCallback } from './useOnPulseCallback'
+import { usePulse } from './usePulse'
+import { useStopSupportingTradesCallback } from './useStopSupportingTradesCallback'
+import { useSupportTradesCallback } from './useSupportTradesCallback'
 
 interface Props {
   message: { id: string; text: object }

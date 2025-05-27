@@ -2,9 +2,9 @@ import { User } from 'firebase/auth'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { AnimatedList } from 'src/components/ui/animated-list'
-import { usePiazzaMessage } from 'src/hooks/useBottomNavigation'
 import Chats from 'src/pages/core/chatting/Chats'
 import { webSocket } from 'src/webSocket.tsx'
+import { usePiazzaMessage } from './usePiazzaMessage'
 
 interface Props {
   userObj: User

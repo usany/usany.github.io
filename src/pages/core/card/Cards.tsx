@@ -1,11 +1,11 @@
 import { ClickAwayListener } from '@mui/material'
 import { User } from 'firebase/auth'
 import { useRef } from 'react'
-import { useRound } from 'src/hooks/useBottomNavigation'
 import useLongPress from 'src/hooks/useLongPress'
 import Draggable from 'src/pages/main/menu/Draggable'
 import MorphingDialogs from '../morphingDialogs/MorphingDialogs'
 import CardsViews from './CardsViews'
+import { useRound } from './useRound'
 
 const CardsLongPressed = ({
   longPressCard,

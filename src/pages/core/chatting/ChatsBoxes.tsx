@@ -1,57 +1,11 @@
 import { Avatar, AvatarImage } from '@/components/ui/avatar'
-import { Chip } from '@mui/material'
 import { User } from 'firebase/auth'
 import staticImage from 'src/assets/blue.png'
 import { useSelectors } from 'src/hooks/useSelectors'
 import Avatars from 'src/pages/core/Avatars'
-const ChatsBoxesRoom = ({ displayName, multiple }) => {
-  const languages = useSelectors((state) => state.languages.value)
-  let displayingUserName
-  if (displayName.length > 6) {
-    displayingUserName = displayName.slice(0, 5) + '......'
-  } else {
-    displayingUserName = displayName
-  }
-  return (
-    <div className="truncate w-1/2 px-3 overflow-hidden">
-      {multiple
-        ? `${languages === 'ko' ? '단체 대화' : 'Group Messaging'}`
-        : displayingUserName}
-    </div>
-  )
-}
-const ChatsBoxesClock = ({ clockValue }) => {
-  return (
-    <>
-      {clockValue.length > 10 && (
-        <div className="flex flex-col px-3">
-          <div className="truncate flex justify-end">{clockValue}</div>
-        </div>
-      )}</>
-  )
-}
-const ChatsBoxesChips = ({ userObj, message }) => {
-  const languages = useSelectors((state) => state.languages.value)
-  return (
-    <div>
-      {message?.piazzaChecked &&
-        message?.piazzaChecked.indexOf(userObj.uid) === -1 && (
-          <Chip
-            sx={{ height: '20px' }}
-            label={`${languages === 'ko' ? '새 대화' : 'New Chats'}`}
-            color="primary"
-          />
-        )}
-      {message?.messageCount > 0 && (
-        <Chip
-          sx={{ height: '20px' }}
-          label={message.messageCount}
-          color="primary"
-        />
-      )}
-    </div>
-  )
-}
+import ChatsBoxesChips from './ChatsBoxesChips'
+import ChatsBoxesClock from './ChatsBoxesClock'
+import ChatsBoxesRoom from './ChatsBoxesRoom'
 interface Props {
   chattingUid: string
   userObj: User
