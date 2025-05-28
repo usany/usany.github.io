@@ -9,7 +9,6 @@ import {
   dbservice
 } from "src/baseApi/serverbase";
 // import Cards from "src/pages/main/card/Cards";
-import { SwipeableViews } from "src/pages/core/SwipeableViews";
 import PageTitle from "src/pages/core/pageTitle/PageTitle";
 import { useImmer } from "use-immer";
 // import { AlarmCheck, AlertCircle, Building, Clock, DoorOpen, MessagesSquare, Pen, PenBox, Pencil, PenSquare, PenTool, Presentation, Search, SearchCheck, SearchCode, SearchSlash, Siren, TowerControl, Umbrella, UserCheck, UserRound, Watch } from "lucide-react";
@@ -23,7 +22,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { changeBottomNavigation } from "src/stateSlices/bottomNavigationSlice";
 
-function LayoutBoard() {
+function LayoutBoard({ borrow }) {
   const [messages, setMessages] = useState<Array<object>>([]);
   const [selectedValues, setSelectedValues] = useImmer([
     {
@@ -110,12 +109,16 @@ function LayoutBoard() {
     }
     bringMessages()
   }, [selectedValues[2].value]);
+  console.log(borrow)
   return (
-    <div>
-      <SwipeableViews>
+    <div className='flex flex-col h-screen'>
+      {borrow ?
         <PageTitle title={`빌리기 카드 목록`} />
+        :
         <PageTitle title={`빌려주기 카드 목록`} />
-      </SwipeableViews>
+      }
+      {/* <SwipeableViews>
+      </SwipeableViews> */}
       <div className='blur-md'>
         <Accordion type="single" collapsible className="px-3" disabled>
           <AccordionItem value="item-1">
