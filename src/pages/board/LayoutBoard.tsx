@@ -109,7 +109,6 @@ function LayoutBoard({ borrow }) {
     }
     bringMessages()
   }, [selectedValues[2].value]);
-  console.log(borrow)
   return (
     <div className='flex flex-col h-screen'>
       {borrow ?
