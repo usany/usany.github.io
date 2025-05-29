@@ -50,23 +50,20 @@ const ChatsBoxes = ({
   if (messageDate.length === 1) {
     messageDate = '0' + messageDate
   }
-  let clockValue
-  if (typeof clock.getFullYear() === 'number') {
-    clockValue =
-      clock.getFullYear().toString() +
-      '-' +
-      messageMonth +
-      '-' +
-      messageDate +
-      ' ' +
-      (languages === 'ko' ? messageAmpm : '') +
-      ' ' +
-      messageHours +
-      ':' +
-      (clock.getMinutes() < 10 ? '0' : '') +
-      clock.getMinutes() +
-      (languages === 'en' ? (messageAmpm === '오전' ? 'am' : 'pm') : '')
-  }
+  const clockValue =
+    clock.getFullYear().toString() +
+    '-' +
+    messageMonth +
+    '-' +
+    messageDate +
+    ' ' +
+    (languages === 'ko' ? messageAmpm : '') +
+    ' ' +
+    messageHours +
+    ':' +
+    (clock.getMinutes() < 10 ? '0' : '') +
+    clock.getMinutes() +
+    (languages === 'en' ? (messageAmpm === '오전' ? 'am' : 'pm') : '')
   let messageProfileImage
   let messageProfileImageUrl
   let messageDefaultProfile
@@ -93,30 +90,34 @@ const ChatsBoxes = ({
   }
   return (
     <div className="flex p-3">
-      {multiple ? (
-        <Avatar>
-          <AvatarImage src={staticImage} />
-        </Avatar>
-      ) : (
-        <Avatars
-          element={passingValue}
-          uid={chattingUid}
-          profile={false}
-          profileColor={''}
-          profileUrl={message}
-        />
-      )}
-      <div className="flex flex-col w-screen">
-        <div className="flex justify-between">
-          <ChatsBoxesRoom displayName={displayName} multiple={multiple} />
-          <ChatsBoxesClock message={message} />
-        </div>
-        <div className="flex justify-between px-3">
-          <div>{message?.message}</div>
-          <ChatsBoxesChips userObj={userObj} message={message} />
-        </div>
-      </div>
-    </div>
+      {clockValue[0] !== 'N' &&
+        <>
+          {multiple ? (
+            <Avatar>
+              <AvatarImage src={staticImage} />
+            </Avatar>
+          ) : (
+            <Avatars
+              element={passingValue}
+              uid={chattingUid}
+              profile={false}
+              profileColor={''}
+              profileUrl={message}
+            />
+          )}
+          <div className="flex flex-col w-screen">
+            <div className="flex justify-between">
+              <ChatsBoxesRoom displayName={displayName} multiple={multiple} />
+              <ChatsBoxesClock message={message} />
+            </div>
+            <div className="flex justify-between px-3">
+              <div>{message?.message}</div>
+              <ChatsBoxesChips userObj={userObj} message={message} />
+            </div>
+          </div>
+        </>
+      }
+    </div >
   )
 }
 
