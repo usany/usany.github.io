@@ -261,8 +261,12 @@ function Profile({ userObj }: Props) {
         cards={cards}
         changeProfileDialog={changeProfileDialog}
       />
-      <ProfileCompleted user={state?.element || userObj} cards={cards} />
-      <ProfileMembers userObj={userObj} user={state?.element || userObj} />
+      {scrolledToCompleted &&
+        <>
+          <ProfileCompleted user={state?.element || userObj} cards={cards} />
+          <ProfileMembers userObj={userObj} user={state?.element || userObj} />
+        </>
+      }
     </div>
   );
 }
