@@ -199,7 +199,7 @@ function BoardMap({ mapAccordion, mapAccordionToggle, onMarker, onMarkerTrue, on
             }
           }
         }
-        console.log(doc.data())
+        // console.log(doc.data())
       })
       setMessages(newArray)
       setItems({ usanOne: usanOneCount, usanTwo: usanTwoCount, yangsanOne: yangsanOneCount, yangsanTwo: yangsanTwoCount })
@@ -214,7 +214,7 @@ function BoardMap({ mapAccordion, mapAccordionToggle, onMarker, onMarkerTrue, on
   const onClickMarkerItem = (newValue) => {
     handleSelectedValues({ id: "selectedValueOne", newValue: newValue });
   };
-  console.log(items)
+  // console.log(items)
   return (
     <div>
       <Accordion type="single" collapsible>
