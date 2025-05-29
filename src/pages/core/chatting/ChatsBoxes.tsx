@@ -109,7 +109,7 @@ const ChatsBoxes = ({
       <div className="flex flex-col w-screen">
         <div className="flex justify-between">
           <ChatsBoxesRoom displayName={displayName} multiple={multiple} />
-          <ChatsBoxesClock clockValue={clockValue} />
+          <ChatsBoxesClock message={message} />
         </div>
         <div className="flex justify-between px-3">
           <div>{message?.message}</div>
