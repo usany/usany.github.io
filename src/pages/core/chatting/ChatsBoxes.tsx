@@ -50,20 +50,23 @@ const ChatsBoxes = ({
   if (messageDate.length === 1) {
     messageDate = '0' + messageDate
   }
-  const clockValue =
-    clock.getFullYear().toString() +
-    '-' +
-    messageMonth +
-    '-' +
-    messageDate +
-    ' ' +
-    (languages === 'ko' ? messageAmpm : '') +
-    ' ' +
-    messageHours +
-    ':' +
-    (clock.getMinutes() < 10 ? '0' : '') +
-    clock.getMinutes() +
-    (languages === 'en' ? (messageAmpm === '오전' ? 'am' : 'pm') : '')
+  let clockValue
+  if (typeof clock.getFullYear() === 'number') {
+    clockValue =
+      clock.getFullYear().toString() +
+      '-' +
+      messageMonth +
+      '-' +
+      messageDate +
+      ' ' +
+      (languages === 'ko' ? messageAmpm : '') +
+      ' ' +
+      messageHours +
+      ':' +
+      (clock.getMinutes() < 10 ? '0' : '') +
+      clock.getMinutes() +
+      (languages === 'en' ? (messageAmpm === '오전' ? 'am' : 'pm') : '')
+  }
   let messageProfileImage
   let messageProfileImageUrl
   let messageDefaultProfile
