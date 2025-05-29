@@ -217,7 +217,20 @@ function Profile({ userObj }: Props) {
   // console.log(weather)
   // console.log(profileDialog)
   // console.log(state)
-  console.log(document.scrollingElement?.scrollTop)
+  // console.log(document.scrollingElement?.scrollTop)
+  // if (document.scrollingElement?.scrollTop > 100) {
+  //   setScrolledToCompleted(true)
+  // }
+  const scrollEffect = () => {
+    // console.log(document.scrollingElement.scrollTop)
+    if (document.scrollingElement.scrollTop > 250) {
+      setScrolledToCompleted(true)
+    }
+  }
+  useEffect(() => {
+    window.addEventListener('scroll', scrollEffect)
+    return () => window.removeEventListener('scroll', scrollEffect)
+  }, [])
   return (
     <div>
       <PageTitle
@@ -261,11 +274,13 @@ function Profile({ userObj }: Props) {
         cards={cards}
         changeProfileDialog={changeProfileDialog}
       />
-      {scrolledToCompleted &&
+      {scrolledToCompleted ?
         <>
           <ProfileCompleted user={state?.element || userObj} cards={cards} />
           <ProfileMembers userObj={userObj} user={state?.element || userObj} />
         </>
+        :
+        <div className='h-[250px]'></div>
       }
     </div>
   );
