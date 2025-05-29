@@ -173,7 +173,7 @@ function Board({ userObj }: Props) {
             <div className='truncate flex justify-center sticky top-16 z-30 pb-5 px-5'>
               <div className='w-[1000px] shadow-md sticky top-16 z-30'>
                 <Popups trigger={
-                  <BoardList />
+                  <BoardList selectedValues={selectedValues} />
                 } title={<FilterDialogsTitle />} content={<FilterDialogsContent selectedValues={selectedValues} handleSelectedValues={handleSelectedValues} />} />
               </div>
             </div>

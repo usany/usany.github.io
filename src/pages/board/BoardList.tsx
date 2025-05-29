@@ -1,7 +1,6 @@
 import { User } from "firebase/auth";
 import { useSelectors } from "src/hooks/useSelectors";
 import FilterDialogs from "src/pages/board/FilterDialogs/FilterDialogs";
-import { useImmer } from "use-immer";
 // import { AlarmCheck, AlertCircle, Building, Clock, DoorOpen, MessagesSquare, Pen, PenBox, Pencil, PenSquare, PenTool, Presentation, Search, SearchCheck, SearchCode, SearchSlash, Siren, TowerControl, Umbrella, UserCheck, UserRound, Watch } from "lucide-react";
 
 const cardList = {
@@ -12,35 +11,35 @@ interface Props {
   userObj: User | null;
 }
 
-function BoardList() {
-  const [selectedValues, setSelectedValues] = useImmer([
-    {
-      id: "selectedValueOne",
-      value: "전체 아이템",
-    },
-    {
-      id: "selectedValueTwo",
-      value: "전체 장소",
-    },
-    {
-      id: "selectedValueThree",
-      value: "최신순",
-    },
-  ]);
-  const handleSelectedValues = ({
-    id,
-    newValue,
-  }: {
-    id: string;
-    newValue: string;
-  }) => {
-    setSelectedValues((values) => {
-      const value = values.find((value) => value.id === id);
-      if (value) {
-        value.value = newValue;
-      }
-    });
-  };
+function BoardList({ selectedValues }) {
+  // const [selectedValues, setSelectedValues] = useImmer([
+  //   {
+  //     id: "selectedValueOne",
+  //     value: "전체 아이템",
+  //   },
+  //   {
+  //     id: "selectedValueTwo",
+  //     value: "전체 장소",
+  //   },
+  //   {
+  //     id: "selectedValueThree",
+  //     value: "최신순",
+  //   },
+  // ]);
+  // const handleSelectedValues = ({
+  //   id,
+  //   newValue,
+  // }: {
+  //   id: string;
+  //   newValue: string;
+  // }) => {
+  //   setSelectedValues((values) => {
+  //     const value = values.find((value) => value.id === id);
+  //     if (value) {
+  //       value.value = newValue;
+  //     }
+  //   });
+  // };
   const languages = useSelectors((state) => state.languages.value)
   const index = (languages === 'ko' || languages === 'en') ? languages : 'ko'
 
@@ -50,7 +49,7 @@ function BoardList() {
       <div className="truncate flex gap-1">
         <FilterDialogs
           selectedValues={selectedValues}
-          handleSelectedValues={handleSelectedValues}
+        // handleSelectedValues={handleSelectedValues}
         />
       </div>
     </div>
