@@ -97,7 +97,7 @@ io.sockets.on('connection', (socket) => {
     //   return;
     // }
     {
-      !conversation
+      conversation === 'piazza'
         ? socket.broadcast.emit('sMessagePiazza', res)
         : socket.broadcast.emit(`sMessage${conversation}`, res)
     }
@@ -188,7 +188,7 @@ io.sockets.on('connection', (socket) => {
       creatorName,
       connectedId,
       connectedName,
-      connectedUrl
+      connectedUrl,
     } = res
     const message = {
       notification: {

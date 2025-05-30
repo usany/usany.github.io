@@ -1,6 +1,8 @@
+import { useAutoAnimate } from '@formkit/auto-animate/react'
 import { User } from 'firebase/auth'
 import { useEffect, useState } from 'react'
 import Cards from './Cards'
+
 const deleteMessage = (id: string) => {
   console.log(id)
   const item = document.getElementById(id)
@@ -23,6 +25,8 @@ const CardsStacksViewsCollection = ({
 }) => {
   const [longPressCard, setLongPressCard] = useState<string | null>(null)
   const [onLongPress, setOnLongPress] = useState(0)
+  const [parent, enableAnimations] = useAutoAnimate(/* optional config */)
+
   useEffect(() => {
     if (!onLongPress) {
       setLongPressCard(null)
@@ -37,6 +41,7 @@ const CardsStacksViewsCollection = ({
     <div
       id="items"
       className="grid grid-cols-[repeat(auto-fit,minmax(180px,1fr))] col-span-full"
+      ref={parent}
     >
       {messages.map((value) => {
         const isOwner = value.creatorId === userObj.uid

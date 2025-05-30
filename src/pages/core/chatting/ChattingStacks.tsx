@@ -110,9 +110,11 @@ const ChattingStacks = ({
       changeChattings(newChattings)
     }
     sorted.map((element) => {
-      webSocket.on(`sMessage${element}`, sMessageCallback)
-      return () => {
-        webSocket.off(`sMessage${element}`, sMessageCallback)
+      if (element !== 'piazza') {
+        webSocket.on(`sMessage${element}`, sMessageCallback)
+        return () => {
+          webSocket.off(`sMessage${element}`, sMessageCallback)
+        }
       }
     })
   })

@@ -6,6 +6,7 @@ import useContextMenu from './useContextMenu'
 import useGetToken from './useGetToken'
 import useSetProfile from './useSetProfile'
 // import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { useAutoAnimate } from '@formkit/auto-animate/react'
 
 interface Props {
   userObj: User
@@ -18,6 +19,7 @@ const titles = {
 
 function Menu({ userObj }: Props) {
   const languages = useSelectors((state) => state.languages.value)
+  const [parent, enableAnimations] = useAutoAnimate(/* optional config */)
   const index = languages === 'ko' || languages === 'en' ? languages : 'ko'
   useSetProfile(userObj)
   useGetToken(userObj)
