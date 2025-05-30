@@ -1,3 +1,4 @@
+import { useAutoAnimate } from '@formkit/auto-animate/react'
 import { User } from 'firebase/auth'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
@@ -21,6 +22,8 @@ const ChattingStacks = ({
   const changeLongPressChatsList = (newValue) => setLongPressChatsList(newValue)
   const [onLongPress, setOnLongPress] = useState(0)
   const changeOnLongPress = (newValue) => setOnLongPress(newValue)
+  const [parent, enableAnimations] = useAutoAnimate(/* optional config */)
+
   useEffect(() => {
     if (!onLongPress) {
       setLongPressChat(null)
@@ -169,7 +172,7 @@ const ChattingStacks = ({
     }
   })
   return (
-    <>
+    <div ref={parent}>
       {sorted.map((element, index) => {
         if (element === 'piazza') {
           const clock = new Date(piazzaMessage?.messageClock)
@@ -237,7 +240,7 @@ const ChattingStacks = ({
           }
         }
       })}
-    </>
+    </div>
   )
 }
 
