@@ -25,7 +25,7 @@ const CardsStacksViewsCollection = ({
 }) => {
   const [longPressCard, setLongPressCard] = useState<string | null>(null)
   const [onLongPress, setOnLongPress] = useState(0)
-  const [parent, enableAnimations] = useAutoAnimate(/* optional config */)
+  const [list] = useAutoAnimate()
 
   useEffect(() => {
     if (!onLongPress) {
@@ -41,7 +41,7 @@ const CardsStacksViewsCollection = ({
     <div
       id="items"
       className="grid grid-cols-[repeat(auto-fit,minmax(180px,1fr))] col-span-full"
-      ref={parent}
+      ref={list}
     >
       {messages.map((value) => {
         const isOwner = value.creatorId === userObj.uid

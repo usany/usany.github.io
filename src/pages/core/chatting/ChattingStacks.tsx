@@ -22,7 +22,7 @@ const ChattingStacks = ({
   const changeLongPressChatsList = (newValue) => setLongPressChatsList(newValue)
   const [onLongPress, setOnLongPress] = useState(0)
   const changeOnLongPress = (newValue) => setOnLongPress(newValue)
-  const [parent, enableAnimations] = useAutoAnimate(/* optional config */)
+  const [list] = useAutoAnimate()
 
   useEffect(() => {
     if (!onLongPress) {
@@ -172,7 +172,7 @@ const ChattingStacks = ({
     }
   })
   return (
-    <div ref={parent}>
+    <div ref={list}>
       {sorted.map((element, index) => {
         if (element === 'piazza') {
           const clock = new Date(piazzaMessage?.messageClock)
