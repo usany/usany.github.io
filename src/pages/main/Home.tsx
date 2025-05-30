@@ -46,11 +46,12 @@ function Home({ userObj }: UserObjProps) {
           )}
           {bottomNavigation === 1 && <Auth />}
           {bottomNavigation === 2 && (
-            <LayoutBoard />
-            // <SwipeableViews>
-            //   <Notice userObj={userObj} borrow={true} />
-            //   <Notice userObj={userObj} borrow={false} />
-            // </SwipeableViews>
+            <SwipeableViews>
+              <LayoutBoard borrow={true} />
+              <LayoutBoard borrow={false} />
+              {/* <Notice userObj={userObj} borrow={true} />
+              <Notice userObj={userObj} borrow={false} /> */}
+            </SwipeableViews>
           )}
         </>
       )}

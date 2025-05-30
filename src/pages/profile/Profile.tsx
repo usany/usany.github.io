@@ -63,6 +63,7 @@ function Profile({ userObj }: Props) {
     borrowDone: [],
     lendDone: [],
   });
+  const [scrolledToCompleted, setScrolledToCompleted] = useState(false)
   // const [weather, setWeather] = useState(null)
   // const [drawerClosed, setDrawerClosed] = useState(false);
   // const [locationConfirmed, setLocationConfirmed] = useState(false)
@@ -216,6 +217,20 @@ function Profile({ userObj }: Props) {
   // console.log(weather)
   // console.log(profileDialog)
   // console.log(state)
+  // console.log(document.scrollingElement?.scrollTop)
+  // if (document.scrollingElement?.scrollTop > 100) {
+  //   setScrolledToCompleted(true)
+  // }
+  const scrollEffect = () => {
+    // console.log(document.scrollingElement.scrollTop)
+    if (document.scrollingElement.scrollTop > 250) {
+      setScrolledToCompleted(true)
+    }
+  }
+  useEffect(() => {
+    window.addEventListener('scroll', scrollEffect)
+    return () => window.removeEventListener('scroll', scrollEffect)
+  }, [])
   return (
     <div>
       <PageTitle
@@ -259,25 +274,14 @@ function Profile({ userObj }: Props) {
         cards={cards}
         changeProfileDialog={changeProfileDialog}
       />
-      <ProfileCompleted user={state?.element || userObj} cards={cards} />
-      {/* {state.element.uid === userObj.uid ?
-        <div className='flex justify-center' onClick={delist}>
-          회원 탈퇴
-        </div>
+      {scrolledToCompleted ?
+        <>
+          <ProfileCompleted user={state?.element || userObj} cards={cards} />
+          <ProfileMembers userObj={userObj} user={state?.element || userObj} />
+        </>
         :
-        <Link to='/contact' state={{user: state.element}}>
-          <div className='flex justify-center'>
-            신고하기
-          </div>
-        </Link>
-      } */}
-      {/* {profileImage ?
-        :
-        <div className='w-screen px-5'>
-          <Skeleton />
-        </div>
-      } */}
-      <ProfileMembers userObj={userObj} user={state?.element || userObj} />
+        <div className='h-[250px]'></div>
+      }
     </div>
   );
 }

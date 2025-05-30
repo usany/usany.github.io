@@ -35,6 +35,7 @@ function Navigation({ user, userObj, sideNavigation, handleSideNavigation,
 }: Props) {
   const [backgroundColor, setBackgroundColor] = useState<string>('#e2e8f0')
   const [points, setPoints] = useState<number>(0)
+  const [delayed, setDelayed] = useState(true)
   const theme = useSelectors((state) => state.theme.value)
   const [userData, setUserData] = useState(null)
   const languages = useSelector((state) => state.languages.value)
@@ -114,6 +115,16 @@ function Navigation({ user, userObj, sideNavigation, handleSideNavigation,
       onClick: () => logOut(),
     },
   ]
+  // const loggedOutProfile = setTimeout(() => {
+  //   return (
+  //     <Avatars
+  //       element={{ defaultProfile: staticImage }}
+  //       piazza={null}
+  //       profile={false}
+  //     />
+  //   )
+  // }, 1000)
+  setTimeout(() => setDelayed(false), 1000)
   return (
     <Drawer direction="left">
       <DrawerTrigger className='px-5'>
@@ -133,11 +144,15 @@ function Navigation({ user, userObj, sideNavigation, handleSideNavigation,
           // piazza={() => null}
           />
           :
-          <Avatars
-            element={{ defaultProfile: staticImage }}
-            piazza={null}
-            profile={false}
-          />
+          <>
+            {!delayed &&
+              <Avatars
+                element={{ defaultProfile: staticImage }}
+                piazza={null}
+                profile={false}
+              />
+            }
+          </>
         }
       </DrawerTrigger>
       <DrawerContent className="border-none bg-light-2 dark:bg-dark-2 right-auto top-0 mt-0 w-[355px] overflow-hidden rounded-[10px]">

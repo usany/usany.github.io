@@ -66,7 +66,7 @@ const Popups = ({ trigger, title, content, close, attachment, onLink }) => {
  */}
       <Drawer>
         <DrawerTrigger className='w-full'>{trigger}</DrawerTrigger>
-        <DrawerContent className="bg-light-2 dark:bg-dark-2 max-h-[50vh]">
+        <DrawerContent className="bg-light-2 dark:bg-dark-2 max-h-[75vh]">
           <ScrollArea className="overflow-y-scroll">
             <DrawersBar />
             <DrawerTitle className="flex justify-center p-5">

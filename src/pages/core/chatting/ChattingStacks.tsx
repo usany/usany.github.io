@@ -1,7 +1,6 @@
 import { User } from 'firebase/auth'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { AnimatedList } from 'src/components/ui/animated-list'
 import Chats from 'src/pages/core/chatting/Chats'
 import { webSocket } from 'src/webSocket.tsx'
 import { usePiazzaMessage } from './usePiazzaMessage'
@@ -173,7 +172,7 @@ const ChattingStacks = ({
         if (element === 'piazza') {
           const clock = new Date(piazzaMessage?.messageClock)
           return (
-            <AnimatedList>
+            <>
               <Chats
                 userObj={userObj}
                 profileUrl={''}
@@ -193,7 +192,7 @@ const ChattingStacks = ({
                 chattings={chattings}
                 changeChattings={changeChattings}
               />
-            </AnimatedList>
+            </>
           )
         } else {
           const clock = new Date(chattings[element].messageClock)
@@ -211,7 +210,7 @@ const ChattingStacks = ({
               profileUrl = chattings[element].userOneProfileUrl
             }
             return (
-              <AnimatedList>
+              <>
                 <Chats
                   userObj={userObj}
                   profileUrl={profileUrl}
@@ -231,7 +230,7 @@ const ChattingStacks = ({
                   chattings={chattings}
                   changeChattings={changeChattings}
                 />
-              </AnimatedList>
+              </>
             )
           }
         }

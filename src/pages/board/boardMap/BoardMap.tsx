@@ -301,6 +301,7 @@ function BoardMap({ mapAccordion, mapAccordionToggle, onMarker, onMarkerTrue, on
                   position={{ lat: 37.5971991, lng: 127.0539612 }}
                 /> */}
                 <InfoWindow
+                  minWidth={250}
                   position={markers.find((element) => element.label.ko === selectedValues[1].value)?.location}
                   onClose={() => {
                     onClickMarker({ ko: "전체 장소" });

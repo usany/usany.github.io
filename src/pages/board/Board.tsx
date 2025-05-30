@@ -197,7 +197,10 @@ function Board({ userObj }: Props) {
           </>
         </div>
         :
-        <LayoutBoard />
+        <SwipeableViews>
+          <LayoutBoard borrow={true} />
+          <LayoutBoard borrow={false} />
+        </SwipeableViews>
       }
     </div >
   );
