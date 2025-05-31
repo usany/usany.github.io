@@ -1,6 +1,6 @@
 import { ClickAwayListener } from '@mui/material'
 import { User } from 'firebase/auth'
-import { useRef, useState } from 'react'
+import { useRef } from 'react'
 import useLongPress from 'src/hooks/useLongPress'
 import Draggable from 'src/pages/main/menu/Draggable'
 import MorphingDialogs from '../morphingDialogs/MorphingDialogs'
@@ -17,6 +17,7 @@ const CardsLongPressed = ({
   num,
   points,
   deleteMessage,
+  delayedFalse
 }) => {
   return (
     <ClickAwayListener
@@ -24,6 +25,7 @@ const CardsLongPressed = ({
         if (longPressCard === message.id) {
           changeLongPressCard(null)
           changeLongPressed(false)
+          setTimeout(() => delayedFalse(), 1000)
         }
       }}
     >
@@ -68,9 +70,11 @@ const Cards = ({
   deleteMessage,
   longPressed,
   changeLongPressed,
+  delayed,
+  delayedFalse
 }: Props) => {
-  const [delayed, setDelayed] = useState(true)
-  const changeDelayed = (newValue) => setDelayed(newValue)
+  // const [delayed, setDelayed] = useState(true)
+  // const changeDelayed = (newValue) => setDelayed(newValue)
   const { round, increaseRound, decreaseRound } = useRound(message)
   const cardsRef = useRef()
   useLongPress(cardsRef, () => {
@@ -93,6 +97,7 @@ const Cards = ({
               num={num}
               points={points}
               deleteMessage={deleteMessage}
+              delayedFalse={delayedFalse}
             />
           ) : (
             <CardsViews

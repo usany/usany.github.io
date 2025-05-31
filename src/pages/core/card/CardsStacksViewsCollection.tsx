@@ -23,6 +23,14 @@ const CardsStacksViewsCollection = ({
 }) => {
   const [longPressCard, setLongPressCard] = useState<string | null>(null)
   const [onLongPress, setOnLongPress] = useState(0)
+  const [delayed, setDelayed] = useState(true)
+  const delayedTrue = () => setDelayed(true)
+  const delayedFalse = () => setDelayed(false)
+  useEffect(() => {
+    if (!delayed) {
+      setTimeout(() => delayedTrue(), 500)
+    }
+  })
   useEffect(() => {
     if (!onLongPress) {
       setLongPressCard(null)
@@ -76,6 +84,8 @@ const CardsStacksViewsCollection = ({
                     deleteMessage={deleteMessage}
                     longPressed={longPressed}
                     changeLongPressed={changeLongPressed}
+                    delayed={delayed}
+                    delayedFalse={delayedFalse}
                   />
                 </div>
               </div>
