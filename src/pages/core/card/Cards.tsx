@@ -76,13 +76,14 @@ const Cards = ({
   const { round, increaseRound, decreaseRound } = useRound(message)
   const cardsRef = useRef()
   useLongPress(cardsRef, () => {
+    changeLongPressCard(message.id)
     if (longPressCard) {
       changeLongPressed(true)
     }
   })
   return (
     <div className="max-w-60 min-w-20 text-sm p-1" ref={cardsRef}>
-      {longPressed ? (
+      {longPressCard ? (
         <>
           {longPressCard === message.id ? (
             <CardsLongPressed

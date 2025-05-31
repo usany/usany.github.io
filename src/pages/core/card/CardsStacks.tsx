@@ -1,5 +1,4 @@
 import { User } from 'firebase/auth'
-import { useEffect, useState } from 'react'
 import CardsStacksViews from './CardsStacksViews'
 import EmptyCard from './EmptyCard'
 import { useBringCards } from './useBringCards'
@@ -8,25 +7,24 @@ interface Props {
   userObj: User
 }
 function CardsStacks({ userObj }: Props) {
-  const [longPressCard, setLongPressCard] = useState<string | null>(null)
-  const [onLongPress, setOnLongPress] = useState(0)
+  // const [longPressCard, setLongPressCard] = useState<string | null>(null)
+  // const [onLongPress, setOnLongPress] = useState(0)
   const {
     messages,
     cardLoaded,
   }: { messages: { round: number; creatorId: string }[]; cardLoaded: boolean } =
     useBringCards(userObj)
-  const changeLongPressCard = (newValue: string | null) =>
-    setLongPressCard(newValue)
-  useEffect(() => {
-    if (!onLongPress) {
-      setLongPressCard(null)
-    }
-  }, [onLongPress])
-  useEffect(() => {
-    if (!longPressCard) {
-      setOnLongPress(0)
-    }
-  }, [longPressCard])
+  // const changeLongPressCard = (newValue: string | null) => setLongPressCard(newValue)
+  // useEffect(() => {
+  //   if (!onLongPress) {
+  //     setLongPressCard(null)
+  //   }
+  // }, [onLongPress])
+  // useEffect(() => {
+  //   if (!longPressCard) {
+  //     setOnLongPress(0)
+  //   }
+  // }, [longPressCard])
 
   return (
     <div>
@@ -40,7 +38,7 @@ function CardsStacks({ userObj }: Props) {
             <CardsStacksViews
               userObj={userObj}
               messages={messages}
-              changeLongPressCard={changeLongPressCard}
+            // changeLongPressCard={changeLongPressCard}
             />
           )}
         </div>

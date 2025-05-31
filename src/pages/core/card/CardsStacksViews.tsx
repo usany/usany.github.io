@@ -29,7 +29,7 @@ const handleDelete = async ({
 const CardsStacksViews = ({
   userObj,
   messages,
-  changeLongPressCard,
+  // changeLongPressCard,
 }: {
   userObj: User
   messages: { round: number; creatorId: string }[]
