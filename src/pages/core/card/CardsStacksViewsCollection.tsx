@@ -28,7 +28,7 @@ const CardsStacksViewsCollection = ({
   const delayedFalse = () => setDelayed(false)
   useEffect(() => {
     if (!delayed) {
-      setTimeout(() => delayedTrue(), 500)
+      setTimeout(() => delayedTrue(), 250)
     }
   })
   useEffect(() => {
