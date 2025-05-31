@@ -13,8 +13,8 @@ const deleteMessage = (id: string) => {
 const CardsStacksViewsCollection = ({
   userObj,
   messages,
-  longPressed,
-  changeLongPressed,
+  // longPressed,
+  // changeLongPressed,
   longPressCard,
   changeLongPressCard
 }: {
@@ -82,8 +82,8 @@ const CardsStacksViewsCollection = ({
                     longPressCard={longPressCard}
                     changeLongPressCard={changeLongPressCard}
                     deleteMessage={deleteMessage}
-                    longPressed={longPressed}
-                    changeLongPressed={changeLongPressed}
+                    // longPressed={longPressed}
+                    // changeLongPressed={changeLongPressed}
                     delayed={delayed}
                     delayedFalse={delayedFalse}
                   />

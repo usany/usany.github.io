@@ -35,8 +35,8 @@ const CardsStacksViews = ({
   messages: { round: number; creatorId: string }[]
   changeLongPressCard: (newValue: string | null) => void
 }) => {
-  const [longPressed, setLongPressed] = useState(false)
-  const changeLongPressed = (newValue: boolean) => setLongPressed(newValue)
+  // const [longPressed, setLongPressed] = useState(false)
+  // const changeLongPressed = (newValue: boolean) => setLongPressed(newValue)
   const [longPressCard, setLongPressCard] = useState('')
   const changeLongPressCard = (newValue) => setLongPressCard(newValue)
   return (
@@ -45,7 +45,7 @@ const CardsStacksViews = ({
         if (element.over) {
           const id = element.active.id.toString()
           handleDelete({ id: id, changeLongPressCard: changeLongPressCard })
-          setLongPressed(false)
+          // setLongPressed(false)
         }
       }}
     >
@@ -53,8 +53,8 @@ const CardsStacksViews = ({
       <CardsStacksViewsCollection
         userObj={userObj}
         messages={messages}
-        longPressed={longPressed}
-        changeLongPressed={changeLongPressed}
+        // longPressed={longPressed}
+        // changeLongPressed={changeLongPressed}
         longPressCard={longPressCard}
         changeLongPressCard={changeLongPressCard}
       />
