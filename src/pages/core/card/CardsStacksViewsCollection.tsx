@@ -53,16 +53,12 @@ const CardsStacksViewsCollection = ({
               >
                 <div
                   onMouseDownCapture={() => {
-                    if (!longPressCard) {
-                      const longPress = value.id
-                      setLongPressCard(longPress)
-                    }
+                    const longPress = value.id
+                    setLongPressCard(longPress)
                   }}
                   onTouchStartCapture={() => {
-                    if (!longPressCard) {
-                      const longPress = value.id
-                      setLongPressCard(longPress)
-                    }
+                    const longPress = value.id
+                    setLongPressCard(longPress)
                   }}
                 >
                   <Cards
