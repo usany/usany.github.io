@@ -89,9 +89,9 @@ const ChatsBoxes = ({
     }
   }
   return (
-    <div className="flex p-3">
+    <div>
       {clockValue[0] !== 'N' &&
-        <>
+        <div className="flex p-3">
           {multiple ? (
             <Avatar>
               <AvatarImage src={staticImage} />
@@ -115,7 +115,7 @@ const ChatsBoxes = ({
               <ChatsBoxesChips userObj={userObj} message={message} />
             </div>
           </div>
-        </>
+        </div>
       }
     </div >
   )
