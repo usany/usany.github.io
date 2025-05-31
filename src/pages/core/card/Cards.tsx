@@ -69,6 +69,7 @@ const Cards = ({
   longPressed,
   changeLongPressed,
 }: Props) => {
+  const [delayed, setDelayed] = useState(true)
   const { round, increaseRound, decreaseRound } = useRound(message)
   const cardsRef = useRef()
   useLongPress(cardsRef, () => {
