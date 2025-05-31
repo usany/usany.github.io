@@ -4,7 +4,9 @@ import { dbservice } from 'src/baseApi/serverbase'
 
 export const useSortedChattings = ({ userObj }) => {
   const [chattings, setChattings] = useState({})
+  const [chattingNone, setChattingNone] = useState(false)
   const changeChattings = (newValue) => setChattings(newValue)
+  const changeChattingNone = (newValue) => setChattingNone(newValue)
   const sorted = Object.keys(chattings).sort((elementOne, elementTwo) => {
     return (
       chattings[elementTwo].messageClockNumber -
@@ -17,6 +19,9 @@ export const useSortedChattings = ({ userObj }) => {
       const docSnap = await getDoc(docRef)
       const newChattings = docSnap.data()?.chattings || {}
       setChattings(newChattings)
+      if (!newChattings) {
+        setChattingNone(true)
+      }
     }
     bringChattings()
   }, [])
@@ -24,5 +29,7 @@ export const useSortedChattings = ({ userObj }) => {
     chattings: chattings,
     changeChattings: changeChattings,
     sorted: sorted,
+    chattingNone: chattingNone,
+    changeChattingNone: changeChattingNone
   }
 }
