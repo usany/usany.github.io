@@ -22,7 +22,7 @@ const CardsStacksViewsCollection = ({
   changeLongPressed: (newValue: boolean) => void
 }) => {
   const [longPressCard, setLongPressCard] = useState<string | null>(null)
-  const [onLongPress, setOnLongPress] = useState(0)
+  // const [onLongPress, setOnLongPress] = useState(0)
   const [delayed, setDelayed] = useState(true)
   const delayedTrue = () => setDelayed(true)
   const delayedFalse = () => setDelayed(false)
@@ -31,16 +31,16 @@ const CardsStacksViewsCollection = ({
       setTimeout(() => delayedTrue(), 250)
     }
   })
-  useEffect(() => {
-    if (!onLongPress) {
-      setLongPressCard(null)
-    }
-  }, [onLongPress])
-  useEffect(() => {
-    if (!longPressCard) {
-      setOnLongPress(0)
-    }
-  }, [longPressCard])
+  // useEffect(() => {
+  //   if (!onLongPress) {
+  //     setLongPressCard(null)
+  //   }
+  // }, [onLongPress])
+  // useEffect(() => {
+  //   if (!longPressCard) {
+  //     setOnLongPress(0)
+  //   }
+  // }, [longPressCard])
   return (
     <div
       id="items"
@@ -75,8 +75,8 @@ const CardsStacksViewsCollection = ({
                     userObj={userObj}
                     num={null}
                     points={null}
-                    onLongPress={onLongPress}
-                    changeOnLongPress={(newValue) => setOnLongPress(newValue)}
+                    // onLongPress={onLongPress}
+                    // changeOnLongPress={(newValue) => setOnLongPress(newValue)}
                     longPressCard={longPressCard}
                     changeLongPressCard={(newValue) =>
                       setLongPressCard(newValue)
