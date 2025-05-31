@@ -11,7 +11,7 @@ const CardsLongPressed = ({
   longPressCard,
   message,
   changeLongPressCard,
-  changeLongPressed,
+  // changeLongPressed,
   isOwner,
   userObj,
   num,
@@ -24,7 +24,7 @@ const CardsLongPressed = ({
       onClickAway={() => {
         if (longPressCard === message.id) {
           changeLongPressCard(null)
-          changeLongPressed(false)
+          // changeLongPressed(false)
           delayedFalse()
         }
       }}
@@ -33,9 +33,9 @@ const CardsLongPressed = ({
         <Draggable id={message.id}>
           <div
             className="longPress touch-none"
-            onClick={() => {
-              changeLongPressed(false)
-            }}
+          // onClick={() => {
+          //   changeLongPressed(false)
+          // }}
           >
             <CardsViews
               message={message}
@@ -77,9 +77,9 @@ const Cards = ({
   const cardsRef = useRef()
   useLongPress(cardsRef, () => {
     changeLongPressCard(message.id)
-    if (longPressCard) {
-      changeLongPressed(true)
-    }
+    // if (longPressCard) {
+    //   changeLongPressed(true)
+    // }
   })
   return (
     <div className="max-w-60 min-w-20 text-sm p-1" ref={cardsRef}>
