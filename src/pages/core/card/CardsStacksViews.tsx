@@ -37,6 +37,8 @@ const CardsStacksViews = ({
 }) => {
   const [longPressed, setLongPressed] = useState(false)
   const changeLongPressed = (newValue: boolean) => setLongPressed(newValue)
+  const [longPressCard, setLongPressCard] = useState('')
+  const changeLongPressCard = (newValue) => setLongPressCard(newValue)
   return (
     <DndContext
       onDragEnd={(element) => {
@@ -47,12 +49,14 @@ const CardsStacksViews = ({
         }
       }}
     >
-      {longPressed && <CardDroppable />}
+      {longPressCard && <CardDroppable />}
       <CardsStacksViewsCollection
         userObj={userObj}
         messages={messages}
         longPressed={longPressed}
         changeLongPressed={changeLongPressed}
+        longPressCard={longPressCard}
+        changeLongPressCard={changeLongPressCard}
       />
     </DndContext>
   )

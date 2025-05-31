@@ -15,6 +15,8 @@ const CardsStacksViewsCollection = ({
   messages,
   longPressed,
   changeLongPressed,
+  longPressCard,
+  changeLongPressCard
 }: {
   userObj: User
   messages: { round: number; creatorId: string }[]
