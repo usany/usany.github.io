@@ -68,8 +68,8 @@ const Cards = ({
   longPressCard,
   changeLongPressCard,
   deleteMessage,
-  longPressed,
-  changeLongPressed,
+  // longPressed,
+  // changeLongPressed,
   delayed,
   delayedFalse
 }: Props) => {
@@ -90,7 +90,7 @@ const Cards = ({
               longPressCard={longPressCard}
               message={message}
               changeLongPressCard={changeLongPressCard}
-              changeLongPressed={changeLongPressed}
+              // changeLongPressed={changeLongPressed}
               isOwner={isOwner}
               userObj={userObj}
               num={num}
