@@ -29,7 +29,7 @@ const CardsLongPressed = ({
         }
       }}
     >
-      <div className="flex scale-75">
+      <div className="flex">
         <Draggable id={message.id}>
           <div
             className="longPress touch-none"
