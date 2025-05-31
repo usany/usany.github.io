@@ -117,7 +117,7 @@ const ChatsBoxes = ({
           </div>
         </div>
       }
-    </div >
+    </div>
   )
 }
 
