@@ -23,7 +23,7 @@ const CardsStacksViewsCollection = ({
   longPressed: boolean
   changeLongPressed: (newValue: boolean) => void
 }) => {
-  const [longPressCard, setLongPressCard] = useState<string | null>(null)
+  // const [longPressCard, setLongPressCard] = useState<string | null>(null)
   // const [onLongPress, setOnLongPress] = useState(0)
   const [delayed, setDelayed] = useState(true)
   const delayedTrue = () => setDelayed(true)
@@ -80,9 +80,7 @@ const CardsStacksViewsCollection = ({
                     // onLongPress={onLongPress}
                     // changeOnLongPress={(newValue) => setOnLongPress(newValue)}
                     longPressCard={longPressCard}
-                    changeLongPressCard={(newValue) =>
-                      setLongPressCard(newValue)
-                    }
+                    changeLongPressCard={changeLongPressCard}
                     deleteMessage={deleteMessage}
                     longPressed={longPressed}
                     changeLongPressed={changeLongPressed}
