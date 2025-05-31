@@ -25,7 +25,7 @@ const CardsLongPressed = ({
         if (longPressCard === message.id) {
           changeLongPressCard(null)
           changeLongPressed(false)
-          setTimeout(() => delayedFalse(), 1000)
+          setTimeout(() => delayedFalse(), 500)
         }
       }}
     >
@@ -113,17 +113,28 @@ const Cards = ({
       ) : (
         <>
           {delayed ?
-            <MorphingDialogs
-              message={message}
-              isOwner={isOwner}
-              userObj={userObj}
-              num={num}
-              points={points}
-              round={round}
-              increaseRound={increaseRound}
-              decreaseRound={decreaseRound}
-              deleteMessage={deleteMessage}
-            />
+            <div
+              onMouseDownCapture={() => {
+                const longPress = message.id
+                changeLongPressCard(longPress)
+              }}
+              onTouchStartCapture={() => {
+                const longPress = message.id
+                changeLongPressCard(longPress)
+              }}
+            >
+              <MorphingDialogs
+                message={message}
+                isOwner={isOwner}
+                userObj={userObj}
+                num={num}
+                points={points}
+                round={round}
+                increaseRound={increaseRound}
+                decreaseRound={decreaseRound}
+                deleteMessage={deleteMessage}
+              />
+            </div>
             :
             <CardsViews
               message={message}

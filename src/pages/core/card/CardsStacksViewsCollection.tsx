@@ -60,14 +60,14 @@ const CardsStacksViewsCollection = ({
                 className="item-list flex justify-center"
               >
                 <div
-                  onMouseDownCapture={() => {
-                    const longPress = value.id
-                    setLongPressCard(longPress)
-                  }}
-                  onTouchStartCapture={() => {
-                    const longPress = value.id
-                    setLongPressCard(longPress)
-                  }}
+                // onMouseDownCapture={() => {
+                //   const longPress = value.id
+                //   setLongPressCard(longPress)
+                // }}
+                // onTouchStartCapture={() => {
+                //   const longPress = value.id
+                //   setLongPressCard(longPress)
+                // }}
                 >
                   <Cards
                     message={value}
