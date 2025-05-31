@@ -78,10 +78,7 @@ const ChattingStacks = ({
       let userTwoDisplayName
       let userOneProfileUrl
       let userTwoProfileUrl
-      let messageCount
-      if (conversation !== 'piazza') {
-        messageCount = chattings[conversation].messageCount + 1
-      }
+      const messageCount = chattings[conversation].messageCount + 1
       if (userUid < conversationUid) {
         userOne = userUid
         userTwo = conversationUid
