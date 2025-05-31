@@ -1,6 +1,6 @@
 import { ClickAwayListener } from '@mui/material'
 import { User } from 'firebase/auth'
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import useLongPress from 'src/hooks/useLongPress'
 import Draggable from 'src/pages/main/menu/Draggable'
 import MorphingDialogs from '../morphingDialogs/MorphingDialogs'
@@ -70,6 +70,7 @@ const Cards = ({
   changeLongPressed,
 }: Props) => {
   const [delayed, setDelayed] = useState(true)
+  const changeDelayed = (newValue) => setDelayed(newValue)
   const { round, increaseRound, decreaseRound } = useRound(message)
   const cardsRef = useRef()
   useLongPress(cardsRef, () => {
@@ -105,17 +106,30 @@ const Cards = ({
           )}
         </>
       ) : (
-        <MorphingDialogs
-          message={message}
-          isOwner={isOwner}
-          userObj={userObj}
-          num={num}
-          points={points}
-          round={round}
-          increaseRound={increaseRound}
-          decreaseRound={decreaseRound}
-          deleteMessage={deleteMessage}
-        />
+        <>
+          {delayed ?
+            <MorphingDialogs
+              message={message}
+              isOwner={isOwner}
+              userObj={userObj}
+              num={num}
+              points={points}
+              round={round}
+              increaseRound={increaseRound}
+              decreaseRound={decreaseRound}
+              deleteMessage={deleteMessage}
+            />
+            :
+            <CardsViews
+              message={message}
+              isOwner={isOwner}
+              userObj={userObj}
+              num={num}
+              points={points}
+              deleteMessage={deleteMessage}
+            />
+          }
+        </>
       )}
     </div>
   )
