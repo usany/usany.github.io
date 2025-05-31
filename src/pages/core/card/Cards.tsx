@@ -113,14 +113,14 @@ const Cards = ({
         <>
           {delayed ?
             <div
-              onMouseDownCapture={() => {
-                const longPress = message.id
-                changeLongPressCard(longPress)
-              }}
-              onTouchStartCapture={() => {
-                const longPress = message.id
-                changeLongPressCard(longPress)
-              }}
+            // onMouseDownCapture={() => {
+            //   const longPress = message.id
+            //   changeLongPressCard(longPress)
+            // }}
+            // onTouchStartCapture={() => {
+            //   const longPress = message.id
+            //   changeLongPressCard(longPress)
+            // }}
             >
               <MorphingDialogs
                 message={message}
