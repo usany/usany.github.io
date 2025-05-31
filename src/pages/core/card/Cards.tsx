@@ -25,7 +25,7 @@ const CardsLongPressed = ({
         if (longPressCard === message.id) {
           changeLongPressCard(null)
           changeLongPressed(false)
-          setTimeout(() => delayedFalse(), 500)
+          delayedFalse()
         }
       }}
     >
