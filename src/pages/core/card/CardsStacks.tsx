@@ -9,11 +9,8 @@ interface Props {
 function CardsStacks({ userObj }: Props) {
   // const [longPressCard, setLongPressCard] = useState<string | null>(null)
   // const [onLongPress, setOnLongPress] = useState(0)
-  const {
-    messages,
-    cardLoaded,
-  }: { messages: { round: number; creatorId: string }[]; cardLoaded: boolean } =
-    useBringCards(userObj)
+  const { messages, cardLoaded, }: { messages: { round: number; creatorId: string }[]; cardLoaded: boolean } = useBringCards(userObj)
+  console.log(messages)
   // const changeLongPressCard = (newValue: string | null) => setLongPressCard(newValue)
   // useEffect(() => {
   //   if (!onLongPress) {
