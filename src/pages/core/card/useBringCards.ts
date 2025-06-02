@@ -1,4 +1,4 @@
-import { collection, getDocs, orderBy, query } from 'firebase/firestore'
+import { collection, doc, getDoc, getDocs, orderBy, query } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 import { dbservice } from 'src/baseApi/serverbase'
 
@@ -13,6 +13,11 @@ export const useBringCards = (userObj) => {
       )
       const documents = await getDocs(collectionQuery)
       const newArray = []
+      const docRef = doc(dbservice, `members/${uid}`)
+      const docSnap = await getDoc(docRef)
+      const userData = docSnap.data()
+      const createdCards = userData?.createdCards || []
+      const connectedCards = userData?.connectedCards || []
       documents.forEach((element) => {
         if (element.data().creatorId === userObj.uid) {
           const newObject = { id: element.id, ...element.data() }

@@ -15,6 +15,8 @@ const setDocUser = async ({ uid, email }) => {
     ranking: 0,
     createdCards: [],
     connectedCards: [],
+    doneCreatedCards: [],
+    doneConnectedCards: []
     // profileColor: "#2196f3",
     // followerNum: 0,
     // followingNum: 0,
