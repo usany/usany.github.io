@@ -97,17 +97,11 @@ function Navigation({ user, userObj, handleSideNavigation }: Props) {
         {user ?
           <Avatars
             element={user}
-            // uid={user.uid}
             piazza={null}
             profile={false}
             profileColor=""
             profileUrl={user.profileImageUrl}
             defaultProfileUrl={user.defaultProfile}
-          // uid={userObj ? userObj.uid : ''}
-          // profile={false}
-          // profileColor={userObj ? profileColor : 'profile-blue'}
-          // profileUrl={userObj ? profileUrl : staticImage}
-          // piazza={() => null}
           />
           :
           <>
