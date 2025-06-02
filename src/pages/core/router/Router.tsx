@@ -21,8 +21,9 @@ const Router = ({ userObj }: Props) => {
     <BrowserRouter>
       <div className="flex flex-col">
         <NavigationTop userObj={userObj} />
-        <div className='h-16'></div>
-        <div>
+        <div
+          className='pt-16 pb-14'
+        >
           <Suspense fallback={<Loadings />}>
             <Routes>
               <Route
@@ -64,7 +65,6 @@ const Router = ({ userObj }: Props) => {
             </Routes>
           </Suspense>
         </div>
-        <div className="h-[56px]">&emsp;</div>
         <Navigations userObj={userObj} />
       </div>
     </BrowserRouter >
