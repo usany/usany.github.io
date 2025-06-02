@@ -27,16 +27,18 @@ export const useBringCards = (userObj) => {
           if (cardData) newArray.push(cardData)
         }))
       console.log(createdArray)
-      connectedCards.map(async (element: string) => {
-        const cardDocRef = doc(dbservice, `num/${element}`)
-        const cardDocSnap = await getDoc(cardDocRef)
-        const cardData = cardDocSnap.data()
-        if (cardData) newArray.push(cardData)
-      })
-      console.log(newArray)
-      newArray.sort((elementOne: DocumentData, elementTwo: DocumentData) => {
-        return (elementTwo.round - elementOne.round)
-      })
+      const connectedArray = await Promise.all(
+        connectedCards.map(async (element: string) => {
+          const cardDocRef = doc(dbservice, `num/${element}`)
+          const cardDocSnap = await getDoc(cardDocRef)
+          const cardData = cardDocSnap.data()
+          if (cardData) newArray.push(cardData)
+        })
+      )
+      // console.log(newArray)
+      // newArray.sort((elementOne: DocumentData, elementTwo: DocumentData) => {
+      //     return (elementTwo.round - elementOne.round)
+      //   })
       // documents.forEach((element) => {
       //   if (element.data().creatorId === userObj.uid) {
       //     const newObject = { id: element.id, ...element.data() }
