@@ -8,7 +8,6 @@ import {
   UserRound,
 } from 'lucide-react'
 import { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import staticImage from "src/assets/blue.png"
 import { auth, dbservice } from 'src/baseApi/serverbase'
 import { Drawer, DrawerClose, DrawerContent, DrawerTrigger } from 'src/components/ui/drawer'
@@ -22,30 +21,19 @@ import NavigationSignedOut from './navigationSignedOut/NavigationSignedOut'
 interface Props {
   user: DocumentData | undefined
   userObj: User | null
-  sideNavigation: boolean
   handleSideNavigation: () => void
 }
 
 const onLogOutClick = () => auth.signOut()
-function Navigation({ user, userObj, sideNavigation, handleSideNavigation,
-  uid, profile, piazza
-}: Props) {
-  const [backgroundColor, setBackgroundColor] = useState<string>('#e2e8f0')
-  const [points, setPoints] = useState<number>(0)
+function Navigation({ user, userObj, handleSideNavigation }: Props) {
+  const [points, setPoints] = useState(0)
   const [delayed, setDelayed] = useState(true)
   const theme = useSelectors((state) => state.theme.value)
-  const [userData, setUserData] = useState(null)
-  const languages = useSelector((state) => state.languages.value)
-  const profileColor = useSelector((state) => state.profileColor.value);
-  const profileUrl = useSelector((state) => state.profileUrl.value);
-  const dispatch = useDispatch()
   useEffect(() => {
     if (userObj) {
       onSnapshot(doc(dbservice, `members/${userObj.uid}`), (snapshot) => {
         const number = snapshot.data()?.points
         setPoints(number)
-        const element = snapshot.data()
-        setUserData(element)
       })
     }
   }, [])
@@ -65,24 +53,10 @@ function Navigation({ user, userObj, sideNavigation, handleSideNavigation,
     // }
   }
 
-  useEffect(() => {
-    if (theme === 'dark') {
-      setBackgroundColor('#2d3848')
-    } else {
-      setBackgroundColor('#e2e8f0')
-    }
-  }, [theme])
-  // const element = {
-  //   uid: userObj?.uid,
-  //   displayName: userObj?.displayName,
-  //   profileColor: profileColor,
-  //   userData: userData,
-  // }
-  const element = user
   const links = [
     {
       href: '/profile',
-      passingState: { element: element },
+      passingState: { element: user },
       icon: <UserRound />,
       description: '내 프로필',
       onClick: () => checkbox(),
@@ -116,15 +90,6 @@ function Navigation({ user, userObj, sideNavigation, handleSideNavigation,
       onClick: () => logOut(),
     },
   ]
-  // const loggedOutProfile = setTimeout(() => {
-  //   return (
-  //     <Avatars
-  //       element={{ defaultProfile: staticImage }}
-  //       piazza={null}
-  //       profile={false}
-  //     />
-  //   )
-  // }, 1000)
   setTimeout(() => setDelayed(false), 1000)
   return (
     <Drawer direction="left">
