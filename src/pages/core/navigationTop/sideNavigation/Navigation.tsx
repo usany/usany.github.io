@@ -178,13 +178,11 @@ function Navigation({ user, userObj, sideNavigation, handleSideNavigation,
               </div>
             </div>
           ) : (
-            <DrawerClose>
-              <NavigationSignedOut
-                userObj={userObj}
-                points={points}
-                checkbox={checkbox}
-              />
-            </DrawerClose>
+            <NavigationSignedOut
+              userObj={userObj}
+              points={points}
+              checkbox={checkbox}
+            />
           )}
           {userObj && <IframePlayer mode={theme} />}
         </nav>
