@@ -1,6 +1,7 @@
 import SendIcon from '@mui/icons-material/Send'
 import Button from '@mui/material/Button'
-import { updateDoc } from 'firebase/firestore'
+import { doc, getDoc, updateDoc } from 'firebase/firestore'
+import { dbservice } from 'src/baseApi/serverbase'
 import { useSelectors } from 'src/hooks/useSelectors'
 import { webSocket } from 'src/webSocket.tsx'
 import specificProcess from './specificProcess'
@@ -21,6 +22,14 @@ const onStopSupporting = async ({ message, uid, displayName }) => {
     connectedId: null,
     connectedName: null,
     connectedUrl: null,
+  })
+  const connectedUserRef = doc(dbservice, `members/${uid}`)
+  const connectedUserSnap = await getDoc(connectedUserRef)
+  const connectedUserData = connectedUserSnap.data()
+  const connectedUserConnectedCards = connectedUserData?.connectedCards
+  const newConnectedUserConnectedCards = connectedUserConnectedCards.filter((element) => element !== message.id)
+  updateDoc(connectedUserRef, {
+    connectedCards: [...newConnectedUserConnectedCards]
   })
   webSocket.emit('stop supporting', passingObject)
 }
