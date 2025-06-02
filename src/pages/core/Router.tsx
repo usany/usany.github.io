@@ -1,12 +1,5 @@
 import { Suspense, lazy } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-// import Home from 'src/pages/Home'
-// import Profile from 'src/pages/profile/Profile'
-// import Ranking from 'src/pages/Ranking'
-// import Contact from 'src/pages/Contact'
-// import Piazza from 'src/pages/Piazza'
-// import Chatting from 'src/pages/Chatting'
-// import Chats from 'src/pages/Chats'
 import { User } from 'firebase/auth'
 import Navigations from 'src/pages/core/Navigations'
 import Loadings from 'src/pages/core/loadings/Loadings'
@@ -64,11 +57,6 @@ const Router = ({ userObj }: Props) => {
             </Routes>
           </Suspense>
         </div>
-        {/* <div className='flex justify-center h-52 p-5'>
-                    this is footer
-                    administration: ahncb@khu.ac.kr
-                    Made in KHU
-                </div> */}
         <div className="h-[56px]">&emsp;</div>
         <Navigations userObj={userObj} />
       </div>
