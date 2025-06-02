@@ -28,7 +28,7 @@ const onSupporting = async ({ message, uid, displayName, profileUrl }) => {
   const connectedUserRef = doc(dbservice, `members/${uid}`)
   const connectedUserSnap = await getDoc(connectedUserRef)
   const connectedUserData = connectedUserSnap.data()
-  const connectedUserConnectedCards = connectedUserData?.connectedCards
+  const connectedUserConnectedCards = connectedUserData?.connectedCards || []
   updateDoc(connectedUserRef, {
     connectedCards: [...connectedUserConnectedCards, message.id]
   })
