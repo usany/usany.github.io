@@ -33,6 +33,8 @@ const NavigationTop = ({ userObj }: Props) => {
   const profileColor = useSelector((state) => state.profileColor.value);
   const profileUrl = useSelector((state) => state.profileUrl.value);
   const [sideNavigation, setSideNavigation] = useState(false);
+  const [renderDelayed, setRenderDelayed] = useState(false)
+  setTimeout(() => setRenderDelayed(true), 250)
   // const [user, setUser] = useState<DocumentData | undefined>(undefined)
   const profile = useSelectors(state => state.profile.value)
   const handleSideNavigation = () => {
@@ -77,60 +79,61 @@ const NavigationTop = ({ userObj }: Props) => {
     setProfile();
   }, [userObj]);
   useScroll()
-  console.log(scrollNavigation)
   return (
     <div className="shadow-md fixed z-50 bg-light-2 dark:bg-dark-2 rounded truncate">
-      <div className="flex justify-between w-screen items-center">
-        <Navigation
-          user={profile}
-          userObj={userObj}
-          handleSideNavigation={handleSideNavigation}
-          sideNavigation={sideNavigation}
-          uid={userObj ? userObj.uid : ''}
-          profile={false}
-          profileColor={userObj ? profileColor : 'profile-blue'}
-          profileUrl={userObj ? profileUrl : staticImage}
-          piazza={() => null}
-        />
-        {/* <div
-          className="px-5 pt-1 cursor-pointer"
-          onClick={() => {
-            handleSideNavigation();
-          }}
-        >
-          <Avatars
+      {renderDelayed &&
+        <div className="flex justify-between w-screen items-center">
+          <Navigation
+            user={profile}
+            userObj={userObj}
+            handleSideNavigation={handleSideNavigation}
+            sideNavigation={sideNavigation}
             uid={userObj ? userObj.uid : ''}
             profile={false}
             profileColor={userObj ? profileColor : 'profile-blue'}
             profileUrl={userObj ? profileUrl : staticImage}
             piazza={() => null}
           />
-        </div> */}
-        <div className={`flex ${!largeMedia && 'flex-col'} items-center`}>
-          {largeMedia && scrollNavigation &&
-            <NavigationScroll />
-          }
-          <div>
-            {bottomNavigation % 2 === 0 && <ToggleTabs />}
-            {bottomNavigation === 1 && (
-              <>
-                {userObj ?
-                  <div className='flex gap-5'>
-                    <NavigationTopCards />
-                    <NavigationTopMessages />
-                  </div>
-                  :
-                  <NavigationTopLogOut />
-                }
-              </>
-            )}
+          {/* <div
+            className="px-5 pt-1 cursor-pointer"
+            onClick={() => {
+              handleSideNavigation();
+            }}
+          >
+            <Avatars
+              uid={userObj ? userObj.uid : ''}
+              profile={false}
+              profileColor={userObj ? profileColor : 'profile-blue'}
+              profileUrl={userObj ? profileUrl : staticImage}
+              piazza={() => null}
+            />
+          </div> */}
+          <div className={`flex ${!largeMedia && 'flex-col'} items-center`}>
+            {largeMedia && scrollNavigation &&
+              <NavigationScroll />
+            }
+            <div>
+              {bottomNavigation % 2 === 0 && <ToggleTabs />}
+              {bottomNavigation === 1 && (
+                <>
+                  {userObj ?
+                    <div className='flex gap-5'>
+                      <NavigationTopCards />
+                      <NavigationTopMessages />
+                    </div>
+                    :
+                    <NavigationTopLogOut />
+                  }
+                </>
+              )}
+            </div>
+            {!largeMedia && scrollNavigation &&
+              <NavigationScroll />
+            }
           </div>
-          {!largeMedia && scrollNavigation &&
-            <NavigationScroll />
-          }
+          <WeatherView />
         </div>
-        <WeatherView />
-      </div>
+      }
     </div>
   );
 };

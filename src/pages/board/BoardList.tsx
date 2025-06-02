@@ -26,20 +26,6 @@ function BoardList({ selectedValues }) {
   //     value: "최신순",
   //   },
   // ]);
-  // const handleSelectedValues = ({
-  //   id,
-  //   newValue,
-  // }: {
-  //   id: string;
-  //   newValue: string;
-  // }) => {
-  //   setSelectedValues((values) => {
-  //     const value = values.find((value) => value.id === id);
-  //     if (value) {
-  //       value.value = newValue;
-  //     }
-  //   });
-  // };
   const languages = useSelectors((state) => state.languages.value)
   const index = (languages === 'ko' || languages === 'en') ? languages : 'ko'
 
@@ -49,7 +35,6 @@ function BoardList({ selectedValues }) {
       <div className="truncate flex gap-1">
         <FilterDialogs
           selectedValues={selectedValues}
-        // handleSelectedValues={handleSelectedValues}
         />
       </div>
     </div>
