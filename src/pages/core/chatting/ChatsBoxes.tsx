@@ -88,7 +88,7 @@ const ChatsBoxes = ({
       defaultProfile: messageDefaultProfile,
     }
   }
-  console.log(message)
+  // console.log(message)
   return (
     <div>
       {clockValue[0] !== 'N' &&
