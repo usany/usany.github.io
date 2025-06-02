@@ -37,15 +37,15 @@ const Router = ({ userObj }: Props) => {
               <Route>
                 <Route
                   path="/"
-                  Component={() => <Home userObj={userObj} />}
+                  element={<Home userObj={userObj} />}
                 />
                 <Route
                   path="/add"
-                  Component={() => <Adds userObj={userObj} />}
+                  element={<Adds userObj={userObj} />}
                 />
                 <Route
                   path="/board"
-                  Component={() => <Board userObj={userObj} />}
+                  element={<Board userObj={userObj} />}
                 />
                 <Route
                   path="/profile"
@@ -57,15 +57,15 @@ const Router = ({ userObj }: Props) => {
                   /> */}
                 <Route
                   path="/ranking"
-                  Component={() => <Ranking userObj={userObj} />}
+                  element={<Ranking userObj={userObj} />}
                 />
                 <Route
                   path="/contact"
-                  Component={() => <Contact userObj={userObj} />}
+                  element={<Contact userObj={userObj} />}
                 />
                 <Route
                   path="/piazza"
-                  Component={() => <Piazza userObj={userObj} />}
+                  element={<Piazza userObj={userObj} />}
                 />
                 <Route
                   path="/specific"
