@@ -13,9 +13,6 @@ import staticImage from "src/assets/blue.png"
 import { auth, dbservice } from 'src/baseApi/serverbase'
 import { Drawer, DrawerClose, DrawerContent, DrawerTrigger } from 'src/components/ui/drawer'
 import { useSelectors } from 'src/hooks/useSelectors'
-import { changeProfileColor } from 'src/stateSlices/profileColorSlice'
-import { changeProfileImage } from 'src/stateSlices/profileImageSlice'
-import { changeProfileUrl } from 'src/stateSlices/profileUrlSlice'
 import Avatars from '../../Avatars'
 import IframePlayer from './iframePlayer/IframePlayer'
 import Links from './links/Links'
@@ -58,14 +55,14 @@ function Navigation({ user, userObj, sideNavigation, handleSideNavigation,
 
   const logOut = () => {
     onLogOutClick()
-    if (!user) {
-      setTimeout(() => {
-        dispatch(changeProfileUrl(''))
-        dispatch(changeProfileImage(''))
-        dispatch(changeProfileColor(''))
-        checkbox()
-      }, 250)
-    }
+    // if (!user) {
+    //   setTimeout(() => {
+    //     dispatch(changeProfileUrl(''))
+    //     dispatch(changeProfileImage(''))
+    //     dispatch(changeProfileColor(''))
+    //     checkbox()
+    //   }, 250)
+    // }
   }
 
   useEffect(() => {
