@@ -37,7 +37,7 @@ const Router = ({ userObj }: Props) => {
                 path="/board"
                 element={<Board userObj={userObj} />}
               />
-              {userObj ?
+              {userObj &&
                 <>
                   <Route
                     path="/profile"
@@ -56,12 +56,11 @@ const Router = ({ userObj }: Props) => {
                     element={<Piazza userObj={userObj} />}
                   />
                 </>
-                :
-                <Route
-                  path='*'
-                  element={<Navigate to='/' replace />}
-                />
               }
+              <Route
+                path='*'
+                element={<Navigate to='/' replace />}
+              />
             </Routes>
           </Suspense>
         </div>
