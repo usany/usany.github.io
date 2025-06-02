@@ -44,6 +44,8 @@ const Avatars = ({
           className='w-48 h-48'
         >
           <AvatarImage src={profileImage ? element.profileImageUrl : defaultProfile} />
+          <AvatarFallback className='border border-none bg-light-1 dark:bg-dark-1'>
+          </AvatarFallback>
           {/* {!profileImage &&
             <AvatarFallback className="text-8xl border-none">
               <img className='h-full' src={defaultProfile} />
@@ -55,7 +57,7 @@ const Avatars = ({
           onClick={piazza}
         >
           <AvatarImage src={profileImage ? element.profileImageUrl : defaultProfile} />
-          <AvatarFallback className='border border-dashed bg-light-1 dark:bg-dark-1'>
+          <AvatarFallback className='border border-none bg-light-1 dark:bg-dark-1'>
           </AvatarFallback>
           {/* <img className='h-full' src={defaultProfile} /> */}
           {/* {!profileImage &&
