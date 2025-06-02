@@ -3,7 +3,6 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 // import Home from 'src/pages/Home'
 // import Profile from 'src/pages/profile/Profile'
 // import Ranking from 'src/pages/Ranking'
-// import Specific from 'src/pages/Specific'
 // import Contact from 'src/pages/Contact'
 // import Piazza from 'src/pages/Piazza'
 // import Chatting from 'src/pages/Chatting'
@@ -61,10 +60,6 @@ const Router = ({ userObj }: Props) => {
               <Route
                 path="/piazza"
                 element={<Piazza userObj={userObj} />}
-              />
-              <Route
-                path="/specific"
-                Component={() => <Piazza userObj={userObj} />}
               />
             </Routes>
           </Suspense>
