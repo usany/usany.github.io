@@ -129,22 +129,27 @@ const ChattingStacks = ({
         conversation,
         conversationUid,
         conversationName,
+        profileUrl
       } = message
       let userOne
       let userTwo
       let userOneDisplayName
       let userTwoDisplayName
+      let userOneProfileUrl
+      let userTwoProfileUrl
       const messageCount = chattings[conversation]?.messageCount || 1
       if (userUid < conversationUid) {
         userOne = userUid
         userTwo = conversationUid
         userOneDisplayName = id
         userTwoDisplayName = conversationName
+        userOneProfileUrl = profileUrl
       } else {
         userOne = conversationUid
         userTwo = userUid
         userOneDisplayName = conversationName
         userTwoDisplayName = id
+        userTwoProfileUrl = profileUrl
       }
       const replaceObj = {
         userUid: userUid,
@@ -156,6 +161,8 @@ const ChattingStacks = ({
         message: msg,
         messageClock: messageClock,
         messageClockNumber: messageClockNumber,
+        userOneProfileUrl: userOneProfileUrl,
+        userTwoProfileUrl: userTwoProfileUrl,
         messageCount: messageCount,
       }
       const newChattings = { ...chattings, [conversation]: replaceObj }
