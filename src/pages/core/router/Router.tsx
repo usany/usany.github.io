@@ -2,11 +2,10 @@ import { User } from 'firebase/auth'
 import { Suspense, lazy } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Navigations from 'src/pages/core/Navigations'
-import Loadings from 'src/pages/core/loadings/Loadings'
 import NavigationTop from 'src/pages/core/navigationTop/NavigationTop'
 import Adds from '../../add/Adds'
 import Board from '../../board/Board'
-
+import Loadings from './loadings/Loadings'
 interface Props {
   userObj: User | null
 }

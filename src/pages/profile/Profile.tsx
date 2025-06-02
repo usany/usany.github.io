@@ -38,7 +38,7 @@ const area = [
   }
 ]
 interface Props {
-  userObj: User;
+  userObj: User | null;
 }
 function Profile({ userObj }: Props) {
   const params = useParams()
