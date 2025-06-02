@@ -8,6 +8,7 @@ import { initializeApp } from "firebase/app";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 import { doc, setDoc } from 'firebase/firestore';
+import setDocUser from "src/pages/core/setDocUser";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -160,6 +161,7 @@ const onSocialClickGoogle = () => {
     // })
 
     const uid = result.user.uid
+    const email = result.user.email
     console.log(result)
     console.log(result.user)
     // const credential = OAuthProvider.credentialFromResult(result);
@@ -184,24 +186,25 @@ const onSocialClickGoogle = () => {
           // ...
         });
       }
-      await setDoc(doc(dbservice, 'members', `${uid}`), {
-        uid: result.user.uid,
-        displayName: result.user.email,
-        points: 0,
-        profileImage: null,
-        profileImageUrl: null,
-        followers: [],
-        followings: [],
-        messagingToken: null,
-        ranking: docsLength,
-        createdCards: [],
-        connectedCards: [],
-        profileColor: "#2196f3",
-        followerNum: 0,
-        followingNum: 0,
-        locationConfirmed: false,
-        defaultProfile: ''
-      })
+      // await setDoc(doc(dbservice, 'members', `${uid}`), {
+      //   uid: result.user.uid,
+      //   displayName: result.user.email,
+      //   points: 0,
+      //   profileImage: null,
+      //   profileImageUrl: null,
+      //   followers: [],
+      //   followings: [],
+      //   messagingToken: null,
+      //   ranking: docsLength,
+      //   createdCards: [],
+      //   connectedCards: [],
+      //   profileColor: "#2196f3",
+      //   followerNum: 0,
+      //   followingNum: 0,
+      //   locationConfirmed: false,
+      //   defaultProfile: ''
+      // })
+      setDocUser({ uid: uid, email: email })
       await updateProfile(result.user, {
         displayName: result.user.email,
       }).catch((error) => {
@@ -250,6 +253,7 @@ const onSocialClickMicrosoft = () => {
   const providerMicrosoft = new OAuthProvider('microsoft.com');
   signInWithPopup(auth, providerMicrosoft).then(async (result) => {
     const uid = result.user.uid
+    const email = result.user.email
     console.log(result.user)
     // const credential = OAuthProvider.credentialFromResult(result);
     // const accessToken = credential.accessToken;
@@ -261,24 +265,25 @@ const onSocialClickMicrosoft = () => {
     const docs = await getDocs(docsRef);
     const docsLength = docs.docs.length;
     if (!userData) {
-      await setDoc(doc(dbservice, 'members', `${uid}`), {
-        uid: result.user.uid,
-        displayName: result.user.email,
-        points: 0,
-        profileImage: null,
-        profileImageUrl: null,
-        followers: [],
-        followings: [],
-        messagingToken: null,
-        ranking: docsLength,
-        createdCards: [],
-        connectedCards: [],
-        profileColor: "#2196f3",
-        followerNum: 0,
-        followingNum: 0,
-        locationConfirmed: false,
-        defaultProfile: ''
-      })
+      // await setDoc(doc(dbservice, 'members', `${uid}`), {
+      //   uid: result.user.uid,
+      //   displayName: result.user.email,
+      //   points: 0,
+      //   profileImage: null,
+      //   profileImageUrl: null,
+      //   followers: [],
+      //   followings: [],
+      //   messagingToken: null,
+      //   ranking: docsLength,
+      //   createdCards: [],
+      //   connectedCards: [],
+      //   profileColor: "#2196f3",
+      //   followerNum: 0,
+      //   followingNum: 0,
+      //   locationConfirmed: false,
+      //   defaultProfile: ''
+      // })
+      setDocUser({ uid: uid, email: email })
       await updateProfile(result.user, {
         displayName: result.user.email,
       }).catch((error) => {
