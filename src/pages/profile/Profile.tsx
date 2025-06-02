@@ -15,8 +15,7 @@ import ProfileMembers from "src/pages/profile/ProfileMembers";
 import { User } from "firebase/auth";
 import { useDispatch } from "react-redux";
 import {
-  useLocation,
-  useParams
+  useLocation
 } from "react-router-dom";
 import { changeBottomNavigation } from "src/stateSlices/bottomNavigationSlice";
 import { useImmer } from "use-immer";
@@ -38,11 +37,11 @@ const area = [
   }
 ]
 interface Props {
-  userObj: User | null;
+  userObj: User;
 }
 function Profile({ userObj }: Props) {
-  const params = useParams()
-  console.log(params)
+  const pathname = location.pathname
+  console.log(pathname)
   const languages = useSelectors((state) => state.languages.value)
   const [attachment, setAttachment] = useState("");
   const { state } = useLocation();

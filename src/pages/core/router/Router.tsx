@@ -22,7 +22,7 @@ const Router = ({ userObj }: Props) => {
       <div className="flex flex-col">
         <NavigationTop userObj={userObj} />
         <div className='h-16'></div>
-        <div className="">
+        <div>
           <Suspense fallback={<Loadings />}>
             <Routes>
               <Route
