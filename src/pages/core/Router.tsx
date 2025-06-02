@@ -34,61 +34,38 @@ const Router = ({ userObj }: Props) => {
         <div className="">
           <Suspense fallback={<Loadings />}>
             <Routes>
-              <Route>
-                <Route
-                  path="/"
-                  element={<Home userObj={userObj} />}
-                />
-                <Route
-                  path="/add"
-                  element={<Adds userObj={userObj} />}
-                />
-                <Route
-                  path="/board"
-                  element={<Board userObj={userObj} />}
-                />
-                <Route
-                  path="/profile"
-                  element={<Profile userObj={userObj} />}
-                />
-                {/* <Route
-                    path="/profile/:id"
-                    element={<Profile userObj={userObj} />}
-                  /> */}
-                <Route
-                  path="/ranking"
-                  element={<Ranking userObj={userObj} />}
-                />
-                <Route
-                  path="/contact"
-                  element={<Contact userObj={userObj} />}
-                />
-                <Route
-                  path="/piazza"
-                  element={<Piazza userObj={userObj} />}
-                />
-                <Route
-                  path="/specific"
-                  Component={() => <Piazza userObj={userObj} />}
-                />
-              </Route>
-              {/* {userObj ? (
-              ): (
-                  <Route>
-                  <Route
-                    path = "/"
-                    Component = { () => <Home userObj = { userObj } />}
-                  />
+              <Route
+                path="/"
+                element={<Home userObj={userObj} />}
+              />
               <Route
                 path="/add"
-                Component={() => <Home userObj={userObj} />}
+                element={<Adds userObj={userObj} />}
               />
               <Route
                 path="/board"
-                Component={() => <Home userObj={userObj} />}
+                element={<Board userObj={userObj} />}
               />
-            </Route>
-              )} */}
+              <Route
+                path="/profile"
+                element={<Profile userObj={userObj} />}
+              />
+              <Route
+                path="/ranking"
+                element={<Ranking userObj={userObj} />}
+              />
+              <Route
+                path="/contact"
+                element={<Contact userObj={userObj} />}
+              />
+              <Route
+                path="/piazza"
+                element={<Piazza userObj={userObj} />}
+              />
+              <Route
+                path="/specific"
+                Component={() => <Piazza userObj={userObj} />}
+              />
             </Routes>
           </Suspense>
         </div>
