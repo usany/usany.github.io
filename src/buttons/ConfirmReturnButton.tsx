@@ -6,6 +6,20 @@ import { useSelectors } from 'src/hooks/useSelectors'
 import { webSocket } from 'src/webSocket.tsx'
 import specificProcess from './specificProcess'
 
+export interface UserData {
+  createdCards: string[]
+  connectedCards: string[]
+  borrowDoneCount: string[]
+  lendDoneCount: string[]
+  points: number
+}
+interface Props {
+  num: number
+  points: number
+  uid: string
+  displayName: string
+  increaseRound: () => void
+}
 const onConfirmReturn = async ({ num, points, message, uid, displayName }) => {
   const { data, messagingToken } = await specificProcess({ message: message })
   updateDoc(data, { round: 5 })
@@ -13,11 +27,18 @@ const onConfirmReturn = async ({ num, points, message, uid, displayName }) => {
   const connectedPoint = doc(dbservice, `members/${message.connectedId}`)
   const creatorSnap = await getDoc(point)
   const connectedSnap = await getDoc(connectedPoint)
+  const creatorData = creatorSnap.data() as UserData
+  const connectedData = connectedSnap.data() as UserData
   const creatorDone = creatorSnap.data()?.done || []
   const connectedDone = connectedSnap.data()?.done || []
+  const createdCards = creatorData?.createdCards
+  const connectedCards = connectedData?.connectedCards
+  const newCreatedCards = createdCards.filter((element) => element !== message.id)
+  const newConnectedCards = connectedCards.filter((element) => element !== message.id)
+
   if (message.text.choose === 1) {
-    const creatorBorrowDone = creatorSnap.data()?.borrowDoneCount || []
-    const connectedLendDone = connectedSnap.data()?.lendDoneCount || []
+    const creatorBorrowDone = creatorData?.borrowDoneCount || []
+    const connectedLendDone = connectedData?.lendDoneCount || []
     updateDoc(point, { points: num - message.point })
     updateDoc(connectedPoint, { points: points + message.point })
     updateDoc(point, { borrowDoneCount: [...creatorBorrowDone, message.id] })
@@ -34,6 +55,10 @@ const onConfirmReturn = async ({ num, points, message, uid, displayName }) => {
       borrowDoneCount: [...connectedBorrowDone, message.id],
     })
   }
+  updateDoc(point, { createdCards: [...newCreatedCards] })
+  updateDoc(connectedPoint, {
+    connectedCards: [...newConnectedCards],
+  })
   const passingObject = {
     id: message.id,
     choose: message.text.choose,
@@ -52,7 +77,7 @@ const onConfirmReturn = async ({ num, points, message, uid, displayName }) => {
 
   webSocket.emit('confirmReturn', passingObject)
 }
-const ConfirmReturnButton = ({ num, points, message, uid, displayName, increaseRound }) => {
+const ConfirmReturnButton = ({ num, points, message, uid, displayName, increaseRound }: Props) => {
   const languages = useSelectors((state) => state.languages.value)
   return (
     <Button

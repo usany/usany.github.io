@@ -1,56 +1,11 @@
-import { ClickAwayListener } from '@mui/material'
 import { User } from 'firebase/auth'
 import { useRef } from 'react'
 import useLongPress from 'src/hooks/useLongPress'
-import Draggable from 'src/pages/main/menu/Draggable'
 import MorphingDialogs from '../morphingDialogs/MorphingDialogs'
+import CardsLongPressed from './CardsLongPressed'
 import CardsViews from './CardsViews'
 import { useRound } from './useRound'
 
-const CardsLongPressed = ({
-  longPressCard,
-  message,
-  changeLongPressCard,
-  // changeLongPressed,
-  isOwner,
-  userObj,
-  num,
-  points,
-  deleteMessage,
-  delayedFalse
-}) => {
-  return (
-    <ClickAwayListener
-      onClickAway={() => {
-        if (longPressCard === message.id) {
-          changeLongPressCard(null)
-          // changeLongPressed(false)
-          delayedFalse()
-        }
-      }}
-    >
-      <div className="flex">
-        <Draggable id={message.id}>
-          <div
-            className="longPress touch-none"
-          // onClick={() => {
-          //   changeLongPressed(false)
-          // }}
-          >
-            <CardsViews
-              message={message}
-              isOwner={isOwner}
-              userObj={userObj}
-              num={num}
-              points={points}
-              deleteMessage={deleteMessage}
-            />
-          </div>
-        </Draggable>
-      </div>
-    </ClickAwayListener>
-  )
-}
 interface Props {
   message: { id: string; text: object }
   isOwner: boolean
@@ -68,8 +23,6 @@ const Cards = ({
   longPressCard,
   changeLongPressCard,
   deleteMessage,
-  // longPressed,
-  // changeLongPressed,
   delayed,
   delayedFalse
 }: Props) => {
@@ -111,7 +64,7 @@ const Cards = ({
         </>
       ) : (
         <>
-          {delayed ?
+          {delayed || location.pathname === '/board' ?
             <div
             // onMouseDownCapture={() => {
             //   const longPress = message.id

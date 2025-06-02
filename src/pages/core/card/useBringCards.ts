@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { dbservice } from 'src/baseApi/serverbase'
 
 export const useBringCards = (userObj) => {
-  const [messages, setMessages] = useState([])
+  const [messages, setMessages] = useState<DocumentData[]>([])
   const [cardLoaded, setCardLoaded] = useState(false)
   useEffect(() => {
     const bringCards = async () => {
@@ -12,30 +12,31 @@ export const useBringCards = (userObj) => {
       //   orderBy('creatorClock', 'desc'),
       // )
       // const documents = await getDocs(collectionQuery)
-
       const newArray: DocumentData[] = []
       const docRef = doc(dbservice, `members/${userObj.uid}`)
       const docSnap = await getDoc(docRef)
       const userData = docSnap.data()
       const createdCards = userData?.createdCards || []
       const connectedCards = userData?.connectedCards || []
+      console.log(createdCards)
       const createdArray = await Promise.all(
         createdCards.map(async (element: string) => {
           const cardDocRef = doc(dbservice, `num/${element}`)
           const cardDocSnap = await getDoc(cardDocRef)
           const cardData = cardDocSnap.data()
-          if (cardData) newArray.push(cardData)
+          const newObject = { id: cardDocSnap.id, ...cardData }
+          if (cardData) newArray.push(newObject)
         }))
-      console.log(createdArray)
       const connectedArray = await Promise.all(
         connectedCards.map(async (element: string) => {
           const cardDocRef = doc(dbservice, `num/${element}`)
           const cardDocSnap = await getDoc(cardDocRef)
           const cardData = cardDocSnap.data()
-          if (cardData) newArray.push(cardData)
+          const newObject = { id: cardDocSnap.id, ...cardData }
+          if (cardData) newArray.push(newObject)
         })
       )
-      // console.log(newArray)
+      console.log(newArray)
       // newArray.sort((elementOne: DocumentData, elementTwo: DocumentData) => {
       //     return (elementTwo.round - elementOne.round)
       //   })

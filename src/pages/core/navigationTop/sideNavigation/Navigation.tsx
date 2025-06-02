@@ -58,12 +58,14 @@ function Navigation({ user, userObj, sideNavigation, handleSideNavigation,
 
   const logOut = () => {
     onLogOutClick()
-    setTimeout(() => {
-      dispatch(changeProfileUrl(''))
-      dispatch(changeProfileImage(''))
-      dispatch(changeProfileColor(''))
-      checkbox()
-    }, 250)
+    if (!user) {
+      setTimeout(() => {
+        dispatch(changeProfileUrl(''))
+        dispatch(changeProfileImage(''))
+        dispatch(changeProfileColor(''))
+        checkbox()
+      }, 250)
+    }
   }
 
   useEffect(() => {
