@@ -148,49 +148,6 @@ function Navigation({ user, userObj, handleSideNavigation }: Props) {
         </nav>
       </DrawerContent>
     </Drawer>
-    //     <Drawer
-    //       PaperProps = {{
-    //     sx: {
-    //       backgroundColor: { backgroundColor },
-    //       opacity: 0.9,
-    //         },
-    //   }
-    // }
-    // anchor = { 'left'}
-    // open = { sideNavigation }
-    // onClose = { handleSideNavigation }
-    //   >
-    //   <nav className="flex flex-col justify-between w-[350px]">
-    //     {userObj ? (
-    //       <div>
-    //         <NavigationSignedIn userObj={userObj} points={points} />
-    //         <div className="flex flex-col justify-between pt-5 gap-5">
-    //           {links.map((value, index) => {
-    //             return (
-    //               <Links
-    //                 key={index}
-    //                 href={value.href}
-    //                 passingState={value.passingState}
-    //                 onClick={value.onClick}
-    //                 icon={value.icon}
-    //                 description={value.description}
-    //               />
-    //             )
-    //           })}
-    //         </div>
-    //       </div>
-    //     ) : (
-    //       <div>
-    //         <NavigationSignedOut
-    //           userObj={userObj}
-    //           points={points}
-    //           checkbox={checkbox}
-    //         />
-    //       </div>
-    //     )}
-    //     {userObj && <IframePlayer mode={theme} />}
-    //   </nav>
-    //     </Drawer>
   )
 }
 
