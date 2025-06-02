@@ -58,10 +58,12 @@ function Navigation({ user, userObj, sideNavigation, handleSideNavigation,
 
   const logOut = () => {
     onLogOutClick()
-    dispatch(changeProfileUrl(''))
-    dispatch(changeProfileImage(''))
-    dispatch(changeProfileColor(''))
-    checkbox()
+    setTimeout(() => {
+      dispatch(changeProfileUrl(''))
+      dispatch(changeProfileImage(''))
+      dispatch(changeProfileColor(''))
+      checkbox()
+    }, 250)
   }
 
   useEffect(() => {
@@ -178,13 +180,11 @@ function Navigation({ user, userObj, sideNavigation, handleSideNavigation,
               </div>
             </div>
           ) : (
-            <DrawerClose>
-              <NavigationSignedOut
-                userObj={userObj}
-                points={points}
-                checkbox={checkbox}
-              />
-            </DrawerClose>
+            <NavigationSignedOut
+              userObj={userObj}
+              points={points}
+              checkbox={checkbox}
+            />
           )}
           {userObj && <IframePlayer mode={theme} />}
         </nav>

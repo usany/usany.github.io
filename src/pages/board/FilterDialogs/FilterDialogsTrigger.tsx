@@ -95,13 +95,13 @@ function FilterDialogsTrigger({ selectedValues, handleSelectedValues }) {
         }
         return (
           <Chip
-            sx={{
-              bgcolor: colorOne,
-              ":hover": {
-                bgcolor: colorOne
-              }
-            }
-            }
+            // sx={{
+            //   bgcolor: colorOne,
+            //   ":hover": {
+            //     bgcolor: colorOne
+            //   }
+            // }
+            // }
             key={index}
             label={label}
           // onClick={() => {

@@ -123,33 +123,6 @@ function Board({ userObj }: Props) {
             <PenBox />
             <PenTool />
             <PenSquare /> */}
-          {/* <div>
-        <div className="sticky top-20 p-5 bg-white">카드 목록</div>
-        <div>
-          <div>목록 카드 목록</div>
-          <div>목록 카드 목록</div>
-          <div>목록 카드 목록</div>
-          <div>목록 카드 목록</div>
-          <div>목록 카드 목록</div>
-          <div>목록 카드 목록</div>
-        </div>
-      </div>
-      <div>
-        <div className="sticky top-20 p-5 bg-white">목록 카드 목록 목록</div>
-        <div>
-          <div>목록 카드 목록</div>
-          <div>목록 카드 목록</div>
-          <div>목록 카드 목록</div>
-          <div>목록 카드 목록</div>
-          <div>목록 카드 목록</div>
-          <div>목록 카드 목록</div>
-        </div>
-      </div> */}
-          {/* <div className="flex justify-between text-2xl">
-        <PageTitle title={`${borrow ? "빌리기" : "빌려주기"} 카드 목록`} />
-      </div> */}
-          {/* <div className="sticky top-20 p-5">카드 목록</div>
-      <div className="sticky top-20 p-5">카드 목록 목록</div> */}
           <SwipeableViews>
             <PageTitle title={`${languages === 'ko' ? '빌리기 카드 목록' : 'Borrowing Card Board'}`} />
             <PageTitle title={`${languages === 'ko' ? '빌려주기 카드 목록' : 'Lending Card Board'}`} />
@@ -177,15 +150,6 @@ function Board({ userObj }: Props) {
                 } title={<FilterDialogsTitle />} content={<FilterDialogsContent selectedValues={selectedValues} handleSelectedValues={handleSelectedValues} />} />
               </div>
             </div>
-            {/* <div className="rounded shadow-md flex p-3 sticky top-16 z-30 justify-between bg-light-2/50 dark:bg-dark-2/50">
-                <div className="truncate pt-1">{cardList[index]}</div>
-                <div className="truncate flex gap-1">
-                  <FilterDialogs
-                    selectedValues={selectedValues}
-                    handleSelectedValues={handleSelectedValues}
-                  />
-                </div>
-              </div> */}
             <SwipeableViews>
               {messageLoaded &&
                 <>

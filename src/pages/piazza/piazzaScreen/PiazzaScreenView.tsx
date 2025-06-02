@@ -167,7 +167,9 @@ function PiazzaScreenView({
         const myDocRef = doc(dbservice, `members/${userObj.uid}`)
         const myDocSnap = await getDoc(myDocRef)
         const myChattings = myDocSnap.data().chattings
-        myChattings[conversation].messageCount = 0
+        if (myChattings[conversation]) {
+          myChattings[conversation].messageCount = 0
+        }
         await updateDoc(myDocRef, {
           chattings: myChattings,
         })
@@ -462,10 +464,10 @@ function PiazzaScreenView({
                                     })
                                   }
                                   profile={false}
-                                  // uid={userObj.uid}
-                                  // profileColor=""
-                                  // profileUrl={value.profileImageUrl}
-                                  // defaultProfileUrl={value.defaultProfile}
+                                // uid={userObj.uid}
+                                // profileColor=""
+                                // profileUrl={value.profileImageUrl}
+                                // defaultProfileUrl={value.defaultProfile}
                                 />
                               }
                               title={<SpecificsTradesTitle />}

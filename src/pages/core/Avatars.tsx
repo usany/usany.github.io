@@ -1,4 +1,4 @@
-import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { DocumentData } from "firebase/firestore";
 import static01 from "src/assets/blue01.png";
 import static02 from "src/assets/blue02.png";
@@ -44,6 +44,8 @@ const Avatars = ({
           className='w-48 h-48'
         >
           <AvatarImage src={profileImage ? element.profileImageUrl : defaultProfile} />
+          <AvatarFallback className='border border-none bg-light-1 dark:bg-dark-1'>
+          </AvatarFallback>
           {/* {!profileImage &&
             <AvatarFallback className="text-8xl border-none">
               <img className='h-full' src={defaultProfile} />
@@ -55,10 +57,10 @@ const Avatars = ({
           onClick={piazza}
         >
           <AvatarImage src={profileImage ? element.profileImageUrl : defaultProfile} />
+          <AvatarFallback className='border border-none bg-light-1 dark:bg-dark-1'>
+          </AvatarFallback>
+          {/* <img className='h-full' src={defaultProfile} /> */}
           {/* {!profileImage &&
-            <AvatarFallback className="">
-              <img className='h-full' src={defaultProfile} />
-            </AvatarFallback>
           } */}
         </Avatar>
       )}

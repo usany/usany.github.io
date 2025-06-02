@@ -15,7 +15,7 @@ const WeatherView = () => {
 
   const languages = useSelector((state) => state.languages.value)
   const { data, error, isLoading } = useGetWeatherQuery()
-  if (isLoading) return <div className='flex items-center px-5 h-[65px]'>waiting</div>
+  if (isLoading) return <div className='flex items-center px-5 w-[148px] h-[64px]'>waiting</div>
   return (
     <div>
       <div className='flex flex-col px-5'>

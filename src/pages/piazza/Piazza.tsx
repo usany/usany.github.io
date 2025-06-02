@@ -32,7 +32,7 @@ function Piazza({ userObj }: Props) {
     if (!state.multiple) {
       bringChattingUser()
     }
-  }, [])
+  }, [state])
   const piazzaForm = useSelector((state) => state.piazzaForm.value)
   useEffect(() => {
     const listener = () => {
@@ -83,6 +83,7 @@ function Piazza({ userObj }: Props) {
     dispatch(changeBottomNavigation(5))
   })
   const displayName = state?.displayName
+  console.log(state)
   console.log(chattingUser)
   return (
     <>

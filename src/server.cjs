@@ -97,7 +97,7 @@ io.sockets.on('connection', (socket) => {
     //   return;
     // }
     {
-      !conversation
+      conversation === 'piazza'
         ? socket.broadcast.emit('sMessagePiazza', res)
         : socket.broadcast.emit(`sMessage${conversation}`, res)
     }
@@ -125,7 +125,7 @@ io.sockets.on('connection', (socket) => {
     //   return;
     // }
     {
-      !conversation
+      conversation === 'piazza'
         ? socket.broadcast.emit('sMessagePiazza', res)
         : socket.broadcast.emit(`sMessage${conversation}`, res)
     }
@@ -153,7 +153,7 @@ io.sockets.on('connection', (socket) => {
     //   return;
     // }
     {
-      !conversation
+      conversation === 'piazza'
         ? socket.broadcast.emit('sNewMessagePiazza', res)
         : socket.broadcast.emit(`sNewMessage`, res)
     }
