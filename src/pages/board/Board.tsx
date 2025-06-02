@@ -123,33 +123,6 @@ function Board({ userObj }: Props) {
             <PenBox />
             <PenTool />
             <PenSquare /> */}
-          {/* <div>
-        <div className="sticky top-20 p-5 bg-white">카드 목록</div>
-        <div>
-          <div>목록 카드 목록</div>
-          <div>목록 카드 목록</div>
-          <div>목록 카드 목록</div>
-          <div>목록 카드 목록</div>
-          <div>목록 카드 목록</div>
-          <div>목록 카드 목록</div>
-        </div>
-      </div>
-      <div>
-        <div className="sticky top-20 p-5 bg-white">목록 카드 목록 목록</div>
-        <div>
-          <div>목록 카드 목록</div>
-          <div>목록 카드 목록</div>
-          <div>목록 카드 목록</div>
-          <div>목록 카드 목록</div>
-          <div>목록 카드 목록</div>
-          <div>목록 카드 목록</div>
-        </div>
-      </div> */}
-          {/* <div className="flex justify-between text-2xl">
-        <PageTitle title={`${borrow ? "빌리기" : "빌려주기"} 카드 목록`} />
-      </div> */}
-          {/* <div className="sticky top-20 p-5">카드 목록</div>
-      <div className="sticky top-20 p-5">카드 목록 목록</div> */}
           <SwipeableViews>
             <PageTitle title={`${languages === 'ko' ? '빌리기 카드 목록' : 'Borrowing Card Board'}`} />
             <PageTitle title={`${languages === 'ko' ? '빌려주기 카드 목록' : 'Lending Card Board'}`} />

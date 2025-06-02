@@ -131,7 +131,7 @@ const NavigationTop = ({ userObj }: Props) => {
         </div>
         <WeatherView />
       </div>
-    </div >
+    </div>
   );
 };
 
