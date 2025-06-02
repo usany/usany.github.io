@@ -19,13 +19,14 @@ export const useBringCards = (userObj) => {
       const userData = docSnap.data()
       const createdCards = userData?.createdCards || []
       const connectedCards = userData?.connectedCards || []
-      console.log(createdCards)
-      createdCards.map(async (element: string) => {
-        const cardDocRef = doc(dbservice, `num/${element}`)
-        const cardDocSnap = await getDoc(cardDocRef)
-        const cardData = cardDocSnap.data()
-        if (cardData) newArray.push(cardData)
-      })
+      const createdArray = await Promise.all(
+        createdCards.map(async (element: string) => {
+          const cardDocRef = doc(dbservice, `num/${element}`)
+          const cardDocSnap = await getDoc(cardDocRef)
+          const cardData = cardDocSnap.data()
+          if (cardData) newArray.push(cardData)
+        }))
+      console.log(createdArray)
       connectedCards.map(async (element: string) => {
         const cardDocRef = doc(dbservice, `num/${element}`)
         const cardDocSnap = await getDoc(cardDocRef)
