@@ -62,18 +62,20 @@ const ProfileMembersPasswordContent = () => {
           새 비밀번호를 등록해 주세요.
         </div>
       </div>
-      <div className="flex flex-col justify-center p-5 gap-5">
+      <div className="flex flex-col justify-center p-5">
         <TextField type='password' name='newPassword' label="새 비밀번호" onChange={onChange} required />
         <TextField type='password' name='newPasswordConfirm' label="새 비밀번호 확인" onChange={onChange} required />
-        {password.newPassword && password.newPassword === password.newPasswordConfirm ? (
-          <Button variant="outlined" form='changePassword' type='submit'>
-            비밀번호 변경
-          </Button>
-        ) : (
-          <Button variant="outlined" disabled>
-            비밀번호 변경
-          </Button>
-        )}
+        <div className='flex justify-center pt-5'>
+          {password.newPassword && password.newPassword === password.newPasswordConfirm ? (
+            <Button variant="outlined" form='changePassword' type='submit'>
+              비밀번호 변경
+            </Button>
+          ) : (
+            <Button variant="outlined" disabled>
+              비밀번호 변경
+            </Button>
+          )}
+        </div>
       </div>
     </form>
   );

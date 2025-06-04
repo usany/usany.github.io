@@ -8,6 +8,7 @@ import Popups from "../core/Popups";
 import ProfileMembersDrawersContent from "./ProfileMembersDrawersContent";
 import ProfileMembersDrawersTitle from "./ProfileMembersDrawersTitle";
 import ProfileMembersDrawersTrigger from "./ProfileMembersDrawersTrigger";
+import ProfileMembersPasswordContent from "./ProfileMembersPasswordContent";
 import ProfileMembersPasswordTrigger from "./ProfileMembersPasswordTrigger";
 
 const ProfileMembers = ({ userObj, user }) => {
@@ -17,8 +18,8 @@ const ProfileMembers = ({ userObj, user }) => {
     <div className="flex flex-col p-5">
       {user.uid === userObj.uid ? (
         <div className="flex justify-center">
-          <Popups trigger={<ProfileMembersPasswordTrigger />} title={<div>비밀번호 변경</div>} content={<ProfileMembersDrawersContent userObj={userObj} user={user} />} />
-          <Popups trigger={<ProfileMembersDrawersTrigger />} title={<ProfileMembersDrawersTitle />} content={<ProfileMembersPasswordContent />} />
+          <Popups trigger={<ProfileMembersPasswordTrigger />} title={<div>비밀번호 변경</div>} content={<ProfileMembersPasswordContent />} />
+          <Popups trigger={<ProfileMembersDrawersTrigger />} title={<ProfileMembersDrawersTitle />} content={<ProfileMembersDrawersContent userObj={userObj} user={user} />} />
         </div>
       ) : (
         <Link to="/contact" state={{ user: user }}>
