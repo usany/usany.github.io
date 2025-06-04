@@ -18,7 +18,7 @@ const ProfileMembers = ({ userObj, user }) => {
       {user.uid === userObj.uid ? (
         <div className="flex justify-center">
           <Popups trigger={<ProfileMembersPasswordTrigger />} title={<div>비밀번호 변경</div>} content={<ProfileMembersDrawersContent userObj={userObj} user={user} />} />
-          <Popups trigger={<ProfileMembersDrawersTrigger />} title={<ProfileMembersDrawersTitle />} content={<ProfileMembersDrawersContent userObj={userObj} user={user} />} />
+          <Popups trigger={<ProfileMembersDrawersTrigger />} title={<ProfileMembersDrawersTitle />} content={<ProfileMembersPasswordContent />} />
         </div>
       ) : (
         <Link to="/contact" state={{ user: user }}>

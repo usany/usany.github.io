@@ -1,19 +1,11 @@
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-import { deleteUser } from "firebase/auth";
-import {
-  deleteDoc,
-  doc
-} from "firebase/firestore";
 import { useState } from "react";
 import {
   useNavigate
 } from "react-router-dom";
-import {
-  dbservice
-} from "src/baseApi/serverbase";
 
-const ProfileMembersPasswordContent = ({ userObj, user }) => {
+const ProfileMembersPasswordContent = () => {
   const [password, setPassword] = useState({
     newPassword: '',
     newPasswordConfirm: ''
@@ -29,19 +21,19 @@ const ProfileMembersPasswordContent = ({ userObj, user }) => {
       setPassword({ newPasswordConfirm: value, ...password });
     }
   };
-  const delist = async () => {
-    await deleteDoc(doc(dbservice, `members/${userObj.uid}`));
-    deleteUser(user)
-      .then(() => {
-        console.log(user);
-        // User deleted.
-      })
-      .catch((error) => {
-        // An error ocurred
-        // ...
-      });
-    navigate("/");
-  };
+  // const delist = async () => {
+  //   await deleteDoc(doc(dbservice, `members/${userObj.uid}`));
+  //   deleteUser(user)
+  //     .then(() => {
+  //       console.log(user);
+  // User deleted.
+  // })
+  // .catch((error) => {
+  // An error ocurred
+  // ...
+  //     });
+  //   navigate("/");
+  // };
   // useEffect(() => {
   //   const createdCards = user.userData?.createdCards
   //   const connectedCards = user.userData?.connectedCards
@@ -74,7 +66,7 @@ const ProfileMembersPasswordContent = ({ userObj, user }) => {
         <TextField type='password' name='newPassword' label="새 비밀번호" onChange={onChange} required />
         <TextField type='password' name='newPasswordConfirm' label="새 비밀번호 확인" onChange={onChange} required />
         {password.newPassword && password.newPassword === password.newPasswordConfirm ? (
-          <Button variant="outlined" form='changepassword' type='submit'>
+          <Button variant="outlined" form='changePassword' type='submit'>
             비밀번호 변경
           </Button>
         ) : (
