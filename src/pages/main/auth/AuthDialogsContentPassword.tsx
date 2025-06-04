@@ -9,7 +9,7 @@ import { useSelectors } from "src/hooks/useSelectors";
 
 function AuthDialogsContentPassword({ userObj }) {
   const [email, setEmail] = useState('')
-  const [error, setError] = useState('')
+  const [status, setStatus] = useState('')
   const theme = useSelector((state) => state.theme.value);
   const languages = useSelectors((state) => state.languages.value)
   const onChange = (event) => {
@@ -18,15 +18,17 @@ function AuthDialogsContentPassword({ userObj }) {
     } = event
     setEmail(value)
   }
-  const passwordEmail = () => {
-    sendPasswordResetEmail(auth, userObj.email)
+  const passwordEmail = (event) => {
+    event.preventDefault()
+    sendPasswordResetEmail(auth, email)
       .then(() => {
+        setStatus('sent')
         console.log('sent')
         // Password reset email sent!
         // ..
       })
       .catch((error) => {
-        setError(error)
+        setStatus('error')
         console.log(error)
         const errorCode = error.code;
         const errorMessage = error.message;
@@ -71,7 +73,8 @@ function AuthDialogsContentPassword({ userObj }) {
                 ? '메일 전송'
                 : 'Send Mail'}
             </Button>
-            {error && <span>{languages === 'ko' ? '전송에 실패했습니다' : 'Failed sending'}</span>}
+            {status === 'sent' && <div className='flex pt-5'>{languages === 'ko' ? '메일을 보냈습니다.' : 'Sent mail.'}</div>}
+            {status === 'error' && <div className='flex pt-5'>{languages === 'ko' ? '전송에 실패했습니다.' : 'Failed sending'}</div>}
           </div>
         </form>
       </div>
