@@ -15,17 +15,19 @@ import {
 } from "src/baseApi/serverbase";
 
 const ProfileMembersPasswordContent = ({ userObj, user }) => {
-  const [confirmEmail, setConfirmEmail] = useState(false);
-  const [process, setProcess] = useState(false);
+  const [password, setPassword] = useState({
+    newPassword: '',
+    newPasswordConfirm: ''
+  })
   const navigate = useNavigate();
   const onChange = (event) => {
     const {
-      target: { value },
+      target: { name, value },
     } = event;
-    if (value === userObj.email) {
-      setConfirmEmail(true);
+    if (name === 'newPassword') {
+      setPassword({ newPassword: value, ...password });
     } else {
-      setConfirmEmail(false);
+      setPassword({ newPasswordConfirm: value, ...password });
     }
   };
   const delist = async () => {
@@ -64,21 +66,20 @@ const ProfileMembersPasswordContent = ({ userObj, user }) => {
         {process ? (
           <div className='flex justify-center'>
             <Chip label={'진행 카드가 없습니다'} sx={{ bgcolor: '#7fc4bc', color: 'white' }} />
-            {/* <Chips label={'진행 카드가 없습니다'} className='bg-profile-blue' /> */}
           </div>
         ) : (
           <div className='flex justify-center'>
             <Chip label={'진행 카드가 있습니다'} sx={{
               bgcolor: '#e76e50', color: 'white'
             }} />
-            {/* <Chips label={'진행 카드가 있습니다'} className='bg-profile-red' /> */}
           </div>
         )}
         <div>정말로 회원 탈퇴를 하시려면 이메일을 입력해 주세요</div>
       </div>
       <div className="flex flex-col justify-center p-5 gap-5">
-        <TextField label="이메일" onChange={onChange} />
-        {process && confirmEmail ? (
+        <TextField name='newPassword' label="새 비밀번호" onChange={onChange} />
+        <TextField name='newPasswordConfirm' label="새 비밀번호 확인" onChange={onChange} />
+        {password.newPassword && password.newPassword === password.newPasswordConfirm ? (
           <Button variant="outlined" onClick={delist}>
             회원 탈퇴
           </Button>
