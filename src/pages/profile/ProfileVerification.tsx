@@ -41,14 +41,14 @@ function ProfileVerification({ userObj }) {
     <div className='flex justify-center cursor-pointer'>
       <Card sx={{ padding: '5px', bgcolor: color }} onClick={() => verifyEmail()}>
         verification email
-        {/* <div onClick={() => verifyEmail()}>
-      </div> */}
       </Card>
+      {/* <div onClick={() => verifyEmail()}>
+      </div> */}
       <Card sx={{ padding: '5px', bgcolor: color }} onClick={() => passwordEmail()}>
         password email
-        {/* <div onClick={() => verifyEmail()}>
-      </div> */}
       </Card>
+      {/* <div onClick={() => verifyEmail()}>
+      </div> */}
     </div>
   );
 }

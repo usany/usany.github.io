@@ -9,6 +9,7 @@ import Popups from "../core/Popups";
 import ProfileMembersDrawersContent from "./ProfileMembersDrawersContent";
 import ProfileMembersDrawersTitle from "./ProfileMembersDrawersTitle";
 import ProfileMembersDrawersTrigger from "./ProfileMembersDrawersTrigger";
+import ProfileMembersPasswordTrigger from "./ProfileMembersPasswordTrigger";
 
 const ProfileMembers = ({ userObj, user }) => {
   const theme = useSelector((state) => state.theme.value)
@@ -28,6 +29,7 @@ const ProfileMembers = ({ userObj, user }) => {
               회원 탈퇴
             </div>
           </Card> */}
+          <Popups trigger={<ProfileMembersPasswordTrigger />} title={<div>비밀번호 변경</div>} content={<ProfileMembersDrawersContent userObj={userObj} user={user} />} />
           <Popups trigger={<ProfileMembersDrawersTrigger />} title={<ProfileMembersDrawersTitle />} content={<ProfileMembersDrawersContent userObj={userObj} user={user} />} />
           {/* <ProfileMembersDrawers userObj={userObj} user={user} /> */}
         </div>
