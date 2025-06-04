@@ -139,7 +139,7 @@ const AuthForm = ({ signIn }) => {
     }
   }
   return (
-    <div className="flex justify-center px-5">
+    <div className="flex justify-center p-5">
       <div className="flex flex-col border border-solid w-[470px] rounded-lg pt-5">
         <form
           id={signIn ? 'auth' : 'signUp'}
