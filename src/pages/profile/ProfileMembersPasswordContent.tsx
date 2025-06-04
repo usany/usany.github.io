@@ -74,7 +74,7 @@ const ProfileMembersPasswordContent = ({ userObj, user }) => {
         <TextField type='password' name='newPassword' label="새 비밀번호" onChange={onChange} required />
         <TextField type='password' name='newPasswordConfirm' label="새 비밀번호 확인" onChange={onChange} required />
         {password.newPassword && password.newPassword === password.newPasswordConfirm ? (
-          <Button variant="outlined" form='changepassword' type='submit>
+          <Button variant="outlined" form='changepassword' type='submit'>
             비밀번호 변경
           </Button>
         ) : (
