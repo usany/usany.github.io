@@ -12,7 +12,7 @@ function AuthDialogs() {
   return (
     <div className='flex justify-center text-xs p-5 gap-5'>
       {/* <Divider sx={{ width: "15%", padding: "5px" }} /> */}
-      <div className='flex items-center'>{languages === 'ko' ? '비밀번호 찾기' : 'Find Password'}</div>
+      {/* <div className='flex items-center'>{languages === 'ko' ? '비밀번호 찾기' : 'Find Password'}</div> */}
       <Popups trigger={<AuthDialogsTriggerPassword />}
         title={<div>{languages === 'ko' ? '비밀번호' : 'Password'}</div>}
         content={<AuthDialogsContentPassword />}
