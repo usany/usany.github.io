@@ -35,7 +35,6 @@ function ProfileVerification({ userObj }) {
         const errorMessage = error.message;
         // ..
       });
-
   }
   const { color } = useCardsBackground()
   return (
