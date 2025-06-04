@@ -55,7 +55,6 @@ const ProfileMembersPasswordContent = ({ userObj, user }) => {
       setProcess(false)
     }
   }, [user]);
-
   return (
     <div>
       <div className='pt-5'>

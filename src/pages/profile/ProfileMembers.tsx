@@ -1,5 +1,4 @@
 import Card from "@mui/material/Card";
-import { useSelector } from "react-redux";
 import {
   Link
 } from "react-router-dom";
@@ -12,7 +11,6 @@ import ProfileMembersDrawersTrigger from "./ProfileMembersDrawersTrigger";
 import ProfileMembersPasswordTrigger from "./ProfileMembersPasswordTrigger";
 
 const ProfileMembers = ({ userObj, user }) => {
-  const theme = useSelector((state) => state.theme.value)
   const { color } = useCardsBackground()
   const languages = useSelectors((state) => state.languages.value)
   return (

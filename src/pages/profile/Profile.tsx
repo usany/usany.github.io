@@ -27,7 +27,6 @@ import { useSelectors } from "src/hooks/useSelectors";
 import { changeProfileColor } from "src/stateSlices/profileColorSlice";
 import { changeProfileUrl } from "src/stateSlices/profileUrlSlice";
 import ProfileLocations from "./ProfileLocations";
-import ProfileVerification from "./ProfileVerification";
 
 const area = [
   {
@@ -282,7 +281,7 @@ function Profile({ userObj }: Props) {
         :
         <div className='h-[250px]'></div>
       }
-      <ProfileVerification userObj={userObj} />
+      {/* <ProfileVerification userObj={userObj} /> */}
     </div>
   );
 }
