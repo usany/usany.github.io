@@ -1,16 +1,14 @@
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
+import { updatePassword } from "firebase/auth";
 import { useState } from "react";
-import {
-  useNavigate
-} from "react-router-dom";
+import { auth } from "src/baseApi/serverbase";
 
 const ProfileMembersPasswordContent = () => {
   const [password, setPassword] = useState({
     newPassword: '',
     newPasswordConfirm: ''
   })
-  const navigate = useNavigate();
   const onChange = (event) => {
     const {
       target: { name, value },
@@ -50,7 +48,13 @@ const ProfileMembersPasswordContent = () => {
   // }, [user]);
   const onSubmit = (event) => {
     event.preventDefault()
+    const user = auth.currentUser
+    const newPassword = password.newPassword;
+    updatePassword(user, newPassword).then(() => {
 
+    }).catch((error) => {
+      console.log(error)
+    })
   }
   return (
     <form
