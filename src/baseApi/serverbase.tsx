@@ -41,6 +41,8 @@ const messaging = getMessaging(app);
 //     login_hint: 'user@firstadd.onmicrosoft.com',
 //     redirect_uri: 'https://remake-36fe0.firebaseapp.com/__/auth/handler'
 // })
+// auth.languageCode = 'en'
+auth.useDeviceLanguage();
 
 const onSocialClick = (event) => {
   const {
