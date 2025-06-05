@@ -1,3 +1,4 @@
+import { UserRound } from "lucide-react";
 import { useSelectors } from "src/hooks/useSelectors";
 
 interface Props {
@@ -19,6 +20,15 @@ interface Props {
     '/piazza': string,
     '/contact': string,
   },
+}
+const icons = {
+  '/': '내 상태',
+  '/add': '등록',
+  '/board': '게시판',
+  '/profile': <UserRound />,
+  '/ranking': '랭킹',
+  '/piazza': '대화',
+  '/contact': '신고하기',
 }
 const texts: Props = {
   'ko': {
@@ -50,8 +60,12 @@ const NavigationScroll = () => {
   return (
     <div className='flex gap-1'>
       {(location.pathname === '/add' || location.pathname === '/board') && <div>{actions[languages][tabs]}</div>}
-      <div>{texts[languages][location.pathname]}</div>
+      <div>{icons}{texts[languages][location.pathname]}</div>
     </div>
+    // <div className='flex gap-1'>
+    //   {(location.pathname === '/add' || location.pathname === '/board') && <div>{actions[languages][tabs]}</div>}
+    //   <div>{texts[languages][location.pathname]}</div>
+    // </div>
   )
 };
 
