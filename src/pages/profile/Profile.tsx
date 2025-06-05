@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { User } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
+import { UserRound } from "lucide-react";
 import {
   useEffect,
   useState
@@ -220,7 +221,12 @@ function Profile({ userObj }: Props) {
   return (
     <div>
       <PageTitle
-        title={`${userUid === userObj.uid ? (languages === 'ko' ? "내" : 'My') : shortenName} ${languages === 'ko' ? '프로필' : 'Profile'}`}
+        title={
+          <div className='flex gap-5 items-center'>
+            <UserRound />
+            {userUid === userObj.uid ? (languages === 'ko' ? "내" : 'My') : shortenName} {languages === 'ko' ? '프로필' : 'Profile'}
+          </div>
+        }
       />
       {/* <div onClick={() => {
         const navigators = navigator.geolocation.getCurrentPosition(position => console.log(position.coords))
