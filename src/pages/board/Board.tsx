@@ -125,21 +125,11 @@ function Board({ userObj }: Props) {
             <PenTool />
             <PenSquare /> */}
           <SwipeableViews>
-            <PageTitle title={
-              <div className='flex gap-5 items-center'>
-                <Minimize2 />
-                <>
-                  {languages === 'ko' ? '빌리기 카드 목록' : 'Borrowing Card Board'}
-                </>
-              </div>
+            <PageTitle icon={<Minimize2 />} title={
+              languages === 'ko' ? '빌리기 카드 목록' : 'Borrowing Card Board'
             } />
-            <PageTitle title={
-              <div className='flex gap-5 items-center'>
-                <Maximize2 />
-                <>
-                  {languages === 'ko' ? '빌려주기 카드 목록' : 'Lending Card Board'}
-                </>
-              </div>
+            <PageTitle icon={<Maximize2 />} title={
+              languages === 'ko' ? '빌려주기 카드 목록' : 'Lending Card Board'
             } />
           </SwipeableViews>
           <div className='px-5'>

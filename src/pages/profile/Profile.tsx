@@ -221,11 +221,9 @@ function Profile({ userObj }: Props) {
   return (
     <div>
       <PageTitle
+        icon={<UserRound />}
         title={
-          <div className='flex gap-5 items-center'>
-            <UserRound />
-            {userUid === userObj.uid ? (languages === 'ko' ? "내" : 'My') : shortenName} {languages === 'ko' ? '프로필' : 'Profile'}
-          </div>
+          `${userUid === userObj.uid ? (languages === 'ko' ? "내" : 'My') : shortenName} ${languages === 'ko' ? '프로필' : 'Profile'}`
         }
       />
       {/* <div onClick={() => {
@@ -266,16 +264,17 @@ function Profile({ userObj }: Props) {
         cards={cards}
         changeProfileDialog={changeProfileDialog}
       />
-      {scrolledToCompleted ?
-        <>
-          <ProfileCompleted user={state?.element || userObj} cards={cards} />
-          <ProfileMembers userObj={userObj} user={state?.element || userObj} />
-        </>
-        :
-        <div className='h-[250px]'></div>
+      {
+        scrolledToCompleted ?
+          <>
+            <ProfileCompleted user={state?.element || userObj} cards={cards} />
+            <ProfileMembers userObj={userObj} user={state?.element || userObj} />
+          </>
+          :
+          <div className='h-[250px]'></div>
       }
       {/* <ProfileVerification userObj={userObj} /> */}
-    </div>
+    </div >
   );
 }
 
