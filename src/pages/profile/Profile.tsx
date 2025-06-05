@@ -281,6 +281,7 @@ function Profile({ userObj }: Props) {
         :
         <div className='h-[250px]'></div>
       }
+      {/* <ProfileVerification userObj={userObj} /> */}
     </div>
   );
 }

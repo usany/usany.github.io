@@ -28,6 +28,7 @@ const AuthForm = ({ signIn }) => {
     event.preventDefault()
     try {
       await signInWithEmailAndPassword(auth, account.email, account.password)
+      location.reload()
     } catch (error) {
       if (error.message === 'Firebase: Error (auth/invalid-credential).') {
         const errorMessage = '로그인 실패: 계정을 확인해 주세요'
@@ -46,7 +47,7 @@ const AuthForm = ({ signIn }) => {
 
       const docsRef = query(collection(dbservice, 'members'))
       const docs = await getDocs(docsRef)
-      const docsLength = docs.docs.length
+      // const docsLength = docs.docs.length
       // await setDoc(doc(dbservice, 'members', `${data.user.uid}`), {
       //   uid: data.user.uid,
       //   displayName: data.user.email,
@@ -139,7 +140,7 @@ const AuthForm = ({ signIn }) => {
     }
   }
   return (
-    <div className="flex justify-center px-5">
+    <div className="flex justify-center p-5">
       <div className="flex flex-col border border-solid w-[470px] rounded-lg pt-5">
         <form
           id={signIn ? 'auth' : 'signUp'}

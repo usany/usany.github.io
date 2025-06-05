@@ -1,6 +1,6 @@
 import { User } from 'firebase/auth'
 import { Suspense, lazy } from 'react'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import Navigations from 'src/pages/core/Navigations'
 import NavigationTop from 'src/pages/core/navigationTop/NavigationTop'
 import Adds from '../../add/Adds'
@@ -21,8 +21,7 @@ const Router = ({ userObj }: Props) => {
     <BrowserRouter>
       <div className="flex flex-col">
         <NavigationTop userObj={userObj} />
-        <div className='h-16'></div>
-        <div>
+        <div className='pt-16 pb-14'>
           <Suspense fallback={<Loadings />}>
             <Routes>
               <Route
@@ -37,26 +36,33 @@ const Router = ({ userObj }: Props) => {
                 path="/board"
                 element={<Board userObj={userObj} />}
               />
+              {userObj &&
+                <>
+                  <Route
+                    path="/profile"
+                    element={<Profile userObj={userObj} />}
+                  />
+                  <Route
+                    path="/ranking"
+                    element={<Ranking userObj={userObj} />}
+                  />
+                  <Route
+                    path="/contact"
+                    element={<Contact userObj={userObj} />}
+                  />
+                  <Route
+                    path="/piazza"
+                    element={<Piazza userObj={userObj} />}
+                  />
+                </>
+              }
               <Route
-                path="/profile"
-                element={<Profile userObj={userObj} />}
-              />
-              <Route
-                path="/ranking"
-                element={<Ranking userObj={userObj} />}
-              />
-              <Route
-                path="/contact"
-                element={<Contact userObj={userObj} />}
-              />
-              <Route
-                path="/piazza"
-                element={<Piazza userObj={userObj} />}
+                path='*'
+                element={<Navigate to='/' replace />}
               />
             </Routes>
           </Suspense>
         </div>
-        <div className="h-[56px]">&emsp;</div>
         <Navigations userObj={userObj} />
       </div>
     </BrowserRouter >

@@ -5,6 +5,7 @@ import {
   orderBy,
   query
 } from "firebase/firestore";
+import { Maximize2, Minimize2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import {
   dbservice
@@ -124,8 +125,22 @@ function Board({ userObj }: Props) {
             <PenTool />
             <PenSquare /> */}
           <SwipeableViews>
-            <PageTitle title={`${languages === 'ko' ? '빌리기 카드 목록' : 'Borrowing Card Board'}`} />
-            <PageTitle title={`${languages === 'ko' ? '빌려주기 카드 목록' : 'Lending Card Board'}`} />
+            <PageTitle title={
+              <div className='flex gap-5 items-center'>
+                <Minimize2 />
+                <>
+                  {languages === 'ko' ? '빌리기 카드 목록' : 'Borrowing Card Board'}
+                </>
+              </div>
+            } />
+            <PageTitle title={
+              <div className='flex gap-5 items-center'>
+                <Maximize2 />
+                <>
+                  {languages === 'ko' ? '빌려주기 카드 목록' : 'Lending Card Board'}
+                </>
+              </div>
+            } />
           </SwipeableViews>
           <div className='px-5'>
             <div className='flex justify-center'>
