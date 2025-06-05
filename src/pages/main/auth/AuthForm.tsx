@@ -47,7 +47,7 @@ const AuthForm = ({ signIn }) => {
 
       const docsRef = query(collection(dbservice, 'members'))
       const docs = await getDocs(docsRef)
-      const docsLength = docs.docs.length
+      // const docsLength = docs.docs.length
       // await setDoc(doc(dbservice, 'members', `${data.user.uid}`), {
       //   uid: data.user.uid,
       //   displayName: data.user.email,
