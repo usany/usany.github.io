@@ -1,4 +1,5 @@
 import { User } from "firebase/auth";
+import { Siren } from "lucide-react";
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
@@ -38,7 +39,9 @@ function Contact({ userObj }: Props) {
   })
   return (
     <>
-      <PageTitle title={titles[index]} />
+      <PageTitle
+        icon={<Siren />}
+        title={titles[index]} />
       <ContactAddress action={sending[index]} label={userObj.displayName} />
       <ContactAddress action={receiving[index]} label={user[index]} />
       <ContactForm userObj={userObj} user={state?.user} />
