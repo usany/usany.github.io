@@ -1,4 +1,4 @@
-import { UserRound } from "lucide-react";
+import { MessagesSquare, SearchCheck, Siren, UserRound } from "lucide-react";
 import { useSelectors } from "src/hooks/useSelectors";
 
 interface Props {
@@ -26,9 +26,9 @@ const icons = {
   '/add': '등록',
   '/board': '게시판',
   '/profile': <UserRound />,
-  '/ranking': '랭킹',
-  '/piazza': '대화',
-  '/contact': '신고하기',
+  '/ranking': <SearchCheck />,
+  '/piazza': <MessagesSquare />,
+  '/contact': <Siren />,
 }
 const texts: Props = {
   'ko': {
