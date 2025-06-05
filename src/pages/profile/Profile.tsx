@@ -222,9 +222,7 @@ function Profile({ userObj }: Props) {
     <div>
       <PageTitle
         icon={<UserRound />}
-        title={
-          `${userUid === userObj.uid ? (languages === 'ko' ? "내" : 'My') : shortenName} ${languages === 'ko' ? '프로필' : 'Profile'}`
-        }
+        title={`${userUid === userObj.uid ? (languages === 'ko' ? "내" : 'My') : shortenName} ${languages === 'ko' ? '프로필' : 'Profile'}`}
       />
       {/* <div onClick={() => {
         const navigators = navigator.geolocation.getCurrentPosition(position => console.log(position.coords))
