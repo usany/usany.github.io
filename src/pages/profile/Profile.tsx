@@ -114,14 +114,9 @@ function Profile({ userObj }: Props) {
       const docSnap = await getDoc(docRef);
       const userColor = docSnap.data()?.profileColor || "#2196f3";
       const userImage = docSnap.data()?.profileImageUrl || "null";
-      // dispatch(changeProfileColor(userColor));
-      // dispatch(changeProfileUrl(userImage));
       const userProfileImage = docSnap.data()?.profileImage || false;
       const userDefaultProfile = docSnap.data()?.defaultProfile || 'null';
       dispatch(changeProfileColor(userColor));
-      console.log(userProfileImage)
-      console.log(userImage)
-      console.log(userDefaultProfile)
       if (userProfileImage) {
         dispatch(changeProfileUrl(userImage));
       } else {
@@ -221,7 +216,6 @@ function Profile({ userObj }: Props) {
   //   setScrolledToCompleted(true)
   // }
   const scrollEffect = () => {
-    // console.log(document.scrollingElement.scrollTop)
     const scrollNumber = userUid === userObj.uid ? 250 : 50
     if (document.scrollingElement?.scrollTop && document.scrollingElement?.scrollTop > scrollNumber) {
       setScrolledToCompleted(true)
