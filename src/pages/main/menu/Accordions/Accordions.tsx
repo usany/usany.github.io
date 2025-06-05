@@ -1,5 +1,6 @@
 import { Accordion, AccordionItem } from '@/components/ui/accordion'
 import { User } from 'firebase/auth'
+import { CreditCard, MessageCircleIcon } from 'lucide-react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useSelectors } from 'src/hooks/useSelectors'
 import CardsStacks from 'src/pages/core/card/CardsStacks'
@@ -34,7 +35,12 @@ function Accordions({ userObj }: Props) {
     {
       value: 'item-1',
       id: 'cardAccordion',
-      item: cards[langugaesIndex],
+      item: <div className='flex gap-5'>
+        <CreditCard />
+        <>
+          {cards[langugaesIndex]}
+        </>
+      </div>,
       onClick: () => {
         if (cardAccordion) {
           dispatch(cardOff())
@@ -47,7 +53,12 @@ function Accordions({ userObj }: Props) {
     {
       value: 'item-2',
       id: 'messageAccordion',
-      item: messages[langugaesIndex],
+      item: <div className='flex gap-5'>
+        <MessageCircleIcon />
+        <>
+          {messages[langugaesIndex]}
+        </>
+      </div>,
       onClick: () => {
         if (messageAccordion) {
           dispatch(messageOff())

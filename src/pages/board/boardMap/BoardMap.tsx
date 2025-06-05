@@ -17,6 +17,7 @@ import {
   orderBy,
   query
 } from "firebase/firestore";
+import { MapIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import {
   dbservice
@@ -224,7 +225,10 @@ function BoardMap({ mapAccordion, mapAccordionToggle, onMarker, onMarkerTrue, on
             console.log(document.getElementsByClassName('dismissButton'))
             setTimeout(() => document.getElementsByClassName('dismissButton')[0]?.click(), 500)
           }} className='rounded shadow-md px-3 flex sticky top-16 z-30 w-full items-center justify-between bg-light-2/50 dark:bg-dark-2/50'>
-            <div>{registeredMap[selection]}</div>
+            <div className='flex gap-5'>
+              <MapIcon />
+              <div>{registeredMap[selection]}</div>
+            </div>
             <AccordionTrigger id='boardMap' onClick={() => mapAccordionToggle()}>
             </AccordionTrigger>
           </button>
