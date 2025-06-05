@@ -60,7 +60,7 @@ const NavigationScroll = () => {
   return (
     <div className='flex gap-1'>
       {(location.pathname === '/add' || location.pathname === '/board') && <div>{actions[languages][tabs]}</div>}
-      <div>{icons}{texts[languages][location.pathname]}</div>
+      <div>{texts[languages][location.pathname]}</div>
     </div>
     // <div className='flex gap-1'>
     //   {(location.pathname === '/add' || location.pathname === '/board') && <div>{actions[languages][tabs]}</div>}
