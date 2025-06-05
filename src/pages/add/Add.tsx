@@ -7,6 +7,7 @@ import {
   getDoc,
   updateDoc
 } from "firebase/firestore";
+import { Maximize2, Minimize2 } from "lucide-react";
 import { useEffect, useReducer, useState } from "react";
 import { useSelector } from "react-redux";
 import {
@@ -345,7 +346,14 @@ function Add({ userObj, borrow }: Props) {
 
   return (
     <div className="flex flex-col h-screen">
-      <PageTitle title={`${borrow ? `${languages === 'ko' ? '빌리기 ' : 'Borrowing '}` : `${languages === 'ko' ? '빌려주기 ' : 'Lending '}`} ${languages === 'ko' ? '카드 등록' : 'Card Registeration'}`} />
+      <PageTitle title={
+        <div className='flex'>
+          {borrow ? <Minimize2 /> : <Maximize2 />}
+          <>
+            {borrow ? `${languages === 'ko' ? '빌리기 ' : 'Borrowing '}` : `${languages === 'ko' ? '빌려주기 ' : 'Lending '}`} ${languages === 'ko' ? '카드 등록' : 'Card Registeration'}
+          </>
+        </div>
+      } />
       <AddSteppers addSteps={addSteps} borrow={borrow} />
       {/* <div className='flex justify-around'>
           <AddCards borrow={borrow} userObj={userObj} addSteps={addSteps} item={item} fromTo={fromTo} locationState={locationState} />
