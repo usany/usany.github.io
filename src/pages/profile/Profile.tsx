@@ -37,8 +37,6 @@ interface Props {
   userObj: User;
 }
 function Profile({ userObj }: Props) {
-  const pathname = location.pathname
-  console.log(pathname)
   const languages = useSelectors((state) => state.languages.value)
   const [attachment, setAttachment] = useState("");
   const { state } = useLocation();
