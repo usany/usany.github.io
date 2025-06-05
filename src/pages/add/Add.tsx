@@ -347,7 +347,7 @@ function Add({ userObj, borrow }: Props) {
   return (
     <div className="flex flex-col h-screen">
       <PageTitle title={
-        <div className='flex'>
+        <div className='flex gap-5 items-center'>
           {borrow ? <Minimize2 /> : <Maximize2 />}
           <>
             {borrow ? `${languages === 'ko' ? '빌리기 ' : 'Borrowing '}` : `${languages === 'ko' ? '빌려주기 ' : 'Lending '}`} ${languages === 'ko' ? '카드 등록' : 'Card Registeration'}
