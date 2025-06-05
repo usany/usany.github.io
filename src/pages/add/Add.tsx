@@ -350,7 +350,7 @@ function Add({ userObj, borrow }: Props) {
         <div className='flex gap-5 items-center'>
           {borrow ? <Minimize2 /> : <Maximize2 />}
           <>
-            {borrow ? `${languages === 'ko' ? '빌리기 ' : 'Borrowing '}` : `${languages === 'ko' ? '빌려주기 ' : 'Lending '}`} ${languages === 'ko' ? '카드 등록' : 'Card Registeration'}
+            {borrow ? (languages === 'ko' ? '빌리기 ' : 'Borrowing ') : (languages === 'ko' ? '빌려주기 ' : 'Lending ')} {languages === 'ko' ? '카드 등록' : 'Card Registeration'}
           </>
         </div>
       } />
