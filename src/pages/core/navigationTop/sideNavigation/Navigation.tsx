@@ -43,6 +43,7 @@ function Navigation({ user, userObj, handleSideNavigation }: Props) {
 
   const logOut = () => {
     onLogOutClick()
+    location.reload()
     // if (!user) {
     //   setTimeout(() => {
     //     dispatch(changeProfileUrl(''))

@@ -57,11 +57,9 @@ const ProfileMembersDrawersContent = ({ userObj, user }) => {
   }, [user]);
 
   return (
-    <div>
+    <>
       <div className='pt-5'>
-        <div>
-          진행 중인 빌리기, 빌려주기가 없어야 회원 탈퇴를 할 수 있습니다.
-        </div>
+        진행 중인 빌리기, 빌려주기가 없어야 회원 탈퇴를 할 수 있습니다.
         {process ? (
           <div className='flex justify-center'>
             <Chip label={'진행 카드가 없습니다'} sx={{ bgcolor: '#7fc4bc', color: 'white' }} />
@@ -89,7 +87,7 @@ const ProfileMembersDrawersContent = ({ userObj, user }) => {
           </Button>
         )}
       </div>
-    </div>
+    </>
   );
 };
 
