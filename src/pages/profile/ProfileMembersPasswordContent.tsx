@@ -61,7 +61,7 @@ const ProfileMembersPasswordContent = () => {
       id='changePassword'
       onSubmit={onSubmit}
     >
-      <div className='pt-5'>
+      <div className='p-5'>
         새 비밀번호를 등록해 주세요.
       </div>
       <div className="flex flex-col justify-center p-5">

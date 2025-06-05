@@ -28,6 +28,7 @@ const AuthForm = ({ signIn }) => {
     event.preventDefault()
     try {
       await signInWithEmailAndPassword(auth, account.email, account.password)
+      location.reload()
     } catch (error) {
       if (error.message === 'Firebase: Error (auth/invalid-credential).') {
         const errorMessage = '로그인 실패: 계정을 확인해 주세요'
