@@ -1,31 +1,28 @@
+import { useQuery } from "@tanstack/react-query";
+import { User } from "firebase/auth";
+import { doc, getDoc } from "firebase/firestore";
 import {
   useEffect,
   useState
 } from "react";
+import { useDispatch } from "react-redux";
+import {
+  useLocation
+} from "react-router-dom";
 import {
   dbservice
 } from "src/baseApi/serverbase";
+import { useSelectors } from "src/hooks/useSelectors";
 import PageTitle from "src/pages/core/pageTitle/PageTitle";
 import ProfileActions from "src/pages/profile/ProfileActions";
 import ProfileAvatar from "src/pages/profile/profileAvatar/ProfileAvatar";
 import ProfileCards from "src/pages/profile/ProfileCards";
 import ProfileCompleted from "src/pages/profile/ProfileCompleted";
 import ProfileMembers from "src/pages/profile/ProfileMembers";
-// import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnapshot, updateDoc, setDoc } from 'firebase/firestore';
-import { User } from "firebase/auth";
-import { useDispatch } from "react-redux";
-import {
-  useLocation
-} from "react-router-dom";
 import { changeBottomNavigation } from "src/stateSlices/bottomNavigationSlice";
-import { useImmer } from "use-immer";
-// import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-// import Skeleton from '@mui/material/Skeleton';
-import { useQuery } from "@tanstack/react-query";
-import { doc, getDoc } from "firebase/firestore";
-import { useSelectors } from "src/hooks/useSelectors";
 import { changeProfileColor } from "src/stateSlices/profileColorSlice";
 import { changeProfileUrl } from "src/stateSlices/profileUrlSlice";
+import { useImmer } from "use-immer";
 import ProfileLocations from "./ProfileLocations";
 
 const area = [
@@ -63,9 +60,6 @@ function Profile({ userObj }: Props) {
     lendDone: [],
   });
   const [scrolledToCompleted, setScrolledToCompleted] = useState(false)
-  // const [weather, setWeather] = useState(null)
-  // const [drawerClosed, setDrawerClosed] = useState(false);
-  // const [locationConfirmed, setLocationConfirmed] = useState(false)
   const userUid = state?.element.uid || userObj.uid;
   const userDisplayName = state?.element.displayName || userObj.displayName;
   const myCardsQuery = async ({ uid }) => {
