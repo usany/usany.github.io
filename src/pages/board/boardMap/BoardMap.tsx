@@ -232,7 +232,6 @@ function BoardMap({ mapAccordion, mapAccordionToggle, onMarker, onMarkerTrue, on
             <AccordionTrigger id='boardMap' onClick={() => mapAccordionToggle()}>
             </AccordionTrigger>
           </button>
-          {/* <div className="sticky top-10 z-30 bg-light-3 dark:bg-dark-3"></div> */}
           <AccordionContent>
             <div>
               {/* <div className="p-5">
