@@ -392,7 +392,7 @@ function Add({ userObj, borrow }: Props) {
           </div>
         </div>
       ) : (
-        <div className="flex justify-center">
+        <div className="flex justify-center min-w-[400px]">
           <AddCards
             borrow={borrow}
             userObj={userObj}
