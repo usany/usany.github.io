@@ -318,7 +318,7 @@ function BoardMap({ mapAccordion, mapAccordionToggle, onMarker, onMarkerTrue, on
                     onMarkerFalse();
                   }}
                 >
-                  <div className="flex flex-col">
+                  <div className="flex flex-col text-black">
                     <div className='flex justify-center'>{languages === 'ko' ? selectedValues[1].value : selectedLocation}</div>
                     {selectItems.map((value, index) => {
                       return (
