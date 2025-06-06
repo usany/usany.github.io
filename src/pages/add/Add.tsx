@@ -82,7 +82,6 @@ function Add({ userObj, borrow }: Props) {
   //   }
   // const params = useParams()
   // const search = useSearchParams()
-  // console.log(useSearchParams())
   function changeAddSteps(newValue) {
     setAddSteps(newValue);
   }
