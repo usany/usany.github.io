@@ -174,7 +174,7 @@ function RankingLists({ userObj, userSearch }: Props) {
   }, [isLoading, userSearch]);
   const handleScroll = () => {
     if (
-      document.documentElement.offsetHeight - (window.innerHeight + Math.round(document.documentElement.scrollTop)) > 10 ||
+      document.documentElement.offsetHeight - (window.innerHeight + Math.round(document.documentElement.scrollTop)) > 250 ||
       isLoading
     ) {
       console.log(document.documentElement.offsetHeight);
