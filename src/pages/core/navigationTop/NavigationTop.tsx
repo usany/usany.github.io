@@ -79,6 +79,7 @@ const NavigationTop = ({ userObj }: Props) => {
     setProfile();
   }, [userObj]);
   useScroll()
+  const scrollLocation = ['/', '/add', '/board'].indexOf(location.pathname) === -1
   return (
     <div className="shadow-md fixed z-50 bg-light-2 dark:bg-dark-2 rounded truncate">
       {renderDelayed &&
@@ -109,7 +110,7 @@ const NavigationTop = ({ userObj }: Props) => {
             />
           </div> */}
           <div className={`flex ${!largeMedia && 'flex-col'} items-center`}>
-            {largeMedia && scrollNavigation &&
+            {largeMedia && scrollNavigation && scrollLocation &&
               <NavigationScroll />
             }
             <div>
@@ -127,7 +128,7 @@ const NavigationTop = ({ userObj }: Props) => {
                 </>
               )}
             </div>
-            {!largeMedia && scrollNavigation &&
+            {!largeMedia && scrollNavigation && scrollLocation &&
               <NavigationScroll />
             }
           </div>
