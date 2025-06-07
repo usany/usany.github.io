@@ -4,13 +4,20 @@ import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
 import { Building, Watch } from 'lucide-react'
 import { useSelector } from 'react-redux'
-import staticImg from 'src/assets/pwa-512x512.png'
+import staticCl from 'src/assets/static_cl.jpg'
+import staticCw from 'src/assets/static_cw.jpg'
+import staticG from 'src/assets/static_g.jpg'
 import { AnimatedList } from 'src/components/ui/animated-list'
 import { useSelectors } from 'src/hooks/useSelectors'
 import Avatars from 'src/pages/core/Avatars'
 import locationsBuildings from './locationsBuildings'
 import locationsCollection from './locationsCollection'
 import locationsCollectionLetters from './locationsCollectionLetters'
+const staticArray = {
+  '중도': staticCl,
+  '간호이과대': staticG,
+  '청운': staticCw
+}
 
 const AddCards = ({
   borrow,
@@ -48,7 +55,8 @@ const AddCards = ({
       ]
   }
   const languages = useSelectors((state) => state.languages.value)
-
+  const locationOne = locationState?.locationOne
+  const staticImg = staticArray[locationOne]
   return (
     <div className="flex justify-center text-sm pt-5 p-1">
       <AnimatedList>
