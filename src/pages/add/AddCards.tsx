@@ -13,7 +13,8 @@ import Avatars from 'src/pages/core/Avatars'
 import locationsBuildings from './locationsBuildings'
 import locationsCollection from './locationsCollection'
 import locationsCollectionLetters from './locationsCollectionLetters'
-const staticArray = {
+
+export const staticArray = {
   '중도': staticCl,
   '간호이과대': staticG,
   '청운': staticCw
