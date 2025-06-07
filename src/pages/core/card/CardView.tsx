@@ -20,10 +20,6 @@ export const staticArray = {
 }
 const CardView = ({ onTransfer, message, shadowColor }) => {
   const { color } = useCardsBackground()
-  const locationOne = locationsBuildings['en'][
-    locationsBuildings['ko'].indexOf(message.text.count)
-  ]
-  console.log(locationOne)
   const staticImg = staticArray[message.text.count]
   return (
     <div className="flex flex-col gap-5">
