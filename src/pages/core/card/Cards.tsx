@@ -1,8 +1,5 @@
 import { User } from 'firebase/auth'
 import { useRef } from 'react'
-import staticCl from 'src/assets/static_cl.jpg'
-import staticCw from 'src/assets/static_cw.jpg'
-import staticG from 'src/assets/static_g.jpg'
 import useLongPress from 'src/hooks/useLongPress'
 import MorphingDialogs from '../morphingDialogs/MorphingDialogs'
 import CardsLongPressed from './CardsLongPressed'
@@ -33,9 +30,6 @@ const Cards = ({
   const cardsRef = useRef()
   useLongPress(cardsRef, () => {
     changeLongPressCard(message.id)
-    // if (longPressCard) {
-    //   changeLongPressed(true)
-    // }
   })
   return (
     <div className="max-w-60 min-w-20 text-sm p-1" ref={cardsRef}>
@@ -46,7 +40,6 @@ const Cards = ({
               longPressCard={longPressCard}
               message={message}
               changeLongPressCard={changeLongPressCard}
-              // changeLongPressed={changeLongPressed}
               isOwner={isOwner}
               userObj={userObj}
               num={num}
