@@ -47,7 +47,7 @@ const AuthButtons = () => {
             name="h"
             onClick={onSocialClick}
           >
-            애플로 로그인
+            곧 애플로 뵐게요
           </Button>
           {/* <Button sx={{width: '50%'}} startIcon={<img src={staticMicrosoft} className='w-[20px]'/>} variant='outlined' name='g' onClick={onSocialClick}>구글로 로그인</Button> */}
           {/* <Button sx={{width: '50%'}} variant='outlined' name='g' onClick={onSocialClick}>구글로 로그인</Button> */}
