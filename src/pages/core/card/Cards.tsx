@@ -9,11 +9,6 @@ import CardsLongPressed from './CardsLongPressed'
 import CardsViews from './CardsViews'
 import { useRound } from './useRound'
 
-export const staticArray = {
-  '중도': staticCl,
-  '간호이과대': staticG,
-  '청운': staticCw
-}
 interface Props {
   message: { id: string; text: object }
   isOwner: boolean

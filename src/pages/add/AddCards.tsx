@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux'
 import { AnimatedList } from 'src/components/ui/animated-list'
 import { useSelectors } from 'src/hooks/useSelectors'
 import Avatars from 'src/pages/core/Avatars'
-import { staticArray } from '../core/card/Cards'
+import { staticArray } from '../core/card/CardView'
 import locationsBuildings from './locationsBuildings'
 import locationsCollection from './locationsCollection'
 import locationsCollectionLetters from './locationsCollectionLetters'
@@ -49,7 +49,7 @@ const AddCards = ({
   }
   const languages = useSelectors((state) => state.languages.value)
   const locationOne = locationState?.locationOne
-  const staticImg = staticArray[locationOne]
+  const staticImg = staticArray[locationOne] || staticArray['building']
   return (
     <div className="flex justify-center text-sm pt-5 p-1">
       <AnimatedList>

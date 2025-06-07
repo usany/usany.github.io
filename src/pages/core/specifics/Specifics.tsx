@@ -6,10 +6,10 @@ import Divider from '@mui/material/Divider'
 import { User } from 'firebase/auth'
 import { doc, getDoc } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
-import staticImg from 'src/assets/pwa-512x512.png'
 import { dbservice } from 'src/baseApi/serverbase'
 import Btn from 'src/buttons/Buttons'
 import { useSelectors } from 'src/hooks/useSelectors'
+import { staticArray } from '../card/CardView'
 import SpecificsActions from './SpecificsActions'
 import SpecificsDimensions from './SpecificsDimensions'
 import SpecificsSteppers from './SpecificsSteppers'
@@ -53,6 +53,7 @@ function Specifics({
   toggleOnTransfer,
   removeMessage,
 }: Props) {
+  const staticImg = staticArray[message.text.count] || staticArray['building']
   const [num, setNum] = useState<number | null>(null)
   const [points, setPoints] = useState<number | null>(null)
   const [deleted, setDeleted] = useState<boolean>(false)
@@ -84,7 +85,7 @@ function Specifics({
   const id = message?.id || ''
   const shadowColor =
     shadowColorArray[
-      mergedArray.indexOf(String(id[0]).toUpperCase()) % shadowColorArray.length
+    mergedArray.indexOf(String(id[0]).toUpperCase()) % shadowColorArray.length
     ]
 
   return (
