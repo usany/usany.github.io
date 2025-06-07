@@ -125,21 +125,11 @@ function Board({ userObj }: Props) {
             <PenTool />
             <PenSquare /> */}
           <SwipeableViews>
-            <PageTitle title={
-              <div className='flex gap-5 items-center'>
-                <Minimize2 />
-                <>
-                  {languages === 'ko' ? '빌리기 카드 목록' : 'Borrowing Card Board'}
-                </>
-              </div>
+            <PageTitle icon={<Minimize2 />} title={
+              languages === 'ko' ? '빌리기 카드 목록' : 'Borrowing Card Board'
             } />
-            <PageTitle title={
-              <div className='flex gap-5 items-center'>
-                <Maximize2 />
-                <>
-                  {languages === 'ko' ? '빌려주기 카드 목록' : 'Lending Card Board'}
-                </>
-              </div>
+            <PageTitle icon={<Maximize2 />} title={
+              languages === 'ko' ? '빌려주기 카드 목록' : 'Lending Card Board'
             } />
           </SwipeableViews>
           <div className='px-5'>
@@ -158,8 +148,8 @@ function Board({ userObj }: Props) {
             </div>
           </div>
           <>
-            <div className='truncate flex justify-center sticky top-16 z-30 pb-5 px-5'>
-              <div className='w-[1000px] shadow-md sticky top-16 z-30'>
+            <div className='truncate flex justify-center sticky top-16 z-30 px-5'>
+              <div className='w-[1000px] shadow-md'>
                 <Popups trigger={
                   <BoardList selectedValues={selectedValues} />
                 } title={<FilterDialogsTitle />} content={<FilterDialogsContent selectedValues={selectedValues} handleSelectedValues={handleSelectedValues} />} />

@@ -82,7 +82,6 @@ function Add({ userObj, borrow }: Props) {
   //   }
   // const params = useParams()
   // const search = useSearchParams()
-  // console.log(useSearchParams())
   function changeAddSteps(newValue) {
     setAddSteps(newValue);
   }
@@ -346,14 +345,11 @@ function Add({ userObj, borrow }: Props) {
 
   return (
     <div className="flex flex-col h-screen">
-      <PageTitle title={
-        <div className='flex gap-5 items-center'>
-          {borrow ? <Minimize2 /> : <Maximize2 />}
-          <>
-            {borrow ? `${languages === 'ko' ? '빌리기 ' : 'Borrowing '}` : `${languages === 'ko' ? '빌려주기 ' : 'Lending '}`} ${languages === 'ko' ? '카드 등록' : 'Card Registeration'}
-          </>
-        </div>
-      } />
+      <PageTitle
+        icon={borrow ? <Minimize2 /> : <Maximize2 />}
+        title={
+          `${borrow ? (languages === 'ko' ? '빌리기 ' : 'Borrowing ') : (languages === 'ko' ? '빌려주기 ' : 'Lending ')} ${languages === 'ko' ? '카드 등록' : 'Card Registeration'}`
+        } />
       <AddSteppers addSteps={addSteps} borrow={borrow} />
       {/* <div className='flex justify-around'>
           <AddCards borrow={borrow} userObj={userObj} addSteps={addSteps} item={item} fromTo={fromTo} locationState={locationState} />
@@ -395,7 +391,7 @@ function Add({ userObj, borrow }: Props) {
           </div>
         </div>
       ) : (
-        <div className="flex justify-center">
+        <div className="flex justify-center min-w-[400px]">
           <AddCards
             borrow={borrow}
             userObj={userObj}

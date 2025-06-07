@@ -1,3 +1,4 @@
+import { MessagesSquare } from 'lucide-react'
 import { useSelectors } from 'src/hooks/useSelectors'
 import PageTitle from 'src/pages/core/pageTitle/PageTitle'
 import PiazzaSwitch from 'src/pages/piazza/piazzaTitle/piazzaSwitch/PiazzaSwitch'
@@ -17,9 +18,11 @@ const PiazzaTitle = ({ multiple, displayName }: Props) => {
 
   return (
     <div className='flex w-screen justify-between'>
-      <PageTitle title={multiple ? piazzaTitles[index][0] : `${piazzaTitles[index][1]} ${displayName}`} />
+      <PageTitle
+        icon={<MessagesSquare />}
+        title={multiple ? piazzaTitles[index][0] : `${piazzaTitles[index][1]} ${displayName}`} />
       {multiple &&
-        <div className='flex w-2/3 justify-end px-5 pt-5'>
+        <div className='flex w-1/2 justify-end px-5 pt-5'>
           <PiazzaSwitch />
         </div>
       }

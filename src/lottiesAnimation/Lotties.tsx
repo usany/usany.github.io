@@ -13,11 +13,14 @@ function Lotties() {
     }
   };
   return (
-    <div>
-      <div className='flex flex-col items-center'>
-        <TextRoll className='text-5xl'>umbrellas</TextRoll>
-      </div>
+    <div className='flex flex-col justify-center p-[50px]'>
+      {/* <div className='flex flex-col items-center'>
+        <TextRoll className='text-5xl'>쿠우산</TextRoll>
+      </div> */}
       <Lottie options={defaultOptions} height={400} width={400} />
+      <div className='flex flex-col items-center'>
+        <TextRoll className='text-5xl'>쿠우산</TextRoll>
+      </div>
     </div>
     // <Lottie animationData={rain} />
   )

@@ -2,16 +2,25 @@ import { alpha } from '@mui/material'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
-import staticImg from 'src/assets/pwa-512x512.png'
+import staticImgs from 'src/assets/pwa-512x512.png'
+import staticCl from 'src/assets/static_cl.jpg'
+import staticCw from 'src/assets/static_cw.jpg'
+import staticG from 'src/assets/static_g.jpg'
 import useCardsBackground from 'src/hooks/useCardsBackground'
 import CardViewLocation from './CardViewLocation'
 import CardViewTime from './CardViewTime'
 import CardViewTop from './CardViewTop'
 import CardViewTransfer from './CardViewTransfer'
 
+export const staticArray = {
+  '중도': staticCl,
+  '간호이과대': staticG,
+  '청운': staticCw,
+  'building': staticImgs
+}
 const CardView = ({ onTransfer, message, shadowColor }) => {
   const { color } = useCardsBackground()
-
+  const staticImg = staticArray[message.text.count] || staticArray['building']
   return (
     <div className="flex flex-col gap-5">
       {onTransfer && <CardViewTransfer />}

@@ -1,5 +1,8 @@
 import { User } from 'firebase/auth'
 import { useRef } from 'react'
+import staticCl from 'src/assets/static_cl.jpg'
+import staticCw from 'src/assets/static_cw.jpg'
+import staticG from 'src/assets/static_g.jpg'
 import useLongPress from 'src/hooks/useLongPress'
 import MorphingDialogs from '../morphingDialogs/MorphingDialogs'
 import CardsLongPressed from './CardsLongPressed'
