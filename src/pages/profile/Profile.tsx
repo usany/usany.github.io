@@ -8,7 +8,7 @@ import {
   useEffect,
   useState
 } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   useLocation
 } from "react-router-dom";
@@ -65,6 +65,7 @@ function Profile({ userObj }: Props) {
   const handleTooltipClose = () => {
     setOpen(false);
   };
+  const profile = useSelector((state) => state.profile.value)
 
   const handleTooltipOpen = () => {
     setOpen(true);
@@ -218,6 +219,7 @@ function Profile({ userObj }: Props) {
   // if (document.scrollingElement?.scrollTop > 100) {
   //   setScrolledToCompleted(true)
   // }
+  console.log(profile)
   const scrollEffect = () => {
     const scrollNumber = 50
     if (document.scrollingElement?.scrollTop && document.scrollingElement?.scrollTop > scrollNumber) {

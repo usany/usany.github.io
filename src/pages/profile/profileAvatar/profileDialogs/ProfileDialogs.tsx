@@ -15,6 +15,7 @@ import staticRed02 from "src/assets/red2.png";
 import Avatars from 'src/pages/core/Avatars';
 import { changeProfileColor } from 'src/stateSlices/profileColorSlice';
 import { changeProfileImage } from 'src/stateSlices/profileImageSlice';
+import { changeProfile } from 'src/stateSlices/profileSlice';
 import { changeProfileUrl } from 'src/stateSlices/profileUrlSlice';
 
 const images = {
@@ -33,17 +34,19 @@ const ProfileDialogs = ({ userObj, user, profileDialog, attachment, changeAttach
   const profileColor = useSelector(state => state.profileColor.value)
   const profileUrl = useSelector(state => state.profileUrl.value)
   const dispatch = useDispatch()
-  const [profile, setProfile] = useState(null)
-  useEffect(() => {
-    if (!profile) {
-      setProfile(user)
-    } else {
-      setProfile({
-        profileImage: true,
-        profileImageUrl: profileUrl
-      })
-    }
-  }, [attachmentFile])
+  // const [profile, setProfile] = useState(null)
+  const profile = useSelector((state) => state.profile.value)
+  // useEffect(() => {
+  //   if (!profile) {
+  //     setProfile(user)
+  //   } else {
+  //     setProfile({
+  //       profileImage: true,
+  //       profileImageUrl: profileUrl
+  //     })
+  //   }
+  // }, [attachmentFile])
+  console.log(profile)
   const onClick = async () => {
     const data = doc(dbservice, `members/${userObj.uid}`)
     // if (selectedColor) {
@@ -66,6 +69,8 @@ const ProfileDialogs = ({ userObj, user, profileDialog, attachment, changeAttach
       const docRef = doc(dbservice, `members/${userObj?.uid}`)
       updateDoc(docRef, { profileImage: true });
       dispatch(changeProfileUrl(attachment))
+      dispatch(changeProfile({ ...profile, profileImage: true, }))
+      console.log({ ...profile, profileImage: true, })
     } else if (onClear) {
       dispatch(changeProfileUrl('null'))
       setOnClear(false)
@@ -120,9 +125,9 @@ const ProfileDialogs = ({ userObj, user, profileDialog, attachment, changeAttach
     fileInput.value = null
   }
   const selectedImages = images[profileColor] || images['gold']
-  console.log(attachmentFile)
-  console.log(attachment)
-  console.log(profileColor)
+  // console.log(attachmentFile)
+  // console.log(attachment)
+  // console.log(profileColor)
   return (
     <>
       <>
