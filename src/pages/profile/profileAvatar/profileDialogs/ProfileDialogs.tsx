@@ -1,4 +1,4 @@
-import { doc } from 'firebase/firestore';
+import { doc, updateDoc } from 'firebase/firestore';
 import { ref, uploadString } from "firebase/storage";
 import { useEffect, useState } from 'react';
 import { dbservice, storage } from 'src/baseApi/serverbase';
@@ -33,9 +33,17 @@ const ProfileDialogs = ({ userObj, user, profileDialog, attachment, changeAttach
   const profileColor = useSelector(state => state.profileColor.value)
   const profileUrl = useSelector(state => state.profileUrl.value)
   const dispatch = useDispatch()
+  const [profile, setProfile] = useState(null)
   useEffect(() => {
-
-  })
+    if (!profile) {
+      setProfile(user)
+    } else {
+      setProfile({
+        profileImage: true,
+        profileImageUrl: profileUrl
+      })
+    }
+  }, [attachmentFile])
   const onClick = async () => {
     const data = doc(dbservice, `members/${userObj.uid}`)
     // if (selectedColor) {
@@ -52,11 +60,11 @@ const ProfileDialogs = ({ userObj, user, profileDialog, attachment, changeAttach
     // });
     if (attachment && !onClear) {
       const storageRef = ref(storage, userObj.uid);
-      // uploadString(storageRef, attachment, 'data_url').then((snapshot) => {
-      //   console.log('Uploaded a blob or file!');
-      // });
+      uploadString(storageRef, attachment, 'data_url').then((snapshot) => {
+        console.log('Uploaded a blob or file!');
+      });
       const docRef = doc(dbservice, `members/${userObj?.uid}`)
-      // updateDoc(docRef, { profileImage: attachmentFile });
+      updateDoc(docRef, { profileImage: true });
       dispatch(changeProfileUrl(attachment))
     } else if (onClear) {
       dispatch(changeProfileUrl('null'))
@@ -119,11 +127,19 @@ const ProfileDialogs = ({ userObj, user, profileDialog, attachment, changeAttach
     <>
       <>
         <div className='flex flex-col items-center gap-5 p-5'>
-          <Avatars
-            element={user}
-            piazza={null}
-            profile={true}
-          />
+          {attachment ?
+            <Avatars
+              element={{ profileImage: true, profileImageUrl: attachment }}
+              piazza={null}
+              profile={true}
+            />
+            :
+            <Avatars
+              element={profile}
+              piazza={null}
+              profile={true}
+            />
+          }
           {/* <Avatar alt={userObj.displayName} sx={{ fontSize:'100px', width: '200px', height: '200px', bgcolor: selectedColor }} src={attachmentFile || './src'} onClick={() => {
                     }} variant='rounded' /> */}
           <div className='flex-col px-5 content-center p-5'>
@@ -196,9 +212,10 @@ const ProfileDialogs = ({ userObj, user, profileDialog, attachment, changeAttach
       </div>
       {!attachment &&
         <div className='flex justify-center p-5'>
-          <Button variant='outlined' disabled>저장</Button>
+          <Button onClick={onClick} variant='outlined' disabled>저장</Button>
         </div>
       }
+      <img src={attachment} />
     </>
   )
 }

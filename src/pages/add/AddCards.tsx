@@ -23,6 +23,7 @@ const AddCards = ({
 }) => {
   const profileColor = useSelector((state) => state.profileColor.value)
   const profileUrl = useSelector((state) => state.profileUrl.value)
+  const profile = useSelector((state) => state.profile.value)
   const shadowColorArray = [
     'lightblue',
     'lightcoral',
@@ -65,6 +66,7 @@ const AddCards = ({
             <div>
               <div className="flex justify-between gap-1">
                 <Avatars
+                  element={profile}
                   uid={userObj.uid}
                   profile={false}
                   profileColor={profileColor}

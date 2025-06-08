@@ -219,7 +219,7 @@ function Profile({ userObj }: Props) {
   //   setScrolledToCompleted(true)
   // }
   const scrollEffect = () => {
-    const scrollNumber = userUid === userObj.uid ? 250 : 50
+    const scrollNumber = 50
     if (document.scrollingElement?.scrollTop && document.scrollingElement?.scrollTop > scrollNumber) {
       setScrolledToCompleted(true)
     }
