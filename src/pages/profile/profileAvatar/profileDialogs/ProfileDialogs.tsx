@@ -14,7 +14,6 @@ import staticRed01 from "src/assets/red1.png";
 import staticRed02 from "src/assets/red2.png";
 import Avatars from 'src/pages/core/Avatars';
 import { changeProfileColor } from 'src/stateSlices/profileColorSlice';
-import { changeProfileImage } from 'src/stateSlices/profileImageSlice';
 import { changeProfile } from 'src/stateSlices/profileSlice';
 import { changeProfileUrl } from 'src/stateSlices/profileUrlSlice';
 
@@ -27,11 +26,14 @@ const images = {
   'profileGold': [staticGold01, staticGold02],
   gold: [staticGold01, staticGold02],
 }
-const ProfileDialogs = ({ userObj, user, profileDialog, attachment, changeAttachment, handleClose }) => {
+const ProfileDialogs = ({ userObj, user, profileDialog, attachment, changeAttachment, handleClose,
+  profileOrder, changeProfileOrder
+}) => {
   // const [selectedColor, setSelectedColor] = useState('')
   const [attachmentFile, setAttachmentFile] = useState('null')
   const [onClear, setOnClear] = useState(false)
   const profileColor = useSelector(state => state.profileColor.value)
+  const profileImage = useSelector(state => state.profileImage.value)
   const profileUrl = useSelector(state => state.profileUrl.value)
   const dispatch = useDispatch()
   // const [profile, setProfile] = useState(null)
@@ -48,7 +50,7 @@ const ProfileDialogs = ({ userObj, user, profileDialog, attachment, changeAttach
   // }, [attachmentFile])
   console.log(profile)
   const onClick = async () => {
-    const data = doc(dbservice, `members/${userObj.uid}`)
+    // const data = doc(dbservice, `members/${userObj.uid}`)
     // if (selectedColor) {
     //   updateDoc(data, { profileColor: selectedColor });
     //   dispatch(changeProfileColor(selectedColor))
@@ -71,6 +73,7 @@ const ProfileDialogs = ({ userObj, user, profileDialog, attachment, changeAttach
       dispatch(changeProfileUrl(attachment))
       dispatch(changeProfile({ ...profile, profileImage: true, }))
       console.log({ ...profile, profileImage: true, })
+      console.log('practice')
     } else if (onClear) {
       dispatch(changeProfileUrl('null'))
       setOnClear(false)
@@ -185,7 +188,12 @@ const ProfileDialogs = ({ userObj, user, profileDialog, attachment, changeAttach
                 // }
                 // reader.readAsDataURL(blob)
                 // setOnClear(false)
-                dispatch(changeProfileImage(index ? 'plant' : 'animal'))
+                // dispatch(changeProfileImage(index ? 'plant' : 'animal'))
+                if (index) {
+                  changeProfileOrder('plant')
+                } else {
+                  changeProfileOrder('animal')
+                }
                 changeAttachment(value)
               }}>
                 <Avatars element={{ profileImage: true, defaultProfile: value, profileImageUrl: value }} uid='' profile={false} profileColor={''} profileUrl={value} piazza={null} />
@@ -217,10 +225,9 @@ const ProfileDialogs = ({ userObj, user, profileDialog, attachment, changeAttach
       </div>
       {!attachment &&
         <div className='flex justify-center p-5'>
-          <Button onClick={onClick} variant='outlined' disabled>저장</Button>
+          <Button variant='outlined' disabled>저장</Button>
         </div>
       }
-      <img src={attachment} />
     </>
   )
 }

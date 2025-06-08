@@ -27,6 +27,10 @@ const ProfileAvatar = ({ userObj, user, handleProfileDialog, profileDialog, atta
   useEffect(() => {
     setProfile(profileUrl)
   }, [profileImage])
+  const [profileOrder, setProfileOrder] = useState('animal')
+  const changeProfileOrder = (newValue) => {
+    setProfileOrder(newValue)
+  }
   // console.log(user?.profileImageUrl)
   // console.log(userObj.uid)
   // console.log(user.uid)
@@ -37,8 +41,8 @@ const ProfileAvatar = ({ userObj, user, handleProfileDialog, profileDialog, atta
         <Popups
           trigger={<ProfileView userObj={userObj} user={user} attachment={attachment} changeAttachment={changeAttachment} />}
           title={'프로필 변경'}
-          content={<ProfileDialogs userObj={userObj} user={user} attachment={attachment} changeAttachment={changeAttachment} handleClose={handleClose} />}
-          close={<ProfileClose userObj={userObj} attachment={attachment} changeAttachment={changeAttachment} handleClose={handleClose} />}
+          content={<ProfileDialogs userObj={userObj} user={user} attachment={attachment} changeAttachment={changeAttachment} handleClose={handleClose} profileOrder={profileOrder} changeProfileOrder={changeProfileOrder} />}
+          close={<ProfileClose userObj={userObj} attachment={attachment} changeAttachment={changeAttachment} handleClose={handleClose} profileOrder={profileOrder} changeProfileOrder={changeProfileOrder} />}
           attachment={attachment}
         />
       </div>

@@ -79,6 +79,7 @@ const NavigationTop = ({ userObj }: Props) => {
     setProfile();
   }, [userObj]);
   useScroll()
+  console.log(profile)
   const scrollLocation = ['/', '/add', '/board'].indexOf(location.pathname) === -1
   return (
     <div className="shadow-md fixed z-50 bg-light-2 dark:bg-dark-2 rounded truncate">
