@@ -1,3 +1,5 @@
+import ClickAwayListener from '@mui/material/ClickAwayListener';
+import Tooltip from '@mui/material/Tooltip';
 import { useQuery } from "@tanstack/react-query";
 import { User } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
@@ -59,6 +61,14 @@ function Profile({ userObj }: Props) {
     lendDone: [],
   });
   const [scrolledToCompleted, setScrolledToCompleted] = useState(false)
+  const [open, setOpen] = useState(false)
+  const handleTooltipClose = () => {
+    setOpen(false);
+  };
+
+  const handleTooltipOpen = () => {
+    setOpen(true);
+  };
   const userUid = state?.element.uid || userObj.uid;
   const userDisplayName = state?.element.displayName || userObj.displayName;
   const myCardsQuery = async ({ uid }) => {
@@ -245,6 +255,43 @@ function Profile({ userObj }: Props) {
         changeAttachment={(newState: string) => setAttachment(newState)}
         handleClose={handleClose}
       /> */}
+      <ClickAwayListener onClickAway={handleTooltipClose}>
+        <div>
+          <Tooltip
+            onClose={handleTooltipClose}
+            open={open}
+            disableFocusListener
+            disableHoverListener
+            disableTouchListener
+            title="Add"
+            slotProps={{
+              popper: {
+                disablePortal: true,
+              },
+            }}
+          >
+            <div onClick={handleTooltipOpen}>Click</div>
+          </Tooltip>
+        </div>
+        <Popover>
+          <PopoverTrigger>Open</PopoverTrigger>
+          <PopoverContent>Place content for the popover here.</PopoverContent>
+        </Popover>
+      </ClickAwayListener>
+      {/* <Tooltip
+        onClose={handleTooltipClose}
+        open={open}
+        disableFocusListener
+        disableHoverListener
+        disableTouchListener
+        title="Add"
+        slotProps={{
+          popper: {
+            disablePortal: true,
+          },
+        }}
+      >
+      </Tooltip> */}
       <ProfileLocations user={state?.element.uid} userObj={userObj} />
       {/* <Suspense fallback={<Skeleton />}>
         <ProfileAvatar userObj={userObj} user={state.element} handleProfileDialog={() => setProfileDialog(true)} />

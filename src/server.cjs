@@ -24,7 +24,7 @@ const sampleMessage = {
   token:
     'cMKqnki-Feo7tMzDdKx-8L:APA91bF7iwhQSTQ4Ewv9rDWImAyEi0vwKvg6QHwqrJqDc3AB0vWEID7B1VKgT1q8By-G9VSdmXxfvADyz0ROOjA5ewtV_O87Ai66uUeIwZzIP5eREuhFJfZ-ZFD_ptwR-BsB0a3QAaYD',
 }
-console.log('connect')
+// console.log('connect')
 const createMessage = ({
   messageTitle,
   messageText,
