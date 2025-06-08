@@ -59,7 +59,7 @@ const ProfileLocations = ({ user, userObj }) => {
   // console.log(user)
   return (
     <div className="flex flex-col items-center pt-5">
-      {userObj.uid === user && (
+      {/* {userObj.uid === user && (
         <div>
           {languages === 'ko' ? (
             <div>
@@ -75,7 +75,7 @@ const ProfileLocations = ({ user, userObj }) => {
             </div>
           )}
         </div>
-      )}
+      )} */}
       {
         locationConfirmed ? (
           <Chip

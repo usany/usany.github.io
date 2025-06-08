@@ -255,44 +255,35 @@ function Profile({ userObj }: Props) {
         changeAttachment={(newState: string) => setAttachment(newState)}
         handleClose={handleClose}
       /> */}
-      <ClickAwayListener onClickAway={handleTooltipClose}>
-        <div>
-          <Tooltip
-            onClose={handleTooltipClose}
-            open={open}
-            disableFocusListener
-            disableHoverListener
-            disableTouchListener
-            title="Add"
-            slotProps={{
-              popper: {
-                disablePortal: true,
-              },
-            }}
-          >
-            <div onClick={handleTooltipOpen}>Click</div>
-          </Tooltip>
-        </div>
-        <Popover>
-          <PopoverTrigger>Open</PopoverTrigger>
-          <PopoverContent>Place content for the popover here.</PopoverContent>
-        </Popover>
-      </ClickAwayListener>
-      {/* <Tooltip
-        onClose={handleTooltipClose}
-        open={open}
-        disableFocusListener
-        disableHoverListener
-        disableTouchListener
-        title="Add"
-        slotProps={{
-          popper: {
-            disablePortal: true,
-          },
-        }}
-      >
-      </Tooltip> */}
-      <ProfileLocations user={state?.element.uid} userObj={userObj} />
+      <div className='flex justify-center p-5'>
+        <ProfileLocations user={state?.element.uid} userObj={userObj} />
+        <ClickAwayListener onClickAway={handleTooltipClose}>
+          <div className='flex justify-center p-5'>
+            <Tooltip
+              onClose={handleTooltipClose}
+              open={open}
+              disableFocusListener
+              disableHoverListener
+              disableTouchListener
+              title={<div className='text-xl'>
+                <div>캠퍼스에 계세요?</div>
+                <div>위치 확인으로 캠퍼스에 있음을 알리세요.</div>
+                <div>위치 확인은 다음날까지 지속됩니다.</div>
+              </div>}
+              slotProps={{
+                popper: {
+                  disablePortal: true,
+                },
+              }}
+            >
+              <div className='rounded-xl border border-solid w-18 px-1 bg-light-2 dark:bg-dark-2' onClick={handleTooltipOpen}>
+                ?
+                {/* Click */}
+              </div>
+            </Tooltip>
+          </div>
+        </ClickAwayListener>
+      </div>
       {/* <Suspense fallback={<Skeleton />}>
         <ProfileAvatar userObj={userObj} user={state.element} handleProfileDialog={() => setProfileDialog(true)} />
       </Suspense> */}
