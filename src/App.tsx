@@ -17,8 +17,35 @@ function App() {
   const theme = useSelectors((state) => state.theme.value)
   const userObj = useUserObject()
   const { lightTheme, darkTheme } = useColors()
+  const muteButton = document.getElementById('mute')
+  const streamButton = document.getElementById('stream')
+  let muted = false
+  let streamOff = false
+  function handleMuteClick() {
+    if (!muted) {
+      muteButton.innerText = 'unmute'
+      muted = true
+      console.log(muteButton)
+    } else {
+      muteButton.innerText = 'mute'
+      muted = false
+    }
+  }
+  function handleStreamClick() {
+    if (!streamOff) {
+      streamButton.innerText = 'turn stream on'
+      streamOff = true
+    } else {
+      streamButton.innerText = 'turn stream off'
+      streamOff = false
+    }
+  }
+
   return (
     <>
+      <button id='mute' onClick={handleMuteClick}>mute</button>
+      &emsp;
+      <button id='stream' onClick={handleStreamClick}>turn stream off</button>
       <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
         {userObj !== undefined ? <Router userObj={userObj} /> : <Lotties />}
       </ThemeProvider>

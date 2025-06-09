@@ -20,6 +20,8 @@ if ('serviceWorker' in navigator) {
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
+    {/* <div id='mute' onClick={handleMuteClick}>mute</div>
+    <div id='stream' onClick={handleStreamClick}>turn stream off</div> */}
     <APIProvider
       apiKey={import.meta.env.VITE_MAPS_PLATFORM}
       onLoad={() => console.log('Maps API has loaded.')}
