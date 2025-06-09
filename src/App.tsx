@@ -49,6 +49,7 @@ function App() {
         video: true
       }
       const promise = await navigator.mediaDevices.getUserMedia(constraints);
+      promise.getVideoTracks().forEach(track => track.enabled = !track.enabled)
       promise.getAudioTracks().forEach(track => track.enabled = !track.enabled)
 
       myFace.srcObject = promise
