@@ -41,17 +41,16 @@ function App() {
     }
   }
   const myFace = document.getElementById('myFace')
-
+  let promise
   async function getMedia() {
     try {
       const constraints = {
+        video: true,
         audio: true,
-        video: true
       }
-      const promise = await navigator.mediaDevices.getUserMedia(constraints);
+      promise = await navigator.mediaDevices.getUserMedia(constraints);
       promise.getVideoTracks().forEach(track => track.enabled = !track.enabled)
       promise.getAudioTracks().forEach(track => track.enabled = !track.enabled)
-
       myFace.srcObject = promise
     } catch (error) {
       console.log(error)
