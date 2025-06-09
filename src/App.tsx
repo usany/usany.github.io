@@ -40,7 +40,23 @@ function App() {
       streamOff = false
     }
   }
+  const myFace = document.getElementById('myFace')
 
+  async function getMedia() {
+    try {
+      const constraints = {
+        audio: true,
+        video: true
+      }
+      const promise = await navigator.mediaDevices.getUserMedia(constraints);
+      promise.getAudioTracks().forEach(track => track.enabled = !track.enabled)
+
+      myFace.srcObject = promise
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  getMedia()
   return (
     <>
       <button id='mute' onClick={handleMuteClick}>mute</button>
