@@ -1,22 +1,20 @@
 import Button from '@mui/material/Button';
 import { doc, updateDoc } from 'firebase/firestore';
 import { getDownloadURL, getStorage, ref, uploadString } from "firebase/storage";
-import { useState } from 'react';
 import { dbservice, storage } from 'src/baseApi/serverbase';
 // import { useAvatarColorStore, useAvatarImageStore } from 'src/store'
 import { useDispatch, useSelector } from 'react-redux';
 import { changeProfile } from 'src/stateSlices/profileSlice';
 import { changeProfileUrl } from 'src/stateSlices/profileUrlSlice';
 
-const ProfileClose = ({ userObj, profileDialog, attachment, changeAttachment, handleClose,
+const ProfileClose = ({ userObj, profileDialog, changedImage, handleChangedImage,
   profileOrder, changeProfileOrder
 }) => {
-  const [onClear, setOnClear] = useState(false)
+  // const [onClear, setOnClear] = useState(false)
   const profileColor = useSelector(state => state.profileColor.value)
   const profileImage = useSelector(state => state.profileImage.value)
-  const profileUrl = useSelector(state => state.profileUrl.value)
+  // const profileUrl = useSelector(state => state.profileUrl.value)
   const profile = useSelector((state) => state.profile.value)
-  console.log(attachment)
   const dispatch = useDispatch()
   const onClick = async () => {
     const data = doc(dbservice, `members/${userObj.uid}`)
@@ -80,10 +78,10 @@ const ProfileClose = ({ userObj, profileDialog, attachment, changeAttachment, ha
 
   return (
     <div>
-      {attachment &&
+      {!changedImage.changed &&
         <Button variant='outlined' onClick={() => {
-          handleClose()
-          changeAttachment('')
+          // handleClose()
+          handleChangedImage({...changedImage, change: true})
           onClick()
           // dispatch(changeProfileColor(selectedColor))
         }}>저장</Button>
