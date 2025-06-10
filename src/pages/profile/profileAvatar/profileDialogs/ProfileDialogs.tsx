@@ -1,7 +1,7 @@
 // import { useAvatarColorStore, useAvatarImageStore } from 'src/store'
 import { Button } from '@mui/material';
+import { getDownloadURL, getStorage, ref } from "firebase/storage";
 import { Check } from 'lucide-react';
-import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import staticBlue01 from "src/assets/blue02.png";
 import staticBlue02 from "src/assets/blue03.png";
@@ -22,18 +22,18 @@ const images = {
   gold: [staticGold01, staticGold02],
 }
 const ProfileDialogs = ({ changedImage, handleChangedImage, profile, changeProfile, }) => {
-  const [candidateImage, setCandidateImage] = useState({
-    profileImage: false,
-    defaultProfile: '',
-    profileImageUrl: '',
-    profileColor: '',
-    initial: true
-  })
-  useEffect(() => {
-    if (candidateImage.initial) {
-      setCandidateImage({ ...profile, initial: false })
-    }
-  }, [])
+  // const [copyingProfile, setCopyingProfile] = useState({
+  //   profileImage: false,
+  //   defaultProfile: '',
+  //   profileImageUrl: '',
+  //   profileColor: '',
+  //   initial: true
+  // })
+  // useEffect(() => {
+  //   if (copyingProfile.initial) {
+  //     setCopyingProfile(profile)
+  //   }
+  // }, [])
   const profileColor = useSelector(state => state.profileColor.value)
   const dispatch = useDispatch()
   const switchColor = (newColor) => {
@@ -63,7 +63,7 @@ const ProfileDialogs = ({ changedImage, handleChangedImage, profile, changeProfi
     <>
       <div className='flex flex-col items-center gap-5 p-5'>
         <Avatars
-          element={!changedImage.changed ? changedImage : profile}
+          element={changedImage.changed ? changedImage : profile}
           profile={true}
         />
         <div className='flex-col px-5 content-center p-5'>
@@ -79,12 +79,20 @@ const ProfileDialogs = ({ changedImage, handleChangedImage, profile, changeProfi
               <div
                 key={profileColor + index + 1}
                 onClick={() => {
-                  if (index) {
-                    handleChangedImage({ ...profile, character: 'plant' })
-                  } else {
-                    handleChangedImage({ ...profile, character: 'animal' })
-                  }
-                  handleChangedImage(value)
+                  const storage = getStorage();
+                  const reference = ref(storage, `${index ? 'plant' : 'animal'}${changedImage.profileColor}.png`);
+                  console.log(reference)
+                  let defaultProfile
+                  getDownloadURL(reference).then((url) => {
+                    console.log(url)
+                    handleChangedImage({ ...profile, character: index ? 'plant' : 'animal', profileImage: false, defaultProfile: url, changed: true })
+                  })
+                  // console.log(defaultProfile)
+                  // if (index) {
+                  //   handleChangedImage({ ...profile, character: 'plant' })
+                  // } else {
+                  //   handleChangedImage({ ...profile, character: 'animal' })
+                  // }
                 }}>
                 <Avatars element={{ profileImage: true, defaultProfile: value, profileImageUrl: value }} uid='' profile={false} profileColor={''} profileUrl={value} piazza={null} />
               </div>

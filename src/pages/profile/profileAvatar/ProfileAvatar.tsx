@@ -22,8 +22,31 @@ const ProfileAvatar = ({ userObj, user, handleProfileDialog, profileDialog, hand
     defaultProfile: '',
     profileImageUrl: '',
     profileColor: '',
-    changed: true
+    initial: true,
+    changed: false
   });
+  useEffect(() => {
+    if (profile.initial) {
+      setProfile({
+        profileImage: user.profileImage,
+        defaultProfile: user.defaultProfile,
+        profileImageUrl: user.profileImageUrl,
+        profileColor: user.profileColor,
+        initial: false
+      })
+    }
+  }, [user])
+  useEffect(() => {
+    if (!changedImage.defaultProfile) {
+      setChangedImage({
+        attachment: '',
+        character: '',
+        color: profile.profileColor,
+        changed: false,
+        ...profile
+      })
+    }
+  }, [user])
   const handleChangedImage = (newValue) => setChangedImage(newValue)
   const changeProfile = (newValue) => setProfile(newValue)
   console.log(user)
