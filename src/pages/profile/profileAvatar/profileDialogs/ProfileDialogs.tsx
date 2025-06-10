@@ -93,13 +93,11 @@ const ProfileDialogs = ({ userObj, user, profileDialog, attachment, changeAttach
           {attachment ?
             <Avatars
               element={{ profileImage: true, profileImageUrl: attachment }}
-              piazza={null}
               profile={true}
             />
             :
             <Avatars
               element={profile}
-              piazza={null}
               profile={true}
             />
           }
