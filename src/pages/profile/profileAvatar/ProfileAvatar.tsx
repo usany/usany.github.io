@@ -11,12 +11,14 @@ const ProfileAvatar = ({ userObj, user, handleProfileDialog, profileDialog, chan
     profileImage: false,
     defaultProfile: '',
     profileImageUrl: '',
+    profileColor: '',
     initial: true
   })
   const changeProfile = (newValue) => setProfile(newValue)
+  console.log(user)
   useEffect(() => {
     if (profile.initial) {
-      setProfile({ initial: false, profileImage: user.profileImage, defaultProfile: user.defaultProfile, profileImageUrl: user.profileImageUrl })
+      setProfile({ initial: false, profileImage: user.profileImage, defaultProfile: user.defaultProfile, profileImageUrl: user.profileImageUrl, profileColor: user.profileColor || 'profileGold' })
     }
   }, [])
   const [profileOrder, setProfileOrder] = useState('animal')
