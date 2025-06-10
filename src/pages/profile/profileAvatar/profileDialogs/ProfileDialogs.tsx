@@ -1,6 +1,5 @@
 // import { useAvatarColorStore, useAvatarImageStore } from 'src/store'
 import { Button } from '@mui/material';
-import { getDownloadURL, getStorage, ref } from "firebase/storage";
 import { Check } from 'lucide-react';
 import { useDispatch, useSelector } from 'react-redux';
 import staticBlue01 from "src/assets/blue02.png";
@@ -38,7 +37,7 @@ const ProfileDialogs = ({ changedImage, handleChangedImage, profile, changeProfi
   const dispatch = useDispatch()
   const switchColor = (newColor) => {
     dispatch(changeProfileColor(newColor))
-    handleChangedImage({ ...changedImage, color: newColor, changed: false })
+    handleChangedImage({ ...changedImage, profileColor: newColor, changed: true })
   }
 
   const onFileChange = (event) => {
@@ -79,14 +78,14 @@ const ProfileDialogs = ({ changedImage, handleChangedImage, profile, changeProfi
               <div
                 key={profileColor + index + 1}
                 onClick={() => {
-                  const storage = getStorage();
-                  const reference = ref(storage, `${index ? 'plant' : 'animal'}${changedImage.profileColor}.png`);
-                  console.log(reference)
-                  let defaultProfile
-                  getDownloadURL(reference).then((url) => {
-                    console.log(url)
-                    handleChangedImage({ ...profile, character: index ? 'plant' : 'animal', profileImage: false, defaultProfile: url, changed: true })
-                  })
+                  // const storage = getStorage();
+                  // const reference = ref(storage, `${index ? 'plant' : 'animal'}${changedImage.profileColor}.png`);
+                  // console.log(reference)
+                  // getDownloadURL(reference).then((url) => {
+                  //   console.log(url)
+                  // })
+                  const defaultProfile = images[profileColor][index]
+                  handleChangedImage({ ...changedImage, character: index ? 'plant' : 'animal', profileImage: false, defaultProfile: defaultProfile, changed: true })
                   // console.log(defaultProfile)
                   // if (index) {
                   //   handleChangedImage({ ...profile, character: 'plant' })
@@ -100,11 +99,11 @@ const ProfileDialogs = ({ changedImage, handleChangedImage, profile, changeProfi
           })}
         </div>
         <div className='flex justify-center h-5'>
-          <div className='flex justify-center rounded-xl w-10 bg-profile-red' onClick={() => switchColor('profileRed')}>{profileColor === 'profileRed' &&
+          <div className='flex justify-center rounded-xl w-10 bg-profile-red' onClick={() => switchColor('profileRed')}>{changedImage.profileColor === 'profileRed' &&
             <Check />}</div>
-          <div className='flex justify-center rounded-xl w-10 bg-profile-blue' onClick={() => switchColor('profileBlue')}>{profileColor === 'profileBlue' &&
+          <div className='flex justify-center rounded-xl w-10 bg-profile-blue' onClick={() => switchColor('profileBlue')}>{changedImage.profileColor === 'profileBlue' &&
             <Check />}</div>
-          <div className='flex justify-center rounded-xl w-10 bg-profile-amber' onClick={() => switchColor('profileGold')}>{profileColor === 'profileGold' &&
+          <div className='flex justify-center rounded-xl w-10 bg-profile-amber' onClick={() => switchColor('profileGold')}>{changedImage.profileColor === 'profileGold' &&
             <Check />}</div>
         </div>
       </div>

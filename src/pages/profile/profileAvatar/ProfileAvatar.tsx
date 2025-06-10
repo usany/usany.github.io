@@ -34,22 +34,30 @@ const ProfileAvatar = ({ userObj, user, handleProfileDialog, profileDialog, hand
         profileColor: user.profileColor,
         initial: false
       })
-    }
-  }, [user])
-  useEffect(() => {
-    if (!changedImage.defaultProfile) {
       setChangedImage({
-        attachment: '',
-        character: '',
-        color: profile.profileColor,
-        changed: false,
-        ...profile
+        profileImage: user.profileImage,
+        defaultProfile: user.defaultProfile,
+        profileImageUrl: user.profileImageUrl,
+        profileColor: user.profileColor,
+        changed: false
       })
     }
   }, [user])
+  // useEffect(() => {
+  //   if (!changedImage.defaultProfile) {
+  //     setChangedImage({
+  //       attachment: '',
+  //       character: '',
+  //       color: profile.profileColor,
+  //       changed: false,
+  //       ...profile
+  //     })
+  //   }
+  // }, [])
   const handleChangedImage = (newValue) => setChangedImage(newValue)
   const changeProfile = (newValue) => setProfile(newValue)
-  console.log(user)
+  console.log(profile)
+  console.log(changedImage)
   useEffect(() => {
     if (profile.initial) {
       setProfile({ initial: false, profileImage: user.profileImage, defaultProfile: user.defaultProfile, profileImageUrl: user.profileImageUrl, profileColor: user.profileColor || 'profileGold' })
@@ -59,9 +67,7 @@ const ProfileAvatar = ({ userObj, user, handleProfileDialog, profileDialog, hand
   const changeProfileOrder = (newValue) => {
     setProfileOrder(newValue)
   }
-  // console.log(user?.profileImageUrl)
-  // console.log(userObj.uid)
-  // console.log(user.uid)
+
   if (userObj.uid === user.uid) {
     return (
       <Popups
