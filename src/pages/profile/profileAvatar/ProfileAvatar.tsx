@@ -1,6 +1,7 @@
 import { doc, getDoc } from 'firebase/firestore';
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import { dbservice } from 'src/baseApi/serverbase';
 import LoadingsSkeletons from "src/components/recycle/recycleLoadingsSkeletons";
 import { useSelectors } from "src/hooks/useSelectors";
 import Avatars from "src/pages/core/Avatars";
@@ -26,7 +27,7 @@ const ProfileAvatar = ({ userObj, user, handleProfileDialog, profileDialog, hand
       const userRef = doc(dbservice, `members/${userObj.uid}`)
       const userDoc = await getDoc(userRef)
       const userData = userDoc.data()
-      dispatch(changeProfile({ ...profile, profileImage: userData.profileImage, defaultProfile: userData.defaultProfile, profileImageUrl: userData.profileImageUrl}))
+      dispatch(changeProfile({ ...profile, profileImage: userData.profileImage, defaultProfile: userData.defaultProfile, profileImageUrl: userData.profileImageUrl }))
     }
     if (userObj.uid === user.uid) {
       changeUserData()

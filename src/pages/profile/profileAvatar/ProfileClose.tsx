@@ -30,7 +30,7 @@ const ProfileClose = ({ userObj, profileDialog, changedImage, handleChangedImage
         uploadString(storageRef, attachment, 'data_url').then((snapshot) => {
           console.log('Uploaded a blob or file!');
         });
-        updateDoc(data, { profileImage: true, profileColor: profileColor });
+        updateDoc(data, { profileImage: true, profileColor: changedImage.profileColor });
       } else {
         let defaultProfile
         getDownloadURL(storageRef).then((url) => {
