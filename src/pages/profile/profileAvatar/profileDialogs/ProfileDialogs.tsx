@@ -10,7 +10,6 @@ import staticRed01 from "src/assets/red1.png";
 import staticRed02 from "src/assets/red2.png";
 import Avatars from 'src/pages/core/Avatars';
 import { changeProfileColor } from 'src/stateSlices/profileColorSlice';
-
 const images = {
   'profile-red': [staticRed01, staticRed02],
   '#2196f3': [staticBlue01, staticBlue02],
@@ -20,7 +19,7 @@ const images = {
   'profileGold': [staticGold01, staticGold02],
   gold: [staticGold01, staticGold02],
 }
-const ProfileDialogs = ({ changedImage, handleChangedImage }) => {
+const ProfileDialogs = ({ attachment, changeAttachment, changedImage, handleChangedImage }) => {
   // const [copyingProfile, setCopyingProfile] = useState({
   //   profileImage: false,
   //   defaultProfile: '',
@@ -33,6 +32,7 @@ const ProfileDialogs = ({ changedImage, handleChangedImage }) => {
   //     setCopyingProfile(profile)
   //   }
   // }, [])
+  const profile = useSelector((state) => state.profile.value)
   const profileColor = useSelector(state => state.profileColor.value)
   const dispatch = useDispatch()
   const switchColor = (newColor) => {
@@ -52,12 +52,13 @@ const ProfileDialogs = ({ changedImage, handleChangedImage }) => {
       const {
         currentTarget: { result },
       } = finishedEvent;
-      handleChangedImage({ attachment: result, ...changedImage })
+      console.log(result)
+      changeAttachment(result)
     }
     reader.readAsDataURL(theFile)
   }
   const selectedImages = images[profileColor] || images['gold']
-  console.log(changedImage)
+  console.log(attachment)
   return (
     <>
       <div className='flex flex-col items-center gap-5 p-5'>
@@ -86,6 +87,8 @@ const ProfileDialogs = ({ changedImage, handleChangedImage }) => {
                   // })
                   const defaultProfile = images[profileColor][index]
                   handleChangedImage({ ...changedImage, attachment: '', profileCharacter: index ? 'plant' : 'animal', profileImage: false, defaultProfile: defaultProfile, changed: true })
+                  changeAttachment(null)
+                  
                   // console.log(defaultProfile)
                   // if (index) {
                   //   handleChangedImage({ ...profile, character: 'plant' })

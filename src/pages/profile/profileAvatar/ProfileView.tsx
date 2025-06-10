@@ -4,8 +4,9 @@ import { useSelector } from "react-redux";
 import LoadingsSkeletons from "src/components/recycle/recycleLoadingsSkeletons";
 import Avatars from "src/pages/core/Avatars";
 
-const ProfileView = ({ userObj, user, }) => {
+const ProfileView = ({ userObj, user, changeAttachment }) => {
   const profileUrl = useSelector((state) => state.profileUrl.value);
+  const profile = useSelector((state) => state.profile.value)
   return (
     <div>
       {user.uid === userObj.uid ? (
@@ -18,10 +19,11 @@ const ProfileView = ({ userObj, user, }) => {
               <BeachAccess />
             </button>
           }
+          onClick={() => changeAttachment(null)}
         >
           {profileUrl ? (
             <Avatars
-              element={user}
+              element={profile}
               piazza={null}
               profile={true}
             />

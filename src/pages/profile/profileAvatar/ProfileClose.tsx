@@ -49,6 +49,12 @@ const ProfileClose = ({ userObj, profileDialog, changedImage, handleChangedImage
       uploadString(storageRef, 'null', 'raw').then((snapshot) => {
         console.log('Uploaded a blob or file!');
       });
+      dispatch(changeProfile({
+        ...profile,
+        profileImage: false,
+        defaultProfile: changedImage.defaultProfile,
+        profileImageUrl: changedImage.profileImageUrl 
+      }))
     }
   }
 
