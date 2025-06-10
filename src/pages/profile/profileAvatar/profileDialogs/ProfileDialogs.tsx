@@ -20,7 +20,7 @@ const images = {
   'profileGold': [staticGold01, staticGold02],
   gold: [staticGold01, staticGold02],
 }
-const ProfileDialogs = ({ userObj, user, profileDialog, attachment, changeAttachment, handleClose,
+const ProfileDialogs = ({ userObj, user, profileDialog, changedImage, handleChangedImage, handleClose,
   profileOrder, changeProfileOrder
 }) => {
   const profileColor = useSelector(state => state.profileColor.value)
@@ -43,7 +43,7 @@ const ProfileDialogs = ({ userObj, user, profileDialog, attachment, changeAttach
       const {
         currentTarget: { result },
       } = finishedEvent;
-      changeAttachment(result)
+      handleChangedImage({ attachment: result, ...changedImage })
     }
     reader.readAsDataURL(theFile)
   }
@@ -53,7 +53,7 @@ const ProfileDialogs = ({ userObj, user, profileDialog, attachment, changeAttach
     <>
       <div className='flex flex-col items-center gap-5 p-5'>
         <Avatars
-          element={attachment ? { profileImage: true, profileImageUrl: attachment } : profile}
+          element={changedImage.attachment ? { profileImage: true, profileImageUrl: changedImage.attachment } : profile}
           profile={true}
         />
         <div className='flex-col px-5 content-center p-5'>
@@ -74,7 +74,7 @@ const ProfileDialogs = ({ userObj, user, profileDialog, attachment, changeAttach
                   } else {
                     changeProfileOrder('animal')
                   }
-                  changeAttachment(value)
+                  handleChangedImage(value)
                 }}>
                 <Avatars element={{ profileImage: true, defaultProfile: value, profileImageUrl: value }} uid='' profile={false} profileColor={''} profileUrl={value} piazza={null} />
               </div>

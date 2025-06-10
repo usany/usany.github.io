@@ -4,23 +4,11 @@ import { useSelector } from "react-redux";
 import LoadingsSkeletons from "src/components/recycle/recycleLoadingsSkeletons";
 import Avatars from "src/pages/core/Avatars";
 
-const ProfileView = ({ userObj, user, changeAttachment }) => {
+const ProfileView = ({ userObj, user, }) => {
   const profileColor = useSelector((state) => state.profileColor.value);
   const profileUrl = useSelector((state) => state.profileUrl.value);
-  // const profileImage = useSelector((state) => state.profileImage.value);
-  // const [profile, setProfile] = useState(null)
-  // console.log(profileUrl)
-  // useEffect(() => {
-  //   if (profileImage) {
-  //     setProfile(profileUrl)
-  //   } else {
-  //     setProfile(staticImage)
-  //   }
-  // }, [profileUrl])
   return (
-    <div onClick={() => {
-      changeAttachment('')
-    }}>
+    <div>
       {user.uid === userObj.uid ? (
         <Badge
           anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
@@ -37,10 +25,6 @@ const ProfileView = ({ userObj, user, changeAttachment }) => {
               element={user}
               piazza={null}
               profile={true}
-            // uid={user.uid}
-            // profileColor=""
-            // profileUrl={user.profileImageUrl}
-            // defaultProfileUrl={user.defaultProfile}
             />
           ) : (
             <LoadingsSkeletons height={"[192px]"} width={"[192px]"} />

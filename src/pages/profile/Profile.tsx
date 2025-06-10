@@ -48,7 +48,8 @@ function Profile({ userObj }: Props) {
   const [changedImage, setChangedImage] = useState({
     attachment: '',
     character: '',
-    color: ''
+    color: '',
+    changed: true
   });
   const { state } = useLocation();
   const [profileDialog, setProfileDialog] = useState(false);
