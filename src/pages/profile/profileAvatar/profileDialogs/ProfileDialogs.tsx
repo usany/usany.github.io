@@ -48,6 +48,7 @@ const ProfileDialogs = ({ userObj, user, profileDialog, attachment, changeAttach
     reader.readAsDataURL(theFile)
   }
   const selectedImages = images[profileColor] || images['gold']
+
   return (
     <>
       <div className='flex flex-col items-center gap-5 p-5'>
@@ -65,14 +66,16 @@ const ProfileDialogs = ({ userObj, user, profileDialog, attachment, changeAttach
         <div className='flex justify-center gap-5'>
           {selectedImages.map((value, index) => {
             return (
-              <div onClick={() => {
-                if (index) {
-                  changeProfileOrder('plant')
-                } else {
-                  changeProfileOrder('animal')
-                }
-                changeAttachment(value)
-              }}>
+              <div
+                key={profileColor + index + 1}
+                onClick={() => {
+                  if (index) {
+                    changeProfileOrder('plant')
+                  } else {
+                    changeProfileOrder('animal')
+                  }
+                  changeAttachment(value)
+                }}>
                 <Avatars element={{ profileImage: true, defaultProfile: value, profileImageUrl: value }} uid='' profile={false} profileColor={''} profileUrl={value} piazza={null} />
               </div>
             )

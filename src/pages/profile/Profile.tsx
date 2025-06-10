@@ -1,6 +1,5 @@
 import ClickAwayListener from '@mui/material/ClickAwayListener';
 import Tooltip from '@mui/material/Tooltip';
-import { useQuery } from "@tanstack/react-query";
 import { User } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 import { UserRound } from "lucide-react";
@@ -36,12 +35,21 @@ const area = [
     eastNorth: { lat: 37.6010743, lng: 127.0571999 },
   }
 ]
+interface changedImage {
+  attachment: string
+  character: string
+  color: string
+}
 interface Props {
   userObj: User;
 }
 function Profile({ userObj }: Props) {
   const languages = useSelectors((state) => state.languages.value)
-  const [attachment, setAttachment] = useState("");
+  const [changedImage, setChangedImage] = useState({
+    attachment: '',
+    character: '',
+    color: ''
+  });
   const { state } = useLocation();
   const [profileDialog, setProfileDialog] = useState(false);
   const [alliesCollection, setAlliesCollection] = useImmer([
@@ -78,11 +86,11 @@ function Profile({ userObj }: Props) {
 
     return myDocSnap;
   };
-  const myCards = useQuery({
-    queryKey: ["myCards"],
-    queryFn: () => myCardsQuery(userObj.uid),
-    suspense: true,
-  });
+  // const myCards = useQuery({
+  //   queryKey: ["myCards"],
+  //   queryFn: () => myCardsQuery(userObj.uid),
+  //   suspense: true,
+  // });
 
   useEffect(() => {
     const cards = async () => {
@@ -246,8 +254,8 @@ function Profile({ userObj }: Props) {
         user={state?.element || userObj}
         handleProfileDialog={() => setProfileDialog(true)}
         profileDialog={profileDialog}
-        attachment={attachment}
-        changeAttachment={(newState: string) => setAttachment(newState)}
+        changedImage={changedImage}
+        handleChangedImage={(newState: changedImage) => setChangedImage(newState)}
         handleClose={handleClose}
       />
       {/* <ProfileDialogs

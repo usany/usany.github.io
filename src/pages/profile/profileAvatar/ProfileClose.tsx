@@ -11,8 +11,6 @@ import { changeProfileUrl } from 'src/stateSlices/profileUrlSlice';
 const ProfileClose = ({ userObj, profileDialog, attachment, changeAttachment, handleClose,
   profileOrder, changeProfileOrder
 }) => {
-  // const [selectedColor, setSelectedColor] = useState('')
-  // const [attachmentFile, setAttachmentFile] = useState('null')
   const [onClear, setOnClear] = useState(false)
   const profileColor = useSelector(state => state.profileColor.value)
   const profileImage = useSelector(state => state.profileImage.value)
@@ -22,18 +20,6 @@ const ProfileClose = ({ userObj, profileDialog, attachment, changeAttachment, ha
   const dispatch = useDispatch()
   const onClick = async () => {
     const data = doc(dbservice, `members/${userObj.uid}`)
-    // if (selectedColor) {
-    //   updateDoc(data, { profileColor: selectedColor });
-    //   dispatch(changeProfileColor(selectedColor))
-    // }
-    // getDownloadURL(ref(storage, `${userObj.uid}`))
-    // .then((url) => {
-    //     const docRef = doc(dbservice, `members/${userObj?.uid}`)
-    //     updateDoc(docRef, {profileImageUrl: url});
-    // })
-    // .catch((error) => {
-    //   console.log(error)
-    // });
     if (attachment) {
       console.log(attachment)
       dispatch(changeProfileUrl(attachment))
