@@ -88,10 +88,10 @@ const ProfileAvatar = ({ userObj, user, handleProfileDialog, profileDialog, hand
   if (userObj.uid === user.uid) {
     return (
       <Popups
-        trigger={<ProfileView userObj={userObj} user={user} changeAttachment={changeAttachment} />}
+        trigger={<ProfileView userObj={userObj} user={user} changeAttachment={changeAttachment} changedImage={changedImage} handleChangedImage={handleChangedImage} />}
         title={'프로필 변경'}
         content={<ProfileDialogs attachment={attachment} changeAttachment={changeAttachment} changedImage={changedImage} handleChangedImage={handleChangedImage} />}
-        close={<ProfileClose userObj={userObj} changedImage={changedImage} handleChangedImage={handleChangedImage} profileOrder={profileOrder} changeProfileOrder={changeProfileOrder} />}
+        close={<ProfileClose userObj={userObj} changedImage={changedImage} handleChangedImage={handleChangedImage} profileOrder={profileOrder} changeProfileOrder={changeProfileOrder} attachment={attachment} />}
         attachment={changedImage}
       />
     )

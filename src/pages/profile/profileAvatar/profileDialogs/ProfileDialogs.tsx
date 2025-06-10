@@ -52,13 +52,13 @@ const ProfileDialogs = ({ attachment, changeAttachment, changedImage, handleChan
       const {
         currentTarget: { result },
       } = finishedEvent;
-      console.log(result)
+      // console.log(result)
       changeAttachment(result)
     }
     reader.readAsDataURL(theFile)
   }
-  const selectedImages = images[profileColor] || images['gold']
-  console.log(attachment)
+  const selectedImages = images[changedImage.profileColor] || images['gold']
+  // console.log(attachment)
   return (
     <>
       <div className='flex flex-col items-center gap-5 p-5'>
@@ -88,7 +88,8 @@ const ProfileDialogs = ({ attachment, changeAttachment, changedImage, handleChan
                   const defaultProfile = images[profileColor][index]
                   handleChangedImage({ ...changedImage, attachment: '', profileCharacter: index ? 'plant' : 'animal', profileImage: false, defaultProfile: defaultProfile, changed: true })
                   changeAttachment(null)
-                  
+                  const fileInput = document.getElementById('file') || { value: null }
+                  fileInput.value = null
                   // console.log(defaultProfile)
                   // if (index) {
                   //   handleChangedImage({ ...profile, character: 'plant' })
