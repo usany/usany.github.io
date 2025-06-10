@@ -108,7 +108,7 @@ const ProfileDialogs = ({ changedImage, handleChangedImage, profile, changeProfi
             <Check />}</div>
         </div>
       </div>
-      {changedImage.changed &&
+      {!changedImage.changed &&
         <div className='flex justify-center p-5'>
           <Button variant='outlined' disabled>저장</Button>
         </div>

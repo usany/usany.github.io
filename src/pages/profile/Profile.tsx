@@ -7,7 +7,7 @@ import {
   useEffect,
   useState
 } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   useLocation
 } from "react-router-dom";
@@ -74,19 +74,12 @@ function Profile({ userObj }: Props) {
   const handleTooltipClose = () => {
     setOpen(false);
   };
-  const profile = useSelector((state) => state.profile.value)
 
   const handleTooltipOpen = () => {
     setOpen(true);
   };
   const userUid = state?.element.uid || userObj.uid;
   const userDisplayName = state?.element.displayName || userObj.displayName;
-  const myCardsQuery = async ({ uid }) => {
-    const docRef = doc(dbservice, `members/${uid}`);
-    const myDocSnap = await getDoc(docRef);
-
-    return myDocSnap;
-  };
   // const myCards = useQuery({
   //   queryKey: ["myCards"],
   //   queryFn: () => myCardsQuery(userObj.uid),
@@ -228,7 +221,6 @@ function Profile({ userObj }: Props) {
   // if (document.scrollingElement?.scrollTop > 100) {
   //   setScrolledToCompleted(true)
   // }
-  console.log(profile)
   const scrollEffect = () => {
     const scrollNumber = 50
     if (document.scrollingElement?.scrollTop && document.scrollingElement?.scrollTop > scrollNumber) {

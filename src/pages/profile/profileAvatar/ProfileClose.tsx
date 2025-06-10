@@ -53,7 +53,7 @@ const ProfileClose = ({ userObj, profileDialog, changedImage, handleChangedImage
 
   return (
     <div>
-      {!changedImage.changed &&
+      {changedImage.changed &&
         <Button variant='outlined' onClick={() => {
           handleChangedImage({ ...changedImage, change: true })
           onClick()
