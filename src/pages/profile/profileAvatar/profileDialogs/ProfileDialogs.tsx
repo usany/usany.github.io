@@ -103,17 +103,10 @@ const ProfileDialogs = ({ userObj, user, profileDialog, attachment, changeAttach
               profile={true}
             />
           }
-          {/* <Avatar alt={userObj.displayName} sx={{ fontSize:'100px', width: '200px', height: '200px', bgcolor: selectedColor }} src={attachmentFile || './src'} onClick={() => {
-                    }} variant='rounded' /> */}
           <div className='flex-col px-5 content-center p-5'>
             <label htmlFor='file' className='p-5 rounded border border-dashed'>내 파일 업로드</label>
             <input id='file' type='file' onChange={onFileChange} hidden />
-            {/* {attachment && <div className='flex justify-center pt-5'>
-              <button className='factoryClear' onClick={onClearAttachment}>업로드 파일 삭제</button>
-            </div>} */}
           </div>
-          {/* {attachmentFile && attachmentFile !== 'null' &&
-                        } */}
         </div>
       </>
       <div className='flex flex-col gap-1'>
