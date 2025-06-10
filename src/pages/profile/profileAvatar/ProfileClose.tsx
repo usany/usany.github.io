@@ -10,7 +10,6 @@ import { changeProfileUrl } from 'src/stateSlices/profileUrlSlice';
 const ProfileClose = ({ userObj, profileDialog, changedImage, handleChangedImage, profileOrder, changeProfileOrder
 }) => {
   const profileColor = useSelector(state => state.profileColor.value)
-  const profileImage = useSelector(state => state.profileImage.value)
   const profile = useSelector((state) => state.profile.value)
   const dispatch = useDispatch()
   const onClick = async () => {
