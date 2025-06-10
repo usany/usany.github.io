@@ -1,5 +1,6 @@
 import { User } from "firebase/auth";
 import { addDoc, collection, doc, getDoc, updateDoc } from 'firebase/firestore';
+import { PlusCircle } from "lucide-react";
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { dbservice } from 'src/baseApi/serverbase';
@@ -272,6 +273,7 @@ function PiazzaForm({ chattingUser, userObj, multiple, messages, handleMessages,
     <>
       {piazzaForm ?
         <form className="fixed w-screen bottom-0 flex gap-px" onSubmit={onSendSubmitHandler}>
+          <button className='px-1 rounded bg-light-2 dark:bg-dark-2' type="submit">{send[index]}</button>
           <input
             className='w-full p-3 rounded bg-light-1 dark:bg-dark-1'
             placeholder={forms[index]}
@@ -283,6 +285,7 @@ function PiazzaForm({ chattingUser, userObj, multiple, messages, handleMessages,
         </form>
         :
         <form className="fixed w-screen bottom-[60px] flex gap-px" onSubmit={onSendSubmitHandler}>
+          <button className='px-1 rounded bg-light-2 dark:bg-dark-2' type="submit"><PlusCircle /></button>
           <input
             className='w-full p-3 rounded bg-light-1 dark:bg-dark-1'
             placeholder={forms[index]}

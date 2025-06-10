@@ -19,19 +19,23 @@ function App() {
   const { lightTheme, darkTheme } = useColors()
   const muteButton = document.getElementById('mute')
   const streamButton = document.getElementById('stream')
+  const videoSelect = document.getElementById('videoInput')
   let muted = false
   let streamOff = false
   function handleMuteClick() {
+    promise.getAudioTracks().forEach(track => track.enabled = !track.enabled)
+    console.log(promise.getAudioTracks())
     if (!muted) {
       muteButton.innerText = 'unmute'
       muted = true
-      console.log(muteButton)
     } else {
       muteButton.innerText = 'mute'
       muted = false
     }
   }
   function handleStreamClick() {
+    promise.getVideoTracks().forEach(track => track.enabled = !track.enabled)
+    console.log(promise.getVideoTracks())
     if (!streamOff) {
       streamButton.innerText = 'turn stream on'
       streamOff = true
@@ -52,16 +56,34 @@ function App() {
       promise.getVideoTracks().forEach(track => track.enabled = !track.enabled)
       promise.getAudioTracks().forEach(track => track.enabled = !track.enabled)
       // myFace.srcObject = promise
+      getDevices()
     } catch (error) {
       console.log(error)
     }
   }
   getMedia()
+  async function getDevices() {
+    try {
+      const devices = await navigator.mediaDevices.enumerateDevices()
+      const videoDevices = devices.filter((device) => device.kind === 'videoinput')
+      videoDevices.forEach((device) => {
+        const option = document.createElement('option')
+        option.value = device.deviceId
+        option.innerText = device.label
+        videoSelect?.appendChild(option)
+      })
+      console.log(videoDevices)
+    } catch (error) {
+      console.log(error)
+    }
+  }
   return (
     <>
       <button id='mute' onClick={handleMuteClick}>mute</button>
       &emsp;
       <button id='stream' onClick={handleStreamClick}>turn stream off</button>
+      &emsp;
+      <select id='videoInput' />
       <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
         {userObj !== undefined ? <Router userObj={userObj} /> : <Lotties />}
       </ThemeProvider>
