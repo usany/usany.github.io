@@ -20,13 +20,9 @@ const images = {
   'profileGold': [staticGold01, staticGold02],
   gold: [staticGold01, staticGold02],
 }
-const ProfileDialogs = ({ userObj, user, profileDialog, changedImage, handleChangedImage, handleClose,
-  profileOrder, changeProfileOrder
-}) => {
+const ProfileDialogs = ({ changedImage, handleChangedImage, profile, changeProfile, }) => {
   const profileColor = useSelector(state => state.profileColor.value)
   const dispatch = useDispatch()
-  const profile = useSelector((state) => state.profile.value)
-  console.log(profile)
   const switchColor = (newColor) => {
     dispatch(changeProfileColor(newColor))
   }
@@ -70,9 +66,9 @@ const ProfileDialogs = ({ userObj, user, profileDialog, changedImage, handleChan
                 key={profileColor + index + 1}
                 onClick={() => {
                   if (index) {
-                    changeProfileOrder('plant')
+                    changeProfile({ ...profile, chararcter: 'plant' })
                   } else {
-                    changeProfileOrder('animal')
+                    changeProfile({ ...profile, chararcter: 'animal' })
                   }
                   handleChangedImage(value)
                 }}>

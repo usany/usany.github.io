@@ -13,11 +13,12 @@ const ProfileAvatar = ({ userObj, user, handleProfileDialog, profileDialog, chan
     profileImageUrl: '',
     initial: true
   })
+  const changeProfile = (newValue) => setProfile(newValue)
   useEffect(() => {
     if (profile.initial) {
       setProfile({ initial: false, profileImage: user.profileImage, defaultProfile: user.defaultProfile, profileImageUrl: user.profileImageUrl })
     }
-  })
+  }, [])
   const [profileOrder, setProfileOrder] = useState('animal')
   const changeProfileOrder = (newValue) => {
     setProfileOrder(newValue)
@@ -25,13 +26,12 @@ const ProfileAvatar = ({ userObj, user, handleProfileDialog, profileDialog, chan
   // console.log(user?.profileImageUrl)
   // console.log(userObj.uid)
   // console.log(user.uid)
-  // console.log(user)
   if (userObj.uid === user.uid) {
     return (
       <Popups
         trigger={<ProfileView userObj={userObj} user={user} />}
         title={'프로필 변경'}
-        content={<ProfileDialogs userObj={userObj} user={user} changedImage={changedImage} handleChangedImage={handleChangedImage} handleClose={handleClose} profileOrder={profileOrder} changeProfileOrder={changeProfileOrder} />}
+        content={<ProfileDialogs changedImage={changedImage} handleChangedImage={handleChangedImage} profile={profile} changeProfile={changeProfile} />}
         close={<ProfileClose userObj={userObj} changedImage={changedImage} handleChangedImage={handleChangedImage} profileOrder={profileOrder} changeProfileOrder={changeProfileOrder} />}
         attachment={changedImage}
       />
