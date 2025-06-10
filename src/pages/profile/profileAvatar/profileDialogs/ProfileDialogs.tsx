@@ -90,7 +90,7 @@ const ProfileDialogs = ({ userObj, user, profileDialog, changedImage, handleChan
             <Check />}</div>
         </div>
       </div>
-      {!attachment &&
+      {changedImage.changed &&
         <div className='flex justify-center p-5'>
           <Button variant='outlined' disabled>저장</Button>
         </div>

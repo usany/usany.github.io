@@ -5,7 +5,6 @@ import LoadingsSkeletons from "src/components/recycle/recycleLoadingsSkeletons";
 import Avatars from "src/pages/core/Avatars";
 
 const ProfileView = ({ userObj, user, }) => {
-  const profileColor = useSelector((state) => state.profileColor.value);
   const profileUrl = useSelector((state) => state.profileUrl.value);
   return (
     <div>
@@ -37,10 +36,6 @@ const ProfileView = ({ userObj, user, }) => {
               element={user}
               piazza={null}
               profile={true}
-            // uid={user.uid}
-            // profileColor=""
-            // profileUrl={user.profileImageUrl}
-            // defaultProfileUrl={user.defaultProfile}
             />
           ) : (
             <LoadingsSkeletons height={"[192px]"} width={"[192px]"} />
