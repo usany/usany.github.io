@@ -1,7 +1,7 @@
 // import { useAvatarColorStore, useAvatarImageStore } from 'src/store'
 import { Button } from '@mui/material';
 import { Check } from 'lucide-react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import staticBlue01 from "src/assets/blue02.png";
 import staticBlue02 from "src/assets/blue03.png";
@@ -58,7 +58,7 @@ const ProfileDialogs = ({ changedImage, handleChangedImage, profile, changeProfi
     reader.readAsDataURL(theFile)
   }
   const selectedImages = images[profileColor] || images['gold']
-
+  console.log(changedImage)
   return (
     <>
       <div className='flex flex-col items-center gap-5 p-5'>

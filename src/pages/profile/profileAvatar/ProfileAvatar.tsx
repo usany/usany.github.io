@@ -18,48 +18,52 @@ const ProfileAvatar = ({ userObj, user, handleProfileDialog, profileDialog, hand
     attachment: '',
     character: '',
     color: '',
+    profileImage: false,
+    defaultProfile: '',
+    profileImageUrl: '',
+    profileColor: '',
     changed: true
   });
   const handleChangedImage = (newValue) => setChangedImage(newValue)
   const changeProfile = (newValue) => setProfile(newValue)
-    console.log(user)
-    useEffect(() => {
-      if (profile.initial) {
-        setProfile({ initial: false, profileImage: user.profileImage, defaultProfile: user.defaultProfile, profileImageUrl: user.profileImageUrl, profileColor: user.profileColor || 'profileGold' })
-      }
-    }, [])
-    const [profileOrder, setProfileOrder] = useState('animal')
-    const changeProfileOrder = (newValue) => {
-      setProfileOrder(newValue)
+  console.log(user)
+  useEffect(() => {
+    if (profile.initial) {
+      setProfile({ initial: false, profileImage: user.profileImage, defaultProfile: user.defaultProfile, profileImageUrl: user.profileImageUrl, profileColor: user.profileColor || 'profileGold' })
     }
-    // console.log(user?.profileImageUrl)
-    // console.log(userObj.uid)
-    // console.log(user.uid)
-    if (userObj.uid === user.uid) {
-      return (
-        <Popups
-          trigger={<ProfileView userObj={userObj} user={user} />}
-          title={'프로필 변경'}
-          content={<ProfileDialogs changedImage={changedImage} handleChangedImage={handleChangedImage} profile={profile} changeProfile={changeProfile} />}
-          close={<ProfileClose userObj={userObj} changedImage={changedImage} handleChangedImage={handleChangedImage} profileOrder={profileOrder} changeProfileOrder={changeProfileOrder} />}
-          attachment={changedImage}
-        />
-      )
-    } else {
-      return (
-        <div className='flex justify-center'>
-          {user?.profileImageUrl ? (
-            <Avatars
-              element={user}
-              piazza={null}
-              profile={true}
-            />
-          ) : (
-            <LoadingsSkeletons height={"[192px]"} width={"[192px]"} />
-          )}
-        </div>
-      )
-    }
-  };
+  }, [])
+  const [profileOrder, setProfileOrder] = useState('animal')
+  const changeProfileOrder = (newValue) => {
+    setProfileOrder(newValue)
+  }
+  // console.log(user?.profileImageUrl)
+  // console.log(userObj.uid)
+  // console.log(user.uid)
+  if (userObj.uid === user.uid) {
+    return (
+      <Popups
+        trigger={<ProfileView userObj={userObj} user={user} />}
+        title={'프로필 변경'}
+        content={<ProfileDialogs changedImage={changedImage} handleChangedImage={handleChangedImage} profile={profile} changeProfile={changeProfile} />}
+        close={<ProfileClose userObj={userObj} changedImage={changedImage} handleChangedImage={handleChangedImage} profileOrder={profileOrder} changeProfileOrder={changeProfileOrder} />}
+        attachment={changedImage}
+      />
+    )
+  } else {
+    return (
+      <div className='flex justify-center'>
+        {user?.profileImageUrl ? (
+          <Avatars
+            element={user}
+            piazza={null}
+            profile={true}
+          />
+        ) : (
+          <LoadingsSkeletons height={"[192px]"} width={"[192px]"} />
+        )}
+      </div>
+    )
+  }
+};
 
-  export default ProfileAvatar;
+export default ProfileAvatar;
