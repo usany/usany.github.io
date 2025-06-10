@@ -13,50 +13,50 @@
       ({ key: import.meta.env.VITE_MAPS_PLATFORM, v: "weekly" });
   </script> -->
   <script>
-    const myFace = document.getElementById('myFace')
-    const muteButton = document.getElementById('mute')
-    const streamButton = document.getElementById('stream')
-    const videoSelect = document.getElementById('videoInput')
-    let promise
-    let muted = false
-    let streamOff = false
-    function handleMuteClick() {
-      if (!muted) {
-        muteButton.innerText = 'unmute'
-        muted = true
-        console.log(muteButton)
-      } else {
-        muteButton.innerText = 'mute'
-        muted = false
-      }
-    }
-    function handleStreamClick() {
-      if (!streamOff) {
-        streamButton.innerText = 'turn stream on'
-        streamOff = true
-      } else {
-        streamButton.innerText = 'turn stream off'
-        streamOff = false
-      }
-    }
+    // const myFace = document.getElementById('myFace')
+    // const muteButton = document.getElementById('mute')
+    // const streamButton = document.getElementById('stream')
+    // const videoSelect = document.getElementById('videoInput')
+    // let promise
+    // let muted = false
+    // let streamOff = false
+    // function handleMuteClick() {
+    //   if (!muted) {
+    //     muteButton.innerText = 'unmute'
+    //     muted = true
+    //     console.log(muteButton)
+    //   } else {
+    //     muteButton.innerText = 'mute'
+    //     muted = false
+    //   }
+    // }
+    // function handleStreamClick() {
+    //   if (!streamOff) {
+    //     streamButton.innerText = 'turn stream on'
+    //     streamOff = true
+    //   } else {
+    //     streamButton.innerText = 'turn stream off'
+    //     streamOff = false
+    //   }
+    // }
     // muteButton.addEventListener('click', () => console.log('practices'))
     // streamButton.addEventListener('click', handleStreamClick)
-    async function getMedia() {
-      try {
-        const constraints = {
-          audio: true,
-          video: true
-        }
-        promise = await navigator.mediaDevices.getUserMedia(constraints);
-        const promises = await navigator.mediaDevices.enumerateDevices()
-        promise.getAudioTracks().forEach(track => track.enabled = !track.enabled)
+    // async function getMedia() {
+    //   try {
+    //     const constraints = {
+    //       audio: true,
+    //       video: true
+    //     }
+    //     promise = await navigator.mediaDevices.getUserMedia(constraints);
+    //     const promises = await navigator.mediaDevices.enumerateDevices()
+    //     promise.getAudioTracks().forEach(track => track.enabled = !track.enabled)
 
-        // myFace.srcObject = promise
-      } catch (error) {
-        console.log(error)
-      }
-    }
-    getMedia()
+    // myFace.srcObject = promise
+    //   } catch (error) {
+    //     console.log(error)
+    //   }
+    // }
+    // getMedia()
     // if('serviceWorker' in navigator) {
     //   window.addEventListener('load', () => {
     //     navigator.serviceWorker.register('./sw.js', { scope: '/' })
@@ -72,7 +72,7 @@
     }
   </script>
   <title>Vite + React + TS</title>
-  <script type="module" crossorigin src="/assets/index-tkVbTs8g.js"></script>
+  <script type="module" crossorigin src="/assets/index-hlLwkvzc.js"></script>
   <link rel="stylesheet" crossorigin href="/assets/index-DlcY7jqN.css">
 <link rel="manifest" href="/manifest.webmanifest"><script id="vite-plugin-pwa:register-sw" src="/registerSW.js"></script>
 <meta name="theme-color" content="#000000">
@@ -86,7 +86,7 @@
     </video>
   </div> -->
   <div id="root">
-  </div>
+  </div>
   <script src="https://open.spotify.com/embed/iframe-api/v1" async></script>
 </body>
 
