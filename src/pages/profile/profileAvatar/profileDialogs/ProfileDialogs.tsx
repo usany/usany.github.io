@@ -23,43 +23,13 @@ const images = {
 const ProfileDialogs = ({ userObj, user, profileDialog, attachment, changeAttachment, handleClose,
   profileOrder, changeProfileOrder
 }) => {
-  // const [attachmentFile, setAttachmentFile] = useState('null')
-  // const [onClear, setOnClear] = useState(false)
   const profileColor = useSelector(state => state.profileColor.value)
-  // const profileImage = useSelector(state => state.profileImage.value)
-  // const profileUrl = useSelector(state => state.profileUrl.value)
   const dispatch = useDispatch()
   const profile = useSelector((state) => state.profile.value)
   console.log(profile)
-  // const onClick = async () => {
-  //   if (attachment && !onClear) {
-  //     const storageRef = ref(storage, userObj.uid);
-  //     uploadString(storageRef, attachment, 'data_url').then((snapshot) => {
-  //       console.log('Uploaded a blob or file!');
-  //     });
-  //     const docRef = doc(dbservice, `members/${userObj?.uid}`)
-  //     updateDoc(docRef, { profileImage: true });
-  //     dispatch(changeProfileUrl(attachment))
-  //     dispatch(changeProfile({ ...profile, profileImage: true, }))
-  //     console.log({ ...profile, profileImage: true, })
-  //     console.log('practice')
-  //   } else if (onClear) {
-  //     dispatch(changeProfileUrl('null'))
-  //     setOnClear(false)
-  //     const storageRef = ref(storage, userObj.uid);
-  //     uploadString(storageRef, 'null', 'raw').then((snapshot) => {
-  //       console.log('Uploaded a blob or file!');
-  //     });
-
-  //     const docRef = doc(dbservice, `members/${userObj?.uid}`)
-  //   }
-  // }
   const switchColor = (newColor) => {
     dispatch(changeProfileColor(newColor))
   }
-  // useEffect(() => {
-  //   setAttachmentFile(profileUrl)
-  // }, [profileUrl])
 
   const onFileChange = (event) => {
     const {
@@ -73,40 +43,23 @@ const ProfileDialogs = ({ userObj, user, profileDialog, attachment, changeAttach
       const {
         currentTarget: { result },
       } = finishedEvent;
-      // setAttachmentFile(result)
       changeAttachment(result)
     }
     reader.readAsDataURL(theFile)
-    // setOnClear(false)
   }
-  // const onClearAttachment = () => {
-  //   changeAttachment('null')
-  //   setOnClear(true)
-  //   const fileInput = document.getElementById('file') || { value: null }
-  //   fileInput.value = null
-  // }
   const selectedImages = images[profileColor] || images['gold']
   return (
     <>
-      <>
-        <div className='flex flex-col items-center gap-5 p-5'>
-          {attachment ?
-            <Avatars
-              element={{ profileImage: true, profileImageUrl: attachment }}
-              profile={true}
-            />
-            :
-            <Avatars
-              element={profile}
-              profile={true}
-            />
-          }
-          <div className='flex-col px-5 content-center p-5'>
-            <label htmlFor='file' className='p-5 rounded border border-dashed'>내 파일 업로드</label>
-            <input id='file' type='file' onChange={onFileChange} hidden />
-          </div>
+      <div className='flex flex-col items-center gap-5 p-5'>
+        <Avatars
+          element={attachment ? { profileImage: true, profileImageUrl: attachment } : profile}
+          profile={true}
+        />
+        <div className='flex-col px-5 content-center p-5'>
+          <label htmlFor='file' className='p-5 rounded border border-dashed'>내 파일 업로드</label>
+          <input id='file' type='file' onChange={onFileChange} hidden />
         </div>
-      </>
+      </div>
       <div className='flex flex-col gap-1'>
         <div className='flex justify-center'>캐릭터 배경으로 저장하면 업로드 파일이 삭제됩니다.</div>
         <div className='flex justify-center gap-5'>
