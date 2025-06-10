@@ -7,17 +7,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { changeProfile } from 'src/stateSlices/profileSlice';
 import { changeProfileUrl } from 'src/stateSlices/profileUrlSlice';
 
-const ProfileClose = ({ userObj, profileDialog, changedImage, handleChangedImage,
-  profileOrder, changeProfileOrder
+const ProfileClose = ({ userObj, profileDialog, changedImage, handleChangedImage, profileOrder, changeProfileOrder
 }) => {
-  // const [onClear, setOnClear] = useState(false)
   const profileColor = useSelector(state => state.profileColor.value)
   const profileImage = useSelector(state => state.profileImage.value)
-  // const profileUrl = useSelector(state => state.profileUrl.value)
   const profile = useSelector((state) => state.profile.value)
   const dispatch = useDispatch()
   const onClick = async () => {
     const data = doc(dbservice, `members/${userObj.uid}`)
+    const attachment = changedImage.attachment
     if (attachment) {
       console.log(attachment)
       dispatch(changeProfileUrl(attachment))
@@ -46,63 +44,22 @@ const ProfileClose = ({ userObj, profileDialog, changedImage, handleChangedImage
         console.log(profileColor)
         updateDoc(data, { profileImage: false, profileColor: profileColor, defaultProfile: defaultProfile });
       }
-
-      // const docRef = doc(dbservice, `members/${userObj?.uid}`)
-      // updateDoc(docRef, { profileImage: attachmentFile });
-      // dispatch(changeProfileUrl(attachment))
-    }
-    if (profileImage) {
-      // dispatch(changeProfileUrl('null'))
-      // setOnClear(false)
+    } else {
       const storageRef = ref(storage, userObj.uid);
       uploadString(storageRef, 'null', 'raw').then((snapshot) => {
         console.log('Uploaded a blob or file!');
       });
-
-      // deleteObject(storageRef).then(() => {
-      // }).catch((error) => {
-      // });
-
-      // const docRef = doc(dbservice, `members/${userObj?.uid}`)
-      // updateDoc(docRef, { profileImage: attachmentFile });
     }
   }
-  // useEffect(() => {
-  //   if (!selectedColor) {
-  //     setSelectedColor(profileColor)
-  //   }
-  // }, [])
-  // useEffect(() => {
-  //   setAttachmentFile(profileUrl)
-  // }, [profileUrl])
 
   return (
     <div>
       {!changedImage.changed &&
         <Button variant='outlined' onClick={() => {
-          // handleClose()
-          handleChangedImage({...changedImage, change: true})
+          handleChangedImage({ ...changedImage, change: true })
           onClick()
-          // dispatch(changeProfileColor(selectedColor))
         }}>저장</Button>
       }
-      {/* :
-      <Button variant='outlined' onClick={() => {
-        handleClose()
-        changeAttachment(attachmentFile)
-        onClick()
-        dispatch(changeProfileColor(selectedColor))
-      }} disabled>저장</Button> */}
-      {/* <Button variant='outlined' onClick={() => {
-          handleClose()
-          if (onClear) {
-            setAttachmentFile(profileImage)
-          }
-          setOnClear(false)
-          setSelectedColor(profileColor)
-        }} autoFocus>
-          닫기
-        </Button> */}
     </div>
   )
 }
