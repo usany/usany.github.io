@@ -1,6 +1,7 @@
 // import { useAvatarColorStore, useAvatarImageStore } from 'src/store'
 import { Button } from '@mui/material';
 import { Check } from 'lucide-react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import staticBlue01 from "src/assets/blue02.png";
 import staticBlue02 from "src/assets/blue03.png";
@@ -21,10 +22,23 @@ const images = {
   gold: [staticGold01, staticGold02],
 }
 const ProfileDialogs = ({ changedImage, handleChangedImage, profile, changeProfile, }) => {
+  const [candidateImage, setCandidateImage] = useState({
+    profileImage: false,
+    defaultProfile: '',
+    profileImageUrl: '',
+    profileColor: '',
+    initial: true
+  })
+  useEffect(() => {
+    if (candidateImage.initial) {
+      setCandidateImage({ ...profile, initial: false })
+    }
+  }, [])
   const profileColor = useSelector(state => state.profileColor.value)
   const dispatch = useDispatch()
   const switchColor = (newColor) => {
     dispatch(changeProfileColor(newColor))
+    handleChangedImage({ ...changedImage, color: newColor, changed: false })
   }
 
   const onFileChange = (event) => {
@@ -49,7 +63,7 @@ const ProfileDialogs = ({ changedImage, handleChangedImage, profile, changeProfi
     <>
       <div className='flex flex-col items-center gap-5 p-5'>
         <Avatars
-          element={changedImage.attachment ? { profileImage: true, profileImageUrl: changedImage.attachment } : profile}
+          element={!changedImage.changed ? changedImage : profile}
           profile={true}
         />
         <div className='flex-col px-5 content-center p-5'>
@@ -66,9 +80,9 @@ const ProfileDialogs = ({ changedImage, handleChangedImage, profile, changeProfi
                 key={profileColor + index + 1}
                 onClick={() => {
                   if (index) {
-                    changeProfile({ ...profile, chararcter: 'plant' })
+                    handleChangedImage({ ...profile, character: 'plant' })
                   } else {
-                    changeProfile({ ...profile, chararcter: 'animal' })
+                    handleChangedImage({ ...profile, character: 'animal' })
                   }
                   handleChangedImage(value)
                 }}>
