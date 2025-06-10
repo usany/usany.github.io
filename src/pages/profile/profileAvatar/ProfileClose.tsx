@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { changeProfile } from 'src/stateSlices/profileSlice';
 import { changeProfileUrl } from 'src/stateSlices/profileUrlSlice';
 
-const ProfileClose = ({ userObj, profileDialog, changedImage, handleChangedImage, profileOrder, changeProfileOrder, attachment }) => {
+const ProfileClose = ({ userObj, changedImage, handleChangedImage, attachment }) => {
   const profileColor = useSelector(state => state.profileColor.value)
   const profile = useSelector((state) => state.profile.value)
   const dispatch = useDispatch()

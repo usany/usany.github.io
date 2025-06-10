@@ -91,7 +91,7 @@ const ProfileAvatar = ({ userObj, user, handleProfileDialog, profileDialog, hand
         trigger={<ProfileView userObj={userObj} user={user} changeAttachment={changeAttachment} changedImage={changedImage} handleChangedImage={handleChangedImage} />}
         title={'프로필 변경'}
         content={<ProfileDialogs attachment={attachment} changeAttachment={changeAttachment} changedImage={changedImage} handleChangedImage={handleChangedImage} />}
-        close={<ProfileClose userObj={userObj} changedImage={changedImage} handleChangedImage={handleChangedImage} profileOrder={profileOrder} changeProfileOrder={changeProfileOrder} attachment={attachment} />}
+        close={<ProfileClose userObj={userObj} changedImage={changedImage} handleChangedImage={handleChangedImage} attachment={attachment} />}
         attachment={changedImage}
       />
     )
