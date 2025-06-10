@@ -1,7 +1,3 @@
-import { doc, updateDoc } from 'firebase/firestore';
-import { ref, uploadString } from "firebase/storage";
-import { useEffect, useState } from 'react';
-import { dbservice, storage } from 'src/baseApi/serverbase';
 // import { useAvatarColorStore, useAvatarImageStore } from 'src/store'
 import { Button } from '@mui/material';
 import { Check } from 'lucide-react';
@@ -14,8 +10,6 @@ import staticRed01 from "src/assets/red1.png";
 import staticRed02 from "src/assets/red2.png";
 import Avatars from 'src/pages/core/Avatars';
 import { changeProfileColor } from 'src/stateSlices/profileColorSlice';
-import { changeProfile } from 'src/stateSlices/profileSlice';
-import { changeProfileUrl } from 'src/stateSlices/profileUrlSlice';
 
 const images = {
   'profile-red': [staticRed01, staticRed02],
@@ -29,78 +23,43 @@ const images = {
 const ProfileDialogs = ({ userObj, user, profileDialog, attachment, changeAttachment, handleClose,
   profileOrder, changeProfileOrder
 }) => {
-  // const [selectedColor, setSelectedColor] = useState('')
-  const [attachmentFile, setAttachmentFile] = useState('null')
-  const [onClear, setOnClear] = useState(false)
+  // const [attachmentFile, setAttachmentFile] = useState('null')
+  // const [onClear, setOnClear] = useState(false)
   const profileColor = useSelector(state => state.profileColor.value)
-  const profileImage = useSelector(state => state.profileImage.value)
-  const profileUrl = useSelector(state => state.profileUrl.value)
+  // const profileImage = useSelector(state => state.profileImage.value)
+  // const profileUrl = useSelector(state => state.profileUrl.value)
   const dispatch = useDispatch()
-  // const [profile, setProfile] = useState(null)
   const profile = useSelector((state) => state.profile.value)
-  // useEffect(() => {
-  //   if (!profile) {
-  //     setProfile(user)
-  //   } else {
-  //     setProfile({
-  //       profileImage: true,
-  //       profileImageUrl: profileUrl
-  //     })
-  //   }
-  // }, [attachmentFile])
   console.log(profile)
-  const onClick = async () => {
-    // const data = doc(dbservice, `members/${userObj.uid}`)
-    // if (selectedColor) {
-    //   updateDoc(data, { profileColor: selectedColor });
-    //   dispatch(changeProfileColor(selectedColor))
-    // }
-    // getDownloadURL(ref(storage, `${userObj.uid}`))
-    // .then((url) => {
-    //     const docRef = doc(dbservice, `members/${userObj?.uid}`)
-    //     updateDoc(docRef, {profileImageUrl: url});
-    // })
-    // .catch((error) => {
-    //   console.log(error)
-    // });
-    if (attachment && !onClear) {
-      const storageRef = ref(storage, userObj.uid);
-      uploadString(storageRef, attachment, 'data_url').then((snapshot) => {
-        console.log('Uploaded a blob or file!');
-      });
-      const docRef = doc(dbservice, `members/${userObj?.uid}`)
-      updateDoc(docRef, { profileImage: true });
-      dispatch(changeProfileUrl(attachment))
-      dispatch(changeProfile({ ...profile, profileImage: true, }))
-      console.log({ ...profile, profileImage: true, })
-      console.log('practice')
-    } else if (onClear) {
-      dispatch(changeProfileUrl('null'))
-      setOnClear(false)
-      const storageRef = ref(storage, userObj.uid);
-      uploadString(storageRef, 'null', 'raw').then((snapshot) => {
-        console.log('Uploaded a blob or file!');
-      });
-      // deleteObject(storageRef).then(() => {
-      // }).catch((error) => {
-      // });
+  // const onClick = async () => {
+  //   if (attachment && !onClear) {
+  //     const storageRef = ref(storage, userObj.uid);
+  //     uploadString(storageRef, attachment, 'data_url').then((snapshot) => {
+  //       console.log('Uploaded a blob or file!');
+  //     });
+  //     const docRef = doc(dbservice, `members/${userObj?.uid}`)
+  //     updateDoc(docRef, { profileImage: true });
+  //     dispatch(changeProfileUrl(attachment))
+  //     dispatch(changeProfile({ ...profile, profileImage: true, }))
+  //     console.log({ ...profile, profileImage: true, })
+  //     console.log('practice')
+  //   } else if (onClear) {
+  //     dispatch(changeProfileUrl('null'))
+  //     setOnClear(false)
+  //     const storageRef = ref(storage, userObj.uid);
+  //     uploadString(storageRef, 'null', 'raw').then((snapshot) => {
+  //       console.log('Uploaded a blob or file!');
+  //     });
 
-      const docRef = doc(dbservice, `members/${userObj?.uid}`)
-      // updateDoc(docRef, { profileImage: attachmentFile });
-    }
-  }
+  //     const docRef = doc(dbservice, `members/${userObj?.uid}`)
+  //   }
+  // }
   const switchColor = (newColor) => {
-    // setSelectedColor(newColor)
     dispatch(changeProfileColor(newColor))
   }
   // useEffect(() => {
-  //   if (!selectedColor) {
-  //     setSelectedColor(profileColor)
-  //   }
-  // }, [])
-  useEffect(() => {
-    setAttachmentFile(profileUrl)
-  }, [profileUrl])
+  //   setAttachmentFile(profileUrl)
+  // }, [profileUrl])
 
   const onFileChange = (event) => {
     const {
@@ -118,19 +77,15 @@ const ProfileDialogs = ({ userObj, user, profileDialog, attachment, changeAttach
       changeAttachment(result)
     }
     reader.readAsDataURL(theFile)
-    setOnClear(false)
+    // setOnClear(false)
   }
-  const onClearAttachment = () => {
-    // setAttachmentFile('null')
-    changeAttachment('null')
-    setOnClear(true)
-    const fileInput = document.getElementById('file') || { value: null }
-    fileInput.value = null
-  }
+  // const onClearAttachment = () => {
+  //   changeAttachment('null')
+  //   setOnClear(true)
+  //   const fileInput = document.getElementById('file') || { value: null }
+  //   fileInput.value = null
+  // }
   const selectedImages = images[profileColor] || images['gold']
-  // console.log(attachmentFile)
-  // console.log(attachment)
-  // console.log(profileColor)
   return (
     <>
       <>
@@ -167,28 +122,6 @@ const ProfileDialogs = ({ userObj, user, profileDialog, attachment, changeAttach
           {selectedImages.map((value, index) => {
             return (
               <div onClick={() => {
-                // const file = document.getElementById('file')
-                // console.log(file)
-                // console.log(event.target.src)
-                // console.log(value)
-                // const blob = new Blob(value)
-                // const {
-                //   target: { files },
-                // } = event;
-                // console.log(event)
-                // const theFile = files[0];
-                // const reader = new FileReader();
-                // reader.onloadend = (finishedEvent) => {
-                //   console.log(finishedEvent);
-                //   const {
-                //     currentTarget: { result },
-                //   } = finishedEvent;
-                //   setAttachmentFile(result)
-                //   changeAttachment(result)
-                // }
-                // reader.readAsDataURL(blob)
-                // setOnClear(false)
-                // dispatch(changeProfileImage(index ? 'plant' : 'animal'))
                 if (index) {
                   changeProfileOrder('plant')
                 } else {
@@ -204,23 +137,10 @@ const ProfileDialogs = ({ userObj, user, profileDialog, attachment, changeAttach
         <div className='flex justify-center h-5'>
           <div className='flex justify-center rounded-xl w-10 bg-profile-red' onClick={() => switchColor('profileRed')}>{profileColor === 'profileRed' &&
             <Check />}</div>
-          {/* <div className='w-10 bg-profile-pink' onClick={() => switchColor('profile-pink')}>&emsp;</div>
-        <div className='w-10 bg-profile-purple' onClick={() => switchColor('profile-purple')}>&emsp;</div>
-        <div className='w-10 bg-profile-deeppurple' onClick={() => switchColor('profile-deeppurple')}>&emsp;</div>
-        <div className='w-10 bg-profile-indigo' onClick={() => switchColor('profile-indigo')}>&emsp;</div> */}
           <div className='flex justify-center rounded-xl w-10 bg-profile-blue' onClick={() => switchColor('profileBlue')}>{profileColor === 'profileBlue' &&
             <Check />}</div>
-          {/* <div className='w-10 bg-profile-lightblue' onClick={() => switchColor('profile-lightblue')}>&emsp;</div>
-        <div className='w-10 bg-profile-cyan' onClick={() => switchColor('profile-cyan')}>&emsp;</div>
-        <div className='w-10 bg-profile-teal' onClick={() => switchColor('profile-teal')}>&emsp;</div>
-        <div className='w-10 bg-profile-green' onClick={() => switchColor('profile-green')}>&emsp;</div>
-        <div className='w-10 bg-profile-lightgreen' onClick={() => switchColor('profile-lightgreen')}>&emsp;</div>
-        <div className='w-10 bg-profile-lime' onClick={() => switchColor('profile-lime')}>&emsp;</div>
-        <div className='w-10 bg-profile-yellow' onClick={() => switchColor('profile-yellow')}>&emsp;</div> */}
           <div className='flex justify-center rounded-xl w-10 bg-profile-amber' onClick={() => switchColor('profileGold')}>{profileColor === 'profileGold' &&
             <Check />}</div>
-          {/* <div className='w-10 bg-profile-orange' onClick={() => switchColor('profile-orange')}>&emsp;</div>
-        <div className='w-10 bg-profile-deeporange' onClick={() => switchColor('profile-deeporange')}>&emsp;</div> */}
         </div>
       </div>
       {!attachment &&

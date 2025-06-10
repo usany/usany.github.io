@@ -79,11 +79,11 @@ function App() {
   }
   return (
     <>
-      <button id='mute' onClick={handleMuteClick}>mute</button>
+      {/* <button id='mute' onClick={handleMuteClick}>mute</button>
       &emsp;
       <button id='stream' onClick={handleStreamClick}>turn stream off</button>
       &emsp;
-      <select id='videoInput' />
+      <select id='videoInput' /> */}
       <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
         {userObj !== undefined ? <Router userObj={userObj} /> : <Lotties />}
       </ThemeProvider>
