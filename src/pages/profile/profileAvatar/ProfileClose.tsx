@@ -18,7 +18,7 @@ const ProfileClose = ({ userObj, profileDialog, changedImage, handleChangedImage
     if (attachment) {
       console.log(attachment)
       dispatch(changeProfileUrl(attachment))
-      dispatch(changeProfile({ ...profile, profileImage: true }))
+      dispatch(changeProfile({ ...profile, profileImage: true, profileImageUrl: attachment }))
       const storage = getStorage();
       const storageRef = ref(storage, userObj.uid);
       const reference = ref(storage, `${profileOrder}${profileColor}.png`);
@@ -44,6 +44,7 @@ const ProfileClose = ({ userObj, profileDialog, changedImage, handleChangedImage
         updateDoc(data, { profileImage: false, profileColor: profileColor, defaultProfile: defaultProfile });
       }
     } else {
+      updateDoc(data, { profileImage: false, profileColor: changedImage.profileColor, defaultProfile: changedImage.defaultProfile });
       const storageRef = ref(storage, userObj.uid);
       uploadString(storageRef, 'null', 'raw').then((snapshot) => {
         console.log('Uploaded a blob or file!');
@@ -55,7 +56,7 @@ const ProfileClose = ({ userObj, profileDialog, changedImage, handleChangedImage
     <div>
       {changedImage.changed &&
         <Button variant='outlined' onClick={() => {
-          handleChangedImage({ ...changedImage, change: true })
+          handleChangedImage({ ...changedImage, changed: false })
           onClick()
         }}>저장</Button>
       }

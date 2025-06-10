@@ -20,7 +20,7 @@ const images = {
   'profileGold': [staticGold01, staticGold02],
   gold: [staticGold01, staticGold02],
 }
-const ProfileDialogs = ({ changedImage, handleChangedImage, profile, changeProfile, }) => {
+const ProfileDialogs = ({ changedImage, handleChangedImage }) => {
   // const [copyingProfile, setCopyingProfile] = useState({
   //   profileImage: false,
   //   defaultProfile: '',
@@ -85,7 +85,7 @@ const ProfileDialogs = ({ changedImage, handleChangedImage, profile, changeProfi
                   //   console.log(url)
                   // })
                   const defaultProfile = images[profileColor][index]
-                  handleChangedImage({ ...changedImage, character: index ? 'plant' : 'animal', profileImage: false, defaultProfile: defaultProfile, changed: true })
+                  handleChangedImage({ ...changedImage, attachment: '', profileCharacter: index ? 'plant' : 'animal', profileImage: false, defaultProfile: defaultProfile, changed: true })
                   // console.log(defaultProfile)
                   // if (index) {
                   //   handleChangedImage({ ...profile, character: 'plant' })
