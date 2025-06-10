@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import LoadingsSkeletons from "src/components/recycle/recycleLoadingsSkeletons";
 import Avatars from "src/pages/core/Avatars";
 import Popups from "src/pages/core/Popups";
@@ -7,6 +7,17 @@ import ProfileDialogs from "./profileDialogs/ProfileDialogs";
 import ProfileView from "./ProfileView";
 
 const ProfileAvatar = ({ userObj, user, handleProfileDialog, profileDialog, changedImage, handleChangedImage, handleClose }) => {
+  const [profile, setProfile] = useState({
+    profileImage: false,
+    defaultProfile: '',
+    profileImageUrl: '',
+    initial: true
+  })
+  useEffect(() => {
+    if (profile.initial) {
+      setProfile({ initial: false, profileImage: user.profileImage, defaultProfile: user.defaultProfile, profileImageUrl: user.profileImageUrl })
+    }
+  })
   const [profileOrder, setProfileOrder] = useState('animal')
   const changeProfileOrder = (newValue) => {
     setProfileOrder(newValue)
