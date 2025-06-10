@@ -1,7 +1,5 @@
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useState } from "react";
 import LoadingsSkeletons from "src/components/recycle/recycleLoadingsSkeletons";
-import useLargeMedia from "src/hooks/useLargeMedia";
 import Avatars from "src/pages/core/Avatars";
 import Popups from "src/pages/core/Popups";
 import ProfileClose from "./ProfileClose";
@@ -9,14 +7,6 @@ import ProfileDialogs from "./profileDialogs/ProfileDialogs";
 import ProfileView from "./ProfileView";
 
 const ProfileAvatar = ({ userObj, user, handleProfileDialog, profileDialog, changedImage, handleChangedImage, handleClose }) => {
-  const profileColor = useSelector((state) => state.profileColor.value);
-  const profileUrl = useSelector((state) => state.profileUrl.value);
-  const profileImage = useSelector((state) => state.profileImage.value);
-  const largeMedia = useLargeMedia()
-  const [profile, setProfile] = useState(null)
-  useEffect(() => {
-    setProfile(profileUrl)
-  }, [profileImage])
   const [profileOrder, setProfileOrder] = useState('animal')
   const changeProfileOrder = (newValue) => {
     setProfileOrder(newValue)
