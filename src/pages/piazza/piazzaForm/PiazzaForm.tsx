@@ -56,6 +56,7 @@ function PiazzaForm({ chattingUser, userObj, multiple, messages, handleMessages,
       toUser = await getDoc(toUserRef)
       messagingToken = toUser.data()?.messagingToken
     }
+    console.log(messagingToken)
     const profileImageUrl = profile.profileImage ? profile.profileUrl : profile.defaultProfile
     const sendData = {
       msg: message,
