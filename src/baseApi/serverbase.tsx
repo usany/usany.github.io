@@ -34,6 +34,7 @@ const dbservice = getFirestore(app);
 // const storage = getStorage(app, 'gs://remake-36fe0.appspot.com');
 const storage = getStorage(app);
 const messaging = getMessaging(app);
+
 // const providerMicrosoft = new OAuthProvider('microsoft.com');
 // providerMicrosoft.setCustomParameters({
 //     prompt: "consent",
