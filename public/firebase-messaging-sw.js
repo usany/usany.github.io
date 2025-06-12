@@ -13,8 +13,8 @@ self.addEventListener('push', event => {
   );
 });
 self.addEventListener('notificationclick', (event) => {
-  event.notification.close();
   clients.openWindow("https://jameshfisher.com/");
+  event.notification.close();
 })
 
 
