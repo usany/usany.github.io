@@ -49,6 +49,9 @@ function PiazzaForm({ chattingUser, userObj, multiple, messages, handleMessages,
     const userName = userObj.displayName
     const messageClockNumber = Date.now()
     const messageClock = new Date().toString()
+    const profileImageUrl = profile?.profileImageUrl
+    const defaultProfile = profile?.defaultProfile
+    const profileImage = profile?.profileImage
     let toUserRef
     let toUser
     let messagingToken
@@ -57,7 +60,7 @@ function PiazzaForm({ chattingUser, userObj, multiple, messages, handleMessages,
       toUser = await getDoc(toUserRef)
       messagingToken = toUser.data()?.messagingToken
     }
-    const profileImageUrl = profile.profileImage ? profile.profileImageUrl : profile.defaultProfile
+    const profileUrl = profile.profileImage ? profile.profileImageUrl : profile.defaultProfile
     console.log(profile)
     const sendData = {
       msg: message,
@@ -69,7 +72,10 @@ function PiazzaForm({ chattingUser, userObj, multiple, messages, handleMessages,
       conversation: conversation,
       conversationUid: chattingUser?.uid,
       conversationName: chattingUser?.displayName,
-      profileUrl: profileImageUrl,
+      profileImage: profileImage,
+      defaultProfile: defaultProfile,
+      profileImageUrl: profileImageUrl,
+      profileUrl: profileUrl,
       sendingToken: messagingToken,
     };
     if (multiple) {
