@@ -292,7 +292,6 @@ function PiazzaScreenView({
       }
     }
   }, [isLoading, conversation])
-  // console.log(isLoading)
   const handleScroll = () => {
     if (
       // boxRef.current.getBoundingClientRect().height + Math.round(boxRef.current.scrollTop) !==
