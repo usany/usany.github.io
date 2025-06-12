@@ -21,7 +21,7 @@ const CardViewLocation = ({ message }) => {
       ]
     const locationTwo =
       locationsCollection['en'][
-        Object.keys(locationsCollectionLetters).find(
+        ObjecionsCollet.keys(locatctionLetters).find(
           (key) => locationsCollectionLetters[key] === message.text.count,
         )
       ][
