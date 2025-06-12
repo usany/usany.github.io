@@ -2,12 +2,20 @@ self.addEventListener('push', event => {
   console.log(event.data.json())
   const options = {
     body: String(event.data.json().notification.body),
-    icon: '/path/to/your/icon.png', // Replace with your icon path
+    icon: '/path/to/your/icon.png',
+    tag: 'renotify',
+    renotify: true,
+    // Replace with your icon path
   };
   event.waitUntil(
     self.registration.showNotification('USANY', options)
   );
 });
+self.addEventListener('notificationclick', (event) => {
+  console.log('links')
+})
+
+
 // import { getMessaging, onBackgroundMessage } from "firebase/messaging/sw";
 
 // const messaging = getMessaging();
