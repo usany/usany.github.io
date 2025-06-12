@@ -4,8 +4,26 @@ self.addEventListener('push', event => {
   const options = {
     body: String(event.data.json().notification.body),
     icon: '/path/to/your/icon.png',
+    badge: '/path/to/your/icon.png',
+    actions: [
+      {
+        action: 'yes',
+        type: 'button',
+        title: 'yes'
+      },
+      {
+        action: 'no',
+        type: 'text',
+        title: 'no',
+        placeholder: 'Type your explanation here',
+      }
+    ],
     tag: 'renotify',
     renotify: true,
+    vibrate: [
+      500, 110, 500, 110, 450, 110, 200, 110, 170, 40, 450, 110, 200, 110, 170,
+      40, 500,
+    ],
   };
   event.waitUntil(
     self.registration.showNotification('USANY', options)
