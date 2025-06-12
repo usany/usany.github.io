@@ -1,20 +1,21 @@
 
-// self.addEventListener('push', event => {
-//   console.log(event.data.json())
-//   const options = {
-//     body: String(event.data.json().notification.body),
-//     icon: '/path/to/your/icon.png',
-//     tag: 'renotify',
-//     renotify: true,
-//   };
-//   event.waitUntil(
-//     self.registration.showNotification('USANY', options)
-//   );
-// });
-// self.addEventListener('notificationclick', (event) => {
-//   clients.openWindow("https://jameshfisher.com/");
-//   event.notification.close();
-// })
+self.addEventListener('push', event => {
+  console.log(event.data.json())
+  const options = {
+    body: String(event.data.json().notification.body),
+    icon: '/path/to/your/icon.png',
+    tag: 'renotify',
+    renotify: true,
+  };
+  event.waitUntil(
+    self.registration.showNotification('USANY', options)
+  );
+});
+self.addEventListener('notificationclick', (event) => {
+  // clients.openWindow("https://jameshfisher.com/");
+  clients.openWindow("/");
+  event.notification.close();
+})
 
 
 // import { getMessaging, onBackgroundMessage } from "firebase/messaging/sw";
