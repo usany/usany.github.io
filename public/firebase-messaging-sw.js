@@ -13,7 +13,6 @@ self.addEventListener('push', event => {
   );
 });
 self.addEventListener('notificationclick', (event) => {
-  console.log('links')
   event.notification.close();
   clients.openWindow("https://jameshfisher.com/");
 })
