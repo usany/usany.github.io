@@ -126,6 +126,8 @@ function PiazzaScreenView({
           profileImageUrl: profileImageUrl,
           defaultProfile: defaultProfile,
           profileImage: profileImage,
+          // userOneProfileImage: profileImage,
+          // userTwoProfileImage: profileImage,
           ...piazzaData,
         },
       ])
@@ -330,17 +332,17 @@ function PiazzaScreenView({
                   passingValue = {
                     userUid: value.userOne,
                     id: value.userOneDisplayName,
-                    profileImage: value.userOneProfileImage,
-                    defaultProfile: value.userOneDefaultProfile,
-                    profileImageUrl: value.userOneProfileUrl,
+                    profileImage: value.userOneProfileImage || value.profileImage,
+                    defaultProfile: value.userOneDefaultProfile || value.defaultProfile,
+                    profileImageUrl: value.userOneProfileUrl || value.profileImageUrl,
                   }
                 } else {
                   passingValue = {
                     userUid: value.userTwo,
                     id: value.userTwoDisplayName,
-                    profileImage: value.userTwoProfileImage,
-                    defaultProfile: value.userTwoDefaultProfile,
-                    profileImageUrl: value.userTwoProfileUrl,
+                    profileImage: value.userTwoProfileImage || value.profileImage,
+                    defaultProfile: value.userTwoDefaultProfile || value.defaultProfile,
+                    profileImageUrl: value.userTwoProfileUrl || value.profileImageUrl,
                   }
                 }
               }
