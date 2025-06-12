@@ -1,3 +1,4 @@
+
 self.addEventListener('push', event => {
   console.log(event.data.json())
   const options = {
@@ -12,7 +13,9 @@ self.addEventListener('push', event => {
   );
 });
 self.addEventListener('notificationclick', (event) => {
-  console.log('links')
+  console.log('link')
+  event.notification.close();
+  clients.openWindow("https://jameshfisher.com/");
 })
 
 
