@@ -274,7 +274,7 @@ function PiazzaForm({ chattingUser, userObj, multiple, messages, handleMessages,
     <>
       {piazzaForm ?
         <form className="fixed w-screen bottom-0 flex gap-px" onSubmit={onSendSubmitHandler}>
-          <button className='px-1 rounded bg-light-2 dark:bg-dark-2' type="submit">{send[index]}</button>
+          <button className='px-1 rounded bg-light-2 dark:bg-dark-2' type="submit"><PlusCircle /></button>
           <input
             className='w-full p-3 rounded bg-light-1 dark:bg-dark-1'
             placeholder={forms[index]}
