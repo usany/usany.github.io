@@ -108,6 +108,9 @@ function PiazzaScreenView({
         messageClock,
         messageClockNumber,
         conversation,
+        profileImageUrl,
+        defaultProfile,
+        profileImage,
         piazzaData,
       } = message
       handleMessagesList((prev) => [
@@ -120,6 +123,9 @@ function PiazzaScreenView({
           messageClock: messageClock,
           messageClockNumber: messageClockNumber,
           conversation: null,
+          profileImageUrl: profileImageUrl,
+          defaultProfile: defaultProfile,
+          profileImage: profileImage,
           ...piazzaData,
         },
       ])
