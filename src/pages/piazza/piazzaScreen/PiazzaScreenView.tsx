@@ -11,7 +11,6 @@ import {
   updateDoc,
 } from 'firebase/firestore'
 import { useEffect, useRef, useState } from 'react'
-import { useSelector } from 'react-redux'
 import { useLocation } from 'react-router-dom'
 import { dbservice } from 'src/baseApi/serverbase'
 import { useSelectors } from 'src/hooks/useSelectors'
@@ -43,8 +42,8 @@ function PiazzaScreenView({
   const [isLoading, setIsLoading] = useState(false)
   const [continuing, setContinuing] = useState(null)
   const [continueNumber, setContinueNumber] = useState(0)
-  const profileColor = useSelector((state) => state.profileColor.value)
-  const profileUrl = useSelector((state) => state.profileUrl.value)
+  // const profileColor = useSelector((state) => state.profileColor.value)
+  // const profileUrl = useSelector((state) => state.profileUrl.value)
   const { state } = useLocation()
   const conversation = state?.conversation || 'piazza'
   const languages = useSelectors((state) => state.languages.value)
