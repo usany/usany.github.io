@@ -1,6 +1,7 @@
 import { User } from "firebase/auth";
 import { addDoc, collection, doc, getDoc, updateDoc } from 'firebase/firestore';
 import { PlusCircle } from "lucide-react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { dbservice } from 'src/baseApi/serverbase';
@@ -40,7 +41,7 @@ function PiazzaForm({ chattingUser, userObj, multiple, messages, handleMessages,
   const conversation = state?.conversation
   const languages = useSelectors((state) => state.languages.value)
   const index = (languages === 'ko' || languages === 'en') ? languages : 'ko'
-  console.log(chattingUser)
+  const [calls, setCalls] = useState(false)
   const onSendSubmitHandler = async (event) => {
     event.preventDefault();
     const message = messages
@@ -56,7 +57,6 @@ function PiazzaForm({ chattingUser, userObj, multiple, messages, handleMessages,
       toUser = await getDoc(toUserRef)
       messagingToken = toUser.data()?.messagingToken
     }
-    console.log(messagingToken)
     const profileImageUrl = profile.profileImage ? profile.profileUrl : profile.defaultProfile
     const sendData = {
       msg: message,
@@ -269,12 +269,78 @@ function PiazzaForm({ chattingUser, userObj, multiple, messages, handleMessages,
       console.log(error)
     }
   }
-
+  useEffect(() => {
+    if (calls) {
+      const muteButton = document.getElementById('mute')
+      const streamButton = document.getElementById('stream')
+      const videoSelect = document.getElementById('videoInput')
+      let muted = false
+      let streamOff = false
+      function handleMuteClick() {
+        promise.getAudioTracks().forEach(track => track.enabled = !track.enabled)
+        console.log(promise.getAudioTracks())
+        if (!muted) {
+          muteButton.innerText = 'unmute'
+          muted = true
+        } else {
+          muteButton.innerText = 'mute'
+          muted = false
+        }
+      }
+      function handleStreamClick() {
+        promise.getVideoTracks().forEach(track => track.enabled = !track.enabled)
+        console.log(promise.getVideoTracks())
+        if (!streamOff) {
+          streamButton.innerText = 'turn stream on'
+          streamOff = true
+        } else {
+          streamButton.innerText = 'turn stream off'
+          streamOff = false
+        }
+      }
+      const myFace = document.getElementById('myFace')
+      let promise
+      async function getMedia() {
+        try {
+          const constraints = {
+            video: true,
+            audio: true,
+          }
+          promise = await navigator.mediaDevices.getUserMedia(constraints);
+          promise.getVideoTracks().forEach(track => track.enabled = !track.enabled)
+          promise.getAudioTracks().forEach(track => track.enabled = !track.enabled)
+          // myFace.srcObject = promise
+          getDevices()
+        } catch (error) {
+          console.log(error)
+        }
+      }
+      getMedia()
+      async function getDevices() {
+        try {
+          const devices = await navigator.mediaDevices.enumerateDevices()
+          const videoDevices = devices.filter((device) => device.kind === 'videoinput')
+          videoDevices.forEach((device) => {
+            const option = document.createElement('option')
+            option.value = device.deviceId
+            option.innerText = device.label
+            videoSelect?.appendChild(option)
+          })
+          console.log(videoDevices)
+        } catch (error) {
+          console.log(error)
+        }
+      }
+    }
+  })
+  const getCalls = () => {
+    setCalls(true)
+  }
   return (
     <>
       {piazzaForm ?
         <form className="fixed w-screen bottom-0 flex gap-px" onSubmit={onSendSubmitHandler}>
-          <button className='px-1 rounded bg-light-2 dark:bg-dark-2' type="submit"><PlusCircle /></button>
+          <button onClick={() => getCalls()} className='px-1 rounded bg-light-2 dark:bg-dark-2' type="submit"><PlusCircle /></button>
           <input
             className='w-full p-3 rounded bg-light-1 dark:bg-dark-1'
             placeholder={forms[index]}
@@ -286,7 +352,7 @@ function PiazzaForm({ chattingUser, userObj, multiple, messages, handleMessages,
         </form>
         :
         <form className="fixed w-screen bottom-[60px] flex gap-px" onSubmit={onSendSubmitHandler}>
-          <button className='px-1 rounded bg-light-2 dark:bg-dark-2' type="submit"><PlusCircle /></button>
+          <button onClick={() => getCalls()} className='px-1 rounded bg-light-2 dark:bg-dark-2' type="submit"><PlusCircle /></button>
           <input
             className='w-full p-3 rounded bg-light-1 dark:bg-dark-1'
             placeholder={forms[index]}
