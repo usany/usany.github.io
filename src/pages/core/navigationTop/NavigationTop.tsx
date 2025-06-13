@@ -1,6 +1,5 @@
 import { User } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
-import { getStorage } from "firebase/storage";
 import {
   useEffect,
   useState
@@ -41,7 +40,7 @@ const NavigationTop = ({ userObj }: Props) => {
     setSideNavigation(!sideNavigation);
   };
   const scrollNavigation = useSelectors(state => state.scrollNavigation.value)
-  const storage = getStorage();
+  // const storage = getStorage();
   const dispatch = useDispatch();
   const largeMedia = useLargeMedia()
   // useEffect(() => {
@@ -69,7 +68,6 @@ const NavigationTop = ({ userObj }: Props) => {
       const userProfileImage = docSnap.data()?.profileImage || false;
       const userDefaultProfile = docSnap.data()?.defaultProfile || 'null';
       dispatch(changeProfileColor(userColor));
-      // console.log(userProfileImage)
       if (userProfileImage) {
         dispatch(changeProfileUrl(userImage));
       } else {
@@ -79,7 +77,6 @@ const NavigationTop = ({ userObj }: Props) => {
     setProfile();
   }, [userObj]);
   useScroll()
-  console.log(profile)
   const scrollLocation = ['/', '/add', '/board'].indexOf(location.pathname) === -1
   return (
     <div className="shadow-md fixed z-50 bg-light-2 dark:bg-dark-2 rounded truncate">

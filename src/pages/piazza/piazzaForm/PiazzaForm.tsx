@@ -345,7 +345,7 @@ function PiazzaForm({ chattingUser, userObj, multiple, messages, handleMessages,
   const getCalls = () => {
     setCalls(true)
   }
-  console.log(conversation)
+  // console.log(conversation)
   return (
     <>
       {piazzaForm ?
@@ -395,6 +395,7 @@ function PiazzaForm({ chattingUser, userObj, multiple, messages, handleMessages,
                   sx={{
                     height: '100%'
                   }}
+                  onClick={() => getCalls()}
                 >
                   <CardContent>
                     <div className='flex flex-col items-center gap-5'>
