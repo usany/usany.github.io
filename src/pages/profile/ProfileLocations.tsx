@@ -3,9 +3,6 @@ import { doc, getDoc, updateDoc } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 import { dbservice } from 'src/baseApi/serverbase'
 import { useSelectors } from 'src/hooks/useSelectors'
-import DeleteIcon from '@mui/icons-material/Delete'
-import { useDispatch } from 'react-redux'
-import { changePiazzaSwitch } from 'src/stateSlices/piazzaSwitchSlice'
 
 const area = {
   westSouth: { lat: 37.5927551, lng: 127.047462 },
@@ -61,7 +58,7 @@ const ProfileLocations = ({ user, userObj }) => {
   }
   // console.log(user)
   return (
-    <div className="flex flex-col items-center pt-5">
+    <div className="flex flex-col justify-center items-center">
       {/* {userObj.uid === user && (
         <div>
           {languages === 'ko' ? (
