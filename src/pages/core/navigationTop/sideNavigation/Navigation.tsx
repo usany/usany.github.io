@@ -71,7 +71,7 @@ function Navigation({ user, userObj, handleSideNavigation }: Props) {
     },
     {
       href: '/piazza',
-      passingState: { multiple: true },
+      passingState: { conversation: 'piazza', multiple: true },
       icon: <MessagesSquare />,
       description: '단체 대화방',
       onClick: () => checkbox(),
