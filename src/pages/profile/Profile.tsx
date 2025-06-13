@@ -1,5 +1,3 @@
-import ClickAwayListener from '@mui/material/ClickAwayListener';
-import Tooltip from '@mui/material/Tooltip';
 import { User } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 import { UserRound } from "lucide-react";
@@ -260,7 +258,7 @@ function Profile({ userObj }: Props) {
       /> */}
       <div className='flex justify-center gap-5 p-5'>
         <ProfileLocations user={state?.element.uid} userObj={userObj} />
-        <ClickAwayListener onClickAway={handleTooltipClose}>
+        {/* <ClickAwayListener onClickAway={handleTooltipClose}>
           <div className='flex justify-center items-center'>
             <Tooltip
               onClose={handleTooltipClose}
@@ -282,7 +280,7 @@ function Profile({ userObj }: Props) {
               <div className='rounded-xl border border-solid px-1 bg-light-2 dark:bg-dark-2' onClick={handleTooltipOpen}>?</div>
             </Tooltip>
           </div>
-        </ClickAwayListener>
+        </ClickAwayListener> */}
       </div>
       {/* <Suspense fallback={<Skeleton />}>
         <ProfileAvatar userObj={userObj} user={state.element} handleProfileDialog={() => setProfileDialog(true)} />

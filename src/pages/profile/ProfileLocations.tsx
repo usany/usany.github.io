@@ -1,4 +1,4 @@
-import { Button, Chip } from '@mui/material'
+import { Button, Chip, ClickAwayListener, Tooltip } from '@mui/material'
 import { doc, getDoc, updateDoc } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 import { dbservice } from 'src/baseApi/serverbase'
@@ -13,6 +13,13 @@ const area = {
 const ProfileLocations = ({ user, userObj }) => {
   const [location, setLocation] = useState({ lat: 0, lng: 0 })
   const [locationConfirmed, setLocationConfirmed] = useState(false)
+  const [open, setOpen] = useState(false)
+  const handleTooltipClose = () => {
+    setOpen(false);
+  };
+  const handleTooltipOpen = () => {
+    setOpen(true);
+  };
   const languages = useSelectors((state) => state.languages.value)
 
   useEffect(() => {
@@ -76,24 +83,49 @@ const ProfileLocations = ({ user, userObj }) => {
           )}
         </div>
       )} */}
-      {
-        locationConfirmed ? (
-          <Chip
-            sx={{}}
-            color='success'
-            label={
-              languages === 'ko' ? '캠퍼스 위치 확인' : 'Location confirmed'
-            }
-          />
-        ) : (
-          // <Chips label={'캠퍼스 위치 확인'} className='bg-profile-green' />
-          <Chip
-            label={
-              languages === 'ko' ? '캠퍼스 위치 미확인' : 'Location unconfirmed'
-            }
-          />
-        ) // <Chips label={'캠퍼스 위치 미확인'} />
-      }
+      <div className='flex justify-center'>
+        {
+          locationConfirmed ? (
+            <Chip
+              sx={{}}
+              color='success'
+              label={
+                languages === 'ko' ? '캠퍼스 위치 확인' : 'Location confirmed'
+              }
+            />
+          ) : (
+            // <Chips label={'캠퍼스 위치 확인'} className='bg-profile-green' />
+            <Chip
+              label={
+                languages === 'ko' ? '캠퍼스 위치 미확인' : 'Location unconfirmed'
+              }
+            />
+          ) // <Chips label={'캠퍼스 위치 미확인'} />
+        }
+        <ClickAwayListener onClickAway={handleTooltipClose}>
+          <div className='flex justify-center items-center'>
+            <Tooltip
+              onClose={handleTooltipClose}
+              open={open}
+              disableFocusListener
+              disableHoverListener
+              disableTouchListener
+              title={<div className='text-xl'>
+                <div>캠퍼스에 계세요?</div>
+                <div>위치 확인으로 캠퍼스에 있음을 알리세요.</div>
+                <div>위치 확인은 다음날까지 지속됩니다.</div>
+              </div>}
+              slotProps={{
+                popper: {
+                  disablePortal: true,
+                },
+              }}
+            >
+              <div className='rounded-xl border border-solid px-1 bg-light-2 dark:bg-dark-2' onClick={handleTooltipOpen}>?</div>
+            </Tooltip>
+          </div>
+        </ClickAwayListener>
+      </div>
       {user === userObj.uid && !locationConfirmed && (
         <Button onClick={onClickLocation} variant="outlined">
           {languages === 'ko' ? '캠퍼스 위치 확인' : 'Campus location confirm'}
