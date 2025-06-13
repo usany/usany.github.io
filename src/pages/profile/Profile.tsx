@@ -258,10 +258,10 @@ function Profile({ userObj }: Props) {
         changeAttachment={(newState: string) => setAttachment(newState)}
         handleClose={handleClose}
       /> */}
-      <div className='flex justify-center p-5'>
+      <div className='flex justify-center gap-5 p-5'>
         <ProfileLocations user={state?.element.uid} userObj={userObj} />
         <ClickAwayListener onClickAway={handleTooltipClose}>
-          <div className='flex justify-center p-5'>
+          <div className='flex justify-center items-center'>
             <Tooltip
               onClose={handleTooltipClose}
               open={open}
@@ -279,10 +279,7 @@ function Profile({ userObj }: Props) {
                 },
               }}
             >
-              <div className='rounded-xl border border-solid w-18 px-1 bg-light-2 dark:bg-dark-2' onClick={handleTooltipOpen}>
-                ?
-                {/* Click */}
-              </div>
+              <div className='rounded-xl border border-solid px-1 bg-light-2 dark:bg-dark-2' onClick={handleTooltipOpen}>?</div>
             </Tooltip>
           </div>
         </ClickAwayListener>

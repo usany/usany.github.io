@@ -373,8 +373,7 @@ function PiazzaForm({ chattingUser, userObj, multiple, messages, handleMessages,
         </form>
         :
         <form className="fixed w-screen bottom-[60px] flex gap-px" onSubmit={onSendSubmitHandler}>
-          {/* <button onClick={() => getCalls()} className='px-1 rounded bg-light-2 dark:bg-dark-2' type="submit"><PlusCircle /></button>
-          <select className='w-10'>
+          {/* <select className='w-10'>
             <option>video</option>
             <option>audio</option>
           </select>
