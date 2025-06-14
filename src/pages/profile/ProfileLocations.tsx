@@ -63,9 +63,8 @@ const ProfileLocations = ({ user, userObj }) => {
     })
     console.log(location)
   }
-  // console.log(user)
   return (
-    <div className="flex flex-col justify-center items-center">
+    <div className="flex justify-center items-start gap-5 p-5">
       {/* {userObj.uid === user && (
         <div>
           {languages === 'ko' ? (
@@ -83,7 +82,7 @@ const ProfileLocations = ({ user, userObj }) => {
           )}
         </div>
       )} */}
-      <div className='flex justify-center'>
+      <div className='flex flex-col justify-center'>
         {
           locationConfirmed ? (
             <Chip
@@ -102,8 +101,15 @@ const ProfileLocations = ({ user, userObj }) => {
             />
           ) // <Chips label={'캠퍼스 위치 미확인'} />
         }
+        {user === userObj.uid && !locationConfirmed && (
+          <Button onClick={onClickLocation} variant="outlined">
+            {languages === 'ko' ? '캠퍼스 위치 확인' : 'Campus location confirm'}
+          </Button>
+        )}
+      </div>
+      {userObj.uid === user &&
         <ClickAwayListener onClickAway={handleTooltipClose}>
-          <div className='flex justify-center items-center'>
+          <div className='flex'>
             <Tooltip
               onClose={handleTooltipClose}
               open={open}
@@ -125,12 +131,7 @@ const ProfileLocations = ({ user, userObj }) => {
             </Tooltip>
           </div>
         </ClickAwayListener>
-      </div>
-      {user === userObj.uid && !locationConfirmed && (
-        <Button onClick={onClickLocation} variant="outlined">
-          {languages === 'ko' ? '캠퍼스 위치 확인' : 'Campus location confirm'}
-        </Button>
-      )}
+      }
       {!locationConfirmed && location.lat !== 0 && (
         <div>{languages === 'ko' ? '확인 불가' : 'Confirm fail'}</div>
       )}
