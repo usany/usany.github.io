@@ -53,7 +53,7 @@ function AuthMethods({ changeAgreed }) {
       <Accordion type="single" collapsible>
         <AccordionItem value="item-1">
           <AccordionTrigger className='px-3' onClick={() => changeAccordion()}>
-            <div>쿠우산KHUSAN 개인정보 처리방침</div>
+            쿠우산KHUSAN 개인정보 처리방침
           </AccordionTrigger>
           <AccordionContent className='px-3'>
             <div>쿠우산KHUSAN은 다음의 목적을 위하여 개인정보를 처리합니다. 처리하고 있는 개인정보는 다음의 목적 외의 용도로는 이용되지 않으며, 이용 목적이 변경되는 경우에는 관계 법령에 따라 별도의 동의를 받는 등 필요한 조치를 이행할 예정입니다.</div>
