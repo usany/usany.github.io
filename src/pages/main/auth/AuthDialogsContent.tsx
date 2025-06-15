@@ -1,12 +1,14 @@
 import { useSelector } from "react-redux";
 import { useSelectors } from "src/hooks/useSelectors";
 import AuthForm from "src/pages/main/auth/AuthForm";
+import AuthMethods from "./AuthMethods";
 
 function AuthDialogsContent() {
   const theme = useSelector((state) => state.theme.value);
   const languages = useSelectors((state) => state.languages.value)
   return (
     <div>
+      <AuthMethods />
       <div className="p-3">
         {languages === 'ko' ?
           <div>
