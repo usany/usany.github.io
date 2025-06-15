@@ -188,7 +188,7 @@ const AuthForm = ({ signIn, agreed }) => {
                   ? '회원가입'
                   : 'Register'}
             </Button>
-            {!agreed && <div>처리방침 동의 필요</div>}
+            {!signIn && !agreed && <div>처리방침 동의 필요</div>}
             <span>{error}</span>
           </div>
         </form>
