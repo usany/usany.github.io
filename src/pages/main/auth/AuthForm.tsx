@@ -20,7 +20,7 @@ import { useSelectors } from 'src/hooks/useSelectors.tsx'
 import setDocUser from 'src/pages/core/setDocUser.ts'
 import AuthDialogs from './AuthDialogs.tsx'
 
-const AuthForm = ({ signIn }) => {
+const AuthForm = ({ signIn, agreed }) => {
   const [account, setAccount] = useState({ email: '', password: '' })
   const [error, setError] = useState('')
   const languages = useSelectors((state) => state.languages.value)
@@ -36,95 +36,97 @@ const AuthForm = ({ signIn }) => {
       }
     }
   }
+
   const onSubmitSignUp = async (event) => {
     event.preventDefault()
-    try {
-      const data = await createUserWithEmailAndPassword(
-        auth,
-        account.email,
-        account.password,
-      )
-
-      const docsRef = query(collection(dbservice, 'members'))
-      const docs = await getDocs(docsRef)
-      // const docsLength = docs.docs.length
-      // await setDoc(doc(dbservice, 'members', `${data.user.uid}`), {
-      //   uid: data.user.uid,
-      //   displayName: data.user.email,
-      //   points: 0,
-      //   profileImage: null,
-      //   profileImageUrl: null,
-      //   followers: [],
-      //   followings: [],
-      //   messagingToken: null,
-      //   ranking: docsLength,
-      //   createdCards: [],
-      //   connectedCards: [],
-      //   profileColor: '#2196f3',
-      //   followerNum: 0,
-      //   followingNum: 0,
-      //   locationConfirmed: false,
-      //   defaultProfile: '',
-      // })
-      setDocUser({ uid: data.user.uid, email: data.user.email })
-      await updateProfile(data.user, {
-        displayName: data.user.email,
-      }).catch((error) => {
-        console.log('error')
-      })
-      const user = doc(dbservice, `members/${data.user.uid}`)
-      const storageRef = ref(storage, data.user.uid)
-      uploadString(storageRef, 'null', 'raw').then((snapshot) => {
-        console.log('Uploaded a blob or file!')
-      })
-      getDownloadURL(storageRef)
-        .then(async (url) => {
-          await updateDoc(user, { profileImageUrl: url })
+    if (agreed) {
+      try {
+        const data = await createUserWithEmailAndPassword(
+          auth,
+          account.email,
+          account.password,
+        )
+        const docsRef = query(collection(dbservice, 'members'))
+        const docs = await getDocs(docsRef)
+        // const docsLength = docs.docs.length
+        // await setDoc(doc(dbservice, 'members', `${data.user.uid}`), {
+        //   uid: data.user.uid,
+        //   displayName: data.user.email,
+        //   points: 0,
+        //   profileImage: null,
+        //   profileImageUrl: null,
+        //   followers: [],
+        //   followings: [],
+        //   messagingToken: null,
+        //   ranking: docsLength,
+        //   createdCards: [],
+        //   connectedCards: [],
+        //   profileColor: '#2196f3',
+        //   followerNum: 0,
+        //   followingNum: 0,
+        //   locationConfirmed: false,
+        //   defaultProfile: '',
+        // })
+        setDocUser({ uid: data.user.uid, email: data.user.email })
+        await updateProfile(data.user, {
+          displayName: data.user.email,
+        }).catch((error) => {
+          console.log('error')
         })
-        .catch((error) => {
-          console.log(error)
+        const user = doc(dbservice, `members/${data.user.uid}`)
+        const storageRef = ref(storage, data.user.uid)
+        uploadString(storageRef, 'null', 'raw').then((snapshot) => {
+          console.log('Uploaded a blob or file!')
         })
-      let profileImage
-      let profileColor
-      const profileImageNumber = Math.random()
-      const profileColorNumber = Math.random()
-      if (profileColorNumber < 1 / 3) {
-        profileColor = 'profileRed'
-      } else if (profileImageNumber < 2 / 3) {
-        profileColor = 'profileBlue'
-      } else {
-        profileColor = 'profileGold'
-      }
-      if (profileImageNumber < 0.5) {
-        profileImage = 'animal'
-      } else {
-        profileImage = 'plant'
-      }
-      const reference = ref(storage, `${profileImage}${profileColor}.png`)
-      console.log(reference)
-      const docRef = doc(dbservice, `members/${data.user.uid}`)
-      getDownloadURL(reference).then((url) => {
-        console.log(url)
-        updateDoc(docRef, {
-          profileImage: false,
-          profileColor: profileColor,
-          defaultProfile: url,
+        getDownloadURL(storageRef)
+          .then(async (url) => {
+            await updateDoc(user, { profileImageUrl: url })
+          })
+          .catch((error) => {
+            console.log(error)
+          })
+        let profileImage
+        let profileColor
+        const profileImageNumber = Math.random()
+        const profileColorNumber = Math.random()
+        if (profileColorNumber < 1 / 3) {
+          profileColor = 'profileRed'
+        } else if (profileImageNumber < 2 / 3) {
+          profileColor = 'profileBlue'
+        } else {
+          profileColor = 'profileGold'
+        }
+        if (profileImageNumber < 0.5) {
+          profileImage = 'animal'
+        } else {
+          profileImage = 'plant'
+        }
+        const reference = ref(storage, `${profileImage}${profileColor}.png`)
+        console.log(reference)
+        const docRef = doc(dbservice, `members/${data.user.uid}`)
+        getDownloadURL(reference).then((url) => {
+          console.log(url)
+          updateDoc(docRef, {
+            profileImage: false,
+            profileColor: profileColor,
+            defaultProfile: url,
+          })
         })
-      })
-    } catch (error) {
-      if (error.message === 'Firebase: Error (auth/invalid-credential).') {
-        const errorMessage = '로그인 실패: 계정을 확인해 주세요'
-        setError(errorMessage)
-      } else if (
-        error.message === 'Firebase: Error (auth/email-already-in-use).'
-      ) {
-        const errorMessage = '회원가입 실패: 이미 가입된 계정입니다'
-        setError(errorMessage)
-      } else if (error.message === 'Firebase: Error (auth/invalid-email).') {
-        const errorMessage = '회원가입 실패: 계정을 확인해 주세요'
-        setError(errorMessage)
-      } else {
-        console.log(error.message)
+      } catch (error) {
+        if (error.message === 'Firebase: Error (auth/invalid-credential).') {
+          const errorMessage = '로그인 실패: 계정을 확인해 주세요'
+          setError(errorMessage)
+        } else if (
+          error.message === 'Firebase: Error (auth/email-already-in-use).'
+        ) {
+          const errorMessage = '회원가입 실패: 이미 가입된 계정입니다'
+          setError(errorMessage)
+        } else if (error.message === 'Firebase: Error (auth/invalid-email).') {
+          const errorMessage = '회원가입 실패: 계정을 확인해 주세요'
+          setError(errorMessage)
+        } else {
+          console.log(error.message)
+        }
       }
     }
   }
@@ -186,6 +188,7 @@ const AuthForm = ({ signIn }) => {
                   ? '회원가입'
                   : 'Register'}
             </Button>
+            {!agreed && <div>처리방침 동의 필요</div>}
             <span>{error}</span>
           </div>
         </form>

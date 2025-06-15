@@ -1,9 +1,43 @@
+import Switch from '@mui/material/Switch';
+import { styled } from '@mui/material/styles';
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "src/components/ui/accordion";
 import { useSelectors } from "src/hooks/useSelectors";
+const MessageSwitch = styled(Switch)(({ theme }) => ({
+  padding: 8,
+  '& .MuiSwitch-track': {
+    borderRadius: 22 / 2,
+    '&::before, &::after': {
+      content: '""',
+      position: 'absolute',
+      top: '50%',
+      transform: 'translateY(-50%)',
+      width: 16,
+      height: 16,
+    },
+    '&::before': {
+      backgroundImage: `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 0 24 24"><path fill="${encodeURIComponent(
+        theme.palette.getContrastText(theme.palette.primary.main),
+      )}" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"/></svg>')`,
+      left: 12,
+    },
+    '&::after': {
+      backgroundImage: `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 0 24 24"><path fill="${encodeURIComponent(
+        theme.palette.getContrastText(theme.palette.primary.main),
+      )}" d="M19,13H5V11H19V13Z" /></svg>')`,
+      right: 12,
+    },
+  },
+  '& .MuiSwitch-thumb': {
+    boxShadow: 'none',
+    width: 16,
+    height: 16,
+    margin: 2,
+  },
+}));
 
-function AuthMethods() {
+function AuthMethods({ changeAgreed }) {
   const [accordion, setAccordion] = useState('item')
   const changeAccordion = () => {
     if (accordion) {
@@ -42,6 +76,10 @@ function AuthMethods() {
             <div>위탁업무: 개인정보 관리</div>
             <div>쿠키는 웹사이트 운영에 이용되는 http 서버가 정보주체의 브라우저에 보내는 소량의 정보로서 정보주체의 컴퓨터 또는 모바일에 저장되며, 웹사이트 접속 시 정보주체의 브라우저에서 서버로 자동 전송됩니다.</div>
             <div>정보주체는 브라우저 옵션 설정을 통해 쿠키 허용, 차단 등의 설정을 할 수 있습니다.</div>
+            <div className='flex gap-5 items-center'>
+              <MessageSwitch onClick={changeAgreed} />
+              <div>개인정보 처리방침에 동의합니다.</div>
+            </div>
           </AccordionContent>
         </AccordionItem>
       </Accordion>

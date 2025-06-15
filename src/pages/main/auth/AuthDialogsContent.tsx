@@ -1,14 +1,19 @@
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useSelectors } from "src/hooks/useSelectors";
 import AuthForm from "src/pages/main/auth/AuthForm";
 import AuthMethods from "./AuthMethods";
 
 function AuthDialogsContent() {
+  const [agreed, setAgreed] = useState(false)
+  const changeAgreed = () => {
+    setAgreed(!agreed)
+  }
   const theme = useSelector((state) => state.theme.value);
   const languages = useSelectors((state) => state.languages.value)
   return (
     <div>
-      <AuthMethods />
+      <AuthMethods changeAgreed={changeAgreed} />
       <div className="p-3">
         {languages === 'ko' ?
           <div>
@@ -41,7 +46,7 @@ function AuthDialogsContent() {
           />
         )}
       </div>
-      <AuthForm signIn={false} />
+      <AuthForm signIn={false} agreed={agreed} />
     </div>
   );
 }
