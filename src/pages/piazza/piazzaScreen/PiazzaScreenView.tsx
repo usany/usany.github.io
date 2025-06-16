@@ -324,7 +324,7 @@ function PiazzaScreenView({
             if (multiple) {
               passingValue = value
             } else {
-              console.log(value.userUid === userObj.uid)
+              // console.log(value.userUid === userObj.uid)
               if (value.userUid === value.userOne) {
                 passingValue = {
                   userUid: value.userOne,

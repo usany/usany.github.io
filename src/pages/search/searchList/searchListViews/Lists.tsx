@@ -3,7 +3,6 @@ import { DrawerClose } from 'src/components/ui/drawer'
 import RankingListsTitle from 'src/pages/search/searchList/searchListViews/searchListViewsTitle/RankingListsTitle'
 import ListsView from './ListsView'
 
-
 function Lists({
   userObj,
   elements,
