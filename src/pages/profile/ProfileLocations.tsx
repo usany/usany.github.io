@@ -22,19 +22,16 @@ const ProfileLocations = ({ user, userObj }) => {
   };
   const languages = useSelectors((state) => state.languages.value)
 
-  useEffect(() => {
-    const confirmLocation = async () => {
-      const myDoc = doc(dbservice, `members/${user}`)
-      const document = await getDoc(myDoc)
-      const confirmed = document.data()?.locationConfirmed
-      setLocationConfirmed(confirmed)
-      console.log(user)
-    }
-    const onClick = () => {
-      const myDoc = doc(dbservice, `members/${userObj.uid}`)
-      updateDoc(myDoc, { locationConfirmed: true })
+  const confirmLocation = async () => {
+    const myDoc = doc(dbservice, `members/${user}`)
+    const document = await getDoc(myDoc)
+    const confirmed = document.data()?.locationConfirmed
+    if (confirmed && Date.now() - confirmed < 5000) {
       setLocationConfirmed(true)
     }
+  }
+  const onClick = () => {
+    const myDoc = doc(dbservice, `members/${userObj.uid}`)
     if (
       location.lat > area.westSouth.lat &&
       location.lat < area.westNorth.lat
@@ -43,17 +40,14 @@ const ProfileLocations = ({ user, userObj }) => {
         location.lng > area.westSouth.lng &&
         location.lng < area.eastSouth.lng
       ) {
-        onClick()
-        confirmLocation()
+        updateDoc(myDoc, { locationConfirmed: Date.now(), })
+        setLocationConfirmed(true)
       }
     }
+  }
+  useEffect(() => {
     confirmLocation()
   }, [location, locationConfirmed, user])
-  // const onClick = () => {
-  //   const myDoc = doc(dbservice, `members/${userObj.uid}`);
-  //   updateDoc(myDoc, { locationConfirmed: true });
-  //   setLocationConfirmed(true)
-  // }
   const onClickLocation = () => {
     navigator.geolocation.getCurrentPosition((position) => {
       setLocation({
@@ -61,27 +55,10 @@ const ProfileLocations = ({ user, userObj }) => {
         lng: position.coords.longitude,
       })
     })
-    console.log(location)
+    onClick()
   }
   return (
     <div className="flex justify-center items-start gap-5 p-5">
-      {/* {userObj.uid === user && (
-        <div>
-          {languages === 'ko' ? (
-            <div>
-              <div>캠퍼스에 계세요?</div>
-              <div>위치 확인으로 캠퍼스에 있음을 알리세요.</div>
-              <div>위치 확인은 다음날까지 지속됩니다.</div>
-            </div>
-          ) : (
-            <div>
-              <div>Are you in campus?</div>
-              <div>Let others know you are in campus by location confirm.</div>
-              <div>Location confirm will last till next day.</div>
-            </div>
-          )}
-        </div>
-      )} */}
       <div className='flex flex-col justify-center'>
         {
           locationConfirmed ? (
@@ -93,13 +70,12 @@ const ProfileLocations = ({ user, userObj }) => {
               }
             />
           ) : (
-            // <Chips label={'캠퍼스 위치 확인'} className='bg-profile-green' />
             <Chip
               label={
                 languages === 'ko' ? '캠퍼스 위치 미확인' : 'Location unconfirmed'
               }
             />
-          ) // <Chips label={'캠퍼스 위치 미확인'} />
+          )
         }
         {user === userObj.uid && !locationConfirmed && (
           <Button onClick={onClickLocation} variant="outlined">
