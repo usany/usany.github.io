@@ -15,9 +15,9 @@ const ProfileMembers = ({ userObj, user }) => {
   const { color } = useCardsBackground()
   const languages = useSelectors((state) => state.languages.value)
   return (
-    <div className="flex flex-col p-5">
+    <div className="flex justify-center p-5">
       {user.uid === userObj.uid ? (
-        <div className="flex justify-center">
+        <div className="grid grid-flow-row grid-cols-2 justify-center">
           <Popups trigger={<ProfileMembersPasswordTrigger />} title={<div>비밀번호 변경</div>} content={<ProfileMembersPasswordContent />} />
           <Popups trigger={<ProfileMembersDrawersTrigger />} title={<ProfileMembersDrawersTitle />} content={<ProfileMembersDrawersContent userObj={userObj} user={user} />} />
         </div>
