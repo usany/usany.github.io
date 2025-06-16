@@ -7,30 +7,9 @@ import ProfileClose from "./ProfileClose";
 import ProfileDialogs from "./profileDialogs/ProfileDialogs";
 import ProfileView from "./ProfileView";
 
-const ProfileAvatar = ({ userObj, user, handleProfileDialog, profileDialog, handleClose }) => {
-  // const [profile, setProfile] = useState({
-  //   profileImage: false,
-  //   defaultProfile: '',
-  //   profileImageUrl: '',
-  //   profileColor: '',
-  //   initial: true
-  // })
-  const [initialProfile, setInitialProfile] = useState(true)
+const ProfileAvatar = ({ userObj, user }) => {
   const profile = useSelectors((state) => state.profile.value)
-  // console.log(profile)
-  // const dispatch = useDispatch()
-  // useEffect(() => {
-  //   const changeUserData = async () => {
-  //     const userRef = doc(dbservice, `members/${userObj.uid}`)
-  //     const userDoc = await getDoc(userRef)
-  //     const userData = userDoc.data()
-  //     dispatch(changeProfile({ ...profile, profileImage: userData.profileImage, defaultProfile: userData.defaultProfile, profileImageUrl: userData.profileImageUrl }))
-  //   }
-  //   if (userObj.uid === user.uid && initialProfile) {
-  //     changeUserData()
-  //     setInitialProfile(false)
-  //   }
-  // })
+  console.log(profile)
   const [attachment, setAttachment] = useState(null)
   const changeAttachment = (newValue) => setAttachment(newValue)
   const [changedImage, setChangedImage] = useState({
@@ -64,26 +43,11 @@ const ProfileAvatar = ({ userObj, user, handleProfileDialog, profileDialog, hand
       })
     }
   }, [attachment])
-  // useEffect(() => {
-  //   if (!changedImage.defaultProfile) {
-  //     setChangedImage({
-  //       attachment: '',
-  //       character: '',
-  //       color: profile.profileColor,
-  //       changed: false,
-  //       ...profile
-  //     })
-  //   }
-  // }, [])
   const handleChangedImage = (newValue) => setChangedImage(newValue)
-  // const changeProfile = (newValue) => setProfile(newValue)
-  // console.log(profile)
-  // console.log(user)
-  // console.log(changedImage)
-  const [profileOrder, setProfileOrder] = useState('animal')
-  const changeProfileOrder = (newValue) => {
-    setProfileOrder(newValue)
-  }
+  // const [profileOrder, setProfileOrder] = useState('animal')
+  // const changeProfileOrder = (newValue) => {
+  //   setProfileOrder(newValue)
+  // }
 
   if (userObj.uid === user.uid) {
     return (
