@@ -26,7 +26,7 @@ const ProfileLocations = ({ user, userObj }) => {
     const myDoc = doc(dbservice, `members/${user}`)
     const document = await getDoc(myDoc)
     const confirmed = document.data()?.locationConfirmed
-    if (confirmed && Date.now() - confirmed < 500000) {
+    if (confirmed && Date.now() - confirmed < 5000000) {
       setLocationConfirmed(true)
     }
     console.log(Date.now() - confirmed)

@@ -15,6 +15,7 @@ const ListsView = ({ userObj, elements, userSearch, multiple, link, handleUser }
   const navigate = useNavigate()
   let point
   let samePointIndex
+
   return (
     <div className="bg-light-3 dark:bg-dark-3">
       {elements.map((element, index) => {
@@ -81,7 +82,7 @@ const ListsView = ({ userObj, elements, userSearch, multiple, link, handleUser }
                 </div>
                 <div className="flex justify-center items-center w-[67px]">
                   {
-                    element.locationConfirmed ? (
+                    Date.now() - element.locationConfirmed < 5000000 ? (
                       <Chip
                         sx={{}}
                         color="success"
