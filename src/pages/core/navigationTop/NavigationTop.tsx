@@ -40,7 +40,6 @@ const NavigationTop = ({ userObj }: Props) => {
     setSideNavigation(!sideNavigation);
   };
   const scrollNavigation = useSelectors(state => state.scrollNavigation.value)
-  // const storage = getStorage();
   const dispatch = useDispatch();
   const largeMedia = useLargeMedia()
   // useEffect(() => {
@@ -60,11 +59,8 @@ const NavigationTop = ({ userObj }: Props) => {
       const docSnap = await getDoc(docRef);
       const userData = docSnap.data()
       dispatch(changeProfile(userData))
-      // setUser(userData)
       const userColor = docSnap.data()?.profileColor || "#2196f3";
       const userImage = docSnap.data()?.profileImageUrl || "null";
-      // dispatch(changeProfileColor(userColor));
-      // dispatch(changeProfileUrl(userImage));
       const userProfileImage = docSnap.data()?.profileImage || false;
       const userDefaultProfile = docSnap.data()?.defaultProfile || 'null';
       dispatch(changeProfileColor(userColor));
