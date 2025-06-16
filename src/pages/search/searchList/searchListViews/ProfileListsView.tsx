@@ -9,7 +9,7 @@ function ProfileListsView({
   displayName,
   changeSelectedUser,
 }) {
-  const locationConfirmed = Date.now() - element.locationConfirmed < 5000000
+  const locationConfirmed = Date.now() - element.locationConfirmed < 50000000
   return (
     <div
       className="px-5"

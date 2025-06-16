@@ -19,7 +19,7 @@ const ListsView = ({ userObj, elements, userSearch, multiple, link, handleUser }
   return (
     <div className="bg-light-3 dark:bg-dark-3">
       {elements.map((element, index) => {
-        const locationConfirmed = Date.now() - element.locationConfirmed < 5000000
+        const locationConfirmed = Date.now() - element.locationConfirmed < 50000000
         if (element.points !== point) {
           point = element.points
           samePointIndex = index

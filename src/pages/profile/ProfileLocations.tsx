@@ -26,7 +26,7 @@ const ProfileLocations = ({ user, userObj }) => {
     const myDoc = doc(dbservice, `members/${user}`)
     const document = await getDoc(myDoc)
     const confirmed = document.data()?.locationConfirmed
-    const locationConfirmNumber = 5000000
+    const locationConfirmNumber = 50000000
     if (confirmed && Date.now() - confirmed < locationConfirmNumber) {
       setLocationConfirmed(true)
     }
@@ -59,6 +59,7 @@ const ProfileLocations = ({ user, userObj }) => {
     })
     onClick()
   }
+  console.log(locationConfirmed)
   return (
     <div className='flex flex-col'>
       <div className="flex justify-center items-start gap-5 p-5">
