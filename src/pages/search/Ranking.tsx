@@ -14,10 +14,6 @@ interface Props {
 function Ranking({ userObj }: Props) {
   const [userSearch, setUserSearch] = useState('')
   const languages = useSelectors((state) => state.languages.value)
-  // const [rank, setRank] = useState([])
-  // const [ranker, setRanker] = useState([])
-  // const [loadedImage, setLoadedImage] = useState([])
-  // const [loadedImageIndex, setLoadedImageIndex] = useState(null)
   const dispatch = useDispatch()
 
   useEffect(() => {

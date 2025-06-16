@@ -24,8 +24,6 @@ function RankingLists({ userObj, userSearch }: Props) {
   const [ranker, setRanker] = useState([]);
   const [continuing, setContinuing] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [loadedImage, setLoadedImage] = useState([]);
-  const [scroll, setScroll] = useState(false);
   const scrollNumber = 20;
   useEffect(() => {
     const membersList = async () => {
@@ -46,37 +44,6 @@ function RankingLists({ userObj, userSearch }: Props) {
             ...document.data(),
           };
         }
-
-        // console.log(document.data()?.uid)
-        // const storageRef = ref(storage, document.data()?.uid);
-        // const user = doc(dbservice, `members/${document.data()?.uid}`);
-        // getDownloadURL(storageRef)
-        //   .then(async (url) => {
-        //     await updateDoc(user, { profileImageUrl: url });
-        //   })
-        //   .catch((error) => {
-        //     console.log(error);
-        //   });
-        // let profileImage
-        // let profileColor
-        // const profileImageNumber = Math.random()
-        // const profileColorNumber = Math.random()
-        // if (profileColorNumber < 1 / 3) {
-        //   profileColor = 'profileRed'
-        // } else if (profileColorNumber < 2 / 3) {
-        //   profileColor = 'profileBlue'
-        // } else {
-        //   profileColor = 'profileGold'
-        // }
-        // if (profileImageNumber < 0.5) {
-        //   profileImage = 'animal'
-        // } else {
-        //   profileImage = 'plant'
-        // }
-        // const reference = ref(storage, `${profileImage}${profileColor}.png`);
-        // getDownloadURL(reference).then((url) => {
-        //   updateDoc(user, { profileImage: false, profileColor: profileColor, defaultProfile: url });
-        // })
       });
       setRank([...rank, ...newArray]);
       if (ranker.length === 0) {
@@ -121,19 +88,6 @@ function RankingLists({ userObj, userSearch }: Props) {
         }
       });
       setRank([...rank, ...newArray]);
-      // if (ranker.length === 0) {
-      //   const docRef = doc(dbservice, `members/${userObj.uid}`)
-      //   const myDocSnap = await getDoc(docRef)
-      //   const myDocSnapData = myDocSnap.data()
-      //   console.log(myDocSnapData)
-      //   newArray.map((document, index) => {
-      //     if (document.uid === userObj.uid) {
-      //       console.log(document?.ranking)
-      //       newArray[index].rank = index + 1;
-      //     }
-      //   });
-      //   setRanker([myDocSnapData]);
-      // }
       setIsLoading(false);
     };
     if (isLoading || rank.length === 0) {
@@ -188,10 +142,6 @@ function RankingLists({ userObj, userSearch }: Props) {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, [isLoading]);
-  // const scrolls = document.addEventListener('scrollend', () => {
-  //   console.log('samples')
-  //   console.log(continuing)
-  // })
   return (
     <div className='flex truncate justify-center'>
       {userSearch ? (
@@ -226,8 +176,6 @@ function RankingLists({ userObj, userSearch }: Props) {
           {isLoading && (
             <div className="flex justify-center text-2xl bg-light-2 dark:bg-dark-2 rounded">로딩</div>
           )}
-          {/* {isLoading && <div className='flex justify-center text-2xl pb-36'>loading</div>} */}
-          {/* {!isLoading && <div className="p-28"></div>} */}
         </div>
       )}
     </div>
