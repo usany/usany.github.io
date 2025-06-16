@@ -29,7 +29,12 @@ const ProfileLocations = ({ user, userObj }) => {
     if (confirmed && Date.now() - confirmed < 5000) {
       setLocationConfirmed(true)
     }
+    console.log(Date.now() - confirmed)
   }
+  useEffect(() => {
+    confirmLocation()
+  }, [location, locationConfirmed, user])
+
   const onClick = () => {
     const myDoc = doc(dbservice, `members/${userObj.uid}`)
     if (
@@ -45,9 +50,6 @@ const ProfileLocations = ({ user, userObj }) => {
       }
     }
   }
-  useEffect(() => {
-    confirmLocation()
-  }, [location, locationConfirmed, user])
   const onClickLocation = () => {
     navigator.geolocation.getCurrentPosition((position) => {
       setLocation({

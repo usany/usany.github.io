@@ -295,7 +295,7 @@ const ChartLegendContent = React.forwardRef<
               <div
                 key={item.value}
                 className={cn(
-                  'flex items-center gap-1.5 [&>svg]:h-3 [&>svg]:w-3 [&>svg]:text-neutral-500 dark:[&>svg]:text-neutral-400 px-5 rounded bg-light-2 dark:bg-dark-2 cursor-pointer shadow-md',
+                  'w-[170px] flex items-center gap-1.5 [&>svg]:h-3 [&>svg]:w-3 [&>svg]:text-neutral-500 dark:[&>svg]:text-neutral-400 px-5 rounded bg-light-2 dark:bg-dark-2 cursor-pointer shadow-md',
                 )}
                 onClick={(value) => {
                   // console.log(item)
