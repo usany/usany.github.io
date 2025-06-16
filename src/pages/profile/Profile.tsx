@@ -206,10 +206,6 @@ function Profile({ userObj }: Props) {
     )
   }
   // getCoords().then(coords => console.log(coords))
-  // console.log(weather)
-  // console.log(profileDialog)
-  // console.log(state)
-  // console.log(document.scrollingElement?.scrollTop)
   // if (document.scrollingElement?.scrollTop > 100) {
   //   setScrolledToCompleted(true)
   // }
@@ -243,42 +239,9 @@ function Profile({ userObj }: Props) {
         handleChangedImage={(newState: changedImage) => setChangedImage(newState)}
         handleClose={handleClose}
       />
-      {/* <ProfileDialogs
-        userObj={userObj}
-        profileDialog={profileDialog}
-        attachment={attachment}
-        changeAttachment={(newState: string) => setAttachment(newState)}
-        handleClose={handleClose}
-      /> */}
       <div className='flex justify-center gap-5 p-5'>
         <ProfileLocations user={state?.element.uid} userObj={userObj} />
-        {/* <ClickAwayListener onClickAway={handleTooltipClose}>
-          <div className='flex justify-center items-center'>
-            <Tooltip
-              onClose={handleTooltipClose}
-              open={open}
-              disableFocusListener
-              disableHoverListener
-              disableTouchListener
-              title={<div className='text-xl'>
-                <div>캠퍼스에 계세요?</div>
-                <div>위치 확인으로 캠퍼스에 있음을 알리세요.</div>
-                <div>위치 확인은 다음날까지 지속됩니다.</div>
-              </div>}
-              slotProps={{
-                popper: {
-                  disablePortal: true,
-                },
-              }}
-            >
-              <div className='rounded-xl border border-solid px-1 bg-light-2 dark:bg-dark-2' onClick={handleTooltipOpen}>?</div>
-            </Tooltip>
-          </div>
-        </ClickAwayListener> */}
       </div>
-      {/* <Suspense fallback={<Skeleton />}>
-        <ProfileAvatar userObj={userObj} user={state.element} handleProfileDialog={() => setProfileDialog(true)} />
-      </Suspense> */}
       <ProfileActions
         userObj={userObj}
         user={state?.element || userObj}
@@ -301,7 +264,6 @@ function Profile({ userObj }: Props) {
           :
           <div className='h-[250px]'></div>
       }
-      {/* <ProfileVerification userObj={userObj} /> */}
     </div >
   );
 }

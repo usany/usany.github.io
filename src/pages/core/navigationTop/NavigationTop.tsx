@@ -89,20 +89,6 @@ const NavigationTop = ({ userObj }: Props) => {
             profileUrl={userObj ? profileUrl : staticImage}
             piazza={() => null}
           />
-          {/* <div
-            className="px-5 pt-1 cursor-pointer"
-            onClick={() => {
-              handleSideNavigation();
-            }}
-          >
-            <Avatars
-              uid={userObj ? userObj.uid : ''}
-              profile={false}
-              profileColor={userObj ? profileColor : 'profile-blue'}
-              profileUrl={userObj ? profileUrl : staticImage}
-              piazza={() => null}
-            />
-          </div> */}
           <div className={`flex ${!largeMedia && 'flex-col'} items-center`}>
             {largeMedia && scrollNavigation && scrollLocation &&
               <NavigationScroll />
