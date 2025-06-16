@@ -50,6 +50,8 @@ function Profile({ userObj }: Props) {
     changed: true
   });
   const { state } = useLocation();
+  console.log(userObj)
+  console.log(state)
   const [profileDialog, setProfileDialog] = useState(false);
   const [alliesCollection, setAlliesCollection] = useImmer([
     {
@@ -68,14 +70,6 @@ function Profile({ userObj }: Props) {
     lendDone: [],
   });
   const [scrolledToCompleted, setScrolledToCompleted] = useState(false)
-  const [open, setOpen] = useState(false)
-  const handleTooltipClose = () => {
-    setOpen(false);
-  };
-
-  const handleTooltipOpen = () => {
-    setOpen(true);
-  };
   const userUid = state?.element.uid || userObj.uid;
   const userDisplayName = state?.element.displayName || userObj.displayName;
   // const myCards = useQuery({
