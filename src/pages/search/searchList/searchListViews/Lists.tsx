@@ -19,6 +19,7 @@ const ListsView = ({ userObj, elements, userSearch, multiple, link, handleUser }
   return (
     <div className="bg-light-3 dark:bg-dark-3">
       {elements.map((element, index) => {
+        const locationConfirmed = Date.now() - element.locationConfirmed < 5000000
         if (element.points !== point) {
           point = element.points
           samePointIndex = index
@@ -81,22 +82,21 @@ const ListsView = ({ userObj, elements, userSearch, multiple, link, handleUser }
                   </div>
                 </div>
                 <div className="flex justify-center items-center w-[67px]">
-                  {
-                    Date.now() - element.locationConfirmed < 5000000 ? (
-                      <Chip
-                        sx={{}}
-                        color="success"
-                        label={
-                          <Check />
-                        }
-                      />
-                    ) : (
-                      <Chip
-                        label={
-                          <Ban />
-                        }
-                      />
-                    )
+                  {locationConfirmed ? (
+                    <Chip
+                      sx={{}}
+                      color="success"
+                      label={
+                        <Check />
+                      }
+                    />
+                  ) : (
+                    <Chip
+                      label={
+                        <Ban />
+                      }
+                    />
+                  )
                   }
                 </div>
               </div>

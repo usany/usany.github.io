@@ -9,6 +9,7 @@ function ProfileListsView({
   displayName,
   changeSelectedUser,
 }) {
+  const locationConfirmed = Date.now() - element.locationConfirmed < 5000000
   return (
     <div
       className="px-5"
@@ -27,9 +28,8 @@ function ProfileListsView({
           </div>
         </div>
         <div className='flex items-center'>
-          {element.locationConfirmed ?
+          {locationConfirmed ?
             <Chip label={'캠퍼스 위치 확인'} /> : <Chip label={'캠퍼스 위치 미확인'} />
-            // <Chips label={'캠퍼스 위치 확인'} className='bg-profile-green' /> : <Chips label={'캠퍼스 위치 미확인'} className='bg-white dark:bg-dark-4' />
           }
         </div>
       </div>
