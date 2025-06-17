@@ -55,7 +55,6 @@ const PiazzaDialogsContent = ({ initiateContinuing, multiple, handleMultiple, us
           to={`/profile?id=${user?.uid}`}
           state={{ element: user }}>
           <Button variant='outlined' onClick={() => {
-            // handleClose()
           }}>
             {languages === 'ko' ? '프로필 확인' : 'Check Profile'}
           </Button>
