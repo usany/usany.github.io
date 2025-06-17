@@ -343,49 +343,9 @@ function PiazzaForm({ chattingUser, userObj, multiple, messages, handleMessages,
       }
     }
   })
-  const getCalls = () => {
-    setCalls(true)
-    // handleCalls()
-  }
-  // console.log(conversation)
   return (
     <>
-      {/* {piazzaForm ?
-        <form className="fixed w-screen bottom-0 flex gap-px" onSubmit={onSendSubmitHandler}>
-          <button onClick={() => getCalls()} className='px-1 rounded bg-light-2 dark:bg-dark-2' type="submit"><PlusCircle /></button>
-          <select className='w-10'>
-            <option>video</option>
-            <option>audio</option>
-          </select>
-          <Select
-            value={item}
-            onChange={changeItem}
-          >
-            <MenuItem value={'우산'}>{languages === 'ko' ? '우산' : 'Usan'}</MenuItem>
-            <MenuItem value={'양산'}>{languages === 'ko' ? '양산' : 'Yangsan'}</MenuItem>
-          </Select>
-          <input
-            className='w-full p-3 rounded bg-light-1 dark:bg-dark-1'
-            placeholder={forms[index]}
-            onChange={onChangeMsgHandler}
-            value={messages}
-            autoFocus
-          />
-          <button className='w-1/6 rounded bg-light-2 dark:bg-dark-2' type="submit">{send[index]}</button>
-        </form>
-        : */}
       <form className={`fixed w-screen ${piazzaForm ? 'bottom-0' : 'bottom-[60px]'} flex gap-px`} onSubmit={onSendSubmitHandler}>
-        {/* <select className='w-10'>
-            <option>video</option>
-            <option>audio</option>
-          </select>
-          <Select
-          value={item}
-          onChange={changeItem}
-          >
-            <MenuItem value={'우산'}>{languages === 'ko' ? '우산' : 'Usan'}</MenuItem>
-            <MenuItem value={'양산'}>{languages === 'ko' ? '양산' : 'Yangsan'}</MenuItem>
-          </Select> */}
         {conversation && conversation !== 'piazza' &&
           <Popups
             trigger={<button className='px-1 h-full rounded bg-light-2 dark:bg-dark-2' type="submit"><PlusCircle /></button>}
@@ -437,7 +397,6 @@ function PiazzaForm({ chattingUser, userObj, multiple, messages, handleMessages,
         />
         <button className='w-1/6 rounded bg-light-2 dark:bg-dark-2' type="submit">{send[index]}</button>
       </form >
-      {/* } */}
     </>
   );
 }
