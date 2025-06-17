@@ -360,7 +360,9 @@ function PiazzaForm({ chattingUser, userObj, multiple, messages, handleMessages,
                     }}
                   >
                     <CardContent>
-                      <div className='flex flex-col items-center gap-5'>
+                      <div className='flex flex-col items-center gap-5' onClick={() => {
+                        document.getElementById('calls')?.click()
+                      }}>
                         <UserRound />
                         <div>화상 전화</div>
                       </div>
@@ -368,6 +370,13 @@ function PiazzaForm({ chattingUser, userObj, multiple, messages, handleMessages,
                   </Card>
                 </Link>
               </DrawerClose>
+              {/* <MorphingDialog>
+                <MorphingDialogTrigger>
+                </MorphingDialogTrigger>
+                <MorphingDialogContainer>
+                  <PiazzaCalls />
+                </MorphingDialogContainer>
+              </MorphingDialog> */}
               <DrawerClose>
                 <Link to={`/piazza?id=${conversation}?calls=audio`}>
                   <Card

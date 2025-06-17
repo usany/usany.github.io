@@ -4,10 +4,12 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { dbservice } from "src/baseApi/serverbase";
+import { MorphingDialog, MorphingDialogContainer, MorphingDialogTrigger } from "src/components/ui/morphing-dialog";
 import PiazzaForm from 'src/pages/piazza/piazzaForm/PiazzaForm';
 import PiazzaScreen from 'src/pages/piazza/piazzaScreen/PiazzaScreen';
 import PiazzaTitle from 'src/pages/piazza/piazzaTitle/PiazzaTitle';
 import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice';
+import PiazzaCalls from "./PiazzaCalls";
 // import { useKeyboardOffset } from 'virtual-keyboard-offset';
 
 interface Props {
@@ -90,6 +92,20 @@ function Piazza({ userObj }: Props) {
       <PiazzaScreen isKeyboardOpen={piazzaForm} userObj={userObj} multiple={multiple} handleMultiple={(newValue) => setMultiple(newValue)} messagesList={messagesList} handleMessagesList={(newValue) => setMessagesList(newValue)} />
       {/* {calls && <PiazzaCalls />} */}
       <PiazzaForm chattingUser={chattingUser} userObj={userObj} multiple={multiple} messages={messages} handleMessages={(newValue) => setMessages(newValue)} messagesList={messagesList} handleMessagesList={(newValue) => setMessagesList(newValue)} />
+      <MorphingDialog>
+        <MorphingDialogTrigger>
+          <div id='calls'></div>
+        </MorphingDialogTrigger>
+        <MorphingDialogContainer>
+          <div>
+            <div className='flex gap-5'>
+              <PiazzaCalls />
+              <PiazzaCalls />
+            </div>
+            <div>닫기</div>
+          </div>
+        </MorphingDialogContainer>
+      </MorphingDialog>
     </>
   );
 }

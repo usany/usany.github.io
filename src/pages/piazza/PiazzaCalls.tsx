@@ -1,10 +1,6 @@
-import { User } from "firebase/auth";
 // import { useKeyboardOffset } from 'virtual-keyboard-offset';
 
-interface Props {
-  userObj: User
-}
-function PiazzaCalls({ userObj }: Props) {
+function PiazzaCalls() {
 
   return (
     <div id='myStream'>
