@@ -62,6 +62,7 @@ function PiazzaScreenView({
     const userElement = userDoc.data()
     setUser(userElement)
     setDisplayedName(displayName)
+    console.log('practice')
   }
   const onDrawer = ({ userUid, displayName }) => {
     document.getElementById('drawer')?.click()
@@ -318,7 +319,9 @@ function PiazzaScreenView({
     boxRef.current?.addEventListener('scroll', handleScroll)
     return () => boxRef.current?.removeEventListener('scroll', handleScroll)
   }, [isLoading])
-  // console.log(messagesList)
+  console.log(conversation)
+  console.log(messagesList)
+  console.log(user)
   return (
     <>
       <div ref={boxRef} className={`p-1 border-t rounded-xl overflow-auto`}>
@@ -330,7 +333,7 @@ function PiazzaScreenView({
           )}
           {messagesList.map((value, index) => {
             let passingValue
-            if (multiple) {
+            if (conversation === 'piazza') {
               passingValue = value
             } else {
               // console.log(value.userUid === userObj.uid)
