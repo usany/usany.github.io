@@ -22,8 +22,8 @@ function Piazza({ userObj }: Props) {
   const [multiple, setMultiple] = useState(true)
   const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
   const [chattingUser, setChattingUser] = useState(null)
-  const [calls, setCalls] = useState(null)
-
+  const [calls, setCalls] = useState(false)
+  const handleCalls = () => setCalls(true)
   useEffect(() => {
     const bringChattingUser = async () => {
       if (state.chattingUid) {
@@ -86,14 +86,14 @@ function Piazza({ userObj }: Props) {
     dispatch(changeBottomNavigation(5))
   })
   const displayName = state?.displayName
-  // console.log(state)
+  console.log(state)
   // console.log(chattingUser)
   return (
     <>
       {!isKeyboardOpen && <PiazzaTitle multiple={multiple} displayName={displayName} />}
       <PiazzaScreen isKeyboardOpen={piazzaForm} userObj={userObj} multiple={multiple} handleMultiple={(newValue) => setMultiple(newValue)} messagesList={messagesList} handleMessagesList={(newValue) => setMessagesList(newValue)} />
       {calls && <PiazzaCalls />}
-      <PiazzaForm chattingUser={chattingUser} userObj={userObj} multiple={multiple} messages={messages} handleMessages={(newValue) => setMessages(newValue)} messagesList={messagesList} handleMessagesList={(newValue) => setMessagesList(newValue)} />
+      <PiazzaForm handleCalls={handleCalls} chattingUser={chattingUser} userObj={userObj} multiple={multiple} messages={messages} handleMessages={(newValue) => setMessages(newValue)} messagesList={messagesList} handleMessagesList={(newValue) => setMessagesList(newValue)} />
     </>
   );
 }

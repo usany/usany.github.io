@@ -42,10 +42,19 @@ function PiazzaScreenView({
   const [isLoading, setIsLoading] = useState(false)
   const [continuing, setContinuing] = useState(null)
   const [continueNumber, setContinueNumber] = useState(0)
+  const [currentConversation, setCurrentConversation] = useState('piazza')
   // const profileColor = useSelector((state) => state.profileColor.value)
   // const profileUrl = useSelector((state) => state.profileUrl.value)
   const { state } = useLocation()
   const conversation = state?.conversation || 'piazza'
+  useEffect(() => {
+    if (currentConversation !== conversation) {
+      handleMessagesList([])
+      setContinuing(null)
+      setContinueNumber(0)
+      setCurrentConversation(conversation)
+    }
+  }, [conversation])
   const languages = useSelectors((state) => state.languages.value)
   const onPrivate = async ({ userUid, displayName }) => {
     const userRef = doc(dbservice, `members/${userUid}`)

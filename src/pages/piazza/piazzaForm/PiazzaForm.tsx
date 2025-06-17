@@ -34,7 +34,7 @@ interface Props {
   messagesList: []
   handleMessagesList: (newValue: []) => void
 }
-function PiazzaForm({ chattingUser, userObj, multiple, messages, handleMessages, messagesList, handleMessagesList }: Props) {
+function PiazzaForm({ handleCalls, chattingUser, userObj, multiple, messages, handleMessages, messagesList, handleMessagesList }: Props) {
   const profileColor = useSelector(state => state.profileColor.value)
   const piazzaForm = useSelector((state) => state.piazzaForm.value)
   const profile = useSelectors(state => state.profile.value)
@@ -344,6 +344,7 @@ function PiazzaForm({ chattingUser, userObj, multiple, messages, handleMessages,
   })
   const getCalls = () => {
     setCalls(true)
+    handleCalls()
   }
   // console.log(conversation)
   return (

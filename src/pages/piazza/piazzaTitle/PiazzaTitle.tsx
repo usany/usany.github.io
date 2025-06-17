@@ -1,4 +1,5 @@
 import { MessagesSquare } from 'lucide-react'
+import { useLocation } from 'react-router-dom'
 import { useSelectors } from 'src/hooks/useSelectors'
 import PageTitle from 'src/pages/core/pageTitle/PageTitle'
 import PiazzaSwitch from 'src/pages/piazza/piazzaTitle/piazzaSwitch/PiazzaSwitch'
@@ -15,12 +16,12 @@ interface Props {
 const PiazzaTitle = ({ multiple, displayName }: Props) => {
   const languages = useSelectors((state) => state.languages.value)
   const index = (languages === 'ko' || languages === 'en') ? languages : 'ko'
-
+  const { state } = useLocation()
   return (
     <div className='flex w-screen justify-between'>
       <PageTitle
         icon={<MessagesSquare />}
-        title={multiple ? piazzaTitles[index][0] : `${piazzaTitles[index][1]} ${displayName}`} />
+        title={state.conversation === 'piazza' ? piazzaTitles[index][0] : `${piazzaTitles[index][1]} ${displayName}`} />
       {multiple &&
         <div className='flex w-1/2 justify-end px-5 pt-5'>
           <PiazzaSwitch />
