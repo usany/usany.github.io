@@ -1,11 +1,12 @@
-import { Card, CardContent, MenuItem, Select } from "@mui/material";
+import { Card, CardContent } from "@mui/material";
 import { User } from "firebase/auth";
 import { addDoc, collection, doc, getDoc, updateDoc } from 'firebase/firestore';
 import { AlarmCheck, PlusCircle, UserRound } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { dbservice } from 'src/baseApi/serverbase';
+import { DrawerClose } from "src/components/ui/drawer";
 import { useSelectors } from "src/hooks/useSelectors";
 import Popups from "src/pages/core/Popups";
 import { changeNewMessageTrue } from 'src/stateSlices/newMessageSlice';
@@ -34,7 +35,7 @@ interface Props {
   messagesList: []
   handleMessagesList: (newValue: []) => void
 }
-function PiazzaForm({ handleCalls, chattingUser, userObj, multiple, messages, handleMessages, messagesList, handleMessagesList }: Props) {
+function PiazzaForm({ chattingUser, userObj, multiple, messages, handleMessages, messagesList, handleMessagesList }: Props) {
   const profileColor = useSelector(state => state.profileColor.value)
   const piazzaForm = useSelector((state) => state.piazzaForm.value)
   const profile = useSelectors(state => state.profile.value)
@@ -344,12 +345,12 @@ function PiazzaForm({ handleCalls, chattingUser, userObj, multiple, messages, ha
   })
   const getCalls = () => {
     setCalls(true)
-    handleCalls()
+    // handleCalls()
   }
   // console.log(conversation)
   return (
     <>
-      {piazzaForm ?
+      {/* {piazzaForm ?
         <form className="fixed w-screen bottom-0 flex gap-px" onSubmit={onSendSubmitHandler}>
           <button onClick={() => getCalls()} className='px-1 rounded bg-light-2 dark:bg-dark-2' type="submit"><PlusCircle /></button>
           <select className='w-10'>
@@ -372,9 +373,9 @@ function PiazzaForm({ handleCalls, chattingUser, userObj, multiple, messages, ha
           />
           <button className='w-1/6 rounded bg-light-2 dark:bg-dark-2' type="submit">{send[index]}</button>
         </form>
-        :
-        <form className="fixed w-screen bottom-[60px] flex gap-px" onSubmit={onSendSubmitHandler}>
-          {/* <select className='w-10'>
+        : */}
+      <form className={`fixed w-screen ${piazzaForm ? 'bottom-0' : 'bottom-[60px]'} flex gap-px`} onSubmit={onSendSubmitHandler}>
+        {/* <select className='w-10'>
             <option>video</option>
             <option>audio</option>
           </select>
@@ -385,51 +386,58 @@ function PiazzaForm({ handleCalls, chattingUser, userObj, multiple, messages, ha
             <MenuItem value={'우산'}>{languages === 'ko' ? '우산' : 'Usan'}</MenuItem>
             <MenuItem value={'양산'}>{languages === 'ko' ? '양산' : 'Yangsan'}</MenuItem>
           </Select> */}
-          {conversation && conversation !== 'piazza' &&
-            <Popups
-              trigger={<button className='px-1 h-full rounded bg-light-2 dark:bg-dark-2' type="submit"><PlusCircle /></button>}
-              title={<div>전화 선택</div>}
-              content={<div className='flex justify-center gap-5 p-5'>
-                <Card
-                  className='colorOne'
-                  sx={{
-                    height: '100%'
-                  }}
-                  onClick={() => getCalls()}
-                >
-                  <CardContent>
-                    <div className='flex flex-col items-center gap-5'>
-                      <UserRound />
-                      <div>화상 전화</div>
-                    </div>
-                  </CardContent>
-                </Card>
-                <Card
-                  className='colorOne'
-                  sx={{
-                    height: '100%'
-                  }}
-                >
-                  <CardContent>
-                    <div className='flex flex-col items-center gap-5'>
-                      <AlarmCheck />
-                      <div>음성 전화</div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>}
-            />
-          }
-          <input
-            className='w-full p-3 rounded bg-light-1 dark:bg-dark-1'
-            placeholder={forms[index]}
-            onChange={onChangeMsgHandler}
-            value={messages}
-            autoFocus
+        {conversation && conversation !== 'piazza' &&
+          <Popups
+            trigger={<button className='px-1 h-full rounded bg-light-2 dark:bg-dark-2' type="submit"><PlusCircle /></button>}
+            title={<div>전화 선택</div>}
+            content={<div className='flex justify-center gap-5 p-5'>
+              <DrawerClose>
+                <Link to={`/piazza?id=${conversation}?calls=video`}>
+                  <Card
+                    className='colorOne'
+                    sx={{
+                      height: '100%'
+                    }}
+                  >
+                    <CardContent>
+                      <div className='flex flex-col items-center gap-5'>
+                        <UserRound />
+                        <div>화상 전화</div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </Link>
+              </DrawerClose>
+              <DrawerClose>
+                <Link to={`/piazza?id=${conversation}?calls=audio`}>
+                  <Card
+                    className='colorOne'
+                    sx={{
+                      height: '100%'
+                    }}
+                  >
+                    <CardContent>
+                      <div className='flex flex-col items-center gap-5'>
+                        <AlarmCheck />
+                        <div>음성 전화</div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </Link>
+              </DrawerClose>
+            </div>}
           />
-          <button className='w-1/6 rounded bg-light-2 dark:bg-dark-2' type="submit">{send[index]}</button>
-        </form >
-      }
+        }
+        <input
+          className='w-full p-3 rounded bg-light-1 dark:bg-dark-1'
+          placeholder={forms[index]}
+          onChange={onChangeMsgHandler}
+          value={messages}
+          autoFocus
+        />
+        <button className='w-1/6 rounded bg-light-2 dark:bg-dark-2' type="submit">{send[index]}</button>
+      </form >
+      {/* } */}
     </>
   );
 }

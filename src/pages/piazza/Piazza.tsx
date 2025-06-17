@@ -8,7 +8,6 @@ import PiazzaForm from 'src/pages/piazza/piazzaForm/PiazzaForm';
 import PiazzaScreen from 'src/pages/piazza/piazzaScreen/PiazzaScreen';
 import PiazzaTitle from 'src/pages/piazza/piazzaTitle/PiazzaTitle';
 import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice';
-import PiazzaCalls from "./PiazzaCalls";
 // import { useKeyboardOffset } from 'virtual-keyboard-offset';
 
 interface Props {
@@ -22,17 +21,16 @@ function Piazza({ userObj }: Props) {
   const [multiple, setMultiple] = useState(true)
   const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
   const [chattingUser, setChattingUser] = useState(null)
-  const [calls, setCalls] = useState(false)
-  const handleCalls = () => setCalls(true)
+  const conversation = state?.conversation || 'piazza'
   useEffect(() => {
     const bringChattingUser = async () => {
-      if (state.chattingUid) {
+      if (state?.chattingUid) {
         const toUserRef = doc(dbservice, `members/${state.chattingUid}`)
         const toUser = await getDoc(toUserRef)
         setChattingUser(toUser.data())
       }
     }
-    if (!state.multiple) {
+    if (!state?.multiple) {
       bringChattingUser()
     }
   }, [state])
@@ -86,14 +84,12 @@ function Piazza({ userObj }: Props) {
     dispatch(changeBottomNavigation(5))
   })
   const displayName = state?.displayName
-  console.log(state)
-  // console.log(chattingUser)
   return (
     <>
       {!isKeyboardOpen && <PiazzaTitle multiple={multiple} displayName={displayName} />}
       <PiazzaScreen isKeyboardOpen={piazzaForm} userObj={userObj} multiple={multiple} handleMultiple={(newValue) => setMultiple(newValue)} messagesList={messagesList} handleMessagesList={(newValue) => setMessagesList(newValue)} />
-      {calls && <PiazzaCalls />}
-      <PiazzaForm handleCalls={handleCalls} chattingUser={chattingUser} userObj={userObj} multiple={multiple} messages={messages} handleMessages={(newValue) => setMessages(newValue)} messagesList={messagesList} handleMessagesList={(newValue) => setMessagesList(newValue)} />
+      {/* {calls && <PiazzaCalls />} */}
+      <PiazzaForm chattingUser={chattingUser} userObj={userObj} multiple={multiple} messages={messages} handleMessages={(newValue) => setMessages(newValue)} messagesList={messagesList} handleMessagesList={(newValue) => setMessagesList(newValue)} />
     </>
   );
 }

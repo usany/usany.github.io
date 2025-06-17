@@ -336,7 +336,6 @@ function PiazzaScreenView({
             if (conversation === 'piazza') {
               passingValue = value
             } else {
-              // console.log(value.userUid === userObj.uid)
               if (value.userUid === value.userOne) {
                 passingValue = {
                   userUid: value.userOne,

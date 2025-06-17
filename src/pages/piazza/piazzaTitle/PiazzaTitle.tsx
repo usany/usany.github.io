@@ -17,11 +17,12 @@ const PiazzaTitle = ({ multiple, displayName }: Props) => {
   const languages = useSelectors((state) => state.languages.value)
   const index = (languages === 'ko' || languages === 'en') ? languages : 'ko'
   const { state } = useLocation()
+  const conversation = state?.conversation || 'piazza'
   return (
     <div className='flex w-screen justify-between'>
       <PageTitle
         icon={<MessagesSquare />}
-        title={state.conversation === 'piazza' ? piazzaTitles[index][0] : `${piazzaTitles[index][1]} ${displayName}`} />
+        title={conversation === 'piazza' ? piazzaTitles[index][0] : `${piazzaTitles[index][1]} ${displayName}`} />
       {multiple &&
         <div className='flex w-1/2 justify-end px-5 pt-5'>
           <PiazzaSwitch />

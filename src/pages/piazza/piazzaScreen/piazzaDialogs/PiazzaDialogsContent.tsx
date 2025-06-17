@@ -49,7 +49,7 @@ const PiazzaDialogsContent = ({ initiateContinuing, multiple, handleMultiple, us
       </div>
       <div className='flex justify-center p-5'>
         <Link
-          to={`${location.pathname}?id=${conversation}`}
+          to={`/profile?id=${conversation}`}
           state={{ element: user }}>
           <Button variant='outlined' onClick={() => {
             // handleClose()
