@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { dbservice } from "src/baseApi/serverbase";
-import { MorphingDialog, MorphingDialogContainer, MorphingDialogTrigger } from "src/components/ui/morphing-dialog";
+import { MorphingDialog, MorphingDialogClose, MorphingDialogContainer, MorphingDialogTrigger } from "src/components/ui/morphing-dialog";
 import PiazzaForm from 'src/pages/piazza/piazzaForm/PiazzaForm';
 import PiazzaScreen from 'src/pages/piazza/piazzaScreen/PiazzaScreen';
 import PiazzaTitle from 'src/pages/piazza/piazzaTitle/PiazzaTitle';
@@ -102,7 +102,9 @@ function Piazza({ userObj }: Props) {
               <PiazzaCalls />
               <PiazzaCalls />
             </div>
-            <div>닫기</div>
+            <MorphingDialogClose>
+              <div>전화 종료</div>
+            </MorphingDialogClose>
           </div>
         </MorphingDialogContainer>
       </MorphingDialog>
