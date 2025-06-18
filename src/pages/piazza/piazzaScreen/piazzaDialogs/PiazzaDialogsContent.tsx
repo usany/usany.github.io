@@ -62,7 +62,7 @@ const PiazzaDialogsContent = ({ initiateContinuing, multiple, handleMultiple, us
         {conversation === 'piazza' && userObj.uid !== user?.uid &&
           <Link
             to={`${location.pathname}?id=${newConversation}`}
-            state={{ conversation: conversation, displayName: user?.displayName, userUid: userObj.uid, chattingUid: user?.uid, multiple: false, profileUrl: user?.profileImageUrl }}>
+            state={{ conversation: newConversation, displayName: user?.displayName, userUid: userObj.uid, chattingUid: user?.uid, multiple: false, profileUrl: user?.profileImageUrl }}>
             <DrawerClose>
               <Button variant='outlined' onClick={() => {
                 handleMessagesList([])

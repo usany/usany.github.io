@@ -24,6 +24,7 @@ function Piazza({ userObj }: Props) {
   const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
   const [chattingUser, setChattingUser] = useState(null)
   const conversation = state?.conversation || 'piazza'
+  console.log(state)
   useEffect(() => {
     const bringChattingUser = async () => {
       if (state?.chattingUid) {
@@ -99,7 +100,6 @@ function Piazza({ userObj }: Props) {
         <MorphingDialogContainer>
           <div>
             <div className='flex gap-5'>
-              <PiazzaCalls />
               <PiazzaCalls />
             </div>
             <MorphingDialogClose>
