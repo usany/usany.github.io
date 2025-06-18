@@ -1,5 +1,6 @@
 // import { useKeyboardOffset } from 'virtual-keyboard-offset';
 
+import { Button } from "@mui/material";
 import { useEffect, useState } from "react";
 import useLargeMedia from "src/hooks/useLargeMedia";
 
@@ -88,10 +89,12 @@ function PiazzaCalls() {
         <video id='myFace' width="320" height="240" controls autoPlay>
         </video>
       </div>
-      <button id='mute' onClick={handleMuteClick}>mute</button>
-      &emsp;
-      <button id='stream' onClick={handleStreamClick}>turn stream off</button>
-      &emsp;
+      <div className="flex gap-5">
+        <Button onClick={handleMuteClick}>mute</Button>
+        <Button onClick={handleStreamClick}>turn stream off</Button>
+        {/* <button id='mute' onClick={handleMuteClick}>mute</button>
+        <button id='stream' onClick={handleStreamClick}>turn stream off</button> */}
+      </div>
       <select>
         {options.map((value, index) => {
           return (
