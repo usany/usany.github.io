@@ -10,39 +10,39 @@ function PiazzaCalls() {
   const [videoOn, setVideoOn] = useState(true)
   const largeMedia = useLargeMedia()
   const myFace = document.getElementById('myFace')
-  const muteButton = document.getElementById('mute')
-  const streamButton = document.getElementById('stream')
+  // const muteButton = document.getElementById('mute')
+  // const streamButton = document.getElementById('stream')
   const videoSelect = document.getElementById('videoInput')
   const constraints = {
     audio: true,
     video: true
   }
   let promise
-  let muted = false
-  let streamOff = false
+  // const muted = false
+  // const streamOff = false
   async function handleMuteClick() {
     promise = await navigator.mediaDevices.getUserMedia(constraints);
     promise.getAudioTracks().forEach(track => track.enabled = !track.enabled)
     setAudioOn(!audioOn)
-    if (!muted) {
-      muteButton.innerText = 'unmute'
-      muted = true
-    } else {
-      muteButton.innerText = 'mute'
-      muted = false
-    }
+    // if (!muted) {
+    //   muteButton.innerText = 'unmute'
+    //   muted = true
+    // } else {
+    //   muteButton.innerText = 'mute'
+    //   muted = false
+    // }
   }
   async function handleStreamClick() {
     promise = await navigator.mediaDevices.getUserMedia(constraints);
     promise.getVideoTracks().forEach(track => track.enabled = !track.enabled)
     setVideoOn(!videoOn)
-    if (!streamOff) {
-      streamButton.innerText = 'turn stream on'
-      streamOff = true
-    } else {
-      streamButton.innerText = 'turn stream off'
-      streamOff = false
-    }
+    // if (!streamOff) {
+    //   streamButton.innerText = 'turn stream on'
+    //   streamOff = true
+    // } else {
+    //   streamButton.innerText = 'turn stream off'
+    //   streamOff = false
+    // }
   }
   // muteButton.addEventListener('click', () => console.log('practices'))
   // streamButton.addEventListener('click', handleStreamClick)
