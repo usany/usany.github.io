@@ -9,7 +9,7 @@ function PiazzaCalls() {
   const [audioOn, setAudioOn] = useState(true)
   const [videoOn, setVideoOn] = useState(true)
   const largeMedia = useLargeMedia()
-  const myFace = document.getElementById('myFace')
+  const myScreen = document.getElementById('myScreen')
   // const muteButton = document.getElementById('mute')
   // const streamButton = document.getElementById('stream')
   const videoSelect = document.getElementById('videoInput')
@@ -84,9 +84,9 @@ function PiazzaCalls() {
   return (
     <div id='myStream'>
       <div className={`flex ${!largeMedia && 'flex-col'} gap-1`}>
-        <video id='myFace' width="320" height="240" controls autoPlay>
+        <video id='myScreen' width="320" height="240" controls autoPlay>
         </video>
-        <video id='myFace' width="320" height="240" controls autoPlay>
+        <video id='yourScreen' width="320" height="240" controls autoPlay>
         </video>
       </div>
       <div className="flex gap-5">
