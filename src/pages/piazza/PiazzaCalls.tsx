@@ -47,22 +47,6 @@ function PiazzaCalls() {
   // muteButton.addEventListener('click', () => console.log('practices'))
   // streamButton.addEventListener('click', handleStreamClick)
   useEffect(() => {
-    async function getMedia() {
-      try {
-        const constraints = {
-          audio: true,
-          video: true
-        }
-        promise = await navigator.mediaDevices.getUserMedia(constraints);
-        const promises = await navigator.mediaDevices.enumerateDevices()
-        // promise.getVideoTracks().forEach(track => track.enabled = !track.enabled)
-        // promise.getAudioTracks().forEach(track => track.enabled = !track.enabled)
-        getDevices()
-        // myFace.srcObject = promise
-      } catch (error) {
-        console.log(error)
-      }
-    }
     async function getDevices() {
       try {
         const devices = await navigator.mediaDevices.enumerateDevices()
@@ -75,6 +59,22 @@ function PiazzaCalls() {
         //   videoSelect?.appendChild(option)
         // })
         console.log(videoDevices)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    async function getMedia() {
+      try {
+        const constraints = {
+          audio: true,
+          video: true
+        }
+        promise = await navigator.mediaDevices.getUserMedia(constraints);
+        const promises = await navigator.mediaDevices.enumerateDevices()
+        // promise.getVideoTracks().forEach(track => track.enabled = !track.enabled)
+        // promise.getAudioTracks().forEach(track => track.enabled = !track.enabled)
+        await getDevices()
+        // myFace.srcObject = promise
       } catch (error) {
         console.log(error)
       }
