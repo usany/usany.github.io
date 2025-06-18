@@ -6,6 +6,8 @@ import useLargeMedia from "src/hooks/useLargeMedia";
 
 function PiazzaCalls() {
   const [options, setOptions] = useState([])
+  const [audioOn, setAudioOn] = useState(true)
+  const [videoOn, setVideoOn] = useState(true)
   const largeMedia = useLargeMedia()
   const myFace = document.getElementById('myFace')
   const muteButton = document.getElementById('mute')
@@ -90,8 +92,8 @@ function PiazzaCalls() {
         </video>
       </div>
       <div className="flex gap-5">
-        <Button onClick={handleMuteClick}>mute</Button>
-        <Button onClick={handleStreamClick}>turn stream off</Button>
+        <Button onClick={handleMuteClick}>{audioOn ? 'unmute' : 'mute'}</Button>
+        <Button onClick={handleStreamClick}>{videoOn ? 'turn stream on' : 'turn stream off'}</Button>
         {/* <button id='mute' onClick={handleMuteClick}>mute</button>
         <button id='stream' onClick={handleStreamClick}>turn stream off</button> */}
       </div>
