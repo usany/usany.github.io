@@ -22,9 +22,8 @@ function PiazzaCalls() {
   let streamOff = false
   async function handleMuteClick() {
     promise = await navigator.mediaDevices.getUserMedia(constraints);
-
     promise.getAudioTracks().forEach(track => track.enabled = !track.enabled)
-
+    setAudioOn(!audioOn)
     if (!muted) {
       muteButton.innerText = 'unmute'
       muted = true
@@ -35,9 +34,8 @@ function PiazzaCalls() {
   }
   async function handleStreamClick() {
     promise = await navigator.mediaDevices.getUserMedia(constraints);
-
     promise.getVideoTracks().forEach(track => track.enabled = !track.enabled)
-
+    setVideoOn(!videoOn)
     if (!streamOff) {
       streamButton.innerText = 'turn stream on'
       streamOff = true
