@@ -35,53 +35,54 @@ function PiazzaCalls() {
     }
     setVideoOn(!videoOn)
   }
-  function handleDeviceChange() {
+  async function handleDeviceChange() {
     console.log(deviceSelect.value)
     const promise = sources
     promise.getTracks()
       .forEach(track => track.stop());
     setSource(deviceSelect.value)
+    await getMedia(deviceSelect.value)
   }
   useEffect(() => {
-    async function getDevices() {
-      try {
-        const devices = await navigator.mediaDevices.enumerateDevices()
-        const videoDevices = devices.filter(
-          (device) => device.kind === 'videoinput',
-        )
-        setOptions(videoDevices)
-        // videoDevices.forEach((device) => {
-        //   const option = document.createElement('option')
-        //   option.value = device.deviceId
-        //   option.innerText = device.label
-        //   videoSelect?.appendChild(option)
-        // })
-      } catch (error) {
-        console.log(error)
-      }
-    }
-    async function getMedia(deviceId) {
-      try {
-        const newConstraints = {
-          audio: true,
-          video: { deviceId: { exact: deviceId } }
-        }
-        const constraints = deviceId ? newConstraints : initialConstraints
-        const promise = await navigator.mediaDevices.getUserMedia(constraints)
-        const promises = await navigator.mediaDevices.enumerateDevices()
-        setSources(promise)
-        // promise.getVideoTracks().forEach(track => track.enabled = !track.enabled)
-        // promise.getAudioTracks().forEach(track => track.enabled = !track.enabled)
-        // myScreen.srcObject = promise
-        await getDevices()
-        setNoDevice('')
-      } catch (error) {
-        console.log(error)
-        setNoDevice(error)
-      }
-    }
     getMedia(source)
-  }, [deviceSelect, source])
+  }, [deviceSelect])
+  async function getDevices() {
+    try {
+      const devices = await navigator.mediaDevices.enumerateDevices()
+      const videoDevices = devices.filter(
+        (device) => device.kind === 'videoinput',
+      )
+      setOptions(videoDevices)
+      // videoDevices.forEach((device) => {
+      //   const option = document.createElement('option')
+      //   option.value = device.deviceId
+      //   option.innerText = device.label
+      //   videoSelect?.appendChild(option)
+      // })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  async function getMedia(deviceId) {
+    try {
+      const newConstraints = {
+        audio: true,
+        video: { deviceId: { exact: deviceId } }
+      }
+      const constraints = deviceId ? newConstraints : initialConstraints
+      const promise = await navigator.mediaDevices.getUserMedia(constraints)
+      const promises = await navigator.mediaDevices.enumerateDevices()
+      setSources(promise)
+      // promise.getVideoTracks().forEach(track => track.enabled = !track.enabled)
+      // promise.getAudioTracks().forEach(track => track.enabled = !track.enabled)
+      myScreen.srcObject = promise
+      await getDevices()
+      setNoDevice('')
+    } catch (error) {
+      console.log(error)
+      setNoDevice(error)
+    }
+  }
   return (
     <div id="myStream">
       <div className={`flex ${!largeMedia && 'flex-col'} gap-1`}>
@@ -92,7 +93,7 @@ function PiazzaCalls() {
           controls
           autoPlay
         >
-          <source />
+          {/* <source src={sources} /> */}
         </video>
         <video
           id="yourScreen"
@@ -102,32 +103,29 @@ function PiazzaCalls() {
           autoPlay
         ></video>
       </div>
-      {!noDevice ? (
-        <div>
-          <div className="flex gap-5">
-            <Button onClick={handleMuteClick}>
-              {audioOn ? 'unmute' : 'mute'}
-            </Button>
-            <Button onClick={handleStreamClick}>
-              {videoOn ? 'turn stream on' : 'turn stream off'}
-            </Button>
-            {/* <button id='mute' onClick={handleMuteClick}>mute</button>
+      <div>
+        <div className="flex gap-5">
+          <Button onClick={handleMuteClick}>
+            {audioOn ? 'unmute' : 'mute'}
+          </Button>
+          <Button onClick={handleStreamClick}>
+            {videoOn ? 'turn stream on' : 'turn stream off'}
+          </Button>
+          {/* <button id='mute' onClick={handleMuteClick}>mute</button>
         <button id='stream' onClick={handleStreamClick}>turn stream off</button> */}
-          </div>
-          <select id="devices" onChange={handleDeviceChange}>
-            {options.map((value, index) => {
-              return (
-                <option key={index} value={value.deviceId}>
-                  {value.label}
-                </option>
-              )
-            })}
-          </select>
         </div>
-      ) : (
-        <div>{noDevice.toString()}</div>
-      )}
-    </div>
+        <select id="devices" onChange={handleDeviceChange}>
+          {options.map((value, index) => {
+            return (
+              <option key={index} value={value.deviceId}>
+                {value.label}
+              </option>
+            )
+          })}
+        </select>
+      </div>
+      {noDevice && <div>{noDevice}</div>}
+    </div >
   )
 }
 
