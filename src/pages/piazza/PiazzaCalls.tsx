@@ -1,36 +1,50 @@
 // import { useKeyboardOffset } from 'virtual-keyboard-offset';
-
-import { Button } from "@mui/material";
-import { useEffect, useState } from "react";
-import useLargeMedia from "src/hooks/useLargeMedia";
+import { Button } from '@mui/material'
+import { useEffect, useState } from 'react'
+import useLargeMedia from 'src/hooks/useLargeMedia'
 
 function PiazzaCalls() {
   const [options, setOptions] = useState([])
   const [audioOn, setAudioOn] = useState(true)
   const [videoOn, setVideoOn] = useState(true)
+  const [noDevice, setNoDevice] = useState('')
+  const [source, setSource] = useState(null)
   const largeMedia = useLargeMedia()
   const myScreen = document.getElementById('myScreen')
-  const videoSelect = document.getElementById('videoInput')
-  const constraints = {
+  const deviceSelect = document.getElementById('devices')
+  const initialConstraints = {
     audio: true,
-    video: true
+    video: true,
   }
-  let promise
   async function handleMuteClick() {
-    promise = await navigator.mediaDevices.getUserMedia(constraints);
-    promise.getAudioTracks().forEach(track => track.enabled = !track.enabled)
+    const promise = source
+    if (promise) {
+      promise
+        .getAudioTracks()
+        .forEach((track) => (track.enabled = !track.enabled))
+    }
     setAudioOn(!audioOn)
   }
   async function handleStreamClick() {
-    promise = await navigator.mediaDevices.getUserMedia(constraints);
-    promise.getVideoTracks().forEach(track => track.enabled = !track.enabled)
+    const promise = source
+    if (promise) {
+      promise
+        .getVideoTracks()
+        .forEach((track) => (track.enabled = !track.enabled))
+    }
     setVideoOn(!videoOn)
+  }
+  function handleDeviceChange() {
+    console.log(deviceSelect.value)
+    setSource(deviceSelect.value)
   }
   useEffect(() => {
     async function getDevices() {
       try {
         const devices = await navigator.mediaDevices.enumerateDevices()
-        const videoDevices = devices.filter((device) => device.kind === 'videoinput')
+        const videoDevices = devices.filter(
+          (device) => device.kind === 'videoinput',
+        )
         setOptions(videoDevices)
         // videoDevices.forEach((device) => {
         //   const option = document.createElement('option')
@@ -38,52 +52,76 @@ function PiazzaCalls() {
         //   option.innerText = device.label
         //   videoSelect?.appendChild(option)
         // })
-        console.log(videoDevices)
       } catch (error) {
         console.log(error)
       }
     }
-    async function getMedia() {
+    async function getMedia(deviceId) {
       try {
-        const constraints = {
+        const newConstraints = {
           audio: true,
-          video: true
+          video: { deviceId: { exact: deviceId } }
         }
-        promise = await navigator.mediaDevices.getUserMedia(constraints);
+        const constraints = deviceId ? newConstraints : initialConstraints
+        const promise = await navigator.mediaDevices.getUserMedia(constraints)
         const promises = await navigator.mediaDevices.enumerateDevices()
         // promise.getVideoTracks().forEach(track => track.enabled = !track.enabled)
         // promise.getAudioTracks().forEach(track => track.enabled = !track.enabled)
-        // myFace.srcObject = promise
+        myScreen.srcObject = promise
         await getDevices()
+        setNoDevice('')
       } catch (error) {
         console.log(error)
+        setNoDevice(error)
       }
     }
-    getMedia()
-  }, [videoSelect])
+    getMedia(source)
+  }, [deviceSelect, source])
   return (
-    <div id='myStream'>
+    <div id="myStream">
       <div className={`flex ${!largeMedia && 'flex-col'} gap-1`}>
-        <video id='myScreen' width="320" height="240" controls autoPlay>
-        </video>
-        <video id='yourScreen' width="320" height="240" controls autoPlay>
-        </video>
+        <video
+          id="myScreen"
+          width="320"
+          height="240"
+          controls
+          autoPlay
+        ></video>
+        <video
+          id="yourScreen"
+          width="320"
+          height="240"
+          controls
+          autoPlay
+        ></video>
       </div>
-      <div className="flex gap-5">
-        <Button onClick={handleMuteClick}>{audioOn ? 'unmute' : 'mute'}</Button>
-        <Button onClick={handleStreamClick}>{videoOn ? 'turn stream on' : 'turn stream off'}</Button>
-        {/* <button id='mute' onClick={handleMuteClick}>mute</button>
+      {!noDevice ? (
+        <div>
+          <div className="flex gap-5">
+            <Button onClick={handleMuteClick}>
+              {audioOn ? 'unmute' : 'mute'}
+            </Button>
+            <Button onClick={handleStreamClick}>
+              {videoOn ? 'turn stream on' : 'turn stream off'}
+            </Button>
+            {/* <button id='mute' onClick={handleMuteClick}>mute</button>
         <button id='stream' onClick={handleStreamClick}>turn stream off</button> */}
-      </div>
-      <select>
-        {options.map((value, index) => {
-          return (
-            <option key={index} value={value.deviceId}>{value.label}</option>
-          )
-        })}
-      </select>
+          </div>
+          <select id="devices" onChange={handleDeviceChange}>
+            {options.map((value, index) => {
+              return (
+                <option key={index} value={value.deviceId}>
+                  {value.label}
+                </option>
+              )
+            })}
+          </select>
+        </div>
+      ) : (
+        <div>{noDevice.toString()}</div>
+      )}
     </div>
-  );
+  )
 }
 
-export default PiazzaCalls;
+export default PiazzaCalls
