@@ -124,7 +124,7 @@ function PiazzaCalls() {
           })}
         </select>
       </div>
-      {noDevice && <div>{noDevice}</div>}
+      {noDevice && <div>{noDevice.toString()}</div>}
     </div >
   )
 }

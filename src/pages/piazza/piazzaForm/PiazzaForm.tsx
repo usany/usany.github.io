@@ -343,6 +343,7 @@ function PiazzaForm({ chattingUser, userObj, multiple, messages, handleMessages,
       }
     }
   })
+  console.log(state)
   return (
     <>
       <form className={`fixed w-screen ${piazzaForm ? 'bottom-0' : 'bottom-[60px]'} flex gap-px`} onSubmit={onSendSubmitHandler}>
@@ -352,7 +353,9 @@ function PiazzaForm({ chattingUser, userObj, multiple, messages, handleMessages,
             title={<div>전화 선택</div>}
             content={<div className='flex justify-center gap-5 p-5'>
               <DrawerClose>
-                <Link to={`/piazza?id=${conversation}?calls=video`}>
+                <Link to={`/piazza?id=${conversation}?calls=video`}
+                  state={state}
+                >
                   <Card
                     className='colorOne'
                     sx={{
@@ -378,7 +381,9 @@ function PiazzaForm({ chattingUser, userObj, multiple, messages, handleMessages,
                 </MorphingDialogContainer>
               </MorphingDialog> */}
               <DrawerClose>
-                <Link to={`/piazza?id=${conversation}?calls=audio`}>
+                <Link to={`/piazza?id=${conversation}?calls=audio`}
+                  state={state}
+                >
                   <Card
                     className='colorOne'
                     sx={{
