@@ -9,6 +9,7 @@ function PiazzaCalls() {
   const [videoOn, setVideoOn] = useState(true)
   const [noDevice, setNoDevice] = useState('')
   const [source, setSource] = useState(null)
+  const [sources, setSources] = useState(null)
   const largeMedia = useLargeMedia()
   const myScreen = document.getElementById('myScreen')
   const deviceSelect = document.getElementById('devices')
@@ -17,7 +18,7 @@ function PiazzaCalls() {
     video: true,
   }
   async function handleMuteClick() {
-    const promise = source
+    const promise = sources
     if (promise) {
       promise
         .getAudioTracks()
@@ -26,7 +27,7 @@ function PiazzaCalls() {
     setAudioOn(!audioOn)
   }
   async function handleStreamClick() {
-    const promise = source
+    const promise = sources
     if (promise) {
       promise
         .getVideoTracks()
@@ -36,6 +37,9 @@ function PiazzaCalls() {
   }
   function handleDeviceChange() {
     console.log(deviceSelect.value)
+    const promise = sources
+    promise.getTracks()
+      .forEach(track => track.stop());
     setSource(deviceSelect.value)
   }
   useEffect(() => {
@@ -65,9 +69,10 @@ function PiazzaCalls() {
         const constraints = deviceId ? newConstraints : initialConstraints
         const promise = await navigator.mediaDevices.getUserMedia(constraints)
         const promises = await navigator.mediaDevices.enumerateDevices()
+        setSources(promise)
         // promise.getVideoTracks().forEach(track => track.enabled = !track.enabled)
         // promise.getAudioTracks().forEach(track => track.enabled = !track.enabled)
-        myScreen.srcObject = promise
+        // myScreen.srcObject = promise
         await getDevices()
         setNoDevice('')
       } catch (error) {
@@ -86,7 +91,9 @@ function PiazzaCalls() {
           height="240"
           controls
           autoPlay
-        ></video>
+        >
+          <source />
+        </video>
         <video
           id="yourScreen"
           width="320"
