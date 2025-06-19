@@ -1,4 +1,5 @@
 import { User } from 'firebase/auth';
+import { SearchCheck } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelectors } from 'src/hooks/useSelectors';
@@ -13,10 +14,6 @@ interface Props {
 function Ranking({ userObj }: Props) {
   const [userSearch, setUserSearch] = useState('')
   const languages = useSelectors((state) => state.languages.value)
-  // const [rank, setRank] = useState([])
-  // const [ranker, setRanker] = useState([])
-  // const [loadedImage, setLoadedImage] = useState([])
-  // const [loadedImageIndex, setLoadedImageIndex] = useState(null)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -25,7 +22,9 @@ function Ranking({ userObj }: Props) {
 
   return (
     <>
-      <PageTitle title={languages === 'ko' ? '유저 랭킹' : 'User Ranking'} />
+      <PageTitle
+        icon={<SearchCheck />}
+        title={languages === 'ko' ? '유저 랭킹' : 'User Ranking'} />
       <RankingSearch changeUserSearch={(newValue: string) => setUserSearch(newValue)} />
       <RankingLists userObj={userObj} userSearch={userSearch} />
     </>

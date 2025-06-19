@@ -25,6 +25,12 @@ const useColors = () => {
                   backgroundColor: colorTwo,
                 },
               },
+              {
+                props: { className: 'colorOne' },
+                style: {
+                  backgroundColor: colorOne,
+                },
+              },
             ],
           },
         },

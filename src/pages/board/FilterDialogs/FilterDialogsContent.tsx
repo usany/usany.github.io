@@ -80,6 +80,7 @@ function FilterDialogsContent({ selectedValues, handleSelectedValues }) {
   const onClick = ({ id }) => {
     setSelected(id);
   };
+  console.log(selectedValues)
 
   return (
     <div className='p-5'>

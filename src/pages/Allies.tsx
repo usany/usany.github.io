@@ -1,18 +1,18 @@
-import CommentIcon from '@mui/icons-material/Comment'
-import Divider from '@mui/material/Divider'
-import IconButton from '@mui/material/IconButton'
-import { collection, getDocs, orderBy, query } from 'firebase/firestore'
-import { useEffect, useState } from 'react'
-import { Link, useLocation } from 'react-router-dom'
-import { dbservice } from 'src/baseApi/serverbase'
-import Avatars from './core/Avatars'
+import CommentIcon from '@mui/icons-material/Comment';
+import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
+import { collection, getDocs, orderBy, query } from 'firebase/firestore';
+import { useEffect, useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { dbservice } from 'src/baseApi/serverbase';
+import Avatars from './core/Avatars';
 
 function Allies() {
   // const [followers, setFollowers] = useState([])
   // const [followings, setFollowings] = useState([])
   const [elements, setElements] = useState([])
   const { state } = useLocation()
-  // const navigate = useNavigate()
+  const navigate = useNavigate()
 
   useEffect(() => {
     usersCollection()
@@ -37,8 +37,17 @@ function Allies() {
   // const elements = state.followers ? followers : followings
   return (
     <div>
-      <div className="flex text-2xl p-5">
+      <div className='flex text-2xl p-5'>
         {state.user.displayName}의 {state.followers ? '팔로워' : '팔로잉'}
+        {/* {state.followers &&
+            <div>
+            </div>
+          }
+          {!state.followers &&
+            <div>
+              {state.user.displayName}의 팔로잉
+            </div>
+          } */}
       </div>
       <div>
         {/* {state.followers ?
@@ -78,34 +87,30 @@ function Allies() {
             })}
           </div>
           : */}
-        <div className="flex flex-col justify-center flex-wrap">
+        <div className='flex flex-col justify-center flex-wrap'>
           {elements?.map((element, index) => {
             return (
               <div key={index}>
-                <div className="flex justify-between w-screen px-5">
+                <div className='flex justify-between w-screen px-5'>
                   <div>
-                    <Avatars
-                      element={element}
-                      uid={element.uid}
-                      profileColor={element.profileColor}
-                      profileUrl={element.profileUrl}
-                      profile={false}
-                      piazza={null}
-                    />
+                    <Avatars element={element} uid={element.uid} profileColor={element.profileColor} profileUrl={element.profileUrl} profile={false} piazza={null} />
                     {/* <ListItemAvatar>
                       <Avatar alt={element.displayName} sx={{ bgcolor: element.profileColor || '#2196f3' }} src="./src" />
                     </ListItemAvatar> */}
                   </div>
                   <div>
-                    <div className="flex flex-col overflow-hidden">
-                      <div>{element.displayName}</div>
-                      <div>{element.points}</div>
+                    <div className='flex flex-col overflow-hidden'>
+                      <div>
+                        {element.displayName}
+                      </div>
+                      <div>
+                        {element.points}
+                      </div>
                     </div>
                   </div>
                   <div>
                     <IconButton aria-label="comment">
-                      <Link
-                        to="/profile"
+                      <Link to='/profile'
                         state={{
                           element: element,
                         }}

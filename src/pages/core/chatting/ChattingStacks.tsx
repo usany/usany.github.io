@@ -1,4 +1,3 @@
-import { useAutoAnimate } from '@formkit/auto-animate/react'
 import { User } from 'firebase/auth'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
@@ -22,8 +21,6 @@ const ChattingStacks = ({
   const changeLongPressChatsList = (newValue) => setLongPressChatsList(newValue)
   const [onLongPress, setOnLongPress] = useState(0)
   const changeOnLongPress = (newValue) => setOnLongPress(newValue)
-  const [list] = useAutoAnimate()
-
   useEffect(() => {
     if (!onLongPress) {
       setLongPressChat(null)
@@ -81,7 +78,7 @@ const ChattingStacks = ({
       let userTwoDisplayName
       let userOneProfileUrl
       let userTwoProfileUrl
-      const messageCount = chattings[conversation]?.messageCount + 1 || 1
+      const messageCount = (chattings[conversation]?.messageCount + 1) || 1
       if (userUid < conversationUid) {
         userOne = userUid
         userTwo = conversationUid
@@ -113,11 +110,9 @@ const ChattingStacks = ({
       changeChattings(newChattings)
     }
     sorted.map((element) => {
-      if (element !== 'piazza') {
-        webSocket.on(`sMessage${element}`, sMessageCallback)
-        return () => {
-          webSocket.off(`sMessage${element}`, sMessageCallback)
-        }
+      webSocket.on(`sMessage${element}`, sMessageCallback)
+      return () => {
+        webSocket.off(`sMessage${element}`, sMessageCallback)
       }
     })
   })
@@ -134,22 +129,27 @@ const ChattingStacks = ({
         conversation,
         conversationUid,
         conversationName,
+        profileUrl
       } = message
       let userOne
       let userTwo
       let userOneDisplayName
       let userTwoDisplayName
-      const messageCount = chattings[conversation]?.messageCount || 0
+      let userOneProfileUrl
+      let userTwoProfileUrl
+      const messageCount = chattings[conversation]?.messageCount || 1
       if (userUid < conversationUid) {
         userOne = userUid
         userTwo = conversationUid
         userOneDisplayName = id
         userTwoDisplayName = conversationName
+        userOneProfileUrl = profileUrl
       } else {
         userOne = conversationUid
         userTwo = userUid
         userOneDisplayName = conversationName
         userTwoDisplayName = id
+        userTwoProfileUrl = profileUrl
       }
       const replaceObj = {
         userUid: userUid,
@@ -161,6 +161,8 @@ const ChattingStacks = ({
         message: msg,
         messageClock: messageClock,
         messageClockNumber: messageClockNumber,
+        userOneProfileUrl: userOneProfileUrl,
+        userTwoProfileUrl: userTwoProfileUrl,
         messageCount: messageCount,
       }
       const newChattings = { ...chattings, [conversation]: replaceObj }
@@ -172,7 +174,7 @@ const ChattingStacks = ({
     }
   })
   return (
-    <div ref={list}>
+    <>
       {sorted.map((element, index) => {
         if (element === 'piazza') {
           const clock = new Date(piazzaMessage?.messageClock)
@@ -240,7 +242,7 @@ const ChattingStacks = ({
           }
         }
       })}
-    </div>
+    </>
   )
 }
 

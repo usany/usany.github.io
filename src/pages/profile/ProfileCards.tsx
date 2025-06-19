@@ -1,4 +1,3 @@
-import { CardActionArea } from '@mui/material';
 import Card from '@mui/material/Card';
 import { collection, getDocs, orderBy, query } from 'firebase/firestore';
 import { useState } from 'react';
@@ -47,40 +46,26 @@ const ProfileCards = ({
     console.log('sample')
   }
   return (
-    <div className='flex flex-col pt-5'>
-      <div className='flex justify-center'>
-        <Card sx={{
-          bgcolor: color
-        }}>
-          <>
-            <Popups trigger={<ProfilePointsTrigger cards={cards} />} title={<ProfilePointsTitle user={user} />} content={<ProfileDrawersPoints user={user} cards={cards} />} close={null} attachment={null} />
-            {/* <ProfileDrawers user={user} cards={cards} followers={null} alliesCollection={null} selection={'points'} /> */}
-          </>
-        </Card>
-        {followerList.map((value, index) => {
-          const onLink = {
-            to: 'profile',
-            state: selectedUser || user
-          }
-          return (
-            <Card sx={{
-              bgcolor: color
-            }}
-            >
-              <>
-                <Popups trigger={<ProfileCompaniesTrigger followers={value} alliesCollection={alliesCollection[index].list} onClick={() => onClick({ lend: index })} />} title={<ProfileCompaniesTitle user={user} followers={value} />} content={!companies.length && <ProfileDrawersEmptyCompanies followers={index} />} close={<ProfileLists elements={companies} changeSelectedUser={(newValue) => setSelectedUser(newValue)} />} attachment={true} onLink={onLink} />
-              </>
-            </Card>
-          )
-        })}
-        {/* <Card sx={{
-          bgcolor: color
-        }}>
-          <CardActionArea>
-            <ProfileDrawers user={user} cards={null} followers={false} alliesCollection={alliesCollection[1].list} selection={'allies'} />
-          </CardActionArea>
-        </Card> */}
-      </div>
+    <div className='flex justify-center pt-5'>
+      <Card sx={{
+        bgcolor: color
+      }}>
+        <Popups trigger={<ProfilePointsTrigger cards={cards} />} title={<ProfilePointsTitle user={user} />} content={<ProfileDrawersPoints user={user} cards={cards} />} close={null} attachment={null} />
+      </Card>
+      {followerList.map((value, index) => {
+        const onLink = {
+          to: 'profile',
+          state: selectedUser || user
+        }
+        return (
+          <Card sx={{
+            bgcolor: color
+          }}
+          >
+            <Popups trigger={<ProfileCompaniesTrigger followers={value} alliesCollection={alliesCollection[index].list} onClick={() => onClick({ lend: index })} />} title={<ProfileCompaniesTitle user={user} followers={value} />} content={!companies.length && <ProfileDrawersEmptyCompanies followers={index} />} close={<ProfileLists elements={companies} changeSelectedUser={(newValue) => setSelectedUser(newValue)} />} attachment={true} onLink={onLink} />
+          </Card>
+        )
+      })}
     </div>
   );
 }

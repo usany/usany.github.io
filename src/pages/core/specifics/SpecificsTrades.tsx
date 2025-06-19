@@ -27,12 +27,21 @@ function SpecificsTrades({
 }: Props) {
   const [conversation, setConversation] = useState('')
   const messageDisplayName = message.displayName
+  const connectedDisplayName = connectedUser.displayName
   const languages = useSelectors((state) => state.languages.value)
   let messageName
+  let connectedMessageName
   if (messageDisplayName.length > 10) {
     messageName = messageDisplayName.slice(0, 10) + '......'
   } else {
     messageName = messageDisplayName
+  }
+  if (connectedDisplayName) {
+    if (connectedDisplayName.length > 10) {
+      connectedMessageName = connectedDisplayName.slice(0, 10) + '......'
+    } else {
+      connectedMessageName = connectedDisplayName
+    }
   }
 
   useEffect(() => {
@@ -171,7 +180,7 @@ function SpecificsTrades({
               </Avatar>
             )}
             {connectedUser.uid ? (
-              <Chip label={connectedUser.displayName} />
+              <Chip label={connectedMessageName} />
             ) : (
               <Chip
                 variant="outlined"

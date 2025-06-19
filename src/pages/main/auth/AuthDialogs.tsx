@@ -2,17 +2,27 @@ import { useSelector } from "react-redux";
 import { useSelectors } from "src/hooks/useSelectors";
 import Popups from "src/pages/core/Popups";
 import AuthDialogsContent from "./AuthDialogsContent";
+import AuthDialogsContentPassword from "./AuthDialogsContentPassword";
 import AuthDialogsTrigger from "./AuthDialogsTrigger";
+import AuthDialogsTriggerPassword from "./AuthDialogsTriggerPassword";
 
 function AuthDialogs() {
   const theme = useSelector((state) => state.theme.value);
   const languages = useSelectors((state) => state.languages.value)
   return (
-    <>
+    <div className='flex justify-center text-xs p-5 gap-5'>
+      {/* <Divider sx={{ width: "15%", padding: "5px" }} /> */}
+      {/* <div className='flex items-center'>{languages === 'ko' ? '비밀번호 찾기' : 'Find Password'}</div> */}
+      <Popups trigger={<AuthDialogsTriggerPassword />}
+        title={<div>{languages === 'ko' ? '비밀번호 찾기' : 'Find Password'}</div>}
+        content={<AuthDialogsContentPassword />}
+      />
+      <div className='flex items-center text-xl'>|</div>
       <Popups trigger={<AuthDialogsTrigger />}
         title={<div>{languages === 'ko' ? '환영합니다' : 'Welcome'}</div>}
         content={<AuthDialogsContent />}
       />
+      {/* <Divider sx={{ width: "15%", padding: "5px" }} /> */}
       {/* <Drawer>
         <div className="flex justify-center w-full"> */}
       {/* <Button sx={{width: '100%'}} variant='outlined'>회원가입</Button> */}
@@ -64,7 +74,7 @@ function AuthDialogs() {
           </ScrollArea>
         </DrawerContent>
       </Drawer> */}
-    </>
+    </div>
   );
 }
 

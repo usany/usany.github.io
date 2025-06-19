@@ -5,6 +5,7 @@ import 'src/global.css'
 
 const useUserObject = () => {
   const [userObj, setUserObj] = useState<User | null | undefined>(undefined)
+
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
       setUserObj(user)

@@ -1,3 +1,4 @@
+import { MessagesSquare, SearchCheck, Siren, UserRound } from "lucide-react";
 import { useSelectors } from "src/hooks/useSelectors";
 
 interface Props {
@@ -19,6 +20,15 @@ interface Props {
     '/piazza': string,
     '/contact': string,
   },
+}
+const icons = {
+  '/': '',
+  '/add': '',
+  '/board': '',
+  '/profile': <UserRound />,
+  '/ranking': <SearchCheck />,
+  '/piazza': <MessagesSquare />,
+  '/contact': <Siren />,
 }
 const texts: Props = {
   'ko': {
@@ -48,10 +58,18 @@ const NavigationScroll = () => {
   const languages = useSelectors(state => state.languages.value)
   const tabs = useSelectors(state => state.tabs.value)
   return (
-    <div className='flex gap-1'>
-      {(location.pathname === '/add' || location.pathname === '/board') && <div>{actions[languages][tabs]}</div>}
-      <div>{texts[languages][location.pathname]}</div>
+    // <PageTitle
+    //   icon={icons[location.pathname]}
+    //   title={texts[languages][location.pathname]}
+    // />
+    <div className="flex text-sm p-5 gap-5 items-center">
+      {icons[location.pathname]}
+      {texts[languages][location.pathname]}
     </div>
+    // <div className='flex gap-1'>
+    //   {(location.pathname === '/add' || location.pathname === '/board') && <div>{actions[languages][tabs]}</div>}
+    //   <div>{texts[languages][location.pathname]}</div>
+    // </div>
   )
 };
 

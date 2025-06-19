@@ -1,32 +1,28 @@
+import { User } from "firebase/auth";
+import { doc, getDoc } from "firebase/firestore";
+import { UserRound } from "lucide-react";
 import {
   useEffect,
   useState
 } from "react";
+import { useDispatch } from "react-redux";
+import {
+  useLocation
+} from "react-router-dom";
 import {
   dbservice
 } from "src/baseApi/serverbase";
+import { useSelectors } from "src/hooks/useSelectors";
 import PageTitle from "src/pages/core/pageTitle/PageTitle";
 import ProfileActions from "src/pages/profile/ProfileActions";
 import ProfileAvatar from "src/pages/profile/profileAvatar/ProfileAvatar";
 import ProfileCards from "src/pages/profile/ProfileCards";
 import ProfileCompleted from "src/pages/profile/ProfileCompleted";
 import ProfileMembers from "src/pages/profile/ProfileMembers";
-// import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnapshot, updateDoc, setDoc } from 'firebase/firestore';
-import { User } from "firebase/auth";
-import { useDispatch } from "react-redux";
-import {
-  useLocation,
-  useParams
-} from "react-router-dom";
 import { changeBottomNavigation } from "src/stateSlices/bottomNavigationSlice";
-import { useImmer } from "use-immer";
-// import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-// import Skeleton from '@mui/material/Skeleton';
-import { useQuery } from "@tanstack/react-query";
-import { doc, getDoc } from "firebase/firestore";
-import { useSelectors } from "src/hooks/useSelectors";
 import { changeProfileColor } from "src/stateSlices/profileColorSlice";
 import { changeProfileUrl } from "src/stateSlices/profileUrlSlice";
+import { useImmer } from "use-immer";
 import ProfileLocations from "./ProfileLocations";
 
 const area = [
@@ -37,15 +33,25 @@ const area = [
     eastNorth: { lat: 37.6010743, lng: 127.0571999 },
   }
 ]
+interface changedImage {
+  attachment: string
+  character: string
+  color: string
+}
 interface Props {
   userObj: User;
 }
 function Profile({ userObj }: Props) {
-  const params = useParams()
-  console.log(params)
   const languages = useSelectors((state) => state.languages.value)
-  const [attachment, setAttachment] = useState("");
+  const [changedImage, setChangedImage] = useState({
+    attachment: '',
+    character: '',
+    color: '',
+    changed: true
+  });
   const { state } = useLocation();
+  console.log(userObj)
+  console.log(state)
   const [profileDialog, setProfileDialog] = useState(false);
   const [alliesCollection, setAlliesCollection] = useImmer([
     {
@@ -64,22 +70,13 @@ function Profile({ userObj }: Props) {
     lendDone: [],
   });
   const [scrolledToCompleted, setScrolledToCompleted] = useState(false)
-  // const [weather, setWeather] = useState(null)
-  // const [drawerClosed, setDrawerClosed] = useState(false);
-  // const [locationConfirmed, setLocationConfirmed] = useState(false)
   const userUid = state?.element.uid || userObj.uid;
   const userDisplayName = state?.element.displayName || userObj.displayName;
-  const myCardsQuery = async ({ uid }) => {
-    const docRef = doc(dbservice, `members/${uid}`);
-    const myDocSnap = await getDoc(docRef);
-
-    return myDocSnap;
-  };
-  const myCards = useQuery({
-    queryKey: ["myCards"],
-    queryFn: () => myCardsQuery(userObj.uid),
-    suspense: true,
-  });
+  // const myCards = useQuery({
+  //   queryKey: ["myCards"],
+  //   queryFn: () => myCardsQuery(userObj.uid),
+  //   suspense: true,
+  // });
 
   useEffect(() => {
     const cards = async () => {
@@ -115,14 +112,9 @@ function Profile({ userObj }: Props) {
       const docSnap = await getDoc(docRef);
       const userColor = docSnap.data()?.profileColor || "#2196f3";
       const userImage = docSnap.data()?.profileImageUrl || "null";
-      // dispatch(changeProfileColor(userColor));
-      // dispatch(changeProfileUrl(userImage));
       const userProfileImage = docSnap.data()?.profileImage || false;
       const userDefaultProfile = docSnap.data()?.defaultProfile || 'null';
       dispatch(changeProfileColor(userColor));
-      console.log(userProfileImage)
-      console.log(userImage)
-      console.log(userDefaultProfile)
       if (userProfileImage) {
         dispatch(changeProfileUrl(userImage));
       } else {
@@ -214,16 +206,12 @@ function Profile({ userObj }: Props) {
     )
   }
   // getCoords().then(coords => console.log(coords))
-  // console.log(weather)
-  // console.log(profileDialog)
-  // console.log(state)
-  // console.log(document.scrollingElement?.scrollTop)
   // if (document.scrollingElement?.scrollTop > 100) {
   //   setScrolledToCompleted(true)
   // }
   const scrollEffect = () => {
-    // console.log(document.scrollingElement.scrollTop)
-    if (document.scrollingElement.scrollTop > 250) {
+    const scrollNumber = 50
+    if (document.scrollingElement?.scrollTop && document.scrollingElement?.scrollTop > scrollNumber) {
       setScrolledToCompleted(true)
     }
   }
@@ -234,6 +222,7 @@ function Profile({ userObj }: Props) {
   return (
     <div>
       <PageTitle
+        icon={<UserRound />}
         title={`${userUid === userObj.uid ? (languages === 'ko' ? "내" : 'My') : shortenName} ${languages === 'ko' ? '프로필' : 'Profile'}`}
       />
       {/* <div onClick={() => {
@@ -246,21 +235,13 @@ function Profile({ userObj }: Props) {
         user={state?.element || userObj}
         handleProfileDialog={() => setProfileDialog(true)}
         profileDialog={profileDialog}
-        attachment={attachment}
-        changeAttachment={(newState: string) => setAttachment(newState)}
+        changedImage={changedImage}
+        handleChangedImage={(newState: changedImage) => setChangedImage(newState)}
         handleClose={handleClose}
       />
-      {/* <ProfileDialogs
-        userObj={userObj}
-        profileDialog={profileDialog}
-        attachment={attachment}
-        changeAttachment={(newState: string) => setAttachment(newState)}
-        handleClose={handleClose}
-      /> */}
-      <ProfileLocations user={state?.element.uid} userObj={userObj} />
-      {/* <Suspense fallback={<Skeleton />}>
-        <ProfileAvatar userObj={userObj} user={state.element} handleProfileDialog={() => setProfileDialog(true)} />
-      </Suspense> */}
+      <div className='flex justify-center gap-5 p-5'>
+        <ProfileLocations user={state?.element.uid} userObj={userObj} />
+      </div>
       <ProfileActions
         userObj={userObj}
         user={state?.element || userObj}
@@ -274,15 +255,16 @@ function Profile({ userObj }: Props) {
         cards={cards}
         changeProfileDialog={changeProfileDialog}
       />
-      {scrolledToCompleted ?
-        <>
-          <ProfileCompleted user={state?.element || userObj} cards={cards} />
-          <ProfileMembers userObj={userObj} user={state?.element || userObj} />
-        </>
-        :
-        <div className='h-[250px]'></div>
+      {
+        scrolledToCompleted ?
+          <>
+            <ProfileCompleted user={state?.element || userObj} cards={cards} />
+            <ProfileMembers userObj={userObj} user={state?.element || userObj} />
+          </>
+          :
+          <div className='h-[250px]'></div>
       }
-    </div>
+    </div >
   );
 }
 

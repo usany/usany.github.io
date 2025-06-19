@@ -17,6 +17,7 @@ import {
   orderBy,
   query
 } from "firebase/firestore";
+import { MapIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import {
   dbservice
@@ -199,7 +200,7 @@ function BoardMap({ mapAccordion, mapAccordionToggle, onMarker, onMarkerTrue, on
             }
           }
         }
-        console.log(doc.data())
+        // console.log(doc.data())
       })
       setMessages(newArray)
       setItems({ usanOne: usanOneCount, usanTwo: usanTwoCount, yangsanOne: yangsanOneCount, yangsanTwo: yangsanTwoCount })
@@ -214,19 +215,23 @@ function BoardMap({ mapAccordion, mapAccordionToggle, onMarker, onMarkerTrue, on
   const onClickMarkerItem = (newValue) => {
     handleSelectedValues({ id: "selectedValueOne", newValue: newValue });
   };
-  console.log(items)
+  // console.log(items)
   return (
     <div>
       <Accordion type="single" collapsible>
         <AccordionItem value="item-1">
           <button onClick={() => {
             document.getElementById('boardMap')?.click()
+            console.log(document.getElementsByClassName('dismissButton'))
+            setTimeout(() => document.getElementsByClassName('dismissButton')[0]?.click(), 500)
           }} className='rounded shadow-md px-3 flex sticky top-16 z-30 w-full items-center justify-between bg-light-2/50 dark:bg-dark-2/50'>
-            <div>{registeredMap[selection]}</div>
+            <div className='flex gap-5'>
+              <MapIcon />
+              <div>{registeredMap[selection]}</div>
+            </div>
             <AccordionTrigger id='boardMap' onClick={() => mapAccordionToggle()}>
             </AccordionTrigger>
           </button>
-          {/* <div className="sticky top-10 z-30 bg-light-3 dark:bg-dark-3"></div> */}
           <AccordionContent>
             <div>
               {/* <div className="p-5">
@@ -301,7 +306,7 @@ function BoardMap({ mapAccordion, mapAccordionToggle, onMarker, onMarkerTrue, on
                   position={{ lat: 37.5971991, lng: 127.0539612 }}
                 /> */}
                 <InfoWindow
-                  minWidth={250}
+                  minWidth={290}
                   position={markers.find((element) => element.label.ko === selectedValues[1].value)?.location}
                   onClose={() => {
                     onClickMarker({ ko: "전체 장소" });
@@ -312,7 +317,7 @@ function BoardMap({ mapAccordion, mapAccordionToggle, onMarker, onMarkerTrue, on
                     onMarkerFalse();
                   }}
                 >
-                  <div className="flex flex-col">
+                  <div className="flex flex-col text-black">
                     <div className='flex justify-center'>{languages === 'ko' ? selectedValues[1].value : selectedLocation}</div>
                     {selectItems.map((value, index) => {
                       return (

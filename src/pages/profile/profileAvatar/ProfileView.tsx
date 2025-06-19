@@ -4,22 +4,14 @@ import { useSelector } from "react-redux";
 import LoadingsSkeletons from "src/components/recycle/recycleLoadingsSkeletons";
 import Avatars from "src/pages/core/Avatars";
 
-const ProfileView = ({ userObj, user, changeAttachment }) => {
-  const profileColor = useSelector((state) => state.profileColor.value);
+const ProfileView = ({ userObj, user, changedImage, changeAttachment, handleChangedImage }) => {
   const profileUrl = useSelector((state) => state.profileUrl.value);
-  // const profileImage = useSelector((state) => state.profileImage.value);
-  // const [profile, setProfile] = useState(null)
-  // console.log(profileUrl)
-  // useEffect(() => {
-  //   if (profileImage) {
-  //     setProfile(profileUrl)
-  //   } else {
-  //     setProfile(staticImage)
-  //   }
-  // }, [profileUrl])
+  const profile = useSelector((state) => state.profile.value)
   return (
     <div onClick={() => {
-      changeAttachment('')
+      console.log('practice')
+      handleChangedImage({ ...changedImage, attachment: '', profileColor: profile.profileColor, profileImage: false, defaultProfile: profile.defaultProfile, changed: false })
+      changeAttachment(null)
     }}>
       {user.uid === userObj.uid ? (
         <Badge
@@ -34,13 +26,9 @@ const ProfileView = ({ userObj, user, changeAttachment }) => {
         >
           {profileUrl ? (
             <Avatars
-              element={user}
+              element={profile}
               piazza={null}
               profile={true}
-            // uid={user.uid}
-            // profileColor=""
-            // profileUrl={user.profileImageUrl}
-            // defaultProfileUrl={user.defaultProfile}
             />
           ) : (
             <LoadingsSkeletons height={"[192px]"} width={"[192px]"} />
@@ -53,10 +41,6 @@ const ProfileView = ({ userObj, user, changeAttachment }) => {
               element={user}
               piazza={null}
               profile={true}
-            // uid={user.uid}
-            // profileColor=""
-            // profileUrl={user.profileImageUrl}
-            // defaultProfileUrl={user.defaultProfile}
             />
           ) : (
             <LoadingsSkeletons height={"[192px]"} width={"[192px]"} />

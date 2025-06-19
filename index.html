@@ -13,6 +13,50 @@
       ({ key: import.meta.env.VITE_MAPS_PLATFORM, v: "weekly" });
   </script> -->
   <script>
+    // const myFace = document.getElementById('myFace')
+    // const muteButton = document.getElementById('mute')
+    // const streamButton = document.getElementById('stream')
+    // const videoSelect = document.getElementById('videoInput')
+    // let promise
+    // let muted = false
+    // let streamOff = false
+    // function handleMuteClick() {
+    //   if (!muted) {
+    //     muteButton.innerText = 'unmute'
+    //     muted = true
+    //     console.log(muteButton)
+    //   } else {
+    //     muteButton.innerText = 'mute'
+    //     muted = false
+    //   }
+    // }
+    // function handleStreamClick() {
+    //   if (!streamOff) {
+    //     streamButton.innerText = 'turn stream on'
+    //     streamOff = true
+    //   } else {
+    //     streamButton.innerText = 'turn stream off'
+    //     streamOff = false
+    //   }
+    // }
+    // muteButton.addEventListener('click', () => console.log('practices'))
+    // streamButton.addEventListener('click', handleStreamClick)
+    // async function getMedia() {
+    //   try {
+    //     const constraints = {
+    //       audio: true,
+    //       video: true
+    //     }
+    //     promise = await navigator.mediaDevices.getUserMedia(constraints);
+    //     const promises = await navigator.mediaDevices.enumerateDevices()
+    //     promise.getAudioTracks().forEach(track => track.enabled = !track.enabled)
+
+    // myFace.srcObject = promise
+    //   } catch (error) {
+    //     console.log(error)
+    //   }
+    // }
+    // getMedia()
     // if('serviceWorker' in navigator) {
     //   window.addEventListener('load', () => {
     //     navigator.serviceWorker.register('./sw.js', { scope: '/' })
@@ -31,7 +75,12 @@
 </head>
 
 <body>
-  <div id="root"></div>
+  <!-- <div id='myStream'>
+    <video id='myFace' width="320" height="240" controls autoplay>
+    </video>
+  </div> -->
+  <div id="root">
+  </div>
   <script type="module" src="/src/main.tsx"></script>
   <script src="https://open.spotify.com/embed/iframe-api/v1" async></script>
 </body>

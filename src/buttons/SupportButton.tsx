@@ -1,7 +1,8 @@
 import SendIcon from '@mui/icons-material/Send'
 import Button from '@mui/material/Button'
-import { updateDoc } from 'firebase/firestore'
+import { doc, getDoc, updateDoc } from 'firebase/firestore'
 import { useSelector } from 'react-redux'
+import { dbservice } from 'src/baseApi/serverbase'
 import { useSelectors } from 'src/hooks/useSelectors'
 import { webSocket } from 'src/webSocket.tsx'
 import specificProcess from './specificProcess'
@@ -23,6 +24,13 @@ const onSupporting = async ({ message, uid, displayName, profileUrl }) => {
     connectedId: uid,
     connectedName: displayName,
     connectedUrl: profileUrl,
+  })
+  const connectedUserRef = doc(dbservice, `members/${uid}`)
+  const connectedUserSnap = await getDoc(connectedUserRef)
+  const connectedUserData = connectedUserSnap.data()
+  const connectedUserConnectedCards = connectedUserData?.connectedCards || []
+  updateDoc(connectedUserRef, {
+    connectedCards: [...connectedUserConnectedCards, message.id]
   })
   webSocket.emit('supporting', passingObject)
 }

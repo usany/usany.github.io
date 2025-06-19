@@ -1,11 +1,14 @@
-import { useState, useEffect } from "react";
 
 interface Props {
+  icon: Element
   title: string;
 }
 
-const PageTitle = ({ title }: Props) => {
-  return <div className="flex text-2xl p-5">{title}</div>;
+const PageTitle = ({ icon, title }: Props) => {
+  return <div className="flex text-2xl p-5 gap-5 items-center">
+    {icon}
+    {title}
+  </div>;
 };
 
 export default PageTitle;

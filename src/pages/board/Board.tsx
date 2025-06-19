@@ -5,6 +5,7 @@ import {
   orderBy,
   query
 } from "firebase/firestore";
+import { Maximize2, Minimize2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import {
   dbservice
@@ -123,36 +124,13 @@ function Board({ userObj }: Props) {
             <PenBox />
             <PenTool />
             <PenSquare /> */}
-          {/* <div>
-        <div className="sticky top-20 p-5 bg-white">카드 목록</div>
-        <div>
-          <div>목록 카드 목록</div>
-          <div>목록 카드 목록</div>
-          <div>목록 카드 목록</div>
-          <div>목록 카드 목록</div>
-          <div>목록 카드 목록</div>
-          <div>목록 카드 목록</div>
-        </div>
-      </div>
-      <div>
-        <div className="sticky top-20 p-5 bg-white">목록 카드 목록 목록</div>
-        <div>
-          <div>목록 카드 목록</div>
-          <div>목록 카드 목록</div>
-          <div>목록 카드 목록</div>
-          <div>목록 카드 목록</div>
-          <div>목록 카드 목록</div>
-          <div>목록 카드 목록</div>
-        </div>
-      </div> */}
-          {/* <div className="flex justify-between text-2xl">
-        <PageTitle title={`${borrow ? "빌리기" : "빌려주기"} 카드 목록`} />
-      </div> */}
-          {/* <div className="sticky top-20 p-5">카드 목록</div>
-      <div className="sticky top-20 p-5">카드 목록 목록</div> */}
           <SwipeableViews>
-            <PageTitle title={`${languages === 'ko' ? '빌리기 카드 목록' : 'Borrowing Card Board'}`} />
-            <PageTitle title={`${languages === 'ko' ? '빌려주기 카드 목록' : 'Lending Card Board'}`} />
+            <PageTitle icon={<Minimize2 />} title={
+              languages === 'ko' ? '빌리기 카드 목록' : 'Borrowing Card Board'
+            } />
+            <PageTitle icon={<Maximize2 />} title={
+              languages === 'ko' ? '빌려주기 카드 목록' : 'Lending Card Board'
+            } />
           </SwipeableViews>
           <div className='px-5'>
             <div className='flex justify-center'>
@@ -170,22 +148,13 @@ function Board({ userObj }: Props) {
             </div>
           </div>
           <>
-            <div className='truncate flex justify-center sticky top-16 z-30 pb-5 px-5'>
-              <div className='w-[1000px] shadow-md sticky top-16 z-30'>
+            <div className='truncate flex justify-center sticky top-16 z-30 px-5'>
+              <div className='w-[1000px] shadow-md'>
                 <Popups trigger={
-                  <BoardList />
+                  <BoardList selectedValues={selectedValues} />
                 } title={<FilterDialogsTitle />} content={<FilterDialogsContent selectedValues={selectedValues} handleSelectedValues={handleSelectedValues} />} />
               </div>
             </div>
-            {/* <div className="rounded shadow-md flex p-3 sticky top-16 z-30 justify-between bg-light-2/50 dark:bg-dark-2/50">
-                <div className="truncate pt-1">{cardList[index]}</div>
-                <div className="truncate flex gap-1">
-                  <FilterDialogs
-                    selectedValues={selectedValues}
-                    handleSelectedValues={handleSelectedValues}
-                  />
-                </div>
-              </div> */}
             <SwipeableViews>
               {messageLoaded &&
                 <>
@@ -202,7 +171,7 @@ function Board({ userObj }: Props) {
           <LayoutBoard borrow={false} />
         </SwipeableViews>
       }
-    </div >
+    </div>
   );
 }
 

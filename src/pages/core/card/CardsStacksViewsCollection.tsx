@@ -1,8 +1,6 @@
-import { useAutoAnimate } from '@formkit/auto-animate/react'
 import { User } from 'firebase/auth'
 import { useEffect, useState } from 'react'
 import Cards from './Cards'
-
 const deleteMessage = (id: string) => {
   console.log(id)
   const item = document.getElementById(id)
@@ -15,33 +13,40 @@ const deleteMessage = (id: string) => {
 const CardsStacksViewsCollection = ({
   userObj,
   messages,
-  longPressed,
-  changeLongPressed,
+  // longPressed,
+  // changeLongPressed,
+  longPressCard,
+  changeLongPressCard
 }: {
   userObj: User
   messages: { round: number; creatorId: string }[]
   longPressed: boolean
   changeLongPressed: (newValue: boolean) => void
 }) => {
-  const [longPressCard, setLongPressCard] = useState<string | null>(null)
-  const [onLongPress, setOnLongPress] = useState(0)
-  const [list] = useAutoAnimate()
-
+  // const [longPressCard, setLongPressCard] = useState<string | null>(null)
+  // const [onLongPress, setOnLongPress] = useState(0)
+  const [delayed, setDelayed] = useState(true)
+  const delayedTrue = () => setDelayed(true)
+  const delayedFalse = () => setDelayed(false)
   useEffect(() => {
-    if (!onLongPress) {
-      setLongPressCard(null)
+    if (!delayed) {
+      setTimeout(() => delayedTrue(), 250)
     }
-  }, [onLongPress])
-  useEffect(() => {
-    if (!longPressCard) {
-      setOnLongPress(0)
-    }
-  }, [longPressCard])
+  })
+  // useEffect(() => {
+  //   if (!onLongPress) {
+  //     setLongPressCard(null)
+  //   }
+  // }, [onLongPress])
+  // useEffect(() => {
+  //   if (!longPressCard) {
+  //     setOnLongPress(0)
+  //   }
+  // }, [longPressCard])
   return (
     <div
       id="items"
       className="grid grid-cols-[repeat(auto-fit,minmax(180px,1fr))] col-span-full"
-      ref={list}
     >
       {messages.map((value) => {
         const isOwner = value.creatorId === userObj.uid
@@ -57,18 +62,14 @@ const CardsStacksViewsCollection = ({
                 className="item-list flex justify-center"
               >
                 <div
-                  onMouseDownCapture={() => {
-                    if (!longPressCard) {
-                      const longPress = value.id
-                      setLongPressCard(longPress)
-                    }
-                  }}
-                  onTouchStartCapture={() => {
-                    if (!longPressCard) {
-                      const longPress = value.id
-                      setLongPressCard(longPress)
-                    }
-                  }}
+                // onMouseDownCapture={() => {
+                //   const longPress = value.id
+                //   setLongPressCard(longPress)
+                // }}
+                // onTouchStartCapture={() => {
+                //   const longPress = value.id
+                //   setLongPressCard(longPress)
+                // }}
                 >
                   <Cards
                     message={value}
@@ -76,15 +77,15 @@ const CardsStacksViewsCollection = ({
                     userObj={userObj}
                     num={null}
                     points={null}
-                    onLongPress={onLongPress}
-                    changeOnLongPress={(newValue) => setOnLongPress(newValue)}
+                    // onLongPress={onLongPress}
+                    // changeOnLongPress={(newValue) => setOnLongPress(newValue)}
                     longPressCard={longPressCard}
-                    changeLongPressCard={(newValue) =>
-                      setLongPressCard(newValue)
-                    }
+                    changeLongPressCard={changeLongPressCard}
                     deleteMessage={deleteMessage}
-                    longPressed={longPressed}
-                    changeLongPressed={changeLongPressed}
+                    // longPressed={longPressed}
+                    // changeLongPressed={changeLongPressed}
+                    delayed={delayed}
+                    delayedFalse={delayedFalse}
                   />
                 </div>
               </div>

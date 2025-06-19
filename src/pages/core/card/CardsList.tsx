@@ -23,16 +23,15 @@ const CardsList = ({ choose, messages, selectedValues, userObj }) => {
               num={null}
               points={null}
             />
+            // <MorphingDialogs />
           );
         }
       }
     }
   }).filter((value) => value !== undefined)
   return (
-    <div className='flex'>
-      <div className='flex justify-center max-w-[1000px]'>
-        {chosenMessages.length ? <div className="grid grid-cols-[repeat(auto-fit,minmax(180px,1fr))] place-items-center col-span-full w-screen">{chosenMessages}</div> : <div className='flex justify-center p-5'>비었습니다</div>}
-      </div>
+    <div className='flex justify-center w-screen'>
+      {chosenMessages.length ? <div className="grid grid-cols-[repeat(auto-fit,minmax(180px,1fr))] place-items-center col-span-full w-screen">{chosenMessages}</div> : <div className='flex justify-center p-5'>비었습니다</div>}
     </div>
   )
 }
