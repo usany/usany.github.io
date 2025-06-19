@@ -78,6 +78,8 @@ function PiazzaCalls() {
       // myScreen.srcObject = promise
       await getDevices()
       setNoDevice('')
+      const connection = new RTCPeerConnection();
+
     } catch (error) {
       console.log(error)
       setNoDevice(error)
