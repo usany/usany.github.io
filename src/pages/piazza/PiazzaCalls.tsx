@@ -82,10 +82,10 @@ function PiazzaCalls() {
       // myScreen.srcObject = promise
       await getDevices()
       setNoDevice('')
-      const myPeerConnection = new RTCPeerConnection();
-      myStream.getTracks().forEach((track) => myPeerConnection.addTrack(track, myStream))
-      const offer = await myPeerConnection.createOffer()
-      console.log(offer)
+      // const myPeerConnection = new RTCPeerConnection();
+      // myStream.getTracks().forEach((track) => myPeerConnection.addTrack(track, myStream))
+      // const offer = await myPeerConnection.createOffer()
+      // console.log(offer)
       // console.log(myStream.getTracks())
     } catch (error) {
       console.log(error)
@@ -93,9 +93,12 @@ function PiazzaCalls() {
     }
   }
   function makeConnection() {
+
     const connection = new RTCPeerConnection();
     setMyPeerConnection(connection)
-    myStream.getTracks().forEach((track) => connection.addTrack(track, myStream))
+    if (sources) {
+      sources.getTracks().forEach((track) => connection.addTrack(track, sources))
+    }
     // const offer = await myPeerConnection.createOffer()
     // console.log(offer)
   }
@@ -112,10 +115,14 @@ function PiazzaCalls() {
   const welcome = async () => {
     console.log('sent the offer')
     const offer = await myPeerConnection.createOffer()
-    const connection = myPeerConnection.setLocalDescription(offer)
-    setMyPeerConnection(connection)
+    // const connection = myPeerConnection.setLocalDescription(offer)
+    // setMyPeerConnection(connection)
     console.log(offer)
+    // if (offer) {
+    // }
     webSocket.emit('offer', offer, roomName)
+    // if (myPeerConnection) {
+    // }
   }
   useEffect(() => {
     if (!webSocket) return
