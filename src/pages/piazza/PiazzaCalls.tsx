@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react'
 import useLargeMedia from 'src/hooks/useLargeMedia'
 import { webSocket } from 'src/webSocket'
 
+let myStream
+let myPeerConnection
 function PiazzaCalls() {
   const [options, setOptions] = useState([])
   const [audioOn, setAudioOn] = useState(true)
@@ -11,7 +13,6 @@ function PiazzaCalls() {
   const [noDevice, setNoDevice] = useState('')
   const [source, setSource] = useState(null)
   const [sources, setSources] = useState(null)
-  const [myPeerConnection, setMyPeerConnection] = useState(null)
   const largeMedia = useLargeMedia()
   const myScreen = document.getElementById('myScreen')
   const deviceSelect = document.getElementById('devices')
@@ -22,7 +23,7 @@ function PiazzaCalls() {
   const roomName = location.search.slice(4)
   console.log(location.search.slice(4))
   async function handleMuteClick() {
-    const promise = sources
+    const promise = myStream
     if (promise) {
       promise
         .getAudioTracks()
@@ -31,7 +32,7 @@ function PiazzaCalls() {
     setAudioOn(!audioOn)
   }
   async function handleStreamClick() {
-    const promise = sources
+    const promise = myStream
     if (promise) {
       promise
         .getVideoTracks()
@@ -41,7 +42,7 @@ function PiazzaCalls() {
   }
   async function handleDeviceChange() {
     console.log(deviceSelect.value)
-    const promise = sources
+    const promise = myStream
     promise.getTracks()
       .forEach(track => track.stop());
     setSource(deviceSelect.value)
@@ -74,9 +75,8 @@ function PiazzaCalls() {
         video: { deviceId: { exact: deviceId } }
       }
       const constraints = deviceId ? newConstraints : initialConstraints
-      const myStream = await navigator.mediaDevices.getUserMedia(constraints)
+      myStream = await navigator.mediaDevices.getUserMedia(constraints)
       const promises = await navigator.mediaDevices.enumerateDevices()
-      setSources(myStream)
       // promise.getVideoTracks().forEach(track => track.enabled = !track.enabled)
       // promise.getAudioTracks().forEach(track => track.enabled = !track.enabled)
       // myScreen.srcObject = promise
@@ -94,28 +94,30 @@ function PiazzaCalls() {
   }
   function makeConnection() {
 
-    const connection = new RTCPeerConnection();
-    setMyPeerConnection(connection)
-    if (sources) {
-      sources.getTracks().forEach((track) => connection.addTrack(track, sources))
+    myPeerConnection = new RTCPeerConnection();
+
+    if (myStream) {
+      myStream.getTracks().forEach((track) => myPeerConnection.addTrack(track, myStream))
     }
     // const offer = await myPeerConnection.createOffer()
     // console.log(offer)
   }
-  async function startMedia() {
+  async function initCall() {
     await getMedia(null)
     makeConnection()
   }
-  function handleWelcome() {
-    webSocket.emit('joinRoom', roomName, startMedia)
+  async function handleWelcome() {
+    await initCall()
+    webSocket.emit('joinRoom', roomName, initCall)
   }
   useEffect(() => {
     handleWelcome()
   }, [])
   const welcome = async () => {
     console.log('sent the offer')
+    console.log(myPeerConnection)
     const offer = await myPeerConnection.createOffer()
-    // const connection = myPeerConnection.setLocalDescription(offer)
+    myPeerConnection.setLocalDescription(offer)
     // setMyPeerConnection(connection)
     console.log(offer)
     // if (offer) {
@@ -131,8 +133,12 @@ function PiazzaCalls() {
       webSocket.off('welcome', welcome)
     }
   })
-  const offer = (offer) => {
-    console.log(offer)
+  const offer = async (offer) => {
+    myPeerConnection.setRemoteDescription(offer)
+    const answer = await myPeerConnection.createAnswer()
+    console.log(answer)
+    myPeerConnection.setLocalDescription(answer)
+    webSocket.emit('answer', answer, roomName)
   }
   useEffect(() => {
     if (!webSocket) return
