@@ -98,7 +98,6 @@ function PiazzaCalls() {
     webSocket.emit('ice', data.candidate, roomName)
   }
   function makeConnection() {
-
     myPeerConnection = new RTCPeerConnection();
     myPeerConnection.addEventListener('icecandidate', handleIce)
     if (myStream) {
@@ -162,6 +161,17 @@ function PiazzaCalls() {
     webSocket.on('answer', answer)
     return () => {
       webSocket.off('answer', answer)
+    }
+  })
+  const ice = (ice) => {
+    console.log('received candidate')
+    myPeerConnection.addIceCandidate(ice)
+  }
+  useEffect(() => {
+    if (!webSocket) return
+    webSocket.on('ice', ice)
+    return () => {
+      webSocket.off('ice', ice)
     }
   })
 
