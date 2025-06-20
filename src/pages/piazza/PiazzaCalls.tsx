@@ -109,10 +109,13 @@ function PiazzaCalls() {
   useEffect(() => {
     handleWelcome()
   }, [])
-  const welcome = () => {
-    console.log('welcome')
+  const welcome = async () => {
+    console.log('sent the offer')
     const offer = await myPeerConnection.createOffer()
+    const connection = myPeerConnection.setLocalDescription(offer)
+    setMyPeerConnection(connection)
     console.log(offer)
+    webSocket.emit('offer', offer, roomName)
   }
   useEffect(() => {
     if (!webSocket) return
@@ -121,6 +124,17 @@ function PiazzaCalls() {
       webSocket.off('welcome', welcome)
     }
   })
+  const offer = (offer) => {
+    console.log(offer)
+  }
+  useEffect(() => {
+    if (!webSocket) return
+    webSocket.on('offer', offer)
+    return () => {
+      webSocket.off('offer', offer)
+    }
+  })
+
   return (
     <div id="myStream">
       <div className={`flex ${!largeMedia && 'flex-col'} gap-1`}>
