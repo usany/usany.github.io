@@ -11,6 +11,7 @@ function PiazzaCalls() {
   const [noDevice, setNoDevice] = useState('')
   const [source, setSource] = useState(null)
   const [sources, setSources] = useState(null)
+  const [myPeerConnection, setMyPeerConnection] = useState(null)
   const largeMedia = useLargeMedia()
   const myScreen = document.getElementById('myScreen')
   const deviceSelect = document.getElementById('devices')
@@ -91,18 +92,27 @@ function PiazzaCalls() {
       setNoDevice(error)
     }
   }
-  function startMedia() {
-    getMedia(null)
-    
+  function makeConnection() {
+    const connection = new RTCPeerConnection();
+    setMyPeerConnection(connection)
+    myStream.getTracks().forEach((track) => connection.addTrack(track, myStream))
+    // const offer = await myPeerConnection.createOffer()
+    // console.log(offer)
+  }
+  async function startMedia() {
+    await getMedia(null)
+    makeConnection()
   }
   function handleWelcome() {
-    webSocket.emit('joinRoom', roomName, () => getMedia(null))
+    webSocket.emit('joinRoom', roomName, startMedia)
   }
   useEffect(() => {
     handleWelcome()
   }, [])
   const welcome = () => {
     console.log('welcome')
+    const offer = await myPeerConnection.createOffer()
+    console.log(offer)
   }
   useEffect(() => {
     if (!webSocket) return
