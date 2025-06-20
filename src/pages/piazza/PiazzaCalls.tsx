@@ -101,11 +101,13 @@ function PiazzaCalls() {
     console.log('got a stream from peer')
     console.log('Peer Stream', data.stream)
     console.log('My Stream', myStream)
+    const yourScreen = document.getElementById('yourScreen')
+    yourScreen.srcObject = data.stream
   }
   function makeConnection() {
     myPeerConnection = new RTCPeerConnection();
     myPeerConnection.addEventListener('icecandidate', handleIce)
-    myPeerConnection.addEventListener('addStream', handleAddStream)
+    myPeerConnection.addEventListener('addstream', handleAddStream)
     if (myStream) {
       myStream.getTracks().forEach((track) => myPeerConnection.addTrack(track, myStream))
     }
