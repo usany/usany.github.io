@@ -147,6 +147,20 @@ function PiazzaCalls() {
       webSocket.off('offer', offer)
     }
   })
+  const answer = async (answer) => {
+    myPeerConnection.setRemoteDescription(answer)
+    // const answer = await myPeerConnection.createAnswer()
+    // console.log(answer)
+    // myPeerConnection.setLocalDescription(answer)
+    // webSocket.emit('answer', answer, roomName)
+  }
+  useEffect(() => {
+    if (!webSocket) return
+    webSocket.on('answer', answer)
+    return () => {
+      webSocket.off('answer', answer)
+    }
+  })
 
   return (
     <div id="myStream">
