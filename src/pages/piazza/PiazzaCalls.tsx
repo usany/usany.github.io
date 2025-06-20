@@ -91,12 +91,26 @@ function PiazzaCalls() {
       setNoDevice(error)
     }
   }
+  function startMedia() {
+    getMedia(null)
+    
+  }
   function handleWelcome() {
-    webSocket.emit('joinRoom', roomName, getMedia(null))
+    webSocket.emit('joinRoom', roomName, () => getMedia(null))
   }
   useEffect(() => {
     handleWelcome()
   }, [])
+  const welcome = () => {
+    console.log('welcome')
+  }
+  useEffect(() => {
+    if (!webSocket) return
+    webSocket.on('welcome', welcome)
+    return () => {
+      webSocket.off('welcome', welcome)
+    }
+  })
   return (
     <div id="myStream">
       <div className={`flex ${!largeMedia && 'flex-col'} gap-1`}>
