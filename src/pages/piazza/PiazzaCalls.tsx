@@ -92,10 +92,15 @@ function PiazzaCalls() {
       setNoDevice(error)
     }
   }
+  function handleIce(data) {
+    console.log('icecandidate')
+    console.log(data)
+    webSocket.emit('ice', data.candidate, roomName)
+  }
   function makeConnection() {
 
     myPeerConnection = new RTCPeerConnection();
-
+    myPeerConnection.addEventListener('icecandidate', handleIce)
     if (myStream) {
       myStream.getTracks().forEach((track) => myPeerConnection.addTrack(track, myStream))
     }
@@ -134,7 +139,7 @@ function PiazzaCalls() {
     }
   })
   const offer = async (offer) => {
-    console.log('received the answer')
+    console.log('received the offer')
     myPeerConnection.setRemoteDescription(offer)
     const answer = await myPeerConnection.createAnswer()
     console.log('sent the answer')
