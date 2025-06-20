@@ -97,9 +97,15 @@ function PiazzaCalls() {
     console.log(data)
     webSocket.emit('ice', data.candidate, roomName)
   }
+  function handleAddStream(data) {
+    console.log('got a stream from peer')
+    console.log('Peer Stream', data.stream)
+    console.log('My Stream', myStream)
+  }
   function makeConnection() {
     myPeerConnection = new RTCPeerConnection();
     myPeerConnection.addEventListener('icecandidate', handleIce)
+    myPeerConnection.addEventListener('addStream', handleAddStream)
     if (myStream) {
       myStream.getTracks().forEach((track) => myPeerConnection.addTrack(track, myStream))
     }
