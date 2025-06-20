@@ -2,6 +2,7 @@
 import { Button } from '@mui/material'
 import { useEffect, useState } from 'react'
 import useLargeMedia from 'src/hooks/useLargeMedia'
+import { webSocket } from 'src/webSocket'
 
 function PiazzaCalls() {
   const [options, setOptions] = useState([])
@@ -17,6 +18,8 @@ function PiazzaCalls() {
     audio: true,
     video: true,
   }
+  const roomName = location.search.slice(4)
+  console.log(location.search.slice(4))
   async function handleMuteClick() {
     const promise = sources
     if (promise) {
@@ -70,21 +73,30 @@ function PiazzaCalls() {
         video: { deviceId: { exact: deviceId } }
       }
       const constraints = deviceId ? newConstraints : initialConstraints
-      const promise = await navigator.mediaDevices.getUserMedia(constraints)
+      const myStream = await navigator.mediaDevices.getUserMedia(constraints)
       const promises = await navigator.mediaDevices.enumerateDevices()
-      setSources(promise)
+      setSources(myStream)
       // promise.getVideoTracks().forEach(track => track.enabled = !track.enabled)
       // promise.getAudioTracks().forEach(track => track.enabled = !track.enabled)
       // myScreen.srcObject = promise
       await getDevices()
       setNoDevice('')
-      const connection = new RTCPeerConnection();
-
+      const myPeerConnection = new RTCPeerConnection();
+      myStream.getTracks().forEach((track) => myPeerConnection.addTrack(track, myStream))
+      const offer = await myPeerConnection.createOffer()
+      console.log(offer)
+      // console.log(myStream.getTracks())
     } catch (error) {
       console.log(error)
       setNoDevice(error)
     }
   }
+  function handleWelcome() {
+    webSocket.emit('joinRoom', roomName, getMedia(null))
+  }
+  useEffect(() => {
+    handleWelcome()
+  }, [])
   return (
     <div id="myStream">
       <div className={`flex ${!largeMedia && 'flex-col'} gap-1`}>

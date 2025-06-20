@@ -1,14 +1,14 @@
+import admin from 'firebase-admin'
 import { Server } from 'socket.io'
-import admin, { initializeApp, credential } from 'firebase-admin'
 import serviceAccount from '../../service-account.json'
+import socketOnConfirm from './socketOnConfirm'
+import socketOnConfirmReturn from './socketOnConfirmReturn'
 import socketOnMessage from './socketOnMessage'
 import socketOnNewMessage from './socketOnNewMessage'
-import socketOnSupporting from './socketOnSupporting'
 import socketOnPiazzaMessage from './socketOnPiazzaMessage'
-import socketOnStopSupporting from './socketOnStopSupporting'
-import socketOnConfirm from './socketOnConfirm'
 import socketOnReturning from './socketOnReturning'
-import socketOnConfirmReturn from './socketOnConfirmReturn'
+import socketOnStopSupporting from './socketOnStopSupporting'
+import socketOnSupporting from './socketOnSupporting'
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
@@ -31,6 +31,11 @@ io.sockets.on('connection', (socket) => {
   socketOnConfirm(socket)
   socketOnReturning(socket)
   socketOnConfirmReturn(socket)
+  socket.on('joinRoom', (roomName, done) => {
+    console.log('welcome')
+    socket.join(roomName)
+    done()
+  })
   socket.on('disconnect', () => {
     console.log('user disconnected')
   })
