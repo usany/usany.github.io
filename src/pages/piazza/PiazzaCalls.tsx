@@ -79,7 +79,7 @@ function PiazzaCalls() {
       const promises = await navigator.mediaDevices.enumerateDevices()
       // promise.getVideoTracks().forEach(track => track.enabled = !track.enabled)
       // promise.getAudioTracks().forEach(track => track.enabled = !track.enabled)
-      // myScreen.srcObject = promise
+      myScreen.srcObject = promise
       await getDevices()
       setNoDevice('')
       // const myPeerConnection = new RTCPeerConnection();

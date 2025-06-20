@@ -23,8 +23,8 @@ function Piazza({ userObj }: Props) {
   const [multiple, setMultiple] = useState(true)
   const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
   const [chattingUser, setChattingUser] = useState(null)
-  const conversation = state?.conversation || 'piazza'
-  console.log(state)
+  // const conversation = state?.conversation || 'piazza'
+  // console.log(state)
   useEffect(() => {
     const bringChattingUser = async () => {
       if (state?.chattingUid) {
