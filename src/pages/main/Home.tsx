@@ -49,8 +49,6 @@ function Home({ userObj }: UserObjProps) {
             <SwipeableViews>
               <LayoutBoard borrow={true} />
               <LayoutBoard borrow={false} />
-              {/* <Notice userObj={userObj} borrow={true} />
-              <Notice userObj={userObj} borrow={false} /> */}
             </SwipeableViews>
           )}
         </>
