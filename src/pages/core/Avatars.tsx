@@ -42,9 +42,6 @@ const Avatars = ({
   } else {
     defaultProfile = static05
   }
-  // console.log(element)
-  // console.log(element.profileImageUrl)
-  // console.log(element?.defaultProfile)
 
   return (
     <div>
@@ -54,11 +51,6 @@ const Avatars = ({
             src={profileImage ? element.profileImageUrl : defaultProfile}
           />
           <AvatarFallback className="border border-none bg-light-1 dark:bg-dark-1"></AvatarFallback>
-          {/* {!profileImage &&
-            <AvatarFallback className="text-8xl border-none">
-              <img className='h-full' src={defaultProfile} />
-    </AvatarFallback>
-          } */}
         </Avatar>
       ) : (
         <Avatar onClick={piazza}>
@@ -66,9 +58,6 @@ const Avatars = ({
             src={profileImage ? element.profileImageUrl : defaultProfile}
           />
           <AvatarFallback className="border border-none bg-light-1 dark:bg-dark-1"></AvatarFallback>
-          {/* <img className='h-full' src={defaultProfile} /> */}
-          {/* {!profileImage &&
-          } */}
         </Avatar>
       )}
     </div>
