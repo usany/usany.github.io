@@ -8,6 +8,7 @@ import {
   UserRound,
 } from 'lucide-react'
 import { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
 import staticImage from "src/assets/blue.png"
 import { auth, dbservice } from 'src/baseApi/serverbase'
 import { Drawer, DrawerClose, DrawerContent, DrawerTrigger } from 'src/components/ui/drawer'
@@ -29,6 +30,7 @@ function Navigation({ user, userObj, handleSideNavigation }: Props) {
   const [points, setPoints] = useState(0)
   const [delayed, setDelayed] = useState(true)
   const theme = useSelectors((state) => state.theme.value)
+
   useEffect(() => {
     if (userObj) {
       onSnapshot(doc(dbservice, `members/${userObj.uid}`), (snapshot) => {
@@ -43,9 +45,9 @@ function Navigation({ user, userObj, handleSideNavigation }: Props) {
 
   const logOut = () => {
     onLogOutClick()
-    // setTimeout(() => {
-    //   location.reload()
-    // }, 1500)
+    setTimeout(() => {
+      location.reload()
+    }, 1000)
     // if (!user) {
     //   setTimeout(() => {
     //     dispatch(changeProfileUrl(''))

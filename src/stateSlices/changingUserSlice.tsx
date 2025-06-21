@@ -1,18 +1,17 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { DocumentData } from 'firebase/firestore';
 
 interface ProfileState {
-  value: DocumentData | undefined
+  value: boolean
 }
 
 const initialState: ProfileState = {
-  value: undefined
+  value: true
 }
 const changingUserReducer = createSlice({
   name: 'changingUser',
   initialState,
   reducers: {
-    changeChangingUser: (state, action: PayloadAction<DocumentData | undefined>) => {
+    changeChangingUser: (state, action: PayloadAction<boolean>) => {
       state.value = action.payload
     },
   }
