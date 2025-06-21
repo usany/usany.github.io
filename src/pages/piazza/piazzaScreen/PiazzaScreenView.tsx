@@ -145,7 +145,7 @@ function PiazzaScreenView({
     return () => {
       webSocket.off(`sMessage${conversation}`, sMessageCallback)
     }
-  }, [])
+  }, [conversation])
   useEffect(() => {
     document.documentElement.scrollTo({
       top: 0,

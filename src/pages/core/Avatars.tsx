@@ -34,8 +34,8 @@ const Avatars = ({
   } else {
     defaultProfile = static05
   }
-  console.log(element)
-  console.log(element.profileImageUrl)
+  // console.log(element)
+  // console.log(element?.profileImageUrl)
   // console.log(element?.defaultProfile)
 
   return (

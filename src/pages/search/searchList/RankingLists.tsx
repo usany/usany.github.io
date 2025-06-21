@@ -33,7 +33,6 @@ function RankingLists({ userObj, userSearch }: Props) {
         limit(scrollNumber),
         startAfter(continuing ? continuing : "")
       );
-      // console.log('practices')
       const docs = await getDocs(collectionQuery);
       const newArray = docs.docs.map((document, index) => {
         if (rank.indexOf(document) === -1) {
@@ -50,10 +49,8 @@ function RankingLists({ userObj, userSearch }: Props) {
         const docRef = doc(dbservice, `members/${userObj.uid}`)
         const myDocSnap = await getDoc(docRef)
         const myDocSnapData = myDocSnap.data()
-        // console.log(myDocSnapData)
         newArray.map((document, index) => {
           if (document.uid === userObj.uid) {
-            // console.log(document?.ranking)
             newArray[index].rank = index + 1;
           }
         });

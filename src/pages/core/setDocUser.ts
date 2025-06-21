@@ -19,7 +19,7 @@ const setDocUser = async ({ uid, email, ranking }) => {
     lendDoneCount: [],
     locationConfirmed: '',
     conversation: [],
-    chattings: []
+    chattings: {}
     // profileColor: "#2196f3",
     // followerNum: 0,
     // followingNum: 0,
