@@ -8,6 +8,7 @@ import {
   UserRound,
 } from 'lucide-react'
 import { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
 import staticImage from "src/assets/blue.png"
 import { auth, dbservice } from 'src/baseApi/serverbase'
 import { Drawer, DrawerClose, DrawerContent, DrawerTrigger } from 'src/components/ui/drawer'
@@ -45,7 +46,7 @@ function Navigation({ user, userObj, handleSideNavigation }: Props) {
     onLogOutClick()
     setTimeout(() => {
       location.reload()
-    }, 5000)
+    }, 1000)
     // if (!user) {
     //   setTimeout(() => {
     //     dispatch(changeProfileUrl(''))

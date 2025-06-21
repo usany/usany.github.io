@@ -343,6 +343,7 @@ function PiazzaForm({ chattingUser, userObj, multiple, messages, handleMessages,
       }
     }
   })
+  console.log(state)
   return (
     <>
       <form className={`fixed w-screen ${piazzaForm ? 'bottom-0' : 'bottom-[60px]'} flex gap-px`} onSubmit={onSendSubmitHandler}>
@@ -351,8 +352,10 @@ function PiazzaForm({ chattingUser, userObj, multiple, messages, handleMessages,
             trigger={<button className='px-1 h-full rounded bg-light-2 dark:bg-dark-2' type="submit"><PlusCircle /></button>}
             title={<div>전화 선택</div>}
             content={<div className='flex justify-center gap-5 p-5'>
-              <DrawerClose>
-                <Link to={`/piazza?id=${conversation}?calls=video`}>
+              <Link to={`/piazza?id=${conversation}?calls=video`}
+                state={state}
+              >
+                <DrawerClose>
                   <Card
                     className='colorOne'
                     sx={{
@@ -368,8 +371,8 @@ function PiazzaForm({ chattingUser, userObj, multiple, messages, handleMessages,
                       </div>
                     </CardContent>
                   </Card>
-                </Link>
-              </DrawerClose>
+                </DrawerClose>
+              </Link>
               {/* <MorphingDialog>
                 <MorphingDialogTrigger>
                 </MorphingDialogTrigger>
@@ -377,8 +380,10 @@ function PiazzaForm({ chattingUser, userObj, multiple, messages, handleMessages,
                   <PiazzaCalls />
                 </MorphingDialogContainer>
               </MorphingDialog> */}
-              <DrawerClose>
-                <Link to={`/piazza?id=${conversation}?calls=audio`}>
+              <Link to={`/piazza?id=${conversation}?calls=audio`}
+                state={state}
+              >
+                <DrawerClose>
                   <Card
                     className='colorOne'
                     sx={{
@@ -392,8 +397,8 @@ function PiazzaForm({ chattingUser, userObj, multiple, messages, handleMessages,
                       </div>
                     </CardContent>
                   </Card>
-                </Link>
-              </DrawerClose>
+                </DrawerClose>
+              </Link>
             </div>}
           />
         }

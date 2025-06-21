@@ -11,6 +11,7 @@ import { profileImageReducer } from 'src/stateSlices/profileImageSlice'
 import { profileUrlReducer } from 'src/stateSlices/profileUrlSlice'
 import { tabsReducer } from 'src/stateSlices/tabsSlice'
 import { themeReducer } from 'src/stateSlices/themeSlice'
+import { changingUserReducer } from './stateSlices/changingUserSlice'
 import { languagesReducer } from './stateSlices/languagesSlice'
 import { piazza } from './stateSlices/piazza'
 import { piazzaFormReducer } from './stateSlices/piazzaFormSlice'
@@ -56,7 +57,8 @@ export const store = configureStore({
     newMessage: newMessageReducer.reducer,
     piazza: piazza.reducer,
     weather: weather.reducer,
-    languages: languagesReducer.reducer
+    languages: languagesReducer.reducer,
+    changingUser: changingUserReducer.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

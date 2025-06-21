@@ -207,24 +207,24 @@ const onSocialClickGoogle = () => {
       //   locationConfirmed: false,
       //   defaultProfile: ''
       // })
-      setDocUser({ uid: uid, email: email })
+      setDocUser({ uid: uid, email: email, ranking: docsLength })
       await updateProfile(result.user, {
         displayName: result.user.email,
       }).catch((error) => {
         console.log("error");
       });
-      const user = doc(dbservice, `members/${uid}`);
+      // const user = doc(dbservice, `members/${uid}`);
       const storageRef = ref(storage, uid);
       uploadString(storageRef, "null", "raw").then((snapshot) => {
         console.log("Uploaded a blob or file!");
+        getDownloadURL(storageRef)
+          .then((url) => {
+            updateDoc(docRef, { profileImageUrl: url });
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       });
-      getDownloadURL(storageRef)
-        .then(async (url) => {
-          await updateDoc(user, { profileImageUrl: url });
-        })
-        .catch((error) => {
-          console.log(error);
-        });
       let profileImage
       let profileColor
       const profileImageNumber = Math.random()
@@ -247,6 +247,9 @@ const onSocialClickGoogle = () => {
         console.log(url)
         updateDoc(docRef, { profileImage: false, profileColor: profileColor, defaultProfile: url });
       })
+      setTimeout(() => {
+        location.reload()
+      }, 1000)
     }
   }).catch((error) => {
     console.log(error)
@@ -286,7 +289,7 @@ const onSocialClickMicrosoft = () => {
       //   locationConfirmed: false,
       //   defaultProfile: ''
       // })
-      setDocUser({ uid: uid, email: email })
+      setDocUser({ uid: uid, email: email, ranking: docsLength })
       await updateProfile(result.user, {
         displayName: result.user.email,
       }).catch((error) => {
@@ -298,8 +301,8 @@ const onSocialClickMicrosoft = () => {
         console.log("Uploaded a blob or file!");
       });
       getDownloadURL(storageRef)
-        .then(async (url) => {
-          await updateDoc(user, { profileImageUrl: url });
+        .then((url) => {
+          updateDoc(docRef, { profileImageUrl: url });
         })
         .catch((error) => {
           console.log(error);
@@ -326,6 +329,9 @@ const onSocialClickMicrosoft = () => {
         console.log(url)
         updateDoc(docRef, { profileImage: false, profileColor: profileColor, defaultProfile: url });
       })
+      setTimeout(() => {
+        location.reload()
+      }, 1000)
     }
   }).catch((error) => {
     console.log(error)

@@ -17,19 +17,19 @@ const CardViewLocation = ({ message }) => {
   } else {
     const locationOne =
       locationsBuildings['en'][
-        locationsBuildings['ko'].indexOf(message.text.count)
+      locationsBuildings['ko'].indexOf(message.text.count)
       ]
     const locationTwo =
       locationsCollection['en'][
-        ObjecionsCollet.keys(locatctionLetters).find(
+      Object.keys(locationsCollectionLetters).find(
+        (key) => locationsCollectionLetters[key] === message.text.count,
+      )
+      ][
+      locationsCollection['ko'][
+        Object.keys(locationsCollectionLetters).find(
           (key) => locationsCollectionLetters[key] === message.text.count,
         )
-      ][
-        locationsCollection['ko'][
-          Object.keys(locationsCollectionLetters).find(
-            (key) => locationsCollectionLetters[key] === message.text.count,
-          )
-        ].indexOf(message.text.counter)
+      ].indexOf(message.text.counter)
       ]
     location = locationOne + ' ' + locationTwo + ' ' + message.text.counting
   }

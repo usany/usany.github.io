@@ -1,7 +1,7 @@
 import { doc, setDoc } from "firebase/firestore";
 import { dbservice } from "src/baseApi/serverbase";
 
-const setDocUser = async ({ uid, email }) => {
+const setDocUser = async ({ uid, email, ranking }) => {
   await setDoc(doc(dbservice, "members", `${uid}`), {
     uid: uid,
     displayName: email,
@@ -12,7 +12,7 @@ const setDocUser = async ({ uid, email }) => {
     followers: [],
     followings: [],
     messagingToken: '',
-    ranking: 0,
+    ranking: ranking,
     createdCards: [],
     connectedCards: [],
     borrowDoneCount: [],

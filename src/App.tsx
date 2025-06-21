@@ -17,7 +17,6 @@ function App() {
   const theme = useSelectors((state) => state.theme.value)
   const userObj = useUserObject()
   const { lightTheme, darkTheme } = useColors()
-
   return (
     <>
       {/* <button id='mute' onClick={handleMuteClick}>mute</button>
