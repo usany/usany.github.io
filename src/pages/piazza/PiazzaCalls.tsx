@@ -215,6 +215,7 @@ function PiazzaCalls() {
           height="240"
           controls
           autoPlay
+          muted
         >
           {/* <source src={sources} /> */}
         </video>
