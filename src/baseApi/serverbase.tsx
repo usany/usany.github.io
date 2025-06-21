@@ -207,7 +207,7 @@ const onSocialClickGoogle = () => {
       //   locationConfirmed: false,
       //   defaultProfile: ''
       // })
-      setDocUser({ uid: uid, email: email })
+      setDocUser({ uid: uid, email: email, ranking: docsLength })
       await updateProfile(result.user, {
         displayName: result.user.email,
       }).catch((error) => {
@@ -286,7 +286,7 @@ const onSocialClickMicrosoft = () => {
       //   locationConfirmed: false,
       //   defaultProfile: ''
       // })
-      setDocUser({ uid: uid, email: email })
+      setDocUser({ uid: uid, email: email, ranking: docsLength })
       await updateProfile(result.user, {
         displayName: result.user.email,
       }).catch((error) => {
