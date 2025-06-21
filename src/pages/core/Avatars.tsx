@@ -28,7 +28,7 @@ const Avatars = ({ element, profile, piazza }: Props) => {
   } else {
     defaultProfile = static05
   }
-
+  console.log(element?.profileImageUrl)
   return (
     <div>
       {profile ? (

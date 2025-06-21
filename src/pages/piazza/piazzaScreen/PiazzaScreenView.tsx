@@ -64,9 +64,9 @@ function PiazzaScreenView({
     setDisplayedName(displayName)
     console.log('practice')
   }
-  const onDrawer = ({ userUid, displayName }) => {
+  const onDrawer = async ({ userUid, displayName }) => {
     document.getElementById('drawer')?.click()
-    onPrivate({ userUid: userUid, displayName: displayName })
+    await onPrivate({ userUid: userUid, displayName: displayName })
   }
   const scrollNumber = 20
   useEffect(() => {
@@ -332,6 +332,7 @@ function PiazzaScreenView({
             </div>
           )}
           {messagesList.map((value, index) => {
+            console.log(value)
             let passingValue
             if (conversation === 'piazza') {
               passingValue = value
@@ -341,16 +342,20 @@ function PiazzaScreenView({
                   userUid: value.userOne,
                   id: value.userOneDisplayName,
                   profileImage: value.userOneProfileImage || value.profileImage,
-                  defaultProfile: value.userOneDefaultProfile || value.defaultProfile,
-                  profileImageUrl: value.userOneProfileUrl || value.profileImageUrl,
+                  defaultProfile:
+                    value.userOneDefaultProfile || value.defaultProfile,
+                  profileImageUrl:
+                    value.userOneProfileUrl || value.profileImageUrl,
                 }
               } else {
                 passingValue = {
                   userUid: value.userTwo,
                   id: value.userTwoDisplayName,
                   profileImage: value.userTwoProfileImage || value.profileImage,
-                  defaultProfile: value.userTwoDefaultProfile || value.defaultProfile,
-                  profileImageUrl: value.userTwoProfileUrl || value.profileImageUrl,
+                  defaultProfile:
+                    value.userTwoDefaultProfile || value.defaultProfile,
+                  profileImageUrl:
+                    value.userTwoProfileUrl || value.profileImageUrl,
                 }
               }
             }
@@ -374,9 +379,7 @@ function PiazzaScreenView({
                   if (clock.getMonth() === passingClock.getMonth()) {
                     if (clock.getDate() === passingClock.getDate()) {
                       if (clock.getHours() === passingClock.getHours()) {
-                        if (
-                          clock.getMinutes() === passingClock.getMinutes()
-                        ) {
+                        if (clock.getMinutes() === passingClock.getMinutes()) {
                           displayClock = 1
                         }
                       }
@@ -480,10 +483,10 @@ function PiazzaScreenView({
                                   })
                                 }
                                 profile={false}
-                              // uid={userObj.uid}
-                              // profileColor=""
-                              // profileUrl={value.profileImageUrl}
-                              // defaultProfileUrl={value.defaultProfile}
+                                // uid={userObj.uid}
+                                // profileColor=""
+                                // profileUrl={value.profileImageUrl}
+                                // defaultProfileUrl={value.defaultProfile}
                               />
                             }
                             title={<SpecificsTradesTitle />}
