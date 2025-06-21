@@ -8,17 +8,10 @@ import { changeChangingUser } from './stateSlices/changingUserSlice'
 
 const useUserObject = () => {
   const [userObj, setUserObj] = useState<User | null | undefined>(undefined)
-  const changingUser = useSelectors(state => state.changingUser.value)
-  const dispatch = useDispatch()
-  console.log(changingUser)
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
-      console.log(user)
       setUserObj(user)
-      dispatch(changeChangingUser(false))
     })
-    if (changingUser) {
-    }
   }, [])
   return userObj
 }
