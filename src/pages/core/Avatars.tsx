@@ -1,12 +1,6 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { DocumentData } from 'firebase/firestore'
-import static01 from 'src/assets/blue01.png'
-import static02 from 'src/assets/blue02.png'
-import statics from 'src/assets/blue03.png'
 import static05 from 'src/assets/gold1.png'
-import static06 from 'src/assets/gold2.png'
-import static03 from 'src/assets/red1.png'
-import static04 from 'src/assets/red2.png'
 
 interface Props {
   element: DocumentData | undefined
@@ -17,24 +11,16 @@ interface Props {
   piazza: () => void
 }
 
-const Avatars = ({
-  element,
-  profile,
-  piazza,
-  // uid,
-  // profileColor,
-  // profileUrl,
-  // defaultProfileUrl,
-}: Props) => {
-  const profileImageArray = [
-    static01,
-    static02,
-    static03,
-    static04,
-    static05,
-    static06,
-    statics,
-  ]
+const Avatars = ({ element, profile, piazza }: Props) => {
+  // const profileImageArray = [
+  //   static01,
+  //   static02,
+  //   static03,
+  //   static04,
+  //   static05,
+  //   static06,
+  //   statics,
+  // ]
   const profileImage = element?.profileImage
   let defaultProfile
   if (element?.defaultProfile) {
