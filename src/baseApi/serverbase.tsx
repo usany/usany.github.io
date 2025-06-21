@@ -247,6 +247,9 @@ const onSocialClickGoogle = () => {
         console.log(url)
         updateDoc(docRef, { profileImage: false, profileColor: profileColor, defaultProfile: url });
       })
+      setTimeout(() => {
+        location.reload()
+      }, 1000)
     }
   }).catch((error) => {
     console.log(error)
@@ -326,6 +329,9 @@ const onSocialClickMicrosoft = () => {
         console.log(url)
         updateDoc(docRef, { profileImage: false, profileColor: profileColor, defaultProfile: url });
       })
+      setTimeout(() => {
+        location.reload()
+      }, 1000)
     }
   }).catch((error) => {
     console.log(error)
