@@ -163,11 +163,8 @@ function PiazzaCalls() {
     console.log(myPeerConnection)
     const offer = await myPeerConnection.createOffer()
     myPeerConnection.setLocalDescription(offer)
-    // setMyPeerConnection(connection)
     console.log(offer)
     webSocket.emit('offer', offer, roomName)
-    // if (myPeerConnection) {
-    // }
   }
   useEffect(() => {
     if (!webSocket) return
