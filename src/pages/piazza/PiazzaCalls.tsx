@@ -56,7 +56,7 @@ function PiazzaCalls() {
   }
   useEffect(() => {
     getMedia(source)
-  }, [deviceSelect])
+  }, [source])
   async function getDevices() {
     try {
       const devices = await navigator.mediaDevices.enumerateDevices()
