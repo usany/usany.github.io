@@ -88,8 +88,9 @@ function PiazzaCalls() {
     //   .forEach(track => track.stop())
     await myScreen.srcObject.getTracks()
       .forEach(track => track.stop())
+    // setSelected(event.target.value)
+
     // myScreen.srcObject = promise
-    setSelected(event.target.value)
     // setSource(deviceSelect.value)
     // await getMedia(deviceSelect.value)
     // console.log(event.target.value)
