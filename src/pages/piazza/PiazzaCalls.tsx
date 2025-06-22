@@ -52,12 +52,14 @@ function PiazzaCalls() {
       const initialStream = await navigator.mediaDevices.getUserMedia(initialConstraints)
       await getDevices()
       // myScreen.srcObject = initialStream
-      setStream(initialStream)
+      // setStream(initialStream)
     }
     initial()
   }, [])
   useEffect(() => {
     if (myScreen) {
+      // myStream.getTracks()
+      //   .forEach(track => track.stop());
       myScreen.srcObject = stream
     }
   }, [stream])
@@ -82,8 +84,9 @@ function PiazzaCalls() {
   async function handleDeviceChange(event) {
     // console.log(deviceSelect.value)
     const promise = stream
-    promise.getTracks()
+    await promise.getTracks()
       .forEach(track => track.stop());
+    setStream(promise)
     // setSource(deviceSelect.value)
     // await getMedia(deviceSelect.value)
     setSelected(event.target.value)
