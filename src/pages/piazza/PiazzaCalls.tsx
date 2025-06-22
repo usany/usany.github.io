@@ -56,6 +56,9 @@ function PiazzaCalls() {
   }
   useEffect(() => {
     getMedia(source)
+    if (noDevice) {
+      setTimeout(() => getMedia(source), 1000)
+    }
   }, [deviceSelect, source])
   async function getDevices() {
     try {
