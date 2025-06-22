@@ -86,9 +86,9 @@ function PiazzaCalls() {
     const promise = stream
     // await promise.getTracks()
     //   .forEach(track => track.stop())
-    await myScreen.srcObject.getTracks()
+    myScreen.srcObject.getTracks()
       .forEach(track => track.stop())
-    // setSelected(event.target.value)
+    setSelected(event.target.value)
 
     // myScreen.srcObject = promise
     // setSource(deviceSelect.value)
@@ -137,6 +137,8 @@ function PiazzaCalls() {
     }
   }
   async function getMedia(deviceId) {
+    await myScreen.srcObject.getTracks()
+      .forEach(track => track.stop())
     try {
       const newConstraints = {
         audio: true,
