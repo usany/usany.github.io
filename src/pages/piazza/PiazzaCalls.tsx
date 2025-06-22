@@ -84,9 +84,11 @@ function PiazzaCalls() {
   async function handleDeviceChange(event) {
     // console.log(deviceSelect.value)
     const promise = stream
-    await promise.getTracks()
+    // await promise.getTracks()
+    //   .forEach(track => track.stop())
+    await myScreen.srcObject.getTracks()
       .forEach(track => track.stop())
-    myScreen.srcObject = promise
+    // myScreen.srcObject = promise
     setSelected(event.target.value)
     // setSource(deviceSelect.value)
     // await getMedia(deviceSelect.value)
