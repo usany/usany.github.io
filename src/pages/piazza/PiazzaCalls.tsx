@@ -55,6 +55,10 @@ function PiazzaCalls() {
     }
   }
   useEffect(() => {
+    if (myStream) {
+      myStream.getTracks()
+        .forEach(track => track.stop());
+    }
     getMedia(source)
     if (noDevice) {
       setTimeout(() => getMedia(source), 1000)
