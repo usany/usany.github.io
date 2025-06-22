@@ -10,9 +10,10 @@ function PiazzaCalls() {
   const [options, setOptions] = useState([])
   const [audioOn, setAudioOn] = useState(true)
   const [videoOn, setVideoOn] = useState(true)
-  const [noDevice, setNoDevice] = useState('')
-  const [source, setSource] = useState(null)
-  const [sources, setSources] = useState(null)
+  const [error, setError] = useState('')
+  // const [source, setSource] = useState(null)
+  // const [sources, setSources] = useState(null)
+  const [selected, setSelected] = useState(null)
   const largeMedia = useLargeMedia()
   const myScreen = document.getElementById('myScreen')
   const deviceSelect = document.getElementById('devices')
@@ -40,13 +41,15 @@ function PiazzaCalls() {
     }
     setVideoOn(!videoOn)
   }
-  async function handleDeviceChange() {
+  async function handleDeviceChange(event) {
     console.log(deviceSelect.value)
     const promise = myStream
     promise.getTracks()
       .forEach(track => track.stop());
-    setSource(deviceSelect.value)
+    // setSource(deviceSelect.value)
     // await getMedia(deviceSelect.value)
+    setSelected(event.target.value)
+    // console.log(event.target.value)
     if (myPeerConnection) {
       console.log(myPeerConnection.getSenders())
       const videoTrack = myStream.getVideoTracks()[0]
@@ -58,14 +61,14 @@ function PiazzaCalls() {
     if (myStream) {
       myStream.getTracks()
         .forEach(track => track.stop());
-      setTimeout(() => getMedia(source), 1000)
+      setTimeout(() => getMedia(selected), 1000)
     } else {
-      getMedia(source)
+      getMedia(selected)
     }
     if (noDevice) {
-      setTimeout(() => getMedia(source), 1000)
+      setTimeout(() => getMedia(selected), 1000)
     }
-  }, [deviceSelect, source])
+  }, [deviceSelect, selected])
   async function getDevices() {
     try {
       const devices = await navigator.mediaDevices.enumerateDevices()
@@ -100,7 +103,7 @@ function PiazzaCalls() {
       // promise.getAudioTracks().forEach(track => track.enabled = !track.enabled)
       myScreen.srcObject = myStream
       await getDevices()
-      setNoDevice('')
+      setError('')
       console.log(myStream.getVideoTracks()[0].label)
       // const myPeerConnection = new RTCPeerConnection();
       // myStream.getTracks().forEach((track) => myPeerConnection.addTrack(track, myStream))
@@ -109,7 +112,7 @@ function PiazzaCalls() {
       // console.log(myStream.getTracks())
     } catch (error) {
       console.log(error)
-      setNoDevice(error)
+      setError(error)
     }
   }
   function handleIce(data) {
@@ -263,7 +266,7 @@ function PiazzaCalls() {
           })}
         </select>
       </div>
-      {noDevice && <div>{noDevice.toString()}</div>}
+      {error && <div>{error.toString()}</div>}
     </div >
   )
 }
