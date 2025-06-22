@@ -69,7 +69,7 @@ function PiazzaSwitch() {
 
   return (
     <div className='flex flex-col'>
-      <div className='text-sm'>{languages === 'ko' ? '단체 대화 알림 받기' : 'Receive Group Messaging notice'}</div>
+      <div className='text-sm'>{languages === 'ko' ? '단체 대화 메세지에 추가' : 'Group Message in My Message'}</div>
       {/* <div className='text-sm'>알림 받기</div> */}
       <div className='flex justify-end'>
         <MessageSwitch onClick={() => onClick()} inputProps={{ 'aria-label': 'ant design' }} checked={piazzaSwitch === 'true'} />
