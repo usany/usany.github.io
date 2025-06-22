@@ -58,8 +58,10 @@ function PiazzaCalls() {
     if (myStream) {
       myStream.getTracks()
         .forEach(track => track.stop());
+      setTimeout(() => getMedia(source), 1000)
+    } else {
+      getMedia(source)
     }
-    getMedia(source)
     if (noDevice) {
       setTimeout(() => getMedia(source), 1000)
     }
