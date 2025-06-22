@@ -81,6 +81,10 @@ function PiazzaCalls() {
         video: { deviceId: { exact: deviceId } }
       }
       const constraints = deviceId ? newConstraints : initialConstraints
+      if (myStream) {
+        myStream.getTracks()
+          .forEach(track => track.stop());
+      }
       myStream = await navigator.mediaDevices.getUserMedia(constraints)
       const promises = await navigator.mediaDevices.enumerateDevices()
       // promise.getVideoTracks().forEach(track => track.enabled = !track.enabled)
@@ -161,8 +165,6 @@ function PiazzaCalls() {
     myPeerConnection.setLocalDescription(offer)
     // setMyPeerConnection(connection)
     console.log(offer)
-    // if (offer) {
-    // }
     webSocket.emit('offer', offer, roomName)
     // if (myPeerConnection) {
     // }
