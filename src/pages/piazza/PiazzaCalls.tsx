@@ -85,11 +85,11 @@ function PiazzaCalls() {
     // console.log(deviceSelect.value)
     const promise = stream
     await promise.getTracks()
-      .forEach(track => track.stop());
-    setStream(promise)
+      .forEach(track => track.stop())
+    myScreen.srcObject = promise
+    setSelected(event.target.value)
     // setSource(deviceSelect.value)
     // await getMedia(deviceSelect.value)
-    setSelected(event.target.value)
     // console.log(event.target.value)
     if (myPeerConnection) {
       console.log(myPeerConnection.getSenders())
@@ -144,6 +144,7 @@ function PiazzaCalls() {
       //   myStream.getTracks()
       //     .forEach(track => track.stop());
       // }
+      console.log('practice')
       const newStream = await navigator.mediaDevices.getUserMedia(constraints)
       setStream(newStream)
       const promises = await navigator.mediaDevices.enumerateDevices()
