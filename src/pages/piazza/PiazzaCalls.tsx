@@ -137,8 +137,6 @@ function PiazzaCalls() {
     }
   }
   async function getMedia(deviceId) {
-    await myScreen.srcObject.getTracks()
-      .forEach(track => track.stop())
     try {
       const newConstraints = {
         audio: true,
