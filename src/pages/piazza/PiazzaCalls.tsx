@@ -46,7 +46,7 @@ function PiazzaCalls() {
     promise.getTracks()
       .forEach(track => track.stop());
     setSource(deviceSelect.value)
-    await getMedia(deviceSelect.value)
+    // await getMedia(deviceSelect.value)
     if (myPeerConnection) {
       console.log(myPeerConnection.getSenders())
       const videoTrack = myStream.getVideoTracks()[0]
@@ -95,6 +95,7 @@ function PiazzaCalls() {
       myScreen.srcObject = myStream
       await getDevices()
       setNoDevice('')
+      console.log(myStream.getVideoTracks()[0].label)
       // const myPeerConnection = new RTCPeerConnection();
       // myStream.getTracks().forEach((track) => myPeerConnection.addTrack(track, myStream))
       // const offer = await myPeerConnection.createOffer()
@@ -249,7 +250,7 @@ function PiazzaCalls() {
         <select id="devices" onChange={handleDeviceChange}>
           {options.map((value, index) => {
             return (
-              <option key={index} value={value.deviceId}>
+              <option key={index} value={value.deviceId} selected={myStream?.getVideoTracks()[0].id === value.deviceId}>
                 {value.label}
               </option>
             )
