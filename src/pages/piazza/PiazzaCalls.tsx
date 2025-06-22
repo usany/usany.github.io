@@ -11,6 +11,7 @@ function PiazzaCalls() {
   const [audioOn, setAudioOn] = useState(true)
   const [videoOn, setVideoOn] = useState(true)
   const [errorMessage, setErrorMessage] = useState('')
+  const [stream, setStream] = useState(null)
   // const [source, setSource] = useState(null)
   // const [sources, setSources] = useState(null)
   const [selected, setSelected] = useState(null)
@@ -46,8 +47,22 @@ function PiazzaCalls() {
   });
   const roomName = location.search.slice(4)
   console.log(location.search.slice(4))
+  useEffect(() => {
+    const initial = async () => {
+      const initialStream = await navigator.mediaDevices.getUserMedia(initialConstraints)
+      await getDevices()
+      // myScreen.srcObject = initialStream
+      setStream(initialStream)
+    }
+    initial()
+  }, [])
+  useEffect(() => {
+    if (myScreen) {
+      myScreen.srcObject = stream
+    }
+  }, [stream])
   async function handleMuteClick() {
-    const promise = myStream
+    const promise = stream
     if (promise) {
       promise
         .getAudioTracks()
@@ -56,7 +71,7 @@ function PiazzaCalls() {
     setAudioOn(!audioOn)
   }
   async function handleStreamClick() {
-    const promise = myStream
+    const promise = stream
     if (promise) {
       promise
         .getVideoTracks()
@@ -66,7 +81,7 @@ function PiazzaCalls() {
   }
   async function handleDeviceChange(event) {
     // console.log(deviceSelect.value)
-    const promise = myStream
+    const promise = stream
     promise.getTracks()
       .forEach(track => track.stop());
     // setSource(deviceSelect.value)
@@ -75,26 +90,29 @@ function PiazzaCalls() {
     // console.log(event.target.value)
     if (myPeerConnection) {
       console.log(myPeerConnection.getSenders())
-      const videoTrack = myStream.getVideoTracks()[0]
+      const videoTrack = stream.getVideoTracks()[0]
       const videoSender = myPeerConnection.getSenders().find((sender) => sender.track.kind === 'video')
       videoSender.replaceTrack(videoTrack)
     }
   }
   useEffect(() => {
-    if (myStream) {
-      myStream.getTracks()
-        .forEach(track => track.stop());
-      setTimeout(() => getMedia(selected), 1000)
-    } else {
+    // if (myStream) {
+    //   myStream.getTracks()
+    //     .forEach(track => track.stop());
+    //   setTimeout(() => getMedia(selected), 1000)
+    // } else {
+    //   getMedia(selected)
+    // }
+    // if (errorMessage) {
+    //   getMedia(selected)
+    // }
+    // if (!errorMessage && !myStream) {
+    //   getMedia(selected)
+    // }
+    if (selected) {
       getMedia(selected)
     }
-    if (errorMessage) {
-      getMedia(selected)
-    }
-    if (!errorMessage && !myStream) {
-      getMedia(selected)
-    }
-  }, [selected, myScreen])
+  }, [selected])
   async function getDevices() {
     try {
       const devices = await navigator.mediaDevices.enumerateDevices()
@@ -119,18 +137,19 @@ function PiazzaCalls() {
         video: { deviceId: { exact: deviceId } }
       }
       const constraints = deviceId ? newConstraints : initialConstraints
-      if (myStream) {
-        myStream.getTracks()
-          .forEach(track => track.stop());
-      }
-      myStream = await navigator.mediaDevices.getUserMedia(constraints)
+      // if (myStream) {
+      //   myStream.getTracks()
+      //     .forEach(track => track.stop());
+      // }
+      const newStream = await navigator.mediaDevices.getUserMedia(constraints)
+      setStream(newStream)
       const promises = await navigator.mediaDevices.enumerateDevices()
       // promise.getVideoTracks().forEach(track => track.enabled = !track.enabled)
       // promise.getAudioTracks().forEach(track => track.enabled = !track.enabled)
-      myScreen.srcObject = myStream
+      myScreen.srcObject = stream
       await getDevices()
       setErrorMessage('')
-      console.log(myStream.getVideoTracks()[0].label)
+      // console.log(myStream.getVideoTracks()[0].label)
       // const myPeerConnection = new RTCPeerConnection();
       // myStream.getTracks().forEach((track) => myPeerConnection.addTrack(track, myStream))
       // const offer = await myPeerConnection.createOffer()
@@ -148,7 +167,7 @@ function PiazzaCalls() {
   function handleAddStream(data) {
     console.log('got a stream from peer')
     console.log('Peer Stream', data.stream)
-    console.log('My Stream', myStream)
+    console.log('My Stream', stream)
     const yourScreen = document.getElementById('yourScreen')
     yourScreen.srcObject = data.stream
   }
@@ -179,8 +198,8 @@ function PiazzaCalls() {
     // });
     myPeerConnection.addEventListener('icecandidate', handleIce)
     myPeerConnection.addEventListener('addstream', handleAddStream)
-    if (myStream) {
-      myStream.getTracks().forEach((track) => myPeerConnection.addTrack(track, myStream))
+    if (stream) {
+      stream.getTracks().forEach((track) => myPeerConnection.addTrack(track, stream))
     }
     // const offer = await myPeerConnection.createOffer()
     // console.log(offer)
@@ -284,7 +303,7 @@ function PiazzaCalls() {
         <select id="devices" onChange={handleDeviceChange}>
           {options.map((value, index) => {
             return (
-              <option key={index} value={value.deviceId} selected={myStream?.getVideoTracks()[0].id === value.deviceId}>
+              <option key={index} value={value.deviceId} selected={stream?.getVideoTracks()[0].id === value.deviceId}>
                 {value.label}
               </option>
             )
