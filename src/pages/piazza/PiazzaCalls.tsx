@@ -10,7 +10,7 @@ function PiazzaCalls() {
   const [options, setOptions] = useState([])
   const [audioOn, setAudioOn] = useState(true)
   const [videoOn, setVideoOn] = useState(true)
-  const [error, setError] = useState('')
+  const [errorMessage, setErrorMessage] = useState('')
   // const [source, setSource] = useState(null)
   // const [sources, setSources] = useState(null)
   const [selected, setSelected] = useState(null)
@@ -42,7 +42,7 @@ function PiazzaCalls() {
     setVideoOn(!videoOn)
   }
   async function handleDeviceChange(event) {
-    console.log(deviceSelect.value)
+    // console.log(deviceSelect.value)
     const promise = myStream
     promise.getTracks()
       .forEach(track => track.stop());
@@ -65,10 +65,13 @@ function PiazzaCalls() {
     } else {
       getMedia(selected)
     }
-    if (noDevice) {
-      setTimeout(() => getMedia(selected), 1000)
+    if (errorMessage) {
+      getMedia(selected)
     }
-  }, [deviceSelect, selected])
+    if (!errorMessage && !myStream) {
+      getMedia(selected)
+    }
+  }, [selected, myScreen])
   async function getDevices() {
     try {
       const devices = await navigator.mediaDevices.enumerateDevices()
@@ -103,7 +106,7 @@ function PiazzaCalls() {
       // promise.getAudioTracks().forEach(track => track.enabled = !track.enabled)
       myScreen.srcObject = myStream
       await getDevices()
-      setError('')
+      setErrorMessage('')
       console.log(myStream.getVideoTracks()[0].label)
       // const myPeerConnection = new RTCPeerConnection();
       // myStream.getTracks().forEach((track) => myPeerConnection.addTrack(track, myStream))
@@ -111,8 +114,7 @@ function PiazzaCalls() {
       // console.log(offer)
       // console.log(myStream.getTracks())
     } catch (error) {
-      console.log(error)
-      setError(error)
+      setErrorMessage(error)
     }
   }
   function handleIce(data) {
@@ -266,7 +268,7 @@ function PiazzaCalls() {
           })}
         </select>
       </div>
-      {error && <div>{error.toString()}</div>}
+      {errorMessage && <div>{errorMessage.toString()}</div>}
     </div >
   )
 }
