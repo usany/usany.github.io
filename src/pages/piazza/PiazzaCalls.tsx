@@ -5,7 +5,7 @@ import useLargeMedia from 'src/hooks/useLargeMedia'
 import { webSocket } from 'src/webSocket'
 
 let myStream
-let myPeerConnection
+// let myPeerConnection
 function PiazzaCalls() {
   const [options, setOptions] = useState([])
   const [audioOn, setAudioOn] = useState(true)
@@ -16,11 +16,34 @@ function PiazzaCalls() {
   const [selected, setSelected] = useState(null)
   const largeMedia = useLargeMedia()
   const myScreen = document.getElementById('myScreen')
-  const deviceSelect = document.getElementById('devices')
+  // const deviceSelect = document.getElementById('devices')
   const initialConstraints = {
     audio: true,
     video: true,
   }
+  const iceServers = [
+    { urls: "stun:stun.l.google.com:19302" },
+    { urls: "stun:stun.l.google.com:5349" },
+    { urls: "stun:stun1.l.google.com:3478" },
+    { urls: "stun:stun1.l.google.com:5349" },
+    { urls: "stun:stun2.l.google.com:19302" },
+    { urls: "stun:stun2.l.google.com:5349" },
+    { urls: "stun:stun3.l.google.com:3478" },
+    { urls: "stun:stun3.l.google.com:5349" },
+    { urls: "stun:stun4.l.google.com:19302" },
+    { urls: "stun:stun4.l.google.com:5349" }
+  ];
+  const myPeerConnection = new RTCPeerConnection({
+    iceServers: [
+      {
+        urls: iceServers.map((value) => {
+          return (
+            value.urls
+          )
+        })
+      }
+    ]
+  });
   const roomName = location.search.slice(4)
   console.log(location.search.slice(4))
   async function handleMuteClick() {
@@ -130,30 +153,30 @@ function PiazzaCalls() {
     yourScreen.srcObject = data.stream
   }
   function makeConnection() {
-    const iceServers = [
-      { urls: "stun:stun.l.google.com:19302" },
-      { urls: "stun:stun.l.google.com:5349" },
-      { urls: "stun:stun1.l.google.com:3478" },
-      { urls: "stun:stun1.l.google.com:5349" },
-      { urls: "stun:stun2.l.google.com:19302" },
-      { urls: "stun:stun2.l.google.com:5349" },
-      { urls: "stun:stun3.l.google.com:3478" },
-      { urls: "stun:stun3.l.google.com:5349" },
-      { urls: "stun:stun4.l.google.com:19302" },
-      { urls: "stun:stun4.l.google.com:5349" }
-    ];
+    // const iceServers = [
+    //   { urls: "stun:stun.l.google.com:19302" },
+    //   { urls: "stun:stun.l.google.com:5349" },
+    //   { urls: "stun:stun1.l.google.com:3478" },
+    //   { urls: "stun:stun1.l.google.com:5349" },
+    //   { urls: "stun:stun2.l.google.com:19302" },
+    //   { urls: "stun:stun2.l.google.com:5349" },
+    //   { urls: "stun:stun3.l.google.com:3478" },
+    //   { urls: "stun:stun3.l.google.com:5349" },
+    //   { urls: "stun:stun4.l.google.com:19302" },
+    //   { urls: "stun:stun4.l.google.com:5349" }
+    // ];
 
-    myPeerConnection = new RTCPeerConnection({
-      iceServers: [
-        {
-          urls: iceServers.map((value) => {
-            return (
-              value.urls
-            )
-          })
-        }
-      ]
-    });
+    // myPeerConnection = new RTCPeerConnection({
+    //   iceServers: [
+    //     {
+    //       urls: iceServers.map((value) => {
+    //         return (
+    //           value.urls
+    //         )
+    //       })
+    //     }
+    //   ]
+    // });
     myPeerConnection.addEventListener('icecandidate', handleIce)
     myPeerConnection.addEventListener('addstream', handleAddStream)
     if (myStream) {
