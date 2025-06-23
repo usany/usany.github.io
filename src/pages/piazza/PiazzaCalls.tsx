@@ -175,7 +175,11 @@ function PiazzaCalls() {
       // console.log(offer)
       // console.log(myStream.getTracks())
     } catch (error) {
-      setErrorMessage(error)
+      if (typeof error === 'string') {
+        const errorString = error.toString()
+        setErrorMessage(errorString)
+      }
+      console.log(error)
     }
   }
   function handleIce(data) {
@@ -310,7 +314,7 @@ function PiazzaCalls() {
           })}
         </select>
       </div>
-      {errorMessage && <div>{errorMessage.toString()}</div>}
+      {errorMessage && <div>{errorMessage}</div>}
     </div >
   )
 }
