@@ -1,11 +1,8 @@
-// import { useKeyboardOffset } from 'virtual-keyboard-offset';
 import { Button } from '@mui/material'
 import { useEffect, useRef, useState } from 'react'
 import useLargeMedia from 'src/hooks/useLargeMedia'
 import { webSocket } from 'src/webSocket'
 
-// let myStream
-// let myPeerConnection
 function PiazzaCalls() {
   const [options, setOptions] = useState([])
   const [audioOn, setAudioOn] = useState(true)
@@ -16,7 +13,6 @@ function PiazzaCalls() {
   const largeMedia = useLargeMedia()
   const myRef = useRef(null)
   const yourRef = useRef(null)
-  // const myScreen = document.getElementById('myScreen')
   const initialConstraints = {
     audio: true,
     video: true,
@@ -48,7 +44,7 @@ function PiazzaCalls() {
   console.log(location.search.slice(4))
   useEffect(() => {
     const initial = async () => {
-      const initialStream = await navigator.mediaDevices.getUserMedia(initialConstraints)
+      // const initialStream = await navigator.mediaDevices.getUserMedia(initialConstraints)
       await getDevices()
     }
     initial()
@@ -89,7 +85,6 @@ function PiazzaCalls() {
     console.log(myRef.current)
   }
   async function handleDeviceChange(event) {
-    // console.log(deviceSelect.value)
     const promise = stream
     // await promise.getTracks()
     //   .forEach(track => track.stop())
@@ -149,7 +144,7 @@ function PiazzaCalls() {
       video: { deviceId: { exact: deviceId } }
     }
     const constraints = deviceId ? newConstraints : initialConstraints
-    console.log('practice')
+    // console.log('practice')
     const newStream = await navigator.mediaDevices.getUserMedia(constraints)
     setStream(newStream)
     const promises = await navigator.mediaDevices.enumerateDevices()
@@ -160,11 +155,11 @@ function PiazzaCalls() {
         video: { deviceId: { exact: deviceId } }
       }
       const constraints = deviceId ? newConstraints : initialConstraints
-      console.log('practice')
       const newStream = await navigator.mediaDevices.getUserMedia(constraints)
       setStream(newStream)
-      const promises = await navigator.mediaDevices.enumerateDevices()
       setErrorMessage('')
+      // const promises = await navigator.mediaDevices.enumerateDevices()
+      // console.log('practice')
       // if (myStream) {
       //   myStream.getTracks()
       //     .forEach(track => track.stop());
@@ -209,7 +204,6 @@ function PiazzaCalls() {
     //   { urls: "stun:stun4.l.google.com:19302" },
     //   { urls: "stun:stun4.l.google.com:5349" }
     // ];
-
     // myPeerConnection = new RTCPeerConnection({
     //   iceServers: [
     //     {
@@ -305,7 +299,6 @@ function PiazzaCalls() {
           autoPlay
           muted
         >
-          {/* <source src={sources} /> */}
         </video>
         <video
           ref={yourRef}
@@ -327,8 +320,6 @@ function PiazzaCalls() {
           <Button onClick={handleStopClick}>
             stop
           </Button>
-          {/* <button id='mute' onClick={handleMuteClick}>mute</button>
-        <button id='stream' onClick={handleStreamClick}>turn stream off</button> */}
         </div>
         <select id="devices" onChange={handleDeviceChange}>
           {options.map((value, index) => {
