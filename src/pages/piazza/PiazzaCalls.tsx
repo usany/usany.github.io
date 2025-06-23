@@ -288,11 +288,13 @@ function PiazzaCalls() {
   })
 
   return (
-    <div id="myStream">
+    <div
+    // id="myStream"
+    >
       <div className={`flex ${!largeMedia && 'flex-col'} gap-1`}>
         <video
           ref={myRef}
-          id="myScreen"
+          // id="myScreen"
           width="320"
           height="240"
           controls
@@ -302,7 +304,7 @@ function PiazzaCalls() {
         </video>
         <video
           ref={yourRef}
-          id="yourScreen"
+          // id="yourScreen"
           width="320"
           height="240"
           controls
