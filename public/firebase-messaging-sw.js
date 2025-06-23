@@ -1,6 +1,6 @@
 
 self.addEventListener('push', event => {
-  console.log(event.data.json())
+  console.log(event.data.json().notification.body)
   const options = {
     body: String(event.data.json().notification.body),
     icon: '../src/assets/umbrella512.png',
@@ -19,7 +19,7 @@ self.addEventListener('push', event => {
       }
     ],
     // tag: 'renotify',
-    tag: event.data.json().notification.title,
+    tag: event.data.json().data.title,
     renotify: true,
     requireInteraction: true,
     vibrate: [
@@ -28,7 +28,7 @@ self.addEventListener('push', event => {
     ],
   };
   event.waitUntil(
-    self.registration.showNotification('USANY', options)
+    self.registration.showNotification(event.data.json().notification.title, options)
   );
 });
 self.addEventListener('notificationclick', (event) => {
