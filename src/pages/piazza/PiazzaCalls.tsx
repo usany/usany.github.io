@@ -85,13 +85,12 @@ function PiazzaCalls() {
     console.log(myRef.current)
   }
   async function handleDeviceChange(event) {
-    const promise = stream
-    // await promise.getTracks()
-    //   .forEach(track => track.stop())
     myRef.current.srcObject.getTracks()
       .forEach(track => track.stop())
     setSelected(event.target.value)
-
+    // const promise = stream
+    // await promise.getTracks()
+    //   .forEach(track => track.stop())
     // myScreen.srcObject = promise
     // setSource(deviceSelect.value)
     // await getMedia(deviceSelect.value)
@@ -175,10 +174,10 @@ function PiazzaCalls() {
       // console.log(offer)
       // console.log(myStream.getTracks())
     } catch (error) {
-      if (typeof error === 'string') {
-        const errorString = error.toString()
-        setErrorMessage(errorString)
+      const errorString = error?.toString()
+      if (errorString) {
       }
+        setErrorMessage(errorString)
       console.log(error)
     }
   }
