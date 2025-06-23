@@ -1,9 +1,9 @@
-
+// import staticImg from 'src/assets/umbrella512.png';
 self.addEventListener('push', event => {
-  console.log(event.data.json().notification.body)
+  console.log(event.data.json().data)
   const options = {
     body: String(event.data.json().notification.body),
-    icon: '../src/assets/umbrella512.png',
+    icon: event.data.json().data.body,
     badge: '../src/assets/umbrella512.png',
     actions: [
       {
