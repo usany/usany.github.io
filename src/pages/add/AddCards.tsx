@@ -117,9 +117,9 @@ const AddCards = ({
                         <Watch />
                         <div className='flex flex-col justify-center'>
                           <div className='flex'>
-                            <div className='w-[40px]'>
-                              {languages === 'en' && 'From '}
-                            </div>
+                            {languages === 'en' &&
+                              <div className='w-[40px]'>From</div>
+                            }
                             {fromTo.from.year}.{fromTo.from.month < 10 && '0'}
                             {fromTo.from.month}.{fromTo.from.day < 10 && '0'}
                             {fromTo.from.day} {fromTo.from.hour < 10 && '0'}
@@ -128,9 +128,9 @@ const AddCards = ({
                           </div>
                           {fromTo.to && (
                             <div className="flex">
-                              <div className='w-[40px]'>
-                                {languages === 'en' && 'To '}
-                              </div>
+                              {languages === 'en' &&
+                                <div className='w-[40px]'>To</div>
+                              }
                               {fromTo.to.year}.{fromTo.to.month < 10 && '0'}
                               {fromTo.to.month}.{fromTo.from.day < 10 && '0'}
                               {fromTo.to.day} {fromTo.to.hour < 10 && '0'}
