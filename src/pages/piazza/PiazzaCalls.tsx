@@ -44,17 +44,12 @@ function PiazzaCalls() {
   console.log(location.search.slice(4))
   useEffect(() => {
     const initial = async () => {
-      // const initialStream = await navigator.mediaDevices.getUserMedia(initialConstraints)
       await getDevices()
+      // const initialStream = await navigator.mediaDevices.getUserMedia(initialConstraints)
     }
     initial()
   }, [])
   useEffect(() => {
-    // if (myScreen) {
-    //   myScreen.srcObject = stream
-    // }
-    // myStream.getTracks()
-    //   .forEach(track => track.stop());
     if (myRef.current) {
       myRef.current.srcObject = stream
     }
@@ -78,8 +73,6 @@ function PiazzaCalls() {
     setVideoOn(!videoOn)
   }
   const handleStopClick = () => {
-    // myScreen.srcObject.getTracks()
-    //   .forEach(track => track.stop())
     myRef.current.srcObject.getTracks()
       .forEach(track => track.stop())
     console.log(myRef.current)
@@ -88,13 +81,6 @@ function PiazzaCalls() {
     myRef.current.srcObject.getTracks()
       .forEach(track => track.stop())
     setSelected(event.target.value)
-    // const promise = stream
-    // await promise.getTracks()
-    //   .forEach(track => track.stop())
-    // myScreen.srcObject = promise
-    // setSource(deviceSelect.value)
-    // await getMedia(deviceSelect.value)
-    // console.log(event.target.value)
     if (myPeerConnection) {
       console.log(myPeerConnection.getSenders())
       const videoTrack = stream.getVideoTracks()[0]
@@ -176,8 +162,8 @@ function PiazzaCalls() {
     } catch (error) {
       const errorString = error?.toString()
       if (errorString) {
-      }
         setErrorMessage(errorString)
+      }
       console.log(error)
     }
   }
