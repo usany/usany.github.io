@@ -18,7 +18,8 @@ self.addEventListener('push', event => {
         placeholder: 'Type your explanation here',
       }
     ],
-    tag: 'renotify',
+    // tag: 'renotify',
+    tag: event.data.json().notification.title,
     renotify: true,
     vibrate: [
       500, 110, 500, 110, 450, 110, 200, 110, 170, 40, 450, 110, 200, 110, 170,
@@ -31,7 +32,8 @@ self.addEventListener('push', event => {
 });
 self.addEventListener('notificationclick', (event) => {
   // clients.openWindow("https://jameshfisher.com/");
-  clients.openWindow("/");
+  console.log(event.notification.tag)
+  clients.openWindow(`/piazza?id=${event.notification.tag}`);
   event.notification.close();
 })
 
