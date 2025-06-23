@@ -418,7 +418,7 @@ function PiazzaScreenView({
                       className={`flex justify-${value.userUid !== userObj.uid ? 'start' : 'end'}`}
                     >
                       {userDirection === 'text-left' ? (
-                        <div className="flex gap-3">
+                        <div className="flex gap-3 pt-3">
                           <Popups
                             trigger={
                               <Avatars
@@ -467,7 +467,7 @@ function PiazzaScreenView({
                           <div>{value.id}</div>
                         </div>
                       ) : (
-                        <div className="flex gap-3">
+                        <div className="flex gap-3 pt-3">
                           <div>{value.id}</div>
                           <Popups
                             trigger={
