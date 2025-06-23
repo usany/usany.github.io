@@ -343,13 +343,12 @@ function PiazzaForm({ chattingUser, userObj, multiple, messages, handleMessages,
       }
     }
   })
-  console.log(state)
   return (
     <>
       <form className={`fixed w-screen ${piazzaForm ? 'bottom-0' : 'bottom-[60px]'} flex gap-px`} onSubmit={onSendSubmitHandler}>
         {conversation && conversation !== 'piazza' &&
           <Popups
-            trigger={<button className='px-1 h-full rounded bg-light-2 dark:bg-dark-2' type="submit"><PlusCircle /></button>}
+            trigger={<div className='flex items-center px-1 h-full rounded bg-light-2 dark:bg-dark-2'><PlusCircle /></div>}
             title={<div>전화 선택</div>}
             content={<div className='flex justify-center gap-5 p-5'>
               <Link to={`/piazza?id=${conversation}?calls=video`}
