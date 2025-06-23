@@ -33,8 +33,17 @@ self.addEventListener('push', event => {
 });
 self.addEventListener('notificationclick', (event) => {
   // clients.openWindow("https://jameshfisher.com/");
-  console.log(event.notification.tag)
-  clients.openWindow(`/piazza?id=${event.notification.tag}`);
+  console.log(event)
+  if (event.action === 'reply') {
+    if (event.reply) {
+      console.log('reply')
+    } else {
+      clients.openWindow(`/piazza?id=${event.notification.tag}`);
+    }
+  }
+  if (!event.action) {
+    clients.openWindow(`/piazza?id=${event.notification.tag}`);
+  }
   event.notification.close();
 })
 
