@@ -6,6 +6,7 @@ self.addEventListener('push', event => {
     icon: '/path/to/your/icon.png',
     tag: 'renotify',
     renotify: true,
+    requireInteraction: true,
     // Replace with your icon path
   };
   event.waitUntil(

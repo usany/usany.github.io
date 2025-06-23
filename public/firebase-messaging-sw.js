@@ -9,18 +9,19 @@ self.addEventListener('push', event => {
       {
         action: 'yes',
         type: 'button',
-        title: 'yes'
+        title: 'send',
+        placeholder: 'reply',
       },
       {
         action: 'no',
         type: 'text',
-        title: 'no',
-        placeholder: 'Type your explanation here',
+        title: 'close',
       }
     ],
     // tag: 'renotify',
     tag: event.data.json().notification.title,
     renotify: true,
+    requireInteraction: true,
     vibrate: [
       500, 110, 500, 110, 450, 110, 200, 110, 170, 40, 450, 110, 200, 110, 170,
       40, 500,
