@@ -150,8 +150,6 @@ function PiazzaCalls() {
     if (stream) {
       stream.getTracks().forEach((track) => myPeerConnection.addTrack(track, stream))
     }
-    // const offer = await myPeerConnection.createOffer()
-    // console.log(offer)
   }
   async function initCall() {
     await getMedia(null)
@@ -223,22 +221,21 @@ function PiazzaCalls() {
     >
       <div className={`flex ${!largeMedia && 'flex-col'} gap-1`}>
         <video
-          ref={myRef}
+          // id="yourScreen"
+          ref={yourRef}
+          width="320"
+          height="240"
+          controls
+          autoPlay
+        ></video>
+        <video
           // id="myScreen"
+          ref={myRef}
           width="320"
           height="240"
           controls
           autoPlay
           muted
-        >
-        </video>
-        <video
-          ref={yourRef}
-          // id="yourScreen"
-          width="320"
-          height="240"
-          controls
-          autoPlay
         ></video>
       </div>
       <div>
