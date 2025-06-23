@@ -215,7 +215,6 @@ function BoardMap({ mapAccordion, mapAccordionToggle, onMarker, onMarkerTrue, on
   const onClickMarkerItem = (newValue) => {
     handleSelectedValues({ id: "selectedValueOne", newValue: newValue });
   };
-  // console.log(items)
   return (
     <div>
       <Accordion type="single" collapsible>
@@ -251,14 +250,6 @@ function BoardMap({ mapAccordion, mapAccordionToggle, onMarker, onMarkerTrue, on
                   />
                 </div>
               }
-              {/* {mapAccordion && onMarker && (
-                <div className='flex justify-end'>
-                  <FilterDialogs
-                    selectedValues={selectedValues}
-                    handleSelectedValues={handleSelectedValues}
-                  />
-                </div>
-              )} */}
             </div>
             <div className="w-full h-[300px]">
               <Map
@@ -286,26 +277,6 @@ function BoardMap({ mapAccordion, mapAccordionToggle, onMarker, onMarkerTrue, on
                     </AdvancedMarker>
                   )
                 })}
-                {/* <AdvancedMarker
-                  onClick={() => {
-                    onClickMarker("중도");
-                    onMarkerTrue();
-                  }}
-                  position={{ lat: 59.9156636, lng: 10.7507967 }}
-                >
-                  <Pin
-                    background={"#0f9d58"}
-                    borderColor={"#006425"}
-                    glyphColor={"#60d98f"}
-                  />
-                </AdvancedMarker> */}
-                {/* <Marker
-                  onClick={() => {
-                    onClickMarker("문과대학");
-                    onMarkerTrue();
-                  }}
-                  position={{ lat: 37.5971991, lng: 127.0539612 }}
-                /> */}
                 <InfoWindow
                   minWidth={290}
                   position={markers.find((element) => element.label.ko === selectedValues[1].value)?.location}
@@ -337,93 +308,8 @@ function BoardMap({ mapAccordion, mapAccordionToggle, onMarker, onMarkerTrue, on
                         </div>
                       )
                     })}
-                    {/* <div className="flex">
-                      <div className="pt-3">: {messages.length} 요청</div>
-                    </div> */}
                   </div>
                 </InfoWindow>
-                {/* {selectedValues[1].value !== '전체' &&
-                } */}
-                {/* {selectedValues[1].value === "중도" && (
-                  <InfoWindow
-                    position={{ lat: 59.9156636, lng: 10.7507967 }}
-                    onClose={() => {
-                      onClickMarker("전체 장소");
-                      if (choose) {
-                        onClickMarkerItem("전체 아이템");
-                        setChoose(false);
-                      }
-                      onMarkerFalse();
-                    }}
-                  >
-                    <div className="flex flex-col">
-                      <div className="flex">
-                        <div className="pt-1">
-                          <Chip
-                            label={`우산`}
-                            onClick={() => {
-                              setChoose(true);
-                              onClickMarkerItem("우산");
-                            }}
-                          />
-                        </div>
-                        <div className="pt-3">: {messages.length} 요청</div>
-                      </div>
-                      <div className="flex">
-                        <div className="pt-1">
-                          <Chip
-                            label={`양산`}
-                            onClick={() => {
-                              setChoose(true);
-                              onClickMarkerItem("양산");
-                            }}
-                          />
-                        </div>
-                        <div className="pt-3">: {messages.length} 요청</div>
-                      </div>
-                    </div>
-                  </InfoWindow>
-                )}
-                {selectedValues[1].value === "청운" && (
-                  <InfoWindow
-                    position={{ lat: 59.9166636, lng: 10.7517967 }}
-                    onClose={() => {
-                      onClickMarker("전체 장소");
-                      if (choose) {
-                        onClickMarkerItem("전체 아이템");
-                        setChoose(false);
-                      }
-                      onMarkerFalse();
-                    }}
-                  >
-                    <div className="flex flex-col">
-                      <div className="flex">
-                        <div className="pt-1">
-                          <Chip
-                            label={`우산`}
-                            onClick={() => {
-                              setChoose(true);
-                              onClickMarkerItem("우산");
-                            }}
-                          />
-                        </div>
-                        <div className="pt-3">: {messages.length} 요청</div>
-                      </div>
-                      <div className="flex">
-                        <div className="pt-1">
-                          <Chip
-                            label={`양산`}
-                            onClick={() => {
-                              setChoose(true);
-                              onClickMarkerItem("양산");
-                            }}
-                          />
-                        </div>
-                        <div className="pt-3">: {messages.length} 요청</div>
-                      </div>
-                    </div>
-                  </InfoWindow>
-                )} */}
               </Map>
             </div>
           </AccordionContent>
