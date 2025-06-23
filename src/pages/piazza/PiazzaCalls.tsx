@@ -89,19 +89,6 @@ function PiazzaCalls() {
     }
   }
   useEffect(() => {
-    // if (myStream) {
-    //   myStream.getTracks()
-    //     .forEach(track => track.stop());
-    //   setTimeout(() => getMedia(selected), 1000)
-    // } else {
-    //   getMedia(selected)
-    // }
-    // if (errorMessage) {
-    //   getMedia(selected)
-    // }
-    // if (!errorMessage && !myStream) {
-    //   getMedia(selected)
-    // }
     if (selected) {
       getMedia(selected)
     }
@@ -129,11 +116,6 @@ function PiazzaCalls() {
       video: { deviceId: { exact: deviceId } }
     }
     const constraints = deviceId ? newConstraints : initialConstraints
-    // console.log('practice')
-    const newStream = await navigator.mediaDevices.getUserMedia(constraints)
-    setStream(newStream)
-    const promises = await navigator.mediaDevices.enumerateDevices()
-    setErrorMessage('')
     try {
       const newConstraints = {
         audio: true,
@@ -143,22 +125,6 @@ function PiazzaCalls() {
       const newStream = await navigator.mediaDevices.getUserMedia(constraints)
       setStream(newStream)
       setErrorMessage('')
-      // const promises = await navigator.mediaDevices.enumerateDevices()
-      // console.log('practice')
-      // if (myStream) {
-      //   myStream.getTracks()
-      //     .forEach(track => track.stop());
-      // }
-      // promise.getVideoTracks().forEach(track => track.enabled = !track.enabled)
-      // promise.getAudioTracks().forEach(track => track.enabled = !track.enabled)
-      // myScreen.srcObject = newStream
-      // await getDevices()
-      // console.log(myStream.getVideoTracks()[0].label)
-      // const myPeerConnection = new RTCPeerConnection();
-      // myStream.getTracks().forEach((track) => myPeerConnection.addTrack(track, myStream))
-      // const offer = await myPeerConnection.createOffer()
-      // console.log(offer)
-      // console.log(myStream.getTracks())
     } catch (error) {
       const errorString = error?.toString()
       if (errorString) {
@@ -177,8 +143,6 @@ function PiazzaCalls() {
     console.log('Peer Stream', data.stream)
     console.log('My Stream', stream)
     yourRef.current = data.stream
-    // const yourScreen = document.getElementById('yourScreen')
-    // yourScreen.srcObject = data.stream
   }
   function makeConnection() {
     myPeerConnection.addEventListener('icecandidate', handleIce)
