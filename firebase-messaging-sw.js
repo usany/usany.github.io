@@ -1,37 +1,49 @@
-
+// import staticImg from 'src/assets/umbrella512.png';
 self.addEventListener('push', event => {
-  console.log(event.data.json())
+  console.log(event.data.json().data)
   const options = {
     body: String(event.data.json().notification.body),
-    icon: '/path/to/your/icon.png',
-    badge: '/path/to/your/icon.png',
+    icon: event.data.json().data.body,
+    badge: '../src/assets/umbrella512.png',
     actions: [
       {
-        action: 'yes',
-        type: 'button',
-        title: 'yes'
+        action: 'reply',
+        type: 'text',
+        title: 'send',
+        placeholder: 'reply',
       },
       {
         action: 'no',
-        type: 'text',
-        title: 'no',
-        placeholder: 'Type your explanation here',
+        type: 'button',
+        title: 'close',
       }
     ],
-    tag: 'renotify',
+    // tag: 'renotify',
+    tag: event.data.json().data.title,
     renotify: true,
+    requireInteraction: true,
     vibrate: [
       500, 110, 500, 110, 450, 110, 200, 110, 170, 40, 450, 110, 200, 110, 170,
       40, 500,
     ],
   };
   event.waitUntil(
-    self.registration.showNotification('USANY', options)
+    self.registration.showNotification(event.data.json().notification.title, options)
   );
 });
 self.addEventListener('notificationclick', (event) => {
   // clients.openWindow("https://jameshfisher.com/");
-  clients.openWindow("/");
+  console.log(event)
+  if (event.action === 'reply') {
+    if (event.reply) {
+      console.log('reply')
+    } else {
+      clients.openWindow(`/piazza?id=${event.notification.tag}`);
+    }
+  }
+  if (!event.action) {
+    clients.openWindow(`/piazza?id=${event.notification.tag}`);
+  }
   event.notification.close();
 })
 
