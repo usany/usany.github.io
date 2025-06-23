@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import useLargeMedia from 'src/hooks/useLargeMedia'
 import { webSocket } from 'src/webSocket'
 
-let myStream
+// let myStream
 // let myPeerConnection
 function PiazzaCalls() {
   const [options, setOptions] = useState([])
@@ -101,13 +101,6 @@ function PiazzaCalls() {
       videoSender.replaceTrack(videoTrack)
     }
   }
-  const intervals = (selected) => {
-    if (errorMessage) {
-      getMedia(selected)
-    } else {
-      clearInterval(intervals)
-    }
-  }
   useEffect(() => {
     // if (myStream) {
     //   myStream.getTracks()
@@ -123,15 +116,7 @@ function PiazzaCalls() {
     //   getMedia(selected)
     // }
     if (selected) {
-      const intervals = (selected) => {
-        if (errorMessage) {
-          getMedia(selected)
-        } else {
-          clearInterval(interval)
-        }
-      }
-      const interval = setInterval(() => intervals(selected), 1000)
-      // getMedia(selected)
+      getMedia(selected)
     }
   }, [selected])
   async function getDevices() {
