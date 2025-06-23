@@ -3,8 +3,8 @@ self.addEventListener('push', event => {
   console.log(event.data.json())
   const options = {
     body: String(event.data.json().notification.body),
-    icon: '../src/umbrella512.png',
-    badge: '../src/umbrella512.png',
+    icon: '../src/assets/umbrella512.png',
+    badge: '../src/assets/umbrella512.png',
     actions: [
       {
         action: 'reply',
