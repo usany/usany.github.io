@@ -12,12 +12,9 @@ function PiazzaCalls() {
   const [videoOn, setVideoOn] = useState(true)
   const [errorMessage, setErrorMessage] = useState('')
   const [stream, setStream] = useState(null)
-  // const [source, setSource] = useState(null)
-  // const [sources, setSources] = useState(null)
   const [selected, setSelected] = useState(null)
   const largeMedia = useLargeMedia()
   const myScreen = document.getElementById('myScreen')
-  // const deviceSelect = document.getElementById('devices')
   const initialConstraints = {
     audio: true,
     video: true,
@@ -51,8 +48,6 @@ function PiazzaCalls() {
     const initial = async () => {
       const initialStream = await navigator.mediaDevices.getUserMedia(initialConstraints)
       await getDevices()
-      // myScreen.srcObject = initialStream
-      // setStream(initialStream)
     }
     initial()
   }, [])
@@ -80,6 +75,10 @@ function PiazzaCalls() {
         .forEach((track) => (track.enabled = !track.enabled))
     }
     setVideoOn(!videoOn)
+  }
+  const handleStopClick = () => {
+    myScreen.srcObject.getTracks()
+      .forEach(track => track.stop())
   }
   async function handleDeviceChange(event) {
     // console.log(deviceSelect.value)
@@ -146,35 +145,35 @@ function PiazzaCalls() {
     const newStream = await navigator.mediaDevices.getUserMedia(constraints)
     setStream(newStream)
     const promises = await navigator.mediaDevices.enumerateDevices()
-    // setErrorMessage('')
-    // try {
-    //   const newConstraints = {
-    //     audio: true,
-    //     video: { deviceId: { exact: deviceId } }
-    //   }
-    //   const constraints = deviceId ? newConstraints : initialConstraints
-    //   console.log('practice')
-    //   const newStream = await navigator.mediaDevices.getUserMedia(constraints)
-    //   setStream(newStream)
-    //   const promises = await navigator.mediaDevices.enumerateDevices()
-    //   setErrorMessage('')
-    // if (myStream) {
-    //   myStream.getTracks()
-    //     .forEach(track => track.stop());
-    // }
-    // promise.getVideoTracks().forEach(track => track.enabled = !track.enabled)
-    // promise.getAudioTracks().forEach(track => track.enabled = !track.enabled)
-    // myScreen.srcObject = newStream
-    // await getDevices()
-    // console.log(myStream.getVideoTracks()[0].label)
-    // const myPeerConnection = new RTCPeerConnection();
-    // myStream.getTracks().forEach((track) => myPeerConnection.addTrack(track, myStream))
-    // const offer = await myPeerConnection.createOffer()
-    // console.log(offer)
-    // console.log(myStream.getTracks())
-    // } catch (error) {
-    //   setErrorMessage(error)
-    // }
+    setErrorMessage('')
+    try {
+      const newConstraints = {
+        audio: true,
+        video: { deviceId: { exact: deviceId } }
+      }
+      const constraints = deviceId ? newConstraints : initialConstraints
+      console.log('practice')
+      const newStream = await navigator.mediaDevices.getUserMedia(constraints)
+      setStream(newStream)
+      const promises = await navigator.mediaDevices.enumerateDevices()
+      setErrorMessage('')
+      // if (myStream) {
+      //   myStream.getTracks()
+      //     .forEach(track => track.stop());
+      // }
+      // promise.getVideoTracks().forEach(track => track.enabled = !track.enabled)
+      // promise.getAudioTracks().forEach(track => track.enabled = !track.enabled)
+      // myScreen.srcObject = newStream
+      // await getDevices()
+      // console.log(myStream.getVideoTracks()[0].label)
+      // const myPeerConnection = new RTCPeerConnection();
+      // myStream.getTracks().forEach((track) => myPeerConnection.addTrack(track, myStream))
+      // const offer = await myPeerConnection.createOffer()
+      // console.log(offer)
+      // console.log(myStream.getTracks())
+    } catch (error) {
+      setErrorMessage(error)
+    }
   }
   function handleIce(data) {
     console.log('icecandidate')
@@ -313,6 +312,9 @@ function PiazzaCalls() {
           </Button>
           <Button onClick={handleStreamClick}>
             {videoOn ? 'turn stream on' : 'turn stream off'}
+          </Button>
+          <Button onClick={handleStopClick}>
+            stop
           </Button>
           {/* <button id='mute' onClick={handleMuteClick}>mute</button>
         <button id='stream' onClick={handleStreamClick}>turn stream off</button> */}
