@@ -137,34 +137,44 @@ function PiazzaCalls() {
     }
   }
   async function getMedia(deviceId) {
-    try {
-      const newConstraints = {
-        audio: true,
-        video: { deviceId: { exact: deviceId } }
-      }
-      const constraints = deviceId ? newConstraints : initialConstraints
-      // if (myStream) {
-      //   myStream.getTracks()
-      //     .forEach(track => track.stop());
-      // }
-      console.log('practice')
-      const newStream = await navigator.mediaDevices.getUserMedia(constraints)
-      setStream(newStream)
-      const promises = await navigator.mediaDevices.enumerateDevices()
-      // promise.getVideoTracks().forEach(track => track.enabled = !track.enabled)
-      // promise.getAudioTracks().forEach(track => track.enabled = !track.enabled)
-      // myScreen.srcObject = newStream
-      // await getDevices()
-      setErrorMessage('')
-      // console.log(myStream.getVideoTracks()[0].label)
-      // const myPeerConnection = new RTCPeerConnection();
-      // myStream.getTracks().forEach((track) => myPeerConnection.addTrack(track, myStream))
-      // const offer = await myPeerConnection.createOffer()
-      // console.log(offer)
-      // console.log(myStream.getTracks())
-    } catch (error) {
-      setErrorMessage(error)
+    const newConstraints = {
+      audio: true,
+      video: { deviceId: { exact: deviceId } }
     }
+    const constraints = deviceId ? newConstraints : initialConstraints
+    console.log('practice')
+    const newStream = await navigator.mediaDevices.getUserMedia(constraints)
+    setStream(newStream)
+    const promises = await navigator.mediaDevices.enumerateDevices()
+    // setErrorMessage('')
+    // try {
+    //   const newConstraints = {
+    //     audio: true,
+    //     video: { deviceId: { exact: deviceId } }
+    //   }
+    //   const constraints = deviceId ? newConstraints : initialConstraints
+    //   console.log('practice')
+    //   const newStream = await navigator.mediaDevices.getUserMedia(constraints)
+    //   setStream(newStream)
+    //   const promises = await navigator.mediaDevices.enumerateDevices()
+    //   setErrorMessage('')
+    // if (myStream) {
+    //   myStream.getTracks()
+    //     .forEach(track => track.stop());
+    // }
+    // promise.getVideoTracks().forEach(track => track.enabled = !track.enabled)
+    // promise.getAudioTracks().forEach(track => track.enabled = !track.enabled)
+    // myScreen.srcObject = newStream
+    // await getDevices()
+    // console.log(myStream.getVideoTracks()[0].label)
+    // const myPeerConnection = new RTCPeerConnection();
+    // myStream.getTracks().forEach((track) => myPeerConnection.addTrack(track, myStream))
+    // const offer = await myPeerConnection.createOffer()
+    // console.log(offer)
+    // console.log(myStream.getTracks())
+    // } catch (error) {
+    //   setErrorMessage(error)
+    // }
   }
   function handleIce(data) {
     console.log('icecandidate')
