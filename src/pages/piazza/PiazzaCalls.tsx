@@ -1,6 +1,6 @@
 // import { useKeyboardOffset } from 'virtual-keyboard-offset';
 import { Button } from '@mui/material'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import useLargeMedia from 'src/hooks/useLargeMedia'
 import { webSocket } from 'src/webSocket'
 
@@ -14,7 +14,9 @@ function PiazzaCalls() {
   const [stream, setStream] = useState(null)
   const [selected, setSelected] = useState(null)
   const largeMedia = useLargeMedia()
-  const myScreen = document.getElementById('myScreen')
+  const myRef = useRef(null)
+  const yourRef = useRef(null)
+  // const myScreen = document.getElementById('myScreen')
   const initialConstraints = {
     audio: true,
     video: true,
@@ -52,10 +54,13 @@ function PiazzaCalls() {
     initial()
   }, [])
   useEffect(() => {
-    if (myScreen) {
-      // myStream.getTracks()
-      //   .forEach(track => track.stop());
-      myScreen.srcObject = stream
+    // if (myScreen) {
+    //   myScreen.srcObject = stream
+    // }
+    // myStream.getTracks()
+    //   .forEach(track => track.stop());
+    if (myRef.current) {
+      myRef.current.srcObject = stream
     }
   }, [stream])
   async function handleMuteClick() {
@@ -77,16 +82,18 @@ function PiazzaCalls() {
     setVideoOn(!videoOn)
   }
   const handleStopClick = () => {
-    myScreen.srcObject.getTracks()
+    // myScreen.srcObject.getTracks()
+    //   .forEach(track => track.stop())
+    myRef.current.srcObject.getTracks()
       .forEach(track => track.stop())
-    console.log(myScreen)
+    console.log(myRef.current)
   }
   async function handleDeviceChange(event) {
     // console.log(deviceSelect.value)
     const promise = stream
     // await promise.getTracks()
     //   .forEach(track => track.stop())
-    myScreen.srcObject.getTracks()
+    myRef.current.srcObject.getTracks()
       .forEach(track => track.stop())
     setSelected(event.target.value)
 
@@ -185,8 +192,9 @@ function PiazzaCalls() {
     console.log('got a stream from peer')
     console.log('Peer Stream', data.stream)
     console.log('My Stream', stream)
-    const yourScreen = document.getElementById('yourScreen')
-    yourScreen.srcObject = data.stream
+    yourRef.current = data.stream
+    // const yourScreen = document.getElementById('yourScreen')
+    // yourScreen.srcObject = data.stream
   }
   function makeConnection() {
     // const iceServers = [
@@ -289,6 +297,7 @@ function PiazzaCalls() {
     <div id="myStream">
       <div className={`flex ${!largeMedia && 'flex-col'} gap-1`}>
         <video
+          ref={myRef}
           id="myScreen"
           width="320"
           height="240"
@@ -299,6 +308,7 @@ function PiazzaCalls() {
           {/* <source src={sources} /> */}
         </video>
         <video
+          ref={yourRef}
           id="yourScreen"
           width="320"
           height="240"
