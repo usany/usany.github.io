@@ -79,6 +79,7 @@ function PiazzaCalls() {
   const handleStopClick = () => {
     myScreen.srcObject.getTracks()
       .forEach(track => track.stop())
+    console.log(myScreen)
   }
   async function handleDeviceChange(event) {
     // console.log(deviceSelect.value)
