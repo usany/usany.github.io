@@ -101,6 +101,13 @@ function PiazzaCalls() {
       videoSender.replaceTrack(videoTrack)
     }
   }
+  const intervals = (selected) => {
+    if (errorMessage) {
+      getMedia(selected)
+    } else {
+      clearInterval(intervals)
+    }
+  }
   useEffect(() => {
     // if (myStream) {
     //   myStream.getTracks()
@@ -116,7 +123,15 @@ function PiazzaCalls() {
     //   getMedia(selected)
     // }
     if (selected) {
-      getMedia(selected)
+      const intervals = (selected) => {
+        if (errorMessage) {
+          getMedia(selected)
+        } else {
+          clearInterval(interval)
+        }
+      }
+      const interval = setInterval(() => intervals(selected), 1000)
+      // getMedia(selected)
     }
   }, [selected])
   async function getDevices() {
