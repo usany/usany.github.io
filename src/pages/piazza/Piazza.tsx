@@ -20,12 +20,12 @@ function Piazza({ userObj }: Props) {
   const [messagesList, setMessagesList] = useState<[]>([]);
   const dispatch = useDispatch()
   const { state } = useLocation()
-  const [multiple, setMultiple] = useState(true)
+  // const [multiple, setMultiple] = useState(true)
   const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
   const [chattingUser, setChattingUser] = useState(null)
   // const conversation = state?.conversation || 'piazza'
-  const conversation = location.search.slice(4)
-  console.log(state)
+  const conversation = location.search.slice(location.search.indexOf('=') + 1)
+  console.log(conversation)
   useEffect(() => {
     const bringChattingUser = async () => {
       if (state?.chattingUid) {
@@ -61,11 +61,11 @@ function Piazza({ userObj }: Props) {
     };
   }, [isKeyboardOpen]);
 
-  useEffect(() => {
-    if (state?.multiple !== undefined) {
-      setMultiple(state?.multiple)
-    }
-  }, [])
+  // useEffect(() => {
+  //   if (state?.multiple !== undefined) {
+  //     setMultiple(state?.multiple)
+  //   }
+  // }, [])
   // const { keyBoardOffset, windowHeight } = useKeyboardOffset();
   // console.log(keyBoardOffset, windowHeight);
   // For the rare legacy browsers that don't support it
