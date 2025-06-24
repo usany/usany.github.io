@@ -229,7 +229,7 @@ function PiazzaCalls() {
           autoPlay
         ></video>
         <video
-          // id="myScreen"
+          id="myScreen"
           ref={myRef}
           width="320"
           height="240"

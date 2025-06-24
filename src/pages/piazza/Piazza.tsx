@@ -115,7 +115,10 @@ function Piazza({ userObj }: Props) {
               <PiazzaCalls />
             </div>
             <MorphingDialogClose>
-              <div>전화 종료</div>
+              <div onClick={() => {
+                document.getElementById('myScreen')?.srcObject.getTracks()
+                  .forEach(track => track.stop())
+              }}>전화 종료</div>
             </MorphingDialogClose>
           </div>
         </MorphingDialogContainer>
