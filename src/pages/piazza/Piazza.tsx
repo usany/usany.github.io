@@ -46,7 +46,7 @@ function Piazza({ userObj }: Props) {
     if (conversation) {
       bringChattingUser()
     }
-  }, [conversation])
+  }, [conversation, chatUid])
   const piazzaForm = useSelector((state) => state.piazzaForm.value)
   useEffect(() => {
     const listener = () => {
