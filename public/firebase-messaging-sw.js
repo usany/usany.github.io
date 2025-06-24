@@ -1,17 +1,20 @@
+// import staticImg from 'src/assets/umbrella512.png';
 import { addDoc, collection, doc, getDoc, updateDoc } from 'firebase/firestore';
-import staticImg from 'src/assets/umbrella512.png';
 import { dbservice } from 'src/baseApi/serverbase';
-const formConversation = async (data) => {
-  const message = messages
+const formConversation = async (notification) => {
+  const message = notification.body
   try {
-    const userUid = userObj.uid
-    const userName = userObj.displayName
+    const userUid = notification.data.sendingUid
+    const userName = notification.data.sendingDisplayName
+    const chattingUid = notification.data.receivingUid
+    const chattingName = notification.data.receivingDisplayName
     const messageClockNumber = Date.now()
     const messageClock = new Date().toString()
-    const profileImageUrl = profile.profileImageUrl
-    const otherProfileUrl = chattingUser.profileImageUrl
-    const defaultProfile = profile.defaultProfile
-    const otherDefaultProfile = chattingUser.defaultProfile
+    const profileImageUrl = notification.icon
+    const otherProfileUrl = notification.icon
+    const defaultProfile = notification.icon
+    const otherDefaultProfile = notification.icon
+    const conversation = notification.tag
     let userOne
     let userTwo
     let userOneDisplayName
@@ -22,28 +25,28 @@ const formConversation = async (data) => {
     let userTwoDefaultProfile
     let userOneProfileImage
     let userTwoProfileImage
-    if (userObj.uid < chattingUser.uid) {
-      userOne = userObj.uid
-      userTwo = chattingUser.uid
-      userOneDisplayName = userObj.displayName
-      userTwoDisplayName = chattingUser.displayName
+    if (userUid < chattingUid) {
+      userOne = userUid
+      userTwo = chattingUid
+      userOneDisplayName = userName
+      userTwoDisplayName = chattingName
       userOneProfileUrl = profileImageUrl
       userTwoProfileUrl = otherProfileUrl
       userOneDefaultProfile = defaultProfile
       userTwoDefaultProfile = otherDefaultProfile
-      userOneProfileImage = profile.profileImage
-      userTwoProfileImage = chattingUser.profileImage
+      userOneProfileImage = true
+      userTwoProfileImage = false
     } else {
-      userOne = chattingUser.uid
-      userTwo = userObj.uid
-      userOneDisplayName = chattingUser.displayName
-      userTwoDisplayName = userObj.displayName
+      userOne = chattingUid
+      userTwo = userUid
+      userOneDisplayName = chattingName
+      userTwoDisplayName = userName
       userOneProfileUrl = otherProfileUrl
       userTwoProfileUrl = profileImageUrl
       userOneDefaultProfile = otherDefaultProfile
       userTwoDefaultProfile = defaultProfile
-      userOneProfileImage = chattingUser.profileImage
-      userTwoProfileImage = profile.profileImage
+      userOneProfileImage = false
+      userTwoProfileImage = true
     }
     if (!userOneProfileUrl) {
       const userRef = doc(dbservice, `members/${userOne}`)
@@ -80,7 +83,7 @@ const formConversation = async (data) => {
       const myDocRef = doc(dbservice, `members/${userUid}`)
       const myDocSnap = await getDoc(myDocRef)
       const myChattings = myDocSnap.data().chattings || {}
-      const userDocRef = doc(dbservice, `members/${chattingUser.uid}`)
+      const userDocRef = doc(dbservice, `members/${chattingUid}`)
       const userDocSnap = await getDoc(userDocRef)
       const userChattings = userDocSnap.data().chattings || {}
       const userChattingsNumber = userChattings[conversation]?.messageCount || 0
@@ -93,6 +96,7 @@ const formConversation = async (data) => {
         chattings: userChattings
       })
     }
+    console.log(notification)
   } catch (error) {
     console.log(error)
   }
@@ -103,7 +107,7 @@ self.addEventListener('push', event => {
   const options = {
     body: String(event.data.json().notification.body),
     icon: event.data.json().data.body,
-    badge: staticImg,
+    badge: '../src/assets/umbrella512.png',
     actions: [
       {
         action: 'reply',
@@ -136,8 +140,13 @@ self.addEventListener('notificationclick', (event) => {
   console.log(event)
   if (event.action === 'reply') {
     if (event.reply) {
-      console.log('reply')
-      formConversation(event.notification.data)
+      const reply = event.reply;
+      const replying = () => {
+        console.log(reply)
+      }
+      console.log('replys')
+      replying()
+      formConversation(event.notification)
     } else {
       clients.openWindow(`/piazza?id=${event.notification.tag}`);
     }
