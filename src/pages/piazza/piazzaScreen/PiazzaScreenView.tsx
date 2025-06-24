@@ -11,7 +11,6 @@ import {
   updateDoc,
 } from 'firebase/firestore'
 import { useEffect, useRef, useState } from 'react'
-import { useLocation } from 'react-router-dom'
 import { dbservice } from 'src/baseApi/serverbase'
 import { useSelectors } from 'src/hooks/useSelectors'
 import Avatars from 'src/pages/core/Avatars'
@@ -30,6 +29,8 @@ function PiazzaScreenView({
   userObj,
   messagesList,
   handleMessagesList,
+  handleChatUid,
+  handleChatDisplayName
 }: Props) {
   const messagesEndRef = useRef(null)
   const boxRef = useRef(null)
@@ -41,7 +42,7 @@ function PiazzaScreenView({
   const [currentConversation, setCurrentConversation] = useState('piazza')
   // const profileColor = useSelector((state) => state.profileColor.value)
   // const profileUrl = useSelector((state) => state.profileUrl.value)
-  const { state } = useLocation()
+  // const { state } = useLocation()
   const conversation = location.search ? location.search.slice(location.search.indexOf('=') + 1) : 'piazza'
   useEffect(() => {
     if (currentConversation !== conversation) {
@@ -222,6 +223,10 @@ function PiazzaScreenView({
         const defaultProfile = document.data()?.defaultProfile
         const profileImage = document.data()?.profileImage
         const piazzaData = document.data()
+        if (userUid !== userObj.uid) {
+          handleChatUid(userUid)
+          handleChatDisplayName(userName)
+        }
         messagesArray.push({
           msg: message,
           // type: 'me',
@@ -237,7 +242,6 @@ function PiazzaScreenView({
           ...piazzaData,
         })
       })
-      messagesArray.reverse()
       handleMessagesList([...messagesArray, ...messagesList])
       setIsLoading(false)
     }

@@ -20,24 +20,32 @@ function Piazza({ userObj }: Props) {
   const [messagesList, setMessagesList] = useState<[]>([]);
   const dispatch = useDispatch()
   const { state } = useLocation()
-  // const [multiple, setMultiple] = useState(true)
   const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
   const [chattingUser, setChattingUser] = useState(null)
+  const [chatUid, setChatUid] = useState('')
+  const [chatDisplayName, setChatDisplayName] = useState('')
+  const handleChatUid = (newValue) => {
+    setChatUid(newValue)
+  }
+  const handleChatDisplayName = (newValue) => {
+    setChatDisplayName(newValue)
+  }
+  // const [multiple, setMultiple] = useState(true)
   // const conversation = state?.conversation || 'piazza'
   const conversation = location.search.slice(location.search.indexOf('=') + 1)
   console.log(conversation)
   useEffect(() => {
     const bringChattingUser = async () => {
-      if (state?.chattingUid) {
-        const toUserRef = doc(dbservice, `members/${state.chattingUid}`)
+      if (chatUid) {
+        const toUserRef = doc(dbservice, `members/${chatUid}`)
         const toUser = await getDoc(toUserRef)
         setChattingUser(toUser.data())
       }
     }
-    if (!state?.multiple) {
+    if (conversation) {
       bringChattingUser()
     }
-  }, [state])
+  }, [conversation])
   const piazzaForm = useSelector((state) => state.piazzaForm.value)
   useEffect(() => {
     const listener = () => {
@@ -87,11 +95,14 @@ function Piazza({ userObj }: Props) {
   useEffect(() => {
     dispatch(changeBottomNavigation(5))
   })
-  const displayName = state?.displayName
+  // const displayName = state?.displayName
   return (
     <>
-      {!isKeyboardOpen && <PiazzaTitle multiple={!conversation} displayName={displayName} />}
-      <PiazzaScreen isKeyboardOpen={piazzaForm} userObj={userObj} messagesList={messagesList} handleMessagesList={(newValue) => setMessagesList(newValue)} />
+      {!isKeyboardOpen && <PiazzaTitle multiple={!conversation} displayName={chatDisplayName} />}
+      <PiazzaScreen isKeyboardOpen={piazzaForm} userObj={userObj} messagesList={messagesList} handleMessagesList={(newValue) => setMessagesList(newValue)}
+        handleChatUid={handleChatUid}
+        handleChatDisplayName={handleChatDisplayName}
+      />
       {/* {calls && <PiazzaCalls />} */}
       <PiazzaForm chattingUser={chattingUser} userObj={userObj} multiple={!conversation} messages={messages} handleMessages={(newValue) => setMessages(newValue)} messagesList={messagesList} handleMessagesList={(newValue) => setMessagesList(newValue)} />
       <MorphingDialog>

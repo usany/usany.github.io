@@ -2,9 +2,8 @@ import { Card, CardContent } from "@mui/material";
 import { User } from "firebase/auth";
 import { addDoc, collection, doc, getDoc, updateDoc } from 'firebase/firestore';
 import { AlarmCheck, PlusCircle, UserRound } from "lucide-react";
-import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { dbservice } from 'src/baseApi/serverbase';
 import { DrawerClose } from "src/components/ui/drawer";
 import { useSelectors } from "src/hooks/useSelectors";
@@ -40,11 +39,10 @@ function PiazzaForm({ chattingUser, userObj, multiple, messages, handleMessages,
   const piazzaForm = useSelector((state) => state.piazzaForm.value)
   const profile = useSelectors(state => state.profile.value)
   const dispatch = useDispatch()
-  const { state } = useLocation()
-  const conversation = state?.conversation
+  // const { state } = useLocation()
+  const conversation = location.search ? location.search.slice(location.search.indexOf('=') + 1) : 'piazza'
   const languages = useSelectors((state) => state.languages.value)
   const index = (languages === 'ko' || languages === 'en') ? languages : 'ko'
-  const [calls, setCalls] = useState(false)
   const onSendSubmitHandler = async (event) => {
     event.preventDefault();
     const message = messages
@@ -279,70 +277,7 @@ function PiazzaForm({ chattingUser, userObj, multiple, messages, handleMessages,
       console.log(error)
     }
   }
-  useEffect(() => {
-    if (calls) {
-      const muteButton = document.getElementById('mute')
-      const streamButton = document.getElementById('stream')
-      const videoSelect = document.getElementById('videoInput')
-      let muted = false
-      let streamOff = false
-      function handleMuteClick() {
-        promise.getAudioTracks().forEach(track => track.enabled = !track.enabled)
-        console.log(promise.getAudioTracks())
-        if (!muted) {
-          muteButton.innerText = 'unmute'
-          muted = true
-        } else {
-          muteButton.innerText = 'mute'
-          muted = false
-        }
-      }
-      function handleStreamClick() {
-        promise.getVideoTracks().forEach(track => track.enabled = !track.enabled)
-        console.log(promise.getVideoTracks())
-        if (!streamOff) {
-          streamButton.innerText = 'turn stream on'
-          streamOff = true
-        } else {
-          streamButton.innerText = 'turn stream off'
-          streamOff = false
-        }
-      }
-      const myFace = document.getElementById('myFace')
-      let promise
-      async function getMedia() {
-        try {
-          const constraints = {
-            video: true,
-            audio: true,
-          }
-          promise = await navigator.mediaDevices.getUserMedia(constraints);
-          promise.getVideoTracks().forEach(track => track.enabled = !track.enabled)
-          promise.getAudioTracks().forEach(track => track.enabled = !track.enabled)
-          // myFace.srcObject = promise
-          getDevices()
-        } catch (error) {
-          console.log(error)
-        }
-      }
-      getMedia()
-      async function getDevices() {
-        try {
-          const devices = await navigator.mediaDevices.enumerateDevices()
-          const videoDevices = devices.filter((device) => device.kind === 'videoinput')
-          videoDevices.forEach((device) => {
-            const option = document.createElement('option')
-            option.value = device.deviceId
-            option.innerText = device.label
-            videoSelect?.appendChild(option)
-          })
-          console.log(videoDevices)
-        } catch (error) {
-          console.log(error)
-        }
-      }
-    }
-  })
+
   return (
     <>
       <form className={`fixed w-screen ${piazzaForm ? 'bottom-0' : 'bottom-[60px]'} flex gap-px`} onSubmit={onSendSubmitHandler}>
@@ -352,7 +287,7 @@ function PiazzaForm({ chattingUser, userObj, multiple, messages, handleMessages,
             title={<div>전화 선택</div>}
             content={<div className='flex justify-center gap-5 p-5'>
               <Link to={`/piazza?id=${conversation}?calls=video`}
-                state={state}
+              // state={state}
               >
                 <DrawerClose>
                   <Card
@@ -380,7 +315,7 @@ function PiazzaForm({ chattingUser, userObj, multiple, messages, handleMessages,
                 </MorphingDialogContainer>
               </MorphingDialog> */}
               <Link to={`/piazza?id=${conversation}?calls=audio`}
-                state={state}
+              // state={state}
               >
                 <DrawerClose>
                   <Card
