@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react';
 import { useSelectors } from 'src/hooks/useSelectors';
 import Avatars from 'src/pages/core/Avatars';
 
-const PiazzaDialogsContent = ({ initiateContinuing, multiple, handleMultiple, user, userObj, handleMessagesList, displayedName, }) => {
+const PiazzaDialogsContent = ({ initiateContinuing, user, userObj, handleMessagesList, displayedName, }) => {
   const { state } = useLocation()
   const conversation = state?.conversation || 'piazza'
   const languages = useSelectors((state) => state.languages.value)
@@ -67,7 +67,7 @@ const PiazzaDialogsContent = ({ initiateContinuing, multiple, handleMultiple, us
               <Button variant='outlined' onClick={() => {
                 handleMessagesList([])
                 // handleChangeMessage(true)
-                handleMultiple(false)
+                // handleMultiple(false)
                 initiateContinuing()
                 // handleClose()
               }}>

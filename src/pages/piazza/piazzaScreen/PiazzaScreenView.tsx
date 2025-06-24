@@ -22,16 +22,12 @@ import PiazzaDialogsContent from './piazzaDialogs/PiazzaDialogsContent'
 
 interface Props {
   userObj: User
-  handleMultiple: (newValue: boolean) => void
   messagesList: []
   handleMessagesList: (newValue: []) => void
-  multiple: boolean
 }
 
 function PiazzaScreenView({
   userObj,
-  multiple,
-  handleMultiple,
   messagesList,
   handleMessagesList,
 }: Props) {
@@ -46,7 +42,7 @@ function PiazzaScreenView({
   // const profileColor = useSelector((state) => state.profileColor.value)
   // const profileUrl = useSelector((state) => state.profileUrl.value)
   const { state } = useLocation()
-  const conversation = state?.conversation || 'piazza'
+  const conversation = location.search ? location.search : 'piazza'
   useEffect(() => {
     if (currentConversation !== conversation) {
       handleMessagesList([])
@@ -158,7 +154,7 @@ function PiazzaScreenView({
     scrollToBottom()
 
     const checkMessage = async () => {
-      if (multiple) {
+      if (conversation === 'piazza') {
         const piazzaRef = collection(dbservice, 'chats_group')
         const piazzaCollection = query(
           piazzaRef,
@@ -436,8 +432,6 @@ function PiazzaScreenView({
                             content={
                               <PiazzaDialogsContent
                                 initiateContinuing={() => setContinuing(null)}
-                                multiple={multiple}
-                                handleMultiple={handleMultiple}
                                 user={user}
                                 userObj={userObj}
                                 handleMessagesList={handleMessagesList}
@@ -490,8 +484,6 @@ function PiazzaScreenView({
                             content={
                               <PiazzaDialogsContent
                                 initiateContinuing={() => setContinuing(null)}
-                                multiple={multiple}
-                                handleMultiple={handleMultiple}
                                 user={user}
                                 userObj={userObj}
                                 handleMessagesList={handleMessagesList}

@@ -24,7 +24,8 @@ function Piazza({ userObj }: Props) {
   const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
   const [chattingUser, setChattingUser] = useState(null)
   // const conversation = state?.conversation || 'piazza'
-  // console.log(state)
+  const conversation = location.search.slice(4)
+  console.log(state)
   useEffect(() => {
     const bringChattingUser = async () => {
       if (state?.chattingUid) {
@@ -89,10 +90,10 @@ function Piazza({ userObj }: Props) {
   const displayName = state?.displayName
   return (
     <>
-      {!isKeyboardOpen && <PiazzaTitle multiple={multiple} displayName={displayName} />}
-      <PiazzaScreen isKeyboardOpen={piazzaForm} userObj={userObj} multiple={multiple} handleMultiple={(newValue) => setMultiple(newValue)} messagesList={messagesList} handleMessagesList={(newValue) => setMessagesList(newValue)} />
+      {!isKeyboardOpen && <PiazzaTitle multiple={!conversation} displayName={displayName} />}
+      <PiazzaScreen isKeyboardOpen={piazzaForm} userObj={userObj} multiple={!conversation} handleMultiple={(newValue) => setMultiple(newValue)} messagesList={messagesList} handleMessagesList={(newValue) => setMessagesList(newValue)} />
       {/* {calls && <PiazzaCalls />} */}
-      <PiazzaForm chattingUser={chattingUser} userObj={userObj} multiple={multiple} messages={messages} handleMessages={(newValue) => setMessages(newValue)} messagesList={messagesList} handleMessagesList={(newValue) => setMessagesList(newValue)} />
+      <PiazzaForm chattingUser={chattingUser} userObj={userObj} multiple={!conversation} messages={messages} handleMessages={(newValue) => setMessages(newValue)} messagesList={messagesList} handleMessagesList={(newValue) => setMessagesList(newValue)} />
       <MorphingDialog>
         <MorphingDialogTrigger>
           <div id='calls'></div>
