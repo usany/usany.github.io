@@ -68,7 +68,10 @@ function Piazza({ userObj }: Props) {
       }
     };
   }, [isKeyboardOpen]);
-
+  const stopCalls = () => {
+    document.getElementById('myScreen')?.srcObject.getTracks()
+      .forEach(track => track.stop())
+  }
   // useEffect(() => {
   //   if (state?.multiple !== undefined) {
   //     setMultiple(state?.multiple)
@@ -115,10 +118,7 @@ function Piazza({ userObj }: Props) {
               <PiazzaCalls />
             </div>
             <MorphingDialogClose>
-              <div onClick={() => {
-                document.getElementById('myScreen')?.srcObject.getTracks()
-                  .forEach(track => track.stop())
-              }}>전화 종료</div>
+              <div onClick={stopCalls}>전화 종료</div>
             </MorphingDialogClose>
           </div>
         </MorphingDialogContainer>
