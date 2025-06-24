@@ -91,7 +91,7 @@ function Piazza({ userObj }: Props) {
   return (
     <>
       {!isKeyboardOpen && <PiazzaTitle multiple={!conversation} displayName={displayName} />}
-      <PiazzaScreen isKeyboardOpen={piazzaForm} userObj={userObj} multiple={!conversation} handleMultiple={(newValue) => setMultiple(newValue)} messagesList={messagesList} handleMessagesList={(newValue) => setMessagesList(newValue)} />
+      <PiazzaScreen isKeyboardOpen={piazzaForm} userObj={userObj} messagesList={messagesList} handleMessagesList={(newValue) => setMessagesList(newValue)} />
       {/* {calls && <PiazzaCalls />} */}
       <PiazzaForm chattingUser={chattingUser} userObj={userObj} multiple={!conversation} messages={messages} handleMessages={(newValue) => setMessages(newValue)} messagesList={messagesList} handleMessagesList={(newValue) => setMessagesList(newValue)} />
       <MorphingDialog>

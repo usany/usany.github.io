@@ -4,7 +4,6 @@ import PiazzaScreenView from './PiazzaScreenView'
 interface Props {
   isKeyboardOpen: boolean
   userObj: User
-  handleMultiple: (newValue: boolean) => void
   messagesList: []
   handleMessagesList: (newValue: []) => void
 }
