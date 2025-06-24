@@ -223,10 +223,6 @@ function PiazzaScreenView({
         const defaultProfile = document.data()?.defaultProfile
         const profileImage = document.data()?.profileImage
         const piazzaData = document.data()
-        if (userUid !== userObj.uid) {
-          handleChatUid(userUid)
-          handleChatDisplayName(userName)
-        }
         messagesArray.push({
           msg: message,
           // type: 'me',
@@ -272,6 +268,17 @@ function PiazzaScreenView({
         const defaultProfile = doc.data()?.defaultProfile
         const profileImage = doc.data()?.profileImage
         const piazzaData = doc.data()
+        const userOne = doc.data().userOne
+        const userOneDisplayName = doc.data().userOneDisplayName
+        const userTwo = doc.data().userTwo
+        const userTwoDisplayName = doc.data().userTwoDisplayName
+        if (userOne !== userObj.uid) {
+          handleChatUid(userOne)
+          handleChatDisplayName(userOneDisplayName)
+        } else {
+          handleChatUid(userTwo)
+          handleChatDisplayName(userTwoDisplayName)
+        }
         messagesArray.push({
           msg: message,
           // type: 'me',

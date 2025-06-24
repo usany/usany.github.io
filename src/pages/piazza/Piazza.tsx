@@ -33,7 +33,8 @@ function Piazza({ userObj }: Props) {
   // const [multiple, setMultiple] = useState(true)
   // const conversation = state?.conversation || 'piazza'
   const conversation = location.search.slice(location.search.indexOf('=') + 1)
-  console.log(conversation)
+  console.log(chattingUser)
+  console.log(chatUid)
   useEffect(() => {
     const bringChattingUser = async () => {
       if (chatUid) {
