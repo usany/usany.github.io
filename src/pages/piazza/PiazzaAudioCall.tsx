@@ -250,7 +250,7 @@ function PiazzaAudioCall() {
             stop
           </Button>
         </div>
-        <select id="devices" onChange={handleDeviceChange}>
+        {/* <select id="devices" onChange={handleDeviceChange}>
           {options.map((value, index) => {
             return (
               <option key={index} value={value.deviceId} selected={stream?.getVideoTracks()[0].id === value.deviceId}>
@@ -258,7 +258,7 @@ function PiazzaAudioCall() {
               </option>
             )
           })}
-        </select>
+        </select> */}
       </div>
       {errorMessage && <div>{errorMessage}</div>}
     </div >
