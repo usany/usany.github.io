@@ -48,7 +48,7 @@ const AuthForm = ({ signIn, agreed }) => {
         )
         const docsRef = query(collection(dbservice, 'members'))
         const docs = await getDocs(docsRef)
-        // const docsLength = docs.docs.length
+        const docsLength = docs.docs.length
         // await setDoc(doc(dbservice, 'members', `${data.user.uid}`), {
         //   uid: data.user.uid,
         //   displayName: data.user.email,
@@ -67,7 +67,7 @@ const AuthForm = ({ signIn, agreed }) => {
         //   locationConfirmed: false,
         //   defaultProfile: '',
         // })
-        setDocUser({ uid: data.user.uid, email: data.user.email })
+        setDocUser({ uid: data.user.uid, email: data.user.email, ranking: docsLength })
         await updateProfile(data.user, {
           displayName: data.user.email,
         }).catch((error) => {
@@ -77,14 +77,14 @@ const AuthForm = ({ signIn, agreed }) => {
         const storageRef = ref(storage, data.user.uid)
         uploadString(storageRef, 'null', 'raw').then((snapshot) => {
           console.log('Uploaded a blob or file!')
+          getDownloadURL(storageRef)
+            .then(async (url) => {
+              await updateDoc(user, { profileImageUrl: url })
+            })
+            .catch((error) => {
+              console.log(error)
+            })
         })
-        getDownloadURL(storageRef)
-          .then(async (url) => {
-            await updateDoc(user, { profileImageUrl: url })
-          })
-          .catch((error) => {
-            console.log(error)
-          })
         let profileImage
         let profileColor
         const profileImageNumber = Math.random()
