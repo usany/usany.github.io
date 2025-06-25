@@ -102,37 +102,57 @@
 // }
 
 self.addEventListener('push', event => {
-  console.log(event.data.json().data)
-  const options = {
-    body: String(event.data.json().notification.body),
-    icon: event.data.json().data.body,
-    badge: '../src/assets/umbrella512.png',
-    actions: [
-      {
-        action: 'reply',
-        type: 'text',
-        title: 'send',
-        placeholder: 'reply',
-      },
-      {
-        action: 'no',
-        type: 'button',
-        title: 'close',
-      }
-    ],
-    data: event.data.json().data,
-    // tag: 'renotify',
-    tag: event.data.json().data.title,
-    renotify: true,
-    requireInteraction: true,
-    vibrate: [
-      500, 110, 500, 110, 450, 110, 200, 110, 170, 40, 450, 110, 200, 110, 170,
-      40, 500,
-    ],
-  };
-  event.waitUntil(
-    self.registration.showNotification(event.data.json().notification.title, options)
-  );
+  console.log(event.data.json().notification)
+  const notificationType = event.data.json().data.type
+  if (notificationType === 'piazza') {
+    const options = {
+      body: String(event.data.json().notification.body),
+      icon: event.data.json().data.body,
+      badge: '../src/assets/umbrella512.png',
+      actions: [
+        {
+          action: 'reply',
+          type: 'text',
+          title: 'send',
+          placeholder: 'reply',
+        },
+        {
+          action: 'no',
+          type: 'button',
+          title: 'close',
+        }
+      ],
+      data: event.data.json().data,
+      tag: event.data.json().data.title,
+      renotify: true,
+      requireInteraction: true,
+      vibrate: [
+        500, 110, 500, 110, 450, 110, 200, 110, 170, 40, 450, 110, 200, 110, 170,
+        40, 500,
+      ],
+    };
+    event.waitUntil(
+      self.registration.showNotification(event.data.json().notification.title, options)
+    );
+  } else if (notificationType === 'card') {
+    const options = {
+      body: String(event.data.json().notification.body),
+      icon: event.data.json().data.body,
+      badge: '../src/assets/umbrella512.png',
+      data: event.data.json().data,
+      // tag: event.data.json().data.title,
+      tag: 'renotify',
+      renotify: true,
+      requireInteraction: true,
+      vibrate: [
+        500, 110, 500, 110, 450, 110, 200, 110, 170, 40, 450, 110, 200, 110, 170,
+        40, 500,
+      ],
+    };
+    event.waitUntil(
+      self.registration.showNotification(event.data.json().notification.title, options)
+    );
+  }
 });
 self.addEventListener('notificationclick', (event) => {
   // clients.openWindow("https://jameshfisher.com/");
