@@ -400,27 +400,23 @@ function PiazzaForm({ chattingUser, userObj, multiple, messages, handleMessages,
             trigger={<div className='flex items-center px-1 h-full rounded bg-light-2 dark:bg-dark-2'><PlusCircle /></div>}
             title={<div>전화 선택</div>}
             content={<div className='flex justify-center gap-5 p-5'>
-              <Link to={`/piazza?id=${conversation}?calls=video`}
-              // state={state}
-              >
-                <DrawerClose>
-                  <Card
-                    className='colorOne'
-                    sx={{
-                      height: '100%'
-                    }}
-                  >
-                    <CardContent>
-                      <div className='flex flex-col items-center gap-5' onClick={() => {
-                        document.getElementById('calls')?.click()
-                      }}>
-                        <UserRound />
-                        <div>화상 전화</div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </DrawerClose>
-              </Link>
+              <DrawerClose>
+                <Card
+                  className='colorOne'
+                  sx={{
+                    height: '100%'
+                  }}
+                >
+                  <CardContent>
+                    <div className='flex flex-col items-center gap-5' onClick={() => {
+                      document.getElementById('calls')?.click()
+                    }}>
+                      <UserRound />
+                      <div>화상 전화</div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </DrawerClose>
               {/* <MorphingDialog>
                 <MorphingDialogTrigger>
                 </MorphingDialogTrigger>
