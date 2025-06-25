@@ -45,7 +45,7 @@ function PiazzaScreenView({
   // const { state } = useLocation()
   const conversation = location.search ? location.search.slice(location.search.indexOf('=') + 1) : 'piazza'
   useEffect(() => {
-    if (currentConversation !== conversation) {
+    if (currentConversation !== conversation || conversation === 'piazza') {
       handleMessagesList([])
       setContinuing(null)
       setContinueNumber(0)
@@ -196,6 +196,7 @@ function PiazzaScreenView({
   }
   useEffect(() => {
     const messageList = async () => {
+      console.log('practice')
       const messagesArray = []
       const messageRef = collection(dbservice, 'chats_group')
       const messagesCollection = query(
@@ -238,6 +239,7 @@ function PiazzaScreenView({
           ...piazzaData,
         })
       })
+      messagesArray.reverse()
       handleMessagesList([...messagesArray, ...messagesList])
       setIsLoading(false)
     }
@@ -298,8 +300,10 @@ function PiazzaScreenView({
       handleMessagesList([...messagesArray, ...messagesList])
       setIsLoading(false)
     }
+    console.log(messagesList.length)
     if (conversation === 'piazza') {
       if (isLoading || !messagesList.length) {
+        console.log('practices')
         messageList()
       }
     } else {
@@ -307,7 +311,7 @@ function PiazzaScreenView({
         messageListMembers(conversation)
       }
     }
-  }, [isLoading, conversation])
+  }, [isLoading, currentConversation])
   const handleScroll = () => {
     if (
       // boxRef.current.getBoundingClientRect().height + Math.round(boxRef.current.scrollTop) !==
