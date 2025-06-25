@@ -3,7 +3,6 @@ import { User } from "firebase/auth";
 import { addDoc, collection, doc, getDoc, updateDoc } from 'firebase/firestore';
 import { AlarmCheck, PlusCircle, UserRound } from "lucide-react";
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { dbservice } from 'src/baseApi/serverbase';
 import { DrawerClose } from "src/components/ui/drawer";
 import { useSelectors } from "src/hooks/useSelectors";
@@ -417,32 +416,21 @@ function PiazzaForm({ chattingUser, userObj, multiple, messages, handleMessages,
                   </CardContent>
                 </Card>
               </DrawerClose>
-              {/* <MorphingDialog>
-                <MorphingDialogTrigger>
-                </MorphingDialogTrigger>
-                <MorphingDialogContainer>
-                  <PiazzaCalls />
-                </MorphingDialogContainer>
-              </MorphingDialog> */}
-              <Link to={`/piazza?id=${conversation}?calls=audio`}
-              // state={state}
-              >
-                <DrawerClose>
-                  <Card
-                    className='colorOne'
-                    sx={{
-                      height: '100%'
-                    }}
-                  >
-                    <CardContent>
-                      <div className='flex flex-col items-center gap-5'>
-                        <AlarmCheck />
-                        <div>음성 전화</div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </DrawerClose>
-              </Link>
+              <DrawerClose>
+                <Card
+                  className='colorOne'
+                  sx={{
+                    height: '100%'
+                  }}
+                >
+                  <CardContent>
+                    <div className='flex flex-col items-center gap-5'>
+                      <AlarmCheck />
+                      <div>음성 전화</div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </DrawerClose>
             </div>}
           />
         }
