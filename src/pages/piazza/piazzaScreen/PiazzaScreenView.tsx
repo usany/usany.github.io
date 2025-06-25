@@ -196,7 +196,6 @@ function PiazzaScreenView({
   }
   useEffect(() => {
     const messageList = async () => {
-      console.log('practice')
       const messagesArray = []
       const messageRef = collection(dbservice, 'chats_group')
       const messagesCollection = query(
@@ -303,7 +302,6 @@ function PiazzaScreenView({
     console.log(messagesList.length)
     if (conversation === 'piazza') {
       if (isLoading || !messagesList.length) {
-        console.log('practices')
         messageList()
       }
     } else {
