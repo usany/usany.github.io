@@ -2,6 +2,7 @@ import { User } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
+import { useLocation } from "react-router-dom";
 import { dbservice } from "src/baseApi/serverbase";
 import { MorphingDialog, MorphingDialogClose, MorphingDialogContainer, MorphingDialogTrigger } from "src/components/ui/morphing-dialog";
 import PiazzaForm from 'src/pages/piazza/piazzaForm/PiazzaForm';
@@ -18,7 +19,7 @@ function Piazza({ userObj }: Props) {
   const [messages, setMessages] = useState("");
   const [messagesList, setMessagesList] = useState<[]>([]);
   const dispatch = useDispatch()
-  // const { state } = useLocation()
+  const { state } = useLocation()
   const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
   const [chattingUser, setChattingUser] = useState(null)
   const [chatUid, setChatUid] = useState('')
@@ -32,8 +33,14 @@ function Piazza({ userObj }: Props) {
   // const [multiple, setMultiple] = useState(true)
   // const conversation = state?.conversation || 'piazza'
   const conversation = location.search.slice(location.search.indexOf('=') + 1)
-  // console.log(chattingUser)
-  // console.log(chatUid)
+  console.log(chattingUser)
+  console.log(chatUid)
+  useEffect(() => {
+    if (state) {
+      setChatUid(state.chattingUid)
+      setChatDisplayName(state.displayName)
+    }
+  }, [conversation])
   useEffect(() => {
     const bringChattingUser = async () => {
       if (chatUid) {

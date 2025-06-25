@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react';
 import { useSelectors } from 'src/hooks/useSelectors';
 import Avatars from 'src/pages/core/Avatars';
 
-const PiazzaDialogsContent = ({ initiateContinuing, user, userObj, handleMessagesList, displayedName, }) => {
+const PiazzaDialogsContent = ({ initiateContinuing, user, userObj, handleMessagesList, displayedName, handleChatUid, handleChatDisplayName }) => {
   const { state } = useLocation()
   const conversation = state?.conversation || 'piazza'
   const languages = useSelectors((state) => state.languages.value)
@@ -22,8 +22,8 @@ const PiazzaDialogsContent = ({ initiateContinuing, user, userObj, handleMessage
         setNewConversation(userObj.uid[0] + userObj.uid[1] + userObj.uid[2] + userObj.uid[3] + userObj.uid[4] + userObj.uid[5] + user?.uid[0] + user?.uid[1] + user?.uid[2] + user?.uid[3] + user?.uid[4] + user?.uid[5])
       }
     }
-  }, [user])
 
+  }, [user])
   return (
     <div>
       <div className='flex flex-col items-center pt-5'>

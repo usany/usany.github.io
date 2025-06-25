@@ -499,6 +499,8 @@ function PiazzaScreenView({
                                 userObj={userObj}
                                 handleMessagesList={handleMessagesList}
                                 displayedName={displayedName}
+                                handleChatUid={handleChatUid}
+                                handleChatDisplayName={handleChatDisplayName}
                               />
                             }
                           />
