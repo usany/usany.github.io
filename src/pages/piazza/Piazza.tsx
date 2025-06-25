@@ -39,6 +39,9 @@ function Piazza({ userObj }: Props) {
     if (state) {
       setChatUid(state.chattingUid)
       setChatDisplayName(state.displayName)
+    } else {
+      setChatUid('')
+      setChatDisplayName('')
     }
   }, [conversation])
   useEffect(() => {
