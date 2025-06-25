@@ -9,6 +9,7 @@ import PiazzaForm from 'src/pages/piazza/piazzaForm/PiazzaForm';
 import PiazzaScreen from 'src/pages/piazza/piazzaScreen/PiazzaScreen';
 import PiazzaTitle from 'src/pages/piazza/piazzaTitle/PiazzaTitle';
 import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice';
+import PiazzaAudioCall from "./PiazzaAudioCall";
 import PiazzaCalls from "./PiazzaCalls";
 // import { useKeyboardOffset } from 'virtual-keyboard-offset';
 
@@ -24,6 +25,7 @@ function Piazza({ userObj }: Props) {
   const [chattingUser, setChattingUser] = useState(null)
   const [chatUid, setChatUid] = useState('')
   const [chatDisplayName, setChatDisplayName] = useState('')
+  const [calls, setCalls] = useState('')
   const handleChatUid = (newValue) => {
     setChatUid(newValue)
   }
@@ -79,6 +81,7 @@ function Piazza({ userObj }: Props) {
     };
   }, [isKeyboardOpen]);
   const stopCalls = () => {
+    setCalls('')
     document.getElementById('myScreen')?.srcObject.getTracks()
       .forEach(track => track.stop())
   }
@@ -120,12 +123,27 @@ function Piazza({ userObj }: Props) {
       <PiazzaForm chattingUser={chattingUser} userObj={userObj} multiple={!conversation} messages={messages} handleMessages={(newValue) => setMessages(newValue)} messagesList={messagesList} handleMessagesList={(newValue) => setMessagesList(newValue)} />
       <MorphingDialog>
         <MorphingDialogTrigger>
-          <div id='calls'></div>
+          <div id='videoCall'></div>
         </MorphingDialogTrigger>
         <MorphingDialogContainer>
           <div>
             <div className='flex gap-5'>
               <PiazzaCalls />
+            </div>
+            <MorphingDialogClose>
+              <div onClick={stopCalls}>전화 종료</div>
+            </MorphingDialogClose>
+          </div>
+        </MorphingDialogContainer>
+      </MorphingDialog>
+      <MorphingDialog>
+        <MorphingDialogTrigger>
+          <div id='audioCall'></div>
+        </MorphingDialogTrigger>
+        <MorphingDialogContainer>
+          <div>
+            <div className='flex gap-5'>
+              <PiazzaAudioCall />
             </div>
             <MorphingDialogClose>
               <div onClick={stopCalls}>전화 종료</div>

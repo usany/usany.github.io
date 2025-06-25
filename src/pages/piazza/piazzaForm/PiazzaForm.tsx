@@ -408,7 +408,7 @@ function PiazzaForm({ chattingUser, userObj, multiple, messages, handleMessages,
                 >
                   <CardContent>
                     <div className='flex flex-col items-center gap-5' onClick={() => {
-                      document.getElementById('calls')?.click()
+                      document.getElementById('videoCall')?.click()
                     }}>
                       <UserRound />
                       <div>화상 전화</div>
@@ -424,7 +424,9 @@ function PiazzaForm({ chattingUser, userObj, multiple, messages, handleMessages,
                   }}
                 >
                   <CardContent>
-                    <div className='flex flex-col items-center gap-5'>
+                    <div className='flex flex-col items-center gap-5' onClick={() => {
+                      document.getElementById('audioCall')?.click()
+                    }}>
                       <AlarmCheck />
                       <div>음성 전화</div>
                     </div>
