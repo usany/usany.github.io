@@ -138,7 +138,7 @@ self.addEventListener('push', event => {
     const options = {
       body: String(event.data.json().notification.body),
       icon: event.data.json().data.body,
-      badge: '../src/assets/umbrella512.png',
+      badge: event.data.json().data.body,
       data: event.data.json().data,
       // tag: event.data.json().data.title,
       tag: 'renotify',
