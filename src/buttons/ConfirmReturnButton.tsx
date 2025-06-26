@@ -20,7 +20,7 @@ interface Props {
   displayName: string
   increaseRound: () => void
 }
-const onConfirmReturn = async ({ num, points, message, uid, displayName }) => {
+const onConfirmReturn = async ({ num, points, message, uid, displayName, profileUrl }) => {
   const { data, messagingToken } = await specificProcess({ message: message })
   updateDoc(data, { round: 5 })
   const point = doc(dbservice, `members/${message.creatorId}`)
@@ -67,6 +67,7 @@ const onConfirmReturn = async ({ num, points, message, uid, displayName }) => {
     creatorName: message.displayName,
     connectedId: uid,
     connectedName: displayName,
+    connectedUrl: profileUrl
   }
   updateDoc(point, {
     done: [...creatorDone, message.id],
@@ -79,6 +80,8 @@ const onConfirmReturn = async ({ num, points, message, uid, displayName }) => {
 }
 const ConfirmReturnButton = ({ num, points, message, uid, displayName, increaseRound }: Props) => {
   const languages = useSelectors((state) => state.languages.value)
+  const profileUrl = useSelectors((state) => state.profileUrl.value)
+
   return (
     <Button
       variant="outlined"
@@ -89,6 +92,7 @@ const ConfirmReturnButton = ({ num, points, message, uid, displayName, increaseR
           message: message,
           uid: uid,
           displayName: displayName,
+          profileUrl: profileUrl
         })
         increaseRound()
       }}

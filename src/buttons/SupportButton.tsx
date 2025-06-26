@@ -1,7 +1,6 @@
 import SendIcon from '@mui/icons-material/Send'
 import Button from '@mui/material/Button'
 import { doc, getDoc, updateDoc } from 'firebase/firestore'
-import { useSelector } from 'react-redux'
 import { dbservice } from 'src/baseApi/serverbase'
 import { useSelectors } from 'src/hooks/useSelectors'
 import { webSocket } from 'src/webSocket.tsx'
@@ -46,7 +45,7 @@ const SupportButton = ({
   changeConnectedUser,
   toggleOnTransfer
 }) => {
-  const profileUrl = useSelector((state) => state.profileUrl.value)
+  const profileUrl = useSelectors((state) => state.profileUrl.value)
   const languages = useSelectors((state) => state.languages.value)
 
   return (

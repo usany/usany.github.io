@@ -5,7 +5,7 @@ import { useSelectors } from 'src/hooks/useSelectors'
 import { webSocket } from 'src/webSocket.tsx'
 import specificProcess from './specificProcess'
 
-const onReturning = async ({ message, uid, displayName }) => {
+const onReturning = async ({ message, uid, displayName, profileUrl }) => {
 
   const { data, messagingToken } = await specificProcess({ message: message })
   const passingObject = {
@@ -16,6 +16,7 @@ const onReturning = async ({ message, uid, displayName }) => {
     creatorName: message.displayName,
     connectedId: uid,
     connectedName: displayName,
+    connectedUrl: profileUrl
   }
   updateDoc(data, { round: 4 })
   webSocket.emit('returning', passingObject)
@@ -23,6 +24,7 @@ const onReturning = async ({ message, uid, displayName }) => {
 
 const ReturningButton = ({ message, uid, displayName, increaseRound }) => {
   const languages = useSelectors((state) => state.languages.value)
+  const profileUrl = useSelectors((state) => state.profileUrl.value)
 
   return (
     <Button
@@ -33,6 +35,7 @@ const ReturningButton = ({ message, uid, displayName, increaseRound }) => {
           message: message,
           uid: uid,
           displayName: displayName,
+          profileUrl: profileUrl
         })
       }}
       startIcon={<SendIcon />}

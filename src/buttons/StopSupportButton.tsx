@@ -6,7 +6,7 @@ import { useSelectors } from 'src/hooks/useSelectors'
 import { webSocket } from 'src/webSocket.tsx'
 import specificProcess from './specificProcess'
 
-const onStopSupporting = async ({ message, uid, displayName }) => {
+const onStopSupporting = async ({ message, uid, displayName, profileUrl }) => {
   const { data, messagingToken } = await specificProcess({ message: message })
   const passingObject = {
     id: message.id,
@@ -16,6 +16,7 @@ const onStopSupporting = async ({ message, uid, displayName }) => {
     creatorName: message.displayName,
     connectedId: uid,
     connectedName: displayName,
+    connectedUrl: profileUrl
   }
   updateDoc(data, {
     round: 1,
@@ -35,6 +36,7 @@ const onStopSupporting = async ({ message, uid, displayName }) => {
 }
 const StopSupportButton = ({ userObj, message, uid, displayName, decreaseRound, changeConnectedUser, toggleOnTransfer }) => {
   const languages = useSelectors((state) => state.languages.value)
+  const profileUrl = useSelectors((state) => state.profileUrl.value)
 
   return (
     <div className="flex justify-center">
@@ -50,6 +52,7 @@ const StopSupportButton = ({ userObj, message, uid, displayName, decreaseRound, 
               message: message,
               uid: uid,
               displayName: displayName,
+              profileUrl: profileUrl
             })
             decreaseRound()
             changeConnectedUser({
