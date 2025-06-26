@@ -7,7 +7,7 @@ import specificProcess from './specificProcess'
 
 const onReturning = async ({ message, uid, displayName, profileUrl }) => {
 
-  const { data, messagingToken } = await specificProcess({ message: message })
+  const { data, messagingToken } = await specificProcess({ message: message, toCreator: message.text.choose === 1 ? false : true })
   const passingObject = {
     id: message.id,
     choose: message.text.choose,

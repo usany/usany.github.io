@@ -6,7 +6,7 @@ import { webSocket } from 'src/webSocket.tsx'
 import specificProcess from './specificProcess'
 
 const onConfirm = async ({ message, uid, displayName, profileUrl }) => {
-  const { data, messagingToken } = await specificProcess({ message: message })
+  const { data, messagingToken } = await specificProcess({ message: message, toCreator: false })
   const passingObject = {
     id: message.id,
     choose: message.text.choose,
