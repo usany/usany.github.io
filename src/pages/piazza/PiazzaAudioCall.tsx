@@ -223,16 +223,16 @@ function PiazzaAudioCall() {
         <video
           // id="yourScreen"
           ref={yourRef}
-          width="320"
-          height="240"
+          // width="320"
+          // height="240"
           controls
           autoPlay
         ></video>
         <video
           id="myScreen"
           ref={myRef}
-          width="320"
-          height="240"
+          // width="320"
+          // height="240"
           controls
           autoPlay
           muted

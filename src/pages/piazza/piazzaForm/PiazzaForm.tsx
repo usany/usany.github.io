@@ -392,60 +392,58 @@ function PiazzaForm({ chattingUser, userObj, multiple, messages, handleMessages,
   }
 
   return (
-    <>
-      <form className={`fixed w-screen ${piazzaForm ? 'bottom-0' : 'bottom-[60px]'} flex gap-px`} onSubmit={onSendSubmitHandler}>
-        {conversation && conversation !== 'piazza' &&
-          <Popups
-            trigger={<div className='flex items-center px-1 h-full rounded bg-light-2 dark:bg-dark-2'><PlusCircle /></div>}
-            title={<div>전화 선택</div>}
-            content={<div className='flex justify-center gap-5 p-5'>
-              <DrawerClose>
-                <Card
-                  className='colorOne'
-                  sx={{
-                    height: '100%'
-                  }}
-                >
-                  <CardContent>
-                    <div className='flex flex-col items-center gap-5' onClick={() => {
-                      document.getElementById('videoCall')?.click()
-                    }}>
-                      <UserRound />
-                      <div>화상 전화</div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </DrawerClose>
-              <DrawerClose>
-                <Card
-                  className='colorOne'
-                  sx={{
-                    height: '100%'
-                  }}
-                >
-                  <CardContent>
-                    <div className='flex flex-col items-center gap-5' onClick={() => {
-                      document.getElementById('audioCall')?.click()
-                    }}>
-                      <AlarmCheck />
-                      <div>음성 전화</div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </DrawerClose>
-            </div>}
-          />
-        }
-        <input
-          className='w-full p-3 rounded bg-light-1 dark:bg-dark-1'
-          placeholder={forms[index]}
-          onChange={onChangeMsgHandler}
-          value={messages}
-          autoFocus
+    <form className={`fixed w-screen ${piazzaForm ? 'bottom-0' : 'bottom-[60px]'} flex gap-px`} onSubmit={onSendSubmitHandler}>
+      {conversation && conversation !== 'piazza' &&
+        <Popups
+          trigger={<div className='flex items-center px-1 h-full rounded bg-light-2 dark:bg-dark-2'><PlusCircle /></div>}
+          title={<div>전화 선택</div>}
+          content={<div className='flex justify-center gap-5 p-5'>
+            <Card
+              className='colorOne'
+              sx={{
+                height: '100%'
+              }}
+            >
+              <CardContent>
+                <div className='flex flex-col items-center gap-5' onClick={() => {
+                  document.getElementById('videoCall')?.click()
+                }}>
+                  <DrawerClose>
+                    <UserRound />
+                    <div>화상 전화</div>
+                  </DrawerClose>
+                </div>
+              </CardContent>
+            </Card>
+            <Card
+              className='colorOne'
+              sx={{
+                height: '100%'
+              }}
+            >
+              <CardContent>
+                <div className='flex flex-col items-center gap-5' onClick={() => {
+                  document.getElementById('audioCall')?.click()
+                }}>
+                  <DrawerClose>
+                    <AlarmCheck />
+                    <div>음성 전화</div>
+                  </DrawerClose>
+                </div>
+              </CardContent>
+            </Card>
+          </div>}
         />
-        <button className='w-1/6 rounded bg-light-2 dark:bg-dark-2' type="submit">{send[index]}</button>
-      </form >
-    </>
+      }
+      <input
+        className='w-full p-3 rounded bg-light-1 dark:bg-dark-1'
+        placeholder={forms[index]}
+        onChange={onChangeMsgHandler}
+        value={messages}
+        autoFocus
+      />
+      <button className='w-1/6 rounded bg-light-2 dark:bg-dark-2' type="submit">{send[index]}</button>
+    </form>
   );
 }
 
