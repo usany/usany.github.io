@@ -21,7 +21,7 @@ interface Props {
   increaseRound: () => void
 }
 const onConfirmReturn = async ({ num, points, message, uid, displayName, profileUrl }) => {
-  const { data, messagingToken } = await specificProcess({ message: message, toCreator: message.text.choose === 1 ? true : false })
+  const { data, messagingToken } = await specificProcess({ message: message, toUid: message.text.choose === 1 ? null : uid })
   updateDoc(data, { round: 5 })
   const point = doc(dbservice, `members/${message.creatorId}`)
   const connectedPoint = doc(dbservice, `members/${message.connectedId}`)

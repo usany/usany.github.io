@@ -7,7 +7,7 @@ import { webSocket } from 'src/webSocket.tsx'
 import specificProcess from './specificProcess'
 
 const onStopSupporting = async ({ message, uid, displayName, profileUrl }) => {
-  const { data, messagingToken } = await specificProcess({ message: message, toCreator: true })
+  const { data, messagingToken } = await specificProcess({ message: message, toUid: null })
   const passingObject = {
     id: message.id,
     choose: message.text.choose,
