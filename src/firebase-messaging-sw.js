@@ -108,7 +108,7 @@ self.addEventListener('push', event => {
     const options = {
       body: String(event.data.json().notification.body),
       icon: event.data.json().data.body,
-      badge: '../src/assets/umbrella512.png',
+      badge: event.data.json().data.body,
       actions: [
         {
           action: 'reply',
