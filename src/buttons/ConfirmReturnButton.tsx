@@ -25,7 +25,7 @@ const onConfirmReturn = async ({ num, points, message, uid, displayName, profile
   const dataDoc = await getDoc(data)
   updateDoc(data, { round: 5 })
   const point = doc(dbservice, `members/${message.creatorId}`)
-  const connectedPoint = doc(dbservice, `members/${message.connectedId}`)
+  const connectedPoint = doc(dbservice, `members/${dataDoc.data()?.connectedId}`)
   const creatorSnap = await getDoc(point)
   const connectedSnap = await getDoc(connectedPoint)
   const creatorData = creatorSnap.data() as UserData
@@ -67,7 +67,7 @@ const onConfirmReturn = async ({ num, points, message, uid, displayName, profile
     creatorId: message.creatorId,
     creatorName: message.displayName,
     connectedId: dataDoc.data()?.connectedId,
-    connectedName: dataDoc.data()?.connectedNamed,
+    connectedName: dataDoc.data()?.connectedName,
     connectedUrl: profileUrl
   }
   updateDoc(point, {
