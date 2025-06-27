@@ -51,9 +51,6 @@ const SupportButton = ({
 }) => {
   const profileUrl = useSelectors((state) => state.profileUrl.value)
   const languages = useSelectors((state) => state.languages.value)
-  const profileImage = useSelectors((state) => state.profileImage.value)
-  const defaultProfile = useSelectors((state) => state.defaultProfile.value)
-  const profileImageUrl = useSelectors((state) => state.profileImageUrl)
   return (
     <div className="flex justify-center">
       <Button
