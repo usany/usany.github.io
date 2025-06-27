@@ -15,8 +15,8 @@ const SpecificsTradesTrigger = ({
     defaultProfile: isCreator ? message.creatorDefaultProfile : message.connectedDefaultProfile,
     profileImageUrl: isCreator ? message.creatorProfileImageUrl : message.connectedProfileImageUrl
   }
-  console.log(message)
-  console.log(passingProfile)
+  // console.log(message)
+  // console.log(passingProfile)
   let uid
   let displayName
   let url
