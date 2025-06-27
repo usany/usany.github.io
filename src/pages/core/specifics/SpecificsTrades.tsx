@@ -10,7 +10,7 @@ import { Chip } from '@mui/material'
 import { User } from 'firebase/auth'
 import { useSelectors } from 'src/hooks/useSelectors'
 import Popups from '../Popups'
-import { SpecificsTradesContent } from './SpecificsTradesContent'
+import SpecificsTradesContent from './SpecificsTradesContent'
 import SpecificsTradesTitle from './SpecificsTradesTitle'
 import SpecificsTradesTrigger from './SpecificsTradeTrigger'
 
