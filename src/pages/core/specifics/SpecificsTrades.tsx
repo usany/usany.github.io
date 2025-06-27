@@ -57,7 +57,7 @@ function SpecificsTrades({
       }
     }
   }, [message])
-
+  console.log(message)
   return (
     <div className="flex justify-center pt-3">
       <div className="flex flex-col items-center px-5 gap-1">

@@ -8,6 +8,7 @@ import specificProcess from './specificProcess'
 
 const onSupporting = async ({ message, uid, displayName, profileUrl }) => {
   const { data, messagingToken } = await specificProcess({ message: message, toUid: null })
+
   const passingObject = {
     id: message.id,
     choose: message.text.choose,
@@ -18,15 +19,18 @@ const onSupporting = async ({ message, uid, displayName, profileUrl }) => {
     connectedName: displayName,
     connectedUrl: profileUrl
   }
+  const connectedUserRef = doc(dbservice, `members/${uid}`)
+  const connectedUserSnap = await getDoc(connectedUserRef)
+  const connectedUserData = connectedUserSnap.data()
   updateDoc(data, {
     round: 2,
     connectedId: uid,
     connectedName: displayName,
     connectedUrl: profileUrl,
+    connectedProfileImage: connectedUserData.profileImage,
+    connectedDefaultProfile: connectedUserData.defaultProfile,
+    connectedProfileImageUrl: connectedUserData.profileImageUrl
   })
-  const connectedUserRef = doc(dbservice, `members/${uid}`)
-  const connectedUserSnap = await getDoc(connectedUserRef)
-  const connectedUserData = connectedUserSnap.data()
   const connectedUserConnectedCards = connectedUserData?.connectedCards || []
   updateDoc(connectedUserRef, {
     connectedCards: [...connectedUserConnectedCards, message.id]
@@ -47,7 +51,9 @@ const SupportButton = ({
 }) => {
   const profileUrl = useSelectors((state) => state.profileUrl.value)
   const languages = useSelectors((state) => state.languages.value)
-
+  const profileImage = useSelectors((state) => state.profileImage.value)
+  const defaultProfile = useSelectors((state) => state.defaultProfile.value)
+  const profileImageUrl = useSelectors((state) => state.profileImageUrl)
   return (
     <div className="flex justify-center">
       <Button
