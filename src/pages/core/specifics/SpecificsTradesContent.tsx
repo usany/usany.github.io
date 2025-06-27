@@ -18,9 +18,9 @@ const SpecificsTradesContent = ({
 }) => {
   // console.log(message)
   const passingProfile = {
-    profileImage: message.creatorProfileImage,
-    defaultProfile: message.creatorDefaultProfile,
-    profileImageUrl: message.creatorProfileImageUrl
+    profileImage: isCreator ? message.creatorProfileImage : message.connectedProfileImage,
+    defaultProfile: isCreator ? message.creatorDefaultProfile : message.connectedDefaultProfile,
+    profileImageUrl: isCreator ? message.creatorProfileImageUrl : message.connectedProfileImageUrl
   }
   let uid
   let displayName
@@ -39,10 +39,10 @@ const SpecificsTradesContent = ({
       <div className="flex flex-col items-center pt-5">
         <Avatars
           element={passingProfile}
-          uid={uid}
           profile={true}
-          profileColor=""
-          profileUrl={url}
+          // uid={uid}
+          // profileColor=""
+          // profileUrl={url}
           piazza={null}
         />
         {/* <Avatar className={'bg-profile-blue'}>

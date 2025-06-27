@@ -155,7 +155,7 @@ function SpecificsTrades({
                   <SpecificsTradesTrigger
                     onClick={drawerOpenTrue}
                     isCreator={false}
-                    message={connectedUser}
+                    message={message}
                   />
                 }
                 title={<SpecificsTradesTitle />}
@@ -163,7 +163,7 @@ function SpecificsTrades({
                   <SpecificsTradesContent
                     isCreator={false}
                     userObj={userObj}
-                    message={connectedUser}
+                    message={message}
                     conversation={conversation}
                     drawerOpenTrue={drawerOpenTrue}
                   />
