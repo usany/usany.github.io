@@ -15,12 +15,13 @@ const SpecificsTradesContent = ({
   message,
   conversation,
   drawerOpenTrue,
+  connectedUser
 }) => {
   // console.log(message)
   const passingProfile = {
     profileImage: isCreator ? message.creatorProfileImage : message.connectedProfileImage,
-    defaultProfile: isCreator ? message.creatorDefaultProfile : message.connectedDefaultProfile,
-    profileImageUrl: isCreator ? message.creatorProfileImageUrl : message.connectedProfileImageUrl
+    defaultProfile: isCreator ? message.creatorDefaultProfile : message.connectedDefaultProfile || connectedUser.connectedUrl,
+    profileImageUrl: isCreator ? message.creatorProfileImageUrl : message.connectedProfileImageUrl  || connectedUser.connectedUrl
   }
   let uid
   let displayName

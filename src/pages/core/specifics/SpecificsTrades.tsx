@@ -10,7 +10,7 @@ import { Chip } from '@mui/material'
 import { User } from 'firebase/auth'
 import { useSelectors } from 'src/hooks/useSelectors'
 import Popups from '../Popups'
-import { default as SpecificsTradesContent } from './SpecificsTradesContent'
+import { SpecificsTradesContent } from './SpecificsTradesContent'
 import SpecificsTradesTitle from './SpecificsTradesTitle'
 import SpecificsTradesTrigger from './SpecificsTradeTrigger'
 
@@ -80,6 +80,7 @@ function SpecificsTrades({
                   message={message}
                   conversation={conversation}
                   drawerOpenTrue={drawerOpenTrue}
+                  connectedUser={connectedUser}
                 />
               }
             />
@@ -104,6 +105,7 @@ function SpecificsTrades({
                     message={message}
                     conversation={conversation}
                     drawerOpenTrue={drawerOpenTrue}
+                    connectedUser={connectedUser}
                   />
                 }
               />
@@ -166,6 +168,7 @@ function SpecificsTrades({
                     message={message}
                     conversation={conversation}
                     drawerOpenTrue={drawerOpenTrue}
+                    connectedUser={connectedUser}
                   />
                 }
               />
@@ -206,6 +209,7 @@ function SpecificsTrades({
                   message={message}
                   conversation={conversation}
                   drawerOpenTrue={drawerOpenTrue}
+                  connectedUser={connectedUser}
                 />
               }
             />
