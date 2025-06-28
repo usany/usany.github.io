@@ -105,8 +105,9 @@ function Specifics({
           <div className="flex justify-center pt-1">
             <CardMedia
               sx={{
-                width: 212 * 0.9,
+                width: 200 * 188 / 141 * 0.9,
                 height: 188 * 0.9,
+                borderRadius: '10px'
               }}
               image={staticImg}
             />

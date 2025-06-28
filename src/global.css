@@ -4,7 +4,7 @@
 
 @font-face {
   font-family: 'maruburi';
-  src: url('src/assets/fonts/OTF/MaruBuri-Bold.otf') format('opentype')
+  src: url('src/assets/fonts/OTF/MaruBuri-light.otf') format('opentype')
 }
 
 /* .SwipeableViews {
