@@ -10,9 +10,9 @@ const resources = {
       "Welcome to React": "Welcome to React and react-i18next"
     }
   },
-  fr: {
+  ko: {
     translation: {
-      "Welcome to React": "Bienvenue à React et react-i18next"
+      "Welcome to React": '환영합니다.'
     }
   }
 };
@@ -30,4 +30,4 @@ i18n
     }
   });
 
-  export default i18n;
+export default i18n;
