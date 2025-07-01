@@ -56,7 +56,6 @@ function Navigation({ user, userObj, handleSideNavigation }: Props) {
     //   }, 250)
     // }
   }
-
   const links = [
     {
       href: '/profile',
@@ -69,28 +68,28 @@ function Navigation({ user, userObj, handleSideNavigation }: Props) {
       href: '/ranking',
       passingState: null,
       icon: <SearchCheck />,
-      description: '유저 랭킹',
+      description: texts[languages as keyof typeof texts]['userRanking'],
       onClick: () => checkbox(),
     },
     {
       href: '/piazza',
       passingState: { conversation: 'piazza', multiple: true },
       icon: <MessagesSquare />,
-      description: '단체 대화방',
+      description: texts[languages as keyof typeof texts]['groupChat'],
       onClick: () => checkbox(),
     },
     {
       href: '/contact',
       passingState: { multiple: true },
       icon: <Siren />,
-      description: '신고하기',
+      description: texts[languages as keyof typeof texts]['report'],
       onClick: () => checkbox(),
     },
     {
       href: '/',
       passingState: { multiple: true },
       icon: <DoorOpen />,
-      description: '로그아웃',
+      description: texts[languages as keyof typeof texts]['signOut'],
       onClick: () => logOut(),
     },
   ]

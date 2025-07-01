@@ -1,10 +1,18 @@
 {
   "ko": {
     "Welcome to React": "Welcome to React and react-i18next",
-    "myProfile": "내 프로필"
+    "myProfile": "내 프로필",
+    "userRanking": "유저 랭킹",
+    "groupChat": "단체 대화",
+    "report": "신고하기",
+    "signOut": "로그아웃"
   },
   "en": {
     "Welcome to React": "Welcome to React and react-i18next",
-    "myProfile": "My Profile"
+    "myProfile": "My Profile",
+    "userRanking": "User Ranking",
+    "groupChat": "Group Chat",
+    "report": "Report",
+    "signOut": "Sign Out"
   }
 }
