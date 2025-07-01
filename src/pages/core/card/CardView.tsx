@@ -42,7 +42,7 @@ const CardView = ({ onTransfer, message, shadowColor }) => {
                 width: 200 * 0.9,
                 // width: 159 * 0.9,
                 height: 141 * 0.9,
-                borderRadius: '5px'
+                borderRadius: '10px'
               }}
               image={staticImg}
             />
