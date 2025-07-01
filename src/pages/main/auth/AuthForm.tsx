@@ -117,8 +117,7 @@ const AuthForm = ({ signIn, agreed }) => {
           const errorMessage = '로그인 실패: 계정을 확인해 주세요'
           setError(errorMessage)
         } else if (
-          error.message === 'Firebase: Error (auth/email-already-in-use).'
-        ) {
+          error.message === 'Firebase: Error (auth/email-already-in-use).') {
           const errorMessage = '회원가입 실패: 이미 가입된 계정입니다'
           setError(errorMessage)
         } else if (error.message === 'Firebase: Error (auth/invalid-email).') {
