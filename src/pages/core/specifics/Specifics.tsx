@@ -88,7 +88,7 @@ function Specifics({
     mergedArray.indexOf(String(id[0]).toUpperCase()) % shadowColorArray.length
     ]
   // const observer =
-  const observer = new IntersectionObserver(handleIntersection);
+  // const observer = new IntersectionObserver(handleIntersection);
 
   return (
     <div className="truncate p-1">

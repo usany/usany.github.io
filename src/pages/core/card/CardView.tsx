@@ -35,23 +35,21 @@ const CardView = ({ onTransfer, message, shadowColor }) => {
         <CardContent
           sx={{ padding: '5px', bgcolor: onTransfer && alpha('#000000', 0.5) }}
         >
-          <div>
-            <CardViewTop message={message} />
-            <div className="flex justify-center pt-1">
-              <CardMedia
-                sx={{
-                  width: 200 * 0.9,
-                  // width: 159 * 0.9,
-                  height: 141 * 0.9,
-                  borderRadius: '10px'
-                }}
-                image={staticImg}
-              />
-            </div>
-            <div className="flex flex-col pt-1 gap-1 text-xs">
-              <CardViewLocation message={message} />
-              <CardViewTime message={message} />
-            </div>
+          <CardViewTop message={message} />
+          <div className="flex justify-center pt-1">
+            <CardMedia
+              sx={{
+                width: 200 * 0.9,
+                // width: 159 * 0.9,
+                height: 141 * 0.9,
+                borderRadius: '5px'
+              }}
+              image={staticImg}
+            />
+          </div>
+          <div className="flex flex-col pt-1 gap-1 text-xs">
+            <CardViewLocation message={message} />
+            <CardViewTime message={message} />
           </div>
         </CardContent>
       </Card>
