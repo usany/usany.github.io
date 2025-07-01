@@ -22,7 +22,11 @@ function App() {
   function MyComponent() {
     const { t, i18n } = useTranslation();
     return <h1 onClick={() => {
-      i18n.changeLanguage('ko');
+      if (i18n.language === 'ko') {
+        i18n.changeLanguage('en');
+      } else {
+        i18n.changeLanguage('ko');
+      }
     }}>{t('Welcome to React')}</h1>
   }
 
