@@ -9,6 +9,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useSelectors } from 'src/hooks/useSelectors';
 import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice';
 import { changePiazzaForm } from "src/stateSlices/piazzaFormSlice";
+import texts from 'src/texts.json';
 
 interface Props {
   userObj: User | null
@@ -22,6 +23,7 @@ function Navigations({ userObj }: Props) {
   const theme = useSelector((state: ThemeRootState) => state.theme.value)
   const piazzaForm = useSelector((state) => state.piazzaForm.value)
   const bottomNavigation = useSelectors(state => state.bottomNavigation.value)
+  const languages = useSelectors(state => state.languages.value)
   const dispatch = useDispatch()
   useEffect(() => {
     if (theme === 'dark') {
@@ -81,9 +83,9 @@ function Navigations({ userObj }: Props) {
               dispatch(changeBottomNavigation(newValue))
             }}
           >
-            <BottomNavigationAction onClick={() => navigate('/add')} label={'등록'} icon={<Pencil />} />
-            <BottomNavigationAction onClick={() => navigate('/')} label={userObj ? '내 상태' : '로그인'} icon={<Umbrella />} />
-            <BottomNavigationAction onClick={() => navigate('/board')} label={'게시판'} icon={<Presentation />} />
+            <BottomNavigationAction onClick={() => navigate('/add')} label={texts[languages as keyof typeof texts]['register']} icon={<Pencil />} />
+            <BottomNavigationAction onClick={() => navigate('/')} label={userObj ? texts[languages as keyof typeof texts]['myStatus'] : texts[languages as keyof typeof texts]['logIn']} icon={<Umbrella />} />
+            <BottomNavigationAction onClick={() => navigate('/board')} label={texts[languages as keyof typeof texts]['board']} icon={<Presentation />} />
           </BottomNavigation>
         </div>
       }

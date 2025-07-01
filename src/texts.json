@@ -5,7 +5,11 @@
     "userRanking": "유저 랭킹",
     "groupChat": "단체 대화",
     "report": "신고하기",
-    "signOut": "로그아웃"
+    "signOut": "로그아웃",
+    "register": "등록",
+    "board": "게시판",
+    "logIn": "로그인",
+    "myStatus": "내 상태"
   },
   "en": {
     "Welcome to React": "Welcome to React and react-i18next",
@@ -13,6 +17,10 @@
     "userRanking": "User Ranking",
     "groupChat": "Group Chat",
     "report": "Report",
-    "signOut": "Sign Out"
+    "signOut": "Sign Out",
+    "register": "Register",
+    "board": "Board",
+    "logIn": "Log In",
+    "myStatus": "My Status"
   }
 }
