@@ -1,4 +1,5 @@
 import { ThemeProvider } from '@mui/material/styles'
+import { useTranslation } from 'react-i18next'
 import 'src/global.css'
 import Lotties from 'src/lottiesAnimation/Lotties'
 import Router from 'src/pages/core/router/Router'
@@ -17,6 +18,12 @@ function App() {
   const theme = useSelectors((state) => state.theme.value)
   const userObj = useUserObject()
   const { lightTheme, darkTheme } = useColors()
+
+  function MyComponent() {
+    const { t, i18n } = useTranslation();
+    return <h1>{t('Welcome to React')}</h1>
+  }
+
   return (
     <>
       {/* <button id='mute' onClick={handleMuteClick}>mute</button>
@@ -25,6 +32,7 @@ function App() {
       &emsp;
       <select id='videoInput' /> */}
       <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
+        <MyComponent />
         {userObj !== undefined ? <Router userObj={userObj} /> : <Lotties />}
       </ThemeProvider>
     </>

@@ -6,6 +6,7 @@ import { Provider } from 'react-redux'
 import App from 'src/App.tsx'
 import Lotties from 'src/lottiesAnimation/Lotties'
 import { store } from 'src/store'
+import './i18n'
 
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker
