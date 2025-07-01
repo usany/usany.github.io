@@ -112,12 +112,14 @@ const AuthForm = ({ signIn, agreed }) => {
             defaultProfile: url,
           })
         })
+        setTimeout(() => {
+          location.reload()
+        }, 1000)
       } catch (error) {
         if (error.message === 'Firebase: Error (auth/invalid-credential).') {
           const errorMessage = '로그인 실패: 계정을 확인해 주세요'
           setError(errorMessage)
-        } else if (
-          error.message === 'Firebase: Error (auth/email-already-in-use).') {
+        } else if (error.message === 'Firebase: Error (auth/email-already-in-use).') {
           const errorMessage = '회원가입 실패: 이미 가입된 계정입니다'
           setError(errorMessage)
         } else if (error.message === 'Firebase: Error (auth/invalid-email).') {

@@ -1,8 +1,10 @@
 {
   "ko": {
-    "Welcome to React": "Welcome to React and react-i18next"
+    "Welcome to React": "Welcome to React and react-i18next",
+    "myProfile": "내 프로필"
   },
   "en": {
-    "Welcome to React": "Welcome to React and react-i18next"
+    "Welcome to React": "Welcome to React and react-i18next",
+    "myProfile": "My Profile"
   }
 }

@@ -8,17 +8,16 @@ import {
   UserRound,
 } from 'lucide-react'
 import { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
 import staticImage from "src/assets/blue.png"
 import { auth, dbservice } from 'src/baseApi/serverbase'
 import { Drawer, DrawerClose, DrawerContent, DrawerTrigger } from 'src/components/ui/drawer'
 import { useSelectors } from 'src/hooks/useSelectors'
+import texts from 'src/texts.json'
 import Avatars from '../../Avatars'
 import IframePlayer from './iframePlayer/IframePlayer'
 import Links from './links/Links'
 import NavigationSignedIn from './navigationSignedIn/NavigationSignedIn'
 import NavigationSignedOut from './navigationSignedOut/NavigationSignedOut'
-
 interface Props {
   user: DocumentData | undefined
   userObj: User | null
@@ -30,6 +29,7 @@ function Navigation({ user, userObj, handleSideNavigation }: Props) {
   const [points, setPoints] = useState(0)
   const [delayed, setDelayed] = useState(true)
   const theme = useSelectors((state) => state.theme.value)
+  const languages = useSelectors(state => state.languages.value)
   useEffect(() => {
     if (userObj) {
       onSnapshot(doc(dbservice, `members/${userObj.uid}`), (snapshot) => {
@@ -62,7 +62,7 @@ function Navigation({ user, userObj, handleSideNavigation }: Props) {
       href: '/profile',
       passingState: { element: user },
       icon: <UserRound />,
-      description: '내 프로필',
+      description: texts[languages]['myProfile'],
       onClick: () => checkbox(),
     },
     {
