@@ -38,7 +38,7 @@ function App() {
       &emsp;
       <select id='videoInput' /> */}
       <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
-        <MyComponent />
+        {/* <MyComponent /> */}
         {userObj !== undefined ? <Router userObj={userObj} /> : <Lotties />}
       </ThemeProvider>
     </>
