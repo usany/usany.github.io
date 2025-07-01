@@ -21,7 +21,9 @@ function App() {
 
   function MyComponent() {
     const { t, i18n } = useTranslation();
-    return <h1>{t('Welcome to React')}</h1>
+    return <h1 onClick={() => {
+      i18n.changeLanguage('ko');
+    }}>{t('Welcome to React')}</h1>
   }
 
   return (
