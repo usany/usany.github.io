@@ -68,7 +68,8 @@ const onConfirmReturn = async ({ num, points, message, uid, displayName, profile
     creatorName: message.displayName,
     connectedId: dataDoc.data()?.connectedId,
     connectedName: dataDoc.data()?.connectedName,
-    connectedUrl: profileUrl
+    connectedUrl: profileUrl,
+    preferLanguage: dataDoc.data()?.preferLanguage || 'ko',
   }
   updateDoc(point, {
     done: [...creatorDone, message.id],

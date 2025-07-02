@@ -1,6 +1,6 @@
 import SendIcon from '@mui/icons-material/Send'
 import Button from '@mui/material/Button'
-import { doc, getDoc, updateDoc } from 'firebase/firestore'
+import { getDoc, updateDoc } from 'firebase/firestore'
 import { dbservice } from 'src/baseApi/serverbase'
 import { useSelectors } from 'src/hooks/useSelectors'
 import { webSocket } from 'src/webSocket.tsx'
@@ -8,7 +8,7 @@ import specificProcess from './specificProcess'
 
 const onSupporting = async ({ message, uid, displayName, profileUrl }) => {
   const { data, messagingToken } = await specificProcess({ message: message, toUid: null })
-
+  const doc = await getDoc(data)
   const passingObject = {
     id: message.id,
     choose: message.text.choose,
@@ -17,7 +17,8 @@ const onSupporting = async ({ message, uid, displayName, profileUrl }) => {
     creatorName: message.displayName,
     connectedId: uid,
     connectedName: displayName,
-    connectedUrl: profileUrl
+    connectedUrl: profileUrl,
+    preferLanguage: doc.data()?.preferLanguage || 'ko',
   }
   const connectedUserRef = doc(dbservice, `members/${uid}`)
   const connectedUserSnap = await getDoc(connectedUserRef)

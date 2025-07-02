@@ -17,7 +17,8 @@ const onConfirm = async ({ message, uid, displayName, profileUrl }) => {
     creatorName: message.displayName,
     connectedId: doc.data()?.connectedId,
     connectedName: doc.data()?.connectedName,
-    connectedUrl: profileUrl
+    connectedUrl: profileUrl,
+    preferLanguage: doc.data()?.preferLanguage || 'ko',
   }
   updateDoc(data, { round: 3 })
   webSocket.emit('confirm', passingObject)
