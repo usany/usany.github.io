@@ -169,10 +169,12 @@ function PiazzaForm({ chattingUser, userObj, multiple, messages, handleMessages,
     let toUserRef
     let toUser
     let messagingToken
+    let preferLanguage
     if (chattingUser) {
       toUserRef = doc(dbservice, `members/${chattingUser.uid}`)
       toUser = await getDoc(toUserRef)
       messagingToken = toUser.data()?.messagingToken
+      preferLanguage = toUser.data()?.preferLanguage || 'ko'
     }
     const profileUrl = profile.profileImage ? profile.profileImageUrl : profile.defaultProfile
     console.log(profile)
@@ -191,6 +193,7 @@ function PiazzaForm({ chattingUser, userObj, multiple, messages, handleMessages,
       profileImageUrl: profileImageUrl,
       profileUrl: profileUrl,
       sendingToken: messagingToken,
+      preferLanguage: preferLanguage
     };
     if (multiple) {
       if (sendData && message) {
