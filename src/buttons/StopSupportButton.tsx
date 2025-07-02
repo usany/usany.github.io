@@ -8,7 +8,7 @@ import specificProcess from './specificProcess'
 
 const onStopSupporting = async ({ message, uid, displayName, profileUrl }) => {
   const { data, messagingToken } = await specificProcess({ message: message, toUid: null })
-  const doc = await getDoc(data)
+  const userDoc = await getDoc(data)
   const passingObject = {
     id: message.id,
     choose: message.text.choose,
@@ -18,7 +18,7 @@ const onStopSupporting = async ({ message, uid, displayName, profileUrl }) => {
     connectedId: uid,
     connectedName: displayName,
     connectedUrl: profileUrl,
-    preferLanguage: doc.data()?.preferLanguage || 'ko',
+    preferLanguage: userDoc.data()?.preferLanguage || 'ko',
   }
   updateDoc(data, {
     round: 1,
