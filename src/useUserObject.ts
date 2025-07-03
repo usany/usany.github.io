@@ -8,6 +8,11 @@ const useUserObject = () => {
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
       console.log(user)
+      const reloading = sessionStorage.getItem("reloading")
+      if (user === null && !reloading) {
+        sessionStorage.setItem("reloading", "true");
+        location.reload()
+      }
       setUserObj(user)
     })
   }, [])
