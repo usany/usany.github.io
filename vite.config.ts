@@ -22,7 +22,7 @@ export default defineConfig({
       display: "standalone",
       description: "A description for your application",
       lang: " The default language of your application",
-      dir: "auto",
+      // dir: "auto",
       theme_color: "#000000",
       background_color: "#000000",
       orientation: "any",
@@ -57,15 +57,15 @@ export default defineConfig({
           "src": "https://www.pwabuilder.com/assets/screenshots/screen1.png",
           "sizes": "2880x1800",
           "type": "image/png",
-          "description": "A screenshot of the home page"
+          // "description": "A screenshot of the home page"
         }
       ],
-      related_applications: [
-        {
-          "platform": "windows",
-          "url": " The URL to your app in that app store"
-        }
-      ],
+      // related_applications: [
+      //   {
+      //     "platform": "windows",
+      //     "url": " The URL to your app in that app store"
+      //   }
+      // ],
       prefer_related_applications: false,
       shortcuts: [
         {
