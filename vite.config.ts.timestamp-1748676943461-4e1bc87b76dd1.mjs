@@ -1,8 +1,8 @@
 // vite.config.ts
 import react from "file:///C:/Users/dksck/postings/node_modules/@vitejs/plugin-react/dist/index.mjs";
-import path from "path";
-import { defineConfig } from "file:///C:/Users/dksck/postings/node_modules/vite/dist/node/index.js";
 import { VitePWA } from "file:///C:/Users/dksck/postings/node_modules/vite-plugin-pwa/dist/index.js";
+import { defineConfig } from "file:///C:/Users/dksck/postings/node_modules/vite/dist/node/index.js";
+import path from "path";
 var __vite_injected_original_dirname = "C:\\Users\\dksck\\postings";
 var vite_config_default = defineConfig({
   plugins: [react(), VitePWA({
@@ -20,7 +20,7 @@ var vite_config_default = defineConfig({
       display: "standalone",
       description: "A description for your application",
       lang: " The default language of your application",
-      dir: "auto",
+      // dir: "auto",
       theme_color: "#000000",
       background_color: "#000000",
       orientation: "any",
@@ -58,12 +58,12 @@ var vite_config_default = defineConfig({
           "description": "A screenshot of the home page"
         }
       ],
-      related_applications: [
-        {
-          "platform": "windows",
-          "url": " The URL to your app in that app store"
-        }
-      ],
+      // related_applications: [
+      //   {
+      //     "platform": "windows",
+      //     "url": " The URL to your app in that app store"
+      //   }
+      // ],
       prefer_related_applications: false,
       shortcuts: [
         {

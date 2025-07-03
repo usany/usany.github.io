@@ -1,4 +1,4 @@
-import { FacebookAuthProvider, getAuth, GithubAuthProvider, GoogleAuthProvider, OAuthProvider, signInWithPopup, TwitterAuthProvider, updateProfile } from "firebase/auth";
+import { FacebookAuthProvider, getAuth, GithubAuthProvider, GoogleAuthProvider, OAuthProvider, signInWithPopup, signInWithRedirect, TwitterAuthProvider, updateProfile } from "firebase/auth";
 import { collection, getDoc, getDocs, getFirestore, query, updateDoc } from "firebase/firestore";
 import { getMessaging } from "firebase/messaging";
 import { getDownloadURL, getStorage, ref, uploadString } from "firebase/storage";
@@ -252,6 +252,7 @@ const onSocialClickGoogle = () => {
       }, 1000)
     }
   }).catch((error) => {
+    signInWithRedirect(auth, providerGoogle)
     console.log(error)
   })
 }
@@ -334,6 +335,7 @@ const onSocialClickMicrosoft = () => {
       }, 1000)
     }
   }).catch((error) => {
+    signInWithRedirect(auth, providerMicrosoft)
     console.log(error)
   })
 }
