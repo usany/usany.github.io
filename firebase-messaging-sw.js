@@ -1,4 +1,3 @@
-importScripts("https://progressier.app/A4f1ubWYsubu5uj9RYh6/sw.js");
 // import staticImg from 'src/assets/umbrella512.png';
 // import { dbservice } from 'src/baseApi/serverbase';
 // const formConversation = async (notification) => {
