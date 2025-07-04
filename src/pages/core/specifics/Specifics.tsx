@@ -58,7 +58,6 @@ function Specifics({
   const [points, setPoints] = useState<number | null>(null)
   const [deleted, setDeleted] = useState<boolean>(false)
   const [cardFlipped, setCardFlipped] = useState(false)
-  const [cardBack, setCardBack] = useState(false)
   const languages = useSelectors((state) => state.languages.value)
   const deleteMessage = () => {
     setDeleted(true)
