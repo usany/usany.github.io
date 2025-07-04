@@ -57,6 +57,8 @@ function Specifics({
   const [num, setNum] = useState<number | null>(null)
   const [points, setPoints] = useState<number | null>(null)
   const [deleted, setDeleted] = useState<boolean>(false)
+  const [cardFlipped, setCardFlipped] = useState(false)
+  const [cardBack, setCardBack] = useState(false)
   const languages = useSelectors((state) => state.languages.value)
   const deleteMessage = () => {
     setDeleted(true)
@@ -89,75 +91,172 @@ function Specifics({
     ]
   // const observer =
   // const observer = new IntersectionObserver(handleIntersection);
-
+  const flipCards = () => {
+    setCardFlipped(!cardFlipped)
+  }
+  // const cardId = document.getElementById('cardId')
+  // cardId?.addEventListener('transitionend', () => {
+  //   setCardBack(!cardBack)
+  // })
   return (
-    <div className="truncate p-1">
-      <Card
-        className="colorTwo"
-        sx={{
-          boxShadow: `1.9px 1.9px 1.9px 1.9px ${shadowColor}`,
-        }}
-      >
-        <CardContent>
-          <SpecificsActions
-            drawerOpenTrue={drawerOpenTrue}
-            userObj={userObj}
-            message={message}
-          />
-          <div className="flex justify-center pt-1">
-            <CardMedia
+    <div>
+      <div className={`cards ${cardFlipped && 'rotatingCards'}`} onClick={() => flipCards()}>
+        <div className={`truncate p-1 sides`}>
+          <Card
+            className="colorTwo"
+            sx={{
+              // position: 'absolute',
+              // width: '100%',
+              // height: '100%',
+              boxShadow: `1.9px 1.9px 1.9px 1.9px ${shadowColor}`,
+            }}
+          >
+            <CardContent
               sx={{
-                width: 200 * 188 / 141 * 0.9,
-                height: 188 * 0.9,
-                borderRadius: '10px'
+                // position: 'absolute',
+                // width: '100%',
+                // height: '100%',
               }}
-              image={staticImg}
-            />
-          </div>
-          <SpecificsDimensions message={message} />
-          <Divider />
-          <SpecificsTrades
-            drawerOpenTrue={drawerOpenTrue}
-            userObj={userObj}
-            message={message}
-            round={round}
-            connectedUser={connectedUser}
-          />
-          <Divider />
-          <div>
-            <SpecificsSteppers message={message} round={round} />
-          </div>
-          <Divider />
-          <div className="flex justify-center pt-5">
-            {!deleted ? (
-              <div className="flex justify-center">
-                <Btn
-                  messageObj={message}
-                  isOwner={message.creatorId === userObj.uid}
-                  uid={userObj.uid}
-                  displayName={userObj.displayName}
-                  userObj={userObj}
-                  num={num}
-                  points={points}
-                  deleteMessage={deleteMessage}
-                  round={round}
-                  increaseRound={increaseRound}
-                  decreaseRound={decreaseRound}
-                  changeOnPulse={changeOnPulse}
-                  changeConnectedUser={changeConnectedUser}
-                  toggleOnTransfer={toggleOnTransfer}
+            >
+              <SpecificsActions
+                drawerOpenTrue={drawerOpenTrue}
+                userObj={userObj}
+                message={message}
+              />
+              <div className="flex justify-center pt-1">
+                <CardMedia
+                  sx={{
+                    width: 200 * 188 / 141 * 0.9,
+                    height: 188 * 0.9,
+                    borderRadius: '10px'
+                  }}
+                  image={staticImg}
                 />
               </div>
-            ) : (
-              <div className="flex justify-center">
-                <Button variant="outlined" disabled>
-                  {languages === 'ko' ? '지워졌습니다' : 'Deleted'}
-                </Button>
+              <SpecificsDimensions message={message} />
+              <Divider />
+              <SpecificsTrades
+                drawerOpenTrue={drawerOpenTrue}
+                userObj={userObj}
+                message={message}
+                round={round}
+                connectedUser={connectedUser}
+              />
+              <Divider />
+              <div>
+                <SpecificsSteppers message={message} round={round} />
               </div>
-            )}
-          </div>
-        </CardContent>
-      </Card>
+              <Divider />
+              <div className="flex justify-center pt-5">
+                {!deleted ? (
+                  <div className="flex justify-center">
+                    <Btn
+                      messageObj={message}
+                      isOwner={message.creatorId === userObj.uid}
+                      uid={userObj.uid}
+                      displayName={userObj.displayName}
+                      userObj={userObj}
+                      num={num}
+                      points={points}
+                      deleteMessage={deleteMessage}
+                      round={round}
+                      increaseRound={increaseRound}
+                      decreaseRound={decreaseRound}
+                      changeOnPulse={changeOnPulse}
+                      changeConnectedUser={changeConnectedUser}
+                      toggleOnTransfer={toggleOnTransfer}
+                    />
+                  </div>
+                ) : (
+                  <div className="flex justify-center">
+                    <Button variant="outlined" disabled>
+                      {languages === 'ko' ? '지워졌습니다' : 'Deleted'}
+                    </Button>
+                  </div>
+                )}
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+        <div className='backSide'>
+          practices
+        </div>
+      </div>
+      {/* <div id='cardId' className={`truncate p-1 ${cardFlipped ? 'flippedCards' : 'nonFlippedCards'}`} onClick={() => flipCards()}>
+        <Card
+          className="colorTwo"
+          sx={{
+            boxShadow: `1.9px 1.9px 1.9px 1.9px ${shadowColor}`,
+          }}
+        >
+          {cardBack &&
+            <CardContent>
+              <SpecificsActions
+                drawerOpenTrue={drawerOpenTrue}
+                userObj={userObj}
+                message={message}
+              />
+              <div className="flex justify-center pt-1">
+                <CardMedia
+                  sx={{
+                    width: 200 * 188 / 141 * 0.9,
+                    height: 188 * 0.9,
+                    borderRadius: '10px'
+                  }}
+                  image={staticImg}
+                />
+              </div>
+              <SpecificsDimensions message={message} />
+              <Divider />
+              <SpecificsTrades
+                drawerOpenTrue={drawerOpenTrue}
+                userObj={userObj}
+                message={message}
+                round={round}
+                connectedUser={connectedUser}
+              />
+              <Divider />
+              <div>
+                <SpecificsSteppers message={message} round={round} />
+              </div>
+              <Divider />
+              <div className="flex justify-center pt-5">
+                {!deleted ? (
+                  <div className="flex justify-center">
+                    <Btn
+                      messageObj={message}
+                      isOwner={message.creatorId === userObj.uid}
+                      uid={userObj.uid}
+                      displayName={userObj.displayName}
+                      userObj={userObj}
+                      num={num}
+                      points={points}
+                      deleteMessage={deleteMessage}
+                      round={round}
+                      increaseRound={increaseRound}
+                      decreaseRound={decreaseRound}
+                      changeOnPulse={changeOnPulse}
+                      changeConnectedUser={changeConnectedUser}
+                      toggleOnTransfer={toggleOnTransfer}
+                    />
+                  </div>
+                ) : (
+                  <div className="flex justify-center">
+                    <Button variant="outlined" disabled>
+                      {languages === 'ko' ? '지워졌습니다' : 'Deleted'}
+                    </Button>
+                  </div>
+                )}
+              </div>
+            </CardContent>
+          }
+          {!cardBack &&
+            <CardContent>
+              <div>practices</div>
+            </CardContent>
+          }
+        </Card>
+      </div> */}
     </div>
   )
 }
