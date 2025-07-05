@@ -99,7 +99,8 @@ function Specifics({
   // })
   return (
     <div>
-      <div className={`cards ${cardFlipped && 'rotatingCards'}`} onClick={() => flipCards()}>
+      <div onClick={() => flipCards()}>flip card</div>
+      <div className={`cards ${cardFlipped && 'rotatingCards'}`}>
         <div className={`truncate p-1 sides`}>
           <Card
             className="colorTwo"
