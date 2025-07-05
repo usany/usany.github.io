@@ -89,7 +89,6 @@ function Specifics({
     shadowColorArray[
     mergedArray.indexOf(String(id[0]).toUpperCase()) % shadowColorArray.length
     ]
-  // const observer =
   // const observer = new IntersectionObserver(handleIntersection);
   const flipCards = () => {
     setCardFlipped(!cardFlipped)
@@ -104,7 +103,6 @@ function Specifics({
       <Tilt>
         <div className={`cards ${cardFlipped && 'rotatingCards'} z-50`}>
           <PulsatingButton>
-
             <div className={`truncate p-1 sides`}>
               <Card
                 className="colorTwo"
