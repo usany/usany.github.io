@@ -222,7 +222,7 @@ function MorphingDialogContent({
     <motion.div
       ref={containerRef}
       layoutId={`dialog-${uniqueId}`}
-      className={cn('overflow-hidden', className)}
+      className={cn('', className)}
       style={style}
       role="dialog"
       aria-modal="true"
