@@ -102,7 +102,7 @@ function Specifics({
       <div onClick={() => flipCards()}>flip card</div>
       <Tilt>
         <div className={`cards ${cardFlipped && 'rotatingCards'} z-50`}>
-          {onPulse ? <PulsatingButton>
+          {onPulse ? <PulsatingButton pulseColor={shadowColor}>
             <div className={`truncate p-1 sides`}>
               <Card
                 className="colorTwo"
@@ -181,7 +181,7 @@ function Specifics({
               </Card>
             </div>
           </PulsatingButton>
-          :
+            :
             <div className={`truncate p-1 sides`}>
               <Card
                 className="colorTwo"
