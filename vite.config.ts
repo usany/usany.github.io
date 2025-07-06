@@ -21,32 +21,32 @@ export default defineConfig({
       scope: "/",
       display: "standalone",
       description: "A description for your application",
-      lang: " The default language of your application",
-      dir: "auto",
+      lang: "en",
+      dir: "ltr",
       theme_color: "#000000",
       background_color: "#000000",
       orientation: "any",
       icons: [
         {
-          "src": "./pwa-192x192.png",
+          "src": "./src/assets/pwa-192x192.png",
           "sizes": "192x192",
           "type": "image/png",
           "purpose": "any"
         },
         {
-          "src": "./pwa-192x192.png",
+          "src": "./src/assets/pwa-192x192.png",
           "sizes": "192x192",
           "type": "image/png",
           "purpose": "maskable"
         },
         {
-          "src": "./pwa-512x512.png",
+          "src": "./src/assets/pwa-512x512.png",
           "sizes": "512x512",
           "type": "image/png",
           "purpose": "any"
         },
         {
-          "src": "./pwa-512x512.png",
+          "src": "./src/assets/pwa-512x512.png",
           "sizes": "512x512",
           "type": "image/png",
           "purpose": "maskable"
@@ -57,13 +57,6 @@ export default defineConfig({
           "src": "https://www.pwabuilder.com/assets/screenshots/screen1.png",
           "sizes": "2880x1800",
           "type": "image/png",
-          "description": "A screenshot of the home page"
-        }
-      ],
-      related_applications: [
-        {
-          "platform": "windows",
-          "url": " The URL to your app in that app store"
         }
       ],
       prefer_related_applications: false,
