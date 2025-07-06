@@ -93,10 +93,6 @@ function Specifics({
   const flipCards = () => {
     setCardFlipped(!cardFlipped)
   }
-  // const cardId = document.getElementById('cardId')
-  // cardId?.addEventListener('transitionend', () => {
-  //   setCardBack(!cardBack)
-  // })
   return (
     <div className='z-50'>
       <div className='flex justify-center' onClick={() => flipCards()}>flip card</div>
@@ -111,8 +107,7 @@ function Specifics({
                     boxShadow: `1.9px 1.9px 1.9px 1.9px ${shadowColor}`,
                   }}
                 >
-                  <CardContent
-                  >
+                  <CardContent>
                     <SpecificsActions
                       drawerOpenTrue={drawerOpenTrue}
                       userObj={userObj}
