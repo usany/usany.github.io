@@ -1,4 +1,3 @@
-importScripts("https://progressier.app/A4f1ubWYsubu5uj9RYh6/sw.js");
 // import staticImg from 'src/assets/umbrella512.png';
 // import { dbservice } from 'src/baseApi/serverbase';
 // const formConversation = async (notification) => {
@@ -109,7 +108,7 @@ self.addEventListener('push', event => {
     const options = {
       body: String(event.data.json().notification.body),
       icon: event.data.json().data.body,
-      badge: '../src/assets/umbrella512.png',
+      badge: event.data.json().data.body,
       actions: [
         {
           action: 'reply',
@@ -139,7 +138,7 @@ self.addEventListener('push', event => {
     const options = {
       body: String(event.data.json().notification.body),
       icon: event.data.json().data.body,
-      badge: '../src/assets/umbrella512.png',
+      badge: event.data.json().data.body,
       data: event.data.json().data,
       // tag: event.data.json().data.title,
       tag: 'renotify',

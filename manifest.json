@@ -1,7 +1,7 @@
 {
   "name": "khusan umbrella app",
   "short_name": "khusan umbrella",
-  "start_url": "/postings/",
+  "start_url": "/",
   "display": "standalone",
   "description": "A description for your application",
   "lang": " The default language of your application",
