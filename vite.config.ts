@@ -15,8 +15,8 @@ export default defineConfig({
     },
 
     manifest: {
-      name: "KHUSAN",
-      short_name: "KHUSAN",
+      name: "khusan umbrella",
+      short_name: "khusan umbrella",
       start_url: "/",
       scope: "/",
       display: "standalone",
