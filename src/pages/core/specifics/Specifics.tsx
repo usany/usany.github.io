@@ -120,6 +120,12 @@ function Specifics({
           setCardTilt(false)
         }, 10)
       }}
+      onTouchMove={() => {
+        if (onMove) {
+          setCardTilting(null)
+          setCardTilt(true)
+        }
+      }}
       onMouseUp={() => {
         setCardTilting(0)
         setTimeout(() => {
