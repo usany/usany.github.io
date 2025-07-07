@@ -61,6 +61,7 @@ function Specifics({
   const [cardFlipped, setCardFlipped] = useState(false)
   const [cardTilt, setCardTilt] = useState(false)
   const [cardTilting, setCardTilting] = useState(null)
+  const [onMove, setOnMove] = useState(false)
   const languages = useSelectors((state) => state.languages.value)
   const deleteMessage = () => {
     setDeleted(true)
@@ -98,27 +99,38 @@ function Specifics({
   return (
     <div className='z-50 text-xs'
       onMouseDownCapture={() => {
-        setCardTilting(null)
-        setCardTilt(true)
+        setOnMove(true)
+        // setCardTilting(null)
+        // setCardTilt(true)
       }}
       onTouchStartCapture={() => {
-        setCardTilting(null)
-        setCardTilt(true)
+        setOnMove(true)
+        // setCardTilting(null)
+        // setCardTilt(true)
+      }}
+      onMouseMove={() => {
+        if (onMove) {
+          setCardTilting(null)
+          setCardTilt(true)
+        }
       }}
       onMouseLeave={() => {
         setTimeout(() => {
+          setOnMove(false)
           setCardTilt(false)
         }, 10)
       }}
-      onMouseUpCapture={() => {
+      onMouseUp={() => {
         setCardTilting(0)
         setTimeout(() => {
+          setOnMove(false)
           setCardTilt(false)
         }, 10)
       }}
       onTouchEndCapture={() => {
         setCardTilting(0)
         setTimeout(() => {
+          setOnMove(false)
           setCardTilt(false)
         }, 10)
       }}
