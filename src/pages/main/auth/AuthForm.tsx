@@ -175,20 +175,38 @@ const AuthForm = ({ signIn, agreed }) => {
             />
           </div>
           <div className="flex flex-col justify-center p-3">
-            <Button
-              variant="outlined"
-              startIcon={<img src={staticMail} className="w-[20px]" />}
-              form={signIn ? 'auth' : 'signUp'}
-              type="submit"
-            >
-              {signIn
-                ? languages === 'ko'
-                  ? '로그인'
-                  : 'Sign in'
-                : languages === 'ko'
-                  ? '회원가입'
-                  : 'Register'}
-            </Button>
+            {(!signIn && !agreed) ?
+              <Button
+                variant="outlined"
+                startIcon={<img src={staticMail} className="w-[20px]" />}
+                form={signIn ? 'auth' : 'signUp'}
+                // type="submit"
+                disabled
+              >
+                {signIn
+                  ? languages === 'ko'
+                    ? '로그인'
+                    : 'Sign in'
+                  : languages === 'ko'
+                    ? '회원가입'
+                    : 'Register'}
+              </Button>
+              :
+              <Button
+                variant="outlined"
+                startIcon={<img src={staticMail} className="w-[20px]" />}
+                form={signIn ? 'auth' : 'signUp'}
+                type="submit"
+              >
+                {signIn
+                  ? languages === 'ko'
+                    ? '로그인'
+                    : 'Sign in'
+                  : languages === 'ko'
+                    ? '회원가입'
+                    : 'Register'}
+              </Button>
+            }
             {!signIn && !agreed && <div>처리방침 동의 필요</div>}
             <span>{error}</span>
           </div>
