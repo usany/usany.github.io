@@ -94,7 +94,7 @@ function Specifics({
     setCardFlipped(!cardFlipped)
   }
   return (
-    <div className='z-50'>
+    <div className='z-50 text-xs'>
       <div className='flex justify-center' onClick={() => flipCards()}>flip card</div>
       <Tilt>
         <div className={`cards ${cardFlipped && 'rotatingCards'} z-50`}>
