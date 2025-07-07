@@ -96,12 +96,6 @@ function Specifics({
   const flipCards = () => {
     setCardFlipped(!cardFlipped)
   }
-  // useEffect(() => {
-  //   if (!onMove) {
-  //     setCardTilting(0)
-  //     console.log('practice')
-  //   }
-  // }, [onMove])
   return (
     <div className='z-50 text-xs'
       onMouseDownCapture={() => {
@@ -121,8 +115,8 @@ function Specifics({
         }
       }}
       onMouseLeave={() => {
+        setOnMove(false)
         setTimeout(() => {
-          setOnMove(false)
           setCardTilt(false)
         }, 10)
       }}
