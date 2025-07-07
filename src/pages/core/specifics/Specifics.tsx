@@ -59,6 +59,7 @@ function Specifics({
   const [points, setPoints] = useState<number | null>(null)
   const [deleted, setDeleted] = useState<boolean>(false)
   const [cardFlipped, setCardFlipped] = useState(false)
+  const [cardTilt, setCardTilt] = useState(false)
   const languages = useSelectors((state) => state.languages.value)
   const deleteMessage = () => {
     setDeleted(true)
@@ -94,9 +95,22 @@ function Specifics({
     setCardFlipped(!cardFlipped)
   }
   return (
-    <div className='z-50 text-xs'>
+    <div className='z-50 text-xs'
+      onMouseDownCapture={() => {
+        setCardTilt(true)
+      }}
+      onTouchStartCapture={() => {
+        setCardTilt(true)
+      }}
+      onMouseUpCapture={() => {
+        setCardTilt(false)
+      }}
+      onTouchEndCapture={() => {
+        setCardTilt(false)
+      }}
+    >
       <div className='flex justify-center' onClick={() => flipCards()}>flip card</div>
-      <Tilt>
+      <Tilt tiltEnable={cardTilt}>
         <div className={`cards ${cardFlipped && 'rotatingCards'} z-50`}>
           {onPulse ?
             <div className={`truncate p-1 sides`}>
@@ -252,7 +266,7 @@ function Specifics({
             practices
           </div>
         </div>
-      </Tilt >
+      </Tilt>
       {/* <div id='cardId' className={`truncate p-1 ${cardFlipped ? 'flippedCards' : 'nonFlippedCards'}`} onClick={() => flipCards()}>
         <Card
           className="colorTwo"
