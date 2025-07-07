@@ -103,14 +103,20 @@ function Specifics({
         setCardTilt(true)
       }}
       onMouseUpCapture={() => {
-        setCardTilt(false)
+        setTimeout(() => {
+          setCardTilt(false)
+        }, 10)
       }}
       onTouchEndCapture={() => {
-        setCardTilt(false)
+        setTimeout(() => {
+          setCardTilt(false)
+        }, 10)
       }}
     >
       <div className='flex justify-center' onClick={() => flipCards()}>flip card</div>
-      <Tilt tiltEnable={cardTilt}>
+      <Tilt tiltEnable={cardTilt}
+        tiltAngleXManual={cardTilt ? null : 0} tiltAngleYManual={cardTilt ? null : 0}
+      >
         <div className={`cards ${cardFlipped && 'rotatingCards'} z-50`}>
           {onPulse ?
             <div className={`truncate p-1 sides`}>
