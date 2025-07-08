@@ -13,6 +13,10 @@ export default defineConfig({
       disabled: false,
       config: true,
     },
+    includeAssets: [
+      'screen-01.png',
+      'screen.png'
+    ],
 
     manifest: {
       name: "khusan umbrella",
@@ -54,12 +58,12 @@ export default defineConfig({
       ],
       screenshots: [
         {
-          "src": './src/assets/screen-01.png',
+          "src": 'screen-01.png',
           "sizes": "2698x1534",
           "type": "image/png",
         },
         {
-          "src": './src/assets/screen.png',
+          "src": 'screen.png',
           "sizes": "1024x578",
           "type": "image/png",
         },
