@@ -54,8 +54,8 @@ export default defineConfig({
       ],
       screenshots: [
         {
-          "src": "https://www.pwabuilder.com/assets/screenshots/screen1.png",
-          "sizes": "2880x1800",
+          "src": "./src/assets/screen-01.png",
+          "sizes": "2698x1534",
           "type": "image/png",
         }
       ],
