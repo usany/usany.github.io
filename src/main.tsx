@@ -7,10 +7,6 @@ import App from 'src/App.tsx'
 import Lotties from 'src/lottiesAnimation/Lotties'
 import { store } from 'src/store'
 // import './i18n'
-import logo from 'src/assets/screen-01.png'
-import logoWithBackground from 'src/assets/screen.png'
-document.getElementById('logo-img').src = logo
-document.getElementById('logo-imgWithBackground').src = logoWithBackground
 
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker
