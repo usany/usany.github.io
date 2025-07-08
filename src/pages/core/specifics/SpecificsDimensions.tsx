@@ -28,19 +28,19 @@ function SpecificsDimensions({ message }: Props) {
   } else {
     locationOne =
       locationsBuildings['en'][
-        locationsBuildings['ko'].indexOf(message.text.count)
+      locationsBuildings['ko'].indexOf(message.text.count)
       ]
     locationTwo =
       locationsCollection['en'][
+      Object.keys(locationsCollectionLetters).find(
+        (key) => locationsCollectionLetters[key] === message.text.count,
+      )
+      ][
+      locationsCollection['ko'][
         Object.keys(locationsCollectionLetters).find(
           (key) => locationsCollectionLetters[key] === message.text.count,
         )
-      ][
-        locationsCollection['ko'][
-          Object.keys(locationsCollectionLetters).find(
-            (key) => locationsCollectionLetters[key] === message.text.count,
-          )
-        ].indexOf(message.text.counter)
+      ].indexOf(message.text.counter)
       ]
     location = locationOne + ' ' + locationTwo + ' ' + message.text.counting
   }

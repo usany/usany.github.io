@@ -11,7 +11,30 @@ const Modes = ({ userObj }) => {
   const theme = useSelectors((state) => state.theme.value)
   const languages = useSelector((state) => state.languages.value)
   const dispatch = useDispatch()
-  console.log(languages)
+  const switchLanguages = async () => {
+    const docRef = doc(dbservice, `members/${userObj?.uid}`)
+    if (languages === 'ko') {
+      localStorage.setItem('languages', 'en')
+      dispatch(changeEn())
+      if (userObj) {
+        await updateDoc(docRef, { preferLanguage: 'en' });
+      }
+    } else {
+      localStorage.setItem('languages', 'ko')
+      dispatch(changeKo())
+      if (userObj) {
+        await updateDoc(docRef, { preferLanguage: 'ko' });
+      }
+    }
+  }
+  // const switchLanguagesSignIn = async () => {
+  //   const docRef = doc(dbservice, `members/${userObj.uid}`)
+  //   if (languages === 'ko') {
+  //     await updateDoc(docRef, { preferLanguage: 'en' });
+  //   } else {
+  //     await updateDoc(docRef, { preferLanguage: 'ko' });
+  //   }
+  // }
   return (
     <div className="flex flex-col justify-center">
       <Switches
@@ -27,18 +50,7 @@ const Modes = ({ userObj }) => {
         }}
       />
       <SwitchesLanguages
-        onClick={async () => {
-          const docRef = doc(dbservice, `members/${userObj.uid}`)
-          if (languages === 'ko') {
-            localStorage.setItem('languages', 'en')
-            dispatch(changeEn())
-            await updateDoc(docRef, { preferLanguage: 'en' });
-          } else {
-            localStorage.setItem('languages', 'ko')
-            dispatch(changeKo())
-            await updateDoc(docRef, { preferLanguage: 'ko' });
-          }
-        }}
+        onClick={switchLanguages}
       />
     </div>
   )

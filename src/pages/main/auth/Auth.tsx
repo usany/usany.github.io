@@ -15,7 +15,7 @@ function Auth() {
       <AuthForm signIn={true} />
       <AuthButtons />
       <div className='flex justify-center pt-5 px-5'>{languages === 'ko' ? '날씨 플레이리스트도 준비되어 있어요.' : 'Weather playlist is also available for you.'}</div>
-      {motions}
+      <Motions />
     </div>
   )
 }
