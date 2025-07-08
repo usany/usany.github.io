@@ -37,7 +37,7 @@ const MessageSwitch = styled(Switch)(({ theme }) => ({
   },
 }));
 
-function AuthMethods({ changeAgreed }) {
+function AuthMethods({ agreed, changeAgreed }) {
   const [accordion, setAccordion] = useState('item')
   const changeAccordion = () => {
     if (accordion) {
@@ -77,7 +77,7 @@ function AuthMethods({ changeAgreed }) {
             <div>쿠키는 웹사이트 운영에 이용되는 http 서버가 정보주체의 브라우저에 보내는 소량의 정보로서 정보주체의 컴퓨터 또는 모바일에 저장되며, 웹사이트 접속 시 정보주체의 브라우저에서 서버로 자동 전송됩니다.</div>
             <div>정보주체는 브라우저 옵션 설정을 통해 쿠키 허용, 차단 등의 설정을 할 수 있습니다.</div>
             <div className='flex gap-5 items-center'>
-              <MessageSwitch onClick={changeAgreed} />
+              <MessageSwitch checked={agreed} onClick={changeAgreed} />
               <div>개인정보 처리방침에 동의합니다.</div>
             </div>
           </AccordionContent>
