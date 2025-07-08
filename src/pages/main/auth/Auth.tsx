@@ -1,4 +1,3 @@
-import { useMemo } from 'react';
 import { useSelectors } from 'src/hooks/useSelectors';
 import PageTitle from 'src/pages/core/pageTitle/PageTitle';
 import AuthButtons from 'src/pages/main/auth/AuthButtons';
@@ -6,7 +5,6 @@ import AuthForm from 'src/pages/main/auth/AuthForm';
 import Motions from 'src/pages/main/auth/Motions';
 
 function Auth() {
-  const motions = useMemo(() => <Motions />, [])
   const languages = useSelectors((state) => state.languages.value)
   return (
     <div>
