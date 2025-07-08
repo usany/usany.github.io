@@ -98,7 +98,7 @@ function SpecificsDimensions({ message }: Props) {
             </div>
             <Chip
               className='specific'
-              size="small" 
+              size="small"
               label={`${message.text.clocker.year}.${message.text.clocker.month}.${message.text.clocker.day} ${message.text.clocker.hour}:${message.text.clocker.minute}`}
             />
           </div>

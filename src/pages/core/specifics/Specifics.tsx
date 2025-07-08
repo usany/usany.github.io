@@ -96,6 +96,7 @@ function Specifics({
   const flipCards = () => {
     setCardFlipped(!cardFlipped)
   }
+  console.log(window.screen.width * 0.9)
   return (
     <div className='z-50 text-xs'
       onMouseDownCapture={() => {
@@ -152,6 +153,7 @@ function Specifics({
                 <Card
                   className="colorTwo"
                   sx={{
+                    maxWidth: `${window.screen.width * 0.9}px`,
                     boxShadow: `1.9px 1.9px 1.9px 1.9px ${shadowColor}`,
                   }}
                 >
