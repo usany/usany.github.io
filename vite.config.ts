@@ -2,6 +2,8 @@ import react from '@vitejs/plugin-react';
 import path from "path";
 import { defineConfig } from 'vite';
 import { VitePWA } from 'vite-plugin-pwa';
+import screen from './src/assets/screen-01.png';
+import screenWithBackground from './src/assets/screen.png';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -54,10 +56,15 @@ export default defineConfig({
       ],
       screenshots: [
         {
-          "src": "./src/assets/screen-01.png",
+          "src": screen,
           "sizes": "2698x1534",
           "type": "image/png",
-        }
+        },
+        {
+          "src": screenWithBackground,
+          "sizes": "1024x578",
+          "type": "image/png",
+        },
       ],
       prefer_related_applications: false,
       shortcuts: [
