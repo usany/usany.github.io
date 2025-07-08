@@ -84,7 +84,9 @@ function SpecificsTrades({
                 />
               }
             />
-            <Chip label={messageName} />
+            <Chip
+              className='specific'
+              label={messageName} />
           </div>
         ) : (
           <div className="flex flex-col items-center">
@@ -120,9 +122,13 @@ function SpecificsTrades({
               </Avatar>
             )}
             {connectedUser.uid ? (
-              <Chip label={connectedUser.displayName} />
+              <Chip
+                className='specific'
+                label={connectedUser.displayName} />
             ) : (
-              <Chip variant="outlined" label={'아직 없음'} />
+              <Chip
+                className='specific'
+                variant="outlined" label={'아직 없음'} />
             )}
           </div>
         )}
@@ -183,9 +189,12 @@ function SpecificsTrades({
               </Avatar>
             )}
             {connectedUser.uid ? (
-              <Chip label={connectedMessageName} />
+              <Chip
+                className='specific'
+                label={connectedMessageName} />
             ) : (
               <Chip
+                className='specific'
                 variant="outlined"
                 label={languages === 'ko' ? '아직 없음' : 'No one yet'}
               />
@@ -213,7 +222,9 @@ function SpecificsTrades({
                 />
               }
             />
-            <Chip label={messageName} />
+            <Chip
+              className='specific'
+              label={messageName} />
           </div>
         )}
       </div>
