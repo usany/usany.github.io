@@ -37,7 +37,7 @@ function SpecificsActions({ drawerOpenTrue, userObj, message }: Props) {
       <div className="flex items-center">
         <Chip
           className='specific'
-          size="small" 
+          size="small"
           label={`${languages === 'ko' ? message.item : Object.keys(items).find((key) => items[key] === message.item)} ${message.text.choose === 1 ? (languages === 'ko' ? ' 빌리기' : ' borrowing') : languages === 'ko' ? ' 빌려주기' : ' lending'}`}
         />
       </div>

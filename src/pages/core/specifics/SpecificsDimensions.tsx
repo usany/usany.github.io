@@ -58,6 +58,7 @@ function SpecificsDimensions({ message }: Props) {
         </div>
         <Chip
           className='specific'
+          size="small"
           label={location} />
       </div>
       <div className="flex items-center">
@@ -79,6 +80,7 @@ function SpecificsDimensions({ message }: Props) {
             </div>
             <Chip
               className='specific'
+              size="small"
               label={`${message.text.clock.year}.${message.text.clock.month}.${message.text.clock.day} ${message.text.clock.hour}:${message.text.clock.minute}`}
             />
           </div>
@@ -96,6 +98,7 @@ function SpecificsDimensions({ message }: Props) {
             </div>
             <Chip
               className='specific'
+              size="small" 
               label={`${message.text.clocker.year}.${message.text.clocker.month}.${message.text.clocker.day} ${message.text.clocker.hour}:${message.text.clocker.minute}`}
             />
           </div>

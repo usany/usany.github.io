@@ -86,6 +86,7 @@ function SpecificsTrades({
             />
             <Chip
               className='specific'
+              size="small"
               label={messageName} />
           </div>
         ) : (
@@ -124,10 +125,12 @@ function SpecificsTrades({
             {connectedUser.uid ? (
               <Chip
                 className='specific'
+                size="small"
                 label={connectedUser.displayName} />
             ) : (
               <Chip
                 className='specific'
+                size="small"
                 variant="outlined" label={'아직 없음'} />
             )}
           </div>
@@ -191,10 +194,12 @@ function SpecificsTrades({
             {connectedUser.uid ? (
               <Chip
                 className='specific'
+                size="small"
                 label={connectedMessageName} />
             ) : (
               <Chip
                 className='specific'
+                size="small"
                 variant="outlined"
                 label={languages === 'ko' ? '아직 없음' : 'No one yet'}
               />
