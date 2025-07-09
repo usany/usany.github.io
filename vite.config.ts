@@ -60,13 +60,13 @@ export default defineConfig({
       ],
       screenshots: [
         {
-          "src": 'screen-01.png',
-          "sizes": "2698x1534",
+          "src": 'screens1.png',
+          "sizes": "1900x1920",
           "type": "image/png",
         },
         {
-          "src": 'screen.png',
-          "sizes": "1024x578",
+          "src": 'screens2.png',
+          "sizes": "1900x578",
           "type": "image/png",
         },
       ],
