@@ -17,7 +17,9 @@ export default defineConfig({
       'pwa-192x192.png',
       'pwa-512x512.png',
       'screen-01.png',
-      'screen.png'
+      'screen.png',
+      'screens1.png',
+      'screens2.png'
     ],
 
     manifest: {
@@ -66,7 +68,7 @@ export default defineConfig({
         },
         {
           "src": 'screens2.png',
-          "sizes": "1900x578",
+          "sizes": "1900x1920",
           "type": "image/png",
         },
       ],
