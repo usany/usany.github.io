@@ -339,13 +339,35 @@ function Specifics({
                   </div>
                 }
                 {message.connectedClock &&
-                  <div className='flex'>
+                  <div className='flex justify-between'>
                     <Avatars />
+                    <div className='flex items-center'>
+                      {message.connectedClock}에 지원
+                    </div>
                   </div>
                 }
-                {message.connectedClock &&
-                  <div className='flex'>
+                {message.confirmedClock &&
+                  <div className='flex justify-between'>
                     <Avatars />
+                    <div className='flex items-center'>
+                      {message.confirmedClock}에 전달
+                    </div>
+                  </div>
+                }
+                {message.returningClock &&
+                  <div className='flex justify-between'>
+                    <Avatars />
+                    <div className='flex items-center'>
+                      {message.returningClock}에 반납 진행
+                    </div>
+                  </div>
+                }
+                {message.confirmedReturnClock &&
+                  <div className='flex justify-between'>
+                    <Avatars />
+                    <div className='flex items-center'>
+                      {message.confirmedReturnClock}에 반납 확인
+                    </div>
                   </div>
                 }
                 <div className="flex justify-center pt-5">
