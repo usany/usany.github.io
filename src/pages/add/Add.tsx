@@ -289,6 +289,10 @@ function Add({ userObj, borrow }: Props) {
           connectedProfileImage: null,
           connectedDefaultProfile: null,
           connectedProfileImageUrl: null,
+          connectedClock: null,
+          confirmedClock: null,
+          returningClock: null,
+          confirmedReturnClock: null
         });
         console.log(user)
         await updateDoc(user, { createdCards: [...userCreatedCards, card.id] });
