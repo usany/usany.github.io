@@ -227,6 +227,7 @@ function Specifics({
                   // position: 'absolute',
                   // width: '100%',
                   // height: '100%',
+                  maxWidth: `${window.screen.width * 0.9}px`,
                   boxShadow: `1.9px 1.9px 1.9px 1.9px ${shadowColor}`,
                 }}
               >
