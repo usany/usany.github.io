@@ -330,10 +330,23 @@ function Specifics({
                   connectedUser={connectedUser}
                 />
                 <Divider />
-                {message.createdClock && 
-                <div className='flex'>
-                  <Avatars />
-                </div>
+                {message.createdClock &&
+                  <div className='flex justify-between'>
+                    <Avatars />
+                    <div className='flex items-center'>
+                      {message.createdClock}에 생성
+                    </div>
+                  </div>
+                }
+                {message.connectedClock &&
+                  <div className='flex'>
+                    <Avatars />
+                  </div>
+                }
+                {message.connectedClock &&
+                  <div className='flex'>
+                    <Avatars />
+                  </div>
                 }
                 <div className="flex justify-center pt-5">
                   {!deleted ? (
