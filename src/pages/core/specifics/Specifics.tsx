@@ -7,6 +7,7 @@ import { User } from 'firebase/auth'
 import { doc, getDoc } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 import Tilt from 'react-parallax-tilt'
+import staticImage from 'src/assets/umbrella512.png'
 import { dbservice } from 'src/baseApi/serverbase'
 import Btn from 'src/buttons/Buttons'
 import { PulsatingButton } from 'src/components/ui/pulsating-button'
@@ -330,6 +331,9 @@ function Specifics({
                   // height: '100%',
                 }}
               >
+                <div className='flex justify-center'>
+                  <img className='absolute w-[50%] top-[25%]' src={staticImage} />
+                </div>
                 <div>
                   <SpecificsSteppers message={message} round={round} />
                 </div>
