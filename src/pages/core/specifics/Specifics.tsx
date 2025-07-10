@@ -316,8 +316,6 @@ function Specifics({
             <Card
               className="colorTwo"
               sx={{
-                // position: 'absolute',
-                // width: '100%',
                 height: `${document.getElementsByClassName('sides')[0]?.clientHeight}px`,
                 maxWidth: `${window.screen.width * 0.9}px`,
                 borderRadius: '10px'
@@ -325,11 +323,6 @@ function Specifics({
               }}
             >
               <CardContent
-                sx={{
-                  // position: 'absolute',
-                  // width: '100%',
-                  // height: '100%',
-                }}
               >
                 <div className='flex justify-center'>
                   <img className='absolute w-[50%] top-[25%]' src={staticImage} />
