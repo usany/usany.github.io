@@ -358,7 +358,6 @@ function Specifics({
                 </div>
               </CardContent>
             </Card>
-            practices
           </div>
         </div>
       </Tilt>
