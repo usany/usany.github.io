@@ -289,6 +289,7 @@ function Add({ userObj, borrow }: Props) {
           connectedProfileImage: null,
           connectedDefaultProfile: null,
           connectedProfileImageUrl: null,
+          createdClock: new Date().toString(),
           connectedClock: null,
           confirmedClock: null,
           returningClock: null,

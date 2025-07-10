@@ -11,6 +11,7 @@ import { dbservice } from 'src/baseApi/serverbase'
 import Btn from 'src/buttons/Buttons'
 import { PulsatingButton } from 'src/components/ui/pulsating-button'
 import { useSelectors } from 'src/hooks/useSelectors'
+import Avatars from '../Avatars'
 import { staticArray } from '../card/CardView'
 import SpecificsActions from './SpecificsActions'
 import SpecificsDimensions from './SpecificsDimensions'
@@ -97,6 +98,7 @@ function Specifics({
     setCardFlipped(!cardFlipped)
   }
   console.log(window.screen.width * 0.9)
+  console.log(message)
   return (
     <div className='z-50 text-xs'
       onMouseDownCapture={() => {
@@ -328,6 +330,11 @@ function Specifics({
                   connectedUser={connectedUser}
                 />
                 <Divider />
+                {message.createdClock && 
+                <div className='flex'>
+                  <Avatars />
+                </div>
+                }
                 <div className="flex justify-center pt-5">
                   {!deleted ? (
                     <div className="flex justify-center">
