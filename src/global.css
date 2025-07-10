@@ -92,7 +92,7 @@
 
 .backSide {
   /* position: absolute; */
-  background: green;
+  /* background: green; */
   transform: rotateY(180deg);
   backface-visibility: hidden;
   grid-row: 1/2;

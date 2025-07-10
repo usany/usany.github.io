@@ -300,6 +300,64 @@ function Specifics({
             </div>
           }
           <div className='backSide'>
+            <Card
+              className="colorTwo"
+              sx={{
+                // position: 'absolute',
+                // width: '100%',
+                // height: '100%',
+                maxWidth: `${window.screen.width * 0.9}px`,
+                boxShadow: `1.9px 1.9px 1.9px 1.9px ${shadowColor}`,
+              }}
+            >
+              <CardContent
+                sx={{
+                  // position: 'absolute',
+                  // width: '100%',
+                  // height: '100%',
+                }}
+              >
+                <div>
+                  <SpecificsSteppers message={message} round={round} />
+                </div>
+                <SpecificsTrades
+                  drawerOpenTrue={drawerOpenTrue}
+                  userObj={userObj}
+                  message={message}
+                  round={round}
+                  connectedUser={connectedUser}
+                />
+                <Divider />
+                <div className="flex justify-center pt-5">
+                  {!deleted ? (
+                    <div className="flex justify-center">
+                      <Btn
+                        messageObj={message}
+                        isOwner={message.creatorId === userObj.uid}
+                        uid={userObj.uid}
+                        displayName={userObj.displayName}
+                        userObj={userObj}
+                        num={num}
+                        points={points}
+                        deleteMessage={deleteMessage}
+                        round={round}
+                        increaseRound={increaseRound}
+                        decreaseRound={decreaseRound}
+                        changeOnPulse={changeOnPulse}
+                        changeConnectedUser={changeConnectedUser}
+                        toggleOnTransfer={toggleOnTransfer}
+                      />
+                    </div>
+                  ) : (
+                    <div className="flex justify-center">
+                      <Button variant="outlined" disabled>
+                        {languages === 'ko' ? '지워졌습니다' : 'Deleted'}
+                      </Button>
+                    </div>
+                  )}
+                </div>
+              </CardContent>
+            </Card>
             practices
           </div>
         </div>
