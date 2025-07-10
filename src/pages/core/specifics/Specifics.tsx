@@ -330,45 +330,92 @@ function Specifics({
                   connectedUser={connectedUser}
                 />
                 <Divider />
-                {message.createdClock &&
-                  <div className='flex justify-between'>
-                    <Avatars />
-                    <div className='flex items-center'>
-                      {message.createdClock}에 생성
-                    </div>
-                  </div>
-                }
-                {message.connectedClock &&
-                  <div className='flex justify-between'>
-                    <Avatars />
-                    <div className='flex items-center'>
-                      {message.connectedClock}에 지원
-                    </div>
-                  </div>
-                }
-                {message.confirmedClock &&
-                  <div className='flex justify-between'>
-                    <Avatars />
-                    <div className='flex items-center'>
-                      {message.confirmedClock}에 전달
-                    </div>
-                  </div>
-                }
-                {message.returningClock &&
-                  <div className='flex justify-between'>
-                    <Avatars />
-                    <div className='flex items-center'>
-                      {message.returningClock}에 반납 진행
-                    </div>
-                  </div>
-                }
-                {message.confirmedReturnClock &&
-                  <div className='flex justify-between'>
-                    <Avatars />
-                    <div className='flex items-center'>
-                      {message.confirmedReturnClock}에 반납 확인
-                    </div>
-                  </div>
+                {message.text.count === 1 ?
+                  <>
+                    {message.createdClock &&
+                      <div className='flex justify-between'>
+                        <Avatars />
+                        <div className='flex items-center'>
+                          {message.createdClock}에 생성
+                        </div>
+                      </div>
+                    }
+                    {message.connectedClock &&
+                      <div className='flex justify-between'>
+                        <div className='flex items-center'>
+                          {message.connectedClock}에 지원
+                        </div>
+                        <Avatars />
+                      </div>
+                    }
+                    {message.confirmedClock &&
+                      <div className='flex justify-between'>
+                        <Avatars />
+                        <div className='flex items-center'>
+                          {message.confirmedClock}에 전달
+                        </div>
+                      </div>
+                    }
+                    {message.returningClock &&
+                      <div className='flex justify-between'>
+                        <div className='flex items-center'>
+                          {message.returningClock}에 반납 진행
+                        </div>
+                        <Avatars />
+                      </div>
+                    }
+                    {message.confirmedReturnClock &&
+                      <div className='flex justify-between'>
+                        <Avatars />
+                        <div className='flex items-center'>
+                          {message.confirmedReturnClock}에 반납 확인
+                        </div>
+                      </div>
+                    }
+                  </>
+                  :
+                  <>
+                    {message.createdClock &&
+                      <div className='flex justify-between'>
+                        <div className='flex items-center'>
+                          {message.createdClock}에 생성
+                        </div>
+                        <Avatars />
+                      </div>
+                    }
+                    {message.connectedClock &&
+                      <div className='flex justify-between'>
+                        <Avatars />
+                        <div className='flex items-center'>
+                          {message.connectedClock}에 지원
+                        </div>
+                      </div>
+                    }
+                    {message.confirmedClock &&
+                      <div className='flex justify-between'>
+                        <div className='flex items-center'>
+                          {message.confirmedClock}에 전달
+                        </div>
+                        <Avatars />
+                      </div>
+                    }
+                    {message.returningClock &&
+                      <div className='flex justify-between'>
+                        <Avatars />
+                        <div className='flex items-center'>
+                          {message.returningClock}에 반납 진행
+                        </div>
+                      </div>
+                    }
+                    {message.confirmedReturnClock &&
+                      <div className='flex justify-between'>
+                        <Avatars />
+                        <div className='flex items-center'>
+                          {message.confirmedReturnClock}에 반납 확인
+                        </div>
+                      </div>
+                    }
+                  </>
                 }
                 <div className="flex justify-center pt-5">
                   {!deleted ? (
