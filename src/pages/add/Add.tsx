@@ -24,6 +24,7 @@ import AddSteppers from "src/pages/add/AddSteppers";
 import AddStepThree from "src/pages/add/AddStepThree";
 import AddStepTwo from "src/pages/add/AddStepTwo";
 import PageTitle from "src/pages/core/pageTitle/PageTitle";
+import useTexts from "src/useTexts";
 
 interface Props {
   userObj: User;
@@ -61,6 +62,7 @@ function Add({ userObj, borrow }: Props) {
   const matches = useMediaQuery("(min-width:850px)");
   const languages = useSelectors((state) => state.languages.value)
   const profile = useSelectors(state => state.profile.value)
+  const pleaseCheckTimeText = useTexts('pleaseCheckTime')
   // const [cardId, setCardId] = useState<string | null>(null)
   // const [from, setFrom] = useState(null);
   // const [to, setTo] = useState(null);
@@ -230,11 +232,11 @@ function Add({ userObj, borrow }: Props) {
       fromTo.to !== null
     ) {
       if (fromTo.from.gmt > fromTo.to.gmt) {
-        alert("시간을 확인해 주세요");
+        alert(pleaseCheckTimeText);
       } else if (fromTo.from.gmt < Date.now()) {
-        alert("현재 시간을 확인 후 등록해 주세요");
+        alert(pleaseCheckTimeText);
       } else if (fromTo.to.gmt < Date.now()) {
-        alert("현재 시간을 확인 후 등록해 주세요");
+        alert(pleaseCheckTimeText);
       } else {
         if (fromTo.to.year - fromTo.from.year > 0) {
           calculatePoint = (fromTo.to.year - fromTo.from.year) * 366 * 24 * 60;
