@@ -12,6 +12,7 @@ import { dbservice } from 'src/baseApi/serverbase'
 import Btn from 'src/buttons/Buttons'
 import { PulsatingButton } from 'src/components/ui/pulsating-button'
 import { useSelectors } from 'src/hooks/useSelectors'
+import useTexts from 'src/useTexts'
 import Avatars from '../Avatars'
 import { staticArray } from '../card/CardView'
 import SpecificsActions from './SpecificsActions'
@@ -65,6 +66,8 @@ function Specifics({
   const [cardTilting, setCardTilting] = useState(null)
   const [onMove, setOnMove] = useState(false)
   const languages = useSelectors((state) => state.languages.value)
+  const borrowingText = useTexts('borrowing')
+  const lendingText = useTexts('lending')
   const passingValueCreator = {
     profileImage: message.creatorProfileImage,
     defaultProfile: message.creatorDefaultProfile,
@@ -330,8 +333,8 @@ function Specifics({
                   <img className='absolute w-[50%] top-[25%] opacity-50' src={staticImage} />
                 </div>
                 <div className='flex justify-between'>
-                  <div>Borrowing</div>
-                  <div>Lending</div>
+                  <div>{borrowingText}</div>
+                  <div>{lendingText}</div>
                 </div>
                 <Divider />
                 {message.text.count === 1 ?

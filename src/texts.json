@@ -12,7 +12,9 @@
     "myStatus": "내 상태",
     "registerButton": "등록하기",
     "needToAgreeOnTerms": "처리방침 동의 필요",
-    "pleaseCheckTime": "시간을 확인해주세요"
+    "pleaseCheckTime": "시간을 확인해주세요",
+    "borrowing": "빌리기",
+    "lending": "빌려주기"
   },
   "en": {
     "Welcome to React": "Welcome to React and react-i18next",
@@ -27,6 +29,8 @@
     "myStatus": "My Status",
     "registerButton": "Register",
     "needToAgreeOnTerms": "Need to agree on terms",
-    "pleaseCheckTime": "Please check time"
+    "pleaseCheckTime": "Please check time",
+    "borrowing": "Borrowing",
+    "lending": "Lending"
   }
 }
