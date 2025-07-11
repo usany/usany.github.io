@@ -8,11 +8,13 @@ const resources = {
   en: {
     translation: {
       "Welcome to React": "Welcome to React and react-i18next",
+      "Register": '등록하기'
     }
   },
   ko: {
     translation: {
-      "Welcome to React": '환영합니다.'
+      "Welcome to React": '환영합니다.',
+      "Register": 'Register'
     }
   }
 };
