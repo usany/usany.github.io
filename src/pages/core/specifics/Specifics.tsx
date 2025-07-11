@@ -387,12 +387,12 @@ function Specifics({
                         <div className='flex items-center'>
                           {message.createdClock}에 생성
                         </div>
-                        <Avatars element={passingValueConnected} />
+                        <Avatars element={passingValueCreator} />
                       </div>
                     }
                     {message.connectedClock &&
                       <div className='flex justify-between'>
-                        <Avatars element={passingValueCreator} />
+                        <Avatars element={passingValueConnected} />
                         <div className='flex items-center'>
                           {message.connectedClock}에 지원
                         </div>
@@ -403,12 +403,12 @@ function Specifics({
                         <div className='flex items-center'>
                           {message.confirmedClock}에 전달
                         </div>
-                        <Avatars element={passingValueConnected} />
+                        <Avatars element={passingValueCreator} />
                       </div>
                     }
                     {message.returningClock &&
                       <div className='flex justify-between'>
-                        <Avatars element={passingValueCreator} />
+                        <Avatars element={passingValueConnected} />
                         <div className='flex items-center'>
                           {message.returningClock}에 반납 진행
                         </div>
@@ -419,7 +419,7 @@ function Specifics({
                         <div className='flex items-center'>
                           {message.confirmedReturnClock}에 반납 확인
                         </div>
-                        <Avatars element={passingValueConnected} />
+                        <Avatars element={passingValueCreator} />
                       </div>
                     }
                   </>
