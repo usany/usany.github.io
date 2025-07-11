@@ -318,6 +318,9 @@ function Specifics({
               sx={{
                 height: `${document.getElementsByClassName('sides')[0]?.clientHeight}px`,
                 maxWidth: `${window.screen.width * 0.9}px`,
+                border: 1,
+                borderWidth: '5px',
+                borderColor: shadowColor,
                 borderRadius: '10px'
                 // boxShadow: `1.9px 1.9px 1.9px 1.9px ${shadowColor}`,
               }}
@@ -325,7 +328,7 @@ function Specifics({
               <CardContent
               >
                 <div className='flex justify-center'>
-                  <img className='absolute w-[50%] top-[25%]' src={staticImage} />
+                  <img className='absolute w-[50%] top-[25%] opacity-50' src={staticImage} />
                 </div>
                 <div>
                   <SpecificsSteppers message={message} round={round} />
