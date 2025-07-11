@@ -1,20 +1,18 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
-
+import texts from 'texts.json';
 // the translations
 // (tip move them in a JSON file and import them,
 // or even better, manage them separated from your code: https://react.i18next.com/guides/multiple-translation-files)
 const resources = {
   en: {
     translation: {
-      "Welcome to React": "Welcome to React and react-i18next",
-      "Register": '등록하기'
+      ...texts['en'],
     }
   },
   ko: {
     translation: {
-      "Welcome to React": '환영합니다.',
-      "Register": 'Register'
+      ...texts['ko']
     }
   }
 };

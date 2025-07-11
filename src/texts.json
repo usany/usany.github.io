@@ -9,7 +9,9 @@
     "register": "등록",
     "board": "게시판",
     "logIn": "로그인",
-    "myStatus": "내 상태"
+    "myStatus": "내 상태",
+    "registerButton": "등록하기",
+    "needToAgreeOnTerms": "처리방침 동의 필요"
   },
   "en": {
     "Welcome to React": "Welcome to React and react-i18next",
@@ -21,6 +23,8 @@
     "register": "Register",
     "board": "Board",
     "logIn": "Log In",
-    "myStatus": "My Status"
+    "myStatus": "My Status",
+    "registerButton": "Register",
+    "needToAgreeOnTerms": "Need to agree on terms"
   }
 }
