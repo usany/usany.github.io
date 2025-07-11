@@ -59,6 +59,7 @@ function Add({ userObj, borrow }: Props) {
   const [item, setItem] = useState("");
   const tabs = useSelector((state: TabsRootState) => state.tabs.value);
   const [fromTo, setFromTo] = useState<FromTo>({ from: null, to: null });
+  const [enableRegister, setEnableRegister] = useState(false)
   const matches = useMediaQuery("(min-width:850px)");
   const languages = useSelectors((state) => state.languages.value)
   const profile = useSelectors(state => state.profile.value)
@@ -153,7 +154,15 @@ function Add({ userObj, borrow }: Props) {
       setTimeout(() => setAddSteps(4), 5000);
     }
   });
-
+  useEffect(() => {
+    if (fromTo?.from && fromTo?.to) {
+      if (fromTo.from.gmt <= fromTo.to.gmt && fromTo.from.gmt >= Date.now() && fromTo.to.gmt >= Date.now()) {
+        setEnableRegister(true)
+      } else {
+        setEnableRegister(false)
+      }
+    }
+  }, [fromTo])
   //   let calculatePoint = 0
 
   const changeItem = (event: PointerEvent) => {
@@ -425,7 +434,10 @@ function Add({ userObj, borrow }: Props) {
       {!matches && addSteps > 1 && (
         <AddStepThree onChangeFrom={onChangeFrom} onChangeTo={onChangeTo} />
       )}
-      {addSteps === 2 && <AddRegisterButton submit={submit} fromTo={fromTo} />}
+      {addSteps === 2 && !enableRegister &&
+        <div className='flex justify-center'>{pleaseCheckTimeText}</div>
+      }
+      {addSteps === 2 && <AddRegisterButton submit={submit} fromTo={fromTo} enableRegister={enableRegister} />}
       {addSteps > 2 && <AddStepFour display={display} />}
       {addSteps === 3 && <AddSnackBar changeAddSteps={changeAddSteps} />}
     </div>

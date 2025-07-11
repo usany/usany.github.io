@@ -5,11 +5,11 @@ interface Props {
   submit: (event: {}) => void
 }
 
-const AddRegisterButton = ({ submit, fromTo }: Props) => {
+const AddRegisterButton = ({ submit, fromTo, enableRegister }: Props) => {
   const registerButtonText = useTexts('registerButton')
   return (
     <form className='flex justify-center pt-5' id='selection' onSubmit={submit}>
-      {fromTo.from?.gmt < fromTo.to?.gmt ?
+      {enableRegister ?
         <Button variant='outlined' form='selection' type='submit'>{registerButtonText}</Button>
         :
         <Button variant='outlined' form='selection' type='submit' disabled>{registerButtonText}</Button>
