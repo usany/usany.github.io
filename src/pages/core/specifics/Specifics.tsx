@@ -164,7 +164,7 @@ function Specifics({
       >
         <div className={`cards ${cardFlipped && 'rotatingCards'} z-50`}>
           {onPulse ?
-            <div className={`truncate p-1 sides`}>
+            <div className='sides'>
               <PulsatingButton pulseColor={shadowColor}>
                 <Card
                   className="colorTwo"
