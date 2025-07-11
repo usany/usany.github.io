@@ -18,12 +18,15 @@ import staticMail from 'src/assets/signMail.svg'
 import { auth, dbservice, storage } from 'src/baseApi/serverbase'
 import { useSelectors } from 'src/hooks/useSelectors.tsx'
 import setDocUser from 'src/pages/core/setDocUser.ts'
+import useTexts from 'src/useTexts.ts'
 import AuthDialogs from './AuthDialogs.tsx'
 
 const AuthForm = ({ signIn, agreed }) => {
   const [account, setAccount] = useState({ email: '', password: '' })
   const [error, setError] = useState('')
   const languages = useSelectors((state) => state.languages.value)
+  const needToAgreeOnTermsText = useTexts('needToAgreeOnTerms')
+  // const { i18n, t } = useTranslation()
   const onSubmitSignIn = async (event) => {
     event.preventDefault()
     try {
@@ -207,7 +210,7 @@ const AuthForm = ({ signIn, agreed }) => {
                     : 'Register'}
               </Button>
             }
-            {!signIn && !agreed && <div>처리방침 동의 필요</div>}
+            {!signIn && !agreed && <div>{needToAgreeOnTermsText}</div>}
             <span>{error}</span>
           </div>
         </form>

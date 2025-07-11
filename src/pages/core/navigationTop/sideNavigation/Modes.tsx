@@ -10,6 +10,7 @@ import SwitchesLanguages from './SwitchesLanguages'
 const Modes = ({ userObj }) => {
   const theme = useSelectors((state) => state.theme.value)
   const languages = useSelector((state) => state.languages.value)
+  // const { i18n } = useTranslation()
   const dispatch = useDispatch()
   const switchLanguages = async () => {
     const docRef = doc(dbservice, `members/${userObj?.uid}`)
