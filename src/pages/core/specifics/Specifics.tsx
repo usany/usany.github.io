@@ -322,7 +322,6 @@ function Specifics({
                 borderWidth: '5px',
                 borderColor: shadowColor,
                 borderRadius: '10px'
-                // boxShadow: `1.9px 1.9px 1.9px 1.9px ${shadowColor}`,
               }}
             >
               <CardContent
