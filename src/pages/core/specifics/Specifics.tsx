@@ -329,16 +329,10 @@ function Specifics({
                 <div className='flex justify-center'>
                   <img className='absolute w-[50%] top-[25%] opacity-50' src={staticImage} />
                 </div>
-                <div>
-                  <SpecificsSteppers message={message} round={round} />
+                <div className='flex justify-between'>
+                  <div>Borrowing</div>
+                  <div>Lending</div>
                 </div>
-                <SpecificsTrades
-                  drawerOpenTrue={drawerOpenTrue}
-                  userObj={userObj}
-                  message={message}
-                  round={round}
-                  connectedUser={connectedUser}
-                />
                 <Divider />
                 {message.text.count === 1 ?
                   <>
