@@ -434,7 +434,7 @@ function Add({ userObj, borrow }: Props) {
       {!matches && addSteps > 1 && (
         <AddStepThree onChangeFrom={onChangeFrom} onChangeTo={onChangeTo} />
       )}
-      {addSteps === 2 && !enableRegister &&
+      {addSteps === 2 && !enableRegister && fromTo.from && fromTo.to &&
         <div className='flex justify-center'>{pleaseCheckTimeText}</div>
       }
       {addSteps === 2 && <AddRegisterButton submit={submit} fromTo={fromTo} enableRegister={enableRegister} />}
