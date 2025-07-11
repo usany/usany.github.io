@@ -30,7 +30,8 @@ const onSupporting = async ({ message, uid, displayName, profileUrl }) => {
     connectedUrl: profileUrl,
     connectedProfileImage: connectedUserData.profileImage,
     connectedDefaultProfile: connectedUserData.defaultProfile,
-    connectedProfileImageUrl: connectedUserData.profileImageUrl
+    connectedProfileImageUrl: connectedUserData.profileImageUrl,
+    connectedClock: new Date().toString(),
   })
   const connectedUserConnectedCards = connectedUserData?.connectedCards || []
   updateDoc(connectedUserRef, {
