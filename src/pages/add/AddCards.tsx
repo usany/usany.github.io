@@ -99,9 +99,7 @@ const AddCards = ({
                     {locationState && (
                       <div className="flex gap-1 items-center">
                         {locationState?.locationOne &&
-                          <div className='w-[24px]'>
-                            <Building />
-                          </div>
+                          <Building />
                         }
                         <div className='flex items-center'>
                           {languages === 'ko' ? locationState?.locationOne : locationsBuildings['en'][locationsBuildings['ko'].indexOf(locationState?.locationOne)]}
