@@ -97,7 +97,7 @@ const AddCards = ({
                   )}
                   <div className="flex flex-col pt-1 gap-1 text-xs">
                     {locationState && (
-                      <div className="flex gap-1">
+                      <div className="flex gap-1 items-center">
                         {locationState?.locationOne &&
                           <div className='w-[24px]'>
                             <Building />
@@ -113,7 +113,7 @@ const AddCards = ({
                       </div>
                     )}
                     {fromTo.from && (
-                      <div className="flex gap-1">
+                      <div className="flex gap-1 items-center">
                         <Watch />
                         <div className='flex flex-col justify-center'>
                           <div className='flex'>
