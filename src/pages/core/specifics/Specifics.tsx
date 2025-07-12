@@ -355,7 +355,7 @@ function Specifics({
                         <Avatars element={passingValueConnected} />
                       </div>
                     }
-                    {message.confirmedClock &&
+                    {message.confirmingClock &&
                       <div className='flex justify-between'>
                         <Avatars element={passingValueCreator} />
                         <div className='flex items-center'>
@@ -398,7 +398,7 @@ function Specifics({
                         </div>
                       </div>
                     }
-                    {message.confirmedClock &&
+                    {message.confirmingClock &&
                       <div className='flex justify-between'>
                         <div className='flex items-center'>
                           {message.confirmedClock}에 전달
