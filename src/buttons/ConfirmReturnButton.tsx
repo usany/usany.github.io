@@ -26,7 +26,7 @@ const onConfirmReturn = async ({ num, points, message, uid, displayName, profile
   updateDoc(data, {
     round: 5,
     confirmedReturnClock: new Date().toString()
-  })
+  })w
   const point = doc(dbservice, `members/${message.creatorId}`)
   const connectedPoint = doc(dbservice, `members/${dataDoc.data()?.connectedId}`)
   const creatorSnap = await getDoc(point)
