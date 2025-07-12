@@ -16,7 +16,6 @@ const Router = ({ userObj }: Props) => {
   const Ranking = lazy(() => import('src/pages/search/Ranking'))
   const Contact = lazy(() => import('src/pages/contact/Contact'))
   const Piazza = lazy(() => import('src/pages/piazza/Piazza'))
-
   return (
     <BrowserRouter basename='/'>
       {/* <HashRouter> */}
