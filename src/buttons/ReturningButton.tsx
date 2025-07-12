@@ -20,7 +20,10 @@ const onReturning = async ({ message, uid, displayName, profileUrl }) => {
     connectedUrl: profileUrl,
     preferLanguage: doc.data()?.preferLanguage || 'ko',
   }
-  updateDoc(data, { round: 4 })
+  updateDoc(data, {
+    round: 4,
+    returningClock: new Date().toString()
+  })
   webSocket.emit('returning', passingObject)
 }
 
