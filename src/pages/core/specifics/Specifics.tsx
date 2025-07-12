@@ -337,7 +337,7 @@ function Specifics({
                   <div>{lendingText}</div>
                 </div>
                 <Divider />
-                {message.text.count === 1 ?
+                {message.text.choose === 1 ?
                   <>
                     {message.createdClock &&
                       <div className='flex justify-between'>

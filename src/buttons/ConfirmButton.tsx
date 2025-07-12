@@ -22,7 +22,7 @@ const onConfirm = async ({ message, uid, displayName, profileUrl }) => {
   }
   updateDoc(data, {
     round: 3,
-    confirmingClock: new Date().toString(),
+    confirmedClock: new Date().toString(),
   })
   webSocket.emit('confirm', passingObject)
 }
