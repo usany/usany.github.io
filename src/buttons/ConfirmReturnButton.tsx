@@ -64,6 +64,7 @@ const onConfirmReturn = async ({ num, points, message, uid, displayName, profile
   updateDoc(connectedPoint, {
     connectedCards: [...newConnectedCards],
   })
+  
   const passingObject = {
     id: message.id,
     choose: message.text.choose,
