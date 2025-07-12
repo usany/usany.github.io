@@ -9,11 +9,14 @@ const AddRegisterButton = ({ submit, fromTo, enableRegister }: Props) => {
   const registerButtonText = useTexts('registerButton')
   return (
     <form className='flex justify-center pt-5' id='selection' onSubmit={submit}>
-      {enableRegister ?
+      {enableRegister &&
+        <Button variant='outlined' form='selection' type='submit'>{registerButtonText}</Button>
+      }
+      {/* {enableRegister ?
         <Button variant='outlined' form='selection' type='submit'>{registerButtonText}</Button>
         :
         <Button variant='outlined' form='selection' type='submit' disabled>{registerButtonText}</Button>
-      }
+      } */}
     </form>
   )
 }
