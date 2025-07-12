@@ -1,6 +1,6 @@
 import { User } from 'firebase/auth'
 import { Suspense, lazy } from 'react'
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
+import { HashRouter, Navigate, Route, Routes } from 'react-router-dom'
 import Navigations from 'src/pages/core/Navigations'
 import NavigationTop from 'src/pages/core/navigationTop/NavigationTop'
 import Adds from '../../add/Adds'
@@ -18,7 +18,8 @@ const Router = ({ userObj }: Props) => {
   const Piazza = lazy(() => import('src/pages/piazza/Piazza'))
 
   return (
-    <BrowserRouter>
+    // <BrowserRouter>
+    <HashRouter>
       <div className="flex flex-col">
         <NavigationTop userObj={userObj} />
         <div className='pt-16 pb-14'>
@@ -65,7 +66,8 @@ const Router = ({ userObj }: Props) => {
         </div>
         <Navigations userObj={userObj} />
       </div>
-    </BrowserRouter >
+    </HashRouter>
+    // </BrowserRouter>
   )
 }
 
