@@ -20,6 +20,7 @@ interface Props {
   displayName: string
   increaseRound: () => void
 }
+
 const onConfirmReturn = async ({ num, points, message, uid, displayName, profileUrl }) => {
   const { data, messagingToken } = await specificProcess({ message: message, toUid: message.text.choose === 1 ? null : uid })
   const dataDoc = await getDoc(data)
