@@ -25,6 +25,7 @@ const onStopSupporting = async ({ message, uid, displayName, profileUrl }) => {
     connectedId: null,
     connectedName: null,
     connectedUrl: null,
+    connectedClock: null,
   })
   const connectedUserRef = doc(dbservice, `members/${uid}`)
   const connectedUserSnap = await getDoc(connectedUserRef)

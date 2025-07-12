@@ -20,7 +20,10 @@ const onConfirm = async ({ message, uid, displayName, profileUrl }) => {
     connectedUrl: profileUrl,
     preferLanguage: doc.data()?.preferLanguage || 'ko',
   }
-  updateDoc(data, { round: 3 })
+  updateDoc(data, {
+    round: 3,
+    confirmClock: new Date().toString(),
+  })
   webSocket.emit('confirm', passingObject)
 }
 
