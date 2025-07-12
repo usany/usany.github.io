@@ -18,7 +18,7 @@ const Router = ({ userObj }: Props) => {
   const Piazza = lazy(() => import('src/pages/piazza/Piazza'))
 
   return (
-    <BrowserRouter basename='https://usany.github.io'>
+    <BrowserRouter basename='/'>
       {/* <HashRouter> */}
       <div className="flex flex-col">
         <NavigationTop userObj={userObj} />
