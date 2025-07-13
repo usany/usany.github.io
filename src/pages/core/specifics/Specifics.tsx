@@ -231,13 +231,7 @@ function Specifics({
                   boxShadow: `1.9px 1.9px 1.9px 1.9px ${shadowColor}`,
                 }}
               >
-                <CardContent
-                  sx={{
-                    // position: 'absolute',
-                    // width: '100%',
-                    // height: '100%',
-                  }}
-                >
+                <CardContent>
                   <SpecificsActions
                     drawerOpenTrue={drawerOpenTrue}
                     userObj={userObj}
