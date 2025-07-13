@@ -7,13 +7,11 @@ import { User } from 'firebase/auth'
 import { doc, getDoc } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 import Tilt from 'react-parallax-tilt'
-import staticImage from 'src/assets/umbrella512.png'
 import { dbservice } from 'src/baseApi/serverbase'
 import Btn from 'src/buttons/Buttons'
 import { PulsatingButton } from 'src/components/ui/pulsating-button'
 import { useSelectors } from 'src/hooks/useSelectors'
 import useTexts from 'src/useTexts'
-import Avatars from '../Avatars'
 import { staticArray } from '../card/CardView'
 import SpecificsActions from './SpecificsActions'
 import SpecificsDimensions from './SpecificsDimensions'
@@ -317,146 +315,6 @@ function Specifics({
             </div>
           }
           <SpecificsRear message={message} shadowColor={shadowColor} />
-          <div className='backSide'>
-            <Card
-              className="colorTwo"
-              sx={{
-                height: `${document.getElementsByClassName('sides')[0]?.clientHeight}px`,
-                maxWidth: `${window.screen.width * 0.9}px`,
-                border: 1,
-                borderWidth: '5px',
-                borderColor: shadowColor,
-                borderRadius: '10px'
-              }}
-            >
-              <CardContent
-              >
-                <div className='flex justify-center'>
-                  <img className='absolute w-[50%] top-[25%] opacity-50' src={staticImage} />
-                </div>
-                <div className='flex justify-between'>
-                  <div>{borrowingText}</div>
-                  <div>{lendingText}</div>
-                </div>
-                <Divider />
-                {message.text.choose === 1 ?
-                  <>
-                    {message.createdClock &&
-                      <div className='flex justify-between'>
-                        <Avatars element={passingValueCreator} />
-                        <div className='flex items-center'>
-                          {message.createdClock}에 생성
-                        </div>
-                      </div>
-                    }
-                    {message.connectedClock &&
-                      <div className='flex justify-between'>
-                        <div className='flex items-center'>
-                          {message.connectedClock}에 지원
-                        </div>
-                        <Avatars element={passingValueConnected} />
-                      </div>
-                    }
-                    {message.confirmingClock &&
-                      <div className='flex justify-between'>
-                        <Avatars element={passingValueCreator} />
-                        <div className='flex items-center'>
-                          {message.confirmedClock}에 전달
-                        </div>
-                      </div>
-                    }
-                    {message.returningClock &&
-                      <div className='flex justify-between'>
-                        <div className='flex items-center'>
-                          {message.returningClock}에 반납 진행
-                        </div>
-                        <Avatars element={passingValueConnected} />
-                      </div>
-                    }
-                    {message.confirmedReturnClock &&
-                      <div className='flex justify-between'>
-                        <Avatars element={passingValueCreator} />
-                        <div className='flex items-center'>
-                          {message.confirmedReturnClock}에 반납 확인
-                        </div>
-                      </div>
-                    }
-                  </>
-                  :
-                  <>
-                    {message.createdClock &&
-                      <div className='flex justify-between'>
-                        <div className='flex items-center'>
-                          {message.createdClock}에 생성
-                        </div>
-                        <Avatars element={passingValueCreator} />
-                      </div>
-                    }
-                    {message.connectedClock &&
-                      <div className='flex justify-between'>
-                        <Avatars element={passingValueConnected} />
-                        <div className='flex items-center'>
-                          {message.connectedClock}에 지원
-                        </div>
-                      </div>
-                    }
-                    {message.confirmingClock &&
-                      <div className='flex justify-between'>
-                        <div className='flex items-center'>
-                          {message.confirmedClock}에 전달
-                        </div>
-                        <Avatars element={passingValueCreator} />
-                      </div>
-                    }
-                    {message.returningClock &&
-                      <div className='flex justify-between'>
-                        <Avatars element={passingValueConnected} />
-                        <div className='flex items-center'>
-                          {message.returningClock}에 반납 진행
-                        </div>
-                      </div>
-                    }
-                    {message.confirmedReturnClock &&
-                      <div className='flex justify-between'>
-                        <div className='flex items-center'>
-                          {message.confirmedReturnClock}에 반납 확인
-                        </div>
-                        <Avatars element={passingValueCreator} />
-                      </div>
-                    }
-                  </>
-                }
-                <div className="flex justify-center pt-5">
-                  {!deleted ? (
-                    <div className="flex justify-center">
-                      <Btn
-                        messageObj={message}
-                        isOwner={message.creatorId === userObj.uid}
-                        uid={userObj.uid}
-                        displayName={userObj.displayName}
-                        userObj={userObj}
-                        num={num}
-                        points={points}
-                        deleteMessage={deleteMessage}
-                        round={round}
-                        increaseRound={increaseRound}
-                        decreaseRound={decreaseRound}
-                        changeOnPulse={changeOnPulse}
-                        changeConnectedUser={changeConnectedUser}
-                        toggleOnTransfer={toggleOnTransfer}
-                      />
-                    </div>
-                  ) : (
-                    <div className="flex justify-center">
-                      <Button variant="outlined" disabled>
-                        {languages === 'ko' ? '지워졌습니다' : 'Deleted'}
-                      </Button>
-                    </div>
-                  )}
-                </div>
-              </CardContent>
-            </Card>
-          </div>
         </div>
       </Tilt>
       {/* <div id='cardId' className={`truncate p-1 ${cardFlipped ? 'flippedCards' : 'nonFlippedCards'}`} onClick={() => flipCards()}>
