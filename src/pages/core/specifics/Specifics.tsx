@@ -16,6 +16,7 @@ import useTexts from 'src/useTexts'
 import Avatars from '../Avatars'
 import { staticArray } from '../card/CardView'
 import SpecificsActions from './SpecificsActions'
+import SpecificsBackSide from './SpecificsBackSide'
 import SpecificsDimensions from './SpecificsDimensions'
 import SpecificsSteppers from './SpecificsSteppers'
 import SpecificsTrades from './SpecificsTrades'
@@ -315,6 +316,7 @@ function Specifics({
               </Card>
             </div>
           }
+          <SpecificsBackSide message={message} shadowColor={shadowColor}/>
           <div className='backSide'>
             <Card
               className="colorTwo"
