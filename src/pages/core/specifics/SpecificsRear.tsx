@@ -1,7 +1,7 @@
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import Divider from '@mui/material/Divider'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import staticImage from 'src/assets/umbrella512.png'
 import useTexts from 'src/useTexts'
 import Avatars from '../Avatars'
@@ -31,6 +31,9 @@ function SpecificsRear({
     defaultProfile: message.connectedDefaultProfile,
     profileImageUrl: message.connectedProfileImageUrl
   }
+  useEffect(() => {
+    
+  }, [])
 
   return (
     <div className='backSide'>

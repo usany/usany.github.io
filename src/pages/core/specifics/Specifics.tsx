@@ -63,6 +63,10 @@ function Specifics({
   const [cardTilt, setCardTilt] = useState(false)
   const [cardTilting, setCardTilting] = useState(null)
   const [onMove, setOnMove] = useState(false)
+  const [connectedClock, setConnectedClock] = useState('')
+  const [confirmingClock, setConfirmingClock] = useState('')
+  const [returningClock, setReturningClock] = useState('')
+  const [confirmedReturnClock, setConfirmedReturnClock] = useState('')
   const languages = useSelectors((state) => state.languages.value)
   const deleteMessage = () => {
     setDeleted(true)
