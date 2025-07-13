@@ -1,4 +1,3 @@
-import { Button } from "./components/ui/button";
 import React from "react";
 
 interface CardingsProps {
@@ -15,16 +14,16 @@ const Cardings = ({ cards, shadowColor }: CardingsProps) => {
 
   return (
     <div className={`w-[200px] h-[280px] rounded-lg bg-light-2 dark:bg-dark-2 hover:bg-light-1 shadow-md shadow-[${shadowColor}]`}>
-      <div className='p-3'>
+      {/* <div className='p-3'>
         {cards}
-        <Button 
-          className="mt-4 w-full" 
+        <Button
+          className="mt-4 w-full"
           onClick={handleSubmit}
           variant="default"
         >
           Submit
         </Button>
-      </div>
+      </div> */}
     </div >
   )
 }
