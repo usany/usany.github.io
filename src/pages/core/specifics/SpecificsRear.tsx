@@ -10,7 +10,7 @@ interface Props {
   shadowColor: string
 }
 
-function SpecificsBackSide({
+function SpecificsRear({
   message,
   shadowColor
 }: Props) {
@@ -143,4 +143,4 @@ function SpecificsBackSide({
   )
 }
 
-export default SpecificsBackSide
+export default SpecificsRear
