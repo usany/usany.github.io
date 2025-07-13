@@ -11,7 +11,6 @@ import { dbservice } from 'src/baseApi/serverbase'
 import Btn from 'src/buttons/Buttons'
 import { PulsatingButton } from 'src/components/ui/pulsating-button'
 import { useSelectors } from 'src/hooks/useSelectors'
-import useTexts from 'src/useTexts'
 import { staticArray } from '../card/CardView'
 import SpecificsActions from './SpecificsActions'
 import SpecificsDimensions from './SpecificsDimensions'
@@ -65,18 +64,6 @@ function Specifics({
   const [cardTilting, setCardTilting] = useState(null)
   const [onMove, setOnMove] = useState(false)
   const languages = useSelectors((state) => state.languages.value)
-  const borrowingText = useTexts('borrowing')
-  const lendingText = useTexts('lending')
-  const passingValueCreator = {
-    profileImage: message.creatorProfileImage,
-    defaultProfile: message.creatorDefaultProfile,
-    profileImageUrl: message.creatorProfileImageUrl
-  }
-  const passingValueConnected = {
-    profileImage: message.connectedProfileImage,
-    defaultProfile: message.connectedDefaultProfile,
-    profileImageUrl: message.connectedProfileImageUrl
-  }
   const deleteMessage = () => {
     setDeleted(true)
     removeMessage(message)
@@ -110,8 +97,6 @@ function Specifics({
   const flipCards = () => {
     setCardFlipped(!cardFlipped)
   }
-  console.log(window.screen.width * 0.9)
-  console.log(message)
   return (
     <div className='z-50 text-xs'
       onMouseDownCapture={() => {
@@ -317,81 +302,6 @@ function Specifics({
           <SpecificsRear message={message} shadowColor={shadowColor} />
         </div>
       </Tilt>
-      {/* <div id='cardId' className={`truncate p-1 ${cardFlipped ? 'flippedCards' : 'nonFlippedCards'}`} onClick={() => flipCards()}>
-        <Card
-          className="colorTwo"
-          sx={{
-            boxShadow: `1.9px 1.9px 1.9px 1.9px ${shadowColor}`,
-          }}
-        >
-          {cardBack &&
-            <CardContent>
-              <SpecificsActions
-                drawerOpenTrue={drawerOpenTrue}
-                userObj={userObj}
-                message={message}
-              />
-              <div className="flex justify-center pt-1">
-                <CardMedia
-                  sx={{
-                    width: 200 * 188 / 141 * 0.9,
-                    height: 188 * 0.9,
-                    borderRadius: '10px'
-                  }}
-                  image={staticImg}
-                />
-              </div>
-              <SpecificsDimensions message={message} />
-              <Divider />
-              <SpecificsTrades
-                drawerOpenTrue={drawerOpenTrue}
-                userObj={userObj}
-                message={message}
-                round={round}
-                connectedUser={connectedUser}
-              />
-              <Divider />
-              <div>
-                <SpecificsSteppers message={message} round={round} />
-              </div>
-              <Divider />
-              <div className="flex justify-center pt-5">
-                {!deleted ? (
-                  <div className="flex justify-center">
-                    <Btn
-                      messageObj={message}
-                      isOwner={message.creatorId === userObj.uid}
-                      uid={userObj.uid}
-                      displayName={userObj.displayName}
-                      userObj={userObj}
-                      num={num}
-                      points={points}
-                      deleteMessage={deleteMessage}
-                      round={round}
-                      increaseRound={increaseRound}
-                      decreaseRound={decreaseRound}
-                      changeOnPulse={changeOnPulse}
-                      changeConnectedUser={changeConnectedUser}
-                      toggleOnTransfer={toggleOnTransfer}
-                    />
-                  </div>
-                ) : (
-                  <div className="flex justify-center">
-                    <Button variant="outlined" disabled>
-                      {languages === 'ko' ? '지워졌습니다' : 'Deleted'}
-                    </Button>
-                  </div>
-                )}
-              </div>
-            </CardContent>
-          }
-          {!cardBack &&
-            <CardContent>
-              <div>practices</div>
-            </CardContent>
-          }
-        </Card>
-      </div> */}
     </div >
   )
 }
