@@ -72,6 +72,9 @@ function Specifics({
     setDeleted(true)
     removeMessage(message)
   }
+  const handleConnectedClock = (newValue) => {
+    setConnectedClock(newValue)
+  }
   useEffect(() => {
     const creatorPoints = async () => {
       const docRef = doc(dbservice, `members/${message.creatorId}`)
@@ -209,6 +212,7 @@ function Specifics({
                             changeOnPulse={changeOnPulse}
                             changeConnectedUser={changeConnectedUser}
                             toggleOnTransfer={toggleOnTransfer}
+                            handleConnectedClock={handleConnectedClock}
                           />
                         </div>
                       ) : (

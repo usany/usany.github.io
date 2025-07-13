@@ -22,6 +22,7 @@ function Btn({
   changeOnPulse,
   changeConnectedUser,
   toggleOnTransfer,
+  handleConnectedClock
 }) {
   const [move, setMove] = useState(false)
   const languages = useSelectors((state) => state.languages.value)
@@ -106,6 +107,7 @@ function Btn({
               increaseRound={increaseRound}
               changeConnectedUser={changeConnectedUser}
               toggleOnTransfer={toggleOnTransfer}
+              handleConnectedClock={handleConnectedClock}
             />
           )}
           {round === 2 && (
@@ -117,6 +119,7 @@ function Btn({
               decreaseRound={decreaseRound}
               changeConnectedUser={changeConnectedUser}
               toggleOnTransfer={toggleOnTransfer}
+              handleConnectedClock={handleConnectedClock}
             />
           )}
           {round === 3 && (

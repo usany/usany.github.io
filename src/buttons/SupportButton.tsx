@@ -49,7 +49,8 @@ const SupportButton = ({
   displayName,
   increaseRound,
   changeConnectedUser,
-  toggleOnTransfer
+  toggleOnTransfer,
+  handleConnectedClock
 }) => {
   const profileUrl = useSelectors((state) => state.profileUrl.value)
   const languages = useSelectors((state) => state.languages.value)
@@ -59,6 +60,7 @@ const SupportButton = ({
         variant="outlined"
         onClick={() => {
           if (userObj) {
+            const clock = new Date().toString()
             onSupporting({
               message: message,
               uid: uid,
@@ -72,6 +74,7 @@ const SupportButton = ({
               url: profileUrl
             })
             toggleOnTransfer()
+            handleConnectedClock(clock)
           }
         }}
         startIcon={<SendIcon />}
