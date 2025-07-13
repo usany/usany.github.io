@@ -1,6 +1,7 @@
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import Divider from '@mui/material/Divider'
+import { useState } from 'react'
 import staticImage from 'src/assets/umbrella512.png'
 import useTexts from 'src/useTexts'
 import Avatars from '../Avatars'
@@ -14,6 +15,10 @@ function SpecificsRear({
   message,
   shadowColor
 }: Props) {
+  const [connectedClock, setConnectedClock] = useState('')
+  const [confirmingClock, setConfirmingClock] = useState('')
+  const [returningClock, setReturningClock] = useState('')
+  const [confirmedReturnClock, setConfirmedReturnClock] = useState('')
   const borrowingText = useTexts('borrowing')
   const lendingText = useTexts('lending')
   const passingValueCreator = {
@@ -40,8 +45,7 @@ function SpecificsRear({
           borderRadius: '10px'
         }}
       >
-        <CardContent
-        >
+        <CardContent>
           <div className='flex justify-center'>
             <img className='absolute w-[50%] top-[25%] opacity-50' src={staticImage} />
           </div>
