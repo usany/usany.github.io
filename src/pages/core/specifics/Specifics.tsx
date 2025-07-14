@@ -193,6 +193,7 @@ function Specifics({
       }}
     >
       <div className='flex justify-center' onClick={() => flipCards()}>flip card</div>
+      <div>practice</div>
       <Tilt tiltEnable={cardTilt}
         tiltAngleXManual={cardTilting} tiltAngleYManual={cardTilting}
       >
@@ -200,12 +201,118 @@ function Specifics({
           {onPulse ?
             <div className='sides'>
               <PulsatingButton pulseColor={shadowColor}>
-                <CardDisplay />
+                <Card
+                  className="colorTwo"
+                  sx={{
+                    maxWidth: `${window.screen.width * 0.9}px`,
+                    boxShadow: `1.9px 1.9px 1.9px 1.9px ${shadowColor}`,
+                  }}
+                >
+                  <CardContent>
+                    <SpecificsActions
+                      drawerOpenTrue={drawerOpenTrue}
+                      userObj={userObj}
+                      message={message}
+                    />
+                    <div className="flex justify-center pt-1">
+                      <CardMedia
+                        sx={{
+                          width: 200 * 188 / 141 * 0.9,
+                          height: 188 * 0.9,
+                          borderRadius: '10px'
+                        }}
+                        image={staticImg}
+                      />
+                    </div>
+                    <SpecificsDimensions message={message} />
+                    <Divider />
+                    <SpecificsTrades
+                      drawerOpenTrue={drawerOpenTrue}
+                      userObj={userObj}
+                      message={message}
+                      round={round}
+                      connectedUser={connectedUser}
+                    />
+                    <Divider />
+                    <div>
+                      <SpecificsSteppers message={message} round={round} />
+                    </div>
+                    <Divider />
+                    <SpecificsButtons
+                      round={round}
+                      increaseRound={increaseRound}
+                      decreaseRound={decreaseRound}
+                      userObj={userObj}
+                      message={message}
+                      changeOnPulse={changeOnPulse}
+                      changeConnectedUser={changeConnectedUser}
+                      toggleOnTransfer={toggleOnTransfer}
+                      removeMessage={removeMessage}
+                      handleConnectedClock={handleConnectedClock}
+                      handleConfirmingClock={handleConfirmingClock}
+                      handleReturningClock={handleReturningClock}
+                      handleConfirmedReturnClock={handleConfirmedReturnClock}
+                    />
+                  </CardContent>
+                </Card>
               </PulsatingButton>
             </div>
             :
             <div className={`sides`}>
-              <CardDisplay />
+              <Card
+                className="colorTwo"
+                sx={{
+                  maxWidth: `${window.screen.width * 0.9}px`,
+                  boxShadow: `1.9px 1.9px 1.9px 1.9px ${shadowColor}`,
+                }}
+              >
+                <CardContent>
+                  <SpecificsActions
+                    drawerOpenTrue={drawerOpenTrue}
+                    userObj={userObj}
+                    message={message}
+                  />
+                  <div className="flex justify-center pt-1">
+                    <CardMedia
+                      sx={{
+                        width: 200 * 188 / 141 * 0.9,
+                        height: 188 * 0.9,
+                        borderRadius: '10px'
+                      }}
+                      image={staticImg}
+                    />
+                  </div>
+                  <SpecificsDimensions message={message} />
+                  <Divider />
+                  <SpecificsTrades
+                    drawerOpenTrue={drawerOpenTrue}
+                    userObj={userObj}
+                    message={message}
+                    round={round}
+                    connectedUser={connectedUser}
+                  />
+                  <Divider />
+                  <div>
+                    <SpecificsSteppers message={message} round={round} />
+                  </div>
+                  <Divider />
+                  <SpecificsButtons
+                    round={round}
+                    increaseRound={increaseRound}
+                    decreaseRound={decreaseRound}
+                    userObj={userObj}
+                    message={message}
+                    changeOnPulse={changeOnPulse}
+                    changeConnectedUser={changeConnectedUser}
+                    toggleOnTransfer={toggleOnTransfer}
+                    removeMessage={removeMessage}
+                    handleConnectedClock={handleConnectedClock}
+                    handleConfirmingClock={handleConfirmingClock}
+                    handleReturningClock={handleReturningClock}
+                    handleConfirmedReturnClock={handleConfirmedReturnClock}
+                  />
+                </CardContent>
+              </Card>
             </div>
           }
           <SpecificsRear
