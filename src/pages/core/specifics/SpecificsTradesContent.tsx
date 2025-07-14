@@ -31,9 +31,9 @@ const SpecificsTradesContent = ({
     displayName = message.displayName
     url = message.creatorUrl
   } else {
-    uid = message?.connectedId || message?.uid
-    displayName = message?.connectedName || message?.displayName
-    url = message?.connectedUrl || message?.url
+    uid = connectedUser.uid
+    displayName = connectedUser.displayName
+    url = connectedUser.url
   }
   return (
     <div>
