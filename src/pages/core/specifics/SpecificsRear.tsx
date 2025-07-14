@@ -31,9 +31,9 @@ function SpecificsRear({
     profileImageUrl: message.connectedProfileImageUrl
   }
   const connectedMoment = connectedClock.cancelled ? '' : message?.connectedClock ? message?.connectedClock : connectedClock.clock
-  const confirmingMoment = message.confirmingClock ? message.confirmingClock : confirmingClock
-  const returningMoment = message.returningClock ? message.returningClock : returningClock
-  const confirmedReturnMoment = message.confirmedReturnClock ? message.confirmedReturnClock : confirmedReturnClock
+  const confirmingMoment = message?.confirmingClock ? message.confirmingClock : confirmingClock
+  const returningMoment = message?.returningClock ? message.returningClock : returningClock
+  const confirmedReturnMoment = message?.confirmedReturnClock ? message.confirmedReturnClock : confirmedReturnClock
   return (
     <div className='backSide'>
       <Card
