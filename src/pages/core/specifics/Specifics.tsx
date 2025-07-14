@@ -3,10 +3,8 @@ import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
 import Divider from '@mui/material/Divider'
 import { User } from 'firebase/auth'
-import { doc, getDoc } from 'firebase/firestore'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import Tilt from 'react-parallax-tilt'
-import { dbservice } from 'src/baseApi/serverbase'
 import { PulsatingButton } from 'src/components/ui/pulsating-button'
 import { useSelectors } from 'src/hooks/useSelectors'
 import { staticArray } from '../card/CardView'
@@ -55,45 +53,43 @@ function Specifics({
   removeMessage,
 }: Props) {
   const staticImg = staticArray[message.text.count] || staticArray['building']
-  const [num, setNum] = useState<number | null>(null)
-  const [points, setPoints] = useState<number | null>(null)
-  const [deleted, setDeleted] = useState<boolean>(false)
+  // const [num, setNum] = useState<number | null>(null)
+  // const [points, setPoints] = useState<number | null>(null)
+  // const [deleted, setDeleted] = useState<boolean>(false)
   const [cardFlipped, setCardFlipped] = useState(false)
   const [cardTilt, setCardTilt] = useState(false)
   const [cardTilting, setCardTilting] = useState(null)
   const [onMove, setOnMove] = useState(false)
-  const [connectedClock, setConnectedClock] = useState('')
+  const [connectedClock, setConnectedClock] = useState({ clock: '', cancelled: false })
   const [confirmingClock, setConfirmingClock] = useState('')
   const [returningClock, setReturningClock] = useState('')
   const [confirmedReturnClock, setConfirmedReturnClock] = useState('')
   const languages = useSelectors((state) => state.languages.value)
-  const deleteMessage = () => {
-    setDeleted(true)
-    removeMessage(message)
-  }
+  // const deleteMessage = () => {
+  //   setDeleted(true)
+  //   removeMessage(message)
+  // }
   const handleConnectedClock = (newValue) => {
     setConnectedClock(newValue)
   }
-  useEffect(() => {
-    const creatorPoints = async () => {
-      const docRef = doc(dbservice, `members/${message.creatorId}`)
-      const docSnap = await getDoc(docRef)
-      const points = docSnap.data()?.points
-      setNum(points)
-    }
-    creatorPoints()
-  }, [])
-  useEffect(() => {
-    const connectedPoints = async () => {
-      const docRef = doc(dbservice, `members/${message?.connectedId}`)
-      const docSnap = await getDoc(docRef)
-      const points = docSnap.data()?.points
-      setPoints(points)
-    }
-    if (message.connectedId !== null) {
-      connectedPoints()
-    }
-  })
+  // useEffect(() => {
+  //   const messageClocks = async () => {
+  //     const docRef = doc(dbservice, `num/${message.id}`)
+  //     const docSnap = await getDoc(docRef)
+  //     const points = docSnap.data()?.points
+  //   }
+  // }, [])
+  // useEffect(() => {
+  //   const connectedPoints = async () => {
+  //     const docRef = doc(dbservice, `members/${message?.connectedId}`)
+  //     const docSnap = await getDoc(docRef)
+  //     const points = docSnap.data()?.points
+  //     setPoints(points)
+  //   }
+  //   if (message.connectedId !== null) {
+  //     connectedPoints()
+  //   }
+  // })
   const id = message?.id || ''
   const shadowColor =
     shadowColorArray[

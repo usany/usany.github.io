@@ -1,7 +1,6 @@
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import Divider from '@mui/material/Divider'
-import { useEffect } from 'react'
 import staticImage from 'src/assets/umbrella512.png'
 import useTexts from 'src/useTexts'
 import Avatars from '../Avatars'
@@ -32,10 +31,7 @@ function SpecificsRear({
     defaultProfile: message.connectedDefaultProfile,
     profileImageUrl: message.connectedProfileImageUrl
   }
-  useEffect(() => {
-
-  }, [])
-  console.log(connectedClock)
+  const connectedClocks = connectedClock.cancelled ? '' : message?.connectedClock ? message?.connectedClock : connectedClock
   return (
     <div className='backSide'>
       <Card
@@ -68,10 +64,10 @@ function SpecificsRear({
                   </div>
                 </div>
               }
-              {connectedClock &&
+              {connectedClocks &&
                 <div className='flex justify-between'>
                   <div className='flex items-center'>
-                    {connectedClock}에 지원
+                    {connectedClocks}에 지원
                   </div>
                   <Avatars element={passingValueConnected} />
                 </div>

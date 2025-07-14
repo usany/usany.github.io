@@ -64,7 +64,7 @@ const StopSupportButton = ({ userObj, message, uid, displayName, decreaseRound, 
               url: ''
             })
             toggleOnTransfer()
-            handleConnectedClock('')
+            handleConnectedClock({clock: '', cancelled: true})
           }
         }}
         startIcon={<SendIcon />}

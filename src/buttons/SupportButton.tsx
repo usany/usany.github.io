@@ -74,7 +74,7 @@ const SupportButton = ({
               url: profileUrl
             })
             toggleOnTransfer()
-            handleConnectedClock(clock)
+            handleConnectedClock({ clock: clock, cancelled: false })
           }
         }}
         startIcon={<SendIcon />}
