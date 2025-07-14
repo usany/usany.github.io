@@ -84,7 +84,7 @@ function SpecificsRear({
               }
               {returningMoment &&
                 <div className='flex justify-between'>
-                  <Avatars element={passingValueConnected} />
+                  <Avatars element={passingValueCreator} />
                   <div className='flex items-center'>
                     {returningMoment}에 반납 진행
                   </div>
@@ -95,7 +95,7 @@ function SpecificsRear({
                   <div className='flex items-center'>
                     {confirmedReturnMoment}에 반납 확인
                   </div>
-                  <Avatars element={passingValueCreator} />
+                  <Avatars element={passingValueConnected} />
                 </div>
               }
             </>
