@@ -318,6 +318,9 @@ function Specifics({
             message={message}
             shadowColor={shadowColor}
             connectedClock={connectedClock}
+            confirmingClock={confirmingClock}
+            returningClock={returningClock}
+            confirmedReturnClock={confirmedReturnClock}
           />
         </div>
       </Tilt>

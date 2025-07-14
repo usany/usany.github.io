@@ -13,7 +13,10 @@ interface Props {
 function SpecificsRear({
   message,
   shadowColor,
-  connectedClock
+  connectedClock,
+  confirmingClock,
+  returningClock,
+  confirmedReturnClock
 }: Props) {
   const borrowingText = useTexts('borrowing')
   const lendingText = useTexts('lending')
@@ -27,7 +30,10 @@ function SpecificsRear({
     defaultProfile: message.connectedDefaultProfile,
     profileImageUrl: message.connectedProfileImageUrl
   }
-  const connectedClocks = connectedClock.cancelled ? '' : message?.connectedClock ? message?.connectedClock : connectedClock.clock
+  const connectedMoment = connectedClock.cancelled ? '' : message?.connectedClock ? message?.connectedClock : connectedClock.clock
+  const confirmingMoment = message.confirmingClock ? message.confirmingClock : confirmingClock
+  const returningMoment = message.returningClock ? message.returningClock : returningClock
+  const confirmedReturnMoment = message.confirmedReturnClock ? message.confirmedReturnClock : confirmedReturnClock
   return (
     <div className='backSide'>
       <Card
@@ -60,26 +66,26 @@ function SpecificsRear({
                   </div>
                 </div>
               }
-              {connectedClocks &&
+              {connectedMoment &&
                 <div className='flex justify-between'>
                   <div className='flex items-center'>
-                    {connectedClocks}에 지원
+                    {connectedMoment}에 지원
                   </div>
                   <Avatars element={passingValueConnected} />
                 </div>
               }
-              {message.confirmingClock &&
+              {confirmingMoment &&
                 <div className='flex justify-between'>
                   <Avatars element={passingValueCreator} />
                   <div className='flex items-center'>
-                    {message.confirmedClock}에 전달
+                    {confirmingMoment}에 전달
                   </div>
                 </div>
               }
-              {message.returningClock &&
+              {returningMoment &&
                 <div className='flex justify-between'>
                   <div className='flex items-center'>
-                    {message.returningClock}에 반납 진행
+                    {returningMoment}에 반납 진행
                   </div>
                   <Avatars element={passingValueConnected} />
                 </div>
@@ -103,27 +109,27 @@ function SpecificsRear({
                   <Avatars element={passingValueCreator} />
                 </div>
               }
-              {message.connectedClock &&
+              {connectedMoment &&
                 <div className='flex justify-between'>
                   <Avatars element={passingValueConnected} />
                   <div className='flex items-center'>
-                    {message.connectedClock}에 지원
+                    {connectedMoment}에 지원
                   </div>
                 </div>
               }
-              {message.confirmingClock &&
+              {confirmingMoment &&
                 <div className='flex justify-between'>
                   <div className='flex items-center'>
-                    {message.confirmedClock}에 전달
+                    {confirmingMoment}에 전달
                   </div>
                   <Avatars element={passingValueCreator} />
                 </div>
               }
-              {message.returningClock &&
+              {returningMoment &&
                 <div className='flex justify-between'>
                   <Avatars element={passingValueConnected} />
                   <div className='flex items-center'>
-                    {message.returningClock}에 반납 진행
+                    {returningMoment}에 반납 진행
                   </div>
                 </div>
               }
