@@ -1,4 +1,3 @@
-import Button from '@mui/material/Button'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
@@ -8,7 +7,6 @@ import { doc, getDoc } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 import Tilt from 'react-parallax-tilt'
 import { dbservice } from 'src/baseApi/serverbase'
-import Btn from 'src/buttons/Buttons'
 import { PulsatingButton } from 'src/components/ui/pulsating-button'
 import { useSelectors } from 'src/hooks/useSelectors'
 import { staticArray } from '../card/CardView'
@@ -253,34 +251,18 @@ function Specifics({
                     <SpecificsSteppers message={message} round={round} />
                   </div>
                   <Divider />
-                  <div className="flex justify-center pt-5">
-                    {!deleted ? (
-                      <div className="flex justify-center">
-                        <Btn
-                          messageObj={message}
-                          isOwner={message.creatorId === userObj.uid}
-                          uid={userObj.uid}
-                          displayName={userObj.displayName}
-                          userObj={userObj}
-                          num={num}
-                          points={points}
-                          deleteMessage={deleteMessage}
-                          round={round}
-                          increaseRound={increaseRound}
-                          decreaseRound={decreaseRound}
-                          changeOnPulse={changeOnPulse}
-                          changeConnectedUser={changeConnectedUser}
-                          toggleOnTransfer={toggleOnTransfer}
-                        />
-                      </div>
-                    ) : (
-                      <div className="flex justify-center">
-                        <Button variant="outlined" disabled>
-                          {languages === 'ko' ? '지워졌습니다' : 'Deleted'}
-                        </Button>
-                      </div>
-                    )}
-                  </div>
+                  <SpecificsButtons
+                    round={round}
+                    increaseRound={increaseRound}
+                    decreaseRound={decreaseRound}
+                    userObj={userObj}
+                    message={message}
+                    changeOnPulse={changeOnPulse}
+                    changeConnectedUser={changeConnectedUser}
+                    toggleOnTransfer={toggleOnTransfer}
+                    removeMessage={removeMessage}
+                    handleConnectedClock={handleConnectedClock}
+                  />
                 </CardContent>
               </Card>
             </div>
