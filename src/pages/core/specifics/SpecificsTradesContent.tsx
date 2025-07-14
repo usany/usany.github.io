@@ -67,6 +67,7 @@ const SpecificsTradesContent = ({
               uid: uid,
               displayName: displayName,
               profileUrl: url,
+              profileImageUrl: url,
             },
           }}
         >

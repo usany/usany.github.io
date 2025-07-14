@@ -64,7 +64,7 @@ const ProfileAvatar = ({ userObj, user }) => {
       <div className='flex justify-center'>
         {user?.profileImageUrl ? (
           <Avatars
-            element={user}
+            element={{...user, profileImage: true, defaultProfile:user.profileImageUrl, profileImageUrl: user.profileImageUrl }}
             piazza={null}
             profile={true}
           />
