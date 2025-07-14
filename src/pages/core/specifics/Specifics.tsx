@@ -13,6 +13,7 @@ import { PulsatingButton } from 'src/components/ui/pulsating-button'
 import { useSelectors } from 'src/hooks/useSelectors'
 import { staticArray } from '../card/CardView'
 import SpecificsActions from './SpecificsActions'
+import SpecificsButtons from './SpecificsButtons'
 import SpecificsDimensions from './SpecificsDimensions'
 import SpecificsRear from './SpecificsRear'
 import SpecificsSteppers from './SpecificsSteppers'
@@ -194,35 +195,18 @@ function Specifics({
                       <SpecificsSteppers message={message} round={round} />
                     </div>
                     <Divider />
-                    <div className="flex justify-center pt-5">
-                      {!deleted ? (
-                        <div className="flex justify-center">
-                          <Btn
-                            messageObj={message}
-                            isOwner={message.creatorId === userObj.uid}
-                            uid={userObj.uid}
-                            displayName={userObj.displayName}
-                            userObj={userObj}
-                            num={num}
-                            points={points}
-                            deleteMessage={deleteMessage}
-                            round={round}
-                            increaseRound={increaseRound}
-                            decreaseRound={decreaseRound}
-                            changeOnPulse={changeOnPulse}
-                            changeConnectedUser={changeConnectedUser}
-                            toggleOnTransfer={toggleOnTransfer}
-                            handleConnectedClock={handleConnectedClock}
-                          />
-                        </div>
-                      ) : (
-                        <div className="flex justify-center">
-                          <Button variant="outlined" disabled>
-                            {languages === 'ko' ? '지워졌습니다' : 'Deleted'}
-                          </Button>
-                        </div>
-                      )}
-                    </div>
+                    <SpecificsButtons
+                      round={round}
+                      increaseRound={increaseRound}
+                      decreaseRound={decreaseRound}
+                      userObj={userObj}
+                      message={message}
+                      changeOnPulse={changeOnPulse}
+                      changeConnectedUser={changeConnectedUser}
+                      toggleOnTransfer={toggleOnTransfer}
+                      removeMessage={removeMessage}
+                      handleConnectedClock={handleConnectedClock}
+                    />
                   </CardContent>
                 </Card>
               </PulsatingButton>
@@ -301,7 +285,11 @@ function Specifics({
               </Card>
             </div>
           }
-          <SpecificsRear message={message} shadowColor={shadowColor} />
+          <SpecificsRear
+            message={message}
+            shadowColor={shadowColor}
+            connectedClock={connectedClock}
+          />
         </div>
       </Tilt>
     </div >

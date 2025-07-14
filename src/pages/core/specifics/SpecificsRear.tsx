@@ -1,7 +1,7 @@
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import Divider from '@mui/material/Divider'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import staticImage from 'src/assets/umbrella512.png'
 import useTexts from 'src/useTexts'
 import Avatars from '../Avatars'
@@ -13,12 +13,13 @@ interface Props {
 
 function SpecificsRear({
   message,
-  shadowColor
+  shadowColor,
+  connectedClock
 }: Props) {
-  const [connectedClock, setConnectedClock] = useState('')
-  const [confirmingClock, setConfirmingClock] = useState('')
-  const [returningClock, setReturningClock] = useState('')
-  const [confirmedReturnClock, setConfirmedReturnClock] = useState('')
+  // const [connectedClock, setConnectedClock] = useState('')
+  // const [confirmingClock, setConfirmingClock] = useState('')
+  // const [returningClock, setReturningClock] = useState('')
+  // const [confirmedReturnClock, setConfirmedReturnClock] = useState('')
   const borrowingText = useTexts('borrowing')
   const lendingText = useTexts('lending')
   const passingValueCreator = {
@@ -32,9 +33,9 @@ function SpecificsRear({
     profileImageUrl: message.connectedProfileImageUrl
   }
   useEffect(() => {
-    
-  }, [])
 
+  }, [])
+  console.log(connectedClock)
   return (
     <div className='backSide'>
       <Card
@@ -67,10 +68,10 @@ function SpecificsRear({
                   </div>
                 </div>
               }
-              {message.connectedClock &&
+              {connectedClock &&
                 <div className='flex justify-between'>
                   <div className='flex items-center'>
-                    {message.connectedClock}에 지원
+                    {connectedClock}에 지원
                   </div>
                   <Avatars element={passingValueConnected} />
                 </div>
