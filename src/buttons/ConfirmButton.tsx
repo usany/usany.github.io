@@ -40,7 +40,6 @@ const ConfirmButton = ({ message, uid, displayName, increaseRound, handleConfirm
           uid: uid,
           displayName: displayName,
           profileUrl: profileUrl,
-          handleConfirmingClock: handleConfirmingClock
         })
         increaseRound()
         handleConfirmingClock(new Date().toString())
