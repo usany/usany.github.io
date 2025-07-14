@@ -143,6 +143,7 @@ function Btn({
                   displayName={displayName}
                   increaseRound={increaseRound}
                   changeOnPulse={changeOnPulse}
+                  handleReturningClock={handleReturningClock}
                 />
               )}
             </div>
@@ -157,6 +158,7 @@ function Btn({
                   uid={uid}
                   displayName={displayName}
                   increaseRound={increaseRound}
+                  handleConfirmedReturnClock={handleConfirmedReturnClock}
                 />
               )}
               {messageObj.text.choose === 2 && (
