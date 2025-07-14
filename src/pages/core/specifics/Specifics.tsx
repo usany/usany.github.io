@@ -210,7 +210,7 @@ function Specifics({
               </PulsatingButton>
             </div>
             :
-            <div className={`truncate p-1 sides`}>
+            <div className={`sides`}>
               <Card
                 className="colorTwo"
                 sx={{
