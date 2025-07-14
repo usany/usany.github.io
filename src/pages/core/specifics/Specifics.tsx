@@ -53,9 +53,6 @@ function Specifics({
   removeMessage,
 }: Props) {
   const staticImg = staticArray[message.text.count] || staticArray['building']
-  // const [num, setNum] = useState<number | null>(null)
-  // const [points, setPoints] = useState<number | null>(null)
-  // const [deleted, setDeleted] = useState<boolean>(false)
   const [cardFlipped, setCardFlipped] = useState(false)
   const [cardTilt, setCardTilt] = useState(false)
   const [cardTilting, setCardTilting] = useState(null)
@@ -65,31 +62,9 @@ function Specifics({
   const [returningClock, setReturningClock] = useState('')
   const [confirmedReturnClock, setConfirmedReturnClock] = useState('')
   const languages = useSelectors((state) => state.languages.value)
-  // const deleteMessage = () => {
-  //   setDeleted(true)
-  //   removeMessage(message)
-  // }
   const handleConnectedClock = (newValue) => {
     setConnectedClock(newValue)
   }
-  // useEffect(() => {
-  //   const messageClocks = async () => {
-  //     const docRef = doc(dbservice, `num/${message.id}`)
-  //     const docSnap = await getDoc(docRef)
-  //     const points = docSnap.data()?.points
-  //   }
-  // }, [])
-  // useEffect(() => {
-  //   const connectedPoints = async () => {
-  //     const docRef = doc(dbservice, `members/${message?.connectedId}`)
-  //     const docSnap = await getDoc(docRef)
-  //     const points = docSnap.data()?.points
-  //     setPoints(points)
-  //   }
-  //   if (message.connectedId !== null) {
-  //     connectedPoints()
-  //   }
-  // })
   const id = message?.id || ''
   const shadowColor =
     shadowColorArray[
