@@ -136,7 +136,7 @@ function SpecificsRear({
               {confirmedReturnMoment &&
                 <div className='flex justify-between'>
                   <div className='flex items-center'>
-                    {message.confirmedReturnClock}에 반납 확인
+                    {confirmedReturnMoment}에 반납 확인
                   </div>
                   <Avatars element={passingValueCreator} />
                 </div>
