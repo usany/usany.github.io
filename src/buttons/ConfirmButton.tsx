@@ -27,7 +27,7 @@ const onConfirm = async ({ message, uid, displayName, profileUrl }) => {
   webSocket.emit('confirm', passingObject)
 }
 
-const ConfirmButton = ({ message, uid, displayName, increaseRound, handleConfirming }) => {
+const ConfirmButton = ({ message, uid, displayName, increaseRound, handleConfirmingClock }) => {
   const languages = useSelectors((state) => state.languages.value)
   const profileUrl = useSelectors((state) => state.profileUrl.value)
 
@@ -39,9 +39,11 @@ const ConfirmButton = ({ message, uid, displayName, increaseRound, handleConfirm
           message: message,
           uid: uid,
           displayName: displayName,
-          profileUrl: profileUrl
+          profileUrl: profileUrl,
+          handleConfirmingClock: handleConfirmingClock
         })
         increaseRound()
+        handleConfirmingClock(new Date().toString())
       }}
       startIcon={<SendIcon />}
     >

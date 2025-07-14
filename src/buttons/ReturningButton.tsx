@@ -27,7 +27,7 @@ const onReturning = async ({ message, uid, displayName, profileUrl }) => {
   webSocket.emit('returning', passingObject)
 }
 
-const ReturningButton = ({ message, uid, displayName, increaseRound }) => {
+const ReturningButton = ({ message, uid, displayName, increaseRound, handleReturningClock }) => {
   const languages = useSelectors((state) => state.languages.value)
   const profileUrl = useSelectors((state) => state.profileUrl.value)
 
@@ -42,6 +42,7 @@ const ReturningButton = ({ message, uid, displayName, increaseRound }) => {
           displayName: displayName,
           profileUrl: profileUrl
         })
+        handleReturningClock(new Date().toString())
       }}
       startIcon={<SendIcon />}
     >

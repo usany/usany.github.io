@@ -64,7 +64,7 @@ const onConfirmReturn = async ({ num, points, message, uid, displayName, profile
   updateDoc(connectedPoint, {
     connectedCards: [...newConnectedCards],
   })
-  
+
   const passingObject = {
     id: message.id,
     choose: message.text.choose,
@@ -85,7 +85,7 @@ const onConfirmReturn = async ({ num, points, message, uid, displayName, profile
 
   webSocket.emit('confirmReturn', passingObject)
 }
-const ConfirmReturnButton = ({ num, points, message, uid, displayName, increaseRound }: Props) => {
+const ConfirmReturnButton = ({ num, points, message, uid, displayName, increaseRound, handleConfirmedReturnClock }: Props) => {
   const languages = useSelectors((state) => state.languages.value)
   const profileUrl = useSelectors((state) => state.profileUrl.value)
 
@@ -102,6 +102,7 @@ const ConfirmReturnButton = ({ num, points, message, uid, displayName, increaseR
           profileUrl: profileUrl
         })
         increaseRound()
+        handleConfirmedReturnClock(new Date().toString())
       }}
       startIcon={<SendIcon />}
     >
