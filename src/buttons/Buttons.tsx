@@ -22,7 +22,10 @@ function Btn({
   changeOnPulse,
   changeConnectedUser,
   toggleOnTransfer,
-  handleConnectedClock
+  handleConnectedClock,
+  handleConfirmingClock,
+  handleReturningClock,
+  handleConfirmedReturnClock
 }) {
   const [move, setMove] = useState(false)
   const languages = useSelectors((state) => state.languages.value)
@@ -49,6 +52,7 @@ function Btn({
               uid={uid}
               displayName={displayName}
               increaseRound={increaseRound}
+              handleConfirmingClock={handleConfirmingClock}
             />
           )}
           {round === 3 && (

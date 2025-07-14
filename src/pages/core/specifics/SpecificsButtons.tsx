@@ -39,7 +39,10 @@ function SpecificsButtons({
   changeConnectedUser,
   toggleOnTransfer,
   removeMessage,
-  handleConnectedClock
+  handleConnectedClock,
+  handleConfirmingClock,
+  handleReturningClock,
+  handleConfirmedReturnClock
 }: Props) {
   const [num, setNum] = useState<number | null>(null)
   const [points, setPoints] = useState<number | null>(null)
@@ -89,6 +92,9 @@ function SpecificsButtons({
             changeConnectedUser={changeConnectedUser}
             toggleOnTransfer={toggleOnTransfer}
             handleConnectedClock={handleConnectedClock}
+            handleConfirmingClock={handleConfirmingClock}
+            handleReturningClock={handleReturningClock}
+            handleConfirmedReturnClock={handleConfirmedReturnClock}
           />
         </div>
       ) : (

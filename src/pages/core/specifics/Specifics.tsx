@@ -57,6 +57,12 @@ function Specifics({
   const [cardTilt, setCardTilt] = useState(false)
   const [cardTilting, setCardTilting] = useState(null)
   const [onMove, setOnMove] = useState(false)
+  // const [clocks, setClocks] = useState({
+  //   connectedClock: { clock: '', cancelled: '' },
+  //   confirmingClock: { clock: '', cancelled: '' },
+  //   returningClock: { clock: '', cancelled: '' },
+  //   confirmedReturnClock: { clock: '', cancelled: '' },
+  // })
   const [connectedClock, setConnectedClock] = useState({ clock: '', cancelled: false })
   const [confirmingClock, setConfirmingClock] = useState('')
   const [returningClock, setReturningClock] = useState('')
@@ -64,6 +70,15 @@ function Specifics({
   const languages = useSelectors((state) => state.languages.value)
   const handleConnectedClock = (newValue) => {
     setConnectedClock(newValue)
+  }
+  const handleConfirmingClock = (newValue) => {
+    setConfirmingClock(newValue)
+  }
+  const handleReturningClock = (newValue) => {
+    setReturningClock(newValue)
+  }
+  const handleConfirmedReturnClock = (newValue) => {
+    setConfirmedReturnClock(newValue)
   }
   const id = message?.id || ''
   const shadowColor =
@@ -124,6 +139,9 @@ function Specifics({
             toggleOnTransfer={toggleOnTransfer}
             removeMessage={removeMessage}
             handleConnectedClock={handleConnectedClock}
+            handleConfirmingClock={handleConfirmingClock}
+            handleReturningClock={handleReturningClock}
+            handleConfirmedReturnClock={handleConfirmedReturnClock}
           />
         </CardContent>
       </Card>
