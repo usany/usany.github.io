@@ -96,7 +96,7 @@ function SpecificsTrades({
                   <SpecificsTradesTrigger
                     onClick={drawerOpenTrue}
                     isCreator={false}
-                    message={{...message, connectedProfileImage: true, connectedProfileImageUrl: connectedUser.url, connectedDefaultProfile: connectedUser.url}}
+                    message={{ ...message, connectedProfileImage: true, connectedProfileImageUrl: connectedUser.url, connectedDefaultProfile: connectedUser.url }}
                   />
                 }
                 title={<SpecificsTradesTitle />}
@@ -104,7 +104,7 @@ function SpecificsTrades({
                   <SpecificsTradesContent
                     isCreator={false}
                     userObj={userObj}
-                    message={{...message, connectedProfileImage: true, connectedProfileImageUrl: connectedUser.url, connectedDefaultProfile: connectedUser.url}}
+                    message={{ ...message, connectedProfileImage: true, connectedProfileImageUrl: connectedUser.url, connectedDefaultProfile: connectedUser.url }}
                     conversation={conversation}
                     drawerOpenTrue={drawerOpenTrue}
                     connectedUser={connectedUser}
@@ -165,7 +165,7 @@ function SpecificsTrades({
                   <SpecificsTradesTrigger
                     onClick={drawerOpenTrue}
                     isCreator={false}
-                    message={{...message, connectedProfileImage: true, connectedProfileImageUrl: connectedUser.url, connectedDefaultProfile: connectedUser.url}}
+                    message={{ ...message, connectedProfileImage: true, connectedProfileImageUrl: connectedUser.url, connectedDefaultProfile: connectedUser.url }}
                   />
                 }
                 title={<SpecificsTradesTitle />}
@@ -173,7 +173,7 @@ function SpecificsTrades({
                   <SpecificsTradesContent
                     isCreator={false}
                     userObj={userObj}
-                    message={{...message, connectedProfileImage: true, connectedProfileImageUrl: connectedUser.url, connectedDefaultProfile: connectedUser.url}}
+                    message={{ ...message, connectedProfileImage: true, connectedProfileImageUrl: connectedUser.url, connectedDefaultProfile: connectedUser.url }}
                     conversation={conversation}
                     drawerOpenTrue={drawerOpenTrue}
                     connectedUser={connectedUser}
