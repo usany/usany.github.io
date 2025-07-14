@@ -193,7 +193,6 @@ function Specifics({
       }}
     >
       <div className='flex justify-center' onClick={() => flipCards()}>flip card</div>
-      <div>practice</div>
       <Tilt tiltEnable={cardTilt}
         tiltAngleXManual={cardTilting} tiltAngleYManual={cardTilting}
       >
