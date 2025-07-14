@@ -15,10 +15,6 @@ function SpecificsRear({
   shadowColor,
   connectedClock
 }: Props) {
-  // const [connectedClock, setConnectedClock] = useState('')
-  // const [confirmingClock, setConfirmingClock] = useState('')
-  // const [returningClock, setReturningClock] = useState('')
-  // const [confirmedReturnClock, setConfirmedReturnClock] = useState('')
   const borrowingText = useTexts('borrowing')
   const lendingText = useTexts('lending')
   const passingValueCreator = {
