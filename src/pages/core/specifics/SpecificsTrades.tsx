@@ -57,7 +57,6 @@ function SpecificsTrades({
       }
     }
   }, [message])
-  console.log(message)
   return (
     <div className="flex justify-center pt-3">
       <div className="flex flex-col items-center px-5 gap-1">
@@ -97,7 +96,7 @@ function SpecificsTrades({
                   <SpecificsTradesTrigger
                     onClick={drawerOpenTrue}
                     isCreator={false}
-                    message={message}
+                    message={{...message, connectedProfileImage: true, connectedProfileImageUrl: connectedUser.url, connectedDefaultProfile: connectedUser.url}}
                   />
                 }
                 title={<SpecificsTradesTitle />}
@@ -105,7 +104,7 @@ function SpecificsTrades({
                   <SpecificsTradesContent
                     isCreator={false}
                     userObj={userObj}
-                    message={message}
+                    message={{...message, connectedProfileImage: true, connectedProfileImageUrl: connectedUser.url, connectedDefaultProfile: connectedUser.url}}
                     conversation={conversation}
                     drawerOpenTrue={drawerOpenTrue}
                     connectedUser={connectedUser}
@@ -166,7 +165,7 @@ function SpecificsTrades({
                   <SpecificsTradesTrigger
                     onClick={drawerOpenTrue}
                     isCreator={false}
-                    message={message}
+                    message={{...message, connectedProfileImage: true, connectedProfileImageUrl: connectedUser.url, connectedDefaultProfile: connectedUser.url}}
                   />
                 }
                 title={<SpecificsTradesTitle />}
@@ -174,7 +173,7 @@ function SpecificsTrades({
                   <SpecificsTradesContent
                     isCreator={false}
                     userObj={userObj}
-                    message={message}
+                    message={{...message, connectedProfileImage: true, connectedProfileImageUrl: connectedUser.url, connectedDefaultProfile: connectedUser.url}}
                     conversation={conversation}
                     drawerOpenTrue={drawerOpenTrue}
                     connectedUser={connectedUser}
