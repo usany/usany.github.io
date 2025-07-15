@@ -12,9 +12,11 @@ import { profileUrlReducer } from 'src/stateSlices/profileUrlSlice'
 import { tabsReducer } from 'src/stateSlices/tabsSlice'
 import { themeReducer } from 'src/stateSlices/themeSlice'
 import { changingUserReducer } from './stateSlices/changingUserSlice'
+import { defaultProfileReducer } from './stateSlices/defaultProfileSlice'
 import { languagesReducer } from './stateSlices/languagesSlice'
 import { piazza } from './stateSlices/piazza'
 import { piazzaFormReducer } from './stateSlices/piazzaFormSlice'
+import { profileImageUrlReducer } from './stateSlices/profileImageUrlSlice'
 import { profileReducer } from './stateSlices/profileSlice'
 import { scrollNavigationReducer } from './stateSlices/scrollNavigationSlice'
 import { weather } from './stateSlices/weather'
@@ -45,6 +47,8 @@ export const store = configureStore({
     profileUrl: profileUrlReducer.reducer,
     profileColor: profileColorReducer.reducer,
     profileImage: profileImageReducer.reducer,
+    defaultProfile: defaultProfileReducer.reducer,
+    profileImageUrl: profileImageUrlReducer.reducer,
     profile: profileReducer.reducer,
     cardAccordion: cardAccordionReducer.reducer,
     messageAccordion: messageAccordionReducer.reducer,
