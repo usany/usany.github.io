@@ -21,16 +21,18 @@ function SpecificsRear({
 }: Props) {
   const borrowingText = useTexts('borrowing')
   const lendingText = useTexts('lending')
-  const profileImage = useSelectors(state => state.profileImage)
+  const profileImage = useSelectors(state => state.profileImage.value)
+  const defaultProfile = useSelectors(state => state.defaultProfile.value)
+  const profileImageUrl = useSelectors(state => state.profileImageUrl.value)
   const passingValueCreator = {
     profileImage: message.creatorProfileImage,
     defaultProfile: message.creatorDefaultProfile,
     profileImageUrl: message.creatorProfileImageUrl
   }
   const passingValueConnected = {
-    profileImage: message.connectedProfileImage,
-    defaultProfile: message.connectedDefaultProfile,
-    profileImageUrl: message.connectedProfileImageUrl
+    profileImage: message.connectedProfileImage || profileImage,
+    defaultProfile: message.connectedDefaultProfile || defaultProfile,
+    profileImageUrl: message.connectedProfileImageUrl || profileImageUrl
   }
   const connectedMoment = connectedClock.cancelled ? '' : message?.connectedClock ? message?.connectedClock : connectedClock.clock
   const confirmingMoment = message?.confirmingClock ? message.confirmingClock : confirmingClock

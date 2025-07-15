@@ -122,10 +122,9 @@ function Specifics({
     }
   }, [])
   const id = message?.id || ''
-  const shadowColor =
-    shadowColorArray[
+  const shadowColor = shadowColorArray[
     mergedArray.indexOf(String(id[0]).toUpperCase()) % shadowColorArray.length
-    ]
+  ]
   // const observer = new IntersectionObserver(handleIntersection);
   const flipCards = () => {
     setCardFlipped(!cardFlipped)
