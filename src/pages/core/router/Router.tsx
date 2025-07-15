@@ -36,6 +36,10 @@ const Router = ({ userObj }: Props) => {
                 path="/board"
                 element={<Board userObj={userObj} />}
               />
+              <Route
+                path="/contact"
+                element={<Contact userObj={userObj} />}
+              />
               {userObj &&
                 <>
                   <Route
