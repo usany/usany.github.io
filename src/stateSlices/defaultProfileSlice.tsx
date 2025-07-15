@@ -1,17 +1,17 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 interface DefaultProfileState {
-  value: boolean
+  value: string
 }
 
 const initialState: DefaultProfileState = {
-  value: false
+  value: ''
 }
 const defaultProfileReducer = createSlice({
   name: 'defaultProfile',
   initialState,
   reducers: {
-    changeDefaultProfile: (state, action: PayloadAction<boolean>) => {
+    changeDefaultProfile: (state, action: PayloadAction<string>) => {
       state.value = action.payload
     },
   }
