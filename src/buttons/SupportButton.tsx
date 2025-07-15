@@ -19,6 +19,7 @@ const onSupporting = async ({ message, uid, displayName, profileUrl }) => {
     connectedName: displayName,
     connectedUrl: profileUrl,
     preferLanguage: userDoc.data()?.preferLanguage || 'ko',
+    connectedClock: new Date().toString(),
   }
   const connectedUserRef = doc(dbservice, `members/${uid}`)
   const connectedUserSnap = await getDoc(connectedUserRef)

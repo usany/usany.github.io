@@ -2,6 +2,7 @@ import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import Divider from '@mui/material/Divider'
 import staticImage from 'src/assets/umbrella512.png'
+import { useSelectors } from 'src/hooks/useSelectors'
 import useTexts from 'src/useTexts'
 import Avatars from '../Avatars'
 
@@ -20,6 +21,7 @@ function SpecificsRear({
 }: Props) {
   const borrowingText = useTexts('borrowing')
   const lendingText = useTexts('lending')
+  const profileImage = useSelectors(state => state.profileImage)
   const passingValueCreator = {
     profileImage: message.creatorProfileImage,
     defaultProfile: message.creatorDefaultProfile,
@@ -34,6 +36,7 @@ function SpecificsRear({
   const confirmingMoment = message?.confirmingClock ? message.confirmingClock : confirmingClock
   const returningMoment = message?.returningClock ? message.returningClock : returningClock
   const confirmedReturnMoment = message?.confirmedReturnClock ? message.confirmedReturnClock : confirmedReturnClock
+  console.log(passingValueConnected)
   return (
     <div className='backSide'>
       <Card

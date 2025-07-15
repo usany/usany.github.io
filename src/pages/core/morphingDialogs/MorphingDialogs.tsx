@@ -32,6 +32,22 @@ const MorphingDialogs = ({
   deleteMessage,
 }: Props) => {
   const [onTransfer, setOnTransfer] = useState(false)
+  // const [connectedClock, setConnectedClock] = useState({ clock: '', cancelled: false })
+  // const [confirmingClock, setConfirmingClock] = useState('')
+  // const [returningClock, setReturningClock] = useState('')
+  // const [confirmedReturnClock, setConfirmedReturnClock] = useState('')
+  // const handleConnectedClock = (newValue) => {
+  //   setConnectedClock(newValue)
+  // }
+  // const handleConfirmingClock = (newValue) => {
+  //   setConfirmingClock(newValue)
+  // }
+  // const handleReturningClock = (newValue) => {
+  //   setReturningClock(newValue)
+  // }
+  // const handleConfirmedReturnClock = (newValue) => {
+  //   setConfirmedReturnClock(newValue)
+  // }
   const toggleOnTransfer = () => setOnTransfer(!onTransfer)
   const { connectedUser, changeConnectedUser } = useConnectedUser({
     message: message,

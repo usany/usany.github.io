@@ -3,10 +3,11 @@ import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
 import Divider from '@mui/material/Divider'
 import { User } from 'firebase/auth'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Tilt from 'react-parallax-tilt'
 import { PulsatingButton } from 'src/components/ui/pulsating-button'
 import { useSelectors } from 'src/hooks/useSelectors'
+import { webSocket } from 'src/webSocket'
 import { staticArray } from '../card/CardView'
 import SpecificsActions from './SpecificsActions'
 import SpecificsButtons from './SpecificsButtons'
@@ -80,6 +81,46 @@ function Specifics({
   const handleConfirmedReturnClock = (newValue) => {
     setConfirmedReturnClock(newValue)
   }
+  useEffect(() => {
+    if (!webSocket) return
+    function sConnectedClockCallback(res) {
+      setConnectedClock({ ...connectedClock, clock: res.connectedClock })
+    }
+    webSocket.on(`sConnected${message.id}`, sConnectedClockCallback)
+    return () => {
+      webSocket.off(`sConnected${message.id}`, sConnectedClockCallback)
+    }
+  }, [])
+  useEffect(() => {
+    if (!webSocket) return
+    function sConfirmingClockCallback(res) {
+      setConfirmingClock(res.confirmingClock)
+    }
+    webSocket.on(`sConfirming${message.id}`, sConfirmingClockCallback)
+    return () => {
+      webSocket.off(`sConfirming${message.id}`, sConfirmingClockCallback)
+    }
+  }, [])
+  useEffect(() => {
+    if (!webSocket) return
+    function sReturningClockCallback(res) {
+      setReturningClock(res.returningClock)
+    }
+    webSocket.on(`sReturning${message.id}`, sReturningClockCallback)
+    return () => {
+      webSocket.off(`sReturning${message.id}`, sReturningClockCallback)
+    }
+  }, [])
+  useEffect(() => {
+    if (!webSocket) return
+    function sConfirmedReturnClockCallback(res) {
+      setConfirmedReturnClock(res.returningClock)
+    }
+    webSocket.on(`sConfirmedReturn${message.id}`, sConfirmedReturnClockCallback)
+    return () => {
+      webSocket.off(`sConfirmedReturn${message.id}`, sConfirmedReturnClockCallback)
+    }
+  }, [])
   const id = message?.id || ''
   const shadowColor =
     shadowColorArray[
