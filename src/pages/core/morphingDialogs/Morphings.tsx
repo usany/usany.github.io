@@ -20,6 +20,10 @@ const Morphings = ({
   changeConnectedUser,
   toggleOnTransfer,
   deleteMessage,
+  handleConnectedClock,
+  handleConfirmingClock,
+  handleReturningClock,
+  handleConfirmedReturnClock
 }: Props) => {
   const [drawerOpen, setDrawerOpen] = useState(false)
   const drawerOpenTrue = () => {
