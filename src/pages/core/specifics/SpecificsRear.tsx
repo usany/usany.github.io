@@ -1,8 +1,10 @@
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import Divider from '@mui/material/Divider'
+import { doc, getDoc } from 'firebase/firestore'
+import { useEffect, useState } from 'react'
 import staticImage from 'src/assets/umbrella512.png'
-import { useSelectors } from 'src/hooks/useSelectors'
+import { dbservice } from 'src/baseApi/serverbase'
 import useTexts from 'src/useTexts'
 import Avatars from '../Avatars'
 
@@ -21,9 +23,23 @@ function SpecificsRear({
 }: Props) {
   const borrowingText = useTexts('borrowing')
   const lendingText = useTexts('lending')
-  const profileImage = useSelectors(state => state.profileImage.value)
-  const defaultProfile = useSelectors(state => state.defaultProfile.value)
-  const profileImageUrl = useSelectors(state => state.profileImageUrl.value)
+  // const profileImage = useSelectors(state => state.profileImage.value)
+  // const defaultProfile = useSelectors(state => state.defaultProfile.value)
+  // const profileImageUrl = useSelectors(state => state.profileImageUrl.value)
+  const [profileImage, setProfileImage] = useState(false)
+  const [defaultProfile, setDefaultProfile] = useState('')
+  const [profileImageUrl, setProfileImageUrl] = useState('')
+  useEffect(() => {
+    const messages = async () => {
+      const docRef = doc(dbservice, `num/${message.id}`)
+      const docSnap = await getDoc(docRef)
+      const userData = docSnap.data()
+      setProfileImage(userData.connectedProfileImage)
+      setDefaultProfile(userData.connectedDefaultProfile)
+      setProfileImageUrl(userData.connectedProfileImageUrl)
+    }
+    messages()
+  }, [connectedClock, confirmingClock, returningClock, confirmedReturnClock])
   const passingValueCreator = {
     profileImage: message.creatorProfileImage,
     defaultProfile: message.creatorDefaultProfile,
