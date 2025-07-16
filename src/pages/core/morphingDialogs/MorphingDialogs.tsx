@@ -4,8 +4,9 @@ import {
   MorphingDialogTrigger,
 } from '@/components/ui/morphing-dialog'
 import { User } from 'firebase/auth'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { webSocket } from 'src/webSocket'
 import CardsViews from '../card/CardsViews'
 import Morphings from './Morphings'
 import { useConnectedUser } from './useConnectedUser'
@@ -67,6 +68,46 @@ const MorphingDialogs = ({
   useDecreaseCardCallback({ decreaseRound, message })
   useSupportTradesCallback({ changeConnectedUser, message })
   useStopSupportingTradesCallback({ changeConnectedUser, message })
+  useEffect(() => {
+    if (!webSocket) return
+    function sConnectedClockCallback(res) {
+      setConnectedClock({ ...connectedClock, clock: res.connectedClock })
+    }
+    webSocket.on(`sConnected${message.id}`, sConnectedClockCallback)
+    return () => {
+      webSocket.off(`sConnected${message.id}`, sConnectedClockCallback)
+    }
+  }, [])
+  useEffect(() => {
+    if (!webSocket) return
+    function sConfirmingClockCallback(res) {
+      setConfirmingClock(res.confirmingClock)
+    }
+    webSocket.on(`sConfirming${message.id}`, sConfirmingClockCallback)
+    return () => {
+      webSocket.off(`sConfirming${message.id}`, sConfirmingClockCallback)
+    }
+  }, [])
+  useEffect(() => {
+    if (!webSocket) return
+    function sReturningClockCallback(res) {
+      setReturningClock(res.returningClock)
+    }
+    webSocket.on(`sReturning${message.id}`, sReturningClockCallback)
+    return () => {
+      webSocket.off(`sReturning${message.id}`, sReturningClockCallback)
+    }
+  }, [])
+  useEffect(() => {
+    if (!webSocket) return
+    function sConfirmedReturnClockCallback(res) {
+      setConfirmedReturnClock(res.returningClock)
+    }
+    webSocket.on(`sConfirmedReturn${message.id}`, sConfirmedReturnClockCallback)
+    return () => {
+      webSocket.off(`sConfirmedReturn${message.id}`, sConfirmedReturnClockCallback)
+    }
+  }, [])
   return (
     <MorphingDialog
       transition={{
@@ -100,6 +141,10 @@ const MorphingDialogs = ({
           changeConnectedUser={changeConnectedUser}
           toggleOnTransfer={toggleOnTransfer}
           deleteMessage={deleteMessage}
+          connectedClock={connectedClock}
+          confirmingClock={confirmingClock}
+          returningClock={returningClock}
+          confirmedReturnClock={confirmedReturnClock}
           handleConnectedClock={handleConnectedClock}
           handleConfirmingClock={handleConfirmingClock}
           handleReturningClock={handleReturningClock}

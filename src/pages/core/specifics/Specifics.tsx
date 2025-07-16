@@ -51,6 +51,10 @@ function Specifics({
   changeConnectedUser,
   toggleOnTransfer,
   removeMessage,
+  connectedClock,
+  confirmingClock,
+  returningClock,
+  confirmedReturnClock,
   handleConnectedClock,
   handleConfirmingClock,
   handleReturningClock,
@@ -67,63 +71,51 @@ function Specifics({
   //   returningClock: { clock: '', cancelled: '' },
   //   confirmedReturnClock: { clock: '', cancelled: '' },
   // })
-  const [connectedClock, setConnectedClock] = useState({ clock: '', cancelled: false })
-  const [confirmingClock, setConfirmingClock] = useState('')
-  const [returningClock, setReturningClock] = useState('')
-  const [confirmedReturnClock, setConfirmedReturnClock] = useState('')
+  // const [connectedClock, setConnectedClock] = useState({ clock: '', cancelled: false })
+  // const [confirmingClock, setConfirmingClock] = useState('')
+  // const [returningClock, setReturningClock] = useState('')
+  // const [confirmedReturnClock, setConfirmedReturnClock] = useState('')
   // const languages = useSelectors((state) => state.languages.value)
-  const handleConnectedClock = (newValue) => {
-    setConnectedClock(newValue)
-  }
-  const handleConfirmingClock = (newValue) => {
-    setConfirmingClock(newValue)
-  }
-  const handleReturningClock = (newValue) => {
-    setReturningClock(newValue)
-  }
-  const handleConfirmedReturnClock = (newValue) => {
-    setConfirmedReturnClock(newValue)
-  }
-  useEffect(() => {
-    if (!webSocket) return
-    function sConnectedClockCallback(res) {
-      setConnectedClock({ ...connectedClock, clock: res.connectedClock })
-    }
-    webSocket.on(`sConnected${message.id}`, sConnectedClockCallback)
-    return () => {
-      webSocket.off(`sConnected${message.id}`, sConnectedClockCallback)
-    }
-  }, [])
-  useEffect(() => {
-    if (!webSocket) return
-    function sConfirmingClockCallback(res) {
-      setConfirmingClock(res.confirmingClock)
-    }
-    webSocket.on(`sConfirming${message.id}`, sConfirmingClockCallback)
-    return () => {
-      webSocket.off(`sConfirming${message.id}`, sConfirmingClockCallback)
-    }
-  }, [])
-  useEffect(() => {
-    if (!webSocket) return
-    function sReturningClockCallback(res) {
-      setReturningClock(res.returningClock)
-    }
-    webSocket.on(`sReturning${message.id}`, sReturningClockCallback)
-    return () => {
-      webSocket.off(`sReturning${message.id}`, sReturningClockCallback)
-    }
-  }, [])
-  useEffect(() => {
-    if (!webSocket) return
-    function sConfirmedReturnClockCallback(res) {
-      setConfirmedReturnClock(res.returningClock)
-    }
-    webSocket.on(`sConfirmedReturn${message.id}`, sConfirmedReturnClockCallback)
-    return () => {
-      webSocket.off(`sConfirmedReturn${message.id}`, sConfirmedReturnClockCallback)
-    }
-  }, [])
+  // useEffect(() => {
+  //   if (!webSocket) return
+  //   function sConnectedClockCallback(res) {
+  //     setConnectedClock({ ...connectedClock, clock: res.connectedClock })
+  //   }
+  //   webSocket.on(`sConnected${message.id}`, sConnectedClockCallback)
+  //   return () => {
+  //     webSocket.off(`sConnected${message.id}`, sConnectedClockCallback)
+  //   }
+  // }, [])
+  // useEffect(() => {
+  //   if (!webSocket) return
+  //   function sConfirmingClockCallback(res) {
+  //     setConfirmingClock(res.confirmingClock)
+  //   }
+  //   webSocket.on(`sConfirming${message.id}`, sConfirmingClockCallback)
+  //   return () => {
+  //     webSocket.off(`sConfirming${message.id}`, sConfirmingClockCallback)
+  //   }
+  // }, [])
+  // useEffect(() => {
+  //   if (!webSocket) return
+  //   function sReturningClockCallback(res) {
+  //     setReturningClock(res.returningClock)
+  //   }
+  //   webSocket.on(`sReturning${message.id}`, sReturningClockCallback)
+  //   return () => {
+  //     webSocket.off(`sReturning${message.id}`, sReturningClockCallback)
+  //   }
+  // }, [])
+  // useEffect(() => {
+  //   if (!webSocket) return
+  //   function sConfirmedReturnClockCallback(res) {
+  //     setConfirmedReturnClock(res.returningClock)
+  //   }
+  //   webSocket.on(`sConfirmedReturn${message.id}`, sConfirmedReturnClockCallback)
+  //   return () => {
+  //     webSocket.off(`sConfirmedReturn${message.id}`, sConfirmedReturnClockCallback)
+  //   }
+  // }, [])
   const id = message?.id || ''
   const shadowColor = shadowColorArray[
     mergedArray.indexOf(String(id[0]).toUpperCase()) % shadowColorArray.length

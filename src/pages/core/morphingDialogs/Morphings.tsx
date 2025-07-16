@@ -20,6 +20,10 @@ const Morphings = ({
   changeConnectedUser,
   toggleOnTransfer,
   deleteMessage,
+  connectedClock,
+  confirmingClock,
+  returningClock,
+  confirmedReturnClock,
   handleConnectedClock,
   handleConfirmingClock,
   handleReturningClock,
@@ -50,6 +54,10 @@ const Morphings = ({
         changeConnectedUser={changeConnectedUser}
         toggleOnTransfer={toggleOnTransfer}
         removeMessage={deleteMessage}
+        connectedClock={connectedClock}
+        confirmingClock={confirmingClock}
+        returningClock={returningClock}
+        confirmedReturnClock={confirmedReturnClock}
         handleConnectedClock={handleConnectedClock}
         handleConfirmingClock={handleConfirmingClock}
         handleReturningClock={handleReturningClock}
