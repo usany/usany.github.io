@@ -6,7 +6,6 @@ import { User } from 'firebase/auth'
 import { useEffect, useState } from 'react'
 import Tilt from 'react-parallax-tilt'
 import { PulsatingButton } from 'src/components/ui/pulsating-button'
-import { useSelectors } from 'src/hooks/useSelectors'
 import { webSocket } from 'src/webSocket'
 import { staticArray } from '../card/CardView'
 import SpecificsActions from './SpecificsActions'
@@ -68,7 +67,7 @@ function Specifics({
   const [confirmingClock, setConfirmingClock] = useState('')
   const [returningClock, setReturningClock] = useState('')
   const [confirmedReturnClock, setConfirmedReturnClock] = useState('')
-  const languages = useSelectors((state) => state.languages.value)
+  // const languages = useSelectors((state) => state.languages.value)
   const handleConnectedClock = (newValue) => {
     setConnectedClock(newValue)
   }
