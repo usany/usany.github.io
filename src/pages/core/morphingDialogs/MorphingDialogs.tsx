@@ -101,7 +101,7 @@ const MorphingDialogs = ({
   useEffect(() => {
     if (!webSocket) return
     function sConfirmedReturnClockCallback(res) {
-      setConfirmedReturnClock(res.returningClock)
+      setConfirmedReturnClock(res.confirmedReturnClock)
     }
     webSocket.on(`sConfirmedReturn${message.id}`, sConfirmedReturnClockCallback)
     return () => {
