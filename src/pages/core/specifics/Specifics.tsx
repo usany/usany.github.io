@@ -51,6 +51,10 @@ function Specifics({
   changeConnectedUser,
   toggleOnTransfer,
   removeMessage,
+  handleConnectedClock,
+  handleConfirmingClock,
+  handleReturningClock,
+  handleConfirmedReturnClock
 }: Props) {
   const staticImg = staticArray[message.text.count] || staticArray['building']
   const [cardFlipped, setCardFlipped] = useState(false)

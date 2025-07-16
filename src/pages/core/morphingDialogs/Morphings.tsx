@@ -50,6 +50,10 @@ const Morphings = ({
         changeConnectedUser={changeConnectedUser}
         toggleOnTransfer={toggleOnTransfer}
         removeMessage={deleteMessage}
+        handleConnectedClock={handleConnectedClock}
+        handleConfirmingClock={handleConfirmingClock}
+        handleReturningClock={handleReturningClock}
+        handleConfirmedReturnClock={handleConfirmedReturnClock}
       />
     </MorphingDialogContent>
   )
