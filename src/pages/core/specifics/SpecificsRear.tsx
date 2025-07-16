@@ -5,6 +5,7 @@ import { doc, getDoc } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 import staticImage from 'src/assets/umbrella512.png'
 import { dbservice } from 'src/baseApi/serverbase'
+import { useSelectors } from 'src/hooks/useSelectors'
 import useTexts from 'src/useTexts'
 import Avatars from '../Avatars'
 
@@ -23,20 +24,20 @@ function SpecificsRear({
 }: Props) {
   const borrowingText = useTexts('borrowing')
   const lendingText = useTexts('lending')
-  // const profileImage = useSelectors(state => state.profileImage.value)
-  // const defaultProfile = useSelectors(state => state.defaultProfile.value)
-  // const profileImageUrl = useSelectors(state => state.profileImageUrl.value)
-  const [profileImage, setProfileImage] = useState(false)
-  const [defaultProfile, setDefaultProfile] = useState('')
-  const [profileImageUrl, setProfileImageUrl] = useState('')
+  const profileImage = useSelectors(state => state.profileImage.value)
+  const defaultProfile = useSelectors(state => state.defaultProfile.value)
+  const profileImageUrl = useSelectors(state => state.profileImageUrl.value)
+  const [sendedProfileImage, setSendedProfileImage] = useState(false)
+  const [sendedDefaultProfile, setSendedDefaultProfile] = useState('')
+  const [sendedProfileImageUrl, setSendedProfileImageUrl] = useState('')
   useEffect(() => {
     const messages = async () => {
       const docRef = doc(dbservice, `num/${message.id}`)
       const docSnap = await getDoc(docRef)
       const userData = docSnap.data()
-      setProfileImage(userData.connectedProfileImage)
-      setDefaultProfile(userData.connectedDefaultProfile)
-      setProfileImageUrl(userData.connectedProfileImageUrl)
+      setSendedProfileImage(userData.connectedProfileImage)
+      setSendedDefaultProfile(userData.connectedDefaultProfile)
+      setSendedProfileImageUrl(userData.connectedProfileImageUrl)
     }
     messages()
   }, [connectedClock, confirmingClock, returningClock, confirmedReturnClock])
@@ -46,9 +47,9 @@ function SpecificsRear({
     profileImageUrl: message.creatorProfileImageUrl
   }
   const passingValueConnected = {
-    profileImage: message.connectedProfileImage || profileImage,
-    defaultProfile: message.connectedDefaultProfile || defaultProfile,
-    profileImageUrl: message.connectedProfileImageUrl || profileImageUrl
+    profileImage: message.connectedProfileImage || sendedProfileImage || profileImage,
+    defaultProfile: message.connectedDefaultProfile || sendedDefaultProfile || defaultProfile,
+    profileImageUrl: message.connectedProfileImageUrl || sendedProfileImageUrl || profileImageUrl
   }
   const connectedMoment = connectedClock.cancelled ? '' : message?.connectedClock ? message?.connectedClock : connectedClock.clock
   const confirmingMoment = message?.confirmingClock ? message.confirmingClock : confirmingClock
