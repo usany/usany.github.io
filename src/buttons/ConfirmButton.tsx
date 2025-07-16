@@ -19,6 +19,7 @@ const onConfirm = async ({ message, uid, displayName, profileUrl }) => {
     connectedName: doc.data()?.connectedName,
     connectedUrl: profileUrl,
     preferLanguage: doc.data()?.preferLanguage || 'ko',
+    confirmingClock: new Date().toString(),
   }
   updateDoc(data, {
     round: 3,

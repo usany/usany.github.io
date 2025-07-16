@@ -19,6 +19,7 @@ const onReturning = async ({ message, uid, displayName, profileUrl }) => {
     connectedName: doc.data()?.connectedName,
     connectedUrl: profileUrl,
     preferLanguage: doc.data()?.preferLanguage || 'ko',
+    returningClock: new Date().toString(),
   }
   updateDoc(data, {
     round: 4,
