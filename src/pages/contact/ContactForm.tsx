@@ -27,10 +27,10 @@ interface Props {
 }
 
 function ContactForm({ userObj, user }: Props) {
-  const [message, setMessage] = useState({
-    'title': '',
-    'content': ''
-  })
+  // const [message, setMessage] = useState({
+  //   'title': '',
+  //   'content': ''
+  // })
   const [messageTitle, setMessageTitle] = useState('')
   const [messageContent, setMessageContent] = useState('')
   const [violationUser, setViolationUser] = useState<{
@@ -53,8 +53,8 @@ function ContactForm({ userObj, user }: Props) {
   const onSubmit = async () => {
     try {
       await addDoc(collection(dbservice, 'violations'), {
-        userUid: userObj?.uid,
-        userName: userObj?.displayName,
+        userUid: userObj?.uid || '익명',
+        userName: userObj?.displayName || '익명',
         messageTitle: messageTitle,
         message: messageContent,
         violationUser: violationUser
