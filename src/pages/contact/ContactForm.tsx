@@ -53,8 +53,8 @@ function ContactForm({ userObj, user }: Props) {
   const onSubmit = async () => {
     try {
       await addDoc(collection(dbservice, 'violations'), {
-        userUid: userObj?.uid || '익명',
-        userName: userObj?.displayName || '익명',
+        userUid: userObj?.uid || '비로그인',
+        userName: userObj?.displayName || '비로그인',
         messageTitle: messageTitle,
         message: messageContent,
         violationUser: violationUser
