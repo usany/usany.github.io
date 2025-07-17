@@ -53,8 +53,8 @@ function ContactForm({ userObj, user }: Props) {
   const onSubmit = async () => {
     try {
       await addDoc(collection(dbservice, 'violations'), {
-        userUid: userObj.uid,
-        userName: userObj.displayName,
+        userUid: userObj?.uid,
+        userName: userObj?.displayName,
         messageTitle: messageTitle,
         message: messageContent,
         violationUser: violationUser
@@ -68,12 +68,12 @@ function ContactForm({ userObj, user }: Props) {
     }
   }
 
-  const onChangeMessage = (event: { target: { name: string, value: string } }) => {
-    const {
-      target: { name, value }
-    } = event
-    setMessage({ ...message, [name]: value })
-  }
+  // const onChangeMessage = (event: { target: { name: string, value: string } }) => {
+  //   const {
+  //     target: { name, value }
+  //   } = event
+  //   setMessage({ ...message, [name]: value })
+  // }
   const onChangeMessageContent = (event: { target: { value: string } }) => {
     const {
       target: { value }
@@ -95,11 +95,13 @@ function ContactForm({ userObj, user }: Props) {
       <div className='flex justify-center pt-5 px-5'>
         <TextField name='content' label={reportContent[index]} multiline rows={5} value={messageContent} onChange={onChangeMessageContent} variant="outlined" fullWidth />
       </div>
-      <div className='flex pt-3 px-5 gap-1'>
-        <ContactFormDrawers violationUser={violationUser} changeViolationUser={(newValue) => setViolationUser(newValue)} />
-      </div>
+      {userObj &&
+        <div className='flex pt-3 px-5 gap-1'>
+          <ContactFormDrawers violationUser={violationUser} changeViolationUser={(newValue) => setViolationUser(newValue)} />
+        </div>
+      }
       <div className='flex justify-center pt-2.5'>
-        <ContactDrawers userObj={userObj} />
+        {userObj && <ContactDrawers userObj={userObj} />}
         {(messageTitle && messageContent) ?
           <Button variant='outlined' form='auth' onClick={onSubmit}>{languages === 'ko' ? '전송' : 'send'}</Button>
           :
