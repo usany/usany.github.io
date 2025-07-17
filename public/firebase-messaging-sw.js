@@ -157,12 +157,12 @@ self.addEventListener('push', event => {
 self.addEventListener('notificationclick', (event) => {
   // clients.openWindow("https://jameshfisher.com/");
   console.log(event)
-  if (event.action === 'reply') {
+  if (event.notification.data.type === 'piazza') {
     if (event.reply) {
       console.log('reply')
       // formConversation(event.notification)
     } else {
-      clients.openWindow(`/piazza?id=${event.notification.tag}`);
+      clients.openWindow(`/piazza?id=${event.notification.data.title}`);
     }
   }
   if (!event.action) {
