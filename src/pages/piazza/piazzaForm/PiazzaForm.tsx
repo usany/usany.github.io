@@ -409,7 +409,9 @@ function PiazzaForm({ chattingUser, userObj, multiple, messages, handleMessages,
                   document.getElementById('videoCall')?.click()
                 }}>
                   <DrawerClose>
-                    <UserRound />
+                    <div className='flex justify-center'>
+                      <UserRound />
+                    </div>
                     <div>화상 전화</div>
                   </DrawerClose>
                 </div>
@@ -426,7 +428,9 @@ function PiazzaForm({ chattingUser, userObj, multiple, messages, handleMessages,
                   document.getElementById('audioCall')?.click()
                 }}>
                   <DrawerClose>
-                    <AlarmCheck />
+                    <div className='flex justify-center'>
+                      <AlarmCheck />
+                    </div>
                     <div>음성 전화</div>
                   </DrawerClose>
                 </div>
