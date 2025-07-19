@@ -101,7 +101,7 @@ function Board({ userObj }: Props) {
   const handleMail = async (e) => {
     e.preventDefault()
     try {
-      await fetch('http://localhost:5000/mail', {
+      const res = await fetch('http://localhost:5000/mail', {
         method: "POST",
         headers: {
           'Content-Type': 'application/json',
@@ -111,9 +111,9 @@ function Board({ userObj }: Props) {
           author: userObj?.displayName
         })
       })
-      // const jsonData = await response.json()
-      console.log('sending')
       // alert(jsonData.author)
+      const jsonData = await res.json()
+      console.log(jsonData)
     } catch (error) {
       alert("아이템 작성 실패")
       console.log(error)
