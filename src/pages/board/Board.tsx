@@ -98,6 +98,27 @@ function Board({ userObj }: Props) {
     }
     bringMessages()
   }, [selectedValues[2].value]);
+  const handleMail = async (e) => {
+    e.preventDefault()
+    try {
+      await fetch('http://localhost:5000/mail', {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          title: userObj?.uid,
+          author: userObj?.displayName
+        })
+      })
+      // const jsonData = await response.json()
+      console.log('sending')
+      // alert(jsonData.author)
+    } catch (error) {
+      alert("아이템 작성 실패")
+      console.log(error)
+    }
+  }
   return (
     <div>
       {userObj ?
@@ -171,6 +192,7 @@ function Board({ userObj }: Props) {
           <LayoutBoard borrow={false} />
         </SwipeableViews>
       }
+      <div onClick={(e) => handleMail(e)}>mail</div>
     </div>
   );
 }
