@@ -111,7 +111,6 @@ function Board({ userObj }: Props) {
           author: userObj?.displayName
         })
       })
-      // alert(jsonData.author)
       const jsonData = await res.json()
       console.log(jsonData)
     } catch (error) {
