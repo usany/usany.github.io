@@ -54,6 +54,7 @@ function Board({ userObj }: Props) {
   const [onMarker, setOnMarker] = useState(false);
   const [mapAccordion, setMapAccordion] = useState(false)
   const [messageLoaded, setMessageLoaded] = useState(false)
+  const userCertificated = useSelectors(state => state.userCertificated.value)
   const mapAccordionToggle = () => setMapAccordion(!mapAccordion)
   const onMarkerTrue = () => setOnMarker(true);
   const onMarkerFalse = () => setOnMarker(false);
@@ -120,7 +121,7 @@ function Board({ userObj }: Props) {
   }
   return (
     <div>
-      {userObj ?
+      {userObj && userCertificated ?
         <div>
           {/* <AlarmCheck />
             <AlertCircle />
