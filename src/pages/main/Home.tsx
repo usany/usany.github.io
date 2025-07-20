@@ -11,10 +11,11 @@ import { changeBottomNavigation } from "src/stateSlices/bottomNavigationSlice";
 import Add from "../add/Add";
 import LayoutBoard from "../board/LayoutBoard";
 
-function Home({ userObj, userCertificated }: UserObjProps) {
+function Home({ userObj }: UserObjProps) {
   const bottomNavigation = useSelectors(
     (state) => state.bottomNavigation.value
   );
+  const userCertificated = useSelectors((state) => state.userCertificated.value)
   const dispatch = useDispatch();
   useEffect(() => {
     if (bottomNavigation === 5) {
@@ -44,7 +45,7 @@ function Home({ userObj, userCertificated }: UserObjProps) {
               <Layout borrow={false} />
             </SwipeableViews>
           )}
-          {bottomNavigation === 1 && <Auth userObj={userObj} userCertificated={userCertificated} />}
+          {bottomNavigation === 1 && <Auth userObj={userObj} />}
           {bottomNavigation === 2 && (
             <SwipeableViews>
               <LayoutBoard borrow={true} />

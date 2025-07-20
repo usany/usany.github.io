@@ -28,7 +28,7 @@ const Router = ({ userObj }: Props) => {
             <Routes>
               <Route
                 path="/"
-                element={<Home userObj={userObj} userCertificated={userCertificated} />}
+                element={<Home userObj={userObj} />}
               />
               <Route
                 path="/add"

@@ -6,9 +6,10 @@ import AuthButtons from 'src/pages/main/auth/AuthButtons';
 import AuthForm from 'src/pages/main/auth/AuthForm';
 import Motions from 'src/pages/main/auth/Motions';
 
-function Auth({ userObj, userCertificated }) {
+function Auth({ userObj }) {
   const [numberString, setNumberString] = useState('')
   const languages = useSelectors((state) => state.languages.value)
+  const userCertificated = useSelectors((state) => state.userCertificated.value)
   return (
     <div>
       {userObj ?
