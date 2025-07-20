@@ -24,7 +24,10 @@ function Auth({ userObj }) {
     setNumberString(value)
   }
   const sendMail = async () => {
-    const number = Math.floor(Math.random() * 1000000)
+    let number = Math.floor(Math.random() * 1000000).toString()
+    for (let num = 0; 6 - number.length; num++) {
+      number += '0' + number
+    }
     setCreatedNumber(number)
     setMailSent(true)
     await fetch('http://localhost:5000/mail', {
