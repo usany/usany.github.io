@@ -1,16 +1,21 @@
 import { Button, TextField } from '@mui/material';
+import { doc, getDoc } from 'firebase/firestore';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { dbservice } from 'src/baseApi/serverbase';
 import { useSelectors } from 'src/hooks/useSelectors';
 import PageTitle from 'src/pages/core/pageTitle/PageTitle';
 import AuthButtons from 'src/pages/main/auth/AuthButtons';
 import AuthForm from 'src/pages/main/auth/AuthForm';
 import Motions from 'src/pages/main/auth/Motions';
+import { changeUserCertificated } from 'src/stateSlices/userCertificatedSlice';
 
 function Auth({ userObj }) {
   const [numberString, setNumberString] = useState('')
   const [mailSent, setMailSent] = useState(false)
   const [createdNumber, setCreatedNumber] = useState(null)
   const languages = useSelectors((state) => state.languages.value)
+  const dispatch = useDispatch()
   const userCertificated = useSelectors((state) => state.userCertificated.value)
   const handleNumberString = (event) => {
     const {
@@ -33,12 +38,15 @@ function Auth({ userObj }) {
       })
     })
   }
-  const confirmNumber = (event) => {
+  const confirmNumber = async (event) => {
     const {
       target: { value }
     } = event
     if (value === createdNumber) {
-
+      const userDocRef = doc(dbservice, `members/${userObj.uid}`)
+      const userDocSnap = await getDoc(userDocRef)
+      const userChattings = userDocSnap.data().chattings
+      dispatch(changeUserCertificated(true))
     } else {
       alert('번호를 확인해주세요.')
     }
