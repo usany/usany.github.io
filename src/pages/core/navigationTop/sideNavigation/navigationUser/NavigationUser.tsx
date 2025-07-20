@@ -14,7 +14,7 @@ const NavigationUser = ({ userObj, points }) => {
         }
         {userObj && userCertificated && `${userObj.displayName.length > 10 ? userObj.displayName.slice(0, 9) + '......' : userObj.displayName} ${languages === 'ko' ? '님' : ''}`}
       </div>
-      {userObj && userCertificated ? <div>{languages === 'ko' ? '내 포인트: ' : 'My Points: '}{points}</div> : <div>{languages === 'ko' ? '로그인을 해 주세요' : 'Please Sign in'}</div>}
+      {userCertificated ? <div>{languages === 'ko' ? '내 포인트: ' : 'My Points: '}{points}</div> : <div>{languages === 'ko' ? '로그인을 해 주세요' : 'Please Sign in'}</div>}
     </div>
   )
 }
