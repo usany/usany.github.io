@@ -98,7 +98,7 @@ const NavigationTop = ({ userObj }: Props) => {
               {bottomNavigation % 2 === 0 && <ToggleTabs />}
               {bottomNavigation === 1 && (
                 <>
-                  {userObj && userCertificated ?
+                  {userCertificated ?
                     <div className='flex gap-5'>
                       <NavigationTopCards />
                       <NavigationTopMessages />

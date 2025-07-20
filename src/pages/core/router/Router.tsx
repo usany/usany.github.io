@@ -68,7 +68,7 @@ const Router = ({ userObj }: Props) => {
             </Routes>
           </Suspense>
         </div>
-        <Navigations userObj={userObj} />
+        <Navigations />
       </div>
     </BrowserRouter>
   )

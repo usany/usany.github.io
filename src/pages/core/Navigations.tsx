@@ -17,7 +17,7 @@ interface Props {
 interface ThemeRootState {
   theme: string
 }
-function Navigations({ userObj }: Props) {
+function Navigations() {
   const [backgroundColor, setBackgroundColor] = useState('#e2e8f0');
   const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
   const theme = useSelector((state: ThemeRootState) => state.theme.value)
@@ -71,9 +71,6 @@ function Navigations({ userObj }: Props) {
 
   return (
     <>
-      {/* <div className='fixed bottom-[50px]'>
-        {window.screen.height}
-      </div> */}
       {!piazzaForm &&
         <div className='w-screen border-t z-50 fixed rounded-t bottom-0 start-0 end-0'>
           <BottomNavigation

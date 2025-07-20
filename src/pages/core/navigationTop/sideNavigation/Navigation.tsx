@@ -30,6 +30,7 @@ function Navigation({ user, userObj, handleSideNavigation }: Props) {
   const [delayed, setDelayed] = useState(true)
   const theme = useSelectors((state) => state.theme.value)
   const languages = useSelectors(state => state.languages.value)
+  const userCeritificated = useSelectors(state => state.userCertificated.value)
   useEffect(() => {
     if (userObj) {
       onSnapshot(doc(dbservice, `members/${userObj.uid}`), (snapshot) => {
@@ -97,7 +98,7 @@ function Navigation({ user, userObj, handleSideNavigation }: Props) {
   return (
     <Drawer direction="left">
       <DrawerTrigger className='px-5'>
-        {user ?
+        {user && userCeritificated ?
           <Avatars
             element={user}
             piazza={null}
@@ -120,7 +121,7 @@ function Navigation({ user, userObj, handleSideNavigation }: Props) {
       </DrawerTrigger>
       <DrawerContent className="border-none bg-light-2 dark:bg-dark-2 right-auto top-0 mt-0 w-[355px] overflow-hidden rounded-[10px]">
         <nav className="flex flex-col justify-between w-[350px]">
-          {userObj ? (
+          {userCeritificated ? (
             <div>
               <NavigationSignedIn userObj={userObj} points={points} />
               <div className="flex flex-col justify-between pt-5 gap-5">
@@ -167,7 +168,7 @@ function Navigation({ user, userObj, handleSideNavigation }: Props) {
               </div>
             </div>
           )}
-          {userObj && <IframePlayer mode={theme} />}
+          {userCeritificated && <IframePlayer mode={theme} />}
         </nav>
       </DrawerContent>
     </Drawer>
