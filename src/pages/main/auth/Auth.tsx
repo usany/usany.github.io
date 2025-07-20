@@ -56,20 +56,24 @@ function Auth({ userObj }) {
       {userObj ?
         <div>
           <PageTitle title={languages === 'ko' ? '메일 확인' : 'Confirming mail'} />
-          {mailSent ?
-            <div>{userObj.email}로 메일을 보냈어요. 번호를 입력해주세요.</div>
-            :
-            <div>{userObj.email}로 확인 메일을 보낼게요. 번호를 확인해주세요.</div>
-          }
-          {mailSent && <TextField label='numbers' value={numberString} onChange={handleNumberString} />}
-          <Button onClick={sendMail}>
-            {mailSent ? '메일 다시 받기' : '메일 받기'}
-          </Button>
-          {numberString.length === 6 &&
-            <Button onClick={confirmNumber}>
-              완료
+          <div className='flex flex-col gap-5 items-center'>
+            {mailSent ?
+              <div>{userObj.email}로 메일을 보냈어요. 번호를 입력해주세요.</div>
+              :
+              <div>{userObj.email}로 확인 메일을 보낼게요. 번호를 확인해주세요.</div>
+            }
+            <div className='flex gap-5'>
+              {mailSent && <TextField label='numbers' value={numberString} onChange={handleNumberString} />}
+              {numberString.length === 6 &&
+                <Button onClick={confirmNumber}>
+                  완료
+                </Button>
+              }
+            </div>
+            <Button onClick={sendMail}>
+              {mailSent ? '메일 다시 받기' : '메일 받기'}
             </Button>
-          }
+          </div>
         </div>
         :
         <div>
