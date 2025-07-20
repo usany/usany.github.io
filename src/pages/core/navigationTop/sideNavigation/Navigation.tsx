@@ -146,7 +146,6 @@ function Navigation({ user, userObj, handleSideNavigation }: Props) {
               <NavigationSignedOut
                 userObj={userObj}
                 points={points}
-              // checkbox={checkbox}
               />
               <div className="flex flex-col justify-between pt-5 gap-5">
                 {links.map((value, index) => {
