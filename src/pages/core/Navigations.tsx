@@ -24,6 +24,7 @@ function Navigations({ userObj }: Props) {
   const piazzaForm = useSelector((state) => state.piazzaForm.value)
   const bottomNavigation = useSelectors(state => state.bottomNavigation.value)
   const languages = useSelectors(state => state.languages.value)
+  const userCertificated = useSelectors(state => state.userCertificated.value)
   const dispatch = useDispatch()
   useEffect(() => {
     if (theme === 'dark') {
@@ -84,7 +85,7 @@ function Navigations({ userObj }: Props) {
             }}
           >
             <BottomNavigationAction onClick={() => navigate('/add')} label={texts[languages as keyof typeof texts]['register']} icon={<Pencil />} />
-            <BottomNavigationAction onClick={() => navigate('/')} label={userObj ? texts[languages as keyof typeof texts]['myStatus'] : texts[languages as keyof typeof texts]['logIn']} icon={<Umbrella />} />
+            <BottomNavigationAction onClick={() => navigate('/')} label={userCertificated ? texts[languages as keyof typeof texts]['myStatus'] : texts[languages as keyof typeof texts]['logIn']} icon={<Umbrella />} />
             <BottomNavigationAction onClick={() => navigate('/board')} label={texts[languages as keyof typeof texts]['board']} icon={<Presentation />} />
           </BottomNavigation>
         </div>

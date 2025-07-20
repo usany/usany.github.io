@@ -40,6 +40,7 @@ const NavigationTop = ({ userObj }: Props) => {
     setSideNavigation(!sideNavigation);
   };
   const scrollNavigation = useSelectors(state => state.scrollNavigation.value)
+  const userCertificated = useSelectors(state => state.userCertificated.value)
   const dispatch = useDispatch();
   const largeMedia = useLargeMedia()
   // useEffect(() => {
@@ -97,7 +98,7 @@ const NavigationTop = ({ userObj }: Props) => {
               {bottomNavigation % 2 === 0 && <ToggleTabs />}
               {bottomNavigation === 1 && (
                 <>
-                  {userObj ?
+                  {userObj && userCertificated ?
                     <div className='flex gap-5'>
                       <NavigationTopCards />
                       <NavigationTopMessages />
