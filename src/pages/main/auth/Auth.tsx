@@ -33,6 +33,16 @@ function Auth({ userObj }) {
       })
     })
   }
+  const confirmNumber = (event) => {
+    const {
+      target: { value }
+    } = event
+    if (value === createdNumber) {
+
+    } else {
+      alert('번호를 확인해주세요.')
+    }
+  }
   return (
     <div>
       {userObj ?
@@ -48,7 +58,7 @@ function Auth({ userObj }) {
             {mailSent ? '메일 다시 받기' : '메일 받기'}
           </Button>
           {numberString.length === 6 &&
-            <Button>
+            <Button onClick={confirmNumber}>
               완료
             </Button>
           }
