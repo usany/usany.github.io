@@ -14,7 +14,6 @@ import { themeReducer } from 'src/stateSlices/themeSlice'
 import { changingUserReducer } from './stateSlices/changingUserSlice'
 import { defaultProfileReducer } from './stateSlices/defaultProfileSlice'
 import { languagesReducer } from './stateSlices/languagesSlice'
-import { piazza } from './stateSlices/piazza'
 import { piazzaFormReducer } from './stateSlices/piazzaFormSlice'
 import { profileImageUrlReducer } from './stateSlices/profileImageUrlSlice'
 import { profileReducer } from './stateSlices/profileSlice'
@@ -61,7 +60,6 @@ export const store = configureStore({
     tabs: tabsReducer.reducer,
     completedAction: completedActionReducer.reducer,
     newMessage: newMessageReducer.reducer,
-    piazza: piazza.reducer,
     weather: weather.reducer,
     languages: languagesReducer.reducer,
     changingUser: changingUserReducer.reducer,
@@ -69,7 +67,7 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: false
-    }).concat(piazza.middleware, weather.middleware)
+    }).concat(weather.middleware)
 })
 
 export type AppStore = typeof store
