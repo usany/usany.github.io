@@ -25,8 +25,8 @@ function Auth({ userObj }) {
   }
   const sendMail = async () => {
     let number = Math.floor(Math.random() * 1000000).toString()
-    for (let num = 0; 6 - number.length; num++) {
-      number += '0' + number
+    for (let index = 0; 6 - number.length; index++) {
+      number = '0' + number
     }
     setCreatedNumber(number)
     setMailSent(true)
