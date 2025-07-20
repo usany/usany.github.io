@@ -40,7 +40,6 @@ function Auth({ userObj }) {
       })
     })
   }
-  console.log(createdNumber)
   const confirmNumber = async () => {
     if (numberString === createdNumber) {
       const userDocRef = doc(dbservice, `members/${userObj.uid}`)
