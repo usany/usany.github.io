@@ -10,12 +10,18 @@ function Auth({ userObj }) {
   const [numberString, setNumberString] = useState('')
   const languages = useSelectors((state) => state.languages.value)
   const userCertificated = useSelectors((state) => state.userCertificated.value)
+  const handleNumberString = (event) => {
+    const {
+      target: { value }
+    } = event
+    setNumberString(value)
+  }
   return (
     <div>
       {userObj ?
         <div>
           <PageTitle title={languages === 'ko' ? '메일 확인' : 'Confirming mail'} />
-          <TextField label='numbers' value={numberString} />
+          <TextField label='numbers' value={numberString} onChange={handleNumberString} />
         </div>
         :
         <div>
