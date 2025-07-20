@@ -38,7 +38,7 @@ function App() {
         dispatch(changeProfileImage(userData?.profileImage))
         dispatch(changeDefaultProfile(userData?.defaultProfile))
         dispatch(changeProfileImageUrl(userData?.profileImageUrl))
-        setUserCerificated(userData?.certifi)
+        setUserCertificated(userData?.certificated)
       }
       initialProfile()
     }
