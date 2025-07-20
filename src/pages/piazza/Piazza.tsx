@@ -8,7 +8,7 @@ import { MorphingDialog, MorphingDialogClose, MorphingDialogContainer, MorphingD
 import PiazzaForm from 'src/pages/piazza/piazzaForm/PiazzaForm';
 import PiazzaScreen from 'src/pages/piazza/piazzaScreen/PiazzaScreen';
 import PiazzaTitle from 'src/pages/piazza/piazzaTitle/PiazzaTitle';
-import { changeBottomNavigation } from 'src/stateSlices/userCertificatedNavigationSlice';
+import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice';
 import PiazzaAudioCall from "./PiazzaAudioCall";
 import PiazzaCalls from "./PiazzaCalls";
 // import { useKeyboardOffset } from 'virtual-keyboard-offset';

@@ -20,7 +20,7 @@ import {
 import { Chip } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { changeBottomNavigation } from "src/stateSlices/userCertificatedNavigationSlice";
+import { changeBottomNavigation } from "src/stateSlices/bottomNavigationSlice";
 
 function LayoutBoard({ borrow }) {
   const [messages, setMessages] = useState<Array<object>>([]);

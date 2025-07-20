@@ -12,7 +12,7 @@ import { useSelectors } from './hooks/useSelectors'
 import { changeDefaultProfile } from './stateSlices/defaultProfileSlice'
 import { changeProfileImage } from './stateSlices/profileImageSlice'
 import { changeProfileImageUrl } from './stateSlices/profileImageUrlSlice'
-import { changeUserCertificated } from './stateSlices/userCertificatedSlice copy'
+import { changeUserCertificated } from './stateSlices/userCertificatedSlice'
 import useUserObject from './useUserObject'
 
 function App() {

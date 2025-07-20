@@ -7,8 +7,8 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useSelectors } from 'src/hooks/useSelectors';
+import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice';
 import { changePiazzaForm } from "src/stateSlices/piazzaFormSlice";
-import { changeBottomNavigation } from 'src/stateSlices/userCertificatedNavigationSlice';
 import texts from 'src/texts.json';
 
 interface Props {

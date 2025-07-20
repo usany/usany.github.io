@@ -7,7 +7,7 @@ import { useSelectors } from "src/hooks/useSelectors";
 import ContactAddress from 'src/pages/contact/ContactAddress';
 import ContactForm from 'src/pages/contact/ContactForm';
 import PageTitle from 'src/pages/core/pageTitle/PageTitle';
-import { changeBottomNavigation } from 'src/stateSlices/userCertificatedNavigationSlice';
+import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice';
 
 const titles = {
   ko: '신고하기',

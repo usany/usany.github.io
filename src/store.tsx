@@ -19,7 +19,7 @@ import { piazzaFormReducer } from './stateSlices/piazzaFormSlice'
 import { profileImageUrlReducer } from './stateSlices/profileImageUrlSlice'
 import { profileReducer } from './stateSlices/profileSlice'
 import { scrollNavigationReducer } from './stateSlices/scrollNavigationSlice'
-import { userCertificatedReducer } from './stateSlices/userCertificatedSlice copy'
+import { userCertificatedReducer } from './stateSlices/userCertificatedSlice'
 import { weather } from './stateSlices/weather'
 
 /** @xstate-layout N4IgpgJg5mDOIC5QBcD2UoBswDoCSAdgIYDGyAlgG5gDEaG2A2gAwC6ioADqrORagQ4gAHogCMANgk4ATM3nMxAZgAsSpTICsYgDQgAnuKVicCxSuYB2CwA4JGgL4O99LLgCCZKrVdM2Q7l5+QSQRcSlZM2U1DW09QwQbEyUzSxsbaxsZFTEnZxACVAg4IV8wAJ4+cgEhUQQAWgl4xHrLEwBOTs7NZgt2u2ZNJxd0N3xiL2oKoOqQ0DqVGWbE6X71FU1NG1VmCSzhkDKcTwop0MCqmtC6mWscS1T2zUtLGSUM5Zt2nBVtpU2HpoNBobAcjgQwAB3AAEsGQRGQYGhYmmlzmYQQMhsmhwYi67QkG3aGw0yzEOJSCjSGV+2WYoLyQA */
