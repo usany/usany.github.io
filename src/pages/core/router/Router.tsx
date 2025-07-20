@@ -10,7 +10,7 @@ interface Props {
   userObj: User | null
 }
 
-const Router = ({ userObj }: Props) => {
+const Router = ({ userObj, userCertificated }: Props) => {
   const Home = lazy(() => import('src/pages/main/Home'))
   const Profile = lazy(() => import('src/pages/profile/Profile'))
   const Ranking = lazy(() => import('src/pages/search/Ranking'))
@@ -26,7 +26,7 @@ const Router = ({ userObj }: Props) => {
             <Routes>
               <Route
                 path="/"
-                element={<Home userObj={userObj} />}
+                element={<Home userObj={userObj} userCertificated={userCertificated} />}
               />
               <Route
                 path="/add"
@@ -40,7 +40,7 @@ const Router = ({ userObj }: Props) => {
                 path="/contact"
                 element={<Contact userObj={userObj} />}
               />
-              {userObj?.certified &&
+              {userCertificated &&
                 <>
                   <Route
                     path="/profile"

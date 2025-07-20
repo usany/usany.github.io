@@ -64,7 +64,7 @@ function App() {
       <select id='videoInput' /> */}
       <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
         {/* <MyComponent /> */}
-        {userObj !== undefined ? <Router userObj={userObj} /> : <Lotties />}
+        {userObj !== undefined ? <Router userObj={userObj} userCertificated={userCertificated} /> : <Lotties />}
       </ThemeProvider>
     </>
   )
