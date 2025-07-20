@@ -9,6 +9,7 @@ import Motions from 'src/pages/main/auth/Motions';
 function Auth({ userObj }) {
   const [numberString, setNumberString] = useState('')
   const [mailSent, setMailSent] = useState(false)
+  const [createdNumber, setCreatedNumber] = useState(null)
   const languages = useSelectors((state) => state.languages.value)
   const userCertificated = useSelectors((state) => state.userCertificated.value)
   const handleNumberString = (event) => {
@@ -17,8 +18,13 @@ function Auth({ userObj }) {
     } = event
     setNumberString(value)
   }
-  const sendMail = () => {
+  const sendMail = async () => {
+    const number = Math.floor(Math.random() * 1000000)
+    setCreatedNumber(number)
     setMailSent(true)
+    await fetch('/mail', (res) => {
+
+    })
   }
   return (
     <div>
