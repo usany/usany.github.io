@@ -41,11 +41,9 @@ function Auth({ userObj }) {
       })
     })
   }
-  const confirmNumber = async (event) => {
-    const {
-      target: { value }
-    } = event
-    if (value === createdNumber) {
+  console.log(createdNumber)
+  const confirmNumber = async () => {
+    if (numberString === createdNumber) {
       const userDocRef = doc(dbservice, `members/${userObj.uid}`)
       await updateDoc(userDocRef, { certificated: true })
       dispatch(changeUserCertificated(true))
