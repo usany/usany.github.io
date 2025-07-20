@@ -1,6 +1,5 @@
 // import { create } from 'zustand'
 import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit'
-import { bottomNavigationReducer } from 'src/stateSlices/bottomNavigationSlice'
 import { cardAccordionReducer } from 'src/stateSlices/cardAccordionSlice'
 import { completedActionReducer } from 'src/stateSlices/completedActionSlice'
 import { messageAccordionReducer } from 'src/stateSlices/messageAccordionSlice'
@@ -11,6 +10,7 @@ import { profileImageReducer } from 'src/stateSlices/profileImageSlice'
 import { profileUrlReducer } from 'src/stateSlices/profileUrlSlice'
 import { tabsReducer } from 'src/stateSlices/tabsSlice'
 import { themeReducer } from 'src/stateSlices/themeSlice'
+import { bottomNavigationReducer } from 'src/stateSlices/userCertificatedNavigationSlice'
 import { changingUserReducer } from './stateSlices/changingUserSlice'
 import { defaultProfileReducer } from './stateSlices/defaultProfileSlice'
 import { languagesReducer } from './stateSlices/languagesSlice'
@@ -19,6 +19,7 @@ import { piazzaFormReducer } from './stateSlices/piazzaFormSlice'
 import { profileImageUrlReducer } from './stateSlices/profileImageUrlSlice'
 import { profileReducer } from './stateSlices/profileSlice'
 import { scrollNavigationReducer } from './stateSlices/scrollNavigationSlice'
+import { userCertificatedReducer } from './stateSlices/userCertificatedSlice copy'
 import { weather } from './stateSlices/weather'
 
 /** @xstate-layout N4IgpgJg5mDOIC5QBcD2UoBswDoCSAdgIYDGyAlgG5gDEaG2A2gAwC6ioADqrORagQ4gAHogCMANgk4ATM3nMxAZgAsSpTICsYgDQgAnuKVicCxSuYB2CwA4JGgL4O99LLgCCZKrVdM2Q7l5+QSQRcSlZM2U1DW09QwQbEyUzSxsbaxsZFTEnZxACVAg4IV8wAJ4+cgEhUQQAWgl4xHrLEwBOTs7NZgt2u2ZNJxd0N3xiL2oKoOqQ0DqVGWbE6X71FU1NG1VmCSzhkDKcTwop0MCqmtC6mWscS1T2zUtLGSUM5Zt2nBVtpU2HpoNBobAcjgQwAB3AAEsGQRGQYGhYmmlzmYQQMhsmhwYi67QkG3aGw0yzEOJSCjSGV+2WYoLyQA */
@@ -43,6 +44,7 @@ import { weather } from './stateSlices/weather'
 
 export const store = configureStore({
   reducer: {
+    userCertificated: userCertificatedReducer,
     scrollNavigation: scrollNavigationReducer,
     profileUrl: profileUrlReducer.reducer,
     profileColor: profileColorReducer.reducer,

@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useSelectors } from 'src/hooks/useSelectors';
-import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice';
+import { changeBottomNavigation } from 'src/stateSlices/userCertificatedNavigationSlice';
 import { changePiazzaForm } from "src/stateSlices/piazzaFormSlice";
 import useBottomNav from "./useBottomNav";
 
@@ -49,7 +49,7 @@ function useBottomNavHidden() {
       if (isKeyboardOpen !== newState) {
         setIsKeyboardOpen(newState);
         if (new)
-        dispatch(changePiazzaForm(newState))
+          dispatch(changePiazzaForm(newState))
       }
     };
     window.addEventListener('resize', listener)

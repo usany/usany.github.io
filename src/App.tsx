@@ -1,6 +1,6 @@
 import { ThemeProvider } from '@mui/material/styles'
 import { doc, getDoc } from 'firebase/firestore'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
 import 'src/global.css'
@@ -12,6 +12,7 @@ import { useSelectors } from './hooks/useSelectors'
 import { changeDefaultProfile } from './stateSlices/defaultProfileSlice'
 import { changeProfileImage } from './stateSlices/profileImageSlice'
 import { changeProfileImageUrl } from './stateSlices/profileImageUrlSlice'
+import { changeUserCertificated } from './stateSlices/userCertificatedSlice copy'
 import useUserObject from './useUserObject'
 
 function App() {
@@ -26,8 +27,8 @@ function App() {
   const userObj = useUserObject()
   const { lightTheme, darkTheme } = useColors()
   const dispatch = useDispatch()
-  const [userCertificated, setUserCertificated] = useState(false)
-
+  // const [userCertificated, setUserCertificated] = useState(false)
+  const userCeritificated = useSelectors((state) => state.userCertificated.value)
   useEffect(() => {
     if (userObj) {
       const initialProfile = async () => {
@@ -38,7 +39,8 @@ function App() {
         dispatch(changeProfileImage(userData?.profileImage))
         dispatch(changeDefaultProfile(userData?.defaultProfile))
         dispatch(changeProfileImageUrl(userData?.profileImageUrl))
-        setUserCertificated(userData?.certificated)
+        dispatch(changeUserCertificated(userData?.certificated))
+        // setUserCertificated(userData?.certificated)
       }
       initialProfile()
     }
@@ -64,7 +66,7 @@ function App() {
       <select id='videoInput' /> */}
       <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
         {/* <MyComponent /> */}
-        {userObj !== undefined ? <Router userObj={userObj} userCertificated={userCertificated} /> : <Lotties />}
+        {userObj !== undefined ? <Router userObj={userObj} /> : <Lotties />}
       </ThemeProvider>
     </>
   )

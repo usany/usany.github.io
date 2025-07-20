@@ -1,6 +1,7 @@
 import { User } from 'firebase/auth'
 import { Suspense, lazy } from 'react'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
+import { useSelectors } from 'src/hooks/useSelectors'
 import Navigations from 'src/pages/core/Navigations'
 import NavigationTop from 'src/pages/core/navigationTop/NavigationTop'
 import Adds from '../../add/Adds'
@@ -10,12 +11,13 @@ interface Props {
   userObj: User | null
 }
 
-const Router = ({ userObj, userCertificated }: Props) => {
+const Router = ({ userObj }: Props) => {
   const Home = lazy(() => import('src/pages/main/Home'))
   const Profile = lazy(() => import('src/pages/profile/Profile'))
   const Ranking = lazy(() => import('src/pages/search/Ranking'))
   const Contact = lazy(() => import('src/pages/contact/Contact'))
   const Piazza = lazy(() => import('src/pages/piazza/Piazza'))
+  const userCertificated = useSelectors((state) => state.userCertificated.value)
   return (
     <BrowserRouter basename='/'>
       {/* <HashRouter> */}
@@ -40,7 +42,7 @@ const Router = ({ userObj, userCertificated }: Props) => {
                 path="/contact"
                 element={<Contact userObj={userObj} />}
               />
-              {userCertificated &&
+              {userObj && userCertificated &&
                 <>
                   <Route
                     path="/profile"

@@ -6,7 +6,7 @@ import { useSelectors } from 'src/hooks/useSelectors';
 import PageTitle from 'src/pages/core/pageTitle/PageTitle';
 import RankingSearch from 'src/pages/search/searchBar/RankingSearch';
 import RankingLists from 'src/pages/search/searchList/RankingLists';
-import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice';
+import { changeBottomNavigation } from 'src/stateSlices/userCertificatedNavigationSlice';
 
 interface Props {
   userObj: User

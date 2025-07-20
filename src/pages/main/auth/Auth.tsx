@@ -1,3 +1,5 @@
+import { TextField } from '@mui/material';
+import { useState } from 'react';
 import { useSelectors } from 'src/hooks/useSelectors';
 import PageTitle from 'src/pages/core/pageTitle/PageTitle';
 import AuthButtons from 'src/pages/main/auth/AuthButtons';
@@ -5,13 +7,14 @@ import AuthForm from 'src/pages/main/auth/AuthForm';
 import Motions from 'src/pages/main/auth/Motions';
 
 function Auth({ userObj, userCertificated }) {
+  const [numberString, setNumberString] = useState('')
   const languages = useSelectors((state) => state.languages.value)
   return (
     <div>
       {userObj ?
         <div>
           <PageTitle title={languages === 'ko' ? '메일 확인' : 'Confirming mail'} />
-          
+          <TextField label='numbers' value={numberString} />
         </div>
         :
         <div>

@@ -19,9 +19,9 @@ import ProfileAvatar from "src/pages/profile/profileAvatar/ProfileAvatar";
 import ProfileCards from "src/pages/profile/ProfileCards";
 import ProfileCompleted from "src/pages/profile/ProfileCompleted";
 import ProfileMembers from "src/pages/profile/ProfileMembers";
-import { changeBottomNavigation } from "src/stateSlices/bottomNavigationSlice";
 import { changeProfileColor } from "src/stateSlices/profileColorSlice";
 import { changeProfileUrl } from "src/stateSlices/profileUrlSlice";
+import { changeBottomNavigation } from "src/stateSlices/userCertificatedNavigationSlice";
 import { useImmer } from "use-immer";
 import ProfileLocations from "./ProfileLocations";
 

@@ -7,7 +7,7 @@ import Board from "src/pages/board/Board";
 import { SwipeableViews } from "src/pages/core/SwipeableViews";
 import Auth from "src/pages/main/auth/Auth";
 import Menu from "src/pages/main/menu/Menu";
-import { changeBottomNavigation } from "src/stateSlices/bottomNavigationSlice";
+import { changeBottomNavigation } from "src/stateSlices/userCertificatedNavigationSlice";
 import Add from "../add/Add";
 import LayoutBoard from "../board/LayoutBoard";
 

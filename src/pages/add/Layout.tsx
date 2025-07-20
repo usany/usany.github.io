@@ -7,7 +7,7 @@ import Select from '@mui/material/Select';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PageTitle from 'src/pages/core/pageTitle/PageTitle';
-import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice';
+import { changeBottomNavigation } from 'src/stateSlices/userCertificatedNavigationSlice';
 import Avatars from '../core/Avatars';
 import AddSteppers from './AddSteppers';
 
