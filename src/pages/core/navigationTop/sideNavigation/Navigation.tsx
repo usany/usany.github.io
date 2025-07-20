@@ -57,6 +57,7 @@ function Navigation({ user, userObj, handleSideNavigation }: Props) {
     //   }, 250)
     // }
   }
+
   const links = [
     {
       href: '/profile',
