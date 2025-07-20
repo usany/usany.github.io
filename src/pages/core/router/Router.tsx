@@ -20,7 +20,6 @@ const Router = ({ userObj }: Props) => {
   const userCertificated = useSelectors((state) => state.userCertificated.value)
   return (
     <BrowserRouter basename='/'>
-      {/* <HashRouter> */}
       <div className="flex flex-col">
         <NavigationTop userObj={userObj} />
         <div className='pt-16 pb-14'>
@@ -71,7 +70,6 @@ const Router = ({ userObj }: Props) => {
         </div>
         <Navigations userObj={userObj} />
       </div>
-      {/* </HashRouter> */}
     </BrowserRouter>
   )
 }
