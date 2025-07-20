@@ -45,8 +45,6 @@ function Auth({ userObj }) {
     if (value === createdNumber) {
       const userDocRef = doc(dbservice, `members/${userObj.uid}`)
       await updateDoc(userDocRef, { certificated: true })
-      // const userDocSnap = await getDoc(userDocRef)
-      // const userChattings = userDocSnap.data().chattings
       dispatch(changeUserCertificated(true))
     } else {
       alert('번호를 확인해주세요.')
