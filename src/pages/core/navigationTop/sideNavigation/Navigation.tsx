@@ -163,7 +163,7 @@ function Navigation({ user, userObj, handleSideNavigation }: Props) {
                       </DrawerClose>
                     )
                   }
-                  if (userCertificated) {
+                  if (!userCertificated) {
                     if (index === 4) {
                       return (
                         <DrawerClose>
