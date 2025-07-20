@@ -8,4 +8,3 @@ const webSocket = io('https://service-ceni.onrender.com')
 // }
 
 export { webSocket }
-

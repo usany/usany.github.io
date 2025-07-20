@@ -1,6 +1,6 @@
 import { ThemeProvider } from '@mui/material/styles'
 import { doc, getDoc } from 'firebase/firestore'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
 import 'src/global.css'
@@ -26,6 +26,8 @@ function App() {
   const userObj = useUserObject()
   const { lightTheme, darkTheme } = useColors()
   const dispatch = useDispatch()
+  const [userCertificated, setUserCertificated] = useState(false)
+
   useEffect(() => {
     if (userObj) {
       const initialProfile = async () => {
@@ -36,6 +38,7 @@ function App() {
         dispatch(changeProfileImage(userData?.profileImage))
         dispatch(changeDefaultProfile(userData?.defaultProfile))
         dispatch(changeProfileImageUrl(userData?.profileImageUrl))
+        setUserCerificated(userData?.certifi)
       }
       initialProfile()
     }

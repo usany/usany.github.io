@@ -40,7 +40,7 @@ const Router = ({ userObj }: Props) => {
                 path="/contact"
                 element={<Contact userObj={userObj} />}
               />
-              {userObj &&
+              {userObj?.certified &&
                 <>
                   <Route
                     path="/profile"
