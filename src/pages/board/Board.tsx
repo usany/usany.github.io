@@ -23,14 +23,14 @@ import FilterDialogsTitle from "./FilterDialogs/FilterDialogsTitle";
 import LayoutBoard from "./LayoutBoard";
 // import { AlarmCheck, AlertCircle, Building, Clock, DoorOpen, MessagesSquare, Pen, PenBox, Pencil, PenSquare, PenTool, Presentation, Search, SearchCheck, SearchCode, SearchSlash, Siren, TowerControl, Umbrella, UserCheck, UserRound, Watch } from "lucide-react";
 
-const registeredMap = {
-  ko: '등록 지도',
-  en: 'Registered map'
-}
-const cardList = {
-  ko: '카드 목록',
-  en: 'Card list'
-}
+// const registeredMap = {
+//   ko: '등록 지도',
+//   en: 'Registered map'
+// }
+// const cardList = {
+//   ko: '카드 목록',
+//   en: 'Card list'
+// }
 interface Props {
   userObj: User | null;
 }
