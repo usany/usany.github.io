@@ -13,7 +13,7 @@ import { changeUserCertificated } from 'src/stateSlices/userCertificatedSlice';
 function Auth({ userObj }) {
   const [numberString, setNumberString] = useState('')
   const [mailSent, setMailSent] = useState(false)
-  const [createdNumber, setCreatedNumber] = useState(null)
+  const [createdNumber, setCreatedNumber] = useState('')
   const languages = useSelectors((state) => state.languages.value)
   const dispatch = useDispatch()
   const userCertificated = useSelectors((state) => state.userCertificated.value)
