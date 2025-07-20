@@ -27,7 +27,7 @@ function Auth({ userObj }) {
     const number = Math.floor(Math.random() * 1000000)
     setCreatedNumber(number)
     setMailSent(true)
-    await fetch('/mail', {
+    await fetch('http://localhost:5000/mail', {
       method: "POST",
       headers: {
         'Content-Type': 'application/json',
