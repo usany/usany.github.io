@@ -16,7 +16,6 @@ function Auth({ userObj }) {
   const [createdNumber, setCreatedNumber] = useState('')
   const languages = useSelectors((state) => state.languages.value)
   const dispatch = useDispatch()
-  const userCertificated = useSelectors((state) => state.userCertificated.value)
   const handleNumberString = (event) => {
     const {
       target: { value }
