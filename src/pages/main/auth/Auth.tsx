@@ -1,4 +1,4 @@
-import { TextField } from '@mui/material';
+import { Button, TextField } from '@mui/material';
 import { useState } from 'react';
 import { useSelectors } from 'src/hooks/useSelectors';
 import PageTitle from 'src/pages/core/pageTitle/PageTitle';
@@ -8,6 +8,7 @@ import Motions from 'src/pages/main/auth/Motions';
 
 function Auth({ userObj }) {
   const [numberString, setNumberString] = useState('')
+  const [mailSent, setMailSent] = useState(false)
   const languages = useSelectors((state) => state.languages.value)
   const userCertificated = useSelectors((state) => state.userCertificated.value)
   const handleNumberString = (event) => {
@@ -16,12 +17,28 @@ function Auth({ userObj }) {
     } = event
     setNumberString(value)
   }
+  const sendMail = () => {
+    setMailSent(true)
+  }
   return (
     <div>
       {userObj ?
         <div>
           <PageTitle title={languages === 'ko' ? '메일 확인' : 'Confirming mail'} />
-          <TextField label='numbers' value={numberString} onChange={handleNumberString} />
+          {mailSent ?
+            <div>{userObj.email}로 메일을 보냈어요. 번호를 입력해주세요.</div>
+            :
+            <div>{userObj.email}로 확인 메일을 보낼게요. 번호를 확인해주세요.</div>
+          }
+          {mailSent && <TextField label='numbers' value={numberString} onChange={handleNumberString} />}
+          <Button onClick={sendMail}>
+            {mailSent ? '메일 다시 받기' : '메일 받기'}
+          </Button>
+          {numberString.length === 6 &&
+            <Button>
+              완료
+            </Button>
+          }
         </div>
         :
         <div>
