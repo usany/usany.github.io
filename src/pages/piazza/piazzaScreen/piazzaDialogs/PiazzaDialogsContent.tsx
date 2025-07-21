@@ -22,9 +22,7 @@ const PiazzaDialogsContent = ({ initiateContinuing, user, userObj, handleMessage
         setNewConversation(userObj.uid[0] + userObj.uid[1] + userObj.uid[2] + userObj.uid[3] + userObj.uid[4] + userObj.uid[5] + user?.uid[0] + user?.uid[1] + user?.uid[2] + user?.uid[3] + user?.uid[4] + user?.uid[5])
       }
     }
-
   }, [user])
-  console.log(user.uid)
   return (
     <div>
       <div className='flex flex-col items-center pt-5'>
