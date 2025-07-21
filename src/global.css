@@ -7,6 +7,10 @@
   src: url('src/assets/fonts/OTF/MaruBuri-Light.otf') format('opentype')
 }
 
+::selection {
+  background: #CFCFCF;
+}
+
 .flipCard {
   perspective: 1000px;
 }

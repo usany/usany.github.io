@@ -115,9 +115,9 @@ const AuthForm = ({ signIn, agreed }) => {
             defaultProfile: url,
           })
         })
-        setTimeout(() => {
-          location.reload()
-        }, 1000)
+        // setTimeout(() => {
+        //   location.reload()
+        // }, 1000)
       } catch (error) {
         if (error.message === 'Firebase: Error (auth/invalid-credential).') {
           const errorMessage = '로그인 실패: 계정을 확인해 주세요'

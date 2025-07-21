@@ -12,6 +12,7 @@ import { useSelectors } from './hooks/useSelectors'
 import { changeDefaultProfile } from './stateSlices/defaultProfileSlice'
 import { changeProfileImage } from './stateSlices/profileImageSlice'
 import { changeProfileImageUrl } from './stateSlices/profileImageUrlSlice'
+import { changeDark } from './stateSlices/themeSlice'
 import { changeUserCertificated } from './stateSlices/userCertificatedSlice'
 import useUserObject from './useUserObject'
 
@@ -28,7 +29,7 @@ function App() {
   const { lightTheme, darkTheme } = useColors()
   const dispatch = useDispatch()
   // const [userCertificated, setUserCertificated] = useState(false)
-  const userCeritificated = useSelectors((state) => state.userCertificated.value)
+  // const userCeritificated = useSelectors((state) => state.userCertificated.value)
   useEffect(() => {
     if (userObj) {
       const initialProfile = async () => {
@@ -45,6 +46,20 @@ function App() {
       initialProfile()
     }
   }, [userObj])
+  useEffect(() => {
+    const mq = window.matchMedia(
+      "(prefers-color-scheme: dark)"
+    );
+    if (!localStorage.getItem('theme')) {
+      if (mq.matches) {
+        localStorage.setItem('theme', 'dark')
+        dispatch(changeDark())
+      }
+    }
+
+    // This callback will fire if the perferred color scheme changes without a reload
+    // mq.addEventListener("change", (evt) => setIsDark(evt.matches));
+  }, []);
 
   function MyComponent() {
     const { t, i18n } = useTranslation();
