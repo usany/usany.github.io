@@ -74,14 +74,16 @@ const SpecificsTradesContent = ({
             },
           }}
         >
-          <Button
-            variant="outlined"
-            onClick={() => {
-              // handleClose()
-            }}
-          >
-            프로필 확인
-          </Button>
+          <DrawerClose>
+            <Button
+              variant="outlined"
+              onClick={() => {
+                // handleClose()
+              }}
+            >
+              프로필 확인
+            </Button>
+          </DrawerClose>
         </Link>
         {userObj.uid !== message?.creatorId && (
           <Link
