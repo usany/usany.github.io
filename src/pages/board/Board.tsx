@@ -73,7 +73,6 @@ function Board({ userObj }: Props) {
     });
   };
   const languages = useSelectors((state) => state.languages.value)
-  const index = (languages === 'ko' || languages === 'en') ? languages : 'ko'
 
   useEffect(() => {
     document.documentElement.scrollTo({
@@ -99,26 +98,26 @@ function Board({ userObj }: Props) {
     }
     bringMessages()
   }, [selectedValues[2].value]);
-  const handleMail = async (e) => {
-    e.preventDefault()
-    try {
-      const res = await fetch('http://localhost:5000/mail', {
-        method: "POST",
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          title: userObj?.uid,
-          author: userObj?.displayName
-        })
-      })
-      const jsonData = await res.json()
-      console.log(jsonData)
-    } catch (error) {
-      alert("아이템 작성 실패")
-      console.log(error)
-    }
-  }
+  // const handleMail = async (e) => {
+  //   e.preventDefault()
+  //   try {
+  //     const res = await fetch('http://localhost:5000/mail', {
+  //       method: "POST",
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify({
+  //         title: userObj?.uid,
+  //         author: userObj?.displayName
+  //       })
+  //     })
+  //     const jsonData = await res.json()
+  //     console.log(jsonData)
+  //   } catch (error) {
+  //     alert("아이템 작성 실패")
+  //     console.log(error)
+  //   }
+  // }
   return (
     <div>
       {userObj && userCertificated ?
@@ -192,7 +191,6 @@ function Board({ userObj }: Props) {
           <LayoutBoard borrow={false} />
         </SwipeableViews>
       }
-      <div onClick={(e) => handleMail(e)}>mail</div>
     </div>
   );
 }
