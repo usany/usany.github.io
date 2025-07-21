@@ -24,7 +24,7 @@ const ProfileMembers = ({ userObj, user }) => {
       ) : (
         <Link to="/contact" state={{ user: user }}>
           <div className="flex justify-center">
-            <Card sx={{ width: "50%", bgcolor: color }}>
+            <Card sx={{ bgcolor: color }}>
               <div className="flex justify-center p-5">{languages === 'ko' ? '신고하기' : 'Report'}</div>
             </Card>
           </div>
