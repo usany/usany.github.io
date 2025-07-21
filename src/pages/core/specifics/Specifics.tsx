@@ -181,7 +181,7 @@ function Specifics({
   //     </Card>
   //   )
   // }
-  console.log(message)
+  // console.log(message)
   return (
     <div className='z-50 text-xs'
       onMouseDownCapture={() => {
