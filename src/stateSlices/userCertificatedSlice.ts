@@ -5,7 +5,7 @@ interface userCertificatedState {
 }
 
 const initialState: userCertificatedState = {
-  value: false
+  value: true
 }
 const userCertificatedSlice = createSlice({
   name: 'userCertificated',
