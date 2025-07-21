@@ -1,18 +1,7 @@
-import Button from '@mui/material/Button';
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 // import Avatar from '@mui/material/Avatar';
 // import { blue } from '@mui/material/colors';
-import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerTrigger
-} from "@/components/ui/drawer";
-import { ScrollArea } from '@radix-ui/react-scroll-area';
 import { useSelectors } from 'src/hooks/useSelectors';
-import Avatars from 'src/pages/core/Avatars';
-import DrawersBar from 'src/pages/core/DrawersBar';
 
 const PiazzaDialogs = ({ initiateContinuing, multiple, handleMultiple, user, userObj, handleMessagesList, displayedName, }) => {
   const [conversation, setConversation] = useState(null)
@@ -26,6 +15,7 @@ const PiazzaDialogs = ({ initiateContinuing, multiple, handleMultiple, user, use
       }
     }
   }, [user])
+  console.log(user.uid)
   return (
     <div>
       {/* <Dialog open={selectUser} onClose={handleClose}>
@@ -66,7 +56,11 @@ const PiazzaDialogs = ({ initiateContinuing, multiple, handleMultiple, user, use
                 }
                 </DialogActions>
             </Dialog> */}
-      <Drawer>
+      {/* <Avatar className={'bg-profile-blue'}>
+                <AvatarImage src={user?.profileImageUrl} />
+                <AvatarFallback className='text-xl border-none	'>{user?.displayName[0]}</AvatarFallback>
+              </Avatar> */}
+      {/* <Drawer>
         <DrawerTrigger>
           <div id='drawer'></div>
         </DrawerTrigger>
@@ -75,10 +69,6 @@ const PiazzaDialogs = ({ initiateContinuing, multiple, handleMultiple, user, use
             <DrawersBar />
             <div className='flex flex-col items-center pt-5'>
               <Avatars uid={userObj.uid} profile={false} profileColor="" profileUrl={user?.profileImageUrl} fallback="" piazza={null} />
-              {/* <Avatar className={'bg-profile-blue'}>
-                <AvatarImage src={user?.profileImageUrl} />
-                <AvatarFallback className='text-xl border-none	'>{user?.displayName[0]}</AvatarFallback>
-              </Avatar> */}
               <div>
                 {user?.displayName}
               </div>
@@ -101,7 +91,7 @@ const PiazzaDialogs = ({ initiateContinuing, multiple, handleMultiple, user, use
                 to={`${location.pathname}?id=${conversation}`}
                 state={{ element: user }}>
                 <Button variant='outlined' onClick={() => {
-                  // handleClose()
+                  handleClose()
                 }}>
                   {languages === 'ko' ? '프로필 확인' : 'Check Profile'}
                 </Button>
@@ -113,10 +103,10 @@ const PiazzaDialogs = ({ initiateContinuing, multiple, handleMultiple, user, use
                   <DrawerClose>
                     <Button variant='outlined' onClick={() => {
                       handleMessagesList([])
-                      // handleChangeMessage(true)
+                      handleChangeMessage(true)
                       handleMultiple(false)
                       initiateContinuing()
-                      // handleClose()
+                      handleClose()
                     }}>
                       {languages === 'ko' ? '개인 대화' : 'Private messaging'}
                     </Button>
@@ -126,7 +116,7 @@ const PiazzaDialogs = ({ initiateContinuing, multiple, handleMultiple, user, use
             </div>
           </ScrollArea>
         </DrawerContent>
-      </Drawer>
+      </Drawer> */}
     </div>
   )
 }

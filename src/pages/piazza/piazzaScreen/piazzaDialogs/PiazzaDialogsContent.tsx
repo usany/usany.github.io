@@ -24,6 +24,7 @@ const PiazzaDialogsContent = ({ initiateContinuing, user, userObj, handleMessage
     }
 
   }, [user])
+  console.log(user.uid)
   return (
     <div>
       <div className='flex flex-col items-center pt-5'>
