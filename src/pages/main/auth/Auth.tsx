@@ -29,7 +29,7 @@ function Auth({ userObj }) {
     }
     setCreatedNumber(number)
     setMailSent(true)
-    await fetch('http://localhost:5000/mail', {
+    await fetch('https://service-ceni.onrender.com/mail', {
       method: "POST",
       headers: {
         'Content-Type': 'application/json',
