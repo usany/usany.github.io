@@ -21,11 +21,14 @@ const SpecificsTradesContent = ({
   const passingProfile = {
     profileImage: isCreator ? message.creatorProfileImage : message.connectedProfileImage,
     defaultProfile: isCreator ? message.creatorDefaultProfile : message.connectedDefaultProfile || connectedUser.connectedUrl,
-    profileImageUrl: isCreator ? message.creatorProfileImageUrl : message.connectedProfileImageUrl  || connectedUser.connectedUrl
+    profileImageUrl: isCreator ? message.creatorProfileImageUrl : message.connectedProfileImageUrl || connectedUser.connectedUrl
   }
   let uid
   let displayName
   let url
+  let profileImage
+  let defaultProfile
+  console.log(connectedUser)
   if (isCreator) {
     uid = message?.creatorId
     displayName = message.displayName
