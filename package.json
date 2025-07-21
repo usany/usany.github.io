@@ -60,6 +60,7 @@
     "firebaseui": "^6.1.0",
     "framer-motion": "^11.0.25",
     "i18next": "^25.2.1",
+    "input-otp": "^1.4.2",
     "lottie-react": "^2.4.0",
     "lucide-react": "^0.381.0",
     "maplibre-gl": "^5.1.0",
