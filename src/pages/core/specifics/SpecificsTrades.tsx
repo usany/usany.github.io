@@ -217,7 +217,7 @@ function SpecificsTrades({
               title={<SpecificsTradesTitle />}
               content={
                 <SpecificsTradesContent
-                  isCreator={false}
+                  isCreator={true}
                   userObj={userObj}
                   message={message}
                   conversation={conversation}

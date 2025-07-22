@@ -69,8 +69,9 @@ const SpecificsTradesContent = ({
             element: {
               uid: uid,
               displayName: displayName,
-              profileUrl: url,
-              profileImageUrl: url,
+              profileImage: passingProfile.profileImage,
+              defaultProfile: passingProfile.defaultProfile,
+              profileImageUrl: passingProfile.profileImageUrl,
             },
           }}
         >
