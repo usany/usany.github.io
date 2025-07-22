@@ -48,7 +48,6 @@ function Btn({
             <ConfirmButton
               message={messageObj}
               userObj={userObj}
-              userObj={userObj}
               increaseRound={increaseRound}
               handleConfirmingClock={handleConfirmingClock}
             />
@@ -114,7 +113,6 @@ function Btn({
             <StopSupportButton
               userObj={userObj}
               message={messageObj}
-              userObj={userObj}
               decreaseRound={decreaseRound}
               changeConnectedUser={changeConnectedUser}
               toggleOnTransfer={toggleOnTransfer}
