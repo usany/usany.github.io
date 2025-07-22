@@ -46,7 +46,6 @@ const SupportButton = ({
   handleClose,
   handleDialog,
   message,
-  userObj,
   increaseRound,
   changeConnectedUser,
   toggleOnTransfer,
