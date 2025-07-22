@@ -79,7 +79,6 @@ const SpecificsTradesContent = ({
               variant="outlined"
               onClick={() => {
                 document.body.classList.remove('overflow-hidden')
-                // handleClose()
               }}
             >
               프로필 확인
@@ -102,8 +101,7 @@ const SpecificsTradesContent = ({
               <Button
                 variant="outlined"
                 onClick={() => {
-                  // handleMessagesList([])
-                  // handleMultiple(false)
+                  document.body.classList.remove('overflow-hidden')
                 }}
               >
                 개인 대화

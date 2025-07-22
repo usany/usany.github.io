@@ -66,7 +66,11 @@ function SpecificsActionsPopupsContents({
             },
           }}
         >
-          <Button variant="outlined">프로필 확인</Button>
+          <Button variant="outlined"
+            onClick={() => {
+              document.body.classList.remove('overflow-hidden')
+            }}
+          >프로필 확인</Button>
         </Link>
         {userObj.uid !== message?.creatorId && (
           <Link
@@ -81,7 +85,7 @@ function SpecificsActionsPopupsContents({
             }}
           >
             <DrawerClose>
-              <Button variant="outlined" onClick={() => {}}>
+              <Button variant="outlined" onClick={() => { }}>
                 개인 대화
               </Button>
             </DrawerClose>
