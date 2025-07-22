@@ -85,7 +85,11 @@ function SpecificsActionsPopupsContents({
             }}
           >
             <DrawerClose>
-              <Button variant="outlined" onClick={() => { }}>
+              <Button variant="outlined"
+                onClick={() => {
+                  document.body.classList.remove('overflow-hidden')
+                }}
+              >
                 개인 대화
               </Button>
             </DrawerClose>
