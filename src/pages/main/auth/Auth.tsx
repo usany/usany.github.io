@@ -9,6 +9,7 @@ import AuthButtons from 'src/pages/main/auth/AuthButtons';
 import AuthForm from 'src/pages/main/auth/AuthForm';
 import Motions from 'src/pages/main/auth/Motions';
 import { changeUserCertificated } from 'src/stateSlices/userCertificatedSlice';
+import AuthPassword from './AuthPassword';
 
 function Auth({ userObj }) {
   const [numberString, setNumberString] = useState('')
@@ -64,6 +65,7 @@ function Auth({ userObj }) {
             }
             <div className='flex gap-5'>
               {mailSent && <TextField label='numbers' value={numberString} onChange={handleNumberString} />}
+              {mailSent && <AuthPassword userObj={userObj} handleNumberString={handleNumberString} />}
               {numberString.length === 6 &&
                 <Button onClick={confirmNumber}>
                   완료
