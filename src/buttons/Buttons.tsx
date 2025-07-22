@@ -49,6 +49,7 @@ function Btn({
           {round === 2 && (
             <ConfirmButton
               message={messageObj}
+              userObj={userObj}
               uid={uid}
               displayName={displayName}
               increaseRound={increaseRound}
@@ -60,6 +61,7 @@ function Btn({
               {messageObj.text.choose === 1 && (
                 <ReturningButton
                   message={messageObj}
+                  userObj={userObj}
                   uid={uid}
                   displayName={displayName}
                   increaseRound={increaseRound}
@@ -85,6 +87,7 @@ function Btn({
                   num={num}
                   points={points}
                   message={messageObj}
+                  userObj={userObj}
                   uid={uid}
                   displayName={displayName}
                   increaseRound={increaseRound}
@@ -108,6 +111,7 @@ function Btn({
               handleClose={handleClose}
               handleDialog={handleDialog}
               message={messageObj}
+              userObj={userObj}
               uid={uid}
               displayName={displayName}
               increaseRound={increaseRound}
@@ -120,6 +124,7 @@ function Btn({
             <StopSupportButton
               userObj={userObj}
               message={messageObj}
+              userObj={userObj}
               uid={uid}
               displayName={displayName}
               decreaseRound={decreaseRound}
@@ -139,6 +144,7 @@ function Btn({
               {messageObj.text.choose === 2 && (
                 <ReturningButton
                   message={messageObj}
+                  userObj={userObj}
                   uid={uid}
                   displayName={displayName}
                   increaseRound={increaseRound}
@@ -155,6 +161,7 @@ function Btn({
                   num={num}
                   points={points}
                   message={messageObj}
+                  userObj={userObj}
                   uid={uid}
                   displayName={displayName}
                   increaseRound={increaseRound}
