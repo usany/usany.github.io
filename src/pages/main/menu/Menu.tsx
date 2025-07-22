@@ -1,6 +1,4 @@
 import { User } from 'firebase/auth'
-import { REGEXP_ONLY_DIGITS } from 'input-otp'
-import { InputOTP, InputOTPGroup, InputOTPSlot } from 'src/components/ui/input-otp'
 import { useSelectors } from 'src/hooks/useSelectors'
 import PageTitle from 'src/pages/core/pageTitle/PageTitle'
 import Accordions from './Accordions/Accordions'
@@ -28,7 +26,7 @@ function Menu({ userObj }: Props) {
     <div id="sample" className="flex justify-center flex-col pb-5">
       <PageTitle title={titles[index]} />
       <Accordions userObj={userObj} />
-      <InputOTP maxLength={6} pattern={REGEXP_ONLY_DIGITS}>
+      {/* <InputOTP maxLength={6} pattern={REGEXP_ONLY_DIGITS}>
         <InputOTPGroup>
           <InputOTPSlot index={0} />
           <InputOTPSlot index={1} />
@@ -37,7 +35,7 @@ function Menu({ userObj }: Props) {
           <InputOTPSlot index={4} />
           <InputOTPSlot index={5} />
         </InputOTPGroup>
-      </InputOTP>
+      </InputOTP> */}
       {/* <PushNotificationButton /> */}
       {/* <Avatar sx={{ bgcolor: blue[500] }} alt="Remy Sharp" src="./assets/groups.png" />
             <Avatar sx={{ bgcolor: blue[500] }} alt="Travis Howard" src="/static/images/avatar/2.jpg" />

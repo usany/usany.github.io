@@ -47,10 +47,12 @@ function SpecificsRear({
     profileImageUrl: message.creatorProfileImageUrl
   }
   const passingValueConnected = {
-    profileImage: message.connectedProfileImage || sendedProfileImage || profileImage,
+    profileImage: message.connectedProfileImage || message.text.choose === 1 ? sendedProfileImage : profileImage,
     defaultProfile: message.connectedDefaultProfile || sendedDefaultProfile || defaultProfile,
     profileImageUrl: message.connectedProfileImageUrl || sendedProfileImageUrl || profileImageUrl
   }
+  console.log(passingValueConnected)
+  console.log(sendedProfileImage)
   const connectedMoment = connectedClock.cancelled ? '' : message?.connectedClock ? message?.connectedClock : connectedClock.clock
   const confirmingMoment = message?.confirmingClock ? message.confirmingClock : confirmingClock
   const returningMoment = message?.returningClock ? message.returningClock : returningClock
