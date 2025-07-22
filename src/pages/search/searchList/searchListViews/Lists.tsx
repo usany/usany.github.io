@@ -27,7 +27,7 @@ function Lists({
           {elements.length ?
             <ListsView userObj={userObj} elements={elements} userSearch={userSearch} multiple={multiple} link={link} handleUser={handleUser} />
             :
-            <Skeleton className='w-full h-[85px] bg-light-2 rounded' />
+            <Skeleton className='w-full h-[85px] bg-light-2 dark:bg-dark-2 rounded' />
           }
         </div>
       )}

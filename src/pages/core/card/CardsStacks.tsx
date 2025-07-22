@@ -1,4 +1,5 @@
 import { User } from 'firebase/auth'
+import { Skeleton } from 'src/components/ui/skeleton'
 import CardsStacksViews from './CardsStacksViews'
 import EmptyCard from './EmptyCard'
 import { useBringCards } from './useBringCards'
@@ -25,6 +26,9 @@ function CardsStacks({ userObj }: Props) {
 
   return (
     <div>
+      {!messages.length &&
+        <Skeleton className='w-full h-[260px] rounded bg-light-2 dark:bg-dark-2' />
+      }
       {cardLoaded && (
         <div>
           {!messages.filter((value) => {
