@@ -47,7 +47,7 @@ function SpecificsRear({
     profileImageUrl: message.creatorProfileImageUrl
   }
   const passingValueConnected = {
-    profileImage: message.connectedProfileImage || message.text.choose === 1 ? sendedProfileImage : profileImage,
+    profileImage: message.connectedProfileImage || sendedProfileImage,
     defaultProfile: message.connectedDefaultProfile || sendedDefaultProfile || defaultProfile,
     profileImageUrl: message.connectedProfileImageUrl || sendedProfileImageUrl || profileImageUrl
   }
