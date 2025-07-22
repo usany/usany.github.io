@@ -27,7 +27,7 @@ const onSupporting = async ({ message, userObj, profileUrl }) => {
   updateDoc(data, {
     round: 2,
     connectedId: userObj.uid,
-    connectedName: userObj,displayName,
+    connectedName: userObj.displayName,
     connectedUrl: profileUrl,
     connectedProfileImage: connectedUserData.profileImage,
     connectedDefaultProfile: connectedUserData.defaultProfile,
