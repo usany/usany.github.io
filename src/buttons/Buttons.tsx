@@ -10,8 +10,6 @@ import SupportButton from './SupportButton'
 function Btn({
   messageObj,
   isOwner,
-  uid,
-  displayName,
   userObj,
   num,
   points,
@@ -50,8 +48,7 @@ function Btn({
             <ConfirmButton
               message={messageObj}
               userObj={userObj}
-              uid={uid}
-              displayName={displayName}
+              userObj={userObj}
               increaseRound={increaseRound}
               handleConfirmingClock={handleConfirmingClock}
             />
@@ -62,8 +59,6 @@ function Btn({
                 <ReturningButton
                   message={messageObj}
                   userObj={userObj}
-                  uid={uid}
-                  displayName={displayName}
                   increaseRound={increaseRound}
                   handleReturningClock={handleReturningClock}
                 />
@@ -88,8 +83,6 @@ function Btn({
                   points={points}
                   message={messageObj}
                   userObj={userObj}
-                  uid={uid}
-                  displayName={displayName}
                   increaseRound={increaseRound}
                   handleConfirmedReturnClock={handleConfirmedReturnClock}
                 />
@@ -111,9 +104,6 @@ function Btn({
               handleClose={handleClose}
               handleDialog={handleDialog}
               message={messageObj}
-              userObj={userObj}
-              uid={uid}
-              displayName={displayName}
               increaseRound={increaseRound}
               changeConnectedUser={changeConnectedUser}
               toggleOnTransfer={toggleOnTransfer}
@@ -125,8 +115,6 @@ function Btn({
               userObj={userObj}
               message={messageObj}
               userObj={userObj}
-              uid={uid}
-              displayName={displayName}
               decreaseRound={decreaseRound}
               changeConnectedUser={changeConnectedUser}
               toggleOnTransfer={toggleOnTransfer}
@@ -145,8 +133,6 @@ function Btn({
                 <ReturningButton
                   message={messageObj}
                   userObj={userObj}
-                  uid={uid}
-                  displayName={displayName}
                   increaseRound={increaseRound}
                   changeOnPulse={changeOnPulse}
                   handleReturningClock={handleReturningClock}
@@ -162,8 +148,6 @@ function Btn({
                   points={points}
                   message={messageObj}
                   userObj={userObj}
-                  uid={uid}
-                  displayName={displayName}
                   increaseRound={increaseRound}
                   handleConfirmedReturnClock={handleConfirmedReturnClock}
                 />
