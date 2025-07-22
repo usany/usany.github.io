@@ -30,7 +30,7 @@ const onStopSupporting = async ({ message, userObj, profileUrl }) => {
     connectedProfileImageUrl: null,
     connectedUrl: null,
   })
-  const connectedUserRef = doc(dbservice, `members/${uid}`)
+  const connectedUserRef = doc(dbservice, `members/${userObj.uid}`)
   const connectedUserSnap = await getDoc(connectedUserRef)
   const connectedUserData = connectedUserSnap.data()
   const connectedUserConnectedCards = connectedUserData?.connectedCards

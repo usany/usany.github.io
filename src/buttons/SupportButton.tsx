@@ -21,13 +21,13 @@ const onSupporting = async ({ message, userObj, profileUrl }) => {
     preferLanguage: userDoc.data()?.preferLanguage || 'ko',
     connectedClock: new Date().toString(),
   }
-  const connectedUserRef = doc(dbservice, `members/${uid}`)
+  const connectedUserRef = doc(dbservice, `members/${userObj.uid}`)
   const connectedUserSnap = await getDoc(connectedUserRef)
   const connectedUserData = connectedUserSnap.data()
   updateDoc(data, {
     round: 2,
-    connectedId: uid,
-    connectedName: displayName,
+    connectedId: userObj.uid,
+    connectedName: userObj,displayName,
     connectedUrl: profileUrl,
     connectedProfileImage: connectedUserData.profileImage,
     connectedDefaultProfile: connectedUserData.defaultProfile,
