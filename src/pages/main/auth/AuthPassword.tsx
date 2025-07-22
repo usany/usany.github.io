@@ -4,14 +4,12 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { dbservice } from 'src/baseApi/serverbase';
 import { InputOTP, InputOTPGroup, InputOTPSlot } from 'src/components/ui/input-otp';
-import { useSelectors } from 'src/hooks/useSelectors';
 import { changeUserCertificated } from 'src/stateSlices/userCertificatedSlice';
 
 function AuthPassword({ userObj }) {
   const [numberString, setNumberString] = useState('')
-  const [mailSent, setMailSent] = useState(false)
   const [createdNumber, setCreatedNumber] = useState('')
-  const languages = useSelectors((state) => state.languages.value)
+  const [mailSent, setMailSent] = useState(false)
   const dispatch = useDispatch()
   const handleNumberString = (event) => {
     const {
@@ -50,7 +48,7 @@ function AuthPassword({ userObj }) {
   }
   return (
     <div>
-      <InputOTP maxLength={6} pattern={REGEXP_ONLY_DIGITS}>
+      <InputOTP maxLength={6} pattern={REGEXP_ONLY_DIGITS} onChange={handleNumberString}>
         <InputOTPGroup>
           <InputOTPSlot index={0} />
           <InputOTPSlot index={1} />

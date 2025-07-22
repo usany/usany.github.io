@@ -65,7 +65,7 @@ function Auth({ userObj }) {
             }
             <div className='flex gap-5'>
               {mailSent && <TextField label='numbers' value={numberString} onChange={handleNumberString} />}
-              {mailSent && <AuthPassword userObj={userObj} handleNumberString={handleNumberString} />}
+              {mailSent && <AuthPassword userObj={userObj} />}
               {numberString.length === 6 &&
                 <Button onClick={confirmNumber}>
                   완료
