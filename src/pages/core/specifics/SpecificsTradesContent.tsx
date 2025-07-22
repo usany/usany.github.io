@@ -78,6 +78,7 @@ const SpecificsTradesContent = ({
             <Button
               variant="outlined"
               onClick={() => {
+                document.body.classList.remove('overflow-hidden')
                 // handleClose()
               }}
             >

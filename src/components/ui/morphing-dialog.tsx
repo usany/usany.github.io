@@ -203,7 +203,13 @@ function MorphingDialogContent({
       triggerRef.current?.focus()
     }
   }, [isOpen, triggerRef])
-
+  // useEffect(() => {
+  //   if (location.pathname === '/profile') {
+  //     setIsOpen(false)
+  //     document.body.classList.remove('overflow-hidden')
+  //     triggerRef.current?.focus()
+  //   }
+  // }, [location])
   useClickOutside(containerRef, () => {
     if (isOpen && !drawerOpen) {
       setIsOpen(false)
