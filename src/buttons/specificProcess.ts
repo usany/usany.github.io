@@ -3,7 +3,6 @@ import { dbservice } from 'src/baseApi/serverbase'
 
 const specificProcess = async ({ message, toUid }) => {
   const data = doc(dbservice, `num/${message.id}`)
-  // const user = toUid
   const dataDoc = await getDoc(data)
   console.log(dataDoc)
   const toUserId = toUid ? dataDoc.data()?.connectedId : dataDoc.data()?.creatorId
