@@ -98,7 +98,7 @@ const ConfirmReturnButton = ({ num, points, message, userObj, increaseRound, han
           num: num,
           points: points,
           message: message,
-          userObj,
+          userObj: userObj,
           profileUrl: profileUrl
         })
         increaseRound()
