@@ -12,13 +12,13 @@ function Lists({
   ranking,
   handleUser,
 }) {
-  let link
-  if (location.pathname === '/profile') {
-    link = '/profile'
-  }
-  if (location.pathname === '/ranking') {
-    link = '/profile'
-  }
+  const link = '/profile'
+  // if (location.pathname === '/profile') {
+  //   link = '/profile'
+  // }
+  // if (location.pathname === '/ranking') {
+  //   link = '/profile'
+  // }
   return (
     <div>
       {ranking && (
