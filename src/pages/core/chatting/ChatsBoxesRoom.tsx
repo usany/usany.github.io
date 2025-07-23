@@ -3,7 +3,7 @@ const ChatsBoxesRoom = ({ displayName, multiple }) => {
   const languages = useSelectors((state) => state.languages.value)
   let displayingUserName
   if (displayName.length > 6) {
-    displayingUserName = displayName.slice(0, 5) + '......'
+    displayingUserName = displayName.slice(0, 6) + '......'
   } else {
     displayingUserName = displayName
   }
