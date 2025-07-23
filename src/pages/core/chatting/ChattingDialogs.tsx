@@ -20,7 +20,7 @@ const ChattingDialogs = ({ selectUser, user, handleClose }:
         </div>
       </DialogContent>
       <DialogActions>
-        <Link to={`/profile${user && `/?id:${user?.uid}`}`}
+        <Link to={`/profile${user ? `/?id:${user?.uid}` : ''}`}
           state={{ element: user }}
         >
           <Button variant='outlined' onClick={() => {

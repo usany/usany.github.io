@@ -57,7 +57,7 @@ function SpecificsActionsPopupsContents({
       </div>
       <div className="flex justify-center p-5">
         <Link
-          to={`/profile${userObj.uid !== message.creatorId && `/?id:${message.creatorId}`}`}
+          to={`/profile${userObj.uid !== message.creatorId ? `/?id:${message.creatorId}` : ''}`}
           state={{
             element: {
               uid: message.creatorId,
