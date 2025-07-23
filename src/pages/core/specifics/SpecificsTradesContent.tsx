@@ -72,7 +72,7 @@ const SpecificsTradesContent = ({
               profileImage: passingProfile.profileImage,
               defaultProfile: passingProfile.defaultProfile,
               profileImageUrl: passingProfile.profileImageUrl,
-            },
+            }
           }}
         >
           <DrawerClose>
