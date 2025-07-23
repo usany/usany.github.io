@@ -64,7 +64,7 @@ const SpecificsTradesContent = ({
       </div>
       <div className="flex justify-center p-5">
         <Link
-          to={`/profile${userObj.uid !== uid && `/?id:${uid}`}`}
+          to={`/profile${userObj.uid !== uid ? `/?id:${uid}` : ''}`}
           state={{
             element: {
               uid: uid,
