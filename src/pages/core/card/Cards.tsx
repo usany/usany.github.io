@@ -60,7 +60,7 @@ const Cards = ({
         </>
       ) : (
         <>
-          {delayed || location.pathname === '/board' ?
+          {delayed || location.pathname === '/board' || location.pathname === '/profile' ?
             <div
             // onMouseDownCapture={() => {
             //   const longPress = message.id
