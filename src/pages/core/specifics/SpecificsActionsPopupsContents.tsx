@@ -62,7 +62,9 @@ function SpecificsActionsPopupsContents({
             element: {
               uid: message.creatorId,
               displayName: message.displayName,
-              profileUrl: message.creatorUrl,
+              profileImage: passingProfile.profileImage,
+              defaultProfile: passingProfile.defaultProfile,
+              profileImageUrl: passingProfile.profileImageUrl
             },
           }}
         >
