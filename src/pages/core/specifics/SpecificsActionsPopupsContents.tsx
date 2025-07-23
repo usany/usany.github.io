@@ -65,7 +65,7 @@ function SpecificsActionsPopupsContents({
               profileImage: passingProfile.profileImage,
               defaultProfile: passingProfile.defaultProfile,
               profileImageUrl: passingProfile.profileImageUrl
-            },
+            }
           }}
         >
           <Button variant="outlined"
