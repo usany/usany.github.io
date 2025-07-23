@@ -74,7 +74,7 @@ function SpecificsActionsPopupsContents({
         </Link>
         {userObj.uid !== message?.creatorId && (
           <Link
-            to="/piazza"
+            to={`/piazza/?id=${conversation}`}
             state={{
               conversation: conversation,
               displayName: message?.displayName,
