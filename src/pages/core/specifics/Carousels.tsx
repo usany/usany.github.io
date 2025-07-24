@@ -70,6 +70,8 @@ const Carousels = ({ user, cards }) => {
   }).filter((element) => {
     if (element) return element
   })
+  const mergedList = borrowList.concat(lendList)
+  // console.log(mergedList)
   return (
     <div className='flex justify-center'>
       <Carousel
@@ -79,7 +81,7 @@ const Carousels = ({ user, cards }) => {
         className="w-full max-w-[50vw]"
       >
         <CarouselContent className='min-w-[265px]'>
-          {borrowList}
+          {mergedList}
         </CarouselContent>
         <CarouselPrevious />
         <CarouselNext />
