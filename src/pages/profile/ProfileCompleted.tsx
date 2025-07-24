@@ -9,6 +9,7 @@ import { Label, Pie, PieChart } from 'recharts'
 import { useSelectors } from 'src/hooks/useSelectors'
 import { changeCompletedAction } from 'src/stateSlices/completedActionSlice'
 import Popups from '../core/Popups'
+import Carousels from '../core/specifics/Carousels'
 import ProfileCompletedContent from './ProfileCompletedContent'
 import ProfileCompletedTitle from './ProfileCompletedTitle'
 
@@ -137,6 +138,7 @@ const ProfileCompleted = ({ user, cards }) => {
   //   .filter((element) => {
   //     if (element) return element
   //   })
+  console.log(cards)
   return (
     <div className="flex flex-col pt-5">
       <Popups
@@ -190,8 +192,14 @@ const ProfileCompleted = ({ user, cards }) => {
               }}
             />
           </Pie>
+          <ChartLegend
+            content={<ChartLegendContent nameKey="action" />}
+            className="text-base font-bold gap-2 [&>*]:basis-1/4 [&>*]:justify-center"
+            verticalAlign="top"
+          />
         </PieChart>
       </ChartContainer>
+      <Carousels user={user} cards={<ProfileCompletedContent user={user} />} />
     </div>
   )
 }
