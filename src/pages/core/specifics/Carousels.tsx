@@ -72,10 +72,10 @@ const Carousels = ({ user, cards }) => {
         opts={{
           align: "start",
         }}
-        className="w-full max-w-[90vw]"
+        className="w-full max-w-[50vw]"
       >
         <CarouselContent className='min-w-[265px]'>
-          {lendList}
+          {borrowList}
         </CarouselContent>
         <CarouselPrevious />
         <CarouselNext />
