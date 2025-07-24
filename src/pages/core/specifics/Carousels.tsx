@@ -82,7 +82,7 @@ const Carousels = ({ user, cards }) => {
         className="w-full max-w-[50vw]"
       >
         <CarouselContent className='min-w-[265px]'>
-          {mergedList}
+          {selectedList}
         </CarouselContent>
         <div onClick={() => setCardNumber(cardNumber - 1)}>
           <CarouselPrevious />
@@ -91,7 +91,7 @@ const Carousels = ({ user, cards }) => {
           <CarouselNext />
         </div>
       </Carousel>
-      <div>{cardNumber}/{mergedList.length}</div>
+      <div>{cardNumber}/{selectedList.length}</div>
     </div>
   )
 }
