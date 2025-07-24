@@ -72,7 +72,7 @@ const Carousels = ({ user, cards }) => {
     if (element) return element
   })
   const mergedList = borrowList.concat(lendList)
-  // console.log(mergedList)
+  const selectedList = completedAction ? completedAction === 'borrow' ? borrowList : lendList : mergedList
   return (
     <div className='flex flex-col gap-5 items-center'>
       <Carousel
