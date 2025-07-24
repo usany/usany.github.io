@@ -140,7 +140,7 @@ const ProfileCompleted = ({ user, cards }) => {
   //   })
   console.log(cards)
   return (
-    <div className="flex flex-col pt-5">
+    <div className="flex flex-col">
       <Popups
         trigger={<div id="completedAction" />}
         title={<ProfileCompletedTitle />}
@@ -154,7 +154,7 @@ const ProfileCompleted = ({ user, cards }) => {
           <ChartLegend
             content={<ChartLegendContent nameKey="action" />}
             className="text-base font-bold gap-2 [&>*]:basis-1/4 [&>*]:justify-center"
-            verticalAlign="top"
+            verticalAlign="bottom"
           />
           <Pie
             data={actions}
