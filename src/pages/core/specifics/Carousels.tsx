@@ -36,7 +36,7 @@ const Carousels = ({ user, cards }) => {
     if (element.round === 5) {
       if (element.creatorId === user.uid && element.text.choose === 1) {
         return (
-          <CarouselItem key={element.id}>
+          <CarouselItem key={element.id} className='min-w-[265px]'>
             <Cards message={element} isOwner={true} userObj={user} num={null} points={null} />
           </CarouselItem>
         )
