@@ -36,14 +36,14 @@ const Carousels = ({ user, cards }) => {
     if (element.round === 5) {
       if (element.creatorId === user.uid && element.text.choose === 1) {
         return (
-          <CarouselItem>
-            <Cards key={element.id} message={element} isOwner={true} userObj={user} num={null} points={null} />
+          <CarouselItem key={element.id}>
+            <Cards message={element} isOwner={true} userObj={user} num={null} points={null} />
           </CarouselItem>
         )
       } else if (element.creatorId !== user.uid && element.text.choose === 2) {
         return (
-          <CarouselItem>
-            <Cards key={element.id} message={element} isOwner={false} userObj={user} num={null} points={null} />
+          <CarouselItem key={element.id}>
+            <Cards message={element} isOwner={false} userObj={user} num={null} points={null} />
           </CarouselItem>
         )
       }
@@ -74,7 +74,7 @@ const Carousels = ({ user, cards }) => {
         }}
         className="w-full max-w-[90vw]"
       >
-        <CarouselContent>
+        <CarouselContent className='min-w-[265px]'>
           {lendList}
         </CarouselContent>
         <CarouselPrevious />
