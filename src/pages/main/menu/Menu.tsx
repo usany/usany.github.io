@@ -22,9 +22,11 @@ function Menu({ userObj }: Props) {
   useSetProfile(userObj)
   useGetToken(userObj)
   useContextMenu()
+
   return (
     <div id="sample" className="flex justify-center flex-col pb-5">
       <PageTitle title={titles[index]} />
+      {/* <Carousels /> */}
       <Accordions userObj={userObj} />
       {/* <Avatar sx={{ bgcolor: blue[500] }} alt="Remy Sharp" src="./assets/groups.png" />
             <Avatar sx={{ bgcolor: blue[500] }} alt="Travis Howard" src="/static/images/avatar/2.jpg" />
