@@ -74,7 +74,7 @@ const Carousels = ({ user, cards }) => {
   const mergedList = borrowList.concat(lendList)
   // console.log(mergedList)
   return (
-    <div className='flex justify-center'>
+    <div className='flex flex-col gap-1 items-center'>
       <Carousel
         opts={{
           align: "start",
