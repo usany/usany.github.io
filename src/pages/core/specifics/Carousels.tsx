@@ -86,6 +86,7 @@ const Carousels = ({ user, cards }) => {
         <CarouselPrevious />
         <CarouselNext />
       </Carousel>
+      <div>{mergedList.length}</div>
     </div>
   )
 }
