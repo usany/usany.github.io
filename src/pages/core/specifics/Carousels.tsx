@@ -3,7 +3,7 @@ import {
   CarouselContent,
   CarouselItem,
   CarouselNext,
-  CarouselPrevious,
+  CarouselPrevious
 } from "@/components/ui/carousel";
 import { collection, getDocs, query } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
@@ -13,6 +13,7 @@ import Cards from 'src/pages/core/card/Cards';
 
 const Carousels = ({ user, cards }) => {
   const [messagesList, setMessagesList] = useState([])
+  const [cardNumber, setCardNumber] = useState(1)
   const completedAction = useSelector(state => state.completedAction.value)
   useEffect(() => {
     const getMessage = async () => {
@@ -83,10 +84,14 @@ const Carousels = ({ user, cards }) => {
         <CarouselContent className='min-w-[265px]'>
           {mergedList}
         </CarouselContent>
-        <CarouselPrevious />
-        <CarouselNext />
+        <div onClick={() => setCardNumber(cardNumber - 1)}>
+          <CarouselPrevious />
+        </div>
+        <div onClick={() => setCardNumber(cardNumber + 1)}>
+          <CarouselNext />
+        </div>
       </Carousel>
-      <div>{mergedList.length}</div>
+      <div>{cardNumber}/{mergedList.length}</div>
     </div>
   )
 }
