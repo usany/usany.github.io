@@ -52,6 +52,7 @@ const Carousel = React.forwardRef<
       plugins,
       className,
       children,
+      handleCardNumber,
       ...props
     },
     ref
@@ -70,7 +71,8 @@ const Carousel = React.forwardRef<
       if (!api) {
         return
       }
-
+      const cardLocation = api?.selectedScrollSnap
+      handleCardNumber(cardLocation)
       setCanScrollPrev(api.canScrollPrev())
       setCanScrollNext(api.canScrollNext())
     }, [])
@@ -108,7 +110,6 @@ const Carousel = React.forwardRef<
       if (!api) {
         return
       }
-
       onSelect(api)
       api.on("reInit", onSelect)
       api.on("select", onSelect)
@@ -117,7 +118,6 @@ const Carousel = React.forwardRef<
         api?.off("select", onSelect)
       }
     }, [api, onSelect])
-
     return (
       <CarouselContext.Provider
         value={{
@@ -140,7 +140,7 @@ const Carousel = React.forwardRef<
           aria-roledescription="carousel"
           {...props}
         >
-          {children}  
+          {children}
         </div>
       </CarouselContext.Provider>
     )

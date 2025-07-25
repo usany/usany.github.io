@@ -15,6 +15,9 @@ const Carousels = ({ user, cards }) => {
   const [messagesList, setMessagesList] = useState([])
   const [cardNumber, setCardNumber] = useState(1)
   const completedAction = useSelector(state => state.completedAction.value)
+  const handleCardNumber = (newValue) => setCardNumber(newValue)
+  // const decreaseCardNumber = cardNumber
+  // const increaseCardNumber = (newValue) => setCardNumber(newValue)
   useEffect(() => {
     const getMessage = async () => {
       const messagesRef = query(collection(dbservice, 'num'))
@@ -33,17 +36,17 @@ const Carousels = ({ user, cards }) => {
     getMessage()
   }, [])
 
-  const borrowList = messagesList.map((element) => {
+  const borrowList = messagesList.map((element, index) => {
     if (element.round === 5) {
       if (element.creatorId === user.uid && element.text.choose === 1) {
         return (
-          <CarouselItem key={element.id} className='flex justify-center'>
+          <CarouselItem key={index} className='flex justify-center'>
             <Cards message={element} isOwner={true} userObj={user} num={null} points={null} />
           </CarouselItem>
         )
       } else if (element.creatorId !== user.uid && element.text.choose === 2) {
         return (
-          <CarouselItem key={element.id} className='flex justify-center'>
+          <CarouselItem key={index} className='flex justify-center'>
             <Cards message={element} isOwner={false} userObj={user} num={null} points={null} />
           </CarouselItem>
         )
@@ -76,6 +79,7 @@ const Carousels = ({ user, cards }) => {
   useEffect(() => {
     setCardNumber(1)
   }, [completedAction])
+
   return (
     <div className='flex flex-col gap-5 items-center'>
       <Carousel
@@ -83,6 +87,7 @@ const Carousels = ({ user, cards }) => {
           align: "start",
         }}
         className="w-full max-w-[50vw]"
+        handleCardNumber={handleCardNumber}
       >
         <CarouselContent className='min-w-[265px]'>
           {selectedList}
