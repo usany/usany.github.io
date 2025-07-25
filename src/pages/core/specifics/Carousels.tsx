@@ -73,6 +73,9 @@ const Carousels = ({ user, cards }) => {
   })
   const mergedList = borrowList.concat(lendList)
   const selectedList = completedAction ? completedAction === 'borrow' ? borrowList : lendList : mergedList
+  useEffect(() => {
+    setCardNumber(1)
+  }, [completedAction])
   return (
     <div className='flex flex-col gap-5 items-center'>
       <Carousel
