@@ -71,7 +71,7 @@ const Carousel = React.forwardRef<
       if (!api) {
         return
       }
-      const cardLocation = api?.selectedScrollSnap
+      const cardLocation = api.selectedScrollSnap() + 1
       handleCardNumber(cardLocation)
       setCanScrollPrev(api.canScrollPrev())
       setCanScrollNext(api.canScrollNext())
