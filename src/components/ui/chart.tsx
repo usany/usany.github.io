@@ -286,6 +286,13 @@ const ChartLegendContent = React.forwardRef<
           className,
         )}
       >
+        {!payload[0].payload.number && !payload[1].payload.number && (
+          <div className="flex shadow-md bg-light-2 dark:bg-dark-2 rounded w-1/2 p-5">
+            {languages === 'ko'
+              ? '완료 활동이 없습니다'
+              : 'No completed activities'}
+          </div>
+        )}
         <div className="flex gap-5">
           {payload.map((item) => {
             const key = `${nameKey || item.dataKey || 'value'}`
@@ -320,13 +327,13 @@ const ChartLegendContent = React.forwardRef<
             )
           })}
         </div>
-        {!payload[0].payload.number && !payload[1].payload.number && (
+        {/* {!payload[0].payload.number && !payload[1].payload.number && (
           <div className="flex shadow-md bg-light-2 dark:bg-dark-2 rounded w-1/2 p-5">
             {languages === 'ko'
               ? '완료 활동이 없습니다'
               : 'No completed activities'}
           </div>
-        )}
+        )} */}
       </div>
     )
   },
