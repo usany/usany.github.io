@@ -16,8 +16,6 @@ const Carousels = ({ user, cards }) => {
   const [cardNumber, setCardNumber] = useState(1)
   const completedAction = useSelector(state => state.completedAction.value)
   const handleCardNumber = (newValue) => setCardNumber(newValue)
-  // const decreaseCardNumber = cardNumber
-  // const increaseCardNumber = (newValue) => setCardNumber(newValue)
   useEffect(() => {
     const getMessage = async () => {
       const messagesRef = query(collection(dbservice, 'num'))
