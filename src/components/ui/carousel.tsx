@@ -6,6 +6,7 @@ import * as React from "react"
 
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
+import { useSelectors } from "src/hooks/useSelectors"
 
 type CarouselApi = UseEmblaCarouselType[1]
 type UseCarouselParameters = Parameters<typeof useEmblaCarousel>
@@ -118,6 +119,11 @@ const Carousel = React.forwardRef<
         api?.off("select", onSelect)
       }
     }, [api, onSelect])
+    const completedAction = useSelectors(state => state.completedAction.value)
+    React.useEffect(() => {
+      handleCardNumber(1)
+      api?.scrollTo(0)
+    }, [completedAction])
     return (
       <CarouselContext.Provider
         value={{

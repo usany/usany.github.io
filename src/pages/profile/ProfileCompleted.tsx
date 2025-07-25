@@ -8,10 +8,8 @@ import { useDispatch } from 'react-redux'
 import { Label, Pie, PieChart } from 'recharts'
 import { useSelectors } from 'src/hooks/useSelectors'
 import { changeCompletedAction } from 'src/stateSlices/completedActionSlice'
-import Popups from '../core/Popups'
 import Carousels from '../core/specifics/Carousels'
 import ProfileCompletedContent from './ProfileCompletedContent'
-import ProfileCompletedTitle from './ProfileCompletedTitle'
 
 const ProfileCompleted = ({ user, cards }) => {
   // const [messagesList, setMessagesList] = useState([])
@@ -141,11 +139,11 @@ const ProfileCompleted = ({ user, cards }) => {
   console.log(cards)
   return (
     <div className="flex flex-col">
-      <Popups
+      {/* <Popups
         trigger={<div id="completedAction" />}
         title={<ProfileCompletedTitle />}
         content={<ProfileCompletedContent user={user} />}
-      />
+      /> */}
       <ChartContainer
         config={labels}
         className="aspect-square max-h-[250px] pt-5"
