@@ -140,7 +140,7 @@ const Carousel = React.forwardRef<
           aria-roledescription="carousel"
           {...props}
         >
-          {children}
+          {children}  
         </div>
       </CarouselContext.Provider>
     )
