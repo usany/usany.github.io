@@ -36,17 +36,17 @@ const Carousels = ({ user, cards }) => {
     getMessage()
   }, [])
 
-  const borrowList = messagesList.map((element, index) => {
+  const borrowList = messagesList.map((element) => {
     if (element.round === 5) {
       if (element.creatorId === user.uid && element.text.choose === 1) {
         return (
-          <CarouselItem key={index} className='flex justify-center'>
+          <CarouselItem key={element.id} className='flex justify-center'>
             <Cards message={element} isOwner={true} userObj={user} num={null} points={null} />
           </CarouselItem>
         )
       } else if (element.creatorId !== user.uid && element.text.choose === 2) {
         return (
-          <CarouselItem key={index} className='flex justify-center'>
+          <CarouselItem key={element.id} className='flex justify-center'>
             <Cards message={element} isOwner={false} userObj={user} num={null} points={null} />
           </CarouselItem>
         )
@@ -60,13 +60,13 @@ const Carousels = ({ user, cards }) => {
       if (element.creatorId === user.uid && element.text.choose === 2) {
         return (
           <CarouselItem key={element.id} className='flex justify-center'>
-            <Cards key={element.id} message={element} isOwner={true} userObj={user} num={null} points={null} />
+            <Cards message={element} isOwner={true} userObj={user} num={null} points={null} />
           </CarouselItem>
         )
       } else if (element.creatorId !== user.uid && element.text.choose === 1) {
         return (
           <CarouselItem key={element.id} className='flex justify-center'>
-            <Cards key={element.id} message={element} isOwner={false} userObj={user} num={null} points={null} />
+            <Cards message={element} isOwner={false} userObj={user} num={null} points={null} />
           </CarouselItem>
         )
       }
