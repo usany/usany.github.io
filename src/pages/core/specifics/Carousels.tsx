@@ -91,7 +91,7 @@ const Carousels = ({ user, cards }) => {
           <CarouselNext />
         </div>
       </Carousel>
-      <div>{completedACtion ? completedAction === 'borrowing' ? '빌리기: ' : '빌려주기: ' : '활동 횟수: '}</div>
+      <div>{completedAction ? completedAction === 'borrowing' ? '빌리기: ' : '빌려주기: ' : '활동 횟수: '}</div>
     </div>
   )
 }
