@@ -171,7 +171,9 @@ const ProfileCompleted = ({ user, cards }) => {
               content={({ viewBox }) => {
                 if (viewBox && 'cx' in viewBox && 'cy' in viewBox) {
                   return (
-                    <text x={viewBox.cx} y={viewBox.cy} textAnchor="middle">
+                    <text x={viewBox.cx} y={viewBox.cy} textAnchor="middle" onClick={() => {
+                      dispatch(changeCompletedAction(''))
+                    }}>
                       <tspan
                         x={viewBox.cx}
                         y={viewBox.cy}
