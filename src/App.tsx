@@ -62,7 +62,6 @@ function App() {
       const ref = doc(dbservice, `members/${userObj?.uid}`)
       await updateDoc(ref, { preferLanguage: 'en' });
     }
-    console.log(navigator.language.slice(0, 2))
     if (!localStorage.getItem('languages')) {
       if (navigator.language.slice(0, 2) !== 'ko') {
         localStorage.setItem('languages', 'en')
