@@ -65,7 +65,7 @@ function App() {
     const userLanguage = navigator.language
     if (!localStorage.getItem('languages')) {
       if (userLanguage !== 'ko') {
-        localStorage.setItem('language', 'en')
+        localStorage.setItem('languages', 'en')
         dispatch(changeEn())
         if (userObj) {
           settingLanguage()
