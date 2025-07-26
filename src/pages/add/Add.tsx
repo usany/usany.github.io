@@ -10,6 +10,7 @@ import {
 import { Maximize2, Minimize2 } from "lucide-react";
 import { useEffect, useReducer, useState } from "react";
 import { useSelector } from "react-redux";
+import { useSearchParams } from "react-router-dom";
 import {
   dbservice
 } from "src/baseApi/serverbase";
@@ -88,7 +89,7 @@ function Add({ userObj, borrow }: Props) {
   function changeAddSteps(newValue) {
     setAddSteps(newValue);
   }
-
+  const [location, setLocation] = useSearchParams()
   const [locationState, locationDispatch] = useReducer(
     (
       state: {
@@ -164,7 +165,9 @@ function Add({ userObj, borrow }: Props) {
     }
   }, [fromTo])
   //   let calculatePoint = 0
-
+  // const page = Number(location.get('page') || 1);
+  // const showArchived = location.get('showArchived') === 'true';
+  console.log(location.get('item'))
   const changeItem = (event: PointerEvent) => {
     // event.preventDefault()
     console.log(event);
@@ -172,6 +175,10 @@ function Add({ userObj, borrow }: Props) {
       target: { value },
     } = event;
     setItem(value);
+    setLocation((location) => {
+      location.set('item', value)
+      return location
+    })
     locationDispatch({ type: "changeItem", newState: null });
     if (value) {
       setAddSteps(1);
