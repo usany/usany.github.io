@@ -1,5 +1,5 @@
 import { ThemeProvider } from '@mui/material/styles'
-import { doc, getDoc } from 'firebase/firestore'
+import { doc, getDoc, updateDoc } from 'firebase/firestore'
 import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
@@ -11,6 +11,7 @@ import { Toaster } from './components/ui/toaster'
 import useColors from './hooks/useColors'
 import { useSelectors } from './hooks/useSelectors'
 import { changeDefaultProfile } from './stateSlices/defaultProfileSlice'
+import { changeEn } from './stateSlices/languagesSlice'
 import { changeProfileImage } from './stateSlices/profileImageSlice'
 import { changeProfileImageUrl } from './stateSlices/profileImageUrlSlice'
 import { changeDark } from './stateSlices/themeSlice'
@@ -57,7 +58,20 @@ function App() {
         dispatch(changeDark())
       }
     }
-
+    const settingLanguage = async () => {
+      const ref = doc(dbservice, `members/${userObj?.uid}`)
+      await updateDoc(ref, { preferLanguage: 'en' });
+    }
+    const userLanguage = navigator.language
+    if (!localStorage.getItem('languages')) {
+      if (userLanguage !== 'ko') {
+        localStorage.setItem('language', 'en')
+        dispatch(changeEn())
+        if (userObj) {
+          settingLanguage()
+        }
+      }
+    }
     // This callback will fire if the perferred color scheme changes without a reload
     // mq.addEventListener("change", (evt) => setIsDark(evt.matches));
   }, []);
