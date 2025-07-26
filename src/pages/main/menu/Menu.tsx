@@ -22,7 +22,12 @@ function Menu({ userObj }: Props) {
   useSetProfile(userObj)
   useGetToken(userObj)
   useContextMenu()
-
+  window.addEventListener("online", function () {
+    console.log("You are online!");
+  });
+  window.addEventListener("offline", function () {
+    console.log("Oh no, you lost your network connection.");
+  });
   return (
     <div id="sample" className="flex justify-center flex-col pb-5">
       <PageTitle title={titles[index]} />
