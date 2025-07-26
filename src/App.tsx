@@ -63,7 +63,7 @@ function App() {
       await updateDoc(ref, { preferLanguage: 'en' });
     }
     if (!localStorage.getItem('languages')) {
-      if (navigator.language !== 'ko') {
+      if (navigator.language !== 'ko' && navigator.language !== 'ko-KR') {
         localStorage.setItem('languages', 'en')
         dispatch(changeEn())
         if (userObj) {
