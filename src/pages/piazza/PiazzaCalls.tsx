@@ -29,20 +29,20 @@ function PiazzaCalls() {
     { urls: "stun:stun4.l.google.com:19302" },
     { urls: "stun:stun4.l.google.com:5349" }
   ];
-//   const myPeerConnection = new RTCPeerConnection(
-//     {
-//     iceServers: [
-//       {
-//         urls: iceServers.map((value) => {
-//           return (
-//             value.urls
-//           )
-//         })
-//       }
-//     ]
-//   }
-// );
-let myPeerConnection
+  //   const myPeerConnection = new RTCPeerConnection(
+  //     {
+  //     iceServers: [
+  //       {
+  //         urls: iceServers.map((value) => {
+  //           return (
+  //             value.urls
+  //           )
+  //         })
+  //       }
+  //     ]
+  //   }
+  // );
+  let myPeerConnection
   const roomName = location.search.slice(4)
   console.log(location.search.slice(4))
   useEffect(() => {
@@ -148,7 +148,7 @@ let myPeerConnection
     yourRef.current = data.stream
   }
   function makeConnection() {
-    myPeerConnection = 
+    myPeerConnection = new RTCPeerConnection()
     myPeerConnection.addEventListener('icecandidate', handleIce)
     myPeerConnection.addEventListener('addstream', handleAddStream)
     if (stream) {
