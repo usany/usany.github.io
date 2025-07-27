@@ -156,6 +156,8 @@ function Add({ userObj, borrow }: Props) {
   useEffect(() => {
     if (!window.location.search) {
       navigate('/add?action=borrow')
+    } else if (['?action=borrow', '?action=lend'].indexOf(window.location.search) === -1) {
+      navigate(`/add?action=${searchParams.get('action')}`)
     }
   }, [])
   useEffect(() => {
