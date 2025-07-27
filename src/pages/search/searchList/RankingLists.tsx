@@ -10,6 +10,7 @@ import {
   startAfter
 } from "firebase/firestore";
 import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import {
   dbservice
 } from "src/baseApi/serverbase";
@@ -17,13 +18,14 @@ import Lists from "src/pages/search/searchList/searchListViews/Lists";
 
 interface Props {
   userObj: User;
-  userSearch: string;
 }
-function RankingLists({ userObj, userSearch }: Props) {
+function RankingLists({ userObj }: Props) {
   const [rank, setRank] = useState([]);
   const [ranker, setRanker] = useState([]);
   const [continuing, setContinuing] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [searchParams, setSearchParams] = useSearchParams()
+  const userSearch = searchParams.get('search')
   const scrollNumber = 20;
   useEffect(() => {
     const membersList = async () => {
