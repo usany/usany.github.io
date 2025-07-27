@@ -152,17 +152,6 @@ function Add({ userObj, borrow }: Props) {
       searchParams.set('action', !tabs ? 'borrow' : 'lend')
       return searchParams
     })
-    // if (borrow) {
-    //   setSearchParams(searchParams => {
-    //     searchParams.set('action', tabs ? 'borrow' : 'lend')
-    //     return searchParams
-    //   })
-    // } else {
-    //   setSearchParams(searchParams => {
-    //     searchParams.set('action', tabs ? 'borrow' : 'lend')
-    //     return searchParams
-    //   })
-    // }
   }, [tabs])
   useEffect(() => {
     if (['?action=borrow', '?action=lend'].indexOf(window.location.search) !== -1) {
