@@ -134,7 +134,7 @@ function Board({ userObj }: Props) {
       navigate('/board?action=borrow')
     } else {
       selectedSearchParams.map((element, index) => {
-        if (options[index].indexOf(element.value) !== -1) {
+        if (options[index].indexOf(element.value) === -1) {
           navigate('/board?action=borrow')
         }
       })
