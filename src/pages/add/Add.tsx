@@ -91,7 +91,7 @@ function Add({ userObj, borrow }: Props) {
   function changeAddSteps(newValue) {
     setAddSteps(newValue);
   }
-  const [location, setLocation] = useSearchParams()
+  // const [location, setLocation] = useSearchParams()
   const [locationState, locationDispatch] = useReducer(
     (
       state: {
@@ -146,9 +146,26 @@ function Add({ userObj, borrow }: Props) {
       behavior: "instant", // Optional if you want to skip the scrolling animation
     });
   }, []);
-
   useEffect(() => {
-    if (!window.location.search) {
+    console.log(tabs)
+    setSearchParams(searchParams => {
+      searchParams.set('action', !tabs ? 'borrow' : 'lend')
+      return searchParams
+    })
+    // if (borrow) {
+    //   setSearchParams(searchParams => {
+    //     searchParams.set('action', tabs ? 'borrow' : 'lend')
+    //     return searchParams
+    //   })
+    // } else {
+    //   setSearchParams(searchParams => {
+    //     searchParams.set('action', tabs ? 'borrow' : 'lend')
+    //     return searchParams
+    //   })
+    // }
+  }, [tabs])
+  useEffect(() => {
+    if (['?action=borrow', '?action=lend'].indexOf(window.location.search) !== -1) {
       setAddSteps(0);
       // setItem("");
       setSearchParams(searchParams => {
