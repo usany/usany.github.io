@@ -2,19 +2,7 @@ import TextField from '@mui/material/TextField';
 import { useSearchParams } from 'react-router-dom';
 import useCardsBackground from 'src/hooks/useCardsBackground';
 import { useSelectors } from 'src/hooks/useSelectors';
-// import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
-// import { collection, query, where, orderBy, addDoc, getDoc, getDocs, doc, onSnapshot, deleteDoc, updateDoc } from 'firebase/firestore';
-// import Skeleton from '@mui/material/Skeleton';
-// import PageTitle from 'src/components/PageTitle'
-// import Lists from 'src/components/Lists'
-// import { getStorage, ref, uploadBytes, uploadString, uploadBytesResumable, getDownloadURL,  } from "firebase/storage";
-// import { useSelector, useDispatch } from 'react-redux'
-// import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
-// import { User } from 'firebase/auth';
 
-interface Props {
-  changeUserSearch: (newValue: string) => void
-}
 function RankingSearch() {
   const [searchParams, setSearchParams] = useSearchParams()
   const languages = useSelectors((state) => state.languages.value)
