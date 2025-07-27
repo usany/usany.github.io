@@ -7,6 +7,7 @@ import {
 } from "firebase/firestore";
 import { Maximize2, Minimize2 } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   dbservice
 } from "src/baseApi/serverbase";
@@ -55,6 +56,7 @@ function Board({ userObj }: Props) {
   const [mapAccordion, setMapAccordion] = useState(false)
   const [messageLoaded, setMessageLoaded] = useState(false)
   const userCertificated = useSelectors(state => state.userCertificated.value)
+  const navigate = useNavigate()
   const mapAccordionToggle = () => setMapAccordion(!mapAccordion)
   const onMarkerTrue = () => setOnMarker(true);
   const onMarkerFalse = () => setOnMarker(false);
@@ -98,6 +100,11 @@ function Board({ userObj }: Props) {
     }
     bringMessages()
   }, [selectedValues[2].value]);
+  useEffect(() => {
+    if (!window.location.search) {
+      navigate('/board?action=borrow')
+    }
+  }, [])
   // const handleMail = async (e) => {
   //   e.preventDefault()
   //   try {

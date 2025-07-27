@@ -57,7 +57,6 @@ export default function ToggleTabs() {
     return (
       <Box sx={{
         width: '148px'
-        // paddingX: '10px'
       }}>
         <Tabs
           sx={{

@@ -82,9 +82,9 @@ function Navigations() {
               dispatch(changeBottomNavigation(newValue))
             }}
           >
-            <BottomNavigationAction onClick={() => navigate(`/add?action=${!tabs ? 'borrow' : 'lend'}`)} label={texts[languages as keyof typeof texts]['register']} icon={<Pencil />} />
+            <BottomNavigationAction onClick={() => navigate(`/add?action=${tabs ? 'lend' : 'borrow'}`)} label={texts[languages as keyof typeof texts]['register']} icon={<Pencil />} />
             <BottomNavigationAction onClick={() => navigate('/')} label={userCertificated ? texts[languages as keyof typeof texts]['myStatus'] : texts[languages as keyof typeof texts]['logIn']} icon={<Umbrella />} />
-            <BottomNavigationAction onClick={() => navigate('/board')} label={texts[languages as keyof typeof texts]['board']} icon={<Presentation />} />
+            <BottomNavigationAction onClick={() => navigate(`/board?action=${tabs ? 'lend' : 'borrow'}`)} label={texts[languages as keyof typeof texts]['board']} icon={<Presentation />} />
           </BottomNavigation>
         </div>
       }
