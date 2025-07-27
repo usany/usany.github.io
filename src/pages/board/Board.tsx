@@ -16,6 +16,7 @@ import BoardMap from "src/pages/board/boardMap/BoardMap";
 import PageTitle from "src/pages/core/pageTitle/PageTitle";
 import { SwipeableViews } from "src/pages/core/SwipeableViews";
 import { useImmer } from "use-immer";
+import locationsBuildings from "../add/locationsBuildings";
 import CardsList from "../core/card/CardsList";
 import Popups from "../core/Popups";
 import BoardList from "./BoardList";
@@ -36,7 +37,7 @@ const time = {
   ko: ['최신순', '오래된'],
   en: ['Recent', 'Older']
 }
-const options = [items[ko], locations[ko], time[ko]]
+const options = [items.ko, locations.ko, time.ko]
 interface Props {
   userObj: User | null;
 }
@@ -131,17 +132,23 @@ function Board({ userObj }: Props) {
   useEffect(() => {
     if (!window.location.search) {
       navigate('/board?action=borrow')
+    } else {
+      selectedSearchParams.map((element, index) => {
+        if (options[index].indexOf(element.value) !== -1) {
+          navigate('/board?action=borrow')
+        }
+      })
     }
   }, [])
-  useEffect(() => {
-    selectedSearchParams.map((element, index) => {
-      if (searchParams.get(element.id)) {
-        if (options[index].indexOf(element.value) !== -1) {
-          searchParams.set(element.id, element.value)
-        }
-      }
-    })
-  }, [])
+  // useEffect(() => {
+  //   selectedSearchParams.map((element, index) => {
+  //     if (searchParams.get(element.id)) {
+  //       if (options[index].indexOf(element.value) !== -1) {
+  //         searchParams.set(element.id, element.value)
+  //       }
+  //     }
+  //   })
+  // }, [])
   // const handleMail = async (e) => {
   //   e.preventDefault()
   //   try {
