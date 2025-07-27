@@ -111,9 +111,6 @@ function RankingLists({ userObj, userSearch }: Props) {
     //     }
     //   })
     // })
-    // if (continuing) {
-    // } else {
-    // }
   }, [isLoading, userSearch]);
   const handleScroll = () => {
     if (

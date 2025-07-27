@@ -12,8 +12,6 @@ import Carousels from '../core/specifics/Carousels'
 import ProfileCompletedContent from './ProfileCompletedContent'
 
 const ProfileCompleted = ({ user, cards }) => {
-  // const [messagesList, setMessagesList] = useState([])
-  // const completedAction = useSelector((state) => state.completedAction.value)
   const dispatch = useDispatch()
   const languages = useSelectors((state) => state.languages.value)
   const actions = [
