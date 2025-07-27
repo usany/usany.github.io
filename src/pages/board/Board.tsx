@@ -7,7 +7,7 @@ import {
 } from "firebase/firestore";
 import { Maximize2, Minimize2 } from "lucide-react";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import {
   dbservice
 } from "src/baseApi/serverbase";
@@ -60,6 +60,10 @@ function Board({ userObj }: Props) {
   const mapAccordionToggle = () => setMapAccordion(!mapAccordion)
   const onMarkerTrue = () => setOnMarker(true);
   const onMarkerFalse = () => setOnMarker(false);
+  const [searchParams, setSearchParams] = useSearchParams()
+  const selectedSearchParams = {
+
+  }
   const handleSelectedValues = ({
     id,
     newValue,
@@ -73,6 +77,14 @@ function Board({ userObj }: Props) {
         value.value = newValue;
       }
     });
+    setSearchParams(searchParams => {
+      if (['전체 아이템', '전체 장소', '최신순'].indexOf(newValue) === -1) {
+        searchParams.set(id, newValue)
+      } else {
+        searchParams.delete(id)
+      }
+      return searchParams
+    })
   };
   const languages = useSelectors((state) => state.languages.value)
 
