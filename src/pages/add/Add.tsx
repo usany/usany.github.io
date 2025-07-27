@@ -315,8 +315,6 @@ function Add({ userObj, borrow }: Props) {
         });
         console.log(user)
         await updateDoc(user, { createdCards: [...userCreatedCards, card.id] });
-        // setCardId(card.id)
-        // setSnackBar(true)
         const cardObject = await getDoc(doc(dbservice, `num/${card.id}`));
         setDisplay({
           id: card.id,
@@ -329,7 +327,6 @@ function Add({ userObj, borrow }: Props) {
     }
   };
   const onChangeFrom = (event) => {
-    // setFrom({gmt: event.$d, year: event.$y, month: event.$M+1, day:event.$D, hour: event.$H, minute: event.$m})
     setFromTo({
       from: {
         gmt: event.$d,
@@ -344,7 +341,6 @@ function Add({ userObj, borrow }: Props) {
     setAddSteps(2);
   };
   const onChangeTo = (event) => {
-    // setTo({gmt: event.$d, year: event.$y, month: event.$M+1, day:event.$D, hour: event.$H, minute: event.$m})
     setFromTo({
       ...fromTo,
       to: {
@@ -358,13 +354,6 @@ function Add({ userObj, borrow }: Props) {
     });
     setAddSteps(2);
   };
-  // if (cardId) {
-  //     let cardObject
-  //     async () => cardObject = await getDoc(doc(dbservice, `num/${cardId}`))
-  //     if (cardObject) {
-  //         console.log(cardObject.data())
-  //     }
-  // }
 
   return (
     <div className="flex flex-col h-screen">
@@ -374,13 +363,6 @@ function Add({ userObj, borrow }: Props) {
           `${borrow ? (languages === 'ko' ? '빌리기 ' : 'Borrowing ') : (languages === 'ko' ? '빌려주기 ' : 'Lending ')} ${languages === 'ko' ? '카드 등록' : 'Card Registeration'}`
         } />
       <AddSteppers addSteps={addSteps} borrow={borrow} />
-      {/* <div className='flex justify-around'>
-          <AddCards borrow={borrow} userObj={userObj} addSteps={addSteps} item={item} fromTo={fromTo} locationState={locationState} />
-          <div>
-              <AddStepOne borrow={borrow} item={item} changeItem={changeItem} />
-              {addSteps > 0 && <AddStepTwo locationState={locationState} changeBuilding={changeBuilding} changeRoom={changeRoom} changeSeat={changeSeat} changeLocationInput={changeLocationInput} />}
-          </div>
-      </div> */}
       {matches ? (
         <div className="flex justify-center">
           <AddCards
