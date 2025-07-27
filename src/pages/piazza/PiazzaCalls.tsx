@@ -42,7 +42,7 @@ function PiazzaCalls() {
   //     ]
   //   }
   // );
-  let myPeerConnection
+  const myPeerConnection = new RTCPeerConnection()
   const roomName = location.search.slice(4)
   console.log(location.search.slice(4))
   useEffect(() => {
@@ -147,12 +147,10 @@ function PiazzaCalls() {
     console.log('My Stream', stream)
     yourRef.current = data.stream
   }
+  const myPeerConnection = new RTCPeerConnection()
   function makeConnection() {
-    myPeerConnection = new RTCPeerConnection()
-    if (myPeerConnection) {
     myPeerConnection.addEventListener('icecandidate', handleIce)
     myPeerConnection.addEventListener('addstream', handleAddStream)
-    }
     if (stream) {
       stream.getTracks().forEach((track) => myPeerConnection.addTrack(track, stream))
     }
