@@ -149,8 +149,10 @@ function PiazzaCalls() {
   }
   function makeConnection() {
     myPeerConnection = new RTCPeerConnection()
+    if (myPeerConnection) {
     myPeerConnection.addEventListener('icecandidate', handleIce)
     myPeerConnection.addEventListener('addstream', handleAddStream)
+    }
     if (stream) {
       stream.getTracks().forEach((track) => myPeerConnection.addTrack(track, stream))
     }
