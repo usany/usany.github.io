@@ -1,64 +1,30 @@
+
+// import { useKeyboardOffset } from 'virtual-keyboard-offset';
 import { Button } from '@mui/material'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import useLargeMedia from 'src/hooks/useLargeMedia'
 import { webSocket } from 'src/webSocket'
 
+let myStream
+let myPeerConnection
 function PiazzaCalls() {
   const [options, setOptions] = useState([])
   const [audioOn, setAudioOn] = useState(true)
   const [videoOn, setVideoOn] = useState(true)
-  const [errorMessage, setErrorMessage] = useState('')
-  const [stream, setStream] = useState(null)
-  const [selected, setSelected] = useState(null)
+  const [noDevice, setNoDevice] = useState('')
+  const [source, setSource] = useState(null)
+  const [sources, setSources] = useState(null)
   const largeMedia = useLargeMedia()
-  const myRef = useRef(null)
-  const yourRef = useRef(null)
+  const myScreen = document.getElementById('myScreen')
+  const deviceSelect = document.getElementById('devices')
   const initialConstraints = {
     audio: true,
     video: true,
   }
-  const iceServers = [
-    { urls: "stun:stun.l.google.com:19302" },
-    { urls: "stun:stun.l.google.com:5349" },
-    { urls: "stun:stun1.l.google.com:3478" },
-    { urls: "stun:stun1.l.google.com:5349" },
-    { urls: "stun:stun2.l.google.com:19302" },
-    { urls: "stun:stun2.l.google.com:5349" },
-    { urls: "stun:stun3.l.google.com:3478" },
-    { urls: "stun:stun3.l.google.com:5349" },
-    { urls: "stun:stun4.l.google.com:19302" },
-    { urls: "stun:stun4.l.google.com:5349" }
-  ];
-//   const myPeerConnection = new RTCPeerConnection(
-//     {
-//     iceServers: [
-//       {
-//         urls: iceServers.map((value) => {
-//           return (
-//             value.urls
-//           )
-//         })
-//       }
-//     ]
-//   }
-// );
-let myPeerConnection
   const roomName = location.search.slice(4)
   console.log(location.search.slice(4))
-  useEffect(() => {
-    const initial = async () => {
-      await getDevices()
-      // const initialStream = await navigator.mediaDevices.getUserMedia(initialConstraints)
-    }
-    initial()
-  }, [])
-  useEffect(() => {
-    if (myRef.current) {
-      myRef.current.srcObject = stream
-    }
-  }, [stream])
   async function handleMuteClick() {
-    const promise = stream
+    const promise = myStream
     if (promise) {
       promise
         .getAudioTracks()
@@ -67,7 +33,7 @@ let myPeerConnection
     setAudioOn(!audioOn)
   }
   async function handleStreamClick() {
-    const promise = stream
+    const promise = myStream
     if (promise) {
       promise
         .getVideoTracks()
@@ -75,27 +41,17 @@ let myPeerConnection
     }
     setVideoOn(!videoOn)
   }
-  const handleStopClick = () => {
-    myRef.current.srcObject.getTracks()
-      .forEach(track => track.stop())
-    console.log(myRef.current)
-  }
-  async function handleDeviceChange(event) {
-    myRef.current.srcObject.getTracks()
-      .forEach(track => track.stop())
-    setSelected(event.target.value)
-    if (myPeerConnection) {
-      console.log(myPeerConnection.getSenders())
-      const videoTrack = stream.getVideoTracks()[0]
-      const videoSender = myPeerConnection.getSenders().find((sender) => sender.track.kind === 'video')
-      videoSender.replaceTrack(videoTrack)
-    }
+  async function handleDeviceChange() {
+    console.log(deviceSelect.value)
+    const promise = myStream
+    promise.getTracks()
+      .forEach(track => track.stop());
+    setSource(deviceSelect.value)
+    await getMedia(deviceSelect.value)
   }
   useEffect(() => {
-    if (selected) {
-      getMedia(selected)
-    }
-  }, [selected])
+    getMedia(source)
+  }, [deviceSelect])
   async function getDevices() {
     try {
       const devices = await navigator.mediaDevices.enumerateDevices()
@@ -114,26 +70,27 @@ let myPeerConnection
     }
   }
   async function getMedia(deviceId) {
-    const newConstraints = {
-      audio: true,
-      video: { deviceId: { exact: deviceId } }
-    }
-    const constraints = deviceId ? newConstraints : initialConstraints
     try {
       const newConstraints = {
         audio: true,
         video: { deviceId: { exact: deviceId } }
       }
       const constraints = deviceId ? newConstraints : initialConstraints
-      const newStream = await navigator.mediaDevices.getUserMedia(constraints)
-      setStream(newStream)
-      setErrorMessage('')
+      myStream = await navigator.mediaDevices.getUserMedia(constraints)
+      const promises = await navigator.mediaDevices.enumerateDevices()
+      // promise.getVideoTracks().forEach(track => track.enabled = !track.enabled)
+      // promise.getAudioTracks().forEach(track => track.enabled = !track.enabled)
+      myScreen.srcObject = myStream
+      await getDevices()
+      setNoDevice('')
+      // const myPeerConnection = new RTCPeerConnection();
+      // myStream.getTracks().forEach((track) => myPeerConnection.addTrack(track, myStream))
+      // const offer = await myPeerConnection.createOffer()
+      // console.log(offer)
+      // console.log(myStream.getTracks())
     } catch (error) {
-      const errorString = error?.toString()
-      if (errorString) {
-        setErrorMessage(errorString)
-      }
       console.log(error)
+      setNoDevice(error)
     }
   }
   function handleIce(data) {
@@ -144,16 +101,44 @@ let myPeerConnection
   function handleAddStream(data) {
     console.log('got a stream from peer')
     console.log('Peer Stream', data.stream)
-    console.log('My Stream', stream)
-    yourRef.current = data.stream
+    console.log('My Stream', myStream)
+    const yourScreen = document.getElementById('yourScreen')
+    yourScreen.srcObject = data.stream
   }
   function makeConnection() {
-    myPeerConnection = 
+    const iceServers = [
+      { urls: "stun:stun.l.google.com:19302" },
+      { urls: "stun:stun.l.google.com:5349" },
+      { urls: "stun:stun1.l.google.com:3478" },
+      { urls: "stun:stun1.l.google.com:5349" },
+      { urls: "stun:stun2.l.google.com:19302" },
+      { urls: "stun:stun2.l.google.com:5349" },
+      { urls: "stun:stun3.l.google.com:3478" },
+      { urls: "stun:stun3.l.google.com:5349" },
+      { urls: "stun:stun4.l.google.com:19302" },
+      { urls: "stun:stun4.l.google.com:5349" }
+    ];
+
+    myPeerConnection = new RTCPeerConnection(
+      {
+      iceServers: [
+        {
+          urls: iceServers.map((value) => {
+            return (
+              value.urls
+            )
+          })
+        }
+      ]
+    }
+  );
     myPeerConnection.addEventListener('icecandidate', handleIce)
     myPeerConnection.addEventListener('addstream', handleAddStream)
-    if (stream) {
-      stream.getTracks().forEach((track) => myPeerConnection.addTrack(track, stream))
+    if (myStream) {
+      myStream.getTracks().forEach((track) => myPeerConnection.addTrack(track, myStream))
     }
+    // const offer = await myPeerConnection.createOffer()
+    // console.log(offer)
   }
   async function initCall() {
     await getMedia(null)
@@ -171,8 +156,13 @@ let myPeerConnection
     console.log(myPeerConnection)
     const offer = await myPeerConnection.createOffer()
     myPeerConnection.setLocalDescription(offer)
+    // setMyPeerConnection(connection)
     console.log(offer)
+    // if (offer) {
+    // }
     webSocket.emit('offer', offer, roomName)
+    // if (myPeerConnection) {
+    // }
   }
   useEffect(() => {
     if (!webSocket) return
@@ -186,11 +176,8 @@ let myPeerConnection
     myPeerConnection.setRemoteDescription(offer)
     const answer = await myPeerConnection.createAnswer()
     console.log('sent the answer')
-    console.log(myPeerConnection)
-    console.log(answer)
     myPeerConnection.setLocalDescription(answer)
     webSocket.emit('answer', answer, roomName)
-    makeConnection()
   }
   useEffect(() => {
     if (!webSocket) return
@@ -202,7 +189,6 @@ let myPeerConnection
   const answer = (answer) => {
     console.log('received the answer')
     myPeerConnection.setRemoteDescription(answer)
-    makeConnection()
   }
   useEffect(() => {
     if (!webSocket) return
@@ -224,26 +210,24 @@ let myPeerConnection
   })
 
   return (
-    <div
-    // id="myStream"
-    >
+    <div id="myStream">
       <div className={`flex ${!largeMedia && 'flex-col'} gap-1`}>
         <video
-          // id="yourScreen"
-          ref={yourRef}
-          width="320"
-          height="240"
-          controls
-          autoPlay
-        ></video>
-        <video
           id="myScreen"
-          ref={myRef}
           width="320"
           height="240"
           controls
           autoPlay
           muted
+        >
+          {/* <source src={sources} /> */}
+        </video>
+        <video
+          id="yourScreen"
+          width="320"
+          height="240"
+          controls
+          autoPlay
         ></video>
       </div>
       <div>
@@ -254,21 +238,20 @@ let myPeerConnection
           <Button onClick={handleStreamClick}>
             {videoOn ? 'turn stream on' : 'turn stream off'}
           </Button>
-          <Button onClick={handleStopClick}>
-            stop
-          </Button>
+          {/* <button id='mute' onClick={handleMuteClick}>mute</button>
+        <button id='stream' onClick={handleStreamClick}>turn stream off</button> */}
         </div>
         <select id="devices" onChange={handleDeviceChange}>
           {options.map((value, index) => {
             return (
-              <option key={index} value={value.deviceId} selected={stream?.getVideoTracks()[0].id === value.deviceId}>
+              <option key={index} value={value.deviceId}>
                 {value.label}
               </option>
             )
           })}
         </select>
       </div>
-      {errorMessage && <div>{errorMessage}</div>}
+      {noDevice && <div>{noDevice.toString()}</div>}
     </div >
   )
 }
