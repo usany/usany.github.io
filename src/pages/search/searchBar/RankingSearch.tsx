@@ -15,18 +15,18 @@ import { useSelectors } from 'src/hooks/useSelectors';
 interface Props {
   changeUserSearch: (newValue: string) => void
 }
-function RankingSearch({ changeUserSearch }: Props) {
+function RankingSearch() {
   const [searchParams, setSearchParams] = useSearchParams()
   const languages = useSelectors((state) => state.languages.value)
   const onChangeUserSearch = (event) => {
     const { target: { value } } = event
-    changeUserSearch(value)
+    // changeUserSearch(value)
     setSearchParams(searchParams => {
       searchParams.set('search', value)
       if (!value) {
         searchParams.delete('search')
       }
-      return
+      return searchParams
     })
   }
   const { colorOne, colorTwo } = useCardsBackground()
