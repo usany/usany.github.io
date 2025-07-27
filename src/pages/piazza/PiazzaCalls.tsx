@@ -182,8 +182,11 @@ function PiazzaCalls() {
     myPeerConnection.setRemoteDescription(offer)
     const answer = await myPeerConnection.createAnswer()
     console.log('sent the answer')
+    console.log(myPeerConnection)
+    console.log(answer)
     myPeerConnection.setLocalDescription(answer)
     webSocket.emit('answer', answer, roomName)
+    makeConnection()
   }
   useEffect(() => {
     if (!webSocket) return
@@ -195,6 +198,7 @@ function PiazzaCalls() {
   const answer = (answer) => {
     console.log('received the answer')
     myPeerConnection.setRemoteDescription(answer)
+    makeConnection()
   }
   useEffect(() => {
     if (!webSocket) return
