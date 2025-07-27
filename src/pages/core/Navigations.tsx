@@ -25,6 +25,7 @@ function Navigations() {
   const bottomNavigation = useSelectors(state => state.bottomNavigation.value)
   const languages = useSelectors(state => state.languages.value)
   const userCertificated = useSelectors(state => state.userCertificated.value)
+  const tabs = useSelectors(state => state.tabs.value)
   const dispatch = useDispatch()
   useEffect(() => {
     if (theme === 'dark') {
@@ -81,7 +82,13 @@ function Navigations() {
               dispatch(changeBottomNavigation(newValue))
             }}
           >
-            <BottomNavigationAction onClick={() => navigate('/add')} label={texts[languages as keyof typeof texts]['register']} icon={<Pencil />} />
+            <BottomNavigationAction onClick={() => {
+              if (!tabs) {
+                navigate('/add?action=borrow')
+              } else {
+                navigate('/add?action=lend')
+              }
+            }} label={texts[languages as keyof typeof texts]['register']} icon={<Pencil />} />
             <BottomNavigationAction onClick={() => navigate('/')} label={userCertificated ? texts[languages as keyof typeof texts]['myStatus'] : texts[languages as keyof typeof texts]['logIn']} icon={<Umbrella />} />
             <BottomNavigationAction onClick={() => navigate('/board')} label={texts[languages as keyof typeof texts]['board']} icon={<Presentation />} />
           </BottomNavigation>

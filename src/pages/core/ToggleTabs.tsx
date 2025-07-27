@@ -43,8 +43,8 @@ export default function ToggleTabs() {
     dispatch(changeTabs(newValue))
     setSearchParams(searchParams => {
       searchParams.set('action', !newValue ? 'borrow' : 'lend')
+      return searchParams
     })
-    return searchParams
   };
   const tabs = useSelector(state => state.tabs.value)
   const dispatch = useDispatch()
