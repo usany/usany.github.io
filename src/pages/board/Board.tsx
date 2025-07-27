@@ -36,6 +36,7 @@ const time = {
   ko: ['최신순', '오래된'],
   en: ['Recent', 'Older']
 }
+const options = [items[ko], locations[ko], time[ko]]
 interface Props {
   userObj: User | null;
 }
@@ -133,9 +134,11 @@ function Board({ userObj }: Props) {
     }
   }, [])
   useEffect(() => {
-    selectedSearchParams.map((element) => {
+    selectedSearchParams.map((element, index) => {
       if (searchParams.get(element.id)) {
-        searchParams.set(element.id, element.value)
+        if (options[index].indexOf(element.value) !== -1) {
+          searchParams.set(element.id, element.value)
+        }
       }
     })
   })
