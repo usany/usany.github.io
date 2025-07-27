@@ -20,7 +20,6 @@ function RankingSearch() {
   const languages = useSelectors((state) => state.languages.value)
   const onChangeUserSearch = (event) => {
     const { target: { value } } = event
-    // changeUserSearch(value)
     setSearchParams(searchParams => {
       searchParams.set('search', value)
       if (!value) {
