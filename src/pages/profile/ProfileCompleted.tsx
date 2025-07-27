@@ -134,14 +134,8 @@ const ProfileCompleted = ({ user, cards }) => {
   //   .filter((element) => {
   //     if (element) return element
   //   })
-  console.log(cards)
   return (
     <div className="flex flex-col">
-      {/* <Popups
-        trigger={<div id="completedAction" />}
-        title={<ProfileCompletedTitle />}
-        content={<ProfileCompletedContent user={user} />}
-      /> */}
       <ChartContainer
         config={labels}
         className="aspect-square max-h-[250px] pt-5"
