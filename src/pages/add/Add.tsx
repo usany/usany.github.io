@@ -10,7 +10,7 @@ import {
 import { Maximize2, Minimize2 } from "lucide-react";
 import { useEffect, useReducer, useState } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import {
   dbservice
 } from "src/baseApi/serverbase";
@@ -157,7 +157,7 @@ function Add({ userObj, borrow }: Props) {
     if (!window.location.search) {
       navigate('/add?action=borrow')
     } else if (['?action=borrow', '?action=lend'].indexOf(window.location.search) === -1) {
-      navigate(`/add?action=${searchParams.get('action')}`)
+      navigate('/add?action=borrow')
     }
   }, [])
   useEffect(() => {
