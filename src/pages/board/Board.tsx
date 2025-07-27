@@ -24,14 +24,18 @@ import FilterDialogsTitle from "./FilterDialogs/FilterDialogsTitle";
 import LayoutBoard from "./LayoutBoard";
 // import { AlarmCheck, AlertCircle, Building, Clock, DoorOpen, MessagesSquare, Pen, PenBox, Pencil, PenSquare, PenTool, Presentation, Search, SearchCheck, SearchCode, SearchSlash, Siren, TowerControl, Umbrella, UserCheck, UserRound, Watch } from "lucide-react";
 
-// const registeredMap = {
-//   ko: '등록 지도',
-//   en: 'Registered map'
-// }
-// const cardList = {
-//   ko: '카드 목록',
-//   en: 'Card list'
-// }
+const items = {
+  ko: ['전체 아이템', '우산', '양산'],
+  en: ['All items', 'Usan', 'Yangsan']
+}
+const locations = {
+  ko: ['전체 장소', ...locationsBuildings['ko']],
+  en: ['All locations', ...locationsBuildings['en']]
+}
+const time = {
+  ko: ['최신순', '오래된'],
+  en: ['Recent', 'Older']
+}
 interface Props {
   userObj: User | null;
 }
@@ -61,9 +65,20 @@ function Board({ userObj }: Props) {
   const onMarkerTrue = () => setOnMarker(true);
   const onMarkerFalse = () => setOnMarker(false);
   const [searchParams, setSearchParams] = useSearchParams()
-  const selectedSearchParams = {
-
-  }
+  const selectedSearchParams = [
+    {
+      id: "selectedValueOne",
+      value: searchParams.get("selectedValueOne") || "전체 아이템",
+    },
+    {
+      id: "selectedValueTwo",
+      value: searchParams.get("selectedValueTwo") || "전체 장소",
+    },
+    {
+      id: "selectedValueThree",
+      value: searchParams.get("selectedValueThree") || "최신순",
+    },
+  ]
   const handleSelectedValues = ({
     id,
     newValue,
@@ -117,6 +132,13 @@ function Board({ userObj }: Props) {
       navigate('/board?action=borrow')
     }
   }, [])
+  useEffect(() => {
+    selectedSearchParams.map((element) => {
+      if (searchParams.get(element.id)) {
+        searchParams.set(element.id, element.value)
+      }
+    })
+  })
   // const handleMail = async (e) => {
   //   e.preventDefault()
   //   try {
@@ -180,7 +202,7 @@ function Board({ userObj }: Props) {
                   onMarker={onMarker}
                   onMarkerTrue={onMarkerTrue}
                   onMarkerFalse={onMarkerFalse}
-                  selectedValues={selectedValues}
+                  selectedValues={selectedSearchParams}
                   handleSelectedValues={handleSelectedValues}
                 />
               </div>
@@ -190,7 +212,7 @@ function Board({ userObj }: Props) {
             <div className='truncate flex justify-center sticky top-16 z-30 px-5'>
               <div className='w-[1000px] shadow-md'>
                 <Popups trigger={
-                  <BoardList selectedValues={selectedValues} />
+                  <BoardList selectedValues={selectedSearchParams} />
                 } title={<FilterDialogsTitle />} content={<FilterDialogsContent selectedValues={selectedValues} handleSelectedValues={handleSelectedValues} />} />
               </div>
             </div>
