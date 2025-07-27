@@ -1,18 +1,24 @@
+
+// import { useKeyboardOffset } from 'virtual-keyboard-offset';
 import { Button } from '@mui/material'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import useLargeMedia from 'src/hooks/useLargeMedia'
 import { webSocket } from 'src/webSocket'
 
+// let myStream
+// let myPeerConnection
 function PiazzaCalls() {
   const [options, setOptions] = useState([])
   const [audioOn, setAudioOn] = useState(true)
   const [videoOn, setVideoOn] = useState(true)
   const [errorMessage, setErrorMessage] = useState('')
   const [stream, setStream] = useState(null)
+  // const [source, setSource] = useState(null)
+  // const [sources, setSources] = useState(null)
   const [selected, setSelected] = useState(null)
   const largeMedia = useLargeMedia()
-  const myRef = useRef(null)
-  const yourRef = useRef(null)
+  const myScreen = document.getElementById('myScreen')
+  // const deviceSelect = document.getElementById('devices')
   const initialConstraints = {
     audio: true,
     video: true,
@@ -29,29 +35,35 @@ function PiazzaCalls() {
     { urls: "stun:stun4.l.google.com:19302" },
     { urls: "stun:stun4.l.google.com:5349" }
   ];
-  const myPeerConnection = new RTCPeerConnection({
-    iceServers: [
-      {
-        urls: iceServers.map((value) => {
-          return (
-            value.urls
-          )
-        })
-      }
-    ]
-  });
+  const myPeerConnection = new RTCPeerConnection(
+  //   {
+  //   iceServers: [
+  //     {
+  //       urls: iceServers.map((value) => {
+  //         return (
+  //           value.urls
+  //         )
+  //       })
+  //     }
+  //   ]
+  // }
+);
   const roomName = location.search.slice(4)
   console.log(location.search.slice(4))
   useEffect(() => {
     const initial = async () => {
+      const initialStream = await navigator.mediaDevices.getUserMedia(initialConstraints)
       await getDevices()
-      // const initialStream = await navigator.mediaDevices.getUserMedia(initialConstraints)
+      // myScreen.srcObject = initialStream
+      // setStream(initialStream)
     }
     initial()
   }, [])
   useEffect(() => {
-    if (myRef.current) {
-      myRef.current.srcObject = stream
+    if (myScreen) {
+      // myStream.getTracks()
+      //   .forEach(track => track.stop());
+      myScreen.srcObject = stream
     }
   }, [stream])
   async function handleMuteClick() {
@@ -72,15 +84,19 @@ function PiazzaCalls() {
     }
     setVideoOn(!videoOn)
   }
-  const handleStopClick = () => {
-    myRef.current.srcObject.getTracks()
-      .forEach(track => track.stop())
-    console.log(myRef.current)
-  }
   async function handleDeviceChange(event) {
-    myRef.current.srcObject.getTracks()
+    // console.log(deviceSelect.value)
+    const promise = stream
+    // await promise.getTracks()
+    //   .forEach(track => track.stop())
+    myScreen.srcObject.getTracks()
       .forEach(track => track.stop())
     setSelected(event.target.value)
+
+    // myScreen.srcObject = promise
+    // setSource(deviceSelect.value)
+    // await getMedia(deviceSelect.value)
+    // console.log(event.target.value)
     if (myPeerConnection) {
       console.log(myPeerConnection.getSenders())
       const videoTrack = stream.getVideoTracks()[0]
@@ -89,6 +105,19 @@ function PiazzaCalls() {
     }
   }
   useEffect(() => {
+    // if (myStream) {
+    //   myStream.getTracks()
+    //     .forEach(track => track.stop());
+    //   setTimeout(() => getMedia(selected), 1000)
+    // } else {
+    //   getMedia(selected)
+    // }
+    // if (errorMessage) {
+    //   getMedia(selected)
+    // }
+    // if (!errorMessage && !myStream) {
+    //   getMedia(selected)
+    // }
     if (selected) {
       getMedia(selected)
     }
@@ -111,26 +140,33 @@ function PiazzaCalls() {
     }
   }
   async function getMedia(deviceId) {
-    const newConstraints = {
-      audio: true,
-      video: { deviceId: { exact: deviceId } }
-    }
-    const constraints = deviceId ? newConstraints : initialConstraints
     try {
       const newConstraints = {
         audio: true,
         video: { deviceId: { exact: deviceId } }
       }
       const constraints = deviceId ? newConstraints : initialConstraints
+      // if (myStream) {
+      //   myStream.getTracks()
+      //     .forEach(track => track.stop());
+      // }
+      console.log('practice')
       const newStream = await navigator.mediaDevices.getUserMedia(constraints)
       setStream(newStream)
+      const promises = await navigator.mediaDevices.enumerateDevices()
+      // promise.getVideoTracks().forEach(track => track.enabled = !track.enabled)
+      // promise.getAudioTracks().forEach(track => track.enabled = !track.enabled)
+      // myScreen.srcObject = newStream
+      // await getDevices()
       setErrorMessage('')
+      // console.log(myStream.getVideoTracks()[0].label)
+      // const myPeerConnection = new RTCPeerConnection();
+      // myStream.getTracks().forEach((track) => myPeerConnection.addTrack(track, myStream))
+      // const offer = await myPeerConnection.createOffer()
+      // console.log(offer)
+      // console.log(myStream.getTracks())
     } catch (error) {
-      const errorString = error?.toString()
-      if (errorString) {
-        setErrorMessage(errorString)
-      }
-      console.log(error)
+      setErrorMessage(error)
     }
   }
   function handleIce(data) {
@@ -142,14 +178,41 @@ function PiazzaCalls() {
     console.log('got a stream from peer')
     console.log('Peer Stream', data.stream)
     console.log('My Stream', stream)
-    yourRef.current = data.stream
+    const yourScreen = document.getElementById('yourScreen')
+    yourScreen.srcObject = data.stream
   }
   function makeConnection() {
+    // const iceServers = [
+    //   { urls: "stun:stun.l.google.com:19302" },
+    //   { urls: "stun:stun.l.google.com:5349" },
+    //   { urls: "stun:stun1.l.google.com:3478" },
+    //   { urls: "stun:stun1.l.google.com:5349" },
+    //   { urls: "stun:stun2.l.google.com:19302" },
+    //   { urls: "stun:stun2.l.google.com:5349" },
+    //   { urls: "stun:stun3.l.google.com:3478" },
+    //   { urls: "stun:stun3.l.google.com:5349" },
+    //   { urls: "stun:stun4.l.google.com:19302" },
+    //   { urls: "stun:stun4.l.google.com:5349" }
+    // ];
+
+    // myPeerConnection = new RTCPeerConnection({
+    //   iceServers: [
+    //     {
+    //       urls: iceServers.map((value) => {
+    //         return (
+    //           value.urls
+    //         )
+    //       })
+    //     }
+    //   ]
+    // });
     myPeerConnection.addEventListener('icecandidate', handleIce)
     myPeerConnection.addEventListener('addstream', handleAddStream)
     if (stream) {
       stream.getTracks().forEach((track) => myPeerConnection.addTrack(track, stream))
     }
+    // const offer = await myPeerConnection.createOffer()
+    // console.log(offer)
   }
   async function initCall() {
     await getMedia(null)
@@ -182,11 +245,8 @@ function PiazzaCalls() {
     myPeerConnection.setRemoteDescription(offer)
     const answer = await myPeerConnection.createAnswer()
     console.log('sent the answer')
-    console.log(myPeerConnection)
-    console.log(answer)
     myPeerConnection.setLocalDescription(answer)
     webSocket.emit('answer', answer, roomName)
-    makeConnection()
   }
   useEffect(() => {
     if (!webSocket) return
@@ -198,7 +258,6 @@ function PiazzaCalls() {
   const answer = (answer) => {
     console.log('received the answer')
     myPeerConnection.setRemoteDescription(answer)
-    makeConnection()
   }
   useEffect(() => {
     if (!webSocket) return
@@ -220,26 +279,24 @@ function PiazzaCalls() {
   })
 
   return (
-    <div
-    // id="myStream"
-    >
+    <div id="myStream">
       <div className={`flex ${!largeMedia && 'flex-col'} gap-1`}>
         <video
-          // id="yourScreen"
-          ref={yourRef}
-          width="320"
-          height="240"
-          controls
-          autoPlay
-        ></video>
-        <video
           id="myScreen"
-          ref={myRef}
           width="320"
           height="240"
           controls
           autoPlay
           muted
+        >
+          {/* <source src={sources} /> */}
+        </video>
+        <video
+          id="yourScreen"
+          width="320"
+          height="240"
+          controls
+          autoPlay
         ></video>
       </div>
       <div>
@@ -250,9 +307,8 @@ function PiazzaCalls() {
           <Button onClick={handleStreamClick}>
             {videoOn ? 'turn stream on' : 'turn stream off'}
           </Button>
-          <Button onClick={handleStopClick}>
-            stop
-          </Button>
+          {/* <button id='mute' onClick={handleMuteClick}>mute</button>
+        <button id='stream' onClick={handleStreamClick}>turn stream off</button> */}
         </div>
         <select id="devices" onChange={handleDeviceChange}>
           {options.map((value, index) => {
@@ -264,7 +320,7 @@ function PiazzaCalls() {
           })}
         </select>
       </div>
-      {errorMessage && <div>{errorMessage}</div>}
+      {errorMessage && <div>{errorMessage.toString()}</div>}
     </div >
   )
 }
