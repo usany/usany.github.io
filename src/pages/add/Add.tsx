@@ -59,7 +59,7 @@ function Add({ userObj, borrow }: Props) {
   const [display, setDisplay] = useState<DisplayCard | null>(null);
   const [item, setItem] = useState("");
   const [searchParams, setSearchParams] = useSearchParams()
-  const selectedItem = searchParams.get('item')
+  // const selectedItem = searchParams.get('item')
   const tabs = useSelector((state: TabsRootState) => state.tabs.value);
   const [fromTo, setFromTo] = useState<FromTo>({ from: null, to: null });
   const [enableRegister, setEnableRegister] = useState(false)
@@ -67,6 +67,11 @@ function Add({ userObj, borrow }: Props) {
   const languages = useSelectors((state) => state.languages.value)
   const profile = useSelectors(state => state.profile.value)
   const pleaseCheckTimeText = useTexts('pleaseCheckTime')
+  useEffect(() => {
+    if (!sessionStorage.getItem('searchParams')) {
+      sessionStorage.setItem('searchParams', window.location.search)
+    }
+  }, [])
   // const [cardId, setCardId] = useState<string | null>(null)
   // const [from, setFrom] = useState(null);
   // const [to, setTo] = useState(null);
@@ -152,10 +157,11 @@ function Add({ userObj, borrow }: Props) {
       return searchParams
     })
   }, [tabs])
+  console.log(window.location.search)
   useEffect(() => {
-    if (['?action=borrow', '?action=lend'].indexOf(window.location.search) !== -1) {
+    if (['?action=borrow', '?action=lend'].indexOf(window.location.search) === -1 && sessionStorage.getItem('searchParams')) {
       setAddSteps(0);
-      // setItem("");
+      setItem("");
       setSearchParams(searchParams => {
         searchParams.delete('item')
         return searchParams
@@ -181,7 +187,7 @@ function Add({ userObj, borrow }: Props) {
     const {
       target: { value },
     } = event;
-    // setItem(value);
+    setItem(value);
     setSearchParams(searchParams => {
       searchParams.set('item', value)
       return searchParams
@@ -311,7 +317,7 @@ function Add({ userObj, borrow }: Props) {
           connectedId: null,
           connectedName: null,
           connectedUrl: null,
-          item: selectedItem,
+          item: item,
           creatorProfileImage: profile?.profileImage,
           creatorDefaultProfile: profile?.defaultProfile,
           creatorProfileImageUrl: profile?.profileImageUrl,
@@ -380,14 +386,14 @@ function Add({ userObj, borrow }: Props) {
             borrow={borrow}
             userObj={userObj}
             addSteps={addSteps}
-            item={selectedItem}
+            item={item}
             fromTo={fromTo}
             locationState={locationState}
             display={display}
           />
           <div className="flex flex-col w-[624px]">
             <div className="flex">
-              <AddStepOne borrow={borrow} item={selectedItem} changeItem={changeItem} />
+              <AddStepOne borrow={borrow} item={item} changeItem={changeItem} />
               {addSteps > 0 && (
                 <AddStepTwo
                   locationState={locationState}
@@ -412,13 +418,13 @@ function Add({ userObj, borrow }: Props) {
             borrow={borrow}
             userObj={userObj}
             addSteps={addSteps}
-            item={selectedItem}
+            item={item}
             fromTo={fromTo}
             locationState={locationState}
             display={display}
           />
           <div>
-            <AddStepOne borrow={borrow} item={selectedItem} changeItem={changeItem} />
+            <AddStepOne borrow={borrow} item={item} changeItem={changeItem} />
             {addSteps > 0 && (
               <AddStepTwo
                 locationState={locationState}
