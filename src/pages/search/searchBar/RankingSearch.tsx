@@ -1,4 +1,5 @@
 import TextField from '@mui/material/TextField';
+import { useSearchParams } from 'react-router-dom';
 import useCardsBackground from 'src/hooks/useCardsBackground';
 import { useSelectors } from 'src/hooks/useSelectors';
 // import { auth, onSocialClick, dbservice, storage } from 'src/baseApi/serverbase'
@@ -15,10 +16,18 @@ interface Props {
   changeUserSearch: (newValue: string) => void
 }
 function RankingSearch({ changeUserSearch }: Props) {
+  const [searchParams, setSearchParams] = useSearchParams()
   const languages = useSelectors((state) => state.languages.value)
   const onChangeUserSearch = (event) => {
     const { target: { value } } = event
     changeUserSearch(value)
+    setSearchParams(searchParams => {
+      searchParams.set('search', value)
+      if (!value) {
+        searchParams.delete('search')
+      }
+      return
+    })
   }
   const { colorOne, colorTwo } = useCardsBackground()
   return (
