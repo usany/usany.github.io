@@ -157,12 +157,12 @@ function Add({ userObj, borrow }: Props) {
       return searchParams
     })
   }, [tabs])
-  console.log(window.location.search)
+  // console.log(window.location.search)
   useEffect(() => {
-    if (['?action=borrow', '?action=lend'].indexOf(window.location.search) === -1 && sessionStorage.getItem('searchParams')) {
-      setAddSteps(0);
-      setItem("");
-    }
+    // if (['?action=borrow', '?action=lend'].indexOf(window.location.search) === -1 && sessionStorage.getItem('searchParams')) {
+    // }
+    setAddSteps(0);
+    setItem("");
   }, [tabs]);
 
   useEffect(() => {

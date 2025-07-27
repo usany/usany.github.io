@@ -3,7 +3,7 @@ import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 import { Maximize2, Minimize2 } from 'lucide-react';
 import PropTypes from 'prop-types';
-import { useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeTabs } from 'src/stateSlices/tabsSlice';
 
@@ -38,16 +38,16 @@ function a11yProps(index) {
 
 export default function ToggleTabs() {
 
-  const handleChange = (newValue) => {
+  const handleChange = (event, newValue) => {
     dispatch(changeTabs(newValue))
   };
   const tabs = useSelector(state => state.tabs.value)
   const dispatch = useDispatch()
-  useEffect(() => {
-    if (window.location.search === '?action=lend') {
-      handleChange(1)
-    }
-  })
+  // useEffect(() => {
+  //   if (window.location.search === '?action=lend') {
+  //     handleChange(1)
+  //   }
+  // }, [])
   const tabsBox = useMemo(() => {
     return (
       <Box sx={{
