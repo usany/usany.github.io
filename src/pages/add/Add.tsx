@@ -58,6 +58,8 @@ function Add({ userObj, borrow }: Props) {
   const [addSteps, setAddSteps] = useState(0);
   const [display, setDisplay] = useState<DisplayCard | null>(null);
   const [item, setItem] = useState("");
+  const [items, setItems] = useSearchParams('')
+  const selectedItem = items.get('item')
   const tabs = useSelector((state: TabsRootState) => state.tabs.value);
   const [fromTo, setFromTo] = useState<FromTo>({ from: null, to: null });
   const [enableRegister, setEnableRegister] = useState(false)
@@ -147,7 +149,11 @@ function Add({ userObj, borrow }: Props) {
 
   useEffect(() => {
     setAddSteps(0);
-    setItem("");
+    // setItem("");
+    setItems(items => {
+      items.delete('item')
+      return items
+    })
   }, [tabs]);
 
   useEffect(() => {
@@ -164,21 +170,19 @@ function Add({ userObj, borrow }: Props) {
       }
     }
   }, [fromTo])
-  //   let calculatePoint = 0
-  // const page = Number(location.get('page') || 1);
-  // const showArchived = location.get('showArchived') === 'true';
-  console.log(location.get('item'))
   const changeItem = (event: PointerEvent) => {
-    // event.preventDefault()
-    console.log(event);
     const {
       target: { value },
     } = event;
-    setItem(value);
-    setLocation((location) => {
-      location.set('item', value)
-      return location
+    // setItem(value);
+    setItems(items => {
+      items.set('item', value)
+      return items
     })
+    // setLocation((location) => {
+    //   location.set('item', value)
+    //   return location
+    // })
     locationDispatch({ type: "changeItem", newState: null });
     if (value) {
       setAddSteps(1);
@@ -300,7 +304,7 @@ function Add({ userObj, borrow }: Props) {
           connectedId: null,
           connectedName: null,
           connectedUrl: null,
-          item: item,
+          item: selectedItem,
           creatorProfileImage: profile?.profileImage,
           creatorDefaultProfile: profile?.defaultProfile,
           creatorProfileImageUrl: profile?.profileImageUrl,
@@ -369,14 +373,14 @@ function Add({ userObj, borrow }: Props) {
             borrow={borrow}
             userObj={userObj}
             addSteps={addSteps}
-            item={item}
+            item={selectedItem}
             fromTo={fromTo}
             locationState={locationState}
             display={display}
           />
           <div className="flex flex-col w-[624px]">
             <div className="flex">
-              <AddStepOne borrow={borrow} item={item} changeItem={changeItem} />
+              <AddStepOne borrow={borrow} item={selectedItem} changeItem={changeItem} />
               {addSteps > 0 && (
                 <AddStepTwo
                   locationState={locationState}
@@ -401,13 +405,13 @@ function Add({ userObj, borrow }: Props) {
             borrow={borrow}
             userObj={userObj}
             addSteps={addSteps}
-            item={item}
+            item={selectedItem}
             fromTo={fromTo}
             locationState={locationState}
             display={display}
           />
           <div>
-            <AddStepOne borrow={borrow} item={item} changeItem={changeItem} />
+            <AddStepOne borrow={borrow} item={selectedItem} changeItem={changeItem} />
             {addSteps > 0 && (
               <AddStepTwo
                 locationState={locationState}
