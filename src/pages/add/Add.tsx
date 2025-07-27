@@ -10,6 +10,7 @@ import {
 import { Maximize2, Minimize2 } from "lucide-react";
 import { useEffect, useReducer, useState } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import {
   dbservice
 } from "src/baseApi/serverbase";
@@ -66,6 +67,7 @@ function Add({ userObj, borrow }: Props) {
   const languages = useSelectors((state) => state.languages.value)
   const profile = useSelectors(state => state.profile.value)
   const pleaseCheckTimeText = useTexts('pleaseCheckTime')
+  const navigate = useNavigate()
   // const [cardId, setCardId] = useState<string | null>(null)
   // const [from, setFrom] = useState(null);
   // const [to, setTo] = useState(null);
@@ -152,6 +154,11 @@ function Add({ userObj, borrow }: Props) {
   //   })
   // }, [tabs])
   // console.log(window.location.search)
+  useEffect(() => {
+    if (!window.location.search) {
+      navigate('/add?action=borrow')
+    }
+  }, [])
   useEffect(() => {
     // if (['?action=borrow', '?action=lend'].indexOf(window.location.search) === -1 && sessionStorage.getItem('searchParams')) {
     // }
