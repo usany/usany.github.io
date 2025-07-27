@@ -162,10 +162,6 @@ function Add({ userObj, borrow }: Props) {
     if (['?action=borrow', '?action=lend'].indexOf(window.location.search) === -1 && sessionStorage.getItem('searchParams')) {
       setAddSteps(0);
       setItem("");
-      setSearchParams(searchParams => {
-        searchParams.delete('item')
-        return searchParams
-      })
     }
   }, [tabs]);
 
@@ -188,14 +184,6 @@ function Add({ userObj, borrow }: Props) {
       target: { value },
     } = event;
     setItem(value);
-    setSearchParams(searchParams => {
-      searchParams.set('item', value)
-      return searchParams
-    })
-    // setLocation((location) => {
-    //   location.set('item', value)
-    //   return location
-    // })
     locationDispatch({ type: "changeItem", newState: null });
     if (value) {
       setAddSteps(1);
