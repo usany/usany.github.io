@@ -10,7 +10,6 @@ import {
 import { Maximize2, Minimize2 } from "lucide-react";
 import { useEffect, useReducer, useState } from "react";
 import { useSelector } from "react-redux";
-import { useSearchParams } from "react-router-dom";
 import {
   dbservice
 } from "src/baseApi/serverbase";
@@ -58,7 +57,7 @@ function Add({ userObj, borrow }: Props) {
   const [addSteps, setAddSteps] = useState(0);
   const [display, setDisplay] = useState<DisplayCard | null>(null);
   const [item, setItem] = useState("");
-  const [searchParams, setSearchParams] = useSearchParams()
+  // const [searchParams, setSearchParams] = useSearchParams()
   // const selectedItem = searchParams.get('item')
   const tabs = useSelector((state: TabsRootState) => state.tabs.value);
   const [fromTo, setFromTo] = useState<FromTo>({ from: null, to: null });
@@ -67,11 +66,6 @@ function Add({ userObj, borrow }: Props) {
   const languages = useSelectors((state) => state.languages.value)
   const profile = useSelectors(state => state.profile.value)
   const pleaseCheckTimeText = useTexts('pleaseCheckTime')
-  useEffect(() => {
-    if (!sessionStorage.getItem('searchParams')) {
-      sessionStorage.setItem('searchParams', window.location.search)
-    }
-  }, [])
   // const [cardId, setCardId] = useState<string | null>(null)
   // const [from, setFrom] = useState(null);
   // const [to, setTo] = useState(null);
@@ -91,12 +85,9 @@ function Add({ userObj, borrow }: Props) {
   //         return {...state}
   //     }
   //   }
-  // const params = useParams()
-  // const search = useSearchParams()
   function changeAddSteps(newValue) {
     setAddSteps(newValue);
   }
-  // const [location, setLocation] = useSearchParams()
   const [locationState, locationDispatch] = useReducer(
     (
       state: {
@@ -151,12 +142,15 @@ function Add({ userObj, borrow }: Props) {
       behavior: "instant", // Optional if you want to skip the scrolling animation
     });
   }, []);
-  useEffect(() => {
-    setSearchParams(searchParams => {
-      searchParams.set('action', !tabs ? 'borrow' : 'lend')
-      return searchParams
-    })
-  }, [tabs])
+  // useEffect(() => {
+  //   setSearchParams(searchParams => {
+  //     if (window.location.search === '?action=lend') {
+  //       searchParams.set('action', !tabs ? 'borrow' : 'lend')
+  //     } else {
+  //     }
+  //     return searchParams
+  //   })
+  // }, [tabs])
   // console.log(window.location.search)
   useEffect(() => {
     // if (['?action=borrow', '?action=lend'].indexOf(window.location.search) === -1 && sessionStorage.getItem('searchParams')) {
