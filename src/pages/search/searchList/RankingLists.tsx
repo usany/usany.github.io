@@ -133,7 +133,7 @@ function RankingLists({ userObj }: Props) {
   return (
     <div className='flex truncate justify-center'>
       {userSearch ? (
-        <div>
+        <div className='w-[1000px]'>
           <Lists
             userObj={userObj}
             elements={rank}

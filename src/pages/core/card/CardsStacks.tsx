@@ -26,8 +26,8 @@ function CardsStacks({ userObj }: Props) {
 
   return (
     <div>
-      {!messages.length &&
-        <Skeleton className='w-full h-[260px] rounded bg-light-2 dark:bg-dark-2' />
+      {!cardLoaded && !messages.length &&
+        <Skeleton className='w-full h-[260px] rounded bg-light-3 dark:bg-dark-3' />
       }
       {cardLoaded && (
         <div>
