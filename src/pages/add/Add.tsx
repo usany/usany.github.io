@@ -58,7 +58,7 @@ function Add({ userObj, borrow }: Props) {
   const [addSteps, setAddSteps] = useState(0);
   const [display, setDisplay] = useState<DisplayCard | null>(null);
   const [item, setItem] = useState("");
-  const [items, setItems] = useSearchParams('')
+  const [items, setItems] = useSearchParams()
   const selectedItem = items.get('item')
   const tabs = useSelector((state: TabsRootState) => state.tabs.value);
   const [fromTo, setFromTo] = useState<FromTo>({ from: null, to: null });
@@ -148,12 +148,14 @@ function Add({ userObj, borrow }: Props) {
   }, []);
 
   useEffect(() => {
-    setAddSteps(0);
-    // setItem("");
-    setItems(items => {
-      items.delete('item')
-      return items
-    })
+    if (!window.location.search) {
+      setAddSteps(0);
+      // setItem("");
+      setItems(items => {
+        items.delete('item')
+        return items
+      })
+    }
   }, [tabs]);
 
   useEffect(() => {
