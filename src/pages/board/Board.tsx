@@ -141,7 +141,7 @@ function Board({ userObj }: Props) {
         }
       }
     })
-  })
+  }, [])
   // const handleMail = async (e) => {
   //   e.preventDefault()
   //   try {
