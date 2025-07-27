@@ -69,13 +69,6 @@ function RankingLists({ userObj, userSearch }: Props) {
       const newArray = docs.docs.map((document, index) => {
         console.log(rank.indexOf(document));
         if (rank.indexOf(document) === -1) {
-          // getDownloadURL(ref(storage, `${document.data()?.uid}`))
-          //   .then((url) => {
-          //     setLoadedImage([...loadedImage, { url: url, index: index }]);
-          //   })
-          //   .catch((error) => {
-          //     console.log(error);
-          //   });
           if (index + 1 === docs.docs.length) {
             setContinuing(document);
           }
