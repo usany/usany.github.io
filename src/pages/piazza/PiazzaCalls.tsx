@@ -195,7 +195,7 @@ function PiazzaCalls() {
 
   return (
     <div id="myStream">
-      <div className={`flex ${!largeMedia && 'flex-col'} gap-1`}>
+      <div className={`flex ${!largeMedia && 'flex-col'} gap-1 justify-cetner`}>
         <video
           // id="yourScreen"
           ref={yourRef}
