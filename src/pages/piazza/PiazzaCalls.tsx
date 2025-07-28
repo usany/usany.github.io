@@ -20,7 +20,6 @@ function PiazzaCalls() {
     video: true,
   }
   const roomName = location.search.slice(4)
-  console.log(location.search.slice(4))
   async function handleMuteClick() {
     const promise = myStream
     if (promise) {
