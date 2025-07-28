@@ -8,7 +8,8 @@ function PiazzaCalls() {
   const [audioOn, setAudioOn] = useState(true)
   const [videoOn, setVideoOn] = useState(true)
   const [errorMessage, setErrorMessage] = useState('')
-  const [stream, setStream] = useState(null)
+  // const [stream, setStream] = useState(null)
+  let stream
   const [selected, setSelected] = useState(null)
   const largeMedia = useLargeMedia()
   const myRef = useRef(null)
@@ -125,8 +126,7 @@ function PiazzaCalls() {
         video: { deviceId: { exact: deviceId } }
       }
       const constraints = deviceId ? newConstraints : initialConstraints
-      const newStream = await navigator.mediaDevices.getUserMedia(constraints)
-      setStream(newStream)
+      stream = await navigator.mediaDevices.getUserMedia(constraints)
       setErrorMessage('')
     } catch (error) {
       const errorString = error?.toString()
@@ -147,7 +147,6 @@ function PiazzaCalls() {
     console.log('My Stream', stream)
     yourRef.current = data.stream
   }
-  const myPeerConnection = new RTCPeerConnection()
   function makeConnection() {
     myPeerConnection.addEventListener('icecandidate', handleIce)
     myPeerConnection.addEventListener('addstream', handleAddStream)
@@ -190,7 +189,6 @@ function PiazzaCalls() {
     console.log(answer)
     myPeerConnection.setLocalDescription(answer)
     webSocket.emit('answer', answer, roomName)
-    makeConnection()
   }
   useEffect(() => {
     if (!webSocket) return
@@ -202,7 +200,6 @@ function PiazzaCalls() {
   const answer = (answer) => {
     console.log('received the answer')
     myPeerConnection.setRemoteDescription(answer)
-    makeConnection()
   }
   useEffect(() => {
     if (!webSocket) return
