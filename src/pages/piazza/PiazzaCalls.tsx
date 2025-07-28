@@ -41,7 +41,6 @@ function PiazzaCalls() {
       .forEach(track => track.stop())
     console.log(myRef.current)
   }
-
   async function handleDeviceChange(event) {
     console.log(event.target.value)
     myRef.current.srcObject.getTracks()
@@ -73,8 +72,8 @@ function PiazzaCalls() {
       }
       const constraints = deviceId ? newConstraints : initialConstraints
       myStream = await navigator.mediaDevices.getUserMedia(constraints)
-      const promises = await navigator.mediaDevices.enumerateDevices()
-      console.log(promises)
+      // const promises = await navigator.mediaDevices.enumerateDevices()
+      // console.log(promises)
       myRef.current.srcObject = myStream
       await getDevices()
       setErrorMessage('')
