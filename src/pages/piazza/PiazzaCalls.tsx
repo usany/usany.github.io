@@ -1,6 +1,5 @@
-
 import { Button } from '@mui/material'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import useLargeMedia from 'src/hooks/useLargeMedia'
 import { webSocket } from 'src/webSocket'
 
@@ -12,6 +11,8 @@ function PiazzaCalls() {
   const [videoOn, setVideoOn] = useState(true)
   const [noDevice, setNoDevice] = useState('')
   const [source, setSource] = useState(null)
+  const myRef = useRef(null)
+  const yourRef = useRef(null)
   const largeMedia = useLargeMedia()
   const myScreen = document.getElementById('myScreen')
   const deviceSelect = document.getElementById('devices')
@@ -38,6 +39,12 @@ function PiazzaCalls() {
     }
     setVideoOn(!videoOn)
   }
+  const handleStopClick = () => {
+    myRef.current.srcObject.getTracks()
+      .forEach(track => track.stop())
+    console.log(myRef.current)
+  }
+
   async function handleDeviceChange() {
     console.log(deviceSelect.value)
     const promise = myStream
@@ -191,6 +198,7 @@ function PiazzaCalls() {
       <div className={`flex ${!largeMedia && 'flex-col'} gap-1`}>
         <video
           id="yourScreen"
+          ref={yourRef}
           width="320"
           height="240"
           controls
@@ -198,6 +206,7 @@ function PiazzaCalls() {
         ></video>
         <video
           id="myScreen"
+          ref={myRef}
           width="320"
           height="240"
           controls
@@ -213,6 +222,9 @@ function PiazzaCalls() {
           </Button>
           <Button onClick={handleStreamClick}>
             {videoOn ? 'turn stream on' : 'turn stream off'}
+          </Button>
+          <Button onClick={handleStopClick}>
+            stop
           </Button>
         </div>
         <select id="devices" onChange={handleDeviceChange}>
