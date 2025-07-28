@@ -216,27 +216,26 @@ function PiazzaAudioCall() {
   })
 
   return (
-    <div
-    // id="myStream"
-    >
-      <div className={`flex ${!largeMedia && 'flex-col'} gap-1`}>
-        <video
+    <div id="myStream">
+      <div className={`flex ${!largeMedia && 'flex-col'} gap-1 items-center`}>
+        <audio
           // id="yourScreen"
           ref={yourRef}
-          // width="320"
-          // height="240"
+          width="160"
+          height="120"
           controls
           autoPlay
-        ></video>
-        <video
+        ></audio>
+        <audio
           id="myScreen"
           ref={myRef}
-          // width="320"
-          // height="240"
+          width="160"
+          height="120"
           controls
           autoPlay
           muted
-        ></video>
+        >
+        </audio>
       </div>
       <div>
         <div className="flex gap-5">
@@ -250,15 +249,15 @@ function PiazzaAudioCall() {
             stop
           </Button>
         </div>
-        {/* <select id="devices" onChange={handleDeviceChange}>
+        <select id="devices" onChange={handleDeviceChange}>
           {options.map((value, index) => {
             return (
-              <option key={index} value={value.deviceId} selected={stream?.getVideoTracks()[0].id === value.deviceId}>
+              <option key={index} value={value.deviceId}>
                 {value.label}
               </option>
             )
           })}
-        </select> */}
+        </select>
       </div>
       {errorMessage && <div>{errorMessage}</div>}
     </div >
