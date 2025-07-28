@@ -13,7 +13,7 @@ function PiazzaCalls() {
   const [videoOn, setVideoOn] = useState(true)
   const [noDevice, setNoDevice] = useState('')
   const [source, setSource] = useState(null)
-  const [sources, setSources] = useState(null)
+  // const [sources, setSources] = useState(null)
   const largeMedia = useLargeMedia()
   const myScreen = document.getElementById('myScreen')
   const deviceSelect = document.getElementById('devices')
@@ -227,7 +227,6 @@ function PiazzaCalls() {
           autoPlay
           muted
         >
-          {/* <source src={sources} /> */}
         </video>
       </div>
       <div>
