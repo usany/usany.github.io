@@ -142,12 +142,12 @@ function PiazzaCalls() {
     handleWelcome()
   }, [])
   const welcome = async () => {
-    console.log('sent the offer')
-    console.log(myPeerConnection)
     const offer = await myPeerConnection.createOffer()
     myPeerConnection.setLocalDescription(offer)
-    console.log(offer)
+    // console.log(myPeerConnection)
     webSocket.emit('offer', offer, roomName)
+    console.log(offer)
+    console.log('sent the offer')
   }
   useEffect(() => {
     if (!webSocket) return
@@ -157,12 +157,12 @@ function PiazzaCalls() {
     }
   })
   const offer = async (offer) => {
-    console.log('received the offer')
     myPeerConnection.setRemoteDescription(offer)
+    console.log('received the offer')
     const answer = await myPeerConnection.createAnswer()
-    console.log('sent the answer')
     myPeerConnection.setLocalDescription(answer)
     webSocket.emit('answer', answer, roomName)
+    console.log('sent the answer')
   }
   useEffect(() => {
     if (!webSocket) return
@@ -172,8 +172,8 @@ function PiazzaCalls() {
     }
   })
   const answer = (answer) => {
-    console.log('received the answer')
     myPeerConnection.setRemoteDescription(answer)
+    console.log('received the answer')
   }
   useEffect(() => {
     if (!webSocket) return
@@ -183,8 +183,8 @@ function PiazzaCalls() {
     }
   })
   const ice = (ice) => {
-    console.log('received candidate')
     myPeerConnection.addIceCandidate(ice)
+    console.log('received candidate')
   }
   useEffect(() => {
     if (!webSocket) return
@@ -238,7 +238,6 @@ function PiazzaCalls() {
           })}
         </select>
       </div>
-      {/* {noDevice && <div>{noDevice.toString()}</div>} */}
       {errorMessage && <div>{errorMessage}</div>}
     </div >
   )
