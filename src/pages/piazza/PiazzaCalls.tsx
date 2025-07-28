@@ -18,7 +18,7 @@ function PiazzaCalls() {
   const yourRef = useRef(null)
   const largeMedia = useLargeMedia()
   // const myScreen = document.getElementById('myScreen')
-  const deviceSelect = document.getElementById('devices')
+  // const deviceSelect = document.getElementById('devices')
   const initialConstraints = {
     audio: true,
     video: true,
@@ -48,17 +48,23 @@ function PiazzaCalls() {
     console.log(myRef.current)
   }
 
-  async function handleDeviceChange() {
-    console.log(deviceSelect.value)
+  async function handleDeviceChange(event) {
+    console.log(event.target.value)
     const promise = myStream
     promise.getTracks()
       .forEach(track => track.stop());
-    setSource(deviceSelect.value)
-    await getMedia(deviceSelect.value)
+    setSource(event.target.value)
+    // await getMedia(event.target.value)
+    if (myPeerConnection) {
+      console.log(myPeerConnection.getSenders())
+      const videoTrack = stream.getVideoTracks()[0]
+      const videoSender = myPeerConnection.getSenders().find((sender) => sender.track.kind === 'video')
+      videoSender.replaceTrack(videoTrack)
+    }
   }
   useEffect(() => {
     getMedia(source)
-  }, [deviceSelect])
+  }, [source])
   async function getDevices() {
     try {
       const devices = await navigator.mediaDevices.enumerateDevices()
