@@ -58,9 +58,9 @@ function PiazzaCalls() {
     // const promise = myStream
     // promise.getTracks()
     //   .forEach(track => track.stop());
-    // myRef.current.getTracks()
-    //   .forEach(track => track.stop());
     // setSource(event.target.value)
+    myRef.current.srcObject.getTracks()
+      .forEach(track => track.stop());
     await getMedia(event.target.value)
     if (myPeerConnection) {
       console.log(myPeerConnection.getSenders())
@@ -94,6 +94,7 @@ function PiazzaCalls() {
       const constraints = deviceId ? newConstraints : initialConstraints
       myStream = await navigator.mediaDevices.getUserMedia(constraints)
       const promises = await navigator.mediaDevices.enumerateDevices()
+      console.log(promises)
       // myScreen.srcObject = myStream
       myRef.current.srcObject = myStream
       await getDevices()
