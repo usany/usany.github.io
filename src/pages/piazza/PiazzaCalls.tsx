@@ -84,7 +84,7 @@ function PiazzaCalls() {
     myRef.current.srcObject.getTracks()
       .forEach(track => track.stop())
     setSelected(event.target.value)
-    if (myPeerConnection) {
+    if (myPeerConnection && stream) {
       console.log(myPeerConnection.getSenders())
       const videoTrack = stream.getVideoTracks()[0]
       const videoSender = myPeerConnection.getSenders().find((sender) => sender.track.kind === 'video')
@@ -167,12 +167,14 @@ function PiazzaCalls() {
     handleWelcome()
   }, [])
   const welcome = async () => {
-    console.log('sent the offer')
-    console.log(myPeerConnection)
-    const offer = await myPeerConnection.createOffer()
-    myPeerConnection.setLocalDescription(offer)
-    console.log(offer)
-    webSocket.emit('offer', offer, roomName)
+    if (myPeerConnection) {
+      console.log('sent the offer')
+      console.log(myPeerConnection)
+      const offer = await myPeerConnection.createOffer()
+      console.log(offer)
+      myPeerConnection.setLocalDescription(offer)
+      webSocket.emit('offer', offer, roomName)
+    }
   }
   useEffect(() => {
     if (!webSocket) return
@@ -182,14 +184,16 @@ function PiazzaCalls() {
     }
   })
   const offer = async (offer) => {
-    console.log('received the offer')
-    myPeerConnection.setRemoteDescription(offer)
-    const answer = await myPeerConnection.createAnswer()
-    console.log('sent the answer')
-    console.log(myPeerConnection)
-    console.log(answer)
-    myPeerConnection.setLocalDescription(answer)
-    webSocket.emit('answer', answer, roomName)
+    if (myPeerConnection) {
+      console.log('received the offer')
+      myPeerConnection.setRemoteDescription(offer)
+      const answer = await myPeerConnection.createAnswer()
+      console.log('sent the answer')
+      console.log(myPeerConnection)
+      console.log(answer)
+      myPeerConnection.setLocalDescription(answer)
+      webSocket.emit('answer', answer, roomName)
+    }
   }
   useEffect(() => {
     if (!webSocket) return
@@ -199,8 +203,10 @@ function PiazzaCalls() {
     }
   })
   const answer = (answer) => {
-    console.log('received the answer')
-    myPeerConnection.setRemoteDescription(answer)
+    if (myPeerConnection) {
+      console.log('received the answer')
+      myPeerConnection.setRemoteDescription(answer)
+    }
   }
   useEffect(() => {
     if (!webSocket) return
@@ -210,8 +216,10 @@ function PiazzaCalls() {
     }
   })
   const ice = (ice) => {
-    console.log('received candidate')
-    myPeerConnection.addIceCandidate(ice)
+    if (myPeerConnection) {
+      console.log('received candidate')
+      myPeerConnection.addIceCandidate(ice)
+    }
   }
   useEffect(() => {
     if (!webSocket) return
