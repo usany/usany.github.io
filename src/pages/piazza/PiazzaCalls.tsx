@@ -97,7 +97,7 @@ function PiazzaCalls() {
       // myScreen.srcObject = myStream
       myRef.current.srcObject = myStream
       await getDevices()
-      setStream(myStream)
+      // setStream(myStream)
       // setNoDevice('')
       setErrorMessage('')
     } catch (error) {
