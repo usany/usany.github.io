@@ -72,8 +72,6 @@ function PiazzaCalls() {
       }
       const constraints = deviceId ? newConstraints : initialConstraints
       myStream = await navigator.mediaDevices.getUserMedia(constraints)
-      // const promises = await navigator.mediaDevices.enumerateDevices()
-      // console.log(promises)
       myRef.current.srcObject = myStream
       await getDevices()
       setErrorMessage('')
