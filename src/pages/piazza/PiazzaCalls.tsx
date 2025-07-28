@@ -10,12 +10,6 @@ function PiazzaCalls() {
   const [audioOn, setAudioOn] = useState(true)
   const [videoOn, setVideoOn] = useState(true)
   const [errorMessage, setErrorMessage] = useState('')
-  // const [source, setSource] = useState(null)
-  // const [stream, setStream] = useState(null)
-  // const [selected, setSelected] = useState(null)
-  // const [noDevice, setNoDevice] = useState('')
-  // const myScreen = document.getElementById('myScreen')
-  // const deviceSelect = document.getElementById('devices')
   const myRef = useRef(null)
   const yourRef = useRef(null)
   const largeMedia = useLargeMedia()
@@ -24,11 +18,6 @@ function PiazzaCalls() {
     video: true,
   }
   const roomName = location.search.slice(4)
-  // useEffect(() => {
-  //   if (myRef.current) {
-  //     myRef.current.srcObject = stream
-  //   }
-  // }, [stream])
   async function handleMuteClick() {
     const promise = myStream
     if (promise) {
@@ -55,10 +44,6 @@ function PiazzaCalls() {
 
   async function handleDeviceChange(event) {
     console.log(event.target.value)
-    // const promise = myStream
-    // promise.getTracks()
-    //   .forEach(track => track.stop());
-    // setSource(event.target.value)
     myRef.current.srcObject.getTracks()
       .forEach(track => track.stop());
     await getMedia(event.target.value)
@@ -69,11 +54,6 @@ function PiazzaCalls() {
       videoSender.replaceTrack(videoTrack)
     }
   }
-  // useEffect(() => {
-  //   if (source) {
-  //     getMedia(source)
-  //   }
-  // }, [source])
   async function getDevices() {
     try {
       const devices = await navigator.mediaDevices.enumerateDevices()
@@ -95,15 +75,11 @@ function PiazzaCalls() {
       myStream = await navigator.mediaDevices.getUserMedia(constraints)
       const promises = await navigator.mediaDevices.enumerateDevices()
       console.log(promises)
-      // myScreen.srcObject = myStream
       myRef.current.srcObject = myStream
       await getDevices()
-      // setStream(myStream)
-      // setNoDevice('')
       setErrorMessage('')
     } catch (error) {
       console.log(error)
-      // setNoDevice(error)
       const errorString = error?.toString()
       if (errorString) {
         setErrorMessage(errorString)
@@ -119,8 +95,6 @@ function PiazzaCalls() {
     console.log('got a stream from peer')
     console.log('Peer Stream', data.stream)
     console.log('My Stream', myStream)
-    // const yourScreen = document.getElementById('yourScreen')
-    // yourScreen.srcObject = data.stream
     yourRef.current.srcObject = data.stream
   }
   function makeConnection() {
