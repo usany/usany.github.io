@@ -2,6 +2,7 @@ import { Button } from '@mui/material'
 import { useEffect, useRef, useState } from 'react'
 import useLargeMedia from 'src/hooks/useLargeMedia'
 import { webSocket } from 'src/webSocket'
+const myPeerConnection = new RTCPeerConnection()
 
 function PiazzaCalls() {
   const [options, setOptions] = useState([])
@@ -42,7 +43,7 @@ function PiazzaCalls() {
   //     ]
   //   }
   // );
-  let myPeerConnection
+  // let myPeerConnection
   const roomName = location.search.slice(4)
   console.log(location.search.slice(4))
   useEffect(() => {
@@ -148,7 +149,7 @@ function PiazzaCalls() {
     yourRef.current = data.stream
   }
   function makeConnection() {
-    myPeerConnection = new RTCPeerConnection()
+    // myPeerConnection = new RTCPeerConnection()
     myPeerConnection.addEventListener('icecandidate', handleIce)
     myPeerConnection.addEventListener('addstream', handleAddStream)
     if (stream) {
