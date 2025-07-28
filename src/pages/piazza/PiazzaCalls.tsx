@@ -24,6 +24,7 @@ function PiazzaCalls() {
     video: true,
   }
   const roomName = location.search.slice(4)
+  
   async function handleMuteClick() {
     const promise = myStream
     if (promise) {
@@ -63,7 +64,9 @@ function PiazzaCalls() {
     }
   }
   useEffect(() => {
-    getMedia(source)
+    if (source) {
+      getMedia(source)
+    }
   }, [source])
   async function getDevices() {
     try {
@@ -88,9 +91,9 @@ function PiazzaCalls() {
       // myScreen.srcObject = myStream
       myRef.current.srcObject = myStream
       await getDevices()
+      setStream(myStream)
       // setNoDevice('')
       setErrorMessage('')
-
     } catch (error) {
       console.log(error)
       // setNoDevice(error)
