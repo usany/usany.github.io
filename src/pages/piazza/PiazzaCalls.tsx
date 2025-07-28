@@ -143,8 +143,8 @@ function PiazzaCalls() {
   const welcome = async () => {
     const offer = await myPeerConnection.createOffer()
     myPeerConnection.setLocalDescription(offer)
-    // console.log(myPeerConnection)
     webSocket.emit('offer', offer, roomName)
+    // console.log(myPeerConnection)
     console.log(offer)
     console.log('sent the offer')
   }
