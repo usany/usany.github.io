@@ -10,15 +10,15 @@ function PiazzaCalls() {
   const [audioOn, setAudioOn] = useState(true)
   const [videoOn, setVideoOn] = useState(true)
   const [errorMessage, setErrorMessage] = useState('')
+  // const [source, setSource] = useState(null)
+  // const [stream, setStream] = useState(null)
+  // const [selected, setSelected] = useState(null)
   // const [noDevice, setNoDevice] = useState('')
-  const [source, setSource] = useState(null)
-  const [stream, setStream] = useState(null)
-  const [selected, setSelected] = useState(null)
+  // const myScreen = document.getElementById('myScreen')
+  // const deviceSelect = document.getElementById('devices')
   const myRef = useRef(null)
   const yourRef = useRef(null)
   const largeMedia = useLargeMedia()
-  // const myScreen = document.getElementById('myScreen')
-  // const deviceSelect = document.getElementById('devices')
   const initialConstraints = {
     audio: true,
     video: true,
@@ -224,7 +224,7 @@ function PiazzaCalls() {
     <div id="myStream">
       <div className={`flex ${!largeMedia && 'flex-col'} gap-1`}>
         <video
-          id="yourScreen"
+          // id="yourScreen"
           ref={yourRef}
           width="320"
           height="240"
@@ -232,7 +232,7 @@ function PiazzaCalls() {
           autoPlay
         ></video>
         <video
-          id="myScreen"
+          // id="myScreen"
           ref={myRef}
           width="320"
           height="240"
