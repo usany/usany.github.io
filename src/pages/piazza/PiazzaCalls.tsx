@@ -9,7 +9,10 @@ function PiazzaCalls() {
   const [options, setOptions] = useState([])
   const [audioOn, setAudioOn] = useState(true)
   const [videoOn, setVideoOn] = useState(true)
-  const [noDevice, setNoDevice] = useState('')
+  const [errorMessage, setErrorMessage] = useState('')
+  const [stream, setStream] = useState(null)
+  const [selected, setSelected] = useState(null)
+  // const [noDevice, setNoDevice] = useState('')
   const [source, setSource] = useState(null)
   const myRef = useRef(null)
   const yourRef = useRef(null)
@@ -79,10 +82,16 @@ function PiazzaCalls() {
       // myScreen.srcObject = myStream
       myRef.current.srcObject = myStream
       await getDevices()
-      setNoDevice('')
+      // setNoDevice('')
+      setErrorMessage('')
+
     } catch (error) {
       console.log(error)
-      setNoDevice(error)
+      // setNoDevice(error)
+      const errorString = error?.toString()
+      if (errorString) {
+        setErrorMessage(errorString)
+      }
     }
   }
   function handleIce(data) {
@@ -239,7 +248,8 @@ function PiazzaCalls() {
           })}
         </select>
       </div>
-      {noDevice && <div>{noDevice.toString()}</div>}
+      {/* {noDevice && <div>{noDevice.toString()}</div>} */}
+      {errorMessage && <div>{errorMessage}</div>}
     </div >
   )
 }
