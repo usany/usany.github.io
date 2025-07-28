@@ -14,7 +14,7 @@ function PiazzaCalls() {
   const myRef = useRef(null)
   const yourRef = useRef(null)
   const largeMedia = useLargeMedia()
-  const myScreen = document.getElementById('myScreen')
+  // const myScreen = document.getElementById('myScreen')
   const deviceSelect = document.getElementById('devices')
   const initialConstraints = {
     audio: true,
@@ -76,7 +76,8 @@ function PiazzaCalls() {
       const constraints = deviceId ? newConstraints : initialConstraints
       myStream = await navigator.mediaDevices.getUserMedia(constraints)
       const promises = await navigator.mediaDevices.enumerateDevices()
-      myScreen.srcObject = myStream
+      // myScreen.srcObject = myStream
+      myRef.current.srcObject = myStream
       await getDevices()
       setNoDevice('')
     } catch (error) {
@@ -93,8 +94,9 @@ function PiazzaCalls() {
     console.log('got a stream from peer')
     console.log('Peer Stream', data.stream)
     console.log('My Stream', myStream)
-    const yourScreen = document.getElementById('yourScreen')
-    yourScreen.srcObject = data.stream
+    // const yourScreen = document.getElementById('yourScreen')
+    // yourScreen.srcObject = data.stream
+    yourRef.current.srcObject = data.stream
   }
   function makeConnection() {
     const iceServers = [
