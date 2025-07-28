@@ -121,17 +121,17 @@ function PiazzaCalls() {
 
     myPeerConnection = new RTCPeerConnection(
       {
-      iceServers: [
-        {
-          urls: iceServers.map((value) => {
-            return (
-              value.urls
-            )
-          })
-        }
-      ]
-    }
-  );
+        iceServers: [
+          {
+            urls: iceServers.map((value) => {
+              return (
+                value.urls
+              )
+            })
+          }
+        ]
+      }
+    );
     myPeerConnection.addEventListener('icecandidate', handleIce)
     myPeerConnection.addEventListener('addstream', handleAddStream)
     if (myStream) {
@@ -213,6 +213,13 @@ function PiazzaCalls() {
     <div id="myStream">
       <div className={`flex ${!largeMedia && 'flex-col'} gap-1`}>
         <video
+          id="yourScreen"
+          width="320"
+          height="240"
+          controls
+          autoPlay
+        ></video>
+        <video
           id="myScreen"
           width="320"
           height="240"
@@ -222,13 +229,6 @@ function PiazzaCalls() {
         >
           {/* <source src={sources} /> */}
         </video>
-        <video
-          id="yourScreen"
-          width="320"
-          height="240"
-          controls
-          autoPlay
-        ></video>
       </div>
       <div>
         <div className="flex gap-5">
