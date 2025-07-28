@@ -58,9 +58,9 @@ function PiazzaCalls() {
     // const promise = myStream
     // promise.getTracks()
     //   .forEach(track => track.stop());
-    myRef.current.getTracks()
-      .forEach(track => track.stop());
-    setSource(event.target.value)
+    // myRef.current.getTracks()
+    //   .forEach(track => track.stop());
+    // setSource(event.target.value)
     await getMedia(event.target.value)
     if (myPeerConnection) {
       console.log(myPeerConnection.getSenders())
@@ -69,11 +69,11 @@ function PiazzaCalls() {
       videoSender.replaceTrack(videoTrack)
     }
   }
-  useEffect(() => {
-    if (source) {
-      getMedia(source)
-    }
-  }, [source])
+  // useEffect(() => {
+  //   if (source) {
+  //     getMedia(source)
+  //   }
+  // }, [source])
   async function getDevices() {
     try {
       const devices = await navigator.mediaDevices.enumerateDevices()
