@@ -1,5 +1,4 @@
 
-// import { useKeyboardOffset } from 'virtual-keyboard-offset';
 import { Button } from '@mui/material'
 import { useEffect, useState } from 'react'
 import useLargeMedia from 'src/hooks/useLargeMedia'
@@ -13,7 +12,6 @@ function PiazzaCalls() {
   const [videoOn, setVideoOn] = useState(true)
   const [noDevice, setNoDevice] = useState('')
   const [source, setSource] = useState(null)
-  // const [sources, setSources] = useState(null)
   const largeMedia = useLargeMedia()
   const myScreen = document.getElementById('myScreen')
   const deviceSelect = document.getElementById('devices')
@@ -59,12 +57,6 @@ function PiazzaCalls() {
         (device) => device.kind === 'videoinput',
       )
       setOptions(videoDevices)
-      // videoDevices.forEach((device) => {
-      //   const option = document.createElement('option')
-      //   option.value = device.deviceId
-      //   option.innerText = device.label
-      //   videoSelect?.appendChild(option)
-      // })
     } catch (error) {
       console.log(error)
     }
@@ -78,16 +70,9 @@ function PiazzaCalls() {
       const constraints = deviceId ? newConstraints : initialConstraints
       myStream = await navigator.mediaDevices.getUserMedia(constraints)
       const promises = await navigator.mediaDevices.enumerateDevices()
-      // promise.getVideoTracks().forEach(track => track.enabled = !track.enabled)
-      // promise.getAudioTracks().forEach(track => track.enabled = !track.enabled)
       myScreen.srcObject = myStream
       await getDevices()
       setNoDevice('')
-      // const myPeerConnection = new RTCPeerConnection();
-      // myStream.getTracks().forEach((track) => myPeerConnection.addTrack(track, myStream))
-      // const offer = await myPeerConnection.createOffer()
-      // console.log(offer)
-      // console.log(myStream.getTracks())
     } catch (error) {
       console.log(error)
       setNoDevice(error)
@@ -137,8 +122,6 @@ function PiazzaCalls() {
     if (myStream) {
       myStream.getTracks().forEach((track) => myPeerConnection.addTrack(track, myStream))
     }
-    // const offer = await myPeerConnection.createOffer()
-    // console.log(offer)
   }
   async function initCall() {
     await getMedia(null)
@@ -156,13 +139,8 @@ function PiazzaCalls() {
     console.log(myPeerConnection)
     const offer = await myPeerConnection.createOffer()
     myPeerConnection.setLocalDescription(offer)
-    // setMyPeerConnection(connection)
     console.log(offer)
-    // if (offer) {
-    // }
     webSocket.emit('offer', offer, roomName)
-    // if (myPeerConnection) {
-    // }
   }
   useEffect(() => {
     if (!webSocket) return
@@ -237,8 +215,6 @@ function PiazzaCalls() {
           <Button onClick={handleStreamClick}>
             {videoOn ? 'turn stream on' : 'turn stream off'}
           </Button>
-          {/* <button id='mute' onClick={handleMuteClick}>mute</button>
-        <button id='stream' onClick={handleStreamClick}>turn stream off</button> */}
         </div>
         <select id="devices" onChange={handleDeviceChange}>
           {options.map((value, index) => {
