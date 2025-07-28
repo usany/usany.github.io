@@ -8,8 +8,7 @@ function PiazzaCalls() {
   const [audioOn, setAudioOn] = useState(true)
   const [videoOn, setVideoOn] = useState(true)
   const [errorMessage, setErrorMessage] = useState('')
-  // const [stream, setStream] = useState(null)
-  let stream
+  const [stream, setStream] = useState(null)
   const [selected, setSelected] = useState(null)
   const largeMedia = useLargeMedia()
   const myRef = useRef(null)
@@ -43,7 +42,7 @@ function PiazzaCalls() {
   //     ]
   //   }
   // );
-  const myPeerConnection = new RTCPeerConnection()
+  let myPeerConnection
   const roomName = location.search.slice(4)
   console.log(location.search.slice(4))
   useEffect(() => {
@@ -126,7 +125,8 @@ function PiazzaCalls() {
         video: { deviceId: { exact: deviceId } }
       }
       const constraints = deviceId ? newConstraints : initialConstraints
-      stream = await navigator.mediaDevices.getUserMedia(constraints)
+      const newStream = await navigator.mediaDevices.getUserMedia(constraints)
+      setStream(newStream)
       setErrorMessage('')
     } catch (error) {
       const errorString = error?.toString()
@@ -148,6 +148,7 @@ function PiazzaCalls() {
     yourRef.current = data.stream
   }
   function makeConnection() {
+    myPeerConnection = new RTCPeerConnection()
     myPeerConnection.addEventListener('icecandidate', handleIce)
     myPeerConnection.addEventListener('addstream', handleAddStream)
     if (stream) {
