@@ -1,6 +1,7 @@
+
 // import { useKeyboardOffset } from 'virtual-keyboard-offset';
 import { Button } from '@mui/material'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import useLargeMedia from 'src/hooks/useLargeMedia'
 import { webSocket } from 'src/webSocket'
 
@@ -22,8 +23,6 @@ function PiazzaCalls() {
   }
   const roomName = location.search.slice(4)
   console.log(location.search.slice(4))
-  const myRef = useRef(null)
-  const yourRef = useRef(null)
   async function handleMuteClick() {
     const promise = myStream
     if (promise) {
@@ -49,11 +48,6 @@ function PiazzaCalls() {
       .forEach(track => track.stop());
     setSource(deviceSelect.value)
     await getMedia(deviceSelect.value)
-  }
-  const handleStopClick = () => {
-    const promise = myStream
-    promise.getTracks()
-      .forEach(track => track.stop())
   }
   useEffect(() => {
     getMedia(source)
@@ -127,17 +121,17 @@ function PiazzaCalls() {
 
     myPeerConnection = new RTCPeerConnection(
       {
-        iceServers: [
-          {
-            urls: iceServers.map((value) => {
-              return (
-                value.urls
-              )
-            })
-          }
-        ]
-      }
-    );
+      iceServers: [
+        {
+          urls: iceServers.map((value) => {
+            return (
+              value.urls
+            )
+          })
+        }
+      ]
+    }
+  );
     myPeerConnection.addEventListener('icecandidate', handleIce)
     myPeerConnection.addEventListener('addstream', handleAddStream)
     if (myStream) {
@@ -216,26 +210,24 @@ function PiazzaCalls() {
   })
 
   return (
-    <div
-    // id="myStream"
-    >
+    <div id="myStream">
       <div className={`flex ${!largeMedia && 'flex-col'} gap-1`}>
         <video
-          id="yourScreen"
-          ref={yourRef}
-          width="320"
-          height="240"
-          controls
-          autoPlay
-        ></video>
-        <video
           id="myScreen"
-          ref={myRef}
           width="320"
           height="240"
           controls
           autoPlay
           muted
+        >
+          {/* <source src={sources} /> */}
+        </video>
+        <video
+          id="yourScreen"
+          width="320"
+          height="240"
+          controls
+          autoPlay
         ></video>
       </div>
       <div>
@@ -246,21 +238,20 @@ function PiazzaCalls() {
           <Button onClick={handleStreamClick}>
             {videoOn ? 'turn stream on' : 'turn stream off'}
           </Button>
-          <Button onClick={handleStopClick}>
-            stop
-          </Button>
+          {/* <button id='mute' onClick={handleMuteClick}>mute</button>
+        <button id='stream' onClick={handleStreamClick}>turn stream off</button> */}
         </div>
         <select id="devices" onChange={handleDeviceChange}>
           {options.map((value, index) => {
             return (
-              <option key={index} value={value.deviceId} selected={stream?.getVideoTracks()[0].id === value.deviceId}>
+              <option key={index} value={value.deviceId}>
                 {value.label}
               </option>
             )
           })}
         </select>
       </div>
-      {errorMessage && <div>{errorMessage}</div>}
+      {noDevice && <div>{noDevice.toString()}</div>}
     </div >
   )
 }
