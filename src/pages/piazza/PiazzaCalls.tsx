@@ -55,11 +55,13 @@ function PiazzaCalls() {
 
   async function handleDeviceChange(event) {
     console.log(event.target.value)
-    const promise = myStream
-    promise.getTracks()
+    // const promise = myStream
+    // promise.getTracks()
+    //   .forEach(track => track.stop());
+    myRef.current.getTracks()
       .forEach(track => track.stop());
     setSource(event.target.value)
-    // await getMedia(event.target.value)
+    await getMedia(event.target.value)
     if (myPeerConnection) {
       console.log(myPeerConnection.getSenders())
       const videoTrack = myStream.getVideoTracks()[0]
