@@ -10,10 +10,10 @@ function PiazzaCalls() {
   const [audioOn, setAudioOn] = useState(true)
   const [videoOn, setVideoOn] = useState(true)
   const [errorMessage, setErrorMessage] = useState('')
+  const [source, setSource] = useState(null)
+  // const [noDevice, setNoDevice] = useState('')
   const [stream, setStream] = useState(null)
   const [selected, setSelected] = useState(null)
-  // const [noDevice, setNoDevice] = useState('')
-  const [source, setSource] = useState(null)
   const myRef = useRef(null)
   const yourRef = useRef(null)
   const largeMedia = useLargeMedia()
@@ -57,7 +57,7 @@ function PiazzaCalls() {
     // await getMedia(event.target.value)
     if (myPeerConnection) {
       console.log(myPeerConnection.getSenders())
-      const videoTrack = stream.getVideoTracks()[0]
+      const videoTrack = myStream.getVideoTracks()[0]
       const videoSender = myPeerConnection.getSenders().find((sender) => sender.track.kind === 'video')
       videoSender.replaceTrack(videoTrack)
     }
