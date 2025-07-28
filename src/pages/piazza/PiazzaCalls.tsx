@@ -24,7 +24,11 @@ function PiazzaCalls() {
     video: true,
   }
   const roomName = location.search.slice(4)
-  
+  // useEffect(() => {
+  //   if (myRef.current) {
+  //     myRef.current.srcObject = stream
+  //   }
+  // }, [stream])
   async function handleMuteClick() {
     const promise = myStream
     if (promise) {
