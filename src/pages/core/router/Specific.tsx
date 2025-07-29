@@ -1,5 +1,5 @@
 import { Clock, PlusCircle } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Avatars from '../Avatars'
 import PageTitle from '../pageTitle/PageTitle'
 import Popups from '../Popups'
@@ -47,12 +47,37 @@ function Specific({ userObj }) {
     }
     reader.readAsDataURL(theFile)
   }
+  useEffect(() => {
+    if (attachment && !changedImage.attachment) {
+      setChangedImage({
+        ...changedImage,
+        attachment: true,
+        profileImage: true,
+        profileImageUrl: attachment,
+        changed: true,
+      })
+    }
+  }, [attachment])
+  console.log(attachment)
   return (
     <div>
       <PageTitle icon={<Clock />} title={'앨범'} />
       <Popups
         trigger={
-          <div className="flex gap-5 justify-center">
+          <div
+            className="flex gap-5 justify-center"
+            onClick={() => {
+              handleChangedImage({
+                ...changedImage,
+                attachment: '',
+                profileColor: profile.profileColor,
+                profileImage: false,
+                defaultProfile: profile.defaultProfile,
+                changed: false,
+              })
+              changeAttachment(null)
+            }}
+          >
             <PlusCircle />
             추가
           </div>
