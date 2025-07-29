@@ -33,8 +33,6 @@ function Piazza({ userObj }: Props) {
   const handleChatDisplayName = (newValue) => {
     setChatDisplayName(newValue)
   }
-  // const [multiple, setMultiple] = useState(true)
-  // const conversation = state?.conversation || 'piazza'
   const conversation = location.search.slice(location.search.indexOf('=') + 1)
   console.log(chattingUser)
   console.log(chatUid)
@@ -95,7 +93,6 @@ function Piazza({ userObj }: Props) {
   //   }
   // }, [])
   // const { keyBoardOffset, windowHeight } = useKeyboardOffset();
-  // console.log(keyBoardOffset, windowHeight);
   // For the rare legacy browsers that don't support it
   // window.addEventListener('resize', () => {
   //   if (!window.visualViewport) {
@@ -115,7 +112,14 @@ function Piazza({ userObj }: Props) {
   useEffect(() => {
     dispatch(changeBottomNavigation(5))
   })
-  // const displayName = state?.displayName
+  useEffect(() => {
+    if (searchParams.get('call') === 'video') {
+      document.getElementById('videoCall')?.click()
+    }
+    if (searchParams.get('call') === 'audio') {
+      document.getElementById('audioCall')?.click()
+    }
+  }, [])
   return (
     <>
       {!isKeyboardOpen && <PiazzaTitle multiple={!conversation} displayName={chatDisplayName} />}
@@ -123,7 +127,6 @@ function Piazza({ userObj }: Props) {
         handleChatUid={handleChatUid}
         handleChatDisplayName={handleChatDisplayName}
       />
-      {/* {calls && <PiazzaCalls />} */}
       <PiazzaForm chattingUser={chattingUser} userObj={userObj} multiple={!conversation} messages={messages} handleMessages={(newValue) => setMessages(newValue)} messagesList={messagesList} handleMessagesList={(newValue) => setMessagesList(newValue)} />
       <MorphingDialog>
         <MorphingDialogTrigger>
