@@ -63,7 +63,11 @@ function Specific({ userObj }) {
   const newImage = () => {
     if (attachment) {
       setImages((images) => [
-        { displayName: userObj.displayName, defaultProfile: attachment },
+        {
+          uid: userObj.uid,
+          displayName: userObj.displayName,
+          defaultProfile: attachment,
+        },
         ...images,
       ])
     }
@@ -85,10 +89,12 @@ function Specific({ userObj }) {
       const docs = await getDocs(ref)
       const newImages = []
       docs.forEach((element) => {
+        const uid = element.data().uid
         const displayName = element.data().displayName
         const defaultProfile = element.data().defaultProfile
         if (defaultProfile) {
           newImages.push({
+            uid: uid,
             displayName: displayName,
             defaultProfile: defaultProfile,
           })
