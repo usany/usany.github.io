@@ -1,5 +1,6 @@
 import { Clock, PlusCircle } from 'lucide-react'
 import { useState } from 'react'
+import Avatars from '../Avatars'
 import PageTitle from '../pageTitle/PageTitle'
 import Popups from '../Popups'
 
@@ -18,6 +19,16 @@ function Specific({ userObj }) {
     initial: true,
     changed: false,
   })
+  const profile = {
+    attachment: false,
+    profileCharacter: '',
+    profileImage: false,
+    defaultProfile: '',
+    profileImageUrl: '',
+    profileColor: '',
+    initial: true,
+    changed: false,
+  }
   const handleChangedImage = (newValue) => setChangedImage(newValue)
   const onFileChange = (event) => {
     const {
@@ -48,7 +59,11 @@ function Specific({ userObj }) {
         }
         title={'추가'}
         content={
-          <div className="flex px-5 justify-center p-5">
+          <div className="flex flex-col px-5 items-center gap-5">
+            <Avatars
+              element={changedImage.changed ? changedImage : profile}
+              profile={true}
+            />
             <label htmlFor="file" className="p-5 rounded border border-dashed">
               내 파일 업로드
             </label>
