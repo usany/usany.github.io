@@ -52,7 +52,6 @@ function Specific({ userObj }) {
       const {
         currentTarget: { result },
       } = finishedEvent
-      // console.log(result)
       changeAttachment(result)
     }
     reader.readAsDataURL(theFile)
