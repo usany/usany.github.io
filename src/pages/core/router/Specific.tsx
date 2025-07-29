@@ -1,4 +1,4 @@
-import { Clock } from 'lucide-react'
+import { Clock, PlusCircle } from 'lucide-react'
 import { useState } from 'react'
 import PageTitle from '../pageTitle/PageTitle'
 import Popups from '../Popups'
@@ -40,7 +40,12 @@ function Specific({ userObj }) {
     <div>
       <PageTitle icon={<Clock />} title={'앨범'} />
       <Popups
-        trigger={<div>추가</div>}
+        trigger={
+          <div className="flex gap-5 justify-center">
+            <PlusCircle />
+            추가
+          </div>
+        }
         title={'추가'}
         content={
           <div className="flex px-5 justify-center p-5">
