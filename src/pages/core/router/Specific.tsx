@@ -62,7 +62,10 @@ function Specific({ userObj }) {
   }
   const newImage = () => {
     if (attachment) {
-      setImages((images) => [attachment, ...images])
+      setImages((images) => [
+        { displayName: userObj.displayName, defaultProfile: attachment },
+        ...images,
+      ])
     }
   }
   useEffect(() => {
@@ -82,9 +85,13 @@ function Specific({ userObj }) {
       const docs = await getDocs(ref)
       const newImages = []
       docs.forEach((element) => {
+        const displayName = element.data().displayName
         const defaultProfile = element.data().defaultProfile
         if (defaultProfile) {
-          newImages.push(defaultProfile)
+          newImages.push({
+            displayName: displayName,
+            defaultProfile: defaultProfile,
+          })
         }
       })
       setImages(newImages)
@@ -139,7 +146,7 @@ function Specific({ userObj }) {
             <MorphingDialog key={index}>
               <MorphingDialogTrigger>
                 <img
-                  src={element}
+                  src={element.defaultProfile}
                   className="w-[80px] h-[80px]"
                   onClick={() => {
                     navigate(`/specific?id=${index}`)
@@ -151,7 +158,10 @@ function Specific({ userObj }) {
                   drawerOpen={drawerOpen}
                   drawerOpenFalse={() => setDrawerOpen(false)}
                 >
-                  <img src={element} className="w-[180px] h-[180px]" />
+                  <div className="flex flex-col">
+                    <div>Photo by {element.displayName}</div>
+                    <img src={element.defaultProfile} />
+                  </div>
                   {/* <MorphingDialogClose>완료</MorphingDialogClose> */}
                 </MorphingDialogContent>
               </MorphingDialogContainer>
