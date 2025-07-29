@@ -1,11 +1,12 @@
 import { collection, getDocs } from 'firebase/firestore'
 import { Clock, PlusCircle } from 'lucide-react'
 import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { dbservice } from 'src/baseApi/serverbase'
 import {
   MorphingDialog,
-  MorphingDialogClose,
   MorphingDialogContainer,
+  MorphingDialogContent,
   MorphingDialogTrigger,
 } from 'src/components/ui/morphing-dialog'
 import Avatars from '../Avatars'
@@ -26,6 +27,7 @@ function Specific({ userObj }) {
     initial: true,
     changed: false,
   })
+  const [drawerOpen, setDrawerOpen] = useState(false)
   const profile = {
     attachment: false,
     profileCharacter: '',
@@ -36,6 +38,7 @@ function Specific({ userObj }) {
     initial: true,
     changed: false,
   }
+  const navigate = useNavigate()
   const handleChangedImage = (newValue) => setChangedImage(newValue)
   const onFileChange = (event) => {
     const {
@@ -124,13 +127,22 @@ function Specific({ userObj }) {
           return (
             <MorphingDialog key={index}>
               <MorphingDialogTrigger>
-                <img src={element} className="w-[80px] h-[80px]" />
+                <img
+                  src={element}
+                  className="w-[80px] h-[80px]"
+                  onClick={() => {
+                    navigate(`/specific?id=${index}`)
+                  }}
+                />
               </MorphingDialogTrigger>
               <MorphingDialogContainer>
-                <img src={element} className="w-[180px] h-[180px]" />
-                {/* <MorphingDialogContent>
-                </MorphingDialogContent> */}
-                <MorphingDialogClose>완료</MorphingDialogClose>
+                <MorphingDialogContent
+                  drawerOpen={drawerOpen}
+                  drawerOpenFalse={() => setDrawerOpen(false)}
+                >
+                  <img src={element} className="w-[180px] h-[180px]" />
+                  {/* <MorphingDialogClose>완료</MorphingDialogClose> */}
+                </MorphingDialogContent>
               </MorphingDialogContainer>
             </MorphingDialog>
           )
