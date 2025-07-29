@@ -7,6 +7,7 @@ import NavigationTop from 'src/pages/core/navigationTop/NavigationTop'
 import Adds from '../../add/Adds'
 import Board from '../../board/Board'
 import Loadings from './loadings/Loadings'
+import Specific from './Specific'
 interface Props {
   userObj: User | null
 }
@@ -49,7 +50,7 @@ const Router = ({ userObj }: Props) => {
                   />
                   <Route
                     path="/specific"
-                    element={<Piazza userObj={userObj} />}
+                    element={<Specific userObj={userObj} />}
                   />
                 </>
               )}
