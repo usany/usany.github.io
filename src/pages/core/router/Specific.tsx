@@ -127,7 +127,7 @@ function Specific({ userObj }) {
         close={<div onClick={newImage}>완료</div>}
         attachment={changedImage}
       />
-      <div className="grid grid-cols-[repeat(auto-fit,minmax(80px,1fr))] col-span-full">
+      <div className="grid grid-cols-[repeat(auto-fit,minmax(80px,1fr))] col-span-full p-5">
         {images.map((element, index) => {
           return (
             <MorphingDialog key={index}>
