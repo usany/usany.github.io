@@ -2,7 +2,7 @@ import { User } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation } from "react-router-dom";
+import { useLocation, useSearchParams } from "react-router-dom";
 import { dbservice } from "src/baseApi/serverbase";
 import { MorphingDialog, MorphingDialogClose, MorphingDialogContainer, MorphingDialogTrigger } from "src/components/ui/morphing-dialog";
 import PiazzaForm from 'src/pages/piazza/piazzaForm/PiazzaForm';
@@ -25,7 +25,8 @@ function Piazza({ userObj }: Props) {
   const [chattingUser, setChattingUser] = useState(null)
   const [chatUid, setChatUid] = useState('')
   const [chatDisplayName, setChatDisplayName] = useState('')
-  const [calls, setCalls] = useState('')
+  const [searchParams, setSearchParams] = useSearchParams()
+
   const handleChatUid = (newValue) => {
     setChatUid(newValue)
   }
@@ -81,7 +82,10 @@ function Piazza({ userObj }: Props) {
     };
   }, [isKeyboardOpen]);
   const stopCalls = () => {
-    setCalls('')
+    setSearchParams(searchParams => {
+      searchParams.delete('call')
+      return searchParams
+    })
     document.getElementById('myScreen')?.srcObject.getTracks()
       .forEach(track => track.stop())
   }
