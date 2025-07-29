@@ -390,7 +390,35 @@ function PiazzaForm({ chattingUser, userObj, multiple, messages, handleMessages,
       console.log(error)
     }
   }
-
+  const onClickVideoCall = () => {
+    document.getElementById('videoCall')?.click()
+    let toUserRef
+    let toUser
+    let messagingToken
+    let preferLanguage
+    if (chattingUser) {
+      toUserRef = doc(dbservice, `members/${chattingUser.uid}`)
+      toUser = await getDoc(toUserRef)
+      messagingToken = toUser.data()?.messagingToken
+      preferLanguage = toUser.data()?.preferLanguage
+    }
+    const passingObject = {
+      conversation: conversation,
+      isVideo: true,
+      sendingToken: messagingToken,
+      connectedUrl: `/piazza?id=${conversation}&call=video`,
+      preferLanguage: preferLanguage,
+      userUid: userUid,
+      id: userName,
+      conversationUid: chattingUser?.uid,
+      conversationName: chattingUser?.displayName,
+      profileImage: profileImage,
+      defaultProfile: defaultProfile,
+      profileImageUrl: profileImageUrl,
+      profileUrl: profileUrl,
+    };
+    webSocket.emit('call', passingObject)
+  }
   return (
     <form className={`fixed w-screen ${piazzaForm ? 'bottom-0' : 'bottom-[60px]'} flex gap-px`} onSubmit={onSendSubmitHandler}>
       {conversation && conversation !== 'piazza' &&
@@ -407,6 +435,7 @@ function PiazzaForm({ chattingUser, userObj, multiple, messages, handleMessages,
               <CardContent>
                 <div className='flex flex-col items-center gap-5' onClick={() => {
                   document.getElementById('videoCall')?.click()
+                  onClickVideoCall()
                 }}>
                   <DrawerClose>
                     <div className='flex justify-center'>
