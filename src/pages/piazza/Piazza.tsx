@@ -9,6 +9,7 @@ import PiazzaForm from 'src/pages/piazza/piazzaForm/PiazzaForm';
 import PiazzaScreen from 'src/pages/piazza/piazzaScreen/PiazzaScreen';
 import PiazzaTitle from 'src/pages/piazza/piazzaTitle/PiazzaTitle';
 import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice';
+import { webSocket } from "src/webSocket";
 import PiazzaAudioCall from "./PiazzaAudioCall";
 import PiazzaCalls from "./PiazzaCalls";
 // import { useKeyboardOffset } from 'virtual-keyboard-offset';
@@ -79,13 +80,40 @@ function Piazza({ userObj }: Props) {
       }
     };
   }, [isKeyboardOpen]);
-  const stopCalls = () => {
+  const stopCalls = async () => {
     setSearchParams(searchParams => {
       searchParams.delete('call')
       return searchParams
     })
     document.getElementById('myScreen')?.srcObject.getTracks()
       .forEach(track => track.stop())
+    let toUserRef
+    let toUser
+    let messagingToken
+    let preferLanguage
+    if (chattingUser) {
+      toUserRef = doc(dbservice, `members/${chattingUser.uid}`)
+      toUser = await getDoc(toUserRef)
+      messagingToken = toUser.data()?.messagingToken
+      preferLanguage = toUser.data()?.preferLanguage
+    }
+    const passingObject = {
+      conversation: conversation,
+      isVideo: true,
+      sendingToken: messagingToken,
+      connectedUrl: `/piazza?id=${conversation}&call=video`,
+      preferLanguage: preferLanguage,
+      userUid: userObj.uid,
+      id: userObj.displayName,
+      conversationUid: chattingUser?.uid,
+      conversationName: chattingUser?.displayName,
+      // profileImage: profileImage,
+      // defaultProfile: defaultProfile,
+      // profileImageUrl: profileImageUrl,
+      // profileUrl: profileUrl,
+    };
+    console.log(passingObject)
+    webSocket.emit('call', passingObject)
   }
   // useEffect(() => {
   //   if (state?.multiple !== undefined) {
