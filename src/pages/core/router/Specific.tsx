@@ -162,7 +162,6 @@ function Specific({ userObj }) {
                     <div>Photo by {element.displayName}</div>
                     <img src={element.defaultProfile} />
                   </div>
-                  {/* <MorphingDialogClose>완료</MorphingDialogClose> */}
                 </MorphingDialogContent>
               </MorphingDialogContainer>
             </MorphingDialog>
