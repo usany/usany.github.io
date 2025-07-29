@@ -4,8 +4,8 @@ import { useEffect, useState } from 'react'
 import { dbservice } from 'src/baseApi/serverbase'
 import {
   MorphingDialog,
+  MorphingDialogClose,
   MorphingDialogContainer,
-  MorphingDialogContent,
   MorphingDialogTrigger,
 } from 'src/components/ui/morphing-dialog'
 import Avatars from '../Avatars'
@@ -127,9 +127,10 @@ function Specific({ userObj }) {
                 <img src={element} className="w-[80px] h-[80px]" />
               </MorphingDialogTrigger>
               <MorphingDialogContainer>
-                <MorphingDialogContent>
-                  <img src={element} className="w-[80px] h-[80px]" />
-                </MorphingDialogContent>
+                <img src={element} className="w-[180px] h-[180px]" />
+                {/* <MorphingDialogContent>
+                </MorphingDialogContent> */}
+                <MorphingDialogClose>완료</MorphingDialogClose>
               </MorphingDialogContainer>
             </MorphingDialog>
           )
