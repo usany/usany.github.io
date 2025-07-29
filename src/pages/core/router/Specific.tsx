@@ -57,6 +57,11 @@ function Specific({ userObj }) {
     }
     reader.readAsDataURL(theFile)
   }
+  const newImage = () => {
+    if (attachment) {
+      setImages((images) => [attachment, ...images])
+    }
+  }
   useEffect(() => {
     if (attachment && !changedImage.attachment) {
       setChangedImage({
@@ -119,7 +124,7 @@ function Specific({ userObj }) {
             <input id="file" type="file" onChange={onFileChange} hidden />
           </div>
         }
-        close={<div>완료</div>}
+        close={<div onClick={newImage}>완료</div>}
         attachment={changedImage}
       />
       <div className="grid grid-cols-[repeat(auto-fit,minmax(80px,1fr))] col-span-full">
