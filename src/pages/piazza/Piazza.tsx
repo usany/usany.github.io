@@ -113,7 +113,7 @@ function Piazza({ userObj }: Props) {
       // profileUrl: profileUrl,
     };
     console.log(passingObject)
-    webSocket.emit('call', passingObject)
+    webSocket.emit('quitCall', passingObject)
   }
   // useEffect(() => {
   //   if (state?.multiple !== undefined) {
