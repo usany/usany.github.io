@@ -5,8 +5,7 @@ import PageTitle from '../pageTitle/PageTitle'
 import Popups from '../Popups'
 
 function Specific({ userObj }) {
-  const [cardFlipped, setCardFlipped] = useState(false)
-  const [onMove, setOnMove] = useState(false)
+  const [images, setImages] = useState([])
   const [attachment, setAttachment] = useState(null)
   const changeAttachment = (newValue) => setAttachment(newValue)
   const [changedImage, setChangedImage] = useState({
@@ -58,6 +57,9 @@ function Specific({ userObj }) {
       })
     }
   }, [attachment])
+  useEffect(() => {
+    const bringImages = async () => {}
+  })
   console.log(attachment)
   return (
     <div>
