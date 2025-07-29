@@ -66,7 +66,9 @@ function Specific({ userObj }) {
       const newImages = []
       docs.forEach((element) => {
         const defaultProfile = element.data().defaultProfile
-        newImages.push(defaultProfile)
+        if (defaultProfile) {
+          newImages.push(defaultProfile)
+        }
       })
       setImages(newImages)
     }
@@ -111,7 +113,7 @@ function Specific({ userObj }) {
         close={<div>완료</div>}
         attachment={changedImage}
       />
-      <div className="grid grid-cols-[repeat(auto-fit,minmax(180px,1fr))] col-span-full">
+      <div className="grid grid-cols-[repeat(auto-fit,minmax(80px,1fr))] col-span-full">
         {images.map((element, index) => {
           return <img key={index} src={element} className="w-[80px] h-[80px]" />
         })}
