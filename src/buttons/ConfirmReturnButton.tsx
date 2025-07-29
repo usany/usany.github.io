@@ -21,8 +21,8 @@ interface Props {
   increaseRound: () => void
 }
 
-const onConfirmReturn = async ({ num, points, message, uid, displayName, profileUrl }) => {
-  const { data, messagingToken } = await specificProcess({ message: message, toUid: message.text.choose === 1 ? null : uid })
+const onConfirmReturn = async ({ num, points, message, userObj, profileUrl }) => {
+  const { data, messagingToken } = await specificProcess({ message: message, toUid: message.text.choose === 1 ? null : userObj.uid })
   const dataDoc = await getDoc(data)
   updateDoc(data, {
     round: 5,
@@ -86,7 +86,7 @@ const onConfirmReturn = async ({ num, points, message, uid, displayName, profile
 
   webSocket.emit('confirmReturn', passingObject)
 }
-const ConfirmReturnButton = ({ num, points, message, uid, displayName, increaseRound, handleConfirmedReturnClock }: Props) => {
+const ConfirmReturnButton = ({ num, points, message, userObj, increaseRound, handleConfirmedReturnClock }: Props) => {
   const languages = useSelectors((state) => state.languages.value)
   const profileUrl = useSelectors((state) => state.profileUrl.value)
 
@@ -98,8 +98,7 @@ const ConfirmReturnButton = ({ num, points, message, uid, displayName, increaseR
           num: num,
           points: points,
           message: message,
-          uid: uid,
-          displayName: displayName,
+          userObj: userObj,
           profileUrl: profileUrl
         })
         increaseRound()

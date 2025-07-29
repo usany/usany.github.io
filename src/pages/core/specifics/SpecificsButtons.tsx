@@ -5,24 +5,6 @@ import { useEffect, useState } from 'react'
 import { dbservice } from 'src/baseApi/serverbase'
 import Btn from 'src/buttons/Buttons'
 import { useSelectors } from 'src/hooks/useSelectors'
-const shadowColorArray = [
-  'lightblue',
-  'lightcoral',
-  'lightcyan',
-  'lightgoldenrodyellow',
-  'lightgray',
-  'lightgreen',
-  'lightpink',
-  'lightsalmon',
-  'lightseagreen',
-  'lightskyblue',
-  'lightsteelblue',
-  'lightyellow',
-]
-const alpha = Array.from(Array(26)).map((e, i) => i + 65)
-const letters = alpha.map((x) => String.fromCharCode(x))
-const numbers = Array.from({ length: 10 }, (e, i) => `${i}`)
-const mergedArray = letters.concat(numbers)
 
 interface Props {
   userObj: User | null
@@ -79,8 +61,6 @@ function SpecificsButtons({
           <Btn
             messageObj={message}
             isOwner={message.creatorId === userObj.uid}
-            uid={userObj.uid}
-            displayName={userObj.displayName}
             userObj={userObj}
             num={num}
             points={points}

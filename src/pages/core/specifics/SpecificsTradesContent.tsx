@@ -64,21 +64,22 @@ const SpecificsTradesContent = ({
       </div>
       <div className="flex justify-center p-5">
         <Link
-          to="/profile"
+          to={`/profile${userObj.uid !== uid ? `/?id:${uid}` : ''}`}
           state={{
             element: {
               uid: uid,
               displayName: displayName,
-              profileUrl: url,
-              profileImageUrl: url,
-            },
+              profileImage: passingProfile.profileImage,
+              defaultProfile: passingProfile.defaultProfile,
+              profileImageUrl: passingProfile.profileImageUrl,
+            }
           }}
         >
           <DrawerClose>
             <Button
               variant="outlined"
               onClick={() => {
-                // handleClose()
+                document.body.classList.remove('overflow-hidden')
               }}
             >
               프로필 확인
@@ -87,7 +88,7 @@ const SpecificsTradesContent = ({
         </Link>
         {userObj.uid !== message?.creatorId && (
           <Link
-            to="/piazza"
+            to={`/piazza/?id=${conversation}`}
             state={{
               conversation: conversation,
               displayName: displayName,
@@ -101,8 +102,7 @@ const SpecificsTradesContent = ({
               <Button
                 variant="outlined"
                 onClick={() => {
-                  // handleMessagesList([])
-                  // handleMultiple(false)
+                  document.body.classList.remove('overflow-hidden')
                 }}
               >
                 개인 대화

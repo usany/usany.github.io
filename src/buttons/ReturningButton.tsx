@@ -5,9 +5,9 @@ import { useSelectors } from 'src/hooks/useSelectors'
 import { webSocket } from 'src/webSocket.tsx'
 import specificProcess from './specificProcess'
 
-const onReturning = async ({ message, uid, displayName, profileUrl }) => {
+const onReturning = async ({ message, userObj, profileUrl }) => {
 
-  const { data, messagingToken } = await specificProcess({ message: message, toUid: message.text.choose === 1 ? uid : null })
+  const { data, messagingToken } = await specificProcess({ message: message, toUid: message.text.choose === 1 ? userObj.uid : null })
   const doc = await getDoc(data)
   const passingObject = {
     id: message.id,
@@ -28,7 +28,7 @@ const onReturning = async ({ message, uid, displayName, profileUrl }) => {
   webSocket.emit('returning', passingObject)
 }
 
-const ReturningButton = ({ message, uid, displayName, increaseRound, handleReturningClock }) => {
+const ReturningButton = ({ message, userObj, increaseRound, handleReturningClock }) => {
   const languages = useSelectors((state) => state.languages.value)
   const profileUrl = useSelectors((state) => state.profileUrl.value)
 
@@ -39,8 +39,7 @@ const ReturningButton = ({ message, uid, displayName, increaseRound, handleRetur
         increaseRound()
         onReturning({
           message: message,
-          uid: uid,
-          displayName: displayName,
+          userObj: userObj,
           profileUrl: profileUrl
         })
         handleReturningClock(new Date().toString())

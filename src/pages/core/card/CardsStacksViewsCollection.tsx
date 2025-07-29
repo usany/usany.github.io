@@ -1,5 +1,6 @@
 import { User } from 'firebase/auth'
 import { useEffect, useState } from 'react'
+import { Skeleton } from 'src/components/ui/skeleton'
 import Cards from './Cards'
 const deleteMessage = (id: string) => {
   console.log(id)
@@ -48,6 +49,8 @@ const CardsStacksViewsCollection = ({
       id="items"
       className="grid grid-cols-[repeat(auto-fit,minmax(180px,1fr))] col-span-full"
     >
+      {/* <Skeleton className='w-full h-[260px] rounded bg-light-2' /> */}
+      {!messages.length && <Skeleton className='w-full h-[276px] rounded bg-light-2' />}
       {messages.map((value) => {
         const isOwner = value.creatorId === userObj.uid
         if (value.round !== 5) {

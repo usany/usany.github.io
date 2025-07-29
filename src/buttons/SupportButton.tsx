@@ -6,7 +6,7 @@ import { useSelectors } from 'src/hooks/useSelectors'
 import { webSocket } from 'src/webSocket.tsx'
 import specificProcess from './specificProcess'
 
-const onSupporting = async ({ message, uid, displayName, profileUrl }) => {
+const onSupporting = async ({ message, userObj, profileUrl }) => {
   const { data, messagingToken } = await specificProcess({ message: message, toUid: null })
   const userDoc = await getDoc(data)
   const passingObject = {
@@ -15,19 +15,19 @@ const onSupporting = async ({ message, uid, displayName, profileUrl }) => {
     sendingToken: messagingToken,
     creatorId: message.creatorId,
     creatorName: message.displayName,
-    connectedId: uid,
-    connectedName: displayName,
+    connectedId: userObj.uid,
+    connectedName: userObj.displayName,
     connectedUrl: profileUrl,
     preferLanguage: userDoc.data()?.preferLanguage || 'ko',
     connectedClock: new Date().toString(),
   }
-  const connectedUserRef = doc(dbservice, `members/${uid}`)
+  const connectedUserRef = doc(dbservice, `members/${userObj.uid}`)
   const connectedUserSnap = await getDoc(connectedUserRef)
   const connectedUserData = connectedUserSnap.data()
   updateDoc(data, {
     round: 2,
-    connectedId: uid,
-    connectedName: displayName,
+    connectedId: userObj.uid,
+    connectedName: userObj.displayName,
     connectedUrl: profileUrl,
     connectedProfileImage: connectedUserData.profileImage,
     connectedDefaultProfile: connectedUserData.defaultProfile,
@@ -46,8 +46,6 @@ const SupportButton = ({
   handleClose,
   handleDialog,
   message,
-  uid,
-  displayName,
   increaseRound,
   changeConnectedUser,
   toggleOnTransfer,
@@ -71,14 +69,13 @@ const SupportButton = ({
             const clock = new Date().toString()
             onSupporting({
               message: message,
-              uid: uid,
-              displayName: displayName,
+              userObj: userObj,
               profileUrl: sendingProfile
             })
             increaseRound()
             changeConnectedUser({
-              uid: uid,
-              displayName: displayName,
+              uid: userObj.uid,
+              displayName: userObj.displayName,
               url: sendingProfile
             })
             toggleOnTransfer()

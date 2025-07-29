@@ -45,7 +45,8 @@ const ListsView = ({ userObj, elements, userSearch, multiple, link, handleUser }
           } else {
             displayName = element.displayName
           }
-          const onClick = () => link ? navigate(link, {
+          const userLink = element.uid === userObj?.uid ? link : link + `/?id=${element.uid}`
+          const onClick = () => userLink ? navigate(userLink, {
             state: {
               element: element,
             }

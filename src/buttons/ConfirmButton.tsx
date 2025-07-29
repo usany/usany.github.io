@@ -5,8 +5,8 @@ import { useSelectors } from 'src/hooks/useSelectors'
 import { webSocket } from 'src/webSocket.tsx'
 import specificProcess from './specificProcess'
 
-const onConfirm = async ({ message, uid, displayName, profileUrl }) => {
-  const { data, messagingToken } = await specificProcess({ message: message, toUid: uid })
+const onConfirm = async ({ message, userObj, profileUrl }) => {
+  const { data, messagingToken } = await specificProcess({ message: message, toUid: userObj.uid })
   console.log(data)
   const doc = await getDoc(data)
   const passingObject = {
@@ -28,7 +28,7 @@ const onConfirm = async ({ message, uid, displayName, profileUrl }) => {
   webSocket.emit('confirm', passingObject)
 }
 
-const ConfirmButton = ({ message, uid, displayName, increaseRound, handleConfirmingClock }) => {
+const ConfirmButton = ({ message, userObj, increaseRound, handleConfirmingClock }) => {
   const languages = useSelectors((state) => state.languages.value)
   const profileUrl = useSelectors((state) => state.profileUrl.value)
 
@@ -38,8 +38,7 @@ const ConfirmButton = ({ message, uid, displayName, increaseRound, handleConfirm
       onClick={() => {
         onConfirm({
           message: message,
-          uid: uid,
-          displayName: displayName,
+          userObj: userObj,
           profileUrl: profileUrl,
         })
         increaseRound()

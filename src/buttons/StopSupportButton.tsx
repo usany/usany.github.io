@@ -6,7 +6,7 @@ import { useSelectors } from 'src/hooks/useSelectors'
 import { webSocket } from 'src/webSocket.tsx'
 import specificProcess from './specificProcess'
 
-const onStopSupporting = async ({ message, uid, displayName, profileUrl }) => {
+const onStopSupporting = async ({ message, userObj, profileUrl }) => {
   const { data, messagingToken } = await specificProcess({ message: message, toUid: null })
   const userDoc = await getDoc(data)
   const passingObject = {
@@ -15,8 +15,8 @@ const onStopSupporting = async ({ message, uid, displayName, profileUrl }) => {
     sendingToken: messagingToken,
     creatorId: message.creatorId,
     creatorName: message.displayName,
-    connectedId: uid,
-    connectedName: displayName,
+    connectedId: userObj.uid,
+    connectedName: userObj.displayName,
     connectedUrl: profileUrl,
     preferLanguage: userDoc.data()?.preferLanguage || 'ko',
   }
@@ -30,7 +30,7 @@ const onStopSupporting = async ({ message, uid, displayName, profileUrl }) => {
     connectedProfileImageUrl: null,
     connectedUrl: null,
   })
-  const connectedUserRef = doc(dbservice, `members/${uid}`)
+  const connectedUserRef = doc(dbservice, `members/${userObj.uid}`)
   const connectedUserSnap = await getDoc(connectedUserRef)
   const connectedUserData = connectedUserSnap.data()
   const connectedUserConnectedCards = connectedUserData?.connectedCards
@@ -40,7 +40,7 @@ const onStopSupporting = async ({ message, uid, displayName, profileUrl }) => {
   })
   webSocket.emit('stop supporting', passingObject)
 }
-const StopSupportButton = ({ userObj, message, uid, displayName, decreaseRound, changeConnectedUser, toggleOnTransfer, handleConnectedClock }) => {
+const StopSupportButton = ({ userObj, message, decreaseRound, changeConnectedUser, toggleOnTransfer, handleConnectedClock }) => {
   const languages = useSelectors((state) => state.languages.value)
   const profileUrl = useSelectors((state) => state.profileUrl.value)
 
@@ -56,8 +56,7 @@ const StopSupportButton = ({ userObj, message, uid, displayName, decreaseRound, 
           if (userObj) {
             onStopSupporting({
               message: message,
-              uid: uid,
-              displayName: displayName,
+              userObj: userObj,
               profileUrl: profileUrl
             })
             decreaseRound()

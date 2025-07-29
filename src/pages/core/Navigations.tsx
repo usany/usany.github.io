@@ -1,15 +1,15 @@
-import { alpha } from "@mui/material";
-import BottomNavigation from '@mui/material/BottomNavigation';
-import BottomNavigationAction from '@mui/material/BottomNavigationAction';
-import { User } from 'firebase/auth';
-import { Pencil, Presentation, Umbrella } from 'lucide-react';
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { useSelectors } from 'src/hooks/useSelectors';
-import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice';
-import { changePiazzaForm } from "src/stateSlices/piazzaFormSlice";
-import texts from 'src/texts.json';
+import { alpha } from '@mui/material'
+import BottomNavigation from '@mui/material/BottomNavigation'
+import BottomNavigationAction from '@mui/material/BottomNavigationAction'
+import { User } from 'firebase/auth'
+import { Pencil, Presentation, Umbrella } from 'lucide-react'
+import { startTransition, useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { useSelectors } from 'src/hooks/useSelectors'
+import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
+import { changePiazzaForm } from 'src/stateSlices/piazzaFormSlice'
+import texts from 'src/texts.json'
 
 interface Props {
   userObj: User | null
@@ -18,13 +18,13 @@ interface ThemeRootState {
   theme: string
 }
 function Navigations() {
-  const [backgroundColor, setBackgroundColor] = useState('#e2e8f0');
-  const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
+  const [backgroundColor, setBackgroundColor] = useState('#e2e8f0')
+  const [isKeyboardOpen, setIsKeyboardOpen] = useState(false)
   const theme = useSelector((state: ThemeRootState) => state.theme.value)
   const piazzaForm = useSelector((state) => state.piazzaForm.value)
-  const bottomNavigation = useSelectors(state => state.bottomNavigation.value)
-  const languages = useSelectors(state => state.languages.value)
-  const userCertificated = useSelectors(state => state.userCertificated.value)
+  const bottomNavigation = useSelectors((state) => state.bottomNavigation.value)
+  const languages = useSelectors((state) => state.languages.value)
+  const userCertificated = useSelectors((state) => state.userCertificated.value)
   const dispatch = useDispatch()
   useEffect(() => {
     if (theme === 'dark') {
@@ -46,15 +46,18 @@ function Navigations() {
   // console.log(window.visualViewport?.height)
   useEffect(() => {
     const listener = () => {
-      const newState = window.screen.height - window.screen.height > 1000 ? 500 : 300 > (window.visualViewport?.height || window.screen.height)
+      const newState =
+        window.screen.height - window.screen.height > 1000
+          ? 500
+          : 300 > (window.visualViewport?.height || window.screen.height)
       if (isKeyboardOpen !== newState) {
-        setIsKeyboardOpen(newState);
+        setIsKeyboardOpen(newState)
         dispatch(changePiazzaForm(newState))
       }
-    };
+    }
     window.addEventListener('resize', listener)
     if (typeof visualViewport !== 'undefined') {
-      window.visualViewport?.addEventListener('resize', listener);
+      window.visualViewport?.addEventListener('resize', listener)
     }
     // visualViewport?.addEventListener('resize', listener)
     // if (typeof visualViewport !== 'undefined') {
@@ -62,17 +65,17 @@ function Navigations() {
     // }
     return () => {
       if (typeof visualViewport !== 'undefined') {
-        window.visualViewport?.removeEventListener('resize', listener);
+        window.visualViewport?.removeEventListener('resize', listener)
         // visualViewport?.removeEventListener('resize', listener);
       }
-    };
-  }, [isKeyboardOpen]);
+    }
+  }, [isKeyboardOpen])
   const navigate = useNavigate()
 
   return (
     <>
-      {!piazzaForm &&
-        <div className='w-screen border-t z-50 fixed rounded-t bottom-0 start-0 end-0'>
+      {!piazzaForm && (
+        <div className="w-screen border-t z-50 fixed rounded-t bottom-0 start-0 end-0">
           <BottomNavigation
             sx={{ bgcolor: alpha(backgroundColor, 0.8) }}
             showLabels
@@ -81,12 +84,32 @@ function Navigations() {
               dispatch(changeBottomNavigation(newValue))
             }}
           >
-            <BottomNavigationAction onClick={() => navigate('/add')} label={texts[languages as keyof typeof texts]['register']} icon={<Pencil />} />
-            <BottomNavigationAction onClick={() => navigate('/')} label={userCertificated ? texts[languages as keyof typeof texts]['myStatus'] : texts[languages as keyof typeof texts]['logIn']} icon={<Umbrella />} />
-            <BottomNavigationAction onClick={() => navigate('/board')} label={texts[languages as keyof typeof texts]['board']} icon={<Presentation />} />
+            <BottomNavigationAction
+              onClick={() => {
+                startTransition(() => {
+                  navigate('/add')
+                })
+              }}
+              label={texts[languages as keyof typeof texts]['register']}
+              icon={<Pencil />}
+            />
+            <BottomNavigationAction
+              onClick={() => navigate('/')}
+              label={
+                userCertificated
+                  ? texts[languages as keyof typeof texts]['myStatus']
+                  : texts[languages as keyof typeof texts]['logIn']
+              }
+              icon={<Umbrella />}
+            />
+            <BottomNavigationAction
+              onClick={() => navigate('/board')}
+              label={texts[languages as keyof typeof texts]['board']}
+              icon={<Presentation />}
+            />
           </BottomNavigation>
         </div>
-      }
+      )}
     </>
   )
 }
