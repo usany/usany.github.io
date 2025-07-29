@@ -1,6 +1,7 @@
 import { collection, getDocs } from 'firebase/firestore'
 import { Clock, PlusCircle } from 'lucide-react'
 import { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { dbservice } from 'src/baseApi/serverbase'
 import {
@@ -9,6 +10,7 @@ import {
   MorphingDialogContent,
   MorphingDialogTrigger,
 } from 'src/components/ui/morphing-dialog'
+import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
 import Avatars from '../Avatars'
 import PageTitle from '../pageTitle/PageTitle'
 import Popups from '../Popups'
@@ -28,6 +30,7 @@ function Specific({ userObj }) {
     changed: false,
   })
   const [drawerOpen, setDrawerOpen] = useState(false)
+  const dispatch = useDispatch()
   const profile = {
     attachment: false,
     profileCharacter: '',
@@ -52,6 +55,7 @@ function Specific({ userObj }) {
       const {
         currentTarget: { result },
       } = finishedEvent
+      // console.log(result)
       changeAttachment(result)
     }
     reader.readAsDataURL(theFile)
@@ -86,6 +90,9 @@ function Specific({ userObj }) {
       setImages(newImages)
     }
     bringImages()
+  }, [])
+  useEffect(() => {
+    dispatch(changeBottomNavigation(5))
   }, [])
   return (
     <div>
