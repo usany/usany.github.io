@@ -2,6 +2,12 @@ import { collection, getDocs } from 'firebase/firestore'
 import { Clock, PlusCircle } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { dbservice } from 'src/baseApi/serverbase'
+import {
+  MorphingDialog,
+  MorphingDialogContainer,
+  MorphingDialogContent,
+  MorphingDialogTrigger,
+} from 'src/components/ui/morphing-dialog'
 import Avatars from '../Avatars'
 import PageTitle from '../pageTitle/PageTitle'
 import Popups from '../Popups'
@@ -115,7 +121,18 @@ function Specific({ userObj }) {
       />
       <div className="grid grid-cols-[repeat(auto-fit,minmax(80px,1fr))] col-span-full">
         {images.map((element, index) => {
-          return <img key={index} src={element} className="w-[80px] h-[80px]" />
+          return (
+            <MorphingDialog key={index}>
+              <MorphingDialogTrigger>
+                <img src={element} className="w-[80px] h-[80px]" />
+              </MorphingDialogTrigger>
+              <MorphingDialogContainer>
+                <MorphingDialogContent>
+                  <img src={element} className="w-[80px] h-[80px]" />
+                </MorphingDialogContent>
+              </MorphingDialogContainer>
+            </MorphingDialog>
+          )
         })}
       </div>
     </div>
