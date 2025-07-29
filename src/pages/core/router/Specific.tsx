@@ -137,7 +137,7 @@ function Specific({ userObj }) {
             <input id="file" type="file" onChange={onFileChange} hidden />
           </div>
         }
-        close={<div onClick={newImage}>완료</div>}
+        close={attachment && <div onClick={newImage}>완료</div>}
         attachment={changedImage}
       />
       <div className="grid grid-cols-[repeat(auto-fit,minmax(80px,1fr))] col-span-full p-5">
