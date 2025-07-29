@@ -1,5 +1,7 @@
+import { collection, getDocs } from 'firebase/firestore'
 import { Clock, PlusCircle } from 'lucide-react'
 import { useEffect, useState } from 'react'
+import { dbservice } from 'src/baseApi/serverbase'
 import Avatars from '../Avatars'
 import PageTitle from '../pageTitle/PageTitle'
 import Popups from '../Popups'
@@ -58,9 +60,18 @@ function Specific({ userObj }) {
     }
   }, [attachment])
   useEffect(() => {
-    const bringImages = async () => {}
-  })
-  console.log(attachment)
+    const bringImages = async () => {
+      const ref = collection(dbservice, 'members')
+      const docs = await getDocs(ref)
+      const newImages = []
+      docs.forEach((element) => {
+        const defaultProfile = element.data().defaultProfile
+        newImages.push(defaultProfile)
+      })
+      setImages(newImages)
+    }
+    bringImages()
+  }, [])
   return (
     <div>
       <PageTitle icon={<Clock />} title={'앨범'} />
@@ -100,6 +111,11 @@ function Specific({ userObj }) {
         close={<div>완료</div>}
         attachment={changedImage}
       />
+      <div className="grid grid-cols-[repeat(auto-fit,minmax(180px,1fr))] col-span-full">
+        {images.map((element, index) => {
+          return <img key={index} src={element} className="w-[80px] h-[80px]" />
+        })}
+      </div>
     </div>
   )
 }
