@@ -18,7 +18,6 @@ import Popups from '../Popups'
 
 function Specific({ userObj }) {
   const genai = new GoogleGenAI({ apiKey: import.meta.env.VITE_GEMINI_API_KEY })
-
   async function chat(url) {
     try {
       let file = 'png'
@@ -43,8 +42,6 @@ function Specific({ userObj }) {
         model: 'gemini-2.5-flash',
         contents: contents,
       })
-      // console.log(url[url.slice(url.indexOf('/') + 1)])
-      // console.log(response.text)
       setLoading(false)
       return response.text
     } catch (error) {
@@ -92,7 +89,6 @@ function Specific({ userObj }) {
       const {
         currentTarget: { result },
       } = finishedEvent
-      // console.log(result)
       console.log(finishedEvent.currentTarget)
       changeAttachment(result)
       setIsUmbrella(null)
@@ -161,7 +157,6 @@ function Specific({ userObj }) {
   useEffect(() => {
     dispatch(changeBottomNavigation(5))
   }, [])
-  console.log(isUmbrella)
   return (
     <div>
       <PageTitle icon={<Clock />} title={'앨범'} />
