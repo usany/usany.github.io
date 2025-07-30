@@ -88,7 +88,6 @@ function Collection({ userObj }) {
         currentTarget: { result },
       } = finishedEvent
       changeAttachment(result)
-      setIsUmbrella(null)
       setLoading(true)
       const response = await chat(result)
       setIsUmbrella(response)
