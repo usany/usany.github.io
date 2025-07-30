@@ -108,7 +108,7 @@ self.addEventListener('install', (event) => {
   const appShellFiles = ['/blue.png']
 
   event.waitUntil(
-    caches.open(cacheName+version).then(function (cache) {
+    caches.open(cacheName + version).then(function (cache) {
       return cache.addAll(appShellFiles)
     }),
   )
@@ -136,7 +136,47 @@ self.addEventListener('activate', (event) => {
   self.clients.claim()
   // event.waitUntil(caches.delete(CACHE\_NAME).then(cacheStaticAssets));
 })
-self.addEventListener('fetch', (event) => {})
+self.addEventListener('fetch', (event) => {
+  const request = event.request
+
+  // Always fetch non-GET requests from the network
+  if (request.method !== 'GET') {
+    event.respondWith(
+      fetch(request).catch(function () {
+        return caches.match('/offline')
+      }),
+    )
+    return
+  }
+
+  // For HTML requests, try the network first, fall back to the cache,
+  // finally the offline page
+  if (
+    request.headers.get('Accept')?.indexOf('text/html') !== -1 &&
+    request.url.startsWith(this.origin)
+  ) {
+    // The request is text/html, so respond by caching the
+    // item or showing the /offline offline
+    event.respondWith(
+      fetch(request)
+        .then(function (response) {
+          // Stash a copy of this page in the cache
+          const copy = response.clone()
+          caches.open(version + cacheName).then(function (cache) {
+            cache.put(request, copy)
+          })
+          return response
+        })
+        .catch(function () {
+          return caches.match(request).then(function (response) {
+            // return the cache response or the /offline page.
+            return response || caches.match('/offline')
+          })
+        }),
+    )
+    return
+  }
+})
 self.addEventListener('sync', (event) => {})
 self.addEventListener('push', (event) => {
   console.log(event.data.json().notification)
