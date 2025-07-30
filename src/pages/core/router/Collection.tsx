@@ -17,7 +17,7 @@ import Avatars from '../Avatars'
 import PageTitle from '../pageTitle/PageTitle'
 import Popups from '../Popups'
 
-function Specific({ userObj }) {
+function Collection({ userObj }) {
   const genai = new GoogleGenAI({ apiKey: import.meta.env.VITE_GEMINI_API_KEY })
   async function chat(url) {
     try {
@@ -240,7 +240,7 @@ function Specific({ userObj }) {
                   drawerOpenFalse={() => setDrawerOpen(false)}
                 >
                   <div className="flex flex-col">
-                    <div>{element.displayName} 작품</div>
+                    <div>{element.displayName} 등록</div>
                     <img src={element.defaultProfile} />
                   </div>
                 </MorphingDialogContent>
@@ -253,4 +253,4 @@ function Specific({ userObj }) {
   )
 }
 
-export default Specific
+export default Collection
