@@ -1,4 +1,5 @@
 import { GoogleGenAI } from '@google/genai'
+import { CircularProgress } from '@mui/material'
 import { collection, doc, getDocs, setDoc } from 'firebase/firestore'
 import { getDownloadURL, ref, uploadString } from 'firebase/storage'
 import { Film, PlusCircle } from 'lucide-react'
@@ -210,7 +211,12 @@ function Collection({ userObj }) {
                   -1 && <div>우산이 아닙니다.</div>}
               </>
             )}
-            {loading && <div>로딩</div>}
+            {loading && (
+              <div className="flex flex-col">
+                <CircularProgress />
+                로딩
+              </div>
+            )}
           </div>
         }
         close={

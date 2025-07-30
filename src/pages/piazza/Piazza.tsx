@@ -80,7 +80,11 @@ function Piazza({ userObj }: Props) {
       }
     };
   }, [isKeyboardOpen]);
+<<<<<<< HEAD
   const stopCalls = async () => {
+=======
+  const stopCalls = () => {
+>>>>>>> 53580569fd2a4c0dc9864c79abe0976e02ae3da8
     setSearchParams(searchParams => {
       searchParams.delete('call')
       return searchParams
