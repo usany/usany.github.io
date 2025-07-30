@@ -1,10 +1,11 @@
 import { GoogleGenAI } from '@google/genai'
-import { collection, getDocs } from 'firebase/firestore'
+import { collection, doc, getDocs, updateDoc } from 'firebase/firestore'
+import { getDownloadURL, ref, uploadString } from 'firebase/storage'
 import { Clock, PlusCircle } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { dbservice } from 'src/baseApi/serverbase'
+import { dbservice, storage } from 'src/baseApi/serverbase'
 import {
   MorphingDialog,
   MorphingDialogContainer,
@@ -94,7 +95,7 @@ function Specific({ userObj }) {
     }
     reader.readAsDataURL(theFile)
   }
-  const newImage = () => {
+  const newImage = async () => {
     if (attachment) {
       setImages((images) => [
         {
@@ -104,6 +105,16 @@ function Specific({ userObj }) {
         },
         ...images,
       ])
+      const now = new Date().getTime()
+      const id = userObj.uid + now.toString()
+      const docRef = doc(dbservice, 'collections')
+      const storageRef = ref(storage, id)
+      uploadString(storageRef, attachment, 'data_url').then((snapshot) => {
+        console.log('Uploaded a blob or file!')
+      })
+      getDownloadURL(storageRef).then((url) => {
+        updateDoc(docRef, { url: url })
+      })
     }
   }
   useEffect(() => {
