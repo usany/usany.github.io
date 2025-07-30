@@ -100,8 +100,14 @@
 //     console.log(error)
 //   }
 // }
-
-self.addEventListener('push', event => {
+self.addEventListener('install', () => {})
+self.addEventListener('activate', () => {
+  return
+})
+self.addEventListener('fetch', (event) => {})
+self.addEventListener('sync', (event) => {
+})
+self.addEventListener('push', (event) => {
   console.log(event.data.json().notification)
   const notificationType = event.data.json().data.type
   if (notificationType === 'piazza') {
@@ -120,20 +126,23 @@ self.addEventListener('push', event => {
           action: 'no',
           type: 'button',
           title: 'close',
-        }
+        },
       ],
       data: event.data.json().data,
       tag: event.data.json().data.title,
       renotify: true,
       requireInteraction: true,
       vibrate: [
-        500, 110, 500, 110, 450, 110, 200, 110, 170, 40, 450, 110, 200, 110, 170,
-        40, 500,
+        500, 110, 500, 110, 450, 110, 200, 110, 170, 40, 450, 110, 200, 110,
+        170, 40, 500,
       ],
-    };
+    }
     event.waitUntil(
-      self.registration.showNotification(event.data.json().notification.title, options)
-    );
+      self.registration.showNotification(
+        event.data.json().notification.title,
+        options,
+      ),
+    )
   } else if (notificationType === 'card') {
     const options = {
       body: String(event.data.json().notification.body),
@@ -145,15 +154,18 @@ self.addEventListener('push', event => {
       renotify: true,
       requireInteraction: true,
       vibrate: [
-        500, 110, 500, 110, 450, 110, 200, 110, 170, 40, 450, 110, 200, 110, 170,
-        40, 500,
+        500, 110, 500, 110, 450, 110, 200, 110, 170, 40, 450, 110, 200, 110,
+        170, 40, 500,
       ],
-    };
+    }
     event.waitUntil(
-      self.registration.showNotification(event.data.json().notification.title, options)
-    );
+      self.registration.showNotification(
+        event.data.json().notification.title,
+        options,
+      ),
+    )
   }
-});
+})
 self.addEventListener('notificationclick', (event) => {
   // clients.openWindow("https://jameshfisher.com/");
   console.log(event)
@@ -162,15 +174,14 @@ self.addEventListener('notificationclick', (event) => {
       console.log('reply')
       // formConversation(event.notification)
     } else {
-      clients.openWindow(`/piazza?id=${event.notification.data.title}`);
+      clients.openWindow(`/piazza?id=${event.notification.data.title}`)
     }
   }
   if (!event.action) {
-    clients.openWindow(`/piazza?id=${event.notification.tag}`);
+    clients.openWindow(`/piazza?id=${event.notification.tag}`)
   }
-  event.notification.close();
+  event.notification.close()
 })
-
 
 // import { getMessaging, onBackgroundMessage } from "firebase/messaging/sw";
 
