@@ -6,7 +6,6 @@ import Navigations from 'src/pages/core/Navigations'
 import NavigationTop from 'src/pages/core/navigationTop/NavigationTop'
 import Adds from '../../add/Adds'
 import Board from '../../board/Board'
-import Collection from '../../collection/Collection'
 import Loadings from './loadings/Loadings'
 interface Props {
   userObj: User | null
@@ -18,6 +17,7 @@ const Router = ({ userObj }: Props) => {
   const Ranking = lazy(() => import('src/pages/search/Ranking'))
   const Contact = lazy(() => import('src/pages/contact/Contact'))
   const Piazza = lazy(() => import('src/pages/piazza/Piazza'))
+  const Collection = lazy(() => import('src/pages/collection/Collection'))
   const userCertificated = useSelectors((state) => state.userCertificated.value)
   return (
     <BrowserRouter basename="/">
