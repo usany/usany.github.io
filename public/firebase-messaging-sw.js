@@ -101,22 +101,37 @@
 //   }
 // }
 self.addEventListener('install', (event) => {
-  console.log('install')
-  const cacheName = "caching";
-  const appShellFiles = [
-    "/blue.png",
-  ];
+  console.log('swinstall')
+  const cacheName = 'caching'
+  const appShellFiles = ['/blue.png']
 
-  event.waitUntil(async () => {
-      const cache = await caches.open(cacheName);
-      console.log("[Service Worker] Caching all: app shell and content");
-      await cache.addAll(contentToCache);
-    })();
-  event.waitUntil(cacheStaticAssets());
+  event.waitUntil(
+    caches.open(cacheName).then(function (cache) {
+      return cache.addAll(appShellFiles)
+    }),
+  )
+  // event.waitUntil(cacheStaticAssets())
 })
 self.addEventListener('activate', (event) => {
-  self.clients.claim();
-  event.waitUntil(caches.delete(CACHE\_NAME).then(cacheStaticAssets));
+  console.log('swactivate')
+
+  event.waitUntil(
+    caches.keys().then(function (keys) {
+      // Remove caches whose name is no longer valid
+      return Promise.all(
+        keys
+          .filter(function (key) {
+            return key.indexOf(version) !== 0
+          })
+          .map(function (key) {
+            return caches.delete(key)
+          }),
+      )
+    }),
+  )
+
+  self.clients.claim()
+  // event.waitUntil(caches.delete(CACHE\_NAME).then(cacheStaticAssets));
 })
 self.addEventListener('fetch', (event) => {})
 self.addEventListener('sync', (event) => {})
