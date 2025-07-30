@@ -40,9 +40,6 @@ function PiazzaScreenView({
   const [continuing, setContinuing] = useState(null)
   const [continueNumber, setContinueNumber] = useState(0)
   const [currentConversation, setCurrentConversation] = useState('piazza')
-  // const profileColor = useSelector((state) => state.profileColor.value)
-  // const profileUrl = useSelector((state) => state.profileUrl.value)
-  // const { state } = useLocation()
   const conversation = location.search ? location.search.slice(location.search.indexOf('=') + 1) : 'piazza'
   useEffect(() => {
     if (currentConversation !== conversation || conversation === 'piazza') {
