@@ -146,7 +146,7 @@ function Specific({ userObj }) {
   }, [loading])
   useEffect(() => {
     const bringImages = async () => {
-      const ref = collection(dbservice, 'members')
+      const ref = collection(dbservice, 'collections')
       const docs = await getDocs(ref)
       const newImages = []
       docs.forEach((element) => {
