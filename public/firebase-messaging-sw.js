@@ -102,6 +102,16 @@
 // }
 self.addEventListener('install', (event) => {
   console.log('install')
+  const cacheName = "caching";
+  const appShellFiles = [
+    "/blue.png",
+  ];
+
+  event.waitUntil(async () => {
+      const cache = await caches.open(cacheName);
+      console.log("[Service Worker] Caching all: app shell and content");
+      await cache.addAll(contentToCache);
+    })();
   event.waitUntil(cacheStaticAssets());
 })
 self.addEventListener('activate', (event) => {
