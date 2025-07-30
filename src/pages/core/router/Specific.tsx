@@ -92,6 +92,7 @@ function Specific({ userObj }) {
       const {
         currentTarget: { result },
       } = finishedEvent
+      // console.log(result)
       console.log(finishedEvent.currentTarget)
       changeAttachment(result)
       setIsUmbrella(null)
@@ -160,6 +161,7 @@ function Specific({ userObj }) {
   useEffect(() => {
     dispatch(changeBottomNavigation(5))
   }, [])
+  console.log(isUmbrella)
   return (
     <div>
       <PageTitle icon={<Clock />} title={'앨범'} />
