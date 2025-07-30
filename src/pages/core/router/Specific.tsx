@@ -93,7 +93,6 @@ function Specific({ userObj }) {
         currentTarget: { result },
       } = finishedEvent
       console.log(finishedEvent.currentTarget)
-      // console.log(result)
       changeAttachment(result)
       setIsUmbrella(null)
       setLoading(true)
@@ -161,7 +160,6 @@ function Specific({ userObj }) {
   useEffect(() => {
     dispatch(changeBottomNavigation(5))
   }, [])
-  console.log(isUmbrella)
   return (
     <div>
       <PageTitle icon={<Clock />} title={'앨범'} />
@@ -201,21 +199,17 @@ function Specific({ userObj }) {
                   내 파일 업로드
                 </label>
                 <input id="file" type="file" onChange={onFileChange} hidden />
+                {['n', 'N'].indexOf(isUmbrella ? isUmbrella[0] : isUmbrella) !==
+                  -1 && <div>우산이 아닙니다.</div>}
               </>
             )}
+            {loading && <div>로딩</div>}
           </div>
         }
         close={
           attachment &&
-          (['y', 'Y'].indexOf(isUmbrella ? isUmbrella[0] : isUmbrella) !==
-          -1 ? (
-            <div onClick={newImage}>완료</div>
-          ) : ['n', 'N'].indexOf(isUmbrella ? isUmbrella[0] : isUmbrella) !==
-            -1 ? (
-            <div>우산이 아닙니다.</div>
-          ) : (
-            <div>로딩</div>
-          ))
+          ['y', 'Y'].indexOf(isUmbrella ? isUmbrella[0] : isUmbrella) !==
+            -1 && <div onClick={newImage}>완료</div>
         }
         attachment={changedImage}
       />
