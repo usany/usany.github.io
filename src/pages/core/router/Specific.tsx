@@ -112,7 +112,11 @@ function Specific({ userObj }) {
       uploadString(storageRef, attachment, 'data_url').then((snapshot) => {
         console.log('Uploaded a blob or file!')
         getDownloadURL(storageRef).then((url) => {
-          setDoc(docRef, { url: url })
+          setDoc(docRef, {
+            uid: userObj.uid,
+            displayName: userObj.displayName,
+            defaultProfile: attachment,
+          })
         })
       })
     }
