@@ -1,7 +1,7 @@
 import { GoogleGenAI } from '@google/genai'
 import { collection, doc, getDocs, setDoc } from 'firebase/firestore'
 import { getDownloadURL, ref, uploadString } from 'firebase/storage'
-import { Clock, PlusCircle } from 'lucide-react'
+import { Film, PlusCircle } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
@@ -170,7 +170,7 @@ function Collection({ userObj }) {
   }, [])
   return (
     <div>
-      <PageTitle icon={<Clock />} title={'앨범'} />
+      <PageTitle icon={<Film />} title={'앨범'} />
       <Popups
         trigger={
           <div

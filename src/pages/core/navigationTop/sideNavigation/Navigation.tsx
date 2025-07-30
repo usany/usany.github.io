@@ -2,6 +2,7 @@ import { User } from 'firebase/auth'
 import { doc, DocumentData, onSnapshot } from 'firebase/firestore'
 import {
   DoorOpen,
+  Film,
   MessagesSquare,
   SearchCheck,
   Siren,
@@ -95,7 +96,7 @@ function Navigation({ user, userObj, handleSideNavigation }: Props) {
     {
       href: '/collection',
       passingState: { multiple: true },
-      icon: <Siren />,
+      icon: <Film />,
       description: texts[languages as keyof typeof texts]['collection'],
       onClick: () => checkbox(),
     },
