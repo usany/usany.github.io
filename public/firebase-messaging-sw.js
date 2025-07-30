@@ -100,11 +100,12 @@
 //     console.log(error)
 //   }
 // }
-self.addEventListener('install', () => {
+self.addEventListener('install', (event) => {
   console.log('install')
+  event.waitUntil(cacheStaticAssets());
 })
 self.addEventListener('activate', (event) => {
-    self.clients.claim();
+  self.clients.claim();
   event.waitUntil(caches.delete(CACHE\_NAME).then(cacheStaticAssets));
 })
 self.addEventListener('fetch', (event) => {})
