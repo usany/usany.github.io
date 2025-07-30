@@ -100,13 +100,14 @@
 //     console.log(error)
 //   }
 // }
-self.addEventListener('install', () => {})
+self.addEventListener('install', () => {
+  console.log('install')
+})
 self.addEventListener('activate', () => {
   return
 })
 self.addEventListener('fetch', (event) => {})
-self.addEventListener('sync', (event) => {
-})
+self.addEventListener('sync', (event) => {})
 self.addEventListener('push', (event) => {
   console.log(event.data.json().notification)
   const notificationType = event.data.json().data.type
