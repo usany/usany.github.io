@@ -6,8 +6,8 @@ import Navigations from 'src/pages/core/Navigations'
 import NavigationTop from 'src/pages/core/navigationTop/NavigationTop'
 import Adds from '../../add/Adds'
 import Board from '../../board/Board'
+import Collection from '../../collection/Collection'
 import Loadings from './loadings/Loadings'
-import Collection from './Specific'
 interface Props {
   userObj: User | null
 }

@@ -13,9 +13,9 @@ import {
   MorphingDialogTrigger,
 } from 'src/components/ui/morphing-dialog'
 import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
-import Avatars from '../Avatars'
-import PageTitle from '../pageTitle/PageTitle'
-import Popups from '../Popups'
+import Avatars from '../core/Avatars'
+import PageTitle from '../core/pageTitle/PageTitle'
+import Popups from '../core/Popups'
 
 function Collection({ userObj }) {
   const genai = new GoogleGenAI({ apiKey: import.meta.env.VITE_GEMINI_API_KEY })
@@ -230,7 +230,7 @@ function Collection({ userObj }) {
                   src={element.defaultProfile}
                   className="w-[80px] h-[80px]"
                   onClick={() => {
-                    navigate(`/specific?id=${index}`)
+                    navigate(`/collection?id=${index}`)
                   }}
                 />
               </MorphingDialogTrigger>
