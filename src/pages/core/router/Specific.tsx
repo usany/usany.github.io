@@ -240,7 +240,7 @@ function Specific({ userObj }) {
                   drawerOpenFalse={() => setDrawerOpen(false)}
                 >
                   <div className="flex flex-col">
-                    <div>Photo by {element.displayName}</div>
+                    <div>{element.displayName} 작품</div>
                     <img src={element.defaultProfile} />
                   </div>
                 </MorphingDialogContent>
