@@ -170,7 +170,7 @@ function Collection({ userObj }) {
   }, [])
   return (
     <div>
-      <PageTitle icon={<Film />} title={'앨범'} />
+      <PageTitle icon={<Film />} title={'전시회'} />
       <Popups
         trigger={
           <div
