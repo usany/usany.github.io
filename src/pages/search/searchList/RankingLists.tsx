@@ -10,6 +10,7 @@ import {
   startAfter
 } from "firebase/firestore";
 import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import {
   dbservice
 } from "src/baseApi/serverbase";
@@ -17,13 +18,14 @@ import Lists from "src/pages/search/searchList/searchListViews/Lists";
 
 interface Props {
   userObj: User;
-  userSearch: string;
 }
-function RankingLists({ userObj, userSearch }: Props) {
+function RankingLists({ userObj }: Props) {
   const [rank, setRank] = useState([]);
   const [ranker, setRanker] = useState([]);
   const [continuing, setContinuing] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [searchParams, setSearchParams] = useSearchParams()
+  const userSearch = searchParams.get('search')
   const scrollNumber = 20;
   useEffect(() => {
     const membersList = async () => {
@@ -69,13 +71,6 @@ function RankingLists({ userObj, userSearch }: Props) {
       const newArray = docs.docs.map((document, index) => {
         console.log(rank.indexOf(document));
         if (rank.indexOf(document) === -1) {
-          // getDownloadURL(ref(storage, `${document.data()?.uid}`))
-          //   .then((url) => {
-          //     setLoadedImage([...loadedImage, { url: url, index: index }]);
-          //   })
-          //   .catch((error) => {
-          //     console.log(error);
-          //   });
           if (index + 1 === docs.docs.length) {
             setContinuing(document);
           }
@@ -118,9 +113,6 @@ function RankingLists({ userObj, userSearch }: Props) {
     //     }
     //   })
     // })
-    // if (continuing) {
-    // } else {
-    // }
   }, [isLoading, userSearch]);
   const handleScroll = () => {
     if (
@@ -141,7 +133,7 @@ function RankingLists({ userObj, userSearch }: Props) {
   return (
     <div className='flex truncate justify-center'>
       {userSearch ? (
-        <div>
+        <div className='w-[1000px]'>
           <Lists
             userObj={userObj}
             elements={rank}

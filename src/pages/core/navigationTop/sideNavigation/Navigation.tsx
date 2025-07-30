@@ -61,7 +61,7 @@ function Navigation({ user, userObj, handleSideNavigation }: Props) {
   const links = [
     {
       href: '/profile',
-      passingState: { element: user },
+      passingState: null,
       icon: <UserRound />,
       description: texts[languages as keyof typeof texts]['myProfile'],
       onClick: () => checkbox(),

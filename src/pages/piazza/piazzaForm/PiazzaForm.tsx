@@ -3,6 +3,7 @@ import { User } from "firebase/auth";
 import { addDoc, collection, doc, getDoc, updateDoc } from 'firebase/firestore';
 import { AlarmCheck, PlusCircle, UserRound } from "lucide-react";
 import { useDispatch, useSelector } from 'react-redux';
+import { useSearchParams } from "react-router-dom";
 import { dbservice } from 'src/baseApi/serverbase';
 import { DrawerClose } from "src/components/ui/drawer";
 import { useSelectors } from "src/hooks/useSelectors";
@@ -156,6 +157,7 @@ function PiazzaForm({ chattingUser, userObj, multiple, messages, handleMessages,
   const conversation = location.search ? location.search.slice(location.search.indexOf('=') + 1) : 'piazza'
   const languages = useSelectors((state) => state.languages.value)
   const index = (languages === 'ko' || languages === 'en') ? languages : 'ko'
+  const [searchParams, setSearchParams] = useSearchParams()
   const onSendSubmitHandler = async (event) => {
     event.preventDefault();
     const message = messages
@@ -390,7 +392,40 @@ function PiazzaForm({ chattingUser, userObj, multiple, messages, handleMessages,
       console.log(error)
     }
   }
-
+  const onClickVideoCall = async () => {
+    document.getElementById('videoCall')?.click()
+    let toUserRef
+    let toUser
+    let messagingToken
+    let preferLanguage
+    if (chattingUser) {
+      toUserRef = doc(dbservice, `members/${chattingUser.uid}`)
+      toUser = await getDoc(toUserRef)
+      messagingToken = toUser.data()?.messagingToken
+      preferLanguage = toUser.data()?.preferLanguage
+    }
+    const passingObject = {
+      conversation: conversation,
+      isVideo: true,
+      sendingToken: messagingToken,
+      connectedUrl: `/piazza?id=${conversation}&call=video`,
+      preferLanguage: preferLanguage,
+      userUid: userObj.uid,
+      id: userObj.displayName,
+      conversationUid: chattingUser?.uid,
+      conversationName: chattingUser?.displayName,
+      // profileImage: profileImage,
+      // defaultProfile: defaultProfile,
+      // profileImageUrl: profileImageUrl,
+      // profileUrl: profileUrl,
+    };
+    console.log(passingObject)
+    webSocket.emit('call', passingObject)
+    setSearchParams(searchParams => {
+      searchParams.set('call', 'video')
+      return searchParams
+    })
+  }
   return (
     <form className={`fixed w-screen ${piazzaForm ? 'bottom-0' : 'bottom-[60px]'} flex gap-px`} onSubmit={onSendSubmitHandler}>
       {conversation && conversation !== 'piazza' &&
@@ -406,7 +441,8 @@ function PiazzaForm({ chattingUser, userObj, multiple, messages, handleMessages,
             >
               <CardContent>
                 <div className='flex flex-col items-center gap-5' onClick={() => {
-                  document.getElementById('videoCall')?.click()
+                  // document.getElementById('videoCall')?.click()
+                  onClickVideoCall()
                 }}>
                   <DrawerClose>
                     <div className='flex justify-center'>

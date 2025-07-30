@@ -2,8 +2,9 @@ import { Button } from '@mui/material'
 import { useEffect, useRef, useState } from 'react'
 import useLargeMedia from 'src/hooks/useLargeMedia'
 import { webSocket } from 'src/webSocket'
+const myPeerConnection = new RTCPeerConnection()
 
-function PiazzaAudioCall() {
+function PiazzaCalls() {
   const [options, setOptions] = useState([])
   const [audioOn, setAudioOn] = useState(true)
   const [videoOn, setVideoOn] = useState(true)
@@ -15,7 +16,7 @@ function PiazzaAudioCall() {
   const yourRef = useRef(null)
   const initialConstraints = {
     audio: true,
-    video: false,
+    video: true,
   }
   const iceServers = [
     { urls: "stun:stun.l.google.com:19302" },
@@ -29,17 +30,20 @@ function PiazzaAudioCall() {
     { urls: "stun:stun4.l.google.com:19302" },
     { urls: "stun:stun4.l.google.com:5349" }
   ];
-  const myPeerConnection = new RTCPeerConnection({
-    iceServers: [
-      {
-        urls: iceServers.map((value) => {
-          return (
-            value.urls
-          )
-        })
-      }
-    ]
-  });
+  //   const myPeerConnection = new RTCPeerConnection(
+  //     {
+  //     iceServers: [
+  //       {
+  //         urls: iceServers.map((value) => {
+  //           return (
+  //             value.urls
+  //           )
+  //         })
+  //       }
+  //     ]
+  //   }
+  // );
+  // let myPeerConnection
   const roomName = location.search.slice(4)
   console.log(location.search.slice(4))
   useEffect(() => {
@@ -81,7 +85,7 @@ function PiazzaAudioCall() {
     myRef.current.srcObject.getTracks()
       .forEach(track => track.stop())
     setSelected(event.target.value)
-    if (myPeerConnection) {
+    if (myPeerConnection && stream) {
       console.log(myPeerConnection.getSenders())
       const videoTrack = stream.getVideoTracks()[0]
       const videoSender = myPeerConnection.getSenders().find((sender) => sender.track.kind === 'video')
@@ -145,6 +149,7 @@ function PiazzaAudioCall() {
     yourRef.current = data.stream
   }
   function makeConnection() {
+    // myPeerConnection = new RTCPeerConnection()
     myPeerConnection.addEventListener('icecandidate', handleIce)
     myPeerConnection.addEventListener('addstream', handleAddStream)
     if (stream) {
@@ -166,9 +171,11 @@ function PiazzaAudioCall() {
     console.log('sent the offer')
     console.log(myPeerConnection)
     const offer = await myPeerConnection.createOffer()
-    myPeerConnection.setLocalDescription(offer)
     console.log(offer)
+    myPeerConnection.setLocalDescription(offer)
     webSocket.emit('offer', offer, roomName)
+    if (myPeerConnection) {
+    }
   }
   useEffect(() => {
     if (!webSocket) return
@@ -182,8 +189,12 @@ function PiazzaAudioCall() {
     myPeerConnection.setRemoteDescription(offer)
     const answer = await myPeerConnection.createAnswer()
     console.log('sent the answer')
+    console.log(myPeerConnection)
+    console.log(answer)
     myPeerConnection.setLocalDescription(answer)
     webSocket.emit('answer', answer, roomName)
+    if (myPeerConnection) {
+    }
   }
   useEffect(() => {
     if (!webSocket) return
@@ -195,6 +206,8 @@ function PiazzaAudioCall() {
   const answer = (answer) => {
     console.log('received the answer')
     myPeerConnection.setRemoteDescription(answer)
+    if (myPeerConnection) {
+    }
   }
   useEffect(() => {
     if (!webSocket) return
@@ -206,6 +219,8 @@ function PiazzaAudioCall() {
   const ice = (ice) => {
     console.log('received candidate')
     myPeerConnection.addIceCandidate(ice)
+    if (myPeerConnection) {
+    }
   }
   useEffect(() => {
     if (!webSocket) return
@@ -216,26 +231,27 @@ function PiazzaAudioCall() {
   })
 
   return (
-    <div id="myStream">
-      <div className={`flex ${!largeMedia && 'flex-col'} gap-1 items-center`}>
-        <audio
+    <div
+    // id="myStream"
+    >
+      <div className={`flex ${!largeMedia && 'flex-col'} gap-1`}>
+        <video
           // id="yourScreen"
           ref={yourRef}
-          width="160"
-          height="120"
+          width="320"
+          height="240"
           controls
           autoPlay
-        ></audio>
-        <audio
+        ></video>
+        <video
           id="myScreen"
           ref={myRef}
-          width="160"
-          height="120"
+          width="320"
+          height="240"
           controls
           autoPlay
           muted
-        >
-        </audio>
+        ></video>
       </div>
       <div>
         <div className="flex gap-5">
@@ -252,7 +268,7 @@ function PiazzaAudioCall() {
         <select id="devices" onChange={handleDeviceChange}>
           {options.map((value, index) => {
             return (
-              <option key={index} value={value.deviceId}>
+              <option key={index} value={value.deviceId} selected={stream?.getVideoTracks()[0].id === value.deviceId}>
                 {value.label}
               </option>
             )
@@ -264,4 +280,4 @@ function PiazzaAudioCall() {
   )
 }
 
-export default PiazzaAudioCall
+export default PiazzaCalls

@@ -7,7 +7,6 @@ import NavigationTop from 'src/pages/core/navigationTop/NavigationTop'
 import Adds from '../../add/Adds'
 import Board from '../../board/Board'
 import Loadings from './loadings/Loadings'
-import Specific from './Specific'
 interface Props {
   userObj: User | null
 }
@@ -20,17 +19,29 @@ const Router = ({ userObj }: Props) => {
   const Piazza = lazy(() => import('src/pages/piazza/Piazza'))
   const userCertificated = useSelectors((state) => state.userCertificated.value)
   return (
-    <BrowserRouter basename="/">
+    <BrowserRouter basename='/'>
       <div className="flex flex-col">
         <NavigationTop userObj={userObj} />
-        <div className="pt-16 pb-14">
+        <div className='pt-16 pb-14'>
           <Suspense fallback={<Loadings />}>
             <Routes>
-              <Route path="/" element={<Home userObj={userObj} />} />
-              <Route path="/add" element={<Adds userObj={userObj} />} />
-              <Route path="/board" element={<Board userObj={userObj} />} />
-              <Route path="/contact" element={<Contact userObj={userObj} />} />
-              {userObj && userCertificated && (
+              <Route
+                path="/"
+                element={<Home userObj={userObj} />}
+              />
+              <Route
+                path="/add"
+                element={<Adds userObj={userObj} />}
+              />
+              <Route
+                path="/board"
+                element={<Board userObj={userObj} />}
+              />
+              <Route
+                path="/contact"
+                element={<Contact userObj={userObj} />}
+              />
+              {userObj && userCertificated &&
                 <>
                   <Route
                     path="/profile"
@@ -48,13 +59,12 @@ const Router = ({ userObj }: Props) => {
                     path="/piazza"
                     element={<Piazza userObj={userObj} />}
                   />
-                  <Route
-                    path="/specific"
-                    element={<Specific userObj={userObj} />}
-                  />
                 </>
-              )}
-              <Route path="*" element={<Navigate to="/" replace />} />
+              }
+              <Route
+                path='*'
+                element={<Navigate to='/' replace />}
+              />
             </Routes>
           </Suspense>
         </div>

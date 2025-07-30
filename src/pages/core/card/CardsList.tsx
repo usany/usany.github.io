@@ -23,7 +23,6 @@ const CardsList = ({ choose, messages, selectedValues, userObj }) => {
               num={null}
               points={null}
             />
-            // <MorphingDialogs />
           );
         }
       }

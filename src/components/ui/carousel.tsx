@@ -1,11 +1,12 @@
-import * as React from "react"
 import useEmblaCarousel, {
   type UseEmblaCarouselType,
 } from "embla-carousel-react"
 import { ArrowLeft, ArrowRight } from "lucide-react"
+import * as React from "react"
 
-import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
+import { cn } from "@/lib/utils"
+import { useSelectors } from "src/hooks/useSelectors"
 
 type CarouselApi = UseEmblaCarouselType[1]
 type UseCarouselParameters = Parameters<typeof useEmblaCarousel>
@@ -52,6 +53,7 @@ const Carousel = React.forwardRef<
       plugins,
       className,
       children,
+      handleCardNumber,
       ...props
     },
     ref
@@ -70,7 +72,8 @@ const Carousel = React.forwardRef<
       if (!api) {
         return
       }
-
+      const cardLocation = api.selectedScrollSnap() + 1
+      handleCardNumber(cardLocation)
       setCanScrollPrev(api.canScrollPrev())
       setCanScrollNext(api.canScrollNext())
     }, [])
@@ -108,7 +111,6 @@ const Carousel = React.forwardRef<
       if (!api) {
         return
       }
-
       onSelect(api)
       api.on("reInit", onSelect)
       api.on("select", onSelect)
@@ -117,7 +119,11 @@ const Carousel = React.forwardRef<
         api?.off("select", onSelect)
       }
     }, [api, onSelect])
-
+    const completedAction = useSelectors(state => state.completedAction.value)
+    React.useEffect(() => {
+      handleCardNumber(1)
+      api?.scrollTo(0)
+    }, [completedAction])
     return (
       <CarouselContext.Provider
         value={{
@@ -251,10 +257,8 @@ const CarouselNext = React.forwardRef<
 CarouselNext.displayName = "CarouselNext"
 
 export {
-  type CarouselApi,
   Carousel,
   CarouselContent,
-  CarouselItem,
-  CarouselPrevious,
-  CarouselNext,
+  CarouselItem, CarouselNext, CarouselPrevious, type CarouselApi
 }
+

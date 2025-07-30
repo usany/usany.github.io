@@ -10,11 +10,7 @@ interface Props {
 function CardsStacks({ userObj }: Props) {
   // const [longPressCard, setLongPressCard] = useState<string | null>(null)
   // const [onLongPress, setOnLongPress] = useState(0)
-  const {
-    messages,
-    cardLoaded,
-  }: { messages: { round: number; creatorId: string }[]; cardLoaded: boolean } =
-    useBringCards(userObj)
+  const { messages, cardLoaded, }: { messages: { round: number; creatorId: string }[]; cardLoaded: boolean } = useBringCards(userObj)
   console.log(messages)
   // const changeLongPressCard = (newValue: string | null) => setLongPressCard(newValue)
   // useEffect(() => {
@@ -30,9 +26,9 @@ function CardsStacks({ userObj }: Props) {
 
   return (
     <div>
-      {!messages.length && (
-        <Skeleton className="w-full h-[260px] rounded bg-light-3 dark:bg-dark-3" />
-      )}
+      {!cardLoaded && !messages.length &&
+        <Skeleton className='w-full h-[260px] rounded bg-light-3 dark:bg-dark-3' />
+      }
       {cardLoaded && (
         <div>
           {!messages.filter((value) => {
@@ -43,7 +39,7 @@ function CardsStacks({ userObj }: Props) {
             <CardsStacksViews
               userObj={userObj}
               messages={messages}
-              // changeLongPressCard={changeLongPressCard}
+            // changeLongPressCard={changeLongPressCard}
             />
           )}
         </div>

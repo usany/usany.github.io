@@ -3,8 +3,9 @@ import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 import { Maximize2, Minimize2 } from 'lucide-react';
 import PropTypes from 'prop-types';
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useSearchParams } from 'react-router-dom';
 import { changeTabs } from 'src/stateSlices/tabsSlice';
 
 function CustomTabPanel(props) {
@@ -37,17 +38,25 @@ function a11yProps(index) {
 }
 
 export default function ToggleTabs() {
-
+  const [searchParams, setSearchParams] = useSearchParams()
   const handleChange = (event, newValue) => {
     dispatch(changeTabs(newValue))
+    setSearchParams(searchParams => {
+      searchParams.set('action', !newValue ? 'borrow' : 'lend')
+      return searchParams
+    })
   };
   const tabs = useSelector(state => state.tabs.value)
   const dispatch = useDispatch()
+  useEffect(() => {
+    if (window.location.search === '?action=lend') {
+      dispatch(changeTabs(1))
+    }
+  }, [])
   const tabsBox = useMemo(() => {
     return (
       <Box sx={{
         width: '148px'
-        // paddingX: '10px'
       }}>
         <Tabs
           sx={{

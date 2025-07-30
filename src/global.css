@@ -4,16 +4,11 @@
 
 @font-face {
   font-family: 'maruburi';
-  src: url('src/assets/fonts/OTF/MaruBuri-Light.otf') format('opentype');
+  src: url('src/assets/fonts/OTF/MaruBuri-Light.otf') format('opentype')
 }
 
-@keyframes fade {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+::selection {
+  background: #CFCFCF;
 }
 
 .flipCard {
@@ -86,6 +81,7 @@
 }
 
 .cardFace {
+
   width: 100%;
   /* height: 100%; */
   position: absolute;
@@ -168,7 +164,7 @@
   scroll-snap-type: both mandatory;
 }
 
-.dnd-scroll-container > * {
+.dnd-scroll-container>* {
   scroll-snap-align: start;
 }
 
@@ -295,7 +291,7 @@ body {
     --chart-2: 160 60% 45%;
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
+    --chart-5: 340 75% 55%
   }
 }
 
@@ -311,7 +307,7 @@ body {
 
 @layer base {
   :root {
-    --radius: 0.5rem;
+    --radius: 0.5rem
   }
 }
 
