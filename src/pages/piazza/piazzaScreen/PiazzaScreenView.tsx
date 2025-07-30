@@ -56,7 +56,6 @@ function PiazzaScreenView({
     const userElement = userDoc.data()
     setUser(userElement)
     setDisplayedName(displayName)
-    console.log('practice')
   }
   const onDrawer = ({ userUid, displayName }) => {
     document.getElementById('drawer')?.click()
