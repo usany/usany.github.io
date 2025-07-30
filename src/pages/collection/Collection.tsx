@@ -215,6 +215,7 @@ function Collection({ userObj }) {
         }
         close={
           attachment &&
+          !loading &&
           ['y', 'Y'].indexOf(isUmbrella ? isUmbrella[0] : isUmbrella) !==
             -1 && <div onClick={newImage}>완료</div>
         }
