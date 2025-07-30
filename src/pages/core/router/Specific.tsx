@@ -17,15 +17,41 @@ import PageTitle from '../pageTitle/PageTitle'
 import Popups from '../Popups'
 
 function Specific({ userObj }) {
-  const genai = new GoogleGenAI({})
+  const genai = new GoogleGenAI({ apiKey: import.meta.env.VITE_GEMINI_API_KEY })
 
   async function chat(url) {
-    const response = await genai.models.generateContent({
-      model: 'gemini-2.5-flash',
-      contents: `Does this ${url} look like umbrellas? Give yes or no response.`,
-    })
-    return response.text
+    try {
+      let file = 'png'
+      console.log(url.slice(url.indexOf('/') + 1, url.indexOf('/') + 2))
+      if (url.slice(url.indexOf('/') + 1, url.indexOf('/') + 2) === 'p') {
+        file = 'png'
+      } else if (
+        url.slice(url.indexOf('/') + 1, url.indexOf('/') + 2) === 'j'
+      ) {
+        file = 'jpeg'
+      }
+      const contents = [
+        {
+          inlineData: {
+            mimeType: `image/${file}`,
+            data: url.slice(url.indexOf(',') + 1),
+          },
+        },
+        { text: 'Is there any umbrella? Yes or no.' },
+      ]
+      const response = await genai.models.generateContent({
+        model: 'gemini-2.5-flash',
+        contents: contents,
+      })
+      // console.log(url[url.slice(url.indexOf('/') + 1)])
+      // console.log(response.text)
+      setLoading(false)
+      return response.text
+    } catch (error) {
+      console.log(error)
+    }
   }
+  const [loading, setLoading] = useState(false)
   const [isUmbrella, setIsUmbrella] = useState('')
   const [images, setImages] = useState([])
   const [attachment, setAttachment] = useState(null)
@@ -66,15 +92,13 @@ function Specific({ userObj }) {
       const {
         currentTarget: { result },
       } = finishedEvent
+      console.log(finishedEvent.currentTarget)
       // console.log(result)
       changeAttachment(result)
+      setIsUmbrella(null)
+      setLoading(true)
       const response = await chat(result)
-      console.log(response)
-      if (response === 'yes') {
-        setIsUmbrella(response)
-      } else {
-        setIsUmbrella(response)
-      }
+      setIsUmbrella(response)
     }
     reader.readAsDataURL(theFile)
   }
@@ -91,6 +115,18 @@ function Specific({ userObj }) {
     }
   }
   useEffect(() => {
+    if (loading) {
+      setChangedImage({
+        attachment: false,
+        profileCharacter: '',
+        profileImage: false,
+        defaultProfile: '',
+        profileImageUrl: '',
+        profileColor: '',
+        initial: true,
+        changed: false,
+      })
+    }
     if (attachment && !changedImage.attachment) {
       setChangedImage({
         ...changedImage,
@@ -100,7 +136,7 @@ function Specific({ userObj }) {
         changed: true,
       })
     }
-  }, [attachment])
+  }, [loading])
   useEffect(() => {
     const bringImages = async () => {
       const ref = collection(dbservice, 'members')
@@ -125,6 +161,7 @@ function Specific({ userObj }) {
   useEffect(() => {
     dispatch(changeBottomNavigation(5))
   }, [])
+  console.log(isUmbrella)
   return (
     <div>
       <PageTitle icon={<Clock />} title={'앨범'} />
@@ -155,20 +192,29 @@ function Specific({ userObj }) {
               element={changedImage.changed ? changedImage : profile}
               profile={true}
             />
-            <label htmlFor="file" className="p-5 rounded border border-dashed">
-              내 파일 업로드
-            </label>
-            <input id="file" type="file" onChange={onFileChange} hidden />
+            {!loading && (
+              <>
+                <label
+                  htmlFor="file"
+                  className="p-5 rounded border border-dashed"
+                >
+                  내 파일 업로드
+                </label>
+                <input id="file" type="file" onChange={onFileChange} hidden />
+              </>
+            )}
           </div>
         }
         close={
           attachment &&
-          (isUmbrella === 'yes' ? (
+          (['y', 'Y'].indexOf(isUmbrella ? isUmbrella[0] : isUmbrella) !==
+          -1 ? (
             <div onClick={newImage}>완료</div>
-          ) : isUmbrella === 'no' ? (
+          ) : ['n', 'N'].indexOf(isUmbrella ? isUmbrella[0] : isUmbrella) !==
+            -1 ? (
             <div>우산이 아닙니다.</div>
           ) : (
-            <div>업로드를 해주세요.</div>
+            <div>로딩</div>
           ))
         }
         attachment={changedImage}
