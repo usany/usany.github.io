@@ -17,31 +17,20 @@ const Router = ({ userObj }: Props) => {
   const Ranking = lazy(() => import('src/pages/search/Ranking'))
   const Contact = lazy(() => import('src/pages/contact/Contact'))
   const Piazza = lazy(() => import('src/pages/piazza/Piazza'))
+  const Collection = lazy(() => import('src/pages/collection/Collection'))
   const userCertificated = useSelectors((state) => state.userCertificated.value)
   return (
-    <BrowserRouter basename='/'>
+    <BrowserRouter basename="/">
       <div className="flex flex-col">
         <NavigationTop userObj={userObj} />
-        <div className='pt-16 pb-14'>
+        <div className="pt-16 pb-14">
           <Suspense fallback={<Loadings />}>
             <Routes>
-              <Route
-                path="/"
-                element={<Home userObj={userObj} />}
-              />
-              <Route
-                path="/add"
-                element={<Adds userObj={userObj} />}
-              />
-              <Route
-                path="/board"
-                element={<Board userObj={userObj} />}
-              />
-              <Route
-                path="/contact"
-                element={<Contact userObj={userObj} />}
-              />
-              {userObj && userCertificated &&
+              <Route path="/" element={<Home userObj={userObj} />} />
+              <Route path="/add" element={<Adds userObj={userObj} />} />
+              <Route path="/board" element={<Board userObj={userObj} />} />
+              <Route path="/contact" element={<Contact userObj={userObj} />} />
+              {userObj && userCertificated && (
                 <>
                   <Route
                     path="/profile"
@@ -59,12 +48,13 @@ const Router = ({ userObj }: Props) => {
                     path="/piazza"
                     element={<Piazza userObj={userObj} />}
                   />
+                  <Route
+                    path="/collection"
+                    element={<Collection userObj={userObj} />}
+                  />
                 </>
-              }
-              <Route
-                path='*'
-                element={<Navigate to='/' replace />}
-              />
+              )}
+              <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
           </Suspense>
         </div>
