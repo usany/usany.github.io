@@ -1,5 +1,5 @@
 import { GoogleGenAI } from '@google/genai'
-import { collection, doc, getDocs, updateDoc } from 'firebase/firestore'
+import { collection, doc, getDocs, setDoc } from 'firebase/firestore'
 import { getDownloadURL, ref, uploadString } from 'firebase/storage'
 import { Clock, PlusCircle } from 'lucide-react'
 import { useEffect, useState } from 'react'
@@ -112,7 +112,7 @@ function Specific({ userObj }) {
       uploadString(storageRef, attachment, 'data_url').then((snapshot) => {
         console.log('Uploaded a blob or file!')
         getDownloadURL(storageRef).then((url) => {
-          updateDoc(docRef, { url: url })
+          setDoc(docRef, { url: url })
         })
       })
     }
