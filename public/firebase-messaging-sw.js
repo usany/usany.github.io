@@ -100,9 +100,11 @@
 //     console.log(error)
 //   }
 // }
+const cacheName = 'caching'
+const version = 'v0.0.1'
+
 self.addEventListener('install', (event) => {
   console.log('swinstall')
-  const cacheName = 'caching'
   const appShellFiles = ['/blue.png']
 
   event.waitUntil(
