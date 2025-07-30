@@ -212,7 +212,7 @@ function Collection({ userObj }) {
               </>
             )}
             {loading && (
-              <div className="flex flex-col">
+              <div className="flex flex-col items-center">
                 <CircularProgress />
                 로딩
               </div>
