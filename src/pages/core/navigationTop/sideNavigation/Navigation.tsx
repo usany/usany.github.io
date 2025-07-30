@@ -8,9 +8,14 @@ import {
   UserRound,
 } from 'lucide-react'
 import { useEffect, useState } from 'react'
-import staticImage from "src/assets/blue.png"
+import staticImage from 'src/assets/blue.png'
 import { auth, dbservice } from 'src/baseApi/serverbase'
-import { Drawer, DrawerClose, DrawerContent, DrawerTrigger } from 'src/components/ui/drawer'
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerTrigger,
+} from 'src/components/ui/drawer'
 import { useSelectors } from 'src/hooks/useSelectors'
 import texts from 'src/texts.json'
 import Avatars from '../../Avatars'
@@ -29,8 +34,8 @@ function Navigation({ user, userObj, handleSideNavigation }: Props) {
   const [points, setPoints] = useState(0)
   const [delayed, setDelayed] = useState(true)
   const theme = useSelectors((state) => state.theme.value)
-  const languages = useSelectors(state => state.languages.value)
-  const userCertificated = useSelectors(state => state.userCertificated.value)
+  const languages = useSelectors((state) => state.languages.value)
+  const userCertificated = useSelectors((state) => state.userCertificated.value)
   useEffect(() => {
     if (userObj) {
       onSnapshot(doc(dbservice, `members/${userObj.uid}`), (snapshot) => {
@@ -88,6 +93,13 @@ function Navigation({ user, userObj, handleSideNavigation }: Props) {
       onClick: () => checkbox(),
     },
     {
+      href: '/collection',
+      passingState: { multiple: true },
+      icon: <Siren />,
+      description: texts[languages as keyof typeof texts]['collection'],
+      onClick: () => checkbox(),
+    },
+    {
       href: '/',
       passingState: { multiple: true },
       icon: <DoorOpen />,
@@ -98,8 +110,8 @@ function Navigation({ user, userObj, handleSideNavigation }: Props) {
   setTimeout(() => setDelayed(false), 1000)
   return (
     <Drawer direction="left">
-      <DrawerTrigger className='px-5'>
-        {user && userCertificated ?
+      <DrawerTrigger className="px-5">
+        {user && userCertificated ? (
           <Avatars
             element={user}
             piazza={null}
@@ -108,17 +120,17 @@ function Navigation({ user, userObj, handleSideNavigation }: Props) {
             profileUrl={user.profileImageUrl}
             defaultProfileUrl={user.defaultProfile}
           />
-          :
+        ) : (
           <>
-            {!delayed &&
+            {!delayed && (
               <Avatars
                 element={{ defaultProfile: staticImage }}
                 piazza={null}
                 profile={false}
               />
-            }
+            )}
           </>
-        }
+        )}
       </DrawerTrigger>
       <DrawerContent className="border-none bg-light-2 dark:bg-dark-2 right-auto top-0 mt-0 w-[355px] overflow-hidden rounded-[10px]">
         <nav className="flex flex-col justify-between w-[350px]">
@@ -144,10 +156,7 @@ function Navigation({ user, userObj, handleSideNavigation }: Props) {
             </div>
           ) : (
             <div>
-              <NavigationSignedOut
-                userObj={userObj}
-                points={points}
-              />
+              <NavigationSignedOut userObj={userObj} points={points} />
               <div className="flex flex-col justify-between pt-5 gap-5">
                 {links.map((value, index) => {
                   if (index === 3) {
