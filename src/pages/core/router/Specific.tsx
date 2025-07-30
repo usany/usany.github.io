@@ -107,7 +107,7 @@ function Specific({ userObj }) {
       ])
       const now = new Date().getTime()
       const id = userObj.uid + now.toString()
-      const docRef = doc(dbservice, 'collections')
+      const docRef = doc(dbservice, `collections/${id}`)
       const storageRef = ref(storage, id)
       uploadString(storageRef, attachment, 'data_url').then((snapshot) => {
         console.log('Uploaded a blob or file!')
