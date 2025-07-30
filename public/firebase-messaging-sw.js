@@ -108,7 +108,7 @@ self.addEventListener('install', (event) => {
   const appShellFiles = ['/blue.png']
 
   event.waitUntil(
-    caches.open(cacheName).then(function (cache) {
+    caches.open(cacheName+version).then(function (cache) {
       return cache.addAll(appShellFiles)
     }),
   )
@@ -123,6 +123,7 @@ self.addEventListener('activate', (event) => {
       return Promise.all(
         keys
           .filter(function (key) {
+            console.log(key)
             return key.indexOf(version) !== 0
           })
           .map(function (key) {
