@@ -85,11 +85,9 @@ function Specific({ userObj }) {
     console.log(files)
     const reader = new FileReader()
     reader.onloadend = async (finishedEvent) => {
-      console.log(finishedEvent)
       const {
         currentTarget: { result },
       } = finishedEvent
-      console.log(finishedEvent.currentTarget)
       changeAttachment(result)
       setIsUmbrella(null)
       setLoading(true)
