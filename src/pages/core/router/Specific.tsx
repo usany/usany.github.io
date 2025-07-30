@@ -111,9 +111,9 @@ function Specific({ userObj }) {
       const storageRef = ref(storage, id)
       uploadString(storageRef, attachment, 'data_url').then((snapshot) => {
         console.log('Uploaded a blob or file!')
-      })
-      getDownloadURL(storageRef).then((url) => {
-        updateDoc(docRef, { url: url })
+        getDownloadURL(storageRef).then((url) => {
+          updateDoc(docRef, { url: url })
+        })
       })
     }
   }
