@@ -21,12 +21,10 @@ function Specific({ userObj }) {
   async function chat(url) {
     try {
       let file = 'png'
-      console.log(url.slice(url.indexOf('/') + 1, url.indexOf('/') + 2))
-      if (url.slice(url.indexOf('/') + 1, url.indexOf('/') + 2) === 'p') {
+      const fileText = url.slice(url.indexOf('/') + 1, url.indexOf('/') + 2)
+      if (fileText === 'p') {
         file = 'png'
-      } else if (
-        url.slice(url.indexOf('/') + 1, url.indexOf('/') + 2) === 'j'
-      ) {
+      } else if (fileText === 'j') {
         file = 'jpeg'
       }
       const contents = [
