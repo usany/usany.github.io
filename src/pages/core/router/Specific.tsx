@@ -1,3 +1,4 @@
+import { GoogleGenAI } from '@google/genai'
 import { collection, getDocs } from 'firebase/firestore'
 import { Clock, PlusCircle } from 'lucide-react'
 import { useEffect, useState } from 'react'
@@ -16,6 +17,16 @@ import PageTitle from '../pageTitle/PageTitle'
 import Popups from '../Popups'
 
 function Specific({ userObj }) {
+  const genai = new GoogleGenAI({})
+
+  async function chat(url) {
+    const response = await genai.models.generateContent({
+      model: 'gemini-2.5-flash',
+      contents: `Does this ${url} look like umbrellas? Give yes or no response.`,
+    })
+    return response.text
+  }
+  const [isUmbrella, setIsUmbrella] = useState('')
   const [images, setImages] = useState([])
   const [attachment, setAttachment] = useState(null)
   const changeAttachment = (newValue) => setAttachment(newValue)
@@ -50,13 +61,20 @@ function Specific({ userObj }) {
     const theFile = files[0]
     console.log(files)
     const reader = new FileReader()
-    reader.onloadend = (finishedEvent) => {
+    reader.onloadend = async (finishedEvent) => {
       console.log(finishedEvent)
       const {
         currentTarget: { result },
       } = finishedEvent
       // console.log(result)
       changeAttachment(result)
+      const response = await chat(result)
+      console.log(response)
+      if (response === 'yes') {
+        setIsUmbrella(response)
+      } else {
+        setIsUmbrella(response)
+      }
     }
     reader.readAsDataURL(theFile)
   }
@@ -143,7 +161,16 @@ function Specific({ userObj }) {
             <input id="file" type="file" onChange={onFileChange} hidden />
           </div>
         }
-        close={attachment && <div onClick={newImage}>완료</div>}
+        close={
+          attachment &&
+          (isUmbrella === 'yes' ? (
+            <div onClick={newImage}>완료</div>
+          ) : isUmbrella === 'no' ? (
+            <div>우산이 아닙니다.</div>
+          ) : (
+            <div>업로드를 해주세요.</div>
+          ))
+        }
         attachment={changedImage}
       />
       <div className="grid grid-cols-[repeat(auto-fit,minmax(80px,1fr))] col-span-full p-5">
