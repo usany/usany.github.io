@@ -102,11 +102,10 @@
 // }
 const cacheName = 'caching'
 const version = 'v0.0.1'
-
+const integratedName = cacheName + version
+const appShellFiles = ['/blue.png']
 self.addEventListener('install', (event) => {
   console.log('swinstall')
-  const appShellFiles = ['/blue.png']
-
   event.waitUntil(
     caches.open(cacheName + version).then(function (cache) {
       return cache.addAll(appShellFiles)
@@ -116,15 +115,14 @@ self.addEventListener('install', (event) => {
 })
 self.addEventListener('activate', (event) => {
   console.log('swactivate')
-
   event.waitUntil(
     caches.keys().then(function (keys) {
       // Remove caches whose name is no longer valid
       return Promise.all(
         keys
           .filter(function (key) {
-            console.log(key)
-            return key.indexOf(version) !== 0
+            console.log(key.indexOf(integratedName))
+            return key.indexOf(integratedName) !== 0
           })
           .map(function (key) {
             return caches.delete(key)
@@ -138,6 +136,24 @@ self.addEventListener('activate', (event) => {
 })
 self.addEventListener('fetch', (event) => {
   const request = event.request
+  event.respondWith(
+    // tell broswer, from now on I handle this fetch event
+    caches.match(event.request).then((response) => {
+      if (response) {
+        // if the response is found in cache, return it
+        return response
+      }
+
+      // else, fetch the request, cache it, and then return it
+      return fetch(event.request).then((response) => {
+        return caches.open(cacheName + version).then((cache) => {
+          const responseClone = response.clone()
+          cache.put(event.request, responseClone)
+          return response
+        })
+      })
+    }),
+  )
 
   // Always fetch non-GET requests from the network
   if (request.method !== 'GET') {
@@ -146,6 +162,7 @@ self.addEventListener('fetch', (event) => {
         return caches.match('/offline')
       }),
     )
+
     return
   }
 
