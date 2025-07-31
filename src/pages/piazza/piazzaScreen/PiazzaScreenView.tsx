@@ -90,7 +90,6 @@ function PiazzaScreenView({
           profileImageUrl: profileImageUrl,
           defaultProfile: defaultProfile,
           profileImage: profileImage,
-          // profileColor: profileColor,
         },
       ])
     }
@@ -128,8 +127,6 @@ function PiazzaScreenView({
           profileImageUrl: profileImageUrl,
           defaultProfile: defaultProfile,
           profileImage: profileImage,
-          // userOneProfileImage: profileImage,
-          // userTwoProfileImage: profileImage,
           ...piazzaData,
         },
       ])
