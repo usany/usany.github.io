@@ -18,6 +18,7 @@ const titles = {
 }
 
 function Menu({ userObj }: Props) {
+  const [img, setImg] = useState('')
   const languages = useSelectors((state) => state.languages.value)
   const index = languages === 'ko' || languages === 'en' ? languages : 'ko'
   useSetProfile(userObj)
@@ -34,7 +35,6 @@ function Menu({ userObj }: Props) {
   } else {
     console.log('offline')
   }
-  const [img, setImg] = useState('')
   const onClick = async () => {
     // const cachedResponse = await cache.match(request)
     // console.log(cache)
@@ -57,10 +57,6 @@ function Menu({ userObj }: Props) {
       setImg(cache.url)
       return cache
     })
-    // const cachedResponse = await cachedData.match('/')
-    // cachedResponse.then((cache) => {
-    //   console.log(cache)
-    // })
   }
   const staticImg = img
   console.log(staticImg)
