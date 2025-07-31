@@ -107,7 +107,7 @@ const appShellFiles = ['/blue.png']
 self.addEventListener('install', (event) => {
   console.log('swinstall')
   event.waitUntil(
-    caches.open(cacheName + version).then(function (cache) {
+    caches.open(integratedName).then(function (cache) {
       return cache.addAll(appShellFiles)
     }),
   )
