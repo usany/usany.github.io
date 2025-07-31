@@ -19,6 +19,7 @@ import SpecificsTradesTitle from 'src/pages/core/specifics/SpecificsTradesTitle'
 import { webSocket } from 'src/webSocket.tsx'
 import staticImg from '../../../../public/blue.png'
 import PiazzaDialogsContent from './piazzaDialogs/PiazzaDialogsContent'
+import statics from 'src/assets/user.png'
 interface Props {
   userObj: User
   messagesList: []
@@ -562,6 +563,7 @@ function PiazzaScreenView({
                 practice
               </div>
               <img src={staticImg} />
+              <img src={statics} />
             </div>
           }
         </ul>
