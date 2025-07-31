@@ -27,10 +27,10 @@ const ProfileAvatar = ({ userObj, user }) => {
       setChangedImage({
         attachment: false,
         profileCharacter: '',
-        profileImage: profile.profileImage,
-        defaultProfile: profile.defaultProfile,
-        profileImageUrl: profile.profileImageUrl,
-        profileColor: profile.profileColor,
+        profileImage: profile?.profileImage,
+        defaultProfile: profile?.defaultProfile,
+        profileImageUrl: profile?.profileImageUrl,
+        profileColor: profile?.profileColor,
         initial: false,
         changed: false
       })

@@ -556,6 +556,9 @@ function PiazzaScreenView({
             )
           })}
           <li ref={messagesEndRef} />
+          {!navigator.onLine &&
+            <div>practice</div>
+          }
         </ul>
       </div>
     </>
