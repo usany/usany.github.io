@@ -17,7 +17,7 @@ const titles = {
   en: 'My Status',
 }
 
-function Menu({ userObj }: Props) {
+function Offline({ userObj }: Props) {
   const languages = useSelectors((state) => state.languages.value)
   const index = languages === 'ko' || languages === 'en' ? languages : 'ko'
   useSetProfile(userObj)
