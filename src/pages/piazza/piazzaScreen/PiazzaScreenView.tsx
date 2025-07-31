@@ -17,8 +17,8 @@ import Avatars from 'src/pages/core/Avatars'
 import Popups from 'src/pages/core/Popups'
 import SpecificsTradesTitle from 'src/pages/core/specifics/SpecificsTradesTitle'
 import { webSocket } from 'src/webSocket.tsx'
+import staticImg from '../../../../public/blue.png'
 import PiazzaDialogsContent from './piazzaDialogs/PiazzaDialogsContent'
-
 interface Props {
   userObj: User
   messagesList: []
@@ -557,7 +557,12 @@ function PiazzaScreenView({
           })}
           <li ref={messagesEndRef} />
           {!navigator.onLine &&
-            <div>practice</div>
+            <div>
+              <div>
+                practice
+              </div>
+              <img src={staticImg} />
+            </div>
           }
         </ul>
       </div>
