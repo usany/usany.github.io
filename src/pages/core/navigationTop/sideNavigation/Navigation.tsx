@@ -9,7 +9,7 @@ import {
   UserRound,
 } from 'lucide-react'
 import { useEffect, useState } from 'react'
-import staticImage from 'src/assets/blue.png'
+import staticImage from '../../../../../public/blue.png'
 import { auth, dbservice } from 'src/baseApi/serverbase'
 import {
   Drawer,
