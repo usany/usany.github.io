@@ -10,6 +10,7 @@ import SwitchesLanguages from './SwitchesLanguages'
 const Modes = ({ userObj }) => {
   const theme = useSelectors((state) => state.theme.value)
   const languages = useSelector((state) => state.languages.value)
+  // const { i18n } = useTranslation()
   const dispatch = useDispatch()
   const switchLanguages = async () => {
     const docRef = doc(dbservice, `members/${userObj?.uid}`)
@@ -27,14 +28,6 @@ const Modes = ({ userObj }) => {
       }
     }
   }
-  // const switchLanguagesSignIn = async () => {
-  //   const docRef = doc(dbservice, `members/${userObj.uid}`)
-  //   if (languages === 'ko') {
-  //     await updateDoc(docRef, { preferLanguage: 'en' });
-  //   } else {
-  //     await updateDoc(docRef, { preferLanguage: 'ko' });
-  //   }
-  // }
   return (
     <div className="flex flex-col justify-center">
       <Switches
