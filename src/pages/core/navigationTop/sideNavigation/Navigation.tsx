@@ -37,6 +37,7 @@ function Navigation({ user, userObj, handleSideNavigation }: Props) {
   const theme = useSelectors((state) => state.theme.value)
   const languages = useSelectors((state) => state.languages.value)
   const userCertificated = useSelectors((state) => state.userCertificated.value)
+  const onLine = useSelectors((state) => state.onLine.value)
   useEffect(() => {
     if (userObj) {
       onSnapshot(doc(dbservice, `members/${userObj.uid}`), (snapshot) => {
@@ -194,7 +195,7 @@ function Navigation({ user, userObj, handleSideNavigation }: Props) {
               </div>
             </div>
           )}
-          {userCertificated && <IframePlayer mode={theme} />}
+          {userCertificated && onLine && <IframePlayer mode={theme} />}
         </nav>
       </DrawerContent>
     </Drawer>

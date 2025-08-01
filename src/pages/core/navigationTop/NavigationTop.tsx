@@ -72,11 +72,21 @@ const NavigationTop = ({ userObj }: Props) => {
   useScroll()
   const scrollLocation =
     ['/', '/add', '/board'].indexOf(location.pathname) === -1
-  window.addEventListener('onLine', () => {
-    dispatch(changeOnLine(true))
+  useEffect(() => {
+    window.addEventListener('online', () => {
+      dispatch(changeOnLine(true))
+    })
+    return window.removeEventListener('online', () => {
+      dispatch(changeOnLine(true))
+    })
   })
-  window.addEventListener('offLine', () => {
-    dispatch(changeOnLine(false))
+  useEffect(() => {
+    window.addEventListener('offline', () => {
+      dispatch(changeOnLine(false))
+    })
+    return window.removeEventListener('offline', () => {
+      dispatch(changeOnLine(false))
+    })
   })
   return (
     <div className="shadow-md fixed z-50 bg-light-2 dark:bg-dark-2 rounded truncate">

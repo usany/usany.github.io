@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
-import LoadingsSkeletons from "src/components/recycle/recycleLoadingsSkeletons";
-import { useSelectors } from "src/hooks/useSelectors";
-import Avatars from "src/pages/core/Avatars";
-import Popups from "src/pages/core/Popups";
-import ProfileClose from "./ProfileClose";
-import ProfileDialogs from "./profileDialogs/ProfileDialogs";
-import ProfileView from "./ProfileView";
+import { useEffect, useState } from 'react'
+import LoadingsSkeletons from 'src/components/recycle/recycleLoadingsSkeletons'
+import { useSelectors } from 'src/hooks/useSelectors'
+import Avatars from 'src/pages/core/Avatars'
+import Popups from 'src/pages/core/Popups'
+import ProfileClose from './ProfileClose'
+import ProfileDialogs from './profileDialogs/ProfileDialogs'
+import ProfileView from './ProfileView'
 
 const ProfileAvatar = ({ userObj, user }) => {
   const profile = useSelectors((state) => state.profile.value)
@@ -20,26 +20,30 @@ const ProfileAvatar = ({ userObj, user }) => {
     profileImageUrl: '',
     profileColor: '',
     initial: true,
-    changed: false
-  });
+    changed: false,
+  })
   useEffect(() => {
     if (changedImage.initial) {
       setChangedImage({
         attachment: false,
         profileCharacter: '',
-        profileImage: profile.profileImage,
-        defaultProfile: profile.defaultProfile,
-        profileImageUrl: profile.profileImageUrl,
-        profileColor: profile.profileColor,
+        profileImage: profile?.profileImage,
+        defaultProfile: profile?.defaultProfile,
+        profileImageUrl: profile?.profileImageUrl,
+        profileColor: profile?.profileColor,
         initial: false,
-        changed: false
+        changed: false,
       })
     }
   }, [user])
   useEffect(() => {
     if (attachment && !changedImage.attachment) {
       setChangedImage({
-        ...changedImage, attachment: true, profileImage: true, profileImageUrl: attachment, changed: true
+        ...changedImage,
+        attachment: true,
+        profileImage: true,
+        profileImageUrl: attachment,
+        changed: true,
       })
     }
   }, [attachment])
@@ -52,28 +56,59 @@ const ProfileAvatar = ({ userObj, user }) => {
   if (userObj.uid === user.uid) {
     return (
       <Popups
-        trigger={<ProfileView userObj={userObj} user={user} changeAttachment={changeAttachment} changedImage={changedImage} handleChangedImage={handleChangedImage} />}
+        trigger={
+          <ProfileView
+            userObj={userObj}
+            user={user}
+            changeAttachment={changeAttachment}
+            changedImage={changedImage}
+            handleChangedImage={handleChangedImage}
+          />
+        }
         title={'프로필 변경'}
-        content={<ProfileDialogs attachment={attachment} changeAttachment={changeAttachment} changedImage={changedImage} handleChangedImage={handleChangedImage} />}
-        close={<ProfileClose userObj={userObj} changedImage={changedImage} handleChangedImage={handleChangedImage} attachment={attachment} />}
+        content={
+          <ProfileDialogs
+            attachment={attachment}
+            changeAttachment={changeAttachment}
+            changedImage={changedImage}
+            handleChangedImage={handleChangedImage}
+          />
+        }
+        close={
+          <ProfileClose
+            userObj={userObj}
+            changedImage={changedImage}
+            handleChangedImage={handleChangedImage}
+            attachment={attachment}
+          />
+        }
         attachment={changedImage}
       />
     )
   } else {
     return (
-      <div className='flex justify-center'>
+      <div className="flex justify-center">
         {user?.profileImageUrl ? (
           <Avatars
-            element={{ ...user, profileImage: user.profileImage ? user.profileImage : user.profileImage !== false ? true : user.profileImage, defaultProfile: user.defaultProfile, profileImageUrl: user.profileImageUrl }}
+            element={{
+              ...user,
+              profileImage: user.profileImage
+                ? user.profileImage
+                : user.profileImage !== false
+                  ? true
+                  : user.profileImage,
+              defaultProfile: user.defaultProfile,
+              profileImageUrl: user.profileImageUrl,
+            }}
             piazza={null}
             profile={true}
           />
         ) : (
-          <LoadingsSkeletons height={"[192px]"} width={"[192px]"} />
+          <LoadingsSkeletons height={'[192px]'} width={'[192px]'} />
         )}
       </div>
     )
   }
-};
+}
 
-export default ProfileAvatar;
+export default ProfileAvatar
