@@ -212,7 +212,6 @@ function PiazzaScreenView({
         const userName = document.data().userName
         const messageClock = document.data().messageClock
         const messageClockNumber = document.data().messageClockNumber
-        // const profileColor = document.data()?.profileColor
         const profileImageUrl = document.data()?.profileImageUrl
         const defaultProfile = document.data()?.defaultProfile
         const profileImage = document.data()?.profileImage
