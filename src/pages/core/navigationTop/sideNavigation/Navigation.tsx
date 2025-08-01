@@ -139,22 +139,28 @@ function Navigation({ user, userObj, handleSideNavigation }: Props) {
           {userCertificated ? (
             <div>
               <NavigationSignedIn userObj={userObj} points={points} />
-              <div className="flex flex-col justify-between pt-5 gap-5">
-                {links.map((value, index) => {
-                  return (
-                    <DrawerClose>
-                      <Links
-                        key={index}
-                        href={value.href}
-                        passingState={value.passingState}
-                        onClick={value.onClick}
-                        icon={value.icon}
-                        description={value.description}
-                      />
-                    </DrawerClose>
-                  )
-                })}
-              </div>
+              {onLine ? (
+                <div className="flex flex-col justify-between pt-5 gap-5">
+                  {links.map((value, index) => {
+                    return (
+                      <DrawerClose>
+                        <Links
+                          key={index}
+                          href={value.href}
+                          passingState={value.passingState}
+                          onClick={value.onClick}
+                          icon={value.icon}
+                          description={value.description}
+                        />
+                      </DrawerClose>
+                    )
+                  })}
+                </div>
+              ) : (
+                <div className="flex justify-center pt-5 gap-5">
+                  연결이 필요합니다
+                </div>
+              )}
             </div>
           ) : (
             <div>
