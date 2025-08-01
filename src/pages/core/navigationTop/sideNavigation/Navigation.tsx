@@ -158,7 +158,7 @@ function Navigation({ user, userObj, handleSideNavigation }: Props) {
                 </div>
               ) : (
                 <div className="flex justify-center pt-5 gap-5">
-                  연결이 필요합니다
+                  네트워크 연결이 필요합니다
                 </div>
               )}
             </div>
