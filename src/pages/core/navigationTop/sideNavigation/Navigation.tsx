@@ -167,24 +167,10 @@ function Navigation({ user, userObj, handleSideNavigation }: Props) {
           ) : (
             <div>
               <NavigationSignedOut userObj={userObj} points={points} />
-              <div className="flex flex-col justify-between pt-5 gap-5">
-                {links.map((value, index) => {
-                  if (value.href === '/contact') {
-                    return (
-                      <DrawerClose>
-                        <Links
-                          key={index}
-                          href={value.href}
-                          passingState={value.passingState}
-                          onClick={value.onClick}
-                          icon={value.icon}
-                          description={value.description}
-                        />
-                      </DrawerClose>
-                    )
-                  }
-                  if (!userCertificated && user) {
-                    if (value.href === '/') {
+              {onLine ? (
+                <div className="flex flex-col justify-between pt-5 gap-5">
+                  {links.map((value, index) => {
+                    if (value.href === '/contact') {
                       return (
                         <DrawerClose>
                           <Links
@@ -198,9 +184,29 @@ function Navigation({ user, userObj, handleSideNavigation }: Props) {
                         </DrawerClose>
                       )
                     }
-                  }
-                })}
-              </div>
+                    if (!userCertificated && user) {
+                      if (value.href === '/') {
+                        return (
+                          <DrawerClose>
+                            <Links
+                              key={index}
+                              href={value.href}
+                              passingState={value.passingState}
+                              onClick={value.onClick}
+                              icon={value.icon}
+                              description={value.description}
+                            />
+                          </DrawerClose>
+                        )
+                      }
+                    }
+                  })}
+                </div>
+              ) : (
+                <div className="flex justify-center pt-5 gap-5">
+                  네트워크 연결이 필요합니다
+                </div>
+              )}
             </div>
           )}
           {userCertificated && onLine && <IframePlayer mode={theme} />}
