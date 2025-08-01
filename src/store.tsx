@@ -14,6 +14,7 @@ import { themeReducer } from 'src/stateSlices/themeSlice'
 import { changingUserReducer } from './stateSlices/changingUserSlice'
 import { defaultProfileReducer } from './stateSlices/defaultProfileSlice'
 import { languagesReducer } from './stateSlices/languagesSlice'
+import { onLineReducer } from './stateSlices/onLineSlice'
 import { piazzaFormReducer } from './stateSlices/piazzaFormSlice'
 import { profileImageUrlReducer } from './stateSlices/profileImageUrlSlice'
 import { profileReducer } from './stateSlices/profileSlice'
@@ -40,7 +41,6 @@ import { weather } from './stateSlices/weather'
 //   },
 // });
 
-
 export const store = configureStore({
   reducer: {
     userCertificated: userCertificatedReducer,
@@ -63,11 +63,12 @@ export const store = configureStore({
     weather: weather.reducer,
     languages: languagesReducer.reducer,
     changingUser: changingUserReducer.reducer,
+    onLine: onLineReducer.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
-      serializableCheck: false
-    }).concat(weather.middleware)
+      serializableCheck: false,
+    }).concat(weather.middleware),
 })
 
 export type AppStore = typeof store
