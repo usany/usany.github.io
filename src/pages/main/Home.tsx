@@ -1,27 +1,29 @@
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { useSelectors } from "src/hooks/useSelectors";
-import UserObjProps from "src/interfaces/UserObjProps";
-import Layout from "src/pages/add/Layout";
-import Board from "src/pages/board/Board";
-import { SwipeableViews } from "src/pages/core/SwipeableViews";
-import Auth from "src/pages/main/auth/Auth";
-import Menu from "src/pages/main/menu/Menu";
-import { changeBottomNavigation } from "src/stateSlices/bottomNavigationSlice";
-import Add from "../add/Add";
-import LayoutBoard from "../board/LayoutBoard";
+import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { useSelectors } from 'src/hooks/useSelectors'
+import UserObjProps from 'src/interfaces/UserObjProps'
+import Layout from 'src/pages/add/Layout'
+import Board from 'src/pages/board/Board'
+import { SwipeableViews } from 'src/pages/core/SwipeableViews'
+import Auth from 'src/pages/main/auth/Auth'
+import Menu from 'src/pages/main/menu/Menu'
+import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
+import { changeUserCertificated } from 'src/stateSlices/userCertificatedSlice'
+import Add from '../add/Add'
+import LayoutBoard from '../board/LayoutBoard'
 
 function Home({ userObj }: UserObjProps) {
-  const bottomNavigation = useSelectors(
-    (state) => state.bottomNavigation.value
-  );
+  const bottomNavigation = useSelectors((state) => state.bottomNavigation.value)
   const userCertificated = useSelectors((state) => state.userCertificated.value)
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
   useEffect(() => {
     if (bottomNavigation === 5) {
-      dispatch(changeBottomNavigation(1));
+      dispatch(changeBottomNavigation(1))
     }
-  }, [userObj]);
+    if (!userObj) {
+      dispatch(changeUserCertificated(false))
+    }
+  }, [userObj])
   return (
     <>
       {userObj && userCertificated ? (
@@ -33,9 +35,7 @@ function Home({ userObj }: UserObjProps) {
             </SwipeableViews>
           )}
           {bottomNavigation === 1 && <Menu userObj={userObj} />}
-          {bottomNavigation === 2 && (
-            <Board userObj={userObj} borrow={true} />
-          )}
+          {bottomNavigation === 2 && <Board userObj={userObj} borrow={true} />}
         </>
       ) : (
         <>
@@ -55,7 +55,7 @@ function Home({ userObj }: UserObjProps) {
         </>
       )}
     </>
-  );
+  )
 }
 
-export default Home;
+export default Home

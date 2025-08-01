@@ -9,6 +9,7 @@ import {
   UserRound,
 } from 'lucide-react'
 import { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
 import staticImage from 'src/assets/blue.png'
 import { auth, dbservice } from 'src/baseApi/serverbase'
 import {
@@ -37,6 +38,7 @@ function Navigation({ user, userObj, handleSideNavigation }: Props) {
   const theme = useSelectors((state) => state.theme.value)
   const languages = useSelectors((state) => state.languages.value)
   const userCertificated = useSelectors((state) => state.userCertificated.value)
+  const dispatch = useDispatch()
   const onLine = useSelectors((state) => state.onLine.value)
   useEffect(() => {
     if (userObj) {
@@ -167,7 +169,7 @@ function Navigation({ user, userObj, handleSideNavigation }: Props) {
               <NavigationSignedOut userObj={userObj} points={points} />
               <div className="flex flex-col justify-between pt-5 gap-5">
                 {links.map((value, index) => {
-                  if (index === 3) {
+                  if (value.href === '/contact') {
                     return (
                       <DrawerClose>
                         <Links
@@ -181,8 +183,8 @@ function Navigation({ user, userObj, handleSideNavigation }: Props) {
                       </DrawerClose>
                     )
                   }
-                  if (!userCertificated) {
-                    if (index === 4) {
+                  if (!userCertificated && user) {
+                    if (value.href === '/') {
                       return (
                         <DrawerClose>
                           <Links
