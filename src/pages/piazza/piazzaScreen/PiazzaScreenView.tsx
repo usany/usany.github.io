@@ -17,7 +17,7 @@ import Avatars from 'src/pages/core/Avatars'
 import Popups from 'src/pages/core/Popups'
 import SpecificsTradesTitle from 'src/pages/core/specifics/SpecificsTradesTitle'
 import { webSocket } from 'src/webSocket.tsx'
-import staticImg from '../../../../public/blue.png'
+import staticImg from 'src/assets/blue.png'
 import PiazzaDialogsContent from './piazzaDialogs/PiazzaDialogsContent'
 import statics from 'src/assets/user.png'
 interface Props {
