@@ -5,15 +5,10 @@ import {
   signInWithEmailAndPassword,
   updateProfile,
 } from 'firebase/auth'
-import {
-  collection,
-  doc,
-  getDocs,
-  query,
-  updateDoc
-} from 'firebase/firestore'
+import { collection, doc, getDocs, query, updateDoc } from 'firebase/firestore'
 import { getDownloadURL, ref, uploadString } from 'firebase/storage'
 import { useState } from 'react'
+import { useSelector } from 'react-redux'
 import staticMail from 'src/assets/signMail.svg'
 import { auth, dbservice, storage } from 'src/baseApi/serverbase'
 import { useSelectors } from 'src/hooks/useSelectors.tsx'
@@ -27,6 +22,7 @@ const AuthForm = ({ signIn, agreed }) => {
   const languages = useSelectors((state) => state.languages.value)
   const needToAgreeOnTermsText = useTexts('needToAgreeOnTerms')
   // const { i18n, t } = useTranslation()
+  const onLine = useSelector((state) => state.onLine.value)
   const onSubmitSignIn = async (event) => {
     event.preventDefault()
     try {
@@ -43,94 +39,106 @@ const AuthForm = ({ signIn, agreed }) => {
   const onSubmitSignUp = async (event) => {
     event.preventDefault()
     if (agreed) {
-      try {
-        const data = await createUserWithEmailAndPassword(
-          auth,
-          account.email,
-          account.password,
-        )
-        const docsRef = query(collection(dbservice, 'members'))
-        const docs = await getDocs(docsRef)
-        const docsLength = docs.docs.length
-        // await setDoc(doc(dbservice, 'members', `${data.user.uid}`), {
-        //   uid: data.user.uid,
-        //   displayName: data.user.email,
-        //   points: 0,
-        //   profileImage: null,
-        //   profileImageUrl: null,
-        //   followers: [],
-        //   followings: [],
-        //   messagingToken: null,
-        //   ranking: docsLength,
-        //   createdCards: [],
-        //   connectedCards: [],
-        //   profileColor: '#2196f3',
-        //   followerNum: 0,
-        //   followingNum: 0,
-        //   locationConfirmed: false,
-        //   defaultProfile: '',
-        // })
-        setDocUser({ uid: data.user.uid, email: data.user.email, ranking: docsLength })
-        await updateProfile(data.user, {
-          displayName: data.user.email,
-        }).catch((error) => {
-          console.log('error')
-        })
-        const user = doc(dbservice, `members/${data.user.uid}`)
-        const storageRef = ref(storage, data.user.uid)
-        uploadString(storageRef, 'null', 'raw').then((snapshot) => {
-          console.log('Uploaded a blob or file!')
-          getDownloadURL(storageRef)
-            .then(async (url) => {
-              await updateDoc(user, { profileImageUrl: url })
-            })
-            .catch((error) => {
-              console.log(error)
-            })
-        })
-        let profileImage
-        let profileColor
-        const profileImageNumber = Math.random()
-        const profileColorNumber = Math.random()
-        if (profileColorNumber < 1 / 3) {
-          profileColor = 'profileRed'
-        } else if (profileImageNumber < 2 / 3) {
-          profileColor = 'profileBlue'
-        } else {
-          profileColor = 'profileGold'
-        }
-        if (profileImageNumber < 0.5) {
-          profileImage = 'animal'
-        } else {
-          profileImage = 'plant'
-        }
-        const reference = ref(storage, `${profileImage}${profileColor}.png`)
-        console.log(reference)
-        const docRef = doc(dbservice, `members/${data.user.uid}`)
-        getDownloadURL(reference).then((url) => {
-          console.log(url)
-          updateDoc(docRef, {
-            profileImage: false,
-            profileColor: profileColor,
-            defaultProfile: url,
+      if (onLine) {
+        try {
+          const data = await createUserWithEmailAndPassword(
+            auth,
+            account.email,
+            account.password,
+          )
+          const docsRef = query(collection(dbservice, 'members'))
+          const docs = await getDocs(docsRef)
+          const docsLength = docs.docs.length
+          // await setDoc(doc(dbservice, 'members', `${data.user.uid}`), {
+          //   uid: data.user.uid,
+          //   displayName: data.user.email,
+          //   points: 0,
+          //   profileImage: null,
+          //   profileImageUrl: null,
+          //   followers: [],
+          //   followings: [],
+          //   messagingToken: null,
+          //   ranking: docsLength,
+          //   createdCards: [],
+          //   connectedCards: [],
+          //   profileColor: '#2196f3',
+          //   followerNum: 0,
+          //   followingNum: 0,
+          //   locationConfirmed: false,
+          //   defaultProfile: '',
+          // })
+          setDocUser({
+            uid: data.user.uid,
+            email: data.user.email,
+            ranking: docsLength,
           })
-        })
-        // setTimeout(() => {
-        //   location.reload()
-        // }, 1000)
-      } catch (error) {
-        if (error.message === 'Firebase: Error (auth/invalid-credential).') {
-          const errorMessage = '로그인 실패: 계정을 확인해 주세요'
-          setError(errorMessage)
-        } else if (error.message === 'Firebase: Error (auth/email-already-in-use).') {
-          const errorMessage = '회원가입 실패: 이미 가입된 계정입니다'
-          setError(errorMessage)
-        } else if (error.message === 'Firebase: Error (auth/invalid-email).') {
-          const errorMessage = '회원가입 실패: 계정을 확인해 주세요'
-          setError(errorMessage)
-        } else {
-          console.log(error.message)
+          await updateProfile(data.user, {
+            displayName: data.user.email,
+          }).catch((error) => {
+            console.log('error')
+          })
+          const user = doc(dbservice, `members/${data.user.uid}`)
+          const storageRef = ref(storage, data.user.uid)
+          uploadString(storageRef, 'null', 'raw').then((snapshot) => {
+            console.log('Uploaded a blob or file!')
+            getDownloadURL(storageRef)
+              .then(async (url) => {
+                await updateDoc(user, { profileImageUrl: url })
+              })
+              .catch((error) => {
+                console.log(error)
+              })
+          })
+          let profileImage
+          let profileColor
+          const profileImageNumber = Math.random()
+          const profileColorNumber = Math.random()
+          if (profileColorNumber < 1 / 3) {
+            profileColor = 'profileRed'
+          } else if (profileImageNumber < 2 / 3) {
+            profileColor = 'profileBlue'
+          } else {
+            profileColor = 'profileGold'
+          }
+          if (profileImageNumber < 0.5) {
+            profileImage = 'animal'
+          } else {
+            profileImage = 'plant'
+          }
+          const reference = ref(storage, `${profileImage}${profileColor}.png`)
+          console.log(reference)
+          const docRef = doc(dbservice, `members/${data.user.uid}`)
+          getDownloadURL(reference).then((url) => {
+            console.log(url)
+            updateDoc(docRef, {
+              profileImage: false,
+              profileColor: profileColor,
+              defaultProfile: url,
+            })
+          })
+          // setTimeout(() => {
+          //   location.reload()
+          // }, 1000)
+        } catch (error) {
+          if (error.message === 'Firebase: Error (auth/invalid-credential).') {
+            const errorMessage = '로그인 실패: 계정을 확인해 주세요'
+            setError(errorMessage)
+          } else if (
+            error.message === 'Firebase: Error (auth/email-already-in-use).'
+          ) {
+            const errorMessage = '회원가입 실패: 이미 가입된 계정입니다'
+            setError(errorMessage)
+          } else if (
+            error.message === 'Firebase: Error (auth/invalid-email).'
+          ) {
+            const errorMessage = '회원가입 실패: 계정을 확인해 주세요'
+            setError(errorMessage)
+          } else {
+            console.log(error.message)
+          }
         }
+      } else {
+        alert('네트워크 연결이 필요합니다')
       }
     }
   }
@@ -178,7 +186,7 @@ const AuthForm = ({ signIn, agreed }) => {
             />
           </div>
           <div className="flex flex-col justify-center p-3">
-            {(!signIn && !agreed) ?
+            {!signIn && !agreed ? (
               <Button
                 variant="outlined"
                 startIcon={<img src={staticMail} className="w-[20px]" />}
@@ -194,7 +202,7 @@ const AuthForm = ({ signIn, agreed }) => {
                     ? '회원가입'
                     : 'Register'}
               </Button>
-              :
+            ) : (
               <Button
                 variant="outlined"
                 startIcon={<img src={staticMail} className="w-[20px]" />}
@@ -209,7 +217,7 @@ const AuthForm = ({ signIn, agreed }) => {
                     ? '회원가입'
                     : 'Register'}
               </Button>
-            }
+            )}
             {!signIn && !agreed && <div>{needToAgreeOnTermsText}</div>}
             <span>{error}</span>
           </div>
