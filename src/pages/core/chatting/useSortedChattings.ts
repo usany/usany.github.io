@@ -7,7 +7,7 @@ export const useSortedChattings = ({ userObj }) => {
   const [chattingNone, setChattingNone] = useState(false)
   const changeChattings = (newValue) => setChattings(newValue)
   const changeChattingNone = (newValue) => setChattingNone(newValue)
-  const sorted = Object.keys(chattings).sort((elementOne, elementTwo) => {
+  const sorted = Object.keys(navigator.onLine ? chattings : JSON.parse(localStorage.getItem('chattings') || '[]')).sort((elementOne, elementTwo) => {
     return (
       chattings[elementTwo].messageClockNumber -
       chattings[elementOne].messageClockNumber
@@ -19,7 +19,7 @@ export const useSortedChattings = ({ userObj }) => {
       const docSnap = await getDoc(docRef)
       const newChattings = docSnap.data()?.chattings || {}
       setChattings(newChattings)
-      location.setItem('chattings', newChattings)
+      localStorage.setItem('chattings', newChattings)
       if (!newChattings) {
         setChattingNone(true)
       }
