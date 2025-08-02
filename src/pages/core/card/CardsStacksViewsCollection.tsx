@@ -44,6 +44,7 @@ const CardsStacksViewsCollection = ({
   //     setOnLongPress(0)
   //   }
   // }, [longPressCard])
+  console.log(messages)
   return (
     <div
       id="items"
