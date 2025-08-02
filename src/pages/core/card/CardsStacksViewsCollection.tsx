@@ -44,7 +44,8 @@ const CardsStacksViewsCollection = ({
   //     setOnLongPress(0)
   //   }
   // }, [longPressCard])
-  console.log(messages)
+  localStorage.setItem('cards', JSON.stringify(messages))
+  console.log(localStorage.getItem('cards'))
   return (
     <div
       id="items"
@@ -52,7 +53,52 @@ const CardsStacksViewsCollection = ({
     >
       {/* <Skeleton className='w-full h-[260px] rounded bg-light-2' /> */}
       {!messages.length && <Skeleton className='w-full h-[276px] rounded bg-light-2' />}
-      {messages.map((value) => {
+      {navigator.onLine && messages.map((value, index) => {
+        const isOwner = value.creatorId === userObj.uid
+        if (value.round !== 5) {
+          if (
+            value.creatorId === userObj.uid ||
+            (value.connectedId === userObj.uid && value.round !== 1)
+          ) {
+            return (
+              <div
+                key={value.id}
+                id={value.id}
+                className="item-list flex justify-center"
+              >
+                <div
+                // onMouseDownCapture={() => {
+                //   const longPress = value.id
+                //   setLongPressCard(longPress)
+                // }}
+                // onTouchStartCapture={() => {
+                //   const longPress = value.id
+                //   setLongPressCard(longPress)
+                // }}
+                >
+                  <Cards
+                    message={value}
+                    isOwner={isOwner}
+                    userObj={userObj}
+                    num={null}
+                    points={null}
+                    // onLongPress={onLongPress}
+                    // changeOnLongPress={(newValue) => setOnLongPress(newValue)}
+                    longPressCard={longPressCard}
+                    changeLongPressCard={changeLongPressCard}
+                    deleteMessage={deleteMessage}
+                    // longPressed={longPressed}
+                    // changeLongPressed={changeLongPressed}
+                    delayed={delayed}
+                    delayedFalse={delayedFalse}
+                  />
+                </div>
+              </div>
+            )
+          }
+        }
+      })}
+      {!navigator.onLine && JSON.parse(localStorage.getItem('cards') || '[]').map((value, index) => {
         const isOwner = value.creatorId === userObj.uid
         if (value.round !== 5) {
           if (
