@@ -45,12 +45,12 @@ const CardsStacksViewsCollection = ({
   //     setOnLongPress(0)
   //   }
   // }, [longPressCard])
-  if (messages) {
+  if (messages.length) {
     localStorage.setItem('cards', JSON.stringify(messages))
     // console.log(localStorage.getItem('cards'))
   }
   const messagesArray = onLine ? messages : JSON.parse(localStorage.getItem('cards') || '[]')
-  console.log(messagesArray)
+  // console.log(messagesArray)
   return (
     <div
       id="items"

@@ -26,12 +26,12 @@ function CardsStacks({ userObj }: Props) {
 
   return (
     <div>
-      {!cardLoaded && !messages.length &&
+      {!cardLoaded && !messages.length && navigator.onLine &&
         <Skeleton className='w-full h-[260px] rounded bg-light-3 dark:bg-dark-3' />
       }
-      {cardLoaded && (
+      {(!navigator.onLine || cardLoaded) && (
         <div>
-          {!messages.filter((value) => {
+          {navigator.onLine && !messages.filter((value) => {
             if (value.round !== 5) return value
           }).length ? (
             <EmptyCard />
