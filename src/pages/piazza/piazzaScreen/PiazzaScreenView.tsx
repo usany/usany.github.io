@@ -17,8 +17,9 @@ import Avatars from 'src/pages/core/Avatars'
 import Popups from 'src/pages/core/Popups'
 import SpecificsTradesTitle from 'src/pages/core/specifics/SpecificsTradesTitle'
 import { webSocket } from 'src/webSocket.tsx'
+import staticImg from 'src/assets/blue.png'
 import PiazzaDialogsContent from './piazzaDialogs/PiazzaDialogsContent'
-
+import statics from 'src/assets/user.png'
 interface Props {
   userObj: User
   messagesList: []
@@ -40,9 +41,6 @@ function PiazzaScreenView({
   const [continuing, setContinuing] = useState(null)
   const [continueNumber, setContinueNumber] = useState(0)
   const [currentConversation, setCurrentConversation] = useState('piazza')
-  // const profileColor = useSelector((state) => state.profileColor.value)
-  // const profileUrl = useSelector((state) => state.profileUrl.value)
-  // const { state } = useLocation()
   const conversation = location.search ? location.search.slice(location.search.indexOf('=') + 1) : 'piazza'
   useEffect(() => {
     if (currentConversation !== conversation || conversation === 'piazza') {
@@ -59,7 +57,6 @@ function PiazzaScreenView({
     const userElement = userDoc.data()
     setUser(userElement)
     setDisplayedName(displayName)
-    console.log('practice')
   }
   const onDrawer = ({ userUid, displayName }) => {
     document.getElementById('drawer')?.click()
@@ -94,7 +91,6 @@ function PiazzaScreenView({
           profileImageUrl: profileImageUrl,
           defaultProfile: defaultProfile,
           profileImage: profileImage,
-          // profileColor: profileColor,
         },
       ])
     }
@@ -132,8 +128,6 @@ function PiazzaScreenView({
           profileImageUrl: profileImageUrl,
           defaultProfile: defaultProfile,
           profileImage: profileImage,
-          // userOneProfileImage: profileImage,
-          // userTwoProfileImage: profileImage,
           ...piazzaData,
         },
       ])
@@ -218,7 +212,6 @@ function PiazzaScreenView({
         const userName = document.data().userName
         const messageClock = document.data().messageClock
         const messageClockNumber = document.data().messageClockNumber
-        // const profileColor = document.data()?.profileColor
         const profileImageUrl = document.data()?.profileImageUrl
         const defaultProfile = document.data()?.defaultProfile
         const profileImage = document.data()?.profileImage
@@ -563,6 +556,15 @@ function PiazzaScreenView({
             )
           })}
           <li ref={messagesEndRef} />
+          {!navigator.onLine &&
+            <div>
+              <div>
+                practice
+              </div>
+              <img src={staticImg} />
+              <img src={statics} />
+            </div>
+          }
         </ul>
       </div>
     </>

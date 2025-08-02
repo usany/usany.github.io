@@ -28,14 +28,6 @@ const Modes = ({ userObj }) => {
       }
     }
   }
-  // const switchLanguagesSignIn = async () => {
-  //   const docRef = doc(dbservice, `members/${userObj.uid}`)
-  //   if (languages === 'ko') {
-  //     await updateDoc(docRef, { preferLanguage: 'en' });
-  //   } else {
-  //     await updateDoc(docRef, { preferLanguage: 'ko' });
-  //   }
-  // }
   return (
     <div className="flex flex-col justify-center">
       <Switches
