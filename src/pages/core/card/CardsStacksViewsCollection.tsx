@@ -103,7 +103,6 @@ const CardsStacksViewsCollection = ({
           }
         }
       })}
-      {!onLine && <div>practice</div>}
     </div>
   )
 }
