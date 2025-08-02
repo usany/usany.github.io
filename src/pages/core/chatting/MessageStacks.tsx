@@ -11,12 +11,13 @@ const MessageStacks = ({ userObj }: Props) => {
   const languages = useSelectors((state) => state.languages.value)
   const index = languages === 'ko' || languages === 'en' ? languages : 'ko'
   const { chattings, changeChattings, sorted, chattingNone, changeChattingNone } = useSortedChattings({ userObj })
+  const chattingsArray = navigator.onLine ? chattings : localStorage.getItem('chattings')
   return (
     <div className="flex flex-col gap-1 w-full">
       {navigator.onLine && chattingNone && <EmptyChattingStacks index={index} />}
       <ChattingStacks
         userObj={userObj}
-        chattings={chattings}
+        chattings={chattingsArray}
         changeChattings={changeChattings}
         sorted={sorted}
       />
