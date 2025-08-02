@@ -19,6 +19,7 @@ export const useSortedChattings = ({ userObj }) => {
       const docSnap = await getDoc(docRef)
       const newChattings = docSnap.data()?.chattings || {}
       setChattings(newChattings)
+      location.setItem('chattings', newChattings)
       if (!newChattings) {
         setChattingNone(true)
       }
