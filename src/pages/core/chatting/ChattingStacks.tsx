@@ -202,7 +202,7 @@ const ChattingStacks = ({
             </>
           )
         } else {
-          const clock = new Date(navigator.onLine ? chattings[element].messageClock : JSON.parse(localStorage.getItem('chattings') || '[]')[element]?.messageClock)
+          const clock = new Date(navigator.onLine ? chattings[element].messageClock : JSON.parse(localStorage.getItem('chattings') || '[]')[element].messageClock)
           if (chattings[element]) {
             let displayName
             let chattingUid
