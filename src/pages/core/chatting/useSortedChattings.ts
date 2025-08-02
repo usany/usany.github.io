@@ -23,7 +23,9 @@ export const useSortedChattings = ({ userObj }) => {
         setChattingNone(true)
       }
     }
-    bringChattings()
+    if (navigator.onLine) {
+      bringChattings()
+    }
   }, [])
   return {
     chattings: chattings,

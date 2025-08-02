@@ -13,7 +13,7 @@ const MessageStacks = ({ userObj }: Props) => {
   const { chattings, changeChattings, sorted, chattingNone, changeChattingNone } = useSortedChattings({ userObj })
   return (
     <div className="flex flex-col gap-1 w-full">
-      {chattingNone && <EmptyChattingStacks index={index} />}
+      {navigator.onLine && chattingNone && <EmptyChattingStacks index={index} />}
       <ChattingStacks
         userObj={userObj}
         chattings={chattings}
