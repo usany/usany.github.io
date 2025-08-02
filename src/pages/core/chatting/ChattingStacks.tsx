@@ -39,7 +39,7 @@ const ChattingStacks = ({
     }
   }
   const { piazzaMessage, changePiazzaMessage } = usePiazzaMessage()
-
+  
   useEffect(() => {
     if (!webSocket) return
     function sMessageCallback(message) {

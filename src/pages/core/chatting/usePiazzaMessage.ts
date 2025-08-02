@@ -21,17 +21,19 @@ export const usePiazzaMessage = () => {
       const piazzaMessages = await getDocs(piazzaCollection)
       piazzaMessages.forEach((doc) => {
         if (!piazzaMessage) {
-          setPiazzaMessage({
+          const piazzaObject = {
             username: doc.data().userName,
             messageClock: doc.data().messageClock,
             messageClockNumber: doc.data().messageClockNumber,
             message: doc.data().message,
             piazzaChecked: doc.data().piazzaChecked || [],
-          })
+          }
+          localStorage.setItem('group', JSON.stringify(piazzaObject))
+          setPiazzaMessage(piazzaObject)
         }
       })
     }
-    if (piazzaSwitch === 'true') {
+    if (navigator.onLine && piazzaSwitch === 'true') {
       piazza()
     }
   }, [])
