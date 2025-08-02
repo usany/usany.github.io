@@ -4,6 +4,7 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import { useSelectors } from 'src/hooks/useSelectors'
 import Navigations from 'src/pages/core/Navigations'
 import NavigationTop from 'src/pages/core/navigationTop/NavigationTop'
+import Home from 'src/pages/main/Home'
 import Piazza from 'src/pages/piazza/Piazza'
 import Profile from 'src/pages/profile/Profile'
 import Adds from '../../add/Adds'
@@ -14,7 +15,7 @@ interface Props {
 }
 
 const Router = ({ userObj }: Props) => {
-  const Home = lazy(() => import('src/pages/main/Home'))
+  // const Home = lazy(() => import('src/pages/main/Home'))
   // const Profile = lazy(() => import('src/pages/profile/Profile'))
   const Ranking = lazy(() => import('src/pages/search/Ranking'))
   const Contact = lazy(() => import('src/pages/contact/Contact'))

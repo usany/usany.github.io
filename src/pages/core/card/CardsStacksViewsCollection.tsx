@@ -1,6 +1,6 @@
 import { User } from 'firebase/auth'
 import { useEffect, useState } from 'react'
-import { Skeleton } from 'src/components/ui/skeleton'
+import { useSelectors } from 'src/hooks/useSelectors'
 import Cards from './Cards'
 const deleteMessage = (id: string) => {
   console.log(id)
@@ -29,6 +29,7 @@ const CardsStacksViewsCollection = ({
   const [delayed, setDelayed] = useState(true)
   const delayedTrue = () => setDelayed(true)
   const delayedFalse = () => setDelayed(false)
+  const onLine = useSelectors(state => state.onLine.value)
   useEffect(() => {
     if (!delayed) {
       setTimeout(() => delayedTrue(), 250)
@@ -44,16 +45,20 @@ const CardsStacksViewsCollection = ({
   //     setOnLongPress(0)
   //   }
   // }, [longPressCard])
-  localStorage.setItem('cards', JSON.stringify(messages))
-  console.log(localStorage.getItem('cards'))
+  if (messages) {
+    localStorage.setItem('cards', JSON.stringify(messages))
+    // console.log(localStorage.getItem('cards'))
+  }
+  const messagesArray = onLine ? messages : JSON.parse(localStorage.getItem('cards') || '[]')
+  console.log(messagesArray)
   return (
     <div
       id="items"
       className="grid grid-cols-[repeat(auto-fit,minmax(180px,1fr))] col-span-full"
     >
       {/* <Skeleton className='w-full h-[260px] rounded bg-light-2' /> */}
-      {!messages.length && <Skeleton className='w-full h-[276px] rounded bg-light-2' />}
-      {navigator.onLine && messages.map((value, index) => {
+      {/* {!messages.length && <Skeleton className='w-full h-[276px] rounded bg-light-2' />} */}
+      {messagesArray.map((value, index) => {
         const isOwner = value.creatorId === userObj.uid
         if (value.round !== 5) {
           if (
@@ -98,51 +103,7 @@ const CardsStacksViewsCollection = ({
           }
         }
       })}
-      {!navigator.onLine && JSON.parse(localStorage.getItem('cards') || '[]').map((value, index) => {
-        const isOwner = value.creatorId === userObj.uid
-        if (value.round !== 5) {
-          if (
-            value.creatorId === userObj.uid ||
-            (value.connectedId === userObj.uid && value.round !== 1)
-          ) {
-            return (
-              <div
-                key={value.id}
-                id={value.id}
-                className="item-list flex justify-center"
-              >
-                <div
-                // onMouseDownCapture={() => {
-                //   const longPress = value.id
-                //   setLongPressCard(longPress)
-                // }}
-                // onTouchStartCapture={() => {
-                //   const longPress = value.id
-                //   setLongPressCard(longPress)
-                // }}
-                >
-                  <Cards
-                    message={value}
-                    isOwner={isOwner}
-                    userObj={userObj}
-                    num={null}
-                    points={null}
-                    // onLongPress={onLongPress}
-                    // changeOnLongPress={(newValue) => setOnLongPress(newValue)}
-                    longPressCard={longPressCard}
-                    changeLongPressCard={changeLongPressCard}
-                    deleteMessage={deleteMessage}
-                    // longPressed={longPressed}
-                    // changeLongPressed={changeLongPressed}
-                    delayed={delayed}
-                    delayedFalse={delayedFalse}
-                  />
-                </div>
-              </div>
-            )
-          }
-        }
-      })}
+      {!onLine && <div>practice</div>}
     </div>
   )
 }
