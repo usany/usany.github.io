@@ -209,14 +209,14 @@ const ChattingStacks = ({
             let displayName
             let chattingUid
             let profileUrl
-            if (userObj.uid === chattings[element].userOne) {
-              displayName = chattings[element].userTwoDisplayName
-              chattingUid = chattings[element].userTwo
-              profileUrl = chattings[element].userTwoProfileUrl
+            if (userObj.uid === messages[element].userOne) {
+              displayName = messages[element].userTwoDisplayName
+              chattingUid = messages[element].userTwo
+              profileUrl = messages[element].userTwoProfileUrl
             } else {
-              displayName = chattings[element].userOneDisplayName
-              chattingUid = chattings[element].userOne
-              profileUrl = chattings[element].userOneProfileUrl
+              displayName = messages[element].userOneDisplayName
+              chattingUid = messages[element].userOne
+              profileUrl = messages[element].userOneProfileUrl
             }
             return (
               <>
