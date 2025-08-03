@@ -173,6 +173,7 @@ const ChattingStacks = ({
       webSocket.off(`sNewMessage`, sNewMessageCallback)
     }
   })
+  console.log(chattings)
   return (
     <>
       {sorted.map((element, index) => {
@@ -204,7 +205,7 @@ const ChattingStacks = ({
           )
         } else {
           const messages = navigator.onLine ? chattings : JSON.parse(localStorage.getItem('chattings') || '[]')
-          const clock = new Date(messages.messageClock)
+          const clock = new Date(messages[element].messageClock)
           if (messages[element]) {
             let displayName
             let chattingUid
