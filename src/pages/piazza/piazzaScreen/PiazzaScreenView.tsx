@@ -321,9 +321,10 @@ function PiazzaScreenView({
     boxRef.current?.addEventListener('scroll', handleScroll)
     return () => boxRef.current?.removeEventListener('scroll', handleScroll)
   }, [isLoading])
-  console.log(conversation)
-  console.log(messagesList)
-  console.log(user)
+  // console.log(conversation)
+  // console.log(messagesList)
+  // console.log(user)
+  const messagesArray = navigator.onLine ? messagesList : JSON.parse(localStorage.getItem(conversation) || '[]')
   return (
     <>
       <div ref={boxRef} className={`p-1 border-t rounded-xl overflow-auto`}>
@@ -333,7 +334,7 @@ function PiazzaScreenView({
               로딩
             </div>
           )}
-          {messagesList.map((value, index) => {
+          {messagesArray.map((value, index) => {
             let passingValue
             if (conversation === 'piazza') {
               passingValue = value
@@ -367,11 +368,11 @@ function PiazzaScreenView({
             let passingClock
             let displayClock = 0
             if (index > 0) {
-              previousUid = messagesList[index - 1].userUid
+              previousUid = messagesArray[index - 1].userUid
             }
-            if (index < messagesList.length - 1) {
-              if (messagesList[index + 1].userUid === userObj.uid) {
-                passingClock = new Date(messagesList[index + 1].messageClock)
+            if (index < messagesArray.length - 1) {
+              if (messagesArray[index + 1].userUid === userObj.uid) {
+                passingClock = new Date(messagesArray[index + 1].messageClock)
                 if (clock.getFullYear() === passingClock.getFullYear()) {
                   if (clock.getMonth() === passingClock.getMonth()) {
                     if (clock.getDate() === passingClock.getDate()) {
