@@ -17,9 +17,7 @@ import Avatars from 'src/pages/core/Avatars'
 import Popups from 'src/pages/core/Popups'
 import SpecificsTradesTitle from 'src/pages/core/specifics/SpecificsTradesTitle'
 import { webSocket } from 'src/webSocket.tsx'
-import staticImg from 'src/assets/blue.png'
 import PiazzaDialogsContent from './piazzaDialogs/PiazzaDialogsContent'
-import statics from 'src/assets/user.png'
 interface Props {
   userObj: User
   messagesList: []
@@ -233,6 +231,7 @@ function PiazzaScreenView({
       })
       messagesArray.reverse()
       handleMessagesList([...messagesArray, ...messagesList])
+      localStorage.setItem(conversation, JSON.stringify([...messagesArray, ...messagesList]))
       setIsLoading(false)
     }
     const messageListMembers = async (conversation) => {
@@ -290,15 +289,16 @@ function PiazzaScreenView({
       })
       messagesArray.reverse()
       handleMessagesList([...messagesArray, ...messagesList])
+      localStorage.setItem(conversation, JSON.stringify([...messagesArray, ...messagesList]))
       setIsLoading(false)
     }
     console.log(messagesList.length)
     if (conversation === 'piazza') {
-      if (isLoading || !messagesList.length) {
+      if (isLoading || !messagesList.length && navigator.onLine) {
         messageList()
       }
     } else {
-      if (isLoading || !messagesList.length) {
+      if (isLoading || !messagesList.length && navigator.onLine) {
         messageListMembers(conversation)
       }
     }
