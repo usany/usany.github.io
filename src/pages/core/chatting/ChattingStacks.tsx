@@ -177,7 +177,8 @@ const ChattingStacks = ({
     <>
       {sorted.map((element, index) => {
         if (element === 'piazza') {
-          const clock = new Date(navigator.onLine ? piazzaMessage?.messageClock : JSON.parse(localStorage.getItem('group') || '{}')?.messageClock)
+          const message = navigator.onLine ? piazzaMessage : JSON.parse(localStorage.getItem('group') || '{}')
+          const clock = new Date(message?.messageClock)
           return (
             <>
               <Chats
@@ -188,7 +189,7 @@ const ChattingStacks = ({
                 chattingUid={''}
                 multiple={true}
                 clock={clock}
-                message={piazzaMessage}
+                message={message}
                 longPressChat={longPressChat}
                 longPressChatsList={longPressChatsList}
                 changeLongPressChat={changeLongPressChat}
@@ -202,8 +203,9 @@ const ChattingStacks = ({
             </>
           )
         } else {
-          const clock = new Date(navigator.onLine ? chattings[element].messageClock : JSON.parse(localStorage.getItem('chattings') || '[]')[element].messageClock)
-          if (chattings[element]) {
+          const messages = navigator.onLine ? chattings : JSON.parse(localStorage.getItem('chattings') || '[]')
+          const clock = new Date(messages.messageClock)
+          if (messages[element]) {
             let displayName
             let chattingUid
             let profileUrl
@@ -226,7 +228,7 @@ const ChattingStacks = ({
                   chattingUid={chattingUid}
                   multiple={false}
                   clock={clock}
-                  message={chattings[element]}
+                  message={messages[element]}
                   longPressChat={longPressChat}
                   longPressChatsList={longPressChatsList}
                   changeLongPressChat={changeLongPressChat}
