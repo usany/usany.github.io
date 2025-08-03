@@ -556,15 +556,6 @@ function PiazzaScreenView({
             )
           })}
           <li ref={messagesEndRef} />
-          {!navigator.onLine &&
-            <div>
-              <div>
-                practice
-              </div>
-              <img src={staticImg} />
-              <img src={statics} />
-            </div>
-          }
         </ul>
       </div>
     </>
