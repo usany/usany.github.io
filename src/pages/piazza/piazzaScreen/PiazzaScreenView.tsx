@@ -318,8 +318,10 @@ function PiazzaScreenView({
     }
   }
   useEffect(() => {
-    boxRef.current?.addEventListener('scroll', handleScroll)
-    return () => boxRef.current?.removeEventListener('scroll', handleScroll)
+    if (navigator.onLine) {
+      boxRef.current?.addEventListener('scroll', handleScroll)
+      return () => boxRef.current?.removeEventListener('scroll', handleScroll)
+    }
   }, [isLoading])
   // console.log(conversation)
   // console.log(messagesList)
