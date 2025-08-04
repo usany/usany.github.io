@@ -25,7 +25,6 @@ function SpecificsRear({
   // const borrowingText = useTexts('borrowing')
   // const lendingText = useTexts('lending')
   const { borrowing, lending } = useTexts()
-  const profileImage = useSelectors((state) => state.profileImage.value)
   const defaultProfile = useSelectors((state) => state.defaultProfile.value)
   const profileImageUrl = useSelectors((state) => state.profileImageUrl.value)
   const [sendedProfileImage, setSendedProfileImage] = useState(false)
