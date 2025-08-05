@@ -21,7 +21,7 @@ const images = {
   gold: [staticGold01, staticGold02],
 }
 const ProfileDialogs = ({ attachment, changeAttachment, changedImage, handleChangedImage }) => {
-  const { currentImageWillBeDeletedWhenCharacterImagesAreSelected, save } = useTexts()
+  const { currentImageWillBeDeletedWhenCharacterImagesAreSelected, uploadMyFile, save } = useTexts()
   // const [copyingProfile, setCopyingProfile] = useState({
   //   profileImage: false,
   //   defaultProfile: '',
@@ -69,7 +69,7 @@ const ProfileDialogs = ({ attachment, changeAttachment, changedImage, handleChan
           profile={true}
         />
         <div className='flex-col px-5 content-center p-5'>
-          <label htmlFor='file' className='p-5 rounded border border-dashed'>내 파일 업로드</label>
+          <label htmlFor='file' className='p-5 rounded border border-dashed'>{uploadMyFile}</label>
           <input id='file' type='file' onChange={onFileChange} hidden />
         </div>
       </div>

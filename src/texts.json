@@ -105,7 +105,8 @@
     "niceWeather": "좋은 날씨네요",
     "changeProfile": "프로필 변경",
     "currentImageWillBeDeletedWhenCharacterImagesAreSelected": "캐릭터 배경으로 저장하면 업로드 파일이 삭제됩니다",
-    "save": "저장"
+    "save": "저장",
+    "uploadMyFile": "내 파일 업로드"
   },
   "en": {
     "Welcome to React": "Welcome to React and react-i18next",
@@ -213,6 +214,7 @@
     "niceWeather": "Nice weather",
     "changeProfile": "Change Profile",
     "currentImageWillBeDeletedWhenCharacterImagesAreSelected": "Current image will be deleted when character images are selected",
-    "save": "Save"
+    "save": "Save",
+    "uploadMyFile": "Upload My File"
   }
 }
