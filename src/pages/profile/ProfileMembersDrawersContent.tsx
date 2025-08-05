@@ -83,7 +83,7 @@ const ProfileMembersDrawersContent = ({ userObj, user }) => {
           </Button>
         ) : (
           <Button variant="outlined" disabled>
-            회원 탈퇴
+            {deleteAccount}
           </Button>
         )}
       </div>
