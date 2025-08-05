@@ -3,12 +3,14 @@ import TextField from "@mui/material/TextField";
 import { updatePassword } from "firebase/auth";
 import { useState } from "react";
 import { auth } from "src/baseApi/serverbase";
+import useTexts from "src/useTexts";
 
 const ProfileMembersPasswordContent = () => {
   const [password, setPassword] = useState({
     newPassword: '',
     newPasswordConfirm: ''
   })
+  const { registerNewPassword, changePassword } = useTexts()
   const onChange = (event) => {
     const {
       target: { name, value },
@@ -62,7 +64,7 @@ const ProfileMembersPasswordContent = () => {
       onSubmit={onSubmit}
     >
       <div className='p-5'>
-        새 비밀번호를 등록해 주세요.
+        {registerNewPassword}
       </div>
       <div className="flex flex-col justify-center p-5">
         <TextField type='password' name='newPassword' label="새 비밀번호" onChange={onChange} required />
@@ -70,11 +72,11 @@ const ProfileMembersPasswordContent = () => {
         <div className='flex justify-center pt-5'>
           {password.newPassword && password.newPassword === password.newPasswordConfirm ? (
             <Button variant="outlined" form='changePassword' type='submit'>
-              비밀번호 변경
+              {changePassword}
             </Button>
           ) : (
             <Button variant="outlined" disabled>
-              비밀번호 변경
+              {changePassword}
             </Button>
           )}
         </div>
