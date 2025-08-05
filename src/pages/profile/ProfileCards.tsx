@@ -33,16 +33,15 @@ const ProfileCards = ({
     })
     setCompanies(elementsCollection)
   }
-  const userAllies = async (index) => {
-    alliesCollection[index].list.map((element) => {
-
-    })
-    const ref = doc(dbservice, `members/${user.uid}`)
-    const docs = await getDoc(ref)
-    const followers = docs.data()?.followers || []
-    const followings = docs.data()?.followings || []
-    setCompanies(index ? followings : followers)
-  }
+  // const userAllies = async (index) => {
+  //   alliesCollection[index].list.map((element) => {
+  //   })
+  //   const ref = doc(dbservice, `members/${user.uid}`)
+  //   const docs = await getDoc(ref)
+  //   const followers = docs.data()?.followers || []
+  //   const followings = docs.data()?.followings || []
+  //   setCompanies(index ? followings : followers)
+  // }
   const { color } = useCardsBackground()
   const followerList = [true, false]
   const onClick = ({ index }) => {
@@ -50,7 +49,6 @@ const ProfileCards = ({
     changeProfileDialog(true)
     // userAllies(index)
   }
-  console.log(alliesCollection)
   return (
     <div className="flex justify-center pt-5">
       <Card
@@ -82,7 +80,7 @@ const ProfileCards = ({
                 <ProfileCompaniesTrigger
                   followers={value}
                   alliesCollection={alliesCollection[index].list}
-                  onClick={() => onClick({ index: index })}
+                  onClick={() => onClick(index)}
                 />
               }
               title={<ProfileCompaniesTitle user={user} followers={value} />}
