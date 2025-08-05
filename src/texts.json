@@ -111,7 +111,9 @@
     "searchUser": "유저 검색",
     "selectCall": "전화 선택",
     "videoCall": "화상 전화",
-    "audioCall": "음성 전화"
+    "audioCall": "음성 전화",
+    "noFollowers": "팔로워가 없습니다",
+    "noFollowings": "팔로잉이 없습니다"
   },
   "en": {
     "Welcome to React": "Welcome to React and react-i18next",
@@ -225,6 +227,8 @@
     "searchUser": "Search User",
     "selectCall": "Select Call",
     "videoCall": "Video Call",
-    "audioCall": "Audio Call"
+    "audioCall": "Audio Call",
+    "noFollowers": "No Followers",
+    "noFollowings": "No Followings"
   }
 }
