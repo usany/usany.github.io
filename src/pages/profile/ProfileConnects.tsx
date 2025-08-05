@@ -12,7 +12,7 @@ const ProfileConnects = ({
   handleFollowers,
   handleFollowings,
 }) => {
-  const { sendMessage } = useTexts()
+  const { follow, cancelFollow, sendMessage } = useTexts()
   // const [myFollowingList, setMyFollowingList] = useState([])
   // const [otherFollowerNumber, setOtherFollowerNumber] = useState(null)
   // const [otherFollowerList, setOtherFollowerList] = useState([])
@@ -147,7 +147,7 @@ const ProfileConnects = ({
               followUser(user.uid)
             }}
           >
-            팔로우 {user.displayName}
+            {follow} {user.displayName}
           </Button>
         ) : (
           <Button
@@ -157,7 +157,7 @@ const ProfileConnects = ({
               unfollowUser(user.uid)
             }}
           >
-            팔로우 취소 {user.displayName}
+            {cancelFollow} {user.displayName}
           </Button>
         )}
         <Link
