@@ -1,8 +1,7 @@
 import Card from '@mui/material/Card'
-import { collection, doc, getDoc, getDocs, query } from 'firebase/firestore'
+import { collection, getDocs, query } from 'firebase/firestore'
 import { useState } from 'react'
 import { dbservice } from 'src/baseApi/serverbase'
-import { useSelectors } from 'src/hooks/useSelectors'
 import useCardsBackground from '../../hooks/useCardsBackground'
 import Popups from '../core/Popups'
 import ProfileLists from '../search/searchList/searchListViews/ProfileLists'
@@ -20,8 +19,8 @@ const ProfileCards = ({
   changeProfileDialog,
 }) => {
   const [companies, setCompanies] = useState([])
-  const [selectedUser, setSelectedUser] = useState(null)
-  const languages = useSelectors((state) => state.languages.value)
+  // const [selectedUser, setSelectedUser] = useState(null)
+  // const languages = useSelectors((state) => state.languages.value)
   const usersCollection = async (index) => {
     const elementsCollection = []
     const collectionRef = collection(dbservice, 'members')
@@ -67,7 +66,7 @@ const ProfileCards = ({
       {followerList.map((value, index) => {
         const onLink = {
           to: 'profile',
-          state: selectedUser || user,
+          state: user,
         }
         return (
           <Card
