@@ -18,7 +18,7 @@ import useTexts from "src/useTexts";
 const ProfileMembersDrawersContent = ({ userObj, user }) => {
   const [confirmEmail, setConfirmEmail] = useState(false);
   const [process, setProcess] = useState(false);
-  const { deleteAccount, noProcessingCard, ongoingCards, toDeleteAccountInputMail, canDeleteAccountWhenYouHaveNoProcessingBorrwingOrLendingCard } = useTexts()
+  const { mail, deleteAccount, noProcessingCard, ongoingCards, toDeleteAccountInputMail, canDeleteAccountWhenYouHaveNoProcessingBorrwingOrLendingCard } = useTexts()
   const navigate = useNavigate();
   const onChange = (event) => {
     const {
@@ -76,7 +76,7 @@ const ProfileMembersDrawersContent = ({ userObj, user }) => {
         <div>{toDeleteAccountInputMail}</div>
       </div>
       <div className="flex flex-col justify-center p-5 gap-5">
-        <TextField label="이메일" onChange={onChange} />
+        <TextField label={mail} onChange={onChange} />
         {process && confirmEmail ? (
           <Button variant="outlined" onClick={delist}>
             {deleteAccount}
