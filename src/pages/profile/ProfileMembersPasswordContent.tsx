@@ -67,8 +67,8 @@ const ProfileMembersPasswordContent = () => {
         {registerNewPassword}
       </div>
       <div className="flex flex-col justify-center p-5">
-        <TextField type='password' name={newPassword} label="새 비밀번호" onChange={onChange} required />
-        <TextField type='password' name={newPasswordConfirm} label="새 비밀번호 확인" onChange={onChange} required />
+        <TextField type='password' name={newPassword} label={newPassword} onChange={onChange} required />
+        <TextField type='password' name={newPasswordConfirm} label={newPasswordConfirm} onChange={onChange} required />
         <div className='flex justify-center pt-5'>
           {password.newPassword && password.newPassword === password.newPasswordConfirm ? (
             <Button variant="outlined" form='changePassword' type='submit'>
