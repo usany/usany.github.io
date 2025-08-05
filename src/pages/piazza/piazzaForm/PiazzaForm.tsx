@@ -172,7 +172,7 @@ function PiazzaForm({
   const languages = useSelectors((state) => state.languages.value)
   const index = languages === 'ko' || languages === 'en' ? languages : 'ko'
   const [searchParams, setSearchParams] = useSearchParams()
-  const { selectCall } = useTexts()
+  const { selectCall, videoCall } = useTexts()
   const onSendSubmitHandler = async (event) => {
     event.preventDefault()
     const message = messages
@@ -497,7 +497,7 @@ function PiazzaForm({
                       <div className="flex justify-center">
                         <UserRound />
                       </div>
-                      <div>화상 전화</div>
+                      <div>{videoCall}</div>
                     </DrawerClose>
                   </div>
                 </CardContent>

@@ -109,7 +109,8 @@
     "save": "저장",
     "uploadMyFile": "내 파일 업로드",
     "searchUser": "유저 검색",
-    "selectCall": "전화 선택"
+    "selectCall": "전화 선택",
+    "videoCall": "화상 전화"
   },
   "en": {
     "Welcome to React": "Welcome to React and react-i18next",
@@ -221,6 +222,7 @@
     "save": "Save",
     "uploadMyFile": "Upload My File",
     "searchUser": "Search User",
-    "selectCall": "Select Call"
+    "selectCall": "Select Call",
+    "videoCall": "Video Call"
   }
 }
