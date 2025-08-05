@@ -9,7 +9,7 @@ const ProfileDrawersEmptyCompanies = ({
   return (
     <div className="flex justify-center">
       <div className="rounded shadow-md bg-light-1 dark:bg-dark-1 p-5">
-        {followings ? noFollowers : noFollowings}
+        {followings ? noFollowings : noFollowers}
       </div>
     </div>
   )
