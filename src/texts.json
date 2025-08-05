@@ -107,7 +107,8 @@
     "changeProfile": "프로필 변경",
     "currentImageWillBeDeletedWhenCharacterImagesAreSelected": "캐릭터 배경으로 저장하면 업로드 파일이 삭제됩니다",
     "save": "저장",
-    "uploadMyFile": "내 파일 업로드"
+    "uploadMyFile": "내 파일 업로드",
+    "searchUser": "유저 검색"
   },
   "en": {
     "Welcome to React": "Welcome to React and react-i18next",
@@ -217,6 +218,7 @@
     "changeProfile": "Change Profile",
     "currentImageWillBeDeletedWhenCharacterImagesAreSelected": "Current image will be deleted when character images are selected",
     "save": "Save",
-    "uploadMyFile": "Upload My File"
+    "uploadMyFile": "Upload My File",
+    "searchUser": "Search User"
   }
 }
