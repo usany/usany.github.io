@@ -18,7 +18,7 @@ import useTexts from "src/useTexts";
 const ProfileMembersDrawersContent = ({ userObj, user }) => {
   const [confirmEmail, setConfirmEmail] = useState(false);
   const [process, setProcess] = useState(false);
-  const { deleteAccount, noProcessingCard, canDeleteAccountWhenYouHaveNoProcessingBorrwingOrLendingCard } = useTexts()
+  const { deleteAccount, noProcessingCard, toDeleteAccountInputMail, canDeleteAccountWhenYouHaveNoProcessingBorrwingOrLendingCard } = useTexts()
   const navigate = useNavigate();
   const onChange = (event) => {
     const {
