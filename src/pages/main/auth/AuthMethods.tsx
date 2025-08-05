@@ -54,8 +54,6 @@ function AuthMethods({ agreed, changeAgreed }) {
       setAccordion('item')
     }
   }
-  const theme = useSelector((state) => state.theme.value)
-  const languages = useSelectors((state) => state.languages.value)
   return (
     <div className="flex flex-col">
       <Accordion type="single" collapsible>
