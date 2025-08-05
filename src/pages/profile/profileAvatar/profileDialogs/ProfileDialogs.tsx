@@ -10,6 +10,7 @@ import staticRed01 from "src/assets/red1.png";
 import staticRed02 from "src/assets/red2.png";
 import Avatars from 'src/pages/core/Avatars';
 import { changeProfileColor } from 'src/stateSlices/profileColorSlice';
+import useTexts from 'src/useTexts';
 const images = {
   'profile-red': [staticRed01, staticRed02],
   '#2196f3': [staticBlue01, staticBlue02],
@@ -20,6 +21,7 @@ const images = {
   gold: [staticGold01, staticGold02],
 }
 const ProfileDialogs = ({ attachment, changeAttachment, changedImage, handleChangedImage }) => {
+  const { currentImageWillBeDeletedWhenCharacterImagesAreSelected, save } = useTexts()
   // const [copyingProfile, setCopyingProfile] = useState({
   //   profileImage: false,
   //   defaultProfile: '',
@@ -72,7 +74,7 @@ const ProfileDialogs = ({ attachment, changeAttachment, changedImage, handleChan
         </div>
       </div>
       <div className='flex flex-col gap-1'>
-        <div className='flex justify-center'>캐릭터 배경으로 저장하면 업로드 파일이 삭제됩니다.</div>
+        <div className='flex justify-center'>{currentImageWillBeDeletedWhenCharacterImagesAreSelected}</div>
         <div className='flex justify-center gap-5'>
           {selectedImages.map((value, index) => {
             return (
@@ -113,7 +115,7 @@ const ProfileDialogs = ({ attachment, changeAttachment, changedImage, handleChan
       </div>
       {!changedImage.changed &&
         <div className='flex justify-center p-5'>
-          <Button variant='outlined' disabled>저장</Button>
+          <Button variant='outlined' disabled>{save}</Button>
         </div>
       }
     </>

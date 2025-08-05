@@ -103,7 +103,9 @@
     "weWillSendYouAConfirmingMailTo": "로 확인 메일을 보낼게요",
     "checkTheNumber": "번호를 확인해주세요",
     "niceWeather": "좋은 날씨네요",
-    "changeProfile": "프로필 변경"
+    "changeProfile": "프로필 변경",
+    "currentImageWillBeDeletedWhenCharacterImagesAreSelected": "캐릭터 배경으로 저장하면 업로드 파일이 삭제됩니다",
+    "save": "저장"
   },
   "en": {
     "Welcome to React": "Welcome to React and react-i18next",
@@ -209,6 +211,8 @@
     "weWillSendYouAConfirmingMailTo": "We will send a confirmation email to",
     "checkTheNumber": "Please check the number",
     "niceWeather": "Nice weather",
-    "changeProfile": "Change Profile"
+    "changeProfile": "Change Profile",
+    "currentImageWillBeDeletedWhenCharacterImagesAreSelected": "Current image will be deleted when character images are selected",
+    "save": "Save"
   }
 }
