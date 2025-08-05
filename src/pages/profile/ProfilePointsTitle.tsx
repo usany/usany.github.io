@@ -1,6 +1,15 @@
-const ProfilePointsTitle = ({ user, cards, followers, alliesCollection, selection }) => {
+import useTexts from 'src/useTexts'
+
+const ProfilePointsTitle = ({
+  user,
+  cards,
+  followers,
+  alliesCollection,
+  selection,
+}) => {
+  const { pointReceipt } = useTexts()
   return (
-    <div className='flex justify-center'>{`${user.displayName}의 포인트 적립 영수증`}</div>
+    <div className="flex justify-center">{`${user.displayName} ${pointReceipt}`}</div>
   )
 }
 

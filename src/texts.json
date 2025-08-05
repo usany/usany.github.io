@@ -58,7 +58,7 @@
     "existingName": "아쉽게도 중복되네요",
     "readyToChange": "다행히 중복되지 않네요",
     "point": "포인트",
-    "pointReceipt": "의 포인트 적립 영수증",
+    "pointReceipt": "포인트 영수증",
     "borrowedFrom": "에게 빌림",
     "lendedTo": "에게 빌려줌",
     "follower": "팔로워",
@@ -110,7 +110,8 @@
     "uploadMyFile": "내 파일 업로드",
     "searchUser": "유저 검색",
     "selectCall": "전화 선택",
-    "videoCall": "화상 전화"
+    "videoCall": "화상 전화",
+    "audioCall": "음성 전화"
   },
   "en": {
     "Welcome to React": "Welcome to React and react-i18next",
@@ -171,7 +172,7 @@
     "existingName": "Unfortunately, it's duplicated",
     "readyToChange": "Fortunately, it's not duplicated",
     "point": "Point",
-    "pointReceipt": "Point Accumulation Receipt",
+    "pointReceipt": "Point Receipts",
     "borrowedFrom": "Borrowed from",
     "lendedTo": "Lent to",
     "follower": "Follower",
@@ -223,6 +224,7 @@
     "uploadMyFile": "Upload My File",
     "searchUser": "Search User",
     "selectCall": "Select Call",
-    "videoCall": "Video Call"
+    "videoCall": "Video Call",
+    "audioCall": "Audio Call"
   }
 }
