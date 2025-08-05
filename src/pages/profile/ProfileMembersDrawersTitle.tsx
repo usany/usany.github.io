@@ -1,8 +1,9 @@
+import useTexts from "src/useTexts";
 
 const ProfileMembersDrawersTitle = () => {
-
+  const { deleteAccount } = useTexts()
   return (
-    <div>회원 탈퇴</div>
+    <div>{deleteAccount}</div>
   );
 };
 

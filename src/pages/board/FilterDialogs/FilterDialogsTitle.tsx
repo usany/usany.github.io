@@ -1,7 +1,6 @@
-import { useState } from "react";
 // import { Filter } from "lucide-react";
-import { useSelectors } from "src/hooks/useSelectors";
 import locationsBuildings from "src/pages/add/locationsBuildings";
+import useTexts from "src/useTexts";
 const itemsTitle = {
   ko: '우산 / 양산 선택',
   en: 'Select Usan / Yangsan'
@@ -66,16 +65,11 @@ const markers = [
 ]
 
 function FilterDialogsTitle({ selectedValues, handleSelectedValues }) {
-  const languages = useSelectors((state) => state.languages.value)
-  const index = (languages === 'ko' || languages === 'en') ? languages : 'ko'
-  const [selected, setSelected] = useState(null);
-  const onClick = ({ id }) => {
-    setSelected(id);
-  };
+  const { filtering } = useTexts()
 
   return (
     <div>
-      카드 필터
+      {filtering}
     </div >
   );
 }
