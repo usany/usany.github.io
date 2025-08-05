@@ -7,7 +7,7 @@ const ProfileActions = ({
   user,
   alliesCollection,
   handleFollowers,
-  handleFollowings
+  handleFollowings,
 }) => {
   // const [cards, setCards] = useState({point: null, done: []})
   // useEffect(() => {
@@ -20,13 +20,19 @@ const ProfileActions = ({
 
   return (
     <div>
-      {userObj.uid === user.uid ? 
+      {userObj.uid === user.uid ? (
         <ProfileForm userObj={userObj} />
-        :
-        <ProfileConnects userObj={userObj} user={user} alliesCollection={alliesCollection} handleFollowers={handleFollowers} handleFollowings={handleFollowings}/>      
-      }
+      ) : (
+        <ProfileConnects
+          userObj={userObj}
+          user={user}
+          alliesCollection={alliesCollection}
+          handleFollowers={handleFollowers}
+          handleFollowings={handleFollowings}
+        />
+      )}
     </div>
-  );
+  )
 }
 
 export default ProfileActions
