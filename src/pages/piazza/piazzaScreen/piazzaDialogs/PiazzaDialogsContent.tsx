@@ -58,7 +58,7 @@ const PiazzaDialogsContent = ({
   return (
     <div>
       <div className="flex flex-col items-center pt-5">
-        {user?.displayName !== displayedName && (
+        {/* {user?.displayName !== displayedName && (
           <div>
             {languages === 'ko' ? (
               <div>({displayedName}에서 개명)</div>
@@ -66,7 +66,7 @@ const PiazzaDialogsContent = ({
               <div>(Changed name from {displayedName})</div>
             )}
           </div>
-        )}
+        )} */}
         <Avatars
           element={user}
           uid={userObj.uid}

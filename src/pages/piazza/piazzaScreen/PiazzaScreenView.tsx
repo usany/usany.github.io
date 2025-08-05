@@ -451,7 +451,9 @@ function PiazzaScreenView({
                             }
                             title={
                               <div>
-                                <div>{user?.displayName}</div>
+                                <div className="flex justify-center">
+                                  {user?.displayName}
+                                </div>
                                 {user?.displayName !== displayedName && (
                                   <div>
                                     {languages === 'ko' ? (
@@ -518,7 +520,9 @@ function PiazzaScreenView({
                             }
                             title={
                               <div>
-                                <div>{user?.displayName}</div>
+                                <div className="flex justify-center">
+                                  {user?.displayName}
+                                </div>
                                 {user?.displayName !== displayedName && (
                                   <div>
                                     {languages === 'ko' ? (
