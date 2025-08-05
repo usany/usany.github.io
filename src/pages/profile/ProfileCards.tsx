@@ -92,7 +92,6 @@ const ProfileCards = ({
               close={
                 <ProfileLists
                   elements={companies}
-                // changeSelectedUser={(newValue) => setSelectedUser(newValue)}
                 />
               }
               attachment={true}
