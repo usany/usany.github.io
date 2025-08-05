@@ -18,7 +18,7 @@ import useTexts from "src/useTexts";
 const ProfileMembersDrawersContent = ({ userObj, user }) => {
   const [confirmEmail, setConfirmEmail] = useState(false);
   const [process, setProcess] = useState(false);
-  const { deleteAccount, noProcessingCard, toDeleteAccountInputMail, canDeleteAccountWhenYouHaveNoProcessingBorrwingOrLendingCard } = useTexts()
+  const { deleteAccount, noProcessingCard, ongoingCards, toDeleteAccountInputMail, canDeleteAccountWhenYouHaveNoProcessingBorrwingOrLendingCard } = useTexts()
   const navigate = useNavigate();
   const onChange = (event) => {
     const {
@@ -68,7 +68,7 @@ const ProfileMembersDrawersContent = ({ userObj, user }) => {
           </div>
         ) : (
           <div className='flex justify-center'>
-            <Chip label={'진행 카드가 있습니다'} sx={{
+            <Chip label={ongoingCards} sx={{
               bgcolor: '#e76e50', color: 'white'
             }} />
           </div>
