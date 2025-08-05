@@ -24,21 +24,12 @@ const ProfileCards = ({
     const collectionRef = collection(dbservice, 'members')
     const docs = await getDocs(query(collectionRef))
     docs.forEach((element) => {
-      if (alliesCollection[index].list?.indexOf(element.data().uid) !== -1) {
+      if (alliesCollection[index].list.indexOf(element.data().uid) !== -1) {
         elementsCollection.push(element.data())
       }
     })
     setCompanies(elementsCollection)
   }
-  // const userAllies = async (index) => {
-  //   alliesCollection[index].list.map((element) => {
-  //   })
-  //   const ref = doc(dbservice, `members/${user.uid}`)
-  //   const docs = await getDoc(ref)
-  //   const followers = docs.data()?.followers || []
-  //   const followings = docs.data()?.followings || []
-  //   setCompanies(index ? followings : followers)
-  // }
   const { color } = useCardsBackground()
   const followerList = [true, false]
   const onClick = (index) => {
