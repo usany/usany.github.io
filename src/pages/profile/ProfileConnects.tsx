@@ -25,10 +25,10 @@ const ProfileConnects = ({
     const myDocSnap = await getDoc(myDocRef)
     const otherUserDocRef = doc(dbservice, `members/${user.uid}`)
     const otherUserDocSnap = await getDoc(otherUserDocRef)
-    const myFollowerNum = myDocSnap.data().followers.length
-    const myFollowingNum = myDocSnap.data().followings.length
-    const otherUserFollowerNum = otherUserDocSnap.data().followers.length
-    const otherUserFollowingNum = otherUserDocSnap.data().followings.length
+    // const myFollowerNum = myDocSnap.data().followers.length
+    const myFollowingNum = myDocSnap.data()?.followings ? myDocSnap.data().followings.length : 0
+    const otherUserFollowerNum = otherUserDocSnap.data()?.followers ? otherUserDocSnap.data().followers.length : 0
+    // const otherUserFollowingNum = otherUserDocSnap.data().followings.length
     const myFollowers = myDocSnap.data().followers || []
     const myFollowings = myDocSnap.data().followings || []
     const otherFollowers = otherUserDocSnap.data().followers || []
@@ -70,10 +70,10 @@ const ProfileConnects = ({
     const myDocSnap = await getDoc(myDocRef)
     const otherUserDocRef = doc(dbservice, `members/${user.uid}`)
     const otherUserDocSnap = await getDoc(otherUserDocRef)
-    const myFollowerNum = myDocSnap.data().followers.length
-    const myFollowingNum = myDocSnap.data().followings.length
-    const otherUserFollowerNum = otherUserDocSnap.data().followers.length
-    const otherUserFollowingNum = otherUserDocSnap.data().followings.length
+    // const myFollowerNum = myDocSnap.data().followers.length
+    const myFollowingNum = myDocSnap.data()?.followings ? myDocSnap.data().followings.length : 0
+    const otherUserFollowerNum = otherUserDocSnap.data()?.followers ? otherUserDocSnap.data().followers.length : 0
+    // const otherUserFollowingNum = otherUserDocSnap.data().followings.length
     const myFollowers = myDocSnap.data().followers || []
     const myFollowings = myDocSnap.data().followings || []
     const otherFollowers = otherUserDocSnap.data().followers || []
@@ -107,32 +107,32 @@ const ProfileConnects = ({
     if (user.uid < userObj.uid) {
       setConversation(
         user.uid[0] +
-          user.uid[1] +
-          user.uid[2] +
-          user.uid[3] +
-          user.uid[4] +
-          user.uid[5] +
-          userObj.uid[0] +
-          userObj.uid[1] +
-          userObj.uid[2] +
-          userObj.uid[3] +
-          userObj.uid[4] +
-          userObj.uid[5],
+        user.uid[1] +
+        user.uid[2] +
+        user.uid[3] +
+        user.uid[4] +
+        user.uid[5] +
+        userObj.uid[0] +
+        userObj.uid[1] +
+        userObj.uid[2] +
+        userObj.uid[3] +
+        userObj.uid[4] +
+        userObj.uid[5],
       )
     } else {
       setConversation(
         userObj.uid[0] +
-          userObj.uid[1] +
-          userObj.uid[2] +
-          userObj.uid[3] +
-          userObj.uid[4] +
-          userObj.uid[5] +
-          user.uid[0] +
-          user.uid[1] +
-          user.uid[2] +
-          user.uid[3] +
-          user.uid[4] +
-          user.uid[5],
+        userObj.uid[1] +
+        userObj.uid[2] +
+        userObj.uid[3] +
+        userObj.uid[4] +
+        userObj.uid[5] +
+        user.uid[0] +
+        user.uid[1] +
+        user.uid[2] +
+        user.uid[3] +
+        user.uid[4] +
+        user.uid[5],
       )
     }
   }, [])
