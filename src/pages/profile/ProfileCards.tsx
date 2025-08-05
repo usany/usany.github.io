@@ -1,5 +1,5 @@
 import Card from '@mui/material/Card'
-import { collection, getDocs, orderBy, query } from 'firebase/firestore'
+import { collection, doc, getDoc, getDocs, query } from 'firebase/firestore'
 import { useState } from 'react'
 import { dbservice } from 'src/baseApi/serverbase'
 import { useSelectors } from 'src/hooks/useSelectors'
@@ -22,29 +22,35 @@ const ProfileCards = ({
   const [companies, setCompanies] = useState([])
   const [selectedUser, setSelectedUser] = useState(null)
   const languages = useSelectors((state) => state.languages.value)
-  const usersCollection = async ({ lend }) => {
+  const usersCollection = async (index) => {
     const elementsCollection = []
     const collectionRef = collection(dbservice, 'members')
-    const docs = await getDocs(query(collectionRef, orderBy('points', 'desc')))
+    const docs = await getDocs(query(collectionRef))
     docs.forEach((element) => {
-      if (alliesCollection[lend].list?.indexOf(element.data().uid) !== -1) {
+      if (alliesCollection[index].list?.indexOf(element.data().uid) !== -1) {
         elementsCollection.push(element.data())
       }
     })
     setCompanies(elementsCollection)
   }
-  // useEffect(() => {
-  //   if (!selectedUser) {
-  //     setSelectedUser(user)
-  //   }
-  // }, [user])
+  const userAllies = async (index) => {
+    alliesCollection[index].list.map((element) => {
+
+    })
+    const ref = doc(dbservice, `members/${user.uid}`)
+    const docs = await getDoc(ref)
+    const followers = docs.data()?.followers || []
+    const followings = docs.data()?.followings || []
+    setCompanies(index ? followings : followers)
+  }
   const { color } = useCardsBackground()
   const followerList = [true, false]
-  const onClick = ({ lend }) => {
-    usersCollection({ lend: lend })
+  const onClick = ({ index }) => {
+    usersCollection(index)
     changeProfileDialog(true)
-    console.log('sample')
+    // userAllies(index)
   }
+  console.log(alliesCollection)
   return (
     <div className="flex justify-center pt-5">
       <Card
@@ -76,7 +82,7 @@ const ProfileCards = ({
                 <ProfileCompaniesTrigger
                   followers={value}
                   alliesCollection={alliesCollection[index].list}
-                  onClick={() => onClick({ lend: index })}
+                  onClick={() => onClick({ index: index })}
                 />
               }
               title={<ProfileCompaniesTitle user={user} followers={value} />}
@@ -88,7 +94,7 @@ const ProfileCards = ({
               close={
                 <ProfileLists
                   elements={companies}
-                  changeSelectedUser={(newValue) => setSelectedUser(newValue)}
+                // changeSelectedUser={(newValue) => setSelectedUser(newValue)}
                 />
               }
               attachment={true}

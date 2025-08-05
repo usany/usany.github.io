@@ -130,7 +130,7 @@ function Profile({ userObj }: Props) {
       if (userObj.uid === userUid) {
         docRef = doc(dbservice, `members/${userObj.uid}`);
       } else {
-        docRef = doc(dbservice, `members/${location.search}`);
+        docRef = doc(dbservice, `members/${location.search.slice(4)}`);
       }
       const myDocSnap = await getDoc(docRef);
       const { followers, followings } = myDocSnap.data();
