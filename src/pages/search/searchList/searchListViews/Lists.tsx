@@ -24,16 +24,30 @@ function Lists({
       {ranking && (
         <div>
           <RankingListsTitle multiple={multiple} />
-          {elements.length ?
-            <ListsView userObj={userObj} elements={elements} userSearch={userSearch} multiple={multiple} link={link} handleUser={handleUser} />
-            :
-            <Skeleton className='w-full h-[85px] bg-light-2 dark:bg-dark-2 rounded' />
-          }
+          {elements.length ? (
+            <ListsView
+              userObj={userObj}
+              elements={elements}
+              userSearch={userSearch}
+              multiple={multiple}
+              link={link}
+              handleUser={handleUser}
+            />
+          ) : (
+            <Skeleton className="w-full h-[85px] bg-light-2 dark:bg-dark-2 rounded" />
+          )}
         </div>
       )}
       {!ranking && (
         <DrawerClose>
-          <ListsView userObj={userObj} elements={elements} userSearch={userSearch} multiple={multiple} link={link} handleUser={handleUser} />
+          <ListsView
+            userObj={userObj}
+            elements={elements}
+            userSearch={userSearch}
+            multiple={multiple}
+            link={link}
+            handleUser={handleUser}
+          />
         </DrawerClose>
       )}
     </div>
