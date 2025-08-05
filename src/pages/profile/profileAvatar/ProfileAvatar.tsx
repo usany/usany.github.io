@@ -3,13 +3,14 @@ import LoadingsSkeletons from "src/components/recycle/recycleLoadingsSkeletons";
 import { useSelectors } from "src/hooks/useSelectors";
 import Avatars from "src/pages/core/Avatars";
 import Popups from "src/pages/core/Popups";
+import useTexts from "src/useTexts";
 import ProfileClose from "./ProfileClose";
 import ProfileDialogs from "./profileDialogs/ProfileDialogs";
 import ProfileView from "./ProfileView";
 
 const ProfileAvatar = ({ userObj, user }) => {
   const profile = useSelectors((state) => state.profile.value)
-  console.log(profile)
+  const { changeProfile } = useTexts()
   const [attachment, setAttachment] = useState(null)
   const changeAttachment = (newValue) => setAttachment(newValue)
   const [changedImage, setChangedImage] = useState({
@@ -53,7 +54,7 @@ const ProfileAvatar = ({ userObj, user }) => {
     return (
       <Popups
         trigger={<ProfileView userObj={userObj} user={user} changeAttachment={changeAttachment} changedImage={changedImage} handleChangedImage={handleChangedImage} />}
-        title={'프로필 변경'}
+        title={changeProfile}
         content={<ProfileDialogs attachment={attachment} changeAttachment={changeAttachment} changedImage={changedImage} handleChangedImage={handleChangedImage} />}
         close={<ProfileClose userObj={userObj} changedImage={changedImage} handleChangedImage={handleChangedImage} attachment={attachment} />}
         attachment={changedImage}
