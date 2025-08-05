@@ -1,7 +1,9 @@
 import { useSelectors } from 'src/hooks/useSelectors'
 import Cards from 'src/pages/core/card/Cards'
+import useTexts from 'src/useTexts'
 
 const CardsList = ({ choose, messages, selectedValues, userObj }) => {
+  const { empty } = useTexts()
   const chosenMessages = messages
     .map((message, index) => {
       const isOwner = message?.creatorId === userObj?.uid
@@ -41,7 +43,7 @@ const CardsList = ({ choose, messages, selectedValues, userObj }) => {
               {chosenMessages}
             </div>
           ) : (
-            <div className="flex justify-center p-5">비었습니다</div>
+            <div className="flex justify-center p-5">{empty}</div>
           )}
         </>
       ) : (
