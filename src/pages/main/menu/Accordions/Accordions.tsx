@@ -7,6 +7,7 @@ import CardsStacks from 'src/pages/core/card/CardsStacks'
 import MessageStacks from 'src/pages/core/chatting/MessageStacks'
 import { cardOff, cardOn } from 'src/stateSlices/cardAccordionSlice'
 import { messageOff, messageOn } from 'src/stateSlices/messageAccordionSlice'
+import useTexts from 'src/useTexts'
 import AccordionsContents from './AccordionsContents'
 import AccordionsTriggers from './AccordionsTriggers'
 // import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
@@ -31,6 +32,7 @@ function Accordions({ userObj }: Props) {
   const cardAccordion = useSelector((state) => state.cardAccordion.value)
   const messageAccordion = useSelector((state) => state.messageAccordion.value)
   const dispatch = useDispatch()
+  const { card, message } = useTexts()
   const accordionItems = [
     {
       value: 'item-1',
@@ -38,7 +40,7 @@ function Accordions({ userObj }: Props) {
       item: <div className='flex gap-5'>
         <CreditCard />
         <>
-          {cards[langugaesIndex]}
+          {card}
         </>
       </div>,
       onClick: () => {
@@ -56,7 +58,7 @@ function Accordions({ userObj }: Props) {
       item: <div className='flex gap-5'>
         <MessageCircleIcon />
         <>
-          {messages[langugaesIndex]}
+          {message}
         </>
       </div>,
       onClick: () => {
