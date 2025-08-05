@@ -13,10 +13,12 @@ import {
 import {
   dbservice
 } from "src/baseApi/serverbase";
+import useTexts from "src/useTexts";
 
 const ProfileMembersDrawersContent = ({ userObj, user }) => {
   const [confirmEmail, setConfirmEmail] = useState(false);
   const [process, setProcess] = useState(false);
+  const { deleteAccount, noProcessingCard, canDeleteAccountWhenYouHaveNoProcessingBorrwingOrLendingCard } = useTexts()
   const navigate = useNavigate();
   const onChange = (event) => {
     const {
@@ -59,10 +61,10 @@ const ProfileMembersDrawersContent = ({ userObj, user }) => {
   return (
     <>
       <div className='p-5'>
-        진행 중인 빌리기, 빌려주기가 없어야 회원 탈퇴를 할 수 있습니다.
+        {canDeleteAccountWhenYouHaveNoProcessingBorrwingOrLendingCard}
         {process ? (
           <div className='flex justify-center'>
-            <Chip label={'진행 카드가 없습니다'} sx={{ bgcolor: '#7fc4bc', color: 'white' }} />
+            <Chip label={noProcessingCard} sx={{ bgcolor: '#7fc4bc', color: 'white' }} />
           </div>
         ) : (
           <div className='flex justify-center'>
@@ -71,13 +73,13 @@ const ProfileMembersDrawersContent = ({ userObj, user }) => {
             }} />
           </div>
         )}
-        <div>정말로 회원 탈퇴를 하시려면 이메일을 입력해 주세요</div>
+        <div>{toDeleteAccountInputMail}</div>
       </div>
       <div className="flex flex-col justify-center p-5 gap-5">
         <TextField label="이메일" onChange={onChange} />
         {process && confirmEmail ? (
           <Button variant="outlined" onClick={delist}>
-            회원 탈퇴
+            {deleteAccount}
           </Button>
         ) : (
           <Button variant="outlined" disabled>
