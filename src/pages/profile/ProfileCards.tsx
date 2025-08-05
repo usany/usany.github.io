@@ -19,8 +19,6 @@ const ProfileCards = ({
   changeProfileDialog,
 }) => {
   const [companies, setCompanies] = useState([])
-  // const [selectedUser, setSelectedUser] = useState(null)
-  // const languages = useSelectors((state) => state.languages.value)
   const usersCollection = async (index) => {
     const elementsCollection = []
     const collectionRef = collection(dbservice, 'members')
