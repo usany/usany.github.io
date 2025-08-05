@@ -46,6 +46,15 @@ const ProfileCards = ({
     changeProfileDialog(true)
     // userAllies(index)
   }
+  // const userAllies = async (index) => {
+  //   alliesCollection[index].list.map((element) => {
+  //   })
+  //   const ref = doc(dbservice, `members/${user.uid}`)
+  //   const docs = await getDoc(ref)
+  //   const followers = docs.data()?.followers || []
+  //   const followings = docs.data()?.followings || []
+  //   setCompanies(index ? followings : followers)
+  // }
   return (
     <div className="flex justify-center pt-5">
       <Card
