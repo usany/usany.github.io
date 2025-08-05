@@ -1,23 +1,23 @@
-import Card from '@mui/material/Card';
-import { collection, getDocs, orderBy, query } from 'firebase/firestore';
-import { useState } from 'react';
-import { dbservice } from 'src/baseApi/serverbase';
-import { useSelectors } from 'src/hooks/useSelectors';
-import useCardsBackground from '../../hooks/useCardsBackground';
-import Popups from '../core/Popups';
-import ProfileLists from '../search/searchList/searchListViews/ProfileLists';
-import ProfileCompaniesTitle from './ProfileCompaniesTitle';
-import ProfileCompaniesTrigger from './ProfileCompaniesTrigger';
-import ProfileDrawersEmptyCompanies from './ProfileDrawersEmptyCompanies';
-import ProfileDrawersPoints from './ProfileDrawersPoints';
-import ProfilePointsTitle from './ProfilePointsTitle';
-import ProfilePointsTrigger from './ProfilePointsTrigger';
+import Card from '@mui/material/Card'
+import { collection, getDocs, orderBy, query } from 'firebase/firestore'
+import { useState } from 'react'
+import { dbservice } from 'src/baseApi/serverbase'
+import { useSelectors } from 'src/hooks/useSelectors'
+import useCardsBackground from '../../hooks/useCardsBackground'
+import Popups from '../core/Popups'
+import ProfileLists from '../search/searchList/searchListViews/ProfileLists'
+import ProfileCompaniesTitle from './ProfileCompaniesTitle'
+import ProfileCompaniesTrigger from './ProfileCompaniesTrigger'
+import ProfileDrawersEmptyCompanies from './ProfileDrawersEmptyCompanies'
+import ProfileDrawersPoints from './ProfileDrawersPoints'
+import ProfilePointsTitle from './ProfilePointsTitle'
+import ProfilePointsTrigger from './ProfilePointsTrigger'
 
 const ProfileCards = ({
   user,
   alliesCollection,
   cards,
-  changeProfileDialog
+  changeProfileDialog,
 }) => {
   const [companies, setCompanies] = useState([])
   const [selectedUser, setSelectedUser] = useState(null)
@@ -46,28 +46,59 @@ const ProfileCards = ({
     console.log('sample')
   }
   return (
-    <div className='flex justify-center pt-5'>
-      <Card sx={{
-        bgcolor: color
-      }}>
-        <Popups trigger={<ProfilePointsTrigger cards={cards} />} title={<ProfilePointsTitle user={user} />} content={<ProfileDrawersPoints user={user} cards={cards} />} close={null} attachment={null} />
+    <div className="flex justify-center pt-5">
+      <Card
+        sx={{
+          bgcolor: color,
+        }}
+      >
+        <Popups
+          trigger={<ProfilePointsTrigger cards={cards} />}
+          title={<ProfilePointsTitle user={user} />}
+          content={<ProfileDrawersPoints user={user} cards={cards} />}
+          close={null}
+          attachment={null}
+        />
       </Card>
       {followerList.map((value, index) => {
         const onLink = {
           to: 'profile',
-          state: selectedUser || user
+          state: selectedUser || user,
         }
         return (
-          <Card sx={{
-            bgcolor: color
-          }}
+          <Card
+            sx={{
+              bgcolor: color,
+            }}
           >
-            <Popups trigger={<ProfileCompaniesTrigger followers={value} alliesCollection={alliesCollection[index].list} onClick={() => onClick({ lend: index })} />} title={<ProfileCompaniesTitle user={user} followers={value} />} content={!companies.length && <ProfileDrawersEmptyCompanies followers={index} />} close={<ProfileLists elements={companies} changeSelectedUser={(newValue) => setSelectedUser(newValue)} />} attachment={true} onLink={onLink} />
+            <Popups
+              trigger={
+                <ProfileCompaniesTrigger
+                  followers={value}
+                  alliesCollection={alliesCollection[index].list}
+                  onClick={() => onClick({ lend: index })}
+                />
+              }
+              title={<ProfileCompaniesTitle user={user} followers={value} />}
+              content={
+                !companies.length && (
+                  <ProfileDrawersEmptyCompanies followings={index} />
+                )
+              }
+              close={
+                <ProfileLists
+                  elements={companies}
+                  changeSelectedUser={(newValue) => setSelectedUser(newValue)}
+                />
+              }
+              attachment={true}
+              onLink={onLink}
+            />
           </Card>
         )
       })}
     </div>
-  );
+  )
 }
 
 export default ProfileCards
