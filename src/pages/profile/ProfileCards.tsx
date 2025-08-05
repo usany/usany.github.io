@@ -44,7 +44,7 @@ const ProfileCards = ({
   // }
   const { color } = useCardsBackground()
   const followerList = [true, false]
-  const onClick = ({ index }) => {
+  const onClick = (index) => {
     usersCollection(index)
     changeProfileDialog(true)
     // userAllies(index)
