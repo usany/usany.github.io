@@ -1,6 +1,6 @@
 import { User } from 'firebase/auth'
 import { useEffect, useState } from 'react'
-import { Skeleton } from 'src/components/ui/skeleton'
+import { useSelectors } from 'src/hooks/useSelectors'
 import Cards from './Cards'
 const deleteMessage = (id: string) => {
   console.log(id)
@@ -29,6 +29,7 @@ const CardsStacksViewsCollection = ({
   const [delayed, setDelayed] = useState(true)
   const delayedTrue = () => setDelayed(true)
   const delayedFalse = () => setDelayed(false)
+  const onLine = useSelectors(state => state.onLine.value)
   useEffect(() => {
     if (!delayed) {
       setTimeout(() => delayedTrue(), 250)
@@ -44,14 +45,18 @@ const CardsStacksViewsCollection = ({
   //     setOnLongPress(0)
   //   }
   // }, [longPressCard])
+  if (messages.length) {
+    localStorage.setItem('cards', JSON.stringify(messages))
+  }
+  const messagesArray = onLine ? messages : JSON.parse(localStorage.getItem('cards') || '[]')
   return (
     <div
       id="items"
       className="grid grid-cols-[repeat(auto-fit,minmax(180px,1fr))] col-span-full"
     >
       {/* <Skeleton className='w-full h-[260px] rounded bg-light-2' /> */}
-      {!messages.length && <Skeleton className='w-full h-[276px] rounded bg-light-2' />}
-      {messages.map((value) => {
+      {/* {!messages.length && <Skeleton className='w-full h-[276px] rounded bg-light-2' />} */}
+      {messagesArray.map((value, index) => {
         const isOwner = value.creatorId === userObj.uid
         if (value.round !== 5) {
           if (

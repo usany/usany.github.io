@@ -20,7 +20,7 @@ const AuthForm = ({ signIn, agreed }) => {
   const [account, setAccount] = useState({ email: '', password: '' })
   const [error, setError] = useState('')
   const languages = useSelectors((state) => state.languages.value)
-  const needToAgreeOnTermsText = useTexts('needToAgreeOnTerms')
+  const { needToAgreeOnPrivateInformationPolicy } = useTexts()
   // const { i18n, t } = useTranslation()
   const onLine = useSelector((state) => state.onLine.value)
   const onSubmitSignIn = async (event) => {
@@ -218,7 +218,9 @@ const AuthForm = ({ signIn, agreed }) => {
                     : 'Register'}
               </Button>
             )}
-            {!signIn && !agreed && <div>{needToAgreeOnTermsText}</div>}
+            {!signIn && !agreed && (
+              <div>{needToAgreeOnPrivateInformationPolicy}</div>
+            )}
             <span>{error}</span>
           </div>
         </form>

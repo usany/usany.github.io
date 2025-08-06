@@ -173,11 +173,13 @@ const ChattingStacks = ({
       webSocket.off(`sNewMessage`, sNewMessageCallback)
     }
   })
+  console.log(chattings)
   return (
     <>
       {sorted.map((element, index) => {
         if (element === 'piazza') {
-          const clock = new Date(piazzaMessage?.messageClock)
+          const message = navigator.onLine ? piazzaMessage : JSON.parse(localStorage.getItem('group') || '{}')
+          const clock = new Date(message?.messageClock)
           return (
             <>
               <Chats
@@ -188,7 +190,7 @@ const ChattingStacks = ({
                 chattingUid={''}
                 multiple={true}
                 clock={clock}
-                message={piazzaMessage}
+                message={message}
                 longPressChat={longPressChat}
                 longPressChatsList={longPressChatsList}
                 changeLongPressChat={changeLongPressChat}
@@ -202,19 +204,20 @@ const ChattingStacks = ({
             </>
           )
         } else {
-          const clock = new Date(chattings[element].messageClock)
-          if (chattings[element]) {
+          const messages = navigator.onLine ? chattings : JSON.parse(localStorage.getItem('chattings') || '[]')
+          const clock = new Date(messages[element].messageClock)
+          if (messages[element]) {
             let displayName
             let chattingUid
             let profileUrl
-            if (userObj.uid === chattings[element].userOne) {
-              displayName = chattings[element].userTwoDisplayName
-              chattingUid = chattings[element].userTwo
-              profileUrl = chattings[element].userTwoProfileUrl
+            if (userObj.uid === messages[element].userOne) {
+              displayName = messages[element].userTwoDisplayName
+              chattingUid = messages[element].userTwo
+              profileUrl = messages[element].userTwoProfileUrl
             } else {
-              displayName = chattings[element].userOneDisplayName
-              chattingUid = chattings[element].userOne
-              profileUrl = chattings[element].userOneProfileUrl
+              displayName = messages[element].userOneDisplayName
+              chattingUid = messages[element].userOne
+              profileUrl = messages[element].userOneProfileUrl
             }
             return (
               <>
@@ -226,7 +229,7 @@ const ChattingStacks = ({
                   chattingUid={chattingUid}
                   multiple={false}
                   clock={clock}
-                  message={chattings[element]}
+                  message={messages[element]}
                   longPressChat={longPressChat}
                   longPressChatsList={longPressChatsList}
                   changeLongPressChat={changeLongPressChat}

@@ -1,12 +1,8 @@
-import { useSelectors } from "src/hooks/useSelectors";
+import useTexts from 'src/useTexts'
 
 function ContactFormDrawersTitle() {
-  const languages = useSelectors((state) => state.languages.value)
-  return (
-    <div>
-      유저 검색
-    </div>
-  )
+  const { searchUser } = useTexts()
+  return <div>{searchUser}</div>
 }
 
 export default ContactFormDrawersTitle

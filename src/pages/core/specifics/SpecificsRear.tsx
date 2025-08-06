@@ -22,8 +22,7 @@ function SpecificsRear({
   returningClock,
   confirmedReturnClock
 }: Props) {
-  const borrowingText = useTexts('borrowing')
-  const lendingText = useTexts('lending')
+  const { borrowing, lending } = useTexts()
   const profileImage = useSelectors(state => state.profileImage.value)
   const defaultProfile = useSelectors(state => state.defaultProfile.value)
   const profileImageUrl = useSelectors(state => state.profileImageUrl.value)
@@ -76,8 +75,8 @@ function SpecificsRear({
             <img className='absolute w-[50%] top-[25%] opacity-50' src={staticImage} />
           </div>
           <div className='flex justify-between'>
-            <div>{borrowingText}</div>
-            <div>{lendingText}</div>
+            <div>{borrowing}</div>
+            <div>{lending}</div>
           </div>
           <Divider />
           {message.text.choose === 1 ?

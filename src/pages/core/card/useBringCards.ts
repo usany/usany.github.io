@@ -56,7 +56,9 @@ export const useBringCards = (userObj) => {
       setCardLoaded(true)
       console.log(messages)
     }
-    bringCards()
+    if (navigator.onLine) {
+      bringCards()
+    }
   }, [])
   return {
     messages: messages,

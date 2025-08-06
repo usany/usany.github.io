@@ -77,9 +77,10 @@ function FilterDialogsContent({ selectedValues, handleSelectedValues }) {
   const languages = useSelectors((state) => state.languages.value)
   const index = (languages === 'ko' || languages === 'en') ? languages : 'ko'
   const [selected, setSelected] = useState(null);
-  const onClick = ({ id }) => {
-    setSelected(id);
-  };
+  // const { filtering } = useTexts()
+  // const onClick = ({ id }) => {
+  //   setSelected(id);
+  // };
   console.log(selectedValues)
 
   return (

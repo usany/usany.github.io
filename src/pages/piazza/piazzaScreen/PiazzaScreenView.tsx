@@ -17,9 +17,7 @@ import Avatars from 'src/pages/core/Avatars'
 import Popups from 'src/pages/core/Popups'
 import SpecificsTradesTitle from 'src/pages/core/specifics/SpecificsTradesTitle'
 import { webSocket } from 'src/webSocket.tsx'
-import staticImg from 'src/assets/blue.png'
 import PiazzaDialogsContent from './piazzaDialogs/PiazzaDialogsContent'
-import statics from 'src/assets/user.png'
 interface Props {
   userObj: User
   messagesList: []
@@ -31,7 +29,7 @@ function PiazzaScreenView({
   messagesList,
   handleMessagesList,
   handleChatUid,
-  handleChatDisplayName
+  handleChatDisplayName,
 }: Props) {
   const messagesEndRef = useRef(null)
   const boxRef = useRef(null)
@@ -41,7 +39,9 @@ function PiazzaScreenView({
   const [continuing, setContinuing] = useState(null)
   const [continueNumber, setContinueNumber] = useState(0)
   const [currentConversation, setCurrentConversation] = useState('piazza')
-  const conversation = location.search ? location.search.slice(location.search.indexOf('=') + 1) : 'piazza'
+  const conversation = location.search
+    ? location.search.slice(location.search.indexOf('=') + 1)
+    : 'piazza'
   useEffect(() => {
     if (currentConversation !== conversation || conversation === 'piazza') {
       handleMessagesList([])
@@ -233,6 +233,10 @@ function PiazzaScreenView({
       })
       messagesArray.reverse()
       handleMessagesList([...messagesArray, ...messagesList])
+      localStorage.setItem(
+        conversation,
+        JSON.stringify([...messagesArray, ...messagesList]),
+      )
       setIsLoading(false)
     }
     const messageListMembers = async (conversation) => {
@@ -290,15 +294,19 @@ function PiazzaScreenView({
       })
       messagesArray.reverse()
       handleMessagesList([...messagesArray, ...messagesList])
+      localStorage.setItem(
+        conversation,
+        JSON.stringify([...messagesArray, ...messagesList]),
+      )
       setIsLoading(false)
     }
     console.log(messagesList.length)
     if (conversation === 'piazza') {
-      if (isLoading || !messagesList.length) {
+      if (isLoading || (!messagesList.length && navigator.onLine)) {
         messageList()
       }
     } else {
-      if (isLoading || !messagesList.length) {
+      if (isLoading || (!messagesList.length && navigator.onLine)) {
         messageListMembers(conversation)
       }
     }
@@ -318,12 +326,17 @@ function PiazzaScreenView({
     }
   }
   useEffect(() => {
-    boxRef.current?.addEventListener('scroll', handleScroll)
-    return () => boxRef.current?.removeEventListener('scroll', handleScroll)
+    if (navigator.onLine) {
+      boxRef.current?.addEventListener('scroll', handleScroll)
+      return () => boxRef.current?.removeEventListener('scroll', handleScroll)
+    }
   }, [isLoading])
-  console.log(conversation)
-  console.log(messagesList)
-  console.log(user)
+  // console.log(conversation)
+  // console.log(messagesList)
+  // console.log(user)
+  const messagesArray = navigator.onLine
+    ? messagesList
+    : JSON.parse(localStorage.getItem(conversation) || '[]')
   return (
     <>
       <div ref={boxRef} className={`p-1 border-t rounded-xl overflow-auto`}>
@@ -333,7 +346,7 @@ function PiazzaScreenView({
               로딩
             </div>
           )}
-          {messagesList.map((value, index) => {
+          {messagesArray.map((value, index) => {
             let passingValue
             if (conversation === 'piazza') {
               passingValue = value
@@ -343,16 +356,20 @@ function PiazzaScreenView({
                   userUid: value.userOne,
                   id: value.userOneDisplayName,
                   profileImage: value.userOneProfileImage || value.profileImage,
-                  defaultProfile: value.userOneDefaultProfile || value.defaultProfile,
-                  profileImageUrl: value.userOneProfileUrl || value.profileImageUrl,
+                  defaultProfile:
+                    value.userOneDefaultProfile || value.defaultProfile,
+                  profileImageUrl:
+                    value.userOneProfileUrl || value.profileImageUrl,
                 }
               } else {
                 passingValue = {
                   userUid: value.userTwo,
                   id: value.userTwoDisplayName,
                   profileImage: value.userTwoProfileImage || value.profileImage,
-                  defaultProfile: value.userTwoDefaultProfile || value.defaultProfile,
-                  profileImageUrl: value.userTwoProfileUrl || value.profileImageUrl,
+                  defaultProfile:
+                    value.userTwoDefaultProfile || value.defaultProfile,
+                  profileImageUrl:
+                    value.userTwoProfileUrl || value.profileImageUrl,
                 }
               }
             }
@@ -367,18 +384,16 @@ function PiazzaScreenView({
             let passingClock
             let displayClock = 0
             if (index > 0) {
-              previousUid = messagesList[index - 1].userUid
+              previousUid = messagesArray[index - 1].userUid
             }
-            if (index < messagesList.length - 1) {
-              if (messagesList[index + 1].userUid === userObj.uid) {
-                passingClock = new Date(messagesList[index + 1].messageClock)
+            if (index < messagesArray.length - 1) {
+              if (messagesArray[index + 1].userUid === userObj.uid) {
+                passingClock = new Date(messagesArray[index + 1].messageClock)
                 if (clock.getFullYear() === passingClock.getFullYear()) {
                   if (clock.getMonth() === passingClock.getMonth()) {
                     if (clock.getDate() === passingClock.getDate()) {
                       if (clock.getHours() === passingClock.getHours()) {
-                        if (
-                          clock.getMinutes() === passingClock.getMinutes()
-                        ) {
+                        if (clock.getMinutes() === passingClock.getMinutes()) {
                           displayClock = 1
                         }
                       }
@@ -434,7 +449,24 @@ function PiazzaScreenView({
                                 profile={false}
                               />
                             }
-                            title={<SpecificsTradesTitle />}
+                            title={
+                              <div>
+                                <div className="flex justify-center">
+                                  {user?.displayName}
+                                </div>
+                                {user?.displayName !== displayedName && (
+                                  <div>
+                                    {languages === 'ko' ? (
+                                      <div>({displayedName}에서 개명)</div>
+                                    ) : (
+                                      <div>
+                                        (Changed name from {displayedName})
+                                      </div>
+                                    )}
+                                  </div>
+                                )}
+                              </div>
+                            }
                             content={
                               <PiazzaDialogsContent
                                 initiateContinuing={() => setContinuing(null)}
@@ -480,13 +512,30 @@ function PiazzaScreenView({
                                   })
                                 }
                                 profile={false}
-                              // uid={userObj.uid}
-                              // profileColor=""
-                              // profileUrl={value.profileImageUrl}
-                              // defaultProfileUrl={value.defaultProfile}
+                                // uid={userObj.uid}
+                                // profileColor=""
+                                // profileUrl={value.profileImageUrl}
+                                // defaultProfileUrl={value.defaultProfile}
                               />
                             }
-                            title={<SpecificsTradesTitle />}
+                            title={
+                              <div>
+                                <div className="flex justify-center">
+                                  {user?.displayName}
+                                </div>
+                                {user?.displayName !== displayedName && (
+                                  <div>
+                                    {languages === 'ko' ? (
+                                      <div>({displayedName}에서 개명)</div>
+                                    ) : (
+                                      <div>
+                                        (Changed name from {displayedName})
+                                      </div>
+                                    )}
+                                  </div>
+                                )}{' '}
+                              </div>
+                            }
                             content={
                               <PiazzaDialogsContent
                                 initiateContinuing={() => setContinuing(null)}
@@ -556,15 +605,6 @@ function PiazzaScreenView({
             )
           })}
           <li ref={messagesEndRef} />
-          {!navigator.onLine &&
-            <div>
-              <div>
-                practice
-              </div>
-              <img src={staticImg} />
-              <img src={statics} />
-            </div>
-          }
         </ul>
       </div>
     </>

@@ -3,6 +3,7 @@ import {
   Link
 } from "react-router-dom";
 import { useSelectors } from "src/hooks/useSelectors";
+import useTexts from "src/useTexts";
 import useCardsBackground from "../../hooks/useCardsBackground";
 import Popups from "../core/Popups";
 import ProfileMembersDrawersContent from "./ProfileMembersDrawersContent";
@@ -14,11 +15,12 @@ import ProfileMembersPasswordTrigger from "./ProfileMembersPasswordTrigger";
 const ProfileMembers = ({ userObj, user }) => {
   const { color } = useCardsBackground()
   const languages = useSelectors((state) => state.languages.value)
+  const { changePassword } = useTexts()
   return (
     <div className="flex justify-center p-5">
       {user.uid === userObj.uid ? (
         <div className="grid grid-flow-row grid-cols-2 justify-center">
-          <Popups trigger={<ProfileMembersPasswordTrigger />} title={<div>비밀번호 변경</div>} content={<ProfileMembersPasswordContent />} />
+          <Popups trigger={<ProfileMembersPasswordTrigger />} title={<div>{changePassword}</div>} content={<ProfileMembersPasswordContent />} />
           <Popups trigger={<ProfileMembersDrawersTrigger />} title={<ProfileMembersDrawersTitle />} content={<ProfileMembersDrawersContent userObj={userObj} user={user} />} />
         </div>
       ) : (
