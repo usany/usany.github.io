@@ -8,7 +8,6 @@ import { SwipeableViews } from 'src/pages/core/SwipeableViews'
 import Auth from 'src/pages/main/auth/Auth'
 import Menu from 'src/pages/main/menu/Menu'
 import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
-import { changeUserCertificated } from 'src/stateSlices/userCertificatedSlice'
 import Add from '../add/Add'
 import LayoutBoard from '../board/LayoutBoard'
 
@@ -20,21 +19,18 @@ function Home({ userObj }: UserObjProps) {
     if (bottomNavigation === 5) {
       dispatch(changeBottomNavigation(1))
     }
-    if (!userObj) {
-      dispatch(changeUserCertificated(false))
+  }, [userObj])
+  useEffect(() => {
+    const userCertification = async () => {
+      const userRef = doc(dbservice, `members/${userObj.uid}`)
+      const userDoc = await getDoc(userRef)
+      const { certificated } = userDoc.data()
+      dispatch(changeUserCertificated(certificated))
+    }
+    if (userObj) {
+      userCertification()
     }
   }, [userObj])
-  // useEffect(() => {
-  //   const userCertification = async () => {
-  //     const userRef = doc(dbservice, `members/${userObj.uid}`)
-  //     const userDoc = await getDoc(userRef)
-  //     const { certificated } = userDoc.data()
-  //     dispatch(changeUserCertificated(certificated))
-  //   }
-  //   if (userObj) {
-  //     userCertification()
-  //   }
-  // }, [userObj])
   return (
     <>
       {userObj && userCertificated ? (
