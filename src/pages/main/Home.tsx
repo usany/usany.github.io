@@ -1,5 +1,7 @@
+import { doc, getDoc } from 'firebase/firestore'
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
+import { dbservice } from 'src/baseApi/serverbase'
 import { useSelectors } from 'src/hooks/useSelectors'
 import UserObjProps from 'src/interfaces/UserObjProps'
 import Layout from 'src/pages/add/Layout'
@@ -20,8 +22,14 @@ function Home({ userObj }: UserObjProps) {
     if (bottomNavigation === 5) {
       dispatch(changeBottomNavigation(1))
     }
-    if (!userObj) {
-      dispatch(changeUserCertificated(false))
+    const userCertification = async () => {
+      const userRef = doc(dbservice, `members/${userObj.uid}`)
+      const userDoc = await getDoc(userRef)
+      const { certificated } = userDoc.data()
+      dispatch(changeUserCertificated(certificated))
+    }
+    if (userObj) {
+      userCertification()
     }
   }, [userObj])
   return (
