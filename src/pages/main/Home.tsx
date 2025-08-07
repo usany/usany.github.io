@@ -1,5 +1,7 @@
+import { doc, getDoc } from 'firebase/firestore'
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
+import { dbservice } from 'src/baseApi/serverbase'
 import { useSelectors } from 'src/hooks/useSelectors'
 import UserObjProps from 'src/interfaces/UserObjProps'
 import Layout from 'src/pages/add/Layout'
@@ -8,9 +10,9 @@ import { SwipeableViews } from 'src/pages/core/SwipeableViews'
 import Auth from 'src/pages/main/auth/Auth'
 import Menu from 'src/pages/main/menu/Menu'
 import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
+import { changeUserCertificated } from 'src/stateSlices/userCertificatedSlice'
 import Add from '../add/Add'
 import LayoutBoard from '../board/LayoutBoard'
-import { doc, getDoc } from 'firebase/firestore'
 
 function Home({ userObj }: UserObjProps) {
   const bottomNavigation = useSelectors((state) => state.bottomNavigation.value)
