@@ -142,7 +142,7 @@ function Selects({
   return (
     <div className={`flex ${matches ? "" : "flex-col"} gap-1 px-5`}>
       <FormControl variant="standard" sx={{ width: 150 }}>
-        <InputLabel        >
+        <InputLabel>
           {languages === 'ko' ? '위치가 어디인가요' : 'Which location?'}
         </InputLabel>
         <Select
@@ -150,11 +150,6 @@ function Selects({
           onChange={changeBuilding}
         // label="Age"
         >
-          {/* <MenuItem value={'one'}>one</MenuItem>
-                    <MenuItem value={'focus'}>focus</MenuItem>
-                    <MenuItem value={'two'}>two</MenuItem>
-                    <MenuItem value={'three'}>three</MenuItem>
-                    <MenuItem value={'four'}>four</MenuItem> */}
           {locationsBuildings[languages].map((value, index) => {
             return (
               <MenuItem key={index} value={locationsBuildings['ko'][index]}>{value}</MenuItem>
