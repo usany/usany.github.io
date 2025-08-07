@@ -148,9 +148,7 @@ const onSocialClickMicrosoft = () => {
 const onSocialClickApple = () => {
   const providerApple = new OAuthProvider('apple.com')
   signInWithPopup(auth, providerApple)
-    .then((result) => {
-      onSocialClick(result)
-    })
+    .then((result) => onSocialClick(result))
     .catch((error) => {
       console.log(error)
     })
