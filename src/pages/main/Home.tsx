@@ -10,7 +10,7 @@ import Menu from 'src/pages/main/menu/Menu'
 import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
 import Add from '../add/Add'
 import LayoutBoard from '../board/LayoutBoard'
-import { doc, getDoc, updateDoc } from 'firebase/firestore'
+import { doc, getDoc } from 'firebase/firestore'
 
 function Home({ userObj }: UserObjProps) {
   const bottomNavigation = useSelectors((state) => state.bottomNavigation.value)
