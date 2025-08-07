@@ -153,56 +153,16 @@ const onSocialClickApple = () => {
       console.log(error)
     })
 }
-const onSocialClickFacebook = () => {
-  const providerFacebook = new FacebookAuthProvider()
-  signInWithPopup(auth, providerFacebook)
-    .then(async (result) => {
-      // const uid = result.user.uid
-      console.log(result)
-      const credential = OAuthProvider.credentialFromResult(result)
-      const accessToken = credential.accessToken
-      const idToken = credential.idToken
-      // const docRef = doc(dbservice, `members/${uid}`)
-      // const docSnap = await getDoc(docRef)
-      // const userData = docSnap.data()
-      // if (!userData) {
-      //     await setDoc(doc(dbservice, 'members', `${uid}`), {
-      //         uid: result.user.uid,
-      //         displayName: result.user.displayName,
-      //         points: 0,
-      //         profileColor: '#2196f3',
-      //         profileImage: null,
-      //         profileImageUrl: null,
-      //         followerNum: 0,
-      //         followingNum: 0,
-      //         followers: [],
-      //         followings: [],
-      //         messagingToken: null,
-      //     })
-      // }
-      console.log(accessToken)
-      console.log(idToken)
-    })
-    .catch((error) => {
-      console.log(error)
-    })
-}
-// signInWithPopup(auth, providerMicrosoft).then(() => {
-//     const credential = OAuthProvider.credentialFromResult(result);
-//     const accessToken = credential.accessToken;
-//     const idToken = credential.idToken;
-// }).catch((error) => {
-//     console.log(error)
-// })
 
 export {
   auth,
   dbservice,
   messaging,
   onSocialClick,
-  onSocialClickFacebook,
   onSocialClickGoogle,
   onSocialClickMicrosoft,
-  onSocialClickTwitter,
+  onSocialClickApple,
+  // onSocialClickFacebook,
+  // onSocialClickTwitter,
   storage,
 }
