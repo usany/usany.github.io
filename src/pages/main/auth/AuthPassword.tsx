@@ -1,13 +1,11 @@
 import { REGEXP_ONLY_DIGITS } from 'input-otp';
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { InputOTP, InputOTPGroup, InputOTPSlot } from 'src/components/ui/input-otp';
 
 function AuthPassword({ userObj, numberString, handleNumberString }) {
   // const [numberString, setNumberString] = useState('')
-  const [createdNumber, setCreatedNumber] = useState('')
+  // const [createdNumber, setCreatedNumber] = useState('')
   // const [mailSent, setMailSent] = useState(false)
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
   // const handleNumberString = (event) => {
   //   const {
   //     target: { value }
