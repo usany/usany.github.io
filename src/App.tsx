@@ -30,8 +30,6 @@ function App() {
   const userObj = useUserObject()
   const { lightTheme, darkTheme } = useColors()
   const dispatch = useDispatch()
-  // const [userCertificated, setUserCertificated] = useState(false)
-  // const userCeritificated = useSelectors((state) => state.userCertificated.value)
   useEffect(() => {
     if (userObj) {
       const initialProfile = async () => {
@@ -43,7 +41,6 @@ function App() {
         dispatch(changeDefaultProfile(userData?.defaultProfile))
         dispatch(changeProfileImageUrl(userData?.profileImageUrl))
         dispatch(changeUserCertificated(userData?.certificated))
-        // setUserCertificated(userData?.certificated)
       }
       initialProfile()
     }

@@ -138,7 +138,7 @@ function Navigation({ user, userObj, handleSideNavigation }: Props) {
       </DrawerTrigger>
       <DrawerContent className="border-none bg-light-2 dark:bg-dark-2 right-auto top-0 mt-0 w-[355px] overflow-hidden rounded-[10px]">
         <nav className="flex flex-col justify-between w-[350px]">
-          {userCertificated ? (
+          {userObj && userCertificated ? (
             <div>
               <NavigationSignedIn userObj={userObj} points={points} />
               {onLine ? (
@@ -209,7 +209,7 @@ function Navigation({ user, userObj, handleSideNavigation }: Props) {
               )}
             </div>
           )}
-          {userCertificated && onLine && <IframePlayer mode={theme} />}
+          {userObj && userCertificated && onLine && <IframePlayer mode={theme} />}
         </nav>
       </DrawerContent>
     </Drawer>
