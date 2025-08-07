@@ -1,3 +1,4 @@
+import { doc, getDoc } from 'firebase/firestore'
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { useSelectors } from 'src/hooks/useSelectors'
@@ -10,7 +11,7 @@ import Menu from 'src/pages/main/menu/Menu'
 import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
 import Add from '../add/Add'
 import LayoutBoard from '../board/LayoutBoard'
-import { doc, getDoc, updateDoc } from 'firebase/firestore'
+import { dbservice } from './baseApi/serverbase'
 
 function Home({ userObj }: UserObjProps) {
   const bottomNavigation = useSelectors((state) => state.bottomNavigation.value)
