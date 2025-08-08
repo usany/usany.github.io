@@ -70,7 +70,6 @@ function Auth({ userObj }) {
       });
     // navigate("/")
   }
-  console.log(userObj)
   return (
     <div>
       {userObj ?
