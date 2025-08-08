@@ -29,8 +29,6 @@ const AuthButtons = () => {
             }}
           >
             마이크로소프트 로그인
-            {/* <div className='truncate'>
-          </div> */}
           </Button>
           <Button
             className="colorTwo"
