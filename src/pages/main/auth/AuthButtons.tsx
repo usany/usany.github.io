@@ -44,8 +44,6 @@ const AuthButtons = () => {
             }}
           >
             구글 로그인
-            {/* <div className='truncate'>
-          </div> */}
           </Button>
           {/* <Button className='signin' sx={{ width: '50%' }} variant='outlined' onClick={onSocialClickTwitter}>트위터로 로그인</Button>
       <Button sx={{ width: '50%', backgroundColor: '#2196f3' }} startIcon={<img src={staticFacebook} className='w-[20px]' />} variant='outlined' onClick={onSocialClick}>
