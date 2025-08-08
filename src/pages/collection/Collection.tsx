@@ -116,13 +116,14 @@ function Collection({ userObj }) {
       const id = userObj.uid + now.toString()
       const docRef = doc(dbservice, `collections/${id}`)
       const storageRef = ref(storage, id)
-      uploadString(storageRef, attachment, 'data_url').then((snapshot) => {
+      uploadString(storageRef, attachment, 'data_url').then(() => {
         console.log('Uploaded a blob or file!')
         getDownloadURL(storageRef).then((url) => {
           setDoc(docRef, {
             uid: userObj.uid,
             displayName: userObj.displayName,
-            defaultProfile: attachment,
+            // defaultProfile: attachment,
+            defaultProfile: url,
           })
         })
       })
