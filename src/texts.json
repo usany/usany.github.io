@@ -121,7 +121,7 @@
     "inputTheNumber": "번호를 입력해주세요",
     "confirm": "확인",
     "sendMailAgain": "메일 재전송",
-    "cancelRegister": "회원가입 철회"
+    "cancelRegistration": "회원가입 철회"
   },
   "en": {
     "Welcome to React": "Welcome to React and react-i18next",
@@ -245,6 +245,6 @@
     "inputTheNumber": "Input the number",
     "confirm": "Confirm",
     "sendMailAgain": "Send mail again",
-    "cancelRegister": "Cancel Register"
+    "cancelRegistration": "Cancel Register"
   }
 }

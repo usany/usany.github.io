@@ -18,7 +18,7 @@ function Auth({ userObj }) {
   const [createdNumber, setCreatedNumber] = useState('')
   const languages = useSelectors((state) => state.languages.value)
   const dispatch = useDispatch()
-  const { checkTheNumber, weWillSendYouAConfirmingMailTo, sentAConfirmingMail, inputTheNumber, confirm, sendMail, sendMailAgain, cancelRegister } = useTexts()
+  const { checkTheNumber, weWillSendYouAConfirmingMailTo, sentAConfirmingMail, inputTheNumber, confirm, sendMail, sendMailAgain, cancelRegistration } = useTexts()
   const handleNumberString = (event) => {
     const {
       target: { value }
@@ -54,6 +54,9 @@ function Auth({ userObj }) {
       alert(checkTheNumber)
     }
   }
+  const cancelUserRegistration = () => {
+
+  }
   return (
     <div>
       {userObj ?
@@ -77,7 +80,7 @@ function Auth({ userObj }) {
                 {mailSent ? sendMailAgain : sendMail}
               </Button>
             </div>
-            <Button>{cancelRegister}</Button>
+            <Button onClick={ }>{cancelRegistration}</Button>
           </div>
         </div>
         :
