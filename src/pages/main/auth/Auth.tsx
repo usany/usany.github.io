@@ -18,7 +18,7 @@ function Auth({ userObj }) {
   const [createdNumber, setCreatedNumber] = useState('')
   const languages = useSelectors((state) => state.languages.value)
   const dispatch = useDispatch()
-  const { checkTheNumber, weWillSendYouAConfirmingMailTo, sentAConfirmingMail, register } = useTexts()
+  const { checkTheNumber, weWillSendYouAConfirmingMailTo, sentAConfirmingMail, inputNumber, confirm } = useTexts()
   const handleNumberString = (event) => {
     const {
       target: { value }
@@ -61,7 +61,7 @@ function Auth({ userObj }) {
           <PageTitle title={languages === 'ko' ? '메일 확인' : 'Confirming mail'} />
           <div className='flex flex-col gap-5 items-center'>
             {mailSent ?
-              <div>{languages === 'en' && sentAConfirmingMail} {userObj.email}{languages === 'ko' && sentAConfirmingMail}. {checkTheNumber}</div>
+              <div>{languages === 'en' && sentAConfirmingMail} {userObj.email}{languages === 'ko' && sentAConfirmingMail}. {inputNumber}</div>
               :
               <div>{languages === 'en' && weWillSendYouAConfirmingMailTo} {userObj.email}{languages === 'ko' && weWillSendYouAConfirmingMailTo}. {checkTheNumber}</div>
             }
@@ -70,7 +70,7 @@ function Auth({ userObj }) {
               {mailSent && <AuthPassword userObj={userObj} numberString={numberString} handleNumberString={handleNumberString} />}
               {numberString.length === 6 &&
                 <Button onClick={confirmNumber}>
-                  {register}
+                  {confirm}
                 </Button>
               }
             </div>
