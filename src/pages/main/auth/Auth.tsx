@@ -1,4 +1,4 @@
-import { Button, TextField } from '@mui/material';
+import { Button } from '@mui/material';
 import { deleteUser } from 'firebase/auth';
 import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import { useState } from 'react';
@@ -20,11 +20,11 @@ function Auth({ userObj }) {
   const languages = useSelectors((state) => state.languages.value)
   const dispatch = useDispatch()
   const { checkTheNumber, weWillSendYouAConfirmingMailTo, sentAConfirmingMail, inputTheNumber, confirm, sendMail, sendMailAgain, cancelRegistration } = useTexts()
-  const handleNumberString = (event) => {
-    const {
-      target: { value }
-    } = event
-    setNumberString(value)
+  const handleNumberString = (newValue) => {
+    // const {
+    //   target: { value }
+    // } = event
+    setNumberString(newValue)
   }
   const sendNumberMail = async () => {
     let number = Math.floor(Math.random() * 1000000).toString()
@@ -83,7 +83,7 @@ function Auth({ userObj }) {
             }
             {mailSent && <AuthPassword userObj={userObj} numberString={numberString} handleNumberString={handleNumberString} />}
             <div className='flex gap-5'>
-              {mailSent && <TextField label='numbers' value={numberString} onChange={handleNumberString} />}
+              {/* {mailSent && <TextField label='numbers' value={numberString} onChange={handleNumberString} />} */}
               {numberString.length === 6 &&
                 <Button onClick={confirmNumber}>
                   {confirm}

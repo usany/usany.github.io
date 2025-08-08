@@ -42,7 +42,7 @@ function AuthPassword({ userObj, numberString, handleNumberString }) {
   // }
   return (
     <>
-      <InputOTP maxLength={6} pattern={REGEXP_ONLY_DIGITS} onChange={handleNumberString} value={numberString}>
+      <InputOTP maxLength={6} pattern={REGEXP_ONLY_DIGITS} onChange={(newValue) => handleNumberString(newValue)} value={numberString}>
         <InputOTPGroup>
           <InputOTPSlot index={0} />
           <InputOTPSlot index={1} />
