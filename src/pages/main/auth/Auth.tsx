@@ -60,14 +60,17 @@ function Auth({ userObj }) {
     deleteUser(userObj)
       .then(() => {
         console.log(userObj)
+        location.reload()
         // User deleted.
       })
       .catch((error) => {
+        console.log(error)
         // An error ocurred
         // ...
       });
     // navigate("/")
   }
+  console.log(userObj)
   return (
     <div>
       {userObj ?
