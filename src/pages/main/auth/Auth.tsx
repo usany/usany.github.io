@@ -9,6 +9,7 @@ import AuthButtons from 'src/pages/main/auth/AuthButtons';
 import AuthForm from 'src/pages/main/auth/AuthForm';
 import Motions from 'src/pages/main/auth/Motions';
 import { changeUserCertificated } from 'src/stateSlices/userCertificatedSlice';
+import useTexts from 'src/useTexts';
 import AuthPassword from './AuthPassword';
 
 function Auth({ userObj }) {
@@ -17,6 +18,7 @@ function Auth({ userObj }) {
   const [createdNumber, setCreatedNumber] = useState('')
   const languages = useSelectors((state) => state.languages.value)
   const dispatch = useDispatch()
+  const { checkTheNumber, weWillSendYouAConfirmingMailTo, sentAConfirmingMail, register } = useTexts()
   const handleNumberString = (event) => {
     const {
       target: { value }
@@ -49,7 +51,7 @@ function Auth({ userObj }) {
       await updateDoc(userDocRef, { certificated: true })
       dispatch(changeUserCertificated(true))
     } else {
-      alert('번호를 확인해주세요.')
+      alert(checkTheNumber)
     }
   }
   return (
@@ -59,16 +61,16 @@ function Auth({ userObj }) {
           <PageTitle title={languages === 'ko' ? '메일 확인' : 'Confirming mail'} />
           <div className='flex flex-col gap-5 items-center'>
             {mailSent ?
-              <div>{userObj.email}로 메일을 보냈어요. 번호를 입력해주세요.</div>
+              <div>{languages === 'en' && sentAConfirmingMail} {userObj.email}{languages === 'ko' && sentAConfirmingMail}. {checkTheNumber}</div>
               :
-              <div>{userObj.email}로 확인 메일을 보낼게요. 번호를 확인해주세요.</div>
+              <div>{languages === 'en' && weWillSendYouAConfirmingMailTo} {userObj.email}{languages === 'ko' && weWillSendYouAConfirmingMailTo}. {checkTheNumber}</div>
             }
             <div className='flex gap-5'>
               {mailSent && <TextField label='numbers' value={numberString} onChange={handleNumberString} />}
               {mailSent && <AuthPassword userObj={userObj} numberString={numberString} handleNumberString={handleNumberString} />}
               {numberString.length === 6 &&
                 <Button onClick={confirmNumber}>
-                  완료
+                  {register}
                 </Button>
               }
             </div>
