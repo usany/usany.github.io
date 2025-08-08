@@ -18,14 +18,14 @@ function Auth({ userObj }) {
   const [createdNumber, setCreatedNumber] = useState('')
   const languages = useSelectors((state) => state.languages.value)
   const dispatch = useDispatch()
-  const { checkTheNumber, weWillSendYouAConfirmingMailTo, sentAConfirmingMail, inputTheNumber, confirm } = useTexts()
+  const { checkTheNumber, weWillSendYouAConfirmingMailTo, sentAConfirmingMail, inputTheNumber, confirm, sendMail, sendMailAgain } = useTexts()
   const handleNumberString = (event) => {
     const {
       target: { value }
     } = event
     setNumberString(value)
   }
-  const sendMail = async () => {
+  const sendNumberMail = async () => {
     let number = Math.floor(Math.random() * 1000000).toString()
     for (let index = 0; 6 - number.length; index++) {
       number = '0' + number
@@ -74,8 +74,8 @@ function Auth({ userObj }) {
                 </Button>
               }
             </div>
-            <Button onClick={sendMail}>
-              {mailSent ? '메일 다시 받기' : '메일 받기'}
+            <Button onClick={sendNumberMail}>
+              {mailSent ? sendMailAgain : sendMail}
             </Button>
           </div>
         </div>

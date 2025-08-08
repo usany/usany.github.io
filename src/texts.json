@@ -119,7 +119,8 @@
     "cancelFollow": "팔로우 취소",
     "sentAConfirmingMail": "로 확인 메일을 보냈어요",
     "inputTheNumber": "번호를 입력해주세요",
-    "confirm": "확인"
+    "confirm": "확인",
+    "sendMailAgain": "메일 재전송"
   },
   "en": {
     "Welcome to React": "Welcome to React and react-i18next",
@@ -241,6 +242,7 @@
     "cancelFollow": "Cancel Follow",
     "sentAConfirmingMail": "Sent a confirming mail to",
     "inputTheNumber": "Input the number",
-    "confirm": "Confirm"
+    "confirm": "Confirm",
+    "sendMailAgain": "Send mail again"
   }
 }
