@@ -3,6 +3,7 @@ import staticGoogle from 'src/assets/signGoogle.svg'
 import staticMicrosoft from 'src/assets/signMicrosoft.svg'
 import {
   onSocialClick,
+  onSocialClickApple,
   onSocialClickGoogle,
   onSocialClickMicrosoft,
 } from 'src/baseApi/serverbase'
@@ -55,11 +56,10 @@ const AuthButtons = () => {
         </div>
       </Button> */}
           <Button
-            // disabled
             className="colorTwo"
             variant="outlined"
             name="h"
-            onClick={onSocialClick}
+            onClick={onSocialClickApple}
           >
             곧 애플로 뵐게요
           </Button>
