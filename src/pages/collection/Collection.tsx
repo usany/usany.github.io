@@ -1,5 +1,5 @@
 import { GoogleGenAI } from '@google/genai'
-import { collection, doc, getDocs, setDoc } from 'firebase/firestore'
+import { doc, getDocs, setDoc } from 'firebase/firestore'
 import { getDownloadURL, ref, uploadString } from 'firebase/storage'
 import { Film, PlusCircle } from 'lucide-react'
 import { useEffect, useState } from 'react'
@@ -26,6 +26,7 @@ function Collection({ userObj }) {
     save,
     cannotFindAnUmbrella,
     findingAnUmbrella,
+    collection
   } = useTexts()
   async function chat(url) {
     try {
@@ -178,7 +179,7 @@ function Collection({ userObj }) {
   }, [])
   return (
     <div>
-      <PageTitle icon={<Film />} title={'전시회'} />
+      <PageTitle icon={<Film />} title={collection} />
       <Popups
         trigger={
           <div
@@ -226,7 +227,7 @@ function Collection({ userObj }) {
           attachment &&
           !loading &&
           ['y', 'Y'].indexOf(isUmbrella ? isUmbrella[0] : isUmbrella) !==
-            -1 && <div onClick={newImage}>{save}</div>
+          -1 && <div onClick={newImage}>{save}</div>
         }
         attachment={changedImage}
       />
