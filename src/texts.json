@@ -118,7 +118,7 @@
     "follow": "팔로우",
     "cancelFollow": "팔로우 취소",
     "sentAConfirmingMail": "로 확인 메일을 보냈어요",
-    "inputNumber": "번호를 입력해주세요",
+    "inputTheNumber": "번호를 입력해주세요",
     "confirm": "확인"
   },
   "en": {
@@ -240,7 +240,7 @@
     "follow": "Follow",
     "cancelFollow": "Cancel Follow",
     "sentAConfirmingMail": "Sent a confirming mail to",
-    "inputNumber": "Input number",
+    "inputTheNumber": "Input the number",
     "confirm": "Confirm"
   }
 }
