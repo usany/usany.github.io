@@ -1,5 +1,6 @@
 import { Button, TextField } from '@mui/material';
-import { doc, updateDoc } from 'firebase/firestore';
+import { deleteUser } from 'firebase/auth';
+import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { dbservice } from 'src/baseApi/serverbase';
@@ -54,8 +55,18 @@ function Auth({ userObj }) {
       alert(checkTheNumber)
     }
   }
-  const cancelUserRegistration = () => {
-
+  const cancelUserRegistration = async () => {
+    await deleteDoc(doc(dbservice, `members/${userObj.uid}`));
+    deleteUser(userObj)
+      .then(() => {
+        console.log(userObj)
+        // User deleted.
+      })
+      .catch((error) => {
+        // An error ocurred
+        // ...
+      });
+    // navigate("/")
   }
   return (
     <div>
@@ -80,7 +91,7 @@ function Auth({ userObj }) {
                 {mailSent ? sendMailAgain : sendMail}
               </Button>
             </div>
-            <Button onClick={ }>{cancelRegistration}</Button>
+            <Button onClick={cancelUserRegistration}>{cancelRegistration}</Button>
           </div>
         </div>
         :
