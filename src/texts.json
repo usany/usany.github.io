@@ -120,7 +120,8 @@
     "sentAConfirmingMail": "로 확인 메일을 보냈어요",
     "inputTheNumber": "번호를 입력해주세요",
     "confirm": "확인",
-    "sendMailAgain": "메일 재전송"
+    "sendMailAgain": "메일 재전송",
+    "cancelRegister": "회원가입 철회"
   },
   "en": {
     "Welcome to React": "Welcome to React and react-i18next",
@@ -243,6 +244,7 @@
     "sentAConfirmingMail": "Sent a confirming mail to",
     "inputTheNumber": "Input the number",
     "confirm": "Confirm",
-    "sendMailAgain": "Send mail again"
+    "sendMailAgain": "Send mail again",
+    "cancelRegister": "Cancel Register"
   }
 }
