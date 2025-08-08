@@ -121,7 +121,9 @@
     "inputTheNumber": "번호를 입력해주세요",
     "confirm": "확인",
     "sendMailAgain": "메일 재전송",
-    "cancelRegistration": "회원가입 철회"
+    "cancelRegistration": "회원가입 철회",
+    "cannotFindAnUmbrella": "우산을 찾을 수 없습니다",
+    "findingAnUmbrella": "우산을 찾고 있습니다"
   },
   "en": {
     "Welcome to React": "Welcome to React and react-i18next",
@@ -245,6 +247,8 @@
     "inputTheNumber": "Input the number",
     "confirm": "Confirm",
     "sendMailAgain": "Send mail again",
-    "cancelRegistration": "Cancel Registration"
+    "cancelRegistration": "Cancel Registration",
+    "cannotFindAnUmbrella": "Cannot find an Umbrella",
+    "findingAnUmbrella": "Finding an Umbrella"
   }
 }
