@@ -55,7 +55,7 @@ const AuthButtons = () => {
         </div>
       </Button> */}
           <Button
-            disabled
+            // disabled
             className="colorTwo"
             variant="outlined"
             name="h"
