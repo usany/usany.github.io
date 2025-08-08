@@ -10,6 +10,7 @@ function ProfileListsView({
   changeSelectedUser,
 }) {
   const locationConfirmed = Date.now() - element.locationConfirmed < 50000000
+
   return (
     <div
       className="px-5"

@@ -10,7 +10,7 @@ import { Chip } from '@mui/material'
 import { User } from 'firebase/auth'
 import { useSelectors } from 'src/hooks/useSelectors'
 import Popups from '../Popups'
-import { default as SpecificsTradesContent } from './SpecificsTradesContent'
+import SpecificsTradesContent from './SpecificsTradesContent'
 import SpecificsTradesTitle from './SpecificsTradesTitle'
 import SpecificsTradesTrigger from './SpecificsTradeTrigger'
 
@@ -48,16 +48,15 @@ function SpecificsTrades({
     if (drawerOpenTrue) {
       if (message?.creatorId < userObj.uid) {
         setConversation(
-          message?.creatorId.slice(0, 5) + userObj.uid.slice(0, 5),
+          message?.creatorId.slice(0, 6) + userObj.uid.slice(0, 6),
         )
       } else {
         setConversation(
-          userObj.uid.slice(0, 5) + message?.creatorId.slice(0, 5),
+          userObj.uid.slice(0, 6) + message?.creatorId.slice(0, 6),
         )
       }
     }
   }, [message])
-
   return (
     <div className="flex justify-center pt-3">
       <div className="flex flex-col items-center px-5 gap-1">
@@ -80,10 +79,14 @@ function SpecificsTrades({
                   message={message}
                   conversation={conversation}
                   drawerOpenTrue={drawerOpenTrue}
+                  connectedUser={connectedUser}
                 />
               }
             />
-            <Chip label={messageName} />
+            <Chip
+              className='specific'
+              size="small"
+              label={messageName} />
           </div>
         ) : (
           <div className="flex flex-col items-center">
@@ -93,7 +96,7 @@ function SpecificsTrades({
                   <SpecificsTradesTrigger
                     onClick={drawerOpenTrue}
                     isCreator={false}
-                    message={message}
+                    message={{ ...message, connectedProfileImage: true, connectedProfileImageUrl: connectedUser.url, connectedDefaultProfile: connectedUser.url }}
                   />
                 }
                 title={<SpecificsTradesTitle />}
@@ -101,9 +104,10 @@ function SpecificsTrades({
                   <SpecificsTradesContent
                     isCreator={false}
                     userObj={userObj}
-                    message={message}
+                    message={{ ...message, connectedProfileImage: true, connectedProfileImageUrl: connectedUser.url, connectedDefaultProfile: connectedUser.url }}
                     conversation={conversation}
                     drawerOpenTrue={drawerOpenTrue}
+                    connectedUser={connectedUser}
                   />
                 }
               />
@@ -118,9 +122,15 @@ function SpecificsTrades({
               </Avatar>
             )}
             {connectedUser.uid ? (
-              <Chip label={connectedUser.displayName} />
+              <Chip
+                className='specific'
+                size="small"
+                label={connectedUser.displayName} />
             ) : (
-              <Chip variant="outlined" label={'아직 없음'} />
+              <Chip
+                className='specific'
+                size="small"
+                variant="outlined" label={'아직 없음'} />
             )}
           </div>
         )}
@@ -155,7 +165,7 @@ function SpecificsTrades({
                   <SpecificsTradesTrigger
                     onClick={drawerOpenTrue}
                     isCreator={false}
-                    message={connectedUser}
+                    message={{ ...message, connectedProfileImage: true, connectedProfileImageUrl: connectedUser.url, connectedDefaultProfile: connectedUser.url }}
                   />
                 }
                 title={<SpecificsTradesTitle />}
@@ -163,9 +173,10 @@ function SpecificsTrades({
                   <SpecificsTradesContent
                     isCreator={false}
                     userObj={userObj}
-                    message={connectedUser}
+                    message={{ ...message, connectedProfileImage: true, connectedProfileImageUrl: connectedUser.url, connectedDefaultProfile: connectedUser.url }}
                     conversation={conversation}
                     drawerOpenTrue={drawerOpenTrue}
+                    connectedUser={connectedUser}
                   />
                 }
               />
@@ -180,9 +191,14 @@ function SpecificsTrades({
               </Avatar>
             )}
             {connectedUser.uid ? (
-              <Chip label={connectedMessageName} />
+              <Chip
+                className='specific'
+                size="small"
+                label={connectedMessageName} />
             ) : (
               <Chip
+                className='specific'
+                size="small"
                 variant="outlined"
                 label={languages === 'ko' ? '아직 없음' : 'No one yet'}
               />
@@ -201,15 +217,18 @@ function SpecificsTrades({
               title={<SpecificsTradesTitle />}
               content={
                 <SpecificsTradesContent
-                  isCreator={false}
+                  isCreator={true}
                   userObj={userObj}
                   message={message}
                   conversation={conversation}
                   drawerOpenTrue={drawerOpenTrue}
+                  connectedUser={connectedUser}
                 />
               }
             />
-            <Chip label={messageName} />
+            <Chip
+              className='specific'
+              label={messageName} />
           </div>
         )}
       </div>

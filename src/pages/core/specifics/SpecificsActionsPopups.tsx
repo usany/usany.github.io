@@ -31,7 +31,7 @@ function SpecificsActionsPopups({ drawerOpenTrue, userObj, message }: Props) {
             profileUrl={message.creatorUrl}
           />
         </DialogTrigger>
-        <DialogContent>
+        <DialogContent className="flex flex-col justify-center px-5 bg-light-2 dark:bg-dark-2 max-h-[60%]">
           <ScrollArea className="overflow-y-scroll">
             <DrawersBar />
             <SpecificsActionsPopupsContents

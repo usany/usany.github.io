@@ -97,11 +97,9 @@ const AddCards = ({
                   )}
                   <div className="flex flex-col pt-1 gap-1 text-xs">
                     {locationState && (
-                      <div className="flex gap-1">
+                      <div className="flex gap-1 items-center">
                         {locationState?.locationOne &&
-                          <div className='w-[24px]'>
-                            <Building />
-                          </div>
+                          <Building />
                         }
                         <div className='flex items-center'>
                           {languages === 'ko' ? locationState?.locationOne : locationsBuildings['en'][locationsBuildings['ko'].indexOf(locationState?.locationOne)]}
@@ -113,13 +111,13 @@ const AddCards = ({
                       </div>
                     )}
                     {fromTo.from && (
-                      <div className="flex gap-1">
+                      <div className="flex gap-1 items-center">
                         <Watch />
                         <div className='flex flex-col justify-center'>
                           <div className='flex'>
-                            <div className='w-[40px]'>
-                              {languages === 'en' && 'From '}
-                            </div>
+                            {languages === 'en' &&
+                              <div className='w-[40px]'>From</div>
+                            }
                             {fromTo.from.year}.{fromTo.from.month < 10 && '0'}
                             {fromTo.from.month}.{fromTo.from.day < 10 && '0'}
                             {fromTo.from.day} {fromTo.from.hour < 10 && '0'}
@@ -128,9 +126,9 @@ const AddCards = ({
                           </div>
                           {fromTo.to && (
                             <div className="flex">
-                              <div className='w-[40px]'>
-                                {languages === 'en' && 'To '}
-                              </div>
+                              {languages === 'en' &&
+                                <div className='w-[40px]'>To</div>
+                              }
                               {fromTo.to.year}.{fromTo.to.month < 10 && '0'}
                               {fromTo.to.month}.{fromTo.from.day < 10 && '0'}
                               {fromTo.to.day} {fromTo.to.hour < 10 && '0'}

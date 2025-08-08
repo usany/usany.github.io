@@ -70,11 +70,17 @@ const useColors = () => {
           root: {
             variants: [
               {
-                props: { className: 'colorOne' },
+                props: { className: 'specific' },
                 style: {
-                  backgroundColor: colorOne,
+                  fontSize: '12px',
                 },
               },
+              // {
+              //   props: { className: 'colorOne' },
+              //   style: {
+              //     backgroundColor: colorOne,
+              //   },
+              // },
               // {
               //   props: { className: 'error' },
               //   style: {

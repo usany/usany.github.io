@@ -11,7 +11,6 @@ import {
   updateDoc,
 } from 'firebase/firestore'
 import { useEffect, useRef, useState } from 'react'
-import { useLocation } from 'react-router-dom'
 import { dbservice } from 'src/baseApi/serverbase'
 import { useSelectors } from 'src/hooks/useSelectors'
 import Avatars from 'src/pages/core/Avatars'
@@ -19,21 +18,18 @@ import Popups from 'src/pages/core/Popups'
 import SpecificsTradesTitle from 'src/pages/core/specifics/SpecificsTradesTitle'
 import { webSocket } from 'src/webSocket.tsx'
 import PiazzaDialogsContent from './piazzaDialogs/PiazzaDialogsContent'
-
 interface Props {
   userObj: User
-  handleMultiple: (newValue: boolean) => void
   messagesList: []
   handleMessagesList: (newValue: []) => void
-  multiple: boolean
 }
 
 function PiazzaScreenView({
   userObj,
-  multiple,
-  handleMultiple,
   messagesList,
   handleMessagesList,
+  handleChatUid,
+  handleChatDisplayName,
 }: Props) {
   const messagesEndRef = useRef(null)
   const boxRef = useRef(null)
@@ -43,12 +39,11 @@ function PiazzaScreenView({
   const [continuing, setContinuing] = useState(null)
   const [continueNumber, setContinueNumber] = useState(0)
   const [currentConversation, setCurrentConversation] = useState('piazza')
-  // const profileColor = useSelector((state) => state.profileColor.value)
-  // const profileUrl = useSelector((state) => state.profileUrl.value)
-  const { state } = useLocation()
-  const conversation = state?.conversation || 'piazza'
+  const conversation = location.search
+    ? location.search.slice(location.search.indexOf('=') + 1)
+    : 'piazza'
   useEffect(() => {
-    if (currentConversation !== conversation) {
+    if (currentConversation !== conversation || conversation === 'piazza') {
       handleMessagesList([])
       setContinuing(null)
       setContinueNumber(0)
@@ -62,11 +57,10 @@ function PiazzaScreenView({
     const userElement = userDoc.data()
     setUser(userElement)
     setDisplayedName(displayName)
-    console.log('practice')
   }
-  const onDrawer = async ({ userUid, displayName }) => {
+  const onDrawer = ({ userUid, displayName }) => {
     document.getElementById('drawer')?.click()
-    await onPrivate({ userUid: userUid, displayName: displayName })
+    onPrivate({ userUid: userUid, displayName: displayName })
   }
   const scrollNumber = 20
   useEffect(() => {
@@ -97,7 +91,6 @@ function PiazzaScreenView({
           profileImageUrl: profileImageUrl,
           defaultProfile: defaultProfile,
           profileImage: profileImage,
-          // profileColor: profileColor,
         },
       ])
     }
@@ -135,8 +128,6 @@ function PiazzaScreenView({
           profileImageUrl: profileImageUrl,
           defaultProfile: defaultProfile,
           profileImage: profileImage,
-          // userOneProfileImage: profileImage,
-          // userTwoProfileImage: profileImage,
           ...piazzaData,
         },
       ])
@@ -158,7 +149,7 @@ function PiazzaScreenView({
     scrollToBottom()
 
     const checkMessage = async () => {
-      if (multiple) {
+      if (conversation === 'piazza') {
         const piazzaRef = collection(dbservice, 'chats_group')
         const piazzaCollection = query(
           piazzaRef,
@@ -221,7 +212,6 @@ function PiazzaScreenView({
         const userName = document.data().userName
         const messageClock = document.data().messageClock
         const messageClockNumber = document.data().messageClockNumber
-        // const profileColor = document.data()?.profileColor
         const profileImageUrl = document.data()?.profileImageUrl
         const defaultProfile = document.data()?.defaultProfile
         const profileImage = document.data()?.profileImage
@@ -243,6 +233,10 @@ function PiazzaScreenView({
       })
       messagesArray.reverse()
       handleMessagesList([...messagesArray, ...messagesList])
+      localStorage.setItem(
+        conversation,
+        JSON.stringify([...messagesArray, ...messagesList]),
+      )
       setIsLoading(false)
     }
     const messageListMembers = async (conversation) => {
@@ -272,6 +266,17 @@ function PiazzaScreenView({
         const defaultProfile = doc.data()?.defaultProfile
         const profileImage = doc.data()?.profileImage
         const piazzaData = doc.data()
+        const userOne = doc.data().userOne
+        const userOneDisplayName = doc.data().userOneDisplayName
+        const userTwo = doc.data().userTwo
+        const userTwoDisplayName = doc.data().userTwoDisplayName
+        if (userOne !== userObj.uid) {
+          handleChatUid(userOne)
+          handleChatDisplayName(userOneDisplayName)
+        } else {
+          handleChatUid(userTwo)
+          handleChatDisplayName(userTwoDisplayName)
+        }
         messagesArray.push({
           msg: message,
           // type: 'me',
@@ -289,18 +294,23 @@ function PiazzaScreenView({
       })
       messagesArray.reverse()
       handleMessagesList([...messagesArray, ...messagesList])
+      localStorage.setItem(
+        conversation,
+        JSON.stringify([...messagesArray, ...messagesList]),
+      )
       setIsLoading(false)
     }
+    console.log(messagesList.length)
     if (conversation === 'piazza') {
-      if (isLoading || !messagesList.length) {
+      if (isLoading || (!messagesList.length && navigator.onLine)) {
         messageList()
       }
     } else {
-      if (isLoading || !messagesList.length) {
+      if (isLoading || (!messagesList.length && navigator.onLine)) {
         messageListMembers(conversation)
       }
     }
-  }, [isLoading, conversation])
+  }, [isLoading, currentConversation])
   const handleScroll = () => {
     if (
       // boxRef.current.getBoundingClientRect().height + Math.round(boxRef.current.scrollTop) !==
@@ -316,12 +326,17 @@ function PiazzaScreenView({
     }
   }
   useEffect(() => {
-    boxRef.current?.addEventListener('scroll', handleScroll)
-    return () => boxRef.current?.removeEventListener('scroll', handleScroll)
+    if (navigator.onLine) {
+      boxRef.current?.addEventListener('scroll', handleScroll)
+      return () => boxRef.current?.removeEventListener('scroll', handleScroll)
+    }
   }, [isLoading])
-  console.log(conversation)
-  console.log(messagesList)
-  console.log(user)
+  // console.log(conversation)
+  // console.log(messagesList)
+  // console.log(user)
+  const messagesArray = navigator.onLine
+    ? messagesList
+    : JSON.parse(localStorage.getItem(conversation) || '[]')
   return (
     <>
       <div ref={boxRef} className={`p-1 border-t rounded-xl overflow-auto`}>
@@ -331,8 +346,7 @@ function PiazzaScreenView({
               로딩
             </div>
           )}
-          {messagesList.map((value, index) => {
-            console.log(value)
+          {messagesArray.map((value, index) => {
             let passingValue
             if (conversation === 'piazza') {
               passingValue = value
@@ -370,11 +384,11 @@ function PiazzaScreenView({
             let passingClock
             let displayClock = 0
             if (index > 0) {
-              previousUid = messagesList[index - 1].userUid
+              previousUid = messagesArray[index - 1].userUid
             }
-            if (index < messagesList.length - 1) {
-              if (messagesList[index + 1].userUid === userObj.uid) {
-                passingClock = new Date(messagesList[index + 1].messageClock)
+            if (index < messagesArray.length - 1) {
+              if (messagesArray[index + 1].userUid === userObj.uid) {
+                passingClock = new Date(messagesArray[index + 1].messageClock)
                 if (clock.getFullYear() === passingClock.getFullYear()) {
                   if (clock.getMonth() === passingClock.getMonth()) {
                     if (clock.getDate() === passingClock.getDate()) {
@@ -421,7 +435,7 @@ function PiazzaScreenView({
                       className={`flex justify-${value.userUid !== userObj.uid ? 'start' : 'end'}`}
                     >
                       {userDirection === 'text-left' ? (
-                        <div className="flex gap-3">
+                        <div className="flex gap-3 pt-3">
                           <Popups
                             trigger={
                               <Avatars
@@ -435,12 +449,27 @@ function PiazzaScreenView({
                                 profile={false}
                               />
                             }
-                            title={<SpecificsTradesTitle />}
+                            title={
+                              <div>
+                                <div className="flex justify-center">
+                                  {user?.displayName}
+                                </div>
+                                {user?.displayName !== displayedName && (
+                                  <div>
+                                    {languages === 'ko' ? (
+                                      <div>({displayedName}에서 개명)</div>
+                                    ) : (
+                                      <div>
+                                        (Changed name from {displayedName})
+                                      </div>
+                                    )}
+                                  </div>
+                                )}
+                              </div>
+                            }
                             content={
                               <PiazzaDialogsContent
                                 initiateContinuing={() => setContinuing(null)}
-                                multiple={multiple}
-                                handleMultiple={handleMultiple}
                                 user={user}
                                 userObj={userObj}
                                 handleMessagesList={handleMessagesList}
@@ -470,7 +499,7 @@ function PiazzaScreenView({
                           <div>{value.id}</div>
                         </div>
                       ) : (
-                        <div className="flex gap-3">
+                        <div className="flex gap-3 pt-3">
                           <div>{value.id}</div>
                           <Popups
                             trigger={
@@ -489,16 +518,33 @@ function PiazzaScreenView({
                                 // defaultProfileUrl={value.defaultProfile}
                               />
                             }
-                            title={<SpecificsTradesTitle />}
+                            title={
+                              <div>
+                                <div className="flex justify-center">
+                                  {user?.displayName}
+                                </div>
+                                {user?.displayName !== displayedName && (
+                                  <div>
+                                    {languages === 'ko' ? (
+                                      <div>({displayedName}에서 개명)</div>
+                                    ) : (
+                                      <div>
+                                        (Changed name from {displayedName})
+                                      </div>
+                                    )}
+                                  </div>
+                                )}{' '}
+                              </div>
+                            }
                             content={
                               <PiazzaDialogsContent
                                 initiateContinuing={() => setContinuing(null)}
-                                multiple={multiple}
-                                handleMultiple={handleMultiple}
                                 user={user}
                                 userObj={userObj}
                                 handleMessagesList={handleMessagesList}
                                 displayedName={displayedName}
+                                handleChatUid={handleChatUid}
+                                handleChatDisplayName={handleChatDisplayName}
                               />
                             }
                           />

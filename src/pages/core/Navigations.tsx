@@ -9,6 +9,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useSelectors } from 'src/hooks/useSelectors';
 import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice';
 import { changePiazzaForm } from "src/stateSlices/piazzaFormSlice";
+import texts from 'src/texts.json';
 
 interface Props {
   userObj: User | null
@@ -16,12 +17,15 @@ interface Props {
 interface ThemeRootState {
   theme: string
 }
-function Navigations({ userObj }: Props) {
+function Navigations() {
   const [backgroundColor, setBackgroundColor] = useState('#e2e8f0');
   const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
   const theme = useSelector((state: ThemeRootState) => state.theme.value)
   const piazzaForm = useSelector((state) => state.piazzaForm.value)
   const bottomNavigation = useSelectors(state => state.bottomNavigation.value)
+  const languages = useSelectors(state => state.languages.value)
+  const userCertificated = useSelectors(state => state.userCertificated.value)
+  const tabs = useSelectors(state => state.tabs.value)
   const dispatch = useDispatch()
   useEffect(() => {
     if (theme === 'dark') {
@@ -68,9 +72,6 @@ function Navigations({ userObj }: Props) {
 
   return (
     <>
-      {/* <div className='fixed bottom-[50px]'>
-        {window.screen.height}
-      </div> */}
       {!piazzaForm &&
         <div className='w-screen border-t z-50 fixed rounded-t bottom-0 start-0 end-0'>
           <BottomNavigation
@@ -81,9 +82,9 @@ function Navigations({ userObj }: Props) {
               dispatch(changeBottomNavigation(newValue))
             }}
           >
-            <BottomNavigationAction onClick={() => navigate('/add')} label={'등록'} icon={<Pencil />} />
-            <BottomNavigationAction onClick={() => navigate('/')} label={userObj ? '내 상태' : '로그인'} icon={<Umbrella />} />
-            <BottomNavigationAction onClick={() => navigate('/board')} label={'게시판'} icon={<Presentation />} />
+            <BottomNavigationAction onClick={() => navigate(`/add?action=${tabs ? 'lend' : 'borrow'}`)} label={texts[languages as keyof typeof texts]['register']} icon={<Pencil />} />
+            <BottomNavigationAction onClick={() => navigate('/')} label={userCertificated ? texts[languages as keyof typeof texts]['myStatus'] : texts[languages as keyof typeof texts]['logIn']} icon={<Umbrella />} />
+            <BottomNavigationAction onClick={() => navigate(`/board?action=${tabs ? 'lend' : 'borrow'}`)} label={texts[languages as keyof typeof texts]['board']} icon={<Presentation />} />
           </BottomNavigation>
         </div>
       }

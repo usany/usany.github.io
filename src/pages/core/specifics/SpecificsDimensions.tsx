@@ -28,19 +28,19 @@ function SpecificsDimensions({ message }: Props) {
   } else {
     locationOne =
       locationsBuildings['en'][
-        locationsBuildings['ko'].indexOf(message.text.count)
+      locationsBuildings['ko'].indexOf(message.text.count)
       ]
     locationTwo =
       locationsCollection['en'][
+      Object.keys(locationsCollectionLetters).find(
+        (key) => locationsCollectionLetters[key] === message.text.count,
+      )
+      ][
+      locationsCollection['ko'][
         Object.keys(locationsCollectionLetters).find(
           (key) => locationsCollectionLetters[key] === message.text.count,
         )
-      ][
-        locationsCollection['ko'][
-          Object.keys(locationsCollectionLetters).find(
-            (key) => locationsCollectionLetters[key] === message.text.count,
-          )
-        ].indexOf(message.text.counter)
+      ].indexOf(message.text.counter)
       ]
     location = locationOne + ' ' + locationTwo + ' ' + message.text.counting
   }
@@ -50,14 +50,21 @@ function SpecificsDimensions({ message }: Props) {
       className={`flex text-xs scale-90 ${!largeMedia && 'flex-col'} justify-around gap-1 pt-5`}
     >
       <div className="flex items-center">
-        <Building />
+        <div className='w-[20px]'>
+          <Building />
+        </div>
         <div className="px-1">
           {languages === 'ko' ? '전달 장소:' : 'Meeting at'}
         </div>
-        <Chip label={location} />
+        <Chip
+          className='specific'
+          size="small"
+          label={location} />
       </div>
       <div className="flex items-center">
-        <Watch />
+        <div className='w-[20px]'>
+          <Watch />
+        </div>
         <div className={`${!largeMedia && 'flex'}`}>
           <div className="flex items-center">
             <div className="px-1">
@@ -72,6 +79,8 @@ function SpecificsDimensions({ message }: Props) {
               )}
             </div>
             <Chip
+              className='specific'
+              size="small"
               label={`${message.text.clock.year}.${message.text.clock.month}.${message.text.clock.day} ${message.text.clock.hour}:${message.text.clock.minute}`}
             />
           </div>
@@ -88,6 +97,8 @@ function SpecificsDimensions({ message }: Props) {
               )}
             </div>
             <Chip
+              className='specific'
+              size="small"
               label={`${message.text.clocker.year}.${message.text.clocker.month}.${message.text.clocker.day} ${message.text.clocker.hour}:${message.text.clocker.minute}`}
             />
           </div>

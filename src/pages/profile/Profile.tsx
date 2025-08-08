@@ -72,6 +72,7 @@ function Profile({ userObj }: Props) {
   const [scrolledToCompleted, setScrolledToCompleted] = useState(false)
   const userUid = state?.element.uid || userObj.uid;
   const userDisplayName = state?.element.displayName || userObj.displayName;
+  const uid = location.search
   // const myCards = useQuery({
   //   queryKey: ["myCards"],
   //   queryFn: () => myCardsQuery(userObj.uid),
@@ -129,7 +130,7 @@ function Profile({ userObj }: Props) {
       if (userObj.uid === userUid) {
         docRef = doc(dbservice, `members/${userObj.uid}`);
       } else {
-        docRef = doc(dbservice, `members/${state.element.uid}`);
+        docRef = doc(dbservice, `members/${location.search.slice(4)}`);
       }
       const myDocSnap = await getDoc(docRef);
       const { followers, followings } = myDocSnap.data();
@@ -240,7 +241,7 @@ function Profile({ userObj }: Props) {
         handleClose={handleClose}
       />
       <div className='flex justify-center gap-5 p-5'>
-        <ProfileLocations user={state?.element.uid} userObj={userObj} />
+        <ProfileLocations user={userUid} userObj={userObj} />
       </div>
       <ProfileActions
         userObj={userObj}

@@ -8,7 +8,14 @@ import { useNavigate } from 'react-router-dom'
 import { dbservice } from 'src/baseApi/serverbase'
 import Avatars from 'src/pages/core/Avatars'
 
-const ListsView = ({ userObj, elements, userSearch, multiple, link, handleUser }) => {
+const ListsView = ({
+  userObj,
+  elements,
+  userSearch,
+  multiple,
+  link,
+  handleUser,
+}) => {
   const [newRanking, setNewRanking] = useState(0)
   const navigate = useNavigate()
   let point
@@ -17,7 +24,8 @@ const ListsView = ({ userObj, elements, userSearch, multiple, link, handleUser }
   return (
     <div className="bg-light-3 dark:bg-dark-3">
       {elements.map((element, index) => {
-        const locationConfirmed = Date.now() - element.locationConfirmed < 50000000
+        const locationConfirmed =
+          Date.now() - element.locationConfirmed < 50000000
         if (element.points !== point) {
           point = element.points
           samePointIndex = index
@@ -45,15 +53,22 @@ const ListsView = ({ userObj, elements, userSearch, multiple, link, handleUser }
           } else {
             displayName = element.displayName
           }
-          const onClick = () => link ? navigate(link, {
-            state: {
-              element: element,
-            }
-          })
-            :
-            handleUser(element)
+          const userLink =
+            element.uid === userObj?.uid ? link : link + `/?id=${element.uid}`
+          const onClick = () =>
+            location.pathname !== '/contact'
+              ? navigate(userLink, {
+                  state: {
+                    element: element,
+                  },
+                })
+              : handleUser(element)
           return (
-            <div key={index} className="px-1 pt-3 cursor-pointer" onClick={onClick}>
+            <div
+              key={index}
+              className="px-1 pt-3 cursor-pointer"
+              onClick={onClick}
+            >
               <div
                 className={`flex truncate justify-around gap-1 p-3 rounded ranking-${location.pathname === '/ranking' && (multiple ? index + 1 : element.rank)}`}
               >
@@ -67,35 +82,18 @@ const ListsView = ({ userObj, elements, userSearch, multiple, link, handleUser }
                   </div>
                 )}
                 <div className="flex gap-1">
-                  <Avatars
-                    element={element}
-                    piazza={null}
-                    profile={false}
-                  />
+                  <Avatars element={element} piazza={null} profile={false} />
                 </div>
                 <div className="flex flex-col justify-center overflow-hidden px-5 w-40">
                   <div className="overflow-hidden">{displayName}</div>
-                  <div className="overflow-hidden">
-                    {element.points}
-                  </div>
+                  <div className="overflow-hidden">{element.points}</div>
                 </div>
                 <div className="flex justify-center items-center w-[67px]">
                   {locationConfirmed ? (
-                    <Chip
-                      sx={{}}
-                      color="success"
-                      label={
-                        <Check />
-                      }
-                    />
+                    <Chip sx={{}} color="success" label={<Check />} />
                   ) : (
-                    <Chip
-                      label={
-                        <Ban />
-                      }
-                    />
-                  )
-                  }
+                    <Chip label={<Ban />} />
+                  )}
                 </div>
               </div>
               <Divider />
@@ -103,7 +101,7 @@ const ListsView = ({ userObj, elements, userSearch, multiple, link, handleUser }
           )
         }
       })}
-    </div >
+    </div>
   )
 }
 

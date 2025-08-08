@@ -10,8 +10,6 @@ import SupportButton from './SupportButton'
 function Btn({
   messageObj,
   isOwner,
-  uid,
-  displayName,
   userObj,
   num,
   points,
@@ -22,6 +20,10 @@ function Btn({
   changeOnPulse,
   changeConnectedUser,
   toggleOnTransfer,
+  handleConnectedClock,
+  handleConfirmingClock,
+  handleReturningClock,
+  handleConfirmedReturnClock
 }) {
   const [move, setMove] = useState(false)
   const languages = useSelectors((state) => state.languages.value)
@@ -45,9 +47,9 @@ function Btn({
           {round === 2 && (
             <ConfirmButton
               message={messageObj}
-              uid={uid}
-              displayName={displayName}
+              userObj={userObj}
               increaseRound={increaseRound}
+              handleConfirmingClock={handleConfirmingClock}
             />
           )}
           {round === 3 && (
@@ -55,9 +57,9 @@ function Btn({
               {messageObj.text.choose === 1 && (
                 <ReturningButton
                   message={messageObj}
-                  uid={uid}
-                  displayName={displayName}
+                  userObj={userObj}
                   increaseRound={increaseRound}
+                  handleReturningClock={handleReturningClock}
                 />
               )}
               {messageObj.text.choose === 2 && (
@@ -79,9 +81,9 @@ function Btn({
                   num={num}
                   points={points}
                   message={messageObj}
-                  uid={uid}
-                  displayName={displayName}
+                  userObj={userObj}
                   increaseRound={increaseRound}
+                  handleConfirmedReturnClock={handleConfirmedReturnClock}
                 />
               )}
             </div>
@@ -101,22 +103,20 @@ function Btn({
               handleClose={handleClose}
               handleDialog={handleDialog}
               message={messageObj}
-              uid={uid}
-              displayName={displayName}
               increaseRound={increaseRound}
               changeConnectedUser={changeConnectedUser}
               toggleOnTransfer={toggleOnTransfer}
+              handleConnectedClock={handleConnectedClock}
             />
           )}
           {round === 2 && (
             <StopSupportButton
               userObj={userObj}
               message={messageObj}
-              uid={uid}
-              displayName={displayName}
               decreaseRound={decreaseRound}
               changeConnectedUser={changeConnectedUser}
               toggleOnTransfer={toggleOnTransfer}
+              handleConnectedClock={handleConnectedClock}
             />
           )}
           {round === 3 && (
@@ -130,10 +130,10 @@ function Btn({
               {messageObj.text.choose === 2 && (
                 <ReturningButton
                   message={messageObj}
-                  uid={uid}
-                  displayName={displayName}
+                  userObj={userObj}
                   increaseRound={increaseRound}
                   changeOnPulse={changeOnPulse}
+                  handleReturningClock={handleReturningClock}
                 />
               )}
             </div>
@@ -145,9 +145,9 @@ function Btn({
                   num={num}
                   points={points}
                   message={messageObj}
-                  uid={uid}
-                  displayName={displayName}
+                  userObj={userObj}
                   increaseRound={increaseRound}
+                  handleConfirmedReturnClock={handleConfirmedReturnClock}
                 />
               )}
               {messageObj.text.choose === 2 && (

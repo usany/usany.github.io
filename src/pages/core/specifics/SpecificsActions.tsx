@@ -29,11 +29,15 @@ function SpecificsActions({ drawerOpenTrue, userObj, message }: Props) {
           message={message}
         />
         <Chip
+          className='specific'
+          size="small" 
           label={`${message.creatorId === userObj?.uid ? (languages === 'ko' ? '내가' : 'My') : messageName} ${languages === 'ko' ? '작성함' : 'registration'}`}
         />
       </div>
       <div className="flex items-center">
         <Chip
+          className='specific'
+          size="small"
           label={`${languages === 'ko' ? message.item : Object.keys(items).find((key) => items[key] === message.item)} ${message.text.choose === 1 ? (languages === 'ko' ? ' 빌리기' : ' borrowing') : languages === 'ko' ? ' 빌려주기' : ' lending'}`}
         />
       </div>

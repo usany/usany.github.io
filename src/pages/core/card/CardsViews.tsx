@@ -1,4 +1,5 @@
 import { User } from 'firebase/auth'
+import Tilt from 'react-parallax-tilt'
 import { PulsatingButton } from 'src/components/ui/pulsating-button'
 import CardView from './CardView'
 
@@ -32,25 +33,27 @@ const CardsViews = ({ message, onPulse, onTransfer }: Props) => {
   const id = message?.id || ''
   const shadowColor =
     shadowColorArray[
-      mergedArray.indexOf(String(id[0]).toUpperCase()) % shadowColorArray.length
+    mergedArray.indexOf(String(id[0]).toUpperCase()) % shadowColorArray.length
     ]
   return (
     <div>
-      {onPulse ? (
-        <PulsatingButton pulseColor={shadowColor}>
+      <Tilt>
+        {onPulse ? (
+          <PulsatingButton pulseColor={shadowColor}>
+            <CardView
+              onTransfer={null}
+              message={message}
+              shadowColor={shadowColor}
+            />
+          </PulsatingButton>
+        ) : (
           <CardView
-            onTransfer={null}
+            onTransfer={onTransfer}
             message={message}
             shadowColor={shadowColor}
           />
-        </PulsatingButton>
-      ) : (
-        <CardView
-          onTransfer={onTransfer}
-          message={message}
-          shadowColor={shadowColor}
-        />
-      )}
+        )}
+      </Tilt>
     </div>
   )
 }

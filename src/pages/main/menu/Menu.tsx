@@ -22,11 +22,17 @@ function Menu({ userObj }: Props) {
   useSetProfile(userObj)
   useGetToken(userObj)
   useContextMenu()
+  window.addEventListener("online", function () {
+    console.log("You are online!");
+  });
+  window.addEventListener("offline", function () {
+    console.log("Oh no, you lost your network connection.");
+  });
   return (
     <div id="sample" className="flex justify-center flex-col pb-5">
       <PageTitle title={titles[index]} />
+      {/* <Carousels /> */}
       <Accordions userObj={userObj} />
-      {/* <PushNotificationButton /> */}
       {/* <Avatar sx={{ bgcolor: blue[500] }} alt="Remy Sharp" src="./assets/groups.png" />
             <Avatar sx={{ bgcolor: blue[500] }} alt="Travis Howard" src="/static/images/avatar/2.jpg" />
             <Avatar sx={{ bgcolor: blue[500] }} alt="Cindy Baker" src="/static/images/avatar/3.jpg" /> */}

@@ -42,7 +42,9 @@ function Contact({ userObj }: Props) {
       <PageTitle
         icon={<Siren />}
         title={titles[index]} />
-      <ContactAddress action={sending[index]} label={userObj.displayName} />
+      {userObj &&
+        <ContactAddress action={sending[index]} label={userObj?.displayName} />
+      }
       <ContactAddress action={receiving[index]} label={user[index]} />
       <ContactForm userObj={userObj} user={state?.user} />
     </>

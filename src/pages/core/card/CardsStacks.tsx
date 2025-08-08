@@ -1,4 +1,5 @@
 import { User } from 'firebase/auth'
+import { Skeleton } from 'src/components/ui/skeleton'
 import CardsStacksViews from './CardsStacksViews'
 import EmptyCard from './EmptyCard'
 import { useBringCards } from './useBringCards'
@@ -25,9 +26,12 @@ function CardsStacks({ userObj }: Props) {
 
   return (
     <div>
-      {cardLoaded && (
+      {!cardLoaded && !messages.length && navigator.onLine &&
+        <Skeleton className='w-full h-[260px] rounded bg-light-3 dark:bg-dark-3' />
+      }
+      {(!navigator.onLine || cardLoaded) && (
         <div>
-          {!messages.filter((value) => {
+          {navigator.onLine && !messages.filter((value) => {
             if (value.round !== 5) return value
           }).length ? (
             <EmptyCard />

@@ -8,13 +8,10 @@ import { useDispatch } from 'react-redux'
 import { Label, Pie, PieChart } from 'recharts'
 import { useSelectors } from 'src/hooks/useSelectors'
 import { changeCompletedAction } from 'src/stateSlices/completedActionSlice'
-import Popups from '../core/Popups'
+import Carousels from '../core/specifics/Carousels'
 import ProfileCompletedContent from './ProfileCompletedContent'
-import ProfileCompletedTitle from './ProfileCompletedTitle'
 
 const ProfileCompleted = ({ user, cards }) => {
-  // const [messagesList, setMessagesList] = useState([])
-  // const completedAction = useSelector((state) => state.completedAction.value)
   const dispatch = useDispatch()
   const languages = useSelectors((state) => state.languages.value)
   const actions = [
@@ -138,12 +135,7 @@ const ProfileCompleted = ({ user, cards }) => {
   //     if (element) return element
   //   })
   return (
-    <div className="flex flex-col pt-5">
-      <Popups
-        trigger={<div id="completedAction" />}
-        title={<ProfileCompletedTitle />}
-        content={<ProfileCompletedContent user={user} />}
-      />
+    <div className="flex flex-col">
       <ChartContainer
         config={labels}
         className="aspect-square max-h-[250px] pt-5"
@@ -152,7 +144,7 @@ const ProfileCompleted = ({ user, cards }) => {
           <ChartLegend
             content={<ChartLegendContent nameKey="action" />}
             className="text-base font-bold gap-2 [&>*]:basis-1/4 [&>*]:justify-center"
-            verticalAlign="top"
+            verticalAlign="bottom"
           />
           <Pie
             data={actions}
@@ -169,7 +161,9 @@ const ProfileCompleted = ({ user, cards }) => {
               content={({ viewBox }) => {
                 if (viewBox && 'cx' in viewBox && 'cy' in viewBox) {
                   return (
-                    <text x={viewBox.cx} y={viewBox.cy} textAnchor="middle">
+                    <text x={viewBox.cx} y={viewBox.cy} textAnchor="middle" onClick={() => {
+                      dispatch(changeCompletedAction(''))
+                    }}>
                       <tspan
                         x={viewBox.cx}
                         y={viewBox.cy}
@@ -190,8 +184,14 @@ const ProfileCompleted = ({ user, cards }) => {
               }}
             />
           </Pie>
+          <ChartLegend
+            content={<ChartLegendContent nameKey="action" />}
+            className="text-base font-bold gap-2 [&>*]:basis-1/4 [&>*]:justify-center"
+            verticalAlign="top"
+          />
         </PieChart>
       </ChartContainer>
+      {cards.done && <Carousels user={user} cards={<ProfileCompletedContent user={user} />} />}
     </div>
   )
 }

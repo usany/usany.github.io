@@ -27,11 +27,11 @@ function SpecificsActionsPopupsContents({
     if (drawerOpenTrue) {
       if (message?.creatorId < userObj.uid) {
         setConversation(
-          message?.creatorId.slice(0, 5) + userObj.uid.slice(0, 5),
+          message?.creatorId.slice(0, 6) + userObj.uid.slice(0, 6),
         )
       } else {
         setConversation(
-          userObj.uid.slice(0, 5) + message?.creatorId.slice(0, 5),
+          userObj.uid.slice(0, 6) + message?.creatorId.slice(0, 6),
         )
       }
     }
@@ -57,20 +57,26 @@ function SpecificsActionsPopupsContents({
       </div>
       <div className="flex justify-center p-5">
         <Link
-          to="/profile"
+          to={`/profile${userObj.uid !== message.creatorId ? `/?id:${message.creatorId}` : ''}`}
           state={{
             element: {
               uid: message.creatorId,
               displayName: message.displayName,
-              profileUrl: message.creatorUrl,
-            },
+              profileImage: passingProfile.profileImage,
+              defaultProfile: passingProfile.defaultProfile,
+              profileImageUrl: passingProfile.profileImageUrl
+            }
           }}
         >
-          <Button variant="outlined">프로필 확인</Button>
+          <Button variant="outlined"
+            onClick={() => {
+              document.body.classList.remove('overflow-hidden')
+            }}
+          >프로필 확인</Button>
         </Link>
         {userObj.uid !== message?.creatorId && (
           <Link
-            to="/piazza"
+            to={`/piazza/?id=${conversation}`}
             state={{
               conversation: conversation,
               displayName: message?.displayName,
@@ -81,7 +87,11 @@ function SpecificsActionsPopupsContents({
             }}
           >
             <DrawerClose>
-              <Button variant="outlined" onClick={() => {}}>
+              <Button variant="outlined"
+                onClick={() => {
+                  document.body.classList.remove('overflow-hidden')
+                }}
+              >
                 개인 대화
               </Button>
             </DrawerClose>

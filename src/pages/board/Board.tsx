@@ -7,6 +7,7 @@ import {
 } from "firebase/firestore";
 import { Maximize2, Minimize2 } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import {
   dbservice
 } from "src/baseApi/serverbase";
@@ -15,6 +16,7 @@ import BoardMap from "src/pages/board/boardMap/BoardMap";
 import PageTitle from "src/pages/core/pageTitle/PageTitle";
 import { SwipeableViews } from "src/pages/core/SwipeableViews";
 import { useImmer } from "use-immer";
+import locationsBuildings from "../add/locationsBuildings";
 import CardsList from "../core/card/CardsList";
 import Popups from "../core/Popups";
 import BoardList from "./BoardList";
@@ -23,14 +25,19 @@ import FilterDialogsTitle from "./FilterDialogs/FilterDialogsTitle";
 import LayoutBoard from "./LayoutBoard";
 // import { AlarmCheck, AlertCircle, Building, Clock, DoorOpen, MessagesSquare, Pen, PenBox, Pencil, PenSquare, PenTool, Presentation, Search, SearchCheck, SearchCode, SearchSlash, Siren, TowerControl, Umbrella, UserCheck, UserRound, Watch } from "lucide-react";
 
-const registeredMap = {
-  ko: '등록 지도',
-  en: 'Registered map'
+const items = {
+  ko: ['전체 아이템', '우산', '양산'],
+  en: ['All items', 'Usan', 'Yangsan']
 }
-const cardList = {
-  ko: '카드 목록',
-  en: 'Card list'
+const locations = {
+  ko: ['전체 장소', ...locationsBuildings['ko']],
+  en: ['All locations', ...locationsBuildings['en']]
 }
+const time = {
+  ko: ['최신순', '오래된'],
+  en: ['Recent', 'Older']
+}
+const options = [items.ko, locations.ko, time.ko]
 interface Props {
   userObj: User | null;
 }
@@ -54,9 +61,26 @@ function Board({ userObj }: Props) {
   const [onMarker, setOnMarker] = useState(false);
   const [mapAccordion, setMapAccordion] = useState(false)
   const [messageLoaded, setMessageLoaded] = useState(false)
+  const userCertificated = useSelectors(state => state.userCertificated.value)
+  const navigate = useNavigate()
   const mapAccordionToggle = () => setMapAccordion(!mapAccordion)
   const onMarkerTrue = () => setOnMarker(true);
   const onMarkerFalse = () => setOnMarker(false);
+  const [searchParams, setSearchParams] = useSearchParams()
+  const selectedSearchParams = [
+    {
+      id: "selectedValueOne",
+      value: searchParams.get("selectedValueOne") || "전체 아이템",
+    },
+    {
+      id: "selectedValueTwo",
+      value: searchParams.get("selectedValueTwo") || "전체 장소",
+    },
+    {
+      id: "selectedValueThree",
+      value: searchParams.get("selectedValueThree") || "최신순",
+    },
+  ]
   const handleSelectedValues = ({
     id,
     newValue,
@@ -70,9 +94,16 @@ function Board({ userObj }: Props) {
         value.value = newValue;
       }
     });
+    setSearchParams(searchParams => {
+      if (['전체 아이템', '전체 장소', '최신순'].indexOf(newValue) === -1) {
+        searchParams.set(id, newValue)
+      } else {
+        searchParams.delete(id)
+      }
+      return searchParams
+    })
   };
   const languages = useSelectors((state) => state.languages.value)
-  const index = (languages === 'ko' || languages === 'en') ? languages : 'ko'
 
   useEffect(() => {
     document.documentElement.scrollTo({
@@ -98,9 +129,49 @@ function Board({ userObj }: Props) {
     }
     bringMessages()
   }, [selectedValues[2].value]);
+  useEffect(() => {
+    if (!window.location.search) {
+      navigate('/board?action=borrow')
+    } else {
+      selectedSearchParams.map((element, index) => {
+        if (options[index].indexOf(element.value) === -1) {
+          navigate('/add?action=borrow')
+        }
+      })
+    }
+  }, [])
+  // useEffect(() => {
+  //   selectedSearchParams.map((element, index) => {
+  //     if (searchParams.get(element.id)) {
+  //       if (options[index].indexOf(element.value) !== -1) {
+  //         searchParams.set(element.id, element.value)
+  //       }
+  //     }
+  //   })
+  // }, [])
+  // const handleMail = async (e) => {
+  //   e.preventDefault()
+  //   try {
+  //     const res = await fetch('http://localhost:5000/mail', {
+  //       method: "POST",
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify({
+  //         title: userObj?.uid,
+  //         author: userObj?.displayName
+  //       })
+  //     })
+  //     const jsonData = await res.json()
+  //     console.log(jsonData)
+  //   } catch (error) {
+  //     alert("아이템 작성 실패")
+  //     console.log(error)
+  //   }
+  // }
   return (
     <div>
-      {userObj ?
+      {userObj && userCertificated ?
         <div>
           {/* <AlarmCheck />
             <AlertCircle />
@@ -141,7 +212,7 @@ function Board({ userObj }: Props) {
                   onMarker={onMarker}
                   onMarkerTrue={onMarkerTrue}
                   onMarkerFalse={onMarkerFalse}
-                  selectedValues={selectedValues}
+                  selectedValues={selectedSearchParams}
                   handleSelectedValues={handleSelectedValues}
                 />
               </div>
@@ -151,7 +222,7 @@ function Board({ userObj }: Props) {
             <div className='truncate flex justify-center sticky top-16 z-30 px-5'>
               <div className='w-[1000px] shadow-md'>
                 <Popups trigger={
-                  <BoardList selectedValues={selectedValues} />
+                  <BoardList selectedValues={selectedSearchParams} />
                 } title={<FilterDialogsTitle />} content={<FilterDialogsContent selectedValues={selectedValues} handleSelectedValues={handleSelectedValues} />} />
               </div>
             </div>

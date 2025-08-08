@@ -15,34 +15,38 @@ const SpecificsTradesContent = ({
   message,
   conversation,
   drawerOpenTrue,
+  connectedUser
 }) => {
   // console.log(message)
   const passingProfile = {
-    profileImage: message.creatorProfileImage,
-    defaultProfile: message.creatorDefaultProfile,
-    profileImageUrl: message.creatorProfileImageUrl
+    profileImage: isCreator ? message.creatorProfileImage : message.connectedProfileImage,
+    defaultProfile: isCreator ? message.creatorDefaultProfile : message.connectedDefaultProfile || connectedUser.connectedUrl,
+    profileImageUrl: isCreator ? message.creatorProfileImageUrl : message.connectedProfileImageUrl || connectedUser.connectedUrl
   }
   let uid
   let displayName
   let url
+  let profileImage
+  let defaultProfile
+  console.log(connectedUser)
   if (isCreator) {
     uid = message?.creatorId
     displayName = message.displayName
     url = message.creatorUrl
   } else {
-    uid = message?.connectedId || message?.uid
-    displayName = message?.connectedName || message?.displayName
-    url = message?.connectedUrl || message?.url
+    uid = connectedUser.uid
+    displayName = connectedUser.displayName
+    url = connectedUser.url
   }
   return (
     <div>
       <div className="flex flex-col items-center pt-5">
         <Avatars
           element={passingProfile}
-          uid={uid}
           profile={true}
-          profileColor=""
-          profileUrl={url}
+          // uid={uid}
+          // profileColor=""
+          // profileUrl={url}
           piazza={null}
         />
         {/* <Avatar className={'bg-profile-blue'}>
@@ -60,27 +64,31 @@ const SpecificsTradesContent = ({
       </div>
       <div className="flex justify-center p-5">
         <Link
-          to="/profile"
+          to={`/profile${userObj.uid !== uid ? `/?id:${uid}` : ''}`}
           state={{
             element: {
               uid: uid,
               displayName: displayName,
-              profileUrl: url,
-            },
+              profileImage: passingProfile.profileImage,
+              defaultProfile: passingProfile.defaultProfile,
+              profileImageUrl: passingProfile.profileImageUrl,
+            }
           }}
         >
-          <Button
-            variant="outlined"
-            onClick={() => {
-              // handleClose()
-            }}
-          >
-            프로필 확인
-          </Button>
+          <DrawerClose>
+            <Button
+              variant="outlined"
+              onClick={() => {
+                document.body.classList.remove('overflow-hidden')
+              }}
+            >
+              프로필 확인
+            </Button>
+          </DrawerClose>
         </Link>
         {userObj.uid !== message?.creatorId && (
           <Link
-            to="/piazza"
+            to={`/piazza/?id=${conversation}`}
             state={{
               conversation: conversation,
               displayName: displayName,
@@ -94,8 +102,7 @@ const SpecificsTradesContent = ({
               <Button
                 variant="outlined"
                 onClick={() => {
-                  // handleMessagesList([])
-                  // handleMultiple(false)
+                  document.body.classList.remove('overflow-hidden')
                 }}
               >
                 개인 대화

@@ -6,24 +6,31 @@ import { useSelectors } from 'src/hooks/useSelectors'
 import { webSocket } from 'src/webSocket.tsx'
 import specificProcess from './specificProcess'
 
-const onStopSupporting = async ({ message, uid, displayName }) => {
-  const { data, messagingToken } = await specificProcess({ message: message })
+const onStopSupporting = async ({ message, userObj, profileUrl }) => {
+  const { data, messagingToken } = await specificProcess({ message: message, toUid: null })
+  const userDoc = await getDoc(data)
   const passingObject = {
     id: message.id,
     choose: message.text.choose,
     sendingToken: messagingToken,
     creatorId: message.creatorId,
     creatorName: message.displayName,
-    connectedId: uid,
-    connectedName: displayName,
+    connectedId: userObj.uid,
+    connectedName: userObj.displayName,
+    connectedUrl: profileUrl,
+    preferLanguage: userDoc.data()?.preferLanguage || 'ko',
   }
   updateDoc(data, {
     round: 1,
     connectedId: null,
     connectedName: null,
+    connectedClock: null,
+    connectedProfileImage: false,
+    connectedDefaultProfile: null,
+    connectedProfileImageUrl: null,
     connectedUrl: null,
   })
-  const connectedUserRef = doc(dbservice, `members/${uid}`)
+  const connectedUserRef = doc(dbservice, `members/${userObj.uid}`)
   const connectedUserSnap = await getDoc(connectedUserRef)
   const connectedUserData = connectedUserSnap.data()
   const connectedUserConnectedCards = connectedUserData?.connectedCards
@@ -33,8 +40,9 @@ const onStopSupporting = async ({ message, uid, displayName }) => {
   })
   webSocket.emit('stop supporting', passingObject)
 }
-const StopSupportButton = ({ userObj, message, uid, displayName, decreaseRound, changeConnectedUser, toggleOnTransfer }) => {
+const StopSupportButton = ({ userObj, message, decreaseRound, changeConnectedUser, toggleOnTransfer, handleConnectedClock }) => {
   const languages = useSelectors((state) => state.languages.value)
+  const profileUrl = useSelectors((state) => state.profileUrl.value)
 
   return (
     <div className="flex justify-center">
@@ -48,8 +56,8 @@ const StopSupportButton = ({ userObj, message, uid, displayName, decreaseRound, 
           if (userObj) {
             onStopSupporting({
               message: message,
-              uid: uid,
-              displayName: displayName,
+              userObj: userObj,
+              profileUrl: profileUrl
             })
             decreaseRound()
             changeConnectedUser({
@@ -58,6 +66,7 @@ const StopSupportButton = ({ userObj, message, uid, displayName, decreaseRound, 
               url: ''
             })
             toggleOnTransfer()
+            handleConnectedClock({ clock: '', cancelled: true })
           }
         }}
         startIcon={<SendIcon />}

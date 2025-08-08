@@ -110,7 +110,7 @@ function Allies() {
                   </div>
                   <div>
                     <IconButton aria-label="comment">
-                      <Link to='/profile'
+                      <Link to={`/profile/?id:${element.uid}`}
                         state={{
                           element: element,
                         }}

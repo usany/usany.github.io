@@ -49,7 +49,7 @@ function useBottomNavHidden() {
       if (isKeyboardOpen !== newState) {
         setIsKeyboardOpen(newState);
         if (new)
-        dispatch(changePiazzaForm(newState))
+          dispatch(changePiazzaForm(newState))
       }
     };
     window.addEventListener('resize', listener)

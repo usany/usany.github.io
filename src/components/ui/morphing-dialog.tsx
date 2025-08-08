@@ -203,7 +203,13 @@ function MorphingDialogContent({
       triggerRef.current?.focus()
     }
   }, [isOpen, triggerRef])
-
+  // useEffect(() => {
+  //   if (location.pathname === '/profile') {
+  //     setIsOpen(false)
+  //     document.body.classList.remove('overflow-hidden')
+  //     triggerRef.current?.focus()
+  //   }
+  // }, [location])
   useClickOutside(containerRef, () => {
     if (isOpen && !drawerOpen) {
       setIsOpen(false)
@@ -222,7 +228,7 @@ function MorphingDialogContent({
     <motion.div
       ref={containerRef}
       layoutId={`dialog-${uniqueId}`}
-      className={cn('overflow-hidden', className)}
+      className={cn('', className)}
       style={style}
       role="dialog"
       aria-modal="true"

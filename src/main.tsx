@@ -6,9 +6,11 @@ import { Provider } from 'react-redux'
 import App from 'src/App.tsx'
 import Lotties from 'src/lottiesAnimation/Lotties'
 import { store } from 'src/store'
+import './i18n'
 
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker
+    // .register('../public/firebase-messaging-sw.js')
     .register('../public/firebase-messaging-sw.js')
     .then((registration) => {
       console.log('Service Worker registered with scope:', registration.scope)

@@ -7,10 +7,11 @@ export const useSortedChattings = ({ userObj }) => {
   const [chattingNone, setChattingNone] = useState(false)
   const changeChattings = (newValue) => setChattings(newValue)
   const changeChattingNone = (newValue) => setChattingNone(newValue)
-  const sorted = Object.keys(chattings).sort((elementOne, elementTwo) => {
+  const chattingsArray = navigator.onLine ? chattings : JSON.parse(localStorage.getItem('chattings') || '[]')
+  const sorted = Object.keys(chattingsArray).sort((elementOne, elementTwo) => {
     return (
-      chattings[elementTwo].messageClockNumber -
-      chattings[elementOne].messageClockNumber
+      chattingsArray[elementTwo].messageClockNumber -
+      chattingsArray[elementOne].messageClockNumber
     )
   })
   useEffect(() => {
@@ -19,11 +20,14 @@ export const useSortedChattings = ({ userObj }) => {
       const docSnap = await getDoc(docRef)
       const newChattings = docSnap.data()?.chattings || {}
       setChattings(newChattings)
+      localStorage.setItem('chattings', JSON.stringify(newChattings))
       if (!newChattings) {
         setChattingNone(true)
       }
     }
-    bringChattings()
+    if (navigator.onLine) {
+      bringChattings()
+    }
   }, [])
   return {
     chattings: chattings,

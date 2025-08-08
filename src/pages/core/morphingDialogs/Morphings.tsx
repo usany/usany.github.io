@@ -20,6 +20,14 @@ const Morphings = ({
   changeConnectedUser,
   toggleOnTransfer,
   deleteMessage,
+  connectedClock,
+  confirmingClock,
+  returningClock,
+  confirmedReturnClock,
+  handleConnectedClock,
+  handleConfirmingClock,
+  handleReturningClock,
+  handleConfirmedReturnClock
 }: Props) => {
   const [drawerOpen, setDrawerOpen] = useState(false)
   const drawerOpenTrue = () => {
@@ -46,6 +54,14 @@ const Morphings = ({
         changeConnectedUser={changeConnectedUser}
         toggleOnTransfer={toggleOnTransfer}
         removeMessage={deleteMessage}
+        connectedClock={connectedClock}
+        confirmingClock={confirmingClock}
+        returningClock={returningClock}
+        confirmedReturnClock={confirmedReturnClock}
+        handleConnectedClock={handleConnectedClock}
+        handleConfirmingClock={handleConfirmingClock}
+        handleReturningClock={handleReturningClock}
+        handleConfirmedReturnClock={handleConfirmedReturnClock}
       />
     </MorphingDialogContent>
   )

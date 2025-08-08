@@ -40,7 +40,6 @@ const CardsStacksViews = ({
 }: {
   userObj: User
   messages: { round: number; creatorId: string }[]
-  changeLongPressCard: (newValue: string | null) => void
 }) => {
   // const [longPressed, setLongPressed] = useState(false)
   // const changeLongPressed = (newValue: boolean) => setLongPressed(newValue)

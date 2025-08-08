@@ -9,12 +9,12 @@ import Avatars from 'src/pages/core/Avatars'
 
 const PiazzaDialogsContent = ({
   initiateContinuing,
-  multiple,
-  handleMultiple,
   user,
   userObj,
   handleMessagesList,
   displayedName,
+  handleChatUid,
+  handleChatDisplayName,
 }) => {
   const { state } = useLocation()
   const conversation = state?.conversation || 'piazza'
@@ -55,10 +55,18 @@ const PiazzaDialogsContent = ({
       }
     }
   }, [user])
-  console.log(user)
   return (
     <div>
       <div className="flex flex-col items-center pt-5">
+        {/* {user?.displayName !== displayedName && (
+          <div>
+            {languages === 'ko' ? (
+              <div>({displayedName}에서 개명)</div>
+            ) : (
+              <div>(Changed name from {displayedName})</div>
+            )}
+          </div>
+        )} */}
         <Avatars
           element={user}
           uid={userObj.uid}
@@ -72,8 +80,8 @@ const PiazzaDialogsContent = ({
                 <AvatarImage src={user?.profileImageUrl} />
                 <AvatarFallback className='text-xl border-none	'>{user?.displayName[0]}</AvatarFallback>
               </Avatar> */}
-        <div>{user?.displayName}</div>
-        {user?.displayName !== displayedName && (
+        {/* <div>{user?.displayName}</div> */}
+        {/* {user?.displayName !== displayedName && (
           <div>
             {languages === 'ko' ? (
               <div>({displayedName}에서 개명)</div>
@@ -81,7 +89,7 @@ const PiazzaDialogsContent = ({
               <div>(Changed name from {displayedName})</div>
             )}
           </div>
-        )}
+        )} */}
       </div>
       <div className="flex justify-center p-5">
         <Link to={`/profile?id=${user?.uid}`} state={{ element: user }}>
@@ -107,7 +115,7 @@ const PiazzaDialogsContent = ({
                 onClick={() => {
                   handleMessagesList([])
                   // handleChangeMessage(true)
-                  handleMultiple(false)
+                  // handleMultiple(false)
                   initiateContinuing()
                   // handleClose()
                 }}

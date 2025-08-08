@@ -13,7 +13,7 @@ function AuthDialogsContent() {
   const languages = useSelectors((state) => state.languages.value)
   return (
     <div>
-      <AuthMethods changeAgreed={changeAgreed} />
+      <AuthMethods agreed={agreed} changeAgreed={changeAgreed} />
       <div className="p-3">
         {languages === 'ko' ?
           <div>

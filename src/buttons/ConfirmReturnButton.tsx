@@ -20,11 +20,16 @@ interface Props {
   displayName: string
   increaseRound: () => void
 }
-const onConfirmReturn = async ({ num, points, message, uid, displayName }) => {
-  const { data, messagingToken } = await specificProcess({ message: message })
-  updateDoc(data, { round: 5 })
+
+const onConfirmReturn = async ({ num, points, message, userObj, profileUrl }) => {
+  const { data, messagingToken } = await specificProcess({ message: message, toUid: message.text.choose === 1 ? null : userObj.uid })
+  const dataDoc = await getDoc(data)
+  updateDoc(data, {
+    round: 5,
+    confirmedReturnClock: new Date().toString()
+  })
   const point = doc(dbservice, `members/${message.creatorId}`)
-  const connectedPoint = doc(dbservice, `members/${message.connectedId}`)
+  const connectedPoint = doc(dbservice, `members/${dataDoc.data()?.connectedId}`)
   const creatorSnap = await getDoc(point)
   const connectedSnap = await getDoc(connectedPoint)
   const creatorData = creatorSnap.data() as UserData
@@ -59,14 +64,18 @@ const onConfirmReturn = async ({ num, points, message, uid, displayName }) => {
   updateDoc(connectedPoint, {
     connectedCards: [...newConnectedCards],
   })
+
   const passingObject = {
     id: message.id,
     choose: message.text.choose,
     sendingToken: messagingToken,
     creatorId: message.creatorId,
     creatorName: message.displayName,
-    connectedId: uid,
-    connectedName: displayName,
+    connectedId: dataDoc.data()?.connectedId,
+    connectedName: dataDoc.data()?.connectedName,
+    connectedUrl: profileUrl,
+    preferLanguage: dataDoc.data()?.preferLanguage || 'ko',
+    confirmedReturnClock: new Date().toString()
   }
   updateDoc(point, {
     done: [...creatorDone, message.id],
@@ -77,8 +86,10 @@ const onConfirmReturn = async ({ num, points, message, uid, displayName }) => {
 
   webSocket.emit('confirmReturn', passingObject)
 }
-const ConfirmReturnButton = ({ num, points, message, uid, displayName, increaseRound }: Props) => {
+const ConfirmReturnButton = ({ num, points, message, userObj, increaseRound, handleConfirmedReturnClock }: Props) => {
   const languages = useSelectors((state) => state.languages.value)
+  const profileUrl = useSelectors((state) => state.profileUrl.value)
+
   return (
     <Button
       variant="outlined"
@@ -87,10 +98,11 @@ const ConfirmReturnButton = ({ num, points, message, uid, displayName, increaseR
           num: num,
           points: points,
           message: message,
-          uid: uid,
-          displayName: displayName,
+          userObj: userObj,
+          profileUrl: profileUrl
         })
         increaseRound()
+        handleConfirmedReturnClock(new Date().toString())
       }}
       startIcon={<SendIcon />}
     >

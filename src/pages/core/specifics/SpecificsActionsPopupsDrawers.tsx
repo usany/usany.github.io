@@ -34,11 +34,11 @@ function SpecificsActionsPopupsDrawers({ drawerOpenTrue, userObj, message }: Pro
     if (drawerOpenTrue) {
       if (message?.creatorId < userObj.uid) {
         setConversation(
-          message?.creatorId.slice(0, 5) + userObj.uid.slice(0, 5),
+          message?.creatorId.slice(0, 6) + userObj.uid.slice(0, 6),
         )
       } else {
         setConversation(
-          userObj.uid.slice(0, 5) + message?.creatorId.slice(0, 5),
+          userObj.uid.slice(0, 6) + message?.creatorId.slice(0, 6),
         )
       }
     }

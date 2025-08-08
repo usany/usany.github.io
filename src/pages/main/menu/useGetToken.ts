@@ -1,8 +1,8 @@
 import { User } from 'firebase/auth'
-import { doc, getDoc, updateDoc } from 'firebase/firestore'
+import { doc, updateDoc } from 'firebase/firestore'
 import { getToken } from 'firebase/messaging'
 import { useEffect } from 'react'
-import { dbservice, messaging, storage } from 'src/baseApi/serverbase'
+import { dbservice, messaging } from 'src/baseApi/serverbase'
 const useGetToken = (userObj: User) => {
   useEffect(() => {
     const requestPermission = async () => {

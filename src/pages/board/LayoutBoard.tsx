@@ -38,13 +38,13 @@ function LayoutBoard({ borrow }) {
       value: "최신순",
     },
   ]);
-  const [onMarker, setOnMarker] = useState(false);
+  // const [onMarker, setOnMarker] = useState(false);
   const [mapAccordion, setMapAccordion] = useState(false)
   const mapAccordionToggle = () => setMapAccordion(!mapAccordion)
   // const mapAccordionTrue = () => setMapAccordion(true)
   // const mapAccordionFalse = () => setMapAccordion(false)
-  const onMarkerTrue = () => setOnMarker(true);
-  const onMarkerFalse = () => setOnMarker(false);
+  // const onMarkerTrue = () => setOnMarker(true);
+  // const onMarkerFalse = () => setOnMarker(false);
   const handleSelectedValues = ({
     id,
     newValue,
