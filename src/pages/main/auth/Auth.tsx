@@ -65,18 +65,18 @@ function Auth({ userObj }) {
               :
               <div>{languages === 'en' && weWillSendYouAConfirmingMailTo} {userObj.email}{languages === 'ko' && weWillSendYouAConfirmingMailTo}. {checkTheNumber}.</div>
             }
+            {mailSent && <AuthPassword userObj={userObj} numberString={numberString} handleNumberString={handleNumberString} />}
             <div className='flex gap-5'>
               {mailSent && <TextField label='numbers' value={numberString} onChange={handleNumberString} />}
-              {mailSent && <AuthPassword userObj={userObj} numberString={numberString} handleNumberString={handleNumberString} />}
               {numberString.length === 6 &&
                 <Button onClick={confirmNumber}>
                   {confirm}
                 </Button>
               }
+              <Button onClick={sendNumberMail}>
+                {mailSent ? sendMailAgain : sendMail}
+              </Button>
             </div>
-            <Button onClick={sendNumberMail}>
-              {mailSent ? sendMailAgain : sendMail}
-            </Button>
           </div>
         </div>
         :
