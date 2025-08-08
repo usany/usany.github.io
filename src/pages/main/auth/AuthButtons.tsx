@@ -3,6 +3,7 @@ import staticGoogle from 'src/assets/signGoogle.svg'
 import staticMicrosoft from 'src/assets/signMicrosoft.svg'
 import {
   onSocialClick,
+  onSocialClickApple,
   onSocialClickGoogle,
   onSocialClickMicrosoft,
 } from 'src/baseApi/serverbase'
@@ -28,8 +29,6 @@ const AuthButtons = () => {
             }}
           >
             마이크로소프트 로그인
-            {/* <div className='truncate'>
-          </div> */}
           </Button>
           <Button
             className="colorTwo"
@@ -45,8 +44,6 @@ const AuthButtons = () => {
             }}
           >
             구글 로그인
-            {/* <div className='truncate'>
-          </div> */}
           </Button>
           {/* <Button className='signin' sx={{ width: '50%' }} variant='outlined' onClick={onSocialClickTwitter}>트위터로 로그인</Button>
       <Button sx={{ width: '50%', backgroundColor: '#2196f3' }} startIcon={<img src={staticFacebook} className='w-[20px]' />} variant='outlined' onClick={onSocialClick}>
@@ -55,11 +52,10 @@ const AuthButtons = () => {
         </div>
       </Button> */}
           <Button
-            disabled
             className="colorTwo"
             variant="outlined"
             name="h"
-            onClick={onSocialClick}
+            onClick={onSocialClickApple}
           >
             곧 애플로 뵐게요
           </Button>

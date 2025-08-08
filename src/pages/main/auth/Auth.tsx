@@ -1,5 +1,6 @@
-import { Button, TextField } from '@mui/material';
-import { doc, updateDoc } from 'firebase/firestore';
+import { Button } from '@mui/material';
+import { deleteUser } from 'firebase/auth';
+import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { dbservice } from 'src/baseApi/serverbase';
@@ -9,6 +10,7 @@ import AuthButtons from 'src/pages/main/auth/AuthButtons';
 import AuthForm from 'src/pages/main/auth/AuthForm';
 import Motions from 'src/pages/main/auth/Motions';
 import { changeUserCertificated } from 'src/stateSlices/userCertificatedSlice';
+import useTexts from 'src/useTexts';
 import AuthPassword from './AuthPassword';
 
 function Auth({ userObj }) {
@@ -17,13 +19,14 @@ function Auth({ userObj }) {
   const [createdNumber, setCreatedNumber] = useState('')
   const languages = useSelectors((state) => state.languages.value)
   const dispatch = useDispatch()
-  const handleNumberString = (event) => {
-    const {
-      target: { value }
-    } = event
-    setNumberString(value)
+  const { checkTheNumber, weWillSendYouAConfirmingMailTo, sentAConfirmingMail, inputTheNumber, confirm, sendMail, sendMailAgain, cancelRegistration } = useTexts()
+  const handleNumberString = (newValue) => {
+    // const {
+    //   target: { value }
+    // } = event
+    setNumberString(newValue)
   }
-  const sendMail = async () => {
+  const sendNumberMail = async () => {
     let number = Math.floor(Math.random() * 1000000).toString()
     for (let index = 0; 6 - number.length; index++) {
       number = '0' + number
@@ -49,8 +52,19 @@ function Auth({ userObj }) {
       await updateDoc(userDocRef, { certificated: true })
       dispatch(changeUserCertificated(true))
     } else {
-      alert('번호를 확인해주세요.')
+      alert(checkTheNumber)
     }
+  }
+  const cancelUserRegistration = async () => {
+    await deleteDoc(doc(dbservice, `members/${userObj.uid}`));
+    deleteUser(userObj)
+      .then(() => {
+        console.log(userObj)
+        location.reload()
+      })
+      .catch((error) => {
+        console.log(error)
+      });
   }
   return (
     <div>
@@ -59,22 +73,23 @@ function Auth({ userObj }) {
           <PageTitle title={languages === 'ko' ? '메일 확인' : 'Confirming mail'} />
           <div className='flex flex-col gap-5 items-center'>
             {mailSent ?
-              <div>{userObj.email}로 메일을 보냈어요. 번호를 입력해주세요.</div>
+              <div>{languages === 'en' && sentAConfirmingMail} {userObj.email}{languages === 'ko' && sentAConfirmingMail}. {inputTheNumber}.</div>
               :
-              <div>{userObj.email}로 확인 메일을 보낼게요. 번호를 확인해주세요.</div>
+              <div>{languages === 'en' && weWillSendYouAConfirmingMailTo} {userObj.email}{languages === 'ko' && weWillSendYouAConfirmingMailTo}. {checkTheNumber}.</div>
             }
+            {mailSent && <AuthPassword userObj={userObj} numberString={numberString} handleNumberString={handleNumberString} />}
             <div className='flex gap-5'>
-              {mailSent && <TextField label='numbers' value={numberString} onChange={handleNumberString} />}
-              {mailSent && <AuthPassword userObj={userObj} />}
+              {/* {mailSent && <TextField label='numbers' value={numberString} onChange={handleNumberString} />} */}
               {numberString.length === 6 &&
                 <Button onClick={confirmNumber}>
-                  완료
+                  {confirm}
                 </Button>
               }
+              <Button onClick={sendNumberMail}>
+                {mailSent ? sendMailAgain : sendMail}
+              </Button>
             </div>
-            <Button onClick={sendMail}>
-              {mailSent ? '메일 다시 받기' : '메일 받기'}
-            </Button>
+            <Button onClick={cancelUserRegistration}>{cancelRegistration}</Button>
           </div>
         </div>
         :

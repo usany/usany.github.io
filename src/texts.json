@@ -116,7 +116,12 @@
     "noFollowings": "팔로잉이 없습니다",
     "sendMessage": "메세지 전송",
     "follow": "팔로우",
-    "cancelFollow": "팔로우 취소"
+    "cancelFollow": "팔로우 취소",
+    "sentAConfirmingMail": "로 확인 메일을 보냈어요",
+    "inputTheNumber": "번호를 입력해주세요",
+    "confirm": "확인",
+    "sendMailAgain": "메일 재전송",
+    "cancelRegistration": "회원가입 철회"
   },
   "en": {
     "Welcome to React": "Welcome to React and react-i18next",
@@ -235,6 +240,11 @@
     "noFollowings": "No Followings",
     "sendMessage": "Send Message",
     "follow": "Follow",
-    "cancelFollow": "Cancel Follow"
+    "cancelFollow": "Cancel Follow",
+    "sentAConfirmingMail": "Sent a confirming mail to",
+    "inputTheNumber": "Input the number",
+    "confirm": "Confirm",
+    "sendMailAgain": "Send mail again",
+    "cancelRegistration": "Cancel Registration"
   }
 }
