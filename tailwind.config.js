@@ -20,10 +20,9 @@ module.exports = {
       'light-1': '#f7fafb',
       'light-2': '#e2e8f0',
       'light-3': '#cbd5df',
-      'dark-1': '#3a4556',
+      'dark-1': '#5c6778',
       'dark-2': '#2d3848',
       'dark-3': '#1a202c',
-      'dark-4': '#3d4556',
       'ranking-1': '#565584',
       'ranking-2': '#565584',
       'ranking-3': '#565584',
@@ -143,7 +142,11 @@ module.exports = {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
         rippling: 'rippling var(--duration) ease-out'
-      }
+      },
+      gridTemplateColumns: {
+        'auto-fill-100': 'repeat(auto-fill, minmax(0, 1fr))',
+        'auto-fit-100': 'repeat(auto-fit, minmax(0, 1fr))',
+      },
     }
   },
   plugins: [require("tailwindcss-animate")],

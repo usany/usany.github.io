@@ -1,7 +1,7 @@
 {
   "name": "khusan umbrella app",
   "short_name": "khusan umbrella",
-  "start_url": "/postings/",
+  "start_url": "/",
   "display": "standalone",
   "description": "A description for your application",
   "lang": " The default language of your application",
@@ -37,16 +37,14 @@
   ],
   "screenshots": [
     {
-      "src": "https://www.pwabuilder.com/assets/screenshots/screen1.png",
-      "sizes": "2880x1800",
-      "type": "image/png",
-      "description": "A screenshot of the home page"
-    }
-  ],
-  "related_applications": [
+      "src": "./src/assets/screen-01.png",
+      "sizes": "2698x1534",
+      "type": "image/png"
+    },
     {
-      "platform": "windows",
-      "url": " The URL to your app in that app store"
+      "src": "./src/assets/screen.png",
+      "sizes": "1024x578",
+      "type": "image/png"
     }
   ],
   "prefer_related_applications": false,

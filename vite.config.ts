@@ -1,102 +1,116 @@
-import react from '@vitejs/plugin-react';
-import path from "path";
-import { defineConfig } from 'vite';
-import { VitePWA } from 'vite-plugin-pwa';
+import react from '@vitejs/plugin-react'
+import path from 'path'
+import { defineConfig } from 'vite'
+import { VitePWA } from 'vite-plugin-pwa'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), VitePWA({
-    registerType: 'prompt',
-    injectRegister: 'auto',
+  plugins: [
+    react(),
+    VitePWA({
+      registerType: 'prompt',
+      injectRegister: 'auto',
 
-    pwaAssets: {
-      disabled: false,
-      config: true,
-    },
+      pwaAssets: {
+        disabled: false,
+        config: true,
+      },
+      // includeAssets: [
+      //   'pwa-192x192.png',
+      //   'pwa-512x512.png',
+      //   'screen-01.png',
+      //   'screen.png',
+      //   'screens1.png',
+      //   'screens2.png',
+      // ],
+      workbox: {
+        globPatterns: ['**/*'],
+      },
+      // add this to cache all the
+      // static assets in the public folder
+      includeAssets: ['**/*'],
+      manifest: {
+        name: 'khusan umbrella',
+        short_name: 'khusan umbrella',
+        start_url: '/',
+        scope: '/',
+        display: 'standalone',
+        description: 'A description for your application',
+        lang: 'en',
+        dir: 'ltr',
+        theme_color: '#000000',
+        background_color: '#000000',
+        orientation: 'any',
+        icons: [
+          {
+            src: 'pwa-192x192.png',
+            sizes: '192x192',
+            type: 'image/png',
+            purpose: 'any',
+          },
+          {
+            src: 'pwa-192x192.png',
+            sizes: '192x192',
+            type: 'image/png',
+            purpose: 'maskable',
+          },
+          {
+            src: 'pwa-512x512.png',
+            sizes: '512x512',
+            type: 'image/png',
+            purpose: 'any',
+          },
+          {
+            src: 'pwa-512x512.png',
+            sizes: '512x512',
+            type: 'image/png',
+            purpose: 'maskable',
+          },
+        ],
+        screenshots: [
+          {
+            src: 'screens1.png',
+            sizes: '1900x1920',
+            type: 'image/png',
+          },
+          {
+            src: 'screens2.png',
+            sizes: '1900x1920',
+            type: 'image/png',
+          },
+        ],
+        prefer_related_applications: false,
+        shortcuts: [
+          {
+            name: 'The name you would like to be displayed for your shortcut',
+            url: 'The url you would like to open when the user chooses this shortcut. This must be a URL local to your PWA. For example: If my start_url is /, this URL must be something like /shortcut',
+            description: 'A description of the functionality of this shortcut',
+          },
+        ],
+      },
 
-    manifest: {
-      name: "khusan umbrella app",
-      short_name: "khusan umbrella",
-      start_url: "/",
-      scope: "/",
-      display: "standalone",
-      description: "A description for your application",
-      lang: " The default language of your application",
-      dir: "auto",
-      theme_color: "#000000",
-      background_color: "#000000",
-      orientation: "any",
-      icons: [
-        {
-          "src": "./pwa-192x192.png",
-          "sizes": "192x192",
-          "type": "image/png",
-          "purpose": "any"
-        },
-        {
-          "src": "./pwa-192x192.png",
-          "sizes": "192x192",
-          "type": "image/png",
-          "purpose": "maskable"
-        },
-        {
-          "src": "./pwa-512x512.png",
-          "sizes": "512x512",
-          "type": "image/png",
-          "purpose": "any"
-        },
-        {
-          "src": "./pwa-512x512.png",
-          "sizes": "512x512",
-          "type": "image/png",
-          "purpose": "maskable"
-        }
-      ],
-      screenshots: [
-        {
-          "src": "https://www.pwabuilder.com/assets/screenshots/screen1.png",
-          "sizes": "2880x1800",
-          "type": "image/png",
-          "description": "A screenshot of the home page"
-        }
-      ],
-      related_applications: [
-        {
-          "platform": "windows",
-          "url": " The URL to your app in that app store"
-        }
-      ],
-      prefer_related_applications: false,
-      shortcuts: [
-        {
-          "name": "The name you would like to be displayed for your shortcut",
-          "url": "The url you would like to open when the user chooses this shortcut. This must be a URL local to your PWA. For example: If my start_url is /, this URL must be something like /shortcut",
-          "description": "A description of the functionality of this shortcut"
-        }
-      ]
-    },
+      // workbox: {
+      //   globPatterns: ['**/*.{js,css,html,svg,png,ico}'],
+      //   cleanupOutdatedCaches: true,
+      //   clientsClaim: true,
+      // },
 
-    workbox: {
-      globPatterns: ['**/*.{js,css,html,svg,png,ico}'],
-      cleanupOutdatedCaches: true,
-      clientsClaim: true,
-    },
-
-    devOptions: {
-      enabled: false,
-      navigateFallback: 'index.html',
-      suppressWarnings: true,
-      type: 'module',
-    },
-  })],
+      devOptions: {
+        enabled: false,
+        navigateFallback: 'index.html',
+        suppressWarnings: true,
+        type: 'module',
+      },
+    }),
+  ],
   base: '/',
   build: {
-    outDir: 'dist'
+    outDir: 'dist',
   },
   resolve: {
     alias: {
-      'src': '/src',
-      "@": path.resolve(__dirname, "./src"),
+      src: '/src',
+      '@': path.resolve(__dirname, './src'),
     },
   },
 })

@@ -1,83 +1,297 @@
-// import { initializeApp } from "firebase/app";
-// import { getMessaging } from "firebase/messaging/sw";
-// importScripts('https://cdn.engagespot.co/serviceWorkerv2.js');
-// importScripts("https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js");
-// importScripts("https://www.gstatic.com/firebasejs/8.0.0/firebase-messaging.js");
-importScripts('https://www.gstatic.com/firebasejs/10.10.0/firebase-app-compat.js');
-importScripts('https://www.gstatic.com/firebasejs/10.10.0/firebase-messaging-compat.js');
+// import staticImg from 'src/assets/umbrella512.png';
+// import { dbservice } from 'src/baseApi/serverbase';
+// const formConversation = async (notification) => {
+//   const message = notification.body
+//   try {
+//     const userUid = notification.data.sendingUid
+//     const userName = notification.data.sendingDisplayName
+//     const chattingUid = notification.data.receivingUid
+//     const chattingName = notification.data.receivingDisplayName
+//     const messageClockNumber = Date.now()
+//     const messageClock = new Date().toString()
+//     const profileImageUrl = notification.icon
+//     const otherProfileUrl = notification.icon
+//     const defaultProfile = notification.icon
+//     const otherDefaultProfile = notification.icon
+//     const conversation = notification.tag
+//     let userOne
+//     let userTwo
+//     let userOneDisplayName
+//     let userTwoDisplayName
+//     let userOneProfileUrl
+//     let userTwoProfileUrl
+//     let userOneDefaultProfile
+//     let userTwoDefaultProfile
+//     let userOneProfileImage
+//     let userTwoProfileImage
+//     if (userUid < chattingUid) {
+//       userOne = userUid
+//       userTwo = chattingUid
+//       userOneDisplayName = userName
+//       userTwoDisplayName = chattingName
+//       userOneProfileUrl = profileImageUrl
+//       userTwoProfileUrl = otherProfileUrl
+//       userOneDefaultProfile = defaultProfile
+//       userTwoDefaultProfile = otherDefaultProfile
+//       userOneProfileImage = true
+//       userTwoProfileImage = false
+//     } else {
+//       userOne = chattingUid
+//       userTwo = userUid
+//       userOneDisplayName = chattingName
+//       userTwoDisplayName = userName
+//       userOneProfileUrl = otherProfileUrl
+//       userTwoProfileUrl = profileImageUrl
+//       userOneDefaultProfile = otherDefaultProfile
+//       userTwoDefaultProfile = defaultProfile
+//       userOneProfileImage = false
+//       userTwoProfileImage = true
+//     }
+//     if (!userOneProfileUrl) {
+//       const userRef = doc(dbservice, `members/${userOne}`)
+//       const userSnap = await getDoc(userRef)
+//       const userUrl = userSnap.data()?.profileImageUrl
+//       userOneProfileUrl = userUrl
+//     }
+//     if (!userTwoProfileUrl) {
+//       const userRef = doc(dbservice, `members/${userTwo}`)
+//       const userSnap = await getDoc(userRef)
+//       const userUrl = userSnap.data()?.profileImageUrl
+//       userTwoProfileUrl = userUrl
+//     }
+//     if (message) {
+//       const messageObj = {
+//         userUid: userUid,
+//         userName: userName,
+//         message: message,
+//         messageClock: messageClock,
+//         messageClockNumber: messageClockNumber,
+//         userOne: userOne,
+//         userTwo: userTwo,
+//         userOneDisplayName: userOneDisplayName,
+//         userTwoDisplayName: userTwoDisplayName,
+//         userOneProfileUrl: userOneProfileUrl,
+//         userTwoProfileUrl: userTwoProfileUrl,
+//         userOneDefaultProfile: userOneDefaultProfile,
+//         userTwoDefaultProfile: userTwoDefaultProfile,
+//         userOneProfileImage: userOneProfileImage,
+//         userTwoProfileImage: userTwoProfileImage
+//       }
 
-// Initialize the Firebase app in the service worker by passing in
-// your app's Firebase config object.
-// https://firebase.google.com/docs/web/setup#config-object
-// const firebaseApp = initializeApp({
-//   apiKey: 'api-key',
-//   authDomain: 'project-id.firebaseapp.com',
-//   databaseURL: 'https://project-id.firebaseio.com',
-//   projectId: 'project-id',
-//   storageBucket: 'project-id.appspot.com',
-//   messagingSenderId: 'sender-id',
-//   appId: 'app-id',
-//   measurementId: 'G-measurement-id',
-// });
-const firebaseConfig = {
-  apiKey: "AIzaSyAtraq33KBmaj0rkDAfOdXmEQtVnamrQtc",
-  authDomain: "remake-36fe0.firebaseapp.com",
-  projectId: "remake-36fe0",
-  storageBucket: "remake-36fe0.appspot.com",
-  messagingSenderId: "206737336631",
-  appId: "1:206737336631:web:55648c3ea182e23c3052b2",
-  databaseURL: "https://remake-36fe0-default-rtdb.asia-southeast1.firebasedatabase.app",
-};
-const app = firebase.initializeApp(firebaseConfig);
-// Retrieve an instance of Firebase Messaging so that it can handle background
-// messages.
-const messaging = firebase.messaging()
-messaging.onBackgroundMessage((payload) => {
-  console.log('Received background message ', payload);
-  // Customize notification here
-});
-
-// messaging.getToken(messaging, {vapidKey: "BC6ZRwx8Ke48uprRA17AlLOqJ8HCMIwIVYLy32evgnACjpf0aH5yxHhkvEe5D8I73kjn69E2jF-bnMLeRbbzRRE"}).then((currentToken) => {
-//   if (currentToken) {
-//       new Notification('Notification permission granted.');
-//   } else {
-//     console.log('No registration token available. Request permission to generate one.');
+//       await addDoc(collection(dbservice, `chats_${conversation}`), messageObj)
+//       const myDocRef = doc(dbservice, `members/${userUid}`)
+//       const myDocSnap = await getDoc(myDocRef)
+//       const myChattings = myDocSnap.data().chattings || {}
+//       const userDocRef = doc(dbservice, `members/${chattingUid}`)
+//       const userDocSnap = await getDoc(userDocRef)
+//       const userChattings = userDocSnap.data().chattings || {}
+//       const userChattingsNumber = userChattings[conversation]?.messageCount || 0
+//       myChattings[conversation] = messageObj
+//       userChattings[conversation] = { ...messageObj, messageCount: userChattingsNumber + 1 }
+//       await updateDoc(myDocRef, {
+//         chattings: myChattings
+//       })
+//       await updateDoc(userDocRef, {
+//         chattings: userChattings
+//       })
+//     }
+//     console.log(notification)
+//   } catch (error) {
+//     console.log(error)
 //   }
-// }).catch((err) => {
-//   console.log('An error occurred while retrieving token. ', err);
-// });
+// }
+const cacheName = 'caching'
+const version = 'v0.0.1'
+const integratedName = cacheName + version
+const appShellFiles = ['/blue.png']
+self.addEventListener('install', (event) => {
+  console.log('swinstall')
+  event.waitUntil(
+    caches.open(integratedName).then(function (cache) {
+      return cache.addAll(appShellFiles)
+    }),
+  )
+  // event.waitUntil(cacheStaticAssets())
+})
+self.addEventListener('activate', (event) => {
+  console.log('swactivate')
+  event.waitUntil(
+    caches.keys().then(function (keys) {
+      // Remove caches whose name is no longer valid
+      return Promise.all(
+        keys
+          .filter(function (key) {
+            console.log(key.indexOf(integratedName))
+            return key.indexOf(integratedName) !== 0
+          })
+          .map(function (key) {
+            return caches.delete(key)
+          }),
+      )
+    }),
+  )
 
+  self.clients.claim()
+  // event.waitUntil(caches.delete(CACHE\_NAME).then(cacheStaticAssets));
+})
+self.addEventListener('fetch', (event) => {
+  const request = event.request
+  event.respondWith(
+    // tell broswer, from now on I handle this fetch event
+    caches.match(event.request).then((response) => {
+      if (response) {
+        // if the response is found in cache, return it
+        return response
+      }
 
+      // else, fetch the request, cache it, and then return it
+      return fetch(event.request).then((response) => {
+        return caches.open(cacheName + version).then((cache) => {
+          const responseClone = response.clone()
+          cache.put(event.request, responseClone)
+          return response
+        })
+      })
+    }),
+  )
 
-// const messages = firebase.getToken(messaging, {vapidKey: "BC6ZRwx8Ke48uprRA17AlLOqJ8HCMIwIVYLy32evgnACjpf0aH5yxHhkvEe5D8I73kjn69E2jF-bnMLeRbbzRRE"}).then((currentToken) => {
-//   if (currentToken) {
-//       new Notification('Notification permission granted.');
-//   } else {
-//     console.log('No registration token available. Request permission to generate one.');
-//   }
-// }).catch((err) => {
-//   console.log('An error occurred while retrieving token. ', err);
-// });
-// getToken(messaging, {vapidKey: "BC6ZRwx8Ke48uprRA17AlLOqJ8HCMIwIVYLy32evgnACjpf0aH5yxHhkvEe5D8I73kjn69E2jF-bnMLeRbbzRRE"}).then((currentToken) => {
-//   if (currentToken) {
-//       new Notification('Notification permission granted.');
-//   } else {
-//     console.log('No registration token available. Request permission to generate one.');
-//   }
-// }).catch((err) => {
-//   console.log('An error occurred while retrieving token. ', err);
-// });
+  // Always fetch non-GET requests from the network
+  if (request.method !== 'GET') {
+    event.respondWith(
+      fetch(request).catch(function () {
+        return caches.match('/offline')
+      }),
+    )
 
-// getToken(messaging, {vapidKey: "BC6ZRwx8Ke48uprRA17AlLOqJ8HCMIwIVYLy32evgnACjpf0aH5yxHhkvEe5D8I73kjn69E2jF-bnMLeRbbzRRE"}).then((currentToken) => {
-//   if (currentToken) {
-//       new Notification('Notification permission granted.');
-//   } else {
-//     console.log('No registration token available. Request permission to generate one.');
-//   }
-// }).catch((err) => {
-//   console.log('An error occurred while retrieving token. ', err);
-// });
-// const messagess = firebase.onMessage(messaging, (payload) => {
-//   console.log('Message received. ', payload);
-// });
+    return
+  }
 
+  // For HTML requests, try the network first, fall back to the cache,
+  // finally the offline page
+  if (
+    request.headers.get('Accept')?.indexOf('text/html') !== -1 &&
+    request.url.startsWith(this.origin)
+  ) {
+    // The request is text/html, so respond by caching the
+    // item or showing the /offline offline
+    event.respondWith(
+      fetch(request)
+        .then(function (response) {
+          // Stash a copy of this page in the cache
+          const copy = response.clone()
+          caches.open(version + cacheName).then(function (cache) {
+            cache.put(request, copy)
+          })
+          return response
+        })
+        .catch(function () {
+          return caches.match(request).then(function (response) {
+            // return the cache response or the /offline page.
+            return response || caches.match('/offline')
+          })
+        }),
+    )
+    return
+  }
+})
+self.addEventListener('sync', (event) => {})
+self.addEventListener('push', (event) => {
+  console.log(event.data.json().notification)
+  const notificationType = event.data.json().data.type
+  if (notificationType === 'piazza') {
+    const options = {
+      body: String(event.data.json().notification.body),
+      icon: event.data.json().data.body,
+      badge: event.data.json().data.body,
+      actions: [
+        {
+          action: 'reply',
+          type: 'text',
+          title: 'send',
+          placeholder: 'reply',
+        },
+        {
+          action: 'no',
+          type: 'button',
+          title: 'close',
+        },
+      ],
+      data: event.data.json().data,
+      tag: event.data.json().data.title,
+      renotify: true,
+      requireInteraction: true,
+      vibrate: [
+        500, 110, 500, 110, 450, 110, 200, 110, 170, 40, 450, 110, 200, 110,
+        170, 40, 500,
+      ],
+    }
+    event.waitUntil(
+      self.registration.showNotification(
+        event.data.json().notification.title,
+        options,
+      ),
+    )
+  } else if (notificationType === 'card') {
+    const options = {
+      body: String(event.data.json().notification.body),
+      icon: event.data.json().data.body,
+      badge: event.data.json().data.body,
+      data: event.data.json().data,
+      // tag: event.data.json().data.title,
+      tag: 'renotify',
+      renotify: true,
+      requireInteraction: true,
+      vibrate: [
+        500, 110, 500, 110, 450, 110, 200, 110, 170, 40, 450, 110, 200, 110,
+        170, 40, 500,
+      ],
+    }
+    event.waitUntil(
+      self.registration.showNotification(
+        event.data.json().notification.title,
+        options,
+      ),
+    )
+  }
+})
+self.addEventListener('notificationclick', (event) => {
+  // clients.openWindow("https://jameshfisher.com/");
+  console.log(event)
+  if (event.notification.data.type === 'piazza') {
+    if (event.reply) {
+      console.log('reply')
+      // formConversation(event.notification)
+    } else {
+      clients.openWindow(`/piazza?id=${event.notification.data.title}`)
+    }
+  }
+  if (!event.action) {
+    clients.openWindow(`/piazza?id=${event.notification.tag}`)
+  }
+  event.notification.close()
+})
+
+// import { getMessaging, onBackgroundMessage } from "firebase/messaging/sw";
+
+// const messaging = getMessaging();
+// self.addEventListener('push', event => {
+//   onBackgroundMessage(messaging, (payload) => {
+//     console.log('[firebase-messaging-sw.js] Received background message ', payload);
+// Customize notification here
+//     const notificationTitle = 'Background Message Title';
+//     const notificationOptions = {
+//       body: 'Background Message body.',
+//       icon: '/firebase-logo.png'
+//     };
+//     self.registration.showNotification(notificationTitle,
+//       notificationOptions);
+//   });
+//   const notificationTitle = 'Background Message Title';
+//   const notificationOptions = {
+//     body: 'Background Message body.',
+//     icon: '/firebase-logo.png'
+//   };
+//   event.waitUntil(
+//     self.registration.showNotification(notificationTitle, notificationOptions)
+//   );
+// })
