@@ -108,10 +108,6 @@ function Piazza({ userObj }: Props) {
       id: userObj.displayName,
       conversationUid: chattingUser?.uid,
       conversationName: chattingUser?.displayName,
-      // profileImage: profileImage,
-      // defaultProfile: defaultProfile,
-      // profileImageUrl: profileImageUrl,
-      // profileUrl: profileUrl,
     };
     console.log(passingObject)
     webSocket.emit('quitCall', passingObject)
