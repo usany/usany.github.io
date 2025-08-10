@@ -9,6 +9,7 @@ import PiazzaForm from 'src/pages/piazza/piazzaForm/PiazzaForm';
 import PiazzaScreen from 'src/pages/piazza/piazzaScreen/PiazzaScreen';
 import PiazzaTitle from 'src/pages/piazza/piazzaTitle/PiazzaTitle';
 import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice';
+import useTexts from "src/useTexts";
 import { webSocket } from "src/webSocket";
 import PiazzaAudioCall from "./PiazzaAudioCall";
 import PiazzaCalls from "./PiazzaCalls";
@@ -27,7 +28,7 @@ function Piazza({ userObj }: Props) {
   const [chatUid, setChatUid] = useState('')
   const [chatDisplayName, setChatDisplayName] = useState('')
   const [searchParams, setSearchParams] = useSearchParams()
-
+  const { hangUp } = useTexts()
   const handleChatUid = (newValue) => {
     setChatUid(newValue)
   }
@@ -166,7 +167,7 @@ function Piazza({ userObj }: Props) {
               <PiazzaCalls />
             </div>
             <MorphingDialogClose>
-              <div onClick={stopCalls}>전화 종료</div>
+              <div onClick={stopCalls}>{hangUp}</div>
             </MorphingDialogClose>
           </div>
         </MorphingDialogContainer>
@@ -181,7 +182,7 @@ function Piazza({ userObj }: Props) {
               <PiazzaAudioCall />
             </div>
             <MorphingDialogClose>
-              <div onClick={stopCalls}>전화 종료</div>
+              <div onClick={stopCalls}>{hangUp}</div>
             </MorphingDialogClose>
           </div>
         </MorphingDialogContainer>
