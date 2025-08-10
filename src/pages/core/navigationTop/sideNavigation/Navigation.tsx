@@ -57,14 +57,6 @@ function Navigation({ user, userObj, handleSideNavigation }: Props) {
     setTimeout(() => {
       location.reload()
     }, 1000)
-    // if (!user) {
-    //   setTimeout(() => {
-    //     dispatch(changeProfileUrl(''))
-    //     dispatch(changeProfileImage(''))
-    //     dispatch(changeProfileColor(''))
-    //     checkbox()
-    //   }, 250)
-    // }
   }
 
   const links = [
