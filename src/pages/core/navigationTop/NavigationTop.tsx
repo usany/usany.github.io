@@ -28,7 +28,6 @@ const NavigationTop = ({ userObj }: Props) => {
   const [sideNavigation, setSideNavigation] = useState(false)
   const [renderDelayed, setRenderDelayed] = useState(false)
   setTimeout(() => setRenderDelayed(true), 250)
-  const profile = useSelectors((state) => state.profile.value)
   const handleSideNavigation = () => {
     setSideNavigation(!sideNavigation)
   }
