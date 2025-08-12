@@ -11,7 +11,6 @@ import { decode } from 'base64-arraybuffer'
 import supabase from 'src/baseApi/base';
 
 const ProfileClose = ({ userObj, changedImage, handleChangedImage, attachment }) => {
-  // const profileColor = useSelector(state => state.profileColor.value)
   const profile = useSelector((state) => state.profile.value)
   const dispatch = useDispatch()
   const onClick = async () => {
@@ -19,16 +18,10 @@ const ProfileClose = ({ userObj, changedImage, handleChangedImage, attachment })
     // const attachment = changedImage.attachment
     console.log(attachment)
     if (attachment) {
-      // console.log(profile)
       dispatch(changeProfileUrl(attachment))
       dispatch(changeProfile({ ...profile, profileImage: true, profileImageUrl: attachment }))
       const storage = getStorage();
       const storageRef = ref(storage, userObj.uid);
-      // const reference = ref(storage, `${profileOrder}${profileColor}.png`);
-      // console.log(reference)
-      // getDownloadURL(storageRef).then((url) => {
-      //   console.log(url)
-      // })
       if (attachment.slice(0, 5) === 'data:') {
         uploadString(storageRef, attachment, 'data_url').then((snapshot) => {
           console.log('Uploaded a blob or file!');
