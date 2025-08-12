@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { changeProfile } from 'src/stateSlices/profileSlice';
 import { changeProfileUrl } from 'src/stateSlices/profileUrlSlice';
 import { decode } from 'base64-arraybuffer'
+import supabase from 'src/baseApi/base';
 
 const ProfileClose = ({ userObj, changedImage, handleChangedImage, attachment }) => {
   const profileColor = useSelector(state => state.profileColor.value)
@@ -34,7 +35,6 @@ const ProfileClose = ({ userObj, changedImage, handleChangedImage, attachment })
         });
         updateDoc(data, { profileImage: true });
       }
-      const supabase = createClient('https://ijsfbngiyhgvolsprxeh.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imlqc2ZibmdpeWhndm9sc3ByeGVoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQ5ODA2MDksImV4cCI6MjA3MDU1NjYwOX0._tvdubZqog1Awb58KzYETJqCWuT7DbjaStPLnWdRvdk');
       const uploadImages = async () => {
         const splitedArray = attachment.split(';base64,')
         const content = splitedArray[0].slice(5)
