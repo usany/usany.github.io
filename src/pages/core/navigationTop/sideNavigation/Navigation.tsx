@@ -38,7 +38,7 @@ function Navigation({ user, userObj, handleSideNavigation }: Props) {
   const theme = useSelectors((state) => state.theme.value)
   const languages = useSelectors((state) => state.languages.value)
   const userCertificated = useSelectors((state) => state.userCertificated.value)
-  const dispatch = useDispatch()
+  const profile = useSelectors((state) => state.profile.value)
   const onLine = useSelectors((state) => state.onLine.value)
   useEffect(() => {
     if (userObj) {
@@ -107,14 +107,14 @@ function Navigation({ user, userObj, handleSideNavigation }: Props) {
   return (
     <Drawer direction="left">
       <DrawerTrigger className="px-5">
-        {user && userCertificated ? (
+        {profile && userCertificated ? (
           <Avatars
-            element={user}
+            element={profile}
             piazza={null}
             profile={false}
             profileColor=""
-            profileUrl={user.profileImageUrl}
-            defaultProfileUrl={user.defaultProfile}
+            profileUrl={profile.profileImageUrl}
+            defaultProfileUrl={profile.defaultProfile}
           />
         ) : (
           <>
