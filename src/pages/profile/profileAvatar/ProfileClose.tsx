@@ -3,6 +3,7 @@ import { doc, updateDoc } from 'firebase/firestore';
 import { getStorage, ref, uploadString } from "firebase/storage";
 import { dbservice, storage } from 'src/baseApi/serverbase';
 // import { useAvatarColorStore, useAvatarImageStore } from 'src/store'
+import { createClient } from '@supabase/supabase-js';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeProfile } from 'src/stateSlices/profileSlice';
 import { changeProfileUrl } from 'src/stateSlices/profileUrlSlice';
@@ -27,11 +28,24 @@ const ProfileClose = ({ userObj, changedImage, handleChangedImage, attachment })
       //   console.log(url)
       // })
       if (attachment.slice(0, 5) === 'data:') {
-        uploadString(storageRef, attachment, 'data_url').then((snapshot) => {
-          console.log('Uploaded a blob or file!');
-        });
-        updateDoc(data, { profileImage: true, profileColor: changedImage.profileColor });
+        // uploadString(storageRef, attachment, 'data_url').then((snapshot) => {
+        //   console.log('Uploaded a blob or file!');
+        // });
+        // updateDoc(data, { profileImage: true, profileColor: changedImage.profileColor });
       }
+      const supabase = createClient('https://ijsfbngiyhgvolsprxeh.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imlqc2ZibmdpeWhndm9sc3ByeGVoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQ5ODA2MDksImV4cCI6MjA3MDU1NjYwOX0._tvdubZqog1Awb58KzYETJqCWuT7DbjaStPLnWdRvdk');
+      const uploadImages = async () => {
+        const { data, error } = await supabase.storage
+          .from('remake')
+          .update(userObj.uid, attachment)
+        if (data) {
+          console.log(data)
+        }
+        if (error) {
+          console.log(error)
+        }
+      }
+      uploadImages()
       // else {
       //   let defaultProfile
       //   getDownloadURL(storageRef).then((url) => {

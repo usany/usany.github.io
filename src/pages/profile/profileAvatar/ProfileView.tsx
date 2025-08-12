@@ -9,7 +9,7 @@ const ProfileView = ({ userObj, user, changedImage, changeAttachment, handleChan
   const profile = useSelector((state) => state.profile.value)
   return (
     <div onClick={() => {
-      console.log('practice')
+      // console.log('practice')
       handleChangedImage({ ...changedImage, attachment: '', profileColor: profile.profileColor, profileImage: false, defaultProfile: profile.defaultProfile, changed: false })
       changeAttachment(null)
     }}>
