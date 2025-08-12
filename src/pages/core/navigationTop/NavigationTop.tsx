@@ -79,7 +79,6 @@ const NavigationTop = ({ userObj }: Props) => {
       {renderDelayed && (
         <div className="flex justify-between w-screen items-center">
           <Navigation
-            user={profile}
             userObj={userObj}
             handleSideNavigation={handleSideNavigation}
           />

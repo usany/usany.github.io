@@ -32,7 +32,7 @@ interface Props {
 }
 
 const onLogOutClick = () => auth.signOut()
-function Navigation({ user, userObj, handleSideNavigation }: Props) {
+function Navigation({ userObj, handleSideNavigation }: Props) {
   const [points, setPoints] = useState(0)
   const [delayed, setDelayed] = useState(true)
   const theme = useSelectors((state) => state.theme.value)
