@@ -176,7 +176,7 @@ function Navigation({ user, userObj, handleSideNavigation }: Props) {
                         </DrawerClose>
                       )
                     }
-                    if (!userCertificated && user) {
+                    if (!userCertificated && userObj) {
                       if (value.href === '/') {
                         return (
                           <DrawerClose>
