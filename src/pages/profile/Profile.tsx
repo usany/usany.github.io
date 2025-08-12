@@ -50,8 +50,8 @@ function Profile({ userObj }: Props) {
     changed: true
   });
   const { state } = useLocation();
-  console.log(userObj)
-  console.log(state)
+  // console.log(userObj)
+  // console.log(state)
   const [profileDialog, setProfileDialog] = useState(false);
   const [alliesCollection, setAlliesCollection] = useImmer([
     {
