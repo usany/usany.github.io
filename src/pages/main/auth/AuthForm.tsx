@@ -48,8 +48,8 @@ const AuthForm = ({ signIn, agreed }) => {
             account.password,
           )
           const { data, error } = await supabase.auth.signUp({
-            email: 'example@email.com',
-            password: 'example-password',
+            email: account.email,
+            password: account.password,
           })
           const docsRef = query(collection(dbservice, 'members'))
           const docs = await getDocs(docsRef)
