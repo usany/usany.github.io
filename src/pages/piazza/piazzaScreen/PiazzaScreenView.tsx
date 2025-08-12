@@ -512,10 +512,10 @@ function PiazzaScreenView({
                                   })
                                 }
                                 profile={false}
-                                // uid={userObj.uid}
-                                // profileColor=""
-                                // profileUrl={value.profileImageUrl}
-                                // defaultProfileUrl={value.defaultProfile}
+                              // uid={userObj.uid}
+                              // profileColor=""
+                              // profileUrl={value.profileImageUrl}
+                              // defaultProfileUrl={value.defaultProfile}
                               />
                             }
                             title={
