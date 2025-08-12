@@ -11,7 +11,7 @@ import { decode } from 'base64-arraybuffer'
 import supabase from 'src/baseApi/base';
 
 const ProfileClose = ({ userObj, changedImage, handleChangedImage, attachment }) => {
-  const profileColor = useSelector(state => state.profileColor.value)
+  // const profileColor = useSelector(state => state.profileColor.value)
   const profile = useSelector((state) => state.profile.value)
   const dispatch = useDispatch()
   const onClick = async () => {
@@ -19,7 +19,7 @@ const ProfileClose = ({ userObj, changedImage, handleChangedImage, attachment })
     // const attachment = changedImage.attachment
     console.log(attachment)
     if (attachment) {
-      console.log(profile)
+      // console.log(profile)
       dispatch(changeProfileUrl(attachment))
       dispatch(changeProfile({ ...profile, profileImage: true, profileImageUrl: attachment }))
       const storage = getStorage();
