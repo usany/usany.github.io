@@ -15,6 +15,7 @@ import { useSelectors } from 'src/hooks/useSelectors.tsx'
 import setDocUser from 'src/pages/core/setDocUser.ts'
 import useTexts from 'src/useTexts.ts'
 import AuthDialogs from './AuthDialogs.tsx'
+import supabase from 'src/baseApi/base.tsx'
 
 const AuthForm = ({ signIn, agreed }) => {
   const [account, setAccount] = useState({ email: '', password: '' })
@@ -46,6 +47,10 @@ const AuthForm = ({ signIn, agreed }) => {
             account.email,
             account.password,
           )
+          const { data, error } = await supabase.auth.signUp({
+            email: 'example@email.com',
+            password: 'example-password',
+          })
           const docsRef = query(collection(dbservice, 'members'))
           const docs = await getDocs(docsRef)
           const docsLength = docs.docs.length

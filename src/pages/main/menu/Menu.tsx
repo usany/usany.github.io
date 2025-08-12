@@ -9,6 +9,7 @@ import useSetProfile from './useSetProfile'
 // import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { useState } from 'react'
 import staticImg from 'src/assets/blue.png'
+import supabase from 'src/baseApi/base'
 interface Props {
   userObj: User
 }
@@ -25,7 +26,7 @@ function Menu({ userObj }: Props) {
   useGetToken(userObj)
   useContextMenu()
   // const supabase = createClient(import.meta.env.VITE_SUPABASE_URL, import.meta.env.VITE_SUPABASE_ANON_KEY);
-  const supabase = createClient('https://ijsfbngiyhgvolsprxeh.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imlqc2ZibmdpeWhndm9sc3ByeGVoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQ5ODA2MDksImV4cCI6MjA3MDU1NjYwOX0._tvdubZqog1Awb58KzYETJqCWuT7DbjaStPLnWdRvdk');
+  // const supabase = createClient('https://ijsfbngiyhgvolsprxeh.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imlqc2ZibmdpeWhndm9sc3ByeGVoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQ5ODA2MDksImV4cCI6MjA3MDU1NjYwOX0._tvdubZqog1Awb58KzYETJqCWuT7DbjaStPLnWdRvdk');
   const [img, setImg] = useState(null)
   const uploadImages = async () => {
     const { data, error } = await supabase.storage
