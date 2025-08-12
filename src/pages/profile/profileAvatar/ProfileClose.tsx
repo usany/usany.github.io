@@ -2,8 +2,6 @@ import Button from '@mui/material/Button';
 import { doc, updateDoc } from 'firebase/firestore';
 import { getStorage, ref, uploadString } from "firebase/storage";
 import { dbservice, storage } from 'src/baseApi/serverbase';
-// import { useAvatarColorStore, useAvatarImageStore } from 'src/store'
-import { createClient } from '@supabase/supabase-js';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeProfile } from 'src/stateSlices/profileSlice';
 import { changeProfileUrl } from 'src/stateSlices/profileUrlSlice';
@@ -15,8 +13,6 @@ const ProfileClose = ({ userObj, changedImage, handleChangedImage, attachment })
   const dispatch = useDispatch()
   const onClick = async () => {
     const data = doc(dbservice, `members/${userObj.uid}`)
-    // const attachment = changedImage.attachment
-    console.log(attachment)
     if (attachment) {
       dispatch(changeProfileUrl(attachment))
       dispatch(changeProfile({ ...profile, profileImage: true, profileImageUrl: attachment }))
