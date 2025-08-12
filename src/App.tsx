@@ -72,17 +72,6 @@ function App() {
     // mq.addEventListener("change", (evt) => setIsDark(evt.matches));
   }, []);
 
-  function MyComponent() {
-    const { t, i18n } = useTranslation();
-    return <h1 onClick={() => {
-      if (i18n.language === 'ko') {
-        i18n.changeLanguage('en');
-      } else {
-        i18n.changeLanguage('ko');
-      }
-    }}>{t('Welcome to React')}</h1>
-  }
-
   return (
     <>
       {/* <button id='mute' onClick={handleMuteClick}>mute</button>
