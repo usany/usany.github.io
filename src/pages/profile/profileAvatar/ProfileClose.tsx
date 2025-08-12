@@ -36,12 +36,13 @@ const ProfileClose = ({ userObj, changedImage, handleChangedImage, attachment })
       }
       const supabase = createClient('https://ijsfbngiyhgvolsprxeh.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imlqc2ZibmdpeWhndm9sc3ByeGVoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQ5ODA2MDksImV4cCI6MjA3MDU1NjYwOX0._tvdubZqog1Awb58KzYETJqCWuT7DbjaStPLnWdRvdk');
       const uploadImages = async () => {
-        const base64 = attachment.split('base64,')[1]
-        console.log(base64)
+        const splitedArray = attachment.split(';base64,')
+        const content = splitedArray[0].slice(5)
+        const base64 = splitedArray[1]
         const { data, error } = await supabase.storage
           .from('remake')
           .update(userObj.uid, decode(base64), {
-            contentType: 'image/png'
+            contentType: content
           })
         if (data) {
           console.log(data)
