@@ -21,11 +21,6 @@ import useUserObject from './useUserObject'
 function App() {
   // const [count, setCount] = useState(0)
   // const [userObj, setUserObj] = useState<User | null | undefined>(undefined)
-  // useEffect(() => {
-  //   auth.onAuthStateChanged((user) => {
-  //     setUserObj(user)
-  //   })
-  // }, [])
   const theme = useSelectors((state) => state.theme.value)
   const userObj = useUserObject()
   const { lightTheme, darkTheme } = useColors()
@@ -74,14 +69,8 @@ function App() {
 
   return (
     <>
-      {/* <button id='mute' onClick={handleMuteClick}>mute</button>
-      &emsp;
-      <button id='stream' onClick={handleStreamClick}>turn stream off</button>
-      &emsp;
-      <select id='videoInput' /> */}
       <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
         <Toaster />
-        {/* <MyComponent /> */}
         {userObj !== undefined ? <Router userObj={userObj} /> : <Lotties />}
       </ThemeProvider>
     </>
