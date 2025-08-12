@@ -51,6 +51,7 @@
     "@xstate/store": "^2.6.2",
     "autoprefixer": "^10.4.19",
     "axios": "^1.7.7",
+    "base64-arraybuffer": "^1.0.2",
     "class-variance-authority": "^0.7.0",
     "classnames": "^2.5.1",
     "clsx": "^2.1.1",

@@ -54,7 +54,7 @@ const ProfileDialogs = ({ attachment, changeAttachment, changedImage, handleChan
       const {
         currentTarget: { result },
       } = finishedEvent;
-      // console.log(result)
+      console.log(result)
       changeAttachment(result)
     }
     reader.readAsDataURL(theFile)
