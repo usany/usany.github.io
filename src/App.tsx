@@ -20,7 +20,6 @@ import useUserObject from './useUserObject'
 
 function App() {
   // const [count, setCount] = useState(0)
-  // const [userObj, setUserObj] = useState<User | null | undefined>(undefined)
   const theme = useSelectors((state) => state.theme.value)
   const userObj = useUserObject()
   const { lightTheme, darkTheme } = useColors()
