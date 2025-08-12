@@ -32,6 +32,7 @@ const AuthForm = ({ signIn, agreed }) => {
         email: account.email,
         password: account.password,
       })
+      console.log(data)
       location.reload()
     } catch (error) {
       if (error.message === 'Firebase: Error (auth/invalid-credential).') {
