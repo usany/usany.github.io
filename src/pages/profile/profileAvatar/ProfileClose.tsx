@@ -7,10 +7,12 @@ import { changeProfile } from 'src/stateSlices/profileSlice';
 import { changeProfileUrl } from 'src/stateSlices/profileUrlSlice';
 import { decode } from 'base64-arraybuffer'
 import supabase from 'src/baseApi/base';
+import useTexts from 'src/useTexts';
 
 const ProfileClose = ({ userObj, changedImage, handleChangedImage, attachment }) => {
   const profile = useSelector((state) => state.profile.value)
   const dispatch = useDispatch()
+  const { save } = useTexts()
   const onClick = async () => {
     const data = doc(dbservice, `members/${userObj.uid}`)
     if (attachment) {
@@ -41,18 +43,6 @@ const ProfileClose = ({ userObj, changedImage, handleChangedImage, attachment })
         }
       }
       uploadImages()
-      // else {
-      //   let defaultProfile
-      //   getDownloadURL(storageRef).then((url) => {
-      //     defaultProfile = url
-      //     console.log(url)
-      //   })
-      //   uploadString(storageRef, 'null', 'raw').then((snapshot) => {
-      //     console.log('Uploaded a blob or file!');
-      //   });
-      //   console.log(profileColor)
-      //   updateDoc(data, { profileImage: false, profileColor: profileColor, defaultProfile: defaultProfile });
-      // }
     } else {
       updateDoc(data, { profileImage: false, profileColor: changedImage.profileColor, defaultProfile: changedImage.defaultProfile });
       const storageRef = ref(storage, userObj.uid);
