@@ -25,8 +25,6 @@ function Menu({ userObj }: Props) {
   useSetProfile(userObj)
   useGetToken(userObj)
   useContextMenu()
-  // const supabase = createClient(import.meta.env.VITE_SUPABASE_URL, import.meta.env.VITE_SUPABASE_ANON_KEY);
-  // const supabase = createClient('https://ijsfbngiyhgvolsprxeh.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imlqc2ZibmdpeWhndm9sc3ByeGVoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQ5ODA2MDksImV4cCI6MjA3MDU1NjYwOX0._tvdubZqog1Awb58KzYETJqCWuT7DbjaStPLnWdRvdk');
   const [img, setImg] = useState(null)
   const uploadImages = async () => {
     const { data, error } = await supabase.storage
@@ -43,8 +41,6 @@ function Menu({ userObj }: Props) {
   const downloadImages = async () => {
     const { data, error } = await supabase.storage.from('remake').getPublicUrl('publicImages.png')
     if (data) {
-      // const reader = new FileReader();
-      // const newImg = reader.readAsDataURL(data)
       setImg(data.publicUrl)
       console.log(data)
     }
