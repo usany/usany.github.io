@@ -64,7 +64,7 @@ const ProfileClose = ({ userObj, changedImage, handleChangedImage, attachment })
         <Button variant='outlined' onClick={() => {
           handleChangedImage({ ...changedImage, changed: false })
           onClick()
-        }}>저장</Button>
+        }}>{save}</Button>
       }
     </div>
   )
