@@ -28,6 +28,10 @@ const AuthForm = ({ signIn, agreed }) => {
     event.preventDefault()
     try {
       await signInWithEmailAndPassword(auth, account.email, account.password)
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: account.email,
+        password: account.password,
+      })
       location.reload()
     } catch (error) {
       if (error.message === 'Firebase: Error (auth/invalid-credential).') {
