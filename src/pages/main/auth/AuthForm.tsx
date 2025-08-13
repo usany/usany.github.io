@@ -80,7 +80,7 @@ const AuthForm = ({ signIn, agreed }) => {
           //   defaultProfile: '',
           // })
           setDocUser({
-            uid: data.user.uid,
+            uid: uid,
             email: data.user.email,
             ranking: docsLength,
           })
