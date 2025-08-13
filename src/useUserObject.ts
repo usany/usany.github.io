@@ -16,36 +16,44 @@ import { changeProfileUrl } from 'src/stateSlices/profileUrlSlice'
 const useUserObject = () => {
   const [userObj, setUserObj] = useState<User | null | undefined>(undefined)
   const dispatch = useDispatch()
+  const setProfile = async (uid) => {
+    const docRef = doc(dbservice, `members/${uid}`)
+    const docSnap = await getDoc(docRef)
+    const userData = docSnap.data()
+    dispatch(changeProfile(userData))
+    const userColor = docSnap.data()?.profileColor || '#2196f3'
+    const userImage = docSnap.data()?.profileImageUrl || 'null'
+    const userProfileImage = docSnap.data()?.profileImage || false
+    const userDefaultProfile = docSnap.data()?.defaultProfile || 'null'
+    dispatch(changeProfileColor(userColor))
+    if (userProfileImage) {
+      dispatch(changeProfileUrl(userImage))
+    } else {
+      dispatch(changeProfileUrl(userDefaultProfile))
+    }
+    setUserObj(userData)
+  }
   useEffect(() => {
+    const reloading = sessionStorage.getItem('reloading')
     auth.onAuthStateChanged((user) => {
       console.log(user)
-      const reloading = sessionStorage.getItem('reloading')
-      if (user === null && !reloading) {
+      // const reloading = sessionStorage.getItem('reloading')
+      // if (user === null && !reloading) {
+      //   sessionStorage.setItem('reloading', 'true')
+      //   location.reload()
+      // }
+      setProfile(user.uid)
+      setUserObj(user)
+    })
+    const { data } = supabase.auth.onAuthStateChange((event, session) => {
+      console.log(event, session)
+      const user = { uid: data.subscription.id }
+      // const reloading = sessionStorage.getItem('reloading')
+      if (data === null && !reloading) {
         sessionStorage.setItem('reloading', 'true')
         location.reload()
       }
-      setUserObj(user)
-    })
-    const { data } = supabase.auth.onAuthStateChange(async (event, session) => {
-      console.log(event, session)
-      const user = { uid: data.subscription.id }
-      const docRef = doc(dbservice, `members/${userObj?.uid}`)
-      const docSnap = await getDoc(docRef)
-      const userData = docSnap.data()
-      dispatch(changeProfile(userData))
-      setUserObj(userData)
-      const userColor = docSnap.data()?.profileColor || '#2196f3'
-      const userImage = docSnap.data()?.profileImageUrl || 'null'
-      const userProfileImage = docSnap.data()?.profileImage || false
-      const userDefaultProfile = docSnap.data()?.defaultProfile || 'null'
-      dispatch(changeProfileColor(userColor))
-      if (userProfileImage) {
-        dispatch(changeProfileUrl(userImage))
-      } else {
-        dispatch(changeProfileUrl(userDefaultProfile))
-      }
-      // setUserObj(user)
-      console.log(data.subscription.id)
+      setProfile(user.uid)
       if (event === 'INITIAL_SESSION') {
         // handle initial session
       } else if (event === 'SIGNED_IN') {
