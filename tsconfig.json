@@ -1,4 +1,8 @@
 {
+  "ts-node": {
+    "esm": true,
+    "experimentalSpecifierResolution": "node"
+  },
   "compilerOptions": {
     "target": "ES2022",
     "useDefineForClassFields": true,
@@ -29,11 +33,12 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "esModuleInterop": true,
   },
   "include": [
     "src"
-  ],
+, "servers.js"  ],
   "references": [
     {
       "path": "./tsconfig.node.json"

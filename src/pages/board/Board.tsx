@@ -1,100 +1,93 @@
-import { User } from "firebase/auth";
-import {
-  collection,
-  getDocs,
-  orderBy,
-  query
-} from "firebase/firestore";
-import { Maximize2, Minimize2 } from "lucide-react";
-import { useEffect, useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
-import {
-  dbservice
-} from "src/baseApi/serverbase";
-import { useSelectors } from "src/hooks/useSelectors";
-import BoardMap from "src/pages/board/boardMap/BoardMap";
-import PageTitle from "src/pages/core/pageTitle/PageTitle";
-import { SwipeableViews } from "src/pages/core/SwipeableViews";
-import { useImmer } from "use-immer";
-import locationsBuildings from "../add/locationsBuildings";
-import CardsList from "../core/card/CardsList";
-import Popups from "../core/Popups";
-import BoardList from "./BoardList";
-import FilterDialogsContent from "./FilterDialogs/FilterDialogsContent";
-import FilterDialogsTitle from "./FilterDialogs/FilterDialogsTitle";
-import LayoutBoard from "./LayoutBoard";
+import { User } from 'firebase/auth'
+import { collection, getDocs, orderBy, query } from 'firebase/firestore'
+import { Maximize2, Minimize2 } from 'lucide-react'
+import { useEffect, useState } from 'react'
+import { useNavigate, useSearchParams } from 'react-router-dom'
+import { dbservice } from 'src/baseApi/serverbase'
+import { useSelectors } from 'src/hooks/useSelectors'
+import BoardMap from 'src/pages/board/boardMap/BoardMap'
+import PageTitle from 'src/pages/core/pageTitle/PageTitle'
+import { SwipeableViews } from 'src/pages/core/SwipeableViews'
+import { useImmer } from 'use-immer'
+import locationsBuildings from '../add/locationsBuildings'
+import CardsList from '../core/card/CardsList'
+import Popups from '../core/Popups'
+import BoardList from './BoardList'
+import FilterDialogsContent from './FilterDialogs/FilterDialogsContent'
+import FilterDialogsTitle from './FilterDialogs/FilterDialogsTitle'
+import LayoutBoard from './LayoutBoard'
 // import { AlarmCheck, AlertCircle, Building, Clock, DoorOpen, MessagesSquare, Pen, PenBox, Pencil, PenSquare, PenTool, Presentation, Search, SearchCheck, SearchCode, SearchSlash, Siren, TowerControl, Umbrella, UserCheck, UserRound, Watch } from "lucide-react";
 
 const items = {
   ko: ['전체 아이템', '우산', '양산'],
-  en: ['All items', 'Usan', 'Yangsan']
+  en: ['All items', 'Usan', 'Yangsan'],
 }
 const locations = {
   ko: ['전체 장소', ...locationsBuildings['ko']],
-  en: ['All locations', ...locationsBuildings['en']]
+  en: ['All locations', ...locationsBuildings['en']],
 }
 const time = {
   ko: ['최신순', '오래된'],
-  en: ['Recent', 'Older']
+  en: ['Recent', 'Older'],
 }
 const options = [items.ko, locations.ko, time.ko]
 interface Props {
-  userObj: User | null;
+  userObj: User | null
 }
 
 function Board({ userObj }: Props) {
-  const [messages, setMessages] = useState<Array<object>>([]);
+  const [messages, setMessages] = useState<Array<object>>([])
   const [selectedValues, setSelectedValues] = useImmer([
     {
-      id: "selectedValueOne",
-      value: "전체 아이템",
+      id: 'selectedValueOne',
+      value: '전체 아이템',
     },
     {
-      id: "selectedValueTwo",
-      value: "전체 장소",
+      id: 'selectedValueTwo',
+      value: '전체 장소',
     },
     {
-      id: "selectedValueThree",
-      value: "최신순",
+      id: 'selectedValueThree',
+      value: '최신순',
     },
-  ]);
-  const [onMarker, setOnMarker] = useState(false);
+  ])
+  const [onMarker, setOnMarker] = useState(false)
   const [mapAccordion, setMapAccordion] = useState(false)
   const [messageLoaded, setMessageLoaded] = useState(false)
-  const userCertificated = useSelectors(state => state.userCertificated.value)
+  const userCertificated = useSelectors((state) => state.userCertificated.value)
   const navigate = useNavigate()
   const mapAccordionToggle = () => setMapAccordion(!mapAccordion)
-  const onMarkerTrue = () => setOnMarker(true);
-  const onMarkerFalse = () => setOnMarker(false);
+  const onMarkerTrue = () => setOnMarker(true)
+  const onMarkerFalse = () => setOnMarker(false)
   const [searchParams, setSearchParams] = useSearchParams()
   const selectedSearchParams = [
     {
-      id: "selectedValueOne",
-      value: searchParams.get("selectedValueOne") || "전체 아이템",
+      id: 'selectedValueOne',
+      value: searchParams.get('selectedValueOne') || '전체 아이템',
     },
     {
-      id: "selectedValueTwo",
-      value: searchParams.get("selectedValueTwo") || "전체 장소",
+      id: 'selectedValueTwo',
+      value: searchParams.get('selectedValueTwo') || '전체 장소',
     },
     {
-      id: "selectedValueThree",
-      value: searchParams.get("selectedValueThree") || "최신순",
+      id: 'selectedValueThree',
+      value: searchParams.get('selectedValueThree') || '최신순',
     },
   ]
   const handleSelectedValues = ({
     id,
     newValue,
   }: {
-    id: string;
-    newValue: string;
+    id: string
+    newValue: string
   }) => {
     setSelectedValues((values) => {
-      const value = values.find((value) => value.id === id);
+      const value = values.find((value) => value.id === id)
       if (value) {
-        value.value = newValue;
+        value.value = newValue
       }
-    });
-    setSearchParams(searchParams => {
+    })
+    setSearchParams((searchParams) => {
       if (['전체 아이템', '전체 장소', '최신순'].indexOf(newValue) === -1) {
         searchParams.set(id, newValue)
       } else {
@@ -102,23 +95,26 @@ function Board({ userObj }: Props) {
       }
       return searchParams
     })
-  };
+  }
   const languages = useSelectors((state) => state.languages.value)
 
   useEffect(() => {
     document.documentElement.scrollTo({
       top: 0,
       left: 0,
-      behavior: "instant", // Optional if you want to skip the scrolling animation
-    });
-  }, []);
+      behavior: 'instant', // Optional if you want to skip the scrolling animation
+    })
+  }, [])
   useEffect(() => {
     const bringMessages = async () => {
       let order = 'asc'
-      if (selectedValues[2].value === "최신순" || !selectedValues[2].value) {
+      if (selectedValues[2].value === '최신순' || !selectedValues[2].value) {
         order = 'desc'
       }
-      const collectionQuery = query(collection(dbservice, "num"), orderBy("creatorClock", order))
+      const collectionQuery = query(
+        collection(dbservice, 'num'),
+        orderBy('creatorClock', order),
+      )
       const docs = await getDocs(collectionQuery)
       const newArray = []
       docs.forEach((doc) => {
@@ -128,7 +124,7 @@ function Board({ userObj }: Props) {
       setMessageLoaded(true)
     }
     bringMessages()
-  }, [selectedValues[2].value]);
+  }, [selectedValues[2].value])
   useEffect(() => {
     if (!window.location.search) {
       navigate('/board?action=borrow')
@@ -169,43 +165,36 @@ function Board({ userObj }: Props) {
   //     console.log(error)
   //   }
   // }
+  useEffect(() => {
+    // const { naver } = window
+    const mapOptions = {
+      center: new naver.maps.LatLng(37.3595704, 127.105399),
+      zoom: 10,
+    }
+
+    const map = new naver.maps.Map('map', mapOptions)
+  })
   return (
     <div>
-      {userObj && userCertificated ?
+      {userObj && userCertificated ? (
         <div>
-          {/* <AlarmCheck />
-            <AlertCircle />
-            <Siren />
-            <Presentation />
-            <DoorOpen />
-            <UserRound />
-            <UserCheck />
-            <MessagesSquare />
-            <Umbrella />
-            <TowerControl />
-            <Clock />
-            <Building />
-            <Watch />
-            <Pencil />
-            <Search />
-            <SearchCheck />
-            <SearchCode />
-            <SearchSlash />
-            <Pen />
-            <PenBox />
-            <PenTool />
-            <PenSquare /> */}
           <SwipeableViews>
-            <PageTitle icon={<Minimize2 />} title={
-              languages === 'ko' ? '빌리기 카드 목록' : 'Borrowing Card Board'
-            } />
-            <PageTitle icon={<Maximize2 />} title={
-              languages === 'ko' ? '빌려주기 카드 목록' : 'Lending Card Board'
-            } />
+            <PageTitle
+              icon={<Minimize2 />}
+              title={
+                languages === 'ko' ? '빌리기 카드 목록' : 'Borrowing Card Board'
+              }
+            />
+            <PageTitle
+              icon={<Maximize2 />}
+              title={
+                languages === 'ko' ? '빌려주기 카드 목록' : 'Lending Card Board'
+              }
+            />
           </SwipeableViews>
-          <div className='px-5'>
-            <div className='flex justify-center'>
-              <div className='w-[1000px]'>
+          <div className="px-5">
+            <div className="flex justify-center">
+              <div className="w-[1000px]">
                 <BoardMap
                   mapAccordion={mapAccordion}
                   mapAccordionToggle={mapAccordionToggle}
@@ -219,31 +208,50 @@ function Board({ userObj }: Props) {
             </div>
           </div>
           <>
-            <div className='truncate flex justify-center sticky top-16 z-30 px-5'>
-              <div className='w-[1000px] shadow-md'>
-                <Popups trigger={
-                  <BoardList selectedValues={selectedSearchParams} />
-                } title={<FilterDialogsTitle />} content={<FilterDialogsContent selectedValues={selectedValues} handleSelectedValues={handleSelectedValues} />} />
+            <div className="truncate flex justify-center sticky top-16 z-30 px-5">
+              <div className="w-[1000px] shadow-md">
+                <Popups
+                  trigger={<BoardList selectedValues={selectedSearchParams} />}
+                  title={<FilterDialogsTitle />}
+                  content={
+                    <FilterDialogsContent
+                      selectedValues={selectedValues}
+                      handleSelectedValues={handleSelectedValues}
+                    />
+                  }
+                />
               </div>
             </div>
             <SwipeableViews>
-              {messageLoaded &&
+              {messageLoaded && (
                 <>
-                  <CardsList choose={1} messages={messages} selectedValues={selectedValues} userObj={userObj} />
-                  <CardsList choose={2} messages={messages} selectedValues={selectedValues} userObj={userObj} />
+                  <CardsList
+                    choose={1}
+                    messages={messages}
+                    selectedValues={selectedValues}
+                    userObj={userObj}
+                  />
+                  <CardsList
+                    choose={2}
+                    messages={messages}
+                    selectedValues={selectedValues}
+                    userObj={userObj}
+                  />
                 </>
-              }
+              )}
             </SwipeableViews>
           </>
         </div>
-        :
+      ) : (
         <SwipeableViews>
           <LayoutBoard borrow={true} />
           <LayoutBoard borrow={false} />
         </SwipeableViews>
-      }
+      )}
+      <div>practices</div>
+      <div id="map" className="w-full h-[400px]"></div>
     </div>
-  );
+  )
 }
 
-export default Board;
+export default Board
