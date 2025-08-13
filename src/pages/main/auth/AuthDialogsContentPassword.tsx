@@ -4,6 +4,7 @@ import { sendPasswordResetEmail } from 'firebase/auth'
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
 import staticMail from 'src/assets/signMail.svg'
+import supabase from 'src/baseApi/base'
 import { auth } from 'src/baseApi/serverbase'
 import { useSelectors } from 'src/hooks/useSelectors'
 
@@ -19,7 +20,7 @@ function AuthDialogsContentPassword({ userObj }) {
     setEmail(value)
   }
   const onLine = useSelectors((state) => state.onLine.value)
-  const passwordEmail = (event) => {
+  const passwordEmail = async (event) => {
     event.preventDefault()
     if (onLine) {
       sendPasswordResetEmail(auth, email)
@@ -36,6 +37,9 @@ function AuthDialogsContentPassword({ userObj }) {
           const errorMessage = error.message
           // ..
         })
+      const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
+        // redirectTo: 'https://example.com/update-password',
+      })
     } else {
       alert('네트워크 연결이 필요합니다')
     }
