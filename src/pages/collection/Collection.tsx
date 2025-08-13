@@ -17,6 +17,8 @@ import useTexts from 'src/useTexts'
 import Avatars from '../core/Avatars'
 import PageTitle from '../core/pageTitle/PageTitle'
 import Popups from '../core/Popups'
+import supabase from 'src/baseApi/base'
+import { decode } from 'base64-arraybuffer'
 
 function Collection({ userObj }) {
   const genai = new GoogleGenAI({ apiKey: import.meta.env.VITE_GEMINI_API_KEY })
@@ -26,7 +28,7 @@ function Collection({ userObj }) {
     save,
     cannotFindAnUmbrella,
     findingAnUmbrella,
-    collection
+    collection,
   } = useTexts()
   async function chat(url) {
     try {
@@ -116,18 +118,37 @@ function Collection({ userObj }) {
       const now = new Date().getTime()
       const id = userObj.uid + now.toString()
       const docRef = doc(dbservice, `collections/${id}`)
-      const storageRef = ref(storage, id)
-      uploadString(storageRef, attachment, 'data_url').then(() => {
-        console.log('Uploaded a blob or file!')
-        getDownloadURL(storageRef).then((url) => {
-          setDoc(docRef, {
-            uid: userObj.uid,
-            displayName: userObj.displayName,
-            // defaultProfile: attachment,
-            defaultProfile: url,
-          })
-        })
+      // const storageRef = ref(storage, id)
+      // uploadString(storageRef, attachment, 'data_url').then(() => {
+      //   console.log('Uploaded a blob or file!')
+      //   getDownloadURL(storageRef).then((url) => {
+      //     setDoc(docRef, {
+      //       uid: userObj.uid,
+      //       displayName: userObj.displayName,
+      //       defaultProfile: attachment,
+      //       defaultProfile: url,
+      //     })
+      //   })
+      // })
+      setDoc(docRef, {
+        uid: userObj.uid,
+        displayName: userObj.displayName,
+        // defaultProfile: attachment,
+        defaultProfile: `url`,
       })
+      const splitedArray = attachment.split(';base64,')
+      const content = splitedArray[0].slice(5)
+      const base64 = splitedArray[1]
+      const { data, error } = await supabase.storage
+        .from('remake')
+        .update(userObj.uid, decode(base64), {
+          contentType: content,
+        })
+      if (data) {
+        console.log(data)
+      } else {
+        console.log(error)
+      }
     }
   }
   useEffect(() => {
@@ -227,7 +248,7 @@ function Collection({ userObj }) {
           attachment &&
           !loading &&
           ['y', 'Y'].indexOf(isUmbrella ? isUmbrella[0] : isUmbrella) !==
-          -1 && <div onClick={newImage}>{save}</div>
+            -1 && <div onClick={newImage}>{save}</div>
         }
         attachment={changedImage}
       />
