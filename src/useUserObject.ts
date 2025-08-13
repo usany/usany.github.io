@@ -19,7 +19,7 @@ const useUserObject = () => {
     const { data } = supabase.auth.onAuthStateChange((event, session) => {
       console.log(event, session)
       const user = { uid: data.subscription.id }
-      setUserObj(user)
+      // setUserObj(user)
       console.log(data.subscription.id)
       if (event === 'INITIAL_SESSION') {
         // handle initial session

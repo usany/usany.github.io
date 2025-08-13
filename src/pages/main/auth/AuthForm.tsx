@@ -27,7 +27,7 @@ const AuthForm = ({ signIn, agreed }) => {
   const onSubmitSignIn = async (event) => {
     event.preventDefault()
     try {
-      // await signInWithEmailAndPassword(auth, account.email, account.password)
+      await signInWithEmailAndPassword(auth, account.email, account.password)
       const { error } = await supabase.auth.signInWithPassword({
         email: account.email,
         password: account.password,
