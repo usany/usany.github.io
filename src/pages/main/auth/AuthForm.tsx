@@ -56,7 +56,7 @@ const AuthForm = ({ signIn, agreed }) => {
             email: account.email,
             password: account.password,
           })
-          const uid = register.data.user.id
+          const uid = register.data.user?.id || ''
           await supabase.storage.from('remake').update(uid, 'null')
           const docsRef = query(collection(dbservice, 'members'))
           const docs = await getDocs(docsRef)
