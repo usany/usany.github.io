@@ -49,7 +49,7 @@ const useUserObject = () => {
     })
     const { data } = supabase.auth.onAuthStateChange((event, session) => {
       console.log(event, session)
-      console.log(session.user.id)
+      console.log(data)
       const user = { uid: session.user.id }
       if (data === null && !reloading) {
         sessionStorage.setItem('reloading', 'true')
