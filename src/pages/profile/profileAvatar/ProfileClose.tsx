@@ -20,6 +20,8 @@ const ProfileClose = ({
   const { save } = useTexts()
   const onClick = async () => {
     const docRef = doc(dbservice, `members/${userObj.uid}`)
+    // const storage = getStorage()
+    // const storageRef = ref(storage, userObj.uid)
     if (attachment) {
       dispatch(changeProfileUrl(attachment))
       dispatch(
@@ -29,27 +31,24 @@ const ProfileClose = ({
           profileImageUrl: attachment,
         }),
       )
-      // const storage = getStorage()
-      // const storageRef = ref(storage, userObj.uid)
       if (attachment.slice(0, 5) === 'data:') {
         // uploadString(storageRef, attachment, 'data_url').then((snapshot) => {
         //   console.log('Uploaded a blob or file!')
         // })
         updateDoc(docRef, { profileImage: true })
-      }
-      const splitedArray = attachment.split(';base64,')
-      const content = splitedArray[0].slice(5)
-      const base64 = splitedArray[1]
-      const { data, error } = await supabase.storage
-        .from('remake')
-        .update(userObj.uid, decode(base64), {
-          contentType: content,
-        })
-      if (data) {
-        console.log(data)
-      }
-      if (error) {
-        console.log(error)
+        const splitedArray = attachment.split(';base64,')
+        const content = splitedArray[0].slice(5)
+        const base64 = splitedArray[1]
+        const { data, error } = await supabase.storage
+          .from('remake')
+          .update(userObj.uid, decode(base64), {
+            contentType: content,
+          })
+        if (data) {
+          console.log(data)
+        } else {
+          console.log(error)
+        }
       }
     } else {
       updateDoc(docRef, {
@@ -57,22 +56,18 @@ const ProfileClose = ({
         profileColor: changedImage.profileColor,
         defaultProfile: changedImage.defaultProfile,
       })
-      // const storageRef = ref(storage, userObj.uid)
       // uploadString(storageRef, 'null', 'raw').then((snapshot) => {
       //   console.log('Uploaded a blob or file!')
       // })
-      const splitedArray = attachment.split(';base64,')
-      const content = splitedArray[0].slice(5)
-      const base64 = splitedArray[1]
+      // const splitedArray = attachment.split(';base64,')
+      // const content = splitedArray[0].slice(5)
+      // const base64 = splitedArray[1]
       const { data, error } = await supabase.storage
         .from('remake')
-        .update(userObj.uid, decode(base64), {
-          contentType: content,
-        })
+        .update(userObj.uid, 'null')
       if (data) {
         console.log(data)
-      }
-      if (error) {
+      } else {
         console.log(error)
       }
       dispatch(
