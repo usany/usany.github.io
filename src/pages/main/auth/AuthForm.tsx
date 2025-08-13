@@ -28,21 +28,25 @@ const AuthForm = ({ signIn, agreed }) => {
     event.preventDefault()
     try {
       // await signInWithEmailAndPassword(auth, account.email, account.password)
-      const { data, error } = await supabase.auth.signInWithPassword({
+      const { error } = await supabase.auth.signInWithPassword({
         email: account.email,
         password: account.password,
       })
-      // .then(({ error }) => {
-      //   console.log(error)
-      // })
-      console.log(error)
-      // console.log(error)
-      // location.reload()
-    } catch (error) {
-      if (error.message === 'Firebase: Error (auth/invalid-credential).') {
+      if (String(error) === 'AuthApiError: Invalid login credentials') {
         const errorMessage = '로그인 실패: 계정을 확인해 주세요'
         setError(errorMessage)
       }
+      // .then(({ error }) => {
+      //   console.log(error)
+      // })
+      // console.log(error)
+      // location.reload()
+    } catch (error) {
+      console.log(error)
+      // if (error.message === 'Firebase: Error (auth/invalid-credential).') {
+      //   const errorMessage = '로그인 실패: 계정을 확인해 주세요'
+      //   setError(errorMessage)
+      // }
     }
   }
 
