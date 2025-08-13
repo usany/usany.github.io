@@ -12,6 +12,7 @@ import { dbservice } from 'src/baseApi/serverbase'
 import { changeProfileColor } from 'src/stateSlices/profileColorSlice'
 import { changeProfile } from 'src/stateSlices/profileSlice'
 import { changeProfileUrl } from 'src/stateSlices/profileUrlSlice'
+import { useSelectors } from './hooks/useSelectors'
 
 const useUserObject = () => {
   const [userObj, setUserObj] = useState<User | null | undefined>(undefined)
@@ -36,13 +37,13 @@ const useUserObject = () => {
   useEffect(() => {
     const reloading = sessionStorage.getItem('reloading')
     auth.onAuthStateChanged((user) => {
-      console.log(user)
       // const reloading = sessionStorage.getItem('reloading')
       if (user === null && !reloading) {
         sessionStorage.setItem('reloading', 'true')
         location.reload()
       }
       setProfile(user.uid)
+      console.log(user)
       // setUserObj(user)
     })
     const { data } = supabase.auth.onAuthStateChange((event, session) => {
