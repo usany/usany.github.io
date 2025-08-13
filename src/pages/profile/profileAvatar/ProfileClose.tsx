@@ -59,9 +59,6 @@ const ProfileClose = ({
       // uploadString(storageRef, 'null', 'raw').then((snapshot) => {
       //   console.log('Uploaded a blob or file!')
       // })
-      // const splitedArray = attachment.split(';base64,')
-      // const content = splitedArray[0].slice(5)
-      // const base64 = splitedArray[1]
       const { data, error } = await supabase.storage
         .from('remake')
         .update(userObj.uid, 'null')
