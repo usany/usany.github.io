@@ -84,15 +84,15 @@ const AuthForm = ({ signIn, agreed }) => {
           //       console.log(error)
           //     })
           // })
-          const profileImageNumber = Math.random()
-          const profileColorNumber = Math.random()
-          const profileImage = profileImageNumber < 0.5 ? 'animal' : 'plant'
-          const profileColor =
-            profileColorNumber < 1 / 3
-              ? 'profileRed'
-              : profileColorNumber < 2 / 3
-                ? 'profileBlue'
-                : 'profileGold'
+          // const profileImageNumber = Math.random()
+          // const profileColorNumber = Math.random()
+          // const profileImage = profileImageNumber < 0.5 ? 'animal' : 'plant'
+          // const profileColor =
+          //   profileColorNumber < 1 / 3
+          //     ? 'profileRed'
+          //     : profileColorNumber < 2 / 3
+          //       ? 'profileBlue'
+          //       : 'profileGold'
           // if (profileColorNumber < 1 / 3) {
           //   profileColor = 'profileRed'
           // } else if (profileColorNumber < 2 / 3) {
@@ -105,17 +105,17 @@ const AuthForm = ({ signIn, agreed }) => {
           // } else {
           //   profileImage = 'plant'
           // }
-          const reference = ref(storage, `${profileImage}${profileColor}.png`)
-          console.log(reference)
-          const docRef = doc(dbservice, `members/${uid}`)
-          getDownloadURL(reference).then((url) => {
-            console.log(url)
-            updateDoc(docRef, {
-              profileImage: false,
-              profileColor: profileColor,
-              defaultProfile: url,
-            })
-          })
+          // const reference = ref(storage, `${profileImage}${profileColor}.png`)
+          // console.log(reference)
+          // const docRef = doc(dbservice, `members/${uid}`)
+          // updateDoc(docRef, {
+          //   profileImage: false,
+          //   profileColor: profileColor,
+          //   defaultProfile: `https://ijsfbngiyhgvolsprxeh.supabase.co/storage/v1/object/public/remake/${profileImage}${profileColor}.png`,
+          // })
+          // getDownloadURL(reference).then((url) => {
+          //   console.log(url)
+          // })
           // setTimeout(() => {
           //   location.reload()
           // }, 1000)
