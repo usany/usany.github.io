@@ -9,16 +9,18 @@ const useUserObject = () => {
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
       console.log(user)
-      const reloading = sessionStorage.getItem("reloading")
+      const reloading = sessionStorage.getItem('reloading')
       if (user === null && !reloading) {
-        sessionStorage.setItem("reloading", "true");
+        sessionStorage.setItem('reloading', 'true')
         location.reload()
       }
       setUserObj(user)
     })
     const { data } = supabase.auth.onAuthStateChange((event, session) => {
       console.log(event, session)
-      console.log(data)
+      const user = { uid: data.subscription.id }
+      setUserObj(user)
+      console.log(data.subscription.id)
       if (event === 'INITIAL_SESSION') {
         // handle initial session
       } else if (event === 'SIGNED_IN') {
