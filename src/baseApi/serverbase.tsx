@@ -84,16 +84,16 @@ const onSocialClick = async (result) => {
       console.log('error')
     })
     const storageRef = ref(storage, uid)
-    uploadString(storageRef, 'null', 'raw').then(() => {
-      console.log('Uploaded a blob or file!')
-      getDownloadURL(storageRef)
-        .then((url) => {
-          updateDoc(docRef, { profileImageUrl: url })
-        })
-        .catch((error) => {
-          console.log(error)
-        })
-    })
+    // uploadString(storageRef, 'null', 'raw').then(() => {
+    //   console.log('Uploaded a blob or file!')
+    //   getDownloadURL(storageRef)
+    //     .then((url) => {
+    //       updateDoc(docRef, { profileImageUrl: url })
+    //     })
+    //     .catch((error) => {
+    //       console.log(error)
+    //     })
+    // })
     let profileImage
     let profileColor
     const profileImageNumber = Math.random()

@@ -1,8 +1,8 @@
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { doc, setDoc } from 'firebase/firestore';
-import { ref, uploadString } from "firebase/storage";
-import { useState } from 'react';
-import { auth, dbservice, storage } from 'src/baseApi/serverbase';
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
+import { doc, setDoc } from 'firebase/firestore'
+import { ref, uploadString } from 'firebase/storage'
+import { useState } from 'react'
+import { auth, dbservice, storage } from 'src/baseApi/serverbase'
 
 const SignUpForm = () => {
   const [account, setAccount] = useState({ email: '', password: '' })
@@ -10,8 +10,12 @@ const SignUpForm = () => {
   const onSubmit = async (event) => {
     event.preventDefault()
     try {
-      let data: object;
-      data = await createUserWithEmailAndPassword(auth, account.email, account.password)
+      let data: object
+      data = await createUserWithEmailAndPassword(
+        auth,
+        account.email,
+        account.password,
+      )
       await setDoc(doc(dbservice, 'members', `${data.user.uid}`), {
         uid: data.user.uid,
         displayName: data.user.email,
@@ -24,22 +28,24 @@ const SignUpForm = () => {
         followers: [],
         followings: [],
         messagingToken: null,
-        defaultProfile: ''
+        defaultProfile: '',
       })
       await updateProfile(data.user, {
-        displayName: data.user.email
+        displayName: data.user.email,
       }).catch((error) => {
         console.log('error')
       })
-      const storageRef = ref(storage, data.user.uid);
-      uploadString(storageRef, 'null', 'raw').then((snapshot) => {
-        console.log('Uploaded a blob or file!');
-      });
+      const storageRef = ref(storage, data.user.uid)
+      // uploadString(storageRef, 'null', 'raw').then((snapshot) => {
+      //   console.log('Uploaded a blob or file!');
+      // });
     } catch (error) {
       if (error.message === 'Firebase: Error (auth/invalid-credential).') {
         const errorMessage = '로그인 실패: 계정을 확인해 주세요'
         setError(errorMessage)
-      } else if (error.message === 'Firebase: Error (auth/email-already-in-use).') {
+      } else if (
+        error.message === 'Firebase: Error (auth/email-already-in-use).'
+      ) {
         const errorMessage = '회원가입 실패: 이미 가입된 계정입니다'
         setError(errorMessage)
       } else if (error.message === 'Firebase: Error (auth/invalid-email).') {
@@ -53,7 +59,7 @@ const SignUpForm = () => {
 
   const onChange = (event) => {
     const {
-      target: { name, value }
+      target: { name, value },
     } = event
     if (name === 'email') {
       setAccount({ email: value, password: account.password })
@@ -63,7 +69,7 @@ const SignUpForm = () => {
   }
 
   return (
-    <form id='signUp' onSubmit={onSubmit}>
+    <form id="signUp" onSubmit={onSubmit}>
       {/* <div className='flex justify-center px-3'>
           <TextField label="이메일" value={account.email} onChange={onChange} variant="outlined" name='email' type='email' fullWidth required />
       </div>
