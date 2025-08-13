@@ -16,7 +16,7 @@ const setDocUser = async ({ uid, email, ranking }) => {
     displayName: email,
     points: 0,
     profileImage: false,
-    profileImageUrl: '',
+    profileImageUrl: `https://ijsfbngiyhgvolsprxeh.supabase.co/storage/v1/object/public/remake/${uid}`,
     defaultProfile: `https://ijsfbngiyhgvolsprxeh.supabase.co/storage/v1/object/public/remake/${profileImage}${profileColor}.png`,
     followers: [],
     followings: [],
