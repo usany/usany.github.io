@@ -57,28 +57,10 @@ const AuthForm = ({ signIn, agreed }) => {
             password: account.password,
           })
           const uid = register.data.user.id
-          console.log(register.data.user.id)
+          await supabase.storage.from('remake').update(uid, 'null')
           const docsRef = query(collection(dbservice, 'members'))
           const docs = await getDocs(docsRef)
           const docsLength = docs.docs.length
-          // await setDoc(doc(dbservice, 'members', `${data.user.uid}`), {
-          //   uid: data.user.uid,
-          //   displayName: data.user.email,
-          //   points: 0,
-          //   profileImage: null,
-          //   profileImageUrl: null,
-          //   followers: [],
-          //   followings: [],
-          //   messagingToken: null,
-          //   ranking: docsLength,
-          //   createdCards: [],
-          //   connectedCards: [],
-          //   profileColor: '#2196f3',
-          //   followerNum: 0,
-          //   followingNum: 0,
-          //   locationConfirmed: false,
-          //   defaultProfile: '',
-          // })
           setDocUser({
             uid: uid,
             email: data.user.email,
