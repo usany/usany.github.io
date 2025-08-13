@@ -1,6 +1,5 @@
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
 import { doc, setDoc } from 'firebase/firestore'
-import { ref, uploadString } from 'firebase/storage'
 import { useState } from 'react'
 import { auth, dbservice, storage } from 'src/baseApi/serverbase'
 
