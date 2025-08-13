@@ -32,7 +32,7 @@ const useUserObject = () => {
     } else {
       dispatch(changeProfileUrl(userDefaultProfile))
     }
-    setUserObj(userData)
+    setUserObj(userData !== undefined ? userData : null)
   }
   useEffect(() => {
     const reloading = sessionStorage.getItem('reloading')
@@ -42,7 +42,7 @@ const useUserObject = () => {
         sessionStorage.setItem('reloading', 'true')
         location.reload()
       }
-      setProfile(user.uid)
+      setProfile(user?.uid)
       console.log(user)
       // setUserObj(user)
     })
