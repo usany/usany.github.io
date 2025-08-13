@@ -13,6 +13,7 @@ const setDocUser = async ({ uid, email, ranking }) => {
         : 'profileGold'
   await setDoc(doc(dbservice, 'members', `${uid}`), {
     uid: uid,
+    email: email,
     displayName: email,
     points: 0,
     profileImage: false,

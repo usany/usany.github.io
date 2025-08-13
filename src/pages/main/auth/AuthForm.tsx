@@ -135,6 +135,7 @@ const AuthForm = ({ signIn, agreed }) => {
             setError(errorMessage)
           } else {
             console.log(error.message)
+            setError(errorMessage)
           }
         }
       } else {
