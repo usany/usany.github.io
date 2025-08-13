@@ -51,14 +51,14 @@ const ProfileClose = ({
         }
       }
     } else {
+      // uploadString(storageRef, 'null', 'raw').then((snapshot) => {
+      //   console.log('Uploaded a blob or file!')
+      // })
       updateDoc(docRef, {
         profileImage: false,
         profileColor: changedImage.profileColor,
         defaultProfile: changedImage.defaultProfile,
       })
-      // uploadString(storageRef, 'null', 'raw').then((snapshot) => {
-      //   console.log('Uploaded a blob or file!')
-      // })
       const { data, error } = await supabase.storage
         .from('remake')
         .update(userObj.uid, 'null')
