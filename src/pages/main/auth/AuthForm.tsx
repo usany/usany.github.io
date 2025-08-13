@@ -56,7 +56,8 @@ const AuthForm = ({ signIn, agreed }) => {
             email: account.email,
             password: account.password,
           })
-          console.log(register.data)
+          const uid = register.data.user.id
+          console.log(register.data.user.id)
           const docsRef = query(collection(dbservice, 'members'))
           const docs = await getDocs(docsRef)
           const docsLength = docs.docs.length
@@ -88,8 +89,8 @@ const AuthForm = ({ signIn, agreed }) => {
           }).catch((error) => {
             console.log('error')
           })
-          const user = doc(dbservice, `members/${data.user.uid}`)
-          const storageRef = ref(storage, data.user.uid)
+          const user = doc(dbservice, `members/${uid}`)
+          const storageRef = ref(storage, uid)
           uploadString(storageRef, 'null', 'raw').then((snapshot) => {
             console.log('Uploaded a blob or file!')
             getDownloadURL(storageRef)
@@ -118,7 +119,7 @@ const AuthForm = ({ signIn, agreed }) => {
           }
           const reference = ref(storage, `${profileImage}${profileColor}.png`)
           console.log(reference)
-          const docRef = doc(dbservice, `members/${data.user.uid}`)
+          const docRef = doc(dbservice, `members/${uid}`)
           getDownloadURL(reference).then((url) => {
             console.log(url)
             updateDoc(docRef, {
