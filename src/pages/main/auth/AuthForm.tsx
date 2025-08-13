@@ -47,58 +47,64 @@ const AuthForm = ({ signIn, agreed }) => {
     if (agreed) {
       if (onLine) {
         try {
-          const data = await createUserWithEmailAndPassword(
-            auth,
-            account.email,
-            account.password,
-          )
+          // const data = await createUserWithEmailAndPassword(
+          //   auth,
+          //   account.email,
+          //   account.password,
+          // )
           const register = await supabase.auth.signUp({
             email: account.email,
             password: account.password,
           })
           const uid = register.data.user?.id || ''
+          const email = register.data.user?.email || ''
           await supabase.storage.from('remake').update(uid, 'null')
           const docsRef = query(collection(dbservice, 'members'))
           const docs = await getDocs(docsRef)
           const docsLength = docs.docs.length
           setDocUser({
             uid: uid,
-            email: data.user.email,
+            email: email,
             ranking: docsLength,
           })
-          await updateProfile(data.user, {
-            displayName: data.user.email,
-          }).catch((error) => {
-            console.log('error')
-          })
-          const user = doc(dbservice, `members/${uid}`)
-          const storageRef = ref(storage, uid)
-          uploadString(storageRef, 'null', 'raw').then((snapshot) => {
-            console.log('Uploaded a blob or file!')
-            getDownloadURL(storageRef)
-              .then(async (url) => {
-                await updateDoc(user, { profileImageUrl: url })
-              })
-              .catch((error) => {
-                console.log(error)
-              })
-          })
-          let profileImage
-          let profileColor
+          // await updateProfile(data.user, {
+          //   displayName: data.user.email,
+          // }).catch((error) => {
+          //   console.log('error')
+          // })
+          // const user = doc(dbservice, `members/${uid}`)
+          // const storageRef = ref(storage, uid)
+          // uploadString(storageRef, 'null', 'raw').then((snapshot) => {
+          //   console.log('Uploaded a blob or file!')
+          //   getDownloadURL(storageRef)
+          //     .then(async (url) => {
+          //       await updateDoc(user, { profileImageUrl: url })
+          //     })
+          //     .catch((error) => {
+          //       console.log(error)
+          //     })
+          // })
           const profileImageNumber = Math.random()
           const profileColorNumber = Math.random()
-          if (profileColorNumber < 1 / 3) {
-            profileColor = 'profileRed'
-          } else if (profileImageNumber < 2 / 3) {
-            profileColor = 'profileBlue'
-          } else {
-            profileColor = 'profileGold'
-          }
-          if (profileImageNumber < 0.5) {
-            profileImage = 'animal'
-          } else {
-            profileImage = 'plant'
-          }
+          const profileImage = profileImageNumber < 0.5 ? 'animal' : 'plant'
+          const profileColor =
+            profileColorNumber < 1 / 3
+              ? 'profileRed'
+              : profileColorNumber < 2 / 3
+                ? 'profileBlue'
+                : 'profileGold'
+          // if (profileColorNumber < 1 / 3) {
+          //   profileColor = 'profileRed'
+          // } else if (profileColorNumber < 2 / 3) {
+          //   profileColor = 'profileBlue'
+          // } else {
+          //   profileColor = 'profileGold'
+          // }
+          // if (profileImageNumber < 0.5) {
+          //   profileImage = 'animal'
+          // } else {
+          //   profileImage = 'plant'
+          // }
           const reference = ref(storage, `${profileImage}${profileColor}.png`)
           console.log(reference)
           const docRef = doc(dbservice, `members/${uid}`)
