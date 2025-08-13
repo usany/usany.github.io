@@ -19,7 +19,7 @@ const ProfileClose = ({
   const dispatch = useDispatch()
   const { save } = useTexts()
   const onClick = async () => {
-    const ref = doc(dbservice, `members/${userObj.uid}`)
+    const docRef = doc(dbservice, `members/${userObj.uid}`)
     if (attachment) {
       dispatch(changeProfileUrl(attachment))
       dispatch(
@@ -35,7 +35,7 @@ const ProfileClose = ({
         // uploadString(storageRef, attachment, 'data_url').then((snapshot) => {
         //   console.log('Uploaded a blob or file!')
         // })
-        updateDoc(ref, { profileImage: true })
+        updateDoc(docRef, { profileImage: true })
       }
       const splitedArray = attachment.split(';base64,')
       const content = splitedArray[0].slice(5)
@@ -52,7 +52,7 @@ const ProfileClose = ({
         console.log(error)
       }
     } else {
-      updateDoc(ref, {
+      updateDoc(docRef, {
         profileImage: false,
         profileColor: changedImage.profileColor,
         defaultProfile: changedImage.defaultProfile,
