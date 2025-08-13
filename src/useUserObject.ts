@@ -27,6 +27,7 @@ const useUserObject = () => {
     const userProfileImage = docSnap.data()?.profileImage || false
     const userDefaultProfile = docSnap.data()?.defaultProfile || 'null'
     dispatch(changeProfileColor(userColor))
+    console.log(uid)
     if (userProfileImage) {
       dispatch(changeProfileUrl(userImage))
     } else {
@@ -42,18 +43,19 @@ const useUserObject = () => {
         sessionStorage.setItem('reloading', 'true')
         location.reload()
       }
-      setProfile(user?.uid)
+      // setProfile(user?.uid)
       console.log(user)
       // setUserObj(user)
     })
     const { data } = supabase.auth.onAuthStateChange((event, session) => {
       console.log(event, session)
-      const user = { uid: data.subscription.id }
+      console.log(session.user.id)
+      const user = { uid: session.user.id }
       if (data === null && !reloading) {
         sessionStorage.setItem('reloading', 'true')
         location.reload()
       }
-      setProfile(user.uid)
+      setProfile(user?.uid)
     })
   }, [])
   return userObj
