@@ -27,13 +27,17 @@ const AuthForm = ({ signIn, agreed }) => {
   const onSubmitSignIn = async (event) => {
     event.preventDefault()
     try {
-      await signInWithEmailAndPassword(auth, account.email, account.password)
+      // await signInWithEmailAndPassword(auth, account.email, account.password)
       const { data, error } = await supabase.auth.signInWithPassword({
         email: account.email,
         password: account.password,
       })
-      console.log(data)
-      location.reload()
+      // .then(({ error }) => {
+      //   console.log(error)
+      // })
+      console.log(error)
+      // console.log(error)
+      // location.reload()
     } catch (error) {
       if (error.message === 'Firebase: Error (auth/invalid-credential).') {
         const errorMessage = '로그인 실패: 계정을 확인해 주세요'
@@ -52,20 +56,19 @@ const AuthForm = ({ signIn, agreed }) => {
           //   account.email,
           //   account.password,
           // )
-          const register = await supabase.auth
-            .signUp({
-              email: account.email,
-              password: account.password,
-            })
-            .then(({ error }) => {
-              console.log(error)
-              if (String(error) === 'AuthApiError: User already registered') {
-                const errorMessage = '회원가입 실패: 이미 가입된 계정입니다'
-                setError(errorMessage)
-              }
-            })
-          const uid = register.data.user?.id || ''
-          const email = register.data.user?.email || ''
+          const { data, error } = await supabase.auth.signUp({
+            email: account.email,
+            password: account.password,
+          })
+          // .then(({ error }) => {
+          //   console.log(error)
+          // })
+          if (String(error) === 'AuthApiError: User already registered') {
+            const errorMessage = '회원가입 실패: 이미 가입된 계정입니다'
+            setError(errorMessage)
+          }
+          const uid = data.user?.id || ''
+          const email = data.user?.email || ''
           await supabase.storage.from('remake').update(uid, 'null')
           const docsRef = query(collection(dbservice, 'members'))
           const docs = await getDocs(docsRef)
@@ -75,7 +78,6 @@ const AuthForm = ({ signIn, agreed }) => {
             email: email,
             ranking: docsLength,
           })
-          return register !== null
           // await updateProfile(data.user, {
           //   displayName: data.user.email,
           // }).catch((error) => {
