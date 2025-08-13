@@ -25,13 +25,17 @@ import IframePlayer from './iframePlayer/IframePlayer'
 import Links from './links/Links'
 import NavigationSignedIn from './navigationSignedIn/NavigationSignedIn'
 import NavigationSignedOut from './navigationSignedOut/NavigationSignedOut'
+import supabase from 'src/baseApi/base'
 interface Props {
   user: DocumentData | undefined
   userObj: User | null
   handleSideNavigation: () => void
 }
 
-const onLogOutClick = () => auth.signOut()
+const onLogOutClick = async () => {
+  auth.signOut()
+  const { error } = await supabase.auth.signOut()
+}
 function Navigation({ userObj, handleSideNavigation }: Props) {
   const [points, setPoints] = useState(0)
   const [delayed, setDelayed] = useState(true)
@@ -201,7 +205,9 @@ function Navigation({ userObj, handleSideNavigation }: Props) {
               )}
             </div>
           )}
-          {userObj && userCertificated && onLine && <IframePlayer mode={theme} />}
+          {userObj && userCertificated && onLine && (
+            <IframePlayer mode={theme} />
+          )}
         </nav>
       </DrawerContent>
     </Drawer>
