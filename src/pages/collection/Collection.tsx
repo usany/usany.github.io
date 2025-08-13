@@ -133,15 +133,14 @@ function Collection({ userObj }) {
       setDoc(docRef, {
         uid: userObj.uid,
         displayName: userObj.displayName,
-        // defaultProfile: attachment,
-        defaultProfile: `url`,
+        defaultProfile: `https://ijsfbngiyhgvolsprxeh.supabase.co/storage/v1/object/public/remake/${id}`,
       })
       const splitedArray = attachment.split(';base64,')
       const content = splitedArray[0].slice(5)
       const base64 = splitedArray[1]
       const { data, error } = await supabase.storage
         .from('remake')
-        .update(userObj.uid, decode(base64), {
+        .update(`collection/${id}`, decode(base64), {
           contentType: content,
         })
       if (data) {
