@@ -1,4 +1,3 @@
-// import { create } from 'zustand'
 import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit'
 import { bottomNavigationReducer } from 'src/stateSlices/bottomNavigationSlice'
 import { cardAccordionReducer } from 'src/stateSlices/cardAccordionSlice'
@@ -21,25 +20,6 @@ import { profileReducer } from './stateSlices/profileSlice'
 import { scrollNavigationReducer } from './stateSlices/scrollNavigationSlice'
 import { userCertificatedReducer } from './stateSlices/userCertificatedSlice'
 import { weather } from './stateSlices/weather'
-
-/** @xstate-layout N4IgpgJg5mDOIC5QBcD2UoBswDoCSAdgIYDGyAlgG5gDEaG2A2gAwC6ioADqrORagQ4gAHogCMANgk4ATM3nMxAZgAsSpTICsYgDQgAnuKVicCxSuYB2CwA4JGgL4O99LLgCCZKrVdM2Q7l5+QSQRcSlZM2U1DW09QwQbEyUzSxsbaxsZFTEnZxACVAg4IV8wAJ4+cgEhUQQAWgl4xHrLEwBOTs7NZgt2u2ZNJxd0N3xiL2oKoOqQ0DqVGWbE6X71FU1NG1VmCSzhkDKcTwop0MCqmtC6mWscS1T2zUtLGSUM5Zt2nBVtpU2HpoNBobAcjgQwAB3AAEsGQRGQYGhYmmlzmYQQMhsmhwYi67QkG3aGw0yzEOJSCjSGV+2WYoLyQA */
-// const toggleMachine = createMachine({
-//   id: 'toggle',
-//   initial: 'Inactive',
-//   states: {
-//     Inactive: {
-//       on: {
-//         toggle: 'Active'
-//       },
-//     },
-
-//     Active: {
-//       on: { toggle: 'Inactive' },
-//     },
-
-//     "new state 1": {}
-//   },
-// });
 
 export const store = configureStore({
   reducer: {
@@ -80,7 +60,3 @@ export type AppThunk<ThunkReturnType = void> = ThunkAction<
   unknown,
   Action
 >
-
-// export { store,
-// };
-// useSideNavigationStore, useCardAccordionStore, useMessageAccordionStore, useBottomNavigationStore, useAvatarColorStore, useTabsStore, useThemeStore, usePiazzaSwitchStore, useNewMessageStore, useAvatarImageStore, useProfileUrlStore, useCompletedDrawerStore

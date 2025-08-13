@@ -15,6 +15,7 @@ import { useSelectors } from 'src/hooks/useSelectors.tsx'
 import setDocUser from 'src/pages/core/setDocUser.ts'
 import useTexts from 'src/useTexts.ts'
 import AuthDialogs from './AuthDialogs.tsx'
+import supabase from 'src/baseApi/base.tsx'
 
 const AuthForm = ({ signIn, agreed }) => {
   const [account, setAccount] = useState({ email: '', password: '' })
@@ -27,6 +28,11 @@ const AuthForm = ({ signIn, agreed }) => {
     event.preventDefault()
     try {
       await signInWithEmailAndPassword(auth, account.email, account.password)
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: account.email,
+        password: account.password,
+      })
+      console.log(data)
       location.reload()
     } catch (error) {
       if (error.message === 'Firebase: Error (auth/invalid-credential).') {
@@ -46,6 +52,11 @@ const AuthForm = ({ signIn, agreed }) => {
             account.email,
             account.password,
           )
+          const register = await supabase.auth.signUp({
+            email: account.email,
+            password: account.password,
+          })
+          console.log(register.data)
           const docsRef = query(collection(dbservice, 'members'))
           const docs = await getDocs(docsRef)
           const docsLength = docs.docs.length

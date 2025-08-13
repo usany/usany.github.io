@@ -25,13 +25,9 @@ interface Props {
 
 const NavigationTop = ({ userObj }: Props) => {
   const bottomNavigation = useSelectors((state) => state.bottomNavigation.value)
-  const profileColor = useSelector((state) => state.profileColor.value)
-  const profileUrl = useSelector((state) => state.profileUrl.value)
   const [sideNavigation, setSideNavigation] = useState(false)
   const [renderDelayed, setRenderDelayed] = useState(false)
   setTimeout(() => setRenderDelayed(true), 250)
-  // const [user, setUser] = useState<DocumentData | undefined>(undefined)
-  const profile = useSelectors((state) => state.profile.value)
   const handleSideNavigation = () => {
     setSideNavigation(!sideNavigation)
   }
@@ -39,17 +35,6 @@ const NavigationTop = ({ userObj }: Props) => {
   const userCertificated = useSelectors((state) => state.userCertificated.value)
   const dispatch = useDispatch()
   const largeMedia = useLargeMedia()
-  // useEffect(() => {
-  //   if (userObj) {
-  //     getDownloadURL(ref(storage, `${userObj?.uid}`))
-  //       .then((url) => {
-  //         dispatch(changeProfileUrl(url));
-  //       })
-  //       .catch((error) => {
-  //         console.log(error);
-  //       });
-  //   }
-  // }, [userObj])
   useEffect(() => {
     const setProfile = async () => {
       const docRef = doc(dbservice, `members/${userObj?.uid}`)
@@ -93,15 +78,8 @@ const NavigationTop = ({ userObj }: Props) => {
       {renderDelayed && (
         <div className="flex justify-between w-screen items-center">
           <Navigation
-            user={profile}
             userObj={userObj}
             handleSideNavigation={handleSideNavigation}
-            sideNavigation={sideNavigation}
-            uid={userObj ? userObj.uid : ''}
-            profile={false}
-            profileColor={userObj ? profileColor : 'profile-blue'}
-            profileUrl={userObj ? profileUrl : staticImage}
-            piazza={() => null}
           />
           <div className={`flex ${!largeMedia && 'flex-col'} items-center`}>
             {largeMedia && scrollNavigation && scrollLocation && (
