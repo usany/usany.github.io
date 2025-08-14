@@ -1,11 +1,8 @@
 import {
-  FacebookAuthProvider,
   getAuth,
-  GithubAuthProvider,
   GoogleAuthProvider,
   OAuthProvider,
   signInWithPopup,
-  TwitterAuthProvider,
   updateProfile,
 } from 'firebase/auth'
 import {
@@ -17,13 +14,13 @@ import {
   updateDoc,
 } from 'firebase/firestore'
 import { getMessaging } from 'firebase/messaging'
-import { getDownloadURL, getStorage, ref, uploadString } from 'firebase/storage'
+import { getDownloadURL, getStorage, ref } from 'firebase/storage'
 
 // Import the functions you need from the SDKs you need
 import { initializeApp } from 'firebase/app'
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
-import { doc, setDoc } from 'firebase/firestore'
+import { doc } from 'firebase/firestore'
 import setDocUser from 'src/pages/core/setDocUser'
 
 // Your web app's Firebase configuration
@@ -81,19 +78,18 @@ const onSocialClick = async (result) => {
     await updateProfile(result.user, {
       displayName: result.user.email,
     }).catch((error) => {
-      console.log('error')
+      console.log(error)
     })
-    const storageRef = ref(storage, uid)
-    uploadString(storageRef, 'null', 'raw').then(() => {
-      console.log('Uploaded a blob or file!')
-      getDownloadURL(storageRef)
-        .then((url) => {
-          updateDoc(docRef, { profileImageUrl: url })
-        })
-        .catch((error) => {
-          console.log(error)
-        })
-    })
+    // uploadString(storageRef, 'null', 'raw').then(() => {
+    //   console.log('Uploaded a blob or file!')
+    //   getDownloadURL(storageRef)
+    //     .then((url) => {
+    //       updateDoc(docRef, { profileImageUrl: url })
+    //     })
+    //     .catch((error) => {
+    //       console.log(error)
+    //     })
+    // })
     let profileImage
     let profileColor
     const profileImageNumber = Math.random()
@@ -159,9 +155,9 @@ export {
   dbservice,
   messaging,
   onSocialClick,
+  onSocialClickApple,
   onSocialClickGoogle,
   onSocialClickMicrosoft,
-  onSocialClickApple,
   // onSocialClickFacebook,
   // onSocialClickTwitter,
   storage,

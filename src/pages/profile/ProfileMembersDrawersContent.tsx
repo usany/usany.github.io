@@ -1,76 +1,92 @@
-import { Chip } from "@mui/material";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
-import { deleteUser } from "firebase/auth";
-import {
-  deleteDoc,
-  doc
-} from "firebase/firestore";
-import { useEffect, useState } from "react";
-import {
-  useNavigate
-} from "react-router-dom";
-import {
-  dbservice
-} from "src/baseApi/serverbase";
-import useTexts from "src/useTexts";
+import { Chip } from '@mui/material'
+import Button from '@mui/material/Button'
+import TextField from '@mui/material/TextField'
+import { deleteUser, User } from 'firebase/auth'
+import { deleteDoc, doc } from 'firebase/firestore'
+import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import supabase from 'src/baseApi/base'
+import { dbservice } from 'src/baseApi/serverbase'
+import useTexts from 'src/useTexts'
 
-const ProfileMembersDrawersContent = ({ userObj, user }) => {
-  const [confirmEmail, setConfirmEmail] = useState(false);
-  const [process, setProcess] = useState(false);
-  const { mail, deleteAccount, noProcessingCard, ongoingCards, toDeleteAccountInputMail, canDeleteAccountWhenYouHaveNoProcessingBorrwingOrLendingCard } = useTexts()
-  const navigate = useNavigate();
+interface Props {
+  userObj: User
+  user: object
+}
+const ProfileMembersDrawersContent = ({ userObj, user }: Props) => {
+  const [confirmEmail, setConfirmEmail] = useState(false)
+  const [process, setProcess] = useState(false)
+  const {
+    mail,
+    deleteAccount,
+    noProcessingCard,
+    ongoingCards,
+    toDeleteAccountInputMail,
+    canDeleteAccountWhenYouHaveNoProcessingBorrwingOrLendingCard,
+  } = useTexts()
+  const navigate = useNavigate()
   const onChange = (event) => {
     const {
       target: { value },
-    } = event;
+    } = event
     if (value === userObj.email) {
-      setConfirmEmail(true);
+      setConfirmEmail(true)
     } else {
-      setConfirmEmail(false);
+      setConfirmEmail(false)
     }
-  };
+  }
   const delist = async () => {
-    await deleteDoc(doc(dbservice, `members/${userObj.uid}`));
+    await deleteDoc(doc(dbservice, `members/${userObj.uid}`))
     deleteUser(user)
       .then(() => {
-        console.log(user);
+        console.log(user)
         // User deleted.
       })
       .catch((error) => {
+        console.log(error)
         // An error ocurred
         // ...
-      });
-    navigate("/");
-  };
+      })
+    const { data, error } = await supabase.auth.admin.deleteUser(user)
+    if (data) {
+      console.log(data)
+    } else {
+      console.log(error)
+    }
+    navigate('/')
+  }
   useEffect(() => {
     const createdCards = user.userData?.createdCards
     const connectedCards = user.userData?.connectedCards
     const createdNumber = createdCards?.length || 0
     const connectedNumber = connectedCards?.length || 0
-    if (
-      createdNumber === 0 &&
-      connectedNumber === 0
-    ) {
-      setProcess(true);
+    if (createdNumber === 0 && connectedNumber === 0) {
+      setProcess(true)
     } else {
       setProcess(false)
     }
-  }, [user]);
+  }, [user])
 
   return (
     <>
-      <div className='p-5'>
+      <div className="p-5">
         {canDeleteAccountWhenYouHaveNoProcessingBorrwingOrLendingCard}
         {process ? (
-          <div className='flex justify-center'>
-            <Chip label={noProcessingCard} sx={{ bgcolor: '#7fc4bc', color: 'white' }} />
+          <div className="flex justify-center">
+            <Chip
+              label={noProcessingCard}
+              sx={{ bgcolor: '#7fc4bc', color: 'white' }}
+            />
           </div>
         ) : (
-          <div className='flex justify-center'>
-            <Chip label={ongoingCards} sx={{
-              bgcolor: '#e76e50', color: 'white'
-            }} />
+          <div className="flex justify-center">
+            <Chip
+              label={ongoingCards}
+              sx={{
+                bgcolor: '#e76e50',
+                color: 'white',
+              }}
+            />
           </div>
         )}
         <div>{toDeleteAccountInputMail}</div>
@@ -88,7 +104,7 @@ const ProfileMembersDrawersContent = ({ userObj, user }) => {
         )}
       </div>
     </>
-  );
-};
+  )
+}
 
-export default ProfileMembersDrawersContent;
+export default ProfileMembersDrawersContent

@@ -2,24 +2,21 @@ import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
 import { sendPasswordResetEmail } from 'firebase/auth'
 import { useState } from 'react'
-import { useSelector } from 'react-redux'
 import staticMail from 'src/assets/signMail.svg'
 import { auth } from 'src/baseApi/serverbase'
 import { useSelectors } from 'src/hooks/useSelectors'
-
-function AuthDialogsContentPassword({ userObj }) {
+function AuthDialogsContentPassword() {
   const [email, setEmail] = useState('')
   const [status, setStatus] = useState('')
-  const theme = useSelector((state) => state.theme.value)
   const languages = useSelectors((state) => state.languages.value)
   const onChange = (event) => {
     const {
-      target: { name, value },
+      target: { value },
     } = event
     setEmail(value)
   }
   const onLine = useSelectors((state) => state.onLine.value)
-  const passwordEmail = (event) => {
+  const passwordEmail = async (event) => {
     event.preventDefault()
     if (onLine) {
       sendPasswordResetEmail(auth, email)
@@ -32,10 +29,13 @@ function AuthDialogsContentPassword({ userObj }) {
         .catch((error) => {
           setStatus('error')
           console.log(error)
-          const errorCode = error.code
-          const errorMessage = error.message
+          // const errorCode = error.code
+          // const errorMessage = error.message
           // ..
         })
+      // const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
+      // redirectTo: 'https://example.com/update-password',
+      // })
     } else {
       alert('네트워크 연결이 필요합니다')
     }

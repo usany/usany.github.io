@@ -1,14 +1,24 @@
-import { doc, setDoc } from "firebase/firestore";
-import { dbservice } from "src/baseApi/serverbase";
+import { doc, setDoc } from 'firebase/firestore'
+import { dbservice } from 'src/baseApi/serverbase'
 
 const setDocUser = async ({ uid, email, ranking }) => {
-  await setDoc(doc(dbservice, "members", `${uid}`), {
+  const profileImageNumber = Math.random()
+  const profileColorNumber = Math.random()
+  const profileImage = profileImageNumber < 0.5 ? 'animal' : 'plant'
+  const profileColor =
+    profileColorNumber < 1 / 3
+      ? 'profileRed'
+      : profileColorNumber < 2 / 3
+        ? 'profileBlue'
+        : 'profileGold'
+  await setDoc(doc(dbservice, 'members', `${uid}`), {
     uid: uid,
+    email: email,
     displayName: email,
     points: 0,
     profileImage: false,
-    profileImageUrl: '',
-    defaultProfile: '',
+    profileImageUrl: `https://ijsfbngiyhgvolsprxeh.supabase.co/storage/v1/object/public/remake/${uid}`,
+    defaultProfile: `https://ijsfbngiyhgvolsprxeh.supabase.co/storage/v1/object/public/remake/${profileImage}${profileColor}.png`,
     followers: [],
     followings: [],
     messagingToken: '',
@@ -20,11 +30,8 @@ const setDocUser = async ({ uid, email, ranking }) => {
     locationConfirmed: '',
     conversation: [],
     chattings: {},
-    certificated: false
-    // profileColor: "#2196f3",
-    // followerNum: 0,
-    // followingNum: 0,
-  });
-};
+    certificated: false,
+  })
+}
 
-export default setDocUser;
+export default setDocUser

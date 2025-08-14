@@ -24,6 +24,7 @@ function App() {
   const userObj = useUserObject()
   const { lightTheme, darkTheme } = useColors()
   const dispatch = useDispatch()
+  console.log(userObj)
   useEffect(() => {
     if (userObj) {
       const initialProfile = async () => {

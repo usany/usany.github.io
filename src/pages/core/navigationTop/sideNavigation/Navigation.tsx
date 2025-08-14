@@ -9,8 +9,8 @@ import {
   UserRound,
 } from 'lucide-react'
 import { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
 import staticImage from 'src/assets/blue.png'
+import supabase from 'src/baseApi/base'
 import { auth, dbservice } from 'src/baseApi/serverbase'
 import {
   Drawer,
@@ -31,7 +31,11 @@ interface Props {
   handleSideNavigation: () => void
 }
 
-const onLogOutClick = () => auth.signOut()
+const onLogOutClick = async () => {
+  auth.signOut()
+  const { error } = await supabase.auth.signOut()
+  if (error) console.log(error)
+}
 function Navigation({ userObj, handleSideNavigation }: Props) {
   const [points, setPoints] = useState(0)
   const [delayed, setDelayed] = useState(true)
@@ -137,16 +141,17 @@ function Navigation({ userObj, handleSideNavigation }: Props) {
                 <div className="flex flex-col justify-between pt-5 gap-5">
                   {links.map((value, index) => {
                     return (
-                      <DrawerClose>
-                        <Links
-                          key={index}
-                          href={value.href}
-                          passingState={value.passingState}
-                          onClick={value.onClick}
-                          icon={value.icon}
-                          description={value.description}
-                        />
-                      </DrawerClose>
+                      <div key={index}>
+                        <DrawerClose>
+                          <Links
+                            href={value.href}
+                            passingState={value.passingState}
+                            onClick={value.onClick}
+                            icon={value.icon}
+                            description={value.description}
+                          />
+                        </DrawerClose>
+                      </div>
                     )
                   })}
                 </div>
@@ -164,21 +169,7 @@ function Navigation({ userObj, handleSideNavigation }: Props) {
                   {links.map((value, index) => {
                     if (value.href === '/contact') {
                       return (
-                        <DrawerClose>
-                          <Links
-                            key={index}
-                            href={value.href}
-                            passingState={value.passingState}
-                            onClick={value.onClick}
-                            icon={value.icon}
-                            description={value.description}
-                          />
-                        </DrawerClose>
-                      )
-                    }
-                    if (!userCertificated && userObj) {
-                      if (value.href === '/') {
-                        return (
+                        <div key={index}>
                           <DrawerClose>
                             <Links
                               key={index}
@@ -189,6 +180,24 @@ function Navigation({ userObj, handleSideNavigation }: Props) {
                               description={value.description}
                             />
                           </DrawerClose>
+                        </div>
+                      )
+                    }
+                    if (!userCertificated && userObj) {
+                      if (value.href === '/') {
+                        return (
+                          <div key={index}>
+                            <DrawerClose>
+                              <Links
+                                key={index}
+                                href={value.href}
+                                passingState={value.passingState}
+                                onClick={value.onClick}
+                                icon={value.icon}
+                                description={value.description}
+                              />
+                            </DrawerClose>
+                          </div>
                         )
                       }
                     }
@@ -201,7 +210,9 @@ function Navigation({ userObj, handleSideNavigation }: Props) {
               )}
             </div>
           )}
-          {userObj && userCertificated && onLine && <IframePlayer mode={theme} />}
+          {userObj && userCertificated && onLine && (
+            <IframePlayer mode={theme} />
+          )}
         </nav>
       </DrawerContent>
     </Drawer>
