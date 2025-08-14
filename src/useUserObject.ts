@@ -42,19 +42,19 @@ const useUserObject = () => {
         sessionStorage.setItem('reloading', 'true')
         location.reload()
       }
-      // setProfile(user?.uid)
+      setProfile(user?.uid)
       console.log(user)
-      // setUserObj(user)
+      setUserObj(user)
     })
     const { data } = supabase.auth.onAuthStateChange((event, session) => {
       console.log(event, session)
       console.log(data)
-      const user = { uid: session.user.id }
-      if (data === null && !reloading) {
-        sessionStorage.setItem('reloading', 'true')
-        location.reload()
-      }
-      setProfile(user?.uid)
+      // const user = { uid: session.user.id }
+      // if (data === null && !reloading) {
+      //   sessionStorage.setItem('reloading', 'true')
+      //   location.reload()
+      // }
+      // setProfile(user?.uid)
     })
   }, [])
   return userObj
