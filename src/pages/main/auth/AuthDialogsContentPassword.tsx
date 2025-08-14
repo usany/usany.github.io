@@ -37,6 +37,7 @@ function AuthDialogsContentPassword() {
       const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
         redirectTo: '/',
       })
+
       if (data) {
         console.log(data)
       } else {
