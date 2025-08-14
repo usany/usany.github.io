@@ -3,7 +3,7 @@ import TextField from '@mui/material/TextField'
 import { sendPasswordResetEmail } from 'firebase/auth'
 import { useState } from 'react'
 import staticMail from 'src/assets/signMail.svg'
-import supabase from 'src/baseApi/base'
+// import supabase from 'src/baseApi/base'
 import { auth } from 'src/baseApi/serverbase'
 import { useSelectors } from 'src/hooks/useSelectors'
 function AuthDialogsContentPassword() {
@@ -34,15 +34,15 @@ function AuthDialogsContentPassword() {
           // const errorMessage = error.message
           // ..
         })
-      const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: '/',
-      })
+      // const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
+      //   redirectTo: '/',
+      // })
 
-      if (data) {
-        console.log(data)
-      } else {
-        console.log(error)
-      }
+      // if (data) {
+      //   console.log(data)
+      // } else {
+      //   console.log(error)
+      // }
     } else {
       alert('네트워크 연결이 필요합니다')
     }

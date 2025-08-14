@@ -28,14 +28,14 @@ const AuthForm = ({ signIn, agreed }: Props) => {
     event.preventDefault()
     try {
       await signInWithEmailAndPassword(auth, account.email, account.password)
-      const { error } = await supabase.auth.signInWithPassword({
-        email: account.email,
-        password: account.password,
-      })
-      if (String(error) === 'AuthApiError: Invalid login credentials') {
-        const errorMessage = '로그인 실패: 계정을 확인해 주세요'
-        setError(errorMessage)
-      }
+      // const { error } = await supabase.auth.signInWithPassword({
+      //   email: account.email,
+      //   password: account.password,
+      // })
+      // if (String(error) === 'AuthApiError: Invalid login credentials') {
+      //   const errorMessage = '로그인 실패: 계정을 확인해 주세요'
+      //   setError(errorMessage)
+      // }
       // .then(({ error }) => {
       //   console.log(error)
       // })
@@ -43,10 +43,10 @@ const AuthForm = ({ signIn, agreed }: Props) => {
       // location.reload()
     } catch (error) {
       console.log(error)
-      // if (error.message === 'Firebase: Error (auth/invalid-credential).') {
-      //   const errorMessage = '로그인 실패: 계정을 확인해 주세요'
-      //   setError(errorMessage)
-      // }
+      if (error.message === 'Firebase: Error (auth/invalid-credential).') {
+        const errorMessage = '로그인 실패: 계정을 확인해 주세요'
+        setError(errorMessage)
+      }
     }
   }
 
@@ -60,17 +60,17 @@ const AuthForm = ({ signIn, agreed }: Props) => {
           //   account.email,
           //   account.password,
           // )
-          const { data, error } = await supabase.auth.signUp({
-            email: account.email,
-            password: account.password,
-          })
+          // const { data, error } = await supabase.auth.signUp({
+          //   email: account.email,
+          //   password: account.password,
+          // })
           // .then(({ error }) => {
           //   console.log(error)
           // })
-          if (String(error) === 'AuthApiError: User already registered') {
-            const errorMessage = '회원가입 실패: 이미 가입된 계정입니다'
-            setError(errorMessage)
-          }
+          // if (String(error) === 'AuthApiError: User already registered') {
+          //   const errorMessage = '회원가입 실패: 이미 가입된 계정입니다'
+          //   setError(errorMessage)
+          // }
           const uid = data.user?.id || ''
           const email = data.user?.email || ''
           await supabase.storage.from('remake').update(uid, 'null')
@@ -138,25 +138,25 @@ const AuthForm = ({ signIn, agreed }: Props) => {
           console.log(error)
           // console.log(error.message)
           // setError(errorMessage)
-          // if (error.message === 'Firebase: Error (auth/invalid-credential).') {
-          //   const errorMessage = '로그인 실패: 계정을 확인해 주세요'
-          //   setError(errorMessage)
-          // } else if (
-          //   error.message === 'Firebase: Error (auth/email-already-in-use).'
-          // ) {
-          //   const errorMessage = '회원가입 실패: 이미 가입된 계정입니다'
-          //   setError(errorMessage)
-          // } else if (
-          //   error.message === 'Firebase: Error (auth/invalid-email).'
-          // ) {
-          //   const errorMessage = '회원가입 실패: 계정을 확인해 주세요'
-          //   setError(errorMessage)
-          // } else {
-          //   console.log(error.message)
-          //   setError(errorMessage)
-          // }
-          // console.log(error.message)
-          // setError(errorMessage)
+          if (error.message === 'Firebase: Error (auth/invalid-credential).') {
+            const errorMessage = '로그인 실패: 계정을 확인해 주세요'
+            setError(errorMessage)
+          } else if (
+            error.message === 'Firebase: Error (auth/email-already-in-use).'
+          ) {
+            const errorMessage = '회원가입 실패: 이미 가입된 계정입니다'
+            setError(errorMessage)
+          } else if (
+            error.message === 'Firebase: Error (auth/invalid-email).'
+          ) {
+            const errorMessage = '회원가입 실패: 계정을 확인해 주세요'
+            setError(errorMessage)
+          } else {
+            console.log(error.message)
+            setError(errorMessage)
+          }
+          console.log(error.message)
+          setError(errorMessage)
         }
       } else {
         alert('네트워크 연결이 필요합니다')

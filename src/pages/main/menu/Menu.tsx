@@ -1,4 +1,3 @@
-import { createClient } from '@supabase/supabase-js'
 import { User } from 'firebase/auth'
 import { useSelectors } from 'src/hooks/useSelectors'
 import PageTitle from 'src/pages/core/pageTitle/PageTitle'
@@ -39,7 +38,9 @@ function Menu({ userObj }: Props) {
   }
   console.log(img)
   const downloadImages = async () => {
-    const { data, error } = await supabase.storage.from('remake').getPublicUrl('publicImages.png')
+    const { data, error } = await supabase.storage
+      .from('remake')
+      .getPublicUrl('publicImages.png')
     if (data) {
       setImg(data.publicUrl)
       console.log(data)

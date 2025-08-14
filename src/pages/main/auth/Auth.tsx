@@ -3,7 +3,7 @@ import { deleteUser, User } from 'firebase/auth'
 import { deleteDoc, doc, updateDoc } from 'firebase/firestore'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import supabase from 'src/baseApi/base'
+// import supabase from 'src/baseApi/base'
 import { dbservice } from 'src/baseApi/serverbase'
 import { useSelectors } from 'src/hooks/useSelectors'
 import PageTitle from 'src/pages/core/pageTitle/PageTitle'
@@ -75,12 +75,12 @@ function Auth({ userObj }: User) {
       .catch((error) => {
         console.log(error)
       })
-    const { data, error } = await supabase.auth.admin.deleteUser(userObj.uid)
-    if (data) {
-      console.log(data)
-    } else {
-      console.log(error)
-    }
+    // const { data, error } = await supabase.auth.admin.deleteUser(userObj.uid)
+    // if (data) {
+    //   console.log(data)
+    // } else {
+    //   console.log(error)
+    // }
   }
   return (
     <div>

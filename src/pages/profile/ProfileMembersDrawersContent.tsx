@@ -5,7 +5,7 @@ import { deleteUser, User } from 'firebase/auth'
 import { deleteDoc, doc } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import supabase from 'src/baseApi/base'
+// import supabase from 'src/baseApi/base'
 import { dbservice } from 'src/baseApi/serverbase'
 import useTexts from 'src/useTexts'
 
@@ -47,12 +47,12 @@ const ProfileMembersDrawersContent = ({ userObj, user }: Props) => {
         // An error ocurred
         // ...
       })
-    const { data, error } = await supabase.auth.admin.deleteUser(user)
-    if (data) {
-      console.log(data)
-    } else {
-      console.log(error)
-    }
+    // const { data, error } = await supabase.auth.admin.deleteUser(user)
+    // if (data) {
+    //   console.log(data)
+    // } else {
+    //   console.log(error)
+    // }
     navigate('/')
   }
   useEffect(() => {

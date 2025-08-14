@@ -10,7 +10,7 @@ import {
 } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import staticImage from 'src/assets/blue.png'
-import supabase from 'src/baseApi/base'
+// import supabase from 'src/baseApi/base'
 import { auth, dbservice } from 'src/baseApi/serverbase'
 import {
   Drawer,
@@ -33,8 +33,8 @@ interface Props {
 
 const onLogOutClick = async () => {
   auth.signOut()
-  const { error } = await supabase.auth.signOut()
-  if (error) console.log(error)
+  // const { error } = await supabase.auth.signOut()
+  // if (error) console.log(error)
 }
 function Navigation({ userObj, handleSideNavigation }: Props) {
   const [points, setPoints] = useState(0)
