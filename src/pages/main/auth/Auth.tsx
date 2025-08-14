@@ -1,8 +1,9 @@
 import { Button } from '@mui/material'
-import { deleteUser } from 'firebase/auth'
+import { deleteUser, User } from 'firebase/auth'
 import { deleteDoc, doc, updateDoc } from 'firebase/firestore'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
+import supabase from 'src/baseApi/base'
 import { dbservice } from 'src/baseApi/serverbase'
 import { useSelectors } from 'src/hooks/useSelectors'
 import PageTitle from 'src/pages/core/pageTitle/PageTitle'
@@ -12,7 +13,6 @@ import Motions from 'src/pages/main/auth/Motions'
 import { changeUserCertificated } from 'src/stateSlices/userCertificatedSlice'
 import useTexts from 'src/useTexts'
 import AuthPassword from './AuthPassword'
-import supabase from 'src/baseApi/base'
 
 function Auth({ userObj }: User) {
   const [numberString, setNumberString] = useState('')
