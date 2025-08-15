@@ -107,7 +107,6 @@
     "uuid": "^9.0.1",
     "vaul": "^1.1.1",
     "virtual-keyboard-offset": "^1.0.10",
-    "vitest": "^3.2.4",
     "web-push": "^3.6.7",
     "xstate": "^5.19.2",
     "zustand": "^5.0.0"
@@ -125,7 +124,9 @@
     "@storybook/react-vite": "^8.1.10",
     "@storybook/test": "^8.1.10",
     "@testing-library/dom": "^10.4.1",
+    "@testing-library/jest-dom": "^6.7.0",
     "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^14.6.1",
     "@types/node": "^22.9.0",
     "@types/react": "^18.3.1",
     "@types/react-dom": "^18.3.0",
@@ -149,6 +150,7 @@
     "typescript-eslint": "^8.24.1",
     "vite": "^5.4.10",
     "vite-plugin-pwa": "^0.20.0",
+    "vitest": "^3.2.4",
     "workbox-core": "^7.1.0"
   },
   "overrides": {
