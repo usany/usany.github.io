@@ -12,8 +12,6 @@ test('renders the component correctly', () => {
   // })
   // const languages = useSelectorMock((state) => state.languages.value)
   const { languages } = store.getState()
-  // const currentLanguage = localStorage.getItem('languages') || 'ko'
   renderWithProviders(<AddSteppers addSteps={1} borrow={true} />)
   expect(screen.getByText(languages.value === 'ko' ? '장소 입력' : 'Location'))
-  // expect(screen.getByText(inputLocation))
 })
