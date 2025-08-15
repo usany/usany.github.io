@@ -430,8 +430,8 @@ function PiazzaForm({
       console.log(error)
     }
   }
-  const onClickVideoCall = async () => {
-    document.getElementById('videoCall')?.click()
+  const onCall = async (selection) => {
+    document.getElementById(`${selection}Call`)?.click()
     let toUserRef
     let toUser
     let messagingToken
@@ -446,7 +446,7 @@ function PiazzaForm({
       conversation: conversation,
       isVideo: true,
       sendingToken: messagingToken,
-      connectedUrl: `/piazza?id=${conversation}&call=video`,
+      connectedUrl: `/piazza?id=${conversation}&call=${selection}`,
       preferLanguage: preferLanguage,
       userUid: userObj.uid,
       id: userObj.displayName,
@@ -460,7 +460,7 @@ function PiazzaForm({
     console.log(passingObject)
     webSocket.emit('call', passingObject)
     setSearchParams((searchParams) => {
-      searchParams.set('call', 'video')
+      searchParams.set('call', selection)
       return searchParams
     })
   }
@@ -490,7 +490,7 @@ function PiazzaForm({
                     className="flex flex-col items-center gap-5"
                     onClick={() => {
                       // document.getElementById('videoCall')?.click()
-                      onClickVideoCall()
+                      onCall('video')
                     }}
                   >
                     <DrawerClose>
@@ -512,7 +512,8 @@ function PiazzaForm({
                   <div
                     className="flex flex-col items-center gap-5"
                     onClick={() => {
-                      document.getElementById('audioCall')?.click()
+                      // document.getElementById('audioCall')?.click()
+                      onCall('audio')
                     }}
                   >
                     <DrawerClose>

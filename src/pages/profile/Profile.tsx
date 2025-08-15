@@ -50,8 +50,8 @@ function Profile({ userObj }: Props) {
     changed: true
   });
   const { state } = useLocation();
-  console.log(userObj)
-  console.log(state)
+  // console.log(userObj)
+  // console.log(state)
   const [profileDialog, setProfileDialog] = useState(false);
   const [alliesCollection, setAlliesCollection] = useImmer([
     {
@@ -234,11 +234,11 @@ function Profile({ userObj }: Props) {
       <ProfileAvatar
         userObj={userObj}
         user={state?.element || userObj}
-        handleProfileDialog={() => setProfileDialog(true)}
-        profileDialog={profileDialog}
-        changedImage={changedImage}
-        handleChangedImage={(newState: changedImage) => setChangedImage(newState)}
-        handleClose={handleClose}
+      // handleProfileDialog={() => setProfileDialog(true)}
+      // profileDialog={profileDialog}
+      // changedImage={changedImage}
+      // handleChangedImage={(newState: changedImage) => setChangedImage(newState)}
+      // handleClose={handleClose}
       />
       <div className='flex justify-center gap-5 p-5'>
         <ProfileLocations user={userUid} userObj={userObj} />

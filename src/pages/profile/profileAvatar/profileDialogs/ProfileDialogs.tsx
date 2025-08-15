@@ -47,14 +47,14 @@ const ProfileDialogs = ({ attachment, changeAttachment, changedImage, handleChan
       target: { files },
     } = event;
     const theFile = files[0];
-    console.log(files)
     const reader = new FileReader();
     reader.onloadend = (finishedEvent) => {
+      console.log(theFile)
       console.log(finishedEvent);
       const {
         currentTarget: { result },
       } = finishedEvent;
-      // console.log(result)
+      console.log(result)
       changeAttachment(result)
     }
     reader.readAsDataURL(theFile)

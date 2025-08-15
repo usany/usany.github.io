@@ -1,7 +1,7 @@
 import { ThemeProvider } from '@mui/material/styles'
 import { doc, getDoc, updateDoc } from 'firebase/firestore'
 import { useEffect } from 'react'
-import { useTranslation } from 'react-i18next'
+// import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
 import 'src/global.css'
 import Lotties from 'src/lottiesAnimation/Lotties'
@@ -20,16 +20,11 @@ import useUserObject from './useUserObject'
 
 function App() {
   // const [count, setCount] = useState(0)
-  // const [userObj, setUserObj] = useState<User | null | undefined>(undefined)
-  // useEffect(() => {
-  //   auth.onAuthStateChanged((user) => {
-  //     setUserObj(user)
-  //   })
-  // }, [])
   const theme = useSelectors((state) => state.theme.value)
   const userObj = useUserObject()
   const { lightTheme, darkTheme } = useColors()
   const dispatch = useDispatch()
+  console.log(userObj)
   useEffect(() => {
     if (userObj) {
       const initialProfile = async () => {
@@ -46,9 +41,7 @@ function App() {
     }
   }, [userObj])
   useEffect(() => {
-    const mq = window.matchMedia(
-      "(prefers-color-scheme: dark)"
-    );
+    const mq = window.matchMedia('(prefers-color-scheme: dark)')
     if (!localStorage.getItem('theme')) {
       if (mq.matches) {
         localStorage.setItem('theme', 'dark')
@@ -57,7 +50,7 @@ function App() {
     }
     const settingLanguage = async () => {
       const ref = doc(dbservice, `members/${userObj?.uid}`)
-      await updateDoc(ref, { preferLanguage: 'en' });
+      await updateDoc(ref, { preferLanguage: 'en' })
     }
     if (!localStorage.getItem('languages')) {
       if (navigator.language.slice(0, 2) !== 'ko') {
@@ -70,29 +63,12 @@ function App() {
     }
     // This callback will fire if the perferred color scheme changes without a reload
     // mq.addEventListener("change", (evt) => setIsDark(evt.matches));
-  }, []);
-
-  function MyComponent() {
-    const { t, i18n } = useTranslation();
-    return <h1 onClick={() => {
-      if (i18n.language === 'ko') {
-        i18n.changeLanguage('en');
-      } else {
-        i18n.changeLanguage('ko');
-      }
-    }}>{t('Welcome to React')}</h1>
-  }
+  }, [])
 
   return (
     <>
-      {/* <button id='mute' onClick={handleMuteClick}>mute</button>
-      &emsp;
-      <button id='stream' onClick={handleStreamClick}>turn stream off</button>
-      &emsp;
-      <select id='videoInput' /> */}
       <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
         <Toaster />
-        {/* <MyComponent /> */}
         {userObj !== undefined ? <Router userObj={userObj} /> : <Lotties />}
       </ThemeProvider>
     </>
