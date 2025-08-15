@@ -7,7 +7,6 @@ import 'src/global.css'
 import Lotties from 'src/lottiesAnimation/Lotties'
 import Router from 'src/pages/core/router/Router'
 import { dbservice } from './baseApi/serverbase'
-import { Toaster } from './components/ui/toaster'
 import useColors from './hooks/useColors'
 import { useSelectors } from './hooks/useSelectors'
 import { changeDefaultProfile } from './stateSlices/defaultProfileSlice'
@@ -68,7 +67,6 @@ function App() {
   return (
     <>
       <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
-        <Toaster />
         {userObj !== undefined ? <Router userObj={userObj} /> : <Lotties />}
       </ThemeProvider>
     </>

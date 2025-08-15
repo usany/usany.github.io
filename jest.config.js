@@ -1,8 +1,14 @@
-/** @jest-config-loader ts-node */
-// or
-/** @jest-config-loader esbuild-register */
-const config = {
-  verbose: true,
-}
+export default {
+  testEnvironment: 'jsdom',
+  transform: {
+    '^.+\\.tsx?$': 'ts-jest',
+  },
 
-export default config
+  moduleNameMapper: {
+    '\\.(css|less|sass|scss)$': 'identity-obj-proxy',
+    '^.+\\.svg$': 'jest-transformer-svg',
+    '^src/(.*)$': '<rootDir>/src/$1',
+  },
+
+  setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
+}

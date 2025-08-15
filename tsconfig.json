@@ -37,8 +37,7 @@
     "esModuleInterop": true,
   },
   "include": [
-    "src"
-, "servers.js"  ],
+    "src", "./jest.setup.ts"],
   "references": [
     {
       "path": "./tsconfig.node.json"
