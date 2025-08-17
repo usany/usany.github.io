@@ -21,7 +21,7 @@
     "generate-pwa-assets": "pwa-assets-generator --preset minimal public/umbrella512.png",
     "prepare": "husky",
     "check:precommit": "lint-staged",
-    "test": "jest"
+    "test": "cross-env NODE_OPTIONS=--experimental-vm-modules npx jest --runInBand"
   },
   "dependencies": {
     "@apollo/client": "^3.13.8",
