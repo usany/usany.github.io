@@ -8,7 +8,7 @@ name: check-dist
 on:
   push:
     branches:
-      - 'master'
+      - 'main'
   pull_request:
   workflow_dispatch:
 
@@ -23,7 +23,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           # Action runs: using: node20 as defined in
-          # https://github.com/cypress-io/github-action/blob/master/action.yml
+          # https://github.com/cypress-io/github-action/blob/main/action.yml
           # Node.js minor version is aligned to
           # https://github.com/actions/runner/blob/main/src/Misc/externals.sh
           node-version: 20.19.2

@@ -2,7 +2,7 @@ name: example-start-and-yarn-workspaces
 on:
   push:
     branches:
-      - 'master'
+      - 'main'
   pull_request:
   workflow_dispatch:
 

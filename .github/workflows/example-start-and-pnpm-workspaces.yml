@@ -2,7 +2,7 @@ name: example-start-and-pnpm-workspaces
 on:
   push:
     branches:
-      - 'master'
+      - 'main'
   pull_request:
   workflow_dispatch:
 

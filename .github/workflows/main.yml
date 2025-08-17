@@ -2,7 +2,7 @@ name: main
 on:
   push:
     branches:
-      - 'master'
+      - 'main'
   pull_request:
 jobs:
   build-and-test:
@@ -15,7 +15,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           # Action runs: using: node20 as defined in
-          # https://github.com/cypress-io/github-action/blob/master/action.yml
+          # https://github.com/cypress-io/github-action/blob/main/action.yml
           # Node.js minor version is aligned to
           # https://github.com/actions/runner/blob/main/src/Misc/externals.sh
           node-version: 20.19.2
@@ -31,9 +31,9 @@ jobs:
     runs-on: ubuntu-24.04
     name: release
     needs: [build-and-test]
-    # only release from the master branch
+    # only release from the main branch
     # in parent repository, not in a fork
-    if: (github.ref == 'refs/heads/master') &&
+    if: (github.ref == 'refs/heads/main') &&
       (github.repository == 'cypress-io/github-action')
     steps:
       - name: Checkout
@@ -46,7 +46,7 @@ jobs:
         with:
           # https://github.com/semantic-release/semantic-release
           semantic_version: 24.2.3
-          branches: master
+          branches: main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

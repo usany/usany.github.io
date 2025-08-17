@@ -1,7 +1,7 @@
 name: example-debug
 
 # This workflow demonstrates how to use the DEBUG environment variable to get debug output.
-# See also https://github.com/cypress-io/github-action/blob/master/README.md#debugging and
+# See also https://github.com/cypress-io/github-action/blob/main/README.md#debugging and
 # https://on.cypress.io/troubleshooting#Print-DEBUG-logs
 
 # In the example jobs, the action is called with
@@ -13,7 +13,7 @@ name: example-debug
 on:
   push:
     branches:
-      - 'master'
+      - 'main'
   pull_request:
   workflow_dispatch:
 

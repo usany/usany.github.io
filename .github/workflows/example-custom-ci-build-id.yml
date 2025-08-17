@@ -18,7 +18,7 @@ name: example-custom-ci-build-id
 on:
   push:
     branches:
-      - 'master'
+      - 'main'
   pull_request:
   workflow_dispatch:
 

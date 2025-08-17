@@ -9,7 +9,7 @@ name: example-build-artifacts
 on:
   push:
     branches:
-      - 'master'
+      - 'main'
   pull_request:
   workflow_dispatch:
 
