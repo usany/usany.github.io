@@ -1,29 +1,34 @@
-import { User } from "firebase/auth";
-import { doc, getDoc } from "firebase/firestore";
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from 'react-redux';
-import { useLocation, useSearchParams } from "react-router-dom";
-import { dbservice } from "src/baseApi/serverbase";
-import { MorphingDialog, MorphingDialogClose, MorphingDialogContainer, MorphingDialogTrigger } from "src/components/ui/morphing-dialog";
-import PiazzaForm from 'src/pages/piazza/piazzaForm/PiazzaForm';
-import PiazzaScreen from 'src/pages/piazza/piazzaScreen/PiazzaScreen';
-import PiazzaTitle from 'src/pages/piazza/piazzaTitle/PiazzaTitle';
-import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice';
-import useTexts from "src/useTexts";
-import { webSocket } from "src/webSocket";
-import PiazzaAudioCall from "./PiazzaAudioCall";
-import PiazzaCalls from "./PiazzaCalls";
+import { User } from 'firebase/auth'
+import { doc, getDoc } from 'firebase/firestore'
+import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useLocation, useSearchParams } from 'react-router-dom'
+import { dbservice } from 'src/baseApi/serverbase'
+import {
+  MorphingDialog,
+  MorphingDialogClose,
+  MorphingDialogContainer,
+  MorphingDialogTrigger,
+} from 'src/components/ui/morphing-dialog'
+import PiazzaForm from 'src/pages/piazza/piazzaForm/PiazzaForm'
+import PiazzaScreen from 'src/pages/piazza/piazzaScreen/PiazzaScreen'
+import PiazzaTitle from 'src/pages/piazza/piazzaTitle/PiazzaTitle'
+import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
+import useTexts from 'src/useTexts'
+import { webSocket } from 'src/webSocket'
+import PiazzaAudioCall from './PiazzaAudioCall'
+import PiazzaCalls from './PiazzaCalls'
 // import { useKeyboardOffset } from 'virtual-keyboard-offset';
 
 interface Props {
   userObj: User
 }
 function Piazza({ userObj }: Props) {
-  const [messages, setMessages] = useState("");
-  const [messagesList, setMessagesList] = useState<[]>([]);
+  const [messages, setMessages] = useState('')
+  const [messagesList, setMessagesList] = useState<[]>([])
   const dispatch = useDispatch()
   const { state } = useLocation()
-  const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
+  const [isKeyboardOpen, setIsKeyboardOpen] = useState(false)
   const [chattingUser, setChattingUser] = useState(null)
   const [chatUid, setChatUid] = useState('')
   const [chatDisplayName, setChatDisplayName] = useState('')
@@ -36,8 +41,8 @@ function Piazza({ userObj }: Props) {
     setChatDisplayName(newValue)
   }
   const conversation = location.search.slice(location.search.indexOf('=') + 1)
-  console.log(chattingUser)
-  console.log(chatUid)
+  // console.log(chattingUser)
+  // console.log(chatUid)
   useEffect(() => {
     if (state) {
       setChatUid(state.chattingUid)
@@ -62,32 +67,36 @@ function Piazza({ userObj }: Props) {
   const piazzaForm = useSelector((state) => state.piazzaForm.value)
   useEffect(() => {
     const listener = () => {
-      const newState = window.screen.height - 300 > (window.visualViewport?.height || window.screen.height)
+      const newState =
+        window.screen.height - 300 >
+        (window.visualViewport?.height || window.screen.height)
       if (isKeyboardOpen !== newState) {
-        setIsKeyboardOpen(newState);
+        setIsKeyboardOpen(newState)
       }
-    };
+    }
     window.addEventListener('resize', listener)
     if (typeof visualViewport !== 'undefined') {
-      window.visualViewport?.addEventListener('resize', listener);
+      window.visualViewport?.addEventListener('resize', listener)
     }
     visualViewport?.addEventListener('resize', listener)
     if (typeof visualViewport !== 'undefined') {
-      visualViewport?.addEventListener('resize', listener);
+      visualViewport?.addEventListener('resize', listener)
     }
     return () => {
       if (typeof visualViewport !== 'undefined') {
-        window.visualViewport?.removeEventListener('resize', listener);
+        window.visualViewport?.removeEventListener('resize', listener)
       }
-    };
-  }, [isKeyboardOpen]);
+    }
+  }, [isKeyboardOpen])
   const stopCalls = async () => {
-    setSearchParams(searchParams => {
+    setSearchParams((searchParams) => {
       searchParams.delete('call')
       return searchParams
     })
-    document.getElementById('myScreen')?.srcObject.getTracks()
-      .forEach(track => track.stop())
+    document
+      .getElementById('myScreen')
+      ?.srcObject.getTracks()
+      .forEach((track) => track.stop())
     let toUserRef
     let toUser
     let messagingToken
@@ -108,7 +117,7 @@ function Piazza({ userObj }: Props) {
       id: userObj.displayName,
       conversationUid: chattingUser?.uid,
       conversationName: chattingUser?.displayName,
-    };
+    }
     console.log(passingObject)
     webSocket.emit('quitCall', passingObject)
   }
@@ -147,19 +156,33 @@ function Piazza({ userObj }: Props) {
   }, [])
   return (
     <>
-      {!isKeyboardOpen && <PiazzaTitle multiple={!conversation} displayName={chatDisplayName} />}
-      <PiazzaScreen isKeyboardOpen={piazzaForm} userObj={userObj} messagesList={messagesList} handleMessagesList={(newValue) => setMessagesList(newValue)}
+      {!isKeyboardOpen && (
+        <PiazzaTitle multiple={!conversation} displayName={chatDisplayName} />
+      )}
+      <PiazzaScreen
+        isKeyboardOpen={piazzaForm}
+        userObj={userObj}
+        messagesList={messagesList}
+        handleMessagesList={(newValue) => setMessagesList(newValue)}
         handleChatUid={handleChatUid}
         handleChatDisplayName={handleChatDisplayName}
       />
-      <PiazzaForm chattingUser={chattingUser} userObj={userObj} multiple={!conversation} messages={messages} handleMessages={(newValue) => setMessages(newValue)} messagesList={messagesList} handleMessagesList={(newValue) => setMessagesList(newValue)} />
+      <PiazzaForm
+        chattingUser={chattingUser}
+        userObj={userObj}
+        multiple={!conversation}
+        messages={messages}
+        handleMessages={(newValue) => setMessages(newValue)}
+        messagesList={messagesList}
+        handleMessagesList={(newValue) => setMessagesList(newValue)}
+      />
       <MorphingDialog>
         <MorphingDialogTrigger>
-          <div id='videoCall'></div>
+          <div id="videoCall"></div>
         </MorphingDialogTrigger>
         <MorphingDialogContainer>
           <div>
-            <div className='flex gap-5'>
+            <div className="flex gap-5">
               <PiazzaCalls />
             </div>
             <MorphingDialogClose>
@@ -170,11 +193,11 @@ function Piazza({ userObj }: Props) {
       </MorphingDialog>
       <MorphingDialog>
         <MorphingDialogTrigger>
-          <div id='audioCall'></div>
+          <div id="audioCall"></div>
         </MorphingDialogTrigger>
         <MorphingDialogContainer>
           <div>
-            <div className='flex gap-5'>
+            <div className="flex gap-5">
               <PiazzaAudioCall />
             </div>
             <MorphingDialogClose>
@@ -184,7 +207,7 @@ function Piazza({ userObj }: Props) {
         </MorphingDialogContainer>
       </MorphingDialog>
     </>
-  );
+  )
 }
 
-export default Piazza;
+export default Piazza
