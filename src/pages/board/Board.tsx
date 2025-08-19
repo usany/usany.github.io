@@ -167,6 +167,8 @@ function Board({ userObj }: Props) {
   // }
 
   const mapRef = useRef(null)
+  // const latitude = 37
+  // const longitude = 127
 
   useEffect(() => {
     const { naver } = window
