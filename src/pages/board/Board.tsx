@@ -180,6 +180,7 @@ function Board({ userObj }: Props) {
 
     const infowindow = new naver.maps.InfoWindow({
       content: contentString,
+      backgroundColor: '#357',
     })
     if (mapRef.current && naver) {
       const location = new naver.maps.LatLng(latitude, longitude)
