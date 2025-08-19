@@ -167,20 +167,36 @@ function Board({ userObj }: Props) {
   // }
 
   const mapRef = useRef(null)
-  // const latitude = 37
-  // const longitude = 127
+  const latitude = 37.5927551
+  const longitude = 127.047462
 
   useEffect(() => {
     const { naver } = window
+    const contentString = [
+      '<div class="iw_inner">',
+      '   practice',
+      '</div>',
+    ].join('')
+
+    const infowindow = new naver.maps.InfoWindow({
+      content: contentString,
+    })
     if (mapRef.current && naver) {
-      // const location = new naver.maps.LatLng(lat, lng);
+      const location = new naver.maps.LatLng(latitude, longitude)
       const map = new naver.maps.Map(mapRef.current, {
         center: location,
         zoom: 17,
       })
-      new naver.maps.Marker({
-        // position: location,
+      const marker = new naver.maps.Marker({
+        position: location,
         map,
+      })
+      naver.maps.Event.addListener(marker, 'click', () => {
+        if (infowindow.getMap()) {
+          infowindow.close()
+        } else {
+          infowindow.open(map, marker)
+        }
       })
     }
   }, [])
