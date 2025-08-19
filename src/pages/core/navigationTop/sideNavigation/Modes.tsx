@@ -7,7 +7,7 @@ import { changeEn, changeKo } from 'src/stateSlices/languagesSlice'
 import { changeDark, changeLight } from 'src/stateSlices/themeSlice'
 import SwitchesLanguages from './SwitchesLanguages'
 
-const Modes = ({ userObj }) => {
+const Modes = () => {
   const theme = useSelectors((state) => state.theme.value)
   const languages = useSelector((state) => state.languages.value)
   // const { i18n } = useTranslation()

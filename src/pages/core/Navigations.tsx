@@ -11,9 +11,6 @@ import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice';
 import { changePiazzaForm } from "src/stateSlices/piazzaFormSlice";
 import texts from 'src/texts.json';
 
-interface Props {
-  userObj: User | null
-}
 interface ThemeRootState {
   theme: string
 }

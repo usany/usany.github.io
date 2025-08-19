@@ -1,11 +1,10 @@
 import { GoogleGenAI } from '@google/genai'
-import { collection, doc, getDocs, setDoc } from 'firebase/firestore'
-import { getDownloadURL, ref, uploadString } from 'firebase/storage'
+import { doc, getDocs, setDoc } from 'firebase/firestore'
 import { Film, PlusCircle } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { dbservice, storage } from 'src/baseApi/serverbase'
+import { dbservice } from 'src/baseApi/serverbase'
 import {
   MorphingDialog,
   MorphingDialogContainer,
@@ -13,12 +12,27 @@ import {
   MorphingDialogTrigger,
 } from 'src/components/ui/morphing-dialog'
 import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
+import useTexts from 'src/useTexts'
 import Avatars from '../core/Avatars'
 import PageTitle from '../core/pageTitle/PageTitle'
 import Popups from '../core/Popups'
+import supabase from 'src/baseApi/base'
+import { decode } from 'base64-arraybuffer'
+import { User } from 'firebase/auth'
 
-function Collection({ userObj }) {
+interface Props {
+  userObj: User
+}
+function Collection({ userObj }: Props) {
   const genai = new GoogleGenAI({ apiKey: import.meta.env.VITE_GEMINI_API_KEY })
+  const {
+    register,
+    uploadMyFile,
+    save,
+    cannotFindAnUmbrella,
+    findingAnUmbrella,
+    collection,
+  } = useTexts()
   async function chat(url) {
     try {
       let file = 'png'
@@ -107,17 +121,36 @@ function Collection({ userObj }) {
       const now = new Date().getTime()
       const id = userObj.uid + now.toString()
       const docRef = doc(dbservice, `collections/${id}`)
-      const storageRef = ref(storage, id)
-      uploadString(storageRef, attachment, 'data_url').then((snapshot) => {
-        console.log('Uploaded a blob or file!')
-        getDownloadURL(storageRef).then((url) => {
-          setDoc(docRef, {
-            uid: userObj.uid,
-            displayName: userObj.displayName,
-            defaultProfile: attachment,
-          })
-        })
+      // const storageRef = ref(storage, id)
+      // uploadString(storageRef, attachment, 'data_url').then(() => {
+      //   console.log('Uploaded a blob or file!')
+      //   getDownloadURL(storageRef).then((url) => {
+      //     setDoc(docRef, {
+      //       uid: userObj.uid,
+      //       displayName: userObj.displayName,
+      //       defaultProfile: attachment,
+      //       defaultProfile: url,
+      //     })
+      //   })
+      // })
+      setDoc(docRef, {
+        uid: userObj.uid,
+        displayName: userObj.displayName,
+        defaultProfile: `https://ijsfbngiyhgvolsprxeh.supabase.co/storage/v1/object/public/remake/${id}`,
       })
+      const splitedArray = attachment.split(';base64,')
+      const content = splitedArray[0].slice(5)
+      const base64 = splitedArray[1]
+      const { data, error } = await supabase.storage
+        .from('remake')
+        .update(`collection/${id}`, decode(base64), {
+          contentType: content,
+        })
+      if (data) {
+        console.log(data)
+      } else {
+        console.log(error)
+      }
     }
   }
   useEffect(() => {
@@ -169,7 +202,7 @@ function Collection({ userObj }) {
   }, [])
   return (
     <div>
-      <PageTitle icon={<Film />} title={'전시회'} />
+      <PageTitle icon={<Film />} title={collection} />
       <Popups
         trigger={
           <div
@@ -187,10 +220,10 @@ function Collection({ userObj }) {
             }}
           >
             <PlusCircle />
-            추가
+            {register}
           </div>
         }
-        title={'추가'}
+        title={register}
         content={
           <div className="flex flex-col px-5 items-center gap-5">
             <Avatars
@@ -203,21 +236,21 @@ function Collection({ userObj }) {
                   htmlFor="file"
                   className="p-5 rounded border border-dashed"
                 >
-                  내 파일 업로드
+                  {uploadMyFile}
                 </label>
                 <input id="file" type="file" onChange={onFileChange} hidden />
                 {['n', 'N'].indexOf(isUmbrella ? isUmbrella[0] : isUmbrella) !==
-                  -1 && <div>우산이 아닙니다.</div>}
+                  -1 && <div>{cannotFindAnUmbrella}</div>}
               </>
             )}
-            {loading && <div>로딩</div>}
+            {loading && <div>{findingAnUmbrella}</div>}
           </div>
         }
         close={
           attachment &&
           !loading &&
           ['y', 'Y'].indexOf(isUmbrella ? isUmbrella[0] : isUmbrella) !==
-            -1 && <div onClick={newImage}>완료</div>
+            -1 && <div onClick={newImage}>{save}</div>
         }
         attachment={changedImage}
       />
@@ -240,7 +273,9 @@ function Collection({ userObj }) {
                   drawerOpenFalse={() => setDrawerOpen(false)}
                 >
                   <div className="flex flex-col">
-                    <div>{element.displayName} 등록</div>
+                    <div>
+                      {element.displayName} {register}
+                    </div>
                     <img src={element.defaultProfile} />
                   </div>
                 </MorphingDialogContent>

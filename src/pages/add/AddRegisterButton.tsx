@@ -19,11 +19,6 @@ const AddRegisterButton = ({ submit, fromTo, enableRegister }: Props) => {
         ) : (
           <div>네트워크 연결이 필요합니다</div>
         ))}
-      {/* {enableRegister ?
-        <Button variant='outlined' form='selection' type='submit'>{registerButtonText}</Button>
-        :
-        <Button variant='outlined' form='selection' type='submit' disabled>{registerButtonText}</Button>
-      } */}
     </form>
   )
 }
