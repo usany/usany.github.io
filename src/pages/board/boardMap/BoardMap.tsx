@@ -327,25 +327,125 @@ function BoardMap({
       }
     }
   }, [])
+  const displayMap = () => {
+    const { naver } = window
+    // const contentString = [
+    //   '<div class="iw_inner">',
+    //   '   practice',
+    //   '</div>',
+    // ].join('')
 
+    // const infowindow = new naver.maps.InfoWindow({
+    //   content: contentString,
+    //   backgroundColor: '#777',
+    // })
+    if (mapRef.current && naver) {
+      const location = new naver.maps.LatLng(
+        defaultLocation.lat,
+        defaultLocation.lng,
+      )
+      const map = new naver.maps.Map(mapRef.current, {
+        center: location,
+        zoom: 17,
+      })
+      const markersCollection = []
+      const infoWindows = []
+
+      for (const index in markers) {
+        const position = new naver.maps.LatLng(
+          markers[index].location.lat,
+          markers[index].location.lng,
+        )
+
+        const marker = new naver.maps.Marker({
+          map: map,
+          position: position,
+          title: index,
+        })
+
+        const infoWindow = new naver.maps.InfoWindow({
+          content:
+            // <div className="flex flex-col text-black">
+            //   <div className="flex justify-center">
+            //     {languages === 'ko'
+            //       ? selectedValues[1].value
+            //       : selectedLocation}
+            //   </div>
+            //   {selectItems.map((value, index) => {
+            //     return (
+            //       <div className="flex gap-5">
+            //         <div className="pt-1">
+            //           <Chip
+            //             label={`${selectItems[index][selection]}`}
+            //             onClick={() => {
+            //               setChoose(true)
+            //               onClickMarkerItem(
+            //                 `${selectItems[index].ko}`,
+            //               )
+            //             }}
+            //           />
+            //         </div>
+            //         <div className="pt-3">
+            //           {languages === 'ko' ? '빌리기' : 'Borrowing'}:{' '}
+            //           {index ? items.yangsanOne : items.usanOne}{' '}
+            //           {languages === 'ko' ? '요청' : 'requests'}
+            //         </div>
+            //         <div className="pt-3">
+            //           {languages === 'ko' ? '빌려주기' : 'Lending'}:{' '}
+            //           {index ? items.yangsanTwo : items.usanTwo}{' '}
+            //           {languages === 'ko' ? '요청' : 'requests'}
+            //         </div>
+            //       </div>
+            //     )
+            //   })}
+            // </div>
+            '<div style="width:150px;text-align:center;padding:10px;">The Letter is <b>"' +
+            String(index) +
+            '"</b>.</div>',
+          backgroundColor: '#777',
+          anchorColor: '#777',
+        })
+
+        markersCollection.push(marker)
+        infoWindows.push(infoWindow)
+      }
+      function getClickHandler(seq) {
+        const marker = markersCollection[seq]
+        const infoWindow = infoWindows[seq]
+
+        if (infoWindow.getMap()) {
+          infoWindow.close()
+        } else {
+          infoWindow.open(map, marker)
+        }
+      }
+      for (let number = 0, length = markers.length; number < length; number++) {
+        naver.maps.Event.addListener(markersCollection[number], 'click', () =>
+          getClickHandler(number),
+        )
+      }
+    }
+  }
   return (
     <div>
       <Accordion type="single" collapsible>
         <AccordionItem value="item-1">
-          <button
+          <AccordionTrigger
             onClick={() => {
-              document.getElementById('boardMap')?.click()
-              console.log(document.getElementsByClassName('dismissButton'))
-              setTimeout(
-                () =>
-                  document.getElementsByClassName('dismissButton')[0]?.click(),
-                500,
-              )
-              setTimeout(
-                () =>
-                  document.getElementsByClassName('dismissButton')[0]?.click(),
-                1500,
-              )
+              // document.getElementById('boardMap')?.click()
+              // console.log(document.getElementsByClassName('dismissButton'))
+              // setTimeout(
+              //   () =>
+              //     document.getElementsByClassName('dismissButton')[0]?.click(),
+              //   500,
+              // )
+              // setTimeout(
+              //   () =>
+              //     document.getElementsByClassName('dismissButton')[0]?.click(),
+              //   1500,
+              // )
+              // displayMap()
+              setTimeout(displayMap, 10)
             }}
             className="rounded shadow-md px-3 flex sticky top-16 z-30 w-full items-center justify-between bg-light-2/50 dark:bg-dark-2/50"
           >
@@ -353,11 +453,11 @@ function BoardMap({
               <MapIcon />
               <div>{registeredMap[selection]}</div>
             </div>
-            <AccordionTrigger
+            {/* <AccordionTrigger
               id="boardMap"
-              onClick={() => mapAccordionToggle()}
-            ></AccordionTrigger>
-          </button>
+              onClick={() => setTimeout(displayMap, 10)}
+            ></AccordionTrigger> */}
+          </AccordionTrigger>
           <AccordionContent>
             <div>
               {/* <div className="p-5">
