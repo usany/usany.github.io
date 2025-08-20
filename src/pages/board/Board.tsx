@@ -332,7 +332,7 @@ function Board({ userObj }: Props) {
           <LayoutBoard borrow={false} />
         </SwipeableViews>
       )}
-      <div ref={mapRef} style={{ width: '500px', height: '500px' }}></div>
+      {/* <div ref={mapRef} style={{ width: '500px', height: '500px' }}></div> */}
     </div>
   )
 }
