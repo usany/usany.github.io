@@ -9,6 +9,7 @@ import { MapIcon } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { dbservice } from 'src/baseApi/serverbase'
 import { useSelectors } from 'src/hooks/useSelectors'
+import locationsCollectionLetters from 'src/pages/add/locationsCollectionLetters'
 import FilterDialogs from 'src/pages/board/FilterDialogs/FilterDialogs'
 
 const registeredMap = {
@@ -119,14 +120,64 @@ function BoardMap({
   selectedValues,
   handleSelectedValues,
 }: Props) {
-  const [messages, setMessages] = useState<Array<object>>([])
+  // const [messages, setMessages] = useState<Array<object>>([])
   // const [mapAccordion, setMapAccordion] = useState(false);
   const [selectedLocation, setSelectedLocation] = useState(null)
   const [items, setItems] = useState({
-    usanOne: 0,
-    usanTwo: 0,
-    yangsanOne: 0,
-    yangsanTwo: 0,
+    cl: {
+      usanOne: 0,
+      usanTwo: 0,
+      yangsanOne: 0,
+      yangsanTwo: 0,
+    },
+    cw: {
+      usanOne: 0,
+      usanTwo: 0,
+      yangsanOne: 0,
+      yangsanTwo: 0,
+    },
+    p: {
+      usanOne: 0,
+      usanTwo: 0,
+      yangsanOne: 0,
+      yangsanTwo: 0,
+    },
+    g: {
+      usanOne: 0,
+      usanTwo: 0,
+      yangsanOne: 0,
+      yangsanTwo: 0,
+    },
+    k: {
+      usanOne: 0,
+      usanTwo: 0,
+      yangsanOne: 0,
+      yangsanTwo: 0,
+    },
+    m: {
+      usanOne: 0,
+      usanTwo: 0,
+      yangsanOne: 0,
+      yangsanTwo: 0,
+    },
+    e: {
+      usanOne: 0,
+      usanTwo: 0,
+      yangsanOne: 0,
+      yangsanTwo: 0,
+    },
+    c: {
+      usanOne: 0,
+      usanTwo: 0,
+      yangsanOne: 0,
+      yangsanTwo: 0,
+    },
+    n: {
+      usanOne: 0,
+      usanTwo: 0,
+      yangsanOne: 0,
+      yangsanTwo: 0,
+    },
   })
   const [choose, setChoose] = useState(false)
   const languages = useSelectors((state) => state.languages.value)
@@ -177,43 +228,105 @@ function BoardMap({
       )
       const docs = await getDocs(collectionQuery)
       const newArray = []
-      let usanOneCount = 0
-      let usanTwoCount = 0
-      let yangsanOneCount = 0
-      let yangsanTwoCount = 0
+      const itemCount = {
+        cl: {
+          usanOne: 0,
+          usanTwo: 0,
+          yangsanOne: 0,
+          yangsanTwo: 0,
+        },
+        cw: {
+          usanOne: 0,
+          usanTwo: 0,
+          yangsanOne: 0,
+          yangsanTwo: 0,
+        },
+        p: {
+          usanOne: 0,
+          usanTwo: 0,
+          yangsanOne: 0,
+          yangsanTwo: 0,
+        },
+        g: {
+          usanOne: 0,
+          usanTwo: 0,
+          yangsanOne: 0,
+          yangsanTwo: 0,
+        },
+        k: {
+          usanOne: 0,
+          usanTwo: 0,
+          yangsanOne: 0,
+          yangsanTwo: 0,
+        },
+        m: {
+          usanOne: 0,
+          usanTwo: 0,
+          yangsanOne: 0,
+          yangsanTwo: 0,
+        },
+        e: {
+          usanOne: 0,
+          usanTwo: 0,
+          yangsanOne: 0,
+          yangsanTwo: 0,
+        },
+        c: {
+          usanOne: 0,
+          usanTwo: 0,
+          yangsanOne: 0,
+          yangsanTwo: 0,
+        },
+        n: {
+          usanOne: 0,
+          usanTwo: 0,
+          yangsanOne: 0,
+          yangsanTwo: 0,
+        },
+      }
+      // let usanOneCount = 0
+      // let usanTwoCount = 0
+      // let yangsanOneCount = 0
+      // let yangsanTwoCount = 0
       docs.forEach((doc) => {
         newArray.push(doc.data())
-        if (doc.data().text.count === selectedValues[1].value) {
-          if (doc.data().item === '우산') {
-            if (doc.data().text.choose === 1) {
-              usanOneCount += 1
-            } else if (doc.data().text.choose === 2) {
-              usanTwoCount += 1
+        if (doc.data().item === '우산') {
+          const key = Object.keys(locationsCollectionLetters).find(
+            (key) => locationsCollectionLetters[key] === doc.data().text.count,
+          )
+          if (doc.data().text.choose === 1) {
+            if (key) {
+              itemCount[key].usanOne += 1
             }
-          } else if (doc.data().item === '양산') {
-            if (doc.data().text.choose === 1) {
-              yangsanOneCount += 1
-            } else if (doc.data().text.choose === 2) {
-              yangsanTwoCount += 1
+          } else if (doc.data().text.choose === 2) {
+            if (key) {
+              itemCount[key].usanTwo += 1
+            }
+          }
+        } else if (doc.data().item === '양산') {
+          if (doc.data().text.choose === 1) {
+            if (key) {
+              itemCount[key].yangsanOne += 1
+            }
+          } else if (doc.data().text.choose === 2) {
+            if (key) {
+              itemCount[key].yangsanTwo += 1
             }
           }
         }
+        // if (doc.data().text.count === selectedValues[1].value) {
+        // }
         // console.log(doc.data())
       })
-      setMessages(newArray)
-      setItems({
-        usanOne: usanOneCount,
-        usanTwo: usanTwoCount,
-        yangsanOne: yangsanOneCount,
-        yangsanTwo: yangsanTwoCount,
-      })
+      // setMessages(newArray)
+      setItems(itemCount)
     }
     bringMessages()
   }, [selectedValues[1].value])
   console.log(items)
   const onClickMarker = (newValue) => {
     handleSelectedValues({ id: 'selectedValueTwo', newValue: newValue.ko })
-    setSelectedLocation(newValue.en)
+    // setSelectedLocation(newValue.en)
   }
   const onClickMarkerItem = (newValue) => {
     handleSelectedValues({ id: 'selectedValueOne', newValue: newValue })
