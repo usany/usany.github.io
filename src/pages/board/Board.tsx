@@ -1,7 +1,7 @@
 import { User } from 'firebase/auth'
 import { collection, getDocs, orderBy, query } from 'firebase/firestore'
 import { Maximize2, Minimize2 } from 'lucide-react'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { dbservice } from 'src/baseApi/serverbase'
 import { useSelectors } from 'src/hooks/useSelectors'
@@ -123,7 +123,9 @@ function Board({ userObj }: Props) {
       setMessages(newArray)
       setMessageLoaded(true)
     }
-    bringMessages()
+    if (userObj) {
+      bringMessages()
+    }
   }, [selectedValues[2].value])
   useEffect(() => {
     if (!window.location.search) {
@@ -165,77 +167,6 @@ function Board({ userObj }: Props) {
   //     console.log(error)
   //   }
   // }
-
-  const mapRef = useRef(null)
-  const latitude = 37.5927551
-  const longitude = 127.047462
-  const MARKER_SPRITE_POSITION = {
-    one: [37.5927551, 127.047462],
-    two: [37.5927551, 127.048],
-  }
-  useEffect(() => {
-    const { naver } = window
-    const contentString = [
-      '<div class="iw_inner">',
-      '   practice',
-      '</div>',
-    ].join('')
-
-    // const infowindow = new naver.maps.InfoWindow({
-    //   content: contentString,
-    //   backgroundColor: '#777',
-    // })
-    if (mapRef.current && naver) {
-      const location = new naver.maps.LatLng(latitude, longitude)
-      const map = new naver.maps.Map(mapRef.current, {
-        center: location,
-        zoom: 17,
-      })
-      const markers = []
-      const infoWindows = []
-
-      for (const key in MARKER_SPRITE_POSITION) {
-        const position = new naver.maps.LatLng(
-          MARKER_SPRITE_POSITION[key][0],
-          MARKER_SPRITE_POSITION[key][1],
-        )
-
-        const marker = new naver.maps.Marker({
-          map: map,
-          position: position,
-          title: key,
-        })
-
-        const infoWindow = new naver.maps.InfoWindow({
-          content:
-            '<div style="width:150px;text-align:center;padding:10px;">The Letter is <b>"' +
-            String(key) +
-            '"</b>.</div>',
-          backgroundColor: '#777',
-          anchorColor: '#777',
-        })
-
-        markers.push(marker)
-        infoWindows.push(infoWindow)
-      }
-      function getClickHandler(seq) {
-        const marker = markers[seq]
-        const infoWindow = infoWindows[seq]
-
-        if (infoWindow.getMap()) {
-          infoWindow.close()
-        } else {
-          infoWindow.open(map, marker)
-        }
-      }
-      for (let number = 0, length = markers.length; number < length; number++) {
-        naver.maps.Event.addListener(markers[number], 'click', () =>
-          getClickHandler(number),
-        )
-      }
-    }
-  }, [])
-
   return (
     <div>
       {userObj && userCertificated ? (
@@ -287,6 +218,7 @@ function Board({ userObj }: Props) {
                   onMarkerFalse={onMarkerFalse}
                   selectedValues={selectedSearchParams}
                   handleSelectedValues={handleSelectedValues}
+                  userObj={userObj}
                 />
               </div>
             </div>
@@ -332,7 +264,6 @@ function Board({ userObj }: Props) {
           <LayoutBoard borrow={false} />
         </SwipeableViews>
       )}
-      {/* <div ref={mapRef} style={{ width: '500px', height: '500px' }}></div> */}
     </div>
   )
 }

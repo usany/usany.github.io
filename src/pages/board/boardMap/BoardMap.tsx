@@ -4,8 +4,6 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion'
-import { Chip } from '@mui/material'
-import { AdvancedMarker, InfoWindow, Map, Pin } from '@vis.gl/react-google-maps'
 import { collection, getDocs, orderBy, query } from 'firebase/firestore'
 import { MapIcon } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
@@ -212,7 +210,7 @@ function BoardMap({
     }
     bringMessages()
   }, [selectedValues[1].value])
-
+  console.log(items)
   const onClickMarker = (newValue) => {
     handleSelectedValues({ id: 'selectedValueTwo', newValue: newValue.ko })
     setSelectedLocation(newValue.en)
@@ -344,14 +342,22 @@ function BoardMap({
 
         if (infoWindow.getMap()) {
           infoWindow.close()
+          onClickMarker({ ko: '전체 장소' })
         } else {
           infoWindow.open(map, marker)
+          onClickMarker(markers[seq].label)
         }
       }
       for (let number = 0, length = markers.length; number < length; number++) {
         naver.maps.Event.addListener(markersCollection[number], 'click', () => {
           getClickHandler(number)
-          onClickMarker(markers[number].label)
+          // if (onMarker) {
+          //   onMarkerFalse()
+          //   onClickMarker({ ko: '전체 장소' })
+          // } else {
+          //   onMarkerTrue()
+          //   onClickMarker(markers[number].label)
+          // }
         })
       }
     }
