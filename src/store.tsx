@@ -50,7 +50,6 @@ export const store = configureStore({
       serializableCheck: false,
     }).concat(weather.middleware),
 })
-export const setupStore = store
 
 export type AppStore = typeof store
 export type RootState = ReturnType<AppStore['getState']>

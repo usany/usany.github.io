@@ -1,7 +1,7 @@
-import Step from '@mui/material/Step'
-import StepLabel from '@mui/material/StepLabel'
-import Stepper from '@mui/material/Stepper'
-import { useSelector } from 'react-redux'
+import Step from '@mui/material/Step';
+import StepLabel from '@mui/material/StepLabel';
+import Stepper from '@mui/material/Stepper';
+import { useSelector } from 'react-redux';
 
 interface Props {
   addSteps: number
@@ -9,9 +9,19 @@ interface Props {
 }
 
 const stepOneItems = '우산 / 양산 선택'
-const stepsTwoToFour = [['장소 입력'], ['시간 입력'], ['등록 완료']]
-const borrowSteps = [['무엇을 빌리세요?', stepOneItems], ...stepsTwoToFour]
-const lendSteps = [['무엇을 빌려주세요?', stepOneItems], ...stepsTwoToFour]
+const stepsTwoToFour = [
+  ['장소 입력'],
+  ['시간 입력'],
+  ['등록 완료'],
+]
+const borrowSteps = [
+  ['무엇을 빌리세요?', stepOneItems],
+  ...stepsTwoToFour
+];
+const lendSteps = [
+  ['무엇을 빌려주세요?', stepOneItems],
+  ...stepsTwoToFour
+];
 const stepsCollection = [borrowSteps, lendSteps]
 const stepOneItemsLanguages = 'Usan / Yangsan selection'
 const stepsTwoToFourLanguages = [
@@ -29,53 +39,50 @@ const stepsTwoToFourLanguages = [
 // ]
 const borrowStepsLanguages = [
   ['What are you', 'borrowing?'],
-  ...stepsTwoToFourLanguages,
+  ...stepsTwoToFourLanguages
 ]
 const lendStepsLanguages = [
   ['What are you', 'lending?'],
-  ...stepsTwoToFourLanguages,
+  ...stepsTwoToFourLanguages
 ]
 const stepsCollectionLanguages = [borrowStepsLanguages, lendStepsLanguages]
 function AddSteppers({ addSteps, borrow }: Props) {
   const languages = useSelector((state) => state.languages.value)
   return (
-    <div className="w-full">
-      <Stepper activeStep={addSteps} alternativeLabel>
-        {languages === 'ko'
-          ? stepsCollection[[true, false].indexOf(borrow)].map(
-              (label, index) => {
-                return (
-                  <Step key={index}>
-                    <StepLabel>
-                      {label.map((element, index) => {
-                        return (
-                          <div key={index} className="truncate">
-                            {element}
-                          </div>
-                        )
-                      })}
-                    </StepLabel>
-                  </Step>
-                )
-              },
+    <div className='w-full'>
+      <Stepper
+        activeStep={addSteps}
+        alternativeLabel
+      >
+        {languages === 'ko' ?
+          stepsCollection[[true, false].indexOf(borrow)].map((label, index) => {
+            return (
+              <Step key={index}>
+                <StepLabel>
+                  {label.map((element, index) => {
+                    return (
+                      <div key={index} className='truncate'>{element}</div>
+                    )
+                  })}
+                </StepLabel>
+              </Step>
             )
-          : stepsCollectionLanguages[[true, false].indexOf(borrow)].map(
-              (label, index) => {
-                return (
-                  <Step key={index}>
-                    <StepLabel>
-                      {label.map((element, index) => {
-                        return (
-                          <div key={index} className="truncate text-xs">
-                            {element}
-                          </div>
-                        )
-                      })}
-                    </StepLabel>
-                  </Step>
-                )
-              },
-            )}
+          })
+          :
+          stepsCollectionLanguages[[true, false].indexOf(borrow)].map((label, index) => {
+            return (
+              <Step key={index}>
+                <StepLabel>
+                  {label.map((element, index) => {
+                    return (
+                      <div key={index} className='truncate text-xs'>{element}</div>
+                    )
+                  })}
+                </StepLabel>
+              </Step>
+            )
+          })
+        }
       </Stepper>
     </div>
   )
