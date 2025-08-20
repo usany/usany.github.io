@@ -31,15 +31,11 @@ interface Props {
   handleSideNavigation: () => void
 }
 
-<<<<<<< HEAD
-const onLogOutClick = () => auth.signOut()
-=======
 const onLogOutClick = async () => {
   auth.signOut()
   // const { error } = await supabase.auth.signOut()
   // if (error) console.log(error)
 }
->>>>>>> main
 function Navigation({ userObj, handleSideNavigation }: Props) {
   const [points, setPoints] = useState(0)
   const [delayed, setDelayed] = useState(true)
@@ -173,25 +169,7 @@ function Navigation({ userObj, handleSideNavigation }: Props) {
                   {links.map((value, index) => {
                     if (value.href === '/contact') {
                       return (
-<<<<<<< HEAD
-                        <DrawerClose>
-                          <Links
-                            key={index}
-                            href={value.href}
-                            passingState={value.passingState}
-                            onClick={value.onClick}
-                            icon={value.icon}
-                            description={value.description}
-                          />
-                        </DrawerClose>
-                      )
-                    }
-                    if (!userCertificated && userObj) {
-                      if (value.href === '/') {
-                        return (
-=======
                         <div key={index}>
->>>>>>> main
                           <DrawerClose>
                             <Links
                               key={index}

@@ -1,18 +1,8 @@
 import {
-<<<<<<< HEAD
-  FacebookAuthProvider,
-  getAuth,
-  GithubAuthProvider,
-  GoogleAuthProvider,
-  OAuthProvider,
-  signInWithPopup,
-  TwitterAuthProvider,
-=======
   getAuth,
   GoogleAuthProvider,
   OAuthProvider,
   signInWithPopup,
->>>>>>> main
   updateProfile,
 } from 'firebase/auth'
 import {
@@ -24,21 +14,13 @@ import {
   updateDoc,
 } from 'firebase/firestore'
 import { getMessaging } from 'firebase/messaging'
-<<<<<<< HEAD
-import { getDownloadURL, getStorage, ref, uploadString } from 'firebase/storage'
-=======
 import { getDownloadURL, getStorage, ref } from 'firebase/storage'
->>>>>>> main
 
 // Import the functions you need from the SDKs you need
 import { initializeApp } from 'firebase/app'
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
-<<<<<<< HEAD
-import { doc, setDoc } from 'firebase/firestore'
-=======
 import { doc } from 'firebase/firestore'
->>>>>>> main
 import setDocUser from 'src/pages/core/setDocUser'
 
 // Your web app's Firebase configuration
@@ -96,21 +78,6 @@ const onSocialClick = async (result) => {
     await updateProfile(result.user, {
       displayName: result.user.email,
     }).catch((error) => {
-<<<<<<< HEAD
-      console.log('error')
-    })
-    const storageRef = ref(storage, uid)
-    uploadString(storageRef, 'null', 'raw').then(() => {
-      console.log('Uploaded a blob or file!')
-      getDownloadURL(storageRef)
-        .then((url) => {
-          updateDoc(docRef, { profileImageUrl: url })
-        })
-        .catch((error) => {
-          console.log(error)
-        })
-    })
-=======
       console.log(error)
     })
     // uploadString(storageRef, 'null', 'raw').then(() => {
@@ -123,7 +90,6 @@ const onSocialClick = async (result) => {
     //       console.log(error)
     //     })
     // })
->>>>>>> main
     let profileImage
     let profileColor
     const profileImageNumber = Math.random()
@@ -154,7 +120,6 @@ const onSocialClick = async (result) => {
       location.reload()
     }, 1000)
   }
-<<<<<<< HEAD
 }
 const onSocialClickGoogle = () => {
   const providerGoogle = new GoogleAuthProvider()
@@ -176,29 +141,6 @@ const onSocialClickMicrosoft = () => {
       console.log(error)
     })
 }
-=======
-}
-const onSocialClickGoogle = () => {
-  const providerGoogle = new GoogleAuthProvider()
-  const emails = providerGoogle.addScope(
-    'https://www.googleapis.com/auth/contacts.readonly',
-  )
-  console.log(emails)
-  signInWithPopup(auth, providerGoogle.addScope('email'))
-    .then((result) => onSocialClick(result))
-    .catch((error) => {
-      console.log(error)
-    })
-}
-const onSocialClickMicrosoft = () => {
-  const providerMicrosoft = new OAuthProvider('microsoft.com')
-  signInWithPopup(auth, providerMicrosoft)
-    .then((result) => onSocialClick(result))
-    .catch((error) => {
-      console.log(error)
-    })
-}
->>>>>>> main
 const onSocialClickApple = () => {
   const providerApple = new OAuthProvider('apple.com')
   signInWithPopup(auth, providerApple)
@@ -213,15 +155,9 @@ export {
   dbservice,
   messaging,
   onSocialClick,
-<<<<<<< HEAD
-  onSocialClickGoogle,
-  onSocialClickMicrosoft,
-  onSocialClickApple,
-=======
   onSocialClickApple,
   onSocialClickGoogle,
   onSocialClickMicrosoft,
->>>>>>> main
   // onSocialClickFacebook,
   // onSocialClickTwitter,
   storage,

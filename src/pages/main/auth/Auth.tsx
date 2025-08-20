@@ -1,19 +1,3 @@
-<<<<<<< HEAD
-import { Button } from '@mui/material';
-import { deleteUser } from 'firebase/auth';
-import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { dbservice } from 'src/baseApi/serverbase';
-import { useSelectors } from 'src/hooks/useSelectors';
-import PageTitle from 'src/pages/core/pageTitle/PageTitle';
-import AuthButtons from 'src/pages/main/auth/AuthButtons';
-import AuthForm from 'src/pages/main/auth/AuthForm';
-import Motions from 'src/pages/main/auth/Motions';
-import { changeUserCertificated } from 'src/stateSlices/userCertificatedSlice';
-import useTexts from 'src/useTexts';
-import AuthPassword from './AuthPassword';
-=======
 import { Button } from '@mui/material'
 import { deleteUser, User } from 'firebase/auth'
 import { deleteDoc, doc, updateDoc } from 'firebase/firestore'
@@ -29,7 +13,6 @@ import Motions from 'src/pages/main/auth/Motions'
 import { changeUserCertificated } from 'src/stateSlices/userCertificatedSlice'
 import useTexts from 'src/useTexts'
 import AuthPassword from './AuthPassword'
->>>>>>> main
 
 function Auth({ userObj }: User) {
   const [numberString, setNumberString] = useState('')
@@ -37,9 +20,6 @@ function Auth({ userObj }: User) {
   const [createdNumber, setCreatedNumber] = useState('')
   const languages = useSelectors((state) => state.languages.value)
   const dispatch = useDispatch()
-<<<<<<< HEAD
-  const { checkTheNumber, weWillSendYouAConfirmingMailTo, sentAConfirmingMail, inputTheNumber, confirm, sendMail, sendMailAgain, cancelRegistration } = useTexts()
-=======
   const {
     checkTheNumber,
     weWillSendYouAConfirmingMailTo,
@@ -50,7 +30,6 @@ function Auth({ userObj }: User) {
     sendMailAgain,
     cancelRegistration,
   } = useTexts()
->>>>>>> main
   const handleNumberString = (newValue) => {
     // const {
     //   target: { value }
@@ -87,11 +66,7 @@ function Auth({ userObj }: User) {
     }
   }
   const cancelUserRegistration = async () => {
-<<<<<<< HEAD
-    await deleteDoc(doc(dbservice, `members/${userObj.uid}`));
-=======
     await deleteDoc(doc(dbservice, `members/${userObj.uid}`))
->>>>>>> main
     deleteUser(userObj)
       .then(() => {
         console.log(userObj)
@@ -99,9 +74,6 @@ function Auth({ userObj }: User) {
       })
       .catch((error) => {
         console.log(error)
-<<<<<<< HEAD
-      });
-=======
       })
     // const { data, error } = await supabase.auth.admin.deleteUser(userObj.uid)
     // if (data) {
@@ -109,29 +81,11 @@ function Auth({ userObj }: User) {
     // } else {
     //   console.log(error)
     // }
->>>>>>> main
   }
   return (
     <div>
       {userObj ? (
         <div>
-<<<<<<< HEAD
-          <PageTitle title={languages === 'ko' ? '메일 확인' : 'Confirming mail'} />
-          <div className='flex flex-col gap-5 items-center'>
-            {mailSent ?
-              <div>{languages === 'en' && sentAConfirmingMail} {userObj.email}{languages === 'ko' && sentAConfirmingMail}. {inputTheNumber}.</div>
-              :
-              <div>{languages === 'en' && weWillSendYouAConfirmingMailTo} {userObj.email}{languages === 'ko' && weWillSendYouAConfirmingMailTo}. {checkTheNumber}.</div>
-            }
-            {mailSent && <AuthPassword userObj={userObj} numberString={numberString} handleNumberString={handleNumberString} />}
-            <div className='flex gap-5'>
-              {/* {mailSent && <TextField label='numbers' value={numberString} onChange={handleNumberString} />} */}
-              {numberString.length === 6 &&
-                <Button onClick={confirmNumber}>
-                  {confirm}
-                </Button>
-              }
-=======
           <PageTitle
             title={languages === 'ko' ? '메일 확인' : 'Confirming mail'}
           />
@@ -161,18 +115,13 @@ function Auth({ userObj }: User) {
               {numberString.length === 6 && (
                 <Button onClick={confirmNumber}>{confirm}</Button>
               )}
->>>>>>> main
               <Button onClick={sendNumberMail}>
                 {mailSent ? sendMailAgain : sendMail}
               </Button>
             </div>
-<<<<<<< HEAD
-            <Button onClick={cancelUserRegistration}>{cancelRegistration}</Button>
-=======
             <Button onClick={cancelUserRegistration}>
               {cancelRegistration}
             </Button>
->>>>>>> main
           </div>
         </div>
       ) : (

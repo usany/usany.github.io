@@ -1,9 +1,5 @@
 import { GoogleGenAI } from '@google/genai'
 import { doc, getDocs, setDoc } from 'firebase/firestore'
-<<<<<<< HEAD
-import { getDownloadURL, ref, uploadString } from 'firebase/storage'
-=======
->>>>>>> main
 import { Film, PlusCircle } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
@@ -35,11 +31,7 @@ function Collection({ userObj }: Props) {
     save,
     cannotFindAnUmbrella,
     findingAnUmbrella,
-<<<<<<< HEAD
-    collection
-=======
     collection,
->>>>>>> main
   } = useTexts()
   async function chat(url) {
     try {
@@ -129,19 +121,6 @@ function Collection({ userObj }: Props) {
       const now = new Date().getTime()
       const id = userObj.uid + now.toString()
       const docRef = doc(dbservice, `collections/${id}`)
-<<<<<<< HEAD
-      const storageRef = ref(storage, id)
-      uploadString(storageRef, attachment, 'data_url').then(() => {
-        console.log('Uploaded a blob or file!')
-        getDownloadURL(storageRef).then((url) => {
-          setDoc(docRef, {
-            uid: userObj.uid,
-            displayName: userObj.displayName,
-            // defaultProfile: attachment,
-            defaultProfile: url,
-          })
-        })
-=======
       // const storageRef = ref(storage, id)
       // uploadString(storageRef, attachment, 'data_url').then(() => {
       //   console.log('Uploaded a blob or file!')
@@ -158,7 +137,6 @@ function Collection({ userObj }: Props) {
         uid: userObj.uid,
         displayName: userObj.displayName,
         defaultProfile: `https://ijsfbngiyhgvolsprxeh.supabase.co/storage/v1/object/public/remake/${id}`,
->>>>>>> main
       })
       const splitedArray = attachment.split(';base64,')
       const content = splitedArray[0].slice(5)
@@ -272,11 +250,7 @@ function Collection({ userObj }: Props) {
           attachment &&
           !loading &&
           ['y', 'Y'].indexOf(isUmbrella ? isUmbrella[0] : isUmbrella) !==
-<<<<<<< HEAD
-          -1 && <div onClick={newImage}>{save}</div>
-=======
             -1 && <div onClick={newImage}>{save}</div>
->>>>>>> main
         }
         attachment={changedImage}
       />

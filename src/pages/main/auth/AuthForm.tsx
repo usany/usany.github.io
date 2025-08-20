@@ -28,14 +28,6 @@ const AuthForm = ({ signIn, agreed }: Props) => {
     event.preventDefault()
     try {
       await signInWithEmailAndPassword(auth, account.email, account.password)
-<<<<<<< HEAD
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email: account.email,
-        password: account.password,
-      })
-      console.log(data)
-      location.reload()
-=======
       // const { error } = await supabase.auth.signInWithPassword({
       //   email: account.email,
       //   password: account.password,
@@ -49,7 +41,6 @@ const AuthForm = ({ signIn, agreed }: Props) => {
       // })
       // console.log(error)
       // location.reload()
->>>>>>> main
     } catch (error) {
       console.log(error)
       if (error.message === 'Firebase: Error (auth/invalid-credential).') {
@@ -64,19 +55,6 @@ const AuthForm = ({ signIn, agreed }: Props) => {
     if (agreed) {
       if (onLine) {
         try {
-<<<<<<< HEAD
-          const data = await createUserWithEmailAndPassword(
-            auth,
-            account.email,
-            account.password,
-          )
-          const register = await supabase.auth.signUp({
-            email: account.email,
-            password: account.password,
-          })
-          const uid = register.data.user.id
-          console.log(register.data.user.id)
-=======
           // const data = await createUserWithEmailAndPassword(
           //   auth,
           //   account.email,
@@ -96,7 +74,6 @@ const AuthForm = ({ signIn, agreed }: Props) => {
           const uid = data.user?.id || ''
           const email = data.user?.email || ''
           await supabase.storage.from('remake').update(uid, 'null')
->>>>>>> main
           const docsRef = query(collection(dbservice, 'members'))
           const docs = await getDocs(docsRef)
           const docsLength = docs.docs.length
@@ -105,52 +82,6 @@ const AuthForm = ({ signIn, agreed }: Props) => {
             email: email,
             ranking: docsLength,
           })
-<<<<<<< HEAD
-          await updateProfile(data.user, {
-            displayName: data.user.email,
-          }).catch((error) => {
-            console.log('error')
-          })
-          const user = doc(dbservice, `members/${uid}`)
-          const storageRef = ref(storage, uid)
-          uploadString(storageRef, 'null', 'raw').then((snapshot) => {
-            console.log('Uploaded a blob or file!')
-            getDownloadURL(storageRef)
-              .then(async (url) => {
-                await updateDoc(user, { profileImageUrl: url })
-              })
-              .catch((error) => {
-                console.log(error)
-              })
-          })
-          let profileImage
-          let profileColor
-          const profileImageNumber = Math.random()
-          const profileColorNumber = Math.random()
-          if (profileColorNumber < 1 / 3) {
-            profileColor = 'profileRed'
-          } else if (profileImageNumber < 2 / 3) {
-            profileColor = 'profileBlue'
-          } else {
-            profileColor = 'profileGold'
-          }
-          if (profileImageNumber < 0.5) {
-            profileImage = 'animal'
-          } else {
-            profileImage = 'plant'
-          }
-          const reference = ref(storage, `${profileImage}${profileColor}.png`)
-          console.log(reference)
-          const docRef = doc(dbservice, `members/${uid}`)
-          getDownloadURL(reference).then((url) => {
-            console.log(url)
-            updateDoc(docRef, {
-              profileImage: false,
-              profileColor: profileColor,
-              defaultProfile: url,
-            })
-          })
-=======
           // await updateProfile(data.user, {
           //   displayName: data.user.email,
           // }).catch((error) => {
@@ -200,7 +131,6 @@ const AuthForm = ({ signIn, agreed }: Props) => {
           // getDownloadURL(reference).then((url) => {
           //   console.log(url)
           // })
->>>>>>> main
           // setTimeout(() => {
           //   location.reload()
           // }, 1000)
