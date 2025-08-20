@@ -75,11 +75,8 @@
     "husky": "^9.1.7",
     "i18next": "^25.2.1",
     "input-otp": "^1.4.2",
-<<<<<<< HEAD
     "localtunnel": "^2.0.2",
-=======
     "lint-staged": "^16.1.5",
->>>>>>> main
     "lottie-react": "^2.4.0",
     "lucide-react": "^0.381.0",
     "maplibre-gl": "^5.1.0",
