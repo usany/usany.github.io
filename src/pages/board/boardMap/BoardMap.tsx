@@ -257,9 +257,13 @@ function BoardMap({
           position: position,
           title: index,
         })
-
+        const contentString = [
+          '<div class="iw_inner">',
+          '   practice',
+          '</div>',
+        ].join('')
         const infoWindow = new naver.maps.InfoWindow({
-          content:
+          content: contentString,
             // <div className="flex flex-col text-black">
             //   <div className="flex justify-center">
             //     {languages === 'ko'
