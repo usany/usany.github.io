@@ -262,31 +262,34 @@ function BoardMap({
             <div class="markerTitle">
               ${languages === 'ko' ? markers[index].label.ko : markers[index].label.en}
             </div>
-            ${selectItems.map((value, index) => {
-              return (
-                <div key={index} className="flex gap-5">
-                  <div className="pt-1">
-                    <Chip
-                      label={`${selectItems[index][selection]}`}
-                      onClick={() => {
-                        setChoose(true)
-                        onClickMarkerItem(`${selectItems[index].ko}`)
-                      }}
-                    />
-                  </div>
-                  <div className="pt-3">
-                    {languages === 'ko' ? '빌리기' : 'Borrowing'}:{' '}
-                    {index ? items.yangsanOne : items.usanOne}{' '}
-                    {languages === 'ko' ? '요청' : 'requests'}
-                  </div>
-                  <div className="pt-3">
-                    {languages === 'ko' ? '빌려주기' : 'Lending'}:{' '}
-                    {index ? items.yangsanTwo : items.usanTwo}{' '}
-                    {languages === 'ko' ? '요청' : 'requests'}
-                  </div>
+            <div key={index} className="flex gap-5">
+                <div className="pt-1">
+                  ${selectItems[0][selection]}
                 </div>
-              )
-            })}
+                <div className="pt-3">
+                  ${languages === 'ko' ? '빌리기' : 'Borrowing'}:{' '}
+                  ${index ? items.yangsanOne : items.usanOne}{' '}
+                  ${languages === 'ko' ? '요청' : 'requests'}
+                </div>
+                <div className="pt-3">
+                  {languages === 'ko' ? '빌려주기' : 'Lending'}:{' '}
+                  {index ? items.yangsanTwo : items.usanTwo}{' '}
+                  {languages === 'ko' ? '요청' : 'requests'}
+                </div>
+                <div className="pt-1">
+                  ${selectItems[1][selection]}
+                </div>
+                <div className="pt-3">
+                  {languages === 'ko' ? '빌리기' : 'Borrowing'}:{' '}
+                  {index ? items.yangsanOne : items.usanOne}{' '}
+                  {languages === 'ko' ? '요청' : 'requests'}
+                </div>
+                <div className="pt-3">
+                  {languages === 'ko' ? '빌려주기' : 'Lending'}:{' '}
+                  {index ? items.yangsanTwo : items.usanTwo}{' '}
+                  {languages === 'ko' ? '요청' : 'requests'}
+                </div>
+              </div>
           </div>`,
         ].join('')
         const infoWindow = new naver.maps.InfoWindow({
