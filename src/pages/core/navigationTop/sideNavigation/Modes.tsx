@@ -7,7 +7,7 @@ import { changeEn, changeKo } from 'src/stateSlices/languagesSlice'
 import { changeDark, changeLight } from 'src/stateSlices/themeSlice'
 import SwitchesLanguages from './SwitchesLanguages'
 
-const Modes = () => {
+const Modes = ({ userObj }) => {
   const theme = useSelectors((state) => state.theme.value)
   const languages = useSelector((state) => state.languages.value)
   // const { i18n } = useTranslation()
@@ -18,13 +18,13 @@ const Modes = () => {
       localStorage.setItem('languages', 'en')
       dispatch(changeEn())
       if (userObj) {
-        await updateDoc(docRef, { preferLanguage: 'en' });
+        await updateDoc(docRef, { preferLanguage: 'en' })
       }
     } else {
       localStorage.setItem('languages', 'ko')
       dispatch(changeKo())
       if (userObj) {
-        await updateDoc(docRef, { preferLanguage: 'ko' });
+        await updateDoc(docRef, { preferLanguage: 'ko' })
       }
     }
   }
@@ -42,9 +42,7 @@ const Modes = () => {
           }
         }}
       />
-      <SwitchesLanguages
-        onClick={switchLanguages}
-      />
+      <SwitchesLanguages onClick={switchLanguages} />
     </div>
   )
 }
