@@ -268,12 +268,12 @@ function BoardMap({
                 </div>
                 <div className="pt-3">
                   ${languages === 'ko' ? '빌리기: ' : 'Borrowing: '}
-                  ${index ? items.yangsanOne : items.usanOne}
+                  ${items.usanOne}
                   ${languages === 'ko' ? ' 요청' : ' requests'}
                 </div>
                 <div className="pt-3">
                   ${languages === 'ko' ? '빌려주기: ' : 'Lending: '}
-                  ${index ? items.yangsanTwo : items.usanTwo}
+                  ${items.usanTwo}
                   ${languages === 'ko' ? ' 요청' : ' requests'}
                 </div>
                 <div className="pt-1">
@@ -281,12 +281,12 @@ function BoardMap({
                 </div>
                 <div className="pt-3">
                   ${languages === 'ko' ? '빌리기: ' : 'Borrowing: '}
-                  ${index ? items.yangsanOne : items.usanOne}
+                  ${items.yangsanOne}
                   ${languages === 'ko' ? ' 요청' : ' requests'}
                 </div>
                 <div className="pt-3">
                   ${languages === 'ko' ? '빌려주기: ' : 'Lending: '}
-                  ${index ? items.yangsanTwo : items.usanTwo}
+                  ${items.yangsanTwo}
                   ${languages === 'ko' ? ' 요청' : ' requests'}
                 </div>
               </div>
@@ -349,9 +349,10 @@ function BoardMap({
         }
       }
       for (let number = 0, length = markers.length; number < length; number++) {
-        naver.maps.Event.addListener(markersCollection[number], 'click', () =>
-          getClickHandler(number),
-        )
+        naver.maps.Event.addListener(markersCollection[number], 'click', () => {
+          getClickHandler(number)
+          onClickMarker(markers[number].label)
+        })
       }
     }
   }
