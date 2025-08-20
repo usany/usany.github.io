@@ -169,7 +169,10 @@ function Board({ userObj }: Props) {
   const mapRef = useRef(null)
   const latitude = 27.5927551
   const longitude = 117.047462
-
+  const MARKER_SPRITE_POSITION = {
+    one: [27.5927551, 117.047462],
+    two: [27.6, 117.047462],
+  }
   useEffect(() => {
     const { naver } = window
     const contentString = [
@@ -199,6 +202,41 @@ function Board({ userObj }: Props) {
           infowindow.open(map, marker)
         }
       })
+      const markers = []
+      const infoWindows = []
+
+      for (const key in MARKER_SPRITE_POSITION) {
+        const position = new naver.maps.LatLng(
+          MARKER_SPRITE_POSITION[key][0],
+          MARKER_SPRITE_POSITION[key][1],
+        )
+
+        const marker = new naver.maps.Marker({
+          map: map,
+          position: position,
+          title: key,
+          icon: {
+            // url: HOME_PATH + '/img/example/sp_pins_spot_v3.png',
+            // size: new naver.maps.Size(24, 37),
+            // anchor: new naver.maps.Point(12, 37),
+            origin: new naver.maps.Point(
+              MARKER_SPRITE_POSITION[key][0],
+              MARKER_SPRITE_POSITION[key][1],
+            ),
+          },
+          zIndex: 100,
+        })
+
+        const infoWindow = new naver.maps.InfoWindow({
+          content:
+            '<div style="width:150px;text-align:center;padding:10px;">The Letter is <b>"' +
+            String(key) +
+            '"</b>.</div>',
+        })
+
+        markers.push(marker)
+        infoWindows.push(infoWindow)
+      }
     }
   }, [])
 
