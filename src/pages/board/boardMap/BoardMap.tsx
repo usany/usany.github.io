@@ -379,12 +379,26 @@ function BoardMap({
                 </div>
                 <div className="pt-3">
                   ${languages === 'ko' ? '빌리기: ' : 'Borrowing: '}
-                  ${items.usanOne}
+                  ${
+                    items[
+                      Object.keys(locationsCollectionLetters).find(
+                        (key) =>
+                          locationsCollectionLetters[key] === value.label,
+                      )
+                    ].usanOne
+                  }
                   ${languages === 'ko' ? ' 요청' : ' requests'}
                 </div>
                 <div className="pt-3">
                   ${languages === 'ko' ? '빌려주기: ' : 'Lending: '}
-                  ${items.usanTwo}
+                  ${
+                    items[
+                      Object.keys(locationsCollectionLetters).find(
+                        (key) =>
+                          locationsCollectionLetters[key] === value.label,
+                      )
+                    ].usanTwo
+                  }
                   ${languages === 'ko' ? ' 요청' : ' requests'}
                 </div>
                 <div className="pt-1">
@@ -392,12 +406,26 @@ function BoardMap({
                 </div>
                 <div className="pt-3">
                   ${languages === 'ko' ? '빌리기: ' : 'Borrowing: '}
-                  ${items.yangsanOne}
+                  ${
+                    items[
+                      Object.keys(locationsCollectionLetters).find(
+                        (key) =>
+                          locationsCollectionLetters[key] === value.label,
+                      )
+                    ].yangsanOne
+                  }
                   ${languages === 'ko' ? ' 요청' : ' requests'}
                 </div>
                 <div className="pt-3">
                   ${languages === 'ko' ? '빌려주기: ' : 'Lending: '}
-                  ${items.yangsanTwo}
+                  ${
+                    items[
+                      Object.keys(locationsCollectionLetters).find(
+                        (key) =>
+                          locationsCollectionLetters[key] === value.label,
+                      )
+                    ].yangsanTwo
+                  }
                   ${languages === 'ko' ? ' 요청' : ' requests'}
                 </div>
               </div>
