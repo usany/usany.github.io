@@ -311,7 +311,7 @@ function BoardMap({
         infoWindows.push(infoWindow)
       }
       function getClickHandler(seq) {
-        const marker = markers[seq]
+        const marker = markersCollection[seq]
         const infoWindow = infoWindows[seq]
 
         if (infoWindow.getMap()) {
@@ -321,7 +321,7 @@ function BoardMap({
         }
       }
       for (let number = 0, length = markers.length; number < length; number++) {
-        naver.maps.Event.addListener(markers[number], 'click', () =>
+        naver.maps.Event.addListener(markersCollection[number], 'click', () =>
           getClickHandler(number),
         )
       }
