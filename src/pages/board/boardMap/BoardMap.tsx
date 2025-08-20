@@ -244,21 +244,21 @@ function BoardMap({
       const markersCollection = []
       const infoWindows = []
 
-      for (const index in markers) {
+      for (const value of markers) {
         const position = new naver.maps.LatLng(
-          markers[index].location.lat,
-          markers[index].location.lng,
+          value.location.lat,
+          value.location.lng,
         )
 
         const marker = new naver.maps.Marker({
           map: map,
           position: position,
-          title: index,
+          title: value.label,
         })
         const contentString = [
           `<div class="markerContainer">
             <div class="markerTitle">
-              ${languages === 'ko' ? markers[index].label.ko : markers[index].label.en}
+              ${languages === 'ko' ? value.label.ko : value.label.en}
             </div>
             <div key={index} className="flex gap-5">
                 <div className="pt-1">
