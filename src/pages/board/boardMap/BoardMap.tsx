@@ -368,6 +368,9 @@ function BoardMap({
           position: position,
           title: value.label,
         })
+        const key = Object.keys(locationsCollectionLetters).find(
+          (key) => locationsCollectionLetters[key] === value.label.ko,
+        )
         const contentString = [
           `<div class="markerContainer">
             <div class="markerTitle">
@@ -379,26 +382,12 @@ function BoardMap({
                 </div>
                 <div className="pt-3">
                   ${languages === 'ko' ? '빌리기: ' : 'Borrowing: '}
-                  ${
-                    items[
-                      Object.keys(locationsCollectionLetters).find(
-                        (key) =>
-                          locationsCollectionLetters[key] === value.label,
-                      )
-                    ].usanOne
-                  }
+                  ${items[key].usanOne}
                   ${languages === 'ko' ? ' 요청' : ' requests'}
                 </div>
                 <div className="pt-3">
                   ${languages === 'ko' ? '빌려주기: ' : 'Lending: '}
-                  ${
-                    items[
-                      Object.keys(locationsCollectionLetters).find(
-                        (key) =>
-                          locationsCollectionLetters[key] === value.label,
-                      )
-                    ].usanTwo
-                  }
+                  ${items[key].usanTwo}
                   ${languages === 'ko' ? ' 요청' : ' requests'}
                 </div>
                 <div className="pt-1">
@@ -406,26 +395,12 @@ function BoardMap({
                 </div>
                 <div className="pt-3">
                   ${languages === 'ko' ? '빌리기: ' : 'Borrowing: '}
-                  ${
-                    items[
-                      Object.keys(locationsCollectionLetters).find(
-                        (key) =>
-                          locationsCollectionLetters[key] === value.label,
-                      )
-                    ].yangsanOne
-                  }
+                  ${items[key].yangsanOne}
                   ${languages === 'ko' ? ' 요청' : ' requests'}
                 </div>
                 <div className="pt-3">
                   ${languages === 'ko' ? '빌려주기: ' : 'Lending: '}
-                  ${
-                    items[
-                      Object.keys(locationsCollectionLetters).find(
-                        (key) =>
-                          locationsCollectionLetters[key] === value.label,
-                      )
-                    ].yangsanTwo
-                  }
+                  ${items[key].yangsanTwo}
                   ${languages === 'ko' ? ' 요청' : ' requests'}
                 </div>
               </div>
