@@ -259,48 +259,48 @@ function BoardMap({
         })
         const contentString = [
           '<div class="iw_inner">',
-          '   practice',
+          `${languages === 'ko' ? markers[index].label.ko : markers[index].label.en}`,
           '</div>',
         ].join('')
         const infoWindow = new naver.maps.InfoWindow({
           content: contentString,
-            // <div className="flex flex-col text-black">
-            //   <div className="flex justify-center">
-            //     {languages === 'ko'
-            //       ? selectedValues[1].value
-            //       : selectedLocation}
-            //   </div>
-            //   {selectItems.map((value, index) => {
-            //     return (
-            //       <div className="flex gap-5">
-            //         <div className="pt-1">
-            //           <Chip
-            //             label={`${selectItems[index][selection]}`}
-            //             onClick={() => {
-            //               setChoose(true)
-            //               onClickMarkerItem(
-            //                 `${selectItems[index].ko}`,
-            //               )
-            //             }}
-            //           />
-            //         </div>
-            //         <div className="pt-3">
-            //           {languages === 'ko' ? '빌리기' : 'Borrowing'}:{' '}
-            //           {index ? items.yangsanOne : items.usanOne}{' '}
-            //           {languages === 'ko' ? '요청' : 'requests'}
-            //         </div>
-            //         <div className="pt-3">
-            //           {languages === 'ko' ? '빌려주기' : 'Lending'}:{' '}
-            //           {index ? items.yangsanTwo : items.usanTwo}{' '}
-            //           {languages === 'ko' ? '요청' : 'requests'}
-            //         </div>
-            //       </div>
-            //     )
-            //   })}
-            // </div>
-            '<div style="width:150px;text-align:center;padding:10px;">The Letter is <b>"' +
-            String(index) +
-            '"</b>.</div>',
+          // <div className="flex flex-col text-black">
+          //   <div className="flex justify-center">
+          //     {languages === 'ko'
+          //       ? selectedValues[1].value
+          //       : selectedLocation}
+          //   </div>
+          //   {selectItems.map((value, index) => {
+          //     return (
+          //       <div className="flex gap-5">
+          //         <div className="pt-1">
+          //           <Chip
+          //             label={`${selectItems[index][selection]}`}
+          //             onClick={() => {
+          //               setChoose(true)
+          //               onClickMarkerItem(
+          //                 `${selectItems[index].ko}`,
+          //               )
+          //             }}
+          //           />
+          //         </div>
+          //         <div className="pt-3">
+          //           {languages === 'ko' ? '빌리기' : 'Borrowing'}:{' '}
+          //           {index ? items.yangsanOne : items.usanOne}{' '}
+          //           {languages === 'ko' ? '요청' : 'requests'}
+          //         </div>
+          //         <div className="pt-3">
+          //           {languages === 'ko' ? '빌려주기' : 'Lending'}:{' '}
+          //           {index ? items.yangsanTwo : items.usanTwo}{' '}
+          //           {languages === 'ko' ? '요청' : 'requests'}
+          //         </div>
+          //       </div>
+          //     )
+          //   })}
+          // </div>
+          // '<div style="width:150px;text-align:center;padding:10px;">The Letter is <b>"' +
+          // String(index) +
+          // '"</b>.</div>',
           backgroundColor: '#777',
           anchorColor: '#777',
         })
