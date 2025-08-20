@@ -167,11 +167,11 @@ function Board({ userObj }: Props) {
   // }
 
   const mapRef = useRef(null)
-  const latitude = 27.5927551
-  const longitude = 117.047462
+  const latitude = 37.5927551
+  const longitude = 127.047462
   const MARKER_SPRITE_POSITION = {
-    one: [27.5927551, 117.047462],
-    two: [27.6, 117.047462],
+    one: [37.5927551, 127.047462],
+    two: [37.5927551, 127.048],
   }
   useEffect(() => {
     const { naver } = window
@@ -191,17 +191,17 @@ function Board({ userObj }: Props) {
         center: location,
         zoom: 17,
       })
-      const marker = new naver.maps.Marker({
-        position: location,
-        map,
-      })
-      naver.maps.Event.addListener(marker, 'click', () => {
-        if (infowindow.getMap()) {
-          infowindow.close()
-        } else {
-          infowindow.open(map, marker)
-        }
-      })
+      // const marker = new naver.maps.Marker({
+      //   position: location,
+      //   map,
+      // })
+      // naver.maps.Event.addListener(marker, 'click', () => {
+      //   if (infowindow.getMap()) {
+      //     infowindow.close()
+      //   } else {
+      //     infowindow.open(map, marker)
+      //   }
+      // })
       const markers = []
       const infoWindows = []
 
@@ -215,16 +215,16 @@ function Board({ userObj }: Props) {
           map: map,
           position: position,
           title: key,
-          icon: {
-            // url: HOME_PATH + '/img/example/sp_pins_spot_v3.png',
-            // size: new naver.maps.Size(24, 37),
-            // anchor: new naver.maps.Point(12, 37),
-            origin: new naver.maps.Point(
-              MARKER_SPRITE_POSITION[key][0],
-              MARKER_SPRITE_POSITION[key][1],
-            ),
-          },
-          zIndex: 100,
+          // icon: {
+          //   url: HOME_PATH + '/img/example/sp_pins_spot_v3.png',
+          //   size: new naver.maps.Size(24, 37),
+          //   anchor: new naver.maps.Point(12, 37),
+          //   origin: new naver.maps.Point(
+          //     MARKER_SPRITE_POSITION[key][0],
+          //     MARKER_SPRITE_POSITION[key][1],
+          //   ),
+          // },
+          // zIndex: 100,
         })
 
         const infoWindow = new naver.maps.InfoWindow({
@@ -232,10 +232,34 @@ function Board({ userObj }: Props) {
             '<div style="width:150px;text-align:center;padding:10px;">The Letter is <b>"' +
             String(key) +
             '"</b>.</div>',
+          backgroundColor: '#777',
+          anchorColor: '#777',
         })
 
         markers.push(marker)
         infoWindows.push(infoWindow)
+        // naver.maps.Event.addListener(marker, 'click', () => {
+        //   if (infowindow.getMap()) {
+        //     infowindow.close()
+        //   } else {
+        //     infowindow.open(map, marker)
+        //   }
+        // })
+      }
+      function getClickHandler(seq) {
+        const marker = markers[seq]
+        const infoWindow = infoWindows[seq]
+
+        if (infoWindow.getMap()) {
+          infoWindow.close()
+        } else {
+          infoWindow.open(map, marker)
+        }
+      }
+      for (let number = 0, length = markers.length; number < length; number++) {
+        naver.maps.Event.addListener(markers[number], 'click', () =>
+          getClickHandler(number),
+        )
       }
     }
   }, [])
