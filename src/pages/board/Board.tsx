@@ -181,27 +181,16 @@ function Board({ userObj }: Props) {
       '</div>',
     ].join('')
 
-    const infowindow = new naver.maps.InfoWindow({
-      content: contentString,
-      backgroundColor: '#777',
-    })
+    // const infowindow = new naver.maps.InfoWindow({
+    //   content: contentString,
+    //   backgroundColor: '#777',
+    // })
     if (mapRef.current && naver) {
       const location = new naver.maps.LatLng(latitude, longitude)
       const map = new naver.maps.Map(mapRef.current, {
         center: location,
         zoom: 17,
       })
-      // const marker = new naver.maps.Marker({
-      //   position: location,
-      //   map,
-      // })
-      // naver.maps.Event.addListener(marker, 'click', () => {
-      //   if (infowindow.getMap()) {
-      //     infowindow.close()
-      //   } else {
-      //     infowindow.open(map, marker)
-      //   }
-      // })
       const markers = []
       const infoWindows = []
 
@@ -215,16 +204,6 @@ function Board({ userObj }: Props) {
           map: map,
           position: position,
           title: key,
-          // icon: {
-          //   url: HOME_PATH + '/img/example/sp_pins_spot_v3.png',
-          //   size: new naver.maps.Size(24, 37),
-          //   anchor: new naver.maps.Point(12, 37),
-          //   origin: new naver.maps.Point(
-          //     MARKER_SPRITE_POSITION[key][0],
-          //     MARKER_SPRITE_POSITION[key][1],
-          //   ),
-          // },
-          // zIndex: 100,
         })
 
         const infoWindow = new naver.maps.InfoWindow({
@@ -238,13 +217,6 @@ function Board({ userObj }: Props) {
 
         markers.push(marker)
         infoWindows.push(infoWindow)
-        // naver.maps.Event.addListener(marker, 'click', () => {
-        //   if (infowindow.getMap()) {
-        //     infowindow.close()
-        //   } else {
-        //     infowindow.open(map, marker)
-        //   }
-        // })
       }
       function getClickHandler(seq) {
         const marker = markers[seq]
