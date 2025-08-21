@@ -138,15 +138,6 @@ function Board({ userObj }: Props) {
       })
     }
   }, [])
-  // useEffect(() => {
-  //   selectedSearchParams.map((element, index) => {
-  //     if (searchParams.get(element.id)) {
-  //       if (options[index].indexOf(element.value) !== -1) {
-  //         searchParams.set(element.id, element.value)
-  //       }
-  //     }
-  //   })
-  // }, [])
   // const handleMail = async (e) => {
   //   e.preventDefault()
   //   try {
