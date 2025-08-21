@@ -291,7 +291,6 @@ function BoardMap({
         }
         // if (doc.data().text.count === selectedValues[1].value) {
         // }
-        // console.log(doc.data())
       })
       // setMessages(newArray)
       setItems(itemCount)
