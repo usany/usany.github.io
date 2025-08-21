@@ -1,7 +1,11 @@
 import { User } from 'firebase/auth'
 import { collection, getDocs, orderBy, query } from 'firebase/firestore'
 import { Maximize2, Minimize2 } from 'lucide-react'
+<<<<<<< HEAD
 import { useEffect, useRef, useState } from 'react'
+=======
+import { useEffect, useState } from 'react'
+>>>>>>> main
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { dbservice } from 'src/baseApi/serverbase'
 import { useSelectors } from 'src/hooks/useSelectors'
@@ -51,6 +55,10 @@ function Board({ userObj }: Props) {
       value: '최신순',
     },
   ])
+<<<<<<< HEAD
+=======
+  // const [markings, setMarkings] = useState([])
+>>>>>>> main
   const [onMarker, setOnMarker] = useState(false)
   const [mapAccordion, setMapAccordion] = useState(false)
   const [messageLoaded, setMessageLoaded] = useState(false)
@@ -123,7 +131,13 @@ function Board({ userObj }: Props) {
       setMessages(newArray)
       setMessageLoaded(true)
     }
+<<<<<<< HEAD
     bringMessages()
+=======
+    if (userObj) {
+      bringMessages()
+    }
+>>>>>>> main
   }, [selectedValues[2].value])
   useEffect(() => {
     if (!window.location.search) {
@@ -287,6 +301,9 @@ function Board({ userObj }: Props) {
                   onMarkerFalse={onMarkerFalse}
                   selectedValues={selectedSearchParams}
                   handleSelectedValues={handleSelectedValues}
+                  userObj={userObj}
+                  // markings={markings}
+                  // changeMarkings={(newValue) => setMarkings(newValue)}
                 />
               </div>
             </div>
@@ -301,6 +318,10 @@ function Board({ userObj }: Props) {
                     <FilterDialogsContent
                       selectedValues={selectedValues}
                       handleSelectedValues={handleSelectedValues}
+<<<<<<< HEAD
+=======
+                      // markings={markings}
+>>>>>>> main
                     />
                   }
                 />
@@ -332,7 +353,10 @@ function Board({ userObj }: Props) {
           <LayoutBoard borrow={false} />
         </SwipeableViews>
       )}
+<<<<<<< HEAD
       {/* <div ref={mapRef} style={{ width: '500px', height: '500px' }}></div> */}
+=======
+>>>>>>> main
     </div>
   )
 }
