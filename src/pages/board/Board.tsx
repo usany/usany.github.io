@@ -212,14 +212,14 @@ function Board({ userObj }: Props) {
             <div className="flex justify-center">
               <div className="w-[1000px]">
                 <BoardMap
-                  mapAccordion={mapAccordion}
-                  mapAccordionToggle={mapAccordionToggle}
-                  onMarker={onMarker}
-                  onMarkerTrue={onMarkerTrue}
-                  onMarkerFalse={onMarkerFalse}
+                  // mapAccordion={mapAccordion}
+                  // mapAccordionToggle={mapAccordionToggle}
+                  // onMarker={onMarker}
+                  // onMarkerTrue={onMarkerTrue}
+                  // onMarkerFalse={onMarkerFalse}
+                  // userObj={userObj}
                   selectedValues={selectedSearchParams}
                   handleSelectedValues={handleSelectedValues}
-                  userObj={userObj}
                 />
               </div>
             </div>
