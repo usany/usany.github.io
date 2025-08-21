@@ -217,7 +217,7 @@ function Board({ userObj }: Props) {
                   title={<FilterDialogsTitle />}
                   content={
                     <FilterDialogsContent
-                      selectedValues={selectedValues}
+                      selectedValues={selectedSearchParams}
                       handleSelectedValues={handleSelectedValues}
                     />
                   }

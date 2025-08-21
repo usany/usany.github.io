@@ -20,7 +20,7 @@ const items = {
 }
 const locationsTitle = {
   ko: '장소 선택',
-  en: 'All locations',
+  en: 'Locations',
 }
 const locations = {
   ko: ['전체 장소', ...locationsBuildings['ko']],

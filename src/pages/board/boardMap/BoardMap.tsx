@@ -433,7 +433,7 @@ function BoardMap({ selectedValues, handleSelectedValues }: Props) {
           // '"</b>.</div>',
           backgroundColor: theme === 'light' ? '#fff' : '#777',
           anchorColor: theme === 'light' ? '#fff' : '#777',
-          borderColor: theme === 'light' ? '#fff' : '#777',
+          borderColor: theme !== 'light' ? '#fff' : '#777',
         })
         // console.log(marker.id)
         // console.log(location)
