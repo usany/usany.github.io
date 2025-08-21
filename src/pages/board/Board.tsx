@@ -200,6 +200,7 @@ function Board({ userObj }: Props) {
                 <BoardMap
                   selectedValues={selectedSearchParams}
                   handleSelectedValues={handleSelectedValues}
+                  searchParams={searchParams}
                 />
               </div>
             </div>
