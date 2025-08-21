@@ -51,14 +51,9 @@ function Board({ userObj }: Props) {
       value: '최신순',
     },
   ])
-  const [onMarker, setOnMarker] = useState(false)
-  const [mapAccordion, setMapAccordion] = useState(false)
   const [messageLoaded, setMessageLoaded] = useState(false)
   const userCertificated = useSelectors((state) => state.userCertificated.value)
   const navigate = useNavigate()
-  const mapAccordionToggle = () => setMapAccordion(!mapAccordion)
-  const onMarkerTrue = () => setOnMarker(true)
-  const onMarkerFalse = () => setOnMarker(false)
   const [searchParams, setSearchParams] = useSearchParams()
   const selectedSearchParams = [
     {
@@ -138,15 +133,6 @@ function Board({ userObj }: Props) {
       })
     }
   }, [])
-  // useEffect(() => {
-  //   selectedSearchParams.map((element, index) => {
-  //     if (searchParams.get(element.id)) {
-  //       if (options[index].indexOf(element.value) !== -1) {
-  //         searchParams.set(element.id, element.value)
-  //       }
-  //     }
-  //   })
-  // }, [])
   // const handleMail = async (e) => {
   //   e.preventDefault()
   //   try {
@@ -167,6 +153,7 @@ function Board({ userObj }: Props) {
   //     console.log(error)
   //   }
   // }
+
   return (
     <div>
       {userObj && userCertificated ? (
@@ -211,14 +198,8 @@ function Board({ userObj }: Props) {
             <div className="flex justify-center">
               <div className="w-[1000px]">
                 <BoardMap
-                  mapAccordion={mapAccordion}
-                  mapAccordionToggle={mapAccordionToggle}
-                  onMarker={onMarker}
-                  onMarkerTrue={onMarkerTrue}
-                  onMarkerFalse={onMarkerFalse}
                   selectedValues={selectedSearchParams}
                   handleSelectedValues={handleSelectedValues}
-                  userObj={userObj}
                 />
               </div>
             </div>
@@ -231,7 +212,7 @@ function Board({ userObj }: Props) {
                   title={<FilterDialogsTitle />}
                   content={
                     <FilterDialogsContent
-                      selectedValues={selectedValues}
+                      selectedValues={selectedSearchParams}
                       handleSelectedValues={handleSelectedValues}
                     />
                   }
