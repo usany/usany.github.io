@@ -298,7 +298,6 @@ function BoardMap({
     }
     bringMessages()
   }, [selectedValues[1].value])
-  console.log(items)
   const onClickMarker = (newValue) => {
     handleSelectedValues({ id: 'selectedValueTwo', newValue: newValue.ko })
     // setSelectedLocation(newValue.en)
@@ -356,7 +355,6 @@ function BoardMap({
           title: value.label,
           id: value.label.ko,
         })
-        // console.log(marker)
         const key = Object.keys(locationsCollectionLetters).find(
           (key) => locationsCollectionLetters[key] === value.label.ko,
         )
@@ -439,8 +437,6 @@ function BoardMap({
           anchorColor: theme === 'light' ? '#fff' : '#777',
           borderColor: theme !== 'light' ? '#fff' : '#777',
         })
-        // console.log(marker.id)
-        // console.log(location)
         if (marker.id === selectedValueTwo) {
           infoWindow.open(map, marker)
         }
