@@ -289,8 +289,6 @@ function BoardMap({
             }
           }
         }
-        // if (doc.data().text.count === selectedValues[1].value) {
-        // }
       })
       // setMessages(newArray)
       setItems(itemCount)
@@ -304,9 +302,6 @@ function BoardMap({
   // const onClickMarkerItem = (newValue) => {
   //   handleSelectedValues({ id: 'selectedValueOne', newValue: newValue })
   // }
-
-  // const markersCollection = []
-  // const infoWindows = []
   const mapRef = useRef(null)
   // const { naver } = window
   // let location
