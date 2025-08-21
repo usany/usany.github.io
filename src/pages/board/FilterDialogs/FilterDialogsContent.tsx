@@ -76,7 +76,7 @@ const markers = [
 function FilterDialogsContent({ selectedValues, handleSelectedValues }) {
   const languages = useSelectors((state) => state.languages.value)
   const index = languages === 'ko' || languages === 'en' ? languages : 'ko'
-  const [selected, setSelected] = useState(null)
+  // const [selected, setSelected] = useState(null)
   // const { filtering } = useTexts()
   // const onClick = ({ id }) => {
   //   setSelected(id);
@@ -97,7 +97,7 @@ function FilterDialogsContent({ selectedValues, handleSelectedValues }) {
       >
         <SelectTrigger
           className="bg-light-1 dark:bg-dark-1"
-          autoFocus={selected === selectedValues[0].id}
+          // autoFocus={selected === selectedValues[0].id}
         >
           <SelectValue />
         </SelectTrigger>
@@ -129,7 +129,7 @@ function FilterDialogsContent({ selectedValues, handleSelectedValues }) {
       >
         <SelectTrigger
           className="bg-light-1 dark:bg-dark-1"
-          autoFocus={selected === selectedValues[1].id}
+          // autoFocus={selected === selectedValues[1].id}
         >
           <SelectValue />
         </SelectTrigger>
@@ -165,7 +165,7 @@ function FilterDialogsContent({ selectedValues, handleSelectedValues }) {
       >
         <SelectTrigger
           className="bg-light-1 dark:bg-dark-1"
-          autoFocus={selected === selectedValues[2].id}
+          // autoFocus={selected === selectedValues[2].id}
         >
           <SelectValue />
         </SelectTrigger>
