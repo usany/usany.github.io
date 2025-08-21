@@ -111,12 +111,7 @@ const markers = [
   },
 ]
 const defaultLocation = markers[0].location
-function BoardMap({
-  selectedValues,
-  handleSelectedValues,
-  // markings,
-  // changeMarkings,
-}: Props) {
+function BoardMap({ selectedValues, handleSelectedValues }: Props) {
   // const [messages, setMessages] = useState<Array<object>>([])
   // const [mapAccordion, setMapAccordion] = useState(false);
   const [items, setItems] = useState({

@@ -51,7 +51,6 @@ function Board({ userObj }: Props) {
       value: '최신순',
     },
   ])
-  // const [markings, setMarkings] = useState([])
   const [onMarker, setOnMarker] = useState(false)
   const [mapAccordion, setMapAccordion] = useState(false)
   const [messageLoaded, setMessageLoaded] = useState(false)
@@ -291,8 +290,6 @@ function Board({ userObj }: Props) {
                   selectedValues={selectedSearchParams}
                   handleSelectedValues={handleSelectedValues}
                   userObj={userObj}
-                  // markings={markings}
-                  // changeMarkings={(newValue) => setMarkings(newValue)}
                 />
               </div>
             </div>
@@ -307,7 +304,6 @@ function Board({ userObj }: Props) {
                     <FilterDialogsContent
                       selectedValues={selectedValues}
                       handleSelectedValues={handleSelectedValues}
-                      // markings={markings}
                     />
                   }
                 />
