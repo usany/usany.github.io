@@ -315,11 +315,6 @@ function BoardMap({
   // }
   const displayMap = () => {
     const { naver } = window
-    // const contentString = [
-    //   '<div class="iw_inner">',
-    //   '   practice',
-    //   '</div>',
-    // ].join('')
 
     // const infowindow = new naver.maps.InfoWindow({
     //   content: contentString,
