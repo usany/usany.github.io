@@ -34,6 +34,7 @@ const selectItems = [
 interface Props {
   selectedValues: object
   handleSelectedValues: () => void
+  searchParams: object
 }
 // const area = [
 //   {
@@ -110,7 +111,11 @@ const markers = [
   },
 ]
 const defaultLocation = markers[0].location
-function BoardMap({ selectedValues, handleSelectedValues }: Props) {
+function BoardMap({
+  selectedValues,
+  handleSelectedValues,
+  searchParams,
+}: Props) {
   // const [messages, setMessages] = useState<Array<object>>([])
   // const [mapAccordion, setMapAccordion] = useState(false);
   const [items, setItems] = useState({
@@ -173,6 +178,13 @@ function BoardMap({ selectedValues, handleSelectedValues }: Props) {
   const languages = useSelectors((state) => state.languages.value)
   const selection = languages === 'ko' || languages === 'en' ? languages : 'ko'
   const onLine = useSelectors((state) => state.onLine.value)
+  const [calledMap, setCalledMap] = useState(null)
+  const [markings, setMarkings] = useState([])
+  const [markersList, setMarkersList] = useState([])
+  // const [searchParams, setSearchParams] = useSearchParams()
+  const [onAccordion, setOnAccordion] = useState(false)
+  const selectedValueTwo = searchParams.get('selectedValueTwo')
+  const theme = useSelectors((state) => state.theme.value)
   useEffect(() => {
     document.documentElement.scrollTo({
       top: 0,
@@ -295,7 +307,19 @@ function BoardMap({ selectedValues, handleSelectedValues }: Props) {
   //   handleSelectedValues({ id: 'selectedValueOne', newValue: newValue })
   // }
 
+  // const markersCollection = []
+  // const infoWindows = []
   const mapRef = useRef(null)
+  // const { naver } = window
+  // let location
+  // let map
+  // if (mapRef.current && naver) {
+  //   location = new naver.maps.LatLng(defaultLocation.lat, defaultLocation.lng)
+  //   map = new naver.maps.Map(mapRef.current, {
+  //     center: location,
+  //     zoom: 17,
+  //   })
+  // }
   const displayMap = () => {
     const { naver } = window
     // const contentString = [
@@ -309,6 +333,8 @@ function BoardMap({ selectedValues, handleSelectedValues }: Props) {
     //   backgroundColor: '#777',
     // })
     if (mapRef.current && naver) {
+      const markersCollection = []
+      const infoWindows = []
       const location = new naver.maps.LatLng(
         defaultLocation.lat,
         defaultLocation.lng,
@@ -317,9 +343,7 @@ function BoardMap({ selectedValues, handleSelectedValues }: Props) {
         center: location,
         zoom: 17,
       })
-      const markersCollection = []
-      const infoWindows = []
-
+      setCalledMap(map)
       for (const value of markers) {
         const position = new naver.maps.LatLng(
           value.location.lat,
@@ -330,7 +354,9 @@ function BoardMap({ selectedValues, handleSelectedValues }: Props) {
           map: map,
           position: position,
           title: value.label,
+          id: value.label.ko,
         })
+        // console.log(marker)
         const key = Object.keys(locationsCollectionLetters).find(
           (key) => locationsCollectionLetters[key] === value.label.ko,
         )
@@ -370,6 +396,7 @@ function BoardMap({ selectedValues, handleSelectedValues }: Props) {
           </div>`,
         ].join('')
         const infoWindow = new naver.maps.InfoWindow({
+          id: value.label.ko,
           content: contentString,
           // <div className="flex flex-col text-black">
           //   <div className="flex justify-center">
@@ -408,12 +435,19 @@ function BoardMap({ selectedValues, handleSelectedValues }: Props) {
           // '<div style="width:150px;text-align:center;padding:10px;">The Letter is <b>"' +
           // String(index) +
           // '"</b>.</div>',
-          backgroundColor: '#777',
-          anchorColor: '#777',
+          backgroundColor: theme === 'light' ? '#fff' : '#777',
+          anchorColor: theme === 'light' ? '#fff' : '#777',
+          borderColor: theme !== 'light' ? '#fff' : '#777',
         })
-
+        // console.log(marker.id)
+        // console.log(location)
+        if (marker.id === selectedValueTwo) {
+          infoWindow.open(map, marker)
+        }
         markersCollection.push(marker)
         infoWindows.push(infoWindow)
+        setMarkersList(markersCollection)
+        setMarkings(infoWindows)
       }
       function getClickHandler(seq) {
         const marker = markersCollection[seq]
@@ -441,8 +475,35 @@ function BoardMap({ selectedValues, handleSelectedValues }: Props) {
       }
     }
   }
+  useEffect(() => {
+    if (onAccordion) {
+      displayMap()
+    }
+  }, [languages, theme, onAccordion])
+  useEffect(() => {
+    if (selectedValueTwo && markings.length && calledMap) {
+      const index = markings.findIndex((value) => value.id === selectedValueTwo)
+      if (index > -1) {
+        markings[index]?.open(calledMap, markersList[index])
+      }
+    }
+    if (!selectedValueTwo) {
+      markings.forEach((value) => {
+        value.close()
+      })
+    }
+  }, [selectedValueTwo])
   return (
     <div>
+      <div
+        onClick={() => {
+          const value = document.getElementById('Cheongwoon')
+          console.log(value)
+          value?.click()
+        }}
+      >
+        practice
+      </div>
       <Accordion type="single" collapsible>
         <AccordionItem value="item-1">
           <AccordionTrigger
@@ -460,7 +521,10 @@ function BoardMap({ selectedValues, handleSelectedValues }: Props) {
               //   1500,
               // )
               // displayMap()
-              setTimeout(displayMap, 10)
+              // setTimeout(displayMap, 10)
+              // if (!onAccordion) {
+              // }
+              setOnAccordion(!onAccordion)
             }}
             className="rounded shadow-md px-3 flex sticky top-16 z-30 w-full items-center justify-between bg-light-2/50 dark:bg-dark-2/50"
           >
