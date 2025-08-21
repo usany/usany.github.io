@@ -18,7 +18,7 @@ const items = {
 }
 const locationsTitle = {
   ko: '장소 선택',
-  en: 'Building',
+  en: 'Select Building',
 }
 const locations = {
   ko: ['전체 장소', ...locationsBuildings['ko']],
