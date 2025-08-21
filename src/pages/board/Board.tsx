@@ -307,10 +307,7 @@ function Board({ userObj }: Props) {
                     <FilterDialogsContent
                       selectedValues={selectedValues}
                       handleSelectedValues={handleSelectedValues}
-<<<<<<< HEAD
-=======
                       // markings={markings}
->>>>>>> main
                     />
                   }
                 />
@@ -342,10 +339,6 @@ function Board({ userObj }: Props) {
           <LayoutBoard borrow={false} />
         </SwipeableViews>
       )}
-<<<<<<< HEAD
-      {/* <div ref={mapRef} style={{ width: '500px', height: '500px' }}></div> */}
-=======
->>>>>>> main
     </div>
   )
 }
