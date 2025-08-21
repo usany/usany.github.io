@@ -39,12 +39,6 @@ interface Props {
 function FilterDialogsContent({ selectedValues, handleSelectedValues }: Props) {
   const languages = useSelectors((state) => state.languages.value)
   const index = languages === 'ko' || languages === 'en' ? languages : 'ko'
-  // const [selected, setSelected] = useState(null)
-  // const { filtering } = useTexts()
-  // const onClick = ({ id }) => {
-  //   setSelected(id);
-  // };
-  console.log(selectedValues)
 
   return (
     <div className="p-5">
