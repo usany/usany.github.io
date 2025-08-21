@@ -1,7 +1,7 @@
 import { User } from 'firebase/auth'
 import { collection, getDocs, orderBy, query } from 'firebase/firestore'
 import { Maximize2, Minimize2 } from 'lucide-react'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { dbservice } from 'src/baseApi/serverbase'
 import { useSelectors } from 'src/hooks/useSelectors'
@@ -51,6 +51,7 @@ function Board({ userObj }: Props) {
       value: '최신순',
     },
   ])
+  // const [markings, setMarkings] = useState([])
   const [onMarker, setOnMarker] = useState(false)
   const [mapAccordion, setMapAccordion] = useState(false)
   const [messageLoaded, setMessageLoaded] = useState(false)
@@ -123,7 +124,9 @@ function Board({ userObj }: Props) {
       setMessages(newArray)
       setMessageLoaded(true)
     }
-    bringMessages()
+    if (userObj) {
+      bringMessages()
+    }
   }, [selectedValues[2].value])
   useEffect(() => {
     if (!window.location.search) {
@@ -165,43 +168,6 @@ function Board({ userObj }: Props) {
   //     console.log(error)
   //   }
   // }
-
-  const mapRef = useRef(null)
-  const latitude = 27.5927551
-  const longitude = 117.047462
-
-  useEffect(() => {
-    const { naver } = window
-    const contentString = [
-      '<div class="iw_inner">',
-      '   practice',
-      '</div>',
-    ].join('')
-
-    const infowindow = new naver.maps.InfoWindow({
-      content: contentString,
-      backgroundColor: '#777',
-    })
-    if (mapRef.current && naver) {
-      const location = new naver.maps.LatLng(latitude, longitude)
-      const map = new naver.maps.Map(mapRef.current, {
-        center: location,
-        zoom: 17,
-      })
-      const marker = new naver.maps.Marker({
-        position: location,
-        map,
-      })
-      naver.maps.Event.addListener(marker, 'click', () => {
-        if (infowindow.getMap()) {
-          infowindow.close()
-        } else {
-          infowindow.open(map, marker)
-        }
-      })
-    }
-  }, [])
-
   return (
     <div>
       {userObj && userCertificated ? (
@@ -253,6 +219,9 @@ function Board({ userObj }: Props) {
                   onMarkerFalse={onMarkerFalse}
                   selectedValues={selectedSearchParams}
                   handleSelectedValues={handleSelectedValues}
+                  userObj={userObj}
+                  // markings={markings}
+                  // changeMarkings={(newValue) => setMarkings(newValue)}
                 />
               </div>
             </div>
@@ -267,6 +236,7 @@ function Board({ userObj }: Props) {
                     <FilterDialogsContent
                       selectedValues={selectedValues}
                       handleSelectedValues={handleSelectedValues}
+                      // markings={markings}
                     />
                   }
                 />
@@ -298,7 +268,6 @@ function Board({ userObj }: Props) {
           <LayoutBoard borrow={false} />
         </SwipeableViews>
       )}
-      <div ref={mapRef} style={{ width: '500px', height: '500px' }}></div>
     </div>
   )
 }
