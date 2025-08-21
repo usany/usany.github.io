@@ -495,15 +495,6 @@ function BoardMap({
   }, [selectedValueTwo])
   return (
     <div>
-      <div
-        onClick={() => {
-          const value = document.getElementById('Cheongwoon')
-          console.log(value)
-          value?.click()
-        }}
-      >
-        practice
-      </div>
       <Accordion type="single" collapsible>
         <AccordionItem value="item-1">
           <AccordionTrigger
