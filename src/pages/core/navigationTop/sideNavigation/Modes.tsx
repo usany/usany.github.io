@@ -8,11 +8,7 @@ import { changeDark, changeLight } from 'src/stateSlices/themeSlice'
 import SwitchesLanguages from './SwitchesLanguages'
 import { User } from 'firebase/auth'
 
-<<<<<<< HEAD
-const Modes = () => {
-=======
 const Modes = ({ userObj }: { userObj: User }) => {
->>>>>>> main
   const theme = useSelectors((state) => state.theme.value)
   const languages = useSelector((state) => state.languages.value)
   // const { i18n } = useTranslation()

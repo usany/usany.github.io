@@ -55,10 +55,7 @@ function Board({ userObj }: Props) {
       value: '최신순',
     },
   ])
-<<<<<<< HEAD
-=======
   // const [markings, setMarkings] = useState([])
->>>>>>> main
   const [onMarker, setOnMarker] = useState(false)
   const [mapAccordion, setMapAccordion] = useState(false)
   const [messageLoaded, setMessageLoaded] = useState(false)
