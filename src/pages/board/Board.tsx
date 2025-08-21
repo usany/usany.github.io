@@ -1,11 +1,7 @@
 import { User } from 'firebase/auth'
 import { collection, getDocs, orderBy, query } from 'firebase/firestore'
 import { Maximize2, Minimize2 } from 'lucide-react'
-<<<<<<< HEAD
-import { useEffect, useRef, useState } from 'react'
-=======
 import { useEffect, useState } from 'react'
->>>>>>> main
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { dbservice } from 'src/baseApi/serverbase'
 import { useSelectors } from 'src/hooks/useSelectors'
@@ -128,13 +124,9 @@ function Board({ userObj }: Props) {
       setMessages(newArray)
       setMessageLoaded(true)
     }
-<<<<<<< HEAD
-    bringMessages()
-=======
     if (userObj) {
       bringMessages()
     }
->>>>>>> main
   }, [selectedValues[2].value])
   useEffect(() => {
     if (!window.location.search) {
