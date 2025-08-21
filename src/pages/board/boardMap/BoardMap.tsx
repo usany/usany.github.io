@@ -364,12 +364,10 @@ function BoardMap({
                 <div className="pt-3">
                   ${languages === 'ko' ? '빌리기: ' : 'Borrowing: '}
                   ${items[key].usanOne}
-                  ${languages === 'ko' ? ' 요청' : ' requests'}
                 </div>
                 <div className="pt-3">
                   ${languages === 'ko' ? '빌려주기: ' : 'Lending: '}
                   ${items[key].usanTwo}
-                  ${languages === 'ko' ? ' 요청' : ' requests'}
                 </div>
                 <div className="pt-1">
                   ${selectItems[1][selection]}
@@ -377,12 +375,10 @@ function BoardMap({
                 <div className="pt-3">
                   ${languages === 'ko' ? '빌리기: ' : 'Borrowing: '}
                   ${items[key].yangsanOne}
-                  ${languages === 'ko' ? ' 요청' : ' requests'}
                 </div>
                 <div className="pt-3">
                   ${languages === 'ko' ? '빌려주기: ' : 'Lending: '}
                   ${items[key].yangsanTwo}
-                  ${languages === 'ko' ? ' 요청' : ' requests'}
                 </div>
               </div>
           </div>`,
