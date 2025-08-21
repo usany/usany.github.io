@@ -7,10 +7,7 @@ import {
 import { collection, getDocs, orderBy, query } from 'firebase/firestore'
 import { MapIcon } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
-<<<<<<< HEAD
-=======
 import { useSearchParams } from 'react-router-dom'
->>>>>>> main
 import { dbservice } from 'src/baseApi/serverbase'
 import { useSelectors } from 'src/hooks/useSelectors'
 import locationsCollectionLetters from 'src/pages/add/locationsCollectionLetters'
