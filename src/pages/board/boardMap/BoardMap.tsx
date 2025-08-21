@@ -178,7 +178,9 @@ function BoardMap({ selectedValues, handleSelectedValues }: Props) {
   const [markings, setMarkings] = useState([])
   const [markersList, setMarkersList] = useState([])
   const [searchParams, setSearchParams] = useSearchParams()
+  const [onAccordion, setOnAccordion] = useState(false)
   const selectedValueTwo = searchParams.get('selectedValueTwo')
+  const theme = useSelectors((state) => state.theme.value)
   useEffect(() => {
     document.documentElement.scrollTo({
       top: 0,
@@ -429,8 +431,9 @@ function BoardMap({ selectedValues, handleSelectedValues }: Props) {
           // '<div style="width:150px;text-align:center;padding:10px;">The Letter is <b>"' +
           // String(index) +
           // '"</b>.</div>',
-          backgroundColor: '#777',
-          anchorColor: '#777',
+          backgroundColor: theme === 'light' ? '#fff' : '#777',
+          anchorColor: theme === 'light' ? '#fff' : '#777',
+          borderColor: theme === 'light' ? '#fff' : '#777',
         })
         // console.log(marker.id)
         // console.log(location)
@@ -468,6 +471,11 @@ function BoardMap({ selectedValues, handleSelectedValues }: Props) {
       }
     }
   }
+  useEffect(() => {
+    if (onAccordion) {
+      displayMap()
+    }
+  }, [languages, theme, onAccordion])
   useEffect(() => {
     if (selectedValueTwo && markings.length && calledMap) {
       const index = markings.findIndex((value) => value.id === selectedValueTwo)
@@ -509,7 +517,10 @@ function BoardMap({ selectedValues, handleSelectedValues }: Props) {
               //   1500,
               // )
               // displayMap()
-              setTimeout(displayMap, 10)
+              // setTimeout(displayMap, 10)
+              // if (!onAccordion) {
+              // }
+              setOnAccordion(!onAccordion)
             }}
             className="rounded shadow-md px-3 flex sticky top-16 z-30 w-full items-center justify-between bg-light-2/50 dark:bg-dark-2/50"
           >
