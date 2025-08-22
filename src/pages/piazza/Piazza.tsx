@@ -4,20 +4,11 @@ import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useLocation, useSearchParams } from 'react-router-dom'
 import { dbservice } from 'src/baseApi/serverbase'
-import {
-  MorphingDialog,
-  MorphingDialogClose,
-  MorphingDialogContainer,
-  MorphingDialogTrigger,
-} from 'src/components/ui/morphing-dialog'
 import PiazzaForm from 'src/pages/piazza/piazzaForm/PiazzaForm'
 import PiazzaScreen from 'src/pages/piazza/piazzaScreen/PiazzaScreen'
 import PiazzaTitle from 'src/pages/piazza/piazzaTitle/PiazzaTitle'
 import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
-import useTexts from 'src/useTexts'
-import { webSocket } from 'src/webSocket'
-import PiazzaAudioCall from './PiazzaAudioCall'
-import PiazzaCalls from './PiazzaCalls'
+import PiazzaMorphingDialog from './components/PiazzaMorphingDialog'
 // import { useKeyboardOffset } from 'virtual-keyboard-offset';
 
 interface Props {
@@ -33,11 +24,10 @@ function Piazza({ userObj }: Props) {
   const [chatUid, setChatUid] = useState('')
   const [chatDisplayName, setChatDisplayName] = useState('')
   const [searchParams, setSearchParams] = useSearchParams()
-  const { hangUp } = useTexts()
-  const handleChatUid = (newValue) => {
+  const handleChatUid = (newValue: string) => {
     setChatUid(newValue)
   }
-  const handleChatDisplayName = (newValue) => {
+  const handleChatDisplayName = (newValue: string) => {
     setChatDisplayName(newValue)
   }
   const conversation = location.search.slice(location.search.indexOf('=') + 1)
@@ -88,39 +78,7 @@ function Piazza({ userObj }: Props) {
       }
     }
   }, [isKeyboardOpen])
-  const stopCalls = async () => {
-    setSearchParams((searchParams) => {
-      searchParams.delete('call')
-      return searchParams
-    })
-    document
-      .getElementById('myScreen')
-      ?.srcObject.getTracks()
-      .forEach((track) => track.stop())
-    let toUserRef
-    let toUser
-    let messagingToken
-    let preferLanguage
-    if (chattingUser) {
-      toUserRef = doc(dbservice, `members/${chattingUser.uid}`)
-      toUser = await getDoc(toUserRef)
-      messagingToken = toUser.data()?.messagingToken
-      preferLanguage = toUser.data()?.preferLanguage
-    }
-    const passingObject = {
-      conversation: conversation,
-      isVideo: true,
-      sendingToken: messagingToken,
-      connectedUrl: `/piazza?id=${conversation}&call=video`,
-      preferLanguage: preferLanguage,
-      userUid: userObj.uid,
-      id: userObj.displayName,
-      conversationUid: chattingUser?.uid,
-      conversationName: chattingUser?.displayName,
-    }
-    console.log(passingObject)
-    webSocket.emit('quitCall', passingObject)
-  }
+
   // useEffect(() => {
   //   if (state?.multiple !== undefined) {
   //     setMultiple(state?.multiple)
@@ -176,36 +134,11 @@ function Piazza({ userObj }: Props) {
         messagesList={messagesList}
         handleMessagesList={(newValue) => setMessagesList(newValue)}
       />
-      <MorphingDialog>
-        <MorphingDialogTrigger>
-          <div id="videoCall"></div>
-        </MorphingDialogTrigger>
-        <MorphingDialogContainer>
-          <div>
-            <div className="flex gap-5">
-              <PiazzaCalls />
-            </div>
-            <MorphingDialogClose>
-              <div onClick={stopCalls}>{hangUp}</div>
-            </MorphingDialogClose>
-          </div>
-        </MorphingDialogContainer>
-      </MorphingDialog>
-      <MorphingDialog>
-        <MorphingDialogTrigger>
-          <div id="audioCall"></div>
-        </MorphingDialogTrigger>
-        <MorphingDialogContainer>
-          <div>
-            <div className="flex gap-5">
-              <PiazzaAudioCall />
-            </div>
-            <MorphingDialogClose>
-              <div onClick={stopCalls}>{hangUp}</div>
-            </MorphingDialogClose>
-          </div>
-        </MorphingDialogContainer>
-      </MorphingDialog>
+      <PiazzaMorphingDialog
+        userObj={userObj}
+        chattingUser={chattingUser}
+        conversation={conversation}
+      />
     </>
   )
 }
