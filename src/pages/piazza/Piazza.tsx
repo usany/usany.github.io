@@ -10,7 +10,6 @@ import PiazzaTitle from 'src/pages/piazza/piazzaTitle/PiazzaTitle'
 import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
 import PiazzaMorphingDialogAudioCall from './components/PiazzaMorphingDialogAudioCall'
 import PiazzaMorphingDialogVideoCall from './components/PiazzaMorphingDialogVideoCall'
-// import { useKeyboardOffset } from 'virtual-keyboard-offset';
 
 interface Props {
   userObj: User
@@ -32,8 +31,6 @@ function Piazza({ userObj }: Props) {
     setChatDisplayName(newValue)
   }
   const conversation = location.search.slice(location.search.indexOf('=') + 1)
-  // console.log(chattingUser)
-  // console.log(chatUid)
   useEffect(() => {
     if (state) {
       setChatUid(state.chattingUid)
@@ -79,28 +76,6 @@ function Piazza({ userObj }: Props) {
       }
     }
   }, [isKeyboardOpen])
-
-  // useEffect(() => {
-  //   if (state?.multiple !== undefined) {
-  //     setMultiple(state?.multiple)
-  //   }
-  // }, [])
-  // const { keyBoardOffset, windowHeight } = useKeyboardOffset();
-  // For the rare legacy browsers that don't support it
-  // window.addEventListener('resize', () => {
-  //   if (!window.visualViewport) {
-  //     return
-  //   }
-  //   const height = window.visualViewport.height - 200
-  // })
-  // For the rare legacy browsers that don't support it
-  // visualViewport.addEventListener('resize', () => {
-  //   if (!window.visualViewport) {
-  //     return
-  //   }
-  //   const height = window.visualViewport.height - 200
-  //   console.log(window.visualViewport.height)
-  // })
 
   useEffect(() => {
     dispatch(changeBottomNavigation(5))
