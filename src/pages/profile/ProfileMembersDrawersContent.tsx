@@ -35,6 +35,7 @@ const ProfileMembersDrawersContent = ({ userObj, user }: Props) => {
       setConfirmEmail(false)
     }
   }
+  console.log(userObj)
   const delist = async () => {
     await deleteDoc(doc(dbservice, `members/${userObj.uid}`))
     deleteUser(user)

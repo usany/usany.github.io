@@ -55,6 +55,7 @@ function Auth({ userObj }: User) {
     console.log('sending')
   }
   const confirmNumber = async () => {
+    console.log(userObj)
     if (numberString === createdNumber) {
       const userDocRef = doc(dbservice, `members/${userObj.uid}`)
       await updateDoc(userDocRef, { certificated: true })

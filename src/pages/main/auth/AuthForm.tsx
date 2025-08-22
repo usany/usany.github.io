@@ -1,6 +1,6 @@
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
-import { signInWithEmailAndPassword } from 'firebase/auth'
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth'
 import { collection, getDocs, query } from 'firebase/firestore'
 // import { getDownloadURL, ref, uploadString } from 'firebase/storage'
 import { useState } from 'react'
@@ -55,11 +55,11 @@ const AuthForm = ({ signIn, agreed }: Props) => {
     if (agreed) {
       if (onLine) {
         try {
-          // const data = await createUserWithEmailAndPassword(
-          //   auth,
-          //   account.email,
-          //   account.password,
-          // )
+          const data = await createUserWithEmailAndPassword(
+            auth,
+            account.email,
+            account.password,
+          )
           // const { data, error } = await supabase.auth.signUp({
           //   email: account.email,
           //   password: account.password,
@@ -71,8 +71,8 @@ const AuthForm = ({ signIn, agreed }: Props) => {
           //   const errorMessage = '회원가입 실패: 이미 가입된 계정입니다'
           //   setError(errorMessage)
           // }
-          const uid = data.user?.id || ''
-          const email = data.user?.email || ''
+          const uid = data.user.uid
+          const email = data.user.email
           await supabase.storage.from('remake').update(uid, 'null')
           const docsRef = query(collection(dbservice, 'members'))
           const docs = await getDocs(docsRef)
