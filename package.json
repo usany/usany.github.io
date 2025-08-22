@@ -20,7 +20,7 @@
     "nextdev": "concurrently \"node --watch src/server.cjs\" \"vite\"",
     "generate-pwa-assets": "pwa-assets-generator --preset minimal public/umbrella512.png",
     "prepare": "husky",
-    "check:precommit": "lint-staged",
+    "check:precommit": "lint-staged --no-revert",
     "test": "cross-env NODE_OPTIONS=--experimental-vm-modules npx jest --runInBand"
   },
   "dependencies": {
@@ -75,6 +75,7 @@
     "husky": "^9.1.7",
     "i18next": "^25.2.1",
     "input-otp": "^1.4.2",
+    "jest-environment-jsdom": "^30.0.5",
     "lint-staged": "^16.1.5",
     "lottie-react": "^2.4.0",
     "lucide-react": "^0.381.0",
@@ -101,6 +102,7 @@
     "tailwind-merge": "^2.5.4",
     "tailwindcss": "^3.4.3",
     "tailwindcss-animate": "^1.0.7",
+    "ts-jest": "^29.4.1",
     "unocss": "^0.59.4",
     "use-immer": "^0.10.0",
     "uuid": "^9.0.1",
