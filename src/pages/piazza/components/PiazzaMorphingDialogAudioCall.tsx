@@ -19,18 +19,19 @@ interface PiazzaMorphingDialogAudioCallProps {
 }
 
 function PiazzaMorphingDialogAudioCall({ userObj, chattingUser, conversation }: PiazzaMorphingDialogAudioCallProps) {
-  const [searchParams, setSearchParams] = useSearchParams()
+  const [, setSearchParams] = useSearchParams()
   const { hangUp } = useTexts()
-
+  
   const stopCalls = async () => {
     setSearchParams((searchParams) => {
       searchParams.delete('call')
       return searchParams
     })
-    document
-      .getElementById('myScreen')
-      ?.srcObject.getTracks()
-      .forEach((track) => track.stop())
+    const videoElement = document.getElementById('myScreen') as HTMLVideoElement | null;
+    if (videoElement?.srcObject) {
+      const mediaStream = videoElement.srcObject as MediaStream;
+      mediaStream.getTracks().forEach(track => track.stop());
+    }
     let toUserRef
     let toUser
     let messagingToken
