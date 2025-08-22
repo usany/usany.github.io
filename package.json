@@ -20,7 +20,7 @@
     "nextdev": "concurrently \"node --watch src/server.cjs\" \"vite\"",
     "generate-pwa-assets": "pwa-assets-generator --preset minimal public/umbrella512.png",
     "prepare": "husky",
-    "check:precommit": "lint-staged",
+    "check:precommit": "lint-staged --no-revert",
     "test": "cross-env NODE_OPTIONS=--experimental-vm-modules npx jest --runInBand"
   },
   "dependencies": {
