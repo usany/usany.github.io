@@ -8,7 +8,8 @@ import PiazzaForm from 'src/pages/piazza/piazzaForm/PiazzaForm'
 import PiazzaScreen from 'src/pages/piazza/piazzaScreen/PiazzaScreen'
 import PiazzaTitle from 'src/pages/piazza/piazzaTitle/PiazzaTitle'
 import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
-import PiazzaMorphingDialog from './components/PiazzaMorphingDialog'
+import PiazzaMorphingDialogAudioCall from './components/PiazzaMorphingDialogAudioCall'
+import PiazzaMorphingDialogVideoCall from './components/PiazzaMorphingDialogVideoCall'
 // import { useKeyboardOffset } from 'virtual-keyboard-offset';
 
 interface Props {
@@ -134,7 +135,12 @@ function Piazza({ userObj }: Props) {
         messagesList={messagesList}
         handleMessagesList={(newValue) => setMessagesList(newValue)}
       />
-      <PiazzaMorphingDialog
+      <PiazzaMorphingDialogVideoCall
+        userObj={userObj}
+        chattingUser={chattingUser}
+        conversation={conversation}
+      />
+      <PiazzaMorphingDialogAudioCall
         userObj={userObj}
         chattingUser={chattingUser}
         conversation={conversation}
