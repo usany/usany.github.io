@@ -23,7 +23,7 @@ function Piazza({ userObj }: Props) {
   const [chattingUser, setChattingUser] = useState(null)
   const [chatUid, setChatUid] = useState('')
   const [chatDisplayName, setChatDisplayName] = useState('')
-  const [searchParams, setSearchParams] = useSearchParams()
+  const [searchParams] = useSearchParams()
   const handleChatUid = (newValue: string) => {
     setChatUid(newValue)
   }
