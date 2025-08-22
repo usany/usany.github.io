@@ -1,4 +1,4 @@
-import { User } from 'firebase/auth'
+import { updateProfile, User } from 'firebase/auth'
 import { useSelectors } from 'src/hooks/useSelectors'
 import PageTitle from 'src/pages/core/pageTitle/PageTitle'
 import Accordions from './Accordions/Accordions'

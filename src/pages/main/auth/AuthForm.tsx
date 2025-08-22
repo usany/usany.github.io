@@ -1,6 +1,6 @@
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth'
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from 'firebase/auth'
 import { collection, getDocs, query } from 'firebase/firestore'
 // import { getDownloadURL, ref, uploadString } from 'firebase/storage'
 import { useState } from 'react'
@@ -82,11 +82,11 @@ const AuthForm = ({ signIn, agreed }: Props) => {
             email: email,
             ranking: docsLength,
           })
-          // await updateProfile(data.user, {
-          //   displayName: data.user.email,
-          // }).catch((error) => {
-          //   console.log('error')
-          // })
+          await updateProfile(data.user, {
+            displayName: data.user.email,
+          }).catch((error) => {
+            console.log('error')
+          })
           // const user = doc(dbservice, `members/${uid}`)
           // const storageRef = ref(storage, uid)
           // uploadString(storageRef, 'null', 'raw').then((snapshot) => {
