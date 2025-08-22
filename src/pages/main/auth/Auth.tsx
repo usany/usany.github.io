@@ -1,5 +1,5 @@
 import { Button } from '@mui/material'
-import { deleteUser, User } from 'firebase/auth'
+import { deleteUser, getAuth, User } from 'firebase/auth'
 import { deleteDoc, doc, updateDoc } from 'firebase/firestore'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
@@ -31,9 +31,6 @@ function Auth({ userObj }: User) {
     cancelRegistration,
   } = useTexts()
   const handleNumberString = (newValue) => {
-    // const {
-    //   target: { value }
-    // } = event
     setNumberString(newValue)
   }
   const sendNumberMail = async () => {
@@ -50,8 +47,9 @@ function Auth({ userObj }: User) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        title: userObj?.email,
-        author: number,
+        to: userObj?.email,
+        number: number,
+        language: localStorage.getItem('languages') || 'ko',
       }),
     })
     console.log('sending')
@@ -67,14 +65,17 @@ function Auth({ userObj }: User) {
   }
   const cancelUserRegistration = async () => {
     await deleteDoc(doc(dbservice, `members/${userObj.uid}`))
-    deleteUser(userObj)
-      .then(() => {
-        console.log(userObj)
-        location.reload()
-      })
-      .catch((error) => {
-        console.log(error)
-      })
+    const auth = getAuth()
+    if (auth) {
+      deleteUser(auth.currentUser)
+        .then(() => {
+          console.log(userObj)
+          location.reload()
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    }
     // const { data, error } = await supabase.auth.admin.deleteUser(userObj.uid)
     // if (data) {
     //   console.log(data)
