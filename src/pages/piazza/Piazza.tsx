@@ -1,10 +1,9 @@
 import { User } from 'firebase/auth'
 import { doc, getDoc } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useLocation, useSearchParams } from 'react-router-dom'
 import { dbservice } from 'src/baseApi/serverbase'
-import { useSelectors } from 'src/hooks/useSelectors'
 import PiazzaForm from 'src/pages/piazza/piazzaForm/PiazzaForm'
 import PiazzaScreen from 'src/pages/piazza/piazzaScreen/PiazzaScreen'
 import PiazzaTitle from 'src/pages/piazza/piazzaTitle/PiazzaTitle'
@@ -19,9 +18,7 @@ function Piazza({ userObj }: Props) {
   const [messages, setMessages] = useState('')
   const [messagesList, setMessagesList] = useState<[]>([])
   const dispatch = useDispatch()
-  const { state: locationState } = useLocation() as {
-    state?: { chattingUid?: string; displayName?: string }
-  }
+  const { state } = useLocation() as any
   const [isKeyboardOpen, setIsKeyboardOpen] = useState(false)
   const [chattingUser, setChattingUser] = useState<any>(null)
   const [chatUid, setChatUid] = useState('')
@@ -35,13 +32,8 @@ function Piazza({ userObj }: Props) {
   }
   const conversation = location.search.slice(location.search.indexOf('=') + 1)
   useEffect(() => {
-    if (locationState) {
-      setChatUid(locationState.chattingUid ?? '')
-      setChatDisplayName(locationState.displayName ?? '')
-    } else {
-      setChatUid('')
-      setChatDisplayName('')
-    }
+    setChatUid(state?.chattingUid ?? '')
+    setChatDisplayName(state?.displayName ?? '')
   }, [conversation])
   useEffect(() => {
     const bringChattingUser = async () => {
@@ -58,7 +50,7 @@ function Piazza({ userObj }: Props) {
       bringChattingUser()
     }
   }, [conversation, chatUid])
-  const piazzaForm = useSelectors((state) => state.piazzaForm.value)
+  const piazzaForm = useSelector((state) => state.piazzaForm.value)
   useEffect(() => {
     const listener = () => {
       const newState =
