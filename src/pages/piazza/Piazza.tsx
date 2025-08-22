@@ -1,9 +1,10 @@
 import { User } from 'firebase/auth'
 import { doc, getDoc } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { useLocation, useSearchParams } from 'react-router-dom'
 import { dbservice } from 'src/baseApi/serverbase'
+import { useSelectors } from 'src/hooks/useSelectors'
 import PiazzaForm from 'src/pages/piazza/piazzaForm/PiazzaForm'
 import PiazzaScreen from 'src/pages/piazza/piazzaScreen/PiazzaScreen'
 import PiazzaTitle from 'src/pages/piazza/piazzaTitle/PiazzaTitle'
@@ -18,9 +19,11 @@ function Piazza({ userObj }: Props) {
   const [messages, setMessages] = useState('')
   const [messagesList, setMessagesList] = useState<[]>([])
   const dispatch = useDispatch()
-  const { state } = useLocation()
+  const { state: locationState } = useLocation() as {
+    state?: { chattingUid?: string; displayName?: string }
+  }
   const [isKeyboardOpen, setIsKeyboardOpen] = useState(false)
-  const [chattingUser, setChattingUser] = useState(null)
+  const [chattingUser, setChattingUser] = useState<any>(null)
   const [chatUid, setChatUid] = useState('')
   const [chatDisplayName, setChatDisplayName] = useState('')
   const [searchParams] = useSearchParams()
@@ -32,9 +35,9 @@ function Piazza({ userObj }: Props) {
   }
   const conversation = location.search.slice(location.search.indexOf('=') + 1)
   useEffect(() => {
-    if (state) {
-      setChatUid(state.chattingUid)
-      setChatDisplayName(state.displayName)
+    if (locationState) {
+      setChatUid(locationState.chattingUid ?? '')
+      setChatDisplayName(locationState.displayName ?? '')
     } else {
       setChatUid('')
       setChatDisplayName('')
@@ -45,14 +48,17 @@ function Piazza({ userObj }: Props) {
       if (chatUid) {
         const toUserRef = doc(dbservice, `members/${chatUid}`)
         const toUser = await getDoc(toUserRef)
-        setChattingUser(toUser.data())
+        const data = toUser.data()
+        if (data) {
+          setChattingUser(data)
+        }
       }
     }
     if (conversation) {
       bringChattingUser()
     }
   }, [conversation, chatUid])
-  const piazzaForm = useSelector((state) => state.piazzaForm.value)
+  const piazzaForm = useSelectors((state) => state.piazzaForm.value)
   useEffect(() => {
     const listener = () => {
       const newState =
@@ -91,7 +97,7 @@ function Piazza({ userObj }: Props) {
   return (
     <>
       {!isKeyboardOpen && (
-        <PiazzaTitle multiple={!conversation} displayName={chatDisplayName} />
+        <PiazzaTitle displayName={chatDisplayName} />
       )}
       <PiazzaScreen
         isKeyboardOpen={piazzaForm}
