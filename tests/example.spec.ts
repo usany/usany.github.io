@@ -15,6 +15,11 @@ test('get started link', async ({ page }) => {
     })
     .fill('ckd_qja@naver.com')
   await page
+    .getByRole('textbox', {
+      name: 'password',
+    })
+    .fill('qqqqqq')
+  await page
     .getByRole('button', {
       name: 'sign in',
     })
