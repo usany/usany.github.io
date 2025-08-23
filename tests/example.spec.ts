@@ -9,15 +9,16 @@ test('has title', async ({ page }) => {
 test('get started link', async ({ page }) => {
   await page.goto('https://usany.github.io/')
 
-  // Click the get started link.
-  await expect(
-    page.getByRole('button', {
+  await page
+    .getByRole('textbox', {
+      name: 'email',
+    })
+    .fill('ckd_qja@naver.com')
+  await page
+    .getByRole('button', {
       name: 'sign in',
-    }),
-  ).toBeVisible()
+    })
+    .click()
 
-  // Expects page to have a heading with the name of Installation.
-  // await expect(
-  //   page.getByRole('heading', { name: 'Installation' }),
-  // ).toBeVisible()
+  await expect(page.getByText('My Status')).toBeVisible()
 })
