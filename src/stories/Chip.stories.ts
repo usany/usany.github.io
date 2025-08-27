@@ -26,14 +26,14 @@ type Story = StoryObj<typeof meta>
 export const lightMode: Story = {
   args: {
     mode: 'light',
-    bgcolor: '#e2e8f0',
+    bgcolor: '#f7fafb',
   },
 }
 
 export const darkMode: Story = {
   args: {
     mode: 'dark',
-    bgcolor: '#2d3848',
+    bgcolor: '#5c6778',
   },
 }
 
