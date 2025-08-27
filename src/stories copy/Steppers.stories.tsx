@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { fn } from '@storybook/test';
 
-import Steppers from 'src/stories/Steppers';
+import Steppers from './Steppers';
 import { Header } from './Header';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';

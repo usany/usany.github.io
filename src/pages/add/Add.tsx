@@ -66,7 +66,7 @@ function Add({ userObj, borrow }: Props) {
   const matches = useMediaQuery("(min-width:850px)");
   const languages = useSelectors((state) => state.languages.value)
   const profile = useSelectors(state => state.profile.value)
-  const pleaseCheckTimeText = useTexts('pleaseCheckTime')
+  const { pleaseCheckTime } = useTexts()
   const navigate = useNavigate()
   // const [cardId, setCardId] = useState<string | null>(null)
   // const [from, setFrom] = useState(null);
@@ -253,11 +253,11 @@ function Add({ userObj, borrow }: Props) {
       fromTo.to !== null
     ) {
       if (fromTo.from.gmt > fromTo.to.gmt) {
-        alert(pleaseCheckTimeText);
+        alert(pleaseCheckTime);
       } else if (fromTo.from.gmt < Date.now()) {
-        alert(pleaseCheckTimeText);
+        alert(pleaseCheckTime);
       } else if (fromTo.to.gmt < Date.now()) {
-        alert(pleaseCheckTimeText);
+        alert(pleaseCheckTime);
       } else {
         if (fromTo.to.year - fromTo.from.year > 0) {
           calculatePoint = (fromTo.to.year - fromTo.from.year) * 366 * 24 * 60;
@@ -429,7 +429,7 @@ function Add({ userObj, borrow }: Props) {
         <AddStepThree onChangeFrom={onChangeFrom} onChangeTo={onChangeTo} />
       )}
       {addSteps === 2 && !enableRegister && fromTo.from && fromTo.to &&
-        <div className='flex justify-center'>{pleaseCheckTimeText}</div>
+        <div className='flex justify-center'>{pleaseCheckTime}</div>
       }
       {addSteps === 2 && <AddRegisterButton submit={submit} fromTo={fromTo} enableRegister={enableRegister} />}
       {addSteps > 2 && <AddStepFour display={display} />}
