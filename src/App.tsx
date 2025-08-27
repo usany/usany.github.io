@@ -1,7 +1,6 @@
 import { ThemeProvider } from '@mui/material/styles'
 import { doc, getDoc, updateDoc } from 'firebase/firestore'
 import { useEffect } from 'react'
-// import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
 import 'src/global.css'
 import Lotties from 'src/lottiesAnimation/Lotties'
@@ -31,7 +30,6 @@ function App() {
         const docRef = doc(dbservice, `members/${userObj.uid}`)
         const docSnap = await getDoc(docRef)
         const userData = docSnap.data()
-        console.log(userData)
         dispatch(changeProfileImage(userData?.profileImage))
         dispatch(changeDefaultProfile(userData?.defaultProfile))
         dispatch(changeProfileImageUrl(userData?.profileImageUrl))
@@ -61,8 +59,6 @@ function App() {
         }
       }
     }
-    // This callback will fire if the perferred color scheme changes without a reload
-    // mq.addEventListener("change", (evt) => setIsDark(evt.matches));
   }, [])
 
   return (

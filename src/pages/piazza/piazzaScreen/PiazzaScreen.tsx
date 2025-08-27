@@ -6,6 +6,8 @@ interface Props {
   userObj: User
   messagesList: []
   handleMessagesList: (newValue: []) => void
+  handleChatUid: (newValue: string) => void
+  handleChatDisplayName: (newValue: string) => void
 }
 
 function PiazzaScreen({

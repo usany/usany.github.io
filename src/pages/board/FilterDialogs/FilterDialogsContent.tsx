@@ -18,7 +18,7 @@ const items = {
 }
 const locationsTitle = {
   ko: '장소 선택',
-  en: 'Select Building',
+  en: 'Select Location',
 }
 const locations = {
   ko: ['전체 장소', ...locationsBuildings['ko']],
@@ -32,54 +32,13 @@ const time = {
   ko: ['최신순', '오래된'],
   en: ['Recent', 'Older'],
 }
-const markers = [
-  {
-    label: '중도',
-    location: { lat: 37.5970966, lng: 127.0527314 },
-  },
-  {
-    label: '네오르네상스관',
-    location: { lat: 37.5948201, lng: 127.053091 },
-  },
-  {
-    label: '푸른솔',
-    location: { lat: 37.5941125, lng: 127.0557743 },
-  },
-  {
-    label: '간호이과대',
-    location: { lat: 37.5960528, lng: 127.0536951 },
-  },
-  {
-    label: '문과대',
-    location: { lat: 37.5971991, lng: 127.0539612 },
-  },
-  {
-    label: '청운',
-    location: { lat: 37.594732, lng: 127.0517775 },
-  },
-  {
-    label: '의과대',
-    location: { lat: 37.5939, lng: 127.0549 },
-  },
-  {
-    label: '경영대',
-    location: { lat: 37.5967052, lng: 127.0552861 },
-  },
-  {
-    label: '치과병원',
-    location: { lat: 37.594054, lng: 127.0531189 },
-  },
-]
-
-function FilterDialogsContent({ selectedValues, handleSelectedValues }) {
+interface Props {
+  selectedValues: object
+  handleSelectedValues: () => void
+}
+function FilterDialogsContent({ selectedValues, handleSelectedValues }: Props) {
   const languages = useSelectors((state) => state.languages.value)
   const index = languages === 'ko' || languages === 'en' ? languages : 'ko'
-  // const [selected, setSelected] = useState(null)
-  // const { filtering } = useTexts()
-  // const onClick = ({ id }) => {
-  //   setSelected(id);
-  // };
-  console.log(selectedValues)
 
   return (
     <div className="p-5">

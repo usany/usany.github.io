@@ -7,7 +7,6 @@ import {
 import { collection, getDocs, orderBy, query } from 'firebase/firestore'
 import { MapIcon } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
-import { useSearchParams } from 'react-router-dom'
 import { dbservice } from 'src/baseApi/serverbase'
 import { useSelectors } from 'src/hooks/useSelectors'
 import locationsCollectionLetters from 'src/pages/add/locationsCollectionLetters'
@@ -35,6 +34,7 @@ const selectItems = [
 interface Props {
   selectedValues: object
   handleSelectedValues: () => void
+  searchParams: object
 }
 // const area = [
 //   {
@@ -111,7 +111,11 @@ const markers = [
   },
 ]
 const defaultLocation = markers[0].location
-function BoardMap({ selectedValues, handleSelectedValues }: Props) {
+function BoardMap({
+  selectedValues,
+  handleSelectedValues,
+  searchParams,
+}: Props) {
   // const [messages, setMessages] = useState<Array<object>>([])
   // const [mapAccordion, setMapAccordion] = useState(false);
   const [items, setItems] = useState({
@@ -177,7 +181,7 @@ function BoardMap({ selectedValues, handleSelectedValues }: Props) {
   const [calledMap, setCalledMap] = useState(null)
   const [markings, setMarkings] = useState([])
   const [markersList, setMarkersList] = useState([])
-  const [searchParams, setSearchParams] = useSearchParams()
+  // const [searchParams, setSearchParams] = useSearchParams()
   const [onAccordion, setOnAccordion] = useState(false)
   const selectedValueTwo = searchParams.get('selectedValueTwo')
   const theme = useSelectors((state) => state.theme.value)
@@ -285,16 +289,12 @@ function BoardMap({ selectedValues, handleSelectedValues }: Props) {
             }
           }
         }
-        // if (doc.data().text.count === selectedValues[1].value) {
-        // }
-        // console.log(doc.data())
       })
       // setMessages(newArray)
       setItems(itemCount)
     }
     bringMessages()
   }, [selectedValues[1].value])
-  console.log(items)
   const onClickMarker = (newValue) => {
     handleSelectedValues({ id: 'selectedValueTwo', newValue: newValue.ko })
     // setSelectedLocation(newValue.en)
@@ -302,9 +302,6 @@ function BoardMap({ selectedValues, handleSelectedValues }: Props) {
   // const onClickMarkerItem = (newValue) => {
   //   handleSelectedValues({ id: 'selectedValueOne', newValue: newValue })
   // }
-
-  // const markersCollection = []
-  // const infoWindows = []
   const mapRef = useRef(null)
   // const { naver } = window
   // let location
@@ -318,11 +315,6 @@ function BoardMap({ selectedValues, handleSelectedValues }: Props) {
   // }
   const displayMap = () => {
     const { naver } = window
-    // const contentString = [
-    //   '<div class="iw_inner">',
-    //   '   practice',
-    //   '</div>',
-    // ].join('')
 
     // const infowindow = new naver.maps.InfoWindow({
     //   content: contentString,
@@ -352,7 +344,6 @@ function BoardMap({ selectedValues, handleSelectedValues }: Props) {
           title: value.label,
           id: value.label.ko,
         })
-        // console.log(marker)
         const key = Object.keys(locationsCollectionLetters).find(
           (key) => locationsCollectionLetters[key] === value.label.ko,
         )
@@ -368,12 +359,10 @@ function BoardMap({ selectedValues, handleSelectedValues }: Props) {
                 <div className="pt-3">
                   ${languages === 'ko' ? '빌리기: ' : 'Borrowing: '}
                   ${items[key].usanOne}
-                  ${languages === 'ko' ? ' 요청' : ' requests'}
                 </div>
                 <div className="pt-3">
                   ${languages === 'ko' ? '빌려주기: ' : 'Lending: '}
                   ${items[key].usanTwo}
-                  ${languages === 'ko' ? ' 요청' : ' requests'}
                 </div>
                 <div className="pt-1">
                   ${selectItems[1][selection]}
@@ -381,12 +370,10 @@ function BoardMap({ selectedValues, handleSelectedValues }: Props) {
                 <div className="pt-3">
                   ${languages === 'ko' ? '빌리기: ' : 'Borrowing: '}
                   ${items[key].yangsanOne}
-                  ${languages === 'ko' ? ' 요청' : ' requests'}
                 </div>
                 <div className="pt-3">
                   ${languages === 'ko' ? '빌려주기: ' : 'Lending: '}
                   ${items[key].yangsanTwo}
-                  ${languages === 'ko' ? ' 요청' : ' requests'}
                 </div>
               </div>
           </div>`,
@@ -435,8 +422,6 @@ function BoardMap({ selectedValues, handleSelectedValues }: Props) {
           anchorColor: theme === 'light' ? '#fff' : '#777',
           borderColor: theme !== 'light' ? '#fff' : '#777',
         })
-        // console.log(marker.id)
-        // console.log(location)
         if (marker.id === selectedValueTwo) {
           infoWindow.open(map, marker)
         }
@@ -491,21 +476,11 @@ function BoardMap({ selectedValues, handleSelectedValues }: Props) {
   }, [selectedValueTwo])
   return (
     <div>
-      <div
-        onClick={() => {
-          const value = document.getElementById('Cheongwoon')
-          console.log(value)
-          value?.click()
-        }}
-      >
-        practice
-      </div>
       <Accordion type="single" collapsible>
         <AccordionItem value="item-1">
           <AccordionTrigger
             onClick={() => {
               // document.getElementById('boardMap')?.click()
-              // console.log(document.getElementsByClassName('dismissButton'))
               // setTimeout(
               //   () =>
               //     document.getElementsByClassName('dismissButton')[0]?.click(),
@@ -518,8 +493,6 @@ function BoardMap({ selectedValues, handleSelectedValues }: Props) {
               // )
               // displayMap()
               // setTimeout(displayMap, 10)
-              // if (!onAccordion) {
-              // }
               setOnAccordion(!onAccordion)
             }}
             className="rounded shadow-md px-3 flex sticky top-16 z-30 w-full items-center justify-between bg-light-2/50 dark:bg-dark-2/50"
