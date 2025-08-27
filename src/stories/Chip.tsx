@@ -2,7 +2,7 @@ import {
   Button,
   Chip,
   createTheme,
-  PaletteMode,
+  // PaletteMode,
   ThemeProvider,
   useTheme,
 } from '@mui/material'
@@ -10,7 +10,7 @@ import useColors from 'src/hooks/useColors'
 
 export interface ButtonProps {
   label: string
-  mode: PaletteMode
+  // mode: PaletteMode
   bgcolor: string
   /** Optional click handler */
   onClick?: () => void
