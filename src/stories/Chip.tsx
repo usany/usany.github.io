@@ -1,4 +1,4 @@
-import { Button, createTheme, PaletteMode, ThemeProvider } from '@mui/material';
+import { Button, Chip, createTheme, PaletteMode, ThemeProvider } from '@mui/material';
 import useColors from 'src/hooks/useColors';
 
 export interface ButtonProps {
@@ -10,7 +10,7 @@ export interface ButtonProps {
 }
 
 /** Primary UI component for user interaction */
-export const Buttons = ({
+export const Chips = ({
   mode,
   bgcolor,
   label,
@@ -24,19 +24,17 @@ export const Buttons = ({
 
   return (
     <ThemeProvider theme={theme}>
-      <Button
-      variant='outlined'
-      sx={{
-        bgcolor: bgcolor,
-        ':hover': {
+      <Chip
+        variant='outlined'
+        sx={{
           bgcolor: bgcolor,
-        },
-      }}
+          ':hover': {
+            bgcolor: bgcolor,
+          },
+        }}
+        label={label}
         {...props}
-      >
-        {label}
-      </Button>
+      />
     </ThemeProvider>
-
   );
 };
