@@ -4,6 +4,7 @@ import {
   createTheme,
   PaletteMode,
   ThemeProvider,
+  useTheme,
 } from '@mui/material'
 import useColors from 'src/hooks/useColors'
 
@@ -16,15 +17,12 @@ export interface ButtonProps {
 }
 
 /** Primary UI component for user interaction */
-export const Chips = ({ mode, bgcolor, label, ...props }: ButtonProps) => {
-  const theme = createTheme({
-    palette: {
-      mode: mode,
-    },
-  })
+export const Chips = ({ label, ...props }: ButtonProps) => {
+  const theme = useTheme()
+  const bgcolor = theme.palette.mode === 'light' ? '#f7fafb' : '#5c6778'
 
   return (
-    <ThemeProvider theme={theme}>
+    <>
       <Chip
         variant="outlined"
         sx={{
@@ -36,6 +34,6 @@ export const Chips = ({ mode, bgcolor, label, ...props }: ButtonProps) => {
         label={label}
         {...props}
       />
-    </ThemeProvider>
+    </>
   )
 }
