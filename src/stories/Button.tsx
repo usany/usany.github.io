@@ -1,42 +1,38 @@
-import { Button, createTheme, PaletteMode, ThemeProvider } from '@mui/material';
-import useColors from 'src/hooks/useColors';
+import {
+  Button,
+  createTheme,
+  PaletteMode,
+  ThemeProvider,
+  useTheme,
+} from '@mui/material'
+import useCardsBackground from 'src/hooks/useCardsBackground'
 
 export interface ButtonProps {
-  label: string;
-  mode: PaletteMode
-  bgcolor: string
+  label: string
+  // mode: PaletteMode
+  // bgcolor: string
   /** Optional click handler */
-  onClick?: () => void;
+  onClick?: () => void
 }
 
 /** Primary UI component for user interaction */
-export const Buttons = ({
-  mode,
-  bgcolor,
-  label,
-  ...props
-}: ButtonProps) => {
-  const theme = createTheme({
-    palette: {
-      mode: mode,
-    },
-  })
-
+export const Buttons = ({ label, ...props }: ButtonProps) => {
+  const theme = useTheme()
+  const bgcolor = theme.palette.mode === 'light' ? '#e2e8f0' : '#2d3848'
   return (
-    <ThemeProvider theme={theme}>
+    <>
       <Button
-      variant='outlined'
-      sx={{
-        bgcolor: bgcolor,
-        ':hover': {
+        variant="outlined"
+        sx={{
           bgcolor: bgcolor,
-        },
-      }}
+          ':hover': {
+            bgcolor: bgcolor,
+          },
+        }}
         {...props}
       >
         {label}
       </Button>
-    </ThemeProvider>
-
-  );
-};
+    </>
+  )
+}
