@@ -12,8 +12,6 @@ export interface ButtonProps {
 export const Chips = ({ mode, label, ...props }: ButtonProps) => {
   const theme = useTheme()
   const bgcolor = theme.palette.mode === 'light' ? '#f7fafb' : '#5c6778'
-  const height = mode === 'chat' && { height: '20px' }
-  const colorSituations = ['chat', 'location', 'specific']
   if (mode === 'chat') {
     return (
       <Chip color="primary" sx={{ height: '20px' }} label={label} {...props} />
