@@ -29,9 +29,9 @@ export const defaultChip: Story = {
   },
 }
 
-export const piazzaChip: Story = {
+export const piazzaNumberChip: Story = {
   args: {
-    mode: 'chat',
+    mode: 'piazzaNumber',
   },
 }
 

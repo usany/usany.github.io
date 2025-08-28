@@ -1,6 +1,6 @@
 import { Chip, useTheme } from '@mui/material'
 
-export interface ButtonProps {
+export interface Props {
   mode: string
   label: string
   // mode: PaletteMode
@@ -9,10 +9,10 @@ export interface ButtonProps {
 }
 
 /** Primary UI component for user interaction */
-export const Chips = ({ mode, label, ...props }: ButtonProps) => {
+export const Chips = ({ mode, label, ...props }: Props) => {
   const theme = useTheme()
   const bgcolor = theme.palette.mode === 'light' ? '#f7fafb' : '#5c6778'
-  if (mode === 'chat') {
+  if (mode === 'piazzaNumber') {
     return (
       <Chip color="primary" sx={{ height: '20px' }} label={label} {...props} />
     )
