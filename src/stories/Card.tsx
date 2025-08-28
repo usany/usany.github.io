@@ -5,9 +5,8 @@ export interface Props {
   shadowColor: string
   mode: string
   sxObject: object
-  // bgcolor: string
   /** Optional click handler */
-  onClick?: () => void
+  // onClick?: () => void
 }
 
 /** Primary UI component for user interaction */
