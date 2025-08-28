@@ -2,14 +2,16 @@ import { Button, Card, PaletteMode, useTheme } from '@mui/material'
 
 export interface Props {
   label: string
-  mode: PaletteMode
+  shadowColor: string
+  mode: string
+  sxObject: object
   // bgcolor: string
   /** Optional click handler */
   onClick?: () => void
 }
 
 /** Primary UI component for user interaction */
-export const Cards = ({ label, mode, ...props }: Props) => {
+export const Cards = ({ label, sxObject, mode, ...props }: Props) => {
   const theme = useTheme()
   let bgcolor
   if (mode === 'colorThree') {
@@ -27,6 +29,7 @@ export const Cards = ({ label, mode, ...props }: Props) => {
           ':hover': {
             bgcolor: bgcolor,
           },
+          ...sxObject,
         }}
         {...props}
       >

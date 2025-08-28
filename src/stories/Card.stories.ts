@@ -26,17 +26,19 @@ type Story = StoryObj<typeof meta>
 export const defaultCard: Story = {
   args: {
     mode: 'colorThree',
+    sxObject: {},
   },
 }
 export const brightCard: Story = {
   args: {
     mode: 'colorTwo',
+    sxObject: {},
   },
 }
 export const brightAddCard: Story = {
   args: {
     mode: 'colorTwo',
-    sx: {
+    sxObject: {
       width: 200 * 0.9,
       height: 280 * 0.9,
       boxShadow: `1.9px 1.9px 1.9px 1.9px lightblue`,
@@ -46,5 +48,6 @@ export const brightAddCard: Story = {
 export const brighterCard: Story = {
   args: {
     mode: 'colorOne',
+    sxObject: {},
   },
 }
