@@ -16,7 +16,7 @@ const meta = {
   tags: ['autodocs'],
   // More on argTypes: https://storybook.js.org/docs/api/argtypes
   // Use `fn` to spy on the onClick arg, which will appear in the actions panel once invoked: https://storybook.js.org/docs/essentials/actions#action-args
-  args: { onClick: fn(), label: 'Card' },
+  args: { onClick: fn(), label: 'Card', shadowColor: 'lightblue' },
 } satisfies Meta<typeof Cards>
 
 export default meta
@@ -31,6 +31,16 @@ export const defaultCard: Story = {
 export const brightCard: Story = {
   args: {
     mode: 'colorTwo',
+  },
+}
+export const brightAddCard: Story = {
+  args: {
+    mode: 'colorTwo',
+    sx: {
+      width: 200 * 0.9,
+      height: 280 * 0.9,
+      boxShadow: `1.9px 1.9px 1.9px 1.9px lightblue`,
+    },
   },
 }
 export const brighterCard: Story = {

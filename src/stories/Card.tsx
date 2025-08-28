@@ -1,8 +1,8 @@
-import { Button, Card, useTheme } from '@mui/material'
+import { Button, Card, PaletteMode, useTheme } from '@mui/material'
 
 export interface Props {
   label: string
-  // mode: PaletteMode
+  mode: PaletteMode
   // bgcolor: string
   /** Optional click handler */
   onClick?: () => void
