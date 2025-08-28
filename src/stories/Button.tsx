@@ -1,11 +1,4 @@
-import {
-  Button,
-  createTheme,
-  PaletteMode,
-  ThemeProvider,
-  useTheme,
-} from '@mui/material'
-import useCardsBackground from 'src/hooks/useCardsBackground'
+import { Button, useTheme } from '@mui/material'
 
 export interface ButtonProps {
   label: string
