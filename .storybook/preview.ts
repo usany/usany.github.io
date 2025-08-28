@@ -1,9 +1,19 @@
-import { Preview, Renderer } from '@storybook/react';
+import { Preview, ReactRenderer } from '@storybook/react-vite';
 
 import { withThemeFromJSXProvider } from '@storybook/addon-themes';
-
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
-import { lightTheme, darkTheme } from '../src/themes';
+import { createTheme } from '@mui/material'
+
+const lightTheme = createTheme({
+  palette: {
+    mode: 'light',
+  },
+})
+const darkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+  },
+})
 
 const GlobalStyles = createGlobalStyle`
   body {
@@ -13,7 +23,7 @@ const GlobalStyles = createGlobalStyle`
 
 const preview: Preview = {
   decorators: [
-    withThemeFromJSXProvider<Renderer>({
+    withThemeFromJSXProvider<ReactRenderer>({
       themes: {
         light: lightTheme,
         dark: darkTheme,
