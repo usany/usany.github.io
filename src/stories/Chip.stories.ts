@@ -23,17 +23,39 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 // More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
-export const defaultComponent: Story = {
+export const defaultChip: Story = {
   args: {
-    // mode: 'light',
-    // bgcolor: '#f7fafb',
+    mode: '',
   },
 }
 
-export const darkMode: Story = {
+export const piazzaChip: Story = {
   args: {
-    // mode: 'dark',
-    // bgcolor: '#5c6778',
+    mode: 'chat',
+  },
+}
+
+export const locationChip: Story = {
+  args: {
+    mode: 'location',
+  },
+}
+
+export const noProcessingChip: Story = {
+  args: {
+    mode: 'noProcessing',
+  },
+}
+
+export const processingChip: Story = {
+  args: {
+    mode: 'processing',
+  },
+}
+
+export const specificChip: Story = {
+  args: {
+    mode: 'specific',
   },
 }
 
