@@ -1,4 +1,4 @@
-import { Button, Card, PaletteMode, useTheme } from '@mui/material'
+import { Card, useTheme } from '@mui/material'
 
 export interface Props {
   label: string
