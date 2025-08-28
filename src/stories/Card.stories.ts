@@ -45,6 +45,37 @@ export const brightAddCard: Story = {
     },
   },
 }
+export const brightPiazzaCard: Story = {
+  args: {
+    mode: 'colorTwo',
+    sxObject: {
+      flexGrow: 1,
+      overflow: 'hidden',
+    },
+  },
+}
+export const brightSpecificCard: Story = {
+  args: {
+    mode: 'colorTwo',
+    sxObject: {
+      maxWidth: `${window.screen.width * 0.9}px`,
+      boxShadow: `1.9px 1.9px 1.9px 1.9px lightblue`,
+    },
+  },
+}
+export const brightSpecificRearCard: Story = {
+  args: {
+    mode: 'colorTwo',
+    sxObject: {
+      height: `1080px`,
+      maxWidth: `${window.screen.width * 0.9}px`,
+      border: 1,
+      borderWidth: '5px',
+      borderColor: 'lightblue',
+      borderRadius: '10px',
+    },
+  },
+}
 export const brighterCard: Story = {
   args: {
     mode: 'colorOne',
