@@ -29,17 +29,3 @@ export const defaultButton: Story = {
     // bgcolor: '#e2e8f0',
   },
 }
-
-// export const Large: Story = {
-//   args: {
-//     size: 'large',
-//     label: 'Button',
-//   },
-// };
-
-// export const Small: Story = {
-//   args: {
-//     size: 'small',
-//     label: 'Button',
-//   },
-// };
