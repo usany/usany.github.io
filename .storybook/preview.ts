@@ -1,14 +1,19 @@
-import type { Preview } from '@storybook/react-vite'
+// .storybook/preview.js
 
-const preview: Preview = {
-  parameters: {
-    controls: {
-      matchers: {
-       color: /(background|color)$/i,
-       date: /Date$/i,
-      },
+import { CssBaseline, ThemeProvider } from '@mui/material';
+import { withThemeFromJSXProvider } from '@storybook/addon-themes';
+import { lightTheme, darkTheme } from '../src/themes.js';
+
+/* snipped for brevity */
+
+export const decorators = [
+  withThemeFromJSXProvider({
+    themes: {
+      light: lightTheme,
+      dark: darkTheme,
     },
-  },
-};
-
-export default preview;
+    defaultTheme: 'light',
+    Provider: ThemeProvider,
+    GlobalStyles: CssBaseline,
+  }),
+];
