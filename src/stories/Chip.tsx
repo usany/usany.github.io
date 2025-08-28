@@ -1,12 +1,4 @@
-import {
-  Button,
-  Chip,
-  createTheme,
-  // PaletteMode,
-  ThemeProvider,
-  useTheme,
-} from '@mui/material'
-import useColors from 'src/hooks/useColors'
+import { Chip, useTheme } from '@mui/material'
 
 export interface ButtonProps {
   mode: string
