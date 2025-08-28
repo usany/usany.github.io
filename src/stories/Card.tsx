@@ -9,9 +9,16 @@ export interface Props {
 }
 
 /** Primary UI component for user interaction */
-export const Cards = ({ label, ...props }: Props) => {
+export const Cards = ({ label, mode, ...props }: Props) => {
   const theme = useTheme()
-  const bgcolor = theme.palette.mode === 'light' ? '#e2e8f0' : '#2d3848'
+  let bgcolor
+  if (mode === 'colorThree') {
+    bgcolor = theme.palette.mode === 'light' ? '#cbd5df' : '#1a202c'
+  } else if (mode === 'colorTwo') {
+    bgcolor = theme.palette.mode === 'light' ? '#e2e8f0' : '#2d3848'
+  } else {
+    bgcolor = theme.palette.mode === 'light' ? '#f7fafb' : '#5c6778'
+  }
   return (
     <>
       <Card
