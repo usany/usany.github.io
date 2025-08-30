@@ -26,11 +26,6 @@ const useUserObject = () => {
       newProfile.profileImageUrl = profileImage.attachment
     }
     dispatch(changeProfile(newProfile))
-    // if (JSON.parse(localStorage.getItem('profileImage') || `{uid: ''}`).uid === userData?.uid) {
-    //     dispatch(changeProfile(userData))
-    // } else {
-    //   dispatch(changeProfile(userData))
-    // }
     const userColor = docSnap.data()?.profileColor || '#2196f3'
     const userImage = docSnap.data()?.profileImageUrl || 'null'
     const userProfileImage = docSnap.data()?.profileImage || false
