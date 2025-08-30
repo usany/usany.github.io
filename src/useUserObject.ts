@@ -12,6 +12,7 @@ import { dbservice } from 'src/baseApi/serverbase'
 import { changeProfileColor } from 'src/stateSlices/profileColorSlice'
 import { changeProfile } from 'src/stateSlices/profileSlice'
 import { changeProfileUrl } from 'src/stateSlices/profileUrlSlice'
+import { profile } from 'console'
 
 const useUserObject = () => {
   const [userObj, setUserObj] = useState<User | null | undefined>(undefined)
@@ -20,7 +21,14 @@ const useUserObject = () => {
     const docRef = doc(dbservice, `members/${uid}`)
     const docSnap = await getDoc(docRef)
     const userData = docSnap.data()
-    dispatch(changeProfile(userData))
+    const profileImage = JSON.parse(localStorage.getItem('profileImage')|| '')
+    const newProfile = profileImage?.uid === userData?.uid ? {profileImageUrl: profileImage.attachment, ...userData} : userData
+    dispatch(changeProfile(newProfile))
+    // if (JSON.parse(localStorage.getItem('profileImage') || `{uid: ''}`).uid === userData?.uid) {
+    //     dispatch(changeProfile(userData))
+    // } else {
+    //   dispatch(changeProfile(userData))
+    // }
     const userColor = docSnap.data()?.profileColor || '#2196f3'
     const userImage = docSnap.data()?.profileImageUrl || 'null'
     const userProfileImage = docSnap.data()?.profileImage || false
