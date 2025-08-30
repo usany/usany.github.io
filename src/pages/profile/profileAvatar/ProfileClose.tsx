@@ -45,10 +45,13 @@ const ProfileClose = ({
         const splitedArray = attachment.split(';base64,')
         const content = splitedArray[0].slice(5)
         const base64 = splitedArray[1]
+        console.log(decode(base64))
         const { data, error } = await supabase.storage
           .from('remake')
           .update(userObj.uid, decode(base64), {
             contentType: content,
+            cacheControl: '1',
+            upsert: true
           })
         if (data) {
           console.log(data)
@@ -67,7 +70,9 @@ const ProfileClose = ({
       })
       const { data, error } = await supabase.storage
         .from('remake')
-        .update(userObj.uid, 'null')
+        .update(userObj.uid, 'null', {
+          upsert: true
+        })
       if (data) {
         console.log(data)
       } else {

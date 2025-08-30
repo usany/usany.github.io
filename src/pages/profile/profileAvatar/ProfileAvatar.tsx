@@ -49,7 +49,7 @@ const ProfileAvatar = ({ userObj, user }) => {
   // const changeProfileOrder = (newValue) => {
   //   setProfileOrder(newValue)
   // }
-  // console.log(user)
+  console.log(profile)
   if (userObj.uid === user.uid) {
     return (
       <Popups

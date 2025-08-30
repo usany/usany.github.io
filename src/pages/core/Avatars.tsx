@@ -37,7 +37,7 @@ const Avatars = ({
   // console.log(element)
   // console.log(element?.profileImageUrl)
   // console.log(element?.defaultProfile)
-
+  console.log(profile)
   return (
     <div>
       {profile ? (
