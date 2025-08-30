@@ -20,9 +20,9 @@ const useUserObject = () => {
     const docRef = doc(dbservice, `members/${uid}`)
     const docSnap = await getDoc(docRef)
     const userData = docSnap.data()
-    const profileImage = JSON.parse(localStorage.getItem('profileImage')|| '')
+    const profileImage = JSON.parse(localStorage.getItem(userData.uid)|| '')
     const newProfile = userData
-    if (profileImage?.uid === userData?.uid && newProfile) {
+    if (profileImage && newProfile) {
       newProfile.profileImageUrl = profileImage.attachment
     }
     dispatch(changeProfile(newProfile))

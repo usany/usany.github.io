@@ -37,7 +37,7 @@ const ProfileClose = ({
           profileImageUrl: attachment,
         }),
       )
-      localStorage.setItem('profileImage', JSON.stringify({uid: profile.uid, attachment: attachment}))
+      localStorage.setItem(`${profile.uid}`, JSON.stringify({uid: profile.uid, attachment: attachment}))
       if (attachment.slice(0, 5) === 'data:') {
         // uploadString(storageRef, attachment, 'data_url').then((snapshot) => {
         //   console.log('Uploaded a blob or file!')
@@ -64,6 +64,7 @@ const ProfileClose = ({
       // uploadString(storageRef, 'null', 'raw').then((snapshot) => {
       //   console.log('Uploaded a blob or file!')
       // })
+      localStorage.setItem(`${profile.uid}`, JSON.stringify({uid: profile.uid, attachment: ''}))
       updateDoc(docRef, {
         profileImage: false,
         profileColor: changedImage.profileColor,
