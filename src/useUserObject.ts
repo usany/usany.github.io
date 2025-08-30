@@ -4,10 +4,7 @@ import { auth } from 'src/baseApi/serverbase'
 import 'src/global.css'
 // import supabase from './baseApi/base'
 import { useDispatch } from 'react-redux'
-import { User } from 'firebase/auth'
 import { doc, getDoc } from 'firebase/firestore'
-import { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
 import { dbservice } from 'src/baseApi/serverbase'
 import { changeProfileColor } from 'src/stateSlices/profileColorSlice'
 import { changeProfile } from 'src/stateSlices/profileSlice'
@@ -20,9 +17,9 @@ const useUserObject = () => {
     const docRef = doc(dbservice, `members/${uid}`)
     const docSnap = await getDoc(docRef)
     const userData = docSnap.data()
-    const profileImage = JSON.parse(localStorage.getItem(userData.uid)|| '')
+    const profileImage = JSON.parse(localStorage.getItem(userData.uid) || '{}')
     const newProfile = userData
-    if (profileImage && newProfile) {
+    if (profileImage?.attachment && newProfile) {
       newProfile.profileImageUrl = profileImage.attachment
     }
     dispatch(changeProfile(newProfile))
