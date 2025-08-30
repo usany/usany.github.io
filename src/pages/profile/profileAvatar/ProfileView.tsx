@@ -7,6 +7,7 @@ import Avatars from "src/pages/core/Avatars";
 const ProfileView = ({ userObj, user, changedImage, changeAttachment, handleChangedImage }) => {
   const profileUrl = useSelector((state) => state.profileUrl.value);
   const profile = useSelector((state) => state.profile.value)
+  console.log(profile)
   return (
     <div onClick={() => {
       // console.log('practice')

@@ -43,6 +43,8 @@ const AuthForm = ({ signIn, agreed }: Props) => {
       // location.reload()
     } catch (error) {
       console.log(error)
+      const errorMessage = '로그인 실패: 계정을 확인해 주세요'
+      setError(errorMessage)
       if (error.message === 'Firebase: Error (auth/invalid-credential).') {
         const errorMessage = '로그인 실패: 계정을 확인해 주세요'
         setError(errorMessage)
