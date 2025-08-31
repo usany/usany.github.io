@@ -38,7 +38,6 @@ const useUserObject = () => {
   useEffect(() => {
     const reloading = sessionStorage.getItem('reloading')
     auth.onAuthStateChanged((user) => {
-      // const reloading = sessionStorage.getItem('reloading')
       if (user === null && !reloading) {
         sessionStorage.setItem('reloading', 'true')
         location.reload()
