@@ -7,7 +7,7 @@ import { Buttons } from './Button'
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
   title: 'Components/Button',
-  component: Buttons,
+  // component: Buttons,
   parameters: {
     // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/configure/story-layout
     layout: 'centered',
@@ -29,3 +29,4 @@ export const defaultButton: Story = {
     // bgcolor: '#e2e8f0',
   },
 }
+export {DefaultButtons} from './DefaultButtons'

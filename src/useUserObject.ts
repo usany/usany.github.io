@@ -38,7 +38,6 @@ const useUserObject = () => {
   useEffect(() => {
     const reloading = sessionStorage.getItem('reloading')
     auth.onAuthStateChanged((user) => {
-      // const reloading = sessionStorage.getItem('reloading')
       if (user === null && !reloading) {
         sessionStorage.setItem('reloading', 'true')
         location.reload()
@@ -47,26 +46,6 @@ const useUserObject = () => {
       console.log(user)
       setUserObj(user)
     })
-    // const { data } = supabase.auth.onAuthStateChange(async (event, session) => {
-    //   console.log(event, session)
-    //   console.log(data)
-    //   if (event === 'PASSWORD_RECOVERY') {
-    //     const newPassword = prompt(
-    //       'What would you like your new password to be?',
-    //     )
-    //     const { data, error } = await supabase.auth.updateUser({
-    //       password: newPassword,
-    //     })
-    //     if (data) alert('Password updated successfully!')
-    //     if (error) alert('There was an error updating your password.')
-    //   }
-    //   const user = { uid: session.user.id }
-    //   if (data === null && !reloading) {
-    //     sessionStorage.setItem('reloading', 'true')
-    //     location.reload()
-    //   }
-    //   setProfile(user?.uid)
-    // })
   }, [])
   return userObj
 }
