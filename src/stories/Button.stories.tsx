@@ -8,6 +8,13 @@ import { Buttons } from './Button'
 const meta = {
   title: 'Components/Button',
   // component: Buttons,
+  decorators: [
+    (Story) => (
+      <div>
+        <Story />
+      </div>
+    ),
+  ],
   parameters: {
     // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/configure/story-layout
     layout: 'centered',
@@ -23,10 +30,5 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 // More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
-export const defaultButton: Story = {
-  args: {
-    // mode: 'light',
-    // bgcolor: '#e2e8f0',
-  },
-}
+
 export { DefaultButtons } from 'src/pages/core/DefaultButtons'
