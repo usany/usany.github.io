@@ -29,4 +29,4 @@ export const defaultButton: Story = {
     // bgcolor: '#e2e8f0',
   },
 }
-export { DefaultButtons } from './DefaultButtons'
+export { DefaultButtons } from 'src/pages/core/DefaultButtons'
