@@ -1,13 +1,14 @@
 import Divider from "@mui/material/Divider";
 import { CreditCard } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
+import { useSelectors } from "src/hooks/useSelectors";
 import {
   cardOff,
   cardOn
 } from "src/stateSlices/cardAccordionSlice";
 
 const NavigationTopCards = () => {
-  const cardAccordion = useSelector((state) => state.cardAccordion.value);
+  const cardAccordion = useSelectors((state) => state.cardAccordion.value);
   const dispatch = useDispatch();
 
   return (
