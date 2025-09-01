@@ -61,8 +61,8 @@ const ProfileLocations = ({ user, userObj }) => {
     })
     onClick()
   }
-  console.log(locationConfirmed)
   return (
+    <div className='flex justify-center gap-5 p-5'>
     <div className='flex flex-col'>
       <div className="flex justify-center items-start gap-5 p-5">
         <div className='flex flex-col justify-center'>
@@ -120,6 +120,7 @@ const ProfileLocations = ({ user, userObj }) => {
           <div>{languages === 'ko' ? '확인 불가' : 'Confirm fail'}</div>
         )
       }
+    </div>
     </div>
   )
 }

@@ -145,9 +145,7 @@ function Profile({ userObj }: Props) {
         userObj={userObj}
         user={state?.element || userObj}
       />
-      <div className='flex justify-center gap-5 p-5'>
-        <ProfileLocations user={userUid} userObj={userObj} />
-      </div>
+      <ProfileLocations user={userUid} userObj={userObj} />
       <ProfileActions
         userObj={userObj}
         user={state?.element || userObj}
