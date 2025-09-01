@@ -17,9 +17,11 @@ const ProfileForm = ({ userObj, }: Props) => {
   const languages = useSelectors((state) => state.languages.value)
   const { colorOne, colorTwo } = useCardsBackground()
   useEffect(() => {
-    setNewDisplayName(
-      userObj.displayName
-    )
+    if (userObj?.displayName) {
+      setNewDisplayName(
+        userObj.displayName
+      )
+    }
   }, [])
   const onSubmit = async (event) => {
     event.preventDefault()
@@ -45,7 +47,7 @@ const ProfileForm = ({ userObj, }: Props) => {
         }).then(() => {
           alert('교체 완료')
         }).catch((error) => {
-          console.log('error')
+          console.log(error)
         })
       }
     }
@@ -93,16 +95,11 @@ const ProfileForm = ({ userObj, }: Props) => {
                   :
                   <div className='pt-1'>{languages === 'ko' ? '이름 입력이 필요해요' : 'Need a name input'}</div>
                 }
-                {/* <Button variant='outlined' form='profile' type='submit' disabled>바꾸기</Button> */}
               </div>
             }
           </div>
         </div>
-        {profileChangeConfirmed ?
-          <Button sx={{ bgcolor: colorTwo, height: '56px' }} variant='outlined' form='profile' type='submit'>{languages === 'ko' ? '바꾸기' : 'Change'}</Button>
-          :
-          <Button sx={{ bgcolor: colorTwo, height: '56px' }} variant='outlined' form='profile' type='submit' disabled>{languages === 'ko' ? '바꾸기' : 'Change'}</Button>
-        }
+        <Button sx={{ bgcolor: colorTwo, height: '56px' }} variant='outlined' form='profile' type='submit' disabled={!profileChangeConfirmed}>{languages === 'ko' ? '바꾸기' : 'Change'}</Button>
       </div>
     </form>
   )
