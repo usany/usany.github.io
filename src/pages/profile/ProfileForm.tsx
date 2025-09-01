@@ -1,23 +1,21 @@
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import { updateProfile } from "firebase/auth";
+import { updateProfile, User } from "firebase/auth";
 import { collection, doc, getDocs, query, updateDoc } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { dbservice } from 'src/baseApi/serverbase';
 import useCardsBackground from 'src/hooks/useCardsBackground';
-// import { useQueryState } from 'nuqs'
 import { useSelectors } from 'src/hooks/useSelectors';
 
 interface Props {
-  userObj: string
+  userObj: User
 }
 
-const ProfileForm = ({ userObj, }) => {
+const ProfileForm = ({ userObj, }: Props) => {
   const [profileChangeConfirmed, setProfileChangeConfirmed] = useState(false)
   const [newDisplayName, setNewDisplayName] = useState('')
   const languages = useSelectors((state) => state.languages.value)
   const { colorOne, colorTwo } = useCardsBackground()
-  // const [name, setName] = useQueryState('name')
   useEffect(() => {
     setNewDisplayName(
       userObj.displayName
@@ -75,14 +73,12 @@ const ProfileForm = ({ userObj, }) => {
   return (
     <form id='profile' onSubmit={onSubmit}>
       <div className='flex justify-center pt-10'>
-        {/* <div className='flex pt-5 px-3'>유저 이름 바꾸기:</div> */}
         <div className='flex flex-col'>
           <TextField sx={{ bgcolor: colorOne, borderRadius: '5px' }} label={languages === 'ko' ? '유저 이름 바꾸기' : 'Change user name'} placeholder='유저 이름 바꾸기' value={newDisplayName} type='text' onChange={onChange} />
           <div className='flex justify-start'>
             {profileChangeConfirmed ?
               <div className='flex'>
                 <div className='pt-1'>{languages === 'ko' ? '다행히 중복되지 않네요' : 'Do not overlap'}</div>
-                {/* <Button variant='outlined' form='profile' type='submit'>바꾸기</Button> */}
               </div>
               :
               <div className='flex'>
