@@ -126,7 +126,7 @@ function Auth({ userObj }: User) {
               ? '반갑습니다. 캠퍼스 우산 공유 서비스 쿠우산입니다.'
               : 'Welcome. This is usan sharing service khusan'}
           </div>
-          <AuthForm signIn={true} />
+          <AuthForm signIn={true} agreed={true} />
           <AuthButtons />
           <div className="flex justify-center pt-5 px-5">
             {languages === 'ko'
