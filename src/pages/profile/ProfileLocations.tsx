@@ -63,64 +63,64 @@ const ProfileLocations = ({ user, userObj }) => {
   }
   return (
     <div className='flex justify-center gap-5 p-5'>
-    <div className='flex flex-col'>
-      <div className="flex justify-center items-start gap-5 p-5">
-        <div className='flex flex-col justify-center'>
-          {
-            locationConfirmed ? (
-              <Chip
-                sx={{}}
-                color='success'
-                label={
-                  languages === 'ko' ? '캠퍼스 위치 확인' : 'Location confirmed'
-                }
-              />
-            ) : (
-              <Chip
-                label={
-                  languages === 'ko' ? '캠퍼스 위치 미확인' : 'Location unconfirmed'
-                }
-              />
-            )
+      <div className='flex flex-col'>
+        <div className="flex justify-center items-start gap-5 p-5">
+          <div className='flex flex-col justify-center'>
+            {
+              locationConfirmed ? (
+                <Chip
+                  sx={{}}
+                  color='success'
+                  label={
+                    languages === 'ko' ? '캠퍼스 위치 확인' : 'Location confirmed'
+                  }
+                />
+              ) : (
+                <Chip
+                  label={
+                    languages === 'ko' ? '캠퍼스 위치 미확인' : 'Location unconfirmed'
+                  }
+                />
+              )
+            }
+            {user === userObj.uid && !locationConfirmed && (
+              <Button onClick={onClickLocation} variant="outlined">
+                {languages === 'ko' ? '캠퍼스 위치 확인' : 'Campus location confirm'}
+              </Button>
+            )}
+          </div>
+          {userObj.uid === user &&
+            <ClickAwayListener onClickAway={handleTooltipClose}>
+              <div className='flex'>
+                <Tooltip
+                  onClose={handleTooltipClose}
+                  open={open}
+                  disableFocusListener
+                  disableHoverListener
+                  disableTouchListener
+                  title={<div className='text-xl'>
+                    <div>{areYouInCampus}</div>
+                    <div>{letOthersKnowYouAreInCampusByLocationConfirmation}</div>
+                    <div>{locationConfirmationLastsUntilTheNextDay}</div>
+                  </div>}
+                  slotProps={{
+                    popper: {
+                      disablePortal: true,
+                    },
+                  }}
+                >
+                  <div className='rounded-xl border border-solid px-1 bg-light-2 dark:bg-dark-2' onClick={handleTooltipOpen}>?</div>
+                </Tooltip>
+              </div>
+            </ClickAwayListener>
           }
-          {user === userObj.uid && !locationConfirmed && (
-            <Button onClick={onClickLocation} variant="outlined">
-              {languages === 'ko' ? '캠퍼스 위치 확인' : 'Campus location confirm'}
-            </Button>
-          )}
         </div>
-        {userObj.uid === user &&
-          <ClickAwayListener onClickAway={handleTooltipClose}>
-            <div className='flex'>
-              <Tooltip
-                onClose={handleTooltipClose}
-                open={open}
-                disableFocusListener
-                disableHoverListener
-                disableTouchListener
-                title={<div className='text-xl'>
-                  <div>{areYouInCampus}</div>
-                  <div>{letOthersKnowYouAreInCampusByLocationConfirmation}</div>
-                  <div>{locationConfirmationLastsUntilTheNextDay}</div>
-                </div>}
-                slotProps={{
-                  popper: {
-                    disablePortal: true,
-                  },
-                }}
-              >
-                <div className='rounded-xl border border-solid px-1 bg-light-2 dark:bg-dark-2' onClick={handleTooltipOpen}>?</div>
-              </Tooltip>
-            </div>
-          </ClickAwayListener>
+        {
+          !locationConfirmed && location.lat !== 0 && (
+            <div>{languages === 'ko' ? '확인 불가' : 'Confirm fail'}</div>
+          )
         }
       </div>
-      {
-        !locationConfirmed && location.lat !== 0 && (
-          <div>{languages === 'ko' ? '확인 불가' : 'Confirm fail'}</div>
-        )
-      }
-    </div>
     </div>
   )
 }
