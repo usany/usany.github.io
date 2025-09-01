@@ -35,25 +35,6 @@ const NavigationTop = ({ userObj }: Props) => {
   const userCertificated = useSelectors((state) => state.userCertificated.value)
   const dispatch = useDispatch()
   const largeMedia = useLargeMedia()
-  // useEffect(() => {
-  //   const setProfile = async () => {
-  //     const docRef = doc(dbservice, `members/${userObj?.uid}`)
-  //     const docSnap = await getDoc(docRef)
-  //     const userData = docSnap.data()
-  //     dispatch(changeProfile(userData))
-  //     const userColor = docSnap.data()?.profileColor || '#2196f3'
-  //     const userImage = docSnap.data()?.profileImageUrl || 'null'
-  //     const userProfileImage = docSnap.data()?.profileImage || false
-  //     const userDefaultProfile = docSnap.data()?.defaultProfile || 'null'
-  //     dispatch(changeProfileColor(userColor))
-  //     if (userProfileImage) {
-  //       dispatch(changeProfileUrl(userImage))
-  //     } else {
-  //       dispatch(changeProfileUrl(userDefaultProfile))
-  //     }
-  //   }
-  //   setProfile()
-  // }, [userObj])
   useScroll()
   const scrollLocation =
     ['/', '/add', '/board'].indexOf(location.pathname) === -1
