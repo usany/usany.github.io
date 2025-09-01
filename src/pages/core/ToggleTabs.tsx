@@ -76,16 +76,7 @@ export default function ToggleTabs() {
     )
   }, [tabs])
   return (
-    <div className=''>
-      {/* <Box sx={{ paddingX: '10px'
-        }}>
-        <Tabs
-          value={tabs} onChange={handleChange} aria-label="basic tabs example"
-        >
-          <Tab label={<Minimize2 />} {...a11yProps(0)} />
-          <Tab label={<Maximize2 />} {...a11yProps(1)} />
-        </Tabs>
-      </Box> */}
+    <div>
       {tabsBox}
     </div>
   );
