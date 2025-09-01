@@ -1,4 +1,5 @@
 import { User } from 'firebase/auth'
+import { doc, getDoc } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import useLargeMedia from 'src/hooks/useLargeMedia'
@@ -57,7 +58,7 @@ const NavigationTop = ({ userObj }: Props) => {
             handleSideNavigation={handleSideNavigation}
           />
           <div className={`flex ${!largeMedia && 'flex-col'} items-center`}>
-            {largeMedia && scrollNavigation && scrollLocation && (
+            {scrollNavigation && scrollLocation && (
               <NavigationScroll />
             )}
             <div>
@@ -75,9 +76,6 @@ const NavigationTop = ({ userObj }: Props) => {
                 </>
               )}
             </div>
-            {!largeMedia && scrollNavigation && scrollLocation && (
-              <NavigationScroll />
-            )}
           </div>
           {navigator.onLine ? (
             <WeatherView />
