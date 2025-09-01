@@ -1,5 +1,5 @@
 import { User } from 'firebase/auth'
-import { doc, DocumentData, onSnapshot } from 'firebase/firestore'
+import { doc, onSnapshot } from 'firebase/firestore'
 import {
   DoorOpen,
   Film,
@@ -10,7 +10,6 @@ import {
 } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import staticImage from 'src/assets/blue.png'
-// import supabase from 'src/baseApi/base'
 import { auth, dbservice } from 'src/baseApi/serverbase'
 import {
   Drawer,
@@ -115,9 +114,6 @@ function Navigation({ userObj, handleSideNavigation }: Props) {
             element={profile}
             piazza={null}
             profile={false}
-            profileColor=""
-            profileUrl={profile.profileImageUrl}
-            defaultProfileUrl={profile.defaultProfile}
           />
         ) : (
           <>

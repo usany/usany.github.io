@@ -12,10 +12,7 @@ const Avatars = ({ element, profile, piazza }: Props) => {
   let defaultProfile
   if (element?.defaultProfile) {
     defaultProfile = element?.defaultProfile
-  } else {
-    defaultProfile = static05
   }
-  console.log(profile)
   return (
     <div>
       {profile ? (
