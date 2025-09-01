@@ -150,19 +150,9 @@ function Profile({ userObj }: Props) {
         icon={<UserRound />}
         title={`${userUid === userObj.uid ? (languages === 'ko' ? "내" : 'My') : shortenName} ${languages === 'ko' ? '프로필' : 'Profile'}`}
       />
-      {/* <div onClick={() => {
-        const navigators = navigator.geolocation.getCurrentPosition(position => console.log(position.coords))
-        console.log(navigators)
-      }
-      }>위치 latitude:37.5682 longitude:126.9977</div> */}
       <ProfileAvatar
         userObj={userObj}
         user={state?.element || userObj}
-      // handleProfileDialog={() => setProfileDialog(true)}
-      // profileDialog={profileDialog}
-      // changedImage={changedImage}
-      // handleChangedImage={(newState: changedImage) => setChangedImage(newState)}
-      // handleClose={handleClose}
       />
       <div className='flex justify-center gap-5 p-5'>
         <ProfileLocations user={userUid} userObj={userObj} />
