@@ -25,33 +25,12 @@ import { changeProfileUrl } from "src/stateSlices/profileUrlSlice";
 import { useImmer } from "use-immer";
 import ProfileLocations from "./ProfileLocations";
 
-const area = [
-  {
-    westSouth: { lat: 37.5927551, lng: 127.047462 },
-    westNorth: { lat: 37.6010743, lng: 127.047462 },
-    eastSouth: { lat: 37.5927551, lng: 127.0571999 },
-    eastNorth: { lat: 37.6010743, lng: 127.0571999 },
-  }
-]
-interface changedImage {
-  attachment: string
-  character: string
-  color: string
-}
 interface Props {
   userObj: User;
 }
 function Profile({ userObj }: Props) {
   const languages = useSelectors((state) => state.languages.value)
-  const [changedImage, setChangedImage] = useState({
-    attachment: '',
-    character: '',
-    color: '',
-    changed: true
-  });
   const { state } = useLocation();
-  // console.log(userObj)
-  // console.log(state)
   const [profileDialog, setProfileDialog] = useState(false);
   const [alliesCollection, setAlliesCollection] = useImmer([
     {
@@ -72,12 +51,6 @@ function Profile({ userObj }: Props) {
   const [scrolledToCompleted, setScrolledToCompleted] = useState(false)
   const userUid = state?.element.uid || userObj.uid;
   const userDisplayName = state?.element.displayName || userObj.displayName;
-  const uid = location.search
-  // const myCards = useQuery({
-  //   queryKey: ["myCards"],
-  //   queryFn: () => myCardsQuery(userObj.uid),
-  //   suspense: true,
-  // });
 
   useEffect(() => {
     const cards = async () => {
@@ -152,64 +125,15 @@ function Profile({ userObj }: Props) {
   useEffect(() => {
     dispatch(changeBottomNavigation(5));
   }, [state]);
-  const handleClose = () => {
-    setProfileDialog(false);
-  };
   const changeProfileDialog = (newValue) => {
     setProfileDialog(newValue)
   }
-  // const actions = [
-  //   { action: 'borrow', number: borrowMessage.length+borrowRegisteredMessage.length,
-  //     fill: 'red'},
-  //   { action: 'lend', number: lendMessage.length+lendRegisteredMessage.length,
-  //     fill: 'blue'},
-  // ]
-  // const labels = {
-  //   number: {
-  //     label: 'total',
-  //   },
-  //   borrow: {
-  //     label: 'borrow',
-  //     color: '#2563eb',
-  //   },
-  //   lend: {
-  //     label: 'lend',
-  //     color: '#60a5fa',
-  //   },
-  // } satisfies ChartConfig
-  // const totalNumber = actions.reduce((acc, curr) => acc + curr.number, 0)
-  // const ProfileAvatar = lazy(() => import("src/components/ProfileAvatar"))
   let shortenName;
   if (userDisplayName.length > 10) {
     shortenName = userDisplayName.slice(0, 10) + "......";
   } else {
     shortenName = userDisplayName;
   }
-  function getCoords() {
-    return new Promise((resolve, reject) =>
-      navigator.permissions ?
-
-        // Permission API is implemented
-        navigator.permissions.query({
-          name: 'geolocation'
-        }).then(permission =>
-          // is geolocation granted?
-          permission.state === "granted"
-            ? navigator.geolocation.getCurrentPosition(pos => {
-              // setWeather(pos)
-              resolve(pos.coords)
-            })
-            : resolve(null)
-        ) :
-
-        // Permission API was not implemented
-        reject(new Error("Permission API is not supported"))
-    )
-  }
-  // getCoords().then(coords => console.log(coords))
-  // if (document.scrollingElement?.scrollTop > 100) {
-  //   setScrolledToCompleted(true)
-  // }
   const scrollEffect = () => {
     const scrollNumber = 50
     if (document.scrollingElement?.scrollTop && document.scrollingElement?.scrollTop > scrollNumber) {
