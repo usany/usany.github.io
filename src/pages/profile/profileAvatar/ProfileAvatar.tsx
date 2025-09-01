@@ -45,11 +45,6 @@ const ProfileAvatar = ({ userObj, user }) => {
     }
   }, [attachment])
   const handleChangedImage = (newValue) => setChangedImage(newValue)
-  // const [profileOrder, setProfileOrder] = useState('animal')
-  // const changeProfileOrder = (newValue) => {
-  //   setProfileOrder(newValue)
-  // }
-  console.log(profile)
   if (userObj.uid === user.uid) {
     return (
       <Popups
