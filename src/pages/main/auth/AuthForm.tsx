@@ -2,7 +2,6 @@ import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from 'firebase/auth'
 import { collection, getDocs, query } from 'firebase/firestore'
-// import { getDownloadURL, ref, uploadString } from 'firebase/storage'
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
 import staticMail from 'src/assets/signMail.svg'
@@ -22,25 +21,11 @@ const AuthForm = ({ signIn, agreed }: Props) => {
   const [error, setError] = useState('')
   const languages = useSelectors((state) => state.languages.value)
   const { needToAgreeOnPrivateInformationPolicy } = useTexts()
-  // const { i18n, t } = useTranslation()
   const onLine = useSelector((state) => state.onLine.value)
   const onSubmitSignIn = async (event) => {
     event.preventDefault()
     try {
       await signInWithEmailAndPassword(auth, account.email, account.password)
-      // const { error } = await supabase.auth.signInWithPassword({
-      //   email: account.email,
-      //   password: account.password,
-      // })
-      // if (String(error) === 'AuthApiError: Invalid login credentials') {
-      //   const errorMessage = '로그인 실패: 계정을 확인해 주세요'
-      //   setError(errorMessage)
-      // }
-      // .then(({ error }) => {
-      //   console.log(error)
-      // })
-      // console.log(error)
-      // location.reload()
     } catch (error) {
       console.log(error)
       const errorMessage = '로그인 실패: 계정을 확인해 주세요'
@@ -62,17 +47,6 @@ const AuthForm = ({ signIn, agreed }: Props) => {
             account.email,
             account.password,
           )
-          // const { data, error } = await supabase.auth.signUp({
-          //   email: account.email,
-          //   password: account.password,
-          // })
-          // .then(({ error }) => {
-          //   console.log(error)
-          // })
-          // if (String(error) === 'AuthApiError: User already registered') {
-          //   const errorMessage = '회원가입 실패: 이미 가입된 계정입니다'
-          //   setError(errorMessage)
-          // }
           const uid = data.user.uid
           const email = data.user.email
           await supabase.storage.from('remake').update(uid, 'null')
@@ -89,57 +63,8 @@ const AuthForm = ({ signIn, agreed }: Props) => {
           }).catch((error) => {
             console.log('error')
           })
-          // const user = doc(dbservice, `members/${uid}`)
-          // const storageRef = ref(storage, uid)
-          // uploadString(storageRef, 'null', 'raw').then((snapshot) => {
-          //   console.log('Uploaded a blob or file!')
-          //   getDownloadURL(storageRef)
-          //     .then(async (url) => {
-          //       await updateDoc(user, { profileImageUrl: url })
-          //     })
-          //     .catch((error) => {
-          //       console.log(error)
-          //     })
-          // })
-          // const profileImageNumber = Math.random()
-          // const profileColorNumber = Math.random()
-          // const profileImage = profileImageNumber < 0.5 ? 'animal' : 'plant'
-          // const profileColor =
-          //   profileColorNumber < 1 / 3
-          //     ? 'profileRed'
-          //     : profileColorNumber < 2 / 3
-          //       ? 'profileBlue'
-          //       : 'profileGold'
-          // if (profileColorNumber < 1 / 3) {
-          //   profileColor = 'profileRed'
-          // } else if (profileColorNumber < 2 / 3) {
-          //   profileColor = 'profileBlue'
-          // } else {
-          //   profileColor = 'profileGold'
-          // }
-          // if (profileImageNumber < 0.5) {
-          //   profileImage = 'animal'
-          // } else {
-          //   profileImage = 'plant'
-          // }
-          // const reference = ref(storage, `${profileImage}${profileColor}.png`)
-          // console.log(reference)
-          // const docRef = doc(dbservice, `members/${uid}`)
-          // updateDoc(docRef, {
-          //   profileImage: false,
-          //   profileColor: profileColor,
-          //   defaultProfile: `https://ijsfbngiyhgvolsprxeh.supabase.co/storage/v1/object/public/remake/${profileImage}${profileColor}.png`,
-          // })
-          // getDownloadURL(reference).then((url) => {
-          //   console.log(url)
-          // })
-          // setTimeout(() => {
-          //   location.reload()
-          // }, 1000)
         } catch (error) {
           console.log(error)
-          // console.log(error.message)
-          // setError(errorMessage)
           if (error.message === 'Firebase: Error (auth/invalid-credential).') {
             const errorMessage = '로그인 실패: 계정을 확인해 주세요'
             setError(errorMessage)
