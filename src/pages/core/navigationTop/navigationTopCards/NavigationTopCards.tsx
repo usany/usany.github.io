@@ -1,6 +1,6 @@
 import Divider from "@mui/material/Divider";
 import { CreditCard } from "lucide-react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useSelectors } from "src/hooks/useSelectors";
 import {
   cardOff,
