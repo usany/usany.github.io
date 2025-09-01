@@ -67,13 +67,13 @@ function Profile({ userObj }: Props) {
     cards();
   }, [state]);
 
-  const handleFollowers = ({ number, list }) => {
+  const handleFollowers = ({ list }) => {
     setAlliesCollection((draft) => {
       const followers = draft.find((todo) => todo.id === "followers");
       followers.list = list;
     });
   };
-  const handleFollowings = ({ number, list }) => {
+  const handleFollowings = ({ list }) => {
     setAlliesCollection((draft) => {
       const followings = draft.find((todo) => todo.id === "followings");
       followings.list = list;
