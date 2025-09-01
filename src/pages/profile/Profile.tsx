@@ -125,9 +125,6 @@ function Profile({ userObj }: Props) {
   useEffect(() => {
     dispatch(changeBottomNavigation(5));
   }, [state]);
-  const changeProfileDialog = (newValue) => {
-    setProfileDialog(newValue)
-  }
   let shortenName;
   if (userDisplayName.length > 10) {
     shortenName = userDisplayName.slice(0, 10) + "......";
@@ -168,7 +165,6 @@ function Profile({ userObj }: Props) {
         user={state?.element || userObj}
         alliesCollection={alliesCollection}
         cards={cards}
-        changeProfileDialog={changeProfileDialog}
       />
       {
         scrolledToCompleted ?

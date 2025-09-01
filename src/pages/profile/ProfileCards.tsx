@@ -16,7 +16,6 @@ const ProfileCards = ({
   user,
   alliesCollection,
   cards,
-  changeProfileDialog,
 }) => {
   const [companies, setCompanies] = useState([])
   const usersCollection = async (index) => {
@@ -34,18 +33,7 @@ const ProfileCards = ({
   const followerList = [true, false]
   const onClick = (index) => {
     usersCollection(index)
-    changeProfileDialog(true)
-    // userAllies(index)
   }
-  // const userAllies = async (index) => {
-  //   alliesCollection[index].list.map((element) => {
-  //   })
-  //   const ref = doc(dbservice, `members/${user.uid}`)
-  //   const docs = await getDoc(ref)
-  //   const followers = docs.data()?.followers || []
-  //   const followings = docs.data()?.followings || []
-  //   setCompanies(index ? followings : followers)
-  // }
   return (
     <div className="flex justify-center pt-5">
       <Card
