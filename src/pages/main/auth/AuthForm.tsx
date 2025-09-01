@@ -209,23 +209,7 @@ const AuthForm = ({ signIn, agreed }: Props) => {
             />
           </div>
           <div className="flex flex-col justify-center p-3">
-            {!signIn && !agreed ? (
-              <Button
-                variant="outlined"
-                startIcon={<img src={staticMail} className="w-[20px]" />}
-                form={signIn ? 'auth' : 'signUp'}
-                // type="submit"
-                disabled
-              >
-                {signIn
-                  ? languages === 'ko'
-                    ? '로그인'
-                    : 'Sign in'
-                  : languages === 'ko'
-                    ? '회원가입'
-                    : 'Register'}
-              </Button>
-            ) : (
+            {signIn || agreed &&
               <Button
                 variant="outlined"
                 startIcon={<img src={staticMail} className="w-[20px]" />}
@@ -240,7 +224,7 @@ const AuthForm = ({ signIn, agreed }: Props) => {
                     ? '회원가입'
                     : 'Register'}
               </Button>
-            )}
+            }
             {!signIn && !agreed && (
               <div>{needToAgreeOnPrivateInformationPolicy}</div>
             )}
