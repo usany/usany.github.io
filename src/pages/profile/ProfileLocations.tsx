@@ -3,6 +3,7 @@ import { doc, getDoc, updateDoc } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 import { dbservice } from 'src/baseApi/serverbase'
 import { useSelectors } from 'src/hooks/useSelectors'
+import useTexts from 'src/useTexts'
 
 const area = {
   westSouth: { lat: 37.5927551, lng: 127.047462 },
@@ -14,6 +15,7 @@ const ProfileLocations = ({ user, userObj }) => {
   const [location, setLocation] = useState({ lat: 0, lng: 0 })
   const [locationConfirmed, setLocationConfirmed] = useState(false)
   const [open, setOpen] = useState(false)
+  const {areYouInCampus, letOthersKnowYouAreInCampusByLocationConfirmation, locationConfirmationLastsUntilTheNextDay} = useTexts()
   const handleTooltipClose = () => {
     setOpen(false);
   };
@@ -97,9 +99,9 @@ const ProfileLocations = ({ user, userObj }) => {
                 disableHoverListener
                 disableTouchListener
                 title={<div className='text-xl'>
-                  <div>캠퍼스에 계세요?</div>
-                  <div>위치 확인으로 캠퍼스에 있음을 알리세요.</div>
-                  <div>위치 확인은 다음날까지 지속됩니다.</div>
+                  <div>{areYouInCampus}</div>
+                  <div>{letOthersKnowYouAreInCampusByLocationConfirmation}</div>
+                  <div>{locationConfirmationLastsUntilTheNextDay}</div>
                 </div>}
                 slotProps={{
                   popper: {
