@@ -31,7 +31,6 @@ interface Props {
 function Profile({ userObj }: Props) {
   const languages = useSelectors((state) => state.languages.value)
   const { state } = useLocation();
-  const [profileDialog, setProfileDialog] = useState(false);
   const [alliesCollection, setAlliesCollection] = useImmer([
     {
       id: "followers",
