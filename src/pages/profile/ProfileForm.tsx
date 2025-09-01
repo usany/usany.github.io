@@ -40,7 +40,7 @@ const ProfileForm = ({ userObj, }: Props) => {
       if (!profileConfirmed) {
         alert('중복 확인을 완료해 주세요')
       } else {
-        const data = await doc(dbservice, `members/${userObj.uid}`)
+        const data = doc(dbservice, `members/${userObj.uid}`)
         await updateDoc(data, { displayName: newDisplayName });
         await updateProfile(userObj, {
           displayName: newDisplayName
