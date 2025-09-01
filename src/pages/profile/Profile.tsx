@@ -124,12 +124,7 @@ function Profile({ userObj }: Props) {
   useEffect(() => {
     dispatch(changeBottomNavigation(5));
   }, [state]);
-  let shortenName;
-  if (userDisplayName.length > 10) {
-    shortenName = userDisplayName.slice(0, 10) + "......";
-  } else {
-    shortenName = userDisplayName;
-  }
+  const shortenName = userDisplayName.length > 10 ? userDisplayName.slice(0, 10) + "......" : userDisplayName;
   const scrollEffect = () => {
     const scrollNumber = 50
     if (document.scrollingElement?.scrollTop && document.scrollingElement?.scrollTop > scrollNumber) {
