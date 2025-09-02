@@ -32,10 +32,7 @@ const Router = () => {
               <Route path="/contact" element={<Contact />} />
               {profile?.certificated && (
                 <>
-                  <Route
-                    path="/profile"
-                    element={<Profile userObj={userObj} />}
-                  />
+                  <Route path="/profile" element={<Profile />} />
                   <Route
                     path="/ranking"
                     element={<Ranking userObj={userObj} />}
