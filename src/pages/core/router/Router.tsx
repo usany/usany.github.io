@@ -29,7 +29,7 @@ const Router = () => {
               <Route path="/" element={<Home userObj={userObj} />} />
               <Route path="/add" element={<Adds />} />
               <Route path="/board" element={<Boards />} />
-              <Route path="/contact" element={<Contact userObj={userObj} />} />
+              <Route path="/contact" element={<Contact />} />
               {profile?.certificated && (
                 <>
                   <Route
