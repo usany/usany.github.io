@@ -159,7 +159,6 @@ function Specifics({
                     <Divider />
                     <SpecificsTrades
                       drawerOpenTrue={drawerOpenTrue}
-                      userObj={userObj}
                       message={message}
                       connectedUser={connectedUser}
                     />
@@ -216,9 +215,7 @@ function Specifics({
                   <Divider />
                   <SpecificsTrades
                     drawerOpenTrue={drawerOpenTrue}
-                    userObj={userObj}
                     message={message}
-                    round={round}
                     connectedUser={connectedUser}
                   />
                   <Divider />
