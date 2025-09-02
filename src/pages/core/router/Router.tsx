@@ -18,7 +18,6 @@ const Router = () => {
   // const Piazza = lazy(() => import('src/pages/piazza/Piazza'))
   const Collection = lazy(() => import('src/pages/collection/Collection'))
   const profile = useSelectors((state) => state.profile.value)
-  const userObj = profile
   return (
     <BrowserRouter basename="/">
       <div className="flex flex-col">
@@ -26,7 +25,7 @@ const Router = () => {
         <div className="pt-16 pb-14">
           <Suspense fallback={<Loadings />}>
             <Routes>
-              <Route path="/" element={<Home userObj={userObj} />} />
+              <Route path="/" element={<Home />} />
               <Route path="/add" element={<Adds />} />
               <Route path="/board" element={<Boards />} />
               <Route path="/contact" element={<Contact />} />
