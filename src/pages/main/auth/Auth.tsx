@@ -12,11 +12,13 @@ import Motions from 'src/pages/main/auth/Motions'
 import { changeUserCertificated } from 'src/stateSlices/userCertificatedSlice'
 import useTexts from 'src/useTexts'
 import AuthPassword from './AuthPassword'
+import { changeProfile } from 'src/stateSlices/profileSlice'
 
 function Auth({ userObj }: User) {
   const [numberString, setNumberString] = useState('')
   const [mailSent, setMailSent] = useState(false)
   const [createdNumber, setCreatedNumber] = useState('')
+  const profile = useSelectors((state) => state.profile.value)
   const languages = useSelectors((state) => state.languages.value)
   const dispatch = useDispatch()
   const {
@@ -58,7 +60,7 @@ function Auth({ userObj }: User) {
     if (numberString === createdNumber) {
       const userDocRef = doc(dbservice, `members/${userObj.uid}`)
       await updateDoc(userDocRef, { certificated: true })
-      dispatch(changeUserCertificated(true))
+      dispatch(changeProfile({ ...profile, certificated: true }))
     } else {
       alert(checkTheNumber)
     }
