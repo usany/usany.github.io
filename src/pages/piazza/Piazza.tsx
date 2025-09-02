@@ -100,7 +100,6 @@ function Piazza({ userObj }: Props) {
       />
       <PiazzaForm
         chattingUser={chattingUser}
-        userObj={userObj}
         multiple={!conversation}
         messages={messages}
         handleMessages={(newValue) => setMessages(newValue)}
@@ -108,12 +107,10 @@ function Piazza({ userObj }: Props) {
         handleMessagesList={(newValue) => setMessagesList(newValue)}
       />
       <PiazzaMorphingDialogVideoCall
-        userObj={userObj}
         chattingUser={chattingUser}
         conversation={conversation}
       />
       <PiazzaMorphingDialogAudioCall
-        userObj={userObj}
         chattingUser={chattingUser}
         conversation={conversation}
       />

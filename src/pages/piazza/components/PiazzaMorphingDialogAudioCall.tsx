@@ -11,26 +11,32 @@ import {
 import useTexts from 'src/useTexts'
 import { webSocket } from 'src/webSocket'
 import PiazzaAudioCall from '../PiazzaAudioCall'
+import { useSelectors } from 'src/hooks/useSelectors'
 
 interface PiazzaMorphingDialogAudioCallProps {
-  userObj: User
   chattingUser: any
   conversation: string
 }
 
-function PiazzaMorphingDialogAudioCall({ userObj, chattingUser, conversation }: PiazzaMorphingDialogAudioCallProps) {
+function PiazzaMorphingDialogAudioCall({
+  chattingUser,
+  conversation,
+}: PiazzaMorphingDialogAudioCallProps) {
   const [, setSearchParams] = useSearchParams()
   const { hangUp } = useTexts()
-  
+  const profile = useSelectors((state) => state.profile.value)
+
   const stopCalls = async () => {
     setSearchParams((searchParams) => {
       searchParams.delete('call')
       return searchParams
     })
-    const videoElement = document.getElementById('myScreen') as HTMLVideoElement | null;
+    const videoElement = document.getElementById(
+      'myScreen',
+    ) as HTMLVideoElement | null
     if (videoElement?.srcObject) {
-      const mediaStream = videoElement.srcObject as MediaStream;
-      mediaStream.getTracks().forEach(track => track.stop());
+      const mediaStream = videoElement.srcObject as MediaStream
+      mediaStream.getTracks().forEach((track) => track.stop())
     }
     let toUserRef
     let toUser
@@ -48,8 +54,8 @@ function PiazzaMorphingDialogAudioCall({ userObj, chattingUser, conversation }: 
       sendingToken: messagingToken,
       connectedUrl: `/piazza?id=${conversation}&call=audio`,
       preferLanguage: preferLanguage,
-      userUid: userObj.uid,
-      id: userObj.displayName,
+      userUid: profile?.uid,
+      id: profile?.displayName,
       conversationUid: chattingUser?.uid,
       conversationName: chattingUser?.displayName,
     }
