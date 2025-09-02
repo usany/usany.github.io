@@ -1,4 +1,3 @@
-import { User } from 'firebase/auth'
 import { Suspense, lazy } from 'react'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import { useSelectors } from 'src/hooks/useSelectors'
