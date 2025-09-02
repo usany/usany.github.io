@@ -1,4 +1,3 @@
-import { User } from 'firebase/auth'
 import { doc, onSnapshot } from 'firebase/firestore'
 import {
   DoorOpen,
@@ -33,21 +32,12 @@ const onLogOutClick = async () => {
   auth.signOut()
 }
 function Navigation({ handleSideNavigation }: Props) {
-  const [points, setPoints] = useState(0)
   const [delayed, setDelayed] = useState(true)
   const theme = useSelectors((state) => state.theme.value)
   const languages = useSelectors((state) => state.languages.value)
   const profile = useSelectors((state) => state.profile.value)
   const onLine = useSelectors((state) => state.onLine.value)
   const { needNetworkConnection } = useTexts()
-  useEffect(() => {
-    if (profile) {
-      onSnapshot(doc(dbservice, `members/${profile.uid}`), (snapshot) => {
-        const number = snapshot.data()?.points
-        setPoints(number)
-      })
-    }
-  }, [])
   const checkbox = () => {
     handleSideNavigation()
   }
@@ -152,7 +142,7 @@ function Navigation({ handleSideNavigation }: Props) {
             </div>
           ) : (
             <div>
-              <NavigationSignedOut userObj={profile} points={points} />
+              <NavigationSignedOut />
               {onLine ? (
                 <div className="flex flex-col justify-between pt-5 gap-5">
                   {links.map((value, index) => {
