@@ -29,9 +29,6 @@ const time = {
   en: ['Recent', 'Older'],
 }
 const options = [items.ko, locations.ko, time.ko]
-interface Props {
-  userObj: User | null
-}
 
 function Board() {
   const [messages, setMessages] = useState<Array<object>>([])
