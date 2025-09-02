@@ -1,4 +1,3 @@
-import { User } from 'firebase/auth'
 import { doc, getDoc } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
@@ -13,10 +12,7 @@ import type { RootState } from 'src/store'
 import PiazzaMorphingDialogAudioCall from './components/PiazzaMorphingDialogAudioCall'
 import PiazzaMorphingDialogVideoCall from './components/PiazzaMorphingDialogVideoCall'
 
-interface Props {
-  userObj: User
-}
-function Piazza({ userObj }: Props) {
+function Piazza() {
   const [messages, setMessages] = useState('')
   const [messagesList, setMessagesList] = useState<[]>([])
   const dispatch = useDispatch()
