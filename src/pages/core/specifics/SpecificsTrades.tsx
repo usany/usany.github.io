@@ -1,13 +1,10 @@
 import { useEffect, useState } from 'react'
-// import { CardActionArea, CardActions } from '@mui/material';
-// import { useBottomNavigationStore } from 'src/store'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import BeachAccess from '@mui/icons-material/BeachAccess'
 import EastIcon from '@mui/icons-material/East'
 import HorizontalRuleIcon from '@mui/icons-material/HorizontalRule'
 import WestIcon from '@mui/icons-material/West'
 import { Chip } from '@mui/material'
-import { User } from 'firebase/auth'
 import { useSelectors } from 'src/hooks/useSelectors'
 import Popups from '../Popups'
 import SpecificsTradesContent from './SpecificsTradesContent'
@@ -15,15 +12,9 @@ import SpecificsTradesTitle from './SpecificsTradesTitle'
 import SpecificsTradesTrigger from './SpecificsTradeTrigger'
 
 interface Props {
-  userObj: User | null
   message: {}
 }
-function SpecificsTrades({
-  drawerOpenTrue,
-  userObj,
-  message,
-  connectedUser,
-}: Props) {
+function SpecificsTrades({ drawerOpenTrue, message, connectedUser }: Props) {
   const [conversation, setConversation] = useState('')
   const messageDisplayName = message.displayName
   const connectedDisplayName = connectedUser.displayName
@@ -77,7 +68,6 @@ function SpecificsTrades({
                   userObj={profile}
                   message={message}
                   conversation={conversation}
-                  drawerOpenTrue={drawerOpenTrue}
                   connectedUser={connectedUser}
                 />
               }
