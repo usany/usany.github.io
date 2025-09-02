@@ -12,7 +12,6 @@ interface Props {
 
 function PiazzaScreen({
   isKeyboardOpen,
-  userObj,
   messagesList,
   handleMessagesList,
   handleChatUid,

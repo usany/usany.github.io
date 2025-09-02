@@ -90,12 +90,9 @@ function Piazza({ userObj }: Props) {
   }, [])
   return (
     <>
-      {!isKeyboardOpen && (
-        <PiazzaTitle displayName={chatDisplayName} />
-      )}
+      {!isKeyboardOpen && <PiazzaTitle displayName={chatDisplayName} />}
       <PiazzaScreen
         isKeyboardOpen={piazzaForm}
-        userObj={userObj}
         messagesList={messagesList}
         handleMessagesList={(newValue) => setMessagesList(newValue)}
         handleChatUid={handleChatUid}
