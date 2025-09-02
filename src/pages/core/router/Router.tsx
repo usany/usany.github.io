@@ -40,10 +40,7 @@ const Router = () => {
                     path="/ranking"
                     element={<Ranking userObj={userObj} />}
                   />
-                  <Route
-                    path="/contact"
-                    element={<Contact userObj={userObj} />}
-                  />
+                  <Route path="/contact" element={<Contact />} />
                   <Route
                     path="/piazza"
                     element={<Piazza userObj={userObj} />}
