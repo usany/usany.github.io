@@ -22,18 +22,10 @@ const SpecificsTradesContent = ({
       ? message.creatorProfileImageUrl
       : message.connectedProfileImageUrl || connectedUser.connectedUrl,
   }
-  let uid
-  let displayName
-  let url
-  if (isCreator) {
-    uid = message?.creatorId
-    displayName = message.displayName
-    url = message.creatorUrl
-  } else {
-    uid = connectedUser.uid
-    displayName = connectedUser.displayName
-    url = connectedUser.url
-  }
+  const uid = isCreator ? message?.creatorId : connectedUser.uid
+  const displayName = isCreator ? message.displayName : dUser.displayName
+  const url = isCreator ? message.creatorUrl : connectedUser.url
+
   return (
     <div>
       <div className="flex flex-col items-center pt-5">
