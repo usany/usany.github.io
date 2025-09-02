@@ -11,9 +11,6 @@ const PiazzaDialogsContent = ({
   initiateContinuing,
   user,
   handleMessagesList,
-  displayedName,
-  handleChatUid,
-  handleChatDisplayName,
 }) => {
   const { state } = useLocation()
   const conversation = state?.conversation || 'piazza'

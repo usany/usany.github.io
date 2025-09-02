@@ -472,9 +472,7 @@ function PiazzaScreenView({
                               <PiazzaDialogsContent
                                 initiateContinuing={() => setContinuing(null)}
                                 user={user}
-                                userObj={profile}
                                 handleMessagesList={handleMessagesList}
-                                displayedName={displayedName}
                               />
                             }
                           />
@@ -541,11 +539,7 @@ function PiazzaScreenView({
                               <PiazzaDialogsContent
                                 initiateContinuing={() => setContinuing(null)}
                                 user={user}
-                                userObj={profile}
                                 handleMessagesList={handleMessagesList}
-                                displayedName={displayedName}
-                                handleChatUid={handleChatUid}
-                                handleChatDisplayName={handleChatDisplayName}
                               />
                             }
                           />
