@@ -17,15 +17,15 @@ interface Props {
 const Cards = ({
   message,
   isOwner,
-  userObj,
   num,
   points,
   longPressCard,
   changeLongPressCard,
   deleteMessage,
   delayed,
-  delayedFalse
+  delayedFalse,
 }: Props) => {
+  const profile = useSelectors((state) => state.profile.value)
   const { round, increaseRound, decreaseRound } = useRound(message)
   const cardsRef = useRef()
   useLongPress(cardsRef, () => {
@@ -41,7 +41,7 @@ const Cards = ({
               message={message}
               changeLongPressCard={changeLongPressCard}
               isOwner={isOwner}
-              userObj={userObj}
+              userObj={profile}
               num={num}
               points={points}
               deleteMessage={deleteMessage}
@@ -51,7 +51,7 @@ const Cards = ({
             <CardsViews
               message={message}
               isOwner={isOwner}
-              userObj={userObj}
+              userObj={profile}
               num={num}
               points={points}
               deleteMessage={deleteMessage}
@@ -60,7 +60,9 @@ const Cards = ({
         </>
       ) : (
         <>
-          {delayed || location.pathname === '/board' || location.pathname === '/profile' ?
+          {delayed ||
+          location.pathname === '/board' ||
+          location.pathname === '/profile' ? (
             <div
             // onMouseDownCapture={() => {
             //   const longPress = message.id
@@ -74,7 +76,7 @@ const Cards = ({
               <MorphingDialogs
                 message={message}
                 isOwner={isOwner}
-                userObj={userObj}
+                userObj={profile}
                 num={num}
                 points={points}
                 round={round}
@@ -83,16 +85,16 @@ const Cards = ({
                 deleteMessage={deleteMessage}
               />
             </div>
-            :
+          ) : (
             <CardsViews
               message={message}
               isOwner={isOwner}
-              userObj={userObj}
+              userObj={profile}
               num={num}
               points={points}
               deleteMessage={deleteMessage}
             />
-          }
+          )}
         </>
       )}
     </div>

@@ -33,7 +33,7 @@ interface Props {
   userObj: User | null
 }
 
-function Board({ userObj }: Props) {
+function Board() {
   const [messages, setMessages] = useState<Array<object>>([])
   const [selectedValues, setSelectedValues] = useImmer([
     {
@@ -115,7 +115,7 @@ function Board({ userObj }: Props) {
       setMessages(newArray)
       setMessageLoaded(true)
     }
-    if (userObj) {
+    if (profile) {
       bringMessages()
     }
   }, [selectedValues[2].value])
@@ -202,13 +202,11 @@ function Board({ userObj }: Props) {
                 choose={1}
                 messages={messages}
                 selectedValues={selectedValues}
-                userObj={userObj}
               />
               <CardsList
                 choose={2}
                 messages={messages}
                 selectedValues={selectedValues}
-                userObj={userObj}
               />
             </>
           )}

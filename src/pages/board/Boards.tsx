@@ -23,11 +23,8 @@ const time = {
   en: ['Recent', 'Older'],
 }
 const options = [items.ko, locations.ko, time.ko]
-interface Props {
-  userObj: User | null
-}
 
-function Boards({ userObj }: Props) {
+function Boards() {
   const profile = useSelectors((state) => state.profile.value)
   const navigate = useNavigate()
   const [searchParams, setSearchParams] = useSearchParams()
@@ -66,8 +63,8 @@ function Boards({ userObj }: Props) {
 
   return (
     <>
-      {userObj && profile?.certificated ? (
-        <Board userObj={userObj} />
+      {profile && profile?.certificated ? (
+        <Board />
       ) : (
         <SwipeableViews>
           <LayoutBoard borrow={true} />
