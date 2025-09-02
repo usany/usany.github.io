@@ -43,6 +43,7 @@ function Profile({ userObj }: Props) {
   const [scrolledToCompleted, setScrolledToCompleted] = useState(false)
   const userUid = state?.element.uid || userObj.uid
   const userDisplayName = state?.element.displayName || userObj.displayName
+  const profile = useSelectors((state) => state.profile.value)
 
   useEffect(() => {
     const cards = async () => {
@@ -146,8 +147,8 @@ function Profile({ userObj }: Props) {
             : shortenName
         } ${languages === 'ko' ? '프로필' : 'Profile'}`}
       />
-      <ProfileAvatar user={state?.element || userObj} />
-      <ProfileLocations user={userUid} userObj={userObj} />
+      <ProfileAvatar user={state?.element || profile} />
+      <ProfileLocations user={userUid} />
       <ProfileActions
         userObj={userObj}
         user={state?.element || userObj}
