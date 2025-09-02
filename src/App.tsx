@@ -13,7 +13,9 @@ import { changeEn } from './stateSlices/languagesSlice'
 import { changeDark } from './stateSlices/themeSlice'
 import useUserObject from './useUserObject'
 
-const usePreference = (userObj) => {
+const usePreference = () => {
+  const profile = useSelectors((state) => state.profile.value)
+  const uid = profile?.uid
   const dispatch = useDispatch()
   useEffect(() => {
     const mq = window.matchMedia('(prefers-color-scheme: dark)')
@@ -24,19 +26,19 @@ const usePreference = (userObj) => {
       }
     }
     const settingLanguage = async () => {
-      const ref = doc(dbservice, `members/${userObj?.uid}`)
+      const ref = doc(dbservice, `members/${uid}`)
       await updateDoc(ref, { preferLanguage: 'en' })
     }
     if (!localStorage.getItem('languages')) {
       if (navigator.language.slice(0, 2) !== 'ko') {
         localStorage.setItem('languages', 'en')
         dispatch(changeEn())
-        if (userObj) {
+        if (profile) {
           settingLanguage()
         }
       }
     }
-  }, [])
+  }, [uid])
 }
 
 function App() {
@@ -44,7 +46,7 @@ function App() {
   const theme = useSelectors((state) => state.theme.value)
   const userObj = useUserObject()
   const { lightTheme, darkTheme } = useColors()
-  usePreference(userObj)
+  usePreference()
   return (
     <>
       <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
