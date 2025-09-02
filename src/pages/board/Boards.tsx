@@ -43,7 +43,7 @@ function Boards({ userObj }: Props) {
       value: '최신순',
     },
   ])
-  const userCertificated = useSelectors((state) => state.userCertificated.value)
+  const profile = useSelectors((state) => state.profile.value)
   const navigate = useNavigate()
   const [searchParams, setSearchParams] = useSearchParams()
   const selectedSearchParams = [
@@ -102,7 +102,7 @@ function Boards({ userObj }: Props) {
 
   return (
     <>
-      {userObj && userCertificated ? (
+      {userObj && profile?.userCertificated ? (
         <Board userObj={userObj} />
       ) : (
         <SwipeableViews>

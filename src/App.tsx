@@ -56,8 +56,6 @@ function App() {
         const docRef = doc(dbservice, `members/${userObj.uid}`)
         const docSnap = await getDoc(docRef)
         const userData = docSnap.data()
-        dispatch(changeDefaultProfile(userData?.defaultProfile))
-        dispatch(changeProfileImageUrl(userData?.profileImageUrl))
         dispatch(changeUserCertificated(userData?.certificated))
       }
       initialProfile()
