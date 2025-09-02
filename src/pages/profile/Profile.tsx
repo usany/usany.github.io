@@ -18,10 +18,7 @@ import { changeProfileUrl } from 'src/stateSlices/profileUrlSlice'
 import { useImmer } from 'use-immer'
 import ProfileLocations from './ProfileLocations'
 
-interface Props {
-  userObj: User
-}
-function Profile({ userObj }: Props) {
+function Profile() {
   const languages = useSelectors((state) => state.languages.value)
   const { state } = useLocation()
   const [alliesCollection, setAlliesCollection] = useImmer([
