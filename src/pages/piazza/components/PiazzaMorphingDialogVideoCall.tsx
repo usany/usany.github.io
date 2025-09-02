@@ -11,16 +11,20 @@ import {
 import useTexts from 'src/useTexts'
 import { webSocket } from 'src/webSocket'
 import PiazzaCalls from '../PiazzaCalls'
+import { useSelectors } from 'src/hooks/useSelectors'
 
 interface PiazzaMorphingDialogVideoCallProps {
-  userObj: User
   chattingUser: any
   conversation: string
 }
 
-function PiazzaMorphingDialogVideoCall({ userObj, chattingUser, conversation }: PiazzaMorphingDialogVideoCallProps) {
+function PiazzaMorphingDialogVideoCall({
+  chattingUser,
+  conversation,
+}: PiazzaMorphingDialogVideoCallProps) {
   const [searchParams, setSearchParams] = useSearchParams()
   const { hangUp } = useTexts()
+  const profile = useSelectors((state) => state.profile.value)
 
   const stopCalls = async () => {
     setSearchParams((searchParams) => {
@@ -47,8 +51,8 @@ function PiazzaMorphingDialogVideoCall({ userObj, chattingUser, conversation }: 
       sendingToken: messagingToken,
       connectedUrl: `/piazza?id=${conversation}&call=video`,
       preferLanguage: preferLanguage,
-      userUid: userObj.uid,
-      id: userObj.displayName,
+      userUid: profile?.uid,
+      id: profile?.displayName,
       conversationUid: chattingUser?.uid,
       conversationName: chattingUser?.displayName,
     }

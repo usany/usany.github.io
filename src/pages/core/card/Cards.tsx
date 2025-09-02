@@ -1,4 +1,3 @@
-import { User } from 'firebase/auth'
 import { useRef } from 'react'
 import useLongPress from 'src/hooks/useLongPress'
 import MorphingDialogs from '../morphingDialogs/MorphingDialogs'
@@ -9,7 +8,6 @@ import { useRound } from './useRound'
 interface Props {
   message: { id: string; text: object }
   isOwner: boolean
-  userObj: User | null
   num: number | null
   points: number | null
 }
@@ -17,14 +15,13 @@ interface Props {
 const Cards = ({
   message,
   isOwner,
-  userObj,
   num,
   points,
   longPressCard,
   changeLongPressCard,
   deleteMessage,
   delayed,
-  delayedFalse
+  delayedFalse,
 }: Props) => {
   const { round, increaseRound, decreaseRound } = useRound(message)
   const cardsRef = useRef()
@@ -40,59 +37,30 @@ const Cards = ({
               longPressCard={longPressCard}
               message={message}
               changeLongPressCard={changeLongPressCard}
-              isOwner={isOwner}
-              userObj={userObj}
-              num={num}
-              points={points}
-              deleteMessage={deleteMessage}
               delayedFalse={delayedFalse}
             />
           ) : (
-            <CardsViews
-              message={message}
-              isOwner={isOwner}
-              userObj={userObj}
-              num={num}
-              points={points}
-              deleteMessage={deleteMessage}
-            />
+            <CardsViews message={message} />
           )}
         </>
       ) : (
         <>
-          {delayed || location.pathname === '/board' || location.pathname === '/profile' ?
-            <div
-            // onMouseDownCapture={() => {
-            //   const longPress = message.id
-            //   changeLongPressCard(longPress)
-            // }}
-            // onTouchStartCapture={() => {
-            //   const longPress = message.id
-            //   changeLongPressCard(longPress)
-            // }}
-            >
-              <MorphingDialogs
-                message={message}
-                isOwner={isOwner}
-                userObj={userObj}
-                num={num}
-                points={points}
-                round={round}
-                increaseRound={increaseRound}
-                decreaseRound={decreaseRound}
-                deleteMessage={deleteMessage}
-              />
-            </div>
-            :
-            <CardsViews
+          {delayed ||
+          location.pathname === '/board' ||
+          location.pathname === '/profile' ? (
+            <MorphingDialogs
               message={message}
               isOwner={isOwner}
-              userObj={userObj}
               num={num}
               points={points}
+              round={round}
+              increaseRound={increaseRound}
+              decreaseRound={decreaseRound}
               deleteMessage={deleteMessage}
             />
-          }
+          ) : (
+            <CardsViews message={message} />
+          )}
         </>
       )}
     </div>

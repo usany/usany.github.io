@@ -1,13 +1,10 @@
 import { useEffect, useState } from 'react'
-// import { CardActionArea, CardActions } from '@mui/material';
-// import { useBottomNavigationStore } from 'src/store'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import BeachAccess from '@mui/icons-material/BeachAccess'
 import EastIcon from '@mui/icons-material/East'
 import HorizontalRuleIcon from '@mui/icons-material/HorizontalRule'
 import WestIcon from '@mui/icons-material/West'
 import { Chip } from '@mui/material'
-import { User } from 'firebase/auth'
 import { useSelectors } from 'src/hooks/useSelectors'
 import Popups from '../Popups'
 import SpecificsTradesContent from './SpecificsTradesContent'
@@ -15,27 +12,20 @@ import SpecificsTradesTitle from './SpecificsTradesTitle'
 import SpecificsTradesTrigger from './SpecificsTradeTrigger'
 
 interface Props {
-  userObj: User | null
   message: {}
 }
-function SpecificsTrades({
-  drawerOpenTrue,
-  userObj,
-  message,
-  round,
-  connectedUser,
-}: Props) {
+function SpecificsTrades({ drawerOpenTrue, message, connectedUser }: Props) {
   const [conversation, setConversation] = useState('')
   const messageDisplayName = message.displayName
   const connectedDisplayName = connectedUser.displayName
   const languages = useSelectors((state) => state.languages.value)
-  let messageName
+  const profile = useSelectors((state) => state.profile.value)
+
+  const messageName =
+    messageDisplayName.length > 10
+      ? messageDisplayName.slice(0, 10) + '......'
+      : messageDisplayName
   let connectedMessageName
-  if (messageDisplayName.length > 10) {
-    messageName = messageDisplayName.slice(0, 10) + '......'
-  } else {
-    messageName = messageDisplayName
-  }
   if (connectedDisplayName) {
     if (connectedDisplayName.length > 10) {
       connectedMessageName = connectedDisplayName.slice(0, 10) + '......'
@@ -46,13 +36,13 @@ function SpecificsTrades({
 
   useEffect(() => {
     if (drawerOpenTrue) {
-      if (message?.creatorId < userObj.uid) {
+      if (message?.creatorId < profile?.uid) {
         setConversation(
-          message?.creatorId.slice(0, 6) + userObj.uid.slice(0, 6),
+          message?.creatorId.slice(0, 6) + profile?.uid.slice(0, 6),
         )
       } else {
         setConversation(
-          userObj.uid.slice(0, 6) + message?.creatorId.slice(0, 6),
+          profile?.uid.slice(0, 6) + message?.creatorId.slice(0, 6),
         )
       }
     }
@@ -75,18 +65,13 @@ function SpecificsTrades({
               content={
                 <SpecificsTradesContent
                   isCreator={true}
-                  userObj={userObj}
                   message={message}
                   conversation={conversation}
-                  drawerOpenTrue={drawerOpenTrue}
                   connectedUser={connectedUser}
                 />
               }
             />
-            <Chip
-              className='specific'
-              size="small"
-              label={messageName} />
+            <Chip className="specific" size="small" label={messageName} />
           </div>
         ) : (
           <div className="flex flex-col items-center">
@@ -96,15 +81,25 @@ function SpecificsTrades({
                   <SpecificsTradesTrigger
                     onClick={drawerOpenTrue}
                     isCreator={false}
-                    message={{ ...message, connectedProfileImage: true, connectedProfileImageUrl: connectedUser.url, connectedDefaultProfile: connectedUser.url }}
+                    message={{
+                      ...message,
+                      connectedProfileImage: true,
+                      connectedProfileImageUrl: connectedUser.url,
+                      connectedDefaultProfile: connectedUser.url,
+                    }}
                   />
                 }
                 title={<SpecificsTradesTitle />}
                 content={
                   <SpecificsTradesContent
                     isCreator={false}
-                    userObj={userObj}
-                    message={{ ...message, connectedProfileImage: true, connectedProfileImageUrl: connectedUser.url, connectedDefaultProfile: connectedUser.url }}
+                    userObj={profile}
+                    message={{
+                      ...message,
+                      connectedProfileImage: true,
+                      connectedProfileImageUrl: connectedUser.url,
+                      connectedDefaultProfile: connectedUser.url,
+                    }}
                     conversation={conversation}
                     drawerOpenTrue={drawerOpenTrue}
                     connectedUser={connectedUser}
@@ -123,14 +118,17 @@ function SpecificsTrades({
             )}
             {connectedUser.uid ? (
               <Chip
-                className='specific'
+                className="specific"
                 size="small"
-                label={connectedUser.displayName} />
+                label={connectedUser.displayName}
+              />
             ) : (
               <Chip
-                className='specific'
+                className="specific"
                 size="small"
-                variant="outlined" label={'아직 없음'} />
+                variant="outlined"
+                label={'아직 없음'}
+              />
             )}
           </div>
         )}
@@ -165,15 +163,24 @@ function SpecificsTrades({
                   <SpecificsTradesTrigger
                     onClick={drawerOpenTrue}
                     isCreator={false}
-                    message={{ ...message, connectedProfileImage: true, connectedProfileImageUrl: connectedUser.url, connectedDefaultProfile: connectedUser.url }}
+                    message={{
+                      ...message,
+                      connectedProfileImage: true,
+                      connectedProfileImageUrl: connectedUser.url,
+                      connectedDefaultProfile: connectedUser.url,
+                    }}
                   />
                 }
                 title={<SpecificsTradesTitle />}
                 content={
                   <SpecificsTradesContent
                     isCreator={false}
-                    userObj={userObj}
-                    message={{ ...message, connectedProfileImage: true, connectedProfileImageUrl: connectedUser.url, connectedDefaultProfile: connectedUser.url }}
+                    message={{
+                      ...message,
+                      connectedProfileImage: true,
+                      connectedProfileImageUrl: connectedUser.url,
+                      connectedDefaultProfile: connectedUser.url,
+                    }}
                     conversation={conversation}
                     drawerOpenTrue={drawerOpenTrue}
                     connectedUser={connectedUser}
@@ -192,12 +199,13 @@ function SpecificsTrades({
             )}
             {connectedUser.uid ? (
               <Chip
-                className='specific'
+                className="specific"
                 size="small"
-                label={connectedMessageName} />
+                label={connectedMessageName}
+              />
             ) : (
               <Chip
-                className='specific'
+                className="specific"
                 size="small"
                 variant="outlined"
                 label={languages === 'ko' ? '아직 없음' : 'No one yet'}
@@ -218,7 +226,7 @@ function SpecificsTrades({
               content={
                 <SpecificsTradesContent
                   isCreator={true}
-                  userObj={userObj}
+                  userObj={profile}
                   message={message}
                   conversation={conversation}
                   drawerOpenTrue={drawerOpenTrue}
@@ -226,9 +234,7 @@ function SpecificsTrades({
                 />
               }
             />
-            <Chip
-              className='specific'
-              label={messageName} />
+            <Chip className="specific" label={messageName} />
           </div>
         )}
       </div>

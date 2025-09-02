@@ -10,19 +10,17 @@ import Avatars from 'src/pages/core/Avatars'
 const PiazzaDialogsContent = ({
   initiateContinuing,
   user,
-  userObj,
   handleMessagesList,
-  displayedName,
-  handleChatUid,
-  handleChatDisplayName,
 }) => {
   const { state } = useLocation()
   const conversation = state?.conversation || 'piazza'
   const languages = useSelectors((state) => state.languages.value)
+  const profile = useSelectors((state) => state.profile.value)
   const [newConversation, setNewConversation] = useState('')
+
   useEffect(() => {
     if (user) {
-      if (user?.uid < userObj.uid) {
+      if (user?.uid < profile?.uid) {
         setNewConversation(
           user?.uid[0] +
             user?.uid[1] +
@@ -30,21 +28,21 @@ const PiazzaDialogsContent = ({
             user?.uid[3] +
             user?.uid[4] +
             user?.uid[5] +
-            userObj.uid[0] +
-            userObj.uid[1] +
-            userObj.uid[2] +
-            userObj.uid[3] +
-            userObj.uid[4] +
-            userObj.uid[5],
+            profile?.uid[0] +
+            profile?.uid[1] +
+            profile?.uid[2] +
+            profile?.uid[3] +
+            profile?.uid[4] +
+            profile?.uid[5],
         )
       } else {
         setNewConversation(
-          userObj.uid[0] +
-            userObj.uid[1] +
-            userObj.uid[2] +
-            userObj.uid[3] +
-            userObj.uid[4] +
-            userObj.uid[5] +
+          profile?.uid[0] +
+            profile?.uid[1] +
+            profile?.uid[2] +
+            profile?.uid[3] +
+            profile?.uid[4] +
+            profile?.uid[5] +
             user?.uid[0] +
             user?.uid[1] +
             user?.uid[2] +
@@ -69,7 +67,7 @@ const PiazzaDialogsContent = ({
         )} */}
         <Avatars
           element={user}
-          uid={userObj.uid}
+          uid={profile?.uid}
           profile={true}
           profileColor=""
           profileUrl={user?.profileImageUrl}
@@ -97,13 +95,13 @@ const PiazzaDialogsContent = ({
             {languages === 'ko' ? '프로필 확인' : 'Check Profile'}
           </Button>
         </Link>
-        {conversation === 'piazza' && userObj.uid !== user?.uid && (
+        {conversation === 'piazza' && profile?.uid !== user?.uid && (
           <Link
             to={`${location.pathname}?id=${newConversation}`}
             state={{
               conversation: newConversation,
               displayName: user?.displayName,
-              userUid: userObj.uid,
+              userUid: profile?.uid,
               chattingUid: user?.uid,
               multiple: false,
               profileUrl: user?.profileImageUrl,

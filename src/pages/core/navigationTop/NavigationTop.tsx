@@ -1,5 +1,3 @@
-import { User } from 'firebase/auth'
-import { doc, getDoc } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import useLargeMedia from 'src/hooks/useLargeMedia'
@@ -14,11 +12,7 @@ import NavigationTopCards from './navigationTopCards/NavigationTopCards'
 import NavigationTopLogOut from './navigationTopLogOut/NavigationTopLogOut'
 import NavigationTopMessages from './navigationTopMessages/NavigationTopMessages'
 
-interface Props {
-  userObj: User | null
-}
-
-const NavigationTop = ({ userObj }: Props) => {
+const NavigationTop = () => {
   const bottomNavigation = useSelectors((state) => state.bottomNavigation.value)
   const [sideNavigation, setSideNavigation] = useState(false)
   const [renderDelayed, setRenderDelayed] = useState(false)
@@ -27,7 +21,7 @@ const NavigationTop = ({ userObj }: Props) => {
     setSideNavigation(!sideNavigation)
   }
   const scrollNavigation = useSelectors((state) => state.scrollNavigation.value)
-  const userCertificated = useSelectors((state) => state.userCertificated.value)
+  const profile = useSelectors((state) => state.profile.value)
   const dispatch = useDispatch()
   const largeMedia = useLargeMedia()
   useScroll()
@@ -53,19 +47,14 @@ const NavigationTop = ({ userObj }: Props) => {
     <div className="shadow-md fixed z-50 bg-light-2 dark:bg-dark-2 rounded truncate">
       {renderDelayed && (
         <div className="flex justify-between w-screen items-center">
-          <Navigation
-            userObj={userObj}
-            handleSideNavigation={handleSideNavigation}
-          />
+          <Navigation handleSideNavigation={handleSideNavigation} />
           <div className={`flex ${!largeMedia && 'flex-col'} items-center`}>
-            {scrollNavigation && scrollLocation && (
-              <NavigationScroll />
-            )}
+            {scrollNavigation && scrollLocation && <NavigationScroll />}
             <div>
               {bottomNavigation % 2 === 0 && <ToggleTabs />}
               {bottomNavigation === 1 && (
                 <>
-                  {userCertificated ? (
+                  {profile?.certificated ? (
                     <div className="flex gap-5">
                       <NavigationTopCards />
                       <NavigationTopMessages />

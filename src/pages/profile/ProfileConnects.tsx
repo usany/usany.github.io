@@ -3,31 +3,27 @@ import { doc, getDoc, updateDoc } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { dbservice } from 'src/baseApi/serverbase'
+import { useSelectors } from 'src/hooks/useSelectors'
 import useTexts from 'src/useTexts'
 
-const ProfileConnects = ({
-  userObj,
-  user,
-  alliesCollection,
-  handleFollowers,
-  handleFollowings,
-}) => {
+const ProfileConnects = ({ user, alliesCollection, handleFollowers }) => {
   const { follow, cancelFollow, sendMessage } = useTexts()
-  // const [myFollowingList, setMyFollowingList] = useState([])
-  // const [otherFollowerNumber, setOtherFollowerNumber] = useState(null)
-  // const [otherFollowerList, setOtherFollowerList] = useState([])
-  // const [userFollowersList, setUserFollowersList] = useState([])
   const [conversation, setConversation] = useState('')
-  // const [followButton, setFollowButton] = useState(true)
-  const followButton = alliesCollection[0].list.indexOf(userObj.uid) === -1
+  const profile = useSelectors((state) => state.profile.value)
+
+  const followButton = alliesCollection[0].list.indexOf(profile?.uid) === -1
   const followUser = async (uid) => {
-    const myDocRef = doc(dbservice, `members/${userObj.uid}`)
+    const myDocRef = doc(dbservice, `members/${profile?.uid}`)
     const myDocSnap = await getDoc(myDocRef)
     const otherUserDocRef = doc(dbservice, `members/${user.uid}`)
     const otherUserDocSnap = await getDoc(otherUserDocRef)
     // const myFollowerNum = myDocSnap.data().followers.length
-    const myFollowingNum = myDocSnap.data()?.followings ? myDocSnap.data().followings.length : 0
-    const otherUserFollowerNum = otherUserDocSnap.data()?.followers ? otherUserDocSnap.data().followers.length : 0
+    const myFollowingNum = myDocSnap.data()?.followings
+      ? myDocSnap.data().followings.length
+      : 0
+    const otherUserFollowerNum = otherUserDocSnap.data()?.followers
+      ? otherUserDocSnap.data().followers.length
+      : 0
     // const otherUserFollowingNum = otherUserDocSnap.data().followings.length
     const myFollowers = myDocSnap.data().followers || []
     const myFollowings = myDocSnap.data().followings || []
@@ -47,32 +43,35 @@ const ProfileConnects = ({
       })
     }
     if (otherUserFollowerNum) {
-      if (otherFollowers.indexOf(userObj.uid) === -1) {
+      if (otherFollowers.indexOf(profile?.uid) === -1) {
         await updateDoc(otherUserDocRef, {
           followerNum: otherUserFollowerNum + 1,
-          followers: [...otherFollowers, userObj.uid],
+          followers: [...otherFollowers, profile?.uid],
         })
         handleFollowers({
-
-          list: [...otherFollowers, userObj.uid],
+          list: [...otherFollowers, profile?.uid],
         })
       }
     } else {
       await updateDoc(otherUserDocRef, {
         followerNum: 1,
-        followers: [userObj.uid],
+        followers: [profile?.uid],
       })
-      handleFollowers({ list: [userObj.uid] })
+      handleFollowers({ list: [profile?.uid] })
     }
   }
   const unfollowUser = async (uid) => {
-    const myDocRef = doc(dbservice, `members/${userObj.uid}`)
+    const myDocRef = doc(dbservice, `members/${profile?.uid}`)
     const myDocSnap = await getDoc(myDocRef)
     const otherUserDocRef = doc(dbservice, `members/${user.uid}`)
     const otherUserDocSnap = await getDoc(otherUserDocRef)
     // const myFollowerNum = myDocSnap.data().followers.length
-    const myFollowingNum = myDocSnap.data()?.followings ? myDocSnap.data().followings.length : 0
-    const otherUserFollowerNum = otherUserDocSnap.data()?.followers ? otherUserDocSnap.data().followers.length : 0
+    const myFollowingNum = myDocSnap.data()?.followings
+      ? myDocSnap.data().followings.length
+      : 0
+    const otherUserFollowerNum = otherUserDocSnap.data()?.followers
+      ? otherUserDocSnap.data().followers.length
+      : 0
     // const otherUserFollowingNum = otherUserDocSnap.data().followings.length
     const myFollowers = myDocSnap.data().followers || []
     const myFollowings = myDocSnap.data().followings || []
@@ -88,50 +87,50 @@ const ProfileConnects = ({
     }
 
     if (otherUserFollowerNum) {
-      if (otherFollowers.indexOf(userObj.uid) !== -1) {
+      if (otherFollowers.indexOf(profile?.uid) !== -1) {
         await updateDoc(otherUserDocRef, {
           followerNum: otherUserFollowerNum - 1,
           followers: otherFollowers.filter(
-            (element) => element !== userObj.uid,
+            (element) => element !== profile?.uid,
           ),
         })
         handleFollowers({
-          list: otherFollowers.filter((element) => element !== userObj.uid),
+          list: otherFollowers.filter((element) => element !== profile?.uid),
         })
       }
     }
   }
 
   useEffect(() => {
-    if (user.uid < userObj.uid) {
+    if (user.uid < profile?.uid) {
       setConversation(
         user.uid[0] +
-        user.uid[1] +
-        user.uid[2] +
-        user.uid[3] +
-        user.uid[4] +
-        user.uid[5] +
-        userObj.uid[0] +
-        userObj.uid[1] +
-        userObj.uid[2] +
-        userObj.uid[3] +
-        userObj.uid[4] +
-        userObj.uid[5],
+          user.uid[1] +
+          user.uid[2] +
+          user.uid[3] +
+          user.uid[4] +
+          user.uid[5] +
+          profile?.uid[0] +
+          profile?.uid[1] +
+          profile?.uid[2] +
+          profile?.uid[3] +
+          profile?.uid[4] +
+          profile?.uid[5],
       )
     } else {
       setConversation(
-        userObj.uid[0] +
-        userObj.uid[1] +
-        userObj.uid[2] +
-        userObj.uid[3] +
-        userObj.uid[4] +
-        userObj.uid[5] +
-        user.uid[0] +
-        user.uid[1] +
-        user.uid[2] +
-        user.uid[3] +
-        user.uid[4] +
-        user.uid[5],
+        profile?.uid[0] +
+          profile?.uid[1] +
+          profile?.uid[2] +
+          profile?.uid[3] +
+          profile?.uid[4] +
+          profile?.uid[5] +
+          user.uid[0] +
+          user.uid[1] +
+          user.uid[2] +
+          user.uid[3] +
+          user.uid[4] +
+          user.uid[5],
       )
     }
   }, [])
@@ -164,7 +163,7 @@ const ProfileConnects = ({
           state={{
             conversation: conversation,
             displayName: user.displayName,
-            userUid: userObj.uid,
+            userUid: profile?.uid,
             chattingUid: user.uid,
             multiple: false,
             profileUrl: user.profileImageUrl,

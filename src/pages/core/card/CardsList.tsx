@@ -2,11 +2,12 @@ import { useSelectors } from 'src/hooks/useSelectors'
 import Cards from 'src/pages/core/card/Cards'
 import useTexts from 'src/useTexts'
 
-const CardsList = ({ choose, messages, selectedValues, userObj }) => {
+const CardsList = ({ choose, messages, selectedValues }) => {
+  const profile = useSelectors((state) => state.profile.value)
   const { empty } = useTexts()
   const chosenMessages = messages
     .map((message, index) => {
-      const isOwner = message?.creatorId === userObj?.uid
+      const isOwner = message?.creatorId === profile?.uid
       if (message?.text.choose === choose && message?.round === 1) {
         if (
           selectedValues[0].value === '전체 아이템' ||
@@ -23,7 +24,6 @@ const CardsList = ({ choose, messages, selectedValues, userObj }) => {
                 key={index}
                 message={message}
                 isOwner={isOwner}
-                userObj={userObj}
                 num={null}
                 points={null}
               />

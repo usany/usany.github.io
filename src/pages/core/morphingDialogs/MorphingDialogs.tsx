@@ -20,20 +20,21 @@ import { useSupportTradesCallback } from './useSupportTradesCallback'
 interface Props {
   message: { id: string; text: object }
   isOwner: boolean
-  userObj: User | null
   num: number | null
   points: number | null
 }
 const MorphingDialogs = ({
   message,
-  userObj,
   round,
   increaseRound,
   decreaseRound,
   deleteMessage,
 }: Props) => {
   const [onTransfer, setOnTransfer] = useState(false)
-  const [connectedClock, setConnectedClock] = useState({ clock: '', cancelled: false })
+  const [connectedClock, setConnectedClock] = useState({
+    clock: '',
+    cancelled: false,
+  })
   const [confirmingClock, setConfirmingClock] = useState('')
   const [returningClock, setReturningClock] = useState('')
   const [confirmedReturnClock, setConfirmedReturnClock] = useState('')
@@ -56,10 +57,8 @@ const MorphingDialogs = ({
   const { onPulse, changeOnPulse } = usePulse({
     message: message,
     round: round,
-    userObj: userObj,
   })
   useOnPulseCallback({
-    userObj: userObj,
     round: round,
     changeOnPulse: changeOnPulse,
     message: message,
@@ -105,7 +104,10 @@ const MorphingDialogs = ({
     }
     webSocket.on(`sConfirmedReturn${message.id}`, sConfirmedReturnClockCallback)
     return () => {
-      webSocket.off(`sConfirmedReturn${message.id}`, sConfirmedReturnClockCallback)
+      webSocket.off(
+        `sConfirmedReturn${message.id}`,
+        sConfirmedReturnClockCallback,
+      )
     }
   }, [])
   return (
@@ -133,7 +135,6 @@ const MorphingDialogs = ({
           round={round}
           increaseRound={increaseRound}
           decreaseRound={decreaseRound}
-          userObj={userObj}
           message={message}
           onPulse={onPulse}
           changeOnPulse={changeOnPulse}

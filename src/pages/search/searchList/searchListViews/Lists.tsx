@@ -4,21 +4,8 @@ import { Skeleton } from 'src/components/ui/skeleton'
 import RankingListsTitle from 'src/pages/search/searchList/searchListViews/searchListViewsTitle/RankingListsTitle'
 import ListsView from './ListsView'
 
-function Lists({
-  userObj,
-  elements,
-  multiple,
-  userSearch,
-  ranking,
-  handleUser,
-}) {
+function Lists({ elements, multiple, userSearch, ranking, handleUser }) {
   const link = '/profile'
-  // if (location.pathname === '/profile') {
-  //   link = '/profile'
-  // }
-  // if (location.pathname === '/ranking') {
-  //   link = '/profile'
-  // }
   return (
     <div>
       {ranking && (
@@ -26,7 +13,6 @@ function Lists({
           <RankingListsTitle multiple={multiple} />
           {elements.length ? (
             <ListsView
-              userObj={userObj}
               elements={elements}
               userSearch={userSearch}
               multiple={multiple}
@@ -41,7 +27,6 @@ function Lists({
       {!ranking && (
         <DrawerClose>
           <ListsView
-            userObj={userObj}
             elements={elements}
             userSearch={userSearch}
             multiple={multiple}

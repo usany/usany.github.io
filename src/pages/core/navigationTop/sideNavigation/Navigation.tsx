@@ -1,4 +1,3 @@
-import { User } from 'firebase/auth'
 import { doc, onSnapshot } from 'firebase/firestore'
 import {
   DoorOpen,
@@ -26,30 +25,19 @@ import NavigationSignedIn from './navigationSignedIn/NavigationSignedIn'
 import NavigationSignedOut from './navigationSignedOut/NavigationSignedOut'
 import useTexts from 'src/useTexts'
 interface Props {
-  userObj: User | null
   handleSideNavigation: () => void
 }
 
 const onLogOutClick = async () => {
   auth.signOut()
 }
-function Navigation({ userObj, handleSideNavigation }: Props) {
-  const [points, setPoints] = useState(0)
+function Navigation({ handleSideNavigation }: Props) {
   const [delayed, setDelayed] = useState(true)
   const theme = useSelectors((state) => state.theme.value)
   const languages = useSelectors((state) => state.languages.value)
-  const userCertificated = useSelectors((state) => state.userCertificated.value)
   const profile = useSelectors((state) => state.profile.value)
   const onLine = useSelectors((state) => state.onLine.value)
-  const {needNetworkConnection} = useTexts()
-  useEffect(() => {
-    if (userObj) {
-      onSnapshot(doc(dbservice, `members/${userObj.uid}`), (snapshot) => {
-        const number = snapshot.data()?.points
-        setPoints(number)
-      })
-    }
-  }, [])
+  const { needNetworkConnection } = useTexts()
   const checkbox = () => {
     handleSideNavigation()
   }
@@ -109,12 +97,8 @@ function Navigation({ userObj, handleSideNavigation }: Props) {
   return (
     <Drawer direction="left">
       <DrawerTrigger className="px-5">
-        {profile && userCertificated ? (
-          <Avatars
-            element={profile}
-            piazza={null}
-            profile={false}
-          />
+        {profile && profile?.certificated ? (
+          <Avatars element={profile} piazza={null} profile={false} />
         ) : (
           <>
             {!delayed && (
@@ -129,9 +113,9 @@ function Navigation({ userObj, handleSideNavigation }: Props) {
       </DrawerTrigger>
       <DrawerContent className="border-none bg-light-2 dark:bg-dark-2 right-auto top-0 mt-0 w-[355px] overflow-hidden rounded-[10px]">
         <nav className="flex flex-col justify-between w-[350px]">
-          {userObj && userCertificated ? (
+          {profile?.certificated ? (
             <div>
-              <NavigationSignedIn userObj={userObj} points={points} />
+              <NavigationSignedIn />
               {onLine ? (
                 <div className="flex flex-col justify-between pt-5 gap-5">
                   {links.map((value, index) => {
@@ -158,7 +142,7 @@ function Navigation({ userObj, handleSideNavigation }: Props) {
             </div>
           ) : (
             <div>
-              <NavigationSignedOut userObj={userObj} points={points} />
+              <NavigationSignedOut />
               {onLine ? (
                 <div className="flex flex-col justify-between pt-5 gap-5">
                   {links.map((value, index) => {
@@ -178,7 +162,7 @@ function Navigation({ userObj, handleSideNavigation }: Props) {
                         </div>
                       )
                     }
-                    if (!userCertificated && userObj) {
+                    if (!profile?.certificated && profile) {
                       if (value.href === '/') {
                         return (
                           <div key={index}>
@@ -205,9 +189,7 @@ function Navigation({ userObj, handleSideNavigation }: Props) {
               )}
             </div>
           )}
-          {userObj && userCertificated && onLine && (
-            <IframePlayer mode={theme} />
-          )}
+          {profile?.certificated && onLine && <IframePlayer mode={theme} />}
         </nav>
       </DrawerContent>
     </Drawer>

@@ -15,17 +15,14 @@ import { dbservice } from 'src/baseApi/serverbase'
 import { useSelectors } from 'src/hooks/useSelectors'
 import Avatars from 'src/pages/core/Avatars'
 import Popups from 'src/pages/core/Popups'
-import SpecificsTradesTitle from 'src/pages/core/specifics/SpecificsTradesTitle'
 import { webSocket } from 'src/webSocket.tsx'
 import PiazzaDialogsContent from './piazzaDialogs/PiazzaDialogsContent'
 interface Props {
-  userObj: User
   messagesList: []
   handleMessagesList: (newValue: []) => void
 }
 
 function PiazzaScreenView({
-  userObj,
   messagesList,
   handleMessagesList,
   handleChatUid,
@@ -39,6 +36,7 @@ function PiazzaScreenView({
   const [continuing, setContinuing] = useState(null)
   const [continueNumber, setContinueNumber] = useState(0)
   const [currentConversation, setCurrentConversation] = useState('piazza')
+  const profile = useSelectors((state) => state.profile.value)
   const conversation = location.search
     ? location.search.slice(location.search.indexOf('=') + 1)
     : 'piazza'
@@ -162,9 +160,9 @@ function PiazzaScreenView({
           const myDocSnap = await getDoc(myDocRef)
           const myChattings = myDocSnap.data()
           const piazzaCheckedList = myChattings.piazzaChecked || []
-          if (piazzaCheckedList.indexOf(userObj.uid) === -1) {
-            piazzaCheckedList.splice(-1, userObj.uid, 0)
-            piazzaCheckedList.push(userObj.uid)
+          if (piazzaCheckedList.indexOf(profile?.uid) === -1) {
+            piazzaCheckedList.splice(-1, profile?.uid, 0)
+            piazzaCheckedList.push(profile?.uid)
             await updateDoc(myDocRef, {
               ...myChattings,
               piazzaChecked: piazzaCheckedList,
@@ -172,7 +170,7 @@ function PiazzaScreenView({
           }
         })
       } else {
-        const myDocRef = doc(dbservice, `members/${userObj.uid}`)
+        const myDocRef = doc(dbservice, `members/${profile?.uid}`)
         const myDocSnap = await getDoc(myDocRef)
         const myChattings = myDocSnap.data().chattings
         if (myChattings[conversation]) {
@@ -270,7 +268,7 @@ function PiazzaScreenView({
         const userOneDisplayName = doc.data().userOneDisplayName
         const userTwo = doc.data().userTwo
         const userTwoDisplayName = doc.data().userTwoDisplayName
-        if (userOne !== userObj.uid) {
+        if (userOne !== profile?.uid) {
           handleChatUid(userOne)
           handleChatDisplayName(userOneDisplayName)
         } else {
@@ -375,7 +373,7 @@ function PiazzaScreenView({
             }
             let userDirection
             const clock = new Date(value.messageClock)
-            if (value.userUid === userObj.uid) {
+            if (value.userUid === profile?.uid) {
               userDirection = 'text-right'
             } else {
               userDirection = 'text-left'
@@ -387,7 +385,7 @@ function PiazzaScreenView({
               previousUid = messagesArray[index - 1].userUid
             }
             if (index < messagesArray.length - 1) {
-              if (messagesArray[index + 1].userUid === userObj.uid) {
+              if (messagesArray[index + 1].userUid === profile?.uid) {
                 passingClock = new Date(messagesArray[index + 1].messageClock)
                 if (clock.getFullYear() === passingClock.getFullYear()) {
                   if (clock.getMonth() === passingClock.getMonth()) {
@@ -432,7 +430,9 @@ function PiazzaScreenView({
                 {previousUid !== value.userUid && (
                   <div>
                     <div
-                      className={`flex justify-${value.userUid !== userObj.uid ? 'start' : 'end'}`}
+                      className={`flex justify-${
+                        value.userUid !== profile?.uid ? 'start' : 'end'
+                      }`}
                     >
                       {userDirection === 'text-left' ? (
                         <div className="flex gap-3 pt-3">
@@ -471,14 +471,12 @@ function PiazzaScreenView({
                               <PiazzaDialogsContent
                                 initiateContinuing={() => setContinuing(null)}
                                 user={user}
-                                userObj={userObj}
                                 handleMessagesList={handleMessagesList}
-                                displayedName={displayedName}
                               />
                             }
                           />
                           {/* <Avatars
-                              uid={userObj.uid}
+                              uid={profile?.uid}
                               profile={false}
                               profileColor=""
                               profileUrl={value?.profileImageUrl}
@@ -512,10 +510,10 @@ function PiazzaScreenView({
                                   })
                                 }
                                 profile={false}
-                              // uid={userObj.uid}
-                              // profileColor=""
-                              // profileUrl={value.profileImageUrl}
-                              // defaultProfileUrl={value.defaultProfile}
+                                // uid={profile?.uid}
+                                // profileColor=""
+                                // profileUrl={value.profileImageUrl}
+                                // defaultProfileUrl={value.defaultProfile}
                               />
                             }
                             title={
@@ -540,16 +538,12 @@ function PiazzaScreenView({
                               <PiazzaDialogsContent
                                 initiateContinuing={() => setContinuing(null)}
                                 user={user}
-                                userObj={userObj}
                                 handleMessagesList={handleMessagesList}
-                                displayedName={displayedName}
-                                handleChatUid={handleChatUid}
-                                handleChatDisplayName={handleChatDisplayName}
                               />
                             }
                           />
                           {/* <Avatars
-                              uid={userObj.uid}
+                              uid={profile?.uid}
                               profile={false}
                               profileColor=""
                               profileUrl={value?.profileImageUrl}
@@ -572,7 +566,7 @@ function PiazzaScreenView({
                     </div>
                   </div>
                 )}
-                {value.userUid !== userObj.uid ? (
+                {value.userUid !== profile?.uid ? (
                   <div className="flex gap-3 justify-start">
                     <div className="other rounded-tr-lg rounded-bl-lg rounded-br-lg p-1 bg-light-1 dark:bg-dark-1">
                       {value.msg}

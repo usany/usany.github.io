@@ -1,4 +1,3 @@
-import { User } from 'firebase/auth'
 import { doc, getDoc } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
@@ -13,10 +12,7 @@ import type { RootState } from 'src/store'
 import PiazzaMorphingDialogAudioCall from './components/PiazzaMorphingDialogAudioCall'
 import PiazzaMorphingDialogVideoCall from './components/PiazzaMorphingDialogVideoCall'
 
-interface Props {
-  userObj: User
-}
-function Piazza({ userObj }: Props) {
+function Piazza() {
   const [messages, setMessages] = useState('')
   const [messagesList, setMessagesList] = useState<[]>([])
   const dispatch = useDispatch()
@@ -90,12 +86,9 @@ function Piazza({ userObj }: Props) {
   }, [])
   return (
     <>
-      {!isKeyboardOpen && (
-        <PiazzaTitle displayName={chatDisplayName} />
-      )}
+      {!isKeyboardOpen && <PiazzaTitle displayName={chatDisplayName} />}
       <PiazzaScreen
         isKeyboardOpen={piazzaForm}
-        userObj={userObj}
         messagesList={messagesList}
         handleMessagesList={(newValue) => setMessagesList(newValue)}
         handleChatUid={handleChatUid}
@@ -103,7 +96,6 @@ function Piazza({ userObj }: Props) {
       />
       <PiazzaForm
         chattingUser={chattingUser}
-        userObj={userObj}
         multiple={!conversation}
         messages={messages}
         handleMessages={(newValue) => setMessages(newValue)}
@@ -111,12 +103,10 @@ function Piazza({ userObj }: Props) {
         handleMessagesList={(newValue) => setMessagesList(newValue)}
       />
       <PiazzaMorphingDialogVideoCall
-        userObj={userObj}
         chattingUser={chattingUser}
         conversation={conversation}
       />
       <PiazzaMorphingDialogAudioCall
-        userObj={userObj}
         chattingUser={chattingUser}
         conversation={conversation}
       />

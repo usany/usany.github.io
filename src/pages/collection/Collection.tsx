@@ -19,11 +19,10 @@ import Popups from '../core/Popups'
 import supabase from 'src/baseApi/base'
 import { decode } from 'base64-arraybuffer'
 import { User } from 'firebase/auth'
+import { useSelectors } from 'src/hooks/useSelectors'
 
-interface Props {
-  userObj: User
-}
-function Collection({ userObj }: Props) {
+function Collection() {
+  const profile = useSelectors((state) => state.profile.value)
   const genai = new GoogleGenAI({ apiKey: import.meta.env.VITE_GEMINI_API_KEY })
   const {
     register,
@@ -78,7 +77,7 @@ function Collection({ userObj }: Props) {
   })
   const [drawerOpen, setDrawerOpen] = useState(false)
   const dispatch = useDispatch()
-  const profile = {
+  const initialProfile = {
     attachment: false,
     profileCharacter: '',
     profileImage: false,
@@ -112,30 +111,18 @@ function Collection({ userObj }: Props) {
     if (attachment) {
       setImages((images) => [
         {
-          uid: userObj.uid,
-          displayName: userObj.displayName,
+          uid: profile.uid,
+          displayName: profile.displayName,
           defaultProfile: attachment,
         },
         ...images,
       ])
       const now = new Date().getTime()
-      const id = userObj.uid + now.toString()
+      const id = profile.uid + now.toString()
       const docRef = doc(dbservice, `collections/${id}`)
-      // const storageRef = ref(storage, id)
-      // uploadString(storageRef, attachment, 'data_url').then(() => {
-      //   console.log('Uploaded a blob or file!')
-      //   getDownloadURL(storageRef).then((url) => {
-      //     setDoc(docRef, {
-      //       uid: userObj.uid,
-      //       displayName: userObj.displayName,
-      //       defaultProfile: attachment,
-      //       defaultProfile: url,
-      //     })
-      //   })
-      // })
       setDoc(docRef, {
-        uid: userObj.uid,
-        displayName: userObj.displayName,
+        uid: profile.uid,
+        displayName: profile.displayName,
         defaultProfile: `https://ijsfbngiyhgvolsprxeh.supabase.co/storage/v1/object/public/remake/${id}`,
       })
       const splitedArray = attachment.split(';base64,')
@@ -211,9 +198,9 @@ function Collection({ userObj }: Props) {
               handleChangedImage({
                 ...changedImage,
                 attachment: '',
-                profileColor: profile.profileColor,
+                profileColor: initialProfile.profileColor,
                 profileImage: false,
-                defaultProfile: profile.defaultProfile,
+                defaultProfile: initialProfile.defaultProfile,
                 changed: false,
               })
               changeAttachment(null)
@@ -227,7 +214,7 @@ function Collection({ userObj }: Props) {
         content={
           <div className="flex flex-col px-5 items-center gap-5">
             <Avatars
-              element={changedImage.changed ? changedImage : profile}
+              element={changedImage.changed ? changedImage : initialProfile}
               profile={true}
             />
             {!loading && (

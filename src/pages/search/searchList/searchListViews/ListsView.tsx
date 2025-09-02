@@ -7,17 +7,12 @@ import { Ban, Check } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { dbservice } from 'src/baseApi/serverbase'
 import Avatars from 'src/pages/core/Avatars'
+import { useSelectors } from 'src/hooks/useSelectors'
 
-const ListsView = ({
-  userObj,
-  elements,
-  userSearch,
-  multiple,
-  link,
-  handleUser,
-}) => {
+const ListsView = ({ elements, userSearch, multiple, link, handleUser }) => {
   const [newRanking, setNewRanking] = useState(0)
   const navigate = useNavigate()
+  const profile = useSelectors((state) => state.profile.value)
   let point
   let samePointIndex
 
@@ -30,8 +25,8 @@ const ListsView = ({
           point = element.points
           samePointIndex = index
         }
-        if (element.uid === userObj?.uid) {
-          const user = doc(dbservice, `members/${userObj?.uid}`)
+        if (element.uid === profile?.uid) {
+          const user = doc(dbservice, `members/${profile?.uid}`)
           const newRank = samePointIndex ? samePointIndex + 1 : index + 1
           if (!newRanking && multiple) {
             updateDoc(user, { ranking: newRank })
@@ -54,7 +49,7 @@ const ListsView = ({
             displayName = element.displayName
           }
           const userLink =
-            element.uid === userObj?.uid ? link : link + `/?id=${element.uid}`
+            element.uid === profile?.uid ? link : link + `/?id=${element.uid}`
           const onClick = () =>
             location.pathname !== '/contact'
               ? navigate(userLink, {
@@ -70,7 +65,10 @@ const ListsView = ({
               onClick={onClick}
             >
               <div
-                className={`flex truncate justify-around gap-1 p-3 rounded ranking-${location.pathname === '/ranking' && (multiple ? index + 1 : element.rank)}`}
+                className={`flex truncate justify-around gap-1 p-3 rounded ranking-${
+                  location.pathname === '/ranking' &&
+                  (multiple ? index + 1 : element.rank)
+                }`}
               >
                 {!multiple ? (
                   <div className="flex items-center justify-center w-20">

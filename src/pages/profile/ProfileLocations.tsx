@@ -11,18 +11,23 @@ const area = {
   eastSouth: { lat: 37.5927551, lng: 127.0571999 },
   eastNorth: { lat: 37.6010743, lng: 127.0571999 },
 }
-const ProfileLocations = ({ user, userObj }) => {
+const ProfileLocations = ({ user }) => {
   const [location, setLocation] = useState({ lat: 0, lng: 0 })
   const [locationConfirmed, setLocationConfirmed] = useState(false)
   const [open, setOpen] = useState(false)
-  const {areYouInCampus, letOthersKnowYouAreInCampusByLocationConfirmation, locationConfirmationLastsUntilTheNextDay} = useTexts()
+  const {
+    areYouInCampus,
+    letOthersKnowYouAreInCampusByLocationConfirmation,
+    locationConfirmationLastsUntilTheNextDay,
+  } = useTexts()
   const handleTooltipClose = () => {
-    setOpen(false);
-  };
+    setOpen(false)
+  }
   const handleTooltipOpen = () => {
-    setOpen(true);
-  };
+    setOpen(true)
+  }
   const languages = useSelectors((state) => state.languages.value)
+  const profile = useSelectors((state) => state.profile.value)
 
   const confirmLocation = async () => {
     const myDoc = doc(dbservice, `members/${user}`)
@@ -38,7 +43,7 @@ const ProfileLocations = ({ user, userObj }) => {
   }, [location, locationConfirmed, user])
 
   const onClick = () => {
-    const myDoc = doc(dbservice, `members/${userObj.uid}`)
+    const myDoc = doc(dbservice, `members/${profile?.uid}`)
     if (
       location.lat > area.westSouth.lat &&
       location.lat < area.westNorth.lat
@@ -47,7 +52,7 @@ const ProfileLocations = ({ user, userObj }) => {
         location.lng > area.westSouth.lng &&
         location.lng < area.eastSouth.lng
       ) {
-        updateDoc(myDoc, { locationConfirmed: Date.now(), })
+        updateDoc(myDoc, { locationConfirmed: Date.now() })
         setLocationConfirmed(true)
       }
     }
@@ -62,64 +67,73 @@ const ProfileLocations = ({ user, userObj }) => {
     onClick()
   }
   return (
-    <div className='flex justify-center gap-5 p-5'>
-      <div className='flex flex-col'>
+    <div className="flex justify-center gap-5 p-5">
+      <div className="flex flex-col">
         <div className="flex justify-center items-start gap-5 p-5">
-          <div className='flex flex-col justify-center'>
-            {
-              locationConfirmed ? (
-                <Chip
-                  sx={{}}
-                  color='success'
-                  label={
-                    languages === 'ko' ? '캠퍼스 위치 확인' : 'Location confirmed'
-                  }
-                />
-              ) : (
-                <Chip
-                  label={
-                    languages === 'ko' ? '캠퍼스 위치 미확인' : 'Location unconfirmed'
-                  }
-                />
-              )
-            }
-            {user === userObj.uid && !locationConfirmed && (
+          <div className="flex flex-col justify-center">
+            {locationConfirmed ? (
+              <Chip
+                sx={{}}
+                color="success"
+                label={
+                  languages === 'ko' ? '캠퍼스 위치 확인' : 'Location confirmed'
+                }
+              />
+            ) : (
+              <Chip
+                label={
+                  languages === 'ko'
+                    ? '캠퍼스 위치 미확인'
+                    : 'Location unconfirmed'
+                }
+              />
+            )}
+            {user === profile?.uid && !locationConfirmed && (
               <Button onClick={onClickLocation} variant="outlined">
-                {languages === 'ko' ? '캠퍼스 위치 확인' : 'Campus location confirm'}
+                {languages === 'ko'
+                  ? '캠퍼스 위치 확인'
+                  : 'Campus location confirm'}
               </Button>
             )}
           </div>
-          {userObj.uid === user &&
+          {profile?.uid === user && (
             <ClickAwayListener onClickAway={handleTooltipClose}>
-              <div className='flex'>
+              <div className="flex">
                 <Tooltip
                   onClose={handleTooltipClose}
                   open={open}
                   disableFocusListener
                   disableHoverListener
                   disableTouchListener
-                  title={<div className='text-xl'>
-                    <div>{areYouInCampus}</div>
-                    <div>{letOthersKnowYouAreInCampusByLocationConfirmation}</div>
-                    <div>{locationConfirmationLastsUntilTheNextDay}</div>
-                  </div>}
+                  title={
+                    <div className="text-xl">
+                      <div>{areYouInCampus}</div>
+                      <div>
+                        {letOthersKnowYouAreInCampusByLocationConfirmation}
+                      </div>
+                      <div>{locationConfirmationLastsUntilTheNextDay}</div>
+                    </div>
+                  }
                   slotProps={{
                     popper: {
                       disablePortal: true,
                     },
                   }}
                 >
-                  <div className='rounded-xl border border-solid px-1 bg-light-2 dark:bg-dark-2' onClick={handleTooltipOpen}>?</div>
+                  <div
+                    className="rounded-xl border border-solid px-1 bg-light-2 dark:bg-dark-2"
+                    onClick={handleTooltipOpen}
+                  >
+                    ?
+                  </div>
                 </Tooltip>
               </div>
             </ClickAwayListener>
-          }
+          )}
         </div>
-        {
-          !locationConfirmed && location.lat !== 0 && (
-            <div>{languages === 'ko' ? '확인 불가' : 'Confirm fail'}</div>
-          )
-        }
+        {!locationConfirmed && location.lat !== 0 && (
+          <div>{languages === 'ko' ? '확인 불가' : 'Confirm fail'}</div>
+        )}
       </div>
     </div>
   )

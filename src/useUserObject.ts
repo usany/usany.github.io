@@ -11,7 +11,6 @@ import { changeProfile } from 'src/stateSlices/profileSlice'
 import { changeProfileUrl } from 'src/stateSlices/profileUrlSlice'
 
 const useUserObject = () => {
-  const [userObj, setUserObj] = useState<User | null | undefined>(undefined)
   const dispatch = useDispatch()
   const setProfile = async (uid) => {
     const docRef = doc(dbservice, `members/${uid}`)
@@ -28,7 +27,6 @@ const useUserObject = () => {
     const userProfileImage = docSnap.data()?.profileImage || false
     const userDefaultProfile = docSnap.data()?.defaultProfile || 'null'
     dispatch(changeProfileColor(userColor))
-    console.log(uid)
     if (userProfileImage) {
       dispatch(changeProfileUrl(userImage))
     } else {
@@ -43,10 +41,7 @@ const useUserObject = () => {
         location.reload()
       }
       setProfile(user?.uid)
-      console.log(user)
-      setUserObj(user)
     })
   }, [])
-  return userObj
 }
 export default useUserObject

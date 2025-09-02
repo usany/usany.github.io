@@ -1,12 +1,14 @@
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
-import { User } from 'firebase/auth'
 import { addDoc, collection } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 import { dbservice } from 'src/baseApi/serverbase'
 import { useSelectors } from 'src/hooks/useSelectors'
-import ContactDrawers from 'src/pages/contact/ContactDrawers'
 import ContactFormDrawers from 'src/pages/contact/ContactFormDrawers'
+import ContactDrawersTrigger from './ContactDrawersTrigger'
+import ContactDrawersTitle from './ContactDrawersTitle'
+import ContactDrawersContent from './ContactDrawersContent'
+import Popups from '../core/Popups'
 
 const reportTitle = {
   ko: '신고하기 제목',
@@ -17,7 +19,6 @@ const reportContent = {
   en: 'Report Content',
 }
 interface Props {
-  userObj: User
   user: {
     profileImage: boolean
     profileImageUrl: string
@@ -26,7 +27,7 @@ interface Props {
   } | null
 }
 
-function ContactForm({ userObj, user }: Props) {
+function ContactForm({ user }: Props) {
   // const [message, setMessage] = useState({
   //   'title': '',
   //   'content': ''
@@ -42,7 +43,7 @@ function ContactForm({ userObj, user }: Props) {
   const [initialViolationUser, setInitialViolationUser] = useState(true)
   const languages = useSelectors((state) => state.languages.value)
   const index = languages === 'ko' || languages === 'en' ? languages : 'ko'
-  const userCertificated = useSelectors((state) => state.userCertificated.value)
+  const profile = useSelectors((state) => state.profile.value)
   useEffect(() => {
     if (user && initialViolationUser) {
       setViolationUser(user)
@@ -53,8 +54,8 @@ function ContactForm({ userObj, user }: Props) {
   const onSubmit = async () => {
     try {
       await addDoc(collection(dbservice, 'violations'), {
-        userUid: userObj?.uid || '비로그인',
-        userName: userObj?.displayName || '비로그인',
+        userUid: profile?.uid || '비로그인',
+        userName: profile?.displayName || '비로그인',
         messageTitle: messageTitle,
         message: messageContent,
         violationUser: violationUser,
@@ -112,7 +113,7 @@ function ContactForm({ userObj, user }: Props) {
           fullWidth
         />
       </div>
-      {userCertificated && (
+      {profile?.certificated && (
         <div className="flex pt-3 px-5 gap-1">
           <ContactFormDrawers
             violationUser={violationUser}
@@ -121,7 +122,14 @@ function ContactForm({ userObj, user }: Props) {
         </div>
       )}
       <div className="flex justify-center pt-2.5">
-        {userCertificated && <ContactDrawers userObj={userObj} />}
+        {profile?.certificated && (
+          <Popups
+            trigger={<ContactDrawersTrigger />}
+            title={<ContactDrawersTitle />}
+            content={<ContactDrawersContent />}
+          />
+        )}
+
         {messageTitle && messageContent ? (
           <Button variant="outlined" form="auth" onClick={onSubmit}>
             {languages === 'ko' ? '전송' : 'send'}

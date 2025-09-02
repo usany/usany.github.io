@@ -15,8 +15,6 @@ import Popups from '../core/Popups'
 import BoardList from './BoardList'
 import FilterDialogsContent from './FilterDialogs/FilterDialogsContent'
 import FilterDialogsTitle from './FilterDialogs/FilterDialogsTitle'
-import LayoutBoard from './LayoutBoard'
-// import { AlarmCheck, AlertCircle, Building, Clock, DoorOpen, MessagesSquare, Pen, PenBox, Pencil, PenSquare, PenTool, Presentation, Search, SearchCheck, SearchCode, SearchSlash, Siren, TowerControl, Umbrella, UserCheck, UserRound, Watch } from "lucide-react";
 
 const items = {
   ko: ['전체 아이템', '우산', '양산'],
@@ -31,11 +29,8 @@ const time = {
   en: ['Recent', 'Older'],
 }
 const options = [items.ko, locations.ko, time.ko]
-interface Props {
-  userObj: User | null
-}
 
-function Board({ userObj }: Props) {
+function Board() {
   const [messages, setMessages] = useState<Array<object>>([])
   const [selectedValues, setSelectedValues] = useImmer([
     {
@@ -52,7 +47,6 @@ function Board({ userObj }: Props) {
     },
   ])
   const [messageLoaded, setMessageLoaded] = useState(false)
-  const userCertificated = useSelectors((state) => state.userCertificated.value)
   const navigate = useNavigate()
   const [searchParams, setSearchParams] = useSearchParams()
   const selectedSearchParams = [
@@ -92,6 +86,7 @@ function Board({ userObj }: Props) {
     })
   }
   const languages = useSelectors((state) => state.languages.value)
+  const profile = useSelectors((state) => state.profile.value)
 
   useEffect(() => {
     document.documentElement.scrollTo({
@@ -118,7 +113,7 @@ function Board({ userObj }: Props) {
       setMessages(newArray)
       setMessageLoaded(true)
     }
-    if (userObj) {
+    if (profile) {
       bringMessages()
     }
   }, [selectedValues[2].value])
@@ -133,32 +128,10 @@ function Board({ userObj }: Props) {
       })
     }
   }, [])
-  // const handleMail = async (e) => {
-  //   e.preventDefault()
-  //   try {
-  //     const res = await fetch('http://localhost:5000/mail', {
-  //       method: "POST",
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify({
-  //         title: userObj?.uid,
-  //         author: userObj?.displayName
-  //       })
-  //     })
-  //     const jsonData = await res.json()
-  //     console.log(jsonData)
-  //   } catch (error) {
-  //     alert("아이템 작성 실패")
-  //     console.log(error)
-  //   }
-  // }
 
   return (
     <div>
-      {userObj && userCertificated ? (
-        <div>
-          {/* <AlarmCheck />
+      {/* <AlarmCheck />
             <AlertCircle />
             <Siren />
             <Presentation />
@@ -180,72 +153,63 @@ function Board({ userObj }: Props) {
             <PenBox />
             <PenTool />
             <PenSquare /> */}
-          <SwipeableViews>
-            <PageTitle
-              icon={<Minimize2 />}
-              title={
-                languages === 'ko' ? '빌리기 카드 목록' : 'Borrowing Card Board'
-              }
+      <SwipeableViews>
+        <PageTitle
+          icon={<Minimize2 />}
+          title={
+            languages === 'ko' ? '빌리기 카드 목록' : 'Borrowing Card Board'
+          }
+        />
+        <PageTitle
+          icon={<Maximize2 />}
+          title={
+            languages === 'ko' ? '빌려주기 카드 목록' : 'Lending Card Board'
+          }
+        />
+      </SwipeableViews>
+      <div className="px-5">
+        <div className="flex justify-center">
+          <div className="w-[1000px]">
+            <BoardMap
+              selectedValues={selectedSearchParams}
+              handleSelectedValues={handleSelectedValues}
+              searchParams={searchParams}
             />
-            <PageTitle
-              icon={<Maximize2 />}
-              title={
-                languages === 'ko' ? '빌려주기 카드 목록' : 'Lending Card Board'
-              }
-            />
-          </SwipeableViews>
-          <div className="px-5">
-            <div className="flex justify-center">
-              <div className="w-[1000px]">
-                <BoardMap
+          </div>
+        </div>
+      </div>
+      <>
+        <div className="truncate flex justify-center sticky top-16 z-30 px-5">
+          <div className="w-[1000px] shadow-md">
+            <Popups
+              trigger={<BoardList selectedValues={selectedSearchParams} />}
+              title={<FilterDialogsTitle />}
+              content={
+                <FilterDialogsContent
                   selectedValues={selectedSearchParams}
                   handleSelectedValues={handleSelectedValues}
-                  searchParams={searchParams}
                 />
-              </div>
-            </div>
+              }
+            />
           </div>
-          <>
-            <div className="truncate flex justify-center sticky top-16 z-30 px-5">
-              <div className="w-[1000px] shadow-md">
-                <Popups
-                  trigger={<BoardList selectedValues={selectedSearchParams} />}
-                  title={<FilterDialogsTitle />}
-                  content={
-                    <FilterDialogsContent
-                      selectedValues={selectedSearchParams}
-                      handleSelectedValues={handleSelectedValues}
-                    />
-                  }
-                />
-              </div>
-            </div>
-            <SwipeableViews>
-              {messageLoaded && (
-                <>
-                  <CardsList
-                    choose={1}
-                    messages={messages}
-                    selectedValues={selectedValues}
-                    userObj={userObj}
-                  />
-                  <CardsList
-                    choose={2}
-                    messages={messages}
-                    selectedValues={selectedValues}
-                    userObj={userObj}
-                  />
-                </>
-              )}
-            </SwipeableViews>
-          </>
         </div>
-      ) : (
         <SwipeableViews>
-          <LayoutBoard borrow={true} />
-          <LayoutBoard borrow={false} />
+          {messageLoaded && (
+            <>
+              <CardsList
+                choose={1}
+                messages={messages}
+                selectedValues={selectedValues}
+              />
+              <CardsList
+                choose={2}
+                messages={messages}
+                selectedValues={selectedValues}
+              />
+            </>
+          )}
         </SwipeableViews>
-      )}
+      </>
     </div>
   )
 }

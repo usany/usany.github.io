@@ -3,65 +3,59 @@ import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { dbservice } from 'src/baseApi/serverbase'
 import { useSelectors } from 'src/hooks/useSelectors'
-import UserObjProps from 'src/interfaces/UserObjProps'
-import Layout from 'src/pages/add/Layout'
-import Board from 'src/pages/board/Board'
-import { SwipeableViews } from 'src/pages/core/SwipeableViews'
 import Auth from 'src/pages/main/auth/Auth'
 import Menu from 'src/pages/main/menu/Menu'
 import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
 import { changeUserCertificated } from 'src/stateSlices/userCertificatedSlice'
-import Add from '../add/Add'
-import LayoutBoard from '../board/LayoutBoard'
 
-function Home({ userObj }: UserObjProps) {
+function Home() {
   const bottomNavigation = useSelectors((state) => state.bottomNavigation.value)
-  const userCertificated = useSelectors((state) => state.userCertificated.value)
+  const profile = useSelectors((state) => state.profile.value)
   const dispatch = useDispatch()
   useEffect(() => {
     if (bottomNavigation === 5) {
       dispatch(changeBottomNavigation(1))
     }
-  }, [userObj])
+  }, [profile])
   useEffect(() => {
     const userCertification = async () => {
-      const userRef = doc(dbservice, `members/${userObj.uid}`)
+      const userRef = doc(dbservice, `members/${profile?.uid}`)
       const userDoc = await getDoc(userRef)
       const { certificated } = userDoc.data()
       dispatch(changeUserCertificated(certificated))
     }
-    if (userObj) {
+    if (profile) {
       userCertification()
     }
-  }, [userObj])
+  }, [profile])
   return (
     <>
-      {userObj && userCertificated ? (
+      {profile?.certificated ? (
         <>
-          {bottomNavigation === 0 && (
+          {/* {bottomNavigation === 0 && (
             <SwipeableViews>
               <Add userObj={userObj} borrow={true} />
               <Add userObj={userObj} borrow={false} />
             </SwipeableViews>
-          )}
-          {bottomNavigation === 1 && <Menu userObj={userObj} />}
-          {bottomNavigation === 2 && <Board userObj={userObj} borrow={true} />}
+          )} */}
+          {bottomNavigation === 1 && <Menu userObj={profile} />}
+          {/* {bottomNavigation === 2 && <Board userObj={userObj} borrow={true} />} */}
         </>
       ) : (
         <>
-          {bottomNavigation === 0 && (
+          {/* {bottomNavigation === 0 && (
             <SwipeableViews>
               <Layout borrow={true} />
               <Layout borrow={false} />
             </SwipeableViews>
-          )}
-          {bottomNavigation === 1 && <Auth userObj={userObj} />}
-          {bottomNavigation === 2 && (
+          )} */}
+          {bottomNavigation === 1 && <Auth userObj={profile} />}
+          {/* {bottomNavigation === 2 && (
             <SwipeableViews>
               <LayoutBoard borrow={true} />
               <LayoutBoard borrow={false} />
             </SwipeableViews>
-          )}
+          )} */}
         </>
       )}
     </>
