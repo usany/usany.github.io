@@ -1,10 +1,9 @@
 import { useMediaQuery } from '@mui/material'
-import { User } from 'firebase/auth'
 import { addDoc, collection, doc, getDoc, updateDoc } from 'firebase/firestore'
 import { Maximize2, Minimize2 } from 'lucide-react'
 import { useEffect, useReducer, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { useNavigate, useSearchParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { dbservice } from 'src/baseApi/serverbase'
 import { useSelectors } from 'src/hooks/useSelectors'
 import TabsRootState from 'src/interfaces/TabsRootState'
@@ -346,7 +345,6 @@ function Add({ borrow }: Props) {
         <div className="flex justify-center">
           <AddCards
             borrow={borrow}
-            userObj={profile}
             addSteps={addSteps}
             item={item}
             fromTo={fromTo}
@@ -378,7 +376,6 @@ function Add({ borrow }: Props) {
         <div className="flex justify-center min-w-[400px]">
           <AddCards
             borrow={borrow}
-            userObj={profile}
             addSteps={addSteps}
             item={item}
             fromTo={fromTo}
