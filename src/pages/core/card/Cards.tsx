@@ -5,6 +5,7 @@ import MorphingDialogs from '../morphingDialogs/MorphingDialogs'
 import CardsLongPressed from './CardsLongPressed'
 import CardsViews from './CardsViews'
 import { useRound } from './useRound'
+import { useSelectors } from 'src/hooks/useSelectors'
 
 interface Props {
   message: { id: string; text: object }

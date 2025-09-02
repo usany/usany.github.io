@@ -161,7 +161,6 @@ function Specifics({
                       drawerOpenTrue={drawerOpenTrue}
                       userObj={userObj}
                       message={message}
-                      round={round}
                       connectedUser={connectedUser}
                     />
                     <Divider />
