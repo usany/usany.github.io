@@ -41,21 +41,13 @@ const Cards = ({
               message={message}
               changeLongPressCard={changeLongPressCard}
               isOwner={isOwner}
-              userObj={profile}
               num={num}
               points={points}
               deleteMessage={deleteMessage}
               delayedFalse={delayedFalse}
             />
           ) : (
-            <CardsViews
-              message={message}
-              isOwner={isOwner}
-              userObj={profile}
-              num={num}
-              points={points}
-              deleteMessage={deleteMessage}
-            />
+            <CardsViews message={message} />
           )}
         </>
       ) : (
@@ -86,14 +78,7 @@ const Cards = ({
               />
             </div>
           ) : (
-            <CardsViews
-              message={message}
-              isOwner={isOwner}
-              userObj={profile}
-              num={num}
-              points={points}
-              deleteMessage={deleteMessage}
-            />
+            <CardsViews message={message} />
           )}
         </>
       )}
