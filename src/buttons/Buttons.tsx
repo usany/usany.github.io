@@ -107,7 +107,6 @@ function Btn({
           )}
           {round === 2 && (
             <StopSupportButton
-              userObj={userObj}
               message={messageObj}
               decreaseRound={decreaseRound}
               changeConnectedUser={changeConnectedUser}
