@@ -10,14 +10,12 @@ import SupportButton from './SupportButton'
 function Btn({
   messageObj,
   isOwner,
-  userObj,
   num,
   points,
   deleteMessage,
   round,
   increaseRound,
   decreaseRound,
-  changeOnPulse,
   changeConnectedUser,
   toggleOnTransfer,
   handleConnectedClock,
@@ -125,9 +123,7 @@ function Btn({
               {messageObj.text.choose === 2 && (
                 <ReturningButton
                   message={messageObj}
-                  userObj={userObj}
                   increaseRound={increaseRound}
-                  changeOnPulse={changeOnPulse}
                   handleReturningClock={handleReturningClock}
                 />
               )}
@@ -140,7 +136,6 @@ function Btn({
                   num={num}
                   points={points}
                   message={messageObj}
-                  userObj={userObj}
                   increaseRound={increaseRound}
                   handleConfirmedReturnClock={handleConfirmedReturnClock}
                 />
