@@ -6,11 +6,6 @@ const CardsLongPressed = ({
   longPressCard,
   message,
   changeLongPressCard,
-  // changeLongPressed,
-  isOwner,
-  num,
-  points,
-  deleteMessage,
   delayedFalse,
 }) => {
   return (

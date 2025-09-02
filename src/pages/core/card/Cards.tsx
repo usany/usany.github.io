@@ -40,10 +40,6 @@ const Cards = ({
               longPressCard={longPressCard}
               message={message}
               changeLongPressCard={changeLongPressCard}
-              isOwner={isOwner}
-              num={num}
-              points={points}
-              deleteMessage={deleteMessage}
               delayedFalse={delayedFalse}
             />
           ) : (
