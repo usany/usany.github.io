@@ -21,7 +21,7 @@ const Router = ({ userObj }: Props) => {
   const Contact = lazy(() => import('src/pages/contact/Contact'))
   // const Piazza = lazy(() => import('src/pages/piazza/Piazza'))
   const Collection = lazy(() => import('src/pages/collection/Collection'))
-  const userCertificated = useSelectors((state) => state.userCertificated.value)
+  const profile = useSelectors((state) => state.profile.value)
   return (
     <BrowserRouter basename="/">
       <div className="flex flex-col">
@@ -33,7 +33,7 @@ const Router = ({ userObj }: Props) => {
               <Route path="/add" element={<Adds userObj={userObj} />} />
               <Route path="/board" element={<Boards userObj={userObj} />} />
               <Route path="/contact" element={<Contact userObj={userObj} />} />
-              {userObj && userCertificated && (
+              {userObj && profile?.certificated && (
                 <>
                   <Route
                     path="/profile"

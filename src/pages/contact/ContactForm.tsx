@@ -42,7 +42,7 @@ function ContactForm({ userObj, user }: Props) {
   const [initialViolationUser, setInitialViolationUser] = useState(true)
   const languages = useSelectors((state) => state.languages.value)
   const index = languages === 'ko' || languages === 'en' ? languages : 'ko'
-  const userCertificated = useSelectors((state) => state.userCertificated.value)
+  const profile = useSelectors((state) => state.profile.value)
   useEffect(() => {
     if (user && initialViolationUser) {
       setViolationUser(user)
@@ -112,7 +112,7 @@ function ContactForm({ userObj, user }: Props) {
           fullWidth
         />
       </div>
-      {userCertificated && (
+      {profile?.certificated && (
         <div className="flex pt-3 px-5 gap-1">
           <ContactFormDrawers
             violationUser={violationUser}
@@ -121,7 +121,7 @@ function ContactForm({ userObj, user }: Props) {
         </div>
       )}
       <div className="flex justify-center pt-2.5">
-        {userCertificated && <ContactDrawers userObj={userObj} />}
+        {profile?.certificated && <ContactDrawers userObj={userObj} />}
         {messageTitle && messageContent ? (
           <Button variant="outlined" form="auth" onClick={onSubmit}>
             {languages === 'ko' ? '전송' : 'send'}

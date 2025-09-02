@@ -8,7 +8,7 @@ function Adds({ userObj }: UserObjProps) {
   const profile = useSelectors((state) => state.profile.value)
   return (
     <>
-      {userObj && profile?.userCertificated ? (
+      {userObj && profile?.certificated ? (
         <SwipeableViews>
           <Add userObj={userObj} borrow={true} />
           <Add userObj={userObj} borrow={false} />

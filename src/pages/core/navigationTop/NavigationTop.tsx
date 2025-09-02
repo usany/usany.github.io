@@ -27,7 +27,7 @@ const NavigationTop = ({ userObj }: Props) => {
     setSideNavigation(!sideNavigation)
   }
   const scrollNavigation = useSelectors((state) => state.scrollNavigation.value)
-  const userCertificated = useSelectors((state) => state.userCertificated.value)
+  const profile = useSelectors((state) => state.profile.value)
   const dispatch = useDispatch()
   const largeMedia = useLargeMedia()
   useScroll()
@@ -58,14 +58,12 @@ const NavigationTop = ({ userObj }: Props) => {
             handleSideNavigation={handleSideNavigation}
           />
           <div className={`flex ${!largeMedia && 'flex-col'} items-center`}>
-            {scrollNavigation && scrollLocation && (
-              <NavigationScroll />
-            )}
+            {scrollNavigation && scrollLocation && <NavigationScroll />}
             <div>
               {bottomNavigation % 2 === 0 && <ToggleTabs />}
               {bottomNavigation === 1 && (
                 <>
-                  {userCertificated ? (
+                  {profile?.certificated ? (
                     <div className="flex gap-5">
                       <NavigationTopCards />
                       <NavigationTopMessages />

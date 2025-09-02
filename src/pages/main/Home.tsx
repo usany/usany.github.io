@@ -16,7 +16,7 @@ import LayoutBoard from '../board/LayoutBoard'
 
 function Home({ userObj }: UserObjProps) {
   const bottomNavigation = useSelectors((state) => state.bottomNavigation.value)
-  const userCertificated = useSelectors((state) => state.userCertificated.value)
+  const profile = useSelectors((state) => state.profile.value)
   const dispatch = useDispatch()
   useEffect(() => {
     if (bottomNavigation === 5) {
@@ -36,7 +36,7 @@ function Home({ userObj }: UserObjProps) {
   }, [userObj])
   return (
     <>
-      {userObj && userCertificated ? (
+      {userObj && profile?.certificated ? (
         <>
           {bottomNavigation === 0 && (
             <SwipeableViews>

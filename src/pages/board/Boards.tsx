@@ -102,7 +102,7 @@ function Boards({ userObj }: Props) {
 
   return (
     <>
-      {userObj && profile?.userCertificated ? (
+      {userObj && profile?.certificated ? (
         <Board userObj={userObj} />
       ) : (
         <SwipeableViews>
