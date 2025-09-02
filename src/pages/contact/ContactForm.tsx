@@ -8,6 +8,7 @@ import ContactFormDrawers from 'src/pages/contact/ContactFormDrawers'
 import ContactDrawersTrigger from './ContactDrawersTrigger'
 import ContactDrawersTitle from './ContactDrawersTitle'
 import ContactDrawersContent from './ContactDrawersContent'
+import Popups from '../core/Popups'
 
 const reportTitle = {
   ko: '신고하기 제목',
