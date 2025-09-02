@@ -1,4 +1,3 @@
-import { User } from 'firebase/auth'
 import { Siren } from 'lucide-react'
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
