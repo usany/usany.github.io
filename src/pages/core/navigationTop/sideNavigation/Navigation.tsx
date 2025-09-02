@@ -26,14 +26,13 @@ import NavigationSignedIn from './navigationSignedIn/NavigationSignedIn'
 import NavigationSignedOut from './navigationSignedOut/NavigationSignedOut'
 import useTexts from 'src/useTexts'
 interface Props {
-  userObj: User | null
   handleSideNavigation: () => void
 }
 
 const onLogOutClick = async () => {
   auth.signOut()
 }
-function Navigation({ userObj, handleSideNavigation }: Props) {
+function Navigation({ handleSideNavigation }: Props) {
   const [points, setPoints] = useState(0)
   const [delayed, setDelayed] = useState(true)
   const theme = useSelectors((state) => state.theme.value)
@@ -42,8 +41,8 @@ function Navigation({ userObj, handleSideNavigation }: Props) {
   const onLine = useSelectors((state) => state.onLine.value)
   const { needNetworkConnection } = useTexts()
   useEffect(() => {
-    if (userObj) {
-      onSnapshot(doc(dbservice, `members/${userObj.uid}`), (snapshot) => {
+    if (profile) {
+      onSnapshot(doc(dbservice, `members/${profile.uid}`), (snapshot) => {
         const number = snapshot.data()?.points
         setPoints(number)
       })
@@ -124,9 +123,9 @@ function Navigation({ userObj, handleSideNavigation }: Props) {
       </DrawerTrigger>
       <DrawerContent className="border-none bg-light-2 dark:bg-dark-2 right-auto top-0 mt-0 w-[355px] overflow-hidden rounded-[10px]">
         <nav className="flex flex-col justify-between w-[350px]">
-          {userObj && profile?.certificated ? (
+          {profile?.certificated ? (
             <div>
-              <NavigationSignedIn userObj={userObj} points={points} />
+              <NavigationSignedIn userObj={profile} points={points} />
               {onLine ? (
                 <div className="flex flex-col justify-between pt-5 gap-5">
                   {links.map((value, index) => {
@@ -153,7 +152,7 @@ function Navigation({ userObj, handleSideNavigation }: Props) {
             </div>
           ) : (
             <div>
-              <NavigationSignedOut userObj={userObj} points={points} />
+              <NavigationSignedOut userObj={profile} points={points} />
               {onLine ? (
                 <div className="flex flex-col justify-between pt-5 gap-5">
                   {links.map((value, index) => {
@@ -173,7 +172,7 @@ function Navigation({ userObj, handleSideNavigation }: Props) {
                         </div>
                       )
                     }
-                    if (!profile?.certificated && userObj) {
+                    if (!profile?.certificated && profile) {
                       if (value.href === '/') {
                         return (
                           <div key={index}>
@@ -200,9 +199,7 @@ function Navigation({ userObj, handleSideNavigation }: Props) {
               )}
             </div>
           )}
-          {userObj && profile?.certificated && onLine && (
-            <IframePlayer mode={theme} />
-          )}
+          {profile?.certificated && onLine && <IframePlayer mode={theme} />}
         </nav>
       </DrawerContent>
     </Drawer>

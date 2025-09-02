@@ -10,11 +10,8 @@ import Profile from 'src/pages/profile/Profile'
 import Adds from '../../add/Adds'
 import Loadings from './loadings/Loadings'
 import Boards from 'src/pages/board/Boards'
-interface Props {
-  userObj: User | null
-}
 
-const Router = ({ userObj }: Props) => {
+const Router = () => {
   // const Home = lazy(() => import('src/pages/main/Home'))
   // const Profile = lazy(() => import('src/pages/profile/Profile'))
   const Ranking = lazy(() => import('src/pages/search/Ranking'))
@@ -22,10 +19,11 @@ const Router = ({ userObj }: Props) => {
   // const Piazza = lazy(() => import('src/pages/piazza/Piazza'))
   const Collection = lazy(() => import('src/pages/collection/Collection'))
   const profile = useSelectors((state) => state.profile.value)
+  const userObj = profile
   return (
     <BrowserRouter basename="/">
       <div className="flex flex-col">
-        <NavigationTop userObj={userObj} />
+        <NavigationTop />
         <div className="pt-16 pb-14">
           <Suspense fallback={<Loadings />}>
             <Routes>
@@ -33,7 +31,7 @@ const Router = ({ userObj }: Props) => {
               <Route path="/add" element={<Adds userObj={userObj} />} />
               <Route path="/board" element={<Boards userObj={userObj} />} />
               <Route path="/contact" element={<Contact userObj={userObj} />} />
-              {userObj && profile?.certificated && (
+              {profile?.certificated && (
                 <>
                   <Route
                     path="/profile"

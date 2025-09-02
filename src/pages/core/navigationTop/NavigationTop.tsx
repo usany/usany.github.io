@@ -14,11 +14,7 @@ import NavigationTopCards from './navigationTopCards/NavigationTopCards'
 import NavigationTopLogOut from './navigationTopLogOut/NavigationTopLogOut'
 import NavigationTopMessages from './navigationTopMessages/NavigationTopMessages'
 
-interface Props {
-  userObj: User | null
-}
-
-const NavigationTop = ({ userObj }: Props) => {
+const NavigationTop = () => {
   const bottomNavigation = useSelectors((state) => state.bottomNavigation.value)
   const [sideNavigation, setSideNavigation] = useState(false)
   const [renderDelayed, setRenderDelayed] = useState(false)

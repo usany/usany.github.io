@@ -44,14 +44,15 @@ const usePreference = () => {
 function App() {
   // const [count, setCount] = useState(0)
   const theme = useSelectors((state) => state.theme.value)
-  const userObj = useUserObject()
+  const profile = useSelectors((state) => state.profile.value)
+  useUserObject()
   const { lightTheme, darkTheme } = useColors()
   usePreference()
   return (
     <>
       <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
         <Toaster />
-        {userObj !== undefined ? <Router userObj={userObj} /> : <Lotties />}
+        {profile !== undefined ? <Router /> : <Lotties />}
       </ThemeProvider>
     </>
   )
