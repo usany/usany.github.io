@@ -23,7 +23,7 @@ function Btn({
   handleConnectedClock,
   handleConfirmingClock,
   handleReturningClock,
-  handleConfirmedReturnClock
+  handleConfirmedReturnClock,
 }) {
   const [move, setMove] = useState(false)
   const languages = useSelectors((state) => state.languages.value)
@@ -47,7 +47,6 @@ function Btn({
           {round === 2 && (
             <ConfirmButton
               message={messageObj}
-              userObj={userObj}
               increaseRound={increaseRound}
               handleConfirmingClock={handleConfirmingClock}
             />
@@ -57,7 +56,6 @@ function Btn({
               {messageObj.text.choose === 1 && (
                 <ReturningButton
                   message={messageObj}
-                  userObj={userObj}
                   increaseRound={increaseRound}
                   handleReturningClock={handleReturningClock}
                 />
@@ -81,7 +79,6 @@ function Btn({
                   num={num}
                   points={points}
                   message={messageObj}
-                  userObj={userObj}
                   increaseRound={increaseRound}
                   handleConfirmedReturnClock={handleConfirmedReturnClock}
                 />

@@ -45,9 +45,6 @@ const onSupporting = async ({ message, userObj, profileUrl }) => {
 }
 const SupportButton = ({
   userObj,
-  move,
-  handleClose,
-  handleDialog,
   message,
   increaseRound,
   changeConnectedUser,

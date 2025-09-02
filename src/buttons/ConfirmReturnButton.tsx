@@ -21,15 +21,21 @@ interface Props {
   increaseRound: () => void
 }
 
-const onConfirmReturn = async ({ num, points, message, userObj, profileUrl }) => {
-  const { data, messagingToken } = await specificProcess({ message: message, toUid: message.text.choose === 1 ? null : userObj.uid })
+const onConfirmReturn = async ({ num, points, message, uid, profileUrl }) => {
+  const { data, messagingToken } = await specificProcess({
+    message: message,
+    toUid: message.text.choose === 1 ? null : uid,
+  })
   const dataDoc = await getDoc(data)
   updateDoc(data, {
     round: 5,
-    confirmedReturnClock: new Date().toString()
+    confirmedReturnClock: new Date().toString(),
   })
   const point = doc(dbservice, `members/${message.creatorId}`)
-  const connectedPoint = doc(dbservice, `members/${dataDoc.data()?.connectedId}`)
+  const connectedPoint = doc(
+    dbservice,
+    `members/${dataDoc.data()?.connectedId}`,
+  )
   const creatorSnap = await getDoc(point)
   const connectedSnap = await getDoc(connectedPoint)
   const creatorData = creatorSnap.data() as UserData
@@ -38,8 +44,12 @@ const onConfirmReturn = async ({ num, points, message, userObj, profileUrl }) =>
   const connectedDone = connectedSnap.data()?.done || []
   const createdCards = creatorData?.createdCards
   const connectedCards = connectedData?.connectedCards
-  const newCreatedCards = createdCards.filter((element) => element !== message.id)
-  const newConnectedCards = connectedCards.filter((element) => element !== message.id)
+  const newCreatedCards = createdCards.filter(
+    (element) => element !== message.id,
+  )
+  const newConnectedCards = connectedCards.filter(
+    (element) => element !== message.id,
+  )
 
   if (message.text.choose === 1) {
     const creatorBorrowDone = creatorData?.borrowDoneCount || []
@@ -75,7 +85,7 @@ const onConfirmReturn = async ({ num, points, message, userObj, profileUrl }) =>
     connectedName: dataDoc.data()?.connectedName,
     connectedUrl: profileUrl,
     preferLanguage: dataDoc.data()?.preferLanguage || 'ko',
-    confirmedReturnClock: new Date().toString()
+    confirmedReturnClock: new Date().toString(),
   }
   updateDoc(point, {
     done: [...creatorDone, message.id],
@@ -86,9 +96,16 @@ const onConfirmReturn = async ({ num, points, message, userObj, profileUrl }) =>
 
   webSocket.emit('confirmReturn', passingObject)
 }
-const ConfirmReturnButton = ({ num, points, message, userObj, increaseRound, handleConfirmedReturnClock }: Props) => {
+const ConfirmReturnButton = ({
+  num,
+  points,
+  message,
+  increaseRound,
+  handleConfirmedReturnClock,
+}: Props) => {
   const languages = useSelectors((state) => state.languages.value)
   const profileUrl = useSelectors((state) => state.profileUrl.value)
+  const profile = useSelectors((state) => state.profile.value)
 
   return (
     <Button
@@ -98,19 +115,15 @@ const ConfirmReturnButton = ({ num, points, message, userObj, increaseRound, han
           num: num,
           points: points,
           message: message,
-          userObj: userObj,
-          profileUrl: profileUrl
+          uid: profile?.uid,
+          profileUrl: profileUrl,
         })
         increaseRound()
         handleConfirmedReturnClock(new Date().toString())
       }}
       startIcon={<SendIcon />}
     >
-      {languages === 'ko' ?
-        '반납 완료 확인'
-        :
-        'Confirm return complete'
-      }
+      {languages === 'ko' ? '반납 완료 확인' : 'Confirm return complete'}
     </Button>
   )
 }
