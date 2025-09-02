@@ -17,27 +17,8 @@ import { changeDark } from './stateSlices/themeSlice'
 import { changeUserCertificated } from './stateSlices/userCertificatedSlice'
 import useUserObject from './useUserObject'
 
-function App() {
-  // const [count, setCount] = useState(0)
-  const theme = useSelectors((state) => state.theme.value)
-  const userObj = useUserObject()
-  const { lightTheme, darkTheme } = useColors()
+const usePreference = (userObj) => {
   const dispatch = useDispatch()
-  console.log(userObj)
-  useEffect(() => {
-    if (userObj) {
-      const initialProfile = async () => {
-        const docRef = doc(dbservice, `members/${userObj.uid}`)
-        const docSnap = await getDoc(docRef)
-        const userData = docSnap.data()
-        dispatch(changeProfileImage(userData?.profileImage))
-        dispatch(changeDefaultProfile(userData?.defaultProfile))
-        dispatch(changeProfileImageUrl(userData?.profileImageUrl))
-        dispatch(changeUserCertificated(userData?.certificated))
-      }
-      initialProfile()
-    }
-  }, [userObj])
   useEffect(() => {
     const mq = window.matchMedia('(prefers-color-scheme: dark)')
     if (!localStorage.getItem('theme')) {
@@ -60,6 +41,29 @@ function App() {
       }
     }
   }, [])
+}
+
+function App() {
+  // const [count, setCount] = useState(0)
+  const theme = useSelectors((state) => state.theme.value)
+  const userObj = useUserObject()
+  const { lightTheme, darkTheme } = useColors()
+  const dispatch = useDispatch()
+  console.log(userObj)
+  useEffect(() => {
+    if (userObj) {
+      const initialProfile = async () => {
+        const docRef = doc(dbservice, `members/${userObj.uid}`)
+        const docSnap = await getDoc(docRef)
+        const userData = docSnap.data()
+        dispatch(changeDefaultProfile(userData?.defaultProfile))
+        dispatch(changeProfileImageUrl(userData?.profileImageUrl))
+        dispatch(changeUserCertificated(userData?.certificated))
+      }
+      initialProfile()
+    }
+  }, [userObj])
+  usePreference(userObj)
   return (
     <>
       <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>

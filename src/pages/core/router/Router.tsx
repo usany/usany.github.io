@@ -8,7 +8,6 @@ import Home from 'src/pages/main/Home'
 import Piazza from 'src/pages/piazza/Piazza'
 import Profile from 'src/pages/profile/Profile'
 import Adds from '../../add/Adds'
-import Board from '../../board/Board'
 import Loadings from './loadings/Loadings'
 import Boards from 'src/pages/board/Boards'
 interface Props {

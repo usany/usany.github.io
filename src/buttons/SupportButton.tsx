@@ -7,7 +7,10 @@ import { webSocket } from 'src/webSocket.tsx'
 import specificProcess from './specificProcess'
 
 const onSupporting = async ({ message, userObj, profileUrl }) => {
-  const { data, messagingToken } = await specificProcess({ message: message, toUid: null })
+  const { data, messagingToken } = await specificProcess({
+    message: message,
+    toUid: null,
+  })
   const userDoc = await getDoc(data)
   const passingObject = {
     id: message.id,
@@ -36,7 +39,7 @@ const onSupporting = async ({ message, userObj, profileUrl }) => {
   })
   const connectedUserConnectedCards = connectedUserData?.connectedCards || []
   updateDoc(connectedUserRef, {
-    connectedCards: [...connectedUserConnectedCards, message.id]
+    connectedCards: [...connectedUserConnectedCards, message.id],
   })
   webSocket.emit('supporting', passingObject)
 }
@@ -49,17 +52,15 @@ const SupportButton = ({
   increaseRound,
   changeConnectedUser,
   toggleOnTransfer,
-  handleConnectedClock
+  handleConnectedClock,
 }) => {
-  const profileUrl = useSelectors((state) => state.profileUrl.value)
+  const profile = useSelectors((state) => state.profile.value)
   const languages = useSelectors((state) => state.languages.value)
-  const profileImage = useSelectors(state => state.profileImage.value)
-  const defaultProfile = useSelectors(state => state.defaultProfile.value)
-  const profileImageUrl = useSelectors(state => state.profileImageUrl.value)
-  const sendingProfile = profileImage ? profileImageUrl : defaultProfile
-  console.log(profileImage)
-  console.log(defaultProfile)
-  console.log(profileImageUrl)
+  const defaultProfile = useSelectors((state) => state.defaultProfile.value)
+  const profileImageUrl = useSelectors((state) => state.profileImageUrl.value)
+  const sendingProfile = profile?.profileImage
+    ? profileImageUrl
+    : defaultProfile
   return (
     <div className="flex justify-center">
       <Button
@@ -70,13 +71,13 @@ const SupportButton = ({
             onSupporting({
               message: message,
               userObj: userObj,
-              profileUrl: sendingProfile
+              profileUrl: sendingProfile,
             })
             increaseRound()
             changeConnectedUser({
               uid: userObj.uid,
               displayName: userObj.displayName,
-              url: sendingProfile
+              url: sendingProfile,
             })
             toggleOnTransfer()
             handleConnectedClock({ clock: clock, cancelled: false })
