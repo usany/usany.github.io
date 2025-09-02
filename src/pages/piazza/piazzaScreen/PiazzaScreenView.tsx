@@ -18,7 +18,6 @@ import Popups from 'src/pages/core/Popups'
 import { webSocket } from 'src/webSocket.tsx'
 import PiazzaDialogsContent from './piazzaDialogs/PiazzaDialogsContent'
 interface Props {
-  userObj: User
   messagesList: []
   handleMessagesList: (newValue: []) => void
 }
