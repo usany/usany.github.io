@@ -15,10 +15,7 @@ import { dbservice } from 'src/baseApi/serverbase'
 import { useSelectors } from 'src/hooks/useSelectors'
 import Lists from 'src/pages/search/searchList/searchListViews/Lists'
 
-interface Props {
-  userObj: User
-}
-function RankingLists({ userObj }: Props) {
+function RankingLists() {
   const [rank, setRank] = useState([])
   const [ranker, setRanker] = useState([])
   const [continuing, setContinuing] = useState(null)
