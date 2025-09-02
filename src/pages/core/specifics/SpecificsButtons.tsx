@@ -17,7 +17,6 @@ function SpecificsButtons({
   decreaseRound,
   userObj,
   message,
-  changeOnPulse,
   changeConnectedUser,
   toggleOnTransfer,
   removeMessage,
