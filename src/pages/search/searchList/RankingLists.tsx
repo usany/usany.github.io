@@ -134,7 +134,6 @@ function RankingLists() {
       {userSearch ? (
         <div className="w-[1000px]">
           <Lists
-            userObj={profile}
             elements={rank}
             multiple={true}
             userSearch={userSearch}
@@ -145,7 +144,6 @@ function RankingLists() {
       ) : (
         <div className="w-[1000px]">
           <Lists
-            userObj={profile}
             elements={ranker}
             multiple={false}
             userSearch={null}
@@ -153,7 +151,6 @@ function RankingLists() {
             handleUser={null}
           />
           <Lists
-            userObj={profile}
             elements={rank}
             multiple={true}
             userSearch={null}

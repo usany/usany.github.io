@@ -4,14 +4,7 @@ import { Skeleton } from 'src/components/ui/skeleton'
 import RankingListsTitle from 'src/pages/search/searchList/searchListViews/searchListViewsTitle/RankingListsTitle'
 import ListsView from './ListsView'
 
-function Lists({
-  userObj,
-  elements,
-  multiple,
-  userSearch,
-  ranking,
-  handleUser,
-}) {
+function Lists({ elements, multiple, userSearch, ranking, handleUser }) {
   const link = '/profile'
   return (
     <div>
