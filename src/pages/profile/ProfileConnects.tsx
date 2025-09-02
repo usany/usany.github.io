@@ -53,7 +53,7 @@ const ProfileConnects = ({
           followers: [...otherFollowers, userObj.uid],
         })
         handleFollowers({
-          number: otherUserFollowerNum + 1,
+
           list: [...otherFollowers, userObj.uid],
         })
       }
@@ -62,7 +62,7 @@ const ProfileConnects = ({
         followerNum: 1,
         followers: [userObj.uid],
       })
-      handleFollowers({ number: 1, list: [userObj.uid] })
+      handleFollowers({ list: [userObj.uid] })
     }
   }
   const unfollowUser = async (uid) => {
@@ -96,7 +96,6 @@ const ProfileConnects = ({
           ),
         })
         handleFollowers({
-          number: otherUserFollowerNum - 1,
           list: otherFollowers.filter((element) => element !== userObj.uid),
         })
       }

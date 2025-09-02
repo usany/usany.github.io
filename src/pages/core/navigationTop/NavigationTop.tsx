@@ -1,18 +1,13 @@
 import { User } from 'firebase/auth'
 import { doc, getDoc } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import staticImage from 'src/assets/blue.png'
-import { dbservice } from 'src/baseApi/serverbase'
+import { useDispatch } from 'react-redux'
 import useLargeMedia from 'src/hooks/useLargeMedia'
 import { useSelectors } from 'src/hooks/useSelectors'
 import Navigation from 'src/pages/core/navigationTop/sideNavigation/Navigation'
 import WeatherView from 'src/pages/core/navigationTop/weatherView/WeatherView'
 import ToggleTabs from 'src/pages/core/ToggleTabs'
 import { changeOnLine } from 'src/stateSlices/onLineSlice'
-import { changeProfileColor } from 'src/stateSlices/profileColorSlice'
-import { changeProfile } from 'src/stateSlices/profileSlice'
-import { changeProfileUrl } from 'src/stateSlices/profileUrlSlice'
 import useScroll from '../useScroll'
 import NavigationScroll from './NavigationScroll'
 import NavigationTopCards from './navigationTopCards/NavigationTopCards'
@@ -35,25 +30,6 @@ const NavigationTop = ({ userObj }: Props) => {
   const userCertificated = useSelectors((state) => state.userCertificated.value)
   const dispatch = useDispatch()
   const largeMedia = useLargeMedia()
-  useEffect(() => {
-    const setProfile = async () => {
-      const docRef = doc(dbservice, `members/${userObj?.uid}`)
-      const docSnap = await getDoc(docRef)
-      const userData = docSnap.data()
-      dispatch(changeProfile(userData))
-      const userColor = docSnap.data()?.profileColor || '#2196f3'
-      const userImage = docSnap.data()?.profileImageUrl || 'null'
-      const userProfileImage = docSnap.data()?.profileImage || false
-      const userDefaultProfile = docSnap.data()?.defaultProfile || 'null'
-      dispatch(changeProfileColor(userColor))
-      if (userProfileImage) {
-        dispatch(changeProfileUrl(userImage))
-      } else {
-        dispatch(changeProfileUrl(userDefaultProfile))
-      }
-    }
-    setProfile()
-  }, [userObj])
   useScroll()
   const scrollLocation =
     ['/', '/add', '/board'].indexOf(location.pathname) === -1
@@ -82,7 +58,7 @@ const NavigationTop = ({ userObj }: Props) => {
             handleSideNavigation={handleSideNavigation}
           />
           <div className={`flex ${!largeMedia && 'flex-col'} items-center`}>
-            {largeMedia && scrollNavigation && scrollLocation && (
+            {scrollNavigation && scrollLocation && (
               <NavigationScroll />
             )}
             <div>
@@ -100,9 +76,6 @@ const NavigationTop = ({ userObj }: Props) => {
                 </>
               )}
             </div>
-            {!largeMedia && scrollNavigation && scrollLocation && (
-              <NavigationScroll />
-            )}
           </div>
           {navigator.onLine ? (
             <WeatherView />

@@ -6,12 +6,12 @@ const NavigationSignedOut = ({
   userObj,
   points,
 }: {
-  userObj: User
+  userObj: User | null
   points: number
 }) => {
   return (
     <div className="flex justify-between border-b border-light-3 dark:border-dark-3 p-5 gap-5 w-[350px]">
-      <NavigationUser userObj={userObj} points={points} />
+      <NavigationUser points={points} />
       <Modes userObj={userObj} />
     </div>
   )

@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
 import { useSelectors } from "src/hooks/useSelectors";
 import AuthForm from "src/pages/main/auth/AuthForm";
 import AuthMethods from "./AuthMethods";
@@ -9,7 +8,7 @@ function AuthDialogsContent() {
   const changeAgreed = () => {
     setAgreed(!agreed)
   }
-  const theme = useSelector((state) => state.theme.value);
+  const theme = useSelectors((state) => state.theme.value);
   const languages = useSelectors((state) => state.languages.value)
   return (
     <div>

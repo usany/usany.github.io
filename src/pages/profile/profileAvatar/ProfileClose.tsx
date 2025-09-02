@@ -37,6 +37,7 @@ const ProfileClose = ({
           profileImageUrl: attachment,
         }),
       )
+      localStorage.setItem(`${profile.uid}`, JSON.stringify({uid: profile.uid, attachment: attachment}))
       if (attachment.slice(0, 5) === 'data:') {
         // uploadString(storageRef, attachment, 'data_url').then((snapshot) => {
         //   console.log('Uploaded a blob or file!')
@@ -45,10 +46,13 @@ const ProfileClose = ({
         const splitedArray = attachment.split(';base64,')
         const content = splitedArray[0].slice(5)
         const base64 = splitedArray[1]
+        console.log(decode(base64))
         const { data, error } = await supabase.storage
           .from('remake')
           .update(userObj.uid, decode(base64), {
             contentType: content,
+            cacheControl: '1',
+            upsert: true
           })
         if (data) {
           console.log(data)
@@ -60,6 +64,7 @@ const ProfileClose = ({
       // uploadString(storageRef, 'null', 'raw').then((snapshot) => {
       //   console.log('Uploaded a blob or file!')
       // })
+      localStorage.setItem(`${profile.uid}`, JSON.stringify({uid: profile.uid, attachment: ''}))
       updateDoc(docRef, {
         profileImage: false,
         profileColor: changedImage.profileColor,
@@ -67,7 +72,9 @@ const ProfileClose = ({
       })
       const { data, error } = await supabase.storage
         .from('remake')
-        .update(userObj.uid, 'null')
+        .update(userObj.uid, 'null', {
+          upsert: true
+        })
       if (data) {
         console.log(data)
       } else {

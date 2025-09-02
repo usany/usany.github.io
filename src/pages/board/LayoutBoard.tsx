@@ -37,27 +37,8 @@ function LayoutBoard({ borrow }) {
       value: "최신순",
     },
   ]);
-  // const [onMarker, setOnMarker] = useState(false);
   const [mapAccordion, setMapAccordion] = useState(false)
   const mapAccordionToggle = () => setMapAccordion(!mapAccordion)
-  // const mapAccordionTrue = () => setMapAccordion(true)
-  // const mapAccordionFalse = () => setMapAccordion(false)
-  // const onMarkerTrue = () => setOnMarker(true);
-  // const onMarkerFalse = () => setOnMarker(false);
-  const handleSelectedValues = ({
-    id,
-    newValue,
-  }: {
-    id: string;
-    newValue: string;
-  }) => {
-    setSelectedValues((values) => {
-      const value = values.find((value) => value.id === id);
-      if (value) {
-        value.value = newValue;
-      }
-    });
-  };
   const languages = useSelector((state) => state.languages.value)
   const dispatch = useDispatch()
   useEffect(() => {
@@ -67,47 +48,7 @@ function LayoutBoard({ borrow }) {
       behavior: "instant", // Optional if you want to skip the scrolling animation
     });
   }, []);
-  useEffect(() => {
-    const bringMessages = async () => {
-      let order = 'asc'
-      if (selectedValues[2].value === "최신순" || !selectedValues[2].value) {
-        order = 'desc'
-        // onSnapshot(
-        //   query(collection(dbservice, "num"), orderBy("creatorClock", order)),
-        //   (snapshot) => {
-        //     const newArray = snapshot.docs.map((document) => {
-        //       return {
-        //         id: document.id,
-        //         ...document.data(),
-        //       };
-        //     });
-        //     setMessages(newArray);
-        //   }
-        // );
-      } else {
-        // onSnapshot(
-        //   query(collection(dbservice, "num"), orderBy("creatorClock", order)),
-        //   (snapshot) => {
-        //     const newArray = snapshot.docs.map((document) => {
-        //       return {
-        //         id: document.id,
-        //         ...document.data(),
-        //       };
-        //     });
-        //     setMessages(newArray);
-        //   }
-        // );
-      }
-      const collectionQuery = query(collection(dbservice, "num"), orderBy("creatorClock", order))
-      const docs = await getDocs(collectionQuery)
-      const newArray = []
-      docs.forEach((doc) => {
-        newArray.push({ id: doc.id, ...doc.data() })
-      })
-      setMessages(newArray)
-    }
-    bringMessages()
-  }, [selectedValues[2].value]);
+
   return (
     <div className='flex flex-col h-screen'>
       {borrow ?
@@ -115,8 +56,6 @@ function LayoutBoard({ borrow }) {
         :
         <PageTitle title={`빌려주기 카드 목록`} />
       }
-      {/* <SwipeableViews>
-      </SwipeableViews> */}
       <div className='blur-md'>
         <Accordion type="single" collapsible className="px-3" disabled>
           <AccordionItem value="item-1">
@@ -129,22 +68,6 @@ function LayoutBoard({ borrow }) {
           <div className="flex p-3 sticky top-16 z-30 justify-between bg-light-3 dark:bg-dark-3">
             <div className="pt-1">카드 목록</div>
             <div className="flex gap-1">
-              {/* <FilterDialogs
-                selectedValues={selectedValues}
-                handleSelectedValues={handleSelectedValues}
-              /> */}
-              {/* <Chip
-                label={selectedValues[0].value}
-                disabled
-              />
-              <Chip
-                label={selectedValues[1].value}
-                disabled
-              />
-              <Chip
-                label={selectedValues[2].value}
-                disabled
-              /> */}
               {selectedValues.map((element, index) => {
                 return (
                   <Chip label={element.value} />

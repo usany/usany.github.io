@@ -29,7 +29,6 @@ import useTexts from "src/useTexts";
 
 interface Props {
   userObj: User;
-  // action: number
   borrow: boolean;
 }
 interface LocationEvent extends EventTarget {
@@ -58,8 +57,6 @@ function Add({ userObj, borrow }: Props) {
   const [addSteps, setAddSteps] = useState(0);
   const [display, setDisplay] = useState<DisplayCard | null>(null);
   const [item, setItem] = useState("");
-  const [searchParams, setSearchParams] = useSearchParams()
-  // const selectedItem = searchParams.get('item')
   const tabs = useSelector((state: TabsRootState) => state.tabs.value);
   const [fromTo, setFromTo] = useState<FromTo>({ from: null, to: null });
   const [enableRegister, setEnableRegister] = useState(false)
@@ -68,25 +65,7 @@ function Add({ userObj, borrow }: Props) {
   const profile = useSelectors(state => state.profile.value)
   const { pleaseCheckTime } = useTexts()
   const navigate = useNavigate()
-  // const [cardId, setCardId] = useState<string | null>(null)
-  // const [from, setFrom] = useState(null);
-  // const [to, setTo] = useState(null);
-  // const [snackBar, setSnackBar] = useState(false)
-  //   const locationReducer = (state: {locationOne: string | null, locationTwo: string | null, locationThree: string | null, locationInput: string | null}, action: {type: string, newState: string | null}) => {
-  //     if (action.type === 'changeBuilding') {
-  //         return {...state, locationOne: action.newState, locationTwo: '', locationThree: ''}
-  //     } else if (action.type === 'changeRoom') {
-  //         return {...state, locationTwo: action.newState, locationThree: ''}
-  //     } else if (action.type === 'changeSeat') {
-  //         return {...state, locationThree: action.newState}
-  //     } else if (action.type === 'changeLocationInput') {
-  //         return {...state, locationTwo: '', locationThree: '', locationInput: action.newState}
-  //     } else if (action.type === 'changeItem') {
-  //         return {locationOne: '', locationTwo: '', locationThree: '', locationInput: ''}
-  //     } else {
-  //         return {...state}
-  //     }
-  //   }
+
   function changeAddSteps(newValue) {
     setAddSteps(newValue);
   }
@@ -144,15 +123,6 @@ function Add({ userObj, borrow }: Props) {
       behavior: "instant", // Optional if you want to skip the scrolling animation
     });
   }, []);
-  // useEffect(() => {
-  //   setSearchParams(searchParams => {
-  //     if (window.location.search === '?action=lend') {
-  //       searchParams.set('action', !tabs ? 'borrow' : 'lend')
-  //     } else {
-  //     }
-  //     return searchParams
-  //   })
-  // }, [tabs])
   useEffect(() => {
     if (!window.location.search) {
       navigate('/add?action=borrow')

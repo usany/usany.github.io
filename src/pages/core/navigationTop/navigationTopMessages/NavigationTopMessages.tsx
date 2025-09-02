@@ -1,10 +1,11 @@
 import Divider from "@mui/material/Divider";
 import { MessageCircle } from "lucide-react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { useSelectors } from "src/hooks/useSelectors";
 import { messageOff, messageOn } from "src/stateSlices/messageAccordionSlice";
 
 const NavigationTopMessages = () => {
-  const messageAccordion = useSelector((state) => state.messageAccordion.value);
+  const messageAccordion = useSelectors((state) => state.messageAccordion.value);
   const dispatch = useDispatch();
 
   return (

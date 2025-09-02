@@ -9,7 +9,7 @@ export interface ButtonProps {
 }
 
 /** Primary UI component for user interaction */
-export const ButtonCollection = ({ label, ...props }: ButtonProps) => {
+export const DefaultButtons = ({ label, ...props }: ButtonProps) => {
   const theme = useTheme()
   const bgcolor = theme.palette.mode === 'light' ? '#e2e8f0' : '#2d3848'
   return (
@@ -24,7 +24,7 @@ export const ButtonCollection = ({ label, ...props }: ButtonProps) => {
         }}
         {...props}
       >
-        buttons
+        {label}
       </Button>
     </>
   )

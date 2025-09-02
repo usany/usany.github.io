@@ -47,16 +47,12 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   },
 }));
 
-function Switches({ onClick }) {
+interface Props {
+  onClick: () => void
+}
+
+function Switches({ onClick }: Props) {
   return (
-    // <FormGroup>
-    //   <FormControlLabel
-    //     control={
-    //       <MaterialUISwitch onClick={onClick} defaultChecked={window.localStorage.theme === 'dark'} />
-    //     }
-    //     label=""
-    //   />
-    // </FormGroup>
     <MaterialUISwitch onClick={onClick} defaultChecked={window.localStorage.theme === 'dark'} />
   );
 }

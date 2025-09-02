@@ -3,7 +3,6 @@ import { deleteUser, getAuth, User } from 'firebase/auth'
 import { deleteDoc, doc, updateDoc } from 'firebase/firestore'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
-// import supabase from 'src/baseApi/base'
 import { dbservice } from 'src/baseApi/serverbase'
 import { useSelectors } from 'src/hooks/useSelectors'
 import PageTitle from 'src/pages/core/pageTitle/PageTitle'
@@ -77,12 +76,6 @@ function Auth({ userObj }: User) {
           console.log(error)
         })
     }
-    // const { data, error } = await supabase.auth.admin.deleteUser(userObj.uid)
-    // if (data) {
-    //   console.log(data)
-    // } else {
-    //   console.log(error)
-    // }
   }
   return (
     <div>
@@ -113,7 +106,6 @@ function Auth({ userObj }: User) {
               />
             )}
             <div className="flex gap-5">
-              {/* {mailSent && <TextField label='numbers' value={numberString} onChange={handleNumberString} />} */}
               {numberString.length === 6 && (
                 <Button onClick={confirmNumber}>{confirm}</Button>
               )}
@@ -134,7 +126,7 @@ function Auth({ userObj }: User) {
               ? '반갑습니다. 캠퍼스 우산 공유 서비스 쿠우산입니다.'
               : 'Welcome. This is usan sharing service khusan'}
           </div>
-          <AuthForm signIn={true} />
+          <AuthForm signIn={true} agreed={true} />
           <AuthButtons />
           <div className="flex justify-center pt-5 px-5">
             {languages === 'ko'

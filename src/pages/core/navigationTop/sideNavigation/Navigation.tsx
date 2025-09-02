@@ -1,5 +1,5 @@
 import { User } from 'firebase/auth'
-import { doc, DocumentData, onSnapshot } from 'firebase/firestore'
+import { doc, onSnapshot } from 'firebase/firestore'
 import {
   DoorOpen,
   Film,
@@ -10,7 +10,6 @@ import {
 } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import staticImage from 'src/assets/blue.png'
-// import supabase from 'src/baseApi/base'
 import { auth, dbservice } from 'src/baseApi/serverbase'
 import {
   Drawer,
@@ -25,16 +24,14 @@ import IframePlayer from './iframePlayer/IframePlayer'
 import Links from './links/Links'
 import NavigationSignedIn from './navigationSignedIn/NavigationSignedIn'
 import NavigationSignedOut from './navigationSignedOut/NavigationSignedOut'
+import useTexts from 'src/useTexts'
 interface Props {
-  user: DocumentData | undefined
   userObj: User | null
   handleSideNavigation: () => void
 }
 
 const onLogOutClick = async () => {
   auth.signOut()
-  // const { error } = await supabase.auth.signOut()
-  // if (error) console.log(error)
 }
 function Navigation({ userObj, handleSideNavigation }: Props) {
   const [points, setPoints] = useState(0)
@@ -44,6 +41,7 @@ function Navigation({ userObj, handleSideNavigation }: Props) {
   const userCertificated = useSelectors((state) => state.userCertificated.value)
   const profile = useSelectors((state) => state.profile.value)
   const onLine = useSelectors((state) => state.onLine.value)
+  const {needNetworkConnection} = useTexts()
   useEffect(() => {
     if (userObj) {
       onSnapshot(doc(dbservice, `members/${userObj.uid}`), (snapshot) => {
@@ -116,9 +114,6 @@ function Navigation({ userObj, handleSideNavigation }: Props) {
             element={profile}
             piazza={null}
             profile={false}
-            profileColor=""
-            profileUrl={profile.profileImageUrl}
-            defaultProfileUrl={profile.defaultProfile}
           />
         ) : (
           <>
@@ -157,7 +152,7 @@ function Navigation({ userObj, handleSideNavigation }: Props) {
                 </div>
               ) : (
                 <div className="flex justify-center pt-5 gap-5">
-                  네트워크 연결이 필요합니다
+                  {needNetworkConnection}
                 </div>
               )}
             </div>
@@ -205,7 +200,7 @@ function Navigation({ userObj, handleSideNavigation }: Props) {
                 </div>
               ) : (
                 <div className="flex justify-center pt-5 gap-5">
-                  네트워크 연결이 필요합니다
+                  {needNetworkConnection}
                 </div>
               )}
             </div>

@@ -15,10 +15,6 @@ const ProfileCompleted = ({ user, cards }) => {
   const dispatch = useDispatch()
   const languages = useSelectors((state) => state.languages.value)
   const actions = [
-    // { action: 'borrow', number: cards.borrowDone.length,
-    //   fill: 'red'},
-    // { action: 'lend', number: cards.lendDone.length,
-    //   fill: 'blue'},
     {
       action: 'borrow',
       number: cards.borrowDone.length,
@@ -45,95 +41,6 @@ const ProfileCompleted = ({ user, cards }) => {
   } satisfies ChartConfig
   const totalNumber = actions.reduce((acc, curr) => acc + curr.number, 0)
 
-  // useEffect(() => {
-  //   const getMessage = async () => {
-  //     const messagesRef = query(collection(dbservice, 'num'))
-  //     const querySnap = await getDocs(messagesRef)
-  //     const messagesArray = []
-  //     querySnap.forEach((docSnap) => {
-  //       const messageId = docSnap.id
-  //       const messageObj = docSnap.data()
-  //       const message = { id: messageId, ...messageObj }
-  //       if (
-  //         messageObj.creatorId === user.uid ||
-  //         messageObj.connectedId === user.uid
-  //       ) {
-  //         messagesArray.push(message)
-  //       }
-  //     })
-  //     setMessagesList(messagesArray)
-  //   }
-  //   getMessage()
-  // }, [])
-
-  // const borrowList = messagesList
-  //   .map((element) => {
-  //     if (element.round === 5) {
-  //       if (element.creatorId === user.uid && element.text.choose === 1) {
-  //         return (
-  //           <Cards
-  //             key={element.id}
-  //             message={element}
-  //             isOwner={true}
-  //             userObj={user}
-  //             num={null}
-  //             points={null}
-  //           />
-  //         )
-  //       } else if (
-  //         element.creatorId !== user.uid &&
-  //         element.text.choose === 2
-  //       ) {
-  //         return (
-  //           <Cards
-  //             key={element.id}
-  //             message={element}
-  //             isOwner={false}
-  //             userObj={user}
-  //             num={null}
-  //             points={null}
-  //           />
-  //         )
-  //       }
-  //     }
-  //   })
-  //   .filter((element) => {
-  //     if (element) return element
-  //   })
-  // const lendList = messagesList
-  //   .map((element) => {
-  //     if (element.round === 5) {
-  //       if (element.creatorId === user.uid && element.text.choose === 2) {
-  //         return (
-  //           <Cards
-  //             key={element.id}
-  //             message={element}
-  //             isOwner={true}
-  //             userObj={user}
-  //             num={null}
-  //             points={null}
-  //           />
-  //         )
-  //       } else if (
-  //         element.creatorId !== user.uid &&
-  //         element.text.choose === 1
-  //       ) {
-  //         return (
-  //           <Cards
-  //             key={element.id}
-  //             message={element}
-  //             isOwner={false}
-  //             userObj={user}
-  //             num={null}
-  //             points={null}
-  //           />
-  //         )
-  //       }
-  //     }
-  //   })
-  //   .filter((element) => {
-  //     if (element) return element
-  //   })
   return (
     <div className="flex flex-col">
       <ChartContainer
@@ -152,7 +59,6 @@ const ProfileCompleted = ({ user, cards }) => {
             nameKey="action"
             onClick={(value) => {
               const action = value.action
-              // document.getElementById('completedAction')?.parentNode?.click()
               dispatch(changeCompletedAction(action))
             }}
             innerRadius={60}
