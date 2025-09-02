@@ -10,6 +10,7 @@ import Profile from 'src/pages/profile/Profile'
 import Adds from '../../add/Adds'
 import Board from '../../board/Board'
 import Loadings from './loadings/Loadings'
+import Boards from 'src/pages/board/Boards'
 interface Props {
   userObj: User | null
 }
@@ -31,7 +32,7 @@ const Router = ({ userObj }: Props) => {
             <Routes>
               <Route path="/" element={<Home userObj={userObj} />} />
               <Route path="/add" element={<Adds userObj={userObj} />} />
-              <Route path="/board" element={<Board userObj={userObj} />} />
+              <Route path="/board" element={<Boards userObj={userObj} />} />
               <Route path="/contact" element={<Contact userObj={userObj} />} />
               {userObj && userCertificated && (
                 <>

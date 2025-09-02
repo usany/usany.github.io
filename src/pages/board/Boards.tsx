@@ -15,6 +15,7 @@ import Popups from '../core/Popups'
 import BoardList from './BoardList'
 import FilterDialogsContent from './FilterDialogs/FilterDialogsContent'
 import FilterDialogsTitle from './FilterDialogs/FilterDialogsTitle'
+import LayoutBoard from './LayoutBoard'
 
 const items = {
   ko: ['전체 아이템', '우산', '양산'],
@@ -33,7 +34,7 @@ interface Props {
   userObj: User | null
 }
 
-function Board({ userObj }: Props) {
+function Boards({ userObj }: Props) {
   const [messages, setMessages] = useState<Array<object>>([])
   const [selectedValues, setSelectedValues] = useImmer([
     {
@@ -50,6 +51,7 @@ function Board({ userObj }: Props) {
     },
   ])
   const [messageLoaded, setMessageLoaded] = useState(false)
+  const userCertificated = useSelectors((state) => state.userCertificated.value)
   const navigate = useNavigate()
   const [searchParams, setSearchParams] = useSearchParams()
   const selectedSearchParams = [
@@ -132,90 +134,77 @@ function Board({ userObj }: Props) {
   }, [])
 
   return (
-    <div>
-      {/* <AlarmCheck />
-            <AlertCircle />
-            <Siren />
-            <Presentation />
-            <DoorOpen />
-            <UserRound />
-            <UserCheck />
-            <MessagesSquare />
-            <Umbrella />
-            <TowerControl />
-            <Clock />
-            <Building />
-            <Watch />
-            <Pencil />
-            <Search />
-            <SearchCheck />
-            <SearchCode />
-            <SearchSlash />
-            <Pen />
-            <PenBox />
-            <PenTool />
-            <PenSquare /> */}
-      <SwipeableViews>
-        <PageTitle
-          icon={<Minimize2 />}
-          title={
-            languages === 'ko' ? '빌리기 카드 목록' : 'Borrowing Card Board'
-          }
-        />
-        <PageTitle
-          icon={<Maximize2 />}
-          title={
-            languages === 'ko' ? '빌려주기 카드 목록' : 'Lending Card Board'
-          }
-        />
-      </SwipeableViews>
-      <div className="px-5">
-        <div className="flex justify-center">
-          <div className="w-[1000px]">
-            <BoardMap
-              selectedValues={selectedSearchParams}
-              handleSelectedValues={handleSelectedValues}
-              searchParams={searchParams}
-            />
-          </div>
-        </div>
-      </div>
-      <>
-        <div className="truncate flex justify-center sticky top-16 z-30 px-5">
-          <div className="w-[1000px] shadow-md">
-            <Popups
-              trigger={<BoardList selectedValues={selectedSearchParams} />}
-              title={<FilterDialogsTitle />}
-              content={
-                <FilterDialogsContent
-                  selectedValues={selectedSearchParams}
-                  handleSelectedValues={handleSelectedValues}
-                />
+    <>
+      {userObj && userCertificated ? (
+        <div>
+          <SwipeableViews>
+            <PageTitle
+              icon={<Minimize2 />}
+              title={
+                languages === 'ko' ? '빌리기 카드 목록' : 'Borrowing Card Board'
               }
             />
+            <PageTitle
+              icon={<Maximize2 />}
+              title={
+                languages === 'ko' ? '빌려주기 카드 목록' : 'Lending Card Board'
+              }
+            />
+          </SwipeableViews>
+          <div className="px-5">
+            <div className="flex justify-center">
+              <div className="w-[1000px]">
+                <BoardMap
+                  selectedValues={selectedSearchParams}
+                  handleSelectedValues={handleSelectedValues}
+                  searchParams={searchParams}
+                />
+              </div>
+            </div>
           </div>
+          <>
+            <div className="truncate flex justify-center sticky top-16 z-30 px-5">
+              <div className="w-[1000px] shadow-md">
+                <Popups
+                  trigger={<BoardList selectedValues={selectedSearchParams} />}
+                  title={<FilterDialogsTitle />}
+                  content={
+                    <FilterDialogsContent
+                      selectedValues={selectedSearchParams}
+                      handleSelectedValues={handleSelectedValues}
+                    />
+                  }
+                />
+              </div>
+            </div>
+            <SwipeableViews>
+              {messageLoaded && (
+                <>
+                  <CardsList
+                    choose={1}
+                    messages={messages}
+                    selectedValues={selectedValues}
+                    userObj={userObj}
+                  />
+                  <CardsList
+                    choose={2}
+                    messages={messages}
+                    selectedValues={selectedValues}
+                    userObj={userObj}
+                  />
+                </>
+              )}
+            </SwipeableViews>
+          </>
         </div>
+      ) : (
         <SwipeableViews>
-          {messageLoaded && (
-            <>
-              <CardsList
-                choose={1}
-                messages={messages}
-                selectedValues={selectedValues}
-                userObj={userObj}
-              />
-              <CardsList
-                choose={2}
-                messages={messages}
-                selectedValues={selectedValues}
-                userObj={userObj}
-              />
-            </>
-          )}
+          <LayoutBoard borrow={true} />
+          <LayoutBoard borrow={false} />
         </SwipeableViews>
-      </>
-    </div>
+      )}
+    </>
   )
 }
 
-export default Board
+export default Boards
