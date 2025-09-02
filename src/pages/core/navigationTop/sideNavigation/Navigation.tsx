@@ -125,7 +125,7 @@ function Navigation({ handleSideNavigation }: Props) {
         <nav className="flex flex-col justify-between w-[350px]">
           {profile?.certificated ? (
             <div>
-              <NavigationSignedIn userObj={profile} points={points} />
+              <NavigationSignedIn />
               {onLine ? (
                 <div className="flex flex-col justify-between pt-5 gap-5">
                   {links.map((value, index) => {

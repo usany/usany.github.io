@@ -1,8 +1,7 @@
-import { useSelector } from 'react-redux'
 import { useSelectors } from 'src/hooks/useSelectors'
 
-const NavigationUser = ({ points }) => {
-  const languages = useSelector((state) => state.languages.value)
+const NavigationUser = () => {
+  const languages = useSelectors((state) => state.languages.value)
   const profile = useSelectors((state) => state.profile.value)
   return (
     <div>
@@ -19,7 +18,7 @@ const NavigationUser = ({ points }) => {
       {profile?.certificated ? (
         <div>
           {languages === 'ko' ? '내 포인트: ' : 'My Points: '}
-          {points}
+          {profile?.points}
         </div>
       ) : (
         <div>

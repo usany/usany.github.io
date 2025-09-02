@@ -49,10 +49,7 @@ const NavigationTop = () => {
     <div className="shadow-md fixed z-50 bg-light-2 dark:bg-dark-2 rounded truncate">
       {renderDelayed && (
         <div className="flex justify-between w-screen items-center">
-          <Navigation
-            userObj={userObj}
-            handleSideNavigation={handleSideNavigation}
-          />
+          <Navigation handleSideNavigation={handleSideNavigation} />
           <div className={`flex ${!largeMedia && 'flex-col'} items-center`}>
             {scrollNavigation && scrollLocation && <NavigationScroll />}
             <div>
