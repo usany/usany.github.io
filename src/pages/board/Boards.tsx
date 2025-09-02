@@ -16,6 +16,7 @@ import BoardList from './BoardList'
 import FilterDialogsContent from './FilterDialogs/FilterDialogsContent'
 import FilterDialogsTitle from './FilterDialogs/FilterDialogsTitle'
 import LayoutBoard from './LayoutBoard'
+import Board from './Board'
 
 const items = {
   ko: ['전체 아이템', '우산', '양산'],
@@ -136,67 +137,7 @@ function Boards({ userObj }: Props) {
   return (
     <>
       {userObj && userCertificated ? (
-        <div>
-          <SwipeableViews>
-            <PageTitle
-              icon={<Minimize2 />}
-              title={
-                languages === 'ko' ? '빌리기 카드 목록' : 'Borrowing Card Board'
-              }
-            />
-            <PageTitle
-              icon={<Maximize2 />}
-              title={
-                languages === 'ko' ? '빌려주기 카드 목록' : 'Lending Card Board'
-              }
-            />
-          </SwipeableViews>
-          <div className="px-5">
-            <div className="flex justify-center">
-              <div className="w-[1000px]">
-                <BoardMap
-                  selectedValues={selectedSearchParams}
-                  handleSelectedValues={handleSelectedValues}
-                  searchParams={searchParams}
-                />
-              </div>
-            </div>
-          </div>
-          <>
-            <div className="truncate flex justify-center sticky top-16 z-30 px-5">
-              <div className="w-[1000px] shadow-md">
-                <Popups
-                  trigger={<BoardList selectedValues={selectedSearchParams} />}
-                  title={<FilterDialogsTitle />}
-                  content={
-                    <FilterDialogsContent
-                      selectedValues={selectedSearchParams}
-                      handleSelectedValues={handleSelectedValues}
-                    />
-                  }
-                />
-              </div>
-            </div>
-            <SwipeableViews>
-              {messageLoaded && (
-                <>
-                  <CardsList
-                    choose={1}
-                    messages={messages}
-                    selectedValues={selectedValues}
-                    userObj={userObj}
-                  />
-                  <CardsList
-                    choose={2}
-                    messages={messages}
-                    selectedValues={selectedValues}
-                    userObj={userObj}
-                  />
-                </>
-              )}
-            </SwipeableViews>
-          </>
-        </div>
+        <Board userObj={userObj} />
       ) : (
         <SwipeableViews>
           <LayoutBoard borrow={true} />
