@@ -95,7 +95,6 @@ function Btn({
         <>
           {round === 1 && (
             <SupportButton
-              userObj={userObj}
               move={move}
               handleClose={handleClose}
               handleDialog={handleDialog}

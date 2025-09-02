@@ -6,7 +6,7 @@ import { useSelectors } from 'src/hooks/useSelectors'
 import { webSocket } from 'src/webSocket.tsx'
 import specificProcess from './specificProcess'
 
-const onSupporting = async ({ message, userObj, profileUrl }) => {
+const onSupporting = async ({ message, profile, profileUrl }) => {
   const { data, messagingToken } = await specificProcess({
     message: message,
     toUid: null,
@@ -18,19 +18,19 @@ const onSupporting = async ({ message, userObj, profileUrl }) => {
     sendingToken: messagingToken,
     creatorId: message.creatorId,
     creatorName: message.displayName,
-    connectedId: userObj.uid,
-    connectedName: userObj.displayName,
+    connectedId: profile.uid,
+    connectedName: profile.displayName,
     connectedUrl: profileUrl,
     preferLanguage: userDoc.data()?.preferLanguage || 'ko',
     connectedClock: new Date().toString(),
   }
-  const connectedUserRef = doc(dbservice, `members/${userObj.uid}`)
+  const connectedUserRef = doc(dbservice, `members/${profile.uid}`)
   const connectedUserSnap = await getDoc(connectedUserRef)
   const connectedUserData = connectedUserSnap.data()
   updateDoc(data, {
     round: 2,
-    connectedId: userObj.uid,
-    connectedName: userObj.displayName,
+    connectedId: profile.uid,
+    connectedName: profile.displayName,
     connectedUrl: profileUrl,
     connectedProfileImage: connectedUserData.profileImage,
     connectedDefaultProfile: connectedUserData.defaultProfile,
@@ -44,7 +44,6 @@ const onSupporting = async ({ message, userObj, profileUrl }) => {
   webSocket.emit('supporting', passingObject)
 }
 const SupportButton = ({
-  userObj,
   message,
   increaseRound,
   changeConnectedUser,
@@ -62,17 +61,17 @@ const SupportButton = ({
       <Button
         variant="outlined"
         onClick={() => {
-          if (userObj) {
+          if (profile) {
             const clock = new Date().toString()
             onSupporting({
               message: message,
-              userObj: userObj,
+              profile: { uid: profile?.uid, displayName: profile?.displayName },
               profileUrl: sendingProfile,
             })
             increaseRound()
             changeConnectedUser({
-              uid: userObj.uid,
-              displayName: userObj.displayName,
+              uid: profile?.uid,
+              displayName: profile?.displayName,
               url: sendingProfile,
             })
             toggleOnTransfer()
