@@ -86,30 +86,6 @@ function RankingLists() {
       searchingMembersList()
       console.log(userSearch)
     }
-    // onSnapshot(query(collection(dbservice, 'members'), orderBy('points', 'desc'), limit(10), startAfter(continuing: continuing : '')), (snapshot) => {
-    //   const newArray = snapshot.docs.map((document, index) => {
-    //     getDownloadURL(ref(storage, `${document.data()?.uid}`))
-    //     .then((url) => {
-    //       setLoadedImage([...loadedImage, {url: url, index: index}])
-    //     })
-    //     .catch((error) => {
-    //       console.log(error)
-    //     });
-    //     return ({
-    //       ...document.data(),
-    //     })
-    //   });
-    //   setRank(newArray)
-    //   newArray.map((document, index) => {
-    //     if (document.uid === userObj.uid) {
-    //       newArray[index].rank = index+1
-    //       setRanker([newArray[index]])
-    //     }
-    //     if (index+1 === 5) {
-    //       setContinuing(snapshot)
-    //     }
-    //   })
-    // })
   }, [isLoading, userSearch])
   const handleScroll = () => {
     if (
