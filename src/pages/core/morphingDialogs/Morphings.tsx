@@ -13,7 +13,6 @@ const Morphings = ({
   increaseRound,
   decreaseRound,
   message,
-  userObj,
   onPulse,
   changeOnPulse,
   connectedUser,
@@ -27,7 +26,7 @@ const Morphings = ({
   handleConnectedClock,
   handleConfirmingClock,
   handleReturningClock,
-  handleConfirmedReturnClock
+  handleConfirmedReturnClock,
 }: Props) => {
   const [drawerOpen, setDrawerOpen] = useState(false)
   const drawerOpenTrue = () => {
@@ -46,7 +45,6 @@ const Morphings = ({
         increaseRound={increaseRound}
         decreaseRound={decreaseRound}
         drawerOpenTrue={drawerOpenTrue}
-        userObj={userObj}
         message={message}
         onPulse={onPulse}
         changeOnPulse={changeOnPulse}
