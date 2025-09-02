@@ -7,13 +7,13 @@ import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 // import supabase from 'src/baseApi/base'
 import { dbservice } from 'src/baseApi/serverbase'
+import { useSelectors } from 'src/hooks/useSelectors'
 import useTexts from 'src/useTexts'
 
 interface Props {
-  userObj: User
   user: object
 }
-const ProfileMembersDrawersContent = ({ userObj, user }: Props) => {
+const ProfileMembersDrawersContent = ({ user }: Props) => {
   const [confirmEmail, setConfirmEmail] = useState(false)
   const [process, setProcess] = useState(false)
   const {
@@ -25,19 +25,20 @@ const ProfileMembersDrawersContent = ({ userObj, user }: Props) => {
     canDeleteAccountWhenYouHaveNoProcessingBorrwingOrLendingCard,
   } = useTexts()
   const navigate = useNavigate()
+  const profile = useSelectors((state) => state.profile.value)
+
   const onChange = (event) => {
     const {
       target: { value },
     } = event
-    if (value === userObj.email) {
+    if (value === profile?.email) {
       setConfirmEmail(true)
     } else {
       setConfirmEmail(false)
     }
   }
-  console.log(userObj)
   const delist = async () => {
-    await deleteDoc(doc(dbservice, `members/${userObj.uid}`))
+    await deleteDoc(doc(dbservice, `members/${profile?.uid}`))
     deleteUser(user)
       .then(() => {
         console.log(user)

@@ -27,9 +27,7 @@ const ProfileMembers = ({ user }) => {
           <Popups
             trigger={<ProfileMembersDrawersTrigger />}
             title={<ProfileMembersDrawersTitle />}
-            content={
-              <ProfileMembersDrawersContent userObj={profile} user={user} />
-            }
+            content={<ProfileMembersDrawersContent user={user} />}
           />
         </div>
       ) : (
