@@ -8,9 +8,6 @@ import RankingLists from 'src/pages/search/searchList/RankingLists'
 import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
 
 function Ranking() {
-  // const [userSearch, setUserSearch] = useState('')
-  // const [searchParams, setSearchParams] = useSearchParams()
-  // const userSearching = searchParams.get('search')
   const languages = useSelectors((state) => state.languages.value)
   const dispatch = useDispatch()
 
