@@ -1,20 +1,12 @@
 import { User } from 'firebase/auth'
 import { collection, getDocs, orderBy, query } from 'firebase/firestore'
-import { Maximize2, Minimize2 } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { dbservice } from 'src/baseApi/serverbase'
 import { useSelectors } from 'src/hooks/useSelectors'
-import BoardMap from 'src/pages/board/boardMap/BoardMap'
-import PageTitle from 'src/pages/core/pageTitle/PageTitle'
 import { SwipeableViews } from 'src/pages/core/SwipeableViews'
 import { useImmer } from 'use-immer'
 import locationsBuildings from '../add/locationsBuildings'
-import CardsList from '../core/card/CardsList'
-import Popups from '../core/Popups'
-import BoardList from './BoardList'
-import FilterDialogsContent from './FilterDialogs/FilterDialogsContent'
-import FilterDialogsTitle from './FilterDialogs/FilterDialogsTitle'
 import LayoutBoard from './LayoutBoard'
 import Board from './Board'
 
@@ -51,7 +43,6 @@ function Boards({ userObj }: Props) {
       value: '최신순',
     },
   ])
-  const [messageLoaded, setMessageLoaded] = useState(false)
   const userCertificated = useSelectors((state) => state.userCertificated.value)
   const navigate = useNavigate()
   const [searchParams, setSearchParams] = useSearchParams()
@@ -69,30 +60,6 @@ function Boards({ userObj }: Props) {
       value: searchParams.get('selectedValueThree') || '최신순',
     },
   ]
-  const handleSelectedValues = ({
-    id,
-    newValue,
-  }: {
-    id: string
-    newValue: string
-  }) => {
-    setSelectedValues((values) => {
-      const value = values.find((value) => value.id === id)
-      if (value) {
-        value.value = newValue
-      }
-    })
-    setSearchParams((searchParams) => {
-      if (['전체 아이템', '전체 장소', '최신순'].indexOf(newValue) === -1) {
-        searchParams.set(id, newValue)
-      } else {
-        searchParams.delete(id)
-      }
-      return searchParams
-    })
-  }
-  const languages = useSelectors((state) => state.languages.value)
-
   useEffect(() => {
     document.documentElement.scrollTo({
       top: 0,
@@ -116,7 +83,6 @@ function Boards({ userObj }: Props) {
         newArray.push({ id: doc.id, ...doc.data() })
       })
       setMessages(newArray)
-      setMessageLoaded(true)
     }
     if (userObj) {
       bringMessages()
