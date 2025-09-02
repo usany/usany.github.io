@@ -4,14 +4,14 @@ import { SwipeableViews } from 'src/pages/core/SwipeableViews'
 import Add from './Add'
 import Layout from './Layout'
 
-function Adds({ userObj }: UserObjProps) {
+function Adds() {
   const profile = useSelectors((state) => state.profile.value)
   return (
     <>
-      {userObj && profile?.certificated ? (
+      {profile?.certificated ? (
         <SwipeableViews>
-          <Add userObj={userObj} borrow={true} />
-          <Add userObj={userObj} borrow={false} />
+          <Add borrow={true} />
+          <Add borrow={false} />
         </SwipeableViews>
       ) : (
         <SwipeableViews>

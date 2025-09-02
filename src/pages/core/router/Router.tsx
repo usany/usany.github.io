@@ -27,8 +27,8 @@ const Router = () => {
           <Suspense fallback={<Loadings />}>
             <Routes>
               <Route path="/" element={<Home userObj={userObj} />} />
-              <Route path="/add" element={<Adds userObj={userObj} />} />
-              <Route path="/board" element={<Boards userObj={userObj} />} />
+              <Route path="/add" element={<Adds />} />
+              <Route path="/board" element={<Boards />} />
               <Route path="/contact" element={<Contact userObj={userObj} />} />
               {profile?.certificated && (
                 <>
