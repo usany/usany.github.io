@@ -6,7 +6,6 @@ import { useSelectors } from 'src/hooks/useSelectors'
 
 const SpecificsTradesContent = ({
   isCreator,
-  userObj,
   message,
   conversation,
   connectedUser,
@@ -26,7 +25,6 @@ const SpecificsTradesContent = ({
   let uid
   let displayName
   let url
-  console.log(connectedUser)
   if (isCreator) {
     uid = message?.creatorId
     displayName = message.displayName
