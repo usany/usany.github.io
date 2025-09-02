@@ -76,7 +76,6 @@ const AddCards = ({ borrow, item, fromTo, locationState, display }) => {
                         </div>
                       }
                     />
-                    {/* <Chips label={`${item} ${borrow ? ' 빌리기' : ' 빌려주기'}`} onClick={null} /> */}
                   </div>
                 )}
               </div>
