@@ -86,6 +86,7 @@ function Board() {
     })
   }
   const languages = useSelectors((state) => state.languages.value)
+  const profile = useSelectors((state) => state.profile.value)
 
   useEffect(() => {
     document.documentElement.scrollTo({
