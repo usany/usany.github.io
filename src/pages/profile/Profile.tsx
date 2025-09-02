@@ -41,9 +41,9 @@ function Profile({ userObj }: Props) {
     lendDone: [],
   })
   const [scrolledToCompleted, setScrolledToCompleted] = useState(false)
-  const userUid = state?.element.uid || userObj.uid
-  const userDisplayName = state?.element.displayName || userObj.displayName
   const profile = useSelectors((state) => state.profile.value)
+  const userUid = state?.element.uid || profile?.uid
+  const userDisplayName = state?.element.displayName || profile?.displayName
 
   useEffect(() => {
     const cards = async () => {
@@ -66,16 +66,10 @@ function Profile({ userObj }: Props) {
       followers.list = list
     })
   }
-  const handleFollowings = ({ list }) => {
-    setAlliesCollection((draft) => {
-      const followings = draft.find((todo) => todo.id === 'followings')
-      followings.list = list
-    })
-  }
   const dispatch = useDispatch()
   useEffect(() => {
     const setProfile = async () => {
-      const docRef = doc(dbservice, `members/${userObj?.uid}`)
+      const docRef = doc(dbservice, `members/${profile?.uid}`)
       const docSnap = await getDoc(docRef)
       const userColor = docSnap.data()?.profileColor || '#2196f3'
       const userImage = docSnap.data()?.profileImageUrl || 'null'
@@ -89,12 +83,12 @@ function Profile({ userObj }: Props) {
       }
     }
     setProfile()
-  }, [userObj])
+  }, [profile])
   useEffect(() => {
     const bringAllies = async () => {
       let docRef
-      if (userObj.uid === userUid) {
-        docRef = doc(dbservice, `members/${userObj.uid}`)
+      if (profile?.uid === userUid) {
+        docRef = doc(dbservice, `members/${profile?.uid}`)
       } else {
         docRef = doc(dbservice, `members/${location.search.slice(4)}`)
       }
@@ -140,7 +134,7 @@ function Profile({ userObj }: Props) {
       <PageTitle
         icon={<UserRound />}
         title={`${
-          userUid === userObj.uid
+          userUid === profile?.uid
             ? languages === 'ko'
               ? '내'
               : 'My'
@@ -161,8 +155,8 @@ function Profile({ userObj }: Props) {
       />
       {scrolledToCompleted ? (
         <>
-          <ProfileCompleted user={state?.element || userObj} cards={cards} />
-          <ProfileMembers userObj={userObj} user={state?.element || userObj} />
+          <ProfileCompleted user={state?.element || profile} cards={cards} />
+          <ProfileMembers userObj={profile} user={state?.element || profile} />
         </>
       ) : (
         <div className="h-[250px]"></div>
