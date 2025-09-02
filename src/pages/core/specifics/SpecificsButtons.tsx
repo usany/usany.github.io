@@ -7,7 +7,6 @@ import Btn from 'src/buttons/Buttons'
 import { useSelectors } from 'src/hooks/useSelectors'
 
 interface Props {
-  userObj: User | null
   message: {}
 }
 
@@ -15,7 +14,6 @@ function SpecificsButtons({
   round,
   increaseRound,
   decreaseRound,
-  userObj,
   message,
   changeConnectedUser,
   toggleOnTransfer,
@@ -28,7 +26,6 @@ function SpecificsButtons({
   const [num, setNum] = useState<number | null>(null)
   const [points, setPoints] = useState<number | null>(null)
   const [deleted, setDeleted] = useState<boolean>(false)
-  const profile = useSelectors((state) => state.profile.value)
   const languages = useSelectors((state) => state.languages.value)
 
   const deleteMessage = () => {

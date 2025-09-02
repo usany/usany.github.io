@@ -171,7 +171,6 @@ function Specifics({
                       round={round}
                       increaseRound={increaseRound}
                       decreaseRound={decreaseRound}
-                      userObj={userObj}
                       message={message}
                       changeOnPulse={changeOnPulse}
                       changeConnectedUser={changeConnectedUser}
@@ -226,7 +225,6 @@ function Specifics({
                     round={round}
                     increaseRound={increaseRound}
                     decreaseRound={decreaseRound}
-                    userObj={userObj}
                     message={message}
                     changeOnPulse={changeOnPulse}
                     changeConnectedUser={changeConnectedUser}
