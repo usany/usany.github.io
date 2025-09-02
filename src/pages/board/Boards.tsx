@@ -28,21 +28,6 @@ interface Props {
 }
 
 function Boards({ userObj }: Props) {
-  const [messages, setMessages] = useState<Array<object>>([])
-  const [selectedValues, setSelectedValues] = useImmer([
-    {
-      id: 'selectedValueOne',
-      value: '전체 아이템',
-    },
-    {
-      id: 'selectedValueTwo',
-      value: '전체 장소',
-    },
-    {
-      id: 'selectedValueThree',
-      value: '최신순',
-    },
-  ])
   const profile = useSelectors((state) => state.profile.value)
   const navigate = useNavigate()
   const [searchParams, setSearchParams] = useSearchParams()
@@ -67,27 +52,6 @@ function Boards({ userObj }: Props) {
       behavior: 'instant', // Optional if you want to skip the scrolling animation
     })
   }, [])
-  useEffect(() => {
-    const bringMessages = async () => {
-      let order = 'asc'
-      if (selectedValues[2].value === '최신순' || !selectedValues[2].value) {
-        order = 'desc'
-      }
-      const collectionQuery = query(
-        collection(dbservice, 'num'),
-        orderBy('creatorClock', order),
-      )
-      const docs = await getDocs(collectionQuery)
-      const newArray = []
-      docs.forEach((doc) => {
-        newArray.push({ id: doc.id, ...doc.data() })
-      })
-      setMessages(newArray)
-    }
-    if (userObj) {
-      bringMessages()
-    }
-  }, [selectedValues[2].value])
   useEffect(() => {
     if (!window.location.search) {
       navigate('/board?action=borrow')
