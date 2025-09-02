@@ -24,7 +24,7 @@ function SpecificsButtons({
   handleConnectedClock,
   handleConfirmingClock,
   handleReturningClock,
-  handleConfirmedReturnClock
+  handleConfirmedReturnClock,
 }: Props) {
   const [num, setNum] = useState<number | null>(null)
   const [points, setPoints] = useState<number | null>(null)
@@ -61,14 +61,12 @@ function SpecificsButtons({
           <Btn
             messageObj={message}
             isOwner={message.creatorId === userObj.uid}
-            userObj={userObj}
             num={num}
             points={points}
             deleteMessage={deleteMessage}
             round={round}
             increaseRound={increaseRound}
             decreaseRound={decreaseRound}
-            changeOnPulse={changeOnPulse}
             changeConnectedUser={changeConnectedUser}
             toggleOnTransfer={toggleOnTransfer}
             handleConnectedClock={handleConnectedClock}
