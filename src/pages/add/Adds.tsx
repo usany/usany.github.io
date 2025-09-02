@@ -1,5 +1,4 @@
 import { useSelectors } from 'src/hooks/useSelectors'
-import UserObjProps from 'src/interfaces/UserObjProps'
 import { SwipeableViews } from 'src/pages/core/SwipeableViews'
 import Add from './Add'
 import Layout from './Layout'
