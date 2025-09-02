@@ -23,7 +23,7 @@ function SpecificsRear({
   confirmedReturnClock,
 }: Props) {
   const { borrowing, lending } = useTexts()
-  const defaultProfile = useSelectors((state) => state.defaultProfile.value)
+  const profile = useSelectors((state) => state.profile.value)
   const profileImageUrl = useSelectors((state) => state.profileImageUrl.value)
   const [sendedProfileImage, setSendedProfileImage] = useState(false)
   const [sendedDefaultProfile, setSendedDefaultProfile] = useState('')
@@ -47,7 +47,9 @@ function SpecificsRear({
   const passingValueConnected = {
     profileImage: message.connectedProfileImage || sendedProfileImage,
     defaultProfile:
-      message.connectedDefaultProfile || sendedDefaultProfile || defaultProfile,
+      message.connectedDefaultProfile ||
+      sendedDefaultProfile ||
+      profile.defaultProfile,
     profileImageUrl:
       message.connectedProfileImageUrl ||
       sendedProfileImageUrl ||
