@@ -2,13 +2,7 @@ import ProfileForm from 'src/pages/profile/ProfileForm'
 import ProfileConnects from 'src/pages/profile/ProfileConnects'
 import { useSelectors } from 'src/hooks/useSelectors'
 
-const ProfileActions = ({
-  userObj,
-  user,
-  alliesCollection,
-  handleFollowers,
-  handleFollowings,
-}) => {
+const ProfileActions = ({ user, alliesCollection, handleFollowers }) => {
   const profile = useSelectors((state) => state.profile.value)
 
   return (
