@@ -8,11 +8,10 @@ import DrawersBar from 'src/pages/core/DrawersBar'
 import SpecificsActionsPopupsContents from './SpecificsActionsPopupsContents'
 
 interface Props {
-  userObj: User | null
   message: {}
 }
 
-function SpecificsActionsPopups({ drawerOpenTrue, userObj, message }: Props) {
+function SpecificsActionsPopups({ drawerOpenTrue, message }: Props) {
   const largeMedia = useLargeMedia()
   const passingProfile = {
     profileImage: message?.creatorProfileImage,
@@ -36,7 +35,6 @@ function SpecificsActionsPopups({ drawerOpenTrue, userObj, message }: Props) {
             <DrawersBar />
             <SpecificsActionsPopupsContents
               drawerOpenTrue={drawerOpenTrue}
-              userObj={userObj}
               message={message}
             />
           </ScrollArea>
@@ -65,7 +63,6 @@ function SpecificsActionsPopups({ drawerOpenTrue, userObj, message }: Props) {
             <DrawersBar />
             <SpecificsActionsPopupsContents
               drawerOpenTrue={drawerOpenTrue}
-              userObj={userObj}
               message={message}
             />
           </ScrollArea>

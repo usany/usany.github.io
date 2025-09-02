@@ -3,36 +3,23 @@ import Button from '@mui/material/Button'
 import { User } from 'firebase/auth'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useSelectors } from 'src/hooks/useSelectors'
 import Avatars from 'src/pages/core/Avatars'
 
 interface Props {
-  userObj: User | null
   message: {}
 }
 
-function SpecificsActionsPopupsContents({
-  drawerOpenTrue,
-  userObj,
-  message,
-}: Props) {
+function SpecificsActionsPopupsContents({ drawerOpenTrue, message }: Props) {
   const [conversation, setConversation] = useState('')
-  const messageDisplayName = message.displayName
-  let messageName
-  if (messageDisplayName.length > 10) {
-    messageName = messageDisplayName.slice(0, 10) + '......'
-  } else {
-    messageName = messageDisplayName
-  }
+  const profile = useSelectors((state) => state.profile.value)
+  const uid = profile?.uid
   useEffect(() => {
     if (drawerOpenTrue) {
-      if (message?.creatorId < userObj.uid) {
-        setConversation(
-          message?.creatorId.slice(0, 6) + userObj.uid.slice(0, 6),
-        )
+      if (message?.creatorId < uid) {
+        setConversation(message?.creatorId.slice(0, 6) + uid.slice(0, 6))
       } else {
-        setConversation(
-          userObj.uid.slice(0, 6) + message?.creatorId.slice(0, 6),
-        )
+        setConversation(uid.slice(0, 6) + message?.creatorId.slice(0, 6))
       }
     }
   }, [message])
@@ -57,37 +44,43 @@ function SpecificsActionsPopupsContents({
       </div>
       <div className="flex justify-center p-5">
         <Link
-          to={`/profile${userObj.uid !== message.creatorId ? `/?id:${message.creatorId}` : ''}`}
+          to={`/profile${
+            uid !== message.creatorId ? `/?id:${message.creatorId}` : ''
+          }`}
           state={{
             element: {
               uid: message.creatorId,
               displayName: message.displayName,
               profileImage: passingProfile.profileImage,
               defaultProfile: passingProfile.defaultProfile,
-              profileImageUrl: passingProfile.profileImageUrl
-            }
+              profileImageUrl: passingProfile.profileImageUrl,
+            },
           }}
         >
-          <Button variant="outlined"
+          <Button
+            variant="outlined"
             onClick={() => {
               document.body.classList.remove('overflow-hidden')
             }}
-          >프로필 확인</Button>
+          >
+            프로필 확인
+          </Button>
         </Link>
-        {userObj.uid !== message?.creatorId && (
+        {uid !== message?.creatorId && (
           <Link
             to={`/piazza/?id=${conversation}`}
             state={{
               conversation: conversation,
               displayName: message?.displayName,
-              userUid: userObj.uid,
+              userUid: uid,
               chattingUid: message?.creatorId,
               multiple: false,
               profileUrl: message?.creatorUrl,
             }}
           >
             <DrawerClose>
-              <Button variant="outlined"
+              <Button
+                variant="outlined"
                 onClick={() => {
                   document.body.classList.remove('overflow-hidden')
                 }}

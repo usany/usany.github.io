@@ -143,7 +143,6 @@ function Specifics({
                   <CardContent>
                     <SpecificsActions
                       drawerOpenTrue={drawerOpenTrue}
-                      userObj={userObj}
                       message={message}
                     />
                     <div className="flex justify-center pt-1">
