@@ -150,14 +150,12 @@ function Profile({ userObj }: Props) {
       <ProfileAvatar user={state?.element || profile} />
       <ProfileLocations user={userUid} />
       <ProfileActions
-        userObj={userObj}
-        user={state?.element || userObj}
+        user={state?.element || profile}
         alliesCollection={alliesCollection}
         handleFollowers={handleFollowers}
-        handleFollowings={handleFollowings}
       />
       <ProfileCards
-        user={state?.element || userObj}
+        user={state?.element || profile}
         alliesCollection={alliesCollection}
         cards={cards}
       />
