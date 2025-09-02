@@ -20,13 +20,11 @@ import { useSupportTradesCallback } from './useSupportTradesCallback'
 interface Props {
   message: { id: string; text: object }
   isOwner: boolean
-  userObj: User | null
   num: number | null
   points: number | null
 }
 const MorphingDialogs = ({
   message,
-  userObj,
   round,
   increaseRound,
   decreaseRound,

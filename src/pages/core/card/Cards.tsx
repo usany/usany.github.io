@@ -1,16 +1,13 @@
-import { User } from 'firebase/auth'
 import { useRef } from 'react'
 import useLongPress from 'src/hooks/useLongPress'
 import MorphingDialogs from '../morphingDialogs/MorphingDialogs'
 import CardsLongPressed from './CardsLongPressed'
 import CardsViews from './CardsViews'
 import { useRound } from './useRound'
-import { useSelectors } from 'src/hooks/useSelectors'
 
 interface Props {
   message: { id: string; text: object }
   isOwner: boolean
-  userObj: User | null
   num: number | null
   points: number | null
 }
@@ -26,7 +23,6 @@ const Cards = ({
   delayed,
   delayedFalse,
 }: Props) => {
-  const profile = useSelectors((state) => state.profile.value)
   const { round, increaseRound, decreaseRound } = useRound(message)
   const cardsRef = useRef()
   useLongPress(cardsRef, () => {
@@ -55,7 +51,6 @@ const Cards = ({
             <MorphingDialogs
               message={message}
               isOwner={isOwner}
-              userObj={profile}
               num={num}
               points={points}
               round={round}
