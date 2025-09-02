@@ -38,30 +38,30 @@ function Home({ userObj }: UserObjProps) {
     <>
       {userObj && profile?.certificated ? (
         <>
-          {bottomNavigation === 0 && (
+          {/* {bottomNavigation === 0 && (
             <SwipeableViews>
               <Add userObj={userObj} borrow={true} />
               <Add userObj={userObj} borrow={false} />
             </SwipeableViews>
-          )}
+          )} */}
           {bottomNavigation === 1 && <Menu userObj={userObj} />}
-          {bottomNavigation === 2 && <Board userObj={userObj} borrow={true} />}
+          {/* {bottomNavigation === 2 && <Board userObj={userObj} borrow={true} />} */}
         </>
       ) : (
         <>
-          {bottomNavigation === 0 && (
+          {/* {bottomNavigation === 0 && (
             <SwipeableViews>
               <Layout borrow={true} />
               <Layout borrow={false} />
             </SwipeableViews>
-          )}
+          )} */}
           {bottomNavigation === 1 && <Auth userObj={userObj} />}
-          {bottomNavigation === 2 && (
+          {/* {bottomNavigation === 2 && (
             <SwipeableViews>
               <LayoutBoard borrow={true} />
               <LayoutBoard borrow={false} />
             </SwipeableViews>
-          )}
+          )} */}
         </>
       )}
     </>
