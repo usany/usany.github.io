@@ -33,7 +33,6 @@ const numbers = Array.from({ length: 10 }, (e, i) => `${i}`)
 const mergedArray = letters.concat(numbers)
 
 interface Props {
-  userObj: User | null
   message: {}
 }
 
@@ -42,7 +41,6 @@ function Specifics({
   increaseRound,
   decreaseRound,
   drawerOpenTrue,
-  userObj,
   message,
   onPulse,
   changeOnPulse,
