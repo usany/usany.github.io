@@ -48,10 +48,7 @@ const Router = () => {
                     path="/piazza"
                     element={<Piazza userObj={userObj} />}
                   />
-                  <Route
-                    path="/collection"
-                    element={<Collection userObj={userObj} />}
-                  />
+                  <Route path="/collection" element={<Collection />} />
                 </>
               )}
               <Route path="*" element={<Navigate to="/" replace />} />
