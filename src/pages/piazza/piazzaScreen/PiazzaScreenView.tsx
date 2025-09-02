@@ -24,7 +24,6 @@ interface Props {
 }
 
 function PiazzaScreenView({
-  userObj,
   messagesList,
   handleMessagesList,
   handleChatUid,
