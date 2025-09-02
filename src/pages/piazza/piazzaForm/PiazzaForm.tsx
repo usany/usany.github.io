@@ -28,7 +28,6 @@ interface Props {
     defaulProfile: string
     profileUrl: string
   } | null
-  userObj: User
   multiple: boolean
   messages: string
   handleMessages: (newValue: string) => void
@@ -37,7 +36,6 @@ interface Props {
 }
 function PiazzaForm({
   chattingUser,
-  userObj,
   multiple,
   messages,
   handleMessages,
@@ -138,7 +136,7 @@ function PiazzaForm({
           profileImageUrl: profileImageUrl,
           defaultProfile: defaultProfile,
           profileColor: profileColor,
-          piazzaChecked: [userObj.uid],
+          piazzaChecked: [userUid],
           profileImage: profileImage,
         })
         handleMessagesList((prev) => [
@@ -146,8 +144,8 @@ function PiazzaForm({
           {
             msg: message,
             type: 'me',
-            userUid: userObj.uid,
-            id: userObj.displayName,
+            userUid: userUid,
+            id: userName,
             messageClock: messageClock,
             conversation: null,
             profileColor: profileColor,
@@ -181,10 +179,10 @@ function PiazzaForm({
       let userTwoDefaultProfile
       let userOneProfileImage
       let userTwoProfileImage
-      if (userObj.uid < chattingUser.uid) {
-        userOne = userObj.uid
+      if (userUid < chattingUser.uid) {
+        userOne = userUid
         userTwo = chattingUser.uid
-        userOneDisplayName = userObj.displayName
+        userOneDisplayName = userName
         userTwoDisplayName = chattingUser.displayName
         userOneProfileUrl = profileImageUrl
         userTwoProfileUrl = otherProfileUrl
@@ -194,9 +192,9 @@ function PiazzaForm({
         userTwoProfileImage = chattingUser.profileImage
       } else {
         userOne = chattingUser.uid
-        userTwo = userObj.uid
+        userTwo = userUid
         userOneDisplayName = chattingUser.displayName
-        userTwoDisplayName = userObj.displayName
+        userTwoDisplayName = userName
         userOneProfileUrl = otherProfileUrl
         userTwoProfileUrl = profileImageUrl
         userOneDefaultProfile = otherDefaultProfile
@@ -260,8 +258,8 @@ function PiazzaForm({
           {
             msg: message,
             type: 'me',
-            userUid: userObj.uid,
-            id: userObj.displayName,
+            userUid: userUid,
+            id: userName,
             messageClock: messageClock,
             conversation: conversation,
             userName: userName,
