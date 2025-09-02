@@ -8,8 +8,7 @@ import StopSupportButton from './StopSupportButton'
 import SupportButton from './SupportButton'
 
 function Btn({
-  messageObj,
-  isOwner,
+  message,
   num,
   points,
   deleteMessage,
@@ -31,52 +30,55 @@ function Btn({
   const handleDialog = () => {
     setMove(true)
   }
+  const profile = useSelectors((state) => state.profile.value)
+
+  const isOwner = message.creatorId === profile?.uid
   return (
     <>
       {isOwner ? (
         <>
           {round === 1 && (
             <DeleteButton
-              message={messageObj}
+              message={message}
               deleteMessage={deleteMessage}
               decreaseRound={decreaseRound}
             />
           )}
           {round === 2 && (
             <ConfirmButton
-              message={messageObj}
+              message={message}
               increaseRound={increaseRound}
               handleConfirmingClock={handleConfirmingClock}
             />
           )}
           {round === 3 && (
             <div className="flex justify-center">
-              {messageObj.text.choose === 1 && (
+              {message.text.choose === 1 && (
                 <ReturningButton
-                  message={messageObj}
+                  message={message}
                   increaseRound={increaseRound}
                   handleReturningClock={handleReturningClock}
                 />
               )}
-              {messageObj.text.choose === 2 && (
-                <div>{messageObj.connectedName} 님이 빌리는 중</div>
+              {message.text.choose === 2 && (
+                <div>{message.connectedName} 님이 빌리는 중</div>
               )}
             </div>
           )}
           {round === 4 && (
             <div className="flex justify-center">
-              {messageObj.text.choose === 1 && (
+              {message.text.choose === 1 && (
                 <div>
                   {languages === 'ko'
                     ? '주인에게 확인 중'
                     : 'Asking the owner to confirm'}
                 </div>
               )}
-              {messageObj.text.choose === 2 && (
+              {message.text.choose === 2 && (
                 <ConfirmReturnButton
                   num={num}
                   points={points}
-                  message={messageObj}
+                  message={message}
                   increaseRound={increaseRound}
                   handleConfirmedReturnClock={handleConfirmedReturnClock}
                 />
@@ -96,7 +98,7 @@ function Btn({
               move={move}
               handleClose={handleClose}
               handleDialog={handleDialog}
-              message={messageObj}
+              message={message}
               increaseRound={increaseRound}
               changeConnectedUser={changeConnectedUser}
               toggleOnTransfer={toggleOnTransfer}
@@ -105,7 +107,7 @@ function Btn({
           )}
           {round === 2 && (
             <StopSupportButton
-              message={messageObj}
+              message={message}
               decreaseRound={decreaseRound}
               changeConnectedUser={changeConnectedUser}
               toggleOnTransfer={toggleOnTransfer}
@@ -114,15 +116,15 @@ function Btn({
           )}
           {round === 3 && (
             <div className="flex justify-center">
-              {messageObj.text.choose === 1 && (
+              {message.text.choose === 1 && (
                 <div>
-                  {messageObj.displayName}{' '}
+                  {message.displayName}{' '}
                   {languages === 'ko' ? '님이 빌리는 중' : 'is borrowing'}
                 </div>
               )}
-              {messageObj.text.choose === 2 && (
+              {message.text.choose === 2 && (
                 <ReturningButton
-                  message={messageObj}
+                  message={message}
                   increaseRound={increaseRound}
                   handleReturningClock={handleReturningClock}
                 />
@@ -131,18 +133,18 @@ function Btn({
           )}
           {round === 4 && (
             <div className="flex justify-center">
-              {messageObj.text.choose === 1 && (
+              {message.text.choose === 1 && (
                 <ConfirmReturnButton
                   num={num}
                   points={points}
-                  message={messageObj}
+                  message={message}
                   increaseRound={increaseRound}
                   handleConfirmedReturnClock={handleConfirmedReturnClock}
                 />
               )}
-              {messageObj.text.choose === 2 && (
+              {message.text.choose === 2 && (
                 <div>
-                  {messageObj.item}{' '}
+                  {message.item}{' '}
                   {languages === 'ko'
                     ? '주인에게 확인 중'
                     : 'Asking the owner to confirm'}

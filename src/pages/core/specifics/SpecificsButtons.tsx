@@ -28,7 +28,9 @@ function SpecificsButtons({
   const [num, setNum] = useState<number | null>(null)
   const [points, setPoints] = useState<number | null>(null)
   const [deleted, setDeleted] = useState<boolean>(false)
+  const profile = useSelectors((state) => state.profile.value)
   const languages = useSelectors((state) => state.languages.value)
+
   const deleteMessage = () => {
     setDeleted(true)
     removeMessage(message)
@@ -58,8 +60,7 @@ function SpecificsButtons({
       {!deleted ? (
         <div className="flex justify-center">
           <Btn
-            messageObj={message}
-            isOwner={message.creatorId === userObj.uid}
+            message={message}
             num={num}
             points={points}
             deleteMessage={deleteMessage}
