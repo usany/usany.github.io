@@ -56,11 +56,12 @@ function PiazzaForm({
   const index = languages === 'ko' || languages === 'en' ? languages : 'ko'
   const [searchParams, setSearchParams] = useSearchParams()
   const { selectCall, videoCall, audioCall } = useTexts()
+  const userUid = profile?.uid
+  const userName = profile?.displayName
+
   const onSendSubmitHandler = async (event) => {
     event.preventDefault()
     const message = messages
-    const userUid = userObj.uid
-    const userName = userObj.displayName
     const messageClockNumber = Date.now()
     const messageClock = new Date().toString()
     const profileImageUrl = profile?.profileImageUrl
@@ -122,8 +123,6 @@ function PiazzaForm({
   const onForm = async () => {
     try {
       const message = messages
-      const userUid = userObj.uid
-      const userName = userObj.displayName
       const messageClock = new Date().toString()
       const messageClockNumber = Date.now()
       const profileImageUrl = profile?.profileImageUrl
@@ -166,8 +165,6 @@ function PiazzaForm({
   const onFormConversation = async () => {
     const message = messages
     try {
-      const userUid = userObj.uid
-      const userName = userObj.displayName
       const messageClockNumber = Date.now()
       const messageClock = new Date().toString()
       const profileImageUrl = profile.profileImageUrl
@@ -288,7 +285,6 @@ function PiazzaForm({
   }
   const onMembersConversation = async () => {
     try {
-      const userUid = userObj.uid
       const chattingUid = chattingUser.uid
       const myDocRef = doc(dbservice, `members/${userUid}`)
       const myDocSnap = await getDoc(myDocRef)
@@ -329,8 +325,8 @@ function PiazzaForm({
       sendingToken: messagingToken,
       connectedUrl: `/piazza?id=${conversation}&call=${selection}`,
       preferLanguage: preferLanguage,
-      userUid: userObj.uid,
-      id: userObj.displayName,
+      userUid: userUid,
+      id: userName,
       conversationUid: chattingUser?.uid,
       conversationName: chattingUser?.displayName,
       // profileImage: profileImage,
