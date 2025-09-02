@@ -23,42 +23,14 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 // More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
-export const defaultChip: Story = {
-  args: {
-    mode: '',
-  },
-}
+// export const defaultChip: Story = {
+//   args: {
+//     mode: '',
+//   },
+// }
 
-export const piazzaNumberChip: Story = {
-  args: {
-    mode: 'piazzaNumber',
-  },
-}
-
-export const locationChip: Story = {
-  args: {
-    mode: 'location',
-  },
-}
-
-export const noProcessingChip: Story = {
-  args: {
-    mode: 'noProcessing',
-  },
-}
-
-export const processingChip: Story = {
-  args: {
-    mode: 'processing',
-  },
-}
-
-export const specificChip: Story = {
-  args: {
-    mode: 'specific',
-  },
-}
-
+export { DefaultChips } from './DefaultChips'
+export { PiazzaNumberChips } from './PiazzaNumberChips'
 // export const Large: Story = {
 //   args: {
 //     size: 'large',
