@@ -13,12 +13,6 @@ function Lists({
   handleUser,
 }) {
   const link = '/profile'
-  // if (location.pathname === '/profile') {
-  //   link = '/profile'
-  // }
-  // if (location.pathname === '/ranking') {
-  //   link = '/profile'
-  // }
   return (
     <div>
       {ranking && (
@@ -26,7 +20,6 @@ function Lists({
           <RankingListsTitle multiple={multiple} />
           {elements.length ? (
             <ListsView
-              userObj={userObj}
               elements={elements}
               userSearch={userSearch}
               multiple={multiple}
@@ -41,7 +34,6 @@ function Lists({
       {!ranking && (
         <DrawerClose>
           <ListsView
-            userObj={userObj}
             elements={elements}
             userSearch={userSearch}
             multiple={multiple}
