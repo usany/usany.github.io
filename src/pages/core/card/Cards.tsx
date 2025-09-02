@@ -51,28 +51,17 @@ const Cards = ({
           {delayed ||
           location.pathname === '/board' ||
           location.pathname === '/profile' ? (
-            <div
-            // onMouseDownCapture={() => {
-            //   const longPress = message.id
-            //   changeLongPressCard(longPress)
-            // }}
-            // onTouchStartCapture={() => {
-            //   const longPress = message.id
-            //   changeLongPressCard(longPress)
-            // }}
-            >
-              <MorphingDialogs
-                message={message}
-                isOwner={isOwner}
-                userObj={profile}
-                num={num}
-                points={points}
-                round={round}
-                increaseRound={increaseRound}
-                decreaseRound={decreaseRound}
-                deleteMessage={deleteMessage}
-              />
-            </div>
+            <MorphingDialogs
+              message={message}
+              isOwner={isOwner}
+              userObj={profile}
+              num={num}
+              points={points}
+              round={round}
+              increaseRound={increaseRound}
+              decreaseRound={decreaseRound}
+              deleteMessage={deleteMessage}
+            />
           ) : (
             <CardsViews message={message} />
           )}
