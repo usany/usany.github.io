@@ -8,7 +8,7 @@ import ProfileClose from './ProfileClose'
 import ProfileDialogs from './profileDialogs/ProfileDialogs'
 import ProfileView from './ProfileView'
 
-const ProfileAvatar = ({ userObj, user }) => {
+const ProfileAvatar = ({ user }) => {
   const profile = useSelectors((state) => state.profile.value)
   const { changeProfile } = useTexts()
   const [attachment, setAttachment] = useState(null)
