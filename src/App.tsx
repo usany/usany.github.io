@@ -50,9 +50,6 @@ function App() {
   const { lightTheme, darkTheme } = useColors()
   usePreference()
   const userProfile = useGetCurrentUserQuery(profile?.uid)
-  console.log(userProfile)
-  console.log(userProfile.data)
-  console.log(profile?.uid)
   return (
     <>
       <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>

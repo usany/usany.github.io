@@ -6,7 +6,7 @@ import { dbservice } from '../baseApi/serverbase'
 export const currentUserApi = createApi({
   reducerPath: 'user',
   baseQuery: fetchBaseQuery(),
-  // tagTypes: ['Score'],
+  tagTypes: ['Score'],
   endpoints: (build) => ({
     getCurrentUser: build.query({
       async queryFn(uid) {
@@ -21,7 +21,22 @@ export const currentUserApi = createApi({
           return { error: error.message }
         }
       },
-      // providesTags: ['Score'],
+      providesTags: ['Score'],
+    }),
+    getCard: build.query({
+      async queryFn(uid) {
+        try {
+          const ref = doc(dbservice, `num/${uid}`)
+          const query = await getDoc(ref)
+          const response = query.data()
+          console.log('practice')
+          return { data: response }
+        } catch (error) {
+          console.log(error)
+          return { error: error.message }
+        }
+      },
+      providesTags: ['Score'],
     }),
   }),
 })
