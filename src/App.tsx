@@ -12,6 +12,7 @@ import { useSelectors } from './hooks/useSelectors'
 import { changeEn } from './stateSlices/languagesSlice'
 import { changeDark } from './stateSlices/themeSlice'
 import useUserObject from './useUserObject'
+import { useGetCurrentUserQuery } from './stateSlices/baseQuery'
 
 const usePreference = () => {
   const profile = useSelectors((state) => state.profile.value)
@@ -48,6 +49,7 @@ function App() {
   useUserObject()
   const { lightTheme, darkTheme } = useColors()
   usePreference()
+  const userProfile = useGetCurrentUserQuery(profile?.uid)
   return (
     <>
       <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>

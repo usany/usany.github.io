@@ -20,6 +20,7 @@ import { profileReducer } from './stateSlices/profileSlice'
 import { scrollNavigationReducer } from './stateSlices/scrollNavigationSlice'
 import { userCertificatedReducer } from './stateSlices/userCertificatedSlice'
 import { weather } from './stateSlices/weather'
+import { currentUserApi } from './stateSlices/baseQuery'
 
 export const store = configureStore({
   reducer: {
@@ -44,11 +45,13 @@ export const store = configureStore({
     languages: languagesReducer.reducer,
     changingUser: changingUserReducer.reducer,
     onLine: onLineReducer.reducer,
+    user: currentUserApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
-      serializableCheck: false,
-    }).concat(weather.middleware),
+    getDefaultMiddleware().concat([
+      weather.middleware,
+      currentUserApi.middleware,
+    ]),
 })
 
 export type AppStore = typeof store

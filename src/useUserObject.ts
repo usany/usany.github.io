@@ -9,6 +9,7 @@ import { dbservice } from 'src/baseApi/serverbase'
 import { changeProfileColor } from 'src/stateSlices/profileColorSlice'
 import { changeProfile } from 'src/stateSlices/profileSlice'
 import { changeProfileUrl } from 'src/stateSlices/profileUrlSlice'
+import { useGetCurrentUserQuery } from './stateSlices/baseQuery'
 
 const useUserObject = () => {
   const dispatch = useDispatch()
