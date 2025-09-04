@@ -4,7 +4,7 @@ import { doc, getDoc } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 import { dbservice } from 'src/baseApi/serverbase'
 import Btn from 'src/buttons/Buttons'
-import { useSelectors } from 'src/hooks/useSelectors'
+import { useSelectors } from 'src/hooks'
 
 interface Props {
   message: {}

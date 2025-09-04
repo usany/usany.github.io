@@ -1,7 +1,7 @@
 import Step from '@mui/material/Step'
 import StepLabel from '@mui/material/StepLabel'
 import Stepper from '@mui/material/Stepper'
-import { useSelectors } from 'src/hooks/useSelectors'
+import { useSelectors } from 'src/hooks'
 
 const authSteps = ['계정 입력', '프로필 입력']
 // const borrowSteps = [

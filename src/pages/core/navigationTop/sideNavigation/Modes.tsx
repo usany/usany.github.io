@@ -1,7 +1,7 @@
 import { doc, updateDoc } from 'firebase/firestore'
 import { useDispatch } from 'react-redux'
 import { dbservice } from 'src/baseApi/serverbase'
-import { useSelectors } from 'src/hooks/useSelectors'
+import { useSelectors } from 'src/hooks'
 import Switches from 'src/pages/core/navigationTop/sideNavigation/Switches'
 import { changeEn, changeKo } from 'src/stateSlices/languagesSlice'
 import { changeDark, changeLight } from 'src/stateSlices/themeSlice'

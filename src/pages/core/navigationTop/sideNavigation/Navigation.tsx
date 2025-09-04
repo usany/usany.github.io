@@ -16,7 +16,7 @@ import {
   DrawerContent,
   DrawerTrigger,
 } from 'src/components/ui/drawer'
-import { useSelectors } from 'src/hooks/useSelectors'
+import { useSelectors } from 'src/hooks'
 import texts from 'src/texts.json'
 import Avatars from '../../Avatars'
 import IframePlayer from './iframePlayer/IframePlayer'

@@ -1,7 +1,7 @@
 import { Avatar, AvatarImage } from '@/components/ui/avatar'
 import { User } from 'firebase/auth'
 import staticImage from 'src/assets/blue.png'
-import { useSelectors } from 'src/hooks/useSelectors'
+import { useSelectors } from 'src/hooks'
 import Avatars from 'src/pages/core/Avatars'
 import ChatsBoxesChips from './ChatsBoxesChips'
 import ChatsBoxesClock from './ChatsBoxesClock'

@@ -1,6 +1,6 @@
 import { Chip } from '@mui/material'
 import { User } from 'firebase/auth'
-import { useSelectors } from 'src/hooks/useSelectors'
+import { useSelectors } from 'src/hooks'
 import SpecificsActionsPopups from './SpecificsActionsPopups'
 const items = {
   Usan: '우산',

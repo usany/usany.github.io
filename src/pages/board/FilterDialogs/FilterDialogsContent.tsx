@@ -6,7 +6,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { useSelectors } from 'src/hooks/useSelectors'
+import { useSelectors } from 'src/hooks'
 import locationsBuildings from 'src/pages/add/locationsBuildings'
 const itemsTitle = {
   ko: '우산 / 양산 선택',

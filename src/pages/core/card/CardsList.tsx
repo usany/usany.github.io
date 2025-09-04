@@ -1,4 +1,4 @@
-import { useSelectors } from 'src/hooks/useSelectors'
+import { useSelectors } from 'src/hooks'
 import Cards from 'src/pages/core/card/Cards'
 import useTexts from 'src/useTexts'
 

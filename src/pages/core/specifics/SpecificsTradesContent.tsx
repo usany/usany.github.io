@@ -2,7 +2,7 @@ import Button from '@mui/material/Button'
 import { Link } from 'react-router-dom'
 import { DrawerClose } from '@/components/ui/drawer'
 import Avatars from 'src/pages/core/Avatars'
-import { useSelectors } from 'src/hooks/useSelectors'
+import { useSelectors } from 'src/hooks'
 
 const SpecificsTradesContent = ({
   isCreator,

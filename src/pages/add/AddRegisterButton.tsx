@@ -1,5 +1,5 @@
 import Button from '@mui/material/Button'
-import { useSelectors } from 'src/hooks/useSelectors'
+import { useSelectors } from 'src/hooks'
 import useTexts from 'src/useTexts'
 
 interface Props {

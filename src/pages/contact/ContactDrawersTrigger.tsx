@@ -5,7 +5,7 @@ import Button from '@mui/material/Button'
 import { collection, deleteDoc, doc, getDocs, query } from 'firebase/firestore'
 import { dbservice } from 'src/baseApi/serverbase'
 // import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { useSelectors } from 'src/hooks/useSelectors'
+import { useSelectors } from 'src/hooks'
 
 const reportList = {
   ko: '신고하기 내역',

@@ -3,7 +3,7 @@ import Button from '@mui/material/Button'
 import { User } from 'firebase/auth'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { useSelectors } from 'src/hooks/useSelectors'
+import { useSelectors } from 'src/hooks'
 import Avatars from 'src/pages/core/Avatars'
 
 interface Props {

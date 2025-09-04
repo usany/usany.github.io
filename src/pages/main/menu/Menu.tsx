@@ -1,5 +1,5 @@
 import type { User } from 'firebase/auth'
-import { useSelectors } from 'src/hooks/useSelectors'
+import { useSelectors } from 'src/hooks'
 import PageTitle from 'src/pages/core/pageTitle/PageTitle'
 import Accordions from './Accordions/Accordions'
 import useContextMenu from './useContextMenu'

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useSelectors } from 'src/hooks/useSelectors'
+import { useSelectors } from 'src/hooks'
 import ConfirmButton from './ConfirmButton'
 import ConfirmReturnButton from './ConfirmReturnButton'
 import DeleteButton from './DeleteButton'

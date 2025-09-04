@@ -7,7 +7,7 @@ import {
   onSocialClickGoogle,
   onSocialClickMicrosoft,
 } from 'src/baseApi/serverbase'
-import { useSelectors } from 'src/hooks/useSelectors'
+import { useSelectors } from 'src/hooks'
 
 const AuthButtons = () => {
   const onLine = useSelectors((state) => state.onLine.value)

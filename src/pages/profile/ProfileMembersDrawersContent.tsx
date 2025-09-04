@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 // import supabase from 'src/baseApi/base'
 import { dbservice } from 'src/baseApi/serverbase'
-import { useSelectors } from 'src/hooks/useSelectors'
+import { useSelectors } from 'src/hooks'
 import useTexts from 'src/useTexts'
 
 interface Props {

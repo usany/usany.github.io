@@ -5,7 +5,7 @@ import { useState } from 'react'
 import staticMail from 'src/assets/signMail.svg'
 // import supabase from 'src/baseApi/base'
 import { auth } from 'src/baseApi/serverbase'
-import { useSelectors } from 'src/hooks/useSelectors'
+import { useSelectors } from 'src/hooks'
 function AuthDialogsContentPassword() {
   const [email, setEmail] = useState('')
   const [status, setStatus] = useState('')

@@ -7,7 +7,7 @@ import { Ban, Check } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { dbservice } from 'src/baseApi/serverbase'
 import Avatars from 'src/pages/core/Avatars'
-import { useSelectors } from 'src/hooks/useSelectors'
+import { useSelectors } from 'src/hooks'
 
 const ListsView = ({ elements, userSearch, multiple, link, handleUser }) => {
   const [newRanking, setNewRanking] = useState(0)

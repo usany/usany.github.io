@@ -4,7 +4,7 @@ import { Link, useLocation } from 'react-router-dom'
 // import { blue } from '@mui/material/colors';
 import { DrawerClose } from '@/components/ui/drawer'
 import { useEffect, useState } from 'react'
-import { useSelectors } from 'src/hooks/useSelectors'
+import { useSelectors } from 'src/hooks'
 import Avatars from 'src/pages/core/Avatars'
 
 const PiazzaDialogsContent = ({

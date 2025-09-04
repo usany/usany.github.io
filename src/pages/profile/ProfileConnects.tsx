@@ -3,7 +3,7 @@ import { doc, getDoc, updateDoc } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { dbservice } from 'src/baseApi/serverbase'
-import { useSelectors } from 'src/hooks/useSelectors'
+import { useSelectors } from 'src/hooks'
 import useTexts from 'src/useTexts'
 
 const ProfileConnects = ({ user, alliesCollection, handleFollowers }) => {

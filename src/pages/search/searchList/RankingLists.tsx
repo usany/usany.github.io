@@ -11,7 +11,7 @@ import {
 import { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { dbservice } from 'src/baseApi/serverbase'
-import { useSelectors } from 'src/hooks/useSelectors'
+import { useSelectors } from 'src/hooks'
 import Lists from 'src/pages/search/searchList/searchListViews/Lists'
 
 function RankingLists() {

@@ -3,7 +3,7 @@ import { collection, getDocs, orderBy, query } from 'firebase/firestore'
 import { getDownloadURL, ref } from 'firebase/storage'
 import { useEffect, useState } from 'react'
 import { dbservice, storage } from 'src/baseApi/serverbase'
-import { useSelectors } from 'src/hooks/useSelectors'
+import { useSelectors } from 'src/hooks'
 import Lists from 'src/pages/search/searchList/searchListViews/Lists'
 
 interface Props {

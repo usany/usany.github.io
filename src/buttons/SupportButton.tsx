@@ -2,7 +2,7 @@ import SendIcon from '@mui/icons-material/Send'
 import Button from '@mui/material/Button'
 import { doc, getDoc, updateDoc } from 'firebase/firestore'
 import { dbservice } from 'src/baseApi/serverbase'
-import { useSelectors } from 'src/hooks/useSelectors'
+import { useSelectors } from 'src/hooks'
 import { webSocket } from 'src/webSocket.tsx'
 import specificProcess from './specificProcess'
 

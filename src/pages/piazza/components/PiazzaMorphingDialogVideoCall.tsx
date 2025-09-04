@@ -11,7 +11,7 @@ import {
 import useTexts from 'src/useTexts'
 import { webSocket } from 'src/webSocket'
 import PiazzaCalls from '../PiazzaCalls'
-import { useSelectors } from 'src/hooks/useSelectors'
+import { useSelectors } from 'src/hooks'
 
 interface PiazzaMorphingDialogVideoCallProps {
   chattingUser: any

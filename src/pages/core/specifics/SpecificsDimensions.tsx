@@ -3,7 +3,7 @@
 import { Chip } from '@mui/material'
 import { Building, Watch } from 'lucide-react'
 import useLargeMedia from 'src/hooks/useLargeMedia'
-import { useSelectors } from 'src/hooks/useSelectors'
+import { useSelectors } from 'src/hooks'
 import locationsBuildings from 'src/pages/add/locationsBuildings'
 import locationsCollection from 'src/pages/add/locationsCollection'
 import locationsCollectionLetters from 'src/pages/add/locationsCollectionLetters'

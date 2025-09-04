@@ -1,4 +1,4 @@
-import { useSelectors } from 'src/hooks/useSelectors'
+import { useSelectors } from 'src/hooks'
 
 const reportList = {
   ko: '신고하기 내역',

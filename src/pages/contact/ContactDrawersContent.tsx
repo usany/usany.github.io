@@ -12,7 +12,7 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion'
 import Divider from '@mui/material/Divider'
-import { useSelectors } from 'src/hooks/useSelectors'
+import { useSelectors } from 'src/hooks'
 import Lists from 'src/pages/search/searchList/searchListViews/Lists'
 
 const ContactDrawersContent = () => {

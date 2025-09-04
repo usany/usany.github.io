@@ -8,7 +8,7 @@ import { collection, getDocs, orderBy, query } from 'firebase/firestore'
 import { MapIcon } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { dbservice } from 'src/baseApi/serverbase'
-import { useSelectors } from 'src/hooks/useSelectors'
+import { useSelectors } from 'src/hooks'
 import locationsCollectionLetters from 'src/pages/add/locationsCollectionLetters'
 import FilterDialogs from 'src/pages/board/FilterDialogs/FilterDialogs'
 

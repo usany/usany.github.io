@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import useLargeMedia from 'src/hooks/useLargeMedia'
-import { useSelectors } from 'src/hooks/useSelectors'
+import { useSelectors } from 'src/hooks'
 import Navigation from 'src/pages/core/navigationTop/sideNavigation/Navigation'
 import WeatherView from 'src/pages/core/navigationTop/weatherView/WeatherView'
 import ToggleTabs from 'src/pages/core/ToggleTabs'

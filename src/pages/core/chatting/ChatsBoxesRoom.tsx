@@ -1,4 +1,4 @@
-import { useSelectors } from 'src/hooks/useSelectors'
+import { useSelectors } from 'src/hooks'
 const ChatsBoxesRoom = ({ displayName, multiple }) => {
   const languages = useSelectors((state) => state.languages.value)
   let displayingUserName

@@ -5,7 +5,7 @@ import { collection, doc, getDocs, query, updateDoc } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 import { dbservice } from 'src/baseApi/serverbase'
 import useCardsBackground from 'src/hooks/useCardsBackground'
-import { useSelectors } from 'src/hooks/useSelectors'
+import { useSelectors } from 'src/hooks'
 
 const ProfileForm = () => {
   const [profileChangeConfirmed, setProfileChangeConfirmed] = useState(false)

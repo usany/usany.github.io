@@ -1,4 +1,4 @@
-import { useSelectors } from 'src/hooks/useSelectors'
+import { useSelectors } from 'src/hooks'
 
 const follower = {
   ko: '팔로워',
