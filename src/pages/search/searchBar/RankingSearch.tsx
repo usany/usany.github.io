@@ -1,7 +1,7 @@
 import TextField from '@mui/material/TextField';
 import { useSearchParams } from 'react-router-dom';
 import useCardsBackground from 'src/hooks/useCardsBackground';
-import { useSelectors } from 'src/hooks/useSelectors';
+import { useSelectors } from 'src/hooks';
 
 function RankingSearch() {
   const [searchParams, setSearchParams] = useSearchParams()
