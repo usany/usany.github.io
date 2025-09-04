@@ -2,8 +2,6 @@ import { createTheme } from '@mui/material'
 import useCardsBackground from './useCardsBackground'
 
 const useColors = () => {
-  // const theme = useSelector((state) => state.theme.value)
-  // const color = theme === 'dark' ? '#2d3848' : '#e2e8f0'
   const { colorOne, colorTwo, colorThree } = useCardsBackground()
   const common = {
     components: {
