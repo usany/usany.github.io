@@ -1,5 +1,5 @@
-import { useSelectors } from './hooks'
 import texts from '../texts.json'
+import useSelectors from './useSelectors'
 
 const useTexts = () => {
   const languages = useSelectors((state) => state.languages.value)
