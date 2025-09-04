@@ -49,11 +49,6 @@ export default function ToggleTabs() {
   };
   const tabs = useSelectors(state => state.tabs.value)
   const dispatch = useDispatch()
-  // useEffect(() => {
-  //   if (window.location.search === '?action=lend') {
-  //     dispatch(changeTabs(1))
-  //   }
-  // }, [])
   const tabsBox = useMemo(() => {
     return (
       <Box sx={{
