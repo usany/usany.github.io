@@ -19,7 +19,7 @@ export const weather = createApi({
     getWeather: build.query({
       async queryFn() {
         try {
-          const APIKEY = 'e9f8a415cef0c0bb87f7da5e167bdaf1'
+          const APIKEY = import.meta.env.VITE_WEATHER_API_KEY
           const latitude = 37.5948
           const longitude = 127.0531
           const response = axios.get(
