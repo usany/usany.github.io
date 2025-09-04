@@ -9,19 +9,15 @@ import { changeProfile } from 'src/stateSlices/profileSlice'
 const useUserObject = () => {
   const dispatch = useDispatch()
   const setProfile = async (uid: string) => {
-    if (uid) {
-      const docRef = doc(dbservice, `members/${uid}`)
-      const docSnap = await getDoc(docRef)
-      const userData = docSnap.data()
-      const profileImage = JSON.parse(localStorage.getItem(userData.uid) || '{}')
-      const newProfile = userData
-      if (profileImage?.attachment && newProfile) {
-        newProfile.profileImageUrl = profileImage.attachment
-      }
-      dispatch(changeProfile(newProfile))
-    } else {
-      dispatch(changeProfile(null))
+    const docRef = doc(dbservice, `members/${uid}`)
+    const docSnap = await getDoc(docRef)
+    const userData = docSnap.data()
+    const profileImage = JSON.parse(localStorage.getItem(userData?.uid) || '{}')
+    const newProfile = userData
+    if (profileImage?.attachment && newProfile) {
+      newProfile.profileImageUrl = profileImage.attachment
     }
+    dispatch(changeProfile(newProfile))
   }
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
@@ -30,7 +26,11 @@ const useUserObject = () => {
       //   sessionStorage.setItem('reloading', 'true')
       //   location.reload()
       // }
-      setProfile(user?.uid)
+      if (user?.uid) {
+        setProfile(user?.uid)
+      } else {
+        dispatch(changeProfile(null))
+      }
     })
   }, [])
 }
