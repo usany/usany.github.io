@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
+import { useSelectors } from 'src/hooks';
 import { changeTabs } from 'src/stateSlices/tabsSlice';
 
 function CustomTabPanel(props) {
@@ -46,13 +47,13 @@ export default function ToggleTabs() {
       return searchParams
     })
   };
-  const tabs = useSelector(state => state.tabs.value)
+  const tabs = useSelectors(state => state.tabs.value)
   const dispatch = useDispatch()
-  useEffect(() => {
-    if (window.location.search === '?action=lend') {
-      dispatch(changeTabs(1))
-    }
-  }, [])
+  // useEffect(() => {
+  //   if (window.location.search === '?action=lend') {
+  //     dispatch(changeTabs(1))
+  //   }
+  // }, [])
   const tabsBox = useMemo(() => {
     return (
       <Box sx={{
