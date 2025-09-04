@@ -23,7 +23,7 @@ const NavigationTop = () => {
   const scrollLocation =
     ['/', '/add', '/board'].indexOf(location.pathname) === -1
   return (
-    <div className="shadow-md fixed z-50 bg-light-2 dark:bg-dark-2 rounded truncate">
+    <nav className="shadow-md fixed z-50 bg-light-2 dark:bg-dark-2 rounded truncate">
       <div className="flex justify-between w-screen items-center">
         <Navigation handleSideNavigation={handleSideNavigation} />
         <div className={`flex ${!largeMedia && 'flex-col'} items-center`}>
@@ -50,7 +50,7 @@ const NavigationTop = () => {
           <div className="w-[145px] h-[64px] px-5"></div>
         )}
       </div>
-    </div>
+    </nav>
   )
 }
 
