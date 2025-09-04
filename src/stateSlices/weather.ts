@@ -20,10 +20,10 @@ export const weather = createApi({
       async queryFn() {
         try {
           const APIKEY = import.meta.env.VITE_WEATHER_API_KEY
-          const latitude = 37.5948
-          const longitude = 127.0531
+          const LATITUDE = 37.5948
+          const LONGITUDE = 127.0531
           const response = axios.get(
-            `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&APPID=${APIKEY}&units=metric`,
+            `https://api.openweathermap.org/data/2.5/weather?lat=${LATITUDE}&lon=${LONGITUDE}&APPID=${APIKEY}&units=metric`,
           )
           return { data: response }
         } catch (error) {
