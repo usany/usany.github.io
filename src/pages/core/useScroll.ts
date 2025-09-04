@@ -3,16 +3,12 @@ import { useDispatch } from "react-redux";
 import { changeScrollNavigation } from "src/stateSlices/scrollNavigationSlice";
 
 const useScroll = () => {
-  // const scrollNavigation = useSelectors(state => state.scrollNavigation.value)
   const dispatch = useDispatch()
   const scrollEffect = () => {
-    // console.log(document.scrollingElement.scrollTop)
-    if (document.scrollingElement.scrollTop > 80) {
+    if (document.scrollingElement && document.scrollingElement.scrollTop > 80) {
       dispatch(changeScrollNavigation(true))
     } else {
       dispatch(changeScrollNavigation(false))
-      // if (scrollNavigation) {
-      // }
     }
   }
   useEffect(() => {

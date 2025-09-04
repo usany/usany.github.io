@@ -22,27 +22,10 @@ const NavigationTop = () => {
   }
   const scrollNavigation = useSelectors((state) => state.scrollNavigation.value)
   const profile = useSelectors((state) => state.profile.value)
-  const dispatch = useDispatch()
   const largeMedia = useLargeMedia()
   useScroll()
   const scrollLocation =
     ['/', '/add', '/board'].indexOf(location.pathname) === -1
-  useEffect(() => {
-    window.addEventListener('online', () => {
-      dispatch(changeOnLine(true))
-    })
-    return window.removeEventListener('online', () => {
-      dispatch(changeOnLine(true))
-    })
-  })
-  useEffect(() => {
-    window.addEventListener('offline', () => {
-      dispatch(changeOnLine(false))
-    })
-    return window.removeEventListener('offline', () => {
-      dispatch(changeOnLine(false))
-    })
-  })
   return (
     <div className="shadow-md fixed z-50 bg-light-2 dark:bg-dark-2 rounded truncate">
       {renderDelayed && (
