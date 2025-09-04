@@ -13,9 +13,9 @@ import Boards from 'src/pages/board/Boards'
 const Router = () => {
   // const Home = lazy(() => import('src/pages/main/Home'))
   // const Profile = lazy(() => import('src/pages/profile/Profile'))
+  // const Piazza = lazy(() => import('src/pages/piazza/Piazza'))
   const Ranking = lazy(() => import('src/pages/search/Ranking'))
   const Contact = lazy(() => import('src/pages/contact/Contact'))
-  // const Piazza = lazy(() => import('src/pages/piazza/Piazza'))
   const Collection = lazy(() => import('src/pages/collection/Collection'))
   const profile = useSelectors((state) => state.profile.value)
   return (
