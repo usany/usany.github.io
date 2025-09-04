@@ -1,9 +1,8 @@
-import { ThemeProvider } from '@mui/material/styles'
-import 'src/global.css'
 import Lotties from 'src/lottiesAnimation/Lotties'
+import { ThemeProvider } from '@mui/material/styles'
 import Router from 'src/pages/core/router/Router'
-import useColors from './hooks/useColors'
-import { useNetwork, useSelectors, useUserObject } from './hooks'
+import { useNetwork, useSelectors, useUserObject, useColors } from './hooks'
+import 'src/global.css'
 
 function App() {
   // const [count, setCount] = useState(0)
