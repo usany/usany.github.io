@@ -14,43 +14,11 @@ import { changeDark } from './stateSlices/themeSlice'
 import useUserObject from './useUserObject'
 import { useGetCurrentUserQuery } from './stateSlices/baseQuery'
 
-const usePreference = () => {
-  const profile = useSelectors((state) => state.profile.value)
-  const uid = profile?.uid
-  const dispatch = useDispatch()
-  useEffect(() => {
-    // const mq = window.matchMedia('(prefers-color-scheme: dark)')
-    // if (!localStorage.getItem('theme')) {
-    //   if (mq.matches) {
-    //     localStorage.setItem('theme', 'dark')
-    //     dispatch(changeDark())
-    //   }
-    // }
-    // const settingLanguage = async () => {
-    //   const ref = doc(dbservice, `members/${uid}`)
-    //   await updateDoc(ref, { preferLanguage: 'en' })
-    // }
-    // if (!localStorage.getItem('languages')) {
-    //   if (navigator.language.slice(0, 2) !== 'ko') {
-    //     localStorage.setItem('languages', 'en')
-    //     dispatch(changeEn())
-    //     if (profile) {
-    //       settingLanguage()
-    //     }
-    //   }
-    // }
-  }, [uid])
-}
-if (typeof window !== 'undefined') { // Check if we're running in the browser.
-  const mq = window.matchMedia('(prefers-color-scheme: dark)')
-  if (!localStorage.getItem('theme')) {
-    if (mq.matches) {
-      // localStorage.setItem('theme', 'dark')
-      // dispatch(changeDark())
-    }
-  }
-  // loadDataFromLocalStorage();
-}
+// const usePreference = () => {
+//   const profile = useSelectors((state) => state.profile.value)
+//   const uid = profile?.uid
+//   const dispatch = useDispatch()
+// }
 
 function App() {
   // const [count, setCount] = useState(0)
@@ -58,8 +26,6 @@ function App() {
   const profile = useSelectors((state) => state.profile.value)
   useUserObject()
   const { lightTheme, darkTheme } = useColors()
-  usePreference()
-  console.log(profile)
   return (
     <>
       <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>

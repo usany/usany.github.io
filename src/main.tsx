@@ -22,7 +22,6 @@ if (typeof window !== 'undefined') { // Check if we're running in the browser.
   const mq = window.matchMedia('(prefers-color-scheme: dark)')
   if (!localStorage.getItem('theme')) {
     if (mq.matches) {
-      localStorage.setItem('theme', 'dark')
       document.documentElement.classList.add('dark')
     }
   }
