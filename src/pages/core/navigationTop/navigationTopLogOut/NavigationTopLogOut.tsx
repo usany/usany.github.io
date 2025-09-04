@@ -1,6 +1,6 @@
 import Divider from "@mui/material/Divider";
 import { Link } from "react-router-dom";
-import { useSelectors } from "src/hooks/useSelectors";
+import { useSelectors } from "src/hooks";
 
 const NavigationTopLogOut = () => {
   const languages = useSelectors((state) => state.languages.value)

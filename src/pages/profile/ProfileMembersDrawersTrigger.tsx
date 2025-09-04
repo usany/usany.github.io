@@ -1,6 +1,6 @@
 import { Card } from "@mui/material";
 import useCardsBackground from "src/hooks/useCardsBackground";
-import { useSelectors } from "src/hooks/useSelectors";
+import { useSelectors } from "src/hooks";
 
 const ProfileMembersDrawersTrigger = () => {
   const { color } = useCardsBackground()

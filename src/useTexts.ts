@@ -1,4 +1,4 @@
-import { useSelectors } from './hooks/useSelectors'
+import { useSelectors } from './hooks'
 import texts from './texts.json'
 
 const useTexts = () => {

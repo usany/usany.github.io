@@ -1,4 +1,4 @@
-import { useSelectors } from "src/hooks/useSelectors";
+import { useSelectors } from "src/hooks";
 import Steppers from "src/pages/add/Steppers";
 // import { CardActionArea, CardActions } from '@mui/material';
 // import { useBottomNavigationStore } from 'src/store'

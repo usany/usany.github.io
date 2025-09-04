@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useSelectors } from "src/hooks/useSelectors";
+import { useSelectors } from "src/hooks";
 import AuthForm from "src/pages/main/auth/AuthForm";
 import AuthMethods from "./AuthMethods";
 

@@ -1,5 +1,5 @@
 // import { useSelector } from "react-redux";
-import { useSelectors } from "src/hooks/useSelectors";
+import { useSelectors } from "src/hooks";
 import Popups from "src/pages/core/Popups";
 import AuthDialogsContent from "./AuthDialogsContent";
 import AuthDialogsContentPassword from "./AuthDialogsContentPassword";
