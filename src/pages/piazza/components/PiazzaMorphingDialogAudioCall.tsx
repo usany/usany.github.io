@@ -8,7 +8,7 @@ import {
   MorphingDialogContainer,
   MorphingDialogTrigger,
 } from 'src/components/ui/morphing-dialog'
-import useTexts from 'src/useTexts'
+import useTexts from 'src/hooks'
 import { webSocket } from 'src/webSocket'
 import PiazzaAudioCall from '../PiazzaAudioCall'
 import { useSelectors } from 'src/hooks'

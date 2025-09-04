@@ -16,7 +16,7 @@ import AddSteppers from 'src/pages/add/AddSteppers'
 import AddStepThree from 'src/pages/add/AddStepThree'
 import AddStepTwo from 'src/pages/add/AddStepTwo'
 import PageTitle from 'src/pages/core/pageTitle/PageTitle'
-import useTexts from 'src/useTexts'
+import useTexts from 'src/hooks'
 
 interface Props {
   borrow: boolean

@@ -10,7 +10,7 @@ import AuthButtons from 'src/pages/main/auth/AuthButtons'
 import AuthForm from 'src/pages/main/auth/AuthForm'
 import Motions from 'src/pages/main/auth/Motions'
 import { changeUserCertificated } from 'src/stateSlices/userCertificatedSlice'
-import useTexts from 'src/useTexts'
+import useTexts from 'src/hooks'
 import AuthPassword from './AuthPassword'
 import { changeProfile } from 'src/stateSlices/profileSlice'
 

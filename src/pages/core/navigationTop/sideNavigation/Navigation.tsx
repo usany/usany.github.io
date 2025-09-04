@@ -23,7 +23,7 @@ import IframePlayer from './iframePlayer/IframePlayer'
 import Links from './links/Links'
 import NavigationSignedIn from './navigationSignedIn/NavigationSignedIn'
 import NavigationSignedOut from './navigationSignedOut/NavigationSignedOut'
-import useTexts from 'src/useTexts'
+import useTexts from 'src/hooks'
 interface Props {
   handleSideNavigation: () => void
 }

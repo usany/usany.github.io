@@ -1,6 +1,6 @@
 // import { Filter } from "lucide-react";
 import locationsBuildings from "src/pages/add/locationsBuildings";
-import useTexts from "src/useTexts";
+import useTexts from "src/hooks";
 const itemsTitle = {
   ko: '우산 / 양산 선택',
   en: 'Select Usan / Yangsan'

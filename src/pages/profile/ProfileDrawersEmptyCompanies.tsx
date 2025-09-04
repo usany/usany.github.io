@@ -1,4 +1,4 @@
-import useTexts from 'src/useTexts'
+import useTexts from 'src/hooks'
 
 const ProfileDrawersEmptyCompanies = ({
   user,

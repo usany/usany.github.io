@@ -1,4 +1,4 @@
-import useTexts from 'src/useTexts'
+import useTexts from 'src/hooks'
 
 function ContactFormDrawersTitle() {
   const { searchUser } = useTexts()

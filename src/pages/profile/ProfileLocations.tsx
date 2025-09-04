@@ -3,7 +3,7 @@ import { doc, getDoc, updateDoc } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 import { dbservice } from 'src/baseApi/serverbase'
 import { useSelectors } from 'src/hooks'
-import useTexts from 'src/useTexts'
+import useTexts from 'src/hooks'
 
 const area = {
   westSouth: { lat: 37.5927551, lng: 127.047462 },

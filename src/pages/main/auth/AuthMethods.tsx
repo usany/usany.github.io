@@ -9,7 +9,7 @@ import {
   AccordionTrigger,
 } from 'src/components/ui/accordion'
 import { useSelectors } from 'src/hooks'
-import useTexts from 'src/useTexts'
+import useTexts from 'src/hooks'
 const MessageSwitch = styled(Switch)(({ theme }) => ({
   padding: 8,
   '& .MuiSwitch-track': {
