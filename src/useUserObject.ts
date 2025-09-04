@@ -39,12 +39,12 @@ const useUserObject = () => {
     // }
   }
   useEffect(() => {
-    const reloading = sessionStorage.getItem('reloading')
+    // const reloading = sessionStorage.getItem('reloading')
     auth.onAuthStateChanged((user) => {
-      if (user === null && !reloading) {
-        sessionStorage.setItem('reloading', 'true')
-        location.reload()
-      }
+      // if (user === null && !reloading) {
+      //   sessionStorage.setItem('reloading', 'true')
+      //   location.reload()
+      // }
       setProfile(user?.uid)
     })
   }, [])
