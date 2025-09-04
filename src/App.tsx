@@ -4,8 +4,7 @@ import Lotties from 'src/lottiesAnimation/Lotties'
 import Router from 'src/pages/core/router/Router'
 import { Toaster } from './components/ui/toaster'
 import useColors from './hooks/useColors'
-import { useSelectors } from './hooks/useSelectors'
-import { useNetwork, useUserObject } from './hooks'
+import { useNetwork, useUserObject, useSelectors } from './hooks'
 
 function App() {
   // const [count, setCount] = useState(0)
