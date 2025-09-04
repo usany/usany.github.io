@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react'
 import staticImage from 'src/assets/umbrella512.png'
 import { dbservice } from 'src/baseApi/serverbase'
 import { useSelectors } from 'src/hooks'
-import useTexts from 'src/hooks'
+import { useTexts } from 'src/hooks'
 import Avatars from '../Avatars'
 
 interface Props {

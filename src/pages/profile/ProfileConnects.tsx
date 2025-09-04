@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { dbservice } from 'src/baseApi/serverbase'
 import { useSelectors } from 'src/hooks'
-import useTexts from 'src/hooks'
+import { useTexts } from 'src/hooks'
 
 const ProfileConnects = ({ user, alliesCollection, handleFollowers }) => {
   const { follow, cancelFollow, sendMessage } = useTexts()

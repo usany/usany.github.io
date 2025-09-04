@@ -1,6 +1,6 @@
 import Button from '@mui/material/Button'
 import { useSelectors } from 'src/hooks'
-import useTexts from 'src/hooks'
+import { useTexts } from 'src/hooks'
 
 interface Props {
   submit: (event: {}) => void

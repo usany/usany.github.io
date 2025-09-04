@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom'
 // import supabase from 'src/baseApi/base'
 import { dbservice } from 'src/baseApi/serverbase'
 import { useSelectors } from 'src/hooks'
-import useTexts from 'src/hooks'
+import { useTexts } from 'src/hooks'
 
 interface Props {
   user: object

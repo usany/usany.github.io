@@ -9,7 +9,7 @@ import { DrawerClose } from 'src/components/ui/drawer'
 import { useSelectors } from 'src/hooks'
 import Popups from 'src/pages/core/Popups'
 import { changeNewMessageTrue } from 'src/stateSlices/newMessageSlice'
-import useTexts from 'src/hooks'
+import { useTexts } from 'src/hooks'
 import { webSocket } from 'src/webSocket.tsx'
 
 const forms = {
