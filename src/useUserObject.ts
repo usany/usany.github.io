@@ -14,25 +14,29 @@ import { useGetCurrentUserQuery } from './stateSlices/baseQuery'
 const useUserObject = () => {
   const dispatch = useDispatch()
   const setProfile = async (uid) => {
-    const docRef = doc(dbservice, `members/${uid}`)
-    const docSnap = await getDoc(docRef)
-    const userData = docSnap.data()
-    const profileImage = JSON.parse(localStorage.getItem(userData.uid) || '{}')
-    const newProfile = userData
-    if (profileImage?.attachment && newProfile) {
-      newProfile.profileImageUrl = profileImage.attachment
-    }
-    dispatch(changeProfile(newProfile))
-    const userColor = docSnap.data()?.profileColor || '#2196f3'
-    const userImage = docSnap.data()?.profileImageUrl || 'null'
-    const userProfileImage = docSnap.data()?.profileImage || false
-    const userDefaultProfile = docSnap.data()?.defaultProfile || 'null'
-    dispatch(changeProfileColor(userColor))
-    if (userProfileImage) {
-      dispatch(changeProfileUrl(userImage))
+    if (uid) {
+      const docRef = doc(dbservice, `members/${uid}`)
+      const docSnap = await getDoc(docRef)
+      const userData = docSnap.data()
+      const profileImage = JSON.parse(localStorage.getItem(userData.uid) || '{}')
+      const newProfile = userData
+      if (profileImage?.attachment && newProfile) {
+        newProfile.profileImageUrl = profileImage.attachment
+      }
+      dispatch(changeProfile(newProfile))
     } else {
-      dispatch(changeProfileUrl(userDefaultProfile))
+      dispatch(changeProfile(null))
     }
+    // const userColor = docSnap.data()?.profileColor || '#2196f3'
+    // const userImage = docSnap.data()?.profileImageUrl || 'null'
+    // const userProfileImage = docSnap.data()?.profileImage || false
+    // const userDefaultProfile = docSnap.data()?.defaultProfile || 'null'
+    // dispatch(changeProfileColor(userColor))
+    // if (userProfileImage) {
+    //   dispatch(changeProfileUrl(userImage))
+    // } else {
+    //   dispatch(changeProfileUrl(userDefaultProfile))
+    // }
   }
   useEffect(() => {
     const reloading = sessionStorage.getItem('reloading')

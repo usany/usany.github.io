@@ -101,6 +101,7 @@ const AuthForm = ({ signIn, agreed }: Props) => {
       setAccount({ ...account, password: value })
     }
   }
+  console.log(agreed)
   return (
     <div className="flex justify-center p-5">
       <div className="flex flex-col border border-solid w-[470px] rounded-lg pt-5">
@@ -134,7 +135,7 @@ const AuthForm = ({ signIn, agreed }: Props) => {
             />
           </div>
           <div className="flex flex-col justify-center p-3">
-            {signIn || agreed &&
+            {(signIn || agreed) &&
               <Button
                 variant="outlined"
                 startIcon={<img src={staticMail} className="w-[20px]" />}
