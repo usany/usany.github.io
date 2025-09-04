@@ -26,23 +26,22 @@ const usePreference = () => {
     //     dispatch(changeDark())
     //   }
     // }
-    const settingLanguage = async () => {
-      const ref = doc(dbservice, `members/${uid}`)
-      await updateDoc(ref, { preferLanguage: 'en' })
-    }
-    if (!localStorage.getItem('languages')) {
-      if (navigator.language.slice(0, 2) !== 'ko') {
-        localStorage.setItem('languages', 'en')
-        dispatch(changeEn())
-        if (profile) {
-          settingLanguage()
-        }
-      }
-    }
+    // const settingLanguage = async () => {
+    //   const ref = doc(dbservice, `members/${uid}`)
+    //   await updateDoc(ref, { preferLanguage: 'en' })
+    // }
+    // if (!localStorage.getItem('languages')) {
+    //   if (navigator.language.slice(0, 2) !== 'ko') {
+    //     localStorage.setItem('languages', 'en')
+    //     dispatch(changeEn())
+    //     if (profile) {
+    //       settingLanguage()
+    //     }
+    //   }
+    // }
   }, [uid])
 }
 if (typeof window !== 'undefined') { // Check if we're running in the browser.
-   // ✅ Only runs once per app load
   const mq = window.matchMedia('(prefers-color-scheme: dark)')
   if (!localStorage.getItem('theme')) {
     if (mq.matches) {
