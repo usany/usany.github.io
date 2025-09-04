@@ -73,24 +73,6 @@ const useColors = () => {
                   fontSize: '12px',
                 },
               },
-              // {
-              //   props: { className: 'colorOne' },
-              //   style: {
-              //     backgroundColor: colorOne,
-              //   },
-              // },
-              // {
-              //   props: { className: 'error' },
-              //   style: {
-              //     backgroundColor: red,
-              //   },
-              // },
-              // {
-              //   props: { color: 'success' },
-              //   style: {
-              //     backgroundColor: green[500],
-              //   },
-              // },
             ],
           },
         },
