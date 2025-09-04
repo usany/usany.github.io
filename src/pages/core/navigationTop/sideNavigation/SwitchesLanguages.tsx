@@ -1,5 +1,6 @@
 import { styled } from '@mui/material/styles';
 import Switch from '@mui/material/Switch';
+import { useSelectors } from 'src/hooks/useSelectors';
 
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   width: 62,
@@ -58,6 +59,7 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
 }));
 
 function SwitchesLanguages({ onClick }) {
+  const languages = useSelectors(state=>state.languages.value)
   return (
     // <FormGroup>
     //   <FormControlLabel
@@ -67,7 +69,7 @@ function SwitchesLanguages({ onClick }) {
     //     label=""
     //   />
     // </FormGroup>
-    <MaterialUISwitch onClick={onClick} defaultChecked={window.localStorage.languages === 'en'} />
+    <MaterialUISwitch onClick={onClick} defaultChecked={languages === 'en'} />
   );
 }
 
