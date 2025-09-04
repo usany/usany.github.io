@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux'
 import { useEffect } from 'react'
-import { changeOnLine } from './stateSlices/onLineSlice'
+import { changeOnLine } from '../stateSlices/onLineSlice'
 
 const useNetwork = () => {
   const dispatch = useDispatch()
@@ -11,14 +11,14 @@ const useNetwork = () => {
     window.addEventListener('offline', () => {
       dispatch(changeOnLine(false))
     })
-    return (() => {
+    return () => {
       window.removeEventListener('online', () => {
         dispatch(changeOnLine(true))
       })
       window.removeEventListener('offline', () => {
         dispatch(changeOnLine(false))
       })
-    })
+    }
   }, [])
 }
 
