@@ -16,4 +16,5 @@ const useScroll = () => {
     return () => window.removeEventListener('scroll', scrollEffect)
   }, [])
 }
+
 export default useScroll
