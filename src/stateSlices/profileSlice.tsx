@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { DocumentData } from 'firebase/firestore';
 
 interface ProfileState {
-  value: DocumentData | undefined
+  value: DocumentData | undefined | null
 }
 
 const initialState: ProfileState = {

@@ -8,7 +8,7 @@ import { changeProfile } from 'src/stateSlices/profileSlice'
 
 const useUserObject = () => {
   const dispatch = useDispatch()
-  const setProfile = async (uid) => {
+  const setProfile = async (uid: string) => {
     if (uid) {
       const docRef = doc(dbservice, `members/${uid}`)
       const docSnap = await getDoc(docRef)
