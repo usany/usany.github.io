@@ -19,13 +19,13 @@ const usePreference = () => {
   const uid = profile?.uid
   const dispatch = useDispatch()
   useEffect(() => {
-    const mq = window.matchMedia('(prefers-color-scheme: dark)')
-    if (!localStorage.getItem('theme')) {
-      if (mq.matches) {
-        localStorage.setItem('theme', 'dark')
-        dispatch(changeDark())
-      }
-    }
+    // const mq = window.matchMedia('(prefers-color-scheme: dark)')
+    // if (!localStorage.getItem('theme')) {
+    //   if (mq.matches) {
+    //     localStorage.setItem('theme', 'dark')
+    //     dispatch(changeDark())
+    //   }
+    // }
     const settingLanguage = async () => {
       const ref = doc(dbservice, `members/${uid}`)
       await updateDoc(ref, { preferLanguage: 'en' })
@@ -46,7 +46,7 @@ if (typeof window !== 'undefined') { // Check if we're running in the browser.
   const mq = window.matchMedia('(prefers-color-scheme: dark)')
   if (!localStorage.getItem('theme')) {
     if (mq.matches) {
-      localStorage.setItem('theme', 'dark')
+      // localStorage.setItem('theme', 'dark')
       // dispatch(changeDark())
     }
   }

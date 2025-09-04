@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 interface languagesState {
   value: string
 }
-const initialState: languagesState = { value: localStorage.getItem('languages') || 'ko' }
+const initialState: languagesState = { value: localStorage.getItem('languages') || navigator.language.slice(0, 2) !== 'ko' ? 'en' : 'ko' }
 const languagesReducer = createSlice({
   name: 'languages',
   initialState: initialState,
