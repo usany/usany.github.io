@@ -12,7 +12,7 @@ const profileReducer = createSlice({
   name: 'profile',
   initialState,
   reducers: {
-    changeProfile: (state, action: PayloadAction<DocumentData | undefined>) => {
+    changeProfile: (state, action: PayloadAction<DocumentData | undefined | null>) => {
       state.value = action.payload
     },
   }
