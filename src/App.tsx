@@ -42,10 +42,12 @@ const usePreference = () => {
   }, [uid])
 }
 if (typeof window !== 'undefined') { // Check if we're running in the browser.
+   // ✅ Only runs once per app load
   const mq = window.matchMedia('(prefers-color-scheme: dark)')
   if (!localStorage.getItem('theme')) {
     if (mq.matches) {
-      document.documentElement.classList.add('dark')
+      localStorage.setItem('theme', 'dark')
+      // dispatch(changeDark())
     }
   }
   // loadDataFromLocalStorage();
