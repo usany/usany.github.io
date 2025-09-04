@@ -3,7 +3,6 @@ import TextField from '@mui/material/TextField'
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from 'firebase/auth'
 import { collection, getDocs, query } from 'firebase/firestore'
 import { useState } from 'react'
-import { useSelector } from 'react-redux'
 import staticMail from 'src/assets/signMail.svg'
 import { auth, dbservice } from 'src/baseApi/serverbase'
 import { useSelectors } from 'src/hooks'
@@ -21,7 +20,7 @@ const AuthForm = ({ signIn, agreed }: Props) => {
   const [error, setError] = useState('')
   const languages = useSelectors((state) => state.languages.value)
   const { needToAgreeOnPrivateInformationPolicy } = useTexts()
-  const onLine = useSelector((state) => state.onLine.value)
+  const onLine = useSelectors((state) => state.onLine.value)
   const onSubmitSignIn = async (event) => {
     event.preventDefault()
     try {
