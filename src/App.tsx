@@ -5,8 +5,7 @@ import Router from 'src/pages/core/router/Router'
 import { Toaster } from './components/ui/toaster'
 import useColors from './hooks/useColors'
 import { useSelectors } from './hooks/useSelectors'
-import useUserObject from './useUserObject'
-import useNetwork from './useUserObject'
+import { useNetwork, useUserObject } from './hooks'
 
 function App() {
   // const [count, setCount] = useState(0)
