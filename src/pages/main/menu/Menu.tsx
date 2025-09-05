@@ -21,17 +21,6 @@ function Menu({ userObj }: Props) {
   useSetProfile(userObj)
   useGetToken(userObj)
   useContextMenu()
-  const APIKEY = import.meta.env.VITE_WEATHER_API_KEY
-  const LATITUDE = 37.5948
-  const LONGITUDE = 127.0531
-  const response = fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${LATITUDE}&lon=${LONGITUDE}&APPID=${APIKEY}&units=metric`)
-          .then((res) => res.json())
-          .then(res=> res)
-  const responsing = axios.get(
-            `https://api.openweathermap.org/data/2.5/weather?lat=${LATITUDE}&lon=${LONGITUDE}&APPID=${APIKEY}&units=metric`,
-          )
-  console.log(response)
-  console.log(responsing)
   return (
     <div className="flex justify-center flex-col pb-5">
       <PageTitle title={titles[index]} />
