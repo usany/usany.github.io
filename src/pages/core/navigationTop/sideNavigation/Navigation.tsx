@@ -26,7 +26,7 @@ interface Props {
   handleSideNavigation: () => void
 }
 
-const onLogOutClick = async () => {
+const onLogOutClick = () => {
   auth.signOut()
 }
 function Navigation({ handleSideNavigation }: Props) {
@@ -42,9 +42,9 @@ function Navigation({ handleSideNavigation }: Props) {
 
   const logOut = () => {
     onLogOutClick()
-    setTimeout(() => {
-      location.reload()
-    }, 1000)
+    // setTimeout(() => {
+    //   location.reload()
+    // }, 1000)
   }
 
   const links = [
@@ -53,35 +53,35 @@ function Navigation({ handleSideNavigation }: Props) {
       passingState: null,
       icon: <UserRound />,
       description: myProfile,
-      onClick: () => checkbox(),
+      onClick: () => handleSideNavigation(),
     },
     {
       href: '/ranking',
       passingState: null,
       icon: <SearchCheck />,
       description: userRanking,
-      onClick: () => checkbox(),
+      onClick: () => handleSideNavigation(),
     },
     {
       href: '/piazza',
       passingState: { conversation: 'piazza', multiple: true },
       icon: <MessagesSquare />,
       description: groupChat,
-      onClick: () => checkbox(),
+      onClick: () => handleSideNavigation(),
     },
     {
       href: '/contact',
       passingState: { multiple: true },
       icon: <Siren />,
       description: report,
-      onClick: () => checkbox(),
+      onClick: () => handleSideNavigation(),
     },
     {
       href: '/collection',
       passingState: { multiple: true },
       icon: <Film />,
       description: collection,
-      onClick: () => checkbox(),
+      onClick: () => handleSideNavigation(),
     },
     {
       href: '/',
