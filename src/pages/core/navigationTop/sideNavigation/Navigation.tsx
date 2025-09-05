@@ -35,6 +35,7 @@ const onLogOutClick = async () => {
 function Navigation({ handleSideNavigation }: Props) {
   const theme = useSelectors((state) => state.theme.value)
   const linkId = useId();
+  const { myProfile, userRanking, groupChat, report, collection, signOut } = useTexts()
   const languages = useSelectors((state) => state.languages.value)
   const profile = useSelectors((state) => state.profile.value)
   const onLine = useSelectors((state) => state.onLine.value)
@@ -55,42 +56,42 @@ function Navigation({ handleSideNavigation }: Props) {
       href: '/profile',
       passingState: null,
       icon: <UserRound />,
-      description: texts[languages as keyof typeof texts]['myProfile'],
+      description: myProfile,
       onClick: () => checkbox(),
     },
     {
       href: '/ranking',
       passingState: null,
       icon: <SearchCheck />,
-      description: texts[languages as keyof typeof texts]['userRanking'],
+      description: userRanking,
       onClick: () => checkbox(),
     },
     {
       href: '/piazza',
       passingState: { conversation: 'piazza', multiple: true },
       icon: <MessagesSquare />,
-      description: texts[languages as keyof typeof texts]['groupChat'],
+      description: groupChat,
       onClick: () => checkbox(),
     },
     {
       href: '/contact',
       passingState: { multiple: true },
       icon: <Siren />,
-      description: texts[languages as keyof typeof texts]['report'],
+      description: report,
       onClick: () => checkbox(),
     },
     {
       href: '/collection',
       passingState: { multiple: true },
       icon: <Film />,
-      description: texts[languages as keyof typeof texts]['collection'],
+      description: collection,
       onClick: () => checkbox(),
     },
     {
       href: '/',
       passingState: { multiple: true },
       icon: <DoorOpen />,
-      description: texts[languages as keyof typeof texts]['signOut'],
+      description: signOut,
       onClick: () => logOut(),
     },
   ]
