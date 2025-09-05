@@ -14,7 +14,7 @@ import {
   DrawerContent,
   DrawerTrigger,
 } from 'src/components/ui/drawer'
-import { useId } from 'react';
+import { useId, useState } from 'react';
 import { useSelectors } from 'src/hooks'
 import Avatars from '../../Avatars'
 import IframePlayer from './iframePlayer/IframePlayer'
@@ -26,7 +26,7 @@ interface Props {
   handleSideNavigation: () => void
 }
 
-function Navigation({ handleSideNavigation }: Props) {
+function Navigation() {
   const theme = useSelectors((state) => state.theme.value)
   const linkId = useId();
   const { myProfile, userRanking, groupChat, report, collection, signOut } = useTexts()
@@ -34,52 +34,42 @@ function Navigation({ handleSideNavigation }: Props) {
   const onLine = useSelectors((state) => state.onLine.value)
   const { needNetworkConnection } = useTexts()
 
-  const logOut = () => {
-    auth.signOut()
-  }
-
   const links = [
     {
       href: '/profile',
       passingState: null,
       icon: <UserRound />,
       description: myProfile,
-      onClick: () => handleSideNavigation(),
     },
     {
       href: '/ranking',
       passingState: null,
       icon: <SearchCheck />,
       description: userRanking,
-      onClick: () => handleSideNavigation(),
     },
     {
       href: '/piazza',
       passingState: { conversation: 'piazza', multiple: true },
       icon: <MessagesSquare />,
       description: groupChat,
-      onClick: () => handleSideNavigation(),
     },
     {
       href: '/contact',
       passingState: { multiple: true },
       icon: <Siren />,
       description: report,
-      onClick: () => handleSideNavigation(),
     },
     {
       href: '/collection',
       passingState: { multiple: true },
       icon: <Film />,
       description: collection,
-      onClick: () => handleSideNavigation(),
     },
     {
       href: '/',
       passingState: { multiple: true },
       icon: <DoorOpen />,
       description: signOut,
-      onClick: () => logOut(),
     },
   ]
   return (
@@ -98,7 +88,6 @@ function Navigation({ handleSideNavigation }: Props) {
                     <Links
                       href={value.href}
                       passingState={value.passingState}
-                      onClick={value.onClick}
                       icon={value.icon}
                       description={value.description}
                     />
