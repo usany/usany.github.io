@@ -9,10 +9,7 @@ interface Props {
 
 const Avatars = ({ element, profile, piazza }: Props) => {
   const profileImage = element?.profileImage
-  let defaultProfile
-  if (element?.defaultProfile) {
-    defaultProfile = element?.defaultProfile
-  }
+  const defaultProfile = element?.defaultProfile
   return (
     <div>
       {profile ? (
