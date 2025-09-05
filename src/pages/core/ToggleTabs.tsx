@@ -49,8 +49,8 @@ export default function ToggleTabs() {
     )
   }, [tabs])
   return (
-    <div>
+    <>
       {tabsBox}
-    </div>
+    </>
   );
 }
