@@ -14,11 +14,8 @@ import {
   DrawerContent,
   DrawerTrigger,
 } from 'src/components/ui/drawer'
-import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
 import { useId } from 'react';
 import { useSelectors } from 'src/hooks'
-import texts from 'src/texts.json'
 import Avatars from '../../Avatars'
 import IframePlayer from './iframePlayer/IframePlayer'
 import Links from './links/Links'
@@ -36,7 +33,6 @@ function Navigation({ handleSideNavigation }: Props) {
   const theme = useSelectors((state) => state.theme.value)
   const linkId = useId();
   const { myProfile, userRanking, groupChat, report, collection, signOut } = useTexts()
-  const languages = useSelectors((state) => state.languages.value)
   const profile = useSelectors((state) => state.profile.value)
   const onLine = useSelectors((state) => state.onLine.value)
   const { needNetworkConnection } = useTexts()
