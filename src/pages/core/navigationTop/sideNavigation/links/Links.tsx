@@ -22,5 +22,4 @@ const Links = ({ href, passingState, icon, description }) => {
   )
 }
 
-
 export default Links;
