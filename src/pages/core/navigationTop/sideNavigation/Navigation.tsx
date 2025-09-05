@@ -101,48 +101,21 @@ function Navigation({ handleSideNavigation }: Props) {
           {onLine ? (
             <div className="flex flex-col justify-between pt-5 gap-5">
               {links.map((value, index) => {
+                const DrawerLinks = <DrawerClose>
+                  <Links
+                    href={value.href}
+                    passingState={value.passingState}
+                    onClick={value.onClick}
+                    icon={value.icon}
+                    description={value.description}
+                  />
+                </DrawerClose>
                 if (['/contact', '/'].indexOf(value.href) !== -1 && profile?.certificated) {
-                  return (
-                    <div key={index}>
-                      <DrawerClose>
-                        <Links
-                          href={value.href}
-                          passingState={value.passingState}
-                          onClick={value.onClick}
-                          icon={value.icon}
-                          description={value.description}
-                        />
-                      </DrawerClose>
-                    </div>
-                  )
+                  return <DrawerLinks />
                 } else if (value.href === '/' && profile) {
-                  return (
-                    <div key={index}>
-                      <DrawerClose>
-                        <Links
-                          href={value.href}
-                          passingState={value.passingState}
-                          onClick={value.onClick}
-                          icon={value.icon}
-                          description={value.description}
-                        />
-                      </DrawerClose>
-                    </div>
-                  )
+                  return <DrawerLinks />
                 } else if (value.href === '/contact') {
-                  return (
-                    <div key={index}>
-                      <DrawerClose>
-                        <Links
-                          href={value.href}
-                          passingState={value.passingState}
-                          onClick={value.onClick}
-                          icon={value.icon}
-                          description={value.description}
-                        />
-                      </DrawerClose>
-                    </div>
-                  )
+                  return <DrawerLinks />
                 }
               })}
             </div>
