@@ -7,7 +7,7 @@ import staticMail from 'src/assets/signMail.svg'
 import { auth, dbservice } from 'src/baseApi/serverbase'
 import { useSelectors } from 'src/hooks'
 import setDocUser from 'src/pages/core/setDocUser.ts'
-import { useTexts } from 'src/hooks.ts'
+import { useTexts } from 'src/hooks'
 import AuthDialogs from './AuthDialogs.tsx'
 import supabase from 'src/baseApi/base.tsx'
 

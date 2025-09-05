@@ -25,6 +25,7 @@ export const weather = createApi({
           const response = axios.get(
             `https://api.openweathermap.org/data/2.5/weather?lat=${LATITUDE}&lon=${LONGITUDE}&APPID=${APIKEY}&units=metric`,
           )
+          // const response = fetch()
           return { data: response }
         } catch (error) {
           return { error: error }
