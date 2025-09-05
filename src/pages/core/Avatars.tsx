@@ -12,21 +12,12 @@ const Avatars = ({ element, profile, piazza }: Props) => {
   const defaultProfile = element?.defaultProfile
   return (
     <div>
-      {profile ? (
-        <Avatar className="w-48 h-48">
-          <AvatarImage
-            src={profileImage ? element.profileImageUrl : defaultProfile}
-          />
-          <AvatarFallback className="border border-none bg-light-1 dark:bg-dark-1"></AvatarFallback>
-        </Avatar>
-      ) : (
-        <Avatar onClick={piazza}>
-          <AvatarImage
-            src={profileImage ? element.profileImageUrl : defaultProfile}
-          />
-          <AvatarFallback className="border border-none bg-light-1 dark:bg-dark-1"></AvatarFallback>
-        </Avatar>
-      )}
+      <Avatar className={profile ? "w-48 h-48":''} onClick={profile ? piazza : undefined}>
+        <AvatarImage
+          src={profileImage ? element.profileImageUrl : defaultProfile}
+        />
+        <AvatarFallback className="border border-none bg-light-1 dark:bg-dark-1"></AvatarFallback>
+      </Avatar>
     </div>
   )
 }
