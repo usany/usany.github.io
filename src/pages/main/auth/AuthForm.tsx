@@ -10,6 +10,7 @@ import setDocUser from 'src/pages/core/setDocUser.ts'
 import { useTexts } from 'src/hooks'
 import AuthDialogs from './AuthDialogs.tsx'
 import supabase from 'src/baseApi/base.tsx'
+import { useDispatch } from 'react-redux'
 
 interface Props {
   signIn: boolean
@@ -18,6 +19,7 @@ interface Props {
 const AuthForm = ({ signIn, agreed }: Props) => {
   const [account, setAccount] = useState({ email: '', password: '' })
   const [error, setError] = useState('')
+  const dispatch = useDispatch()
   const languages = useSelectors((state) => state.languages.value)
   const { needToAgreeOnPrivateInformationPolicy } = useTexts()
   const onLine = useSelectors((state) => state.onLine.value)
@@ -52,16 +54,12 @@ const AuthForm = ({ signIn, agreed }: Props) => {
           const docsRef = query(collection(dbservice, 'members'))
           const docs = await getDocs(docsRef)
           const docsLength = docs.docs.length
-          setDocUser({
+          const newProfile = setDocUser({
             uid: uid,
             email: email,
             ranking: docsLength,
           })
-          await updateProfile(data.user, {
-            displayName: data.user.email,
-          }).catch((error) => {
-            console.log('error')
-          })
+          dispatch(newProfile)
         } catch (error) {
           console.log(error)
           if (error.message === 'Firebase: Error (auth/invalid-credential).') {

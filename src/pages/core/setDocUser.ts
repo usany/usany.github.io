@@ -11,7 +11,7 @@ const setDocUser = async ({ uid, email, ranking }) => {
       : profileColorNumber < 2 / 3
         ? 'profileBlue'
         : 'profileGold'
-  await setDoc(doc(dbservice, 'members', `${uid}`), {
+  const userObject = {
     uid: uid,
     email: email,
     displayName: email,
@@ -31,7 +31,9 @@ const setDocUser = async ({ uid, email, ranking }) => {
     conversation: [],
     chattings: {},
     certificated: false,
-  })
+  }
+  await setDoc(doc(dbservice, 'members', `${uid}`), userObject)
+  return userObject
 }
 
 export default setDocUser
