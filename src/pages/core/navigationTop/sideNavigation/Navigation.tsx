@@ -97,8 +97,62 @@ function Navigation({ handleSideNavigation }: Props) {
       </DrawerTrigger>
       <DrawerContent className="border-none bg-light-2 dark:bg-dark-2 right-auto top-0 mt-0 w-[355px] overflow-hidden rounded-[10px]">
         <nav className="flex flex-col justify-between w-[350px]">
+          {profile?.certificated ? <NavigationSignedIn /> : <NavigationSignedOut />}
+          {onLine ? (
+            <div className="flex flex-col justify-between pt-5 gap-5">
+              {links.map((value, index) => {
+                if (['/contact', '/'].indexOf(value.href) !== -1 && profile?.certificated) {
+                  return (
+                    <div key={index}>
+                      <DrawerClose>
+                        <Links
+                          href={value.href}
+                          passingState={value.passingState}
+                          onClick={value.onClick}
+                          icon={value.icon}
+                          description={value.description}
+                        />
+                      </DrawerClose>
+                    </div>
+                  )
+                } else if (value.href === '/' && profile) {
+                  return (
+                    <div key={index}>
+                      <DrawerClose>
+                        <Links
+                          href={value.href}
+                          passingState={value.passingState}
+                          onClick={value.onClick}
+                          icon={value.icon}
+                          description={value.description}
+                        />
+                      </DrawerClose>
+                    </div>
+                  )
+                } else {
+                  return (
+                    <div key={index}>
+                      <DrawerClose>
+                        <Links
+                          href={value.href}
+                          passingState={value.passingState}
+                          onClick={value.onClick}
+                          icon={value.icon}
+                          description={value.description}
+                        />
+                      </DrawerClose>
+                    </div>
+                  )
+                }
+              })}
+            </div>
+          ) : (
+            <div className="flex justify-center pt-5 gap-5">
+              {needNetworkConnection}
+            </div>
+          )}
           {profile?.certificated ? (
-            <div>
+            <>
               <NavigationSignedIn />
               {onLine ? (
                 <div className="flex flex-col justify-between pt-5 gap-5">
@@ -123,9 +177,9 @@ function Navigation({ handleSideNavigation }: Props) {
                   {needNetworkConnection}
                 </div>
               )}
-            </div>
+            </>
           ) : (
-            <div>
+            <>
               <NavigationSignedOut />
               {onLine ? (
                 <div className="flex flex-col justify-between pt-5 gap-5">
@@ -171,7 +225,7 @@ function Navigation({ handleSideNavigation }: Props) {
                   {needNetworkConnection}
                 </div>
               )}
-            </div>
+            </>
           )}
           {profile?.certificated && onLine && <IframePlayer mode={theme} />}
         </nav>
