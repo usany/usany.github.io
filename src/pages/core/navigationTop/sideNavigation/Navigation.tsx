@@ -117,7 +117,7 @@ function Navigation({ handleSideNavigation }: Props) {
                     />
                   </DrawerClose>
                 )
-                if ((['/contact', '/'].includes(value.href) && profile?.certificated) ||
+                if ((!['/contact', '/'].includes(value.href) && profile?.certificated) ||
                     (value.href === '/' && profile) ||
                     value.href === '/contact') {
                   return drawerLinks;
