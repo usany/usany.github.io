@@ -130,7 +130,11 @@
     "letOthersKnowYouAreInCampusByLocationConfirmation": "위치 확인으로 캠퍼스에 있음을 알리세요.",
     "locationConfirmationLastsUntilTheNextDay": "위치 확인은 다음날까지 지속됩니다.",
     "loading": "로딩",
-    "failed": "로딩 실패"
+    "failed": "로딩 실패",
+    "/profile": "프로필",
+    "/ranking": "랭킹",
+    "/piazza": "채팅",
+    "/contact": "신고"
   },
   "en": {
     "Welcome to React": "Welcome to React and react-i18next",
@@ -263,6 +267,10 @@
     "letOthersKnowYouAreInCampusByLocationConfirmation": "Let others know you are in campus by location confirmation.",
     "locationConfirmationLastsUntilTheNextDay": "Location confirmation lasts until the next day.",
     "loading": "Loading",
-    "failed": "Loading failed"
+    "failed": "Loading failed",
+    "/profile": "User Profile",
+    "/ranking": "User Ranking",
+    "/piazza": "Chats",
+    "/contact": "Report"
   }
 }
