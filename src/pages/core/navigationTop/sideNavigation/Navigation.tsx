@@ -122,7 +122,7 @@ function Navigation({ handleSideNavigation }: Props) {
                     value.href === '/contact') {
                   return drawerLinks;
                 }
-                return null; // Explicitly return null for other cases
+                return null
               })}
             </div>
           ) : (
