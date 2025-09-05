@@ -14,6 +14,9 @@ import {
   DrawerContent,
   DrawerTrigger,
 } from 'src/components/ui/drawer'
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { useId } from 'react';
 import { useSelectors } from 'src/hooks'
 import texts from 'src/texts.json'
 import Avatars from '../../Avatars'
@@ -31,6 +34,7 @@ const onLogOutClick = async () => {
 }
 function Navigation({ handleSideNavigation }: Props) {
   const theme = useSelectors((state) => state.theme.value)
+  const linkId = useId();
   const languages = useSelectors((state) => state.languages.value)
   const profile = useSelectors((state) => state.profile.value)
   const onLine = useSelectors((state) => state.onLine.value)
@@ -100,8 +104,8 @@ function Navigation({ handleSideNavigation }: Props) {
           {profile?.certificated ? <NavigationSignedIn /> : <NavigationSignedOut />}
           {onLine ? (
             <div className="flex flex-col justify-between pt-5 gap-5">
-              {links.map((value, index) => {
-                const drawerLinks = <DrawerClose key={index}>
+              {links.map((value) => {
+                const drawerLinks = <DrawerClose key={`${linkId}-${value.href}`}>
                   <Links
                     href={value.href}
                     passingState={value.passingState}
@@ -122,82 +126,6 @@ function Navigation({ handleSideNavigation }: Props) {
               {needNetworkConnection}
             </div>
           )}
-          {/* {profile?.certificated ? (
-            <>
-              <NavigationSignedIn />
-              {onLine ? (
-                <div className="flex flex-col justify-between pt-5 gap-5">
-                  {links.map((value, index) => {
-                    return (
-                      <div key={index}>
-                        <DrawerClose>
-                          <Links
-                            href={value.href}
-                            passingState={value.passingState}
-                            onClick={value.onClick}
-                            icon={value.icon}
-                            description={value.description}
-                          />
-                        </DrawerClose>
-                      </div>
-                    )
-                  })}
-                </div>
-              ) : (
-                <div className="flex justify-center pt-5 gap-5">
-                  {needNetworkConnection}
-                </div>
-              )}
-            </>
-          ) : (
-            <>
-              <NavigationSignedOut />
-              {onLine ? (
-                <div className="flex flex-col justify-between pt-5 gap-5">
-                  {links.map((value, index) => {
-                    if (value.href === '/contact') {
-                      return (
-                        <div key={index}>
-                          <DrawerClose>
-                            <Links
-                              key={index}
-                              href={value.href}
-                              passingState={value.passingState}
-                              onClick={value.onClick}
-                              icon={value.icon}
-                              description={value.description}
-                            />
-                          </DrawerClose>
-                        </div>
-                      )
-                    }
-                    if (!profile?.certificated && profile) {
-                      if (value.href === '/') {
-                        return (
-                          <div key={index}>
-                            <DrawerClose>
-                              <Links
-                                key={index}
-                                href={value.href}
-                                passingState={value.passingState}
-                                onClick={value.onClick}
-                                icon={value.icon}
-                                description={value.description}
-                              />
-                            </DrawerClose>
-                          </div>
-                        )
-                      }
-                    }
-                  })}
-                </div>
-              ) : (
-                <div className="flex justify-center pt-5 gap-5">
-                  {needNetworkConnection}
-                </div>
-              )}
-            </>
-          )} */}
           {profile?.certificated && onLine && <IframePlayer mode={theme} />}
         </nav>
       </DrawerContent>
