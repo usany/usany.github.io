@@ -17,11 +17,11 @@ export const weather = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: 'https://api.openweathermap.org/data/2.5/' }),
   endpoints: (build) => ({
     getWeather: build.query({
-      query: () => {
+      query: (location) => {
         const APIKEY = import.meta.env.VITE_WEATHER_API_KEY
         const LATITUDE = 37.5948
         const LONGITUDE = 127.0531
-        return (`weather?lat=${LATITUDE}&lon=${LONGITUDE}&APPID=${APIKEY}&units=metric`)
+        return (`weather?lat=${location.latitude}&lon=${location.longitude}&APPID=${APIKEY}&units=metric`)
       }
       // async queryFn() {
       //   try {
