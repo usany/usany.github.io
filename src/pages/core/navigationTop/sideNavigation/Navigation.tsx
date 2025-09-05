@@ -1,4 +1,3 @@
-import { doc, onSnapshot } from 'firebase/firestore'
 import {
   DoorOpen,
   Film,
@@ -7,9 +6,8 @@ import {
   Siren,
   UserRound,
 } from 'lucide-react'
-import { useEffect, useState } from 'react'
 import staticImage from 'src/assets/blue.png'
-import { auth, dbservice } from 'src/baseApi/serverbase'
+import { auth } from 'src/baseApi/serverbase'
 import {
   Drawer,
   DrawerClose,
@@ -32,7 +30,6 @@ const onLogOutClick = async () => {
   auth.signOut()
 }
 function Navigation({ handleSideNavigation }: Props) {
-  // const [delayed, setDelayed] = useState(true)
   const theme = useSelectors((state) => state.theme.value)
   const languages = useSelectors((state) => state.languages.value)
   const profile = useSelectors((state) => state.profile.value)
@@ -93,7 +90,6 @@ function Navigation({ handleSideNavigation }: Props) {
       onClick: () => logOut(),
     },
   ]
-  // setTimeout(() => setDelayed(false), 1000)
   return (
     <Drawer direction="left">
       <DrawerTrigger className="px-5">
