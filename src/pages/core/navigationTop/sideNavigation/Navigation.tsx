@@ -26,9 +26,6 @@ interface Props {
   handleSideNavigation: () => void
 }
 
-const onLogOutClick = () => {
-  auth.signOut()
-}
 function Navigation({ handleSideNavigation }: Props) {
   const theme = useSelectors((state) => state.theme.value)
   const linkId = useId();
@@ -38,7 +35,7 @@ function Navigation({ handleSideNavigation }: Props) {
   const { needNetworkConnection } = useTexts()
 
   const logOut = () => {
-    onLogOutClick()
+    auth.signOut()
   }
 
   const links = [
