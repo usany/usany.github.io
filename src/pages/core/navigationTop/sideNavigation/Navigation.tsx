@@ -97,7 +97,7 @@ function Navigation({ handleSideNavigation }: Props) {
   return (
     <Drawer direction="left">
       <DrawerTrigger className="px-5">
-        {profile && profile?.certificated ? (
+        {profile?.certificated ? (
           <Avatars element={profile} piazza={null} profile={false} />
         ) : (
           <Avatars
