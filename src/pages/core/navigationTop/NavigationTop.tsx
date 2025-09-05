@@ -13,9 +13,6 @@ import NavigationTopMessages from './navigationTopMessages/NavigationTopMessages
 const NavigationTop = () => {
   const bottomNavigation = useSelectors((state) => state.bottomNavigation.value)
   const [sideNavigation, setSideNavigation] = useState(false)
-  const handleSideNavigation = () => {
-    setSideNavigation(!sideNavigation)
-  }
   const scrollNavigation = useSelectors((state) => state.scrollNavigation.value)
   const profile = useSelectors((state) => state.profile.value)
   const largeMedia = useLargeMedia()
