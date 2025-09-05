@@ -24,16 +24,6 @@ const NavigationTopCards = () => {
             }
           }}
         />
-        {/* {cardAccordion ? (
-          <CreditCard
-            color="#2196f3"
-            onClick={() =>
-              dispatch(cardOff())
-            }
-          />
-        ) : (
-          <CreditCard onClick={() => dispatch(cardOn())} />
-        )} */}
       </div>
       <Divider
         sx={{
