@@ -129,7 +129,7 @@ function Navigation({ handleSideNavigation }: Props) {
                       </DrawerClose>
                     </div>
                   )
-                } else {
+                } else if (value.href === '/contact') {
                   return (
                     <div key={index}>
                       <DrawerClose>
@@ -151,7 +151,7 @@ function Navigation({ handleSideNavigation }: Props) {
               {needNetworkConnection}
             </div>
           )}
-          {profile?.certificated ? (
+          {/* {profile?.certificated ? (
             <>
               <NavigationSignedIn />
               {onLine ? (
@@ -226,7 +226,7 @@ function Navigation({ handleSideNavigation }: Props) {
                 </div>
               )}
             </>
-          )}
+          )} */}
           {profile?.certificated && onLine && <IframePlayer mode={theme} />}
         </nav>
       </DrawerContent>
