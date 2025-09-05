@@ -7,14 +7,13 @@ import {
   UserRound,
 } from 'lucide-react'
 import staticImage from 'src/assets/blue.png'
-import { auth } from 'src/baseApi/serverbase'
 import {
   Drawer,
   DrawerClose,
   DrawerContent,
   DrawerTrigger,
 } from 'src/components/ui/drawer'
-import { useId, useState } from 'react';
+import { useId, } from 'react';
 import { useSelectors } from 'src/hooks'
 import Avatars from '../../Avatars'
 import IframePlayer from './iframePlayer/IframePlayer'
@@ -22,9 +21,6 @@ import Links from './links/Links'
 import NavigationSignedIn from './navigationSignedIn/NavigationSignedIn'
 import NavigationSignedOut from './navigationSignedOut/NavigationSignedOut'
 import { useTexts } from 'src/hooks'
-interface Props {
-  handleSideNavigation: () => void
-}
 
 function Navigation() {
   const theme = useSelectors((state) => state.theme.value)
