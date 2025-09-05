@@ -93,15 +93,7 @@ function Navigation({ handleSideNavigation }: Props) {
   return (
     <Drawer direction="left">
       <DrawerTrigger className="px-5">
-        {profile?.certificated ? (
-          <Avatars element={profile} piazza={null} profile={false} />
-        ) : (
-          <Avatars
-            element={{ defaultProfile: staticImage }}
-            piazza={null}
-            profile={false}
-          />
-        )}
+        <Avatars element={profile?.certificated ? profile : { defaultProfile: staticImage }} piazza={null} profile={false} />
       </DrawerTrigger>
       <DrawerContent className="border-none bg-light-2 dark:bg-dark-2 right-auto top-0 mt-0 w-[355px] overflow-hidden rounded-[10px]">
         <nav className="flex flex-col justify-between w-[350px]">
