@@ -105,15 +105,17 @@ function Navigation({ handleSideNavigation }: Props) {
           {onLine ? (
             <div className="flex flex-col justify-between pt-5 gap-5">
               {links.map((value) => {
-                const drawerLinks = <DrawerClose key={`${linkId}-${value.href}`}>
-                  <Links
-                    href={value.href}
-                    passingState={value.passingState}
-                    onClick={value.onClick}
-                    icon={value.icon}
-                    description={value.description}
-                  />
-                </DrawerClose>
+                const drawerLinks = (
+                  <DrawerClose key={`${linkId}-${value.href}`}>
+                    <Links
+                      href={value.href}
+                      passingState={value.passingState}
+                      onClick={value.onClick}
+                      icon={value.icon}
+                      description={value.description}
+                    />
+                  </DrawerClose>
+                )
                 if ((['/contact', '/'].includes(value.href) && profile?.certificated) ||
                     (value.href === '/' && profile) ||
                     value.href === '/contact') {
