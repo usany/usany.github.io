@@ -27,7 +27,7 @@ const texts: Props = {
   ko: {
     '/profile': '프로필',
     '/ranking': '랭킹',
-    '/piazza': '피아자',
+    '/piazza': '채팅',
     '/contact': '신고'
   },
   en: {
