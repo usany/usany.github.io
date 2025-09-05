@@ -25,7 +25,7 @@ const NavigationTop = () => {
   return (
     <nav className="shadow-md fixed z-50 bg-light-2 dark:bg-dark-2 rounded truncate">
       <div className="flex justify-between w-screen items-center">
-        <Navigation handleSideNavigation={handleSideNavigation} />
+        <Navigation />
         <div className={`flex ${!largeMedia && 'flex-col'} items-center`}>
           {scrollNavigation && scrollLocation && <NavigationScroll />}
           <div>
