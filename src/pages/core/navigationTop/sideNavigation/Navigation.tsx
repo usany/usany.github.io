@@ -36,15 +36,9 @@ function Navigation({ handleSideNavigation }: Props) {
   const profile = useSelectors((state) => state.profile.value)
   const onLine = useSelectors((state) => state.onLine.value)
   const { needNetworkConnection } = useTexts()
-  const checkbox = () => {
-    handleSideNavigation()
-  }
 
   const logOut = () => {
     onLogOutClick()
-    // setTimeout(() => {
-    //   location.reload()
-    // }, 1000)
   }
 
   const links = [
