@@ -101,7 +101,7 @@ function Navigation({ handleSideNavigation }: Props) {
           {onLine ? (
             <div className="flex flex-col justify-between pt-5 gap-5">
               {links.map((value, index) => {
-                const DrawerLinks = <DrawerClose key={index}>
+                const drawerLinks = <DrawerClose key={index}>
                   <Links
                     href={value.href}
                     passingState={value.passingState}
@@ -110,12 +110,10 @@ function Navigation({ handleSideNavigation }: Props) {
                     description={value.description}
                   />
                 </DrawerClose>
-                if (['/contact', '/'].indexOf(value.href) !== -1 && profile?.certificated) {
-                  return <DrawerLinks />
-                } else if (value.href === '/' && profile) {
-                  return <DrawerLinks />
-                } else if (value.href === '/contact') {
-                  return <DrawerLinks />
+                if ((['/contact', '/'].includes(value.href) && profile?.certificated) ||
+                    (value.href === '/' && profile) ||
+                    value.href === '/contact') {
+                  return drawerLinks;
                 }
               })}
             </div>
