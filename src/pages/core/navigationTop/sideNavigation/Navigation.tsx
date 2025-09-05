@@ -101,7 +101,7 @@ function Navigation({ handleSideNavigation }: Props) {
           {onLine ? (
             <div className="flex flex-col justify-between pt-5 gap-5">
               {links.map((value, index) => {
-                const DrawerLinks = <DrawerClose>
+                const DrawerLinks = <DrawerClose key={index}>
                   <Links
                     href={value.href}
                     passingState={value.passingState}
