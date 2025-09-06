@@ -30,10 +30,6 @@ function Contact() {
   const profile = useSelectors((state) => state.profile.value)
 
   const index = languages === 'ko' || languages === 'en' ? languages : 'ko'
-  const dispatch = useDispatch()
-  // useEffect(() => {
-  //   dispatch(changeBottomNavigation(5))
-  // })
   return (
     <>
       <PageTitle icon={<Siren />} title={titles[index]} />
