@@ -4,11 +4,6 @@ import Accordions from './Accordions/Accordions'
 import useContextMenu from './useContextMenu'
 import useGetToken from './useGetToken'
 import useSetProfile from './useSetProfile'
-// import type { User } from 'firebase/auth'
-// import axios from 'axios'
-// interface Props {
-//   userObj: User
-// }
 
 const titles = {
   ko: '내 상태',
@@ -25,7 +20,7 @@ function Menu() {
   return (
     <div className="flex justify-center flex-col pb-5">
       <PageTitle title={titles[index]} />
-      <Accordions userObj={profile} />
+      <Accordions />
     </div>
   )
 }

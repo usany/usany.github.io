@@ -12,27 +12,12 @@ import AccordionsContents from './AccordionsContents'
 import AccordionsTriggers from './AccordionsTriggers'
 // import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
-interface Props {
-  userObj: User
-}
-
-const cards = {
-  ko: '카드',
-  en: 'Cards',
-}
-const messages = {
-  ko: '메세지',
-  en: 'Messages',
-}
-
-function Accordions({ userObj }: Props) {
-  const languages = useSelectors((state) => state.languages.value)
-  const langugaesIndex =
-    languages === 'ko' || languages === 'en' ? languages : 'ko'
+function Accordions() {
   const cardAccordion = useSelector((state) => state.cardAccordion.value)
   const messageAccordion = useSelector((state) => state.messageAccordion.value)
   const dispatch = useDispatch()
   const { card, message } = useTexts()
+  const profile = useSelectors((state) => state.profile.value)
   const accordionItems = [
     {
       value: 'item-1',
@@ -50,7 +35,7 @@ function Accordions({ userObj }: Props) {
           dispatch(cardOn())
         }
       },
-      content: <CardsStacks userObj={userObj} />,
+      content: <CardsStacks userObj={profile} />,
     },
     {
       value: 'item-2',
@@ -68,7 +53,7 @@ function Accordions({ userObj }: Props) {
           dispatch(messageOn())
         }
       },
-      content: <MessageStacks userObj={userObj} />,
+      content: <MessageStacks userObj={profile} />,
     },
   ]
   return (
