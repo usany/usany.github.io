@@ -1,4 +1,3 @@
-import { User } from 'firebase/auth'
 import { useEffect, useState } from 'react'
 import { useSelectors } from 'src/hooks'
 import Cards from './Cards'

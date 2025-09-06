@@ -5,10 +5,6 @@ import CardView from './CardView'
 
 interface Props {
   message: { id: string; text: object }
-  isOwner: boolean
-  userObj: User | null
-  num: number | null
-  points: number | null
 }
 const shadowColorArray = [
   'lightblue',
