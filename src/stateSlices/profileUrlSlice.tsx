@@ -5,7 +5,7 @@ interface ProfileUrlState {
 }
 
 const initialState: ProfileUrlState = {
-  value: ''
+  value: '',
 }
 const profileUrlReducer = createSlice({
   name: 'profileUrl',
@@ -14,9 +14,8 @@ const profileUrlReducer = createSlice({
     changeProfileUrl: (state, action: PayloadAction<string>) => {
       state.value = action.payload
     },
-  }
+  },
 })
 const { changeProfileUrl } = profileUrlReducer.actions
 
-export { profileUrlReducer, changeProfileUrl, }
-
+export { profileUrlReducer, changeProfileUrl }

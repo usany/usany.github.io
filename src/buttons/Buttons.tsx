@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useSelectors } from 'src/hooks/useSelectors'
+import { useSelectors } from 'src/hooks'
 import ConfirmButton from './ConfirmButton'
 import ConfirmReturnButton from './ConfirmReturnButton'
 import DeleteButton from './DeleteButton'
@@ -8,22 +8,19 @@ import StopSupportButton from './StopSupportButton'
 import SupportButton from './SupportButton'
 
 function Btn({
-  messageObj,
-  isOwner,
-  userObj,
+  message,
   num,
   points,
   deleteMessage,
   round,
   increaseRound,
   decreaseRound,
-  changeOnPulse,
   changeConnectedUser,
   toggleOnTransfer,
   handleConnectedClock,
   handleConfirmingClock,
   handleReturningClock,
-  handleConfirmedReturnClock
+  handleConfirmedReturnClock,
 }) {
   const [move, setMove] = useState(false)
   const languages = useSelectors((state) => state.languages.value)
@@ -33,55 +30,55 @@ function Btn({
   const handleDialog = () => {
     setMove(true)
   }
+  const profile = useSelectors((state) => state.profile.value)
+
+  const isOwner = message.creatorId === profile?.uid
   return (
     <>
       {isOwner ? (
         <>
           {round === 1 && (
             <DeleteButton
-              message={messageObj}
+              message={message}
               deleteMessage={deleteMessage}
               decreaseRound={decreaseRound}
             />
           )}
           {round === 2 && (
             <ConfirmButton
-              message={messageObj}
-              userObj={userObj}
+              message={message}
               increaseRound={increaseRound}
               handleConfirmingClock={handleConfirmingClock}
             />
           )}
           {round === 3 && (
             <div className="flex justify-center">
-              {messageObj.text.choose === 1 && (
+              {message.text.choose === 1 && (
                 <ReturningButton
-                  message={messageObj}
-                  userObj={userObj}
+                  message={message}
                   increaseRound={increaseRound}
                   handleReturningClock={handleReturningClock}
                 />
               )}
-              {messageObj.text.choose === 2 && (
-                <div>{messageObj.connectedName} 님이 빌리는 중</div>
+              {message.text.choose === 2 && (
+                <div>{message.connectedName} 님이 빌리는 중</div>
               )}
             </div>
           )}
           {round === 4 && (
             <div className="flex justify-center">
-              {messageObj.text.choose === 1 && (
+              {message.text.choose === 1 && (
                 <div>
                   {languages === 'ko'
                     ? '주인에게 확인 중'
                     : 'Asking the owner to confirm'}
                 </div>
               )}
-              {messageObj.text.choose === 2 && (
+              {message.text.choose === 2 && (
                 <ConfirmReturnButton
                   num={num}
                   points={points}
-                  message={messageObj}
-                  userObj={userObj}
+                  message={message}
                   increaseRound={increaseRound}
                   handleConfirmedReturnClock={handleConfirmedReturnClock}
                 />
@@ -98,11 +95,10 @@ function Btn({
         <>
           {round === 1 && (
             <SupportButton
-              userObj={userObj}
               move={move}
               handleClose={handleClose}
               handleDialog={handleDialog}
-              message={messageObj}
+              message={message}
               increaseRound={increaseRound}
               changeConnectedUser={changeConnectedUser}
               toggleOnTransfer={toggleOnTransfer}
@@ -111,8 +107,7 @@ function Btn({
           )}
           {round === 2 && (
             <StopSupportButton
-              userObj={userObj}
-              message={messageObj}
+              message={message}
               decreaseRound={decreaseRound}
               changeConnectedUser={changeConnectedUser}
               toggleOnTransfer={toggleOnTransfer}
@@ -121,18 +116,16 @@ function Btn({
           )}
           {round === 3 && (
             <div className="flex justify-center">
-              {messageObj.text.choose === 1 && (
+              {message.text.choose === 1 && (
                 <div>
-                  {messageObj.displayName}{' '}
+                  {message.displayName}{' '}
                   {languages === 'ko' ? '님이 빌리는 중' : 'is borrowing'}
                 </div>
               )}
-              {messageObj.text.choose === 2 && (
+              {message.text.choose === 2 && (
                 <ReturningButton
-                  message={messageObj}
-                  userObj={userObj}
+                  message={message}
                   increaseRound={increaseRound}
-                  changeOnPulse={changeOnPulse}
                   handleReturningClock={handleReturningClock}
                 />
               )}
@@ -140,19 +133,18 @@ function Btn({
           )}
           {round === 4 && (
             <div className="flex justify-center">
-              {messageObj.text.choose === 1 && (
+              {message.text.choose === 1 && (
                 <ConfirmReturnButton
                   num={num}
                   points={points}
-                  message={messageObj}
-                  userObj={userObj}
+                  message={message}
                   increaseRound={increaseRound}
                   handleConfirmedReturnClock={handleConfirmedReturnClock}
                 />
               )}
-              {messageObj.text.choose === 2 && (
+              {message.text.choose === 2 && (
                 <div>
-                  {messageObj.item}{' '}
+                  {message.item}{' '}
                   {languages === 'ko'
                     ? '주인에게 확인 중'
                     : 'Asking the owner to confirm'}

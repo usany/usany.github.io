@@ -2,7 +2,7 @@ import Divider from '@mui/material/Divider'
 import { collection, getDocs, orderBy, query } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 import { dbservice } from 'src/baseApi/serverbase'
-import useTexts from 'src/useTexts'
+import { useTexts } from 'src/hooks'
 
 const ProfileDrawersPoints = ({ user, cards }) => {
   const [messages, setMessages] = useState([])

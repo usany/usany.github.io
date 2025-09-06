@@ -1,22 +1,18 @@
-import { User } from 'firebase/auth'
-import { useSelectors } from 'src/hooks/useSelectors'
+import { useSelectors } from 'src/hooks'
 import ChattingStacks from './ChattingStacks'
 import EmptyChattingStacks from './EmptyChattingStacks'
 import { useSortedChattings } from './useSortedChattings'
 
-interface Props {
-  userObj: User
-}
-const MessageStacks = ({ userObj }: Props) => {
+const MessageStacks = () => {
+  const profile = useSelectors((state) => state.profile.value)
   const languages = useSelectors((state) => state.languages.value)
   const index = languages === 'ko' || languages === 'en' ? languages : 'ko'
-  const { chattings, changeChattings, sorted, chattingNone, changeChattingNone } = useSortedChattings({ userObj })
+  const { chattings, changeChattings, sorted, chattingNone } = useSortedChattings({ profile })
   const chattingsArray = navigator.onLine ? chattings : JSON.parse(localStorage.getItem('chattings') || '[]')
   return (
     <div className="flex flex-col gap-1 w-full">
       {navigator.onLine && chattingNone && <EmptyChattingStacks index={index} />}
       <ChattingStacks
-        userObj={userObj}
         chattings={chattingsArray}
         changeChattings={changeChattings}
         sorted={sorted}

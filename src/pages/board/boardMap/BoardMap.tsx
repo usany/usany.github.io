@@ -8,7 +8,7 @@ import { collection, getDocs, orderBy, query } from 'firebase/firestore'
 import { MapIcon } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { dbservice } from 'src/baseApi/serverbase'
-import { useSelectors } from 'src/hooks/useSelectors'
+import { useSelectors } from 'src/hooks'
 import locationsCollectionLetters from 'src/pages/add/locationsCollectionLetters'
 import FilterDialogs from 'src/pages/board/FilterDialogs/FilterDialogs'
 
@@ -32,18 +32,18 @@ const selectItems = [
 ]
 
 interface Props {
-  onMarker: boolean
-  onMarkerTrue: () => void
-  onMarkerFalse: () => void
+  selectedValues: object
+  handleSelectedValues: () => void
+  searchParams: object
 }
-const area = [
-  {
-    westSouth: { lat: 37.5927551, lng: 127.047462 },
-    westNorth: { lat: 37.6010743, lng: 127.047462 },
-    eastSouth: { lat: 37.5927551, lng: 127.0571999 },
-    eastNorth: { lat: 37.6010743, lng: 127.0571999 },
-  },
-]
+// const area = [
+//   {
+//     westSouth: { lat: 37.5927551, lng: 127.047462 },
+//     westNorth: { lat: 37.6010743, lng: 127.047462 },
+//     eastSouth: { lat: 37.5927551, lng: 127.0571999 },
+//     eastNorth: { lat: 37.6010743, lng: 127.0571999 },
+//   },
+// ]
 
 const markers = [
   {
@@ -112,17 +112,12 @@ const markers = [
 ]
 const defaultLocation = markers[0].location
 function BoardMap({
-  mapAccordion,
-  mapAccordionToggle,
-  onMarker,
-  onMarkerTrue,
-  onMarkerFalse,
   selectedValues,
   handleSelectedValues,
+  searchParams,
 }: Props) {
   // const [messages, setMessages] = useState<Array<object>>([])
   // const [mapAccordion, setMapAccordion] = useState(false);
-  const [selectedLocation, setSelectedLocation] = useState(null)
   const [items, setItems] = useState({
     cl: {
       usanOne: 0,
@@ -179,10 +174,17 @@ function BoardMap({
       yangsanTwo: 0,
     },
   })
-  const [choose, setChoose] = useState(false)
+  // const [choose, setChoose] = useState(false)
   const languages = useSelectors((state) => state.languages.value)
   const selection = languages === 'ko' || languages === 'en' ? languages : 'ko'
   const onLine = useSelectors((state) => state.onLine.value)
+  const [calledMap, setCalledMap] = useState(null)
+  const [markings, setMarkings] = useState([])
+  const [markersList, setMarkersList] = useState([])
+  // const [searchParams, setSearchParams] = useSearchParams()
+  const [onAccordion, setOnAccordion] = useState(false)
+  const selectedValueTwo = searchParams.get('selectedValueTwo')
+  const theme = useSelectors((state) => state.theme.value)
   useEffect(() => {
     document.documentElement.scrollTo({
       top: 0,
@@ -193,38 +195,11 @@ function BoardMap({
 
   useEffect(() => {
     const bringMessages = async () => {
-      let order = 'asc'
-      if (selectedValues[2].value === '최신순' || !selectedValues[2].value) {
-        order = 'desc'
-        // onSnapshot(
-        //   query(collection(dbservice, "num"), orderBy("creatorClock", order)),
-        //   (snapshot) => {
-        //     const newArray = snapshot.docs.map((document) => {
-        //       return {
-        //         id: document.id,
-        //         ...document.data(),
-        //       };
-        //     });
-        //     setMessages(newArray);
-        //   }
-        // );
-      } else {
-        // onSnapshot(
-        //   query(collection(dbservice, "num"), orderBy("creatorClock", order)),
-        //   (snapshot) => {
-        //     const newArray = snapshot.docs.map((document) => {
-        //       return {
-        //         id: document.id,
-        //         ...document.data(),
-        //       };
-        //     });
-        //     setMessages(newArray);
-        //   }
-        // );
-      }
+      // let order = 'asc'
+
       const collectionQuery = query(
         collection(dbservice, 'num'),
-        orderBy('creatorClock', order),
+        orderBy('creatorClock'),
       )
       const docs = await getDocs(collectionQuery)
       const newArray = []
@@ -314,38 +289,40 @@ function BoardMap({
             }
           }
         }
-        // if (doc.data().text.count === selectedValues[1].value) {
-        // }
-        // console.log(doc.data())
       })
       // setMessages(newArray)
       setItems(itemCount)
     }
     bringMessages()
   }, [selectedValues[1].value])
-  console.log(items)
   const onClickMarker = (newValue) => {
     handleSelectedValues({ id: 'selectedValueTwo', newValue: newValue.ko })
     // setSelectedLocation(newValue.en)
   }
-  const onClickMarkerItem = (newValue) => {
-    handleSelectedValues({ id: 'selectedValueOne', newValue: newValue })
-  }
-
+  // const onClickMarkerItem = (newValue) => {
+  //   handleSelectedValues({ id: 'selectedValueOne', newValue: newValue })
+  // }
   const mapRef = useRef(null)
+  // const { naver } = window
+  // let location
+  // let map
+  // if (mapRef.current && naver) {
+  //   location = new naver.maps.LatLng(defaultLocation.lat, defaultLocation.lng)
+  //   map = new naver.maps.Map(mapRef.current, {
+  //     center: location,
+  //     zoom: 17,
+  //   })
+  // }
   const displayMap = () => {
     const { naver } = window
-    // const contentString = [
-    //   '<div class="iw_inner">',
-    //   '   practice',
-    //   '</div>',
-    // ].join('')
 
     // const infowindow = new naver.maps.InfoWindow({
     //   content: contentString,
     //   backgroundColor: '#777',
     // })
     if (mapRef.current && naver) {
+      const markersCollection = []
+      const infoWindows = []
       const location = new naver.maps.LatLng(
         defaultLocation.lat,
         defaultLocation.lng,
@@ -354,9 +331,7 @@ function BoardMap({
         center: location,
         zoom: 17,
       })
-      const markersCollection = []
-      const infoWindows = []
-
+      setCalledMap(map)
       for (const value of markers) {
         const position = new naver.maps.LatLng(
           value.location.lat,
@@ -367,6 +342,7 @@ function BoardMap({
           map: map,
           position: position,
           title: value.label,
+          id: value.label.ko,
         })
         const key = Object.keys(locationsCollectionLetters).find(
           (key) => locationsCollectionLetters[key] === value.label.ko,
@@ -383,12 +359,10 @@ function BoardMap({
                 <div className="pt-3">
                   ${languages === 'ko' ? '빌리기: ' : 'Borrowing: '}
                   ${items[key].usanOne}
-                  ${languages === 'ko' ? ' 요청' : ' requests'}
                 </div>
                 <div className="pt-3">
                   ${languages === 'ko' ? '빌려주기: ' : 'Lending: '}
                   ${items[key].usanTwo}
-                  ${languages === 'ko' ? ' 요청' : ' requests'}
                 </div>
                 <div className="pt-1">
                   ${selectItems[1][selection]}
@@ -396,17 +370,16 @@ function BoardMap({
                 <div className="pt-3">
                   ${languages === 'ko' ? '빌리기: ' : 'Borrowing: '}
                   ${items[key].yangsanOne}
-                  ${languages === 'ko' ? ' 요청' : ' requests'}
                 </div>
                 <div className="pt-3">
                   ${languages === 'ko' ? '빌려주기: ' : 'Lending: '}
                   ${items[key].yangsanTwo}
-                  ${languages === 'ko' ? ' 요청' : ' requests'}
                 </div>
               </div>
           </div>`,
         ].join('')
         const infoWindow = new naver.maps.InfoWindow({
+          id: value.label.ko,
           content: contentString,
           // <div className="flex flex-col text-black">
           //   <div className="flex justify-center">
@@ -445,12 +418,17 @@ function BoardMap({
           // '<div style="width:150px;text-align:center;padding:10px;">The Letter is <b>"' +
           // String(index) +
           // '"</b>.</div>',
-          backgroundColor: '#777',
-          anchorColor: '#777',
+          backgroundColor: theme === 'light' ? '#fff' : '#777',
+          anchorColor: theme === 'light' ? '#fff' : '#777',
+          borderColor: theme !== 'light' ? '#fff' : '#777',
         })
-
+        if (marker.id === selectedValueTwo) {
+          infoWindow.open(map, marker)
+        }
         markersCollection.push(marker)
         infoWindows.push(infoWindow)
+        setMarkersList(markersCollection)
+        setMarkings(infoWindows)
       }
       function getClickHandler(seq) {
         const marker = markersCollection[seq]
@@ -478,6 +456,24 @@ function BoardMap({
       }
     }
   }
+  useEffect(() => {
+    if (onAccordion) {
+      displayMap()
+    }
+  }, [languages, theme, onAccordion])
+  useEffect(() => {
+    if (selectedValueTwo && markings.length && calledMap) {
+      const index = markings.findIndex((value) => value.id === selectedValueTwo)
+      if (index > -1) {
+        markings[index]?.open(calledMap, markersList[index])
+      }
+    }
+    if (!selectedValueTwo) {
+      markings.forEach((value) => {
+        value.close()
+      })
+    }
+  }, [selectedValueTwo])
   return (
     <div>
       <Accordion type="single" collapsible>
@@ -485,7 +481,6 @@ function BoardMap({
           <AccordionTrigger
             onClick={() => {
               // document.getElementById('boardMap')?.click()
-              // console.log(document.getElementsByClassName('dismissButton'))
               // setTimeout(
               //   () =>
               //     document.getElementsByClassName('dismissButton')[0]?.click(),
@@ -497,7 +492,8 @@ function BoardMap({
               //   1500,
               // )
               // displayMap()
-              setTimeout(displayMap, 10)
+              // setTimeout(displayMap, 10)
+              setOnAccordion(!onAccordion)
             }}
             className="rounded shadow-md px-3 flex sticky top-16 z-30 w-full items-center justify-between bg-light-2/50 dark:bg-dark-2/50"
           >

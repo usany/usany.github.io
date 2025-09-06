@@ -1,23 +1,24 @@
 import { Button } from '@mui/material'
-import { deleteUser, User } from 'firebase/auth'
+import { deleteUser, getAuth, User } from 'firebase/auth'
 import { deleteDoc, doc, updateDoc } from 'firebase/firestore'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
-// import supabase from 'src/baseApi/base'
 import { dbservice } from 'src/baseApi/serverbase'
-import { useSelectors } from 'src/hooks/useSelectors'
+import { useSelectors } from 'src/hooks'
 import PageTitle from 'src/pages/core/pageTitle/PageTitle'
 import AuthButtons from 'src/pages/main/auth/AuthButtons'
 import AuthForm from 'src/pages/main/auth/AuthForm'
 import Motions from 'src/pages/main/auth/Motions'
-import { changeUserCertificated } from 'src/stateSlices/userCertificatedSlice'
-import useTexts from 'src/useTexts'
+import { useTexts } from 'src/hooks'
 import AuthPassword from './AuthPassword'
+import { changeProfile } from 'src/stateSlices/profileSlice'
+// import { changeUserCertificated } from 'src/stateSlices/userCertificatedSlice'
 
-function Auth({ userObj }: User) {
+function Auth() {
   const [numberString, setNumberString] = useState('')
   const [mailSent, setMailSent] = useState(false)
   const [createdNumber, setCreatedNumber] = useState('')
+  const profile = useSelectors((state) => state.profile.value)
   const languages = useSelectors((state) => state.languages.value)
   const dispatch = useDispatch()
   const {
@@ -31,9 +32,6 @@ function Auth({ userObj }: User) {
     cancelRegistration,
   } = useTexts()
   const handleNumberString = (newValue) => {
-    // const {
-    //   target: { value }
-    // } = event
     setNumberString(newValue)
   }
   const sendNumberMail = async () => {
@@ -50,41 +48,38 @@ function Auth({ userObj }: User) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        title: userObj?.email,
-        author: number,
+        to: profile?.email,
+        number: number,
+        language: localStorage.getItem('languages') || 'ko',
       }),
     })
     console.log('sending')
   }
   const confirmNumber = async () => {
     if (numberString === createdNumber) {
-      const userDocRef = doc(dbservice, `members/${userObj.uid}`)
+      const userDocRef = doc(dbservice, `members/${profile?.uid}`)
       await updateDoc(userDocRef, { certificated: true })
-      dispatch(changeUserCertificated(true))
+      dispatch(changeProfile({ ...profile, certificated: true }))
     } else {
       alert(checkTheNumber)
     }
   }
   const cancelUserRegistration = async () => {
-    await deleteDoc(doc(dbservice, `members/${userObj.uid}`))
-    deleteUser(userObj)
-      .then(() => {
-        console.log(userObj)
-        location.reload()
-      })
-      .catch((error) => {
-        console.log(error)
-      })
-    // const { data, error } = await supabase.auth.admin.deleteUser(userObj.uid)
-    // if (data) {
-    //   console.log(data)
-    // } else {
-    //   console.log(error)
-    // }
+    await deleteDoc(doc(dbservice, `members/${profile?.uid}`))
+    const auth = getAuth()
+    if (auth) {
+      deleteUser(auth.currentUser)
+        .then(() => {
+          location.reload()
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    }
   }
   return (
     <div>
-      {userObj ? (
+      {profile ? (
         <div>
           <PageTitle
             title={languages === 'ko' ? '메일 확인' : 'Confirming mail'}
@@ -92,26 +87,25 @@ function Auth({ userObj }: User) {
           <div className="flex flex-col gap-5 items-center">
             {mailSent ? (
               <div>
-                {languages === 'en' && sentAConfirmingMail} {userObj.email}
+                {languages === 'en' && sentAConfirmingMail} {profile.email}
                 {languages === 'ko' && sentAConfirmingMail}. {inputTheNumber}.
               </div>
             ) : (
               <div>
                 {languages === 'en' && weWillSendYouAConfirmingMailTo}{' '}
-                {userObj.email}
+                {profile.email}
                 {languages === 'ko' && weWillSendYouAConfirmingMailTo}.{' '}
                 {checkTheNumber}.
               </div>
             )}
             {mailSent && (
               <AuthPassword
-                userObj={userObj}
+                profile={profile}
                 numberString={numberString}
                 handleNumberString={handleNumberString}
               />
             )}
             <div className="flex gap-5">
-              {/* {mailSent && <TextField label='numbers' value={numberString} onChange={handleNumberString} />} */}
               {numberString.length === 6 && (
                 <Button onClick={confirmNumber}>{confirm}</Button>
               )}
@@ -132,7 +126,7 @@ function Auth({ userObj }: User) {
               ? '반갑습니다. 캠퍼스 우산 공유 서비스 쿠우산입니다.'
               : 'Welcome. This is usan sharing service khusan'}
           </div>
-          <AuthForm signIn={true} />
+          <AuthForm signIn={true} agreed={true} />
           <AuthButtons />
           <div className="flex justify-center pt-5 px-5">
             {languages === 'ko'

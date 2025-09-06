@@ -1,29 +1,29 @@
 import { doc, updateDoc } from 'firebase/firestore'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { dbservice } from 'src/baseApi/serverbase'
-import { useSelectors } from 'src/hooks/useSelectors'
+import { useSelectors } from 'src/hooks'
 import Switches from 'src/pages/core/navigationTop/sideNavigation/Switches'
 import { changeEn, changeKo } from 'src/stateSlices/languagesSlice'
 import { changeDark, changeLight } from 'src/stateSlices/themeSlice'
 import SwitchesLanguages from './SwitchesLanguages'
 
-const Modes = ({ userObj }) => {
+const Modes = () => {
   const theme = useSelectors((state) => state.theme.value)
-  const languages = useSelector((state) => state.languages.value)
-  // const { i18n } = useTranslation()
+  const profile = useSelectors((state) => state.profile.value)
+  const languages = useSelectors((state) => state.languages.value)
   const dispatch = useDispatch()
   const switchLanguages = async () => {
-    const docRef = doc(dbservice, `members/${userObj?.uid}`)
+    const docRef = doc(dbservice, `members/${profile?.uid}`)
     if (languages === 'ko') {
       localStorage.setItem('languages', 'en')
       dispatch(changeEn())
-      if (userObj) {
+      if (profile) {
         await updateDoc(docRef, { preferLanguage: 'en' })
       }
     } else {
       localStorage.setItem('languages', 'ko')
       dispatch(changeKo())
-      if (userObj) {
+      if (profile) {
         await updateDoc(docRef, { preferLanguage: 'ko' })
       }
     }

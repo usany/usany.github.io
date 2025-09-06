@@ -1,70 +1,54 @@
-import { User } from 'firebase/auth'
 import { doc, getDoc } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { useLocation, useSearchParams } from 'react-router-dom'
 import { dbservice } from 'src/baseApi/serverbase'
-import {
-  MorphingDialog,
-  MorphingDialogClose,
-  MorphingDialogContainer,
-  MorphingDialogTrigger,
-} from 'src/components/ui/morphing-dialog'
+import { useSelectors } from 'src/hooks'
 import PiazzaForm from 'src/pages/piazza/piazzaForm/PiazzaForm'
 import PiazzaScreen from 'src/pages/piazza/piazzaScreen/PiazzaScreen'
 import PiazzaTitle from 'src/pages/piazza/piazzaTitle/PiazzaTitle'
 import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
-import useTexts from 'src/useTexts'
-import { webSocket } from 'src/webSocket'
-import PiazzaAudioCall from './PiazzaAudioCall'
-import PiazzaCalls from './PiazzaCalls'
-// import { useKeyboardOffset } from 'virtual-keyboard-offset';
+import type { RootState } from 'src/store'
+import PiazzaMorphingDialogAudioCall from './components/PiazzaMorphingDialogAudioCall'
+import PiazzaMorphingDialogVideoCall from './components/PiazzaMorphingDialogVideoCall'
 
-interface Props {
-  userObj: User
-}
-function Piazza({ userObj }: Props) {
+function Piazza() {
   const [messages, setMessages] = useState('')
   const [messagesList, setMessagesList] = useState<[]>([])
   const dispatch = useDispatch()
-  const { state } = useLocation()
+  const { state } = useLocation() as any
   const [isKeyboardOpen, setIsKeyboardOpen] = useState(false)
-  const [chattingUser, setChattingUser] = useState(null)
+  const [chattingUser, setChattingUser] = useState<any>(null)
   const [chatUid, setChatUid] = useState('')
   const [chatDisplayName, setChatDisplayName] = useState('')
-  const [searchParams, setSearchParams] = useSearchParams()
-  const { hangUp } = useTexts()
-  const handleChatUid = (newValue) => {
+  const [searchParams] = useSearchParams()
+  const handleChatUid = (newValue: string) => {
     setChatUid(newValue)
   }
-  const handleChatDisplayName = (newValue) => {
+  const handleChatDisplayName = (newValue: string) => {
     setChatDisplayName(newValue)
   }
   const conversation = location.search.slice(location.search.indexOf('=') + 1)
-  // console.log(chattingUser)
-  // console.log(chatUid)
   useEffect(() => {
-    if (state) {
-      setChatUid(state.chattingUid)
-      setChatDisplayName(state.displayName)
-    } else {
-      setChatUid('')
-      setChatDisplayName('')
-    }
+    setChatUid(state?.chattingUid ?? '')
+    setChatDisplayName(state?.displayName ?? '')
   }, [conversation])
   useEffect(() => {
     const bringChattingUser = async () => {
       if (chatUid) {
         const toUserRef = doc(dbservice, `members/${chatUid}`)
         const toUser = await getDoc(toUserRef)
-        setChattingUser(toUser.data())
+        const data = toUser.data()
+        if (data) {
+          setChattingUser(data)
+        }
       }
     }
     if (conversation) {
       bringChattingUser()
     }
   }, [conversation, chatUid])
-  const piazzaForm = useSelector((state) => state.piazzaForm.value)
+  const piazzaForm = useSelectors((state: RootState) => state.piazzaForm.value)
   useEffect(() => {
     const listener = () => {
       const newState =
@@ -88,60 +72,6 @@ function Piazza({ userObj }: Props) {
       }
     }
   }, [isKeyboardOpen])
-  const stopCalls = async () => {
-    setSearchParams((searchParams) => {
-      searchParams.delete('call')
-      return searchParams
-    })
-    document
-      .getElementById('myScreen')
-      ?.srcObject.getTracks()
-      .forEach((track) => track.stop())
-    let toUserRef
-    let toUser
-    let messagingToken
-    let preferLanguage
-    if (chattingUser) {
-      toUserRef = doc(dbservice, `members/${chattingUser.uid}`)
-      toUser = await getDoc(toUserRef)
-      messagingToken = toUser.data()?.messagingToken
-      preferLanguage = toUser.data()?.preferLanguage
-    }
-    const passingObject = {
-      conversation: conversation,
-      isVideo: true,
-      sendingToken: messagingToken,
-      connectedUrl: `/piazza?id=${conversation}&call=video`,
-      preferLanguage: preferLanguage,
-      userUid: userObj.uid,
-      id: userObj.displayName,
-      conversationUid: chattingUser?.uid,
-      conversationName: chattingUser?.displayName,
-    }
-    console.log(passingObject)
-    webSocket.emit('quitCall', passingObject)
-  }
-  // useEffect(() => {
-  //   if (state?.multiple !== undefined) {
-  //     setMultiple(state?.multiple)
-  //   }
-  // }, [])
-  // const { keyBoardOffset, windowHeight } = useKeyboardOffset();
-  // For the rare legacy browsers that don't support it
-  // window.addEventListener('resize', () => {
-  //   if (!window.visualViewport) {
-  //     return
-  //   }
-  //   const height = window.visualViewport.height - 200
-  // })
-  // For the rare legacy browsers that don't support it
-  // visualViewport.addEventListener('resize', () => {
-  //   if (!window.visualViewport) {
-  //     return
-  //   }
-  //   const height = window.visualViewport.height - 200
-  //   console.log(window.visualViewport.height)
-  // })
 
   useEffect(() => {
     dispatch(changeBottomNavigation(5))
@@ -156,12 +86,9 @@ function Piazza({ userObj }: Props) {
   }, [])
   return (
     <>
-      {!isKeyboardOpen && (
-        <PiazzaTitle multiple={!conversation} displayName={chatDisplayName} />
-      )}
+      {!isKeyboardOpen && <PiazzaTitle displayName={chatDisplayName} />}
       <PiazzaScreen
         isKeyboardOpen={piazzaForm}
-        userObj={userObj}
         messagesList={messagesList}
         handleMessagesList={(newValue) => setMessagesList(newValue)}
         handleChatUid={handleChatUid}
@@ -169,43 +96,20 @@ function Piazza({ userObj }: Props) {
       />
       <PiazzaForm
         chattingUser={chattingUser}
-        userObj={userObj}
         multiple={!conversation}
         messages={messages}
         handleMessages={(newValue) => setMessages(newValue)}
         messagesList={messagesList}
         handleMessagesList={(newValue) => setMessagesList(newValue)}
       />
-      <MorphingDialog>
-        <MorphingDialogTrigger>
-          <div id="videoCall"></div>
-        </MorphingDialogTrigger>
-        <MorphingDialogContainer>
-          <div>
-            <div className="flex gap-5">
-              <PiazzaCalls />
-            </div>
-            <MorphingDialogClose>
-              <div onClick={stopCalls}>{hangUp}</div>
-            </MorphingDialogClose>
-          </div>
-        </MorphingDialogContainer>
-      </MorphingDialog>
-      <MorphingDialog>
-        <MorphingDialogTrigger>
-          <div id="audioCall"></div>
-        </MorphingDialogTrigger>
-        <MorphingDialogContainer>
-          <div>
-            <div className="flex gap-5">
-              <PiazzaAudioCall />
-            </div>
-            <MorphingDialogClose>
-              <div onClick={stopCalls}>{hangUp}</div>
-            </MorphingDialogClose>
-          </div>
-        </MorphingDialogContainer>
-      </MorphingDialog>
+      <PiazzaMorphingDialogVideoCall
+        chattingUser={chattingUser}
+        conversation={conversation}
+      />
+      <PiazzaMorphingDialogAudioCall
+        chattingUser={chattingUser}
+        conversation={conversation}
+      />
     </>
   )
 }

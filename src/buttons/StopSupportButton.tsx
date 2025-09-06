@@ -2,12 +2,15 @@ import SendIcon from '@mui/icons-material/Send'
 import Button from '@mui/material/Button'
 import { doc, getDoc, updateDoc } from 'firebase/firestore'
 import { dbservice } from 'src/baseApi/serverbase'
-import { useSelectors } from 'src/hooks/useSelectors'
+import { useSelectors } from 'src/hooks'
 import { webSocket } from 'src/webSocket.tsx'
 import specificProcess from './specificProcess'
 
-const onStopSupporting = async ({ message, userObj, profileUrl }) => {
-  const { data, messagingToken } = await specificProcess({ message: message, toUid: null })
+const onStopSupporting = async ({ message, profile, profileUrl }) => {
+  const { data, messagingToken } = await specificProcess({
+    message: message,
+    toUid: null,
+  })
   const userDoc = await getDoc(data)
   const passingObject = {
     id: message.id,
@@ -15,8 +18,8 @@ const onStopSupporting = async ({ message, userObj, profileUrl }) => {
     sendingToken: messagingToken,
     creatorId: message.creatorId,
     creatorName: message.displayName,
-    connectedId: userObj.uid,
-    connectedName: userObj.displayName,
+    connectedId: profile.uid,
+    connectedName: profile.displayName,
     connectedUrl: profileUrl,
     preferLanguage: userDoc.data()?.preferLanguage || 'ko',
   }
@@ -30,40 +33,47 @@ const onStopSupporting = async ({ message, userObj, profileUrl }) => {
     connectedProfileImageUrl: null,
     connectedUrl: null,
   })
-  const connectedUserRef = doc(dbservice, `members/${userObj.uid}`)
+  const connectedUserRef = doc(dbservice, `members/${profile.uid}`)
   const connectedUserSnap = await getDoc(connectedUserRef)
   const connectedUserData = connectedUserSnap.data()
   const connectedUserConnectedCards = connectedUserData?.connectedCards
-  const newConnectedUserConnectedCards = connectedUserConnectedCards.filter((element) => element !== message.id)
+  const newConnectedUserConnectedCards = connectedUserConnectedCards.filter(
+    (element) => element !== message.id,
+  )
   updateDoc(connectedUserRef, {
-    connectedCards: [...newConnectedUserConnectedCards]
+    connectedCards: [...newConnectedUserConnectedCards],
   })
   webSocket.emit('stop supporting', passingObject)
 }
-const StopSupportButton = ({ userObj, message, decreaseRound, changeConnectedUser, toggleOnTransfer, handleConnectedClock }) => {
+const StopSupportButton = ({
+  message,
+  decreaseRound,
+  changeConnectedUser,
+  toggleOnTransfer,
+  handleConnectedClock,
+}) => {
   const languages = useSelectors((state) => state.languages.value)
-  const profileUrl = useSelectors((state) => state.profileUrl.value)
+  const profile = useSelectors((state) => state.profile.value)
 
   return (
     <div className="flex justify-center">
-      {/* <Button variant="contained" disabled>
-        승낙 메시지 전송 완료
-      </Button> */}
-      <div className='px-5'>{languages === 'ko' ? '승낙 메시지 전송 완료' : 'Support message sent'}</div>
+      <div className="px-5">
+        {languages === 'ko' ? '승낙 메시지 전송 완료' : 'Support message sent'}
+      </div>
       <Button
         variant="outlined"
         onClick={() => {
-          if (userObj) {
+          if (profile) {
             onStopSupporting({
               message: message,
-              userObj: userObj,
-              profileUrl: profileUrl
+              profile: { uid: profile?.uid, displayName: profile?.displayName },
+              profileUrl: profile?.profileImage ? profile?.profileImageUrl : profile?.defaultProfile,
             })
             decreaseRound()
             changeConnectedUser({
               uid: '',
               displayName: '',
-              url: ''
+              url: '',
             })
             toggleOnTransfer()
             handleConnectedClock({ clock: '', cancelled: true })

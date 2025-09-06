@@ -1,7 +1,7 @@
 import DeleteIcon from '@mui/icons-material/Delete'
 import Button from '@mui/material/Button'
 import { deleteDoc } from 'firebase/firestore'
-import { useSelectors } from 'src/hooks/useSelectors'
+import { useSelectors } from 'src/hooks'
 import specificProcess from './specificProcess'
 
 const onDelete = async ({ message }) => {

@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { useSelectors } from "src/hooks/useSelectors";
+import { useSelectors } from "src/hooks";
 
 function AuthDialogsTrigger() {
   const theme = useSelector((state) => state.theme.value);

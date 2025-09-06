@@ -1,7 +1,7 @@
 import East from '@mui/icons-material/East'
 import West from '@mui/icons-material/West'
 import { useLocation } from 'react-router-dom'
-import { useSelectors } from 'src/hooks/useSelectors'
+import { useSelectors } from 'src/hooks'
 
 const CardViewTransfer = () => {
   const languages = useSelectors((state) => state.languages.value)

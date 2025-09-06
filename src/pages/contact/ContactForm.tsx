@@ -1,38 +1,22 @@
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
-import { User } from 'firebase/auth'
 import { addDoc, collection } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 import { dbservice } from 'src/baseApi/serverbase'
-import { useSelectors } from 'src/hooks/useSelectors'
-import ContactDrawers from 'src/pages/contact/ContactDrawers'
+import { useSelectors, useTexts } from 'src/hooks'
 import ContactFormDrawers from 'src/pages/contact/ContactFormDrawers'
+import ContactDrawersTrigger from './ContactDrawersTrigger'
+import ContactDrawersTitle from './ContactDrawersTitle'
+import ContactDrawersContent from './ContactDrawersContent'
+import Popups from '../core/Popups'
+import { useLocation } from 'react-router-dom'
 
-const reportTitle = {
-  ko: '신고하기 제목',
-  en: 'Report Title',
-}
-const reportContent = {
-  ko: '신고하기 내용',
-  en: 'Report Content',
-}
-interface Props {
-  userObj: User
-  user: {
-    profileImage: boolean
-    profileImageUrl: string
-    defaultProfile: string
-    displayName: string
-  } | null
-}
-
-function ContactForm({ userObj, user }: Props) {
-  // const [message, setMessage] = useState({
-  //   'title': '',
-  //   'content': ''
-  // })
+function ContactForm() {
+  const { state } = useLocation()
+  const user = state?.user
   const [messageTitle, setMessageTitle] = useState('')
   const [messageContent, setMessageContent] = useState('')
+  const [message, setMessage] = useState({title: '', content: ''})
   const [violationUser, setViolationUser] = useState<{
     profileImage: boolean
     profileImageUrl: string
@@ -40,9 +24,8 @@ function ContactForm({ userObj, user }: Props) {
     displayName: string
   } | null>(null)
   const [initialViolationUser, setInitialViolationUser] = useState(true)
-  const languages = useSelectors((state) => state.languages.value)
-  const index = languages === 'ko' || languages === 'en' ? languages : 'ko'
-  const userCertificated = useSelectors((state) => state.userCertificated.value)
+  const profile = useSelectors((state) => state.profile.value)
+  const {send, reportTitle, reportContent} = useTexts()
   useEffect(() => {
     if (user && initialViolationUser) {
       setViolationUser(user)
@@ -53,8 +36,8 @@ function ContactForm({ userObj, user }: Props) {
   const onSubmit = async () => {
     try {
       await addDoc(collection(dbservice, 'violations'), {
-        userUid: userObj?.uid || '비로그인',
-        userName: userObj?.displayName || '비로그인',
+        userUid: profile?.uid || '비로그인',
+        userName: profile?.displayName || '비로그인',
         messageTitle: messageTitle,
         message: messageContent,
         violationUser: violationUser,
@@ -68,12 +51,6 @@ function ContactForm({ userObj, user }: Props) {
     }
   }
 
-  // const onChangeMessage = (event: { target: { name: string, value: string } }) => {
-  //   const {
-  //     target: { name, value }
-  //   } = event
-  //   setMessage({ ...message, [name]: value })
-  // }
   const onChangeMessageContent = (event: { target: { value: string } }) => {
     const {
       target: { value },
@@ -92,7 +69,7 @@ function ContactForm({ userObj, user }: Props) {
       <div className="flex justify-center pt-5 px-5">
         <TextField
           name="title"
-          label={reportTitle[index]}
+          label={reportTitle}
           multiline
           value={messageTitle}
           onChange={onChangeMessageTitle}
@@ -103,7 +80,7 @@ function ContactForm({ userObj, user }: Props) {
       <div className="flex justify-center pt-5 px-5">
         <TextField
           name="content"
-          label={reportContent[index]}
+          label={reportContent}
           multiline
           rows={5}
           value={messageContent}
@@ -112,7 +89,7 @@ function ContactForm({ userObj, user }: Props) {
           fullWidth
         />
       </div>
-      {userCertificated && (
+      {profile?.certificated && (
         <div className="flex pt-3 px-5 gap-1">
           <ContactFormDrawers
             violationUser={violationUser}
@@ -121,14 +98,21 @@ function ContactForm({ userObj, user }: Props) {
         </div>
       )}
       <div className="flex justify-center pt-2.5">
-        {userCertificated && <ContactDrawers userObj={userObj} />}
+        {profile?.certificated && (
+          <Popups
+            trigger={<ContactDrawersTrigger />}
+            title={<ContactDrawersTitle />}
+            content={<ContactDrawersContent />}
+          />
+        )}
+
         {messageTitle && messageContent ? (
           <Button variant="outlined" form="auth" onClick={onSubmit}>
-            {languages === 'ko' ? '전송' : 'send'}
+            {send}
           </Button>
         ) : (
           <Button variant="outlined" form="auth" disabled>
-            {languages === 'ko' ? '전송' : 'send'}
+            {send}
           </Button>
         )}
       </div>

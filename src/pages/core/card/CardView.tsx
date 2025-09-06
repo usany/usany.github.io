@@ -25,6 +25,7 @@ const CardView = ({ onTransfer, message, shadowColor }) => {
     <div className="flex flex-col gap-5">
       {onTransfer && <CardViewTransfer />}
       <Card
+        className='colorTwo'
         sx={{
           width: 200 * 0.9,
           height: 280 * 0.9,

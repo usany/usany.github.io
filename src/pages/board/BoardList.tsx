@@ -1,6 +1,6 @@
 import { User } from "firebase/auth";
 import { ScrollText } from "lucide-react";
-import { useSelectors } from "src/hooks/useSelectors";
+import { useSelectors } from "src/hooks";
 import FilterDialogs from "src/pages/board/FilterDialogs/FilterDialogs";
 // import { AlarmCheck, AlertCircle, Building, Clock, DoorOpen, MessagesSquare, Pen, PenBox, Pencil, PenSquare, PenTool, Presentation, Search, SearchCheck, SearchCode, SearchSlash, Siren, TowerControl, Umbrella, UserCheck, UserRound, Watch } from "lucide-react";
 

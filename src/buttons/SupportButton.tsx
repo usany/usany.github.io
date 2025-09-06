@@ -2,12 +2,15 @@ import SendIcon from '@mui/icons-material/Send'
 import Button from '@mui/material/Button'
 import { doc, getDoc, updateDoc } from 'firebase/firestore'
 import { dbservice } from 'src/baseApi/serverbase'
-import { useSelectors } from 'src/hooks/useSelectors'
+import { useSelectors } from 'src/hooks'
 import { webSocket } from 'src/webSocket.tsx'
 import specificProcess from './specificProcess'
 
-const onSupporting = async ({ message, userObj, profileUrl }) => {
-  const { data, messagingToken } = await specificProcess({ message: message, toUid: null })
+const onSupporting = async ({ message, profile, profileUrl }) => {
+  const { data, messagingToken } = await specificProcess({
+    message: message,
+    toUid: null,
+  })
   const userDoc = await getDoc(data)
   const passingObject = {
     id: message.id,
@@ -15,19 +18,19 @@ const onSupporting = async ({ message, userObj, profileUrl }) => {
     sendingToken: messagingToken,
     creatorId: message.creatorId,
     creatorName: message.displayName,
-    connectedId: userObj.uid,
-    connectedName: userObj.displayName,
+    connectedId: profile.uid,
+    connectedName: profile.displayName,
     connectedUrl: profileUrl,
     preferLanguage: userDoc.data()?.preferLanguage || 'ko',
     connectedClock: new Date().toString(),
   }
-  const connectedUserRef = doc(dbservice, `members/${userObj.uid}`)
+  const connectedUserRef = doc(dbservice, `members/${profile.uid}`)
   const connectedUserSnap = await getDoc(connectedUserRef)
   const connectedUserData = connectedUserSnap.data()
   updateDoc(data, {
     round: 2,
-    connectedId: userObj.uid,
-    connectedName: userObj.displayName,
+    connectedId: profile.uid,
+    connectedName: profile.displayName,
     connectedUrl: profileUrl,
     connectedProfileImage: connectedUserData.profileImage,
     connectedDefaultProfile: connectedUserData.defaultProfile,
@@ -36,47 +39,40 @@ const onSupporting = async ({ message, userObj, profileUrl }) => {
   })
   const connectedUserConnectedCards = connectedUserData?.connectedCards || []
   updateDoc(connectedUserRef, {
-    connectedCards: [...connectedUserConnectedCards, message.id]
+    connectedCards: [...connectedUserConnectedCards, message.id],
   })
   webSocket.emit('supporting', passingObject)
 }
 const SupportButton = ({
-  userObj,
-  move,
-  handleClose,
-  handleDialog,
   message,
   increaseRound,
   changeConnectedUser,
   toggleOnTransfer,
-  handleConnectedClock
+  handleConnectedClock,
 }) => {
-  const profileUrl = useSelectors((state) => state.profileUrl.value)
+  const profile = useSelectors((state) => state.profile.value)
   const languages = useSelectors((state) => state.languages.value)
-  const profileImage = useSelectors(state => state.profileImage.value)
-  const defaultProfile = useSelectors(state => state.defaultProfile.value)
-  const profileImageUrl = useSelectors(state => state.profileImageUrl.value)
-  const sendingProfile = profileImage ? profileImageUrl : defaultProfile
-  console.log(profileImage)
-  console.log(defaultProfile)
-  console.log(profileImageUrl)
+  const profileImageUrl = useSelectors((state) => state.profileImageUrl.value)
+  const sendingProfile = profile?.profileImage
+    ? profileImageUrl
+    : profile?.defaultProfile
   return (
     <div className="flex justify-center">
       <Button
         variant="outlined"
         onClick={() => {
-          if (userObj) {
+          if (profile) {
             const clock = new Date().toString()
             onSupporting({
               message: message,
-              userObj: userObj,
-              profileUrl: sendingProfile
+              profile: { uid: profile?.uid, displayName: profile?.displayName },
+              profileUrl: sendingProfile,
             })
             increaseRound()
             changeConnectedUser({
-              uid: userObj.uid,
-              displayName: userObj.displayName,
-              url: sendingProfile
+              uid: profile?.uid,
+              displayName: profile?.displayName,
+              url: sendingProfile,
             })
             toggleOnTransfer()
             handleConnectedClock({ clock: clock, cancelled: false })

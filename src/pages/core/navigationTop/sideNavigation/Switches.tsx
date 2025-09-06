@@ -1,5 +1,6 @@
 import { styled } from '@mui/material/styles';
 import Switch from '@mui/material/Switch';
+import { useSelectors } from 'src/hooks';
 
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   width: 62,
@@ -47,17 +48,14 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   },
 }));
 
-function Switches({ onClick }) {
+interface Props {
+  onClick: () => void
+}
+
+function Switches({ onClick }: Props) {
+  const theme = useSelectors(state=>state.theme.value)
   return (
-    // <FormGroup>
-    //   <FormControlLabel
-    //     control={
-    //       <MaterialUISwitch onClick={onClick} defaultChecked={window.localStorage.theme === 'dark'} />
-    //     }
-    //     label=""
-    //   />
-    // </FormGroup>
-    <MaterialUISwitch onClick={onClick} defaultChecked={window.localStorage.theme === 'dark'} />
+    <MaterialUISwitch onClick={onClick} defaultChecked={theme === 'dark'} />
   );
 }
 

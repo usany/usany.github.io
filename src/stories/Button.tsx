@@ -1,48 +1,31 @@
-import React from 'react';
-import './button.css';
+import { Button, useTheme } from '@mui/material'
 
-interface ButtonProps {
-  /**
-   * Is this the principal call to action on the page?
-   */
-  primary?: boolean;
-  /**
-   * What background color to use
-   */
-  backgroundColor?: string;
-  /**
-   * How large should the button be?
-   */
-  size?: 'small' | 'medium' | 'large';
-  /**
-   * Button contents
-   */
-  label: string;
-  /**
-   * Optional click handler
-   */
-  onClick?: () => void;
+export interface ButtonProps {
+  label: string
+  // mode: PaletteMode
+  // bgcolor: string
+  /** Optional click handler */
+  onClick?: () => void
 }
 
-/**
- * Primary UI component for user interaction
- */
-export const Button = ({
-  primary = false,
-  size = 'medium',
-  backgroundColor,
-  label,
-  ...props
-}: ButtonProps) => {
-  const mode = primary ? 'storybook-button--primary' : 'storybook-button--secondary';
+/** Primary UI component for user interaction */
+export const Buttons = ({ label, ...props }: ButtonProps) => {
+  const theme = useTheme()
+  const bgcolor = theme.palette.mode === 'light' ? '#e2e8f0' : '#2d3848'
   return (
-    <button
-      type="button"
-      className={['storybook-button', `storybook-button--${size}`, mode].join(' ')}
-      style={{ backgroundColor }}
-      {...props}
-    >
-      {label}
-    </button>
-  );
-};
+    <>
+      <Button
+        variant="outlined"
+        sx={{
+          bgcolor: bgcolor,
+          ':hover': {
+            bgcolor: bgcolor,
+          },
+        }}
+        {...props}
+      >
+        {label}
+      </Button>
+    </>
+  )
+}

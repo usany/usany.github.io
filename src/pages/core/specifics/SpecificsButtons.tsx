@@ -4,10 +4,9 @@ import { doc, getDoc } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 import { dbservice } from 'src/baseApi/serverbase'
 import Btn from 'src/buttons/Buttons'
-import { useSelectors } from 'src/hooks/useSelectors'
+import { useSelectors } from 'src/hooks'
 
 interface Props {
-  userObj: User | null
   message: {}
 }
 
@@ -15,21 +14,20 @@ function SpecificsButtons({
   round,
   increaseRound,
   decreaseRound,
-  userObj,
   message,
-  changeOnPulse,
   changeConnectedUser,
   toggleOnTransfer,
   removeMessage,
   handleConnectedClock,
   handleConfirmingClock,
   handleReturningClock,
-  handleConfirmedReturnClock
+  handleConfirmedReturnClock,
 }: Props) {
   const [num, setNum] = useState<number | null>(null)
   const [points, setPoints] = useState<number | null>(null)
   const [deleted, setDeleted] = useState<boolean>(false)
   const languages = useSelectors((state) => state.languages.value)
+
   const deleteMessage = () => {
     setDeleted(true)
     removeMessage(message)
@@ -59,16 +57,13 @@ function SpecificsButtons({
       {!deleted ? (
         <div className="flex justify-center">
           <Btn
-            messageObj={message}
-            isOwner={message.creatorId === userObj.uid}
-            userObj={userObj}
+            message={message}
             num={num}
             points={points}
             deleteMessage={deleteMessage}
             round={round}
             increaseRound={increaseRound}
             decreaseRound={decreaseRound}
-            changeOnPulse={changeOnPulse}
             changeConnectedUser={changeConnectedUser}
             toggleOnTransfer={toggleOnTransfer}
             handleConnectedClock={handleConnectedClock}

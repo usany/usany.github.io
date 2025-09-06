@@ -1,23 +1,20 @@
 import { useEffect } from 'react'
+import { useSelectors } from 'src/hooks'
 import { webSocket } from 'src/webSocket'
 
-export const useOnPulseCallback = ({
-  userObj,
-  round,
-  changeOnPulse,
-  message,
-}) => {
+export const useOnPulseCallback = ({ round, changeOnPulse, message }) => {
+  const profile = useSelectors((state) => state.profile.value)
   useEffect(() => {
     if (!webSocket) return
     function sOnPulseCallback(res) {
       if (res.choose === 1) {
-        if (res.creatorId === userObj.uid) {
+        if (res.creatorId === profile?.uid) {
           if (round === 1 || round === 2) {
             changeOnPulse(true)
           } else {
             changeOnPulse(false)
           }
-        } else if (res.connectedId === userObj.uid) {
+        } else if (res.connectedId === profile?.uid) {
           if (round === 4) {
             changeOnPulse(true)
           } else {
@@ -25,13 +22,13 @@ export const useOnPulseCallback = ({
           }
         }
       } else {
-        if (res.creatorId === userObj.uid) {
+        if (res.creatorId === profile?.uid) {
           if (round === 2 || round === 4) {
             changeOnPulse(true)
           } else {
             changeOnPulse(false)
           }
-        } else if (res.connectedId === userObj.uid) {
+        } else if (res.connectedId === profile?.uid) {
           if (round === 3) {
             changeOnPulse(true)
           } else {

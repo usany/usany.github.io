@@ -1,4 +1,3 @@
-// import { useAvatarColorStore, useAvatarImageStore } from 'src/store'
 import { Button } from '@mui/material';
 import { Check } from 'lucide-react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -10,7 +9,8 @@ import staticRed01 from "src/assets/red1.png";
 import staticRed02 from "src/assets/red2.png";
 import Avatars from 'src/pages/core/Avatars';
 import { changeProfileColor } from 'src/stateSlices/profileColorSlice';
-import useTexts from 'src/useTexts';
+import { useSelectors, useTexts } from 'src/hooks';
+import { changeProfile } from 'src/stateSlices/profileSlice';
 const images = {
   'profile-red': [staticRed01, staticRed02],
   '#2196f3': [staticBlue01, staticBlue02],
@@ -22,24 +22,12 @@ const images = {
 }
 const ProfileDialogs = ({ attachment, changeAttachment, changedImage, handleChangedImage }) => {
   const { currentImageWillBeDeletedWhenCharacterImagesAreSelected, uploadMyFile, save } = useTexts()
-  // const [copyingProfile, setCopyingProfile] = useState({
-  //   profileImage: false,
-  //   defaultProfile: '',
-  //   profileImageUrl: '',
-  //   profileColor: '',
-  //   initial: true
-  // })
-  // useEffect(() => {
-  //   if (copyingProfile.initial) {
-  //     setCopyingProfile(profile)
-  //   }
-  // }, [])
-  const profile = useSelector((state) => state.profile.value)
-  const profileColor = useSelector(state => state.profileColor.value)
+
+  const profile = useSelectors((state) => state.profile.value)
   const dispatch = useDispatch()
-  const switchColor = (newColor) => {
-    dispatch(changeProfileColor(newColor))
-    handleChangedImage({ ...changedImage, profileColor: newColor, changed: true })
+  const switchColor = (newColor: string) => {
+    dispatch(changeProfile({...profile, profileColor: newColor}))
+    handleChangedImage({ ...changedImage, profileColor: newColor, changed: false })
   }
 
   const onFileChange = (event) => {
@@ -60,7 +48,6 @@ const ProfileDialogs = ({ attachment, changeAttachment, changedImage, handleChan
     reader.readAsDataURL(theFile)
   }
   const selectedImages = images[changedImage.profileColor] || images['gold']
-  // console.log(attachment)
   return (
     <>
       <div className='flex flex-col items-center gap-5 p-5'>
@@ -77,39 +64,30 @@ const ProfileDialogs = ({ attachment, changeAttachment, changedImage, handleChan
         <div className='flex justify-center'>{currentImageWillBeDeletedWhenCharacterImagesAreSelected}</div>
         <div className='flex justify-center gap-5'>
           {selectedImages.map((value, index) => {
-            return (
-              <div
-                key={profileColor + index + 1}
-                onClick={() => {
-                  // const storage = getStorage();
-                  // const reference = ref(storage, `${index ? 'plant' : 'animal'}${changedImage.profileColor}.png`);
-                  // console.log(reference)
-                  // getDownloadURL(reference).then((url) => {
-                  //   console.log(url)
-                  // })
-                  const defaultProfile = images[profileColor][index]
-                  handleChangedImage({ ...changedImage, attachment: '', profileCharacter: index ? 'plant' : 'animal', profileImage: false, defaultProfile: defaultProfile, changed: true })
-                  changeAttachment(null)
-                  const fileInput = document.getElementById('file') || { value: null }
-                  fileInput.value = null
-                  // console.log(defaultProfile)
-                  // if (index) {
-                  //   handleChangedImage({ ...profile, character: 'plant' })
-                  // } else {
-                  //   handleChangedImage({ ...profile, character: 'animal' })
-                  // }
-                }}>
-                <Avatars element={{ profileImage: true, defaultProfile: value, profileImageUrl: value }} uid='' profile={false} profileColor={''} profileUrl={value} piazza={null} />
-              </div>
-            )
+            if (profile?.profileColor === changedImage.profileColor) {
+              return (
+                <div
+                  key={profile.profileColor + index + 1}
+                  onClick={() => {
+                    const defaultProfile = images[profile?.profileColor][index]
+                    handleChangedImage({ ...changedImage, attachment: '', profileCharacter: index ? 'plant' : 'animal', profileImage: false, defaultProfile: defaultProfile, changed: true })
+                    changeAttachment(null)
+                    const fileInput = document.getElementById('file') || { value: null }
+                    fileInput.value = null
+                  }}>
+                  <Avatars element={{ profileImage: true, defaultProfile: value, profileImageUrl: value }} uid='' profile={false} profileColor={''} profileUrl={value} piazza={null} />
+                </div>
+              )
+            }
+            return null
           })}
         </div>
         <div className='flex justify-center h-5'>
-          <div className='flex justify-center rounded-xl w-10 bg-profile-red' onClick={() => switchColor('profileRed')}>{changedImage.profileColor === 'profileRed' &&
+          <div className='flex justify-center rounded-xl w-10 bg-profile-red' onClick={() => switchColor('profileRed')}>{profile?.profileColor === 'profileRed' &&
             <Check />}</div>
-          <div className='flex justify-center rounded-xl w-10 bg-profile-blue' onClick={() => switchColor('profileBlue')}>{changedImage.profileColor === 'profileBlue' &&
+          <div className='flex justify-center rounded-xl w-10 bg-profile-blue' onClick={() => switchColor('profileBlue')}>{profile?.profileColor === 'profileBlue' &&
             <Check />}</div>
-          <div className='flex justify-center rounded-xl w-10 bg-profile-amber' onClick={() => switchColor('profileGold')}>{changedImage.profileColor === 'profileGold' &&
+          <div className='flex justify-center rounded-xl w-10 bg-profile-amber' onClick={() => switchColor('profileGold')}>{profile?.profileColor === 'profileGold' &&
             <Check />}</div>
         </div>
       </div>

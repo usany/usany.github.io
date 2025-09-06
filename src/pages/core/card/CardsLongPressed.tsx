@@ -6,13 +6,7 @@ const CardsLongPressed = ({
   longPressCard,
   message,
   changeLongPressCard,
-  // changeLongPressed,
-  isOwner,
-  userObj,
-  num,
-  points,
-  deleteMessage,
-  delayedFalse
+  delayedFalse,
 }) => {
   return (
     <ClickAwayListener
@@ -28,18 +22,11 @@ const CardsLongPressed = ({
         <Draggable id={message.id}>
           <div
             className="longPress touch-none"
-          // onClick={() => {
-          //   changeLongPressed(false)
-          // }}
+            // onClick={() => {
+            //   changeLongPressed(false)
+            // }}
           >
-            <CardsViews
-              message={message}
-              isOwner={isOwner}
-              userObj={userObj}
-              num={num}
-              points={points}
-              deleteMessage={deleteMessage}
-            />
+            <CardsViews message={message} />
           </div>
         </Draggable>
       </div>

@@ -1,4 +1,5 @@
 import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit'
+import { setupListeners } from '@reduxjs/toolkit/query'
 import { bottomNavigationReducer } from 'src/stateSlices/bottomNavigationSlice'
 import { cardAccordionReducer } from 'src/stateSlices/cardAccordionSlice'
 import { completedActionReducer } from 'src/stateSlices/completedActionSlice'
@@ -10,6 +11,7 @@ import { profileImageReducer } from 'src/stateSlices/profileImageSlice'
 import { profileUrlReducer } from 'src/stateSlices/profileUrlSlice'
 import { tabsReducer } from 'src/stateSlices/tabsSlice'
 import { themeReducer } from 'src/stateSlices/themeSlice'
+import { currentUserApi } from './stateSlices/baseQuery'
 import { changingUserReducer } from './stateSlices/changingUserSlice'
 import { defaultProfileReducer } from './stateSlices/defaultProfileSlice'
 import { languagesReducer } from './stateSlices/languagesSlice'
@@ -44,15 +46,15 @@ export const store = configureStore({
     languages: languagesReducer.reducer,
     changingUser: changingUserReducer.reducer,
     onLine: onLineReducer.reducer,
+    user: currentUserApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
-      serializableCheck: false,
-    }).concat(weather.middleware),
+    getDefaultMiddleware().concat([
+      weather.middleware,
+      currentUserApi.middleware,
+    ]),
 })
-export const setupStore = () => {
-  return store
-}
+setupListeners(store.dispatch)
 
 export type AppStore = typeof store
 export type RootState = ReturnType<AppStore['getState']>

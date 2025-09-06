@@ -3,7 +3,7 @@ import TextField from "@mui/material/TextField";
 import { updatePassword } from "firebase/auth";
 import { useState } from "react";
 import { auth } from "src/baseApi/serverbase";
-import useTexts from "src/useTexts";
+import { useTexts } from "src/hooks";
 
 const ProfileMembersPasswordContent = () => {
   const [password, setPassword] = useState({

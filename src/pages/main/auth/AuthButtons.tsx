@@ -7,14 +7,13 @@ import {
   onSocialClickGoogle,
   onSocialClickMicrosoft,
 } from 'src/baseApi/serverbase'
-import { useSelectors } from 'src/hooks/useSelectors'
+import { useSelectors } from 'src/hooks'
 
 const AuthButtons = () => {
   const onLine = useSelectors((state) => state.onLine.value)
   return (
     <div className="flex justify-center">
       <div className="flex flex-col items-center justify-center w-[250px]">
-        {/* <AuthDialogs /> */}
         <div className="flex flex-col">
           <Button
             className="colorTwo"
@@ -45,12 +44,6 @@ const AuthButtons = () => {
           >
             구글 로그인
           </Button>
-          {/* <Button className='signin' sx={{ width: '50%' }} variant='outlined' onClick={onSocialClickTwitter}>트위터로 로그인</Button>
-      <Button sx={{ width: '50%', backgroundColor: '#2196f3' }} startIcon={<img src={staticFacebook} className='w-[20px]' />} variant='outlined' onClick={onSocialClick}>
-        <div className='truncate'>
-          페이스북으로 로그인
-        </div>
-      </Button> */}
           <Button
             className="colorTwo"
             variant="outlined"
@@ -59,7 +52,6 @@ const AuthButtons = () => {
           >
             곧 애플로 뵐게요
           </Button>
-          {/* <AuthDialogs /> */}
         </div>
       </div>
     </div>

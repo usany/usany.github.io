@@ -124,7 +124,19 @@
     "sendMailAgain": "메일 재전송",
     "cancelRegistration": "회원가입 철회",
     "cannotFindAnUmbrella": "우산을 찾을 수 없습니다",
-    "findingAnUmbrella": "우산을 찾고 있습니다"
+    "findingAnUmbrella": "우산을 찾고 있습니다",
+    "needNetworkConnection": "네트워크 연결이 필요합니다",
+    "areYouInCampus": "캠퍼스에 계세요?",
+    "letOthersKnowYouAreInCampusByLocationConfirmation": "위치 확인으로 캠퍼스에 있음을 알리세요.",
+    "locationConfirmationLastsUntilTheNextDay": "위치 확인은 다음날까지 지속됩니다.",
+    "loading": "로딩",
+    "failed": "로딩 실패",
+    "supervisor": "담당자",
+    "send": "전송",
+    "/profile": "프로필",
+    "/ranking": "랭킹",
+    "/piazza": "채팅",
+    "/contact": "신고"
   },
   "en": {
     "Welcome to React": "Welcome to React and react-i18next",
@@ -220,7 +232,7 @@
     "agreeOnPrivateInformationPolicy": "Agree on Privacy Policy",
     "onlyTakesOneMinuteToRegisterAccount": "It only takes 1 minute to sign up",
     "playlistReadyForYouToGetRidOfBoredom": "A playlist is ready for you to avoid boredom",
-    "needToAgreeOnPrivateInformationPolicy": "Need to agree to the privacy policy",
+    "needToAgreeOnPrivateInformationPolicy": "Need to agree on the privacy policy",
     "weatherPlaylistIsAlsoAvailableForYou": "A weather playlist is also available for you",
     "continueWithMicrosoft": "Continue with Microsoft",
     "continueWithGoogle": "Continue with Google",
@@ -251,6 +263,18 @@
     "sendMailAgain": "Send mail again",
     "cancelRegistration": "Cancel Registration",
     "cannotFindAnUmbrella": "Cannot find an Umbrella",
-    "findingAnUmbrella": "Finding an Umbrella"
+    "findingAnUmbrella": "Finding an Umbrella",
+    "needNetworkConnection": "Need Network Connection",
+    "areYouInCampus": "Are you in campus?",
+    "letOthersKnowYouAreInCampusByLocationConfirmation": "Let others know you are in campus by location confirmation.",
+    "locationConfirmationLastsUntilTheNextDay": "Location confirmation lasts until the next day.",
+    "loading": "Loading",
+    "failed": "Loading failed",
+    "supervisor": "supervisor",
+    "send": "Send",
+    "/profile": "User Profile",
+    "/ranking": "User Ranking",
+    "/piazza": "Chats",
+    "/contact": "Report"
   }
 }

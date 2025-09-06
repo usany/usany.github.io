@@ -2,7 +2,7 @@ import { useState } from "react";
 // import { Filter } from "lucide-react";
 import { Chip } from "@mui/material";
 import useCardsBackground from "src/hooks/useCardsBackground";
-import { useSelectors } from "src/hooks/useSelectors";
+import { useSelectors } from "src/hooks";
 import locationsBuildings from "src/pages/add/locationsBuildings";
 const itemsTitle = {
   ko: '우산 / 양산 선택',

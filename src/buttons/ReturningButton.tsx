@@ -1,13 +1,15 @@
 import SendIcon from '@mui/icons-material/Send'
 import Button from '@mui/material/Button'
 import { getDoc, updateDoc } from 'firebase/firestore'
-import { useSelectors } from 'src/hooks/useSelectors'
+import { useSelectors } from 'src/hooks'
 import { webSocket } from 'src/webSocket.tsx'
 import specificProcess from './specificProcess'
 
-const onReturning = async ({ message, userObj, profileUrl }) => {
-
-  const { data, messagingToken } = await specificProcess({ message: message, toUid: message.text.choose === 1 ? userObj.uid : null })
+const onReturning = async ({ message, uid, profileUrl }) => {
+  const { data, messagingToken } = await specificProcess({
+    message: message,
+    toUid: message.text.choose === 1 ? uid : null,
+  })
   const doc = await getDoc(data)
   const passingObject = {
     id: message.id,
@@ -23,14 +25,14 @@ const onReturning = async ({ message, userObj, profileUrl }) => {
   }
   updateDoc(data, {
     round: 4,
-    returningClock: new Date().toString()
+    returningClock: new Date().toString(),
   })
   webSocket.emit('returning', passingObject)
 }
 
-const ReturningButton = ({ message, userObj, increaseRound, handleReturningClock }) => {
+const ReturningButton = ({ message, increaseRound, handleReturningClock }) => {
   const languages = useSelectors((state) => state.languages.value)
-  const profileUrl = useSelectors((state) => state.profileUrl.value)
+  const profile = useSelectors((state) => state.profile.value)
 
   return (
     <Button
@@ -39,18 +41,14 @@ const ReturningButton = ({ message, userObj, increaseRound, handleReturningClock
         increaseRound()
         onReturning({
           message: message,
-          userObj: userObj,
-          profileUrl: profileUrl
+          uid: profile?.uid,
+          profileUrl: profile?.profileImage ? profile?.profileImageUrl : profile?.defaultProfile,
         })
         handleReturningClock(new Date().toString())
       }}
       startIcon={<SendIcon />}
     >
-      {languages === 'ko' ?
-        '반납하기'
-        :
-        'Return'
-      }
+      {languages === 'ko' ? '반납하기' : 'Return'}
     </Button>
   )
 }

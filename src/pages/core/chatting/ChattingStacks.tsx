@@ -1,26 +1,22 @@
-import { User } from 'firebase/auth'
 import { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
 import Chats from 'src/pages/core/chatting/Chats'
 import { webSocket } from 'src/webSocket.tsx'
 import { usePiazzaMessage } from './usePiazzaMessage'
-
-interface Props {
-  userObj: User
-}
+import { useSelectors } from 'src/hooks'
 
 const ChattingStacks = ({
-  userObj,
   chattings,
   changeChattings,
   sorted,
-}: Props) => {
+}) => {
   const [longPressChat, setLongPressChat] = useState(null)
   const [longPressChatsList, setLongPressChatsList] = useState([])
   const changeLongPressChat = (newValue) => setLongPressChat(newValue)
   const changeLongPressChatsList = (newValue) => setLongPressChatsList(newValue)
   const [onLongPress, setOnLongPress] = useState(0)
   const changeOnLongPress = (newValue) => setOnLongPress(newValue)
+  const profile = useSelectors((state) => state.profile.value)
+
   useEffect(() => {
     if (!onLongPress) {
       setLongPressChat(null)
@@ -32,7 +28,7 @@ const ChattingStacks = ({
     }
   }, [longPressChat])
 
-  const piazzaSwitch = useSelector<boolean>((state) => state.piazzaSwitch.value)
+  const piazzaSwitch = useSelectors((state) => state.piazzaSwitch.value)
   if (piazzaSwitch === 'true') {
     if (sorted.indexOf('piazza') === -1) {
       sorted.splice(0, 0, 'piazza')
@@ -43,7 +39,7 @@ const ChattingStacks = ({
   useEffect(() => {
     if (!webSocket) return
     function sMessageCallback(message) {
-      const { msg, userUid, id, target, messageClock, conversation } = message
+      const { msg, id, messageClock } = message
       changePiazzaMessage({
         message: msg,
         messageClock: messageClock,
@@ -64,7 +60,6 @@ const ChattingStacks = ({
         msg,
         userUid,
         id,
-        target,
         messageClock,
         messageClockNumber,
         conversation,
@@ -123,7 +118,6 @@ const ChattingStacks = ({
         msg,
         userUid,
         id,
-        target,
         messageClock,
         messageClockNumber,
         conversation,
@@ -176,14 +170,13 @@ const ChattingStacks = ({
   console.log(chattings)
   return (
     <>
-      {sorted.map((element, index) => {
+      {sorted.map((element) => {
         if (element === 'piazza') {
           const message = navigator.onLine ? piazzaMessage : JSON.parse(localStorage.getItem('group') || '{}')
           const clock = new Date(message?.messageClock)
           return (
             <>
               <Chats
-                userObj={userObj}
                 profileUrl={''}
                 conversation={element}
                 displayName={''}
@@ -210,7 +203,7 @@ const ChattingStacks = ({
             let displayName
             let chattingUid
             let profileUrl
-            if (userObj.uid === messages[element].userOne) {
+            if (profile?.uid === messages[element].userOne) {
               displayName = messages[element].userTwoDisplayName
               chattingUid = messages[element].userTwo
               profileUrl = messages[element].userTwoProfileUrl
@@ -222,7 +215,6 @@ const ChattingStacks = ({
             return (
               <>
                 <Chats
-                  userObj={userObj}
                   profileUrl={profileUrl}
                   conversation={element}
                   displayName={displayName}

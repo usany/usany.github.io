@@ -1,12 +1,15 @@
 import SendIcon from '@mui/icons-material/Send'
 import Button from '@mui/material/Button'
 import { getDoc, updateDoc } from 'firebase/firestore'
-import { useSelectors } from 'src/hooks/useSelectors'
+import { useSelectors } from 'src/hooks'
 import { webSocket } from 'src/webSocket.tsx'
 import specificProcess from './specificProcess'
 
-const onConfirm = async ({ message, userObj, profileUrl }) => {
-  const { data, messagingToken } = await specificProcess({ message: message, toUid: userObj.uid })
+const onConfirm = async ({ message, uid, profileUrl }) => {
+  const { data, messagingToken } = await specificProcess({
+    message: message,
+    toUid: uid,
+  })
   console.log(data)
   const doc = await getDoc(data)
   const passingObject = {
@@ -28,9 +31,9 @@ const onConfirm = async ({ message, userObj, profileUrl }) => {
   webSocket.emit('confirm', passingObject)
 }
 
-const ConfirmButton = ({ message, userObj, increaseRound, handleConfirmingClock }) => {
+const ConfirmButton = ({ message, increaseRound, handleConfirmingClock }) => {
   const languages = useSelectors((state) => state.languages.value)
-  const profileUrl = useSelectors((state) => state.profileUrl.value)
+  const profile = useSelectors((state) => state.profile.value)
 
   return (
     <Button
@@ -38,19 +41,15 @@ const ConfirmButton = ({ message, userObj, increaseRound, handleConfirmingClock 
       onClick={() => {
         onConfirm({
           message: message,
-          userObj: userObj,
-          profileUrl: profileUrl,
+          uid: profile?.uid,
+          profileUrl: profile?.profileImage ? profile?.profileImageUrl : profile?.defaultProfile,
         })
         increaseRound()
         handleConfirmingClock(new Date().toString())
       }}
       startIcon={<SendIcon />}
     >
-      {languages === 'ko' ?
-        '승낙 메시지 확인'
-        :
-        'Confirm support message'
-      }
+      {languages === 'ko' ? '승낙 메시지 확인' : 'Confirm support message'}
     </Button>
   )
 }

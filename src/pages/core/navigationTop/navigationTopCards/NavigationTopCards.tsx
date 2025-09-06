@@ -1,28 +1,29 @@
 import Divider from "@mui/material/Divider";
 import { CreditCard } from "lucide-react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { useSelectors } from "src/hooks";
 import {
   cardOff,
   cardOn
 } from "src/stateSlices/cardAccordionSlice";
 
 const NavigationTopCards = () => {
-  const cardAccordion = useSelector((state) => state.cardAccordion.value);
+  const cardAccordion = useSelectors((state) => state.cardAccordion.value);
   const dispatch = useDispatch();
 
   return (
     <div className="flex flex-col h-[48px]">
       <div className="flex justify-center w-16 h-[45px] pt-3">
-        {cardAccordion ? (
-          <CreditCard
-            color="#2196f3"
-            onClick={() =>
+        <CreditCard
+          color={cardAccordion? "#2196f3":undefined}
+          onClick={() => {
+            if (cardAccordion) {
               dispatch(cardOff())
+            } else {
+              dispatch(cardOn())
             }
-          />
-        ) : (
-          <CreditCard onClick={() => dispatch(cardOn())} />
-        )}
+          }}
+        />
       </div>
       <Divider
         sx={{

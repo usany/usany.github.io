@@ -5,24 +5,14 @@ import CardMedia from '@mui/material/CardMedia'
 import { Building, Watch } from 'lucide-react'
 import { useSelector } from 'react-redux'
 import { AnimatedList } from 'src/components/ui/animated-list'
-import { useSelectors } from 'src/hooks/useSelectors'
+import { useSelectors } from 'src/hooks'
 import Avatars from 'src/pages/core/Avatars'
 import { staticArray } from '../core/card/CardView'
 import locationsBuildings from './locationsBuildings'
 import locationsCollection from './locationsCollection'
 import locationsCollectionLetters from './locationsCollectionLetters'
 
-const AddCards = ({
-  borrow,
-  userObj,
-  addSteps,
-  item,
-  fromTo,
-  locationState,
-  display,
-}) => {
-  const profileColor = useSelector((state) => state.profileColor.value)
-  const profileUrl = useSelector((state) => state.profileUrl.value)
+const AddCards = ({ borrow, item, fromTo, locationState, display }) => {
   const profile = useSelector((state) => state.profile.value)
   const shadowColorArray = [
     'lightblue',
@@ -44,8 +34,8 @@ const AddCards = ({
   if (display) {
     shadowColor =
       shadowColorArray[
-      letters.indexOf(String(display.id[0]).toUpperCase()) %
-      shadowColorArray.length
+        letters.indexOf(String(display.id[0]).toUpperCase()) %
+          shadowColorArray.length
       ]
   }
   const languages = useSelectors((state) => state.languages.value)
@@ -55,7 +45,7 @@ const AddCards = ({
     <div className="flex justify-center text-sm pt-5 p-1">
       <AnimatedList>
         <Card
-          className='colorTwo'
+          className="colorTwo"
           sx={{
             width: 200 * 0.9,
             height: 280 * 0.9,
@@ -65,47 +55,77 @@ const AddCards = ({
           <CardContent sx={{ padding: '5px' }}>
             <div>
               <div className="flex justify-between gap-1">
-                <Avatars
-                  element={profile}
-                  uid={userObj.uid}
-                  profile={false}
-                  profileColor={profileColor}
-                  profileUrl={profileUrl}
-                />
-                {item &&
-                  <div className='flex items-center'>
-                    <Chip label={
-                      <div className='text-xs'>
-                        {languages === 'ko' ? item : (item === '우산' ? 'Umbrella' : 'Yangsan')} {languages === 'ko' ? (borrow ? ' 빌리기' : ' 빌려주기') : (borrow ? ' borrowing' : ' lending')}
-                      </div>
-                    } />
-                    {/* <Chips label={`${item} ${borrow ? ' 빌리기' : ' 빌려주기'}`} onClick={null} /> */}
+                <Avatars element={profile} profile={false} piazza={null} />
+                {item && (
+                  <div className="flex items-center">
+                    <Chip
+                      label={
+                        <div className="text-xs">
+                          {languages === 'ko'
+                            ? item
+                            : item === '우산'
+                            ? 'Umbrella'
+                            : 'Yangsan'}{' '}
+                          {languages === 'ko'
+                            ? borrow
+                              ? ' 빌리기'
+                              : ' 빌려주기'
+                            : borrow
+                            ? ' borrowing'
+                            : ' lending'}
+                        </div>
+                      }
+                    />
                   </div>
-                }
+                )}
               </div>
-              {!item ?
-                <div className="flex justify-center pt-5">{languages === 'ko' ? '빈 카드입니다' : 'Empty card'}</div>
-                :
+              {!item ? (
+                <div className="flex justify-center pt-5">
+                  {languages === 'ko' ? '빈 카드입니다' : 'Empty card'}
+                </div>
+              ) : (
                 <div>
                   {locationState.locationOne && (
                     <div className="flex justify-center pt-1">
-                      <CardMedia sx={{
-                        width: 159 * 0.9,
-                        height: 141 * 0.9,
-                      }} image={staticImg} />
+                      <CardMedia
+                        sx={{
+                          width: 159 * 0.9,
+                          height: 141 * 0.9,
+                        }}
+                        image={staticImg}
+                      />
                     </div>
                   )}
                   <div className="flex flex-col pt-1 gap-1 text-xs">
                     {locationState && (
                       <div className="flex gap-1 items-center">
-                        {locationState?.locationOne &&
-                          <Building />
-                        }
-                        <div className='flex items-center'>
-                          {languages === 'ko' ? locationState?.locationOne : locationsBuildings['en'][locationsBuildings['ko'].indexOf(locationState?.locationOne)]}
-                          {' '}
-                          {languages === 'ko' ? locationState?.locationTwo : (locationState?.locationOne && locationsCollection['en'][Object.keys(locationsCollectionLetters).find((key) => locationsCollectionLetters[key] === locationState?.locationOne)][locationsCollection['ko'][Object.keys(locationsCollectionLetters).find((key) => locationsCollectionLetters[key] === locationState?.locationOne)].indexOf(locationState?.locationTwo)])}
-                          {' '}
+                        {locationState?.locationOne && <Building />}
+                        <div className="flex items-center">
+                          {languages === 'ko'
+                            ? locationState?.locationOne
+                            : locationsBuildings['en'][
+                                locationsBuildings['ko'].indexOf(
+                                  locationState?.locationOne,
+                                )
+                              ]}{' '}
+                          {languages === 'ko'
+                            ? locationState?.locationTwo
+                            : locationState?.locationOne &&
+                              locationsCollection['en'][
+                                Object.keys(locationsCollectionLetters).find(
+                                  (key) =>
+                                    locationsCollectionLetters[key] ===
+                                    locationState?.locationOne,
+                                )
+                              ][
+                                locationsCollection['ko'][
+                                  Object.keys(locationsCollectionLetters).find(
+                                    (key) =>
+                                      locationsCollectionLetters[key] ===
+                                      locationState?.locationOne,
+                                  )
+                                ].indexOf(locationState?.locationTwo)
+                              ]}{' '}
                           {locationState?.locationThree}
                         </div>
                       </div>
@@ -113,11 +133,11 @@ const AddCards = ({
                     {fromTo.from && (
                       <div className="flex gap-1 items-center">
                         <Watch />
-                        <div className='flex flex-col justify-center'>
-                          <div className='flex'>
-                            {languages === 'en' &&
-                              <div className='w-[40px]'>From</div>
-                            }
+                        <div className="flex flex-col justify-center">
+                          <div className="flex">
+                            {languages === 'en' && (
+                              <div className="w-[40px]">From</div>
+                            )}
                             {fromTo.from.year}.{fromTo.from.month < 10 && '0'}
                             {fromTo.from.month}.{fromTo.from.day < 10 && '0'}
                             {fromTo.from.day} {fromTo.from.hour < 10 && '0'}
@@ -126,9 +146,9 @@ const AddCards = ({
                           </div>
                           {fromTo.to && (
                             <div className="flex">
-                              {languages === 'en' &&
-                                <div className='w-[40px]'>To</div>
-                              }
+                              {languages === 'en' && (
+                                <div className="w-[40px]">To</div>
+                              )}
                               {fromTo.to.year}.{fromTo.to.month < 10 && '0'}
                               {fromTo.to.month}.{fromTo.from.day < 10 && '0'}
                               {fromTo.to.day} {fromTo.to.hour < 10 && '0'}
@@ -141,7 +161,7 @@ const AddCards = ({
                     )}
                   </div>
                 </div>
-              }
+              )}
             </div>
           </CardContent>
         </Card>
