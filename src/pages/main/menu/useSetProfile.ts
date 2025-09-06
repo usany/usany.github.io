@@ -11,11 +11,9 @@ const useSetProfile = (userObj: User) => {
     const setProfile = async () => {
       const docRef = doc(dbservice, `members/${userObj?.uid}`)
       const docSnap = await getDoc(docRef)
-      const userColor = docSnap.data()?.profileColor || '#2196f3'
       const userImage = docSnap.data()?.profileImageUrl || 'null'
       const userProfileImage = docSnap.data()?.profileImage || false
       const userDefaultProfile = docSnap.data()?.defaultProfile || 'null'
-      dispatch(changeProfileColor(userColor))
       if (userProfileImage) {
         dispatch(changeProfileUrl(userImage))
       } else {
