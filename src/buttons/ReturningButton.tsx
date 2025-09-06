@@ -32,7 +32,6 @@ const onReturning = async ({ message, uid, profileUrl }) => {
 
 const ReturningButton = ({ message, increaseRound, handleReturningClock }) => {
   const languages = useSelectors((state) => state.languages.value)
-  const profileUrl = useSelectors((state) => state.profileUrl.value)
   const profile = useSelectors((state) => state.profile.value)
 
   return (
@@ -43,7 +42,7 @@ const ReturningButton = ({ message, increaseRound, handleReturningClock }) => {
         onReturning({
           message: message,
           uid: profile?.uid,
-          profileUrl: profileUrl,
+          profileUrl: profile?.profileImage ? profile?.profileImageUrl : profile?.defaultProfile,
         })
         handleReturningClock(new Date().toString())
       }}

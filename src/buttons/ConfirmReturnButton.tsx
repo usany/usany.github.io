@@ -104,7 +104,6 @@ const ConfirmReturnButton = ({
   handleConfirmedReturnClock,
 }: Props) => {
   const languages = useSelectors((state) => state.languages.value)
-  const profileUrl = useSelectors((state) => state.profileUrl.value)
   const profile = useSelectors((state) => state.profile.value)
 
   return (
@@ -116,7 +115,7 @@ const ConfirmReturnButton = ({
           points: points,
           message: message,
           uid: profile?.uid,
-          profileUrl: profileUrl,
+          profileUrl: profile?.profileImage ? profile?.profileImageUrl : profile?.defaultProfile,
         })
         increaseRound()
         handleConfirmedReturnClock(new Date().toString())

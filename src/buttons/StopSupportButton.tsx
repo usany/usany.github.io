@@ -53,7 +53,6 @@ const StopSupportButton = ({
   handleConnectedClock,
 }) => {
   const languages = useSelectors((state) => state.languages.value)
-  const profileUrl = useSelectors((state) => state.profileUrl.value)
   const profile = useSelectors((state) => state.profile.value)
 
   return (
@@ -68,7 +67,7 @@ const StopSupportButton = ({
             onStopSupporting({
               message: message,
               profile: { uid: profile?.uid, displayName: profile?.displayName },
-              profileUrl: profileUrl,
+              profileUrl: profile?.profileImage ? profile?.profileImageUrl : profile?.defaultProfile,
             })
             decreaseRound()
             changeConnectedUser({

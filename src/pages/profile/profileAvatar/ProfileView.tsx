@@ -10,7 +10,6 @@ const ProfileView = ({
   changeAttachment,
   handleChangedImage,
 }) => {
-  const profileUrl = useSelector((state) => state.profileUrl.value)
   const profile = useSelector((state) => state.profile.value)
   return (
     <div
@@ -35,7 +34,7 @@ const ProfileView = ({
             </button>
           }
         >
-          {profileUrl ? (
+          {profile ? (
             <Avatars element={profile} piazza={null} profile={true} />
           ) : (
             <LoadingsSkeletons height={'[192px]'} width={'[192px]'} />
