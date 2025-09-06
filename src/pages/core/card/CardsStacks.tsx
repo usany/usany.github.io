@@ -7,7 +7,7 @@ import { DocumentData } from 'firebase/firestore'
 
 function CardsStacks() {
   const profile = useSelectors((state) => state.profile.value)
-  const { messages, cardLoaded }: { messages: DocumentData, cardLoaded: boolean } = useBringCards(profile)
+  const { messages, cardLoaded }: { messages: DocumentData[], cardLoaded: boolean } = useBringCards(profile)
 
   return (
     <div>
@@ -16,7 +16,7 @@ function CardsStacks() {
       }
       {(!navigator.onLine || cardLoaded) && (
         <div>
-          {navigator.onLine && !messages.filter((value) => {
+          {navigator.onLine && !messages.filter((value: DocumentData) => {
             if (value.round !== 5) return value
           }).length ? (
             <EmptyCard />

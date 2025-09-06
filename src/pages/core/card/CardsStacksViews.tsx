@@ -1,6 +1,6 @@
 import { DndContext } from '@dnd-kit/core';
 import { User } from 'firebase/auth';
-import { deleteDoc, doc, getDoc, updateDoc } from "firebase/firestore";
+import { deleteDoc, doc, DocumentData, getDoc, updateDoc } from "firebase/firestore";
 import { useState } from 'react';
 import { dbservice } from 'src/baseApi/serverbase';
 import CardDroppable from './CardsDroppable';
@@ -36,7 +36,7 @@ const handleDelete = async ({
 const CardsStacksViews = ({
   messages,
 }: {
-  messages: { round: number; creatorId: string }[]
+  messages: DocumentData[]
 }) => {
   const [longPressCard, setLongPressCard] = useState('')
   const profile = useSelectors((state) => state.profile.value)
