@@ -39,7 +39,6 @@ const CardsStacksViewsCollection = ({
       className="grid grid-cols-[repeat(auto-fit,minmax(180px,1fr))] col-span-full"
     >
       {messagesArray.map((value, index) => {
-        const isOwner = value.creatorId === profile?.uid
         if (value.round !== 5) {
           if (
             value.creatorId === profile?.uid ||
@@ -53,9 +52,6 @@ const CardsStacksViewsCollection = ({
               >
                 <Cards
                   message={value}
-                  isOwner={isOwner}
-                  num={null}
-                  points={null}
                   longPressCard={longPressCard}
                   changeLongPressCard={changeLongPressCard}
                   deleteMessage={deleteMessage}

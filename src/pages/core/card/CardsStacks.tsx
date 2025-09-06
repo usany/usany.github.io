@@ -1,4 +1,3 @@
-import { User } from 'firebase/auth'
 import { Skeleton } from 'src/components/ui/skeleton'
 import CardsStacksViews from './CardsStacksViews'
 import EmptyCard from './EmptyCard'

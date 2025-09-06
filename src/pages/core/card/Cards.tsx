@@ -14,9 +14,6 @@ interface Props {
 
 const Cards = ({
   message,
-  isOwner,
-  num,
-  points,
   longPressCard,
   changeLongPressCard,
   deleteMessage,
@@ -50,9 +47,6 @@ const Cards = ({
           location.pathname === '/profile' ? (
             <MorphingDialogs
               message={message}
-              isOwner={isOwner}
-              num={num}
-              points={points}
               round={round}
               increaseRound={increaseRound}
               decreaseRound={decreaseRound}
