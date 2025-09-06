@@ -3,7 +3,6 @@ import { doc, getDoc, updateDoc } from 'firebase/firestore'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { dbservice, messaging, storage } from 'src/baseApi/serverbase'
-import { changeProfileColor } from 'src/stateSlices/profileColorSlice'
 import { changeProfileUrl } from 'src/stateSlices/profileUrlSlice'
 const useSetProfile = (userObj: User) => {
   const dispatch = useDispatch()

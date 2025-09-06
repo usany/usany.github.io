@@ -33,8 +33,8 @@ const onConfirm = async ({ message, uid, profileUrl }) => {
 
 const ConfirmButton = ({ message, increaseRound, handleConfirmingClock }) => {
   const languages = useSelectors((state) => state.languages.value)
-  const profileUrl = useSelectors((state) => state.profileUrl.value)
   const profile = useSelectors((state) => state.profile.value)
+
   return (
     <Button
       variant="outlined"
@@ -42,7 +42,7 @@ const ConfirmButton = ({ message, increaseRound, handleConfirmingClock }) => {
         onConfirm({
           message: message,
           uid: profile?.uid,
-          profileUrl: profileUrl,
+          profileUrl: profile?.profileImage ? profile?.profileImageUrl : profile?.defaultProfile,
         })
         increaseRound()
         handleConfirmingClock(new Date().toString())
