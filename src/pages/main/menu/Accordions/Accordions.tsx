@@ -48,7 +48,7 @@ function Accordions() {
           dispatch(messageOn())
         }
       },
-      content: <MessageStacks userObj={profile} />,
+      content: <MessageStacks />,
     },
   ]
   return (

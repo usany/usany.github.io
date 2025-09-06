@@ -13,7 +13,6 @@ const MessageStacks = () => {
     <div className="flex flex-col gap-1 w-full">
       {navigator.onLine && chattingNone && <EmptyChattingStacks index={index} />}
       <ChattingStacks
-        userObj={profile}
         chattings={chattingsArray}
         changeChattings={changeChattings}
         sorted={sorted}
