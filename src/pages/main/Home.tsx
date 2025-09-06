@@ -31,13 +31,9 @@ function Home() {
   return (
     <>
       {profile?.certificated ? (
-        <>
-          {bottomNavigation === 1 && <Menu userObj={profile} />}
-        </>
+        <Menu userObj={profile} />
       ) : (
-        <>
-          {bottomNavigation === 1 && <Auth userObj={profile} />}
-        </>
+        <Auth userObj={profile} />
       )}
     </>
   )
