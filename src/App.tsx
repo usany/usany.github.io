@@ -3,6 +3,8 @@ import { ThemeProvider } from '@mui/material/styles'
 import Router from 'src/pages/core/router/Router'
 import { useNetwork, useSelectors, useUserObject, useColors } from './hooks'
 import 'src/global.css'
+import useGetToken from './pages/main/menu/useGetToken'
+import useContextMenu from './pages/main/menu/useContextMenu'
 
 function App() {
   // const [count, setCount] = useState(0)
@@ -11,6 +13,8 @@ function App() {
   const { lightTheme, darkTheme } = useColors()
   useUserObject()
   useNetwork()
+  useContextMenu()
+  useGetToken()
   return (
     <>
       <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>

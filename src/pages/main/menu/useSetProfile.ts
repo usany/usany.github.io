@@ -13,11 +13,6 @@ const useSetProfile = (userObj: User) => {
       const userImage = docSnap.data()?.profileImageUrl || 'null'
       const userProfileImage = docSnap.data()?.profileImage || false
       const userDefaultProfile = docSnap.data()?.defaultProfile || 'null'
-      if (userProfileImage) {
-        dispatch(changeProfileUrl(userImage))
-      } else {
-        dispatch(changeProfileUrl(userDefaultProfile))
-      }
     }
     setProfile()
   }, [userObj])
