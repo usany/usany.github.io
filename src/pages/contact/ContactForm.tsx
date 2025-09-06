@@ -19,16 +19,8 @@ const reportContent = {
   ko: '신고하기 내용',
   en: 'Report Content',
 }
-interface Props {
-  user: {
-    profileImage: boolean
-    profileImageUrl: string
-    defaultProfile: string
-    displayName: string
-  } | null
-}
 
-function ContactForm({ user }: Props) {
+function ContactForm() {
   const { state } = useLocation()
   const user = state?.user
   const [messageTitle, setMessageTitle] = useState('')
