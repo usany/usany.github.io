@@ -23,9 +23,7 @@ function Accordions() {
       id: 'cardAccordion',
       item: <div className='flex gap-5'>
         <CreditCard />
-        <>
-          {card}
-        </>
+        {card}
       </div>,
       onClick: () => {
         if (cardAccordion) {
@@ -41,9 +39,7 @@ function Accordions() {
       id: 'messageAccordion',
       item: <div className='flex gap-5'>
         <MessageCircleIcon />
-        <>
-          {message}
-        </>
+        {message}
       </div>,
       onClick: () => {
         if (messageAccordion) {
