@@ -6,7 +6,6 @@ import ContactForm from 'src/pages/contact/ContactForm'
 import PageTitle from 'src/pages/core/pageTitle/PageTitle'
 
 function Contact() {
-  const { state } = useLocation()
   const profile = useSelectors((state) => state.profile.value)
   const {report, sending, receiving, supervisor} = useTexts()
   return (
@@ -16,7 +15,7 @@ function Contact() {
         <ContactAddress action={sending} label={profile?.displayName} />
       )}
       <ContactAddress action={receiving} label={supervisor} />
-      <ContactForm user={state?.user} />
+      <ContactForm />
     </>
   )
 }

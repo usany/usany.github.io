@@ -9,6 +9,7 @@ import ContactDrawersTrigger from './ContactDrawersTrigger'
 import ContactDrawersTitle from './ContactDrawersTitle'
 import ContactDrawersContent from './ContactDrawersContent'
 import Popups from '../core/Popups'
+import { useLocation } from 'react-router-dom'
 
 const reportTitle = {
   ko: '신고하기 제목',
@@ -28,6 +29,8 @@ interface Props {
 }
 
 function ContactForm({ user }: Props) {
+  const { state } = useLocation()
+  const user = state?.user
   const [messageTitle, setMessageTitle] = useState('')
   const [messageContent, setMessageContent] = useState('')
   const [violationUser, setViolationUser] = useState<{
