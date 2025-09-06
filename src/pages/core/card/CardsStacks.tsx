@@ -3,10 +3,11 @@ import CardsStacksViews from './CardsStacksViews'
 import EmptyCard from './EmptyCard'
 import { useBringCards } from './useBringCards'
 import { useSelectors } from 'src/hooks'
+import { DocumentData } from 'firebase/firestore'
 
 function CardsStacks() {
   const profile = useSelectors((state) => state.profile.value)
-  const { messages, cardLoaded, }: { messages: { round: number; creatorId: string }[]; cardLoaded: boolean } = useBringCards(profile)
+  const { messages, cardLoaded }: { messages: DocumentData, cardLoaded: boolean } = useBringCards(profile)
 
   return (
     <div>
