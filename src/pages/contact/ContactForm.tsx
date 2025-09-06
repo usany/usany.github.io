@@ -79,7 +79,7 @@ function ContactForm() {
       <div className="flex justify-center pt-5 px-5">
         <TextField
           name="title"
-          label={reportTitle[index]}
+          label={reportTitle}
           multiline
           value={messageTitle}
           onChange={onChangeMessageTitle}
@@ -90,7 +90,7 @@ function ContactForm() {
       <div className="flex justify-center pt-5 px-5">
         <TextField
           name="content"
-          label={reportContent[index]}
+          label={reportContent}
           multiline
           rows={5}
           value={messageContent}
