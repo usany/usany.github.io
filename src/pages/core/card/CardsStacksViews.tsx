@@ -27,7 +27,7 @@ const handleDelete = async ({
   await deleteDoc(doc(dbservice, `num/${id}`));
   const userRef = doc(dbservice, `members/${profile?.uid}`)
   const userSnap = await getDoc(userRef)
-  const newMessages = userSnap.data()?.createdCards.filter((element) => element !== id)
+  const newMessages = userSnap.data()?.createdCards.filter((element: string) => element !== id)
   updateDoc(userRef, { createdCards: newMessages })
   deleteMessage(messageId)
   changeLongPressCard(null)
