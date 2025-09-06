@@ -55,7 +55,6 @@ const CardsStacksViewsCollection = ({
                 <Cards
                   message={value}
                   isOwner={isOwner}
-                  userObj={profile}
                   num={null}
                   points={null}
                   longPressCard={longPressCard}
