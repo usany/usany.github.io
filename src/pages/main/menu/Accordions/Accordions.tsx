@@ -32,7 +32,7 @@ function Accordions() {
           dispatch(cardOn())
         }
       },
-      content: <CardsStacks userObj={profile} />,
+      content: <CardsStacks />,
     },
     {
       value: 'item-2',
