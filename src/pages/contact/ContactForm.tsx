@@ -32,7 +32,6 @@ function ContactForm() {
     displayName: string
   } | null>(null)
   const [initialViolationUser, setInitialViolationUser] = useState(true)
-  const languages = useSelectors((state) => state.languages.value)
   const profile = useSelectors((state) => state.profile.value)
   const {send, reportTitle, reportContent} = useTexts()
   useEffect(() => {
