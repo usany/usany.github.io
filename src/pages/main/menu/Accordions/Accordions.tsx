@@ -1,5 +1,4 @@
 import { Accordion, AccordionItem } from '@/components/ui/accordion'
-import { User } from 'firebase/auth'
 import { CreditCard, MessageCircleIcon } from 'lucide-react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useSelectors } from 'src/hooks'
@@ -13,8 +12,8 @@ import AccordionsTriggers from './AccordionsTriggers'
 // import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 function Accordions() {
-  const cardAccordion = useSelector((state) => state.cardAccordion.value)
-  const messageAccordion = useSelector((state) => state.messageAccordion.value)
+  const cardAccordion = useSelectors((state) => state.cardAccordion.value)
+  const messageAccordion = useSelectors((state) => state.messageAccordion.value)
   const dispatch = useDispatch()
   const { card, message } = useTexts()
   const profile = useSelectors((state) => state.profile.value)
