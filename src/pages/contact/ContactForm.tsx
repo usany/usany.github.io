@@ -11,15 +11,6 @@ import ContactDrawersContent from './ContactDrawersContent'
 import Popups from '../core/Popups'
 import { useLocation } from 'react-router-dom'
 
-// const reportTitle = {
-//   ko: '신고하기 제목',
-//   en: 'Report Title',
-// }
-// const reportContent = {
-//   ko: '신고하기 내용',
-//   en: 'Report Content',
-// }
-
 function ContactForm() {
   const { state } = useLocation()
   const user = state?.user
