@@ -3,7 +3,7 @@ import TextField from '@mui/material/TextField'
 import { addDoc, collection } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 import { dbservice } from 'src/baseApi/serverbase'
-import { useSelectors } from 'src/hooks'
+import { useSelectors, useTexts } from 'src/hooks'
 import ContactFormDrawers from 'src/pages/contact/ContactFormDrawers'
 import ContactDrawersTrigger from './ContactDrawersTrigger'
 import ContactDrawersTitle from './ContactDrawersTitle'
@@ -28,10 +28,6 @@ interface Props {
 }
 
 function ContactForm({ user }: Props) {
-  // const [message, setMessage] = useState({
-  //   'title': '',
-  //   'content': ''
-  // })
   const [messageTitle, setMessageTitle] = useState('')
   const [messageContent, setMessageContent] = useState('')
   const [violationUser, setViolationUser] = useState<{
@@ -44,6 +40,7 @@ function ContactForm({ user }: Props) {
   const languages = useSelectors((state) => state.languages.value)
   const index = languages === 'ko' || languages === 'en' ? languages : 'ko'
   const profile = useSelectors((state) => state.profile.value)
+  const {send} = useTexts()
   useEffect(() => {
     if (user && initialViolationUser) {
       setViolationUser(user)
@@ -69,12 +66,6 @@ function ContactForm({ user }: Props) {
     }
   }
 
-  // const onChangeMessage = (event: { target: { name: string, value: string } }) => {
-  //   const {
-  //     target: { name, value }
-  //   } = event
-  //   setMessage({ ...message, [name]: value })
-  // }
   const onChangeMessageContent = (event: { target: { value: string } }) => {
     const {
       target: { value },
@@ -132,11 +123,11 @@ function ContactForm({ user }: Props) {
 
         {messageTitle && messageContent ? (
           <Button variant="outlined" form="auth" onClick={onSubmit}>
-            {languages === 'ko' ? '전송' : 'send'}
+            {send}
           </Button>
         ) : (
           <Button variant="outlined" form="auth" disabled>
-            {languages === 'ko' ? '전송' : 'send'}
+            {send}
           </Button>
         )}
       </div>
