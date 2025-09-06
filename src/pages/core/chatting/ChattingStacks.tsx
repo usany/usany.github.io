@@ -39,7 +39,7 @@ const ChattingStacks = ({
   useEffect(() => {
     if (!webSocket) return
     function sMessageCallback(message) {
-      const { msg, userUid, id, target, messageClock, conversation } = message
+      const { msg, id, messageClock } = message
       changePiazzaMessage({
         message: msg,
         messageClock: messageClock,
@@ -60,7 +60,6 @@ const ChattingStacks = ({
         msg,
         userUid,
         id,
-        target,
         messageClock,
         messageClockNumber,
         conversation,
@@ -119,7 +118,6 @@ const ChattingStacks = ({
         msg,
         userUid,
         id,
-        target,
         messageClock,
         messageClockNumber,
         conversation,
@@ -172,7 +170,7 @@ const ChattingStacks = ({
   console.log(chattings)
   return (
     <>
-      {sorted.map((element, index) => {
+      {sorted.map((element) => {
         if (element === 'piazza') {
           const message = navigator.onLine ? piazzaMessage : JSON.parse(localStorage.getItem('group') || '{}')
           const clock = new Date(message?.messageClock)
