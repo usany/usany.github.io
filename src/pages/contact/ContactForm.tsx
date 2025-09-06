@@ -11,14 +11,14 @@ import ContactDrawersContent from './ContactDrawersContent'
 import Popups from '../core/Popups'
 import { useLocation } from 'react-router-dom'
 
-const reportTitle = {
-  ko: '신고하기 제목',
-  en: 'Report Title',
-}
-const reportContent = {
-  ko: '신고하기 내용',
-  en: 'Report Content',
-}
+// const reportTitle = {
+//   ko: '신고하기 제목',
+//   en: 'Report Title',
+// }
+// const reportContent = {
+//   ko: '신고하기 내용',
+//   en: 'Report Content',
+// }
 
 function ContactForm() {
   const { state } = useLocation()
@@ -35,7 +35,7 @@ function ContactForm() {
   const languages = useSelectors((state) => state.languages.value)
   const index = languages === 'ko' || languages === 'en' ? languages : 'ko'
   const profile = useSelectors((state) => state.profile.value)
-  const {send} = useTexts()
+  const {send, reportTitle, reportContent} = useTexts()
   useEffect(() => {
     if (user && initialViolationUser) {
       setViolationUser(user)
