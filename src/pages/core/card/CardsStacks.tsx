@@ -7,7 +7,7 @@ import { useSelectors } from 'src/hooks'
 
 function CardsStacks() {
   const profile = useSelectors((state) => state.profile.value)
-  const { messages, cardLoaded, }: { messages: { round: number; creatorId: string }[]; cardLoaded: boolean } = useBringCards(userObj)
+  const { messages, cardLoaded, }: { messages: { round: number; creatorId: string }[]; cardLoaded: boolean } = useBringCards(profile)
 
   return (
     <div>
