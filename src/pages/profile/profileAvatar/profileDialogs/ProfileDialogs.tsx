@@ -1,4 +1,3 @@
-// import { useAvatarColorStore, useAvatarImageStore } from 'src/store'
 import { Button } from '@mui/material';
 import { Check } from 'lucide-react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -22,18 +21,6 @@ const images = {
 }
 const ProfileDialogs = ({ attachment, changeAttachment, changedImage, handleChangedImage }) => {
   const { currentImageWillBeDeletedWhenCharacterImagesAreSelected, uploadMyFile, save } = useTexts()
-  // const [copyingProfile, setCopyingProfile] = useState({
-  //   profileImage: false,
-  //   defaultProfile: '',
-  //   profileImageUrl: '',
-  //   profileColor: '',
-  //   initial: true
-  // })
-  // useEffect(() => {
-  //   if (copyingProfile.initial) {
-  //     setCopyingProfile(profile)
-  //   }
-  // }, [])
   
   const profile = useSelector((state) => state.profile.value)
   const profileColor = useSelector(state => state.profileColor.value)
@@ -61,7 +48,6 @@ const ProfileDialogs = ({ attachment, changeAttachment, changedImage, handleChan
     reader.readAsDataURL(theFile)
   }
   const selectedImages = images[changedImage.profileColor] || images['gold']
-  // console.log(attachment)
   return (
     <>
       <div className='flex flex-col items-center gap-5 p-5'>
@@ -82,23 +68,11 @@ const ProfileDialogs = ({ attachment, changeAttachment, changedImage, handleChan
               <div
                 key={profileColor + index + 1}
                 onClick={() => {
-                  // const storage = getStorage();
-                  // const reference = ref(storage, `${index ? 'plant' : 'animal'}${changedImage.profileColor}.png`);
-                  // console.log(reference)
-                  // getDownloadURL(reference).then((url) => {
-                  //   console.log(url)
-                  // })
                   const defaultProfile = images[profileColor][index]
                   handleChangedImage({ ...changedImage, attachment: '', profileCharacter: index ? 'plant' : 'animal', profileImage: false, defaultProfile: defaultProfile, changed: true })
                   changeAttachment(null)
                   const fileInput = document.getElementById('file') || { value: null }
                   fileInput.value = null
-                  // console.log(defaultProfile)
-                  // if (index) {
-                  //   handleChangedImage({ ...profile, character: 'plant' })
-                  // } else {
-                  //   handleChangedImage({ ...profile, character: 'animal' })
-                  // }
                 }}>
                 <Avatars element={{ profileImage: true, defaultProfile: value, profileImageUrl: value }} uid='' profile={false} profileColor={''} profileUrl={value} piazza={null} />
               </div>
