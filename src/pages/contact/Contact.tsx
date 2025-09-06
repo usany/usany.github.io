@@ -31,9 +31,9 @@ function Contact() {
 
   const index = languages === 'ko' || languages === 'en' ? languages : 'ko'
   const dispatch = useDispatch()
-  useEffect(() => {
-    dispatch(changeBottomNavigation(5))
-  })
+  // useEffect(() => {
+  //   dispatch(changeBottomNavigation(5))
+  // })
   return (
     <>
       <PageTitle icon={<Siren />} title={titles[index]} />

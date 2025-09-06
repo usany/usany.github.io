@@ -22,6 +22,7 @@ interface Props {
   isOwner: boolean
   num: number | null
   points: number | null
+  round: number
 }
 const MorphingDialogs = ({
   message,

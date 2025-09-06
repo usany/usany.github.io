@@ -39,6 +39,8 @@ function Navigations() {
       dispatch(changeBottomNavigation(1))
     } else if (location.pathname === '/board') {
       dispatch(changeBottomNavigation(2))
+    } else {
+      dispatch(changeBottomNavigation(5))
     }
   })
   // console.log(window.visualViewport?.height)
