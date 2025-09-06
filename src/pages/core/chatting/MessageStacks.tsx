@@ -1,4 +1,3 @@
-import { User } from 'firebase/auth'
 import { useSelectors } from 'src/hooks'
 import ChattingStacks from './ChattingStacks'
 import EmptyChattingStacks from './EmptyChattingStacks'
