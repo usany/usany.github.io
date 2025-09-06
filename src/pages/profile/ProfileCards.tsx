@@ -29,7 +29,7 @@ const ProfileCards = ({
     })
     setCompanies(elementsCollection)
   }
-  const { color } = useCardsBackground()
+  const { colorTwo } = useCardsBackground()
   const followerList = [true, false]
   const onClick = (index) => {
     usersCollection(index)
@@ -38,7 +38,7 @@ const ProfileCards = ({
     <div className="flex justify-center pt-5">
       <Card
         sx={{
-          bgcolor: color,
+          bgcolor: colorTwo,
         }}
       >
         <Popups
@@ -57,7 +57,7 @@ const ProfileCards = ({
         return (
           <Card
             sx={{
-              bgcolor: color,
+              bgcolor: colorTwo,
             }}
           >
             <Popups
