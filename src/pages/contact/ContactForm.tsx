@@ -16,6 +16,7 @@ function ContactForm() {
   const user = state?.user
   const [messageTitle, setMessageTitle] = useState('')
   const [messageContent, setMessageContent] = useState('')
+  const [message, setMessage] = useState({title: '', content: ''})
   const [violationUser, setViolationUser] = useState<{
     profileImage: boolean
     profileImageUrl: string
