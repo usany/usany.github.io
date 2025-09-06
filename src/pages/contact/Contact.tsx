@@ -1,39 +1,21 @@
 import { Siren } from 'lucide-react'
 import { useLocation } from 'react-router-dom'
-import { useSelectors } from 'src/hooks'
+import { useSelectors, useTexts } from 'src/hooks'
 import ContactAddress from 'src/pages/contact/ContactAddress'
 import ContactForm from 'src/pages/contact/ContactForm'
 import PageTitle from 'src/pages/core/pageTitle/PageTitle'
 
-const titles = {
-  ko: '신고하기',
-  en: 'Report',
-}
-const sending = {
-  ko: '발신',
-  en: 'Sending',
-}
-const receiving = {
-  ko: '수신',
-  en: 'Receiving',
-}
-const user = {
-  ko: '담당자',
-  en: 'supervisor',
-}
 function Contact() {
   const { state } = useLocation()
-  const languages = useSelectors((state) => state.languages.value)
   const profile = useSelectors((state) => state.profile.value)
-
-  const index = languages === 'ko' || languages === 'en' ? languages : 'ko'
+  const {report, sending, receiving, supervisor} = useTexts()
   return (
     <>
-      <PageTitle icon={<Siren />} title={titles[index]} />
+      <PageTitle icon={<Siren />} title={report} />
       {profile && (
-        <ContactAddress action={sending[index]} label={profile?.displayName} />
+        <ContactAddress action={sending} label={profile?.displayName} />
       )}
-      <ContactAddress action={receiving[index]} label={user[index]} />
+      <ContactAddress action={receiving} label={supervisor} />
       <ContactForm user={state?.user} />
     </>
   )
