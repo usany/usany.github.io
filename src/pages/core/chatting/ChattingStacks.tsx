@@ -177,7 +177,6 @@ const ChattingStacks = ({
           return (
             <>
               <Chats
-                userObj={profile}
                 profileUrl={''}
                 conversation={element}
                 displayName={''}
@@ -216,7 +215,6 @@ const ChattingStacks = ({
             return (
               <>
                 <Chats
-                  userObj={profile}
                   profileUrl={profileUrl}
                   conversation={element}
                   displayName={displayName}
