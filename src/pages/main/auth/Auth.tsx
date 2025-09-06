@@ -9,12 +9,12 @@ import PageTitle from 'src/pages/core/pageTitle/PageTitle'
 import AuthButtons from 'src/pages/main/auth/AuthButtons'
 import AuthForm from 'src/pages/main/auth/AuthForm'
 import Motions from 'src/pages/main/auth/Motions'
-import { changeUserCertificated } from 'src/stateSlices/userCertificatedSlice'
 import { useTexts } from 'src/hooks'
 import AuthPassword from './AuthPassword'
 import { changeProfile } from 'src/stateSlices/profileSlice'
+// import { changeUserCertificated } from 'src/stateSlices/userCertificatedSlice'
 
-function Auth({ userObj }: User) {
+function Auth() {
   const [numberString, setNumberString] = useState('')
   const [mailSent, setMailSent] = useState(false)
   const [createdNumber, setCreatedNumber] = useState('')
@@ -48,7 +48,7 @@ function Auth({ userObj }: User) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        to: userObj?.email,
+        to: profile?.email,
         number: number,
         language: localStorage.getItem('languages') || 'ko',
       }),
@@ -56,9 +56,8 @@ function Auth({ userObj }: User) {
     console.log('sending')
   }
   const confirmNumber = async () => {
-    console.log(userObj)
     if (numberString === createdNumber) {
-      const userDocRef = doc(dbservice, `members/${userObj.uid}`)
+      const userDocRef = doc(dbservice, `members/${profile?.uid}`)
       await updateDoc(userDocRef, { certificated: true })
       dispatch(changeProfile({ ...profile, certificated: true }))
     } else {
@@ -66,12 +65,11 @@ function Auth({ userObj }: User) {
     }
   }
   const cancelUserRegistration = async () => {
-    await deleteDoc(doc(dbservice, `members/${userObj.uid}`))
+    await deleteDoc(doc(dbservice, `members/${profile?.uid}`))
     const auth = getAuth()
     if (auth) {
       deleteUser(auth.currentUser)
         .then(() => {
-          console.log(userObj)
           location.reload()
         })
         .catch((error) => {
@@ -81,7 +79,7 @@ function Auth({ userObj }: User) {
   }
   return (
     <div>
-      {userObj ? (
+      {profile ? (
         <div>
           <PageTitle
             title={languages === 'ko' ? '메일 확인' : 'Confirming mail'}
@@ -89,20 +87,20 @@ function Auth({ userObj }: User) {
           <div className="flex flex-col gap-5 items-center">
             {mailSent ? (
               <div>
-                {languages === 'en' && sentAConfirmingMail} {userObj.email}
+                {languages === 'en' && sentAConfirmingMail} {profile.email}
                 {languages === 'ko' && sentAConfirmingMail}. {inputTheNumber}.
               </div>
             ) : (
               <div>
                 {languages === 'en' && weWillSendYouAConfirmingMailTo}{' '}
-                {userObj.email}
+                {profile.email}
                 {languages === 'ko' && weWillSendYouAConfirmingMailTo}.{' '}
                 {checkTheNumber}.
               </div>
             )}
             {mailSent && (
               <AuthPassword
-                userObj={userObj}
+                profile={profile}
                 numberString={numberString}
                 handleNumberString={handleNumberString}
               />
