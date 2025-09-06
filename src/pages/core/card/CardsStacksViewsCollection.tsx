@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react'
 import { useSelectors } from 'src/hooks'
 import Cards from './Cards'
 const deleteMessage = (id: string) => {
-  console.log(id)
   const item = document.getElementById(id)
   item?.classList.add('transition')
   item?.addEventListener('transitionend', () => {
@@ -12,39 +11,25 @@ const deleteMessage = (id: string) => {
 }
 
 const CardsStacksViewsCollection = ({
-  userObj,
   messages,
-  // longPressed,
-  // changeLongPressed,
   longPressCard,
   changeLongPressCard
 }: {
-  userObj: User
   messages: { round: number; creatorId: string }[]
   longPressed: boolean
   changeLongPressed: (newValue: boolean) => void
 }) => {
-  // const [longPressCard, setLongPressCard] = useState<string | null>(null)
-  // const [onLongPress, setOnLongPress] = useState(0)
   const [delayed, setDelayed] = useState(true)
   const delayedTrue = () => setDelayed(true)
   const delayedFalse = () => setDelayed(false)
   const onLine = useSelectors(state => state.onLine.value)
+  const profile = useSelectors((state) => state.profile.value)
+
   useEffect(() => {
     if (!delayed) {
       setTimeout(() => delayedTrue(), 250)
     }
   })
-  // useEffect(() => {
-  //   if (!onLongPress) {
-  //     setLongPressCard(null)
-  //   }
-  // }, [onLongPress])
-  // useEffect(() => {
-  //   if (!longPressCard) {
-  //     setOnLongPress(0)
-  //   }
-  // }, [longPressCard])
   if (messages.length) {
     localStorage.setItem('cards', JSON.stringify(messages))
   }
@@ -54,14 +39,12 @@ const CardsStacksViewsCollection = ({
       id="items"
       className="grid grid-cols-[repeat(auto-fit,minmax(180px,1fr))] col-span-full"
     >
-      {/* <Skeleton className='w-full h-[260px] rounded bg-light-2' /> */}
-      {/* {!messages.length && <Skeleton className='w-full h-[276px] rounded bg-light-2' />} */}
       {messagesArray.map((value, index) => {
-        const isOwner = value.creatorId === userObj.uid
+        const isOwner = value.creatorId === profile?.uid
         if (value.round !== 5) {
           if (
-            value.creatorId === userObj.uid ||
-            (value.connectedId === userObj.uid && value.round !== 1)
+            value.creatorId === profile?.uid ||
+            (value.connectedId === profile?.uid && value.round !== 1)
           ) {
             return (
               <div
@@ -69,33 +52,18 @@ const CardsStacksViewsCollection = ({
                 id={value.id}
                 className="item-list flex justify-center"
               >
-                <div
-                // onMouseDownCapture={() => {
-                //   const longPress = value.id
-                //   setLongPressCard(longPress)
-                // }}
-                // onTouchStartCapture={() => {
-                //   const longPress = value.id
-                //   setLongPressCard(longPress)
-                // }}
-                >
-                  <Cards
-                    message={value}
-                    isOwner={isOwner}
-                    userObj={userObj}
-                    num={null}
-                    points={null}
-                    // onLongPress={onLongPress}
-                    // changeOnLongPress={(newValue) => setOnLongPress(newValue)}
-                    longPressCard={longPressCard}
-                    changeLongPressCard={changeLongPressCard}
-                    deleteMessage={deleteMessage}
-                    // longPressed={longPressed}
-                    // changeLongPressed={changeLongPressed}
-                    delayed={delayed}
-                    delayedFalse={delayedFalse}
-                  />
-                </div>
+                <Cards
+                  message={value}
+                  isOwner={isOwner}
+                  userObj={profile}
+                  num={null}
+                  points={null}
+                  longPressCard={longPressCard}
+                  changeLongPressCard={changeLongPressCard}
+                  deleteMessage={deleteMessage}
+                  delayed={delayed}
+                  delayedFalse={delayedFalse}
+                />
               </div>
             )
           }

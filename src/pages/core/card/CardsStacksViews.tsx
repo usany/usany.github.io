@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { dbservice } from 'src/baseApi/serverbase';
 import CardDroppable from './CardsDroppable';
 import CardsStacksViewsCollection from './CardsStacksViewsCollection';
+import { useSelectors } from 'src/hooks';
 const deleteMessage = (id: string) => {
   console.log(id)
   const item = document.getElementById(id)
@@ -36,31 +37,26 @@ const handleDelete = async ({
 const CardsStacksViews = ({
   userObj,
   messages,
-  // changeLongPressCard,
 }: {
   userObj: User
   messages: { round: number; creatorId: string }[]
 }) => {
-  // const [longPressed, setLongPressed] = useState(false)
-  // const changeLongPressed = (newValue: boolean) => setLongPressed(newValue)
   const [longPressCard, setLongPressCard] = useState('')
+  const profile = useSelectors((state) => state.profile.value)
   const changeLongPressCard = (newValue) => setLongPressCard(newValue)
   return (
     <DndContext
       onDragEnd={(element) => {
         if (element.over) {
           const id = element.active.id.toString()
-          handleDelete({ id: id, userObj: userObj, changeLongPressCard: changeLongPressCard })
-          // setLongPressed(false)
+          handleDelete({ id: id, userObj: profile, changeLongPressCard: changeLongPressCard })
         }
       }}
     >
       {longPressCard && <CardDroppable />}
       <CardsStacksViewsCollection
-        userObj={userObj}
+        userObj={profile}
         messages={messages}
-        // longPressed={longPressed}
-        // changeLongPressed={changeLongPressed}
         longPressCard={longPressCard}
         changeLongPressCard={changeLongPressCard}
       />

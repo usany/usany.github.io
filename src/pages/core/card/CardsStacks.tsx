@@ -3,26 +3,11 @@ import { Skeleton } from 'src/components/ui/skeleton'
 import CardsStacksViews from './CardsStacksViews'
 import EmptyCard from './EmptyCard'
 import { useBringCards } from './useBringCards'
+import { useSelectors } from 'src/hooks'
 
-interface Props {
-  userObj: User
-}
-function CardsStacks({ userObj }: Props) {
-  // const [longPressCard, setLongPressCard] = useState<string | null>(null)
-  // const [onLongPress, setOnLongPress] = useState(0)
+function CardsStacks() {
+  const profile = useSelectors((state) => state.profile.value)
   const { messages, cardLoaded, }: { messages: { round: number; creatorId: string }[]; cardLoaded: boolean } = useBringCards(userObj)
-  console.log(messages)
-  // const changeLongPressCard = (newValue: string | null) => setLongPressCard(newValue)
-  // useEffect(() => {
-  //   if (!onLongPress) {
-  //     setLongPressCard(null)
-  //   }
-  // }, [onLongPress])
-  // useEffect(() => {
-  //   if (!longPressCard) {
-  //     setOnLongPress(0)
-  //   }
-  // }, [longPressCard])
 
   return (
     <div>
@@ -37,9 +22,8 @@ function CardsStacks({ userObj }: Props) {
             <EmptyCard />
           ) : (
             <CardsStacksViews
-              userObj={userObj}
+              userObj={profile}
               messages={messages}
-            // changeLongPressCard={changeLongPressCard}
             />
           )}
         </div>
