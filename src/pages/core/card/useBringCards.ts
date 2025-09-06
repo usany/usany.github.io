@@ -39,7 +39,6 @@ export const useBringCards = (profile) => {
   }, [])
   return {
     messages: messages,
-    handleMessages: (newValue) => setMessages(newValue),
     cardLoaded: cardLoaded,
   }
 }
