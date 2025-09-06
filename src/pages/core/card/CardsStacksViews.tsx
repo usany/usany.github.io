@@ -16,7 +16,7 @@ const deleteMessage = (id: string) => {
 }
 const handleDelete = async ({
   id,
-  userObj,
+  profile,
   changeLongPressCard,
 }: {
   id: string
@@ -25,20 +25,17 @@ const handleDelete = async ({
   const data = doc(dbservice, `num/${id}`)
   const messageId = data.id
   await deleteDoc(doc(dbservice, `num/${id}`));
-  const userRef = doc(dbservice, `members/${userObj.uid}`)
+  const userRef = doc(dbservice, `members/${profile?.uid}`)
   const userSnap = await getDoc(userRef)
   const newMessages = userSnap.data()?.createdCards.filter((element) => element !== id)
-  console.log(newMessages)
   updateDoc(userRef, { createdCards: newMessages })
   deleteMessage(messageId)
   changeLongPressCard(null)
 }
 
 const CardsStacksViews = ({
-  userObj,
   messages,
 }: {
-  userObj: User
   messages: { round: number; creatorId: string }[]
 }) => {
   const [longPressCard, setLongPressCard] = useState('')
@@ -49,13 +46,12 @@ const CardsStacksViews = ({
       onDragEnd={(element) => {
         if (element.over) {
           const id = element.active.id.toString()
-          handleDelete({ id: id, userObj: profile, changeLongPressCard: changeLongPressCard })
+          handleDelete({ id: id, profile: profile, changeLongPressCard: changeLongPressCard })
         }
       }}
     >
       {longPressCard && <CardDroppable />}
       <CardsStacksViewsCollection
-        userObj={profile}
         messages={messages}
         longPressCard={longPressCard}
         changeLongPressCard={changeLongPressCard}

@@ -22,7 +22,6 @@ function CardsStacks() {
             <EmptyCard />
           ) : (
             <CardsStacksViews
-              userObj={profile}
               messages={messages}
             />
           )}

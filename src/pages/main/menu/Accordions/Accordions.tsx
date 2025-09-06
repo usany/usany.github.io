@@ -16,7 +16,6 @@ function Accordions() {
   const messageAccordion = useSelectors((state) => state.messageAccordion.value)
   const dispatch = useDispatch()
   const { card, message } = useTexts()
-  const profile = useSelectors((state) => state.profile.value)
   const accordionItems = [
     {
       value: 'item-1',
