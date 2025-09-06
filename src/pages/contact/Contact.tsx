@@ -1,12 +1,9 @@
 import { Siren } from 'lucide-react'
-import { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
 import { useLocation } from 'react-router-dom'
 import { useSelectors } from 'src/hooks'
 import ContactAddress from 'src/pages/contact/ContactAddress'
 import ContactForm from 'src/pages/contact/ContactForm'
 import PageTitle from 'src/pages/core/pageTitle/PageTitle'
-import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
 
 const titles = {
   ko: '신고하기',
