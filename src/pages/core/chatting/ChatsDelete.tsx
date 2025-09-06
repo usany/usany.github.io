@@ -11,9 +11,10 @@ const ChatsDelete = ({
   changeChattings,
 }) => {
   const dispatch = useDispatch()
+  const profile = useSelectors((state) => state.profile.value)
   const onDelete = async ({ conversation }) => {
     changeLongPressChat(null)
-    const userRef = doc(dbservice, `members/${userObj.uid}`)
+    const userRef = doc(dbservice, `members/${profile?.uid}`)
     const userDoc = await getDoc(userRef)
     const userChattings = userDoc.data()?.chattings || {}
     const userConversation = userDoc.data()?.conversation || []

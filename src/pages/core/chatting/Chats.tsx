@@ -170,7 +170,6 @@ const Chats = ({
         </div>
         {longPressed && (
           <ChatsDelete
-            userObj={profile}
             conversation={conversation}
             changeLongPressChat={changeLongPressChat}
             changeChattings={changeChattings}
