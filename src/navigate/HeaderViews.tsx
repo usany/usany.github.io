@@ -36,7 +36,6 @@ const HeaderViews = ({ userObj }: Props) => {
   const bottomNavigation = useSelectors(
     (state) => state.bottomNavigation.value
   );
-  const profileColor = useSelector((state) => state.profileColor.value);
   const profileUrl = useSelector((state) => state.profileUrl.value);
   const [sideNavigation, setSideNavigation] = useState(false);
   const handleSideNavigation = () => {
@@ -73,7 +72,7 @@ const HeaderViews = ({ userObj }: Props) => {
       const userProfileImage = docSnap.data()?.profileImage || false;
       const userDefaultProfile = docSnap.data()?.defaultProfile || 'null';
       console.log(userDefaultProfile)
-      dispatch(changeProfileColor(userColor));
+      // dispatch(changeProfileColor(userColor));
       if (userProfileImage) {
         dispatch(changeProfileUrl(userImage));
       } else {
@@ -102,7 +101,7 @@ const HeaderViews = ({ userObj }: Props) => {
                   <Avatars
                     uid={userObj.uid}
                     profile={false}
-                    profileColor={profileColor}
+                    // profileColor={profileColor}
                     profileUrl={profileUrl}
                   />
                 ) : (

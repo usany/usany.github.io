@@ -34,6 +34,7 @@ const ProfileDialogs = ({ attachment, changeAttachment, changedImage, handleChan
   //     setCopyingProfile(profile)
   //   }
   // }, [])
+  
   const profile = useSelector((state) => state.profile.value)
   const profileColor = useSelector(state => state.profileColor.value)
   const dispatch = useDispatch()

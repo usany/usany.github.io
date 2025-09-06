@@ -42,7 +42,6 @@ function PiazzaForm({
   messagesList,
   handleMessagesList,
 }: Props) {
-  const profileColor = useSelector((state) => state.profileColor.value)
   const piazzaForm = useSelector((state) => state.piazzaForm.value)
   const profile = useSelectors((state) => state.profile.value)
   const dispatch = useDispatch()
@@ -135,7 +134,6 @@ function PiazzaForm({
           messageClockNumber: messageClockNumber,
           profileImageUrl: profileImageUrl,
           defaultProfile: defaultProfile,
-          profileColor: profileColor,
           piazzaChecked: [userUid],
           profileImage: profileImage,
         })
@@ -148,7 +146,6 @@ function PiazzaForm({
             id: userName,
             messageClock: messageClock,
             conversation: null,
-            profileColor: profileColor,
             messageClockNumber: messageClockNumber,
             defaultProfile: defaultProfile,
             profileImageUrl: profileImageUrl,

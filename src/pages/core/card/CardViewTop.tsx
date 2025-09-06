@@ -5,7 +5,6 @@ import Avatars from '../Avatars'
 
 const CardViewTop = ({ message }) => {
   const languages = useSelectors((state) => state.languages.value)
-  const profileColor = useSelector((state) => state.profileColor.value)
   const profileUrl = message?.creatorUrl
   const item = message.item
   let action
@@ -34,7 +33,6 @@ const CardViewTop = ({ message }) => {
         element={passingValue}
         uid={message.creatorId}
         profile={false}
-        profileColor={profileColor}
         profileUrl={profileUrl}
         piazza={null}
       />
