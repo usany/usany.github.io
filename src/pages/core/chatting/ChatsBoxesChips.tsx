@@ -5,12 +5,14 @@ import staticImage from 'src/assets/blue.png'
 import { useSelectors } from 'src/hooks'
 import Avatars from 'src/pages/core/Avatars'
 
-const ChatsBoxesChips = ({ userObj, message }) => {
+const ChatsBoxesChips = ({ message }) => {
   const languages = useSelectors((state) => state.languages.value)
+  const profile = useSelectors((state) => state.profile.value)
+
   return (
     <div>
       {message?.piazzaChecked &&
-        message?.piazzaChecked.indexOf(userObj.uid) === -1 && (
+        message?.piazzaChecked.indexOf(profile?.uid) === -1 && (
           <Chip
             sx={{ height: '20px' }}
             label={`${languages === 'ko' ? '새 대화' : 'New Chats'}`}
