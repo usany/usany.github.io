@@ -135,7 +135,6 @@ const Chats = ({
                 >
                   <ChatsBoxes
                     chattingUid={chattingUid}
-                    userObj={profile}
                     profileUrl={profileUrl}
                     displayName={displayName}
                     multiple={multiple}
@@ -158,7 +157,6 @@ const Chats = ({
                 >
                   <ChatsBoxes
                     chattingUid={chattingUid}
-                    userObj={profile}
                     profileUrl={profileUrl}
                     displayName={displayName}
                     multiple={multiple}

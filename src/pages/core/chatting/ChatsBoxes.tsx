@@ -8,7 +8,6 @@ import ChatsBoxesClock from './ChatsBoxesClock'
 import ChatsBoxesRoom from './ChatsBoxesRoom'
 interface Props {
   chattingUid: string
-  userObj: User
   profileUrl: string
   displayName: string
   multiple: boolean
@@ -22,13 +21,13 @@ interface Props {
 
 const ChatsBoxes = ({
   chattingUid,
-  userObj,
   displayName,
   multiple,
   clock,
   message,
 }: Props) => {
   const languages = useSelectors((state) => state.languages.value)
+  const profile = useSelectors((state) => state.profile.value)
   let messageAmpm
   let messageHours = clock.getHours()
   let messageMonth = (clock.getMonth() + 1).toString()
@@ -69,7 +68,7 @@ const ChatsBoxes = ({
   let messageDefaultProfile
   let passingValue
   if (!multiple) {
-    if (userObj.uid !== message.userOne) {
+    if (profile?.uid !== message.userOne) {
       messageProfileImage = message.userOneProfileImage
       messageProfileImageUrl = message.userOneProfileUrl
       messageDefaultProfile = message.userOneDefaultProfile
@@ -113,7 +112,7 @@ const ChatsBoxes = ({
             </div>
             <div className="flex justify-between px-3">
               <div>{message?.message}</div>
-              <ChatsBoxesChips userObj={userObj} message={message} />
+              <ChatsBoxesChips userObj={profile} message={message} />
             </div>
           </div>
         </div>
