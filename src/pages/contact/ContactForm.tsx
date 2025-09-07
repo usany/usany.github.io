@@ -113,19 +113,9 @@ function ContactForm() {
             content={<ContactDrawersContent />}
           />
         )}
-
         <Button variant="outlined" form="auth" onClick={onSubmit}>
           {send}
         </Button>
-        {/* {messageTitle && messageContent ? (
-          <Button variant="outlined" form="auth" onClick={onSubmit}>
-            {send}
-          </Button>
-        ) : (
-          <Button variant="outlined" form="auth" disabled>
-            {send}
-          </Button>
-        )} */}
       </div>
     </form>
   )
