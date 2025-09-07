@@ -51,7 +51,7 @@ const ContactDrawersContent = () => {
     }
     docs()
   }, [])
-  console.log(sendMessages)
+
   return (
     <div className="p-5">
       {sendMessages.length !== 0 ? (
