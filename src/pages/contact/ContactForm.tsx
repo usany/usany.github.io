@@ -26,7 +26,7 @@ function ContactForm() {
   } | null>(null)
   const [initialViolationUser, setInitialViolationUser] = useState(true)
   const profile = useSelectors((state) => state.profile.value)
-  const {report, sending, receiving, supervisor, send, reportTitle, reportContent, anonymousUser} = useTexts()
+  const {sending, receiving, supervisor, send, reportTitle, reportContent, anonymousUser} = useTexts()
 
   useEffect(() => {
     if (user && initialViolationUser) {
@@ -37,7 +37,7 @@ function ContactForm() {
 
   const onSubmit = async () => {
     try {
-      if (messageTitle && messageContent) {
+      if (message.title && message.content) {
         await addDoc(collection(dbservice, 'violations'), {
           userUid: profile?.uid || '비로그인',
           userName: profile?.displayName || '비로그인',
@@ -46,11 +46,11 @@ function ContactForm() {
           violationUser: violationUser,
         })
         alert('등록되었습니다')
-        setMessage((values) => {
-          const selected = values.find((value) => value.title)
+        setMessage({
+          title: '', content: ''
         })
-        setMessageTitle('')
-        setMessageContent('')
+        // setMessageTitle('')
+        // setMessageContent('')
         setViolationUser(null)
       } else {
         alert('내용을 작성해주세요')
