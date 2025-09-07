@@ -9,11 +9,11 @@ import ContactDrawersTrigger from './ContactDrawersTrigger'
 import ContactDrawersTitle from './ContactDrawersTitle'
 import ContactDrawersContent from './ContactDrawersContent'
 import Popups from '../core/Popups'
-import { useLocation, useSearchParams } from 'react-router-dom'
+import { useSearchParams } from 'react-router-dom'
 import ContactAddress from './ContactAddress'
 
 function ContactForm() {
-  const { state } = useLocation()
+  // const { state } = useLocation()
   const [searchParams, setSearchParams] = useSearchParams()
   const [message, setMessage] = useState({title: '', content: ''})
   const [violationUser, setViolationUser] = useState<DocumentData | null>(null)
