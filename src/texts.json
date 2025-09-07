@@ -2,7 +2,7 @@
   "ko": {
     "Welcome to React": "Welcome to React and react-i18next",
     "myProfile": "내 프로필",
-    "userRanking": "유저 랭킹",
+    "userSearch": "유저 검색",
     "groupChat": "단체 대화",
     "report": "신고하기",
     "collection": "전시회",
@@ -145,7 +145,7 @@
   "en": {
     "Welcome to React": "Welcome to React and react-i18next",
     "myProfile": "My Profile",
-    "userRanking": "User Ranking",
+    "userSearch": "User Search",
     "groupChat": "Group Chat",
     "report": "Report",
     "collection": "Exhibition",
