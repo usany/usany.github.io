@@ -14,7 +14,7 @@ import { dbservice } from 'src/baseApi/serverbase'
 import { useSelectors } from 'src/hooks'
 import Lists from 'src/pages/search/searchList/searchListViews/Lists'
 
-function RankingLists() {
+function SearchList() {
   const [rank, setRank] = useState([])
   const [ranker, setRanker] = useState([])
   const [continuing, setContinuing] = useState(null)
@@ -143,4 +143,4 @@ function RankingLists() {
   )
 }
 
-export default RankingLists
+export default SearchList

@@ -3,7 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import useCardsBackground from 'src/hooks/useCardsBackground';
 import { useSelectors } from 'src/hooks';
 
-function RankingSearch() {
+function SearchBar() {
   const [searchParams, setSearchParams] = useSearchParams()
   const languages = useSelectors((state) => state.languages.value)
   const onChangeUserSearch = (event) => {
@@ -24,4 +24,4 @@ function RankingSearch() {
   )
 }
 
-export default RankingSearch
+export default SearchBar
