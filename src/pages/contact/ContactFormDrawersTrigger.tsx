@@ -15,7 +15,7 @@ const ContactUserSelected = ({ violationUser, color }: {
 }) => {
   const profile = violationUser?.profileImage ? violationUser.profileImageUrl : violationUser?.defaultProfile
   const languages = useSelectors((state) => state.languages.value)
-  const displayName = violationUser?.displayName.slice(0, 10)
+  const displayName = violationUser?.displayName.slice(0, 10)+'......'
   return (
     <Card sx={{
       width: '100%',
