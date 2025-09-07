@@ -15,7 +15,6 @@ import ContactAddress from './ContactAddress'
 function ContactForm() {
   const { state } = useLocation()
   const [searchParams, setSearchParams] = useSearchParams()
-  let user = {}
   const [message, setMessage] = useState({title: '', content: ''})
   const [violationUser, setViolationUser] = useState<DocumentData | null | undefined>(undefined)
   const profile = useSelectors((state) => state.profile.value)
@@ -24,7 +23,7 @@ function ContactForm() {
     const getUser = async () => {
       const ref = doc(dbservice, `members/${searchParams.get('id')}`)
       const getDocUser = await getDoc(ref)
-      user = getDocUser.data()
+      setViolationUser(getDocUser.data())
     }
     getUser()
   }, [searchParams.get('id')])
@@ -99,7 +98,7 @@ function ContactForm() {
         />
       </div>
       <ContactFormDrawers
-        violationUser={violationUser !== undefined ? violationUser : user}
+        violationUser={violationUser}
         changeViolationUser={changeViolationUser}
       />
       <div className="flex justify-center pt-2.5">
