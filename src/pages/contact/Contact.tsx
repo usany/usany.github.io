@@ -11,10 +11,10 @@ function Contact() {
   return (
     <>
       <PageTitle icon={<Siren />} title={report} />
-      {profile && (
+      {/* {profile && (
         <ContactAddress action={sending} label={profile?.displayName} />
       )}
-      <ContactAddress action={receiving} label={supervisor} />
+      <ContactAddress action={receiving} label={supervisor} /> */}
       <ContactForm />
     </>
   )
