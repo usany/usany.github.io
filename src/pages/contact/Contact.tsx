@@ -1,7 +1,7 @@
 import { Siren } from 'lucide-react'
 import { useTexts } from 'src/hooks'
-import ContactForm from 'src/pages/contact/components/ContactForm'
 import PageTitle from 'src/pages/core/pageTitle/PageTitle'
+import { ContactForm } from './components'
 
 function Contact() {
   const {report} = useTexts()
