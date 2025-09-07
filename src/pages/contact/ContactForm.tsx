@@ -11,14 +11,13 @@ import ContactDrawersContent from './ContactDrawersContent'
 import Popups from '../core/Popups'
 import { useLocation } from 'react-router-dom'
 import ContactAddress from './ContactAddress'
-import { useImmer } from 'use-immer'
 
 function ContactForm() {
   const { state } = useLocation()
   const user = state?.user
   const [messageTitle, setMessageTitle] = useState('')
   const [messageContent, setMessageContent] = useState('')
-  const [message, setMessage] = useImmer({title: '', content: ''})
+  const [message, setMessage] = useState({title: '', content: ''})
   const [violationUser, setViolationUser] = useState<{
     profileImage: boolean
     profileImageUrl: string
@@ -35,7 +34,7 @@ function ContactForm() {
       setInitialViolationUser(false)
     }
   }, [user])
-  
+
   const onSubmit = async () => {
     try {
       if (messageTitle && messageContent) {
@@ -65,13 +64,19 @@ function ContactForm() {
     const {
       target: { value },
     } = event
-    setMessageContent(value)
+    setMessage({
+      ...message, content: value
+    })
+    // setMessageContent(value)
   }
   const onChangeMessageTitle = (event: { target: { value: string } }) => {
     const {
       target: { value },
     } = event
-    setMessageTitle(value)
+    setMessage({
+      ...message, title: value
+    })
+    // setMessageTitle(value)
   }
 
   return (
@@ -83,7 +88,7 @@ function ContactForm() {
           name="title"
           label={reportTitle}
           multiline
-          value={messageTitle}
+          value={message.title}
           onChange={onChangeMessageTitle}
           variant="outlined"
           fullWidth
@@ -95,7 +100,7 @@ function ContactForm() {
           label={reportContent}
           multiline
           rows={5}
-          value={messageContent}
+          value={message.content}
           onChange={onChangeMessageContent}
           variant="outlined"
           fullWidth
