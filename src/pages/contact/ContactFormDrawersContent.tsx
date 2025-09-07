@@ -1,5 +1,5 @@
 import TextField from '@mui/material/TextField'
-import { collection, getDocs, orderBy, query } from 'firebase/firestore'
+import { collection, DocumentData, getDocs, orderBy, query } from 'firebase/firestore'
 import { getDownloadURL, ref } from 'firebase/storage'
 import { useEffect, useState } from 'react'
 import { dbservice, storage } from 'src/baseApi/serverbase'
@@ -8,17 +8,12 @@ import Lists from 'src/pages/search/searchList/searchListViews/Lists'
 
 interface Props {
   changeViolationUser: (
-    newValue: {
-      profileImage: boolean
-      profileImageUrl: string
-      defaultProfile: string
-      displayName: string
-    } | null,
+    newValue: DocumentData | null,
   ) => void
 }
 
 function ContactFormDrawersContent({ changeViolationUser }: Props) {
-  const [users, setUsers] = useState<{ uid: string }[]>([])
+  const [users, setUsers] = useState<DocumentData[]>([])
   const [loadedImage, setLoadedImage] = useState<
     { url: string; index: number }[]
   >([])
