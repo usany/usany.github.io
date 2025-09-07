@@ -58,43 +58,43 @@ const ContactDrawersContent = () => {
   return (
     <div className="p-5">
       {sendMessages.map((value, index) => {
-          return (
-            <div>
-              <Accordion type="single" collapsible className="w-full">
-                <AccordionItem value={index.toString()}>
-                  <AccordionTrigger>{value.messageTitle}</AccordionTrigger>
-                  <AccordionContent>
-                    <div>{value.message}</div>
-                    {value?.violationUser ? (
-                      <div>
-                        <div className="pt-5">
-                          {reportingUser}
-                        </div>
-                        <Lists
-                          elements={[value.violationUser]}
-                          multiple={true}
-                          userSearch={true}
-                          ranking={false}
-                          handleUser={(value) => console.log(value)}
-                        />
+        return (
+          <div>
+            <Accordion type="single" collapsible className="w-full">
+              <AccordionItem value={index.toString()}>
+                <AccordionTrigger>{value.messageTitle}</AccordionTrigger>
+                <AccordionContent>
+                  <div>{value.message}</div>
+                  {value?.violationUser ? (
+                    <div>
+                      <div className="pt-5">
+                        {reportingUser}
                       </div>
-                    ) : (
-                      <Divider variant="inset" />
-                    )}
-                    <div className="flex pt-3 justify-center">
-                      <Button
-                        variant="outlined"
-                        onClick={() => deleteMessage(value)}
-                      >
-                        {remove}
-                      </Button>
+                      <Lists
+                        elements={[value.violationUser]}
+                        multiple={true}
+                        userSearch={true}
+                        ranking={false}
+                        handleUser={(value) => console.log(value)}
+                      />
                     </div>
-                  </AccordionContent>
-                </AccordionItem>
-              </Accordion>
-            </div>
-          )
-        })}
+                  ) : (
+                    <Divider variant="inset" />
+                  )}
+                  <div className="flex pt-3 justify-center">
+                    <Button
+                      variant="outlined"
+                      onClick={() => deleteMessage(value)}
+                    >
+                      {remove}
+                    </Button>
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+          </div>
+        )
+      })}
     </div>
   )
 }
