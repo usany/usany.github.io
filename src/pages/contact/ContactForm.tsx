@@ -16,7 +16,7 @@ function ContactForm() {
   const { state } = useLocation()
   const [searchParams, setSearchParams] = useSearchParams()
   const [message, setMessage] = useState({title: '', content: ''})
-  const [violationUser, setViolationUser] = useState<DocumentData | null | undefined>(undefined)
+  const [violationUser, setViolationUser] = useState<DocumentData | null>(null)
   const profile = useSelectors((state) => state.profile.value)
   const {sending, receiving, supervisor, send, reportTitle, reportContent, anonymousUser} = useTexts()
   useEffect(() => {
