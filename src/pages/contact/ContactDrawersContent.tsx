@@ -52,10 +52,12 @@ const ContactDrawersContent = () => {
     docs()
   }, [])
 
+  if (sendMessages.length === 0) return <div>
+          {languages === 'ko' ? '신고하기 내역이 없습니다.' : 'No report'}
+        </div>
   return (
     <div className="p-5">
-      {sendMessages.length !== 0 ? (
-        sendMessages.map((value, index) => {
+      {sendMessages.map((value, index) => {
           return (
             <div>
               <Accordion type="single" collapsible className="w-full">
@@ -94,12 +96,7 @@ const ContactDrawersContent = () => {
               </Accordion>
             </div>
           )
-        })
-      ) : (
-        <div>
-          {languages === 'ko' ? '신고하기 내역이 없습니다.' : 'No report'}
-        </div>
-      )}
+        })}
     </div>
   )
 }
