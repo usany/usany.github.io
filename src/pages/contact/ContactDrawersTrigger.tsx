@@ -34,7 +34,6 @@ const ContactDrawersTrigger = () => {
     }
     docs()
   }, [])
-  console.log(sendMessages)
   return (
     <Button variant="outlined" form="auth">
       {reportList[index]}
