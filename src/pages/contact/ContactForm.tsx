@@ -100,14 +100,18 @@ function ContactForm() {
           fullWidth
         />
       </div>
-      {profile?.certificated && (
+      <ContactFormDrawers
+        violationUser={violationUser}
+        changeViolationUser={(newValue) => setViolationUser(newValue)}
+      />
+      {/* {profile?.certificated && (
         <div className="flex pt-3 px-5 gap-1">
           <ContactFormDrawers
             violationUser={violationUser}
             changeViolationUser={(newValue) => setViolationUser(newValue)}
           />
         </div>
-      )}
+      )} */}
       <div className="flex justify-center pt-2.5">
         {profile?.certificated && (
           <Popups

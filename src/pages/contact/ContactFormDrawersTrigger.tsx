@@ -21,7 +21,7 @@ const ContactUserSelected = ({ violationUser, color }: {
       width: '100%',
       bgcolor: color
     }}>
-      <div className='flex p-3 gap-3'>
+      <div className='flex justify-between p-3 gap-3'>
         <div className='flex items-center'>{languages === 'ko' ? '신고 유저:' : 'Reporting User'}</div>
         <Avatar>
           <AvatarImage src={profile} />
