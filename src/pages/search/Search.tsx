@@ -7,7 +7,7 @@ import RankingSearch from 'src/pages/search/searchBar/RankingSearch'
 import RankingLists from 'src/pages/search/searchList/RankingLists'
 import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
 
-function Ranking() {
+function Search() {
   const languages = useSelectors((state) => state.languages.value)
   const dispatch = useDispatch()
 
@@ -27,4 +27,4 @@ function Ranking() {
   )
 }
 
-export default Ranking
+export default Search
