@@ -37,17 +37,21 @@ function ContactForm() {
 
   const onSubmit = async () => {
     try {
-      await addDoc(collection(dbservice, 'violations'), {
-        userUid: profile?.uid || '비로그인',
-        userName: profile?.displayName || '비로그인',
-        messageTitle: messageTitle,
-        message: messageContent,
-        violationUser: violationUser,
-      })
-      alert('등록되었습니다')
-      setMessageTitle('')
-      setMessageContent('')
-      setViolationUser(null)
+      if (messageTitle && messageContent) {
+        await addDoc(collection(dbservice, 'violations'), {
+          userUid: profile?.uid || '비로그인',
+          userName: profile?.displayName || '비로그인',
+          messageTitle: messageTitle,
+          message: messageContent,
+          violationUser: violationUser,
+        })
+        alert('등록되었습니다')
+        setMessageTitle('')
+        setMessageContent('')
+        setViolationUser(null)
+      } else {
+        alert('내용을 작성해주세요')
+      }
     } catch (error) {
       console.log(error)
     }
@@ -110,7 +114,10 @@ function ContactForm() {
           />
         )}
 
-        {messageTitle && messageContent ? (
+        <Button variant="outlined" form="auth" onClick={onSubmit}>
+          {send}
+        </Button>
+        {/* {messageTitle && messageContent ? (
           <Button variant="outlined" form="auth" onClick={onSubmit}>
             {send}
           </Button>
@@ -118,7 +125,7 @@ function ContactForm() {
           <Button variant="outlined" form="auth" disabled>
             {send}
           </Button>
-        )}
+        )} */}
       </div>
     </form>
   )
