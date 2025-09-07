@@ -26,7 +26,7 @@ function ContactForm() {
   } | null>(null)
   const [initialViolationUser, setInitialViolationUser] = useState(true)
   const profile = useSelectors((state) => state.profile.value)
-  const {report, sending, receiving, supervisor, send, reportTitle, reportContent} = useTexts()
+  const {report, sending, receiving, supervisor, send, reportTitle, reportContent, anonymousUser} = useTexts()
 
   useEffect(() => {
     if (user && initialViolationUser) {
@@ -68,9 +68,7 @@ function ContactForm() {
 
   return (
     <form id="auth">
-      {profile && (
-        <ContactAddress action={sending} label={profile?.displayName} />
-      )}
+      <ContactAddress action={sending} label={profile ? profile?.displayName: anonymousUser} />
       <ContactAddress action={receiving} label={supervisor} />
       <div className="flex justify-center pt-5 px-5">
         <TextField
