@@ -15,7 +15,7 @@ import Lists from 'src/pages/search/searchList/searchListViews/Lists'
 const ContactDrawersContent = () => {
   const [sendMessages, setSendMessages] = useState([])
   const profile = useSelectors((state) => state.profile.value)
-  const {noReport, reportingUser, delete} = useTexts()
+  const {noReport, reportingUser, remove} = useTexts()
   const collectionQuery = query(collection(dbservice, 'violations'))
   const deleteMessage = (value) => {
     const deletedId = value.id
@@ -80,7 +80,7 @@ const ContactDrawersContent = () => {
                         variant="outlined"
                         onClick={() => deleteMessage(value)}
                       >
-                        {delete}
+                        {remove}
                       </Button>
                     </div>
                   </AccordionContent>
