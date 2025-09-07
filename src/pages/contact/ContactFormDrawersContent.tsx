@@ -3,7 +3,7 @@ import { collection, DocumentData, getDocs, orderBy, query } from 'firebase/fire
 import { getDownloadURL, ref } from 'firebase/storage'
 import { useEffect, useState } from 'react'
 import { dbservice, storage } from 'src/baseApi/serverbase'
-import { useSelectors } from 'src/hooks'
+import { useSelectors, useTexts } from 'src/hooks'
 import Lists from 'src/pages/search/searchList/searchListViews/Lists'
 
 interface Props {
@@ -18,6 +18,7 @@ function ContactFormDrawersContent({ changeViolationUser }: Props) {
     { url: string; index: number }[]
   >([])
   const [userSearch, setUserSearch] = useState('')
+  const {userName} = useTexts()
   const languages = useSelectors((state) => state.languages.value)
   const onChangeUserSearch = (event: { target: { value: string } }) => {
     const {
@@ -54,13 +55,12 @@ function ContactFormDrawersContent({ changeViolationUser }: Props) {
   return (
     <div className={`flex flex-col p-5 ${!userSearch && 'h-[60vh]'}`}>
       <TextField
-        label={languages === 'ko' ? '유저 이름' : 'User name'}
+        label={userName}
         onChange={onChangeUserSearch}
       />
       {userSearch && (
         <div className="flex justify-center">
           <Lists
-            userObj={null}
             elements={users}
             multiple={true}
             userSearch={userSearch}
