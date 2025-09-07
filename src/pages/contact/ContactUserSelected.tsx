@@ -1,8 +1,6 @@
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
-import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
-import { useSelectors, useTexts } from "src/hooks";
-import useCardsBackground from '../../hooks/useCardsBackground';
+import { useTexts } from "src/hooks";
 import { DocumentData } from "firebase/firestore";
 interface Props {
   violationUser: DocumentData | null
@@ -11,7 +9,6 @@ interface Props {
 
 const ContactUserSelected = ({ violationUser, color }: Props) => {
   const profile = violationUser?.profileImage ? violationUser.profileImageUrl : violationUser?.defaultProfile
-  const languages = useSelectors((state) => state.languages.value)
   const displayName = violationUser?.displayName.slice(0, 10)+'......'
   const {reportingUser} = useTexts()
   return (
