@@ -10,6 +10,7 @@ import ContactDrawersTitle from './ContactDrawersTitle'
 import ContactDrawersContent from './ContactDrawersContent'
 import Popups from '../core/Popups'
 import { useLocation } from 'react-router-dom'
+import ContactAddress from './ContactAddress'
 
 function ContactForm() {
   const { state } = useLocation()
@@ -25,7 +26,8 @@ function ContactForm() {
   } | null>(null)
   const [initialViolationUser, setInitialViolationUser] = useState(true)
   const profile = useSelectors((state) => state.profile.value)
-  const {send, reportTitle, reportContent} = useTexts()
+  const {report, sending, receiving, supervisor, send, reportTitle, reportContent} = useTexts()
+
   useEffect(() => {
     if (user && initialViolationUser) {
       setViolationUser(user)
@@ -66,6 +68,10 @@ function ContactForm() {
 
   return (
     <form id="auth">
+      {profile && (
+        <ContactAddress action={sending} label={profile?.displayName} />
+      )}
+      <ContactAddress action={receiving} label={supervisor} />
       <div className="flex justify-center pt-5 px-5">
         <TextField
           name="title"
