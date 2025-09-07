@@ -15,8 +15,8 @@ import ContactAddress from './ContactAddress'
 function ContactForm() {
   const { state } = useLocation()
   const user = state?.user
-  const [messageTitle, setMessageTitle] = useState('')
-  const [messageContent, setMessageContent] = useState('')
+  // const [messageTitle, setMessageTitle] = useState('')
+  // const [messageContent, setMessageContent] = useState('')
   const [message, setMessage] = useState({title: '', content: ''})
   const [violationUser, setViolationUser] = useState<{
     profileImage: boolean
@@ -41,8 +41,8 @@ function ContactForm() {
         await addDoc(collection(dbservice, 'violations'), {
           userUid: profile?.uid || '비로그인',
           userName: profile?.displayName || '비로그인',
-          messageTitle: messageTitle,
-          message: messageContent,
+          messageTitle: message.title,
+          message: message.content,
           violationUser: violationUser,
         })
         alert('등록되었습니다')
