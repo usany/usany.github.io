@@ -21,18 +21,18 @@ function ContactForm() {
     profileImageUrl: string
     defaultProfile: string
     displayName: string
-  } | null>(null)
-  const [initialViolationUser, setInitialViolationUser] = useState(true)
+  } | null | undefined>(undefined)
   const profile = useSelectors((state) => state.profile.value)
   const {sending, receiving, supervisor, send, reportTitle, reportContent, anonymousUser} = useTexts()
 
-  useEffect(() => {
-    if (user && initialViolationUser) {
-      setViolationUser(user)
-      setInitialViolationUser(false)
-    }
-  }, [user])
-
+  const changeViolationUser = (newValue: {
+    profileImage: boolean
+    profileImageUrl: string
+    defaultProfile: string
+    displayName: string
+  } | null) => {
+    setViolationUser(newValue)
+  }
   const onSubmit = async () => {
     try {
       if (message.title && message.content) {
@@ -101,8 +101,8 @@ function ContactForm() {
         />
       </div>
       <ContactFormDrawers
-        violationUser={violationUser}
-        changeViolationUser={(newValue) => setViolationUser(newValue)}
+        violationUser={violationUser !== undefined ? violationUser : user}
+        changeViolationUser={changeViolationUser}
       />
       <div className="flex justify-center pt-2.5">
         {profile?.certificated && (
