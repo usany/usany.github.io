@@ -14,9 +14,9 @@ interface Props {
 
 function ContactFormDrawersContent({ changeViolationUser }: Props) {
   const [users, setUsers] = useState<DocumentData[]>([])
-  const [loadedImage, setLoadedImage] = useState<
-    { url: string; index: number }[]
-  >([])
+  // const [loadedImage, setLoadedImage] = useState<
+  //   { url: string; index: number }[]
+  // >([])
   const [userSearch, setUserSearch] = useState('')
   const {userName} = useTexts()
   const onChangeUserSearch = (event: { target: { value: string } }) => {
@@ -34,13 +34,13 @@ function ContactFormDrawersContent({ changeViolationUser }: Props) {
       )
       const docs = await getDocs(collectionQuery)
       const newArray = docs.docs.map((document, index) => {
-        getDownloadURL(ref(storage, `${document.data()?.uid}`))
-          .then((url) => {
-            setLoadedImage([...loadedImage, { url: url, index: index }])
-          })
-          .catch((error) => {
-            console.log(error)
-          })
+        // getDownloadURL(ref(storage, `${document.data()?.uid}`))
+        //   .then((url) => {
+        //     setLoadedImage([...loadedImage, { url: url, index: index }])
+        //   })
+        //   .catch((error) => {
+        //     console.log(error)
+        //   })
 
         return {
           ...document.data(),
