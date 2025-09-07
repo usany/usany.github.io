@@ -24,9 +24,9 @@ interface Props {
 function ContactFormDrawers({ violationUser, changeViolationUser }: Props) {
   const profile = useSelectors((state) => state.profile.value)
 
-  if (profile?.certificated) return null
+  if (!profile?.certificated) return null
   return (
-    <div className='flex justify-between w-full gap-5 pt-3 px-5'>
+    <div className='grid grid-rows-2 justify-between w-full gap-5 pt-3 px-5'>
       <Popups trigger={<ContactFormDrawersTrigger violationUser={violationUser} />} title={<ContactFormDrawersTitle />} content={<ContactFormDrawersContent changeViolationUser={changeViolationUser} />} />
       {violationUser &&
         <Button variant='outlined' onClick={() => changeViolationUser(null)}><Ban /></Button>
