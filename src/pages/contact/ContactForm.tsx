@@ -23,7 +23,10 @@ function ContactForm() {
     const getUser = async () => {
       const ref = doc(dbservice, `members/${searchParams.get('id')}`)
       const getDocUser = await getDoc(ref)
-      setViolationUser(getDocUser.data())
+      const userData = getDocUser.data()
+      if (userData) {
+        setViolationUser(userData)
+      }
     }
     getUser()
   }, [searchParams.get('id')])
