@@ -56,12 +56,12 @@ function ContactForm() {
     }
   }
 
-  const onChangeMessageContent = (event: { target: { value: string } }) => {
+  const onChangeMessage = (event: { target: { value: string, name: string } }) => {
     const {
-      target: { value },
+      target: { value, name },
     } = event
     setMessage({
-      ...message, content: value
+      ...message, [name]: value
     })
   }
   const onChangeMessageTitle = (event: { target: { value: string } }) => {
@@ -83,7 +83,7 @@ function ContactForm() {
           label={reportTitle}
           multiline
           value={message.title}
-          onChange={onChangeMessageTitle}
+          onChange={onChangeMessage}
           variant="outlined"
           fullWidth
         />
@@ -95,7 +95,7 @@ function ContactForm() {
           multiline
           rows={5}
           value={message.content}
-          onChange={onChangeMessageContent}
+          onChange={onChangeMessage}
           variant="outlined"
           fullWidth
         />
