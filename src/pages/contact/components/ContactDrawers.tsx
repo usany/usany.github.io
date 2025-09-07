@@ -1,7 +1,5 @@
 import Popups from '../../core/Popups'
-import ContactDrawersContent from './ContactDrawersContent'
-import ContactDrawersTitle from './ContactDrawersTitle'
-import ContactDrawersTrigger from './ContactDrawersTrigger'
+import { ContactDrawersContent, ContactDrawersTitle, ContactDrawersTrigger } from './'
 
 const ContactDrawers = ({ userObj }) => {
   return (

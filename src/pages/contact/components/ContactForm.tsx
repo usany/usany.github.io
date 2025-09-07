@@ -4,13 +4,15 @@ import { addDoc, collection, doc, DocumentData, getDoc } from 'firebase/firestor
 import { useEffect, useState } from 'react'
 import { dbservice } from 'src/baseApi/serverbase'
 import { useSelectors, useTexts } from 'src/hooks'
-import ContactFormDrawers from 'src/pages/contact/components/ContactFormDrawers'
-import ContactDrawersTrigger from './ContactDrawersTrigger'
-import ContactDrawersTitle from './ContactDrawersTitle'
-import ContactDrawersContent from './ContactDrawersContent'
+import {
+  ContactAddress,
+  ContactFormDrawers,
+  ContactDrawersTrigger,
+  ContactDrawersTitle,
+  ContactDrawersContent
+} from './'
 import Popups from '../../core/Popups'
 import { useSearchParams } from 'react-router-dom'
-import ContactAddress from './ContactAddress'
 
 function ContactForm() {
   // const { state } = useLocation()

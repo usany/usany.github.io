@@ -1,9 +1,7 @@
 import Button from '@mui/material/Button';
 import { Ban } from 'lucide-react';
 import Popups from "../../core/Popups";
-import ContactFormDrawersContent from "./ContactFormDrawersContent";
-import ContactFormDrawersTitle from "./ContactFormDrawersTitle";
-import ContactFormDrawersTrigger from "./ContactFormDrawersTrigger";
+import { ContactFormDrawersContent, ContactFormDrawersTitle, ContactFormDrawersTrigger } from "./";
 import { useSelectors } from 'src/hooks';
 import { DocumentData } from 'firebase/firestore';
 
