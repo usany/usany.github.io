@@ -11,7 +11,7 @@ import ProfileMembersPasswordContent from './ProfileMembersPasswordContent'
 import ProfileMembersPasswordTrigger from './ProfileMembersPasswordTrigger'
 
 const ProfileMembers = ({ user }) => {
-  const { color } = useCardsBackground()
+  const { colorTwo } = useCardsBackground()
   const languages = useSelectors((state) => state.languages.value)
   const { changePassword } = useTexts()
   const profile = useSelectors((state) => state.profile.value)
@@ -33,7 +33,7 @@ const ProfileMembers = ({ user }) => {
       ) : (
         <Link to={`/contact/?id=${user.uid}`} state={{ user: user }}>
           <div className="flex justify-center">
-            <Card sx={{ bgcolor: color }}>
+            <Card sx={{ bgcolor: colorTwo }}>
               <div className="flex justify-center p-5">
                 {languages === 'ko' ? '신고하기' : 'Report'}
               </div>
