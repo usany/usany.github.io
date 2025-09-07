@@ -15,7 +15,7 @@ const ContactUserSelected = ({ violationUser, color }: {
 }) => {
   const profile = violationUser?.profileImage ? violationUser.profileImageUrl : violationUser?.defaultProfile
   const languages = useSelectors((state) => state.languages.value)
-
+  const displayName = violationUser?.displayName.slice(0, 10)
   return (
     <Card sx={{
       width: '100%',
@@ -26,7 +26,7 @@ const ContactUserSelected = ({ violationUser, color }: {
         <Avatar>
           <AvatarImage src={profile} />
         </Avatar>
-        <div className='flex items-center'>{violationUser?.displayName}</div>
+        <div className='flex items-center'>{displayName}</div>
       </div>
     </Card>
   )
