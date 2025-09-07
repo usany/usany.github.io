@@ -77,34 +77,36 @@ function ContactForm() {
     <form id="auth">
       <ContactAddress action={sending} label={profile ? profile?.displayName: anonymousUser} />
       <ContactAddress action={receiving} label={supervisor} />
-      <TextField
-        name="title"
-        sx={{
-          display: 'flex',
-          justifyContent: 'center'
-        }}
-        label={reportTitle}
-        multiline
-        value={message.title}
-        onChange={onChangeMessage}
-        variant="outlined"
-        fullWidth
-      />
       <div className="pt-5 px-5">
-      <TextField
-        name="content"
-        sx={{
-          display: 'flex',
-          justifyContent: 'center',
-        }}
-        label={reportContent}
-        multiline
-        rows={5}
-        value={message.content}
-        onChange={onChangeMessage}
-        variant="outlined"
-        fullWidth
-      />
+        <TextField
+          name="title"
+          sx={{
+            display: 'flex',
+            justifyContent: 'center'
+          }}
+          label={reportTitle}
+          multiline
+          value={message.title}
+          onChange={onChangeMessage}
+          variant="outlined"
+          fullWidth
+        />
+      </div>
+      <div className="pt-5 px-5">
+        <TextField
+          name="content"
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+          }}
+          label={reportContent}
+          multiline
+          rows={5}
+          value={message.content}
+          onChange={onChangeMessage}
+          variant="outlined"
+          fullWidth
+        />
       </div>
       <ContactFormDrawers
         violationUser={violationUser}
