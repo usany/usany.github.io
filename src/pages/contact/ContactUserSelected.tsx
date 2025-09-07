@@ -1,7 +1,7 @@
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
-import { useSelectors } from "src/hooks";
+import { useSelectors, useTexts } from "src/hooks";
 import useCardsBackground from '../../hooks/useCardsBackground';
 import { DocumentData } from "firebase/firestore";
 interface Props {
@@ -13,13 +13,14 @@ const ContactUserSelected = ({ violationUser, color }: Props) => {
   const profile = violationUser?.profileImage ? violationUser.profileImageUrl : violationUser?.defaultProfile
   const languages = useSelectors((state) => state.languages.value)
   const displayName = violationUser?.displayName.slice(0, 10)+'......'
+  const {reportingUser} = useTexts()
   return (
     <Card sx={{
       width: '100%',
       bgcolor: color
     }}>
       <div className='flex justify-between p-3 gap-3'>
-        <div className='flex items-center'>{languages === 'ko' ? '신고 유저:' : 'Reporting User'}</div>
+        <div className='flex items-center'>{reportingUser}</div>
         <Avatar>
           <AvatarImage src={profile} />
         </Avatar>
