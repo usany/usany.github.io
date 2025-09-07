@@ -8,13 +8,6 @@ function Contact() {
   return (
     <>
       <PageTitle icon={<Siren />} title={report} />
-<<<<<<< HEAD
-      {/* {profile && (
-        <ContactAddress action={sending} label={profile?.displayName} />
-      )}
-      <ContactAddress action={receiving} label={supervisor} /> */}
-=======
->>>>>>> branch
       <ContactForm />
     </>
   )
