@@ -16,7 +16,7 @@ const ContactDrawersContent = () => {
   const [sendMessages, setSendMessages] = useState([])
   const languages = useSelectors((state) => state.languages.value)
   const profile = useSelectors((state) => state.profile.value)
-  const {noReport, delete} = useTexts()
+  const {noReport, reportingUser, delete} = useTexts()
   const collectionQuery = query(collection(dbservice, 'violations'))
   const deleteMessage = (value) => {
     const deletedId = value.id
@@ -49,7 +49,7 @@ const ContactDrawersContent = () => {
     docs()
   }, [])
 
-  if (sendMessages.length === 0) return <div>{noReport}</div>
+  if (sendMessages.length === 0) return <>{noReport}</>
   return (
     <div className="p-5">
       {sendMessages.map((value, index) => {
@@ -63,9 +63,7 @@ const ContactDrawersContent = () => {
                     {value?.violationUser ? (
                       <div>
                         <div className="pt-5">
-                          {languages === 'ko'
-                            ? '신고 등록 유저'
-                            : 'Report registered user'}
+                          {reportingUser}
                         </div>
                         <Lists
                           elements={[value.violationUser]}
