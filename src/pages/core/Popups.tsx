@@ -16,7 +16,15 @@ import {
 import useLargeMedia from 'src/hooks/useLargeMedia'
 import DrawersBar from 'src/pages/core/DrawersBar'
 
-const Popups = ({ trigger, title, content, close, attachment, onLink }) => {
+interface Props {
+  trigger: React.ReactNode;
+  title: React.ReactNode;
+  content: React.ReactNode;
+  close?: React.ReactNode;
+  attachment?: boolean;
+  onLink?: boolean;
+}
+const Popups = ({ trigger, title, content, close = null, attachment = false, onLink = false }: Props) => {
 
   const largeMedia = useLargeMedia()
   if (largeMedia) {

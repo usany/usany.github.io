@@ -11,13 +11,14 @@ import ContactDrawersContent from './ContactDrawersContent'
 import Popups from '../core/Popups'
 import { useLocation } from 'react-router-dom'
 import ContactAddress from './ContactAddress'
+import { useImmer } from 'use-immer'
 
 function ContactForm() {
   const { state } = useLocation()
   const user = state?.user
   const [messageTitle, setMessageTitle] = useState('')
   const [messageContent, setMessageContent] = useState('')
-  const [message, setMessage] = useState({title: '', content: ''})
+  const [message, setMessage] = useImmer({title: '', content: ''})
   const [violationUser, setViolationUser] = useState<{
     profileImage: boolean
     profileImageUrl: string
@@ -34,7 +35,7 @@ function ContactForm() {
       setInitialViolationUser(false)
     }
   }, [user])
-
+  
   const onSubmit = async () => {
     try {
       if (messageTitle && messageContent) {
@@ -46,6 +47,9 @@ function ContactForm() {
           violationUser: violationUser,
         })
         alert('등록되었습니다')
+        setMessage((values) => {
+          const selected = values.find((value) => value.title)
+        })
         setMessageTitle('')
         setMessageContent('')
         setViolationUser(null)
