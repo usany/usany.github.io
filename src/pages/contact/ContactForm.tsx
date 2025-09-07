@@ -41,7 +41,7 @@ function ContactForm() {
           userName: profile?.displayName || '비로그인',
           messageTitle: message.title,
           message: message.content,
-          violationUser: violationUser,
+          violationUser: profile?.certificated ? violationUser : null,
         })
         alert('등록되었습니다')
         setMessage({
