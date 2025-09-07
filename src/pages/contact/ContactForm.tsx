@@ -15,8 +15,6 @@ import ContactAddress from './ContactAddress'
 function ContactForm() {
   const { state } = useLocation()
   const user = state?.user
-  // const [messageTitle, setMessageTitle] = useState('')
-  // const [messageContent, setMessageContent] = useState('')
   const [message, setMessage] = useState({title: '', content: ''})
   const [violationUser, setViolationUser] = useState<{
     profileImage: boolean
@@ -49,8 +47,6 @@ function ContactForm() {
         setMessage({
           title: '', content: ''
         })
-        // setMessageTitle('')
-        // setMessageContent('')
         setViolationUser(null)
       } else {
         alert('내용을 작성해주세요')
@@ -67,7 +63,6 @@ function ContactForm() {
     setMessage({
       ...message, content: value
     })
-    // setMessageContent(value)
   }
   const onChangeMessageTitle = (event: { target: { value: string } }) => {
     const {
@@ -76,7 +71,6 @@ function ContactForm() {
     setMessage({
       ...message, title: value
     })
-    // setMessageTitle(value)
   }
 
   return (
