@@ -48,7 +48,13 @@ const ContactDrawersContent = () => {
     docs()
   }, [])
 
-  if (sendMessages.length === 0) return <>{noReport}</>
+  if (sendMessages.length === 0) return (
+    <div className="flex justify-center p-5">
+      <div className="rounded shadow-md bg-light-1 dark:bg-dark-1 p-5">
+        {noReport}
+      </div>
+    </div>
+  )
   return (
     <div className="p-5">
       {sendMessages.map((value, index) => {
