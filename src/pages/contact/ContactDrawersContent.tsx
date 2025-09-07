@@ -14,7 +14,6 @@ import Lists from 'src/pages/search/searchList/searchListViews/Lists'
 
 const ContactDrawersContent = () => {
   const [sendMessages, setSendMessages] = useState([])
-  const languages = useSelectors((state) => state.languages.value)
   const profile = useSelectors((state) => state.profile.value)
   const {noReport, reportingUser, delete} = useTexts()
   const collectionQuery = query(collection(dbservice, 'violations'))
