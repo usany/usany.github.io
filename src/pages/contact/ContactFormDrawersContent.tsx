@@ -19,7 +19,6 @@ function ContactFormDrawersContent({ changeViolationUser }: Props) {
   >([])
   const [userSearch, setUserSearch] = useState('')
   const {userName} = useTexts()
-  const languages = useSelectors((state) => state.languages.value)
   const onChangeUserSearch = (event: { target: { value: string } }) => {
     const {
       target: { value },
