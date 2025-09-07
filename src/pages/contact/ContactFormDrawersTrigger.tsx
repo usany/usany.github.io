@@ -1,5 +1,5 @@
 import Button from '@mui/material/Button';
-import { useSelectors } from "src/hooks";
+import { useSelectors, useTexts } from "src/hooks";
 import useCardsBackground from '../../hooks/useCardsBackground';
 import { DocumentData } from "firebase/firestore";
 import ContactUserSelected from "./ContactUserSelected";
@@ -11,6 +11,7 @@ interface Props {
 function ContactFormDrawersTrigger({ violationUser }: Props) {
   const languages = useSelectors((state) => state.languages.value)
   const { colorTwo } = useCardsBackground()
+  const {registerReportingUser} = useTexts()
   return (
     <>
       {violationUser ?
@@ -21,7 +22,7 @@ function ContactFormDrawersTrigger({ violationUser }: Props) {
             bgcolor: colorTwo, ":hover": {
               bgcolor: colorTwo
             }
-          }} variant='outlined' form='auth'>{languages === 'ko' ? '신고 등록 유저' : 'Register reporting user'}</Button>
+          }} variant='outlined' form='auth'>{registerReportingUser}</Button>
         </div>
       }
     </>
