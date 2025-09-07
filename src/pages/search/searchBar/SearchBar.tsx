@@ -5,7 +5,6 @@ import { useSelectors, useTexts } from 'src/hooks';
 
 function SearchBar() {
   const [searchParams, setSearchParams] = useSearchParams()
-  const languages = useSelectors((state) => state.languages.value)
   const {userName} = useTexts()
   const onChangeUserSearch = (event) => {
     const { target: { value } } = event
