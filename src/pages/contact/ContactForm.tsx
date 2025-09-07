@@ -80,6 +80,12 @@ function ContactForm() {
       <div className="flex justify-center pt-5 px-5">
         <TextField
           name="title"
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            paddingTop: '20px',
+            paddingX: '20px'
+          }}
           label={reportTitle}
           multiline
           value={message.title}
@@ -91,6 +97,12 @@ function ContactForm() {
       <div className="flex justify-center pt-5 px-5">
         <TextField
           name="content"
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            paddingTop: '20px',
+            paddingX: '20px'
+          }}
           label={reportContent}
           multiline
           rows={5}

@@ -1,5 +1,5 @@
 import Button from '@mui/material/Button'
-import { useSelectors, useTexts } from 'src/hooks'
+import { useTexts } from 'src/hooks'
 
 const ContactDrawersTrigger = () => {
   const {reportList} = useTexts()
