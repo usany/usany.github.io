@@ -9,7 +9,8 @@ import {
   ContactFormDrawers,
   ContactDrawersTrigger,
   ContactDrawersTitle,
-  ContactDrawersContent
+  ContactDrawersContent,
+  ContactDrawers
 } from './'
 import Popups from '../../core/Popups'
 import { useSearchParams } from 'react-router-dom'
@@ -107,13 +108,7 @@ function ContactForm() {
         changeViolationUser={changeViolationUser}
       />
       <div className="flex justify-center pt-2.5">
-        {profile?.certificated && (
-          <Popups
-            trigger={<ContactDrawersTrigger />}
-            title={<ContactDrawersTitle />}
-            content={<ContactDrawersContent />}
-          />
-        )}
+        <ContactDrawers />
         <Button variant="outlined" form="auth" onClick={onSubmit}>
           {send}
         </Button>
