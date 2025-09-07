@@ -48,19 +48,6 @@ const Popups = ({ trigger, title, content, close, attachment, onLink }) => {
   }
   return (
     <div className="flex justify-center">
-      {/* <Drawer direction="left">
-        <DrawerTrigger>{trigger}</DrawerTrigger>
-        <DrawerContent className="bg-light-2 dark:bg-dark-2 right-auto top-0 mt-0 w-[310px] overflow-hidden rounded-[10px]">
-          <DrawerHeader>
-            <DrawerTitle>Are you absolutely sure?</DrawerTitle>
-            <DrawerDescription>This action cannot be undone.</DrawerDescription>
-          </DrawerHeader>
-          <DrawerFooter>
-            <DrawerClose></DrawerClose>
-          </DrawerFooter>
-        </DrawerContent>
-      </Drawer>
- */}
       <Drawer>
         <DrawerTrigger className='w-full'>{trigger}</DrawerTrigger>
         <DrawerContent className="bg-light-2 dark:bg-dark-2 max-h-[75vh]">
