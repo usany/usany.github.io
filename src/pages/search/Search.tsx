@@ -8,12 +8,7 @@ import SearchList from 'src/pages/search/searchList/SearchList'
 import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
 
 function Search() {
-  const languages = useSelectors((state) => state.languages.value)
-  const dispatch = useDispatch()
   const {userSearch} = useTexts()
-  useEffect(() => {
-    dispatch(changeBottomNavigation(5))
-  })
 
   return (
     <>
