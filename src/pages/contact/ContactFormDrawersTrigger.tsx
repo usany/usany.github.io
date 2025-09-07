@@ -3,14 +3,10 @@ import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import { useSelectors } from "src/hooks";
 import useCardsBackground from '../../hooks/useCardsBackground';
+import { DocumentData } from "firebase/firestore";
 
 const ContactUserSelected = ({ violationUser, color }: {
-  violationUser: {
-    profileImage: boolean
-    profileImageUrl: string
-    defaultProfile: string
-    displayName: string
-  } | null
+  violationUser: DocumentData | null
   color: string
 }) => {
   const profile = violationUser?.profileImage ? violationUser.profileImageUrl : violationUser?.defaultProfile
@@ -32,12 +28,7 @@ const ContactUserSelected = ({ violationUser, color }: {
   )
 }
 interface Props {
-  violationUser: {
-    profileImage: boolean
-    profileImageUrl: string
-    defaultProfile: string
-    displayName: string
-  } | null
+  violationUser: DocumentData | null
 }
 
 function ContactFormDrawersTrigger({ violationUser }: Props) {

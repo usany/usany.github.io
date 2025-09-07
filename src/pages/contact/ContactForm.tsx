@@ -1,6 +1,6 @@
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
-import { addDoc, collection } from 'firebase/firestore'
+import { addDoc, collection, DocumentData } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 import { dbservice } from 'src/baseApi/serverbase'
 import { useSelectors, useTexts } from 'src/hooks'
@@ -16,21 +16,11 @@ function ContactForm() {
   const { state } = useLocation()
   const user = state?.user
   const [message, setMessage] = useState({title: '', content: ''})
-  const [violationUser, setViolationUser] = useState<{
-    profileImage: boolean
-    profileImageUrl: string
-    defaultProfile: string
-    displayName: string
-  } | null | undefined>(undefined)
+  const [violationUser, setViolationUser] = useState<DocumentData | null | undefined>(undefined)
   const profile = useSelectors((state) => state.profile.value)
   const {sending, receiving, supervisor, send, reportTitle, reportContent, anonymousUser} = useTexts()
 
-  const changeViolationUser = (newValue: {
-    profileImage: boolean
-    profileImageUrl: string
-    defaultProfile: string
-    displayName: string
-  } | null) => {
+  const changeViolationUser = (newValue: DocumentData | null) => {
     setViolationUser(newValue)
   }
   const onSubmit = async () => {

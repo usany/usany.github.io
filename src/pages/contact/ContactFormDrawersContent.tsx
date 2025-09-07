@@ -46,6 +46,7 @@ function ContactFormDrawersContent({ changeViolationUser }: Props) {
           .catch((error) => {
             console.log(error)
           })
+
         return {
           ...document.data(),
         }

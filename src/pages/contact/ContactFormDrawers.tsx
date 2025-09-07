@@ -5,20 +5,11 @@ import ContactFormDrawersContent from "./ContactFormDrawersContent";
 import ContactFormDrawersTitle from "./ContactFormDrawersTitle";
 import ContactFormDrawersTrigger from "./ContactFormDrawersTrigger";
 import { useSelectors } from 'src/hooks';
+import { DocumentData } from 'firebase/firestore';
 
 interface Props {
-  violationUser: {
-    profileImage: boolean
-    profileImageUrl: string
-    defaultProfile: string
-    displayName: string
-  } | null
-  changeViolationUser: (newValue: {
-    profileImage: boolean
-    profileImageUrl: string
-    defaultProfile: string
-    displayName: string
-  } | null) => void
+  violationUser: DocumentData | null
+  changeViolationUser: (newValue: DocumentData | null) => void
 }
 
 function ContactFormDrawers({ violationUser, changeViolationUser }: Props) {
