@@ -1,11 +1,12 @@
 import TextField from '@mui/material/TextField';
 import { useSearchParams } from 'react-router-dom';
 import useCardsBackground from 'src/hooks/useCardsBackground';
-import { useSelectors } from 'src/hooks';
+import { useSelectors, useTexts } from 'src/hooks';
 
 function SearchBar() {
   const [searchParams, setSearchParams] = useSearchParams()
   const languages = useSelectors((state) => state.languages.value)
+  const {userName} = useTexts()
   const onChangeUserSearch = (event) => {
     const { target: { value } } = event
     setSearchParams(searchParams => {
@@ -16,10 +17,10 @@ function SearchBar() {
       return searchParams
     })
   }
-  const { colorOne, colorTwo } = useCardsBackground()
+  const { colorTwo } = useCardsBackground()
   return (
     <div className='px-5 flex justify-center'>
-      <TextField sx={{ width: '1000px', bgcolor: colorTwo, borderRadius: '5px' }} label={languages === 'ko' ? '유저 이름' : 'User name'} onChange={onChangeUserSearch} />
+      <TextField sx={{ width: '1000px', bgcolor: colorTwo, borderRadius: '5px' }} label={userName} onChange={onChangeUserSearch} />
     </div>
   )
 }
