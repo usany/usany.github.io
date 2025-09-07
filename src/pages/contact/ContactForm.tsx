@@ -64,14 +64,6 @@ function ContactForm() {
       ...message, [name]: value
     })
   }
-  // const onChangeMessageTitle = (event: { target: { value: string } }) => {
-  //   const {
-  //     target: { value },
-  //   } = event
-  //   setMessage({
-  //     ...message, title: value
-  //   })
-  // }
 
   return (
     <form id="auth">
