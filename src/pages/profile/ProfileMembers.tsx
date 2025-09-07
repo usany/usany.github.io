@@ -31,7 +31,7 @@ const ProfileMembers = ({ user }) => {
           />
         </div>
       ) : (
-        <Link to="/contact" state={{ user: user }}>
+        <Link to={`/contact/?id=${user.uid}`} state={{ user: user }}>
           <div className="flex justify-center">
             <Card sx={{ bgcolor: color }}>
               <div className="flex justify-center p-5">
