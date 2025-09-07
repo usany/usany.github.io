@@ -15,8 +15,6 @@ import ContactAddress from './ContactAddress'
 function ContactForm() {
   const { state } = useLocation()
   const user = state?.user
-  const [messageTitle, setMessageTitle] = useState('')
-  const [messageContent, setMessageContent] = useState('')
   const [message, setMessage] = useState({title: '', content: ''})
   const [violationUser, setViolationUser] = useState<{
     profileImage: boolean
@@ -26,7 +24,7 @@ function ContactForm() {
   } | null>(null)
   const [initialViolationUser, setInitialViolationUser] = useState(true)
   const profile = useSelectors((state) => state.profile.value)
-  const {report, sending, receiving, supervisor, send, reportTitle, reportContent} = useTexts()
+  const {sending, receiving, supervisor, send, reportTitle, reportContent, anonymousUser} = useTexts()
 
   useEffect(() => {
     if (user && initialViolationUser) {
@@ -37,17 +35,22 @@ function ContactForm() {
 
   const onSubmit = async () => {
     try {
-      await addDoc(collection(dbservice, 'violations'), {
-        userUid: profile?.uid || '비로그인',
-        userName: profile?.displayName || '비로그인',
-        messageTitle: messageTitle,
-        message: messageContent,
-        violationUser: violationUser,
-      })
-      alert('등록되었습니다')
-      setMessageTitle('')
-      setMessageContent('')
-      setViolationUser(null)
+      if (message.title && message.content) {
+        await addDoc(collection(dbservice, 'violations'), {
+          userUid: profile?.uid || '비로그인',
+          userName: profile?.displayName || '비로그인',
+          messageTitle: message.title,
+          message: message.content,
+          violationUser: violationUser,
+        })
+        alert('등록되었습니다')
+        setMessage({
+          title: '', content: ''
+        })
+        setViolationUser(null)
+      } else {
+        alert('내용을 작성해주세요')
+      }
     } catch (error) {
       console.log(error)
     }
@@ -57,27 +60,29 @@ function ContactForm() {
     const {
       target: { value },
     } = event
-    setMessageContent(value)
+    setMessage({
+      ...message, content: value
+    })
   }
   const onChangeMessageTitle = (event: { target: { value: string } }) => {
     const {
       target: { value },
     } = event
-    setMessageTitle(value)
+    setMessage({
+      ...message, title: value
+    })
   }
 
   return (
     <form id="auth">
-      {profile && (
-        <ContactAddress action={sending} label={profile?.displayName} />
-      )}
+      <ContactAddress action={sending} label={profile ? profile?.displayName: anonymousUser} />
       <ContactAddress action={receiving} label={supervisor} />
       <div className="flex justify-center pt-5 px-5">
         <TextField
           name="title"
           label={reportTitle}
           multiline
-          value={messageTitle}
+          value={message.title}
           onChange={onChangeMessageTitle}
           variant="outlined"
           fullWidth
@@ -89,7 +94,7 @@ function ContactForm() {
           label={reportContent}
           multiline
           rows={5}
-          value={messageContent}
+          value={message.content}
           onChange={onChangeMessageContent}
           variant="outlined"
           fullWidth
@@ -111,16 +116,9 @@ function ContactForm() {
             content={<ContactDrawersContent />}
           />
         )}
-
-        {messageTitle && messageContent ? (
-          <Button variant="outlined" form="auth" onClick={onSubmit}>
-            {send}
-          </Button>
-        ) : (
-          <Button variant="outlined" form="auth" disabled>
-            {send}
-          </Button>
-        )}
+        <Button variant="outlined" form="auth" onClick={onSubmit}>
+          {send}
+        </Button>
       </div>
     </form>
   )

@@ -1,20 +1,20 @@
 import { Siren } from 'lucide-react'
-import { useLocation } from 'react-router-dom'
-import { useSelectors, useTexts } from 'src/hooks'
-import ContactAddress from 'src/pages/contact/ContactAddress'
+import { useTexts } from 'src/hooks'
 import ContactForm from 'src/pages/contact/ContactForm'
 import PageTitle from 'src/pages/core/pageTitle/PageTitle'
 
 function Contact() {
-  const profile = useSelectors((state) => state.profile.value)
-  const {report, sending, receiving, supervisor} = useTexts()
+  const {report} = useTexts()
   return (
     <>
       <PageTitle icon={<Siren />} title={report} />
+<<<<<<< HEAD
       {/* {profile && (
         <ContactAddress action={sending} label={profile?.displayName} />
       )}
       <ContactAddress action={receiving} label={supervisor} /> */}
+=======
+>>>>>>> branch
       <ContactForm />
     </>
   )
