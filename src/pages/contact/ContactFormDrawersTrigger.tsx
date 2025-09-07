@@ -11,20 +11,15 @@ interface Props {
 function ContactFormDrawersTrigger({ violationUser }: Props) {
   const { colorTwo } = useCardsBackground()
   const {registerReportingUser} = useTexts()
+  if (violationUser) return <ContactUserSelected violationUser={violationUser} color={colorTwo} />
   return (
-    <>
-      {violationUser ?
-        <ContactUserSelected violationUser={violationUser} color={colorTwo} />
-        :
-        <div className='flex justify-center'>
-          <Button sx={{
-            bgcolor: colorTwo, ":hover": {
-              bgcolor: colorTwo
-            }
-          }} variant='outlined' form='auth'>{registerReportingUser}</Button>
-        </div>
-      }
-    </>
+    <div className='flex justify-center'>
+      <Button sx={{
+        bgcolor: colorTwo, ":hover": {
+          bgcolor: colorTwo
+        }
+      }} variant='outlined' form='auth'>{registerReportingUser}</Button>
+    </div>
   )
 }
 
