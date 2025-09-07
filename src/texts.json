@@ -138,7 +138,7 @@
     "noReport": "신고하기 내역이 없습니다",
     "remove": "지우기",
     "/profile": "프로필",
-    "/ranking": "랭킹",
+    "/ranking": "검색",
     "/piazza": "채팅",
     "/contact": "신고"
   },
@@ -281,7 +281,7 @@
     "noReport": "No report",
     "remove": "Remove",
     "/profile": "User Profile",
-    "/ranking": "User Ranking",
+    "/ranking": "User Search",
     "/piazza": "Chats",
     "/contact": "Report"
   }
