@@ -1,10 +1,7 @@
 import { useEffect, useState } from 'react'
-// import Dialog from '@mui/material/Dialog';
-// import DialogContent from '@mui/material/DialogContent';
 import Button from '@mui/material/Button'
 import { collection, deleteDoc, doc, getDocs, query } from 'firebase/firestore'
 import { dbservice } from 'src/baseApi/serverbase'
-// import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {
   Accordion,
   AccordionContent,
