@@ -1,6 +1,4 @@
-import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import Button from '@mui/material/Button';
-import Card from '@mui/material/Card';
 import { useSelectors } from "src/hooks";
 import useCardsBackground from '../../hooks/useCardsBackground';
 import { DocumentData } from "firebase/firestore";
