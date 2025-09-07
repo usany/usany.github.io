@@ -12,14 +12,14 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion'
 import Divider from '@mui/material/Divider'
-import { useSelectors } from 'src/hooks'
+import { useSelectors, useTexts } from 'src/hooks'
 import Lists from 'src/pages/search/searchList/searchListViews/Lists'
 
 const ContactDrawersContent = () => {
   const [sendMessages, setSendMessages] = useState([])
   const languages = useSelectors((state) => state.languages.value)
   const profile = useSelectors((state) => state.profile.value)
-
+  const {noReport, delete} = useTexts()
   const collectionQuery = query(collection(dbservice, 'violations'))
   const deleteMessage = (value) => {
     const deletedId = value.id
@@ -52,9 +52,7 @@ const ContactDrawersContent = () => {
     docs()
   }, [])
 
-  if (sendMessages.length === 0) return <div>
-          {languages === 'ko' ? '신고하기 내역이 없습니다.' : 'No report'}
-        </div>
+  if (sendMessages.length === 0) return <div>{noReport}</div>
   return (
     <div className="p-5">
       {sendMessages.map((value, index) => {
@@ -88,7 +86,7 @@ const ContactDrawersContent = () => {
                         variant="outlined"
                         onClick={() => deleteMessage(value)}
                       >
-                        {languages === 'ko' ? '지우기' : 'Delete'}
+                        {delete}
                       </Button>
                     </div>
                   </AccordionContent>
