@@ -17,7 +17,7 @@ const ListsView = ({ elements, userSearch, multiple, link, handleUser }) => {
   let samePointIndex
 
   return (
-    <div className="bg-light-3 dark:bg-dark-3">
+    <>
       {elements.map((element, index) => {
         const locationConfirmed =
           Date.now() - element.locationConfirmed < 50000000
@@ -61,11 +61,11 @@ const ListsView = ({ elements, userSearch, multiple, link, handleUser }) => {
           return (
             <div
               key={index}
-              className="px-5 pt-3 cursor-pointer"
+              className="flex flex-col cursor-pointer"
               onClick={onClick}
             >
               <div
-                className={`flex truncate justify-around gap-1 p-3
+                className={`flex truncate justify-around
                 ${
                   location.pathname === '/ranking' &&
                   multiple &&
@@ -102,7 +102,7 @@ const ListsView = ({ elements, userSearch, multiple, link, handleUser }) => {
           )
         }
       })}
-    </div>
+    </>
   )
 }
 
