@@ -110,7 +110,7 @@ function SearchList() {
     <div className="flex truncate justify-center">
       {userSearch ? (
         <div className="w-[1000px]">
-          <RankingListsTitle multiple={true} />
+          {/* <RankingListsTitle multiple={true} /> */}
           <Lists
             elements={rank}
             multiple={true}
@@ -121,7 +121,7 @@ function SearchList() {
         </div>
       ) : (
         <div className="w-[1000px]">
-          <RankingListsTitle multiple={false} />
+          {/* <RankingListsTitle multiple={false} /> */}
           <Lists
             elements={ranker}
             multiple={false}
@@ -129,7 +129,7 @@ function SearchList() {
             ranking={true}
             handleUser={null}
           />
-          <RankingListsTitle multiple={true} />
+          {/* <RankingListsTitle multiple={true} /> */}
           <Lists
             elements={rank}
             multiple={true}
