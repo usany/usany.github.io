@@ -15,20 +15,17 @@ function Lists({ elements, multiple, userSearch, ranking, handleUser }) {
       />
     </DrawerClose>
   )
+  if (!elements.length) return (
+    <Skeleton className="w-full h-[85px] bg-light-2 dark:bg-dark-2 rounded" />
+  )
   return (
-    <div>
-      {elements.length ? (
-        <ListsView
-          elements={elements}
-          userSearch={userSearch}
-          multiple={multiple}
-          link={link}
-          handleUser={handleUser}
-        />
-      ) : (
-        <Skeleton className="w-full h-[85px] bg-light-2 dark:bg-dark-2 rounded" />
-      )}
-    </div>
+    <ListsView
+      elements={elements}
+      userSearch={userSearch}
+      multiple={multiple}
+      link={link}
+      handleUser={handleUser}
+    />
   )
 }
 
