@@ -13,7 +13,7 @@ import { useSearchParams } from 'react-router-dom'
 import { dbservice } from 'src/baseApi/serverbase'
 import { useSelectors, useTexts } from 'src/hooks'
 import Lists from 'src/pages/search/searchList/searchListViews/Lists'
-import RankingListsTitle from './searchListViews/searchListViewsTitle/RankingListsTitle'
+// import RankingListsTitle from './searchListViews/searchListViewsTitle/RankingListsTitle'
 
 function SearchList() {
   const [rank, setRank] = useState([])
@@ -110,7 +110,6 @@ function SearchList() {
     <div className="flex truncate justify-center">
       {userSearch ? (
         <div className="w-[1000px]">
-          {/* <RankingListsTitle multiple={true} /> */}
           <Lists
             elements={rank}
             multiple={true}
@@ -121,15 +120,6 @@ function SearchList() {
         </div>
       ) : (
         <div className="w-[1000px]">
-          {/* <RankingListsTitle multiple={false} /> */}
-          {/* <Lists
-            elements={ranker}
-            multiple={false}
-            userSearch={null}
-            ranking={true}
-            handleUser={null}
-          /> */}
-          {/* <RankingListsTitle multiple={true} /> */}
           <Lists
             elements={rank}
             multiple={true}
