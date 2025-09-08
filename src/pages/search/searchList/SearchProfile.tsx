@@ -1,5 +1,6 @@
 import { useSearchParams } from 'react-router-dom'
 import { useSelectors } from 'src/hooks'
+import ListsView from './searchListViews/ListsView'
 
 function SearchProfile() {
   const [searchParams, setSearchParams] = useSearchParams()
@@ -9,8 +10,8 @@ function SearchProfile() {
   return (
     <ListsView
       elements={[profile]}
-      multiple={false}
       userSearch={null}
+      multiple={false}
       handleUser={null}
     />
   )

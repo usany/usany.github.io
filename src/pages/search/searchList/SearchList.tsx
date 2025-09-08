@@ -10,7 +10,7 @@ import { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { dbservice } from 'src/baseApi/serverbase'
 import { useTexts } from 'src/hooks'
-import Lists from 'src/pages/search/searchList/searchListViews/Lists'
+import ListsView from './searchListViews/ListsView'
 
 function SearchList() {
   const [rank, setRank] = useState([])
@@ -106,20 +106,18 @@ function SearchList() {
   return (
     <>
       {userSearch ? (
-        <Lists
+        <ListsView
           elements={rank}
           multiple={true}
           userSearch={userSearch}
-          ranking={true}
           handleUser={null}
         />
       ) : (
         <>
-          <Lists
+          <ListsView
             elements={rank}
             multiple={true}
             userSearch={null}
-            ranking={true}
             handleUser={null}
           />
           {isLoading && (
