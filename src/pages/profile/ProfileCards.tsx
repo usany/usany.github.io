@@ -12,11 +12,7 @@ import ProfileDrawersPoints from './ProfileDrawersPoints'
 import ProfilePointsTitle from './ProfilePointsTitle'
 import ProfilePointsTrigger from './ProfilePointsTrigger'
 
-const ProfileCards = ({
-  user,
-  alliesCollection,
-  cards,
-}) => {
+const ProfileCards = ({ user, alliesCollection, cards }) => {
   const [companies, setCompanies] = useState([])
   const usersCollection = async (index) => {
     const elementsCollection = []
@@ -74,11 +70,7 @@ const ProfileCards = ({
                   <ProfileDrawersEmptyCompanies followings={index} />
                 )
               }
-              close={
-                <ProfileLists
-                  elements={companies}
-                />
-              }
+              close={<ProfileLists elements={companies} />}
               attachment={true}
               onLink={onLink}
             />
