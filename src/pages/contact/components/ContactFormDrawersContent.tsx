@@ -1,20 +1,25 @@
 import TextField from '@mui/material/TextField'
-import { collection, DocumentData, getDocs, orderBy, query } from 'firebase/firestore'
+import {
+  collection,
+  DocumentData,
+  getDocs,
+  orderBy,
+  query,
+} from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 import { dbservice } from 'src/baseApi/serverbase'
 import { useTexts } from 'src/hooks'
 import Lists from 'src/pages/search/searchList/searchListViews/Lists'
+import RankingListsTitle from 'src/pages/search/searchList/searchListViews/searchListViewsTitle/RankingListsTitle'
 
 interface Props {
-  changeViolationUser: (
-    newValue: DocumentData | null,
-  ) => void
+  changeViolationUser: (newValue: DocumentData | null) => void
 }
 
 function ContactFormDrawersContent({ changeViolationUser }: Props) {
   const [users, setUsers] = useState<DocumentData[]>([])
   const [userSearch, setUserSearch] = useState('')
-  const {userName} = useTexts()
+  const { userName } = useTexts()
   const onChangeUserSearch = (event: { target: { value: string } }) => {
     const {
       target: { value },
@@ -41,12 +46,10 @@ function ContactFormDrawersContent({ changeViolationUser }: Props) {
 
   return (
     <div className={`flex flex-col p-5 ${!userSearch && 'h-[60vh]'}`}>
-      <TextField
-        label={userName}
-        onChange={onChangeUserSearch}
-      />
+      <TextField label={userName} onChange={onChangeUserSearch} />
       {userSearch && (
-        <div className="flex justify-center">
+        <div className="flex flex-col justify-center">
+          <RankingListsTitle multiple={true} />
           <Lists
             elements={users}
             multiple={true}

@@ -6,8 +6,8 @@ import { doc, updateDoc } from 'firebase/firestore'
 import { Ban, Check } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { dbservice } from 'src/baseApi/serverbase'
-import Avatars from 'src/pages/core/Avatars'
 import { useSelectors } from 'src/hooks'
+import Avatars from 'src/pages/core/Avatars'
 
 const ListsView = ({ elements, userSearch, multiple, link, handleUser }) => {
   const [newRanking, setNewRanking] = useState(0)
@@ -67,7 +67,9 @@ const ListsView = ({ elements, userSearch, multiple, link, handleUser }) => {
               <div
                 className={`flex truncate justify-around gap-1 p-3
                 ${
-                  location.pathname === '/ranking' && multiple && index<3 &&
+                  location.pathname === '/ranking' &&
+                  multiple &&
+                  index < 3 &&
                   `bg-[#e2e8f0] dark:bg-[#2d3848] rounded`
                 }`}
               >
@@ -80,10 +82,10 @@ const ListsView = ({ elements, userSearch, multiple, link, handleUser }) => {
                     {samePointIndex ? samePointIndex + 1 : index + 1}
                   </div>
                 )}
-                <div className="flex gap-1">
+                <div className="flex gap-1 items-center">
                   <Avatars element={element} piazza={null} profile={false} />
                 </div>
-                <div className="flex flex-col justify-center overflow-hidden px-5 w-40">
+                <div className="flex flex-col justify-center items-start overflow-hidden px-5 w-40">
                   <div className="overflow-hidden">{displayName}</div>
                   <div className="overflow-hidden">{element.points}</div>
                 </div>

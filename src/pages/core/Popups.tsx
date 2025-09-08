@@ -3,7 +3,7 @@ import {
   DrawerClose,
   DrawerContent,
   DrawerTitle,
-  DrawerTrigger
+  DrawerTrigger,
 } from '@/components/ui/drawer'
 import { ScrollArea } from '@radix-ui/react-scroll-area'
 import {
@@ -17,22 +17,28 @@ import useLargeMedia from 'src/hooks/useLargeMedia'
 import DrawersBar from 'src/pages/core/DrawersBar'
 
 interface Props {
-  trigger: React.ReactNode;
-  title: React.ReactNode;
-  content: React.ReactNode;
-  close?: React.ReactNode;
-  attachment?: boolean;
-  onLink?: boolean;
+  trigger: React.ReactNode
+  title: React.ReactNode
+  content: React.ReactNode
+  close?: React.ReactNode
+  attachment?: boolean
+  onLink?: boolean
 }
-const Popups = ({ trigger, title, content, close = null, attachment = false, onLink = false }: Props) => {
-
+const Popups = ({
+  trigger,
+  title,
+  content,
+  close = null,
+  attachment = false,
+  onLink = false,
+}: Props) => {
   const largeMedia = useLargeMedia()
   if (largeMedia) {
     return (
       <div className="flex justify-center">
         <Dialog>
-          <DialogTrigger className='w-full'>{trigger}</DialogTrigger>
-          <DialogContent className="bg-light-2 dark:bg-dark-2 h-[50vh]">
+          <DialogTrigger className="w-full">{trigger}</DialogTrigger>
+          <DialogContent className="bg-light-2 dark:bg-dark-2 h-[50vh] min-w-[850px]">
             <ScrollArea className="overflow-y-scroll">
               <DrawersBar />
               <DialogTitle className="flex justify-center p-5">
@@ -57,7 +63,7 @@ const Popups = ({ trigger, title, content, close = null, attachment = false, onL
   return (
     <div className="flex justify-center">
       <Drawer>
-        <DrawerTrigger className='w-full'>{trigger}</DrawerTrigger>
+        <DrawerTrigger className="w-full">{trigger}</DrawerTrigger>
         <DrawerContent className="bg-light-2 dark:bg-dark-2 max-h-[75vh]">
           <ScrollArea className="overflow-y-scroll">
             <DrawersBar />
