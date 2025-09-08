@@ -15,6 +15,20 @@ const ListsView = ({ elements, userSearch, multiple, handleUser }) => {
   let point
   let samePointIndex
   const link = '/profile'
+  const onClick = (element) => {
+    const userLink =
+      element.uid === profile?.uid ? link : link + `/?id=${element.uid}`
+    if (location.pathname !== '/contact') {
+      navigate(userLink, {
+        state: {
+          element: element,
+        },
+      })
+    } else {
+      handleUser(element)
+    }
+  }
+
   return (
     <div className="flex truncate justify-center">
       <div className="w-[1000px]">
@@ -48,18 +62,12 @@ const ListsView = ({ elements, userSearch, multiple, handleUser }) => {
             } else {
               displayName = element.displayName
             }
-            const userLink =
-              element.uid === profile?.uid ? link : link + `/?id=${element.uid}`
-            const onClick = () =>
-              location.pathname !== '/contact'
-                ? navigate(userLink, {
-                    state: {
-                      element: element,
-                    },
-                  })
-                : handleUser(element)
             return (
-              <div key={index} className="cursor-pointer" onClick={onClick}>
+              <div
+                key={index}
+                className="cursor-pointer"
+                onClick={() => onClick(element)}
+              >
                 <div
                   className={`flex justify-around
                 ${
