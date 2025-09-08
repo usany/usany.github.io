@@ -122,13 +122,13 @@ function SearchList() {
       ) : (
         <div className="w-[1000px]">
           {/* <RankingListsTitle multiple={false} /> */}
-          <Lists
+          {/* <Lists
             elements={ranker}
             multiple={false}
             userSearch={null}
             ranking={true}
             handleUser={null}
-          />
+          /> */}
           {/* <RankingListsTitle multiple={true} /> */}
           <Lists
             elements={rank}
