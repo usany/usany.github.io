@@ -4,7 +4,7 @@ import ListsView from './ListsView'
 
 function Lists({ elements, multiple, userSearch, ranking, handleUser }) {
   const link = '/profile'
-  
+
   if (!ranking) return (
     <DrawerClose>
       <ListsView
@@ -15,9 +15,6 @@ function Lists({ elements, multiple, userSearch, ranking, handleUser }) {
         handleUser={handleUser}
       />
     </DrawerClose>
-  )
-  if (!elements.length) return (
-    <Skeleton className="w-full h-[85px] bg-light-2 dark:bg-dark-2 rounded" />
   )
   return (
     <ListsView
