@@ -6,8 +6,8 @@ interface Props {
   multiple: boolean
 }
 function RankingListsTitle({ multiple }: Props) {
-  const languages = useSelectors((state) => state.languages.value)
   const largeMedia = useLargeMedia()
+  const {user, my, ranking, name, points, locationConfirmation, location, confirmation} = useTexts()
   return (
     <div className='px-1 pt-3'>
       <div
@@ -15,15 +15,15 @@ function RankingListsTitle({ multiple }: Props) {
       >
         {largeMedia ?
           <div className="flex items-center justify-center w-20">
-            {multiple ? (languages === 'ko' ? '유저' : 'User') : (languages === 'ko' ? '내' : 'My')} {languages === 'ko' ? '랭킹' : 'Ranking'}
+            {multiple ? user : my} {ranking}
           </div>
           :
           <div className="flex flex-col items-center justify-center w-20">
             <div>
-              {multiple ? (languages === 'ko' ? '유저' : 'User') : (languages === 'ko' ? '내' : 'My')}
+              {multiple ? user : my}
             </div>
             <div>
-              {languages === 'ko' ? '랭킹' : 'Ranking'}
+              {ranking}
             </div>
           </div>
         }
@@ -38,23 +38,21 @@ function RankingListsTitle({ multiple }: Props) {
           </Avatar>
         </div>
         <div className="flex flex-col justify-center overflow-hidden px-5 w-40">
-          <div>{multiple ? (languages === 'ko' ? '유저' : 'User') : (languages === 'ko' ? '내' : 'My')} {languages === 'ko' ? '이름' : 'name'}</div>
-          <div>{languages === 'ko' ? '포인트' : 'Points'}</div>
+          <div>{multiple ? user : my} {name}</div>
+          <div>{points}</div>
         </div>
         {largeMedia ?
           <div className='flex justify-center items-center w-[67px]'>
-            {languages === 'ko' ? '위치 확인' : 'Location Confirm'}
+            {locationConfirmation}
           </div>
           :
           <div className='flex flex-col justify-center items-center w-[67px]'>
             <div>
-              {languages === 'ko' ? '위치 확인' : 'Location'}
+              {location}
             </div>
-            {languages !== 'ko' &&
-              <div>
-                Confirm
-              </div>
-            }
+            <div>
+              {confirmation}
+            </div>
           </div>
         }
       </div>

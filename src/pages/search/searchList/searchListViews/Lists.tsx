@@ -10,7 +10,7 @@ function Lists({ elements, multiple, userSearch, ranking, handleUser }) {
     <div>
       {ranking && (
         <div>
-          <RankingListsTitle multiple={multiple} />
+          {/* <RankingListsTitle multiple={multiple} /> */}
           {elements.length ? (
             <ListsView
               elements={elements}
