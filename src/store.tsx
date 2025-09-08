@@ -1,5 +1,4 @@
 import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit'
-import { setupListeners } from '@reduxjs/toolkit/query'
 import { bottomNavigationReducer } from 'src/stateSlices/bottomNavigationSlice'
 import { cardAccordionReducer } from 'src/stateSlices/cardAccordionSlice'
 import { completedActionReducer } from 'src/stateSlices/completedActionSlice'
@@ -11,7 +10,6 @@ import { profileImageReducer } from 'src/stateSlices/profileImageSlice'
 import { profileUrlReducer } from 'src/stateSlices/profileUrlSlice'
 import { tabsReducer } from 'src/stateSlices/tabsSlice'
 import { themeReducer } from 'src/stateSlices/themeSlice'
-import { currentUserApi } from './stateSlices/baseQuery'
 import { changingUserReducer } from './stateSlices/changingUserSlice'
 import { defaultProfileReducer } from './stateSlices/defaultProfileSlice'
 import { languagesReducer } from './stateSlices/languagesSlice'
@@ -22,6 +20,7 @@ import { profileReducer } from './stateSlices/profileSlice'
 import { scrollNavigationReducer } from './stateSlices/scrollNavigationSlice'
 import { userCertificatedReducer } from './stateSlices/userCertificatedSlice'
 import { weather } from './stateSlices/weather'
+import { currentUserApi } from './stateSlices/baseQuery'
 
 export const store = configureStore({
   reducer: {
@@ -54,7 +53,6 @@ export const store = configureStore({
       currentUserApi.middleware,
     ]),
 })
-setupListeners(store.dispatch)
 
 export type AppStore = typeof store
 export type RootState = ReturnType<AppStore['getState']>

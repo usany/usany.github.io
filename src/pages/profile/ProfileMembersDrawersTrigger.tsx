@@ -3,11 +3,11 @@ import useCardsBackground from "src/hooks/useCardsBackground";
 import { useSelectors } from "src/hooks";
 
 const ProfileMembersDrawersTrigger = () => {
-  const { color } = useCardsBackground()
+  const { colorTwo } = useCardsBackground()
   const languages = useSelectors((state) => state.languages.value)
 
   return (
-    <Card sx={{ width: "100%", bgcolor: color }}>
+    <Card sx={{ width: "100%", bgcolor: colorTwo }}>
       <div
         className="flex justify-center p-5"
       >

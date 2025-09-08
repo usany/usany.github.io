@@ -2,7 +2,7 @@ import { useTexts } from 'src/hooks'
 
 function ContactFormDrawersTitle() {
   const { searchUser } = useTexts()
-  return <div>{searchUser}</div>
+  return <>{searchUser}</>
 }
 
 export default ContactFormDrawersTitle

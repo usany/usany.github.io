@@ -25,7 +25,7 @@ import { useTexts } from 'src/hooks'
 function Navigation() {
   const theme = useSelectors((state) => state.theme.value)
   const linkId = useId();
-  const { myProfile, userRanking, groupChat, report, collection, signOut, needNetworkConnection } = useTexts()
+  const { myProfile, userSearch, groupChat, report, collection, signOut, needNetworkConnection } = useTexts()
   const profile = useSelectors((state) => state.profile.value)
   const onLine = useSelectors((state) => state.onLine.value)
 
@@ -40,7 +40,7 @@ function Navigation() {
       href: '/ranking',
       passingState: null,
       icon: <SearchCheck />,
-      description: userRanking,
+      description: userSearch,
     },
     {
       href: '/piazza',

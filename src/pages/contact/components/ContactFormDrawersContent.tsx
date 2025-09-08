@@ -1,29 +1,20 @@
 import TextField from '@mui/material/TextField'
-import { collection, getDocs, orderBy, query } from 'firebase/firestore'
-import { getDownloadURL, ref } from 'firebase/storage'
+import { collection, DocumentData, getDocs, orderBy, query } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
-import { dbservice, storage } from 'src/baseApi/serverbase'
-import { useSelectors } from 'src/hooks'
+import { dbservice } from 'src/baseApi/serverbase'
+import { useTexts } from 'src/hooks'
 import Lists from 'src/pages/search/searchList/searchListViews/Lists'
 
 interface Props {
   changeViolationUser: (
-    newValue: {
-      profileImage: boolean
-      profileImageUrl: string
-      defaultProfile: string
-      displayName: string
-    } | null,
+    newValue: DocumentData | null,
   ) => void
 }
 
 function ContactFormDrawersContent({ changeViolationUser }: Props) {
-  const [users, setUsers] = useState<{ uid: string }[]>([])
-  const [loadedImage, setLoadedImage] = useState<
-    { url: string; index: number }[]
-  >([])
+  const [users, setUsers] = useState<DocumentData[]>([])
   const [userSearch, setUserSearch] = useState('')
-  const languages = useSelectors((state) => state.languages.value)
+  const {userName} = useTexts()
   const onChangeUserSearch = (event: { target: { value: string } }) => {
     const {
       target: { value },
@@ -38,14 +29,7 @@ function ContactFormDrawersContent({ changeViolationUser }: Props) {
         orderBy('points', 'desc'),
       )
       const docs = await getDocs(collectionQuery)
-      const newArray = docs.docs.map((document, index) => {
-        getDownloadURL(ref(storage, `${document.data()?.uid}`))
-          .then((url) => {
-            setLoadedImage([...loadedImage, { url: url, index: index }])
-          })
-          .catch((error) => {
-            console.log(error)
-          })
+      const newArray = docs.docs.map((document) => {
         return {
           ...document.data(),
         }
@@ -58,13 +42,12 @@ function ContactFormDrawersContent({ changeViolationUser }: Props) {
   return (
     <div className={`flex flex-col p-5 ${!userSearch && 'h-[60vh]'}`}>
       <TextField
-        label={languages === 'ko' ? '유저 이름' : 'User name'}
+        label={userName}
         onChange={onChangeUserSearch}
       />
       {userSearch && (
         <div className="flex justify-center">
           <Lists
-            userObj={null}
             elements={users}
             multiple={true}
             userSearch={userSearch}

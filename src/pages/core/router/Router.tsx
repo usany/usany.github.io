@@ -14,7 +14,7 @@ const Router = () => {
   // const Home = lazy(() => import('src/pages/main/Home'))
   // const Profile = lazy(() => import('src/pages/profile/Profile'))
   // const Piazza = lazy(() => import('src/pages/piazza/Piazza'))
-  const Ranking = lazy(() => import('src/pages/search/Ranking'))
+  const Search = lazy(() => import('src/pages/search/Search'))
   const Collection = lazy(() => import('src/pages/collection/Collection'))
   const Contact = lazy(() => import('src/pages/contact/Contact'))
   const profile = useSelectors((state) => state.profile.value)
@@ -32,7 +32,7 @@ const Router = () => {
               {profile?.certificated && (
                 <>
                   <Route path="/profile" element={<Profile />} />
-                  <Route path="/ranking" element={<Ranking />} />
+                  <Route path="/ranking" element={<Search />} />
                   <Route path="/piazza" element={<Piazza />} />
                   <Route path="/collection" element={<Collection />} />
                 </>

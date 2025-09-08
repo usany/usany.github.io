@@ -61,13 +61,14 @@ const ListsView = ({ elements, userSearch, multiple, link, handleUser }) => {
           return (
             <div
               key={index}
-              className="px-1 pt-3 cursor-pointer"
+              className="px-5 pt-3 cursor-pointer"
               onClick={onClick}
             >
               <div
-                className={`flex truncate justify-around gap-1 p-3 rounded ranking-${
-                  location.pathname === '/ranking' &&
-                  (multiple ? index + 1 : element.rank)
+                className={`flex truncate justify-around gap-1 p-3
+                ${
+                  location.pathname === '/ranking' && multiple && index<3 &&
+                  `bg-[#e2e8f0] dark:bg-[#2d3848] rounded`
                 }`}
               >
                 {!multiple ? (

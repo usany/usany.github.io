@@ -11,18 +11,19 @@ import {
 import { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { dbservice } from 'src/baseApi/serverbase'
-import { useSelectors } from 'src/hooks'
+import { useSelectors, useTexts } from 'src/hooks'
 import Lists from 'src/pages/search/searchList/searchListViews/Lists'
 
-function RankingLists() {
+function SearchList() {
   const [rank, setRank] = useState([])
-  const [ranker, setRanker] = useState([])
+  // const [ranker, setRanker] = useState([])
+  // const profile = useSelectors((state) => state.profile.value)
   const [continuing, setContinuing] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
   const [searchParams, setSearchParams] = useSearchParams()
-  const profile = useSelectors((state) => state.profile.value)
   const userSearch = searchParams.get('search')
   const scrollNumber = 20
+  const {loading} = useTexts()
   useEffect(() => {
     const membersList = async () => {
       const collectionQuery = query(
@@ -43,17 +44,17 @@ function RankingLists() {
         }
       })
       setRank([...rank, ...newArray])
-      if (ranker.length === 0) {
-        const docRef = doc(dbservice, `members/${profile?.uid}`)
-        const myDocSnap = await getDoc(docRef)
-        const myDocSnapData = myDocSnap.data()
-        newArray.map((document, index) => {
-          if (document.uid === profile?.uid) {
-            newArray[index].rank = index + 1
-          }
-        })
-        setRanker([myDocSnapData])
-      }
+      // if (ranker.length === 0) {
+      //   const docRef = doc(dbservice, `members/${profile?.uid}`)
+      //   const myDocSnap = await getDoc(docRef)
+      //   const myDocSnapData = myDocSnap.data()
+      //   newArray.map((document, index) => {
+      //     if (document.uid === profile?.uid) {
+      //       newArray[index].rank = index + 1
+      //     }
+      //   })
+      //   setRanker([myDocSnapData])
+      // }
       setIsLoading(false)
     }
     const searchingMembersList = async () => {
@@ -119,13 +120,6 @@ function RankingLists() {
       ) : (
         <div className="w-[1000px]">
           <Lists
-            elements={ranker}
-            multiple={false}
-            userSearch={null}
-            ranking={true}
-            handleUser={null}
-          />
-          <Lists
             elements={rank}
             multiple={true}
             userSearch={null}
@@ -134,7 +128,7 @@ function RankingLists() {
           />
           {isLoading && (
             <div className="flex justify-center text-2xl bg-light-2 dark:bg-dark-2 rounded">
-              로딩
+              {loading}
             </div>
           )}
         </div>
@@ -143,4 +137,4 @@ function RankingLists() {
   )
 }
 
-export default RankingLists
+export default SearchList
