@@ -12,8 +12,6 @@ const ListsView = ({ elements, userSearch, multiple, handleUser }) => {
   const [newRanking, setNewRanking] = useState(0)
   const navigate = useNavigate()
   const profile = useSelectors((state) => state.profile.value)
-  let point
-  let samePointIndex
   const link = '/profile'
   const onClick = (element) => {
     const userLink =
@@ -28,7 +26,8 @@ const ListsView = ({ elements, userSearch, multiple, handleUser }) => {
       handleUser(element)
     }
   }
-
+  let point
+  let samePointIndex
   return (
     <div className="flex truncate justify-center">
       <div className="w-[1000px]">
