@@ -18,7 +18,7 @@ function Search() {
         title={userSearch}
       />
       <SearchBar />
-      <RankingListsTitle multiple={true} />
+      <RankingListsTitle multiple={false} />
       <SearchList />
       <RankingListsTitle multiple={true} />
     </>
