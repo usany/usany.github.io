@@ -13,7 +13,6 @@ import { useSearchParams } from 'react-router-dom'
 import { dbservice } from 'src/baseApi/serverbase'
 import { useSelectors, useTexts } from 'src/hooks'
 import Lists from 'src/pages/search/searchList/searchListViews/Lists'
-// import RankingListsTitle from './searchListViews/searchListViewsTitle/RankingListsTitle'
 
 function SearchList() {
   const [rank, setRank] = useState([])
