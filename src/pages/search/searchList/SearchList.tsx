@@ -11,7 +11,7 @@ import {
 import { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { dbservice } from 'src/baseApi/serverbase'
-import { useSelectors } from 'src/hooks'
+import { useSelectors, useTexts } from 'src/hooks'
 import Lists from 'src/pages/search/searchList/searchListViews/Lists'
 
 function SearchList() {
@@ -23,6 +23,7 @@ function SearchList() {
   const profile = useSelectors((state) => state.profile.value)
   const userSearch = searchParams.get('search')
   const scrollNumber = 20
+  const {loading} = useTexts()
   useEffect(() => {
     const membersList = async () => {
       const collectionQuery = query(
@@ -108,6 +109,7 @@ function SearchList() {
     <div className="flex truncate justify-center">
       {userSearch ? (
         <div className="w-[1000px]">
+          <RankingListsTitle multiple={true} />
           <Lists
             elements={rank}
             multiple={true}
@@ -118,6 +120,7 @@ function SearchList() {
         </div>
       ) : (
         <div className="w-[1000px]">
+          <RankingListsTitle multiple={false} />
           <Lists
             elements={ranker}
             multiple={false}
@@ -125,6 +128,7 @@ function SearchList() {
             ranking={true}
             handleUser={null}
           />
+          <RankingListsTitle multiple={true} />
           <Lists
             elements={rank}
             multiple={true}
@@ -134,7 +138,7 @@ function SearchList() {
           />
           {isLoading && (
             <div className="flex justify-center text-2xl bg-light-2 dark:bg-dark-2 rounded">
-              로딩
+              {loading}
             </div>
           )}
         </div>
