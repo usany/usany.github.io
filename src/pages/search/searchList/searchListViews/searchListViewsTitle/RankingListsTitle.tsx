@@ -9,7 +9,7 @@ function RankingListsTitle({ multiple }: Props) {
   const largeMedia = useLargeMedia()
   const {user, my, ranking, name, points, locationConfirmation, location, confirmation} = useTexts()
   return (
-    <div className='px-5 pt-3'>
+    <div className='px-1 pt-3'>
       <div
         className={`flex truncate w-full justify-around gap-1 p-3 rounded`}
       >

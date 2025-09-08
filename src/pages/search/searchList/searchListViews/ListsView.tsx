@@ -61,7 +61,7 @@ const ListsView = ({ elements, userSearch, multiple, link, handleUser }) => {
           return (
             <div
               key={index}
-              className="px-5 pt-3 cursor-pointer"
+              className="px-1 pt-3 cursor-pointer"
               onClick={onClick}
             >
               <div
