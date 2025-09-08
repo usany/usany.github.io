@@ -16,11 +16,11 @@ import Lists from 'src/pages/search/searchList/searchListViews/Lists'
 
 function SearchList() {
   const [rank, setRank] = useState([])
-  const [ranker, setRanker] = useState([])
+  // const [ranker, setRanker] = useState([])
+  // const profile = useSelectors((state) => state.profile.value)
   const [continuing, setContinuing] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
   const [searchParams, setSearchParams] = useSearchParams()
-  const profile = useSelectors((state) => state.profile.value)
   const userSearch = searchParams.get('search')
   const scrollNumber = 20
   const {loading} = useTexts()
@@ -44,17 +44,17 @@ function SearchList() {
         }
       })
       setRank([...rank, ...newArray])
-      if (ranker.length === 0) {
-        const docRef = doc(dbservice, `members/${profile?.uid}`)
-        const myDocSnap = await getDoc(docRef)
-        const myDocSnapData = myDocSnap.data()
-        newArray.map((document, index) => {
-          if (document.uid === profile?.uid) {
-            newArray[index].rank = index + 1
-          }
-        })
-        setRanker([myDocSnapData])
-      }
+      // if (ranker.length === 0) {
+      //   const docRef = doc(dbservice, `members/${profile?.uid}`)
+      //   const myDocSnap = await getDoc(docRef)
+      //   const myDocSnapData = myDocSnap.data()
+      //   newArray.map((document, index) => {
+      //     if (document.uid === profile?.uid) {
+      //       newArray[index].rank = index + 1
+      //     }
+      //   })
+      //   setRanker([myDocSnapData])
+      // }
       setIsLoading(false)
     }
     const searchingMembersList = async () => {
