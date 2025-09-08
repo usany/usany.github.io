@@ -10,6 +10,7 @@ function RankingListsTitle({ multiple }: Props) {
   const largeMedia = useLargeMedia()
   const {user, my, ranking, name, points, locationConfirmation, location, confirmation} = useTexts()
   const [searchParams, setSearchParams] = useSearchParams()
+
   if (!multiple && searchParams.get('search')) return null
   return (
     <div className="flex truncate justify-center">

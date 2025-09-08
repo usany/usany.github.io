@@ -17,9 +17,10 @@ function SearchBar() {
     })
   }
   const { colorTwo } = useCardsBackground()
+  const searchValue = searchParams.get('search')
   return (
     <div className='px-5 flex justify-center'>
-      <TextField sx={{ width: '1000px', bgcolor: colorTwo, borderRadius: '5px' }} label={userName} onChange={onChangeUserSearch} />
+      <TextField sx={{ width: '1000px', bgcolor: colorTwo, borderRadius: '5px' }} value={searchValue} label={userName} onChange={onChangeUserSearch} />
     </div>
   )
 }

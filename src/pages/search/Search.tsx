@@ -21,6 +21,7 @@ function Search() {
       <RankingListsTitle multiple={false} />
       <SearchList />
       <RankingListsTitle multiple={true} />
+      <SearchList />
     </>
   )
 }
