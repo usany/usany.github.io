@@ -47,7 +47,6 @@ const ListsView = ({ elements, userSearch, multiple, handleUser }) => {
               setNewRanking(newRank)
             }
           }
-          // const userNameConfirm = true
           if (userSearch) {
             for (let number = 0; number < userSearch.length; number++) {
               if (element?.displayName[number] !== userSearch[number]) {
@@ -102,8 +101,6 @@ const ListsView = ({ elements, userSearch, multiple, handleUser }) => {
               <Divider />
             </div>
           )
-          // if (userNameConfirm) {
-          // }
         })}
       </div>
     </div>
