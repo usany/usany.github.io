@@ -17,13 +17,13 @@ function Lists({ elements, multiple, userSearch, ranking, handleUser }) {
       </DrawerClose>
     )
   return (
-      <ListsView
-        elements={elements}
-        userSearch={userSearch}
-        multiple={multiple}
-        link={link}
-        handleUser={handleUser}
-      />
+    <ListsView
+      elements={elements}
+      userSearch={userSearch}
+      multiple={multiple}
+      link={link}
+      handleUser={handleUser}
+    />
   )
 }
 

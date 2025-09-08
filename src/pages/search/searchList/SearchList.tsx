@@ -1,7 +1,5 @@
 import {
   collection,
-  doc,
-  getDoc,
   getDocs,
   limit,
   orderBy,
@@ -11,7 +9,7 @@ import {
 import { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { dbservice } from 'src/baseApi/serverbase'
-import { useSelectors, useTexts } from 'src/hooks'
+import { useTexts } from 'src/hooks'
 import Lists from 'src/pages/search/searchList/searchListViews/Lists'
 
 function SearchList() {
@@ -23,7 +21,7 @@ function SearchList() {
   const [searchParams, setSearchParams] = useSearchParams()
   const userSearch = searchParams.get('search')
   const scrollNumber = 20
-  const {loading} = useTexts()
+  const { loading } = useTexts()
   useEffect(() => {
     const membersList = async () => {
       const collectionQuery = query(
@@ -106,19 +104,17 @@ function SearchList() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [isLoading])
   return (
-    <div className="flex truncate justify-center">
+    <>
       {userSearch ? (
-        <div className="w-[1000px]">
-          <Lists
-            elements={rank}
-            multiple={true}
-            userSearch={userSearch}
-            ranking={true}
-            handleUser={null}
-          />
-        </div>
+        <Lists
+          elements={rank}
+          multiple={true}
+          userSearch={userSearch}
+          ranking={true}
+          handleUser={null}
+        />
       ) : (
-        <div className="w-[1000px]">
+        <>
           <Lists
             elements={rank}
             multiple={true}
@@ -131,9 +127,9 @@ function SearchList() {
               {loading}
             </div>
           )}
-        </div>
+        </>
       )}
-    </div>
+    </>
   )
 }
 
