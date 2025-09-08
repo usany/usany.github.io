@@ -37,23 +37,6 @@ function RankingListsTitle({ multiple }: Props) {
             </AvatarFallback>
           </Avatar>
         </div>
-        {/* <Avatar
-          className={`bg-${profileColor?.indexOf("#") === -1 ? element?.profileColor : "profile-blue"}`}
-          >
-            <AvatarImage src={element?.profileImageUrl} />
-            <AvatarFallback className="text-xl border-none">
-              {element?.displayName[0]}
-            </AvatarFallback>
-          </Avatar> */}
-        {/* <Avatars profile={false} profileColor={'profile-blue'} profileImage={element?.profileImageUrl || 'null'} fallback={element.displayName[0]}/> */}
-        {/* {element?.profileImageUrl &&
-            <Avatar alt={element.displayName} sx={{ bgcolor: element.profileColor || '#2196f3' }} src={element?.profileImageUrl || './src'} variant="rounded" />
-          }
-          {!element?.profileImageUrl &&
-            <Avatar alt={element.displayName} sx={{ bgcolor: element.profileColor || '#2196f3' }} src={'./src'} variant="rounded" />
-          } */}
-        {/* <div className="flex gap-1">
-        </div> */}
         <div className="flex flex-col justify-center overflow-hidden px-5 w-40">
           <div>{multiple ? (languages === 'ko' ? '유저' : 'User') : (languages === 'ko' ? '내' : 'My')} {languages === 'ko' ? '이름' : 'name'}</div>
           <div>{languages === 'ko' ? '포인트' : 'Points'}</div>
@@ -72,23 +55,10 @@ function RankingListsTitle({ multiple }: Props) {
                 Confirm
               </div>
             }
-            {/* {languages === 'ko' ? '위치 확인' : 'Location Confirm'} */}
           </div>
         }
       </div>
     </div >
-    // <div className='flex justify-between w-screen pt-5'>
-    //   <div className='flex flex-col justify-center px-5'>
-    //     {multiple ? '유저' : '내'} 랭킹
-    //   </div>
-    //   <div className='flex flex-col overflow-hidden'>
-    // <div>{multiple ? '유저' : '내'} 이름</div>
-    // <div>포인트</div>
-    //   </div>
-    //   <div className='flex flex-col justify-center px-5'>
-    //     위치 확인
-    //   </div>
-    // </div>
   )
 }
 
