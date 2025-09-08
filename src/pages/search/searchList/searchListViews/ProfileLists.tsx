@@ -1,23 +1,7 @@
-import { useState } from 'react'
-import useLargeMedia from 'src/hooks/useLargeMedia'
 // import Avatar from '@mui/material/Avatar';
 import Lists from './Lists'
 
-function ProfileLists({
-  userObj,
-  elements,
-  changeProfileDialog,
-  changeSelectedUser,
-  multiple,
-  userSearch,
-  ranking,
-  handleUser,
-}) {
-  let point
-  let samePointIndex
-  const [newRanking, setNewRanking] = useState(0)
-  const largeMedia = useLargeMedia()
-
+function ProfileLists({ userObj, elements }) {
   return (
     <div>
       <Lists
