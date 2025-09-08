@@ -1,11 +1,7 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import { DialogClose } from "src/components/ui/dialog";
-import { DrawerClose } from "src/components/ui/drawer";
-import useLargeMedia from "src/hooks/useLargeMedia";
+import { useState } from 'react'
+import useLargeMedia from 'src/hooks/useLargeMedia'
 // import Avatar from '@mui/material/Avatar';
-import Lists from "./Lists";
-import ProfileListsView from "./ProfileListsView";
+import Lists from './Lists'
 
 function ProfileLists({
   userObj,
@@ -17,14 +13,20 @@ function ProfileLists({
   ranking,
   handleUser,
 }) {
-  let point;
-  let samePointIndex;
-  const [newRanking, setNewRanking] = useState(0);
+  let point
+  let samePointIndex
+  const [newRanking, setNewRanking] = useState(0)
   const largeMedia = useLargeMedia()
 
   return (
     <div>
-      <Lists userObj={null} elements={elements} multiple={true} userSearch={null} ranking={false} handleUser={null} />
+      <Lists
+        elements={elements}
+        multiple={true}
+        userSearch={null}
+        ranking={false}
+        handleUser={null}
+      />
       {/* {elements.map((element, index) => {
         const userNameConfirm = true;
         if (userNameConfirm) {
@@ -58,8 +60,8 @@ function ProfileLists({
           );
         }
       })} */}
-    </div >
-  );
+    </div>
+  )
 }
 
-export default ProfileLists;
+export default ProfileLists
