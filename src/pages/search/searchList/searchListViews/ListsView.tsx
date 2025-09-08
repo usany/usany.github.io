@@ -47,62 +47,63 @@ const ListsView = ({ elements, userSearch, multiple, handleUser }) => {
               setNewRanking(newRank)
             }
           }
-          let userNameConfirm = true
+          // const userNameConfirm = true
           if (userSearch) {
             for (let number = 0; number < userSearch.length; number++) {
               if (element?.displayName[number] !== userSearch[number]) {
-                userNameConfirm = false
+                // userNameConfirm = false
+                return null
               }
             }
           }
-          if (userNameConfirm) {
-            const displayName =
-              (element.displayName?.length || 0) > 9
-                ? element.displayName.slice(0, 9) + '......'
-                : element.displayName.slice(0, 9)
-            return (
+          const displayName =
+            (element.displayName?.length || 0) > 9
+              ? element.displayName.slice(0, 9) + '......'
+              : element.displayName.slice(0, 9)
+          return (
+            <div
+              key={index}
+              className="cursor-pointer"
+              onClick={() => onClick(element)}
+            >
               <div
-                key={index}
-                className="cursor-pointer"
-                onClick={() => onClick(element)}
+                className={`flex justify-around
+                  ${
+                    location.pathname === '/ranking' &&
+                    multiple &&
+                    index < 3 &&
+                    `bg-[#e2e8f0] dark:bg-[#2d3848] rounded`
+                  }`}
               >
-                <div
-                  className={`flex justify-around
-                ${
-                  location.pathname === '/ranking' &&
-                  multiple &&
-                  index < 3 &&
-                  `bg-[#e2e8f0] dark:bg-[#2d3848] rounded`
-                }`}
-                >
-                  {!multiple ? (
-                    <div className="flex items-center justify-center w-[100px]">
-                      {newRanking ? newRanking : element.ranking}
-                    </div>
-                  ) : (
-                    <div className="flex items-center justify-center w-[100px]">
-                      {samePointIndex ? samePointIndex + 1 : index + 1}
-                    </div>
-                  )}
-                  <div className="flex items-center">
-                    <Avatars element={element} piazza={null} profile={false} />
+                {!multiple ? (
+                  <div className="flex items-center justify-center w-[100px]">
+                    {newRanking ? newRanking : element.ranking}
                   </div>
-                  <div className="flex flex-col justify-center items-start overflow-hidden w-40">
-                    <div className="overflow-hidden">{displayName}</div>
-                    <div className="overflow-hidden">{element.points}</div>
+                ) : (
+                  <div className="flex items-center justify-center w-[100px]">
+                    {samePointIndex ? samePointIndex + 1 : index + 1}
                   </div>
-                  <div className="flex justify-center items-center w-[67px]">
-                    {locationConfirmed ? (
-                      <Chip sx={{}} color="success" label={<Check />} />
-                    ) : (
-                      <Chip label={<Ban />} />
-                    )}
-                  </div>
+                )}
+                <div className="flex items-center">
+                  <Avatars element={element} piazza={null} profile={false} />
                 </div>
-                <Divider />
+                <div className="flex flex-col justify-center items-start overflow-hidden w-40">
+                  <div className="overflow-hidden">{displayName}</div>
+                  <div className="overflow-hidden">{element.points}</div>
+                </div>
+                <div className="flex justify-center items-center w-[67px]">
+                  {locationConfirmed ? (
+                    <Chip sx={{}} color="success" label={<Check />} />
+                  ) : (
+                    <Chip label={<Ban />} />
+                  )}
+                </div>
               </div>
-            )
-          }
+              <Divider />
+            </div>
+          )
+          // if (userNameConfirm) {
+          // }
         })}
       </div>
     </div>
