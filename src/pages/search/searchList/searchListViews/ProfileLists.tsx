@@ -1,16 +1,7 @@
 // import Avatar from '@mui/material/Avatar';
 import Lists from './Lists'
 
-function ProfileLists({
-  userObj,
-  elements,
-  changeProfileDialog,
-  changeSelectedUser,
-  multiple,
-  userSearch,
-  ranking,
-  handleUser,
-}) {
+function ProfileLists({ elements }) {
   return (
     <div>
       <Lists
