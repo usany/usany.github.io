@@ -11,6 +11,7 @@ function App() {
   const theme = useSelectors((state) => state.theme.value)
   const profile = useSelectors((state) => state.profile.value)
   const { lightTheme, darkTheme } = useColors()
+  console.log(localStorage.getItem('theme'))
   useUserObject()
   useNetwork()
   useContextMenu()
