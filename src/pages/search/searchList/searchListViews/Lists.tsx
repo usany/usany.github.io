@@ -4,6 +4,7 @@ import ListsView from './ListsView'
 
 function Lists({ elements, multiple, userSearch, ranking, handleUser }) {
   const link = '/profile'
+  
   if (!ranking) return (
     <DrawerClose>
       <ListsView
