@@ -81,7 +81,7 @@ const ListsView = ({ elements, userSearch, multiple, link, handleUser }) => {
                   <div className="flex items-center">
                     <Avatars element={element} piazza={null} profile={false} />
                   </div>
-                  <div className="flex flex-col justify-center overflow-hidden w-40">
+                  <div className="flex flex-col justify-center items-start overflow-hidden w-40">
                     <div className="overflow-hidden">{displayName}</div>
                     <div className="overflow-hidden">{element.points}</div>
                   </div>
