@@ -33,8 +33,6 @@ const ListsView = ({ elements, userSearch, multiple, handleUser }) => {
     <div className="flex truncate justify-center">
       <div className="w-[1000px]">
         {elements.map((element, index) => {
-          const locationConfirmed =
-            Date.now() - element.locationConfirmed < 50000000
           if (element.points !== point) {
             point = element.points
             samePointIndex = index
@@ -59,6 +57,8 @@ const ListsView = ({ elements, userSearch, multiple, handleUser }) => {
             (element.displayName?.length || 0) > 9
               ? element.displayName.slice(0, 9) + '......'
               : element.displayName.slice(0, 9)
+          const locationConfirmed =
+            Date.now() - element.locationConfirmed < 50000000
           return (
             <div
               key={index}
