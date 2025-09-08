@@ -2,8 +2,6 @@ import { DrawerClose } from 'src/components/ui/drawer'
 import ListsView from './ListsView'
 
 function Lists({ elements, multiple, userSearch, ranking, handleUser }) {
-  const link = '/profile'
-
   if (!ranking)
     return (
       <DrawerClose>
@@ -11,7 +9,6 @@ function Lists({ elements, multiple, userSearch, ranking, handleUser }) {
           elements={elements}
           userSearch={userSearch}
           multiple={multiple}
-          link={link}
           handleUser={handleUser}
         />
       </DrawerClose>
@@ -21,7 +18,6 @@ function Lists({ elements, multiple, userSearch, ranking, handleUser }) {
       elements={elements}
       userSearch={userSearch}
       multiple={multiple}
-      link={link}
       handleUser={handleUser}
     />
   )

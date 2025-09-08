@@ -8,13 +8,13 @@ import { dbservice } from 'src/baseApi/serverbase'
 import { useSelectors } from 'src/hooks'
 import Avatars from 'src/pages/core/Avatars'
 
-const ListsView = ({ elements, userSearch, multiple, link, handleUser }) => {
+const ListsView = ({ elements, userSearch, multiple, handleUser }) => {
   const [newRanking, setNewRanking] = useState(0)
   const navigate = useNavigate()
   const profile = useSelectors((state) => state.profile.value)
   let point
   let samePointIndex
-
+  const link = '/profile'
   return (
     <div className="flex truncate justify-center">
       <div className="w-[1000px]">
