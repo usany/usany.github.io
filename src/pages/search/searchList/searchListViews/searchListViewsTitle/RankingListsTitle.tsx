@@ -37,15 +37,6 @@ function RankingListsTitle({ multiple }: Props) {
             </AvatarFallback>
           </Avatar>
         </div>
-        {/* {!multiple ? (
-          <div className="flex flex-col justify-center px-5 w-20">
-            {multiple ? '유저' : '내'} 랭킹
-          </div>
-          ) : (
-            <div className="flex flex-col justify-center px-5 w-20">
-              {samePointIndex ? samePointIndex + 1 : index + 1}
-            </div>
-          )} */}
         {/* <Avatar
           className={`bg-${profileColor?.indexOf("#") === -1 ? element?.profileColor : "profile-blue"}`}
           >
