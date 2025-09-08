@@ -7,6 +7,7 @@ import SearchBar from 'src/pages/search/searchBar/SearchBar'
 import SearchList from 'src/pages/search/searchList/SearchList'
 import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
 import RankingListsTitle from './searchList/searchListViews/searchListViewsTitle/RankingListsTitle'
+import SearchProfile from 'src/pages/search/searchList/SearchProfile'
 
 function Search() {
   const {userSearch} = useTexts()
@@ -19,7 +20,7 @@ function Search() {
       />
       <SearchBar />
       <RankingListsTitle multiple={false} />
-      <SearchList />
+      <SearchProfile />
       <RankingListsTitle multiple={true} />
       <SearchList />
     </>
