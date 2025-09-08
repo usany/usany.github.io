@@ -2,9 +2,10 @@ import Card from '@mui/material/Card'
 import { collection, getDocs, query } from 'firebase/firestore'
 import { useState } from 'react'
 import { dbservice } from 'src/baseApi/serverbase'
+import { DrawerClose } from 'src/components/ui/drawer'
 import useCardsBackground from '../../hooks/useCardsBackground'
 import Popups from '../core/Popups'
-import ProfileLists from '../search/searchList/searchListViews/ProfileLists'
+import ListsView from '../search/searchList/searchListViews/ListsView'
 import ProfileCompaniesTitle from './ProfileCompaniesTitle'
 import ProfileCompaniesTrigger from './ProfileCompaniesTrigger'
 import ProfileDrawersEmptyCompanies from './ProfileDrawersEmptyCompanies'
@@ -70,7 +71,16 @@ const ProfileCards = ({ user, alliesCollection, cards }) => {
                   <ProfileDrawersEmptyCompanies followings={index} />
                 )
               }
-              close={<ProfileLists elements={companies} />}
+              close={
+                <DrawerClose>
+                  <ListsView
+                    elements={companies}
+                    multiple={true}
+                    userSearch={null}
+                    handleUser={null}
+                  />
+                </DrawerClose>
+              }
               attachment={true}
               onLink={onLink}
             />
