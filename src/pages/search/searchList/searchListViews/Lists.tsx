@@ -7,7 +7,6 @@ function Lists({ elements, multiple, userSearch, ranking, handleUser }) {
   if (!ranking)
     return (
       <DrawerClose>
-        {/* <RankingListsTitle multiple={multiple} /> */}
         <ListsView
           elements={elements}
           userSearch={userSearch}
@@ -18,8 +17,6 @@ function Lists({ elements, multiple, userSearch, ranking, handleUser }) {
       </DrawerClose>
     )
   return (
-    <>
-      {/* <RankingListsTitle multiple={multiple} /> */}
       <ListsView
         elements={elements}
         userSearch={userSearch}
@@ -27,7 +24,6 @@ function Lists({ elements, multiple, userSearch, ranking, handleUser }) {
         link={link}
         handleUser={handleUser}
       />
-    </>
   )
 }
 
