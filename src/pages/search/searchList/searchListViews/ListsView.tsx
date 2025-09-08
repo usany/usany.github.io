@@ -56,12 +56,10 @@ const ListsView = ({ elements, userSearch, multiple, handleUser }) => {
             }
           }
           if (userNameConfirm) {
-            let displayName
-            if ((element.displayName?.length || 0) > 9) {
-              displayName = element.displayName.slice(0, 9) + '......'
-            } else {
-              displayName = element.displayName
-            }
+            const displayName =
+              (element.displayName?.length || 0) > 9
+                ? element.displayName.slice(0, 9) + '......'
+                : element.displayName.slice(0, 9)
             return (
               <div
                 key={index}
