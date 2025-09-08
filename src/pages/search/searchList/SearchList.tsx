@@ -105,27 +105,16 @@ function SearchList() {
   }, [isLoading])
   return (
     <>
-      {userSearch ? (
-        <ListsView
-          elements={rank}
-          multiple={true}
-          userSearch={userSearch}
-          handleUser={null}
-        />
-      ) : (
-        <>
-          <ListsView
-            elements={rank}
-            multiple={true}
-            userSearch={null}
-            handleUser={null}
-          />
-          {isLoading && (
-            <div className="flex justify-center text-2xl bg-light-2 dark:bg-dark-2 rounded">
-              {loading}
-            </div>
-          )}
-        </>
+      <ListsView
+        elements={rank}
+        multiple={true}
+        userSearch={userSearch}
+        handleUser={null}
+      />
+      {userSearch && isLoading && (
+        <div className="flex justify-center text-2xl bg-light-2 dark:bg-dark-2 rounded">
+          {loading}
+        </div>
       )}
     </>
   )
