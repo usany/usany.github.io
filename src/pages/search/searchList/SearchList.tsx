@@ -40,6 +40,7 @@ function SearchList() {
             ...document.data(),
           }
         }
+        return null
       })
       setRank([...rank, ...newArray])
       // if (ranker.length === 0) {
@@ -73,6 +74,7 @@ function SearchList() {
             ...document.data(),
           }
         }
+        return null
       })
       setRank([...rank, ...newArray])
       setIsLoading(false)
