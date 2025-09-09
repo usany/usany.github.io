@@ -1,6 +1,6 @@
 import { useSearchParams } from 'react-router-dom'
-import { useSelectors, useTexts } from 'src/hooks'
-import Lists from 'src/pages/search/searchList/searchListViews/Lists'
+import { useSelectors } from 'src/hooks'
+import ListsView from './searchListViews/ListsView'
 
 function SearchProfile() {
   const [searchParams, setSearchParams] = useSearchParams()
@@ -8,17 +8,12 @@ function SearchProfile() {
 
   if (searchParams.get('search')) return null
   return (
-    <div className="flex truncate justify-center">
-      <div className="w-[1000px]">
-        <Lists
-          elements={[profile]}
-          multiple={false}
-          userSearch={null}
-          ranking={true}
-          handleUser={null}
-        />
-      </div>
-    </div>
+    <ListsView
+      elements={[profile]}
+      userSearch={null}
+      multiple={false}
+      handleUser={null}
+    />
   )
 }
 

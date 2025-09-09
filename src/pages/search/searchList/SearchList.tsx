@@ -1,7 +1,5 @@
 import {
   collection,
-  doc,
-  getDoc,
   getDocs,
   limit,
   orderBy,
@@ -11,8 +9,8 @@ import {
 import { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { dbservice } from 'src/baseApi/serverbase'
-import { useSelectors, useTexts } from 'src/hooks'
-import Lists from 'src/pages/search/searchList/searchListViews/Lists'
+import { useTexts } from 'src/hooks'
+import ListsView from './searchListViews/ListsView'
 
 function SearchList() {
   const [rank, setRank] = useState([])
@@ -23,7 +21,7 @@ function SearchList() {
   const [searchParams, setSearchParams] = useSearchParams()
   const userSearch = searchParams.get('search')
   const scrollNumber = 20
-  const {loading} = useTexts()
+  const { loading } = useTexts()
   useEffect(() => {
     const membersList = async () => {
       const collectionQuery = query(
@@ -42,6 +40,7 @@ function SearchList() {
             ...document.data(),
           }
         }
+        return null
       })
       setRank([...rank, ...newArray])
       // if (ranker.length === 0) {
@@ -75,6 +74,7 @@ function SearchList() {
             ...document.data(),
           }
         }
+        return null
       })
       setRank([...rank, ...newArray])
       setIsLoading(false)
@@ -106,34 +106,19 @@ function SearchList() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [isLoading])
   return (
-    <div className="flex truncate justify-center">
-      {userSearch ? (
-        <div className="w-[1000px]">
-          <Lists
-            elements={rank}
-            multiple={true}
-            userSearch={userSearch}
-            ranking={true}
-            handleUser={null}
-          />
-        </div>
-      ) : (
-        <div className="w-[1000px]">
-          <Lists
-            elements={rank}
-            multiple={true}
-            userSearch={null}
-            ranking={true}
-            handleUser={null}
-          />
-          {isLoading && (
-            <div className="flex justify-center text-2xl bg-light-2 dark:bg-dark-2 rounded">
-              {loading}
-            </div>
-          )}
+    <>
+      <ListsView
+        elements={rank}
+        multiple={true}
+        userSearch={userSearch}
+        handleUser={null}
+      />
+      {userSearch && isLoading && (
+        <div className="flex justify-center text-2xl bg-light-2 dark:bg-dark-2 rounded">
+          {loading}
         </div>
       )}
-    </div>
+    </>
   )
 }
 
