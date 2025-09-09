@@ -9,19 +9,19 @@ import {
 import { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { dbservice } from 'src/baseApi/serverbase'
-import { useTexts } from 'src/hooks'
+import { useSelectors, useTexts } from 'src/hooks'
 import ListsView from './searchListViews/ListsView'
 
-function SearchList() {
+function SearchList({multiple}) {
   const [rank, setRank] = useState([])
-  // const [ranker, setRanker] = useState([])
-  // const profile = useSelectors((state) => state.profile.value)
   const [continuing, setContinuing] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
   const [searchParams, setSearchParams] = useSearchParams()
   const userSearch = searchParams.get('search')
   const scrollNumber = 20
   const { loading } = useTexts()
+  const profile = useSelectors((state) => state.profile.value)
+  if (searchParams.get('search') && !multiple) return null
   useEffect(() => {
     const membersList = async () => {
       const collectionQuery = query(
