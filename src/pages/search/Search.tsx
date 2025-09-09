@@ -3,8 +3,8 @@ import { useTexts } from 'src/hooks'
 import PageTitle from 'src/pages/core/pageTitle/PageTitle'
 import SearchBar from 'src/pages/search/searchBar/SearchBar'
 import SearchList from 'src/pages/search/searchList/SearchList'
-import SearchProfile from 'src/pages/search/searchList/SearchProfile'
 import RankingListsTitle from './searchList/searchListViews/searchListViewsTitle/RankingListsTitle'
+// import SearchProfile from 'src/pages/search/searchList/SearchProfile'
 
 function Search() {
   const { userSearch } = useTexts()
@@ -14,10 +14,10 @@ function Search() {
       <PageTitle icon={<SearchCheck />} title={userSearch} />
       <SearchBar />
       <RankingListsTitle multiple={false} />
-      <SearchProfile />
-      <SearchList multiple={false}/>
+      {/* <SearchProfile /> */}
+      <SearchList multiple={false} />
       <RankingListsTitle multiple={true} />
-      <SearchList multiple={true}/>
+      <SearchList multiple={true} />
     </>
   )
 }
