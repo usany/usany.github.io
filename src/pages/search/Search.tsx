@@ -14,8 +14,8 @@ function Search() {
       <PageTitle icon={<SearchCheck />} title={userSearch} />
       <SearchBar />
       <RankingListsTitle multiple={false} />
-      {/* <SearchProfile /> */}
       <SearchList multiple={false} />
+      {/* <SearchProfile /> */}
       <RankingListsTitle multiple={true} />
       <SearchList multiple={true} />
     </>
