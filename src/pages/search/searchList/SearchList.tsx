@@ -17,11 +17,19 @@ function SearchList({multiple}) {
   const [continuing, setContinuing] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
   const [searchParams, setSearchParams] = useSearchParams()
-  const userSearch = searchParams.get('search')
   const scrollNumber = 20
   const { loading } = useTexts()
+  const userSearch = searchParams.get('search')
   const profile = useSelectors((state) => state.profile.value)
   if (searchParams.get('search') && !multiple) return null
+  if (!multiple) return (
+    <ListsView
+      elements={[profile]}
+      userSearch={null}
+      multiple={false}
+      handleUser={null}
+    />
+  )
   useEffect(() => {
     const membersList = async () => {
       const collectionQuery = query(
