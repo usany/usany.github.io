@@ -31,6 +31,8 @@ function SearchList({multiple}) {
       handleUser={null}
     />
   )
+
+  const [newRanking, setNewRanking] = useState(0)
   useEffect(() => {
     const membersList = async () => {
       const collectionQuery = query(
