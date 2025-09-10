@@ -43,13 +43,13 @@ const Carousels = () => {
       if (element.creatorId === user.uid && element.text.choose === 1) {
         return (
           <CarouselItem key={element.id} className='flex justify-center'>
-            <Cards message={element} isOwner={true} userObj={user} num={null} points={null} />
+            <Cards message={element} isOwner={true} num={null} points={null} />
           </CarouselItem>
         )
       } else if (element.creatorId !== user.uid && element.text.choose === 2) {
         return (
           <CarouselItem key={element.id} className='flex justify-center'>
-            <Cards message={element} isOwner={false} userObj={user} num={null} points={null} />
+            <Cards message={element} isOwner={false} num={null} points={null} />
           </CarouselItem>
         )
       }
@@ -62,13 +62,13 @@ const Carousels = () => {
       if (element.creatorId === user.uid && element.text.choose === 2) {
         return (
           <CarouselItem key={element.id} className='flex justify-center'>
-            <Cards message={element} isOwner={true} userObj={user} num={null} points={null} />
+            <Cards message={element} isOwner={true} num={null} points={null} />
           </CarouselItem>
         )
       } else if (element.creatorId !== user.uid && element.text.choose === 1) {
         return (
           <CarouselItem key={element.id} className='flex justify-center'>
-            <Cards message={element} isOwner={false} userObj={user} num={null} points={null} />
+            <Cards message={element} isOwner={false} num={null} points={null} />
           </CarouselItem>
         )
       }
