@@ -53,8 +53,6 @@ function SearchList({multiple}) {
           point = document.data().points
           samePointIndex = index
         }
-        console.log(point)
-        console.log(samePointIndex)
         if (document.uid === profile?.uid) {
           const user = doc(dbservice, `members/${profile?.uid}`)
           const newRank = samePointIndex ? samePointIndex + 1 : index + 1
