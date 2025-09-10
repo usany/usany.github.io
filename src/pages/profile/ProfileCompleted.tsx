@@ -13,10 +13,8 @@ import ProfileCompletedContent from './ProfileCompletedContent'
 import { useLocation } from 'react-router-dom'
 
 const ProfileCompleted = ({ cards }) => {
-  const {state} = useLocation()
   const dispatch = useDispatch()
   const languages = useSelectors((state) => state.languages.value)
-  const profile = useSelectors((state) => state.profile.value)
   const actions = [
     {
       action: 'borrow',
