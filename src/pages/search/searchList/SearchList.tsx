@@ -13,6 +13,8 @@ import { useSearchParams } from 'react-router-dom'
 import { dbservice } from 'src/baseApi/serverbase'
 import { useSelectors, useTexts } from 'src/hooks'
 import ListsView from './searchListViews/ListsView'
+import { useDispatch } from 'react-redux'
+import { changeProfile } from 'src/stateSlices/profileSlice'
 
 function SearchList({multiple}) {
   const [rank, setRank] = useState([])
@@ -33,6 +35,7 @@ function SearchList({multiple}) {
     />
   )
 
+  const dispatch = useDispatch()
   const [newRanking, setNewRanking] = useState(0)
   useEffect(() => {
     const membersList = async () => {
@@ -47,16 +50,17 @@ function SearchList({multiple}) {
       let point
       let samePointIndex
       const newArray = docs.docs.map((document, index) => {
-        if (element.points !== point) {
+        if (document.points !== point) {
           point = element.points
           samePointIndex = index
         }
-        if (element.uid === profile?.uid) {
+        if (document.uid === profile?.uid) {
           const user = doc(dbservice, `members/${profile?.uid}`)
           const newRank = samePointIndex ? samePointIndex + 1 : index + 1
-          if (!newRanking && multiple) {
+          if (profile?.ranking !== newRank && multiple) {
             updateDoc(user, { ranking: newRank })
-            setNewRanking(newRank)
+            // setNewRanking(newRank)
+            dispatch(changeProfile({...profile, ranking: newRank}))
           }
         }
         if (userSearch) {
