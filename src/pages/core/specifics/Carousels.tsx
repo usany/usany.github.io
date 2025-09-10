@@ -8,10 +8,12 @@ import {
 import { collection, getDocs, query } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useLocation } from "react-router-dom";
 import { dbservice } from 'src/baseApi/serverbase';
+import { useSelectors } from "src/hooks";
 import Cards from 'src/pages/core/card/Cards';
 
-const Carousels = ({ user, cards }) => {
+const Carousels = () => {
   const {state} = useLocation()
   const dispatch = useDispatch()
   const languages = useSelectors((state) => state.languages.value)
