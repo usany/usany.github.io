@@ -21,33 +21,6 @@ const ProfileMembersPasswordContent = () => {
       setPassword({ newPasswordConfirm: value, ...password });
     }
   };
-  // const delist = async () => {
-  //   await deleteDoc(doc(dbservice, `members/${userObj.uid}`));
-  //   deleteUser(user)
-  //     .then(() => {
-  //       console.log(user);
-  // User deleted.
-  // })
-  // .catch((error) => {
-  // An error ocurred
-  // ...
-  //     });
-  //   navigate("/");
-  // };
-  // useEffect(() => {
-  //   const createdCards = user.userData?.createdCards
-  //   const connectedCards = user.userData?.connectedCards
-  //   const createdNumber = createdCards?.length || 0
-  //   const connectedNumber = connectedCards?.length || 0
-  //   if (
-  //     createdNumber === 0 &&
-  //     connectedNumber === 0
-  //   ) {
-  //     setProcess(true);
-  //   } else {
-  //     setProcess(false)
-  //   }
-  // }, [user]);
   const onSubmit = (event) => {
     event.preventDefault()
     const user = auth.currentUser
