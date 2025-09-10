@@ -1,11 +1,11 @@
-import { useState } from 'react'
+// import { useState } from 'react'
 // import Avatar from '@mui/material/Avatar';
-import { doc, updateDoc } from 'firebase/firestore'
+// import { doc, updateDoc } from 'firebase/firestore'
+// import { dbservice } from 'src/baseApi/serverbase'
 import { useSelectors } from 'src/hooks'
 import { Chip, Divider } from '@mui/material'
 import { Ban, Check } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
-import { dbservice } from 'src/baseApi/serverbase'
 import Avatars from 'src/pages/core/Avatars'
 
 const ListsView = ({ elements, userSearch, multiple, handleUser }) => {
@@ -47,7 +47,6 @@ const ListsView = ({ elements, userSearch, multiple, handleUser }) => {
           if (userSearch) {
             for (let number = 0; number < userSearch.length; number++) {
               if (element?.displayName[number] !== userSearch[number]) {
-                // userNameConfirm = false
                 return null
               }
             }
