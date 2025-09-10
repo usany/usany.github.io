@@ -92,7 +92,6 @@ function SearchList({multiple}) {
       )
       const docs = await getDocs(collectionQuery)
       const newArray = docs.docs.map((document, index) => {
-        console.log(rank.indexOf(document))
         if (rank.indexOf(document) === -1) {
           if (index + 1 === docs.docs.length) {
             setContinuing(document)
