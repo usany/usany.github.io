@@ -13,7 +13,9 @@ import ProfileDrawersPoints from './ProfileDrawersPoints'
 import ProfilePointsTitle from './ProfilePointsTitle'
 import ProfilePointsTrigger from './ProfilePointsTrigger'
 
-const ProfileCards = ({ user, alliesCollection, cards }) => {
+const ProfileCards = ({ alliesCollection, cards }) => {
+  const profile = useSelectors((state) => state.profile.value)
+  const user = state?.element || profile
   const [companies, setCompanies] = useState([])
   const usersCollection = async (index) => {
     const elementsCollection = []
