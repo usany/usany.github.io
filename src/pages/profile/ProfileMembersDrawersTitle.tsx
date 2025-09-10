@@ -1,9 +1,9 @@
 import { useTexts } from "src/hooks";
 
-const ProfileMembersDrawersTitle = () => {
-  const { deleteAccount } = useTexts()
+const ProfileMembersDrawersTitle = ({isPassword}) => {
+  const { changePassword, deleteAccount } = useTexts()
   return (
-    <div>{deleteAccount}</div>
+    <div>{isPassword ? changePassword : deleteAccount}</div>
   );
 };
 

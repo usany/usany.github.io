@@ -13,7 +13,7 @@ import ProfileMembersPasswordTrigger from './ProfileMembersPasswordTrigger'
 const ProfileMembers = ({ user }) => {
   const { colorTwo } = useCardsBackground()
   const languages = useSelectors((state) => state.languages.value)
-  const { changePassword } = useTexts()
+  // const { changePassword, deleteAccount } = useTexts()
   const profile = useSelectors((state) => state.profile.value)
   return (
     <div className="flex justify-center p-5">
@@ -21,12 +21,12 @@ const ProfileMembers = ({ user }) => {
         <div className="grid grid-flow-row grid-cols-2 justify-center">
           <Popups
             trigger={<ProfileMembersPasswordTrigger />}
-            title={<div>{changePassword}</div>}
+            title={<ProfileMembersDrawersTitle isPassword={true}/>}
             content={<ProfileMembersPasswordContent />}
           />
           <Popups
             trigger={<ProfileMembersDrawersTrigger />}
-            title={<ProfileMembersDrawersTitle />}
+            title={<ProfileMembersDrawersTitle isPassword={false}/>}
             content={<ProfileMembersDrawersContent user={user} />}
           />
         </div>
