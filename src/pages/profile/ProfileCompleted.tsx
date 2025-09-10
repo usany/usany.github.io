@@ -17,7 +17,6 @@ const ProfileCompleted = ({ cards }) => {
   const dispatch = useDispatch()
   const languages = useSelectors((state) => state.languages.value)
   const profile = useSelectors((state) => state.profile.value)
-  const user = state?.element || profile
   const actions = [
     {
       action: 'borrow',
