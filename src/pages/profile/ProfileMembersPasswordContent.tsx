@@ -23,13 +23,17 @@ const ProfileMembersPasswordContent = () => {
   };
   const onSubmit = (event) => {
     event.preventDefault()
-    const user = auth.currentUser
-    const newPassword = password.newPassword;
-    updatePassword(user, newPassword).then(() => {
-      console.log('passwords')
-    }).catch((error) => {
-      console.log(error)
-    })
+    if (password.newPassword && password.newPassword === password.newPasswordConfirm) {
+      const user = auth.currentUser
+      const newPassword = password.newPassword;
+      updatePassword(user, newPassword).then(() => {
+        console.log('passwords')
+      }).catch((error) => {
+        console.log(error)
+      })
+    } else {
+      alert('Cannot change password')
+    }
   }
   return (
     <form
@@ -43,7 +47,10 @@ const ProfileMembersPasswordContent = () => {
         <TextField type='password' name={newPassword} label={newPassword} onChange={onChange} required />
         <TextField type='password' name={newPasswordConfirm} label={newPasswordConfirm} onChange={onChange} required />
         <div className='flex justify-center pt-5'>
-          {password.newPassword && password.newPassword === password.newPasswordConfirm ? (
+          <Button variant="outlined" form='changePassword' type='submit'>
+            {changePassword}
+          </Button>
+          {/* {password.newPassword && password.newPassword === password.newPasswordConfirm ? (
             <Button variant="outlined" form='changePassword' type='submit'>
               {changePassword}
             </Button>
@@ -51,7 +58,7 @@ const ProfileMembersPasswordContent = () => {
             <Button variant="outlined" disabled>
               {changePassword}
             </Button>
-          )}
+          )} */}
         </div>
       </div>
     </form>
