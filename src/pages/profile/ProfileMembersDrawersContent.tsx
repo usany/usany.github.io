@@ -76,24 +76,6 @@ const ProfileMembersDrawersContent = ({ user }: Props) => {
             sx={{ bgcolor: process ? '#7fc4bc' : '#e76e50', color: 'white' }}
           />
         </div>
-        {/* {process ? (
-          <div className="flex justify-center">
-            <Chip
-              label={process ? noProcessingCard : ongoingCards}
-              sx={{ bgcolor: process ? '#7fc4bc' : '#e76e50', color: 'white' }}
-            />
-          </div>
-        ) : (
-          <div className="flex justify-center">
-            <Chip
-              label={ongoingCards}
-              sx={{
-                bgcolor: '#e76e50',
-                color: 'white',
-              }}
-            />
-          </div>
-        )} */}
         <div>{toDeleteAccountInputMail}</div>
       </div>
       <div className="flex flex-col justify-center p-5 gap-5">
