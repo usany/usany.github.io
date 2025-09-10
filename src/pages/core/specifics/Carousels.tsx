@@ -95,12 +95,8 @@ const Carousels = () => {
         <CarouselContent className='min-w-[265px]'>
           {selectedList}
         </CarouselContent>
-        <div onClick={() => setCardNumber(cardNumber - 1)}>
-          <CarouselPrevious />
-        </div>
-        <div onClick={() => setCardNumber(cardNumber + 1)}>
-          <CarouselNext />
-        </div>
+        <CarouselPrevious onClick={() => setCardNumber(cardNumber - 1)}/>
+        <CarouselNext onClick={() => setCardNumber(cardNumber + 1)}/>
       </Carousel>
       <div>{completedAction ? completedAction === 'borrow' ? '빌리기: ' : '빌려주기: ' : '활동 횟수: '} {cardNumber}/{selectedList.length}</div>
     </div>
