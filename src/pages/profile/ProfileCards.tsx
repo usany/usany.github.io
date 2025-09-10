@@ -12,6 +12,7 @@ import ProfileDrawersEmptyCompanies from './ProfileDrawersEmptyCompanies'
 import ProfileDrawersPoints from './ProfileDrawersPoints'
 import ProfilePointsTitle from './ProfilePointsTitle'
 import ProfilePointsTrigger from './ProfilePointsTrigger'
+import { useSelectors } from 'src/hooks'
 
 const ProfileCards = ({ alliesCollection, cards }) => {
   const profile = useSelectors((state) => state.profile.value)

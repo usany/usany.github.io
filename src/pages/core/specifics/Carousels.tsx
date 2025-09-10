@@ -12,6 +12,11 @@ import { dbservice } from 'src/baseApi/serverbase';
 import Cards from 'src/pages/core/card/Cards';
 
 const Carousels = ({ user, cards }) => {
+  const {state} = useLocation()
+  const dispatch = useDispatch()
+  const languages = useSelectors((state) => state.languages.value)
+  const profile = useSelectors((state) => state.profile.value)
+  const user = state?.element || profile
   const [messagesList, setMessagesList] = useState([])
   const [cardNumber, setCardNumber] = useState(1)
   const completedAction = useSelector(state => state.completedAction.value)
