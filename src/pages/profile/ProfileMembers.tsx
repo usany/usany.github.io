@@ -7,7 +7,6 @@ import ProfileMembersDrawersContent from './ProfileMembersDrawersContent'
 import ProfileMembersDrawersTitle from './ProfileMembersDrawersTitle'
 import ProfileMembersDrawersTrigger from './ProfileMembersDrawersTrigger'
 import ProfileMembersPasswordContent from './ProfileMembersPasswordContent'
-import ProfileMembersPasswordTrigger from './ProfileMembersPasswordTrigger'
 
 const ProfileMembers = ({ user }) => {
   const { colorTwo } = useCardsBackground()
