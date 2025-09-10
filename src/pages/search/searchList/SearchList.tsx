@@ -1,5 +1,6 @@
 import {
   collection,
+  doc,
   getDocs,
   limit,
   orderBy,
@@ -47,25 +48,25 @@ function SearchList({multiple}) {
       let samePointIndex
       const newArray = docs.docs.map((document, index) => {
         if (element.points !== point) {
-            point = element.points
-            samePointIndex = index
+          point = element.points
+          samePointIndex = index
+        }
+        if (element.uid === profile?.uid) {
+          const user = doc(dbservice, `members/${profile?.uid}`)
+          const newRank = samePointIndex ? samePointIndex + 1 : index + 1
+          if (!newRanking && multiple) {
+            updateDoc(user, { ranking: newRank })
+            setNewRanking(newRank)
           }
-          if (element.uid === profile?.uid) {
-            const user = doc(dbservice, `members/${profile?.uid}`)
-            const newRank = samePointIndex ? samePointIndex + 1 : index + 1
-            if (!newRanking && multiple) {
-              updateDoc(user, { ranking: newRank })
-              setNewRanking(newRank)
+        }
+        if (userSearch) {
+          for (let number = 0; number < userSearch.length; number++) {
+            if (element?.displayName[number] !== userSearch[number]) {
+              // userNameConfirm = false
+              return null
             }
           }
-          if (userSearch) {
-            for (let number = 0; number < userSearch.length; number++) {
-              if (element?.displayName[number] !== userSearch[number]) {
-                // userNameConfirm = false
-                return null
-              }
-            }
-          }
+        }
 
         if (rank.indexOf(document) === -1) {
           if (index + 1 === docs.docs.length) {
