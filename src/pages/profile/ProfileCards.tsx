@@ -13,9 +13,11 @@ import ProfileDrawersPoints from './ProfileDrawersPoints'
 import ProfilePointsTitle from './ProfilePointsTitle'
 import ProfilePointsTrigger from './ProfilePointsTrigger'
 import { useSelectors } from 'src/hooks'
+import { useLocation } from 'react-router-dom'
 
 const ProfileCards = ({ alliesCollection, cards }) => {
   const profile = useSelectors((state) => state.profile.value)
+  const { state } = useLocation()
   const user = state?.element || profile
   const [companies, setCompanies] = useState([])
   const usersCollection = async (index) => {
