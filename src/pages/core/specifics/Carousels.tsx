@@ -7,7 +7,6 @@ import {
 } from "@/components/ui/carousel";
 import { collection, getDocs, query } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 import { useLocation } from "react-router-dom";
 import { dbservice } from 'src/baseApi/serverbase';
 import { useSelectors } from "src/hooks";
@@ -19,7 +18,7 @@ const Carousels = () => {
   const user = state?.element || profile
   const [messagesList, setMessagesList] = useState([])
   const [cardNumber, setCardNumber] = useState(1)
-  const completedAction = useSelector(state => state.completedAction.value)
+  const completedAction = useSelectors(state => state.completedAction.value)
   const handleCardNumber = (newValue) => setCardNumber(newValue)
   useEffect(() => {
     const getMessage = async () => {
