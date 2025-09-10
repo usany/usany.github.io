@@ -7,8 +7,8 @@ import Avatars from 'src/pages/core/Avatars'
 const ListsView = ({ elements, userSearch, multiple, handleUser }) => {
   const navigate = useNavigate()
   const profile = useSelectors((state) => state.profile.value)
-  const link = '/profile'
   const onClick = (element) => {
+    const link = '/profile'
     const userLink =
       element.uid === profile?.uid ? link : link + `/?id=${element.uid}`
     if (location.pathname !== '/contact') {
