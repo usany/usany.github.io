@@ -101,7 +101,7 @@ const ProfileCompleted = ({ cards }) => {
           />
         </PieChart>
       </ChartContainer>
-      {cards.done && <Carousels user={user} cards={<ProfileCompletedContent user={user} />} />}
+      {cards.done && <Carousels />}
     </div>
   )
 }
