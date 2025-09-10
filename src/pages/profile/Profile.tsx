@@ -146,7 +146,6 @@ function Profile() {
         handleFollowers={handleFollowers}
       />
       <ProfileCards
-        user={state?.element || profile}
         alliesCollection={alliesCollection}
         cards={cards}
       />
