@@ -18,12 +18,12 @@ const ProfileMembers = ({ user }) => {
       {user.uid === profile?.uid ? (
         <div className="grid grid-flow-row grid-cols-2 justify-center">
           <Popups
-            trigger={<ProfileMembersPasswordTrigger />}
+            trigger={<ProfileMembersPasswordTrigger isPassword={true}/>}
             title={<ProfileMembersDrawersTitle isPassword={true}/>}
             content={<ProfileMembersPasswordContent />}
           />
           <Popups
-            trigger={<ProfileMembersDrawersTrigger />}
+            trigger={<ProfileMembersDrawersTrigger isPassword={false}/>}
             title={<ProfileMembersDrawersTitle isPassword={false}/>}
             content={<ProfileMembersDrawersContent user={user} />}
           />
