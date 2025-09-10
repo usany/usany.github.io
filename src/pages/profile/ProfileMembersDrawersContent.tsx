@@ -19,7 +19,7 @@ const ProfileMembersDrawersContent = ({ user }: Props) => {
     mail,
     deleteAccount,
     noProcessingCard,
-    ongoingCards,
+    processingCard,
     toDeleteAccountInputMail,
     canDeleteAccountWhenYouHaveNoProcessingBorrwingOrLendingCard,
   } = useTexts()
@@ -72,7 +72,7 @@ const ProfileMembersDrawersContent = ({ user }: Props) => {
         {canDeleteAccountWhenYouHaveNoProcessingBorrwingOrLendingCard}
         <div className="flex justify-center">
           <Chip
-            label={process ? noProcessingCard : ongoingCards}
+            label={process ? noProcessingCard : processingCard}
             sx={{ bgcolor: process ? '#7fc4bc' : '#e76e50', color: 'white' }}
           />
         </div>
