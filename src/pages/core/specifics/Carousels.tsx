@@ -15,8 +15,6 @@ import Cards from 'src/pages/core/card/Cards';
 
 const Carousels = () => {
   const {state} = useLocation()
-  const dispatch = useDispatch()
-  const languages = useSelectors((state) => state.languages.value)
   const profile = useSelectors((state) => state.profile.value)
   const user = state?.element || profile
   const [messagesList, setMessagesList] = useState([])
