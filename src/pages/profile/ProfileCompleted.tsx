@@ -10,10 +10,14 @@ import { useSelectors } from 'src/hooks'
 import { changeCompletedAction } from 'src/stateSlices/completedActionSlice'
 import Carousels from '../core/specifics/Carousels'
 import ProfileCompletedContent from './ProfileCompletedContent'
+import { useLocation } from 'react-router-dom'
 
-const ProfileCompleted = ({ user, cards }) => {
+const ProfileCompleted = ({ cards }) => {
+  const {state} = useLocation()
   const dispatch = useDispatch()
   const languages = useSelectors((state) => state.languages.value)
+  const profile = useSelectors((state) => state.profile.value)
+  const user = state?.element || profile
   const actions = [
     {
       action: 'borrow',
