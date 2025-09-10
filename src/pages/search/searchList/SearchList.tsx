@@ -36,7 +36,6 @@ function SearchList({multiple}) {
   )
 
   const dispatch = useDispatch()
-  const [newRanking, setNewRanking] = useState(0)
   useEffect(() => {
     const membersList = async () => {
       const collectionQuery = query(
@@ -61,14 +60,12 @@ function SearchList({multiple}) {
           const newRank = samePointIndex ? samePointIndex + 1 : index + 1
           if (profile?.ranking !== newRank && multiple) {
             updateDoc(user, { ranking: newRank })
-            // setNewRanking(newRank)
             dispatch(changeProfile({...profile, ranking: newRank}))
           }
         }
         if (userSearch) {
           for (let number = 0; number < userSearch.length; number++) {
             if (document.data().displayName[number] !== userSearch[number]) {
-              // userNameConfirm = false
               return null
             }
           }
@@ -85,24 +82,12 @@ function SearchList({multiple}) {
         return null
       })
       setRank([...rank, ...newArray])
-      // if (ranker.length === 0) {
-      //   const docRef = doc(dbservice, `members/${profile?.uid}`)
-      //   const myDocSnap = await getDoc(docRef)
-      //   const myDocSnapData = myDocSnap.data()
-      //   newArray.map((document, index) => {
-      //     if (document.uid === profile?.uid) {
-      //       newArray[index].rank = index + 1
-      //     }
-      //   })
-      //   setRanker([myDocSnapData])
-      // }
       setIsLoading(false)
     }
     const searchingMembersList = async () => {
       const collectionQuery = query(
         collection(dbservice, 'members'),
         orderBy('points', 'desc'),
-        // limit(scrollNumber),
         startAfter(continuing ? continuing : ''),
       )
       const docs = await getDocs(collectionQuery)
@@ -126,7 +111,6 @@ function SearchList({multiple}) {
     }
     if (userSearch) {
       searchingMembersList()
-      console.log(userSearch)
     }
   }, [isLoading, userSearch])
   const handleScroll = () => {
