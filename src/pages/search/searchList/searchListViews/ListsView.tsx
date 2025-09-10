@@ -1,7 +1,3 @@
-// import { useState } from 'react'
-// import Avatar from '@mui/material/Avatar';
-// import { doc, updateDoc } from 'firebase/firestore'
-// import { dbservice } from 'src/baseApi/serverbase'
 import { useSelectors } from 'src/hooks'
 import { Chip, Divider } from '@mui/material'
 import { Ban, Check } from 'lucide-react'
@@ -9,7 +5,6 @@ import { useNavigate } from 'react-router-dom'
 import Avatars from 'src/pages/core/Avatars'
 
 const ListsView = ({ elements, userSearch, multiple, handleUser }) => {
-  // const [newRanking, setNewRanking] = useState(0)
   const navigate = useNavigate()
   const profile = useSelectors((state) => state.profile.value)
   const link = '/profile'
@@ -26,24 +21,10 @@ const ListsView = ({ elements, userSearch, multiple, handleUser }) => {
       handleUser(element)
     }
   }
-  // let point
-  // let samePointIndex
   return (
     <div className="flex truncate justify-center">
       <div className="w-[1000px]">
         {elements.map((element, index) => {
-          // if (element.points !== point) {
-          //   point = element.points
-          //   samePointIndex = index
-          // }
-          // if (element.uid === profile?.uid) {
-          //   const user = doc(dbservice, `members/${profile?.uid}`)
-          //   const newRank = samePointIndex ? samePointIndex + 1 : index + 1
-          //   if (!newRanking && multiple) {
-          //     updateDoc(user, { ranking: newRank })
-          //     setNewRanking(newRank)
-          //   }
-          // }
           if (userSearch) {
             for (let number = 0; number < userSearch.length; number++) {
               if (element?.displayName[number] !== userSearch[number]) {
