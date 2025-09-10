@@ -6,7 +6,7 @@ import {
 } from '@/components/ui/chart'
 import { useDispatch } from 'react-redux'
 import { Label, Pie, PieChart } from 'recharts'
-import { useSelectors } from 'src/hooks'
+import { useSelectors, useTexts } from 'src/hooks'
 import { changeCompletedAction } from 'src/stateSlices/completedActionSlice'
 import Carousels from '../core/specifics/Carousels'
 import ProfileCompletedContent from './ProfileCompletedContent'
@@ -14,6 +14,7 @@ import { useLocation } from 'react-router-dom'
 
 const ProfileCompleted = ({ cards }) => {
   const dispatch = useDispatch()
+  const {borrowing, lending} = useTexts()
   const languages = useSelectors((state) => state.languages.value)
   const actions = [
     {
@@ -32,11 +33,11 @@ const ProfileCompleted = ({ cards }) => {
       label: 'total',
     },
     borrow: {
-      label: languages === 'ko' ? '빌리기' : 'Borrowing',
+      label: borrowing,
       color: '#e76e50',
     },
     lend: {
-      label: languages === 'ko' ? '빌려주기' : 'Lending',
+      label: lending,
       color: '#7fc4bc',
     },
   } satisfies ChartConfig
