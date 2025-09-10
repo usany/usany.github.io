@@ -50,10 +50,12 @@ function SearchList({multiple}) {
       let point
       let samePointIndex
       const newArray = docs.docs.map((document, index) => {
-        if (document.points !== point) {
-          point = element.points
+        if (document.data().points !== point) {
+          point = document.data().points
           samePointIndex = index
         }
+        console.log(point)
+        console.log(samePointIndex)
         if (document.uid === profile?.uid) {
           const user = doc(dbservice, `members/${profile?.uid}`)
           const newRank = samePointIndex ? samePointIndex + 1 : index + 1
@@ -65,7 +67,7 @@ function SearchList({multiple}) {
         }
         if (userSearch) {
           for (let number = 0; number < userSearch.length; number++) {
-            if (element?.displayName[number] !== userSearch[number]) {
+            if (document.data().displayName[number] !== userSearch[number]) {
               // userNameConfirm = false
               return null
             }
@@ -77,7 +79,7 @@ function SearchList({multiple}) {
             setContinuing(document)
           }
           return {
-            ...document.data(),
+            ...document.data(), ranking: samePointIndex+1
           }
         }
         return null

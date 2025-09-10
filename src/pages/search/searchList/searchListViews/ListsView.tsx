@@ -75,11 +75,11 @@ const ListsView = ({ elements, userSearch, multiple, handleUser }) => {
               >
                 {!multiple ? (
                   <div className="flex items-center justify-center w-[100px]">
-                    {newRanking ? newRanking : element.ranking}
+                    {profile?.ranking}
                   </div>
                 ) : (
                   <div className="flex items-center justify-center w-[100px]">
-                    {samePointIndex ? samePointIndex + 1 : index + 1}
+                    {element.ranking}
                   </div>
                 )}
                 <div className="flex items-center">
