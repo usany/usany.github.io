@@ -153,7 +153,7 @@ function Profile() {
       {scrolledToCompleted ? (
         <>
           <ProfileCompleted user={state?.element || profile} cards={cards} />
-          <ProfileMembers user={state?.element || profile} />
+          <ProfileMembers />
         </>
       ) : (
         <div className="h-[250px]"></div>

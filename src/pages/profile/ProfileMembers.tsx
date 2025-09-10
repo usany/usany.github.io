@@ -10,10 +10,10 @@ import ProfileMembersPasswordContent from './ProfileMembersPasswordContent'
 
 const ProfileMembers = () => {
   const {state} = useLocation()
-  const user = state.element
   const { colorTwo } = useCardsBackground()
   const { report } = useTexts()
   const profile = useSelectors((state) => state.profile.value)
+  const user = state?.element || profile
   return (
     <div className="flex justify-center p-5">
       {user.uid === profile?.uid ? (
