@@ -64,11 +64,12 @@ const ListsView = ({ elements, userSearch, multiple, handleUser }) => {
                   <div className="overflow-hidden">{element.points}</div>
                 </div>
                 <div className="flex justify-center items-center w-[67px]">
-                  {locationConfirmed ? (
-                    <Chip sx={{}} color="success" label={<Check />} />
+                  <Chip sx={locationConfirmed ? {} : undefined} color={locationConfirmed ? "success" : undefined} label={locationConfirmed ? <Check /> : <Ban />} />
+                  {/* {locationConfirmed ? (
+                    <Chip sx={locationConfirmed ? {} : undefined} color={locationConfirmed ? "success" : undefined} label={<Check />} />
                   ) : (
                     <Chip label={<Ban />} />
-                  )}
+                  )} */}
                 </div>
               </div>
               <Divider />
