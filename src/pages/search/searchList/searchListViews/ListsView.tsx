@@ -65,11 +65,6 @@ const ListsView = ({ elements, userSearch, multiple, handleUser }) => {
                 </div>
                 <div className="flex justify-center items-center w-[67px]">
                   <Chip sx={locationConfirmed ? {} : undefined} color={locationConfirmed ? "success" : undefined} label={locationConfirmed ? <Check /> : <Ban />} />
-                  {/* {locationConfirmed ? (
-                    <Chip sx={locationConfirmed ? {} : undefined} color={locationConfirmed ? "success" : undefined} label={<Check />} />
-                  ) : (
-                    <Chip label={<Ban />} />
-                  )} */}
                 </div>
               </div>
               <Divider />
