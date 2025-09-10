@@ -14,7 +14,7 @@ import { useLocation } from 'react-router-dom'
 
 const ProfileCompleted = ({ cards }) => {
   const dispatch = useDispatch()
-  const {borrowing, lending} = useTexts()
+  const {borrowing, lending, activitiesCompleted} = useTexts()
   const languages = useSelectors((state) => state.languages.value)
   const actions = [
     {
@@ -84,7 +84,7 @@ const ProfileCompleted = ({ cards }) => {
                         y={(viewBox.cy || 0) + 24}
                         className="fill-foreground"
                       >
-                        {languages === 'ko' ? '활동 횟수' : 'Activities Count'}
+                        {activitiesCompleted}
                       </tspan>
                     </text>
                   )
