@@ -1,15 +1,15 @@
 import { useState } from 'react'
 // import Avatar from '@mui/material/Avatar';
-import { Chip, Divider } from '@mui/material'
 import { doc, updateDoc } from 'firebase/firestore'
+import { useSelectors } from 'src/hooks'
+import { Chip, Divider } from '@mui/material'
 import { Ban, Check } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { dbservice } from 'src/baseApi/serverbase'
-import { useSelectors } from 'src/hooks'
 import Avatars from 'src/pages/core/Avatars'
 
 const ListsView = ({ elements, userSearch, multiple, handleUser }) => {
-  const [newRanking, setNewRanking] = useState(0)
+  // const [newRanking, setNewRanking] = useState(0)
   const navigate = useNavigate()
   const profile = useSelectors((state) => state.profile.value)
   const link = '/profile'
@@ -26,8 +26,8 @@ const ListsView = ({ elements, userSearch, multiple, handleUser }) => {
       handleUser(element)
     }
   }
-  let point
-  let samePointIndex
+  // let point
+  // let samePointIndex
   return (
     <div className="flex truncate justify-center">
       <div className="w-[1000px]">
