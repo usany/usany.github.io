@@ -66,11 +66,17 @@ const ProfileMembersDrawersContent = ({ user }: Props) => {
     <>
       <div className="p-5">
         {canDeleteAccountWhenYouHaveNoProcessingBorrwingOrLendingCard}
-        {process ? (
+        <div className="flex justify-center">
+          <Chip
+            label={process ? noProcessingCard : ongoingCards}
+            sx={{ bgcolor: process ? '#7fc4bc' : '#e76e50', color: 'white' }}
+          />
+        </div>
+        {/* {process ? (
           <div className="flex justify-center">
             <Chip
-              label={noProcessingCard}
-              sx={{ bgcolor: '#7fc4bc', color: 'white' }}
+              label={process ? noProcessingCard : ongoingCards}
+              sx={{ bgcolor: process ? '#7fc4bc' : '#e76e50', color: 'white' }}
             />
           </div>
         ) : (
@@ -83,7 +89,7 @@ const ProfileMembersDrawersContent = ({ user }: Props) => {
               }}
             />
           </div>
-        )}
+        )} */}
         <div>{toDeleteAccountInputMail}</div>
       </div>
       <div className="flex flex-col justify-center p-5 gap-5">
