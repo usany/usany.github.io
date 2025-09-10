@@ -45,7 +45,7 @@ const ProfileCards = ({ alliesCollection, cards }) => {
       >
         <Popups
           trigger={<ProfilePointsTrigger cards={cards} />}
-          title={<ProfilePointsTitle user={user} />}
+          title={<ProfilePointsTitle />}
           content={<ProfileDrawersPoints user={user} cards={cards} />}
           close={null}
           attachment={null}
