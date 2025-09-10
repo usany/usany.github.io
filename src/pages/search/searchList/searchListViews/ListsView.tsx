@@ -53,15 +53,9 @@ const ListsView = ({ elements, userSearch, multiple, handleUser }) => {
                     `bg-[#e2e8f0] dark:bg-[#2d3848] rounded`
                   }`}
               >
-                {!multiple ? (
-                  <div className="flex items-center justify-center w-[100px]">
-                    {profile?.ranking}
-                  </div>
-                ) : (
-                  <div className="flex items-center justify-center w-[100px]">
-                    {element.ranking}
-                  </div>
-                )}
+                <div className="flex items-center justify-center w-[100px]">
+                  {multiple ? element.ranking : profile?.ranking}
+                </div>
                 <div className="flex items-center">
                   <Avatars element={element} piazza={null} profile={false} />
                 </div>
