@@ -37,18 +37,22 @@ const ProfileMembersDrawersContent = ({ user }: Props) => {
     }
   }
   const delist = async () => {
-    await deleteDoc(doc(dbservice, `members/${profile?.uid}`))
-    deleteUser(user)
-      .then(() => {
-        console.log(user)
-        // User deleted.
-      })
-      .catch((error) => {
-        console.log(error)
-        // An error ocurred
-        // ...
-      })
-    navigate('/')
+    if (process && confirmEmail) {
+      await deleteDoc(doc(dbservice, `members/${profile?.uid}`))
+      deleteUser(user)
+        .then(() => {
+          console.log(user)
+          // User deleted.
+        })
+        .catch((error) => {
+          console.log(error)
+          // An error ocurred
+          // ...
+        })
+      navigate('/')
+    } else {
+      alert('Cannot delete')
+    }
   }
   useEffect(() => {
     const createdCards = user.userData?.createdCards
