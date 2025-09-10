@@ -1,6 +1,6 @@
 import Card from '@mui/material/Card'
 import { Link } from 'react-router-dom'
-import { useSelectors } from 'src/hooks'
+import { useSelectors, useTexts } from 'src/hooks'
 import useCardsBackground from '../../hooks/useCardsBackground'
 import Popups from '../core/Popups'
 import ProfileMembersDrawersContent from './ProfileMembersDrawersContent'
@@ -11,7 +11,6 @@ import ProfileMembersPasswordTrigger from './ProfileMembersPasswordTrigger'
 
 const ProfileMembers = ({ user }) => {
   const { colorTwo } = useCardsBackground()
-  const languages = useSelectors((state) => state.languages.value)
   const { report } = useTexts()
   const profile = useSelectors((state) => state.profile.value)
   return (
