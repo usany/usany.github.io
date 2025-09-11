@@ -10,7 +10,7 @@ const ProfileDrawersPoints = ({ cards }) => {
   const profile = useSelectors((state) => state.profile.value)
   const { state } = useLocation()
   const user = state?.element || profile
-  const { empty } = useTexts()
+  const { points, empty } = useTexts()
   useEffect(() => {
     const bringMessages = async () => {
       const messagesArray = []
@@ -63,13 +63,13 @@ const ProfileDrawersPoints = ({ cards }) => {
           </div>
           {user.uid === element.creatorId && (
             <div className="flex justify-center">
-              포인트 {element.text.choose === 1 ? '-' : '+'}
+              {points} {element.text.choose === 1 ? '-' : '+'}
               {element.point}
             </div>
           )}
           {user.uid === element.connectedId && (
             <div className="flex justify-center">
-              포인트 {element.text.choose === 1 ? '+' : '-'}
+              {points} {element.text.choose === 1 ? '+' : '-'}
               {element.point}
             </div>
           )}
