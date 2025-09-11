@@ -1,4 +1,4 @@
-import { useSelectors, useTexts } from "src/hooks"
+import { useTexts } from "src/hooks"
 
 const ProfilePointsTrigger = ({ cards }) => {
   const {points} = useTexts()
