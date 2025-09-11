@@ -41,7 +41,7 @@ function Profile() {
   const profile = useSelectors((state) => state.profile.value)
   const userUid = state?.element.uid || profile?.uid
   const userDisplayName = state?.element.displayName || profile?.displayName
-  const {my, myProfile} = useTexts()
+  const {my, userProfile} = useTexts()
 
   useEffect(() => {
     const cards = async () => {
@@ -135,7 +135,7 @@ function Profile() {
           userUid === profile?.uid
             ? my
             : shortenName
-        } ${myProfile}`}
+        } ${userProfile}`}
       />
       <ProfileAvatar user={state?.element || profile} />
       <ProfileLocations user={userUid} />
