@@ -1,7 +1,7 @@
 {
   "ko": {
     "Welcome to React": "Welcome to React and react-i18next",
-    "myProfile": "내 프로필",
+    "myProfile": "프로필",
     "userSearch": "유저 검색",
     "groupChat": "단체 대화",
     "report": "신고하기",
@@ -153,7 +153,7 @@
   },
   "en": {
     "Welcome to React": "Welcome to React and react-i18next",
-    "myProfile": "My Profile",
+    "myProfile": "Profile",
     "userSearch": "User Search",
     "groupChat": "Group Chat",
     "report": "Report",
