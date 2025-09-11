@@ -1,6 +1,6 @@
 import { useSelectors } from "src/hooks"
 
-const ProfilePointsTrigger = ({ user, cards, followers, alliesCollection, selection }) => {
+const ProfilePointsTrigger = ({ cards }) => {
   const languages = useSelectors((state) => state.languages.value)
   return (
     <div className='p-5'>
