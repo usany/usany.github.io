@@ -15,7 +15,8 @@ import { useSelectors, useTexts } from 'src/hooks'
 import ListsView from './searchListViews/ListsView'
 import { useDispatch } from 'react-redux'
 import { changeProfile } from 'src/stateSlices/profileSlice'
-
+let point
+let samePointIndex
 function SearchList({multiple}) {
   const [rank, setRank] = useState([])
   const [continuing, setContinuing] = useState(null)
@@ -34,7 +35,6 @@ function SearchList({multiple}) {
       handleUser={null}
     />
   )
-
   const dispatch = useDispatch()
   useEffect(() => {
     const membersList = async () => {
@@ -45,16 +45,15 @@ function SearchList({multiple}) {
         startAfter(continuing ? continuing : ''),
       )
       const docs = await getDocs(collectionQuery)
-
-      let point
-      let samePointIndex
+      const length = rank.length
       const newArray = docs.docs.map((document, index) => {
         if (document.data().points !== point) {
           point = document.data().points
-          samePointIndex = index
+          samePointIndex = length + index
         }
         if (document.uid === profile?.uid) {
           const user = doc(dbservice, `members/${profile?.uid}`)
+          console.log(user)
           const newRank = samePointIndex ? samePointIndex + 1 : index + 1
           if (profile?.ranking !== newRank && multiple) {
             updateDoc(user, { ranking: newRank })
@@ -91,6 +90,7 @@ function SearchList({multiple}) {
       const docs = await getDocs(collectionQuery)
       const newArray = docs.docs.map((document, index) => {
         if (rank.indexOf(document) === -1) {
+          console.log(document.data())
           if (index + 1 === docs.docs.length) {
             setContinuing(document)
           }
