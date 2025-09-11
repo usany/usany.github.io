@@ -46,8 +46,9 @@ const ProfileDrawersPoints = ({ cards }) => {
           )}
           {user.uid === element.connectedId && (
             <div className="flex justify-center">
+              {languages === 'en' && (element.text.choose === 1 ? borrowedFrom : lendedTo)}
               {element.displayName}에게{' '}
-              {element.text.choose === 1 ? '빌려줌' : '빌림'}
+              {languages === 'ko' && (element.text.choose === 1 ? borrowedFrom : lendedTo)}
             </div>
           )}
           <div className="flex justify-center">
