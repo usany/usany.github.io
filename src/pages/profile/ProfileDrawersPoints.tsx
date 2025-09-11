@@ -10,7 +10,8 @@ const ProfileDrawersPoints = ({ cards }) => {
   const profile = useSelectors((state) => state.profile.value)
   const { state } = useLocation()
   const user = state?.element || profile
-  const { points, empty } = useTexts()
+  const { borrowedFrom, lendedTo, points, empty } = useTexts()
+  const languages = useSelectors((state) => state.languages.value)
   useEffect(() => {
     const bringMessages = async () => {
       const messagesArray = []
@@ -38,8 +39,9 @@ const ProfileDrawersPoints = ({ cards }) => {
         <div className="flex flex-col justify-center p-5">
           {user.uid === element.creatorId && (
             <div className="flex justify-center">
-              {element.connectedName}에게{' '}
-              {element.text.choose === 1 ? '빌림' : '빌려줌'}
+              {languages === 'en' && (element.text.choose === 1 ? borrowedFrom : lendedTo)}
+              {element.connectedName}
+              {languages === 'ko' && (element.text.choose === 1 ? borrowedFrom : lendedTo)}
             </div>
           )}
           {user.uid === element.connectedId && (
