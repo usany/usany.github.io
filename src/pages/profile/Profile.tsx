@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useLocation } from 'react-router-dom'
 import { dbservice } from 'src/baseApi/serverbase'
-import { useSelectors } from 'src/hooks'
+import { useSelectors, useTexts } from 'src/hooks'
 import PageTitle from 'src/pages/core/pageTitle/PageTitle'
 import ProfileActions from 'src/pages/profile/ProfileActions'
 import ProfileAvatar from 'src/pages/profile/profileAvatar/ProfileAvatar'
@@ -41,6 +41,7 @@ function Profile() {
   const profile = useSelectors((state) => state.profile.value)
   const userUid = state?.element.uid || profile?.uid
   const userDisplayName = state?.element.displayName || profile?.displayName
+  const {my, profile} = useTexts()
 
   useEffect(() => {
     const cards = async () => {
@@ -132,11 +133,9 @@ function Profile() {
         icon={<UserRound />}
         title={`${
           userUid === profile?.uid
-            ? languages === 'ko'
-              ? '내'
-              : 'My'
+            ? my
             : shortenName
-        } ${languages === 'ko' ? '프로필' : 'Profile'}`}
+        } ${profile}`}
       />
       <ProfileAvatar user={state?.element || profile} />
       <ProfileLocations user={userUid} />
