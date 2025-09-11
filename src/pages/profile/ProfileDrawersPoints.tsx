@@ -1,11 +1,15 @@
 import Divider from '@mui/material/Divider'
 import { collection, getDocs, orderBy, query } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import { dbservice } from 'src/baseApi/serverbase'
-import { useTexts } from 'src/hooks'
+import { useSelectors, useTexts } from 'src/hooks'
 
-const ProfileDrawersPoints = ({ user, cards }) => {
+const ProfileDrawersPoints = ({ cards }) => {
   const [messages, setMessages] = useState([])
+  const profile = useSelectors((state) => state.profile.value)
+  const { state } = useLocation()
+  const user = state?.element || profile
   const { empty } = useTexts()
   useEffect(() => {
     const bringMessages = async () => {
@@ -28,7 +32,6 @@ const ProfileDrawersPoints = ({ user, cards }) => {
       bringMessages()
     }
   }, [cards])
-  // console.log(cards)
   const pointsList = messages.map((element, index) => {
     return (
       <div key={index}>
