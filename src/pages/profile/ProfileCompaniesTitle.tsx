@@ -2,10 +2,7 @@ import { useTexts } from 'src/hooks'
 
 const ProfileCompaniesTitle = ({
   user,
-  cards,
   followers,
-  alliesCollection,
-  selection,
 }) => {
   const { follower, following } = useTexts()
   return (
