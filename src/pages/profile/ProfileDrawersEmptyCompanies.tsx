@@ -1,8 +1,11 @@
 import { useTexts } from 'src/hooks'
 
+interface Props {
+  followings: number
+}
 const ProfileDrawersEmptyCompanies = ({
   followings,
-}) => {
+}: Props) => {
   const { noFollowers, noFollowings } = useTexts()
   return (
     <div className="flex justify-center">
