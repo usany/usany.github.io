@@ -1,13 +1,5 @@
-import { useSelectors } from 'src/hooks'
+import { useSelectors, useTexts } from 'src/hooks'
 
-const follower = {
-  ko: '팔로워',
-  en: 'Followers',
-}
-const following = {
-  ko: '팔로잉',
-  en: 'Followings',
-}
 const ProfileCompaniesTrigger = ({
   followers,
   alliesCollection,
@@ -15,10 +7,10 @@ const ProfileCompaniesTrigger = ({
 }) => {
   const languages = useSelectors((state) => state.languages.value)
   const index = languages === 'ko' || languages === 'en' ? languages : 'ko'
-
+  const {follower, following} = useTexts()
   return (
     <div className="p-5" onClick={onClick}>
-      <div>{followers ? follower[index] : following[index]}</div>
+      <div>{followers ? follower : following}</div>
       <div className="flex justify-center">
         {alliesCollection.length}
         {languages === 'ko' && '명'}
