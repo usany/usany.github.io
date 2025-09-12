@@ -48,14 +48,9 @@ const ProfileCards = ({ alliesCollection, cards }) => {
           title={<ProfilePointsTitle />}
           content={<ProfileDrawersPoints cards={cards} />}
           close={null}
-          attachment={null}
         />
       </Card>
       {followerList.map((value, index) => {
-        const onLink = {
-          to: 'profile',
-          state: user,
-        }
         return (
           <Card
             sx={{
@@ -86,8 +81,6 @@ const ProfileCards = ({ alliesCollection, cards }) => {
                   />
                 </DrawerClose>
               }
-              attachment={true}
-              onLink={onLink}
             />
           </Card>
         )
