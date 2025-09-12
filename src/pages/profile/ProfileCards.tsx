@@ -81,6 +81,7 @@ const ProfileCards = ({ alliesCollection, cards }) => {
                   />
                 </DrawerClose>
               }
+              attachment={true}
             />
           </Card>
         )
