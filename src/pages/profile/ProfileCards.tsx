@@ -33,9 +33,6 @@ const ProfileCards = ({ alliesCollection, cards }) => {
   }
   const { colorTwo } = useCardsBackground()
   const followerList = [true, false]
-  const onClick = (index) => {
-    usersCollection(index)
-  }
   return (
     <div className="flex justify-center pt-5">
       <Card
@@ -62,7 +59,7 @@ const ProfileCards = ({ alliesCollection, cards }) => {
                 <ProfileCompaniesTrigger
                   followers={value}
                   alliesCollection={alliesCollection[index].list}
-                  onClick={() => onClick(index)}
+                  usersCollection={() => usersCollection(index)}
                 />
               }
               title={<ProfileCompaniesTitle user={user} followers={value} />}
