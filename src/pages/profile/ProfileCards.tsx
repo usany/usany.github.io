@@ -60,7 +60,6 @@ const ProfileCards = ({ alliesCollection, cards }) => {
                   followers={value}
                   alliesCollection={alliesCollection[index].list}
                   handleCompanies={(newValue) => setCompanies(newValue)}
-                  index={index}
                 />
               }
               title={<ProfileCompaniesTitle user={user} followers={value} />}

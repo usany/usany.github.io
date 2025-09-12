@@ -9,12 +9,12 @@ const ProfileCompaniesTrigger = ({
   index
 }) => {
   const {follower, following} = useTexts()
-  const usersCollection = async (index) => {
+  const usersCollection = async (followers) => {
     const elementsCollection = []
     const collectionRef = collection(dbservice, 'members')
     const docs = await getDocs(query(collectionRef))
     docs.forEach((element) => {
-      if (alliesCollection[index].list.indexOf(element.data().uid) !== -1) {
+      if (alliesCollection[followers ? 0 : 1].list.indexOf(element.data().uid) !== -1) {
         elementsCollection.push(element.data())
       }
     })
@@ -22,7 +22,7 @@ const ProfileCompaniesTrigger = ({
   }
 
   return (
-    <div className="p-5" onClick={() => usersCollection(index)}>
+    <div className="p-5" onClick={() => usersCollection(followers)}>
       <div>{followers ? follower : following}</div>
       <div className="flex justify-center">
         {alliesCollection.length}
