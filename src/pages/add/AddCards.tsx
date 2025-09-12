@@ -28,16 +28,12 @@ const AddCards = ({ borrow, item, fromTo, locationState, display }) => {
     'lightsteelblue',
     'lightyellow',
   ]
-  let shadowColor
   const alpha = Array.from(Array(26)).map((e, i) => i + 65)
   const letters = alpha.map((x) => String.fromCharCode(x))
-  if (display) {
-    shadowColor =
-      shadowColorArray[
+  const shadowColor = display ? shadowColorArray[
         letters.indexOf(String(display.id[0]).toUpperCase()) %
           shadowColorArray.length
-      ]
-  }
+      ] : undefined
   const languages = useSelectors((state) => state.languages.value)
   const locationOne = locationState?.locationOne
   const staticImg = staticArray[locationOne] || staticArray['building']
