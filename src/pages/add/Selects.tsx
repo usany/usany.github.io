@@ -6,12 +6,12 @@ import Select from "@mui/material/Select";
 import TextField from "@mui/material/TextField";
 import { useSelectors } from "src/hooks";
 
-const locationsBuildings = {
+export const locationsBuildings = {
   ko: ["중도", "청운", "푸른솔", "간호이과대", "경영대", "문과대", "의과대", "치과병원", "네오르네상스관"],
   en: ['Central library', 'Cheongwoon', 'Pureunsol', 'Nursing Science & Science', 'Business', 'Humanities', 'Medicine', 'Dental Hospital', 'Neo-Renaissance']
 }
 
-const locationsCollection = {
+export const locationsCollection = {
   ko: {
     cl: [
       "1열(1F)",
@@ -83,7 +83,7 @@ const settingLocations = (building, korBuilding) => {
 // const roomTwo = Array(315).fill().map((value, index) => <MenuItem key={index+1} value={index+1}>{index+1}</MenuItem>)
 // const roomThree = Array(156).fill().map((value, index) => <MenuItem key={index+1} value={index+1}>{index+1}</MenuItem>)
 // const roomFour = Array(149).fill().map((value, index) => <MenuItem key={index+1} value={index+1}>{index+1}</MenuItem>)
-const location = {
+export const location = {
   one: settingSeats(181),
   focus: settingSeats(46),
   two: settingSeats(315),
