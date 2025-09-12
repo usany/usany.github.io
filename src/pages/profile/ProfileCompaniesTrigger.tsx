@@ -9,11 +9,8 @@ const following = {
   en: 'Followings',
 }
 const ProfileCompaniesTrigger = ({
-  user,
-  cards,
   followers,
   alliesCollection,
-  selection,
   onClick,
 }) => {
   const languages = useSelectors((state) => state.languages.value)
