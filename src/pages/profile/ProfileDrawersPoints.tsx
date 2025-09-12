@@ -4,7 +4,8 @@ import { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { dbservice } from 'src/baseApi/serverbase'
 import { useSelectors, useTexts } from 'src/hooks'
-import locationsBuildings from '../add/locationsBuildings'
+import { locationsBuildings, locationsCollection } from '../add/Selects'
+import locationsCollectionLetters from '../add/locationsCollectionLetters'
 
 const ProfileDrawersPoints = ({ cards }) => {
   const [messages, setMessages] = useState([])
@@ -53,7 +54,21 @@ const ProfileDrawersPoints = ({ cards }) => {
             </div>
           )}
           <div className="flex justify-center">
-            {locationsBuildings[languages][locationsBuildings['ko'].indexOf(element.text.count)]} {locationsBuildings[languages][locationsBuildings['ko'].indexOf(element.text.counter)]} {locationsBuildings[languages][locationsBuildings['ko'].indexOf(element.text.counting)]}
+            {locationsBuildings[languages][locationsBuildings['ko'].indexOf(element.text.count)]} {locationsCollection[languages][
+                                Object.keys(locationsCollectionLetters).find(
+                                  (key) =>
+                                    locationsCollectionLetters[key] ===
+                                    element.text.count,
+                                )
+                              ][
+                                locationsCollection['ko'][
+                                  Object.keys(locationsCollectionLetters).find(
+                                    (key) =>
+                                      locationsCollectionLetters[key] ===
+                                      element.text.count,
+                                  )
+                                ].indexOf(element.text.counter)
+                              ]} {element.text.counting}
           </div>
           <div className="flex justify-center">
             {fromReceipt} {element.text.clock.year}-{element.text.clock.month}-{element.text.clock.day} {element.text.clock.hour}:{element.text.clock.minute}
