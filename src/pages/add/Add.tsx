@@ -405,7 +405,6 @@ function Add({ borrow }: Props) {
       {addSteps === 2 && (
         <AddRegisterButton
           submit={submit}
-          fromTo={fromTo}
           enableRegister={enableRegister}
         />
       )}

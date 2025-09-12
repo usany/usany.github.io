@@ -6,7 +6,7 @@ interface Props {
   submit: (event: {}) => void
 }
 
-const AddRegisterButton = ({ submit, fromTo, enableRegister }: Props) => {
+const AddRegisterButton = ({ submit, enableRegister }: Props) => {
   const { registerButton } = useTexts()
   const onLine = useSelectors((state) => state.onLine.value)
   return (
