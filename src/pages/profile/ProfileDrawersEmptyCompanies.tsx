@@ -1,9 +1,7 @@
 import { useTexts } from 'src/hooks'
 
 const ProfileDrawersEmptyCompanies = ({
-  user,
   followings,
-  alliesCollection,
 }) => {
   const { noFollowers, noFollowings } = useTexts()
   return (
