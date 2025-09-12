@@ -10,7 +10,7 @@ const ProfileDrawersPoints = ({ cards }) => {
   const profile = useSelectors((state) => state.profile.value)
   const { state } = useLocation()
   const user = state?.element || profile
-  const { borrowedFrom, lendedTo, points, empty } = useTexts()
+  const { borrowedFrom, lendedTo, points, empty, fromReceipt, toReceipt } = useTexts()
   const languages = useSelectors((state) => state.languages.value)
   useEffect(() => {
     const bringMessages = async () => {
@@ -55,14 +55,10 @@ const ProfileDrawersPoints = ({ cards }) => {
             {element.text.count} {element.text.counter} {element.text.counting}
           </div>
           <div className="flex justify-center">
-            {element.text.clock.year}년 {element.text.clock.month}월{' '}
-            {element.text.clock.day}일 {element.text.clock.hour}시{' '}
-            {element.text.clock.minute}분부터
+            {fromReceipt} {element.text.clock.year}-{element.text.clock.month}-{element.text.clock.day} {element.text.clock.hour}:{element.text.clock.minute}
           </div>
           <div className="flex justify-center">
-            {element.text.clocker.year}년 {element.text.clocker.month}월{' '}
-            {element.text.clocker.day}일 {element.text.clocker.hour}시{' '}
-            {element.text.clocker.minute}분까지
+            {toReceipt} {element.text.clocker.year}-{element.text.clocker.month}-{element.text.clocker.day} {element.text.clocker.hour}:{element.text.clocker.minute}
           </div>
           {user.uid === element.creatorId && (
             <div className="flex justify-center">
