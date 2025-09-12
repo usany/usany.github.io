@@ -59,7 +59,8 @@ const ProfileCards = ({ alliesCollection, cards }) => {
                 <ProfileCompaniesTrigger
                   followers={value}
                   alliesCollection={alliesCollection[index].list}
-                  handleCompanies={() => setCompanies(index)}
+                  handleCompanies={(newValue) => setCompanies(newValue)}
+                  index={index}
                 />
               }
               title={<ProfileCompaniesTitle user={user} followers={value} />}

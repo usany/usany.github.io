@@ -6,6 +6,7 @@ const ProfileCompaniesTrigger = ({
   followers,
   alliesCollection,
   handleCompanies,
+  index
 }) => {
   const {follower, following} = useTexts()
   const usersCollection = async (index) => {
@@ -21,7 +22,7 @@ const ProfileCompaniesTrigger = ({
   }
 
   return (
-    <div className="p-5" onClick={usersCollection}>
+    <div className="p-5" onClick={() => usersCollection(index)}>
       <div>{followers ? follower : following}</div>
       <div className="flex justify-center">
         {alliesCollection.length}
