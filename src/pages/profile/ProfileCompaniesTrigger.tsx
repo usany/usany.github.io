@@ -6,7 +6,6 @@ const ProfileCompaniesTrigger = ({
   followers,
   alliesCollection,
   handleCompanies,
-  index
 }) => {
   const {follower, following} = useTexts()
   const usersCollection = async (followers) => {
@@ -14,7 +13,7 @@ const ProfileCompaniesTrigger = ({
     const collectionRef = collection(dbservice, 'members')
     const docs = await getDocs(query(collectionRef))
     docs.forEach((element) => {
-      if (alliesCollection[followers ? 0 : 1].list.indexOf(element.data().uid) !== -1) {
+      if (alliesCollection[followers ? 0: 1].list.indexOf(element.data().uid) !== -1) {
         elementsCollection.push(element.data())
       }
     })
