@@ -8,7 +8,7 @@ const ProfileCompaniesTrigger = ({
   handleCompanies
 }) => {
   const {follower, following} = useTexts()
-  const usersCollection = async (followers) => {
+  const usersCollection = async () => {
     const elementsCollection = []
     const collectionRef = collection(dbservice, 'members')
     const docs = await getDocs(query(collectionRef))
@@ -20,9 +20,7 @@ const ProfileCompaniesTrigger = ({
     handleCompanies(elementsCollection)
   }
   return (
-    <div className="p-5" onClick={async () => {
-      await usersCollection(followers)}
-    }>
+    <div className="p-5" onClick={usersCollection}>
       <div>{followers ? follower : following}</div>
       <div className="flex justify-center">
         {alliesCollectionList.length}
