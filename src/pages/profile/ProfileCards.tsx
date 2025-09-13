@@ -20,7 +20,6 @@ const ProfileCards = ({ alliesCollection, cards }) => {
   const { state } = useLocation()
   const user = state?.element || profile
   const [companies, setCompanies] = useState([])
-  const { colorTwo } = useCardsBackground()
   const followerList = [true, false]
   return (
     <div className="flex justify-center pt-5">
