@@ -1,4 +1,4 @@
-import { useSelectors } from 'src/hooks'
+import { useSelectors, useTexts } from 'src/hooks'
 import { Chip, Divider } from '@mui/material'
 import { Ban, Check } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
@@ -6,6 +6,7 @@ import Avatars from 'src/pages/core/Avatars'
 
 const ListsView = ({ elements, userSearch, multiple, handleUser }) => {
   const navigate = useNavigate()
+  const {empty} = useTexts()
   const profile = useSelectors((state) => state.profile.value)
   const onClick = (element) => {
     const link = '/profile'
@@ -21,6 +22,16 @@ const ListsView = ({ elements, userSearch, multiple, handleUser }) => {
       handleUser(element)
     }
   }
+  console.log(elements)
+  if (!elements.length) return (
+    <div className="p-5">
+      <div className="flex justify-center">
+        <div className="rounded shadow-md bg-light-1 dark:bg-dark-1 p-5">
+          {empty}
+        </div>
+      </div>
+    </div>
+  )
   return (
     <div className="flex truncate justify-center">
       <div className="w-[1000px]">
