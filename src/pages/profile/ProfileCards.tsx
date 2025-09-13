@@ -16,8 +16,6 @@ import { useSelectors } from 'src/hooks'
 import { useLocation } from 'react-router-dom'
 
 const ProfileCards = ({ alliesCollection, cards }) => {
-  const profile = useSelectors((state) => state.profile.value)
-  const { state } = useLocation()
   const [companies, setCompanies] = useState([])
   const isFollowersList = [true, false]
   return (
