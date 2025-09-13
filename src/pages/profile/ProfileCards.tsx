@@ -20,17 +20,17 @@ const ProfileCards = ({ alliesCollection, cards }) => {
   const { state } = useLocation()
   const user = state?.element || profile
   const [companies, setCompanies] = useState([])
-  const usersCollection = async (index) => {
-    const elementsCollection = []
-    const collectionRef = collection(dbservice, 'members')
-    const docs = await getDocs(query(collectionRef))
-    docs.forEach((element) => {
-      if (alliesCollection[index].list.indexOf(element.data().uid) !== -1) {
-        elementsCollection.push(element.data())
-      }
-    })
-    setCompanies(elementsCollection)
-  }
+  // const usersCollection = async (index) => {
+  //   const elementsCollection = []
+  //   const collectionRef = collection(dbservice, 'members')
+  //   const docs = await getDocs(query(collectionRef))
+  //   docs.forEach((element) => {
+  //     if (alliesCollection[index].list.indexOf(element.data().uid) !== -1) {
+  //       elementsCollection.push(element.data())
+  //     }
+  //   })
+  //   setCompanies(elementsCollection)
+  // }
   const { colorTwo } = useCardsBackground()
   const followerList = [true, false]
   return (
@@ -58,8 +58,7 @@ const ProfileCards = ({ alliesCollection, cards }) => {
               trigger={
                 <ProfileCompaniesTrigger
                   followers={value}
-                  alliesCollection={alliesCollection[index].list}
-                  onClick={() => usersCollection(index)}
+                  alliesCollectionList={alliesCollection[index].list}
                   handleCompanies={(newValue) => setCompanies(newValue)}
                 />
               }
