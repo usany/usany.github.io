@@ -1,7 +1,12 @@
 import ProfileForm from 'src/pages/profile/ProfileForm'
 import ProfileConnects from 'src/pages/profile/ProfileConnects'
+import { useSelectors } from 'src/hooks'
+import { useLocation } from 'react-router-dom'
 
 const ProfileActions = ({ alliesCollection, handleFollowers }) => {
+  const {state} = useLocation()
+  const profile = useSelectors((state) => state.profile.value)
+  const user = state?.element || profile
 
   return (
     <div>
