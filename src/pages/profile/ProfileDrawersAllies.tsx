@@ -1,7 +1,7 @@
 import { DrawerClose } from 'src/components/ui/drawer';
 import ListsView from '../search/searchList/searchListViews/ListsView';
 
-const ProfileDrawersAllies = () => {
+const ProfileDrawersAllies = ({ companies }) => {
 
   return (
     <div className="flex flex-col justify-center p-5">
