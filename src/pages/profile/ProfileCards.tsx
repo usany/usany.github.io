@@ -20,7 +20,6 @@ const ProfileCards = ({ alliesCollection, cards }) => {
   const { state } = useLocation()
   const user = state?.element || profile
   const [companies, setCompanies] = useState([])
-  const followerList = [true, false]
   return (
     <div className="flex justify-center pt-5">
       <Popups
@@ -29,7 +28,7 @@ const ProfileCards = ({ alliesCollection, cards }) => {
         content={<ProfileDrawersPoints cards={cards} />}
         close={null}
       />
-      {followerList.map((value, index) => {
+      {[true, false].map((value, index) => {
         return (
           <Popups
             trigger={
@@ -39,7 +38,7 @@ const ProfileCards = ({ alliesCollection, cards }) => {
                 handleCompanies={(newValue) => setCompanies(newValue)}
               />
             }
-            title={<ProfileCompaniesTitle user={user} followers={value} />}
+            title={<ProfileCompaniesTitle followers={value} />}
             content={
               <div className="flex flex-col justify-center p-5">
                 <DrawerClose>
