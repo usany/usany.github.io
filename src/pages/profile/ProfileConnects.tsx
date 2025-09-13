@@ -8,7 +8,6 @@ import { useTexts } from 'src/hooks'
 
 const ProfileConnects = ({ alliesCollection, handleFollowers }) => {
   const { follow, cancelFollow, sendMessage } = useTexts()
-  const [conversation, setConversation] = useState('')
   const profile = useSelectors((state) => state.profile.value)
   const { state } = useLocation()
   const user = state?.element || profile
@@ -102,40 +101,7 @@ const ProfileConnects = ({ alliesCollection, handleFollowers }) => {
       }
     }
   }
-
-  useEffect(() => {
-    if (user.uid < profile?.uid) {
-      setConversation(
-        user.uid[0] +
-          user.uid[1] +
-          user.uid[2] +
-          user.uid[3] +
-          user.uid[4] +
-          user.uid[5] +
-          profile?.uid[0] +
-          profile?.uid[1] +
-          profile?.uid[2] +
-          profile?.uid[3] +
-          profile?.uid[4] +
-          profile?.uid[5],
-      )
-    } else {
-      setConversation(
-        profile?.uid[0] +
-          profile?.uid[1] +
-          profile?.uid[2] +
-          profile?.uid[3] +
-          profile?.uid[4] +
-          profile?.uid[5] +
-          user.uid[0] +
-          user.uid[1] +
-          user.uid[2] +
-          user.uid[3] +
-          user.uid[4] +
-          user.uid[5],
-      )
-    }
-  }, [])
+  const conversation = user.uid < profile?.uid ? user.uid.slice(0, 5)+profile?.uid.slice(0, 5) : profile?.uid.slice(0, 5)+user.uid.slice(0, 5)
   return (
     <div className="flex justify-center pt-10">
       {followButton ? (
