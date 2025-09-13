@@ -24,12 +24,6 @@ const ProfileCards = ({ alliesCollection, cards }) => {
   const followerList = [true, false]
   return (
     <div className="flex justify-center pt-5">
-      {/* <Card
-        sx={{
-          bgcolor: colorTwo,
-        }}
-      >
-      </Card> */}
       <Popups
         trigger={<ProfilePointsTrigger cards={cards} />}
         title={<ProfilePointsTitle />}
