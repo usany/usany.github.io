@@ -23,7 +23,7 @@ const ProfileCards = ({ alliesCollection, cards }) => {
     <div className="flex justify-center pt-5">
       <Popups
         trigger={<ProfilePointsTrigger cards={cards} />}
-        title={<ProfileCardsTitle isFollowers={null} />}
+        title={<ProfileCardsTitle />}
         content={<ProfileDrawersPoints cards={cards} />}
         close={null}
       />
