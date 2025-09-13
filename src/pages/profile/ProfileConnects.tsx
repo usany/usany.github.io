@@ -12,7 +12,7 @@ const ProfileConnects = ({ alliesCollection, handleFollowers }) => {
   const profile = useSelectors((state) => state.profile.value)
   const { state } = useLocation()
   const user = state?.element || profile
-  
+
   const followButton = alliesCollection[0].list.indexOf(profile?.uid) === -1
   const followUser = async () => {
     const myDocRef = doc(dbservice, `members/${profile?.uid}`)
@@ -62,7 +62,7 @@ const ProfileConnects = ({ alliesCollection, handleFollowers }) => {
       handleFollowers({ list: [profile?.uid] })
     }
   }
-  const unfollowUser = async (uid) => {
+  const unfollowUser = async () => {
     const myDocRef = doc(dbservice, `members/${profile?.uid}`)
     const myDocSnap = await getDoc(myDocRef)
     const otherUserDocRef = doc(dbservice, `members/${user.uid}`)
@@ -80,7 +80,7 @@ const ProfileConnects = ({ alliesCollection, handleFollowers }) => {
     const otherFollowers = otherUserDocSnap.data().followers || []
     const otherFollowings = otherUserDocSnap.data().followings || []
     if (myFollowingNum) {
-      if (myFollowings.indexOf(uid) !== -1) {
+      if (myFollowings.indexOf(user.uid) !== -1) {
         await updateDoc(myDocRef, {
           followingNum: myFollowingNum - 1,
           followings: myFollowings.filter((element) => element !== user.uid),
@@ -144,7 +144,7 @@ const ProfileConnects = ({ alliesCollection, handleFollowers }) => {
             variant="outlined"
             sx={{ overflow: 'hidden' }}
             onClick={() => {
-              followUser(user.uid)
+              followUser()
             }}
           >
             {follow} {user.displayName}
@@ -154,7 +154,7 @@ const ProfileConnects = ({ alliesCollection, handleFollowers }) => {
             variant="outlined"
             sx={{ overflow: 'hidden' }}
             onClick={() => {
-              unfollowUser(user.uid)
+              unfollowUser()
             }}
           >
             {cancelFollow} {user.displayName}
