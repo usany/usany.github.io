@@ -7,7 +7,7 @@ const ProfilePointsTitle = () => {
   const user = state?.element || profile
   const { pointReceipt } = useTexts()
   return (
-    <div className="flex justify-center">{`${user.displayName} ${pointReceipt}`}</div>
+    <div className="flex justify-center">{`${pointReceipt}`}</div>
   )
 }
 
