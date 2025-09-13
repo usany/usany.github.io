@@ -23,11 +23,9 @@ const ListsView = ({ elements, userSearch, multiple, handleUser }) => {
     }
   }
   if (!elements.length) return (
-    <div className="p-5">
-      <div className="flex justify-center">
-        <div className="rounded shadow-md bg-light-1 dark:bg-dark-1 p-5">
-          {empty}
-        </div>
+    <div className="flex justify-center">
+      <div className="rounded shadow-md bg-light-1 dark:bg-dark-1 p-5">
+        {empty}
       </div>
     </div>
   )
