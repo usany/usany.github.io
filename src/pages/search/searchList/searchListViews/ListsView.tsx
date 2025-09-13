@@ -22,7 +22,6 @@ const ListsView = ({ elements, userSearch, multiple, handleUser }) => {
       handleUser(element)
     }
   }
-  console.log(elements)
   if (!elements.length) return (
     <div className="p-5">
       <div className="flex justify-center">
