@@ -1,7 +1,11 @@
 import { useLocation } from 'react-router-dom'
 import { useSelectors, useTexts } from 'src/hooks'
 
-const ProfileCardsTitle = ({isFollowers}) => {
+interface Props {
+  isFollowers?: boolean | null;
+}
+
+const ProfileCardsTitle = ({ isFollowers = null }: Props) => {
   const profile = useSelectors((state) => state.profile.value)
   const { state } = useLocation()
   const user = state?.element || profile
