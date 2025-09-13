@@ -4,7 +4,7 @@ import { useTexts } from 'src/hooks'
 import Card from '@mui/material/Card'
 import useCardsBackground from '../../hooks/useCardsBackground'
 
-const ProfileCompaniesTrigger = ({
+const ProfileCardsTrigger = ({
   cards,
   isFollowers,
   alliesCollectionList,
@@ -48,4 +48,4 @@ const ProfileCompaniesTrigger = ({
   )
 }
 
-export default ProfileCompaniesTrigger
+export default ProfileCardsTrigger

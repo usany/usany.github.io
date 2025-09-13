@@ -31,7 +31,7 @@ const ProfileCards = ({ alliesCollection, cards }) => {
         return (
           <Popups
             trigger={
-              <ProfileCompaniesTrigger
+              <ProfileCardsTrigger
                 isFollowers={value}
                 alliesCollectionList={alliesCollection[index].list}
                 handleCompanies={(newValue) => setCompanies(newValue)}
