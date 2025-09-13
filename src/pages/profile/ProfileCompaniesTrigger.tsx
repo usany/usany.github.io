@@ -10,7 +10,6 @@ const ProfileCompaniesTrigger = ({
   const {follower, following} = useTexts()
   const usersCollection = async (followers) => {
     const elementsCollection = []
-    // const number = followers ? 0 : 1
     const collectionRef = collection(dbservice, 'members')
     const docs = await getDocs(query(collectionRef))
     docs.forEach((element) => {
