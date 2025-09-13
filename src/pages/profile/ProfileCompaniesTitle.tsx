@@ -7,10 +7,11 @@ const ProfileCompaniesTitle = ({
   const profile = useSelectors((state) => state.profile.value)
   const { follower, following } = useTexts()
   const { state } = useLocation()
+  const user = state?.element || profile
 
   return (
     <div className="flex justify-center">
-      {isFollowers ? follower : following}
+      {user.displayName} {isFollowers ? follower : following}
     </div>
   )
 }
