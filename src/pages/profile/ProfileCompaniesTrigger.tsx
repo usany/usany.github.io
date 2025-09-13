@@ -29,7 +29,7 @@ const ProfileCompaniesTrigger = ({
         padding: '20px'
       }}
     >
-      <div className="p-5" onClick={usersCollection}>
+      <div onClick={usersCollection}>
         <div>{followers ? follower : following}</div>
         <div className="flex justify-center">
           {alliesCollectionList.length}
