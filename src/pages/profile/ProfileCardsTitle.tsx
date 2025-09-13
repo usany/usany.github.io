@@ -7,16 +7,10 @@ const ProfileCardsTitle = ({isFollowers}) => {
   const user = state?.element || profile
   const { pointReceipt, follower, following } = useTexts()
 
-  if (isFollowers === null) return (
-    <div className="flex flex-col items-center">
-      <div>{user.displayName}</div>
-      <div>{pointReceipt}</div>
-    </div>
-  )
   return (
     <div className="flex flex-col items-center">
       <div>{user.displayName}</div>
-      <div>{isFollowers ? follower : following}</div>
+      <div>{isFollowers === null ? pointReceipt : (isFollowers ? follower : following)}</div>
     </div>
   )
 }

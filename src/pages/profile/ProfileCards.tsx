@@ -14,7 +14,7 @@ import ProfilePointsTitle from './ProfilePointsTitle'
 import ProfilePointsTrigger from './ProfilePointsTrigger'
 import { useSelectors } from 'src/hooks'
 import { useLocation } from 'react-router-dom'
-import ProfileCardsTitle from './ProfilePointsTitle'
+import ProfileCardsTitle from './ProfileCardsTitle'
 
 const ProfileCards = ({ alliesCollection, cards }) => {
   const [companies, setCompanies] = useState([])

@@ -5,6 +5,7 @@ import Card from '@mui/material/Card'
 import useCardsBackground from '../../hooks/useCardsBackground'
 
 const ProfileCompaniesTrigger = ({
+  cards,
   isFollowers,
   alliesCollectionList,
   handleCompanies
@@ -22,6 +23,9 @@ const ProfileCompaniesTrigger = ({
     })
     handleCompanies(elementsCollection)
   }
+  if (!cards) return (
+    
+  )
   return (
     <Card
       sx={{
