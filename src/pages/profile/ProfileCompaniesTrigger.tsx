@@ -1,6 +1,8 @@
 import { collection, getDocs, query } from 'firebase/firestore'
 import { dbservice } from 'src/baseApi/serverbase'
 import { useTexts } from 'src/hooks'
+import Card from '@mui/material/Card'
+import useCardsBackground from '../../hooks/useCardsBackground'
 
 const ProfileCompaniesTrigger = ({
   followers,
@@ -8,6 +10,7 @@ const ProfileCompaniesTrigger = ({
   handleCompanies
 }) => {
   const {follower, following} = useTexts()
+  const { colorTwo } = useCardsBackground()
   const usersCollection = async () => {
     const elementsCollection = []
     const collectionRef = collection(dbservice, 'members')
