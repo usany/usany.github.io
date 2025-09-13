@@ -41,16 +41,6 @@ const ProfileCards = ({ alliesCollection, cards }) => {
             title={<ProfileCardsTitle isFollowers={value} />}
             content={
               <ProfileDrawersAllies companies={companies} />
-              // <div className="flex flex-col justify-center p-5">
-              //   <DrawerClose>
-              //     <ListsView
-              //       elements={companies}
-              //       multiple={true}
-              //       userSearch={null}
-              //       handleUser={null}
-              //     />
-              //   </DrawerClose>
-              // </div>
             }
           />
         )
