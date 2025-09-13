@@ -11,8 +11,6 @@ import ProfileMembersLink from './ProfileMembersLink'
 
 const ProfileMembers = () => {
   const {state} = useLocation()
-  const { colorTwo } = useCardsBackground()
-  const { report } = useTexts()
   const profile = useSelectors((state) => state.profile.value)
   const user = state?.element || profile
   return (
