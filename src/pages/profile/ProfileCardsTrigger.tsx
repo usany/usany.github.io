@@ -4,11 +4,20 @@ import { useTexts } from 'src/hooks'
 import Card from '@mui/material/Card'
 import useCardsBackground from '../../hooks/useCardsBackground'
 
-const ProfileCardsTrigger = ({
+interface ProfileCardsTriggerProps {
+  cards?: {
+    point?: number;
+  };
+  isFollowers?: boolean;
+  alliesCollectionList?: string[];
+  handleCompanies?: (companies: any[]) => void;
+}
+
+const ProfileCardsTrigger: React.FC<ProfileCardsTriggerProps> = ({
   cards,
-  isFollowers,
-  alliesCollectionList,
-  handleCompanies
+  isFollowers = false,
+  alliesCollectionList = [],
+  handleCompanies = () => {}
 }) => {
   const { points, follower, following } = useTexts()
   const { colorTwo } = useCardsBackground()
@@ -40,7 +49,7 @@ const ProfileCardsTrigger = ({
         <div onClick={usersCollection}>
           <div>{isFollowers ? follower : following}</div>
           <div className="flex justify-center">
-            {alliesCollectionList.length}
+            {alliesCollectionList?.length || 0}
           </div>
         </div>
       }
