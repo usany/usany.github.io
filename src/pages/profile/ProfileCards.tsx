@@ -52,17 +52,6 @@ const ProfileCards = ({ alliesCollection, cards }) => {
                 </DrawerClose>
               </div>
             }
-            // close={
-            //   <DrawerClose>
-            //     <ListsView
-            //       elements={companies}
-            //       multiple={true}
-            //       userSearch={null}
-            //       handleUser={null}
-            //     />
-            //   </DrawerClose>
-            // }
-            // attachment={true}
           />
         )
       })}
