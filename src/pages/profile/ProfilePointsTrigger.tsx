@@ -10,12 +10,11 @@ const ProfilePointsTrigger = ({ cards }) => {
     <Card
       sx={{
         bgcolor: colorTwo,
+        padding: '20px'
       }}
     >
-      <div className='p-5'>
-        <div>{points}</div>
-        <div className='flex justify-center'>{cards.point}</div>
-      </div>
+      <div>{points}</div>
+      <div className='flex justify-center'>{cards.point}</div>
     </Card>
   )
 }
