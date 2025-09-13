@@ -5,7 +5,7 @@ import Card from '@mui/material/Card'
 import useCardsBackground from '../../hooks/useCardsBackground'
 
 const ProfileCompaniesTrigger = ({
-  followers,
+  isFollowers,
   alliesCollectionList,
   handleCompanies
 }) => {
@@ -30,7 +30,7 @@ const ProfileCompaniesTrigger = ({
       }}
     >
       <div onClick={usersCollection}>
-        <div>{followers ? follower : following}</div>
+        <div>{isFollowers ? follower : following}</div>
         <div className="flex justify-center">
           {alliesCollectionList.length}
         </div>

@@ -19,6 +19,7 @@ const ProfileCards = ({ alliesCollection, cards }) => {
   const profile = useSelectors((state) => state.profile.value)
   const { state } = useLocation()
   const [companies, setCompanies] = useState([])
+  const isFollowersList = [true, false]
   return (
     <div className="flex justify-center pt-5">
       <Popups
@@ -27,12 +28,12 @@ const ProfileCards = ({ alliesCollection, cards }) => {
         content={<ProfileDrawersPoints cards={cards} />}
         close={null}
       />
-      {[true, false].map((value, index) => {
+      {isFollowersList.map((value, index) => {
         return (
           <Popups
             trigger={
               <ProfileCompaniesTrigger
-                followers={value}
+                isFollowers={value}
                 alliesCollectionList={alliesCollection[index].list}
                 handleCompanies={(newValue) => setCompanies(newValue)}
               />
