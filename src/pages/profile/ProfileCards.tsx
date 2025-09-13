@@ -38,38 +38,6 @@ const ProfileCards = ({ alliesCollection, cards }) => {
       </Card>
       {followerList.map((value, index) => {
         return (
-          // <Card
-          //   sx={{
-          //     bgcolor: colorTwo,
-          //   }}
-          // >
-          //   <Popups
-          //     trigger={
-          //       <ProfileCompaniesTrigger
-          //         followers={value}
-          //         alliesCollectionList={alliesCollection[index].list}
-          //         handleCompanies={(newValue) => setCompanies(newValue)}
-          //       />
-          //     }
-          //     title={<ProfileCompaniesTitle user={user} followers={value} />}
-          //     content={
-          //       !companies.length && (
-          //         <ProfileDrawersEmptyCompanies followings={index} />
-          //       )
-          //     }
-          //     close={
-          //       <DrawerClose>
-          //         <ListsView
-          //           elements={companies}
-          //           multiple={true}
-          //           userSearch={null}
-          //           handleUser={null}
-          //         />
-          //       </DrawerClose>
-          //     }
-          //     attachment={true}
-          //   />
-          // </Card>
           <Popups
             trigger={
               <ProfileCompaniesTrigger
