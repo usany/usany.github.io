@@ -18,7 +18,6 @@ import { useLocation } from 'react-router-dom'
 const ProfileCards = ({ alliesCollection, cards }) => {
   const profile = useSelectors((state) => state.profile.value)
   const { state } = useLocation()
-  const user = state?.element || profile
   const [companies, setCompanies] = useState([])
   return (
     <div className="flex justify-center pt-5">
