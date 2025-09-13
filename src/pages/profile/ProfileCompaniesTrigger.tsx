@@ -10,7 +10,7 @@ const ProfileCompaniesTrigger = ({
   const {follower, following} = useTexts()
   const usersCollection = async (followers) => {
     const elementsCollection = []
-    const number = followers ? 0 : 1
+    // const number = followers ? 0 : 1
     const collectionRef = collection(dbservice, 'members')
     const docs = await getDocs(query(collectionRef))
     docs.forEach((element) => {
@@ -22,7 +22,6 @@ const ProfileCompaniesTrigger = ({
   }
   return (
     <div className="p-5" onClick={async () => {
-      console.log('practice')
       await usersCollection(followers)}
     }>
       <div>{followers ? follower : following}</div>
