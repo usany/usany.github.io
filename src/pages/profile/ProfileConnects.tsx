@@ -137,45 +137,43 @@ const ProfileConnects = ({ alliesCollection, handleFollowers }) => {
     }
   }, [])
   return (
-    <div>
-      <div className="flex justify-center pt-10">
-        {followButton ? (
-          <Button
-            variant="outlined"
-            sx={{ overflow: 'hidden' }}
-            onClick={() => {
-              followUser()
-            }}
-          >
-            {follow} {user.displayName}
-          </Button>
-        ) : (
-          <Button
-            variant="outlined"
-            sx={{ overflow: 'hidden' }}
-            onClick={() => {
-              unfollowUser()
-            }}
-          >
-            {cancelFollow} {user.displayName}
-          </Button>
-        )}
-        <Link
-          to="/piazza"
-          state={{
-            conversation: conversation,
-            displayName: user.displayName,
-            userUid: profile?.uid,
-            chattingUid: user.uid,
-            multiple: false,
-            profileUrl: user.profileImageUrl,
+    <div className="flex justify-center pt-10">
+      {followButton ? (
+        <Button
+          variant="outlined"
+          sx={{ overflow: 'hidden' }}
+          onClick={() => {
+            followUser()
           }}
         >
-          <Button variant="outlined" sx={{ overflow: 'hidden' }}>
-            {sendMessage}
-          </Button>
-        </Link>
-      </div>
+          {follow} {user.displayName}
+        </Button>
+      ) : (
+        <Button
+          variant="outlined"
+          sx={{ overflow: 'hidden' }}
+          onClick={() => {
+            unfollowUser()
+          }}
+        >
+          {cancelFollow} {user.displayName}
+        </Button>
+      )}
+      <Link
+        to="/piazza"
+        state={{
+          conversation: conversation,
+          displayName: user.displayName,
+          userUid: profile?.uid,
+          chattingUid: user.uid,
+          multiple: false,
+          profileUrl: user.profileImageUrl,
+        }}
+      >
+        <Button variant="outlined" sx={{ overflow: 'hidden' }}>
+          {sendMessage}
+        </Button>
+      </Link>
     </div>
   )
 }
