@@ -51,11 +51,12 @@ function SearchList({multiple}) {
           point = document.data().points
           samePointIndex = length + index
         }
-        if (document.uid === profile?.uid) {
-          const user = doc(dbservice, `members/${profile?.uid}`)
-          const newRank = samePointIndex ? samePointIndex + 1 : index + 1
-          if (profile?.ranking !== newRank && multiple) {
-            updateDoc(user, { ranking: newRank })
+        const user = doc(dbservice, `members/${document?.id}`)
+        const newRank = samePointIndex ? samePointIndex + 1 : index + 1
+        if (document.data()?.ranking !== newRank && multiple) {
+          console.log(document.data()?.ranking)
+          updateDoc(user, { ranking: newRank })
+          if (document.id === profile?.uid) {
             dispatch(changeProfile({...profile, ranking: newRank}))
           }
         }
