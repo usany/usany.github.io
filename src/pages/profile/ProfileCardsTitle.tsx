@@ -12,7 +12,7 @@ const ProfileCardsTitle = ({isFollowers}) => {
       <div>{user.displayName}</div>
       <div>{pointReceipt}</div>
     </div>
-    )
+  )
   return (
     <div className="flex flex-col items-center">
       <div>{user.displayName}</div>
