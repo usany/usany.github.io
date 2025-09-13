@@ -7,6 +7,7 @@ import ProfileMembersDrawersContent from './ProfileMembersDrawersContent'
 import ProfileMembersDrawersTitle from './ProfileMembersDrawersTitle'
 import ProfileMembersDrawersTrigger from './ProfileMembersDrawersTrigger'
 import ProfileMembersPasswordContent from './ProfileMembersPasswordContent'
+import ProfileMembersLink from './ProfileMembersLink'
 
 const ProfileMembers = () => {
   const {state} = useLocation()
@@ -26,19 +27,11 @@ const ProfileMembers = () => {
           <Popups
             trigger={<ProfileMembersDrawersTrigger isPassword={false}/>}
             title={<ProfileMembersDrawersTitle isPassword={false}/>}
-            content={<ProfileMembersDrawersContent user={user} />}
+            content={<ProfileMembersDrawersContent />}
           />
         </div>
       ) : (
-        <Link to={`/contact/?id=${user.uid}`} state={{ user: user }}>
-          <div className="flex justify-center">
-            <Card sx={{ bgcolor: colorTwo }}>
-              <div className="flex justify-center p-5">
-                {report}
-              </div>
-            </Card>
-          </div>
-        </Link>
+        <ProfileMembersLink />
       )}
     </div>
   )

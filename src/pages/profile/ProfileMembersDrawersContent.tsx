@@ -4,15 +4,12 @@ import TextField from '@mui/material/TextField'
 import { deleteUser, User } from 'firebase/auth'
 import { deleteDoc, doc } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { dbservice } from 'src/baseApi/serverbase'
 import { useSelectors } from 'src/hooks'
 import { useTexts } from 'src/hooks'
 
-interface Props {
-  user: object
-}
-const ProfileMembersDrawersContent = ({ user }: Props) => {
+const ProfileMembersDrawersContent = () => {
   const [confirmEmail, setConfirmEmail] = useState(false)
   const [process, setProcess] = useState(false)
   const {
@@ -25,6 +22,8 @@ const ProfileMembersDrawersContent = ({ user }: Props) => {
   } = useTexts()
   const navigate = useNavigate()
   const profile = useSelectors((state) => state.profile.value)
+  const {state} = useLocation()
+  const user = state?.element || profile
 
   const onChange = (event) => {
     const {
