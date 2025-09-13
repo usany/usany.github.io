@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { dbservice } from 'src/baseApi/serverbase';
 import { DrawerClose } from 'src/components/ui/drawer';
 import ProfileLists from '../search/searchList/searchListViews/ProfileLists';
+import ListsView from '../search/searchList/searchListViews/ListsView';
 
 const ProfileDrawersAllies = ({ companies }) => {
 
