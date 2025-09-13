@@ -24,18 +24,18 @@ const ProfileCards = ({ alliesCollection, cards }) => {
   const followerList = [true, false]
   return (
     <div className="flex justify-center pt-5">
-      <Card
+      {/* <Card
         sx={{
           bgcolor: colorTwo,
         }}
       >
-        <Popups
-          trigger={<ProfilePointsTrigger cards={cards} />}
-          title={<ProfilePointsTitle />}
-          content={<ProfileDrawersPoints cards={cards} />}
-          close={null}
-        />
-      </Card>
+      </Card> */}
+      <Popups
+        trigger={<ProfilePointsTrigger cards={cards} />}
+        title={<ProfilePointsTitle />}
+        content={<ProfileDrawersPoints cards={cards} />}
+        close={null}
+      />
       {followerList.map((value, index) => {
         return (
           <Popups
