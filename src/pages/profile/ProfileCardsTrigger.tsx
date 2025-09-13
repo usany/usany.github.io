@@ -4,7 +4,7 @@ import { useTexts } from 'src/hooks'
 import Card from '@mui/material/Card'
 import useCardsBackground from '../../hooks/useCardsBackground'
 
-interface ProfileCardsTriggerProps {
+interface Props {
   cards?: {
     point?: number;
   };
@@ -13,12 +13,12 @@ interface ProfileCardsTriggerProps {
   handleCompanies?: (companies: any[]) => void;
 }
 
-const ProfileCardsTrigger: React.FC<ProfileCardsTriggerProps> = ({
+const ProfileCardsTrigger: React.FC<Props> = ({
   cards,
   isFollowers = false,
   alliesCollectionList = [],
   handleCompanies = () => {}
-}) => {
+}: Props) => {
   const { points, follower, following } = useTexts()
   const { colorTwo } = useCardsBackground()
   const usersCollection = async () => {
