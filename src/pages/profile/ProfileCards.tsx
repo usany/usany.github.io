@@ -8,6 +8,7 @@ import ProfileDrawersPoints from './ProfileDrawersPoints'
 const ProfileCards = ({ alliesCollection, cards }) => {
   const [companies, setCompanies] = useState([])
   const isFollowersList = [true, false]
+  
   return (
     <div className="flex justify-center pt-5">
       <Popups
