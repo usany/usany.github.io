@@ -50,15 +50,6 @@ const ProfileMembersPasswordContent = () => {
           <Button variant="outlined" form='changePassword' type='submit'>
             {changePassword}
           </Button>
-          {/* {password.newPassword && password.newPassword === password.newPasswordConfirm ? (
-            <Button variant="outlined" form='changePassword' type='submit'>
-              {changePassword}
-            </Button>
-          ) : (
-            <Button variant="outlined" disabled>
-              {changePassword}
-            </Button>
-          )} */}
         </div>
       </div>
     </form>
