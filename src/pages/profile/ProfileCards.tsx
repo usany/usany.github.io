@@ -1,21 +1,9 @@
-import Card from '@mui/material/Card'
-import { collection, getDocs, query } from 'firebase/firestore'
 import { useState } from 'react'
-import { dbservice } from 'src/baseApi/serverbase'
-import { DrawerClose } from 'src/components/ui/drawer'
-import useCardsBackground from '../../hooks/useCardsBackground'
 import Popups from '../core/Popups'
-import ListsView from '../search/searchList/searchListViews/ListsView'
-import ProfileCompaniesTitle from './ProfileCompaniesTitle'
-import ProfileCardsTrigger from './ProfileCardsTrigger'
-import ProfileDrawersEmptyCompanies from './ProfileDrawersEmptyCompanies'
-import ProfileDrawersPoints from './ProfileDrawersPoints'
-import ProfilePointsTitle from './ProfilePointsTitle'
-import ProfilePointsTrigger from './ProfilePointsTrigger'
-import { useSelectors } from 'src/hooks'
-import { useLocation } from 'react-router-dom'
 import ProfileCardsTitle from './ProfileCardsTitle'
+import ProfileCardsTrigger from './ProfileCardsTrigger'
 import ProfileDrawersAllies from './ProfileDrawersAllies'
+import ProfileDrawersPoints from './ProfileDrawersPoints'
 
 const ProfileCards = ({ alliesCollection, cards }) => {
   const [companies, setCompanies] = useState([])
