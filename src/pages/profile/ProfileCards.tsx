@@ -36,7 +36,7 @@ const ProfileCards = ({ alliesCollection, cards }) => {
                 handleCompanies={(newValue) => setCompanies(newValue)}
               />
             }
-            title={<ProfileCompaniesTitle followers={value} />}
+            title={<ProfileCompaniesTitle isFollowers={value} />}
             content={
               <div className="flex flex-col justify-center p-5">
                 <DrawerClose>

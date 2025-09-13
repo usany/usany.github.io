@@ -2,7 +2,7 @@ import { useSelectors, useTexts } from 'src/hooks'
 import { useLocation } from 'react-router-dom'
 
 const ProfileCompaniesTitle = ({
-  followers,
+  isFollowers,
 }) => {
   const profile = useSelectors((state) => state.profile.value)
   const { follower, following } = useTexts()
@@ -11,7 +11,7 @@ const ProfileCompaniesTitle = ({
 
   return (
     <div className="flex justify-center">
-      {user.displayName} {followers ? follower : following}
+      {user.displayName} {isFollowers ? follower : following}
     </div>
   )
 }
