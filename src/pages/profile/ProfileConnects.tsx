@@ -12,7 +12,7 @@ const ProfileConnects = ({ alliesCollection, handleFollowers }) => {
   const profile = useSelectors((state) => state.profile.value)
   const { state } = useLocation()
   const user = state?.element || profile
-
+  
   const followButton = alliesCollection[0].list.indexOf(profile?.uid) === -1
   const followUser = async () => {
     const myDocRef = doc(dbservice, `members/${profile?.uid}`)

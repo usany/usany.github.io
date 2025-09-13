@@ -140,7 +140,6 @@ function Profile() {
       <ProfileAvatar user={state?.element || profile} />
       <ProfileLocations user={userUid} />
       <ProfileActions
-        user={state?.element || profile}
         alliesCollection={alliesCollection}
         handleFollowers={handleFollowers}
       />

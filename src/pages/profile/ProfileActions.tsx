@@ -1,9 +1,7 @@
 import ProfileForm from 'src/pages/profile/ProfileForm'
 import ProfileConnects from 'src/pages/profile/ProfileConnects'
-import { useSelectors } from 'src/hooks'
 
-const ProfileActions = ({ user, alliesCollection, handleFollowers }) => {
-  const profile = useSelectors((state) => state.profile.value)
+const ProfileActions = ({ alliesCollection, handleFollowers }) => {
 
   return (
     <div>
@@ -11,7 +9,6 @@ const ProfileActions = ({ user, alliesCollection, handleFollowers }) => {
         <ProfileForm />
       ) : (
         <ProfileConnects
-          user={user}
           alliesCollection={alliesCollection}
           handleFollowers={handleFollowers}
         />
