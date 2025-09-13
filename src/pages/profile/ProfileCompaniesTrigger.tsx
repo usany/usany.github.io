@@ -23,9 +23,7 @@ const ProfileCompaniesTrigger = ({
     })
     handleCompanies(elementsCollection)
   }
-  if (!cards) return (
 
-  )
   return (
     <Card
       sx={{
