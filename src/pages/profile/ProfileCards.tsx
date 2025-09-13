@@ -14,6 +14,7 @@ import ProfilePointsTitle from './ProfilePointsTitle'
 import ProfilePointsTrigger from './ProfilePointsTrigger'
 import { useSelectors } from 'src/hooks'
 import { useLocation } from 'react-router-dom'
+import ProfileCardsTitle from './ProfilePointsTitle'
 
 const ProfileCards = ({ alliesCollection, cards }) => {
   const [companies, setCompanies] = useState([])
@@ -22,7 +23,7 @@ const ProfileCards = ({ alliesCollection, cards }) => {
     <div className="flex justify-center pt-5">
       <Popups
         trigger={<ProfilePointsTrigger cards={cards} />}
-        title={<ProfilePointsTitle />}
+        title={<ProfileCardsTitle isFollowers={null} />}
         content={<ProfileDrawersPoints cards={cards} />}
         close={null}
       />
@@ -36,7 +37,7 @@ const ProfileCards = ({ alliesCollection, cards }) => {
                 handleCompanies={(newValue) => setCompanies(newValue)}
               />
             }
-            title={<ProfileCompaniesTitle isFollowers={value} />}
+            title={<ProfileCardsTitle isFollowers={value} />}
             content={
               <div className="flex flex-col justify-center p-5">
                 <DrawerClose>
