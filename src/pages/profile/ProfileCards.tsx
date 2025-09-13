@@ -60,6 +60,7 @@ const ProfileCards = ({ alliesCollection, cards }) => {
                   followers={value}
                   alliesCollection={alliesCollection[index].list}
                   onClick={() => usersCollection(index)}
+                  handleCompanies={(newValue) => setCompanies(newValue)}
                 />
               }
               title={<ProfileCompaniesTitle user={user} followers={value} />}
