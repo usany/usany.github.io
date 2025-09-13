@@ -10,7 +10,7 @@ const ProfileCompaniesTrigger = ({
   alliesCollectionList,
   handleCompanies
 }) => {
-  const {follower, following} = useTexts()
+  const { points, follower, following } = useTexts()
   const { colorTwo } = useCardsBackground()
   const usersCollection = async () => {
     const elementsCollection = []
@@ -24,7 +24,7 @@ const ProfileCompaniesTrigger = ({
     handleCompanies(elementsCollection)
   }
   if (!cards) return (
-    
+
   )
   return (
     <Card
@@ -33,12 +33,19 @@ const ProfileCompaniesTrigger = ({
         padding: '20px'
       }}
     >
-      <div onClick={usersCollection}>
-        <div>{isFollowers ? follower : following}</div>
-        <div className="flex justify-center">
-          {alliesCollectionList.length}
+      {cards ?
+        <>
+          <div>{points}</div>
+          <div className='flex justify-center'>{cards.point}</div>
+        </>
+        :
+        <div onClick={usersCollection}>
+          <div>{isFollowers ? follower : following}</div>
+          <div className="flex justify-center">
+            {alliesCollectionList.length}
+          </div>
         </div>
-      </div>
+      }
     </Card>
   )
 }
