@@ -10,7 +10,7 @@ interface Props {
   };
   isFollowers?: boolean;
   alliesCollectionList?: string[];
-  handleCompanies?: (companies: any[]) => void;
+  handleCompanies?: (newValue: any[]) => void;
 }
 
 const ProfileCardsTrigger: React.FC<Props> = ({
