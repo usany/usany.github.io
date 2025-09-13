@@ -20,12 +20,19 @@ const ProfileCompaniesTrigger = ({
     handleCompanies(elementsCollection)
   }
   return (
-    <div className="p-5" onClick={usersCollection}>
-      <div>{followers ? follower : following}</div>
-      <div className="flex justify-center">
-        {alliesCollectionList.length}
+    <Card
+      sx={{
+        bgcolor: colorTwo,
+        padding: '20px'
+      }}
+    >
+      <div className="p-5" onClick={usersCollection}>
+        <div>{followers ? follower : following}</div>
+        <div className="flex justify-center">
+          {alliesCollectionList.length}
+        </div>
       </div>
-    </div>
+    </Card>
   )
 }
 
