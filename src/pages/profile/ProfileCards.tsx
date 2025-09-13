@@ -7,7 +7,7 @@ import useCardsBackground from '../../hooks/useCardsBackground'
 import Popups from '../core/Popups'
 import ListsView from '../search/searchList/searchListViews/ListsView'
 import ProfileCompaniesTitle from './ProfileCompaniesTitle'
-import ProfileCompaniesTrigger from './ProfileCompaniesTrigger'
+import ProfileCardsTrigger from './ProfileCardsTrigger'
 import ProfileDrawersEmptyCompanies from './ProfileDrawersEmptyCompanies'
 import ProfileDrawersPoints from './ProfileDrawersPoints'
 import ProfilePointsTitle from './ProfilePointsTitle'
@@ -15,6 +15,7 @@ import ProfilePointsTrigger from './ProfilePointsTrigger'
 import { useSelectors } from 'src/hooks'
 import { useLocation } from 'react-router-dom'
 import ProfileCardsTitle from './ProfileCardsTitle'
+import ProfileDrawersAllies from './ProfileDrawersAllies'
 
 const ProfileCards = ({ alliesCollection, cards }) => {
   const [companies, setCompanies] = useState([])
@@ -22,7 +23,7 @@ const ProfileCards = ({ alliesCollection, cards }) => {
   return (
     <div className="flex justify-center pt-5">
       <Popups
-        trigger={<ProfilePointsTrigger cards={cards} />}
+        trigger={<ProfileCardsTrigger cards={cards} />}
         title={<ProfileCardsTitle />}
         content={<ProfileDrawersPoints cards={cards} />}
         close={null}
@@ -39,16 +40,17 @@ const ProfileCards = ({ alliesCollection, cards }) => {
             }
             title={<ProfileCardsTitle isFollowers={value} />}
             content={
-              <div className="flex flex-col justify-center p-5">
-                <DrawerClose>
-                  <ListsView
-                    elements={companies}
-                    multiple={true}
-                    userSearch={null}
-                    handleUser={null}
-                  />
-                </DrawerClose>
-              </div>
+              <ProfileDrawersAllies companies={companies} />
+              // <div className="flex flex-col justify-center p-5">
+              //   <DrawerClose>
+              //     <ListsView
+              //       elements={companies}
+              //       multiple={true}
+              //       userSearch={null}
+              //       handleUser={null}
+              //     />
+              //   </DrawerClose>
+              // </div>
             }
           />
         )
