@@ -11,7 +11,14 @@ const ProfileForm = () => {
   const [newDisplayName, setNewDisplayName] = useState('')
   const profile = useSelectors((state) => state.profile.value)
   const { colorOne, colorTwo } = useCardsBackground()
-  const {changeUserName, readyToChange, currentName, existingName, needAnInput, change} = useTexts()
+  const {
+    changeUserName,
+    readyToChange,
+    currentName,
+    existingName,
+    needAnInput,
+    change,
+  } = useTexts()
 
   useEffect(() => {
     if (profile?.displayName) {
@@ -73,13 +80,19 @@ const ProfileForm = () => {
           <TextField
             sx={{ bgcolor: colorOne, borderRadius: '5px' }}
             label={changeUserName}
-            placeholder="유저 이름 바꾸기"
+            placeholder={changeUserName}
             value={newDisplayName}
             type="text"
             onChange={onChange}
           />
           <div className="flex justify-start ">
-            {profileChangeConfirmed ? readyToChange : (newDisplayName ? (newDisplayName === profile?.displayName ? currentName : existingName) : needAnInput)}
+            {profileChangeConfirmed
+              ? readyToChange
+              : newDisplayName
+                ? newDisplayName === profile?.displayName
+                  ? currentName
+                  : existingName
+                : needAnInput}
           </div>
         </div>
         <Button
