@@ -83,28 +83,25 @@ const ProfileForm = () => {
             {profileChangeConfirmed ? (
               <div className="flex">
                 <div className="pt-1">
-                  {/* {languages === 'ko'
-                    ? '다행히 중복되지 않네요'
-                    : 'Do not overlap'} */}
                   {readyToChange}
                 </div>
               </div>
             ) : (
-              <div className="flex">
+              <div className="flex pt-1">
                 {newDisplayName ? (
                   <div>
                     {newDisplayName === profile?.displayName ? (
-                      <div className="pt-1">
+                      <div>
                         {currentName}
                       </div>
                     ) : (
-                      <div className="pt-1">
+                      <div>
                         {existingName}
                       </div>
                     )}
                   </div>
                 ) : (
-                  <div className="pt-1">
+                  <div>
                     {/* {languages === 'ko'
                       ? '이름 입력이 필요해요'
                       : 'Need a name input'} */}
