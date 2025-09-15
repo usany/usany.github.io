@@ -4,7 +4,7 @@ import { collection, doc, getDocs, query, updateDoc } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 import { dbservice } from 'src/baseApi/serverbase'
 import useCardsBackground from 'src/hooks/useCardsBackground'
-import { useSelectors } from 'src/hooks'
+import { useSelectors, useTexts } from 'src/hooks'
 
 const ProfileForm = () => {
   const [profileChangeConfirmed, setProfileChangeConfirmed] = useState(false)
@@ -12,6 +12,7 @@ const ProfileForm = () => {
   const languages = useSelectors((state) => state.languages.value)
   const profile = useSelectors((state) => state.profile.value)
   const { colorOne, colorTwo } = useCardsBackground()
+  const {changeUserName, readyToChange, currentName, existingName, needAnInput, change} = useTexts()
 
   useEffect(() => {
     if (profile?.displayName) {
@@ -72,7 +73,7 @@ const ProfileForm = () => {
         <div className="flex flex-col">
           <TextField
             sx={{ bgcolor: colorOne, borderRadius: '5px' }}
-            label={languages === 'ko' ? '유저 이름 바꾸기' : 'Change user name'}
+            label={changeUserName}
             placeholder="유저 이름 바꾸기"
             value={newDisplayName}
             type="text"
@@ -82,9 +83,10 @@ const ProfileForm = () => {
             {profileChangeConfirmed ? (
               <div className="flex">
                 <div className="pt-1">
-                  {languages === 'ko'
+                  {/* {languages === 'ko'
                     ? '다행히 중복되지 않네요'
-                    : 'Do not overlap'}
+                    : 'Do not overlap'} */}
+                  {readyToChange}
                 </div>
               </div>
             ) : (
@@ -93,23 +95,20 @@ const ProfileForm = () => {
                   <div>
                     {newDisplayName === profile?.displayName ? (
                       <div className="pt-1">
-                        {languages === 'ko'
-                          ? '현재 이름이네요'
-                          : 'Current name'}
+                        {currentName}
                       </div>
                     ) : (
                       <div className="pt-1">
-                        {languages === 'ko'
-                          ? '아쉽게도 중복되네요'
-                          : 'Overlapping name'}
+                        {existingName}
                       </div>
                     )}
                   </div>
                 ) : (
                   <div className="pt-1">
-                    {languages === 'ko'
+                    {/* {languages === 'ko'
                       ? '이름 입력이 필요해요'
-                      : 'Need a name input'}
+                      : 'Need a name input'} */}
+                    {needAnInput}
                   </div>
                 )}
               </div>
@@ -123,7 +122,7 @@ const ProfileForm = () => {
           type="submit"
           disabled={!profileChangeConfirmed}
         >
-          {languages === 'ko' ? '바꾸기' : 'Change'}
+          {change}
         </Button>
       </div>
     </form>
