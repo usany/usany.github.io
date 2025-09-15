@@ -1,6 +1,5 @@
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
-import { updateProfile, User } from 'firebase/auth'
 import { collection, doc, getDocs, query, updateDoc } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 import { dbservice } from 'src/baseApi/serverbase'
@@ -38,9 +37,6 @@ const ProfileForm = () => {
       } else {
         const data = doc(dbservice, `members/${profile?.uid}`)
         await updateDoc(data, { displayName: newDisplayName })
-          // await updateProfile(userObj, {
-          //   displayName: newDisplayName,
-          // })
           .then(() => {
             alert('교체 완료')
           })
