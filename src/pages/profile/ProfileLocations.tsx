@@ -31,7 +31,6 @@ const ProfileLocations = () => {
   const handleTooltipOpen = () => {
     setOpen(true)
   }
-  const languages = useSelectors((state) => state.languages.value)
   const {state} = useLocation()
   const profile = useSelectors((state) => state.profile.value)
   const user = state?.element.uid || profile?.uid
