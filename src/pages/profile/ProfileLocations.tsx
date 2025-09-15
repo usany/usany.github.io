@@ -82,17 +82,6 @@ const ProfileLocations = () => {
               color={locationConfirmation ? "success" : undefined}
               label={locationConfirmation ? locationConfirmed : locationUnconfirmed}
             />
-            {/* {locationConfirmation ? (
-              <Chip
-                sx={locationConfirmation ? {} : undefined}
-                color={locationConfirmation ? "success" : undefined}
-                label={locationConfirmation ? locationConfirmed : locationUnconfirmed}
-              />
-            ) : (
-              <Chip
-                label={locationUnconfirmed}
-              />
-            )} */}
             {user === profile?.uid && !locationConfirmed && (
               <Button onClick={onClickLocation} variant="outlined">
                 {campusLocationConfirmation}
