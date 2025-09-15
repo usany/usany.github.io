@@ -88,15 +88,7 @@ const ProfileForm = () => {
               </div>
             ) : (
               <div className="flex pt-1">
-                {newDisplayName ? (
-                  <>
-                    {newDisplayName === profile?.displayName ? currentName : existingName}
-                  </>
-                ) : (
-                  <div className="flex pt-1">
-                    {needAnInput}
-                  </div>
-                )}
+                {newDisplayName ? (newDisplayName === profile?.displayName ? currentName : existingName) : needAnInput}
               </div>
             )}
           </div>
