@@ -75,7 +75,7 @@ const ProfileForm = () => {
       setProfileChangeConfirmed(false)
     }
   }
-
+  console.log(newDisplayName === profile?.displayName)
   return (
     <form id="profile" onSubmit={onSubmit}>
       <div className="flex justify-center pt-10">
@@ -88,13 +88,13 @@ const ProfileForm = () => {
             type="text"
             onChange={onChange}
           />
-          <div className="flex justify-start ">
+          <div className="flex justify-start pt-1">
             {profileChangeConfirmed
               ? readyToChange
               : newDisplayName
-                ? newDisplayName === profile?.displayName
+                ? (newDisplayName === profile?.displayName
                   ? currentName
-                  : existingName
+                  : existingName)
                 : needAnInput}
           </div>
         </div>
