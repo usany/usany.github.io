@@ -25,22 +25,24 @@ const ProfileForm = () => {
       setNewDisplayName(profile.displayName)
     }
   }, [])
+  let profileConfirmed = true
+
   const onSubmit = async (event) => {
     event.preventDefault()
-    if (newDisplayName === '') {
-      alert('입력이 필요합니다')
+    if (!newDisplayName) {
+      alert(needAnInput)
     } else {
-      const tmp = query(collection(dbservice, `members`))
-      const querySnapshot = await getDocs(tmp)
-      let profileConfirmed = true
-      querySnapshot.forEach((doc) => {
-        if (newDisplayName === doc.data().displayName) {
-          alert('중복 확인이 필요합니다')
-          profileConfirmed = false
-        }
-      })
+      // let profileConfirmed = true
+      // const tmp = query(collection(dbservice, `members`))
+      // const querySnapshot = await getDocs(tmp)
+      // querySnapshot.forEach((doc) => {
+      //   if (newDisplayName === doc.data().displayName) {
+      //     alert('중복 확인이 필요합니다')
+      //     profileConfirmed = false
+      //   }
+      // })
       if (!profileConfirmed) {
-        alert('중복 확인을 완료해 주세요')
+        alert(existing)
       } else {
         const data = doc(dbservice, `members/${profile?.uid}`)
         await updateDoc(data, { displayName: newDisplayName })
@@ -58,14 +60,14 @@ const ProfileForm = () => {
       target: { value },
     } = event
     setNewDisplayName(value)
-    const tmp = query(collection(dbservice, `members`))
-    const querySnapshot = await getDocs(tmp)
-    let profileConfirmed = true
-    querySnapshot.forEach((doc) => {
-      if (value === doc.data().displayName) {
-        profileConfirmed = false
-      }
-    })
+    profileConfirmed = true
+    // const tmp = query(collection(dbservice, `members`))
+    // const querySnapshot = await getDocs(tmp)
+    // querySnapshot.forEach((doc) => {
+    //   if (value === doc.data().displayName) {
+    //     profileConfirmed = false
+    //   }
+    // })
     if (profileConfirmed && value) {
       setProfileChangeConfirmed(true)
     } else {
