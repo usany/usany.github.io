@@ -19,7 +19,6 @@ import { useImmer } from 'use-immer'
 import ProfileLocations from './ProfileLocations'
 
 function Profile() {
-  const languages = useSelectors((state) => state.languages.value)
   const { state } = useLocation()
   const [alliesCollection, setAlliesCollection] = useImmer([
     {
