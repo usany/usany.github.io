@@ -56,7 +56,7 @@ const ProfileLocations = () => {
     onClick()
   }
   return (
-    <div className="flex justify-center gap-5 p-5">
+    <div className="flex justify-center p-5">
       <div className="flex flex-col">
         <div className="flex justify-center items-start gap-5 p-5">
           <div className="flex flex-col justify-center">
