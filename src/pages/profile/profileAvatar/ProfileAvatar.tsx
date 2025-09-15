@@ -7,9 +7,9 @@ import { useTexts } from 'src/hooks'
 import ProfileClose from './ProfileClose'
 import ProfileDialogs from './profileDialogs/ProfileDialogs'
 import ProfileView from './ProfileView'
+import { useLocation } from 'react-router-dom'
 
-const ProfileAvatar = ({ user }) => {
-  const profile = useSelectors((state) => state.profile.value)
+const ProfileAvatar = () => {
   const { changeProfile } = useTexts()
   const [attachment, setAttachment] = useState(null)
   const changeAttachment = (newValue) => setAttachment(newValue)
@@ -23,6 +23,10 @@ const ProfileAvatar = ({ user }) => {
     initial: true,
     changed: false,
   })
+  const {state} = useLocation()
+  const profile = useSelectors((state) => state.profile.value)
+  const user = state?.element || profile
+
   useEffect(() => {
     if (changedImage.initial) {
       setChangedImage({
