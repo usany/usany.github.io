@@ -1,6 +1,5 @@
 import Button from '@mui/material/Button'
 import { doc, getDoc, updateDoc } from 'firebase/firestore'
-import { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { dbservice } from 'src/baseApi/serverbase'
 import { useSelectors } from 'src/hooks'
@@ -18,14 +17,12 @@ const ProfileConnects = ({ alliesCollection, handleFollowers }) => {
     const myDocSnap = await getDoc(myDocRef)
     const otherUserDocRef = doc(dbservice, `members/${user.uid}`)
     const otherUserDocSnap = await getDoc(otherUserDocRef)
-    // const myFollowerNum = myDocSnap.data().followers.length
     const myFollowingNum = myDocSnap.data()?.followings
       ? myDocSnap.data().followings.length
       : 0
     const otherUserFollowerNum = otherUserDocSnap.data()?.followers
       ? otherUserDocSnap.data().followers.length
       : 0
-    // const otherUserFollowingNum = otherUserDocSnap.data().followings.length
     const myFollowers = myDocSnap.data().followers || []
     const myFollowings = myDocSnap.data().followings || []
     const otherFollowers = otherUserDocSnap.data().followers || []
@@ -66,14 +63,12 @@ const ProfileConnects = ({ alliesCollection, handleFollowers }) => {
     const myDocSnap = await getDoc(myDocRef)
     const otherUserDocRef = doc(dbservice, `members/${user.uid}`)
     const otherUserDocSnap = await getDoc(otherUserDocRef)
-    // const myFollowerNum = myDocSnap.data().followers.length
     const myFollowingNum = myDocSnap.data()?.followings
       ? myDocSnap.data().followings.length
       : 0
     const otherUserFollowerNum = otherUserDocSnap.data()?.followers
       ? otherUserDocSnap.data().followers.length
       : 0
-    // const otherUserFollowingNum = otherUserDocSnap.data().followings.length
     const myFollowers = myDocSnap.data().followers || []
     const myFollowings = myDocSnap.data().followings || []
     const otherFollowers = otherUserDocSnap.data().followers || []
