@@ -22,7 +22,8 @@ const ProfileLocations = () => {
     locationConfirmationLastsUntilTheNextDay,
     locationConfirmed,
     locationUnconfirmed,
-    campusLocationConfirmation
+    campusLocationConfirmation,
+    failedLocationConfirmation
   } = useTexts()
   const handleTooltipClose = () => {
     setOpen(false)
@@ -124,7 +125,7 @@ const ProfileLocations = () => {
           )}
         </div>
         {!locationConfirmation && location.lat !== 0 && (
-          <div>{languages === 'ko' ? '확인 불가' : 'Confirm fail'}</div>
+          <>{failedLocationConfirmation}</>
         )}
       </div>
     </div>
