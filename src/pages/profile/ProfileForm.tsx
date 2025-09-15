@@ -75,7 +75,6 @@ const ProfileForm = () => {
       setProfileChangeConfirmed(false)
     }
   }
-  console.log(newDisplayName === profile?.displayName)
   return (
     <form id="profile" onSubmit={onSubmit}>
       <div className="flex justify-center pt-10">
