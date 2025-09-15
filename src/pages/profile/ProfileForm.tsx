@@ -9,7 +9,6 @@ import { useSelectors, useTexts } from 'src/hooks'
 const ProfileForm = () => {
   const [profileChangeConfirmed, setProfileChangeConfirmed] = useState(false)
   const [newDisplayName, setNewDisplayName] = useState('')
-  const languages = useSelectors((state) => state.languages.value)
   const profile = useSelectors((state) => state.profile.value)
   const { colorOne, colorTwo } = useCardsBackground()
   const {changeUserName, readyToChange, currentName, existingName, needAnInput, change} = useTexts()
