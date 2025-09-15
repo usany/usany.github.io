@@ -112,31 +112,6 @@ const ProfileConnects = ({ alliesCollection, handleFollowers }) => {
       >
         {followButton ? follow : cancelFollow} {user.displayName}
       </Button>
-      {/* {followButton ? (
-        <Button
-          variant="outlined"
-          sx={{ overflow: 'hidden' }}
-          onClick={() => {
-            if (followButton) {
-              followUser()
-            } else {
-              unfollowUser()
-            }
-          }}
-        >
-          {followButton ? follow : cancelFollow} {user.displayName}
-        </Button>
-      ) : (
-        <Button
-          variant="outlined"
-          sx={{ overflow: 'hidden' }}
-          onClick={() => {
-            unfollowUser()
-          }}
-        >
-          {cancelFollow} {user.displayName}
-        </Button>
-      )} */}
       <Link
         to="/piazza"
         state={{
