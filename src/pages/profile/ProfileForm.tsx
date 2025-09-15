@@ -17,6 +17,7 @@ const ProfileForm = () => {
     currentName,
     existingName,
     needAnInput,
+    completedChangingName,
     change,
   } = useTexts()
 
@@ -42,12 +43,12 @@ const ProfileForm = () => {
       //   }
       // })
       if (!profileConfirmed) {
-        alert(existing)
+        alert(existingName)
       } else {
         const data = doc(dbservice, `members/${profile?.uid}`)
         await updateDoc(data, { displayName: newDisplayName })
           .then(() => {
-            alert('교체 완료')
+            alert(completedChangingName)
           })
           .catch((error) => {
             console.log(error)
