@@ -78,18 +78,8 @@ const ProfileForm = () => {
             type="text"
             onChange={onChange}
           />
-          <div className="flex justify-start">
-            {profileChangeConfirmed ? (
-              <div className="flex">
-                <div className="pt-1">
-                  {readyToChange}
-                </div>
-              </div>
-            ) : (
-              <div className="flex pt-1">
-                {newDisplayName ? (newDisplayName === profile?.displayName ? currentName : existingName) : needAnInput}
-              </div>
-            )}
+          <div className="flex justify-start ">
+            {profileChangeConfirmed ? readyToChange : (newDisplayName ? (newDisplayName === profile?.displayName ? currentName : existingName) : needAnInput)}
           </div>
         </div>
         <Button
