@@ -5,6 +5,7 @@ import { useLocation } from 'react-router-dom'
 import { dbservice } from 'src/baseApi/serverbase'
 import { useSelectors } from 'src/hooks'
 import { useTexts } from 'src/hooks'
+import ProfileLocationsChip from './ProfileLocationsChip'
 
 const area = {
   westSouth: { lat: 37.5927551, lng: 127.047462 },
@@ -89,38 +90,7 @@ const ProfileLocations = () => {
             )}
           </div>
           {profile?.uid === user && (
-            <ClickAwayListener onClickAway={handleTooltipClose}>
-              <div className="flex">
-                <Tooltip
-                  onClose={handleTooltipClose}
-                  open={open}
-                  disableFocusListener
-                  disableHoverListener
-                  disableTouchListener
-                  title={
-                    <div className="text-xl">
-                      <div>{areYouInCampus}</div>
-                      <div>
-                        {letOthersKnowYouAreInCampusByLocationConfirmation}
-                      </div>
-                      <div>{locationConfirmationLastsUntilTheNextDay}</div>
-                    </div>
-                  }
-                  slotProps={{
-                    popper: {
-                      disablePortal: true,
-                    },
-                  }}
-                >
-                  <div
-                    className="rounded-xl border border-solid px-1 bg-light-2 dark:bg-dark-2"
-                    onClick={handleTooltipOpen}
-                  >
-                    ?
-                  </div>
-                </Tooltip>
-              </div>
-            </ClickAwayListener>
+            <ProfileLocationsChip />
           )}
         </div>
         {!locationConfirmation && location.lat !== 0 && (

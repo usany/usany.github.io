@@ -18,7 +18,6 @@ const ProfileLocationsChip = () => {
 
   return (
     <ClickAwayListener onClickAway={handleTooltipClose}>
-              <div className="flex">
                 <Tooltip
                   onClose={handleTooltipClose}
                   open={open}
@@ -47,7 +46,6 @@ const ProfileLocationsChip = () => {
                     ?
                   </div>
                 </Tooltip>
-              </div>
             </ClickAwayListener>
   )
 }
