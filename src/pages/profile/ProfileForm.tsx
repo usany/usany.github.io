@@ -69,7 +69,7 @@ const ProfileForm = () => {
     //     profileConfirmed = false
     //   }
     // })
-    if (profileConfirmed && value) {
+    if (profileConfirmed && value && value !== profile?.displayName) {
       setProfileChangeConfirmed(true)
     } else {
       setProfileChangeConfirmed(false)
