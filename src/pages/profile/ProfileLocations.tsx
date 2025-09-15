@@ -45,7 +45,7 @@ const ProfileLocations = () => {
   }
   useEffect(() => {
     confirmLocation()
-  }, [location, locationConfirmed, user])
+  }, [location, locationConfirmation, user])
 
   const onClick = () => {
     const myDoc = doc(dbservice, `members/${profile?.uid}`)
@@ -76,7 +76,7 @@ const ProfileLocations = () => {
       <div className="flex flex-col">
         <div className="flex justify-center items-start gap-5 p-5">
           <div className="flex flex-col justify-center">
-            {locationConfirmed ? (
+            {locationConfirmation ? (
               <Chip
                 sx={{}}
                 color="success"
@@ -130,7 +130,7 @@ const ProfileLocations = () => {
             </ClickAwayListener>
           )}
         </div>
-        {!locationConfirmed && location.lat !== 0 && (
+        {!locationConfirmation && location.lat !== 0 && (
           <div>{languages === 'ko' ? '확인 불가' : 'Confirm fail'}</div>
         )}
       </div>
