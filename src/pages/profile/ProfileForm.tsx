@@ -89,22 +89,11 @@ const ProfileForm = () => {
             ) : (
               <div className="flex pt-1">
                 {newDisplayName ? (
-                  <div>
-                    {newDisplayName === profile?.displayName ? (
-                      <div>
-                        {currentName}
-                      </div>
-                    ) : (
-                      <div>
-                        {existingName}
-                      </div>
-                    )}
-                  </div>
+                  <>
+                    {newDisplayName === profile?.displayName ? currentName : existingName}
+                  </>
                 ) : (
-                  <div>
-                    {/* {languages === 'ko'
-                      ? '이름 입력이 필요해요'
-                      : 'Need a name input'} */}
+                  <div className="flex pt-1">
                     {needAnInput}
                   </div>
                 )}
