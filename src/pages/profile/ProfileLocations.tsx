@@ -33,7 +33,7 @@ const ProfileLocations = () => {
   const languages = useSelectors((state) => state.languages.value)
   const {state} = useLocation()
   const profile = useSelectors((state) => state.profile.value)
-  const user = state?.element || profile
+  const user = state?.element.uid || profile?.uid
 
   const confirmLocation = async () => {
     const myDoc = doc(dbservice, `members/${user}`)
@@ -82,7 +82,7 @@ const ProfileLocations = () => {
               color={locationConfirmation ? "success" : undefined}
               label={locationConfirmation ? locationConfirmed : locationUnconfirmed}
             />
-            {user === profile?.uid && !locationConfirmed && (
+            {user === profile?.uid && !locationConfirmation && (
               <Button onClick={onClickLocation} variant="outlined">
                 {campusLocationConfirmation}
               </Button>
