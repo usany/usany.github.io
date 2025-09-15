@@ -136,7 +136,7 @@ function Profile() {
             : shortenName
         } ${userProfile}`}
       />
-      <ProfileAvatar user={state?.element || profile} />
+      <ProfileAvatar />
       <ProfileLocations />
       <ProfileActions
         alliesCollection={alliesCollection}
