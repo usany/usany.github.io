@@ -17,7 +17,6 @@ const area = {
 }
 const ProfileLocations = () => {
   const [location, setLocation] = useState({ lat: 0, lng: 0 })
-  // const [locationConfirmation, setLocationConfirmation] = useState(false)
   const {
     locationConfirmed,
     locationUnconfirmed,
@@ -31,18 +30,6 @@ const ProfileLocations = () => {
   const confirmed = profile?.locationConfirmed
   const locationConfirmation = confirmed && Date.now() - confirmed < locationConfirmNumber ? true : false
   const dispatch = useDispatch()
-  // const confirmLocation = async () => {
-  //   const myDoc = doc(dbservice, `members/${user}`)
-  //   const document = await getDoc(myDoc)
-  //   const confirmed = document.data()?.locationConfirmed
-  //   const locationConfirmNumber = 50000000
-  //   if (confirmed && Date.now() - confirmed < locationConfirmNumber) {
-  //     setLocationConfirmation(true)
-  //   }
-  // }
-  // useEffect(() => {
-  //   confirmLocation()
-  // }, [location, locationConfirmation, user])
 
   const onClick = () => {
     const myDoc = doc(dbservice, `members/${profile?.uid}`)
@@ -55,7 +42,6 @@ const ProfileLocations = () => {
         location.lng < area.eastSouth.lng
       ) {
         updateDoc(myDoc, { locationConfirmed: Date.now() })
-        // setLocationConfirmation(true)
         dispatch(changeProfile({...profile, locationConfirmed: true}))
       }
     }
