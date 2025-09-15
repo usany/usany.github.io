@@ -1,9 +1,5 @@
 import { Button, Chip, ClickAwayListener, Tooltip } from '@mui/material'
-import { doc, getDoc, updateDoc } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
-import { useLocation } from 'react-router-dom'
-import { dbservice } from 'src/baseApi/serverbase'
-import { useSelectors } from 'src/hooks'
 import { useTexts } from 'src/hooks'
 
 const ProfileLocationsChip = () => {
@@ -19,8 +15,6 @@ const ProfileLocationsChip = () => {
   const handleTooltipOpen = () => {
     setOpen(true)
   }
-  const {state} = useLocation()
-  const profile = useSelectors((state) => state.profile.value)
 
   return (
     <ClickAwayListener onClickAway={handleTooltipClose}>
