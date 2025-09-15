@@ -6,6 +6,8 @@ import { dbservice } from 'src/baseApi/serverbase'
 import { useSelectors } from 'src/hooks'
 import { useTexts } from 'src/hooks'
 import ProfileLocationsChip from './ProfileLocationsChip'
+import { useDispatch } from 'react-redux'
+import { changeProfile } from 'src/stateSlices/profileSlice'
 
 const area = {
   westSouth: { lat: 37.5927551, lng: 127.047462 },
@@ -15,7 +17,7 @@ const area = {
 }
 const ProfileLocations = () => {
   const [location, setLocation] = useState({ lat: 0, lng: 0 })
-  const [locationConfirmation, setLocationConfirmation] = useState(false)
+  // const [locationConfirmation, setLocationConfirmation] = useState(false)
   const {
     locationConfirmed,
     locationUnconfirmed,
@@ -25,19 +27,22 @@ const ProfileLocations = () => {
   const {state} = useLocation()
   const profile = useSelectors((state) => state.profile.value)
   const user = state?.element.uid || profile?.uid
-
-  const confirmLocation = async () => {
-    const myDoc = doc(dbservice, `members/${user}`)
-    const document = await getDoc(myDoc)
-    const confirmed = document.data()?.locationConfirmed
-    const locationConfirmNumber = 50000000
-    if (confirmed && Date.now() - confirmed < locationConfirmNumber) {
-      setLocationConfirmation(true)
-    }
-  }
-  useEffect(() => {
-    confirmLocation()
-  }, [location, locationConfirmation, user])
+  const locationConfirmNumber = 50000000
+  const confirmed = profile?.locationConfirmed
+  const locationConfirmation = confirmed && Date.now() - confirmed < locationConfirmNumber ? true : false
+  const dispatch = useDispatch()
+  // const confirmLocation = async () => {
+  //   const myDoc = doc(dbservice, `members/${user}`)
+  //   const document = await getDoc(myDoc)
+  //   const confirmed = document.data()?.locationConfirmed
+  //   const locationConfirmNumber = 50000000
+  //   if (confirmed && Date.now() - confirmed < locationConfirmNumber) {
+  //     setLocationConfirmation(true)
+  //   }
+  // }
+  // useEffect(() => {
+  //   confirmLocation()
+  // }, [location, locationConfirmation, user])
 
   const onClick = () => {
     const myDoc = doc(dbservice, `members/${profile?.uid}`)
@@ -50,7 +55,8 @@ const ProfileLocations = () => {
         location.lng < area.eastSouth.lng
       ) {
         updateDoc(myDoc, { locationConfirmed: Date.now() })
-        setLocationConfirmation(true)
+        // setLocationConfirmation(true)
+        dispatch(changeProfile({...profile, locationConfirmed: true}))
       }
     }
   }
