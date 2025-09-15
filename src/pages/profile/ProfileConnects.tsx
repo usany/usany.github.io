@@ -104,10 +104,14 @@ const ProfileConnects = ({ alliesCollection, handleFollowers }) => {
           variant="outlined"
           sx={{ overflow: 'hidden' }}
           onClick={() => {
-            followUser()
+            if (followButton) {
+              followUser()
+            } else {
+              unfollowUser()
+            }
           }}
         >
-          {follow} {user.displayName}
+          {followButton ? follow : cancelFollow} {user.displayName}
         </Button>
       ) : (
         <Button
