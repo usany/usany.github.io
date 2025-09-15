@@ -16,22 +16,12 @@ const area = {
 const ProfileLocations = () => {
   const [location, setLocation] = useState({ lat: 0, lng: 0 })
   const [locationConfirmation, setLocationConfirmation] = useState(false)
-  const [open, setOpen] = useState(false)
   const {
-    areYouInCampus,
-    letOthersKnowYouAreInCampusByLocationConfirmation,
-    locationConfirmationLastsUntilTheNextDay,
     locationConfirmed,
     locationUnconfirmed,
     campusLocationConfirmation,
     failedLocationConfirmation
   } = useTexts()
-  const handleTooltipClose = () => {
-    setOpen(false)
-  }
-  const handleTooltipOpen = () => {
-    setOpen(true)
-  }
   const {state} = useLocation()
   const profile = useSelectors((state) => state.profile.value)
   const user = state?.element.uid || profile?.uid
