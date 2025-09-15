@@ -14,12 +14,14 @@ const area = {
 }
 const ProfileLocations = () => {
   const [location, setLocation] = useState({ lat: 0, lng: 0 })
-  const [locationConfirmed, setLocationConfirmed] = useState(false)
+  const [locationConfirmation, setLocationConfirmation] = useState(false)
   const [open, setOpen] = useState(false)
   const {
     areYouInCampus,
     letOthersKnowYouAreInCampusByLocationConfirmation,
     locationConfirmationLastsUntilTheNextDay,
+    locationConfirmed,
+    locationUnconfirmed
   } = useTexts()
   const handleTooltipClose = () => {
     setOpen(false)
@@ -38,7 +40,7 @@ const ProfileLocations = () => {
     const confirmed = document.data()?.locationConfirmed
     const locationConfirmNumber = 50000000
     if (confirmed && Date.now() - confirmed < locationConfirmNumber) {
-      setLocationConfirmed(true)
+      setLocationConfirmation(true)
     }
   }
   useEffect(() => {
@@ -56,7 +58,7 @@ const ProfileLocations = () => {
         location.lng < area.eastSouth.lng
       ) {
         updateDoc(myDoc, { locationConfirmed: Date.now() })
-        setLocationConfirmed(true)
+        setLocationConfirmation(true)
       }
     }
   }
@@ -78,17 +80,11 @@ const ProfileLocations = () => {
               <Chip
                 sx={{}}
                 color="success"
-                label={
-                  languages === 'ko' ? '캠퍼스 위치 확인' : 'Location confirmed'
-                }
+                label={locationConfirmed}
               />
             ) : (
               <Chip
-                label={
-                  languages === 'ko'
-                    ? '캠퍼스 위치 미확인'
-                    : 'Location unconfirmed'
-                }
+                label={locationUnconfirmed}
               />
             )}
             {user === profile?.uid && !locationConfirmed && (
