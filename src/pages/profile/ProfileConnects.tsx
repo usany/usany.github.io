@@ -99,7 +99,20 @@ const ProfileConnects = ({ alliesCollection, handleFollowers }) => {
   const conversation = user.uid < profile?.uid ? user.uid.slice(0, 5)+profile?.uid.slice(0, 5) : profile?.uid.slice(0, 5)+user.uid.slice(0, 5)
   return (
     <div className="flex justify-center pt-10">
-      {followButton ? (
+      <Button
+        variant="outlined"
+        sx={{ overflow: 'hidden' }}
+        onClick={() => {
+          if (followButton) {
+            followUser()
+          } else {
+            unfollowUser()
+          }
+        }}
+      >
+        {followButton ? follow : cancelFollow} {user.displayName}
+      </Button>
+      {/* {followButton ? (
         <Button
           variant="outlined"
           sx={{ overflow: 'hidden' }}
@@ -123,7 +136,7 @@ const ProfileConnects = ({ alliesCollection, handleFollowers }) => {
         >
           {cancelFollow} {user.displayName}
         </Button>
-      )}
+      )} */}
       <Link
         to="/piazza"
         state={{
