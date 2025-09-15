@@ -1,6 +1,7 @@
 import { Button, Chip, ClickAwayListener, Tooltip } from '@mui/material'
 import { doc, getDoc, updateDoc } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import { dbservice } from 'src/baseApi/serverbase'
 import { useSelectors } from 'src/hooks'
 import { useTexts } from 'src/hooks'
@@ -27,7 +28,9 @@ const ProfileLocations = ({ user }) => {
     setOpen(true)
   }
   const languages = useSelectors((state) => state.languages.value)
+  const {state} = useLocation()
   const profile = useSelectors((state) => state.profile.value)
+  const user = state?.element || profile
 
   const confirmLocation = async () => {
     const myDoc = doc(dbservice, `members/${user}`)
