@@ -25,7 +25,7 @@ const ProfileLocations = () => {
   } = useTexts()
   const {state} = useLocation()
   const profile = useSelectors((state) => state.profile.value)
-  const user = state?.element.uid || profile?.uid
+  const userUid = state?.element.uid || profile?.uid
   const locationConfirmNumber = 50000000
   const confirmed = profile?.locationConfirmed
   const locationConfirmation = confirmed && Date.now() - confirmed < locationConfirmNumber ? true : false
@@ -65,13 +65,13 @@ const ProfileLocations = () => {
               color={locationConfirmation ? "success" : undefined}
               label={locationConfirmation ? locationConfirmed : locationUnconfirmed}
             />
-            {user === profile?.uid && !locationConfirmation && (
+            {userUid === profile?.uid && !locationConfirmation && (
               <Button onClick={onClickLocation} variant="outlined">
                 {campusLocationConfirmation}
               </Button>
             )}
           </div>
-          {profile?.uid === user && (
+          {profile?.uid === userUid && (
             <ProfileLocationsChip />
           )}
         </div>
