@@ -83,30 +83,29 @@ const ProfileAvatar = () => {
         attachment={changedImage}
       />
     )
-  } else {
-    return (
-      <div className="flex justify-center">
-        {user?.profileImageUrl ? (
-          <Avatars
-            element={{
-              ...user,
-              profileImage: user.profileImage
-                ? user.profileImage
-                : user.profileImage !== false
-                ? true
-                : user.profileImage,
-              defaultProfile: user.defaultProfile,
-              profileImageUrl: user.profileImageUrl,
-            }}
-            piazza={null}
-            profile={true}
-          />
-        ) : (
-          <LoadingsSkeletons height={'[192px]'} width={'[192px]'} />
-        )}
-      </div>
-    )
   }
+  return (
+    <div className="flex justify-center">
+      {user?.profileImageUrl ? (
+        <Avatars
+          element={{
+            ...user,
+            profileImage: user.profileImage
+              ? user.profileImage
+              : user.profileImage !== false
+              ? true
+              : user.profileImage,
+            defaultProfile: user.defaultProfile,
+            profileImageUrl: user.profileImageUrl,
+          }}
+          piazza={null}
+          profile={true}
+        />
+      ) : (
+        <LoadingsSkeletons height={'[192px]'} width={'[192px]'} />
+      )}
+    </div>
+  )
 }
 
 export default ProfileAvatar
