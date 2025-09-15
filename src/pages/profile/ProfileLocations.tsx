@@ -21,7 +21,8 @@ const ProfileLocations = () => {
     letOthersKnowYouAreInCampusByLocationConfirmation,
     locationConfirmationLastsUntilTheNextDay,
     locationConfirmed,
-    locationUnconfirmed
+    locationUnconfirmed,
+    campusLocationConfirmation
   } = useTexts()
   const handleTooltipClose = () => {
     setOpen(false)
@@ -89,9 +90,7 @@ const ProfileLocations = () => {
             )}
             {user === profile?.uid && !locationConfirmed && (
               <Button onClick={onClickLocation} variant="outlined">
-                {languages === 'ko'
-                  ? '캠퍼스 위치 확인'
-                  : 'Campus location confirm'}
+                {campusLocationConfirmation}
               </Button>
             )}
           </div>
