@@ -12,7 +12,7 @@ const area = {
   eastSouth: { lat: 37.5927551, lng: 127.0571999 },
   eastNorth: { lat: 37.6010743, lng: 127.0571999 },
 }
-const ProfileLocations = ({ user }) => {
+const ProfileLocations = () => {
   const [location, setLocation] = useState({ lat: 0, lng: 0 })
   const [locationConfirmed, setLocationConfirmed] = useState(false)
   const [open, setOpen] = useState(false)
