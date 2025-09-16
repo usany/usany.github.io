@@ -33,15 +33,6 @@ const ProfileForm = () => {
     if (!newDisplayName) {
       alert(needAnInput)
     } else {
-      // let profileConfirmed = true
-      // const tmp = query(collection(dbservice, `members`))
-      // const querySnapshot = await getDocs(tmp)
-      // querySnapshot.forEach((doc) => {
-      //   if (newDisplayName === doc.data().displayName) {
-      //     alert('중복 확인이 필요합니다')
-      //     profileConfirmed = false
-      //   }
-      // })
       if (!profileConfirmed) {
         alert(existingName)
       } else {
@@ -62,13 +53,6 @@ const ProfileForm = () => {
     } = event
     setNewDisplayName(value)
     profileConfirmed = true
-    // const tmp = query(collection(dbservice, `members`))
-    // const querySnapshot = await getDocs(tmp)
-    // querySnapshot.forEach((doc) => {
-    //   if (value === doc.data().displayName) {
-    //     profileConfirmed = false
-    //   }
-    // })
     if (profileConfirmed && value && value !== profile?.displayName) {
       setProfileChangeConfirmed(true)
     } else {
