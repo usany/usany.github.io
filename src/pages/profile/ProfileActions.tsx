@@ -3,7 +3,11 @@ import ProfileConnects from 'src/pages/profile/ProfileConnects'
 import { useSelectors } from 'src/hooks'
 import { useLocation } from 'react-router-dom'
 
-const ProfileActions = ({ alliesCollection, handleFollowers }) => {
+interface Props {
+  alliesCollection: object[]
+  handleFollowers: () => void
+}
+const ProfileActions = ({ alliesCollection, handleFollowers }: Props) => {
   const {state} = useLocation()
   const profile = useSelectors((state) => state.profile.value)
   const user = state?.element || profile
