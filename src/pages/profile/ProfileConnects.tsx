@@ -5,7 +5,11 @@ import { dbservice } from 'src/baseApi/serverbase'
 import { useSelectors } from 'src/hooks'
 import { useTexts } from 'src/hooks'
 
-const ProfileConnects = ({ alliesCollection, handleFollowers }) => {
+interface Props {
+  alliesCollection: {list:string[]}[]
+  handleFollowers: () => void
+}
+const ProfileConnects = ({ alliesCollection, handleFollowers }: Props) => {
   const { follow, cancelFollow, sendMessage } = useTexts()
   const profile = useSelectors((state) => state.profile.value)
   const { state } = useLocation()

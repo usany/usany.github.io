@@ -4,7 +4,7 @@ import { useSelectors } from 'src/hooks'
 import { useLocation } from 'react-router-dom'
 
 interface Props {
-  alliesCollection: object[]
+  alliesCollection: {list:string[]}[]
   handleFollowers: () => void
 }
 const ProfileActions = ({ alliesCollection, handleFollowers }: Props) => {
