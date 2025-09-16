@@ -1,7 +1,7 @@
 import BeachAccess from '@mui/icons-material/BeachAccess'
 import Badge from '@mui/material/Badge'
 import { useLocation } from 'react-router-dom'
-import LoadingsSkeletons from 'src/components/recycle/recycleLoadingsSkeletons'
+// import LoadingsSkeletons from 'src/components/recycle/recycleLoadingsSkeletons'
 import { useSelectors } from 'src/hooks'
 import Avatars from 'src/pages/core/Avatars'
 

@@ -26,7 +26,7 @@ const ProfileForm = () => {
       setNewDisplayName(profile.displayName)
     }
   }, [])
-  let profileConfirmed = true
+  // let profileConfirmed = true
 
   const onSubmit = async (event) => {
     event.preventDefault()
@@ -52,8 +52,8 @@ const ProfileForm = () => {
       target: { value },
     } = event
     setNewDisplayName(value)
-    profileConfirmed = true
-    if (profileConfirmed && value && value !== profile?.displayName) {
+    // profileConfirmed = true
+    if (value && value !== profile?.displayName) {
       setProfileChangeConfirmed(true)
     } else {
       setProfileChangeConfirmed(false)

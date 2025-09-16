@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import LoadingsSkeletons from 'src/components/recycle/recycleLoadingsSkeletons'
+// import LoadingsSkeletons from 'src/components/recycle/recycleLoadingsSkeletons'
 import { useSelectors } from 'src/hooks'
 import Avatars from 'src/pages/core/Avatars'
 import Popups from 'src/pages/core/Popups'
