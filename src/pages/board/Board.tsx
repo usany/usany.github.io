@@ -4,7 +4,7 @@ import { Maximize2, Minimize2 } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { dbservice } from 'src/baseApi/serverbase'
-import { useSelectors } from 'src/hooks'
+import { useSelectors, useTexts } from 'src/hooks'
 import BoardMap from 'src/pages/board/boardMap/BoardMap'
 import PageTitle from 'src/pages/core/pageTitle/PageTitle'
 import { SwipeableViews } from 'src/pages/core/SwipeableViews'
@@ -87,7 +87,7 @@ function Board() {
   }
   const languages = useSelectors((state) => state.languages.value)
   const profile = useSelectors((state) => state.profile.value)
-
+  const {borrowing, lending, cardList} = useTexts()
   useEffect(() => {
     document.documentElement.scrollTo({
       top: 0,
@@ -157,13 +157,13 @@ function Board() {
         <PageTitle
           icon={<Minimize2 />}
           title={
-            languages === 'ko' ? '빌리기 카드 목록' : 'Borrowing Card Board'
+            `${borrowing} ${cardList}`
           }
         />
         <PageTitle
           icon={<Maximize2 />}
           title={
-            languages === 'ko' ? '빌려주기 카드 목록' : 'Lending Card Board'
+            `${lending} ${cardList}`
           }
         />
       </SwipeableViews>
