@@ -2,7 +2,6 @@ import { User } from "firebase/auth";
 import { ScrollText } from "lucide-react";
 import { useSelectors } from "src/hooks";
 import FilterDialogs from "src/pages/board/FilterDialogs/FilterDialogs";
-// import { AlarmCheck, AlertCircle, Building, Clock, DoorOpen, MessagesSquare, Pen, PenBox, Pencil, PenSquare, PenTool, Presentation, Search, SearchCheck, SearchCode, SearchSlash, Siren, TowerControl, Umbrella, UserCheck, UserRound, Watch } from "lucide-react";
 
 const cardList = {
   ko: '카드 목록',
@@ -13,20 +12,7 @@ interface Props {
 }
 
 function BoardList({ selectedValues }) {
-  // const [selectedValues, setSelectedValues] = useImmer([
-  //   {
-  //     id: "selectedValueOne",
-  //     value: "전체 아이템",
-  //   },
-  //   {
-  //     id: "selectedValueTwo",
-  //     value: "전체 장소",
-  //   },
-  //   {
-  //     id: "selectedValueThree",
-  //     value: "최신순",
-  //   },
-  // ]);
+
   const languages = useSelectors((state) => state.languages.value)
   const index = (languages === 'ko' || languages === 'en') ? languages : 'ko'
 
