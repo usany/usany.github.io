@@ -85,7 +85,6 @@ function Board() {
       return searchParams
     })
   }
-  const languages = useSelectors((state) => state.languages.value)
   const profile = useSelectors((state) => state.profile.value)
   const {borrowing, lending, cardList} = useTexts()
   useEffect(() => {
@@ -130,7 +129,7 @@ function Board() {
   }, [])
 
   return (
-    <div>
+    <>
       {/* <AlarmCheck />
             <AlertCircle />
             <Siren />
@@ -208,7 +207,7 @@ function Board() {
           </>
         )}
       </SwipeableViews>
-    </div>
+    </>
   )
 }
 
