@@ -2,6 +2,8 @@ import { User } from "firebase/auth";
 import { ScrollText } from "lucide-react";
 import { useSelectors } from "src/hooks";
 import FilterDialogs from "src/pages/board/FilterDialogs/FilterDialogs";
+import FilterDialogsTitle from "./FilterDialogs/FilterDialogsTitle";
+import FilterDialogsTrigger from "./FilterDialogs/FilterDialogsTrigger";
 
 const cardList = {
   ko: '카드 목록',
@@ -24,9 +26,7 @@ function BoardList({ selectedValues }) {
         </div>
       </div>
       <div className="truncate flex gap-1">
-        <FilterDialogs
-          selectedValues={selectedValues}
-        />
+        <FilterDialogsTrigger />
       </div>
     </div>
   );
