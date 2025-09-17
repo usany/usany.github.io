@@ -178,38 +178,36 @@ function Board() {
           </div>
         </div>
       </div>
-      <>
-        <div className="truncate flex justify-center sticky top-16 z-30 px-5">
-          <div className="w-[1000px] shadow-md">
-            <Popups
-              trigger={<BoardList selectedValues={selectedSearchParams} />}
-              title={<FilterDialogsTitle />}
-              content={
-                <FilterDialogsContent
-                  selectedValues={selectedSearchParams}
-                  handleSelectedValues={handleSelectedValues}
-                />
-              }
-            />
-          </div>
+      <div className="truncate flex justify-center sticky top-16 z-30 px-5">
+        <div className="w-[1000px] shadow-md">
+          <Popups
+            trigger={<BoardList selectedValues={selectedSearchParams} />}
+            title={<FilterDialogsTitle />}
+            content={
+              <FilterDialogsContent
+                selectedValues={selectedSearchParams}
+                handleSelectedValues={handleSelectedValues}
+              />
+            }
+          />
         </div>
-        <SwipeableViews>
-          {messageLoaded && (
-            <>
-              <CardsList
-                choose={1}
-                messages={messages}
-                selectedValues={selectedValues}
-              />
-              <CardsList
-                choose={2}
-                messages={messages}
-                selectedValues={selectedValues}
-              />
-            </>
-          )}
-        </SwipeableViews>
-      </>
+      </div>
+      <SwipeableViews>
+        {messageLoaded && (
+          <>
+            <CardsList
+              choose={1}
+              messages={messages}
+              selectedValues={selectedValues}
+            />
+            <CardsList
+              choose={2}
+              messages={messages}
+              selectedValues={selectedValues}
+            />
+          </>
+        )}
+      </SwipeableViews>
     </div>
   )
 }
