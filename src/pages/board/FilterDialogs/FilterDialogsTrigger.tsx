@@ -4,25 +4,14 @@ import { Chip } from "@mui/material";
 import useCardsBackground from "src/hooks/useCardsBackground";
 import { useSelectors } from "src/hooks";
 import locationsBuildings from "src/pages/add/locationsBuildings";
-const itemsTitle = {
-  ko: '우산 / 양산 선택',
-  en: 'Select Usan / Yangsan'
-}
+import { useSearchParams } from "react-router-dom";
 const items = {
   ko: ['전체 아이템', '우산', '양산'],
   en: ['All items', 'Usan', 'Yangsan']
 }
-const locationsTitle = {
-  ko: '장소 선택',
-  en: 'All locations'
-}
 const locations = {
   ko: ['전체 장소', ...locationsBuildings['ko']],
   en: ['All locations', ...locationsBuildings['en']]
-}
-const timeTitle = {
-  ko: '시간 정렬',
-  en: 'Time order'
 }
 const time = {
   ko: ['최신순', '오래된'],
@@ -67,46 +56,35 @@ const markers = [
   },
 ]
 
-function FilterDialogsTrigger({ selectedValues, handleSelectedValues }) {
+function FilterDialogsTrigger() {
   const languages = useSelectors((state) => state.languages.value)
-  const index = (languages === 'ko' || languages === 'en') ? languages : 'ko'
-  const [selected, setSelected] = useState(null);
-  const onClick = ({ id }) => {
-    setSelected(id);
-  };
-  const { colorOne } = useCardsBackground()
+  const [searchParams, setSearchParams] = useSearchParams()
+  const selectedValueOne = searchParams.get('selectedValueOne') || '전체 아이템'
+  const selectedValueTwo = searchParams.get('selectedValueTwo') || '전체 장소'
+  const selectedValueThree = searchParams.get('selectedValueThree') || '최신순'
+  const selectedValues = [selectedValueOne, selectedValueTwo, selectedValueThree]
 
   return (
     <div className="flex gap-1">
       {selectedValues.map((element, index) => {
-        let label = element.value
+        let label = element
         if (index === 0) {
           if (languages === 'en') {
-            label = items['en'][items['ko'].indexOf(element.value)]
+            label = items['en'][items['ko'].indexOf(element)]
           }
         } else if (index === 1) {
           if (languages === 'en') {
-            label = locations['en'][locations['ko'].indexOf(element.value)]
+            label = locations['en'][locations['ko'].indexOf(element)]
           }
         } else {
           if (languages === 'en') {
-            label = time['en'][time['ko'].indexOf(element.value)]
+            label = time['en'][time['ko'].indexOf(element)]
           }
         }
         return (
           <Chip
-            // sx={{
-            //   bgcolor: colorOne,
-            //   ":hover": {
-            //     bgcolor: colorOne
-            //   }
-            // }
-            // }
             key={index}
             label={label}
-          // onClick={() => {
-          //   onClick({ id: element.id });
-          // }}
           />
         )
       })}
