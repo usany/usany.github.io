@@ -44,37 +44,58 @@ function FilterDialogsContent({ handleSelectedValues }: Props) {
   const selectedValueOne = searchParams.get('selectedValueOne') || '전체 아이템'
   const selectedValueTwo = searchParams.get('selectedValueTwo') || '전체 장소'
   const selectedValueThree = searchParams.get('selectedValueThree') || '최신순'
-  const selectedValues = [selectedValueOne, selectedValueTwo, selectedValueThree]
+  
+  const selectedValues = [
+    {
+      selectedValue: selectedValueOne,
+
+
+    },
+    {
+      selectedValue: selectedValueTwo
+
+    },
+    {
+      selectedValue: selectedValueThree
+
+    }
+  ]
 
   return (
     <div className="p-5">
-      <div className="flex justify-center">{itemsTitle[index]}</div>
-      <Select
-        defaultValue={selectedValueOne || '전체 아이템'}
-        onValueChange={(newValue) =>
-          handleSelectedValues({
-            id: 'selectedValueOne',
-            newValue: newValue,
-          })
-        }
-      >
-        <SelectTrigger
-          className="bg-light-1 dark:bg-dark-1"
-        >
-          <SelectValue />
-        </SelectTrigger>
-        <SelectContent className="bg-light-1 dark:bg-dark-1">
-          <SelectGroup>
-            {items[index].map((value, index) => {
-              return (
-                <SelectItem key={index} value={items['ko'][index]}>
-                  {value}
-                </SelectItem>
-              )
-            })}
-          </SelectGroup>
-        </SelectContent>
-      </Select>
+      {selectedValues.map((value, index) => {
+        return (
+          <>
+            <div className="flex justify-center">{itemsTitle[index]}</div>
+            <Select
+              defaultValue={selectedValueOne || '전체 아이템'}
+              onValueChange={(newValue) =>
+                handleSelectedValues({
+                  id: 'selectedValueOne',
+                  newValue: newValue,
+                })
+              }
+            >
+              <SelectTrigger
+                className="bg-light-1 dark:bg-dark-1"
+              >
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent className="bg-light-1 dark:bg-dark-1">
+                <SelectGroup>
+                  {items[index].map((value, index) => {
+                    return (
+                      <SelectItem key={index} value={items['ko'][index]}>
+                        {value}
+                      </SelectItem>
+                    )
+                  })}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          </>
+        )
+      })}
       <div className="flex justify-center">{locationsTitle[index]}</div>
       <Select
         defaultValue={selectedValueTwo || '전체 장소'}
