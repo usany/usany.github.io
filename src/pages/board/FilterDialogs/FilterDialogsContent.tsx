@@ -40,15 +40,15 @@ interface Props {
 function FilterDialogsContent({ handleSelectedValues }: Props) {
   const languages = useSelectors((state) => state.languages.value)
   const index = languages === 'ko' || languages === 'en' ? languages : 'ko'
+
   const [searchParams, setSearchParams] = useSearchParams()
   const selectedValueOne = searchParams.get('selectedValueOne') || '전체 아이템'
   const selectedValueTwo = searchParams.get('selectedValueTwo') || '전체 장소'
   const selectedValueThree = searchParams.get('selectedValueThree') || '최신순'
-  
+
   const selectedValues = [
     {
       selectedValue: selectedValueOne,
-
 
     },
     {
