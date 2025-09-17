@@ -195,12 +195,10 @@ function Board() {
             <CardsList
               choose={1}
               messages={messages}
-              selectedValues={selectedValues}
             />
             <CardsList
               choose={2}
               messages={messages}
-              selectedValues={selectedValues}
             />
           </>
         )}
