@@ -62,7 +62,6 @@ function FilterDialogsContent({ selectedValues, handleSelectedValues }: Props) {
             {items[index].map((value, index) => {
               return (
                 <SelectItem key={index} value={items['ko'][index]}>
-                  {' '}
                   {value}
                 </SelectItem>
               )
