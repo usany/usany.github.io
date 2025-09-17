@@ -178,7 +178,7 @@ function Board() {
       <div className="truncate flex justify-center sticky top-16 z-30 px-5">
         <div className="w-[1000px] shadow-md">
           <Popups
-            trigger={<BoardList selectedValues={selectedSearchParams} />}
+            trigger={<BoardList />}
             title={filtering}
             content={
               <FilterDialogsContent

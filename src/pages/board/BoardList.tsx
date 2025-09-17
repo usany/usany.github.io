@@ -1,19 +1,13 @@
-import { User } from "firebase/auth";
 import { ScrollText } from "lucide-react";
 import { useSelectors } from "src/hooks";
-import FilterDialogs from "src/pages/board/FilterDialogs/FilterDialogs";
-import FilterDialogsTitle from "./FilterDialogs/FilterDialogsTitle";
 import FilterDialogsTrigger from "./FilterDialogs/FilterDialogsTrigger";
 
 const cardList = {
   ko: '카드 목록',
   en: 'Card list'
 }
-interface Props {
-  userObj: User | null;
-}
 
-function BoardList({ selectedValues }) {
+function BoardList() {
 
   const languages = useSelectors((state) => state.languages.value)
   const index = (languages === 'ko' || languages === 'en') ? languages : 'ko'
