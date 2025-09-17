@@ -54,7 +54,6 @@ function FilterDialogsContent({ selectedValues, handleSelectedValues }: Props) {
       >
         <SelectTrigger
           className="bg-light-1 dark:bg-dark-1"
-          // autoFocus={selected === selectedValues[0].id}
         >
           <SelectValue />
         </SelectTrigger>
@@ -68,9 +67,6 @@ function FilterDialogsContent({ selectedValues, handleSelectedValues }: Props) {
                 </SelectItem>
               )
             })}
-            {/* <SelectItem value="전체 아이템">전체 아이템</SelectItem>
-                    <SelectItem value="우산">우산</SelectItem>
-                    <SelectItem value="양산">양산</SelectItem> */}
           </SelectGroup>
         </SelectContent>
       </Select>
@@ -86,7 +82,6 @@ function FilterDialogsContent({ selectedValues, handleSelectedValues }: Props) {
       >
         <SelectTrigger
           className="bg-light-1 dark:bg-dark-1"
-          // autoFocus={selected === selectedValues[1].id}
         >
           <SelectValue />
         </SelectTrigger>
@@ -99,14 +94,6 @@ function FilterDialogsContent({ selectedValues, handleSelectedValues }: Props) {
                 </SelectItem>
               )
             })}
-            {/* <SelectItem value="전체 장소">전체 장소</SelectItem> */}
-            {/* {markers.map((value, index) => {
-                      return (
-                        <SelectItem key={index} value={value.label}>{value.label}</SelectItem>
-                      )
-                    })} */}
-            {/* <SelectItem value="청운">청운</SelectItem>
-                <SelectItem value="이과대">이과대</SelectItem> */}
           </SelectGroup>
         </SelectContent>
       </Select>
@@ -122,7 +109,6 @@ function FilterDialogsContent({ selectedValues, handleSelectedValues }: Props) {
       >
         <SelectTrigger
           className="bg-light-1 dark:bg-dark-1"
-          // autoFocus={selected === selectedValues[2].id}
         >
           <SelectValue />
         </SelectTrigger>
@@ -135,8 +121,6 @@ function FilterDialogsContent({ selectedValues, handleSelectedValues }: Props) {
                 </SelectItem>
               )
             })}
-            {/* <SelectItem value="최신순">최신순</SelectItem>
-                    <SelectItem value="오래된">오래된</SelectItem> */}
           </SelectGroup>
         </SelectContent>
       </Select>
