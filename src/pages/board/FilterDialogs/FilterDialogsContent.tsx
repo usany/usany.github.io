@@ -6,6 +6,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import { useSearchParams } from 'react-router-dom'
 import { useSelectors } from 'src/hooks'
 import locationsBuildings from 'src/pages/add/locationsBuildings'
 const itemsTitle = {
@@ -39,12 +40,16 @@ interface Props {
 function FilterDialogsContent({ selectedValues, handleSelectedValues }: Props) {
   const languages = useSelectors((state) => state.languages.value)
   const index = languages === 'ko' || languages === 'en' ? languages : 'ko'
+  const selectedValueOne = searchParams.get('selectedValueOne') || '전체 아이템'
+  const selectedValueTwo = searchParams.get('selectedValueTwo') || '전체 장소'
+  const selectedValueThree = searchParams.get('selectedValueThree') || '최신순'
+  const selectedValues = [selectedValueOne, selectedValueTwo, selectedValueThree]
 
   return (
     <div className="p-5">
       <div className="flex justify-center">{itemsTitle[index]}</div>
       <Select
-        defaultValue={selectedValues[0].value || '전체 아이템'}
+        defaultValue={selectedValueOne || '전체 아이템'}
         onValueChange={(newValue) =>
           handleSelectedValues({
             id: 'selectedValueOne',
@@ -71,7 +76,7 @@ function FilterDialogsContent({ selectedValues, handleSelectedValues }: Props) {
       </Select>
       <div className="flex justify-center">{locationsTitle[index]}</div>
       <Select
-        defaultValue={selectedValues[1].value || '전체 장소'}
+        defaultValue={selectedValueTwo || '전체 장소'}
         onValueChange={(newValue) =>
           handleSelectedValues({
             id: 'selectedValueTwo',
@@ -98,7 +103,7 @@ function FilterDialogsContent({ selectedValues, handleSelectedValues }: Props) {
       </Select>
       <div className="flex justify-center">{timeTitle[index]}</div>
       <Select
-        defaultValue={selectedValues[2].value || '최신순'}
+        defaultValue={selectedValueThree || '최신순'}
         onValueChange={(newValue) =>
           handleSelectedValues({
             id: 'selectedValueThree',
