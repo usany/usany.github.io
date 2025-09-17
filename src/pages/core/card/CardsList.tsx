@@ -19,8 +19,9 @@ const CardsList = ({ choose, messages }) => {
           />
         )
       }
+      return null
     })
-    .filter((value) => value !== undefined)
+    // .filter((value) => value !== undefined)
   const onLine = useSelectors((state) => state.onLine.value)
   return (
     <div className="flex justify-center w-screen">
