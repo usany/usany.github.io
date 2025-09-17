@@ -1,13 +1,4 @@
-import {
-  collection,
-  getDocs,
-  orderBy,
-  query
-} from "firebase/firestore";
 import { useEffect, useState } from "react";
-import {
-  dbservice
-} from "src/baseApi/serverbase";
 import PageTitle from "src/pages/core/pageTitle/PageTitle";
 import { useImmer } from "use-immer";
 // import { AlarmCheck, AlertCircle, Building, Clock, DoorOpen, MessagesSquare, Pen, PenBox, Pencil, PenSquare, PenTool, Presentation, Search, SearchCheck, SearchCode, SearchSlash, Siren, TowerControl, Umbrella, UserCheck, UserRound, Watch } from "lucide-react";
@@ -22,7 +13,6 @@ import { Link } from "react-router-dom";
 import { changeBottomNavigation } from "src/stateSlices/bottomNavigationSlice";
 
 function LayoutBoard({ borrow }) {
-  const [messages, setMessages] = useState<Array<object>>([]);
   const [selectedValues, setSelectedValues] = useImmer([
     {
       id: "selectedValueOne",
@@ -71,15 +61,10 @@ function LayoutBoard({ borrow }) {
               {selectedValues.map((element, index) => {
                 return (
                   <Chip label={element.value} />
-                  // <Chips key={index} label={element.value} onClick={null} />
                 )
               })}
             </div>
           </div>
-          {/* <SwipeableViews>
-            <CardsList choose={1} messages={messages} selectedValues={selectedValues} userObj={userObj} />
-            <CardsList choose={2} messages={messages} selectedValues={selectedValues} userObj={userObj} />
-          </SwipeableViews> */}
         </div>
       </div>
       <Link to={'/'}>
