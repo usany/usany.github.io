@@ -86,7 +86,7 @@ function Board() {
     })
   }
   const profile = useSelectors((state) => state.profile.value)
-  const {borrowing, lending, cardList} = useTexts()
+  const {borrowing, lending, cardList, filtering} = useTexts()
   useEffect(() => {
     document.documentElement.scrollTo({
       top: 0,
@@ -179,7 +179,7 @@ function Board() {
         <div className="w-[1000px] shadow-md">
           <Popups
             trigger={<BoardList selectedValues={selectedSearchParams} />}
-            title={<FilterDialogsTitle />}
+            title={filtering}
             content={
               <FilterDialogsContent
                 selectedValues={selectedSearchParams}
