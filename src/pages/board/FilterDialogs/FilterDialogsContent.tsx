@@ -7,7 +7,7 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { useSearchParams } from 'react-router-dom'
-import { useSelectors } from 'src/hooks'
+import { useSelectors, useTexts } from 'src/hooks'
 import locationsBuildings from 'src/pages/add/locationsBuildings'
 const itemsTitle = {
   ko: '우산 / 양산 선택',
@@ -40,7 +40,7 @@ interface Props {
 function FilterDialogsContent({ handleSelectedValues }: Props) {
   const languages = useSelectors((state) => state.languages.value)
   const index = languages === 'ko' || languages === 'en' ? languages : 'ko'
-
+  const {itemsTitle, locationsTitle, timeTitle} = useTexts()
   const [searchParams, setSearchParams] = useSearchParams()
   const selectedValueOne = searchParams.get('selectedValueOne') || '전체 아이템'
   const selectedValueTwo = searchParams.get('selectedValueTwo') || '전체 장소'
@@ -48,14 +48,17 @@ function FilterDialogsContent({ handleSelectedValues }: Props) {
 
   const selectedValues = [
     {
+      title: itemsTitle,
       selectedValue: selectedValueOne,
 
     },
     {
+      title: locationsTitle,
       selectedValue: selectedValueTwo
 
     },
     {
+      title: timeTitle,
       selectedValue: selectedValueThree
 
     }
@@ -66,7 +69,7 @@ function FilterDialogsContent({ handleSelectedValues }: Props) {
       {selectedValues.map((value, index) => {
         return (
           <>
-            <div className="flex justify-center">{itemsTitle[index]}</div>
+            <div className="flex justify-center">{value.title}</div>
             <Select
               defaultValue={selectedValueOne || '전체 아이템'}
               onValueChange={(newValue) =>
