@@ -4,7 +4,7 @@ import { useTexts } from 'src/hooks'
 
 const CardsList = ({ choose, messages, selectedValues }) => {
   const profile = useSelectors((state) => state.profile.value)
-  const { empty } = useTexts()
+  const { empty, needNetworkConnection } = useTexts()
   const chosenMessages = messages
     .map((message, index) => {
       const isOwner = message?.creatorId === profile?.uid
@@ -47,7 +47,7 @@ const CardsList = ({ choose, messages, selectedValues }) => {
           )}
         </>
       ) : (
-        <div>네트워크 연결이 필요합니다</div>
+        <>{needNetworkConnection}</>
       )}
     </div>
   )
