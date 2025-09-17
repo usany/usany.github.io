@@ -7,12 +7,8 @@ import { useSelectors, useTexts } from 'src/hooks'
 import {
   ContactAddress,
   ContactFormDrawers,
-  ContactDrawersTrigger,
-  ContactDrawersTitle,
-  ContactDrawersContent,
   ContactDrawers
 } from './'
-import Popups from '../../core/Popups'
 import { useSearchParams } from 'react-router-dom'
 
 function ContactForm() {
