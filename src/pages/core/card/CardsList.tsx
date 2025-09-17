@@ -9,27 +9,27 @@ const CardsList = ({ choose, messages, selectedValues }) => {
     .map((message, index) => {
       const isOwner = message?.creatorId === profile?.uid
       if (message?.text.choose === choose && message?.round === 1) {
-        if (
-          selectedValues[0].value === '전체 아이템' ||
-          selectedValues[0].value === message?.item ||
-          !selectedValues[0].value
-        ) {
-          if (
-            selectedValues[1].value === '전체 장소' ||
-            selectedValues[1].value === message?.text.count ||
-            !selectedValues[1].value
-          ) {
-            return (
-              <Cards
-                key={index}
-                message={message}
-                isOwner={isOwner}
-                num={null}
-                points={null}
-              />
-            )
-          }
-        }
+        // if (
+        //   selectedValues[0].value === '전체 아이템' ||
+        //   selectedValues[0].value === message?.item ||
+        //   !selectedValues[0].value
+        // ) {
+        //   if (
+        //     selectedValues[1].value === '전체 장소' ||
+        //     selectedValues[1].value === message?.text.count ||
+        //     !selectedValues[1].value
+        //   ) {
+        //   }
+        // }
+        return (
+          <Cards
+            key={index}
+            message={message}
+            isOwner={isOwner}
+            num={null}
+            points={null}
+          />
+        )
       }
     })
     .filter((value) => value !== undefined)
