@@ -12,7 +12,6 @@ import {
 import { useSearchParams } from 'react-router-dom'
 
 function ContactForm() {
-  // const { state } = useLocation()
   const [searchParams, setSearchParams] = useSearchParams()
   const [message, setMessage] = useState({title: '', content: ''})
   const [violationUser, setViolationUser] = useState<DocumentData | null>(null)
