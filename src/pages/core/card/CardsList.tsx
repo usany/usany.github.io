@@ -2,7 +2,7 @@ import { useSelectors } from 'src/hooks'
 import Cards from 'src/pages/core/card/Cards'
 import { useTexts } from 'src/hooks'
 
-const CardsList = ({ choose, messages, selectedValues }) => {
+const CardsList = ({ choose, messages }) => {
   const profile = useSelectors((state) => state.profile.value)
   const { empty, needNetworkConnection } = useTexts()
   const chosenMessages = messages
