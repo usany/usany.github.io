@@ -475,7 +475,7 @@ function BoardMap({
     }
   }, [selectedValueTwo])
   return (
-    <div>
+    <div className="w-[1000px]">
       <Accordion type="single" collapsible>
         <AccordionItem value="item-1">
           <AccordionTrigger

@@ -9,26 +9,26 @@ import {
 import { useSearchParams } from 'react-router-dom'
 import { useSelectors, useTexts } from 'src/hooks'
 import locationsBuildings from 'src/pages/add/locationsBuildings'
-const itemsTitle = {
-  ko: '우산 / 양산 선택',
-  en: 'Select Usan / Yangsan',
-}
+// const itemsTitle = {
+//   ko: '우산 / 양산 선택',
+//   en: 'Select Usan / Yangsan',
+// }
 const items = {
   ko: ['전체 아이템', '우산', '양산'],
   en: ['All items', 'Usan', 'Yangsan'],
 }
-const locationsTitle = {
-  ko: '장소 선택',
-  en: 'Select Location',
-}
+// const locationsTitle = {
+//   ko: '장소 선택',
+//   en: 'Select Location',
+// }
 const locations = {
   ko: ['전체 장소', ...locationsBuildings['ko']],
   en: ['All locations', ...locationsBuildings['en']],
 }
-const timeTitle = {
-  ko: '시간 정렬',
-  en: 'Time order',
-}
+// const timeTitle = {
+//   ko: '시간 정렬',
+//   en: 'Time order',
+// }
 const time = {
   ko: ['최신순', '오래된'],
   en: ['Recent', 'Older'],
