@@ -385,13 +385,6 @@ function BoardMap({
       for (let number = 0, length = markers.length; number < length; number++) {
         naver.maps.Event.addListener(markersCollection[number], 'click', () => {
           getClickHandler(number)
-          // if (onMarker) {
-          //   onMarkerFalse()
-          //   onClickMarker({ ko: '전체 장소' })
-          // } else {
-          //   onMarkerTrue()
-          //   onClickMarker(markers[number].label)
-          // }
         })
       }
     }
