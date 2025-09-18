@@ -272,18 +272,13 @@ function BoardMap({
           }
         }
       })
-      // setMessages(newArray)
       setItems(itemCount)
     }
     bringMessages()
   }, [selectedValues[1].value])
   const onClickMarker = (newValue) => {
     handleSelectedValues({ id: 'selectedValueTwo', newValue: newValue.ko })
-    // setSelectedLocation(newValue.en)
   }
-  // const onClickMarkerItem = (newValue) => {
-  //   handleSelectedValues({ id: 'selectedValueOne', newValue: newValue })
-  // }
   const mapRef = useRef(null)
   // const { naver } = window
   // let location
