@@ -66,7 +66,7 @@ function FilterDialogsContent({ handleSelectedValues }: Props) {
 
   return (
     <div className="p-5">
-      {selectedValues.map((value, index) => {
+      {selectedValues.map((value) => {
         return (
           <>
             <div className="flex justify-center">{value.title}</div>
