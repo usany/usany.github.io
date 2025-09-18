@@ -170,7 +170,6 @@ function BoardMap({
   const [calledMap, setCalledMap] = useState(null)
   const [markings, setMarkings] = useState([])
   const [markersList, setMarkersList] = useState([])
-  // const [searchParams, setSearchParams] = useSearchParams()
   const [onAccordion, setOnAccordion] = useState(false)
   const selectedValueTwo = searchParams.get('selectedValueTwo')
   const theme = useSelectors((state) => state.theme.value)
@@ -246,10 +245,6 @@ function BoardMap({
           yangsanTwo: 0,
         },
       }
-      // let usanOneCount = 0
-      // let usanTwoCount = 0
-      // let yangsanOneCount = 0
-      // let yangsanTwoCount = 0
       docs.forEach((doc) => {
         newArray.push(doc.data())
         if (doc.data().item === '우산') {
