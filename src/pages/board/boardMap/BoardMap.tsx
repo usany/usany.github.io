@@ -108,8 +108,6 @@ function BoardMap({
   handleSelectedValues,
   searchParams,
 }: Props) {
-  // const [messages, setMessages] = useState<Array<object>>([])
-  // const [mapAccordion, setMapAccordion] = useState(false);
   const [items, setItems] = useState({
     cl: {
       usanOne: 0,
