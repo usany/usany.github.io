@@ -8,7 +8,7 @@ import { collection, getDocs, orderBy, query } from 'firebase/firestore'
 import { MapIcon } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { dbservice } from 'src/baseApi/serverbase'
-import { useSelectors } from 'src/hooks'
+import { useSelectors, useTexts } from 'src/hooks'
 import locationsCollectionLetters from 'src/pages/add/locationsCollectionLetters'
 import FilterDialogs from 'src/pages/board/FilterDialogs/FilterDialogs'
 
@@ -173,6 +173,7 @@ function BoardMap({
   const [onAccordion, setOnAccordion] = useState(false)
   const selectedValueTwo = searchParams.get('selectedValueTwo')
   const theme = useSelectors((state) => state.theme.value)
+  const {borrowing, lending} = useTexts()
   useEffect(() => {
     document.documentElement.scrollTo({
       top: 0,
@@ -292,7 +293,6 @@ function BoardMap({
   // }
   const displayMap = () => {
     const { naver } = window
-
     // const infowindow = new naver.maps.InfoWindow({
     //   content: contentString,
     //   backgroundColor: '#777',
@@ -334,22 +334,22 @@ function BoardMap({
                   ${selectItems[0][selection]}
                 </div>
                 <div className="pt-3">
-                  ${languages === 'ko' ? '빌리기: ' : 'Borrowing: '}
+                  ${borrowing}
                   ${items[key].usanOne}
                 </div>
                 <div className="pt-3">
-                  ${languages === 'ko' ? '빌려주기: ' : 'Lending: '}
+                  ${lending}
                   ${items[key].usanTwo}
                 </div>
                 <div className="pt-1">
                   ${selectItems[1][selection]}
                 </div>
                 <div className="pt-3">
-                  ${languages === 'ko' ? '빌리기: ' : 'Borrowing: '}
+                  ${borrowing}
                   ${items[key].yangsanOne}
                 </div>
                 <div className="pt-3">
-                  ${languages === 'ko' ? '빌려주기: ' : 'Lending: '}
+                  ${lending}
                   ${items[key].yangsanTwo}
                 </div>
               </div>
