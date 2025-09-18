@@ -173,7 +173,7 @@ function BoardMap({
   const [onAccordion, setOnAccordion] = useState(false)
   const selectedValueTwo = searchParams.get('selectedValueTwo')
   const theme = useSelectors((state) => state.theme.value)
-  const {borrowing, lending} = useTexts()
+  const {borrowing, lending, needNetworkConnection} = useTexts()
   useEffect(() => {
     document.documentElement.scrollTo({
       top: 0,
@@ -451,7 +451,7 @@ function BoardMap({
                 </>
               ) : (
                 <div className="flex justify-center">
-                  네트워크 연결이 필요합니다
+                  {needNetworkConnection}
                 </div>
               )}
             </div>
