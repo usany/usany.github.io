@@ -413,19 +413,6 @@ function BoardMap({
         <AccordionItem value="item-1">
           <AccordionTrigger
             onClick={() => {
-              // document.getElementById('boardMap')?.click()
-              // setTimeout(
-              //   () =>
-              //     document.getElementsByClassName('dismissButton')[0]?.click(),
-              //   500,
-              // )
-              // setTimeout(
-              //   () =>
-              //     document.getElementsByClassName('dismissButton')[0]?.click(),
-              //   1500,
-              // )
-              // displayMap()
-              // setTimeout(displayMap, 10)
               setOnAccordion(!onAccordion)
             }}
             className="rounded shadow-md px-3 flex sticky top-16 z-30 w-full items-center justify-between bg-light-2/50 dark:bg-dark-2/50"
