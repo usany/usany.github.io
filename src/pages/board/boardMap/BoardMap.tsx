@@ -36,14 +36,6 @@ interface Props {
   handleSelectedValues: () => void
   searchParams: object
 }
-// const area = [
-//   {
-//     westSouth: { lat: 37.5927551, lng: 127.047462 },
-//     westNorth: { lat: 37.6010743, lng: 127.047462 },
-//     eastSouth: { lat: 37.5927551, lng: 127.0571999 },
-//     eastNorth: { lat: 37.6010743, lng: 127.0571999 },
-//   },
-// ]
 
 const markers = [
   {
