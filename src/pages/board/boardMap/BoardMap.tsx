@@ -421,10 +421,6 @@ function BoardMap({
               <MapIcon />
               <div>{registeredMap[selection]}</div>
             </div>
-            {/* <AccordionTrigger
-              id="boardMap"
-              onClick={() => setTimeout(displayMap, 10)}
-            ></AccordionTrigger> */}
           </AccordionTrigger>
           <AccordionContent>
             <div>
@@ -448,83 +444,6 @@ function BoardMap({
             <div className="w-full h-[300px]">
               {onLine ? (
                 <>
-                  {/* <Map
-                    mapId={import.meta.env.VITE_MAPID}
-                    defaultCenter={defaultLocation}
-                    defaultZoom={17}
-                    gestureHandling={'greedy'}
-                    disableDefaultUI={true}
-                  >
-                    {markers.map((value) => {
-                      return (
-                        <AdvancedMarker
-                          onClick={() => {
-                            onClickMarker(value.label)
-                            onMarkerTrue()
-                          }}
-                          position={value.location}
-                        >
-                          <Pin
-                            background={'#1f9d58'}
-                            borderColor={'#006425'}
-                            glyphColor={'#60d98f'}
-                          />
-                        </AdvancedMarker>
-                      )
-                    })}
-                    <InfoWindow
-                      minWidth={290}
-                      position={
-                        markers.find(
-                          (element) =>
-                            element.label.ko === selectedValues[1].value,
-                        )?.location
-                      }
-                      onClose={() => {
-                        onClickMarker({ ko: '전체 장소' })
-                        if (choose) {
-                          onClickMarkerItem('전체 아이템')
-                          setChoose(false)
-                        }
-                        onMarkerFalse()
-                      }}
-                    >
-                      <div className="flex flex-col text-black">
-                        <div className="flex justify-center">
-                          {languages === 'ko'
-                            ? selectedValues[1].value
-                            : selectedLocation}
-                        </div>
-                        {selectItems.map((value, index) => {
-                          return (
-                            <div className="flex gap-5">
-                              <div className="pt-1">
-                                <Chip
-                                  label={`${selectItems[index][selection]}`}
-                                  onClick={() => {
-                                    setChoose(true)
-                                    onClickMarkerItem(
-                                      `${selectItems[index].ko}`,
-                                    )
-                                  }}
-                                />
-                              </div>
-                              <div className="pt-3">
-                                {languages === 'ko' ? '빌리기' : 'Borrowing'}:{' '}
-                                {index ? items.yangsanOne : items.usanOne}{' '}
-                                {languages === 'ko' ? '요청' : 'requests'}
-                              </div>
-                              <div className="pt-3">
-                                {languages === 'ko' ? '빌려주기' : 'Lending'}:{' '}
-                                {index ? items.yangsanTwo : items.usanTwo}{' '}
-                                {languages === 'ko' ? '요청' : 'requests'}
-                              </div>
-                            </div>
-                          )
-                        })}
-                      </div>
-                    </InfoWindow>
-                  </Map> */}
                   <div
                     ref={mapRef}
                     style={{ width: '100%', height: '500px' }}
