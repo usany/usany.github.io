@@ -174,7 +174,6 @@ function BoardMap({
       yangsanTwo: 0,
     },
   })
-  // const [choose, setChoose] = useState(false)
   const languages = useSelectors((state) => state.languages.value)
   const selection = languages === 'ko' || languages === 'en' ? languages : 'ko'
   const onLine = useSelectors((state) => state.onLine.value)
@@ -195,8 +194,6 @@ function BoardMap({
 
   useEffect(() => {
     const bringMessages = async () => {
-      // let order = 'asc'
-
       const collectionQuery = query(
         collection(dbservice, 'num'),
         orderBy('creatorClock'),
