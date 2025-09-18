@@ -27,7 +27,7 @@ interface Props {
 }
 function FilterDialogsContent({ handleSelectedValues }: Props) {
   const languages = useSelectors((state) => state.languages.value)
-  const index = languages === 'ko' || languages === 'en' ? languages : 'ko'
+  const selectedLanguage = languages === 'ko' || languages === 'en' ? languages : 'ko'
   const {itemsTitle, locationsTitle, timeTitle} = useTexts()
   const [searchParams, setSearchParams] = useSearchParams()
   const selectedValueOne = searchParams.get('selectedValueOne') || '전체 아이템'
@@ -57,7 +57,7 @@ function FilterDialogsContent({ handleSelectedValues }: Props) {
 
   return (
     <div className="p-5">
-      {selectedValues.map((value, index) => {
+      {selectedValues.map((value) => {
         return (
           <>
             <div className="flex justify-center">{value.title}</div>
@@ -77,7 +77,7 @@ function FilterDialogsContent({ handleSelectedValues }: Props) {
               </SelectTrigger>
               <SelectContent className="bg-light-1 dark:bg-dark-1">
                 <SelectGroup>
-                  {items[index].map((value, index) => {
+                  {items[selectedLanguage].map((value, index) => {
                     return (
                       <SelectItem key={index} value={items['ko'][index]}>
                         {value}
