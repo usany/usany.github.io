@@ -90,7 +90,7 @@ function FilterDialogsContent({ handleSelectedValues }: Props) {
           </>
         )
       })}
-      <div className="flex justify-center">{locationsTitle[index]}</div>
+      {/* <div className="flex justify-center">{locationsTitle[index]}</div>
       <Select
         defaultValue={selectedValueTwo || '전체 장소'}
         onValueChange={(newValue) =>
@@ -143,7 +143,7 @@ function FilterDialogsContent({ handleSelectedValues }: Props) {
             })}
           </SelectGroup>
         </SelectContent>
-      </Select>
+      </Select> */}
     </div>
   )
 }
