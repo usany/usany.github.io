@@ -36,16 +36,19 @@ function FilterDialogsContent({ handleSelectedValues }: Props) {
 
   const selectedValues = [
     {
+      id: 'selectedValueOne',
       title: itemsTitle,
       selectedValue: selectedValueOne,
 
     },
     {
+      id: 'selectedValueTwo',
       title: locationsTitle,
       selectedValue: selectedValueTwo
 
     },
     {
+      id: 'selectedValueThree',
       title: timeTitle,
       selectedValue: selectedValueThree
 
@@ -59,10 +62,10 @@ function FilterDialogsContent({ handleSelectedValues }: Props) {
           <>
             <div className="flex justify-center">{value.title}</div>
             <Select
-              defaultValue={selectedValueOne || '전체 아이템'}
+              defaultValue={value.selectedValue}
               onValueChange={(newValue) =>
                 handleSelectedValues({
-                  id: 'selectedValueOne',
+                  id: value.id,
                   newValue: newValue,
                 })
               }
