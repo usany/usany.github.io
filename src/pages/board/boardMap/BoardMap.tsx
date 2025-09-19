@@ -148,7 +148,6 @@ function BoardMap({
     },
   })
   const languages = useSelectors((state) => state.languages.value)
-  const selection = languages === 'ko' || languages === 'en' ? languages : 'ko'
   const [searchParams, setSearchParams] = useSearchParams()
   const onLine = useSelectors((state) => state.onLine.value)
   const [calledMap, setCalledMap] = useState(null)
