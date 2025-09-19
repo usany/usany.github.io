@@ -19,7 +19,7 @@ interface Props {
 const Layout = ({ borrow }: Props) => {
   const dispatch = useDispatch()
   const languages = useSelectors((state) => state.languages.value)
-  const {borrowing, lending, register, emptyCard} = useTexts()
+  const {borrowing, lending, register, emptyCard, itemsTitle} = useTexts()
   return (
     <div className='flex flex-col h-screen'>
       <PageTitle title={`${borrow ? borrowing : lending} ${register}`} />
@@ -44,8 +44,7 @@ const Layout = ({ borrow }: Props) => {
           <div className="flex flex-col">
             <div className="flex">
               <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-                <InputLabel
-                >우산 / 양산 선택</InputLabel>
+                <InputLabel>{itemsTitle}</InputLabel>
                 <Select
                   disabled
                 >
