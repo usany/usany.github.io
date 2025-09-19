@@ -19,7 +19,7 @@ interface Props {
 const Layout = ({ borrow }: Props) => {
   const dispatch = useDispatch()
   const languages = useSelectors((state) => state.languages.value)
-  const {borrowing, lending, register, emptyCard, itemsTitle, itemOne, itemTwo} = useTexts()
+  const {borrowing, lending, register, emptyCard, itemsTitle, itemOne, itemTwo, pleaseSignIn} = useTexts()
   return (
     <div className='flex flex-col h-screen'>
       <PageTitle title={`${borrow ? borrowing : lending} ${register}`} />
@@ -56,7 +56,7 @@ const Layout = ({ borrow }: Props) => {
       </div>
       <Link to='/'>
         <div className='flex fixed justify-center top-[30%] left-[10%] right-[10%]' onClick={() => dispatch(changeBottomNavigation(1))}>
-          <div className='flex rounded bg-light-1 dark:bg-dark-1 w-1/2 p-5 justify-center shadow-md'>{languages === 'ko' ? '로그인이 필요합니다' : 'Need to Sign In'}</div>
+          <div className='flex rounded bg-light-1 dark:bg-dark-1 w-1/2 p-5 justify-center shadow-md'>{pleaseSignIn}</div>
         </div>
       </Link>
     </div>
