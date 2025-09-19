@@ -5,13 +5,16 @@ import { DocumentData } from 'firebase/firestore'
 
 interface Props {
   choose: number
-  messages: DocumentData[]
+  messages: {
+    loaded: boolean,
+    items: DocumentData[]
+  }
 }
 const CardsList = ({ choose, messages }: Props) => {
   const { empty, needNetworkConnection } = useTexts()
   const chosenMessages = messages
     .map((message) => {
-      if (message?.text.choose === choose && message?.round === 1) {
+      if (message.items?.text.choose === choose && message?.round === 1) {
         return (
           <Cards
             message={message}
