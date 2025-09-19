@@ -16,7 +16,7 @@ interface Props {
   isBorrow: boolean
 }
 function LayoutBoard({ isBorrow }: Props) {
-  const [selectedValues, setSelectedValues] = useImmer([
+  const selectedValues = [
     {
       id: "selectedValueOne",
       value: "전체 아이템",
@@ -29,7 +29,7 @@ function LayoutBoard({ isBorrow }: Props) {
       id: "selectedValueThree",
       value: "최신순",
     },
-  ]);
+  ];
   const [mapAccordion, setMapAccordion] = useState(false)
   const mapAccordionToggle = () => setMapAccordion(!mapAccordion)
   const languages = useSelector((state) => state.languages.value)
@@ -44,7 +44,7 @@ function LayoutBoard({ isBorrow }: Props) {
 
   return (
     <div className='flex flex-col h-screen'>
-      {borrow ?
+      {isBorrow ?
         <PageTitle title={`빌리기 카드 목록`} />
         :
         <PageTitle title={`빌려주기 카드 목록`} />
