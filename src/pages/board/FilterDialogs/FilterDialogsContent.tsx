@@ -63,7 +63,7 @@ function FilterDialogsContent({ handleSelectedValues }: Props) {
             <div className="flex justify-center">{valueObject.title}</div>
             <Select
               defaultValue={valueObject.selectedValue}
-              onValueChange={(newValue) =>
+              onValueChange={() =>
                 handleSelectedValues({
                   id: valueObject.id,
                   newValue: valueObject,
