@@ -66,7 +66,7 @@ const markers = [
 ]
 
 function FilterDialogs({ selectedValues, handleSelectedValues }) {
-  const languages = useSelectors((state) => state.languages.value)
+  // const languages = useSelectors((state) => state.languages.value)
   // const index = (languages === 'ko' || languages === 'en') ? languages : 'ko'
   // const [selected, setSelected] = useState(null);
   // const onClick = ({ id }) => {

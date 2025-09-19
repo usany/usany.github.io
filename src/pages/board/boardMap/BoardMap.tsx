@@ -12,6 +12,7 @@ import { dbservice } from 'src/baseApi/serverbase'
 import { useSelectors, useTexts } from 'src/hooks'
 import locationsCollectionLetters from 'src/pages/add/locationsCollectionLetters'
 import FilterDialogs from 'src/pages/board/FilterDialogs/FilterDialogs'
+import FilterDialogsTrigger from '../FilterDialogs/FilterDialogsTrigger'
 
 interface Props {
   selectedValues: object
@@ -399,9 +400,7 @@ function BoardMap({
                 </div>
               ) : (
                 <div className="flex p-5">
-                  <FilterDialogs
-                    selectedValues={selectedValues}
-                    handleSelectedValues={handleSelectedValues}
+                  <FilterDialogsTrigger
                   />
                 </div>
               )}
