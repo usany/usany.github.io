@@ -34,8 +34,10 @@ const selectItems = [
 
 interface Props {
   selectedValues: object
-  handleSelectedValues: () => void
-  searchParams: object
+  handleSelectedValues: (newValue: {
+    id: string
+    newValue: string
+  }) => void
 }
 
 const markers = [
