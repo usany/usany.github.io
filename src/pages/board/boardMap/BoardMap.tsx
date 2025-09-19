@@ -409,8 +409,8 @@ function BoardMap({
             <>
               {onLine ? (
                 <div
-                  className='w-full h-[300px]'
                   ref={mapRef}
+                  className='w-full h-[300px]'
                 ></div>
               ) : (
                 <div className="flex justify-center">
