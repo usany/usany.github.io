@@ -36,9 +36,7 @@ const Layout = ({ borrow }: Props) => {
               <div>
                 <div className="flex justify-between gap-1">
                   <Avatars
-                    element={null}
                     profile={false}
-                    piazza={null}
                   />
                 </div>
                 <div className="flex justify-center pt-5">빈 카드입니다</div>
