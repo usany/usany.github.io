@@ -16,24 +16,24 @@ interface Props {
   isBorrow: boolean
 }
 function LayoutBoard({ isBorrow }: Props) {
+  const [mapAccordion, setMapAccordion] = useState(false)
+  const mapAccordionToggle = () => setMapAccordion(!mapAccordion)
+  const { borrowing, lending, registeredMap, cardList, pleaseSignIn, allItems, allLocations, recent } = useTexts()
+  const dispatch = useDispatch()
   const selectedValues = [
     {
       id: "selectedValueOne",
-      value: "전체 아이템",
+      value: allItems,
     },
     {
       id: "selectedValueTwo",
-      value: "전체 장소",
+      value: allLocations,
     },
     {
       id: "selectedValueThree",
-      value: "최신순",
+      value: recent,
     },
   ];
-  const [mapAccordion, setMapAccordion] = useState(false)
-  const mapAccordionToggle = () => setMapAccordion(!mapAccordion)
-  const { borrowing, registeredMap, cardList, pleaseSignIn } = useTexts()
-  const dispatch = useDispatch()
   useEffect(() => {
     document.documentElement.scrollTo({
       top: 0,
@@ -44,7 +44,7 @@ function LayoutBoard({ isBorrow }: Props) {
 
   return (
     <div className='flex flex-col h-screen'>
-      <PageTitle title={isBorrow ? `빌리기 카드 목록` : `빌려주기 카드 목록`} />
+      <PageTitle title={isBorrow ? `${borrowing} ${cardList}` : `${lending} ${cardList}`} />
       <div className='blur-md'>
         <Accordion type="single" collapsible className="px-3" disabled>
           <AccordionItem value="item-1">
