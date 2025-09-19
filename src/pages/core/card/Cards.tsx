@@ -4,12 +4,10 @@ import MorphingDialogs from '../morphingDialogs/MorphingDialogs'
 import CardsLongPressed from './CardsLongPressed'
 import CardsViews from './CardsViews'
 import { useRound } from './useRound'
+import { DocumentData } from 'firebase/firestore'
 
 interface Props {
-  message: { id: string; text: object }
-  isOwner: boolean
-  num: number | null
-  points: number | null
+  message: DocumentData
 }
 
 const Cards = ({
