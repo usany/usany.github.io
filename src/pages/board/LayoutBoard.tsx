@@ -55,7 +55,7 @@ function LayoutBoard({ isBorrow }: Props) {
         </Accordion>
         <div className="flex p-3 sticky top-16 z-30 justify-between bg-light-3 dark:bg-dark-3">
           <div className="pt-1">{cardList}</div>
-          <div className="flex gap-1">
+          <div className="flex gap-1 pt-1">
             {selectedValues.map((element) => {
               return (
                 <Chip label={element.value} />
