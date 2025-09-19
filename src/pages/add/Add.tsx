@@ -59,7 +59,7 @@ function Add({ borrow }: Props) {
   function changeAddSteps(newValue) {
     setAddSteps(newValue)
   }
-  console.log(fromTo)
+  // console.log(fromTo)
   const [locationState, locationDispatch] = useReducer(
     (
       state: {
