@@ -3,7 +3,7 @@ import { useTexts } from "src/hooks";
 import FilterDialogsTrigger from "./FilterDialogs/FilterDialogsTrigger";
 
 function BoardList() {
-  const {cardList} = useTexts()
+  const { cardList } = useTexts()
 
   return (
     <div className="rounded shadow-md flex p-3 justify-between bg-light-2/50 dark:bg-dark-2/50">
