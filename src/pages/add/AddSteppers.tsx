@@ -47,6 +47,21 @@ function AddSteppers({ addSteps, borrow }: Props) {
         activeStep={addSteps}
         alternativeLabel
       >
+        {
+          collection[[true, false].indexOf(borrow)].map((label, index) => {
+            return (
+              <Step key={index}>
+                <StepLabel>
+                  {label.map((element, index) => {
+                    return (
+                      <div key={index} className={`${languages !== 'ko' && 'text-xs'} truncate`}>{element}</div>
+                    )
+                  })}
+                </StepLabel>
+              </Step>
+            )
+          })
+        }
         {languages === 'ko' ?
           collection[[true, false].indexOf(borrow)].map((label, index) => {
             return (
