@@ -312,7 +312,7 @@ function BoardMap({
             </div>
             <div key={index} className="flex gap-5">
                 <div className="pt-1">
-                  ${selectItems[0][selection]}
+                  ${itemOne}
                 </div>
                 <div className="pt-3">
                   ${borrowing}
@@ -323,7 +323,7 @@ function BoardMap({
                   ${items[key].usanTwo}
                 </div>
                 <div className="pt-1">
-                  ${selectItems[1][selection]}
+                  ${itemTwo}
                 </div>
                 <div className="pt-3">
                   ${borrowing}
