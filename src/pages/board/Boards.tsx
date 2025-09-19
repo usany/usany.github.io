@@ -59,7 +59,7 @@ function Boards() {
 
   return (
     <>
-      {profile && profile?.certificated ? (
+      {profile?.certificated ? (
         <Board />
       ) : (
         <SwipeableViews>
