@@ -42,17 +42,15 @@ const Layout = ({ borrow }: Props) => {
             </CardContent>
           </Card>
           <div className="flex flex-col">
-            <div className="flex">
-              <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-                <InputLabel>{itemsTitle}</InputLabel>
-                <Select
-                  disabled
-                >
-                  <MenuItem value={'우산'}>{itemOne}</MenuItem>
-                  <MenuItem value={'양산'}>{itemTwo}</MenuItem>
-                </Select>
-              </FormControl>
-            </div>
+            <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+              <InputLabel>{itemsTitle}</InputLabel>
+              <Select
+                disabled
+              >
+                <MenuItem value={'우산'}>{itemOne}</MenuItem>
+                <MenuItem value={'양산'}>{itemTwo}</MenuItem>
+              </Select>
+            </FormControl>
           </div>
         </div>
       </div>
