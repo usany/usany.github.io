@@ -13,14 +13,6 @@ import { useSelectors, useTexts } from 'src/hooks'
 import locationsCollectionLetters from 'src/pages/add/locationsCollectionLetters'
 import FilterDialogs from 'src/pages/board/FilterDialogs/FilterDialogs'
 
-// const registeredMap = {
-//   ko: '등록 지도',
-//   en: 'Registered map',
-// }
-const registeredMapExplanation = {
-  ko: '표시된 곳을 선택하면 해당하는 내용만 확인할 수 있어요',
-  en: 'Click a marker to filter specific location',
-}
 const selectItems = [
   {
     ko: '우산',
@@ -176,7 +168,7 @@ function BoardMap({
   const [onAccordion, setOnAccordion] = useState(false)
   const selectedValueTwo = searchParams.get('selectedValueTwo')
   const theme = useSelectors((state) => state.theme.value)
-  const {borrowing, lending, needNetworkConnection, registeredMap} = useTexts()
+  const {borrowing, lending, needNetworkConnection, registeredMap, registeredMapExplanation} = useTexts()
   useEffect(() => {
     document.documentElement.scrollTo({
       top: 0,
@@ -415,7 +407,7 @@ function BoardMap({
             <>
               {selectedValues[1].value === '전체 장소' ? (
                 <div className="flex p-5">
-                  {onLine && registeredMapExplanation[selection]}
+                  {onLine && registeredMapExplanation}
                 </div>
               ) : (
                 <div className="flex p-5">
