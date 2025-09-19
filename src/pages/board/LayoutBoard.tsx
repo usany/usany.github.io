@@ -32,8 +32,7 @@ function LayoutBoard({ isBorrow }: Props) {
   ];
   const [mapAccordion, setMapAccordion] = useState(false)
   const mapAccordionToggle = () => setMapAccordion(!mapAccordion)
-  // const languages = useSelector((state) => state.languages.value)
-  const { pleaseSignIn } = useTexts()
+  const { registeredMap, cardList, pleaseSignIn } = useTexts()
   const dispatch = useDispatch()
   useEffect(() => {
     document.documentElement.scrollTo({
@@ -46,22 +45,17 @@ function LayoutBoard({ isBorrow }: Props) {
   return (
     <div className='flex flex-col h-screen'>
       <PageTitle title={isBorrow ? `빌리기 카드 목록` : `빌려주기 카드 목록`} />
-      {/* {isBorrow ?
-        <PageTitle title={isBorrow ? `빌리기 카드 목록` : `빌려주기 카드 목록`} />
-        :
-        <PageTitle title={`빌려주기 카드 목록`} />
-      } */}
       <div className='blur-md'>
         <Accordion type="single" collapsible className="px-3" disabled>
           <AccordionItem value="item-1">
             <AccordionTrigger onClick={() => mapAccordionToggle()}>
-              등록 지도
+              {registeredMap}
             </AccordionTrigger>
           </AccordionItem>
         </Accordion>
         <div>
           <div className="flex p-3 sticky top-16 z-30 justify-between bg-light-3 dark:bg-dark-3">
-            <div className="pt-1">카드 목록</div>
+            <div className="pt-1">{cardList}</div>
             <div className="flex gap-1">
               {selectedValues.map((element) => {
                 return (
