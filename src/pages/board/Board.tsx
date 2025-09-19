@@ -114,7 +114,6 @@ function Board() {
         newArray.push({ ...doc.data() })
       })
       setMessages({loaded: true, items: newArray})
-      // setMessageLoaded(true)
     }
     if (profile) {
       bringMessages()
