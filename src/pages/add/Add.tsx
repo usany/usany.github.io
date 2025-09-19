@@ -47,7 +47,7 @@ function Add({ borrow }: Props) {
   const [addSteps, setAddSteps] = useState(0)
   const [display, setDisplay] = useState<DisplayCard | null>(null)
   const [item, setItem] = useState('')
-  const tabs = useSelector((state: TabsRootState) => state.tabs.value)
+  const tabs = useSelectors((state) => state.tabs.value)
   const [fromTo, setFromTo] = useState<FromTo>({ from: null, to: null })
   const [enableRegister, setEnableRegister] = useState(false)
   const matches = useMediaQuery('(min-width:850px)')
