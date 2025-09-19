@@ -1,7 +1,6 @@
 import { ScrollText } from "lucide-react";
-import { useSelectors, useTexts } from "src/hooks";
+import { useTexts } from "src/hooks";
 import FilterDialogsTrigger from "./FilterDialogs/FilterDialogsTrigger";
-
 
 function BoardList() {
   const {cardList} = useTexts()
