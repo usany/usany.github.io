@@ -281,22 +281,8 @@ function BoardMap({
     handleSelectedValues({ id: 'selectedValueTwo', newValue: newValue.ko })
   }
   const mapRef = useRef(null)
-  // const { naver } = window
-  // let location
-  // let map
-  // if (mapRef.current && naver) {
-  //   location = new naver.maps.LatLng(defaultLocation.lat, defaultLocation.lng)
-  //   map = new naver.maps.Map(mapRef.current, {
-  //     center: location,
-  //     zoom: 17,
-  //   })
-  // }
   const displayMap = () => {
     const { naver } = window
-    // const infowindow = new naver.maps.InfoWindow({
-    //   content: contentString,
-    //   backgroundColor: '#777',
-    // })
     if (mapRef.current && naver) {
       const markersCollection = []
       const infoWindows = []
