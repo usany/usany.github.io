@@ -107,7 +107,6 @@ const defaultLocation = markers[0].location
 function BoardMap({
   selectedValues,
   handleSelectedValues,
-  searchParams,
 }: Props) {
   const [items, setItems] = useState({
     cl: {
