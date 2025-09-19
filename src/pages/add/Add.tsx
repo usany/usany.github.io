@@ -59,7 +59,6 @@ function Add({ borrow }: Props) {
   function changeAddSteps(newValue) {
     setAddSteps(newValue)
   }
-  // console.log(fromTo)
   const [locationState, locationDispatch] = useReducer(
     (
       state: {
@@ -288,6 +287,7 @@ function Add({ borrow }: Props) {
   }
   const onChangeFrom = (event) => {
     setFromTo({
+      ...fromTo,
       from: {
         gmt: event.$d,
         year: event.$y,
@@ -296,7 +296,6 @@ function Add({ borrow }: Props) {
         hour: event.$H,
         minute: event.$m,
       },
-      to: fromTo.to,
     })
     setAddSteps(2)
   }
