@@ -169,7 +169,6 @@ function Board() {
         <BoardMap
           selectedValues={selectedSearchParams}
           handleSelectedValues={handleSelectedValues}
-          searchParams={searchParams}
         />
       </div>
       <div className="truncate flex justify-center sticky top-16 z-30 px-5">
