@@ -13,17 +13,6 @@ import { useSelectors, useTexts } from 'src/hooks'
 import locationsCollectionLetters from 'src/pages/add/locationsCollectionLetters'
 import FilterDialogs from 'src/pages/board/FilterDialogs/FilterDialogs'
 
-const selectItems = [
-  {
-    ko: '우산',
-    en: 'Usan',
-  },
-  {
-    ko: '양산',
-    en: 'Yangsan',
-  },
-]
-
 interface Props {
   selectedValues: object
   handleSelectedValues: (newValue: {
