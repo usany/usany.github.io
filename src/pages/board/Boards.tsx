@@ -67,8 +67,8 @@ function Boards() {
         <Board />
       ) : (
         <SwipeableViews>
-          <LayoutBoard borrow={true} />
-          <LayoutBoard borrow={false} />
+          <LayoutBoard isBorrow={true} />
+          <LayoutBoard isBorrow={false} />
         </SwipeableViews>
       )}
     </>

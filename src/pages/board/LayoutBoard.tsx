@@ -12,7 +12,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { changeBottomNavigation } from "src/stateSlices/bottomNavigationSlice";
 
-function LayoutBoard({ borrow }) {
+interface Props {
+  isBorrow: boolean
+}
+function LayoutBoard({ isBorrow }: Props) {
   const [selectedValues, setSelectedValues] = useImmer([
     {
       id: "selectedValueOne",
