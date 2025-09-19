@@ -15,6 +15,7 @@ import Popups from '../core/Popups'
 import BoardList from './BoardList'
 import FilterDialogsContent from './FilterDialogs/FilterDialogsContent'
 import FilterDialogsTitle from './FilterDialogs/FilterDialogsTitle'
+import { DocumentData } from 'firebase/firestore';
 
 const items = {
   ko: ['전체 아이템', '우산', '양산'],
@@ -31,7 +32,7 @@ const time = {
 const options = [items.ko, locations.ko, time.ko]
 
 function Board() {
-  const [messages, setMessages] = useState<Array<object>>([])
+  const [messages, setMessages] = useState<Array<DocumentData>>([])
   const [selectedValues, setSelectedValues] = useImmer([
     {
       id: 'selectedValueOne',
@@ -107,7 +108,7 @@ function Board() {
       const docs = await getDocs(collectionQuery)
       const newArray = []
       docs.forEach((doc) => {
-        newArray.push({ id: doc.id, ...doc.data() })
+        newArray.push({ ...doc.data() })
       })
       setMessages(newArray)
       setMessageLoaded(true)
