@@ -2,6 +2,7 @@ import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import Stepper from '@mui/material/Stepper';
 import { useSelector } from 'react-redux';
+import { useSelectors } from 'src/hooks';
 
 interface Props {
   addSteps: number
@@ -38,7 +39,8 @@ const lendStepsLanguages = [
 ]
 const stepsCollectionLanguages = [borrowStepsLanguages, lendStepsLanguages]
 function AddSteppers({ addSteps, borrow }: Props) {
-  const languages = useSelector((state) => state.languages.value)
+  const languages = useSelectors((state) => state.languages.value)
+  const collection = languages === 'ko' ? stepsCollection : stepsCollectionLanguages
   return (
     <div className='w-full'>
       <Stepper
@@ -46,13 +48,13 @@ function AddSteppers({ addSteps, borrow }: Props) {
         alternativeLabel
       >
         {languages === 'ko' ?
-          stepsCollection[[true, false].indexOf(borrow)].map((label, index) => {
+          collection[[true, false].indexOf(borrow)].map((label, index) => {
             return (
               <Step key={index}>
                 <StepLabel>
                   {label.map((element, index) => {
                     return (
-                      <div key={index} className='truncate'>{element}</div>
+                      <div key={index} className={`${languages !== 'ko' && 'text-xs'} truncate`}>{element}</div>
                     )
                   })}
                 </StepLabel>
