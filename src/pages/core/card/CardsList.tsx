@@ -1,9 +1,13 @@
 import { useSelectors } from 'src/hooks'
 import Cards from 'src/pages/core/card/Cards'
 import { useTexts } from 'src/hooks'
+import { DocumentData } from 'firebase/firestore'
 
-interface 
-const CardsList = ({ choose, messages }) => {
+interface Props {
+  choose: number
+  messages: DocumentData[]
+}
+const CardsList = ({ choose, messages }: Props) => {
   const profile = useSelectors((state) => state.profile.value)
   const { empty, needNetworkConnection } = useTexts()
   const chosenMessages = messages
