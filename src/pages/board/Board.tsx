@@ -1,4 +1,3 @@
-import { User } from 'firebase/auth'
 import { collection, getDocs, orderBy, query } from 'firebase/firestore'
 import { Maximize2, Minimize2 } from 'lucide-react'
 import { useEffect, useState } from 'react'
@@ -14,7 +13,6 @@ import CardsList from '../core/card/CardsList'
 import Popups from '../core/Popups'
 import BoardList from './BoardList'
 import FilterDialogsContent from './FilterDialogs/FilterDialogsContent'
-import FilterDialogsTitle from './FilterDialogs/FilterDialogsTitle'
 import { DocumentData } from 'firebase/firestore';
 
 const items = {
