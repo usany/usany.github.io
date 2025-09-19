@@ -32,7 +32,7 @@ function LayoutBoard({ isBorrow }: Props) {
   ];
   const [mapAccordion, setMapAccordion] = useState(false)
   const mapAccordionToggle = () => setMapAccordion(!mapAccordion)
-  const { registeredMap, cardList, pleaseSignIn } = useTexts()
+  const { borrowing, registeredMap, cardList, pleaseSignIn } = useTexts()
   const dispatch = useDispatch()
   useEffect(() => {
     document.documentElement.scrollTo({
