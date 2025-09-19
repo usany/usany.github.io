@@ -409,11 +409,7 @@ function BoardMap({
             </div>
           </AccordionTrigger>
           <AccordionContent>
-            <div>
-              {/* <div className="p-5">
-                59.9156636,10.7507967 표시된 곳을 선택하면 해당하는 내용만
-                확인할 수 있어요
-              </div> */}
+            <>
               {selectedValues[1].value === '전체 장소' ? (
                 <div className="flex p-5">
                   {onLine && registeredMapExplanation[selection]}
@@ -426,7 +422,7 @@ function BoardMap({
                   />
                 </div>
               )}
-            </div>
+            </>
             <div className="w-full h-[300px]">
               {onLine ? (
                 <>
