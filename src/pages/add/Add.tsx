@@ -243,12 +243,7 @@ function Add({ borrow }: Props) {
         } else {
           location = locationState.locationOne
         }
-        let choose
-        if (borrow) {
-          choose = 1
-        } else {
-          choose = 2
-        }
+        const choose = borrow ? 1 : 2
         const user = doc(dbservice, `members/${profile?.uid}`)
         const getDocUser = await getDoc(user)
         const userCreatedCards = getDocUser.data()?.createdCards || []
