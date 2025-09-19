@@ -8,11 +8,9 @@ interface Props {
   messages: DocumentData[]
 }
 const CardsList = ({ choose, messages }: Props) => {
-  const profile = useSelectors((state) => state.profile.value)
   const { empty, needNetworkConnection } = useTexts()
   const chosenMessages = messages
     .map((message) => {
-      // const isOwner = message?.creatorId === profile?.uid
       if (message?.text.choose === choose && message?.round === 1) {
         return (
           <Cards
