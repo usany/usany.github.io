@@ -57,16 +57,16 @@ function FilterDialogsContent({ handleSelectedValues }: Props) {
 
   return (
     <div className="p-5">
-      {selectedValues.map((value) => {
+      {selectedValues.map((valueObject) => {
         return (
           <>
-            <div className="flex justify-center">{value.title}</div>
+            <div className="flex justify-center">{valueObject.title}</div>
             <Select
-              defaultValue={value.selectedValue}
+              defaultValue={valueObject.selectedValue}
               onValueChange={(newValue) =>
                 handleSelectedValues({
-                  id: value.id,
-                  newValue: newValue,
+                  id: valueObject.id,
+                  newValue: valueObject,
                 })
               }
             >
@@ -77,9 +77,9 @@ function FilterDialogsContent({ handleSelectedValues }: Props) {
               </SelectTrigger>
               <SelectContent className="bg-light-1 dark:bg-dark-1">
                 <SelectGroup>
-                  {value.options[selectedLanguage].map((value, index) => {
+                  {valueObject.options[selectedLanguage].map((value, index) => {
                     return (
-                      <SelectItem key={index} value={items['ko'][index]}>
+                      <SelectItem key={index} value={valueObject.options['ko'][index]}>
                         {value}
                       </SelectItem>
                     )
