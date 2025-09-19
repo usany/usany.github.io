@@ -19,7 +19,7 @@ interface Props {
 const Layout = ({ borrow }: Props) => {
   const dispatch = useDispatch()
   const languages = useSelectors((state) => state.languages.value)
-  const {borrowing, lending, register} = useTexts()
+  const {borrowing, lending, register, emptyCard} = useTexts()
   return (
     <div className='flex flex-col h-screen'>
       <PageTitle title={`${borrow ? borrowing : lending} ${register}`} />
@@ -33,14 +33,12 @@ const Layout = ({ borrow }: Props) => {
             }}
           >
             <CardContent sx={{ padding: '5px' }}>
-              <div>
-                <div className="flex justify-between gap-1">
-                  <Avatars
-                    profile={false}
-                  />
-                </div>
-                <div className="flex justify-center pt-5">빈 카드입니다</div>
+              <div className="flex justify-between gap-1">
+                <Avatars
+                  profile={false}
+                />
               </div>
+              <div className="flex justify-center pt-5">{emptyCard}</div>
             </CardContent>
           </Card>
           <div className="flex flex-col">
