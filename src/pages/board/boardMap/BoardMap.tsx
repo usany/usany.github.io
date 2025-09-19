@@ -11,7 +11,6 @@ import { useSearchParams } from 'react-router-dom'
 import { dbservice } from 'src/baseApi/serverbase'
 import { useSelectors, useTexts } from 'src/hooks'
 import locationsCollectionLetters from 'src/pages/add/locationsCollectionLetters'
-import FilterDialogs from 'src/pages/board/FilterDialogs/FilterDialogs'
 import FilterDialogsTrigger from '../FilterDialogs/FilterDialogsTrigger'
 
 interface Props {
