@@ -51,7 +51,6 @@ function Board() {
       value: '최신순',
     },
   ])
-  const [messageLoaded, setMessageLoaded] = useState(false)
   const navigate = useNavigate()
   const [searchParams, setSearchParams] = useSearchParams()
   const selectedSearchParams = [
@@ -192,7 +191,7 @@ function Board() {
         </div>
       </div>
       <SwipeableViews>
-        {messageLoaded && (
+        {messages.loaded && (
           <>
             <CardsList
               choose={1}
