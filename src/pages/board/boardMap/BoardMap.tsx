@@ -168,7 +168,7 @@ function BoardMap({
   const [onAccordion, setOnAccordion] = useState(false)
   const selectedValueTwo = searchParams.get('selectedValueTwo')
   const theme = useSelectors((state) => state.theme.value)
-  const {borrowing, lending, needNetworkConnection, registeredMap, registeredMapExplanation} = useTexts()
+  const {borrowing, lending, needNetworkConnection, registeredMap, registeredMapExplanation, itemOne, itemTwo} = useTexts()
   useEffect(() => {
     document.documentElement.scrollTo({
       top: 0,
