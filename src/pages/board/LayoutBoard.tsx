@@ -32,7 +32,7 @@ function LayoutBoard({ isBorrow }: Props) {
   ];
   const [mapAccordion, setMapAccordion] = useState(false)
   const mapAccordionToggle = () => setMapAccordion(!mapAccordion)
-  const languages = useSelector((state) => state.languages.value)
+  // const languages = useSelector((state) => state.languages.value)
   const { pleaseSignIn } = useTexts()
   const dispatch = useDispatch()
   useEffect(() => {
@@ -45,11 +45,12 @@ function LayoutBoard({ isBorrow }: Props) {
 
   return (
     <div className='flex flex-col h-screen'>
-      {isBorrow ?
-        <PageTitle title={`빌리기 카드 목록`} />
+      <PageTitle title={isBorrow ? `빌리기 카드 목록` : `빌려주기 카드 목록`} />
+      {/* {isBorrow ?
+        <PageTitle title={isBorrow ? `빌리기 카드 목록` : `빌려주기 카드 목록`} />
         :
         <PageTitle title={`빌려주기 카드 목록`} />
-      }
+      } */}
       <div className='blur-md'>
         <Accordion type="single" collapsible className="px-3" disabled>
           <AccordionItem value="item-1">
