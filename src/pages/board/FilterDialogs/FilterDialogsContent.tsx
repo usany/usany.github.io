@@ -39,19 +39,19 @@ function FilterDialogsContent({ handleSelectedValues }: Props) {
       id: 'selectedValueOne',
       title: itemsTitle,
       selectedValue: selectedValueOne,
-
+      options: items
     },
     {
       id: 'selectedValueTwo',
       title: locationsTitle,
-      selectedValue: selectedValueTwo
-
+      selectedValue: selectedValueTwo,
+      options: locations
     },
     {
       id: 'selectedValueThree',
       title: timeTitle,
-      selectedValue: selectedValueThree
-
+      selectedValue: selectedValueThree,
+      options: time
     }
   ]
 
@@ -77,7 +77,7 @@ function FilterDialogsContent({ handleSelectedValues }: Props) {
               </SelectTrigger>
               <SelectContent className="bg-light-1 dark:bg-dark-1">
                 <SelectGroup>
-                  {items[selectedLanguage].map((value, index) => {
+                  {value.options[selectedLanguage].map((value, index) => {
                     return (
                       <SelectItem key={index} value={items['ko'][index]}>
                         {value}
@@ -90,60 +90,7 @@ function FilterDialogsContent({ handleSelectedValues }: Props) {
           </>
         )
       })}
-      {/* <div className="flex justify-center">{locationsTitle[index]}</div>
-      <Select
-        defaultValue={selectedValueTwo || '전체 장소'}
-        onValueChange={(newValue) =>
-          handleSelectedValues({
-            id: 'selectedValueTwo',
-            newValue: newValue,
-          })
-        }
-      >
-        <SelectTrigger
-          className="bg-light-1 dark:bg-dark-1"
-        >
-          <SelectValue />
-        </SelectTrigger>
-        <SelectContent className="bg-light-1 dark:bg-dark-1">
-          <SelectGroup id="location">
-            {locations[index].map((value, index) => {
-              return (
-                <SelectItem key={index} value={locations['ko'][index]}>
-                  {value}
-                </SelectItem>
-              )
-            })}
-          </SelectGroup>
-        </SelectContent>
-      </Select>
-      <div className="flex justify-center">{timeTitle[index]}</div>
-      <Select
-        defaultValue={selectedValueThree || '최신순'}
-        onValueChange={(newValue) =>
-          handleSelectedValues({
-            id: 'selectedValueThree',
-            newValue: newValue,
-          })
-        }
-      >
-        <SelectTrigger
-          className="bg-light-1 dark:bg-dark-1"
-        >
-          <SelectValue />
-        </SelectTrigger>
-        <SelectContent className="bg-light-1 dark:bg-dark-1">
-          <SelectGroup>
-            {time[index].map((value, index) => {
-              return (
-                <SelectItem key={index} value={time['ko'][index]}>
-                  {value}
-                </SelectItem>
-              )
-            })}
-          </SelectGroup>
-        </SelectContent>
-      </Select> */}
+
     </div>
   )
 }
