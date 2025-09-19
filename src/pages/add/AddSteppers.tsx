@@ -62,7 +62,7 @@ function AddSteppers({ addSteps, borrow }: Props) {
             )
           })
         }
-        {languages === 'ko' ?
+        {/* {languages === 'ko' ?
           collection[[true, false].indexOf(borrow)].map((label, index) => {
             return (
               <Step key={index}>
@@ -90,7 +90,7 @@ function AddSteppers({ addSteps, borrow }: Props) {
               </Step>
             )
           })
-        }
+        } */}
       </Stepper>
     </div>
   )
