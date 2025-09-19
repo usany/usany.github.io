@@ -30,7 +30,13 @@ const time = {
 const options = [items.ko, locations.ko, time.ko]
 
 function Board() {
-  const [messages, setMessages] = useState<Array<DocumentData>>([])
+  const [messages, setMessages] = useState<{
+    loaded: boolean,
+    items:Array<DocumentData>
+  }>({
+      loaded: false,
+      items: [],
+    })
   const [selectedValues, setSelectedValues] = useImmer([
     {
       id: 'selectedValueOne',
@@ -104,12 +110,12 @@ function Board() {
         orderBy('creatorClock', order),
       )
       const docs = await getDocs(collectionQuery)
-      const newArray: DocumentData[] = []
+      const newArray = []
       docs.forEach((doc) => {
         newArray.push({ ...doc.data() })
       })
-      setMessages(newArray)
-      setMessageLoaded(true)
+      setMessages({loaded: true, items: newArray})
+      // setMessageLoaded(true)
     }
     if (profile) {
       bringMessages()
