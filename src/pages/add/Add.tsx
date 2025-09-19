@@ -236,13 +236,13 @@ function Add({ borrow }: Props) {
         } else if (fromTo.to.minute - fromTo.from.minute > 0) {
           calculatePoint = fromTo.to.minute - fromTo.from.minute
         }
-
-        let location
-        if (locationState.locationOne === '직접 입력') {
-          location = locationState.locationInput
-        } else {
-          location = locationState.locationOne
-        }
+        const location = locationState.locationOne === '직접 입력' ? locationState.locationInput : locationState.locationOne
+        // let location
+        // if (locationState.locationOne === '직접 입력') {
+        //   location = locationState.locationInput
+        // } else {
+        //   location = locationState.locationOne
+        // }
         const choose = borrow ? 1 : 2
         const user = doc(dbservice, `members/${profile?.uid}`)
         const getDocUser = await getDoc(user)
