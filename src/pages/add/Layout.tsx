@@ -18,7 +18,6 @@ interface Props {
 
 const Layout = ({ borrow }: Props) => {
   const dispatch = useDispatch()
-  const languages = useSelectors((state) => state.languages.value)
   const {borrowing, lending, register, emptyCard, itemsTitle, itemOne, itemTwo, pleaseSignIn} = useTexts()
   return (
     <div className='flex flex-col h-screen'>
