@@ -31,7 +31,7 @@ interface DisplayCard {
   id: string
 }
 interface Clock {
-  gmt: {}
+  gmt: object
   year: number
   month: number
   day: number
@@ -59,6 +59,7 @@ function Add({ borrow }: Props) {
   function changeAddSteps(newValue) {
     setAddSteps(newValue)
   }
+  console.log(fromTo)
   const [locationState, locationDispatch] = useReducer(
     (
       state: {
