@@ -10,7 +10,7 @@ import PageTitle from 'src/pages/core/pageTitle/PageTitle';
 import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice';
 import Avatars from '../core/Avatars';
 import AddSteppers from './AddSteppers';
-import { useSelectors } from 'src/hooks';
+import { useSelectors, useTexts } from 'src/hooks';
 
 interface Props {
   borrow: boolean;
@@ -19,10 +19,10 @@ interface Props {
 const Layout = ({ borrow }: Props) => {
   const dispatch = useDispatch()
   const languages = useSelectors((state) => state.languages.value)
-
+  const {borrowing, lending, register} = useTexts()
   return (
     <div className='flex flex-col h-screen'>
-      <PageTitle title={`${borrow ? `${languages === 'ko' ? '빌리기 ' : 'Borrowing '}` : `${languages === 'ko' ? '빌려주기 ' : 'Lending '}`} ${languages === 'ko' ? '카드 등록' : 'Card Registeration'}`} />
+      <PageTitle title={`${borrow ? borrowing : lending} ${register}`} />
       <div className="blur-md flex flex-col justify-around px-5">
         <AddSteppers addSteps={0} borrow={borrow} />
         <div className='flex justify-around'>
