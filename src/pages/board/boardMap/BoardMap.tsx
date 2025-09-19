@@ -411,7 +411,6 @@ function BoardMap({
                 <div
                   className='w-full h-[300px]'
                   ref={mapRef}
-                  // style={{ width: '100%', height: '500px' }}
                 ></div>
               ) : (
                 <div className="flex justify-center">
