@@ -33,7 +33,7 @@ function LayoutBoard({ isBorrow }: Props) {
   const [mapAccordion, setMapAccordion] = useState(false)
   const mapAccordionToggle = () => setMapAccordion(!mapAccordion)
   const languages = useSelector((state) => state.languages.value)
-  const {pleaseSignIn} = useTexts()
+  const { pleaseSignIn } = useTexts()
   const dispatch = useDispatch()
   useEffect(() => {
     document.documentElement.scrollTo({
@@ -71,7 +71,7 @@ function LayoutBoard({ isBorrow }: Props) {
           </div>
         </div>
       </div>
-      <Link to={'/'}>
+      <Link to='/'>
         <div className='flex fixed justify-center top-[30%] left-[10%] right-[10%]' onClick={() => dispatch(changeBottomNavigation(1))}>
           <div className='flex rounded bg-light-1 dark:bg-dark-1 w-1/2 p-5 justify-center shadow-md'>{pleaseSignIn}</div>
         </div>
