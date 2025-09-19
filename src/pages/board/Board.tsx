@@ -104,7 +104,7 @@ function Board() {
         orderBy('creatorClock', order),
       )
       const docs = await getDocs(collectionQuery)
-      const newArray = []
+      const newArray: DocumentData[] = []
       docs.forEach((doc) => {
         newArray.push({ ...doc.data() })
       })
