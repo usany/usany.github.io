@@ -194,11 +194,11 @@ function Board() {
           <>
             <CardsList
               choose={1}
-              messages={messages}
+              messages={messages.items}
             />
             <CardsList
               choose={2}
-              messages={messages}
+              messages={messages.items}
             />
           </>
         )}
