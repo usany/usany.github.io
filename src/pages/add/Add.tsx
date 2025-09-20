@@ -356,7 +356,7 @@ function Add({ borrow }: Props) {
             )}
           </div>
         :
-          <>
+          <div className='flex'>
             <div className='flex flex-col'>
               <AddStepOne borrow={borrow} item={item} changeItem={changeItem} />
               {addSteps > 0 && (
@@ -372,7 +372,7 @@ function Add({ borrow }: Props) {
             {addSteps > 1 && (
               <AddStepThree onChangeFrom={onChangeFrom} onChangeTo={onChangeTo} />
             )}
-          </>
+          </div>
         }
       </div>
       {addSteps === 2 && !enableRegister && fromTo.from && fromTo.to && (
