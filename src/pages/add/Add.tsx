@@ -118,7 +118,7 @@ function Add({ borrow }: Props) {
     setItem('')
   }, [tabs])
 
-  const changeItem = (event: PointerEvent) => {
+  const changeItem = (event: LocationEvent) => {
     const {
       target: { value },
     } = event
