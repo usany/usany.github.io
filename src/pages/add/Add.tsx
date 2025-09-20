@@ -216,18 +216,23 @@ function Add({ borrow }: Props) {
       } else if (fromTo.to.gmt.getTime() < Date.now()) {
         alert(pleaseCheckTime)
       } else {
-        let calculatePoint = 0
-        if (fromTo.to.year - fromTo.from.year > 0) {
-          calculatePoint = (fromTo.to.year - fromTo.from.year) * 366 * 24 * 60
-        } else if (fromTo.to.month - fromTo.from.month > 0) {
-          calculatePoint = (fromTo.to.month - fromTo.from.month) * 31 * 24 * 60
-        } else if (fromTo.to.day - fromTo.from.day > 0) {
-          calculatePoint = (fromTo.to.day - fromTo.from.day) * 24 * 60
-        } else if (fromTo.to.hour - fromTo.from.hour > 0) {
-          calculatePoint = (fromTo.to.hour - fromTo.from.hour) * 60
-        } else if (fromTo.to.minute - fromTo.from.minute > 0) {
-          calculatePoint = fromTo.to.minute - fromTo.from.minute
+        const calculating = () => {
+          if (fromTo.from && fromTo.to) {
+            if (fromTo.to.year - fromTo.from.year > 0) {
+              return (fromTo.to.year - fromTo.from.year) * 366 * 24 * 60
+            } else if (fromTo.to.month - fromTo.from.month > 0) {
+              return (fromTo.to.month - fromTo.from.month) * 31 * 24 * 60
+            } else if (fromTo.to.day - fromTo.from.day > 0) {
+              return (fromTo.to.day - fromTo.from.day) * 24 * 60
+            } else if (fromTo.to.hour - fromTo.from.hour > 0) {
+              return (fromTo.to.hour - fromTo.from.hour) * 60
+            } else if (fromTo.to.minute - fromTo.from.minute > 0) {
+              return fromTo.to.minute - fromTo.from.minute
+            }
+          }
+          return 0
         }
+        const calculatePoint = calculating()
         const location = locationState.locationOne === '직접 입력' ? locationState.locationInput : locationState.locationOne
         const choose = borrow ? 1 : 2
         const user = doc(dbservice, `members/${profile?.uid}`)
