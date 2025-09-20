@@ -127,11 +127,11 @@ function Add({ borrow }: Props) {
     setItem('')
   }, [tabs])
 
-  useEffect(() => {
-    if (addSteps === 3) {
-      setTimeout(() => setAddSteps(4), 5000)
-    }
-  })
+  // useEffect(() => {
+  //   if (addSteps === 3) {
+  //     setTimeout(() => setAddSteps(4), 5000)
+  //   }
+  // })
   useEffect(() => {
     if (fromTo?.from && fromTo?.to) {
       if (
@@ -140,6 +140,7 @@ function Add({ borrow }: Props) {
         fromTo.to.gmt >= Date.now()
       ) {
         setEnableRegister(true)
+        setAddSteps(3)
       } else {
         setEnableRegister(false)
       }
@@ -279,7 +280,7 @@ function Add({ borrow }: Props) {
           id: card.id,
           ...cardObject.data(),
         })
-        setAddSteps(3)
+        setAddSteps(4)
       }
     } else {
       alert('내용을 입력해 주세요')
@@ -297,7 +298,7 @@ function Add({ borrow }: Props) {
         minute: event.$m,
       },
     })
-    setAddSteps(2)
+    setAddSteps(3)
   }
   const onChangeTo = (event) => {
     setFromTo({
@@ -311,7 +312,7 @@ function Add({ borrow }: Props) {
         minute: event.$m,
       },
     })
-    setAddSteps(2)
+    setAddSteps(3)
   }
 
   return (
@@ -378,14 +379,14 @@ function Add({ borrow }: Props) {
       {addSteps === 2 && !enableRegister && fromTo.from && fromTo.to && (
         <div className="flex justify-center">{pleaseCheckTime}</div>
       )}
-      {addSteps === 2 && (
+      {addSteps === 3 && (
         <AddRegisterButton
           submit={submit}
           enableRegister={enableRegister}
         />
       )}
-      {addSteps > 2 && <AddStepFour />}
-      {addSteps === 3 && <AddSnackBar changeAddSteps={changeAddSteps} />}
+      {addSteps > 3 && <AddStepFour />}
+      {addSteps === 4 && <AddSnackBar changeAddSteps={changeAddSteps} />}
     </div>
   )
 }

@@ -22,7 +22,7 @@ const AddSnackBar = ({ changeAddSteps }: Props) => {
           size="small"
           aria-label="close"
           color="inherit"
-          onClick={() => changeAddSteps(4)}
+          // onClick={() => changeAddSteps(4)}
         >
           <CloseIcon fontSize="small" />
         </IconButton>
