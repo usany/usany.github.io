@@ -51,9 +51,8 @@ function Add({ borrow }: Props) {
   const [fromTo, setFromTo] = useState<FromTo>({ from: null, to: null })
   const [enableRegister, setEnableRegister] = useState(false)
   const matches = useMediaQuery('(min-width:850px)')
-  const languages = useSelectors((state) => state.languages.value)
   const profile = useSelectors((state) => state.profile.value)
-  const { pleaseCheckTime, borrowing, lending, card, register } = useTexts()
+  const { pleaseCheckTime, borrowing, lending, card, register, needAnInput } = useTexts()
   const navigate = useNavigate()
 
   function changeAddSteps(newValue) {
@@ -283,7 +282,7 @@ function Add({ borrow }: Props) {
         setAddSteps(4)
       }
     } else {
-      alert('내용을 입력해 주세요')
+      alert(needAnInput)
     }
   }
   const onChangeFrom = (event) => {
