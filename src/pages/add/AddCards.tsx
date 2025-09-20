@@ -11,13 +11,23 @@ import locationsBuildings from './locationsBuildings'
 import locationsCollection from './locationsCollection'
 import locationsCollectionLetters from './locationsCollectionLetters'
 import { DocumentData } from 'firebase/firestore'
+interface Clock {
+  gmt: {
+    getTime: () => number
+  }
+  year: number
+  month: number
+  day: number
+  hour: number
+  minute: number
+}
 
 interface Props {
   borrow: boolean
   item: string
   fromTo: {
-    from: object,
-    to: object
+    from: Clock | null,
+    to: Clock | null
   }
   locationState: object
   display: DocumentData
