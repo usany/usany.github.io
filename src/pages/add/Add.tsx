@@ -123,25 +123,26 @@ function Add({ borrow }: Props) {
     setItem('')
   }, [tabs])
 
-  useEffect(() => {
-    if (fromTo?.from && fromTo?.to) {
-      if (
-        fromTo.from.gmt.getTime() <= fromTo.to.gmt.getTime() &&
-        fromTo.from.gmt.getTime() >= Date.now() &&
-        fromTo.to.gmt.getTime() >= Date.now()
-      ) {
-        setAddSteps(3)
-      } else {
-        setAddSteps(2)
-      }
-    }
-  }, [fromTo])
+  // useEffect(() => {
+  //   if (fromTo?.from && fromTo?.to) {
+  //     if (
+  //       fromTo.from.gmt.getTime() <= fromTo.to.gmt.getTime() &&
+  //       fromTo.from.gmt.getTime() >= Date.now() &&
+  //       fromTo.to.gmt.getTime() >= Date.now()
+  //     ) {
+  //       setAddSteps(3)
+  //     } else {
+  //       setAddSteps(2)
+  //     }
+  //   }
+  // }, [fromTo])
   const changeItem = (event: PointerEvent) => {
     const {
       target: { value },
     } = event
     setItem(value)
-    locationDispatch({ type: 'changeItem', newState: null })
+    locationDispatch({ type: 'changeItem', newState: '' })
+    setFromTo({from: null, to: null})
     if (value) {
       setAddSteps(1)
     } else {
@@ -288,8 +289,10 @@ function Add({ borrow }: Props) {
         minute: event.$m,
       },
     })
-    if (fromTo.from.getTime() <= fromTo.to.getTime()) {
+    if (event.$d.getTime() <= fromTo.to?.gmt.getTime()) {
       setAddSteps(3)
+    } else {
+      setAddSteps(2)
     }
   }
   const onChangeTo = (event) => {
@@ -304,8 +307,10 @@ function Add({ borrow }: Props) {
         minute: event.$m,
       },
     })
-    if (fromTo.from.getTime() <= fromTo.to.getTime()) {
+    if (fromTo.from?.gmt.getTime() <= event.$d.getTime()) {
       setAddSteps(3)
+    } else {
+      setAddSteps(2)
     }
   }
 
