@@ -111,7 +111,7 @@ function Board() {
       const docs = await getDocs(collectionQuery)
       const newArray = []
       docs.forEach((doc) => {
-        newArray.push({ ...doc.data() })
+        newArray.push({ id: doc.id, ...doc.data() })
       })
       setMessages({loaded: true, items: newArray})
     }

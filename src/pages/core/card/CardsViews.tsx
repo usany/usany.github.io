@@ -31,6 +31,7 @@ const CardsViews = ({ message, onPulse, onTransfer }: Props) => {
     shadowColorArray[
     mergedArray.indexOf(String(id[0]).toUpperCase()) % shadowColorArray.length
     ]
+  console.log(message)
   return (
     <div>
       <Tilt>
