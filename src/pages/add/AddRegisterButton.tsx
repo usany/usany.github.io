@@ -4,10 +4,9 @@ import { useTexts } from 'src/hooks'
 
 interface Props {
   submit: (event: {}) => void
-  enableRegister: boolean
 }
 
-const AddRegisterButton = ({ submit, enableRegister }: Props) => {
+const AddRegisterButton = ({ submit }: Props) => {
   const { registerButton } = useTexts()
   const onLine = useSelectors((state) => state.onLine.value)
   const {pleaseSignIn} = useTexts()
