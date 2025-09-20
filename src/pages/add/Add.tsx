@@ -375,65 +375,6 @@ function Add({ borrow }: Props) {
           </>
         }
       </div>
-      {/* {matches ? (
-        <div className="flex justify-center">
-          <AddCards
-            borrow={borrow}
-            addSteps={addSteps}
-            item={item}
-            fromTo={fromTo}
-            locationState={locationState}
-            display={display}
-          />
-          <div className="flex flex-col w-[624px]">
-            <div className="flex">
-              <AddStepOne borrow={borrow} item={item} changeItem={changeItem} />
-              {addSteps > 0 && (
-                <AddStepTwo
-                  locationState={locationState}
-                  changeBuilding={changeBuilding}
-                  changeRoom={changeRoom}
-                  changeSeat={changeSeat}
-                  changeLocationInput={changeLocationInput}
-                />
-              )}
-            </div>
-            {addSteps > 1 && (
-              <AddStepThree
-                onChangeFrom={onChangeFrom}
-                onChangeTo={onChangeTo}
-              />
-            )}
-          </div>
-        </div>
-      ) : (
-        <div className="flex justify-center min-w-[400px]">
-          <AddCards
-            borrow={borrow}
-            addSteps={addSteps}
-            item={item}
-            fromTo={fromTo}
-            locationState={locationState}
-            display={display}
-          />
-          <>
-            <AddStepOne borrow={borrow} item={item} changeItem={changeItem} />
-            {addSteps > 0 && (
-              <AddStepTwo
-                locationState={locationState}
-                changeBuilding={changeBuilding}
-                changeRoom={changeRoom}
-                changeSeat={changeSeat}
-                changeLocationInput={changeLocationInput}
-              />
-            )}
-          </>
-        </div>
-      )}
-      {!matches && addSteps > 1 && (
-        <AddStepThree onChangeFrom={onChangeFrom} onChangeTo={onChangeTo} />
-      )} */}
-
       {addSteps === 2 && !enableRegister && fromTo.from && fromTo.to && (
         <div className="flex justify-center">{pleaseCheckTime}</div>
       )}
