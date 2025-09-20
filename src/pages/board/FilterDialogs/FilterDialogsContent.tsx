@@ -23,7 +23,7 @@ const time = {
 }
 interface Props {
   selectedValues: object
-  handleSelectedValues: (newValue: {id: string, value: string}) => void
+  handleSelectedValues: (object: {id: string, newValue: string}) => void
 }
 function FilterDialogsContent({ handleSelectedValues }: Props) {
   const languages = useSelectors((state) => state.languages.value)
