@@ -60,7 +60,7 @@ function Add({ borrow }: Props) {
         locationThree: string
         locationInput: string
       },
-      action: { type: string; newState: string | null },
+      action: { type: string; newState: string },
     ) => {
       if (action.type === 'changeBuilding') {
         return {
