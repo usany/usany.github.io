@@ -1,12 +1,21 @@
+import { useTexts } from 'src/hooks'
 import AddStepTitle from 'src/pages/add/AddStepTitle'
 
 const AddStepFour = () => {
-    const title = ['4. 등록 완료', '(등록 카드는 내 상태, 게시판에서 확인할 수 있습니다)']
-    return (
-        <div className='pb-52'>
-          <AddStepTitle title={title} />
+  const {registrationComplete, registrationCompleteExplanation} = useTexts()
+  const title = [`4. ${registrationComplete}`, `(${registrationCompleteExplanation})`]
+
+  return (
+      <div className='pb-52'>
+        <div className='flex flex-col text-base px-5 pt-5'>
+          {title.map((value) => {
+            return (
+              <div>{value}</div>
+            )
+          })}
         </div>
-    )
+      </div>
+  )
 }
 
 export default AddStepFour

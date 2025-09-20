@@ -384,7 +384,7 @@ function Add({ borrow }: Props) {
           enableRegister={enableRegister}
         />
       )}
-      {addSteps > 2 && <AddStepFour display={display} />}
+      {addSteps > 2 && <AddStepFour />}
       {addSteps === 3 && <AddSnackBar changeAddSteps={changeAddSteps} />}
     </div>
   )
