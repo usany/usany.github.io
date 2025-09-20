@@ -100,10 +100,7 @@ function Board() {
   }, [])
   useEffect(() => {
     const bringMessages = async () => {
-      let order = 'asc'
-      if (selectedValues[2].value === '최신순' || !selectedValues[2].value) {
-        order = 'desc'
-      }
+      const order =selectedValues[2].value === '최신순' || !selectedValues[2].value ? 'asc' : 'desc'
       const collectionQuery = query(
         collection(dbservice, 'num'),
         orderBy('creatorClock', order),
