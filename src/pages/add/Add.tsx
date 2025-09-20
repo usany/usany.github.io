@@ -183,7 +183,7 @@ function Add({ borrow }: Props) {
   }
 
   const submit = async (event: EventTarget) => {
-    // event.preventDefault()
+    event.preventDefault()
     if (
       (locationState.locationInput !== '' ||
         (locationState.locationOne !== '' &&
