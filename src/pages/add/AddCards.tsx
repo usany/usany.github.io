@@ -10,13 +10,14 @@ import { staticArray } from '../core/card/CardView'
 import locationsBuildings from './locationsBuildings'
 import locationsCollection from './locationsCollection'
 import locationsCollectionLetters from './locationsCollectionLetters'
+import { DocumentData } from 'firebase/firestore'
 
 interface Props {
   borrow: boolean
   item: string
   fromTo: object
   locationState: object
-  display: object
+  display: DocumentData
 }
 const AddCards = ({ borrow, item, fromTo, locationState, display }: Props) => {
   const profile = useSelectors((state) => state.profile.value)
