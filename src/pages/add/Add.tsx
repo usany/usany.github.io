@@ -64,10 +64,10 @@ function Add({ borrow }: Props) {
     ) => {
       if (action.type === 'changeBuilding') {
         return {
-          ...state,
           locationOne: action.newState,
           locationTwo: '',
           locationThree: '',
+          locationInput: ''
         }
       } else if (action.type === 'changeRoom') {
         return { ...state, locationTwo: action.newState, locationThree: '' }
