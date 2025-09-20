@@ -376,7 +376,6 @@ function Add({ borrow }: Props) {
       {addSteps === 3 && (
         <AddRegisterButton
           submit={submit}
-          enableRegister={enableRegister}
         />
       )}
       {addSteps > 3 && <AddStepFour />}
