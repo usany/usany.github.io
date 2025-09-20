@@ -356,22 +356,24 @@ function Add({ borrow }: Props) {
             )}
           </div>
         :
-          <div>
-            <AddStepOne borrow={borrow} item={item} changeItem={changeItem} />
-            {addSteps > 0 && (
-              <AddStepTwo
-                locationState={locationState}
-                changeBuilding={changeBuilding}
-                changeRoom={changeRoom}
-                changeSeat={changeSeat}
-                changeLocationInput={changeLocationInput}
-              />
+          <>
+            <div className='flex flex-col'>
+              <AddStepOne borrow={borrow} item={item} changeItem={changeItem} />
+              {addSteps > 0 && (
+                <AddStepTwo
+                  locationState={locationState}
+                  changeBuilding={changeBuilding}
+                  changeRoom={changeRoom}
+                  changeSeat={changeSeat}
+                  changeLocationInput={changeLocationInput}
+                />
+              )}
+            </div>
+            {addSteps > 1 && (
+              <AddStepThree onChangeFrom={onChangeFrom} onChangeTo={onChangeTo} />
             )}
-          </div>
+          </>
         }
-        {!matches && addSteps > 1 && (
-          <AddStepThree onChangeFrom={onChangeFrom} onChangeTo={onChangeTo} />
-        )}
       </div>
       {/* {matches ? (
         <div className="flex justify-center">
