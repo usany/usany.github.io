@@ -128,6 +128,8 @@ function Add({ borrow }: Props) {
         fromTo.to.gmt >= Date.now()
       ) {
         setAddSteps(3)
+      } else {
+        setAddSteps(2)
       }
     }
   }, [fromTo])
