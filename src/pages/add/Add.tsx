@@ -208,11 +208,11 @@ function Add({ borrow }: Props) {
       fromTo.from !== null &&
       fromTo.to !== null
     ) {
-      if (fromTo.from.gmt > fromTo.to.gmt) {
+      if (fromTo.from.gmt.getTime() > fromTo.to.gmt.getTime()) {
         alert(pleaseCheckTime)
-      } else if (fromTo.from.gmt < Date.now()) {
+      } else if (fromTo.from.gmt.getTime() < Date.now()) {
         alert(pleaseCheckTime)
-      } else if (fromTo.to.gmt < Date.now()) {
+      } else if (fromTo.to.gmt.getTime() < Date.now()) {
         alert(pleaseCheckTime)
       } else {
         let calculatePoint = 0
