@@ -47,7 +47,6 @@ function Add({ borrow }: Props) {
   const [item, setItem] = useState('')
   const tabs = useSelectors((state) => state.tabs.value)
   const [fromTo, setFromTo] = useState<FromTo>({ from: null, to: null })
-  const [enableRegister, setEnableRegister] = useState(false)
   const matches = useMediaQuery('(min-width:850px)')
   const profile = useSelectors((state) => state.profile.value)
   const { pleaseCheckTime, borrowing, lending, card, register, needAnInput } = useTexts()
@@ -121,11 +120,6 @@ function Add({ borrow }: Props) {
     setItem('')
   }, [tabs])
 
-  // useEffect(() => {
-  //   if (addSteps === 3) {
-  //     setTimeout(() => setAddSteps(4), 5000)
-  //   }
-  // })
   useEffect(() => {
     if (fromTo?.from && fromTo?.to) {
       if (
@@ -133,10 +127,8 @@ function Add({ borrow }: Props) {
         fromTo.from.gmt >= Date.now() &&
         fromTo.to.gmt >= Date.now()
       ) {
-        setEnableRegister(true)
         setAddSteps(3)
       } else {
-        setEnableRegister(false)
       }
     }
   }, [fromTo])
@@ -370,7 +362,7 @@ function Add({ borrow }: Props) {
           </div>
         }
       </div>
-      {addSteps === 2 && !enableRegister && fromTo.from && fromTo.to && (
+      {addSteps === 2 && fromTo.from && fromTo.to && (
         <div className="flex justify-center">{pleaseCheckTime}</div>
       )}
       {addSteps === 3 && (
