@@ -22,9 +22,7 @@ interface Props {
 interface LocationEvent extends EventTarget {
   target: { value: string }
 }
-// interface LocationEvents {
-//   target: { value: string }
-// }
+
 interface Clock {
   gmt: {
     getTime: () => number
