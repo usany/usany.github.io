@@ -22,7 +22,7 @@ const time = {
   en: ['Recent', 'Older'],
 }
 interface Props {
-  selectedValues: object
+  selectedValues: {id: string, value: string}[]
   handleSelectedValues: (object: {id: string, newValue: string}) => void
 }
 function FilterDialogsContent({ handleSelectedValues }: Props) {
