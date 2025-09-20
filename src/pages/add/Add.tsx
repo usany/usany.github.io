@@ -5,8 +5,6 @@ import { useEffect, useReducer, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { dbservice } from 'src/baseApi/serverbase'
 import { useSelectors } from 'src/hooks'
-// import { useSelector } from 'react-redux'
-// import TabsRootState from 'src/interfaces/TabsRootState'
 import AddCards from 'src/pages/add/AddCards'
 import AddRegisterButton from 'src/pages/add/AddRegisterButton'
 import AddSnackBar from 'src/pages/add/AddSnackBar'
@@ -55,9 +53,6 @@ function Add({ borrow }: Props) {
   const { pleaseCheckTime, borrowing, lending, card, register, needAnInput } = useTexts()
   const navigate = useNavigate()
 
-  function changeAddSteps(newValue) {
-    setAddSteps(newValue)
-  }
   const [locationState, locationDispatch] = useReducer(
     (
       state: {
