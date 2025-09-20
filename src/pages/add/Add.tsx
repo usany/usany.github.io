@@ -29,7 +29,9 @@ interface DisplayCard {
   id: string
 }
 interface Clock {
-  gmt: object
+  gmt: {
+    getTime: () => number
+  }
   year: number
   month: number
   day: number
@@ -43,7 +45,9 @@ interface FromTo {
 
 function Add({ borrow }: Props) {
   const [addSteps, setAddSteps] = useState(0)
-  const [display, setDisplay] = useState({})
+  const [display, setDisplay] = useState({
+    id: null,
+  })
   const [item, setItem] = useState('')
   const tabs = useSelectors((state) => state.tabs.value)
   const [fromTo, setFromTo] = useState<FromTo>({ from: null, to: null })
@@ -51,7 +55,6 @@ function Add({ borrow }: Props) {
   const profile = useSelectors((state) => state.profile.value)
   const { pleaseCheckTime, borrowing, lending, card, register, needAnInput } = useTexts()
   const navigate = useNavigate()
-
   const [locationState, locationDispatch] = useReducer(
     (
       state: {
@@ -123,9 +126,9 @@ function Add({ borrow }: Props) {
   useEffect(() => {
     if (fromTo?.from && fromTo?.to) {
       if (
-        fromTo.from.gmt <= fromTo.to.gmt &&
-        fromTo.from.gmt >= Date.now() &&
-        fromTo.to.gmt >= Date.now()
+        fromTo.from.gmt.getTime() <= fromTo.to.gmt.getTime() &&
+        fromTo.from.gmt.getTime() >= Date.now() &&
+        fromTo.to.gmt.getTime() >= Date.now()
       ) {
         setAddSteps(3)
       } else {

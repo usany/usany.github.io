@@ -15,7 +15,10 @@ import { DocumentData } from 'firebase/firestore'
 interface Props {
   borrow: boolean
   item: string
-  fromTo: object
+  fromTo: {
+    from: object,
+    to: object
+  }
   locationState: object
   display: DocumentData
 }
@@ -37,7 +40,7 @@ const AddCards = ({ borrow, item, fromTo, locationState, display }: Props) => {
   ]
   const alpha = Array.from(Array(26)).map((e, i) => i + 65)
   const letters = alpha.map((x) => String.fromCharCode(x))
-  const shadowColor = display ? shadowColorArray[
+  const shadowColor = display.id ? shadowColorArray[
         letters.indexOf(String(display.id[0]).toUpperCase()) %
           shadowColorArray.length
       ] : undefined
