@@ -182,8 +182,8 @@ function Add({ borrow }: Props) {
     setAddSteps(2)
   }
 
-  const submit = async (event) => {
-    event.preventDefault()
+  const submit = async (event: EventTarget) => {
+    // event.preventDefault()
     if (
       (locationState.locationInput !== '' ||
         (locationState.locationOne !== '' &&
@@ -276,7 +276,7 @@ function Add({ borrow }: Props) {
         minute: event.$m,
       },
     })
-    if (event.$d.getTime() <= fromTo.to?.gmt.getTime()) {
+    if (fromTo?.to && event.$d.getTime() <= fromTo.to?.gmt.getTime()) {
       setAddSteps(3)
     } else {
       setAddSteps(2)
@@ -294,7 +294,7 @@ function Add({ borrow }: Props) {
         minute: event.$m,
       },
     })
-    if (fromTo.from?.gmt.getTime() <= event.$d.getTime()) {
+    if (fromTo?.from && fromTo.from?.gmt.getTime() <= event.$d.getTime()) {
       setAddSteps(3)
     } else {
       setAddSteps(2)
