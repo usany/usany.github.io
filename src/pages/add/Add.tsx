@@ -198,7 +198,6 @@ function Add({ borrow }: Props) {
 
   const submit = async (event) => {
     event.preventDefault()
-    let calculatePoint = 0
     if (
       (locationState.locationInput !== '' ||
         (locationState.locationOne !== '' &&
@@ -213,6 +212,7 @@ function Add({ borrow }: Props) {
       } else if (fromTo.to.gmt < Date.now()) {
         alert(pleaseCheckTime)
       } else {
+        let calculatePoint = 0
         if (fromTo.to.year - fromTo.from.year > 0) {
           calculatePoint = (fromTo.to.year - fromTo.from.year) * 366 * 24 * 60
         } else if (fromTo.to.month - fromTo.from.month > 0) {
