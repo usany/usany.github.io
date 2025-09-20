@@ -319,7 +319,6 @@ function Add({ borrow }: Props) {
       <div className={`flex justify-center ${!matches && 'min-w-[400px]' }`}>
         <AddCards
           borrow={borrow}
-          addSteps={addSteps}
           item={item}
           fromTo={fromTo}
           locationState={locationState}
