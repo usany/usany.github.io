@@ -325,6 +325,54 @@ function Add({ borrow }: Props) {
         } ${card} ${register}`}
       />
       <AddSteppers addSteps={addSteps} borrow={borrow} />
+      <div className={`flex justify-center ${!matches && 'min-w-[400px]' }`}>
+        <AddCards
+          borrow={borrow}
+          addSteps={addSteps}
+          item={item}
+          fromTo={fromTo}
+          locationState={locationState}
+          display={display}
+        />
+        {matches ?
+          <div className="flex flex-col w-[624px]">
+            <div className="flex">
+              <AddStepOne borrow={borrow} item={item} changeItem={changeItem} />
+              {addSteps > 0 && (
+                <AddStepTwo
+                  locationState={locationState}
+                  changeBuilding={changeBuilding}
+                  changeRoom={changeRoom}
+                  changeSeat={changeSeat}
+                  changeLocationInput={changeLocationInput}
+                />
+              )}
+            </div>
+            {addSteps > 1 && (
+              <AddStepThree
+                onChangeFrom={onChangeFrom}
+                onChangeTo={onChangeTo}
+              />
+            )}
+          </div>
+        :
+          <>
+            <AddStepOne borrow={borrow} item={item} changeItem={changeItem} />
+            {addSteps > 0 && (
+              <AddStepTwo
+                locationState={locationState}
+                changeBuilding={changeBuilding}
+                changeRoom={changeRoom}
+                changeSeat={changeSeat}
+                changeLocationInput={changeLocationInput}
+              />
+            )}
+          </>
+        }
+        {!matches && addSteps > 1 && (
+          <AddStepThree onChangeFrom={onChangeFrom} onChangeTo={onChangeTo} />
+        )}
+      </div>
       {matches ? (
         <div className="flex justify-center">
           <AddCards
@@ -366,7 +414,7 @@ function Add({ borrow }: Props) {
             locationState={locationState}
             display={display}
           />
-          <div>
+          <>
             <AddStepOne borrow={borrow} item={item} changeItem={changeItem} />
             {addSteps > 0 && (
               <AddStepTwo
@@ -377,12 +425,13 @@ function Add({ borrow }: Props) {
                 changeLocationInput={changeLocationInput}
               />
             )}
-          </div>
+          </>
         </div>
       )}
       {!matches && addSteps > 1 && (
         <AddStepThree onChangeFrom={onChangeFrom} onChangeTo={onChangeTo} />
       )}
+
       {addSteps === 2 && !enableRegister && fromTo.from && fromTo.to && (
         <div className="flex justify-center">{pleaseCheckTime}</div>
       )}
