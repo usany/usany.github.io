@@ -22,12 +22,9 @@ interface Props {
 interface LocationEvent extends EventTarget {
   target: { value: string }
 }
-interface LocationEvents {
-  target: { value: string }
-}
-interface DisplayCard {
-  id: string
-}
+// interface LocationEvents {
+//   target: { value: string }
+// }
 interface Clock {
   gmt: {
     getTime: () => number
@@ -123,19 +120,6 @@ function Add({ borrow }: Props) {
     setItem('')
   }, [tabs])
 
-  // useEffect(() => {
-  //   if (fromTo?.from && fromTo?.to) {
-  //     if (
-  //       fromTo.from.gmt.getTime() <= fromTo.to.gmt.getTime() &&
-  //       fromTo.from.gmt.getTime() >= Date.now() &&
-  //       fromTo.to.gmt.getTime() >= Date.now()
-  //     ) {
-  //       setAddSteps(3)
-  //     } else {
-  //       setAddSteps(2)
-  //     }
-  //   }
-  // }, [fromTo])
   const changeItem = (event: PointerEvent) => {
     const {
       target: { value },
@@ -149,7 +133,7 @@ function Add({ borrow }: Props) {
       setAddSteps(0)
     }
   }
-  const changeLocationInput = (event: LocationEvents) => {
+  const changeLocationInput = (event: LocationEvent) => {
     // event.preventDefault()
     const {
       target: { value },
