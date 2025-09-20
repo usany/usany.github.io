@@ -51,9 +51,9 @@ const AddCards = ({ borrow, item, fromTo, locationState, display }: Props) => {
   const alpha = Array.from(Array(26)).map((e, i) => i + 65)
   const letters = alpha.map((x) => String.fromCharCode(x))
   const shadowColor = display.id ? shadowColorArray[
-        letters.indexOf(String(display.id[0]).toUpperCase()) %
-          shadowColorArray.length
-      ] : undefined
+    letters.indexOf(String(display.id[0]).toUpperCase()) %
+      shadowColorArray.length
+  ] : undefined
   const languages = useSelectors((state) => state.languages.value)
   const locationOne = locationState?.locationOne
   const staticImg = staticArray[locationOne] || staticArray['building']
@@ -99,7 +99,7 @@ const AddCards = ({ borrow, item, fromTo, locationState, display }: Props) => {
                 {languages === 'ko' ? '빈 카드입니다' : 'Empty card'}
               </div>
             ) : (
-              <div>
+              <>
                 {locationState.locationOne && (
                   <div className="flex justify-center pt-1">
                     <CardMedia
@@ -175,7 +175,7 @@ const AddCards = ({ borrow, item, fromTo, locationState, display }: Props) => {
                     </div>
                   )}
                 </div>
-              </div>
+              </>
             )}
           </CardContent>
         </Card>
