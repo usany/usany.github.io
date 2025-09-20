@@ -53,7 +53,7 @@ function Add({ borrow }: Props) {
   const matches = useMediaQuery('(min-width:850px)')
   const languages = useSelectors((state) => state.languages.value)
   const profile = useSelectors((state) => state.profile.value)
-  const { pleaseCheckTime } = useTexts()
+  const { pleaseCheckTime, borrowing, lending, card, register } = useTexts()
   const navigate = useNavigate()
 
   function changeAddSteps(newValue) {
@@ -320,13 +320,9 @@ function Add({ borrow }: Props) {
         icon={borrow ? <Minimize2 /> : <Maximize2 />}
         title={`${
           borrow
-            ? languages === 'ko'
-              ? '빌리기 '
-              : 'Borrowing '
-            : languages === 'ko'
-            ? '빌려주기 '
-            : 'Lending '
-        } ${languages === 'ko' ? '카드 등록' : 'Card Registeration'}`}
+            ? borrowing
+            : lending
+        } ${card} ${register}`}
       />
       <AddSteppers addSteps={addSteps} borrow={borrow} />
       {matches ? (
