@@ -3,7 +3,6 @@ import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
 import { Building, Watch } from 'lucide-react'
-import { useSelector } from 'react-redux'
 import { AnimatedList } from 'src/components/ui/animated-list'
 import { useSelectors } from 'src/hooks'
 import Avatars from 'src/pages/core/Avatars'
@@ -12,8 +11,15 @@ import locationsBuildings from './locationsBuildings'
 import locationsCollection from './locationsCollection'
 import locationsCollectionLetters from './locationsCollectionLetters'
 
-const AddCards = ({ borrow, item, fromTo, locationState, display }) => {
-  const profile = useSelector((state) => state.profile.value)
+interface Props {
+  borrow: boolean
+  item: string
+  fromTo: object
+  locationState: object
+  display: object
+}
+const AddCards = ({ borrow, item, fromTo, locationState, display }: Props) => {
+  const profile = useSelectors((state) => state.profile.value)
   const shadowColorArray = [
     'lightblue',
     'lightcoral',
