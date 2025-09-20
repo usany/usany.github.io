@@ -2,12 +2,16 @@ import { useSelectors } from 'src/hooks'
 import AddStepTitle from 'src/pages/add/AddStepTitle'
 import Selects from 'src/pages/add/Selects'
 
+interface LocationEvent extends EventTarget {
+  target: { value: string }
+}
+
 interface Props {
   locationState: { locationOne: string | null, locationTwo: string | null, locationThree: string | null, locationInput: string | null }
-  changeBuilding: (event: { preventDefault: () => void, target: { value: string } }) => void
-  changeRoom: (event: { preventDefault: () => void, target: { value: string } }) => void
-  changeSeat: (event: { preventDefault: () => void, target: { value: string } }) => void
-  changeLocationInput: (event: { preventDefault: () => void, target: { value: string } }) => void
+  changeBuilding: (event: LocationEvent) => void
+  changeRoom: (event: LocationEvent) => void
+  changeSeat: (event: LocationEvent) => void
+  changeLocationInput: (event: LocationEvent) => void
 }
 
 const AddStepTwo = ({ locationState, changeBuilding, changeRoom, changeSeat, changeLocationInput }: Props) => {
