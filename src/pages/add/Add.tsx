@@ -55,10 +55,10 @@ function Add({ borrow }: Props) {
   const [locationState, locationDispatch] = useReducer(
     (
       state: {
-        locationOne: string | null
-        locationTwo: string | null
-        locationThree: string | null
-        locationInput: string | null
+        locationOne: string
+        locationTwo: string
+        locationThree: string
+        locationInput: string
       },
       action: { type: string; newState: string | null },
     ) => {
