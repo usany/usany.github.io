@@ -288,7 +288,9 @@ function Add({ borrow }: Props) {
         minute: event.$m,
       },
     })
-    setAddSteps(3)
+    if (fromTo.from.getTime() <= fromTo.to.getTime()) {
+      setAddSteps(3)
+    }
   }
   const onChangeTo = (event) => {
     setFromTo({
@@ -302,7 +304,9 @@ function Add({ borrow }: Props) {
         minute: event.$m,
       },
     })
-    setAddSteps(3)
+    if (fromTo.from.getTime() <= fromTo.to.getTime()) {
+      setAddSteps(3)
+    }
   }
 
   return (
