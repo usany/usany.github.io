@@ -46,7 +46,7 @@ interface FromTo {
 function Add({ borrow }: Props) {
   const [addSteps, setAddSteps] = useState(0)
   const [display, setDisplay] = useState({
-    id: null,
+    id: '',
   })
   const [item, setItem] = useState('')
   const tabs = useSelectors((state) => state.tabs.value)
