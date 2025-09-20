@@ -386,7 +386,7 @@ function Add({ borrow }: Props) {
         />
       )}
       {addSteps > 3 && <AddStepFour />}
-      {addSteps === 4 && <AddSnackBar changeAddSteps={changeAddSteps} />}
+      {addSteps === 4 && <AddSnackBar />}
     </div>
   )
 }
