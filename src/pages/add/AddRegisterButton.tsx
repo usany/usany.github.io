@@ -4,11 +4,13 @@ import { useTexts } from 'src/hooks'
 
 interface Props {
   submit: (event: {}) => void
+  enableRegister: boolean
 }
 
 const AddRegisterButton = ({ submit, enableRegister }: Props) => {
   const { registerButton } = useTexts()
   const onLine = useSelectors((state) => state.onLine.value)
+  const {pleaseSignIn} = useTexts()
   return (
     <form className="flex justify-center pt-5" id="selection" onSubmit={submit}>
       {enableRegister &&
@@ -17,7 +19,7 @@ const AddRegisterButton = ({ submit, enableRegister }: Props) => {
             {registerButton}
           </Button>
         ) : (
-          <div>네트워크 연결이 필요합니다</div>
+          <>{pleaseSignIn}</>
         ))}
     </form>
   )
