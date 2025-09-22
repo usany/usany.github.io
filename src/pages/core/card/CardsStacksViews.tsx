@@ -20,8 +20,8 @@ const handleDelete = async ({
   changeLongPressCard,
 }: {
   id: string
-  profile: DocumentData
-  changeLongPressCard: (newValue: null) => void
+  profile: DocumentData | null | undefined
+  changeLongPressCard: (newValue: string) => void
 }) => {
   const data = doc(dbservice, `num/${id}`)
   const messageId = data.id
@@ -31,7 +31,7 @@ const handleDelete = async ({
   const newMessages = userSnap.data()?.createdCards.filter((element: string) => element !== id)
   updateDoc(userRef, { createdCards: newMessages })
   deleteMessage(messageId)
-  changeLongPressCard(null)
+  changeLongPressCard('')
 }
 
 const CardsStacksViews = ({
@@ -41,7 +41,7 @@ const CardsStacksViews = ({
 }) => {
   const [longPressCard, setLongPressCard] = useState('')
   const profile = useSelectors((state) => state.profile.value)
-  const changeLongPressCard = (newValue) => setLongPressCard(newValue)
+  const changeLongPressCard = (newValue: string) => setLongPressCard(newValue)
   return (
     <DndContext
       onDragEnd={(element) => {
