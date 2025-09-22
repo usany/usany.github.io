@@ -12,7 +12,6 @@ import Motions from 'src/pages/main/auth/Motions'
 import { useTexts } from 'src/hooks'
 import AuthPassword from './AuthPassword'
 import { changeProfile } from 'src/stateSlices/profileSlice'
-// import { changeUserCertificated } from 'src/stateSlices/userCertificatedSlice'
 
 function Auth() {
   const [numberString, setNumberString] = useState('')
@@ -30,6 +29,9 @@ function Auth() {
     sendMail,
     sendMailAgain,
     cancelRegistration,
+    confirmingMail,
+    signIn,
+    welcomeToKhusan
   } = useTexts()
   const handleNumberString = (newValue) => {
     setNumberString(newValue)
@@ -82,7 +84,7 @@ function Auth() {
       {profile ? (
         <div>
           <PageTitle
-            title={languages === 'ko' ? '메일 확인' : 'Confirming mail'}
+            title={confirmingMail}
           />
           <div className="flex flex-col gap-5 items-center">
             {mailSent ? (
@@ -120,11 +122,9 @@ function Auth() {
         </div>
       ) : (
         <div>
-          <PageTitle title={languages === 'ko' ? '로그인' : 'Sign in'} />
+          <PageTitle title={signIn} />
           <div className="flex justify-center p-5">
-            {languages === 'ko'
-              ? '반갑습니다. 캠퍼스 우산 공유 서비스 쿠우산입니다.'
-              : 'Welcome. This is usan sharing service khusan'}
+            {welcomeToKhusan}
           </div>
           <AuthForm signIn={true} agreed={true} />
           <AuthButtons />
