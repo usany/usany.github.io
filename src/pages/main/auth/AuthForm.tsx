@@ -22,7 +22,7 @@ const AuthForm = ({ signIn, agreed }: Props) => {
   const [error, setError] = useState('')
   const dispatch = useDispatch()
   const languages = useSelectors((state) => state.languages.value)
-  const { needToAgreeOnPrivateInformationPolicy, needNetworkConnection, mail, password } = useTexts()
+  const { needToAgreeOnPrivateInformationPolicy, needNetworkConnection, mail, password, logIn, newAccount } = useTexts()
   const onLine = useSelectors((state) => state.onLine.value)
   const onSubmitSignIn = async (event) => {
     event.preventDefault()
@@ -140,12 +140,8 @@ const AuthForm = ({ signIn, agreed }: Props) => {
                 type="submit"
               >
                 {signIn
-                  ? languages === 'ko'
-                    ? '로그인'
-                    : 'Sign in'
-                  : languages === 'ko'
-                    ? '회원가입'
-                    : 'Register'}
+                  ? logIn
+                  : newAccount}
               </Button>
             }
             {!signIn && !agreed && (
