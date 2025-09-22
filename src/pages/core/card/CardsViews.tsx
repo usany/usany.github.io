@@ -2,6 +2,7 @@ import { User } from 'firebase/auth'
 import Tilt from 'react-parallax-tilt'
 import { PulsatingButton } from 'src/components/ui/pulsating-button'
 import CardView from './CardView'
+import { DocumentData } from 'firebase/firestore'
 
 interface Props {
   message: { id: string; text: object }
@@ -24,8 +25,12 @@ const alpha = Array.from(Array(26)).map((e, i) => i + 65)
 const letters = alpha.map((x) => String.fromCharCode(x))
 const numbers = Array.from({ length: 10 }, (e, i) => `${i}`)
 const mergedArray = letters.concat(numbers)
-
-const CardsViews = ({ message, onPulse = null, onTransfer = null }: Props) => {
+interface Props {
+  message: DocumentData
+  onPulse?: boolean
+  onTransfer?: boolean
+}
+const CardsViews = ({ message, onPulse, onTransfer }: Props) => {
   const id = message?.id || ''
   const shadowColor =
     shadowColorArray[
@@ -37,7 +42,7 @@ const CardsViews = ({ message, onPulse = null, onTransfer = null }: Props) => {
         {onPulse ? (
           <PulsatingButton pulseColor={shadowColor}>
             <CardView
-              onTransfer={null}
+              onTransfer={false}
               message={message}
               shadowColor={shadowColor}
             />
