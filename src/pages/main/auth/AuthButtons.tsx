@@ -34,56 +34,25 @@ const AuthButtons = () => {
   ]
   return (
     <div className="flex justify-center">
-      <div className="flex flex-col items-center justify-center w-[250px]">
-        <div className="flex flex-col">
-          {buttons.map((value) => {
-            return (
-              <Button
-                className="colorTwo"
-                startIcon={value.image}
-                variant="outlined"
-                onClick={() => {
-                  if (onLine) {
-                    value.onClick
-                  } else {
-                    alert(needNetworkConnection)
-                  }
-                }}
-              >
-                {value.text}
-              </Button>
-            )
-          })}
-          {/* <Button
-            className="colorTwo"
-            startIcon={<img src={staticGoogle} className="w-[20px]" />}
-            variant="outlined"
-            name="g"
-            onClick={() => {
-              if (onLine) {
-                onSocialClickGoogle()
-              } else {
-                alert(needNetworkConnection)
-              }
-            }}
-          >
-            {continueWithGoogle}
-          </Button>
-          <Button
-            className="colorTwo"
-            variant="outlined"
-            name="h"
-            onClick={() => {
-              if (onLine) {
-                onSocialClickApple()
-              } else {
-                alert(needNetworkConnection)
-              }
-            }}
-          >
-            {comingSoonWithApple}
-          </Button> */}
-        </div>
+      <div className="flex flex-col">
+        {buttons.map((value) => {
+          return (
+            <Button
+              className="colorTwo"
+              startIcon={value.image}
+              variant="outlined"
+              onClick={() => {
+                if (onLine) {
+                  value.onClick
+                } else {
+                  alert(needNetworkConnection)
+                }
+              }}
+            >
+              {value.text}
+            </Button>
+          )
+        })}
       </div>
     </div>
   )
