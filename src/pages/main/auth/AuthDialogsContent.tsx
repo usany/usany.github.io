@@ -9,7 +9,6 @@ function AuthDialogsContent() {
     setAgreed(!agreed)
   }
   const theme = useSelectors((state) => state.theme.value);
-  const languages = useSelectors((state) => state.languages.value)
   const {onlyTakesOneMinuteToRegisterAccount, playlistReadyForYouToGetRidOfBoredom} = useTexts()
   return (
     <div>
