@@ -20,6 +20,7 @@ const handleDelete = async ({
   changeLongPressCard,
 }: {
   id: string
+  profile: DocumentData
   changeLongPressCard: (newValue: null) => void
 }) => {
   const data = doc(dbservice, `num/${id}`)
