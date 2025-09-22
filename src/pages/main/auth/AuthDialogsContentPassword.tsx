@@ -9,7 +9,7 @@ function AuthDialogsContentPassword() {
   const [email, setEmail] = useState('')
   const [status, setStatus] = useState('')
   const languages = useSelectors((state) => state.languages.value)
-  const {needNetworkConnection, weWillSendYouAPasswordResetMail, mail, sendMail} = useTexts()
+  const {needNetworkConnection, weWillSendYouAPasswordResetMail, mail, sendMail, sentAConfirmingMail, failed} = useTexts()
   const onChange = (event) => {
     const {
       target: { value },
@@ -68,12 +68,12 @@ function AuthDialogsContentPassword() {
             </Button>
             {status === 'sent' && (
               <div className="flex pt-5">
-                {languages === 'ko' ? '메일을 보냈습니다.' : 'Sent mail.'}
+                {sentAConfirmingMail}
               </div>
             )}
             {status === 'error' && (
               <div className="flex pt-5">
-                {languages === 'ko' ? '전송에 실패했습니다.' : 'Failed sending'}
+                {failed}
               </div>
             )}
           </div>
