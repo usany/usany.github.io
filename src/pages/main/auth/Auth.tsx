@@ -102,7 +102,6 @@ function Auth() {
           )}
           {mailSent && (
             <AuthPassword
-              profile={profile}
               numberString={numberString}
               handleNumberString={handleNumberString}
             />

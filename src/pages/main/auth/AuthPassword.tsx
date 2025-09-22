@@ -1,7 +1,11 @@
 import { REGEXP_ONLY_DIGITS } from 'input-otp';
 import { InputOTP, InputOTPGroup, InputOTPSlot } from 'src/components/ui/input-otp';
 
-function AuthPassword({ numberString, handleNumberString }) {
+interface Props {
+  numberString: string
+  handleNumberString: (newValue: string) => void
+}
+function AuthPassword({ numberString, handleNumberString }: Props) {
   return (
     <>
       <InputOTP maxLength={6} pattern={REGEXP_ONLY_DIGITS} onChange={(newValue) => handleNumberString(newValue)} value={numberString}>
