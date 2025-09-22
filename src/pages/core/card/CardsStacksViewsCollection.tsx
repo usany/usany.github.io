@@ -15,8 +15,8 @@ const CardsStacksViewsCollection = ({
   changeLongPressCard
 }: {
   messages: { round: number; creatorId: string }[]
-  longPressed: boolean
-  changeLongPressed: (newValue: boolean) => void
+  longPressCard: string
+  changeLongPressCard: (newValue: string) => void
 }) => {
   const [delayed, setDelayed] = useState(true)
   const delayedTrue = () => setDelayed(true)
