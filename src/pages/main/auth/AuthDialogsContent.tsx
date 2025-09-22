@@ -20,7 +20,6 @@ function AuthDialogsContent() {
   const changeAgreed = () => {
     setAgreed(!agreed)
   }
-  const theme = useSelectors((state) => state.theme.value);
   const {onlyTakesOneMinuteToRegisterAccount, playlistReadyForYouToGetRidOfBoredom} = useTexts()
   return (
     <div>
