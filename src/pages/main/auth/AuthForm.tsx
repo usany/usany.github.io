@@ -22,7 +22,7 @@ const AuthForm = ({ signIn, agreed }: Props) => {
   const [error, setError] = useState('')
   const dispatch = useDispatch()
   const languages = useSelectors((state) => state.languages.value)
-  const { needToAgreeOnPrivateInformationPolicy, needNetworkConnection } = useTexts()
+  const { needToAgreeOnPrivateInformationPolicy, needNetworkConnection, mail, password } = useTexts()
   const onLine = useSelectors((state) => state.onLine.value)
   const onSubmitSignIn = async (event) => {
     event.preventDefault()
@@ -109,7 +109,7 @@ const AuthForm = ({ signIn, agreed }: Props) => {
         >
           <div className="flex justify-center px-3">
             <TextField
-              label={languages === 'ko' ? '이메일' : 'email'}
+              label={mail}
               value={account.email}
               onChange={onChange}
               variant="outlined"
@@ -121,7 +121,7 @@ const AuthForm = ({ signIn, agreed }: Props) => {
           </div>
           <div className="flex justify-center px-3">
             <TextField
-              label={languages === 'ko' ? '비밀번호' : 'password'}
+              label={password}
               value={account.password}
               onChange={onChange}
               variant="outlined"
