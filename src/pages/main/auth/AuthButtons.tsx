@@ -11,7 +11,7 @@ import { useSelectors, useTexts } from 'src/hooks'
 
 const AuthButtons = () => {
   const onLine = useSelectors((state) => state.onLine.value)
-  const {needNetworkConnection} = useTexts()
+  const {needNetworkConnection, continueWithMicrosoft, comingSoonWithApple, continueWithApple} = useTexts()
   return (
     <div className="flex justify-center">
       <div className="flex flex-col items-center justify-center w-[250px]">
@@ -28,7 +28,7 @@ const AuthButtons = () => {
               }
             }}
           >
-            마이크로소프트 로그인
+            {continueWithMicrosoft}
           </Button>
           <Button
             className="colorTwo"
@@ -43,7 +43,7 @@ const AuthButtons = () => {
               }
             }}
           >
-            구글 로그인
+            {continueWithGoogle}
           </Button>
           <Button
             className="colorTwo"
@@ -57,7 +57,7 @@ const AuthButtons = () => {
               }
             }}
           >
-            곧 애플로 뵐게요
+            {comingSoonWithApple}
           </Button>
         </div>
       </div>
