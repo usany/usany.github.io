@@ -8,7 +8,6 @@ import { useSelectors, useTexts } from 'src/hooks'
 function AuthDialogsContentPassword() {
   const [email, setEmail] = useState('')
   const [status, setStatus] = useState('')
-  const languages = useSelectors((state) => state.languages.value)
   const {needNetworkConnection, weWillSendYouAPasswordResetMail, mail, sendMail, sentAConfirmingMail, failed} = useTexts()
   const onChange = (event) => {
     const {
@@ -44,7 +43,7 @@ function AuthDialogsContentPassword() {
         <div className="flex p-3">
           {weWillSendYouAPasswordResetMail}
         </div>
-        <form id={'password'} className="pt-3" onSubmit={passwordEmail}>
+        <form id='password' className="pt-3" onSubmit={passwordEmail}>
           <div className="flex justify-center px-3">
             <TextField
               label={mail}
