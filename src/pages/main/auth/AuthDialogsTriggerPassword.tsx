@@ -8,7 +8,7 @@ function AuthDialogsTriggerPassword({findingPassword}) {
     <>
       {/* <div className="flex justify-center text-xs p-5">
         <Divider sx={{ width: "15%", padding: "5px" }} /> */}
-      <div>{languages === 'ko' ? '비밀번호 찾기' : 'Find Password'}</div>
+      {/* <div>{languages === 'ko' ? '비밀번호 찾기' : 'Find Password'}</div> */}
       {/* <Divider sx={{ width: "15%", padding: "5px" }} />
       </div> */}
     </>
