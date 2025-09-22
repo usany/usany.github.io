@@ -11,7 +11,7 @@ import { useSelectors, useTexts } from 'src/hooks'
 
 const AuthButtons = () => {
   const onLine = useSelectors((state) => state.onLine.value)
-  const {needNetworkConnection, continueWithMicrosoft, comingSoonWithApple, continueWithApple} = useTexts()
+  const {needNetworkConnection, continueWithMicrosoft, continueWithGoogle, comingSoonWithApple} = useTexts()
   return (
     <div className="flex justify-center">
       <div className="flex flex-col items-center justify-center w-[250px]">
