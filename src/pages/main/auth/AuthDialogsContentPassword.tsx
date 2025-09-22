@@ -9,7 +9,7 @@ function AuthDialogsContentPassword() {
   const [email, setEmail] = useState('')
   const [status, setStatus] = useState('')
   const languages = useSelectors((state) => state.languages.value)
-  const {needNetworkConnection} = useTexts()
+  const {needNetworkConnection, weWillSendYouAPasswordResetMail} = useTexts()
   const onChange = (event) => {
     const {
       target: { value },
@@ -42,11 +42,7 @@ function AuthDialogsContentPassword() {
     <div className="flex justify-center p-5">
       <div className="flex flex-col border border-solid w-[470px] rounded-lg pt-5">
         <div className="flex p-3">
-          {languages === 'ko' ? (
-            <div>비밀번호 재설정 메일을 보내드릴게요</div>
-          ) : (
-            <div>We will send you a password reset email</div>
-          )}
+          {weWillSendYouAPasswordResetMail}
         </div>
         <form id={'password'} className="pt-3" onSubmit={passwordEmail}>
           <div className="flex justify-center px-3">
