@@ -12,25 +12,49 @@ import { useSelectors, useTexts } from 'src/hooks'
 const AuthButtons = () => {
   const onLine = useSelectors((state) => state.onLine.value)
   const {needNetworkConnection, continueWithMicrosoft, continueWithGoogle, comingSoonWithApple} = useTexts()
+  const buttons = [
+    {
+      id: 'continueWithMicrosoft',
+      image: <img src={staticMicrosoft} className="w-[20px]" />,
+      onClick: () => onSocialClickMicrosoft(),
+      text:continueWithMicrosoft
+    },
+    {
+      id: 'continueWithGoogle',
+      image: <img src={staticGoogle} className="w-[20px]" />,
+      onClick: () => onSocialClickGoogle(),
+      text:continueWithGoogle
+    },
+    {
+      id: 'continueWithApple',
+      image: <img src={staticGoogle} className="w-[20px]" />,
+      onClick: () => onSocialClickApple(),
+      text: comingSoonWithApple
+    },
+  ]
   return (
     <div className="flex justify-center">
       <div className="flex flex-col items-center justify-center w-[250px]">
         <div className="flex flex-col">
-          <Button
-            className="colorTwo"
-            startIcon={<img src={staticMicrosoft} className="w-[20px]" />}
-            variant="outlined"
-            onClick={() => {
-              if (onLine) {
-                onSocialClickMicrosoft()
-              } else {
-                alert(needNetworkConnection)
-              }
-            }}
-          >
-            {continueWithMicrosoft}
-          </Button>
-          <Button
+          {buttons.map((value) => {
+            return (
+              <Button
+                className="colorTwo"
+                startIcon={value.image}
+                variant="outlined"
+                onClick={() => {
+                  if (onLine) {
+                    value.onClick
+                  } else {
+                    alert(needNetworkConnection)
+                  }
+                }}
+              >
+                {value.text}
+              </Button>
+            )
+          })}
+          {/* <Button
             className="colorTwo"
             startIcon={<img src={staticGoogle} className="w-[20px]" />}
             variant="outlined"
@@ -58,7 +82,7 @@ const AuthButtons = () => {
             }}
           >
             {comingSoonWithApple}
-          </Button>
+          </Button> */}
         </div>
       </div>
     </div>
