@@ -81,12 +81,15 @@ function Auth() {
     }
   }
   return (
-    <div>
+    <>
+      <PageTitle
+        title={profile ? confirmingMail : signIn}
+      />
       {profile ? (
         <>
-          <PageTitle
+          {/* <PageTitle
             title={confirmingMail}
-          />
+          /> */}
           <div className="flex flex-col gap-5 items-center">
             {mailSent ? (
               <div>
@@ -123,7 +126,7 @@ function Auth() {
         </>
       ) : (
         <>
-          <PageTitle title={signIn} />
+          {/* <PageTitle title={signIn} /> */}
           <div className="flex justify-center p-5">
             {welcomeToKhusan}
           </div>
@@ -135,7 +138,7 @@ function Auth() {
           <Motions />
         </>
       )}
-    </div>
+    </>
   )
 }
 
