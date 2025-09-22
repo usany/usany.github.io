@@ -7,10 +7,11 @@ import {
   onSocialClickGoogle,
   onSocialClickMicrosoft,
 } from 'src/baseApi/serverbase'
-import { useSelectors } from 'src/hooks'
+import { useSelectors, useTexts } from 'src/hooks'
 
 const AuthButtons = () => {
   const onLine = useSelectors((state) => state.onLine.value)
+  const {needNetworkConnection} = useTexts()
   return (
     <div className="flex justify-center">
       <div className="flex flex-col items-center justify-center w-[250px]">
@@ -23,7 +24,7 @@ const AuthButtons = () => {
               if (onLine) {
                 onSocialClickMicrosoft()
               } else {
-                alert('네트워크 연결이 필요합니다')
+                alert(needNetworkConnection)
               }
             }}
           >
@@ -38,7 +39,7 @@ const AuthButtons = () => {
               if (onLine) {
                 onSocialClickGoogle()
               } else {
-                alert('네트워크 연결이 필요합니다')
+                alert(needNetworkConnection)
               }
             }}
           >
@@ -48,7 +49,13 @@ const AuthButtons = () => {
             className="colorTwo"
             variant="outlined"
             name="h"
-            onClick={onSocialClickApple}
+            onClick={() => {
+              if (onLine) {
+                onSocialClickApple()
+              } else {
+                alert(needNetworkConnection)
+              }
+            }}
           >
             곧 애플로 뵐게요
           </Button>
