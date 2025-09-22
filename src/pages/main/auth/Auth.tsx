@@ -31,7 +31,8 @@ function Auth() {
     cancelRegistration,
     confirmingMail,
     signIn,
-    welcomeToKhusan
+    welcomeToKhusan,
+    playlistReadyForYouToGetRidOfBoredom
   } = useTexts()
   const handleNumberString = (newValue) => {
     setNumberString(newValue)
@@ -129,9 +130,7 @@ function Auth() {
           <AuthForm signIn={true} agreed={true} />
           <AuthButtons />
           <div className="flex justify-center pt-5 px-5">
-            {languages === 'ko'
-              ? '날씨 플레이리스트도 준비되어 있어요.'
-              : 'Weather playlist is also available for you.'}
+            {playlistReadyForYouToGetRidOfBoredom}
           </div>
           <Motions />
         </div>
