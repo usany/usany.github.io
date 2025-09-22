@@ -19,7 +19,7 @@ export const staticArray = {
   'building': staticImgs
 }
 const CardView = ({ onTransfer, message, shadowColor }) => {
-  const { color } = useCardsBackground()
+  const { colorTwo } = useCardsBackground()
   const staticImg = staticArray[message.text.count] || staticArray['building']
   return (
     <div className="flex flex-col gap-5">
@@ -30,7 +30,7 @@ const CardView = ({ onTransfer, message, shadowColor }) => {
           width: 200 * 0.9,
           height: 280 * 0.9,
           boxShadow: `1.5px 1.5px 1.5px 1.5px ${shadowColor}`,
-          bgcolor: color,
+          bgcolor: colorTwo,
         }}
       >
         <CardContent
