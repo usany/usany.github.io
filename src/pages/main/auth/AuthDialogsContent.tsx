@@ -18,23 +18,13 @@ function AuthDialogsContent() {
             {playlistReadyForYouToGetRidOfBoredom}
       </div>
       <div className="flex justify-center pt-3">
-        {theme === "light" ? (
-          <iframe
-            src={import.meta.env.VITE_SPOTIFY_URL}
-            width="90%"
-            height="200"
-            allow="autoplay; clipboard-write; fullscreen; picture-in-picture"
-            loading="lazy"
-          />
-        ) : (
-          <iframe
-            src={import.meta.env.VITE_SPOTIFY_URL+'&theme=0'}
-            width="90%"
-            height="200"
-            allow="autoplay; clipboard-write; fullscreen; picture-in-picture"
-            loading="lazy"
-          />
-        )}
+        <iframe
+          src={import.meta.env.VITE_SPOTIFY_URL+`${theme !== 'light' ? '&theme=0' : ''}`}
+          width="90%"
+          height="200"
+          allow="autoplay; clipboard-write; fullscreen; picture-in-picture"
+          loading="lazy"
+        />
       </div>
       <AuthForm signIn={false} agreed={agreed} />
     </div>
