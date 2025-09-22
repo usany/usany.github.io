@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useSelectors } from "src/hooks";
+import { useSelectors, useTexts } from "src/hooks";
 import AuthForm from "src/pages/main/auth/AuthForm";
 import AuthMethods from "./AuthMethods";
 
@@ -10,22 +10,13 @@ function AuthDialogsContent() {
   }
   const theme = useSelectors((state) => state.theme.value);
   const languages = useSelectors((state) => state.languages.value)
-  const
+  const {onlyTakesOneMinuteToRegisterAccount, playlistReadyForYouToGetRidOfBoredom} = useTexts()
   return (
     <div>
       <AuthMethods agreed={agreed} changeAgreed={changeAgreed} />
-      <div className="p-3">
-        {languages === 'ko' ?
-          <div>
-            <div>1분이면 계정을 만들 수 있어요</div>
-            <div>지루하지 않게 노래도 준비했어요</div>
-          </div>
-          :
-          <div>
-            <div>Only takes 1minute to register account</div>
-            <div>Playlist ready for you to get rid of boredom</div>
-          </div>
-        }
+      <div className="flex flex-col p-3">
+        {onlyTakesOneMinuteToRegisterAccount}
+            {playlistReadyForYouToGetRidOfBoredom}
       </div>
       <div className="flex justify-center pt-3">
         {theme === "light" ? (
