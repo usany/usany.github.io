@@ -86,47 +86,41 @@ function Auth() {
         title={profile ? confirmingMail : signIn}
       />
       {profile ? (
-        <>
-          {/* <PageTitle
-            title={confirmingMail}
-          /> */}
-          <div className="flex flex-col gap-5 items-center">
-            {mailSent ? (
-              <div>
-                {languages === 'en' && sentAConfirmingMail} {profile.email}
-                {languages === 'ko' && sentAConfirmingMail}. {inputTheNumber}.
-              </div>
-            ) : (
-              <div>
-                {languages === 'en' && weWillSendYouAConfirmingMailTo}{' '}
-                {profile.email}
-                {languages === 'ko' && weWillSendYouAConfirmingMailTo}.{' '}
-                {checkTheNumber}.
-              </div>
-            )}
-            {mailSent && (
-              <AuthPassword
-                profile={profile}
-                numberString={numberString}
-                handleNumberString={handleNumberString}
-              />
-            )}
-            <div className="flex gap-5">
-              {numberString.length === 6 && (
-                <Button onClick={confirmNumber}>{confirm}</Button>
-              )}
-              <Button onClick={sendNumberMail}>
-                {mailSent ? sendMailAgain : sendMail}
-              </Button>
+        <div className="flex flex-col gap-5 items-center">
+          {mailSent ? (
+            <div>
+              {languages === 'en' && sentAConfirmingMail} {profile.email}
+              {languages === 'ko' && sentAConfirmingMail}. {inputTheNumber}.
             </div>
-            <Button onClick={cancelUserRegistration}>
-              {cancelRegistration}
+          ) : (
+            <div>
+              {languages === 'en' && weWillSendYouAConfirmingMailTo}{' '}
+              {profile.email}
+              {languages === 'ko' && weWillSendYouAConfirmingMailTo}.{' '}
+              {checkTheNumber}.
+            </div>
+          )}
+          {mailSent && (
+            <AuthPassword
+              profile={profile}
+              numberString={numberString}
+              handleNumberString={handleNumberString}
+            />
+          )}
+          <div className="flex gap-5">
+            {numberString.length === 6 && (
+              <Button onClick={confirmNumber}>{confirm}</Button>
+            )}
+            <Button onClick={sendNumberMail}>
+              {mailSent ? sendMailAgain : sendMail}
             </Button>
           </div>
-        </>
+          <Button onClick={cancelUserRegistration}>
+            {cancelRegistration}
+          </Button>
+        </div>
       ) : (
         <>
-          {/* <PageTitle title={signIn} /> */}
           <div className="flex justify-center p-5">
             {welcomeToKhusan}
           </div>
