@@ -1,12 +1,6 @@
 import { useSelectors, useTexts } from 'src/hooks'
 
-// const emptyCards = {
-//   ko: '진행 카드가 없습니다',
-//   en: 'No cards',
-// }
 const EmptyCard = () => {
-  const languages = useSelectors((state) => state.languages.value)
-  const index = languages === 'ko' || languages === 'en' ? languages : 'ko'
   const {empty} = useTexts()
   return (
     <div className="flex items-center flex-col">
