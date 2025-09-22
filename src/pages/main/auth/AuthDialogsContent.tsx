@@ -22,7 +22,7 @@ function AuthDialogsContent() {
   }
   const {onlyTakesOneMinuteToRegisterAccount, playlistReadyForYouToGetRidOfBoredom} = useTexts()
   return (
-    <div>
+    <>
       <AuthMethods agreed={agreed} changeAgreed={changeAgreed} />
       <div className="flex flex-col p-3">
         {onlyTakesOneMinuteToRegisterAccount}
@@ -32,7 +32,7 @@ function AuthDialogsContent() {
         <Playlist />
       </div>
       <AuthForm signIn={false} agreed={agreed} />
-    </div>
+    </>
   );
 }
 
