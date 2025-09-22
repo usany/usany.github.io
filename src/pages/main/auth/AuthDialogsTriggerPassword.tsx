@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { useSelectors } from "src/hooks";
 
-function AuthDialogsTriggerPassword() {
+function AuthDialogsTriggerPassword({findingPassword}) {
   const theme = useSelector((state) => state.theme.value);
   const languages = useSelectors((state) => state.languages.value)
   return (
