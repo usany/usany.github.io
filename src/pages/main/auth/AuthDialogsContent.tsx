@@ -10,6 +10,7 @@ function AuthDialogsContent() {
   }
   const theme = useSelectors((state) => state.theme.value);
   const languages = useSelectors((state) => state.languages.value)
+  const
   return (
     <div>
       <AuthMethods agreed={agreed} changeAgreed={changeAgreed} />
@@ -29,7 +30,7 @@ function AuthDialogsContent() {
       <div className="flex justify-center pt-3">
         {theme === "light" ? (
           <iframe
-            src="https://open.spotify.com/embed/playlist/41clCj2piQBL3BSEFQN9J3?utm_source=generator"
+            src={import.meta.env.VITE_SPOTIFY_URL}
             width="90%"
             height="200"
             allow="autoplay; clipboard-write; fullscreen; picture-in-picture"
@@ -37,7 +38,7 @@ function AuthDialogsContent() {
           />
         ) : (
           <iframe
-            src="https://open.spotify.com/embed/playlist/41clCj2piQBL3BSEFQN9J3?utm_source=generator&theme=0"
+            src={import.meta.env.VITE_SPOTIFY_URL+'&theme=0'}
             width="90%"
             height="200"
             allow="autoplay; clipboard-write; fullscreen; picture-in-picture"
