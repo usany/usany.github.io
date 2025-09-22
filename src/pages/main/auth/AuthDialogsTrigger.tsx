@@ -1,6 +1,9 @@
 import { useTexts } from "src/hooks";
 
-function AuthDialogsTrigger({findingPassword}) {
+interface Props {
+  findingPassword: boolean
+}
+function AuthDialogsTrigger({findingPassword}: Props) {
   const {findPassword, newAccount} = useTexts()
   return (
     <>

@@ -9,7 +9,7 @@ function AuthDialogs() {
   const {findPassword, welcomeToKhusan} = useTexts()
   return (
     <div className='flex justify-center text-xs p-5 gap-5'>
-      <Popups trigger={<AuthDialogsTriggerPassword findingPassword={true}/>}
+      <Popups trigger={<AuthDialogsTrigger findingPassword={true}/>}
         title={findPassword}
         content={<AuthDialogsContentPassword />}
       />
