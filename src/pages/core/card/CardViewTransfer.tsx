@@ -9,9 +9,11 @@ const CardViewTransfer = () => {
   const {haveBeenMovedToMyStatus, haveBeenMovedToMyBoard} = useTexts()
   return (
     <div className="flex justify-center items-center z-30 rounded bg-black/50 text-white w-full h-full absolute">
-      <div className="flex justify-center items-center gap-1 h-full">
+      <div className="flex flex-col justify-center items-center gap-1 h-full p-5">
         {locations.pathname === '/' ? <East /> : <West />}
-        {locations.pathname === '/' ? haveBeenMovedToMyBoard : haveBeenMovedToMyStatus}
+        <div className='flex justify-center'>
+          {locations.pathname === '/' ? haveBeenMovedToMyBoard : haveBeenMovedToMyStatus}
+        </div>
       </div>
       {/* {locations.pathname === '/' ? (
         <div className="flex justify-center items-center gap-1 h-full">
