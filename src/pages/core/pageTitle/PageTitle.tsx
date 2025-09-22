@@ -1,7 +1,7 @@
 import { ReactNode } from 'react'
 
 interface Props {
-  icon: ReactNode
+  icon?: ReactNode
   title: string
 }
 

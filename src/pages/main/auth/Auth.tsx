@@ -83,7 +83,7 @@ function Auth() {
   return (
     <div>
       {profile ? (
-        <div>
+        <>
           <PageTitle
             title={confirmingMail}
           />
@@ -120,9 +120,9 @@ function Auth() {
               {cancelRegistration}
             </Button>
           </div>
-        </div>
+        </>
       ) : (
-        <div>
+        <>
           <PageTitle title={signIn} />
           <div className="flex justify-center p-5">
             {welcomeToKhusan}
@@ -133,7 +133,7 @@ function Auth() {
             {playlistReadyForYouToGetRidOfBoredom}
           </div>
           <Motions />
-        </div>
+        </>
       )}
     </div>
   )
