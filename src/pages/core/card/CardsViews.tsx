@@ -54,8 +54,6 @@ const CardsViews = ({ message, onPulse, onTransfer }: Props) => {
         />
       )}
     </Tilt>
-    // <div>
-    // </div>
   )
 }
 
