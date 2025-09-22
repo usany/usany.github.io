@@ -8,6 +8,11 @@ import { DocumentData } from 'firebase/firestore'
 
 interface Props {
   message: DocumentData
+  longPressCard: string
+  changeLongPressCard: (newValue: string) => void
+  deleteMessage: () => void
+  delayed: boolean
+  delayedFalse: () => void
 }
 
 const Cards = ({
