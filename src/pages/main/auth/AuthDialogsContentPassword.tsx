@@ -35,7 +35,7 @@ function AuthDialogsContentPassword() {
           // ..
         })
     } else {
-      alert('네트워크 연결이 필요합니다')
+      alert(needNetworkConnection)
     }
   }
   return (
