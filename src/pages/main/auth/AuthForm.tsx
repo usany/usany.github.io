@@ -22,7 +22,7 @@ const AuthForm = ({ signIn, agreed }: Props) => {
   const [error, setError] = useState('')
   const dispatch = useDispatch()
   const languages = useSelectors((state) => state.languages.value)
-  const { needToAgreeOnPrivateInformationPolicy } = useTexts()
+  const { needToAgreeOnPrivateInformationPolicy, needNetworkConnection } = useTexts()
   const onLine = useSelectors((state) => state.onLine.value)
   const onSubmitSignIn = async (event) => {
     event.preventDefault()
@@ -84,7 +84,7 @@ const AuthForm = ({ signIn, agreed }: Props) => {
           setError(errorMessage)
         }
       } else {
-        alert('네트워크 연결이 필요합니다')
+        alert(needNetworkConnection)
       }
     }
   }
