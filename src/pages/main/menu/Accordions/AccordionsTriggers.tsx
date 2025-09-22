@@ -2,11 +2,13 @@ import { AccordionTrigger } from '@/components/ui/accordion'
 // import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 interface Props {
-  value: string
-  id: string
-  item: Element
-  onClick: () => void
-  content: Element
+  value {
+    value: string
+    id: string
+    item: Element
+    onClick: () => void
+    content: Element
+  }
 }
 
 function AccordionsTriggers({ value }: Props) {
