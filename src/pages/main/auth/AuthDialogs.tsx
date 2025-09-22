@@ -3,7 +3,6 @@ import Popups from "src/pages/core/Popups";
 import AuthDialogsContent from "./AuthDialogsContent";
 import AuthDialogsContentPassword from "./AuthDialogsContentPassword";
 import AuthDialogsTrigger from "./AuthDialogsTrigger";
-import AuthDialogsTriggerPassword from "./AuthDialogsTriggerPassword";
 
 function AuthDialogs() {
   const {findPassword, welcomeToKhusan} = useTexts()
