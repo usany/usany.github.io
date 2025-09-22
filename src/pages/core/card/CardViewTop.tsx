@@ -1,5 +1,5 @@
 import { Chip } from '@mui/material'
-import { useSelectors, useTexts } from 'src/hooks'
+import { useTexts } from 'src/hooks'
 import Avatars from '../Avatars'
 
 const CardViewTop = ({ message }) => {

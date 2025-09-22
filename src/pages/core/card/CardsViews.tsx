@@ -37,25 +37,25 @@ const CardsViews = ({ message, onPulse, onTransfer }: Props) => {
     mergedArray.indexOf(String(id[0]).toUpperCase()) % shadowColorArray.length
     ]
   return (
-    <div>
-      <Tilt>
-        {onPulse ? (
-          <PulsatingButton pulseColor={shadowColor}>
-            <CardView
-              onTransfer={false}
-              message={message}
-              shadowColor={shadowColor}
-            />
-          </PulsatingButton>
-        ) : (
+    <Tilt>
+      {onPulse ? (
+        <PulsatingButton pulseColor={shadowColor}>
           <CardView
-            onTransfer={onTransfer}
+            onTransfer={false}
             message={message}
             shadowColor={shadowColor}
           />
-        )}
-      </Tilt>
-    </div>
+        </PulsatingButton>
+      ) : (
+        <CardView
+          onTransfer={onTransfer}
+          message={message}
+          shadowColor={shadowColor}
+        />
+      )}
+    </Tilt>
+    // <div>
+    // </div>
   )
 }
 
