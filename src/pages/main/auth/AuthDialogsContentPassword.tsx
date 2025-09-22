@@ -9,7 +9,7 @@ function AuthDialogsContentPassword() {
   const [email, setEmail] = useState('')
   const [status, setStatus] = useState('')
   const languages = useSelectors((state) => state.languages.value)
-  const {needNetworkConnection, weWillSendYouAPasswordResetMail} = useTexts()
+  const {needNetworkConnection, weWillSendYouAPasswordResetMail, mail, sendMail} = useTexts()
   const onChange = (event) => {
     const {
       target: { value },
@@ -47,7 +47,7 @@ function AuthDialogsContentPassword() {
         <form id={'password'} className="pt-3" onSubmit={passwordEmail}>
           <div className="flex justify-center px-3">
             <TextField
-              label={languages === 'ko' ? '이메일' : 'email'}
+              label={mail}
               value={email}
               onChange={onChange}
               variant="outlined"
@@ -64,7 +64,7 @@ function AuthDialogsContentPassword() {
               form={'password'}
               type="submit"
             >
-              {languages === 'ko' ? '메일 전송' : 'Send Mail'}
+              {sendMail}
             </Button>
             {status === 'sent' && (
               <div className="flex pt-5">
