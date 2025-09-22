@@ -25,13 +25,12 @@ const letters = alpha.map((x) => String.fromCharCode(x))
 const numbers = Array.from({ length: 10 }, (e, i) => `${i}`)
 const mergedArray = letters.concat(numbers)
 
-const CardsViews = ({ message, onPulse, onTransfer }: Props) => {
+const CardsViews = ({ message, onPulse = null, onTransfer = null }: Props) => {
   const id = message?.id || ''
   const shadowColor =
     shadowColorArray[
     mergedArray.indexOf(String(id[0]).toUpperCase()) % shadowColorArray.length
     ]
-  console.log(message)
   return (
     <div>
       <Tilt>
