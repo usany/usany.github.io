@@ -21,7 +21,7 @@ function AccordionsTriggers({ value }: Props) {
           }}
           className="rounded shadow-md px-3 flex sticky top-16 z-30 w-full items-center justify-between bg-light-2/50 dark:bg-dark-2/50"
         >
-          <div>{value.item}</div>
+          {value.item}
           <AccordionTrigger
             id={value.id}
             onClick={value.onClick}
