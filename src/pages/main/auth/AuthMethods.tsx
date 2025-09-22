@@ -1,14 +1,12 @@
 import Switch from '@mui/material/Switch'
 import { styled } from '@mui/material/styles'
 import { useState } from 'react'
-import { useSelector } from 'react-redux'
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from 'src/components/ui/accordion'
-import { useSelectors } from 'src/hooks'
 import { useTexts } from 'src/hooks'
 const MessageSwitch = styled(Switch)(({ theme }) => ({
   padding: 8,
