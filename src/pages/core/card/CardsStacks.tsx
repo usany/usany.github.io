@@ -15,7 +15,7 @@ function CardsStacks() {
         <Skeleton className='w-full h-[260px] rounded bg-light-3 dark:bg-dark-3' />
       }
       {(!navigator.onLine || cardLoaded) && (
-        <div>
+        <>
           {navigator.onLine && !messages.filter((value: DocumentData) => {
             if (value.round !== 5) return value
           }).length ? (
@@ -25,7 +25,7 @@ function CardsStacks() {
               messages={messages}
             />
           )}
-        </div>
+        </>
       )}
     </div>
   )
