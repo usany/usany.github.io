@@ -5,9 +5,9 @@ interface Props {
   value: {
     value: string
     id: string
-    item: Element
     onClick: () => void
-    content: Element
+    item: JSX.Element
+    content: JSX.Element
   }
 }
 
