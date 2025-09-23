@@ -4,31 +4,7 @@ import { PulsatingButton } from 'src/components/ui/pulsating-button'
 import SpecificsRear from './SpecificsRear'
 import SpecificsFront from './SpecificsDefault'
 import SpecificsDefault from './SpecificsDefault'
-export const getShadowColor = (id) => {
-  const shadowColorArray = [
-    'lightblue',
-    'lightcoral',
-    'lightcyan',
-    'lightgoldenrodyellow',
-    'lightgray',
-    'lightgreen',
-    'lightpink',
-    'lightsalmon',
-    'lightseagreen',
-    'lightskyblue',
-    'lightsteelblue',
-    'lightyellow',
-  ]
-  const alpha = Array.from(Array(26)).map((e, i) => i + 65)
-  const letters = alpha.map((x) => String.fromCharCode(x))
-  const numbers = Array.from({ length: 10 }, (e, i) => `${i}`)
-  const mergedArray = letters.concat(numbers)
-  return (
-    shadowColorArray[
-      mergedArray.indexOf(String(id[0]).toUpperCase()) % shadowColorArray.length
-    ]
-  )
-}
+import getShadowColor from './getShadowColor'
 
 interface Props {
   message: {}
