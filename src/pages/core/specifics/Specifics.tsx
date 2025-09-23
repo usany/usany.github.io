@@ -75,13 +75,9 @@ function Specifics({
       className="z-50 text-xs"
       onMouseDownCapture={() => {
         setOnMove(true)
-        // setCardTilting(null)
-        // setCardTilt(true)
       }}
       onTouchStartCapture={() => {
         setOnMove(true)
-        // setCardTilting(null)
-        // setCardTilt(true)
       }}
       onMouseMove={() => {
         if (onMove) {
