@@ -128,7 +128,11 @@ function Specifics({
                 pulseColor={shadowColor}
                 className="cursor-default"
               >
-                <SpecificsFront drawerOpenTrue={drawerOpenTrue} message={message} connectedUser={connectedUser} round={round}
+                <SpecificsFront
+                  drawerOpenTrue={drawerOpenTrue}
+                  message={message}
+                  connectedUser={connectedUser}
+                  round={round}
                   increaseRound={increaseRound}
                   decreaseRound={decreaseRound}
                   changeOnPulse={changeOnPulse}
@@ -142,7 +146,11 @@ function Specifics({
                 />
               </PulsatingButton>
             ) : (
-              <SpecificsFront drawerOpenTrue={drawerOpenTrue} message={message} connectedUser={connectedUser} round={round}
+              <SpecificsFront
+                drawerOpenTrue={drawerOpenTrue}
+                message={message}
+                connectedUser={connectedUser}
+                round={round}
                 increaseRound={increaseRound}
                 decreaseRound={decreaseRound}
                 changeOnPulse={changeOnPulse}
@@ -163,7 +171,6 @@ function Specifics({
             confirmingClock={confirmingClock}
             returningClock={returningClock}
             confirmedReturnClock={confirmedReturnClock}
-
           />
         </div>
       </Tilt>
