@@ -112,7 +112,7 @@ function Specifics({
         }, 10)
       }}
     >
-      <div className="flex justify-center" onClick={() => flipCards()}>
+      <div className="flex justify-center" onClick={flipCards}>
         flip card
       </div>
       <Tilt
@@ -157,9 +157,7 @@ function Specifics({
                       connectedUser={connectedUser}
                     />
                     <Divider />
-                    <div>
-                      <SpecificsSteppers message={message} round={round} />
-                    </div>
+                    <SpecificsSteppers message={message} round={round} />
                     <Divider />
                     <SpecificsButtons
                       round={round}
