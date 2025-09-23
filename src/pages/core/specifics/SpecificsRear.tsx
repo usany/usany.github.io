@@ -55,8 +55,6 @@ function SpecificsRear({
       sendedProfileImageUrl ||
       profileImageUrl,
   }
-  console.log(passingValueConnected)
-  console.log(sendedProfileImage)
   const connectedMoment = connectedClock.cancelled
     ? ''
     : message?.connectedClock
@@ -71,7 +69,6 @@ function SpecificsRear({
   const confirmedReturnMoment = message?.confirmedReturnClock
     ? message.confirmedReturnClock
     : confirmedReturnClock
-  console.log(passingValueConnected)
   return (
     <div className="backSide">
       <Card
