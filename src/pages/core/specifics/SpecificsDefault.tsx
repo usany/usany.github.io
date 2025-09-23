@@ -8,12 +8,14 @@ import SpecificsDimensions from './SpecificsDimensions'
 import SpecificsSteppers from './SpecificsSteppers'
 import SpecificsTrades from './SpecificsTrades'
 import getShadowColor from './getShadowColor'
+import { staticArray } from '../card/CardView'
 
 const SpecificsDefault = ({ drawerOpenTrue, message, connectedUser, round,
   increaseRound, decreaseRound, changeOnPulse, changeConnectedUser, toggleOnTransfer, removeMessage, handleConnectedClock, handleConfirmingClock, handleReturningClock, handleConfirmedReturnClock
 }) => {
   const id = message?.id || ''
   const shadowColor = getShadowColor(id)
+  const staticImg = staticArray[message.text.count] || staticArray['building']
 
     return (
       <Card
