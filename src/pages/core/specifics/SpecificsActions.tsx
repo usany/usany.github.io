@@ -1,6 +1,6 @@
 import { Chip } from '@mui/material'
 import { User } from 'firebase/auth'
-import { useSelectors } from 'src/hooks'
+import { useSelectors, useTexts } from 'src/hooks'
 import SpecificsActionsPopups from './SpecificsActionsPopups'
 const items = {
   Usan: '우산',
@@ -15,7 +15,7 @@ function SpecificsActions({ drawerOpenTrue, message }: Props) {
   const messageDisplayName = message.displayName
   const languages = useSelectors((state) => state.languages.value)
   const profile = useSelectors((state) => state.profile.value)
-
+  const {my, registration, borrowing, lending} = useTexts()
   const messageName =
     messageDisplayName.length > 10
       ? messageDisplayName.slice(0, 10) + '......'
@@ -32,11 +32,9 @@ function SpecificsActions({ drawerOpenTrue, message }: Props) {
           size="small"
           label={`${
             message.creatorId === profile?.uid
-              ? languages === 'ko'
-                ? '내가'
-                : 'My'
+              ? my
               : messageName
-          } ${languages === 'ko' ? '작성함' : 'registration'}`}
+          } ${registration}`}
         />
       </div>
       <div className="flex items-center">
@@ -49,12 +47,8 @@ function SpecificsActions({ drawerOpenTrue, message }: Props) {
               : Object.keys(items).find((key) => items[key] === message.item)
           } ${
             message.text.choose === 1
-              ? languages === 'ko'
-                ? ' 빌리기'
-                : ' borrowing'
-              : languages === 'ko'
-              ? ' 빌려주기'
-              : ' lending'
+              ? borrowing
+              : lending
           }`}
         />
       </div>
