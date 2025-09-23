@@ -211,9 +211,7 @@ function Specifics({
                     connectedUser={connectedUser}
                   />
                   <Divider />
-                  <div>
-                    <SpecificsSteppers message={message} round={round} />
-                  </div>
+                  <SpecificsSteppers message={message} round={round} />
                   <Divider />
                   <SpecificsButtons
                     round={round}
