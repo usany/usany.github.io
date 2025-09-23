@@ -8,7 +8,7 @@ import { dbservice } from 'src/baseApi/serverbase'
 import { useSelectors } from 'src/hooks'
 import { useTexts } from 'src/hooks'
 import Avatars from '../Avatars'
-import { getShadowColor } from './Specifics'
+import getShadowColor from './getShadowColor'
 
 interface Props {
   message: {}

@@ -7,6 +7,7 @@ import SpecificsButtons from './SpecificsButtons'
 import SpecificsDimensions from './SpecificsDimensions'
 import SpecificsSteppers from './SpecificsSteppers'
 import SpecificsTrades from './SpecificsTrades'
+import getShadowColor from './getShadowColor'
 
 const SpecificsDefault = ({ drawerOpenTrue, message, connectedUser, round,
   increaseRound, decreaseRound, changeOnPulse, changeConnectedUser, toggleOnTransfer, removeMessage, handleConnectedClock, handleConfirmingClock, handleReturningClock, handleConfirmedReturnClock
