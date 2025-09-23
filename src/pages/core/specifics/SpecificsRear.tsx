@@ -8,6 +8,7 @@ import { dbservice } from 'src/baseApi/serverbase'
 import { useSelectors } from 'src/hooks'
 import { useTexts } from 'src/hooks'
 import Avatars from '../Avatars'
+import { getShadowColor } from './Specifics'
 
 interface Props {
   message: {}
@@ -16,7 +17,6 @@ interface Props {
 
 function SpecificsRear({
   message,
-  shadowColor,
   connectedClock,
   confirmingClock,
   returningClock,
@@ -28,6 +28,8 @@ function SpecificsRear({
   const [sendedProfileImage, setSendedProfileImage] = useState(false)
   const [sendedDefaultProfile, setSendedDefaultProfile] = useState('')
   const [sendedProfileImageUrl, setSendedProfileImageUrl] = useState('')
+  const id = message?.id || ''
+  const shadowColor = getShadowColor(id)
   useEffect(() => {
     const messages = async () => {
       const docRef = doc(dbservice, `num/${message.id}`)

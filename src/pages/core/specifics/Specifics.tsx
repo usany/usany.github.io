@@ -1,37 +1,34 @@
-import Card from '@mui/material/Card'
-import CardContent from '@mui/material/CardContent'
-import CardMedia from '@mui/material/CardMedia'
-import Divider from '@mui/material/Divider'
-import { User } from 'firebase/auth'
 import { useState } from 'react'
 import Tilt from 'react-parallax-tilt'
 import { PulsatingButton } from 'src/components/ui/pulsating-button'
-import { staticArray } from '../card/CardView'
-import SpecificsActions from './SpecificsActions'
-import SpecificsButtons from './SpecificsButtons'
-import SpecificsDimensions from './SpecificsDimensions'
 import SpecificsRear from './SpecificsRear'
-import SpecificsSteppers from './SpecificsSteppers'
-import SpecificsTrades from './SpecificsTrades'
 import SpecificsFront from './SpecificsFront'
-const shadowColorArray = [
-  'lightblue',
-  'lightcoral',
-  'lightcyan',
-  'lightgoldenrodyellow',
-  'lightgray',
-  'lightgreen',
-  'lightpink',
-  'lightsalmon',
-  'lightseagreen',
-  'lightskyblue',
-  'lightsteelblue',
-  'lightyellow',
-]
-const alpha = Array.from(Array(26)).map((e, i) => i + 65)
-const letters = alpha.map((x) => String.fromCharCode(x))
-const numbers = Array.from({ length: 10 }, (e, i) => `${i}`)
-const mergedArray = letters.concat(numbers)
+export const getShadowColor = (id) => {
+  const shadowColorArray = [
+    'lightblue',
+    'lightcoral',
+    'lightcyan',
+    'lightgoldenrodyellow',
+    'lightgray',
+    'lightgreen',
+    'lightpink',
+    'lightsalmon',
+    'lightseagreen',
+    'lightskyblue',
+    'lightsteelblue',
+    'lightyellow',
+  ]
+  const alpha = Array.from(Array(26)).map((e, i) => i + 65)
+  const letters = alpha.map((x) => String.fromCharCode(x))
+  const numbers = Array.from({ length: 10 }, (e, i) => `${i}`)
+  const mergedArray = letters.concat(numbers)
+  return (
+    shadowColorArray[
+      mergedArray.indexOf(String(id[0]).toUpperCase()) % shadowColorArray.length
+    ]
+  )
+}
+
 interface Props {
   message: {}
 }
@@ -57,16 +54,12 @@ function Specifics({
   handleReturningClock,
   handleConfirmedReturnClock,
 }: Props) {
-  const staticImg = staticArray[message.text.count] || staticArray['building']
   const [cardFlipped, setCardFlipped] = useState(false)
   const [cardTilt, setCardTilt] = useState(false)
   const [cardTilting, setCardTilting] = useState(null)
   const [onMove, setOnMove] = useState(false)
   const id = message?.id || ''
-  const shadowColor =
-    shadowColorArray[
-      mergedArray.indexOf(String(id[0]).toUpperCase()) % shadowColorArray.length
-    ]
+  const shadowColor = getShadowColor(id)
   const flipCards = () => {
     setCardFlipped(!cardFlipped)
   }
