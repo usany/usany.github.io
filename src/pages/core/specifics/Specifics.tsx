@@ -13,6 +13,7 @@ import SpecificsDimensions from './SpecificsDimensions'
 import SpecificsRear from './SpecificsRear'
 import SpecificsSteppers from './SpecificsSteppers'
 import SpecificsTrades from './SpecificsTrades'
+import SpecificsFront from './SpecificsFront'
 const shadowColorArray = [
   'lightblue',
   'lightcoral',
@@ -31,7 +32,6 @@ const alpha = Array.from(Array(26)).map((e, i) => i + 65)
 const letters = alpha.map((x) => String.fromCharCode(x))
 const numbers = Array.from({ length: 10 }, (e, i) => `${i}`)
 const mergedArray = letters.concat(numbers)
-
 interface Props {
   message: {}
 }
@@ -70,58 +70,7 @@ function Specifics({
   const flipCards = () => {
     setCardFlipped(!cardFlipped)
   }
-  const SpecificsFront = () => {
-    return (
-      <Card
-        className="colorTwo"
-        sx={{
-          maxWidth: `${window.screen.width * 0.9}px`,
-          boxShadow: `1.9px 1.9px 1.9px 1.9px ${shadowColor}`,
-        }}
-      >
-        <CardContent>
-          <SpecificsActions
-            drawerOpenTrue={drawerOpenTrue}
-            message={message}
-          />
-          <div className="flex justify-center pt-1">
-            <CardMedia
-              sx={{
-                width: ((200 * 188) / 141) * 0.9,
-                height: 188 * 0.9,
-                borderRadius: '10px',
-              }}
-              image={staticImg}
-            />
-          </div>
-          <SpecificsDimensions message={message} />
-          <Divider />
-          <SpecificsTrades
-            drawerOpenTrue={drawerOpenTrue}
-            message={message}
-            connectedUser={connectedUser}
-          />
-          <Divider />
-          <SpecificsSteppers message={message} round={round} />
-          <Divider />
-          <SpecificsButtons
-            round={round}
-            increaseRound={increaseRound}
-            decreaseRound={decreaseRound}
-            message={message}
-            changeOnPulse={changeOnPulse}
-            changeConnectedUser={changeConnectedUser}
-            toggleOnTransfer={toggleOnTransfer}
-            removeMessage={removeMessage}
-            handleConnectedClock={handleConnectedClock}
-            handleConfirmingClock={handleConfirmingClock}
-            handleReturningClock={handleReturningClock}
-            handleConfirmedReturnClock={handleConfirmedReturnClock}
-          />
-        </CardContent>
-      </Card>
-    )
-  }
+
   return (
     <div
       className="z-50 text-xs"
@@ -179,10 +128,32 @@ function Specifics({
                 pulseColor={shadowColor}
                 className="cursor-default"
               >
-                <SpecificsFront />
+                <SpecificsFront drawerOpenTrue={drawerOpenTrue} message={message} connectedUser={connectedUser} round={round}
+                  increaseRound={increaseRound}
+                  decreaseRound={decreaseRound}
+                  changeOnPulse={changeOnPulse}
+                  changeConnectedUser={changeConnectedUser}
+                  toggleOnTransfer={toggleOnTransfer}
+                  removeMessage={removeMessage}
+                  handleConnectedClock={handleConnectedClock}
+                  handleConfirmingClock={handleConfirmingClock}
+                  handleReturningClock={handleReturningClock}
+                  handleConfirmedReturnClock={handleConfirmedReturnClock}
+                />
               </PulsatingButton>
             ) : (
-              <SpecificsFront />
+              <SpecificsFront drawerOpenTrue={drawerOpenTrue} message={message} connectedUser={connectedUser} round={round}
+                increaseRound={increaseRound}
+                decreaseRound={decreaseRound}
+                changeOnPulse={changeOnPulse}
+                changeConnectedUser={changeConnectedUser}
+                toggleOnTransfer={toggleOnTransfer}
+                removeMessage={removeMessage}
+                handleConnectedClock={handleConnectedClock}
+                handleConfirmingClock={handleConfirmingClock}
+                handleReturningClock={handleReturningClock}
+                handleConfirmedReturnClock={handleConfirmedReturnClock}
+              />
             )}
           </div>
           <SpecificsRear
@@ -192,6 +163,7 @@ function Specifics({
             confirmingClock={confirmingClock}
             returningClock={returningClock}
             confirmedReturnClock={confirmedReturnClock}
+
           />
         </div>
       </Tilt>
