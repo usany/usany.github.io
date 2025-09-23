@@ -159,7 +159,6 @@ function Specifics({
           </div>
           <SpecificsRear
             message={message}
-            shadowColor={shadowColor}
             connectedClock={connectedClock}
             confirmingClock={confirmingClock}
             returningClock={returningClock}
