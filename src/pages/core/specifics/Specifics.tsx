@@ -70,7 +70,7 @@ function Specifics({
   const flipCards = () => {
     setCardFlipped(!cardFlipped)
   }
-  const SpecificFront = () => {
+  const SpecificsFront = () => {
     return (
       <Card
         className="colorTwo"
@@ -179,10 +179,10 @@ function Specifics({
                 pulseColor={shadowColor}
                 className="cursor-default"
               >
-                <SpecificFront />
+                <SpecificsFront />
               </PulsatingButton>
             ) : (
-              <SpecificFront />
+              <SpecificsFront />
             )}
           </div>
           <SpecificsRear
