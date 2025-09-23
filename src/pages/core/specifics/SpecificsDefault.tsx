@@ -9,7 +9,7 @@ import SpecificsSteppers from './SpecificsSteppers'
 import SpecificsTrades from './SpecificsTrades'
 import { getShadowColor } from './Specifics'
 
-const SpecificsFront = ({ drawerOpenTrue, message, connectedUser, round,
+const SpecificsDefault = ({ drawerOpenTrue, message, connectedUser, round,
   increaseRound, decreaseRound, changeOnPulse, changeConnectedUser, toggleOnTransfer, removeMessage, handleConnectedClock, handleConfirmingClock, handleReturningClock, handleConfirmedReturnClock
 }) => {
   const id = message?.id || ''
@@ -67,4 +67,4 @@ const SpecificsFront = ({ drawerOpenTrue, message, connectedUser, round,
     )
   }
 
-export default SpecificsFront
+export default SpecificsDefault

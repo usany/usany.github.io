@@ -2,7 +2,7 @@ import { useState } from 'react'
 import Tilt from 'react-parallax-tilt'
 import { PulsatingButton } from 'src/components/ui/pulsating-button'
 import SpecificsRear from './SpecificsRear'
-import SpecificsFront from './SpecificsFront'
+import SpecificsFront from './SpecificsDefault'
 export const getShadowColor = (id) => {
   const shadowColorArray = [
     'lightblue',
@@ -121,7 +121,7 @@ function Specifics({
                 pulseColor={shadowColor}
                 className="cursor-default"
               >
-                <SpecificsFront
+                <SpecificsDefault
                   drawerOpenTrue={drawerOpenTrue}
                   message={message}
                   connectedUser={connectedUser}
@@ -139,7 +139,7 @@ function Specifics({
                 />
               </PulsatingButton>
             ) : (
-              <SpecificsFront
+              <SpecificsDefault
                 drawerOpenTrue={drawerOpenTrue}
                 message={message}
                 connectedUser={connectedUser}
