@@ -7,10 +7,10 @@ interface Props {
   userObj: User | null
   message: {}
 }
-function SpecificsTradesTitle({ drawerOpenTrue, userObj, message, round, connectedUser }: Props) {
-
+function SpecificsTradesTitle({ message, isCreator }: Props) {
+  const displayName = isCreator ? message.displayName : message. connectedDisplayName
   return (
-    <div>프로필 확인</div>
+    <>{displayName}</>
   )
 }
 
