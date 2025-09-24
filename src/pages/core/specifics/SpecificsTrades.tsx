@@ -115,20 +115,6 @@ function SpecificsTrades({ drawerOpenTrue, message, connectedUser }: Props) {
               variant={!connectedUser.uid ? 'outlined' : undefined}
               label={connectedUser.uid ? connectedUser.displayName : noOneYet}
             />
-            {/* {connectedUser.uid ? (
-              <Chip
-                className="specific"
-                size="small"
-                label={connectedUser.displayName}
-              />
-            ) : (
-              <Chip
-                className="specific"
-                size="small"
-                variant="outlined"
-                label={'아직 없음'}
-              />
-            )} */}
           </div>
         )}
       </div>
