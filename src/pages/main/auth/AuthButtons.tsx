@@ -17,20 +17,6 @@ const AuthButtons = () => {
         <div className="flex flex-col">
           <Button
             className="colorTwo"
-            startIcon={<img src={staticMicrosoft} className="w-[20px]" />}
-            variant="outlined"
-            onClick={() => {
-              if (onLine) {
-                onSocialClickMicrosoft()
-              } else {
-                alert('네트워크 연결이 필요합니다')
-              }
-            }}
-          >
-            마이크로소프트 로그인
-          </Button>
-          <Button
-            className="colorTwo"
             startIcon={<img src={staticGoogle} className="w-[20px]" />}
             variant="outlined"
             name="g"
@@ -52,6 +38,20 @@ const AuthButtons = () => {
             onClick={onSocialClickApple}
           >
             애플 로그인
+          </Button>
+          <Button
+            className="colorTwo"
+            startIcon={<img src={staticMicrosoft} className="w-[20px]" />}
+            variant="outlined"
+            onClick={() => {
+              if (onLine) {
+                onSocialClickMicrosoft()
+              } else {
+                alert('네트워크 연결이 필요합니다')
+              }
+            }}
+          >
+            마이크로소프트 로그인
           </Button>
         </div>
       </div>
