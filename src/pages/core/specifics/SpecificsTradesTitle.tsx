@@ -6,7 +6,7 @@ interface Props {
   isCreator: boolean
 }
 function SpecificsTradesTitle({ message, isCreator }: Props) {
-  const displayName = isCreator ? message.displayName : message. connectedDisplayName
+  const displayName = isCreator ? message.displayName : message.connectedName
   return (
     <>{displayName}</>
   )
