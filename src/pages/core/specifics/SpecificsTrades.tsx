@@ -20,7 +20,7 @@ function SpecificsTrades({ drawerOpenTrue, message, connectedUser }: Props) {
   const connectedDisplayName = connectedUser.displayName
   const languages = useSelectors((state) => state.languages.value)
   const profile = useSelectors((state) => state.profile.value)
-  const {borrowing, lending, noOneYet} = useTexts()
+  const {borrowing, lending, noOneYet, pointsReward} = useTexts()
   const messageName =
     messageDisplayName.length > 10
       ? messageDisplayName.slice(0, 10) + '......'
@@ -120,7 +120,7 @@ function SpecificsTrades({ drawerOpenTrue, message, connectedUser }: Props) {
       </div>
       <div className="flex flex-col">
         <div>
-          {message.point} {languages === 'ko' ? '포인트 지급' : 'points reward'}
+          {message.point} {pointsReward}
         </div>
         <div className="flex justify-start">
           <HorizontalRuleIcon />
