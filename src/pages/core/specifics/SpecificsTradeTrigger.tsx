@@ -10,18 +10,9 @@ const SpecificsTradesTrigger = ({
     defaultProfile: isCreator ? message.creatorDefaultProfile : message.connectedDefaultProfile,
     profileImageUrl: isCreator ? message.creatorProfileImageUrl : message.connectedProfileImageUrl
   }
-  let uid
-  let displayName
-  let url
-  if (isCreator) {
-    uid = message?.creatorId
-    displayName = message.displayName
-    url = message.creatorUrl
-  } else {
-    uid = message?.connectedId || message?.uid
-    displayName = message?.connectedName || message?.displayName
-    url = message?.connectedUrl || message?.url
-  }
+  const uid = isCreator ? message?.creatorId : (message?.connectedId || message?.uid)
+  const displayName = isCreator ? message.displayName : (message?.connectedName || message?.displayName)
+  const url = isCreator ? message.creatorUrl : (message?.connectedUrl || message?.url)
   return (
     <div onClick={onClick}>
       <Avatars
