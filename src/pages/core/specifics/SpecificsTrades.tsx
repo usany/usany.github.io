@@ -29,17 +29,17 @@ function SpecificsTrades({ drawerOpenTrue, message, connectedUser }: Props) {
   const connectedMessageName = connectedDisplayName?.length > 10 ? connectedDisplayName.slice(0, 10) + '......' : connectedDisplayName
 
   useEffect(() => {
-    if (drawerOpenTrue) {
-      if (message?.creatorId < profile?.uid) {
-        setConversation(
-          message?.creatorId.slice(0, 6) + profile?.uid.slice(0, 6),
-        )
-      } else {
-        setConversation(
-          profile?.uid.slice(0, 6) + message?.creatorId.slice(0, 6),
-        )
-      }
+    if (message?.creatorId < profile?.uid) {
+      setConversation(
+        message?.creatorId.slice(0, 6) + profile?.uid.slice(0, 6),
+      )
+    } else {
+      setConversation(
+        profile?.uid.slice(0, 6) + message?.creatorId.slice(0, 6),
+      )
     }
+    // if (drawerOpenTrue) {
+    // }
   }, [message])
   return (
     <div className="flex justify-center pt-3">
