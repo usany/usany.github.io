@@ -1,6 +1,6 @@
 import Button from '@mui/material/Button'
 import staticGoogle from 'src/assets/signGoogle.svg'
-import staticApple from 'src/assets/staticApple.png'
+import staticApple from 'src/assets/signApple.png'
 import staticMicrosoft from 'src/assets/signMicrosoft.svg'
 import {
   onSocialClick,
@@ -15,12 +15,6 @@ const AuthButtons = () => {
   const {needNetworkConnection, continueWithMicrosoft, continueWithGoogle, comingSoonWithApple} = useTexts()
   const buttons = [
     {
-      id: 'continueWithMicrosoft',
-      image: <img src={staticMicrosoft} className="w-[20px]" />,
-      onClick: () => onSocialClickMicrosoft(),
-      text:continueWithMicrosoft
-    },
-    {
       id: 'continueWithGoogle',
       image: <img src={staticGoogle} className="w-[20px]" />,
       onClick: () => onSocialClickGoogle(),
@@ -31,6 +25,12 @@ const AuthButtons = () => {
       image: <img src={staticApple} className="w-[20px]" />,
       onClick: () => onSocialClickApple(),
       text: comingSoonWithApple
+    },
+    {
+      id: 'continueWithMicrosoft',
+      image: <img src={staticMicrosoft} className="w-[20px]" />,
+      onClick: () => onSocialClickMicrosoft(),
+      text:continueWithMicrosoft
     },
   ]
   return (
