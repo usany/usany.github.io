@@ -2,7 +2,7 @@ import Button from '@mui/material/Button'
 import { Link } from 'react-router-dom'
 import { DrawerClose } from '@/components/ui/drawer'
 import Avatars from 'src/pages/core/Avatars'
-import { useSelectors } from 'src/hooks'
+import { useSelectors, useTexts } from 'src/hooks'
 
 const SpecificsTradesContent = ({
   isCreator,
@@ -11,6 +11,7 @@ const SpecificsTradesContent = ({
   connectedUser,
 }) => {
   const profile = useSelectors((state) => state.profile.value)
+  const {userProfile, chat} = useTexts()
   const passingProfile = {
     profileImage: isCreator
       ? message.creatorProfileImage
@@ -52,7 +53,7 @@ const SpecificsTradesContent = ({
                 document.body.classList.remove('overflow-hidden')
               }}
             >
-              프로필 확인
+              {userProfile}
             </Button>
           </DrawerClose>
         </Link>
@@ -75,7 +76,7 @@ const SpecificsTradesContent = ({
                   document.body.classList.remove('overflow-hidden')
                 }}
               >
-                개인 대화
+                {chat}
               </Button>
             </DrawerClose>
           </Link>
