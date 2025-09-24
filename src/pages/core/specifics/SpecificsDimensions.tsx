@@ -45,7 +45,7 @@ function SpecificsDimensions({ message }: Props) {
   const languages = useSelectors((state) => state.languages.value)
   const largeMedia = useLargeMedia()
   const location = getLocation(message)
-  const {meetingAt} = useTexts()
+  const {meetingAt, passingAt, returningAt} = useTexts()
   return (
     <div
       className={`flex text-xs scale-90 ${!largeMedia && 'flex-col'} justify-around gap-1 pt-5`}
@@ -69,15 +69,7 @@ function SpecificsDimensions({ message }: Props) {
         <div className={`${!largeMedia && 'flex'}`}>
           <div className="flex items-center">
             <div className="px-1">
-              {languages === 'ko' ? (
-                '대여 시간:'
-              ) : (
-                <div className="flex items-center">
-                  <div className="flex flex-col">
-                    <div>Passing at</div>
-                  </div>
-                </div>
-              )}
+              {passingAt}
             </div>
             <Chip
               className='specific'
@@ -87,15 +79,7 @@ function SpecificsDimensions({ message }: Props) {
           </div>
           <div className="flex items-center">
             <div className="px-1">
-              {languages === 'ko' ? (
-                '반납 시간:'
-              ) : (
-                <div className="flex items-center">
-                  <div className="flex flex-col">
-                    <div>Returning at</div>
-                  </div>
-                </div>
-              )}
+              {returningAt}
             </div>
             <Chip
               className='specific'
