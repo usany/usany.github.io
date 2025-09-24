@@ -15,8 +15,6 @@ interface Props {
 function SpecificsDimensions({ message }: Props) {
   const languages = useSelectors((state) => state.languages.value)
   const largeMedia = useLargeMedia()
-  let locationOne
-  let locationTwo
   let location
   if (languages === 'ko') {
     location =
@@ -26,11 +24,11 @@ function SpecificsDimensions({ message }: Props) {
       ' ' +
       message.text.counting
   } else {
-    locationOne =
+    const locationOne =
       locationsBuildings['en'][
       locationsBuildings['ko'].indexOf(message.text.count)
       ]
-    locationTwo =
+    const locationTwo =
       locationsCollection['en'][
       Object.keys(locationsCollectionLetters).find(
         (key) => locationsCollectionLetters[key] === message.text.count,
