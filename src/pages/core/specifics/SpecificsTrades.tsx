@@ -82,7 +82,7 @@ function SpecificsTrades({ drawerOpenTrue, message, connectedUser }: Props) {
                     }}
                   />
                 }
-                title={<SpecificsTradesTitle message={message} isCreator={false} />}
+                title={<SpecificsTradesTitle message={message} connectedUser={connectedUser} isCreator={false} />}
                 content={
                   <SpecificsTradesContent
                     isCreator={false}
