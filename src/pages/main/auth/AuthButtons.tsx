@@ -1,5 +1,6 @@
 import Button from '@mui/material/Button'
 import staticGoogle from 'src/assets/signGoogle.svg'
+import staticApple from 'src/assets/staticApple.png'
 import staticMicrosoft from 'src/assets/signMicrosoft.svg'
 import {
   onSocialClick,
@@ -27,7 +28,7 @@ const AuthButtons = () => {
     },
     {
       id: 'continueWithApple',
-      image: <img src={staticGoogle} className="w-[20px]" />,
+      image: <img src={staticApple} className="w-[20px]" />,
       onClick: () => onSocialClickApple(),
       text: comingSoonWithApple
     },
