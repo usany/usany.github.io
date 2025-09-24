@@ -12,7 +12,9 @@ import SpecificsTradesTitle from './SpecificsTradesTitle'
 import SpecificsTradesTrigger from './SpecificsTradeTrigger'
 
 interface Props {
+  drawerOpenTrue: () => void
   message: {}
+  connectedUser: {}
 }
 function SpecificsTrades({ drawerOpenTrue, message, connectedUser }: Props) {
   const [conversation, setConversation] = useState('')
