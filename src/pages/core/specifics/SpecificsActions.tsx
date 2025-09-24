@@ -20,6 +20,7 @@ function SpecificsActions({ drawerOpenTrue, message }: Props) {
     messageDisplayName.length > 10
       ? messageDisplayName.slice(0, 10) + '......'
       : messageDisplayName
+  const messageItem = languages === 'ko' ? message.item : Object.keys(items).find((key) => items[key] === message.item)
   return (
     <div className="flex justify-between gap-1">
       <div className="flex flex-col gap-1 items-center">
@@ -41,11 +42,7 @@ function SpecificsActions({ drawerOpenTrue, message }: Props) {
         <Chip
           className="specific"
           size="small"
-          label={`${
-            languages === 'ko'
-              ? message.item
-              : Object.keys(items).find((key) => items[key] === message.item)
-          } ${
+          label={`${messageItem} ${
             message.text.choose === 1
               ? borrowing
               : lending
