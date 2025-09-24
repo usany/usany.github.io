@@ -28,7 +28,7 @@ const SpecificsTradesContent = ({
   const url = isCreator ? message.creatorUrl : connectedUser.url
 
   return (
-    <div>
+    <>
       <div className="flex flex-col items-center pt-5">
         <Avatars element={passingProfile} profile={true} piazza={null} />
         <div>{displayName}</div>
@@ -82,7 +82,7 @@ const SpecificsTradesContent = ({
           </Link>
         )}
       </div>
-    </div>
+    </>
   )
 }
 
