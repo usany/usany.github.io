@@ -20,7 +20,7 @@ function SpecificsTrades({ drawerOpenTrue, message, connectedUser }: Props) {
   const connectedDisplayName = connectedUser.displayName
   const languages = useSelectors((state) => state.languages.value)
   const profile = useSelectors((state) => state.profile.value)
-  const {borrowing, lending} = useTexts()
+  const {borrowing, lending, noOneYet} = useTexts()
   const messageName =
     messageDisplayName.length > 10
       ? messageDisplayName.slice(0, 10) + '......'
@@ -109,7 +109,13 @@ function SpecificsTrades({ drawerOpenTrue, message, connectedUser }: Props) {
                 </AvatarFallback>
               </Avatar>
             )}
-            {connectedUser.uid ? (
+            <Chip
+              className="specific"
+              size="small"
+              variant={!connectedUser.uid ? 'outlined' : undefined}
+              label={connectedUser.uid ? connectedUser.displayName : noOneYet}
+            />
+            {/* {connectedUser.uid ? (
               <Chip
                 className="specific"
                 size="small"
@@ -122,7 +128,7 @@ function SpecificsTrades({ drawerOpenTrue, message, connectedUser }: Props) {
                 variant="outlined"
                 label={'아직 없음'}
               />
-            )}
+            )} */}
           </div>
         )}
       </div>
