@@ -1,9 +1,7 @@
-// import { CardActionArea, CardActions } from '@mui/material';
-// import { useBottomNavigationStore } from 'src/store'
 import { Chip } from '@mui/material'
 import { Building, Watch } from 'lucide-react'
 import useLargeMedia from 'src/hooks/useLargeMedia'
-import { useSelectors } from 'src/hooks'
+import { useSelectors, useTexts } from 'src/hooks'
 import locationsBuildings from 'src/pages/add/locationsBuildings'
 import locationsCollection from 'src/pages/add/locationsCollection'
 import locationsCollectionLetters from 'src/pages/add/locationsCollectionLetters'
@@ -47,7 +45,7 @@ function SpecificsDimensions({ message }: Props) {
   const languages = useSelectors((state) => state.languages.value)
   const largeMedia = useLargeMedia()
   const location = getLocation(message)
-
+  const {meetingAt} = useTexts()
   return (
     <div
       className={`flex text-xs scale-90 ${!largeMedia && 'flex-col'} justify-around gap-1 pt-5`}
@@ -57,7 +55,7 @@ function SpecificsDimensions({ message }: Props) {
           <Building />
         </div>
         <div className="px-1">
-          {languages === 'ko' ? '전달 장소:' : 'Meeting at'}
+          {meetingAt}
         </div>
         <Chip
           className='specific'
