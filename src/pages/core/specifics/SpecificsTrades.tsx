@@ -170,7 +170,7 @@ function SpecificsTrades({ drawerOpenTrue, message, connectedUser }: Props) {
                     }}
                   />
                 }
-                title={<SpecificsTradesTitle />}
+                title={<SpecificsTradesTitle message={message} connectedUser={connectedUser} isCreator={false} />}
                 content={
                   <SpecificsTradesContent
                     isCreator={false}
@@ -221,7 +221,7 @@ function SpecificsTrades({ drawerOpenTrue, message, connectedUser }: Props) {
                   message={message}
                 />
               }
-              title={<SpecificsTradesTitle />}
+              title={<SpecificsTradesTitle message={message} connectedUser={connectedUser} isCreator={false} />}
               content={
                 <SpecificsTradesContent
                   isCreator={true}
