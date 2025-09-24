@@ -11,6 +11,7 @@ import { useSelectors } from 'src/hooks'
 
 const AuthButtons = () => {
   const onLine = useSelectors((state) => state.onLine.value)
+
   return (
     <div className="flex justify-center">
       <div className="flex flex-col items-center justify-center w-[250px]">
