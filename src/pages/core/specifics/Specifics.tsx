@@ -5,7 +5,7 @@ import SpecificsRear from './SpecificsRear'
 import SpecificsFront from './SpecificsDefault'
 import SpecificsDefault from './SpecificsDefault'
 import getShadowColor from './getShadowColor'
-import { RotateCcw } from 'lucide-react';
+import { RotateCcw, Redo } from 'lucide-react';
 
 interface Props {
   message: {}
@@ -85,7 +85,7 @@ function Specifics({
       }}
     >
       <div className="flex justify-center" onClick={flipCards}>
-        <RotateCcw />
+        <Redo />
       </div>
       <Tilt
         tiltEnable={cardTilt}
