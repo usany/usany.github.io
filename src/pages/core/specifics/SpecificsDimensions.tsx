@@ -8,6 +8,37 @@ import locationsBuildings from 'src/pages/add/locationsBuildings'
 import locationsCollection from 'src/pages/add/locationsCollection'
 import locationsCollectionLetters from 'src/pages/add/locationsCollectionLetters'
 
+const getLocation = (message) => {
+  const languages = useSelectors((state) => state.languages.value)
+  if (languages === 'ko') {
+    const location =
+      message.text.count +
+      ' ' +
+      message.text.counter +
+      ' ' +
+      message.text.counting
+    return location
+  }
+  const locationOne =
+    locationsBuildings['en'][
+    locationsBuildings['ko'].indexOf(message.text.count)
+    ]
+  const locationTwo =
+    locationsCollection['en'][
+    Object.keys(locationsCollectionLetters).find(
+      (key) => locationsCollectionLetters[key] === message.text.count,
+    )
+    ][
+    locationsCollection['ko'][
+      Object.keys(locationsCollectionLetters).find(
+        (key) => locationsCollectionLetters[key] === message.text.count,
+      )
+    ].indexOf(message.text.counter)
+    ]
+  const location = locationOne + ' ' + locationTwo + ' ' + message.text.counting
+  return location
+}
+
 interface Props {
   message: {}
 }
@@ -15,33 +46,7 @@ interface Props {
 function SpecificsDimensions({ message }: Props) {
   const languages = useSelectors((state) => state.languages.value)
   const largeMedia = useLargeMedia()
-  let location
-  if (languages === 'ko') {
-    location =
-      message.text.count +
-      ' ' +
-      message.text.counter +
-      ' ' +
-      message.text.counting
-  } else {
-    const locationOne =
-      locationsBuildings['en'][
-      locationsBuildings['ko'].indexOf(message.text.count)
-      ]
-    const locationTwo =
-      locationsCollection['en'][
-      Object.keys(locationsCollectionLetters).find(
-        (key) => locationsCollectionLetters[key] === message.text.count,
-      )
-      ][
-      locationsCollection['ko'][
-        Object.keys(locationsCollectionLetters).find(
-          (key) => locationsCollectionLetters[key] === message.text.count,
-        )
-      ].indexOf(message.text.counter)
-      ]
-    location = locationOne + ' ' + locationTwo + ' ' + message.text.counting
-  }
+  const location = getLocation(message)
 
   return (
     <div
