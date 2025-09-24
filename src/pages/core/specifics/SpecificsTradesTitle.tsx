@@ -1,9 +1,9 @@
-import { User } from 'firebase/auth'
+import { DocumentData } from "firebase/firestore"
 
 
 interface Props {
-  userObj: User | null
-  message: {}
+  message: DocumentData
+  isCreator: boolean
 }
 function SpecificsTradesTitle({ message, isCreator }: Props) {
   const displayName = isCreator ? message.displayName : message. connectedDisplayName
