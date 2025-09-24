@@ -15,6 +15,7 @@ const SpecificsTradesTrigger = ({
       <Avatars
         element={passingProfile}
         profile={false}
+        piazza={null}
       />
     </div>
   )
