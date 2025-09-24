@@ -193,7 +193,7 @@ function SpecificsTrades({ drawerOpenTrue, message, connectedUser }: Props) {
                 className="specific"
                 size="small"
                 variant="outlined"
-                label={languages === 'ko' ? '아직 없음' : 'No one yet'}
+                label={noOneYet}
               />
             )}
           </div>
