@@ -26,13 +26,6 @@ function SpecificsTrades({ drawerOpenTrue, message, connectedUser }: Props) {
       ? messageDisplayName.slice(0, 10) + '......'
       : messageDisplayName
   const connectedMessageName = connectedDisplayName?.length > 10 : connectedDisplayName.slice(0, 10) + '......' : connectedDisplayName
-  // if (connectedDisplayName) {
-  //   if (connectedDisplayName.length > 10) {
-  //     connectedMessageName = connectedDisplayName.slice(0, 10) + '......'
-  //   } else {
-  //     connectedMessageName = connectedDisplayName
-  //   }
-  // }
 
   useEffect(() => {
     if (drawerOpenTrue) {
