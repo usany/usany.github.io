@@ -38,8 +38,6 @@ function SpecificsTrades({ drawerOpenTrue, message, connectedUser }: Props) {
         profile?.uid.slice(0, 6) + message?.creatorId.slice(0, 6),
       )
     }
-    // if (drawerOpenTrue) {
-    // }
   }, [message])
   return (
     <div className="flex justify-center pt-3">
