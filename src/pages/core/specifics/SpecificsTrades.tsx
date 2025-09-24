@@ -5,7 +5,7 @@ import EastIcon from '@mui/icons-material/East'
 import HorizontalRuleIcon from '@mui/icons-material/HorizontalRule'
 import WestIcon from '@mui/icons-material/West'
 import { Chip } from '@mui/material'
-import { useSelectors } from 'src/hooks'
+import { useSelectors, useTexts } from 'src/hooks'
 import Popups from '../Popups'
 import SpecificsTradesContent from './SpecificsTradesContent'
 import SpecificsTradesTitle from './SpecificsTradesTitle'
@@ -20,7 +20,7 @@ function SpecificsTrades({ drawerOpenTrue, message, connectedUser }: Props) {
   const connectedDisplayName = connectedUser.displayName
   const languages = useSelectors((state) => state.languages.value)
   const profile = useSelectors((state) => state.profile.value)
-
+  const {borrowing, lending} = useTexts()
   const messageName =
     messageDisplayName.length > 10
       ? messageDisplayName.slice(0, 10) + '......'
@@ -50,7 +50,7 @@ function SpecificsTrades({ drawerOpenTrue, message, connectedUser }: Props) {
   return (
     <div className="flex justify-center pt-3">
       <div className="flex flex-col items-center px-5 gap-1">
-        <div>{languages === 'ko' ? '빌리는 분' : 'Borrowing'}</div>
+        {borrowing}
         {message.text.choose === 1 ? (
           <div className="flex flex-col items-center">
             <Popups
@@ -154,7 +154,7 @@ function SpecificsTrades({ drawerOpenTrue, message, connectedUser }: Props) {
         </div>
       </div>
       <div className="flex flex-col items-center px-5 gap-1">
-        <div>{languages === 'ko' ? '빌려주는 분' : 'Lending'}</div>
+        {lending}
         {message.text.choose === 1 ? (
           <div className="flex flex-col items-center">
             {connectedUser.uid ? (
