@@ -51,7 +51,7 @@ const AuthButtons = () => {
             name="h"
             onClick={onSocialClickApple}
           >
-            곧 애플로 뵐게요
+            애플 로그인
           </Button>
         </div>
       </div>
