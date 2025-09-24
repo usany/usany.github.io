@@ -18,7 +18,6 @@ function SpecificsTrades({ drawerOpenTrue, message, connectedUser }: Props) {
   const [conversation, setConversation] = useState('')
   const messageDisplayName = message.displayName
   const connectedDisplayName = connectedUser.displayName
-  const languages = useSelectors((state) => state.languages.value)
   const profile = useSelectors((state) => state.profile.value)
   const {borrowing, lending, noOneYet, pointsReward} = useTexts()
   const messageName =
