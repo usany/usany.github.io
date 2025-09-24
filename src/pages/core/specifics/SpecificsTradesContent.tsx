@@ -3,13 +3,20 @@ import { Link } from 'react-router-dom'
 import { DrawerClose } from '@/components/ui/drawer'
 import Avatars from 'src/pages/core/Avatars'
 import { useSelectors, useTexts } from 'src/hooks'
+import { DocumentData } from 'firebase/firestore'
 
+interface Props {
+  isCreator: boolean
+  message: DocumentData
+  conversation: string
+  connectedUser: object
+}
 const SpecificsTradesContent = ({
   isCreator,
   message,
   conversation,
   connectedUser,
-}) => {
+}: Props) => {
   const profile = useSelectors((state) => state.profile.value)
   const {userProfile, chat} = useTexts()
   const passingProfile = {
