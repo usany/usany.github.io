@@ -42,7 +42,6 @@ interface Props {
 }
 
 function SpecificsDimensions({ message }: Props) {
-  const languages = useSelectors((state) => state.languages.value)
   const largeMedia = useLargeMedia()
   const location = getLocation(message)
   const {meetingAt, passingAt, returningAt} = useTexts()
