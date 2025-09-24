@@ -1,8 +1,8 @@
 import Button from '@mui/material/Button'
+import staticApple from 'src/assets/signApple.png'
 import staticGoogle from 'src/assets/signGoogle.svg'
 import staticMicrosoft from 'src/assets/signMicrosoft.svg'
 import {
-  onSocialClick,
   onSocialClickApple,
   onSocialClickGoogle,
   onSocialClickMicrosoft,
@@ -46,6 +46,7 @@ const AuthButtons = () => {
           </Button>
           <Button
             className="colorTwo"
+            startIcon={<img src={staticApple} className="w-[20px]" />}
             variant="outlined"
             name="h"
             onClick={onSocialClickApple}
