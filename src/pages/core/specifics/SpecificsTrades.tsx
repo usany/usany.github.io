@@ -25,7 +25,7 @@ function SpecificsTrades({ drawerOpenTrue, message, connectedUser }: Props) {
     messageDisplayName.length > 10
       ? messageDisplayName.slice(0, 10) + '......'
       : messageDisplayName
-  const connectedMessageName = connectedDisplayName?.length > 10 : connectedDisplayName.slice(0, 10) + '......' : connectedDisplayName
+  const connectedMessageName = connectedDisplayName?.length > 10 ? connectedDisplayName.slice(0, 10) + '......' : connectedDisplayName
 
   useEffect(() => {
     if (drawerOpenTrue) {

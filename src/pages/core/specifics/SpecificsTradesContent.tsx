@@ -31,7 +31,7 @@ const SpecificsTradesContent = ({
       : message.connectedProfileImageUrl || connectedUser.connectedUrl,
   }
   const uid = isCreator ? message?.creatorId : connectedUser.uid
-  const displayName = isCreator ? message.displayName : dUser.displayName
+  const displayName = isCreator ? message.displayName : connectedUser.displayName
   const url = isCreator ? message.creatorUrl : connectedUser.url
 
   return (
