@@ -3,7 +3,6 @@ import Steppers from "src/pages/add/Steppers";
 
 interface Props {
   message: {};
-  round: number
 }
 
 function SpecificsSteppers({ message }: Props) {

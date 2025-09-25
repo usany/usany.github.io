@@ -48,7 +48,7 @@ const SpecificsDefault = ({ drawerOpenTrue, message, connectedUser, round,
             connectedUser={connectedUser}
           />
           <Divider />
-          <SpecificsSteppers message={message} round={round} />
+          <SpecificsSteppers message={message} />
           <Divider />
           <SpecificsButtons
             round={round}
