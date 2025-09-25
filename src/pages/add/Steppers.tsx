@@ -28,7 +28,16 @@ function Steppers({ message }) {
     <div>
       <Stepper
         activeStep={message.round - 1} alternativeLabel>
-        {message.text.choose === 1 &&
+        {steps[index].map((label) => (
+            <Step key={label}>
+              <StepLabel>
+                <div className='text-xs'>
+                  {label}
+                </div>
+              </StepLabel>
+            </Step>
+          ))}
+        {/* {message.text.choose === 1 &&
           steps[index].map((label) => (
             <Step key={label}>
               <StepLabel>
@@ -47,7 +56,7 @@ function Steppers({ message }) {
                 </div>
               </StepLabel>
             </Step>
-          ))}
+          ))} */}
       </Stepper>
     </div>
   )
