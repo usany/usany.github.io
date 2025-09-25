@@ -3,9 +3,7 @@ import useLongPress from 'src/hooks/useLongPress'
 import MorphingDialogs from '../morphingDialogs/MorphingDialogs'
 import CardsLongPressed from './CardsLongPressed'
 import CardsViews from './CardsViews'
-import { useRound } from './useRound'
 import { DocumentData } from 'firebase/firestore'
-import deleteMessage from './deleteMessage'
 
 interface Props {
   message: DocumentData
