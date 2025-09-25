@@ -32,10 +32,10 @@ function SpecificsActions({ drawerOpenTrue, message }: Props) {
   return (
     <div className="flex justify-between gap-1">
       <div className="flex flex-col gap-1 items-center">
-        <SpecificsActionsPopups
+        {/* <SpecificsActionsPopups
           drawerOpenTrue={drawerOpenTrue}
           message={message}
-        />
+        /> */}
         <Popups
           trigger={
             <Avatars
