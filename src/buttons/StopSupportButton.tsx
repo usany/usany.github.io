@@ -21,8 +21,8 @@ const useStopSupporting = async (message) => {
     sendingToken: messagingToken,
     creatorId: message.creatorId,
     creatorName: message.displayName,
-    connectedId: profile.uid,
-    connectedName: profile.displayName,
+    connectedId: profile?.uid,
+    connectedName: profile?.displayName,
     connectedUrl: profileUrl,
     preferLanguage: userDoc.data()?.preferLanguage || 'ko',
   }
@@ -36,7 +36,7 @@ const useStopSupporting = async (message) => {
     connectedProfileImageUrl: null,
     connectedUrl: null,
   })
-  const connectedUserRef = doc(dbservice, `members/${profile.uid}`)
+  const connectedUserRef = doc(dbservice, `members/${profile?.uid}`)
   const connectedUserSnap = await getDoc(connectedUserRef)
   const connectedUserData = connectedUserSnap.data()
   const connectedUserConnectedCards = connectedUserData?.connectedCards
