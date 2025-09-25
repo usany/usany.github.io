@@ -32,7 +32,7 @@ const MorphingDialogs = ({
   const [confirmingClock, setConfirmingClock] = useState('')
   const [returningClock, setReturningClock] = useState('')
   const [confirmedReturnClock, setConfirmedReturnClock] = useState('')
-  const { round, increaseRound, decreaseRound } = useRound(message)
+  // const { round, increaseRound, decreaseRound } = useRound(message)
   const [messageValue, setMessageValue] = useState({})
   useEffect(() => {
     setMessageValue(message)
@@ -42,6 +42,13 @@ const MorphingDialogs = ({
     setMessageValue((prev) => {
       return (
         {...prev, round: prev.round+1}
+      )}
+    )
+  }
+  const decreaseRound = () => {
+    setMessageValue((prev) => {
+      return (
+        {...prev, round: prev.round-1}
       )}
     )
   }
