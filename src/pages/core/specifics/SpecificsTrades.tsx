@@ -18,7 +18,6 @@ interface Props {
 function SpecificsTrades({ drawerOpenTrue, message, connectedUser }: Props) {
   const messageDisplayName = message.displayName
   const connectedDisplayName = connectedUser.displayName
-  const profile = useSelectors((state) => state.profile.value)
   const {borrowing, lending, noOneYet, pointsReward} = useTexts()
   const messageName =
     messageDisplayName.length > 10
