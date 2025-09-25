@@ -37,26 +37,6 @@ function Steppers({ message }) {
               </StepLabel>
             </Step>
           ))}
-        {/* {message.text.choose === 1 &&
-          steps[index].map((label) => (
-            <Step key={label}>
-              <StepLabel>
-                <div className='text-xs'>
-                  {label}
-                </div>
-              </StepLabel>
-            </Step>
-          ))}
-        {message.text.choose === 2 &&
-          steps[index].map((label) => (
-            <Step key={label}>
-              <StepLabel>
-                <div className='text-xs'>
-                  {label}
-                </div>
-              </StepLabel>
-            </Step>
-          ))} */}
       </Stepper>
     </div>
   )
