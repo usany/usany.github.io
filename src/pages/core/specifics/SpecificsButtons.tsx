@@ -26,7 +26,6 @@ function SpecificsButtons({
   const [num, setNum] = useState<number | null>(null)
   const [points, setPoints] = useState<number | null>(null)
   const [removed, setRemoved] = useState<boolean>(false)
-  const languages = useSelectors((state) => state.languages.value)
   const {deleted} = useTexts()
   const deletingMessage = () => {
     setRemoved(true)
