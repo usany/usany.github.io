@@ -8,6 +8,7 @@ import DrawersBar from 'src/pages/core/DrawersBar'
 import SpecificsActionsPopupsContents from './SpecificsActionsPopupsContents'
 
 interface Props {
+  drawerOpenTrue: () => void
   message: {}
 }
 
@@ -45,9 +46,6 @@ function SpecificsActionsPopups({ drawerOpenTrue, message }: Props) {
 
   return (
     <>
-      {/* <div className="flex justify-between gap-1">
-        <div className="flex flex-col gap-1 items-center"></div>
-      </div> */}
       <Drawer>
         <DrawerTrigger onClick={drawerOpenTrue}>
           <Avatars

@@ -7,6 +7,7 @@ import { useSelectors } from 'src/hooks'
 import Avatars from 'src/pages/core/Avatars'
 
 interface Props {
+  drawerOpenTrue: () => void
   message: {}
 }
 
@@ -14,15 +15,7 @@ function SpecificsActionsPopupsContents({ drawerOpenTrue, message }: Props) {
   const [conversation, setConversation] = useState('')
   const profile = useSelectors((state) => state.profile.value)
   const uid = profile?.uid
-  useEffect(() => {
-    if (drawerOpenTrue) {
-      if (message?.creatorId < uid) {
-        setConversation(message?.creatorId.slice(0, 6) + uid.slice(0, 6))
-      } else {
-        setConversation(uid.slice(0, 6) + message?.creatorId.slice(0, 6))
-      }
-    }
-  }, [message])
+  const conversation = message?.creatorId < uid ? message?.creatorId.slice(0, 6) + uid.slice(0, 6) : uid.slice(0, 6) + message?.creatorId.slice(0, 6)
   const passingProfile = {
     profileImage: message?.creatorProfileImage,
     defaultProfile: message?.creatorDefaultProfile,
