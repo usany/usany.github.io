@@ -93,7 +93,7 @@ function SpecificsTrades({ drawerOpenTrue, message, connectedUser }: Props) {
               className="specific"
               size="small"
               variant={!connectedUser.uid ? 'outlined' : undefined}
-              label={connectedUser.uid ? connectedUser.displayName : noOneYet}
+              label={connectedUser.uid ? connectedMessageName : noOneYet}
             />
           </div>
         )}
