@@ -1,15 +1,14 @@
 import DeleteIcon from '@mui/icons-material/Delete'
 import Button from '@mui/material/Button'
-import { deleteDoc } from 'firebase/firestore'
+import { deleteDoc, doc } from 'firebase/firestore'
 import { useSelectors, useTexts } from 'src/hooks'
-import specificProcess from './specificProcess'
+import { dbservice } from 'src/baseApi/serverbase'
 
 const onDelete = async ({ message }) => {
-  const { data } = await specificProcess({ message: message })
+  const data = doc(dbservice, `num/${message.id}`)
   deleteDoc(data)
 }
 const DeleteButton = ({ message, deleteMessage, decreaseRound }) => {
-  const languages = useSelectors((state) => state.languages.value)
   const {remove} = useTexts()
   return (
     <div className="flex justify-center">
