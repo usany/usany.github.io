@@ -23,7 +23,6 @@ const Cards = ({
   delayed,
   delayedFalse,
 }: Props) => {
-  const { round, increaseRound, decreaseRound } = useRound(message)
   const cardsRef = useRef()
   useLongPress(cardsRef, () => {
     changeLongPressCard(message.id)
