@@ -1,4 +1,3 @@
-import { User } from 'firebase/auth'
 import {
   collection,
   doc,
@@ -18,7 +17,7 @@ import Popups from 'src/pages/core/Popups'
 import { webSocket } from 'src/webSocket.tsx'
 import PiazzaDialogsContent from './piazzaDialogs/PiazzaDialogsContent'
 
-const FormatClock = ({messageClock}) => {
+export const FormatClock = ({messageClock}) => {
   const languages = useSelectors((state) => state.languages.value)
   const clock = new Date(messageClock)
   let messageAmpm
