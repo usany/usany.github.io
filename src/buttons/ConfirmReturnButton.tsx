@@ -62,12 +62,12 @@ const onConfirmReturn = async ({ num, points, message, uid, profileUrl }) => {
   if (message.text.choose === 1) {
     const creatorBorrowDone = creatorData?.borrowDoneCount || []
     const connectedLendDone = connectedData?.lendDoneCount || []
-    updateDoc(creatorRef, { points: creatorData.points - message.point })
-    updateDoc(connectedRef, { points: connectedData.points + message.point })
-    updateDoc(creatorRef, { borrowDoneCount: [...creatorBorrowDone, message.id] })
-    updateDoc(connectedRef, {
-      lendDoneCount: [...connectedLendDone, message.id],
-    })
+    updateDoc(creatorRef, { borrowDoneCount: [...creatorBorrowDone, message.id], points: creatorData.points - message.point })
+    updateDoc(connectedRef, { lendDoneCount: [...connectedLendDone, message.id], points: connectedData.points + message.point })
+    // updateDoc(creatorRef, { borrowDoneCount: [...creatorBorrowDone, message.id] })
+    // updateDoc(connectedRef, {
+    //   lendDoneCount: [...connectedLendDone, message.id],
+    // })
   } else {
     const creatorLendDone = creatorData?.lendDoneCount || []
     const connectedBorrowDone = connectedData?.borrowDoneCount || []
