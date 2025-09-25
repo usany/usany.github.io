@@ -12,17 +12,17 @@ const CardsStacksViewsCollection = ({
   longPressCard: string
   changeLongPressCard: (newValue: string) => void
 }) => {
-  const [delayed, setDelayed] = useState(true)
-  const delayedTrue = () => setDelayed(true)
-  const delayedFalse = () => setDelayed(false)
+  // const [delayed, setDelayed] = useState(true)
+  // const delayedTrue = () => setDelayed(true)
+  // const delayedFalse = () => setDelayed(false)
   const onLine = useSelectors(state => state.onLine.value)
   const profile = useSelectors((state) => state.profile.value)
 
-  useEffect(() => {
-    if (!delayed) {
-      setTimeout(() => delayedTrue(), 250)
-    }
-  })
+  // useEffect(() => {
+  //   if (!delayed) {
+  //     setTimeout(() => delayedTrue(), 250)
+  //   }
+  // })
   if (messages.length) {
     localStorage.setItem('cards', JSON.stringify(messages))
   }
@@ -48,8 +48,8 @@ const CardsStacksViewsCollection = ({
                   message={value}
                   longPressCard={longPressCard}
                   changeLongPressCard={changeLongPressCard}
-                  delayed={delayed}
-                  delayedFalse={delayedFalse}
+                  // delayed={delayed}
+                  // delayedFalse={delayedFalse}
                 />
               </div>
             )

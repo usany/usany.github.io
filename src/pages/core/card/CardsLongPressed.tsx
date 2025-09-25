@@ -6,14 +6,14 @@ const CardsLongPressed = ({
   longPressCard,
   message,
   changeLongPressCard,
-  delayedFalse,
+  // delayedFalse,
 }) => {
   return (
     <ClickAwayListener
       onClickAway={() => {
         if (longPressCard === message.id) {
           changeLongPressCard(null)
-          delayedFalse()
+          // delayedFalse()
         }
       }}
     >

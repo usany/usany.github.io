@@ -8,7 +8,7 @@ import specificProcess from './specificProcess'
 
 const onStopSupporting = async (message) => {
   const profile = useSelectors((state) => state.profile.value)
-  const profileUrl = profile?.profileImage ? profile?.profileImageUrl : profile?.defaultProfile,
+  const profileUrl = profile?.profileImage ? profile?.profileImageUrl : profile?.defaultProfile
 
   const { data, messagingToken } = await specificProcess({
     message: message,

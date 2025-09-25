@@ -18,8 +18,8 @@ const Cards = ({
   message,
   longPressCard,
   changeLongPressCard,
-  delayed,
-  delayedFalse,
+  // delayed,
+  // delayedFalse,
 }: Props) => {
   const cardsRef = useRef()
   useLongPress(cardsRef, () => {
@@ -34,7 +34,7 @@ const Cards = ({
               longPressCard={longPressCard}
               message={message}
               changeLongPressCard={changeLongPressCard}
-              delayedFalse={delayedFalse}
+              // delayedFalse={delayedFalse}
             />
           ) : (
             <CardsViews message={message} />
@@ -42,7 +42,8 @@ const Cards = ({
         </>
       ) : (
         <>
-          {delayed ||
+          {
+          // delayed ||
           location.pathname === '/board' ||
           location.pathname === '/profile' ? (
             <MorphingDialogs
