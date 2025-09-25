@@ -11,7 +11,6 @@ function Btn({
   message,
   num,
   points,
-  deleteMessage,
   round,
   increaseRound,
   decreaseRound,
