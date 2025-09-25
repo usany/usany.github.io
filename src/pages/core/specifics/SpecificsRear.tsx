@@ -72,7 +72,38 @@ function SpecificsRear({
   const confirmedReturnMoment = message?.confirmedReturnClock
     ? message.confirmedReturnClock
     : confirmedReturnClock
-
+  const statusCollection = [
+    {
+      isBorrowing: message.text.choose === 1,
+      passingProfile: passingValueCreator,
+      text: createdAt,
+      messageClock: message.createdClock
+    },
+    {
+      isBorrowing: message.text.choose === 1,
+      passingProfile: passingValueConnected,
+      text: supportedAt,
+      messageClock: message.createdClock
+    },
+    {
+      isBorrowing: message.text.choose === 1,
+      passingProfile: passingValueCreator,
+      text: createdAt,
+      messageClock: message.createdClock
+    },
+    {
+      isBorrowing: message.text.choose === 1,
+      passingProfile: passingValueCreator,
+      text: createdAt,
+      messageClock: message.createdClock
+    },
+    {
+      isBorrowing: message.text.choose === 1,
+      passingProfile: passingValueCreator,
+      text: createdAt,
+      messageClock: message.createdClock
+    },
+  ]
   return (
     <div className="backSide">
       <Card
@@ -101,9 +132,9 @@ function SpecificsRear({
           </div>
           <Divider />
           {message.text.choose === 1 ? (
-            <>
+            <div className='pt-5'>
               {message.createdClock && (
-                <div className="flex justify-between">
+                <div className="flex justify-start gap-5">
                   <Avatars element={passingValueCreator} />
                   <div className="flex items-center">
                     {createdAt}
@@ -148,9 +179,9 @@ function SpecificsRear({
                   <Avatars element={passingValueConnected} />
                 </div>
               )}
-            </>
+            </div>
           ) : (
-            <>
+            <div className='pt-5'>
               {message.createdClock && (
                 <div className="flex justify-between">
                   <div className="flex items-center">
@@ -191,7 +222,7 @@ function SpecificsRear({
                   <Avatars element={passingValueCreator} />
                 </div>
               )}
-            </>
+            </div>
           )}
         </CardContent>
       </Card>
