@@ -9,8 +9,6 @@ import SupportButton from './SupportButton'
 
 function Btn({
   message,
-  num,
-  points,
   round,
   increaseRound,
   decreaseRound,
