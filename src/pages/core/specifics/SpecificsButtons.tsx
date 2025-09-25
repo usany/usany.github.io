@@ -4,7 +4,7 @@ import { doc, getDoc } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 import { dbservice } from 'src/baseApi/serverbase'
 import Btn from 'src/buttons/Buttons'
-import { useSelectors } from 'src/hooks'
+import { useSelectors, useTexts } from 'src/hooks'
 import deleteMessage from '../card/deleteMessage'
 
 interface Props {
@@ -25,11 +25,11 @@ function SpecificsButtons({
 }: Props) {
   const [num, setNum] = useState<number | null>(null)
   const [points, setPoints] = useState<number | null>(null)
-  const [deleted, setDeleted] = useState<boolean>(false)
+  const [removed, setRemoved] = useState<boolean>(false)
   const languages = useSelectors((state) => state.languages.value)
-
+  const {deleted} = useTexts()
   const deletingMessage = () => {
-    setDeleted(true)
+    setRemoved(true)
     deleteMessage(message?.id)
   }
   useEffect(() => {
@@ -54,7 +54,7 @@ function SpecificsButtons({
   })
   return (
     <div className="flex justify-center pt-5">
-      {!deleted ? (
+      {!removed ? (
         <div className="flex justify-center">
           <Btn
             message={message}
@@ -75,7 +75,7 @@ function SpecificsButtons({
       ) : (
         <div className="flex justify-center">
           <Button variant="outlined" disabled>
-            {languages === 'ko' ? '지워졌습니다' : 'Deleted'}
+            {deleted}
           </Button>
         </div>
       )}
