@@ -12,7 +12,6 @@ interface Props {
 }
 
 function SpecificsActionsPopupsContents({ drawerOpenTrue, message }: Props) {
-  const [conversation, setConversation] = useState('')
   const profile = useSelectors((state) => state.profile.value)
   const uid = profile?.uid
   const conversation = message?.creatorId < uid ? message?.creatorId.slice(0, 6) + uid.slice(0, 6) : uid.slice(0, 6) + message?.creatorId.slice(0, 6)
