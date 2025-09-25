@@ -11,14 +11,14 @@ import SpecificsTradesTitle from './SpecificsTradesTitle'
 import SpecificsTradesTrigger from './SpecificsTradeTrigger'
 
 interface Props {
+  isCreator: boolean
   drawerOpenTrue: () => void
-  message: {}
   connectedUser: {}
 }
-function SpecificsTradesPopups({ isCreator }: Props) {
+function SpecificsTradesPopups({ isCreator, drawerOpenTrue, connectedUser }: Props) {
   const messageDisplayName = message.displayName
   const connectedDisplayName = connectedUser.displayName
-  const {borrowing, lending, noOneYet, pointsReward} = useTexts()
+  const {noOneYet} = useTexts()
   const messageName =
     messageDisplayName.length > 10
       ? messageDisplayName.slice(0, 10) + '......'
