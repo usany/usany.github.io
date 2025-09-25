@@ -25,8 +25,6 @@ function SpecificsButtons({
 }: Props) {
   const [num, setNum] = useState<number | null>(null)
   const [points, setPoints] = useState<number | null>(null)
-  const [removed, setRemoved] = useState<boolean>(false)
-  const {deleted} = useTexts()
   useEffect(() => {
     const creatorPoints = async () => {
       const docRef = doc(dbservice, `members/${message.creatorId}`)
