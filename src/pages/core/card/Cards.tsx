@@ -53,7 +53,6 @@ const Cards = ({
               round={round}
               increaseRound={increaseRound}
               decreaseRound={decreaseRound}
-              deleteMessage={deleteMessage}
             />
           ) : (
             <CardsViews message={message} />

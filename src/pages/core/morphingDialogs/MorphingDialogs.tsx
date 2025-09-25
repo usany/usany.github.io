@@ -29,7 +29,6 @@ const MorphingDialogs = ({
   round,
   increaseRound,
   decreaseRound,
-  deleteMessage,
 }: Props) => {
   const [onTransfer, setOnTransfer] = useState(false)
   const [connectedClock, setConnectedClock] = useState({
