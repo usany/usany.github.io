@@ -89,7 +89,7 @@ const ConfirmReturnButton = ({
   handleConfirmedReturnClock,
 }: Props) => {
   const languages = useSelectors((state) => state.languages.value)
-  const {confirmReturnCompleted} = useTexts()
+  const {returnConfirmed} = useTexts()
   return (
     <Button
       variant="outlined"
@@ -103,7 +103,7 @@ const ConfirmReturnButton = ({
       }}
       startIcon={<SendIcon />}
     >
-      {languages === 'ko' ? '반납 완료 확인' : 'Confirm return complete'}
+      {returnConfirmed}
     </Button>
   )
 }
