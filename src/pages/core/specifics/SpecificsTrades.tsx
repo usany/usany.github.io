@@ -73,7 +73,6 @@ function SpecificsTrades({ drawerOpenTrue, message, connectedUser }: Props) {
                 content={
                   <SpecificsTradesContent
                     isCreator={false}
-                    userObj={profile}
                     message={{
                       ...message,
                       connectedProfileImage: true,
@@ -81,7 +80,6 @@ function SpecificsTrades({ drawerOpenTrue, message, connectedUser }: Props) {
                       connectedDefaultProfile: connectedUser.url,
                     }}
                     conversation={conversation}
-                    drawerOpenTrue={drawerOpenTrue}
                     connectedUser={connectedUser}
                   />
                 }
@@ -154,7 +152,6 @@ function SpecificsTrades({ drawerOpenTrue, message, connectedUser }: Props) {
                       connectedDefaultProfile: connectedUser.url,
                     }}
                     conversation={conversation}
-                    drawerOpenTrue={drawerOpenTrue}
                     connectedUser={connectedUser}
                   />
                 }
@@ -198,10 +195,8 @@ function SpecificsTrades({ drawerOpenTrue, message, connectedUser }: Props) {
               content={
                 <SpecificsTradesContent
                   isCreator={true}
-                  userObj={profile}
                   message={message}
                   conversation={conversation}
-                  drawerOpenTrue={drawerOpenTrue}
                   connectedUser={connectedUser}
                 />
               }
