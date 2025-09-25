@@ -83,12 +83,6 @@ const onConfirmReturn = async ({ num, points, message, uid, profileUrl }) => {
     preferLanguage: dataDoc.data()?.preferLanguage || 'ko',
     confirmedReturnClock: new Date().toString(),
   }
-  // updateDoc(creatorRef, {
-  //   done: [...creatorDone, message.id],
-  // })
-  // updateDoc(connectedRef, {
-  //   done: [...connectedDone, message.id],
-  // })
 
   webSocket.emit('confirmReturn', passingObject)
 }
