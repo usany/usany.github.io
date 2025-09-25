@@ -2,7 +2,7 @@ import SendIcon from '@mui/icons-material/Send'
 import Button from '@mui/material/Button'
 import { doc, getDoc, updateDoc } from 'firebase/firestore'
 import { dbservice } from 'src/baseApi/serverbase'
-import { useSelectors } from 'src/hooks'
+import { useSelectors, useTexts } from 'src/hooks'
 import { webSocket } from 'src/webSocket.tsx'
 import specificProcess from './specificProcess'
 
@@ -88,9 +88,7 @@ const ConfirmReturnButton = ({
   increaseRound,
   handleConfirmedReturnClock,
 }: Props) => {
-  const languages = useSelectors((state) => state.languages.value)
-  const profile = useSelectors((state) => state.profile.value)
-
+  const {confirmReturnCompleted} = useTexts()
   return (
     <Button
       variant="outlined"
@@ -104,7 +102,7 @@ const ConfirmReturnButton = ({
       }}
       startIcon={<SendIcon />}
     >
-      {languages === 'ko' ? '반납 완료 확인' : 'Confirm return complete'}
+      {confirmReturnCompleted}
     </Button>
   )
 }
