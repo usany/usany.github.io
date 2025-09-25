@@ -26,9 +26,6 @@ function SpecificsRear({
   const { borrowing, lending, createdAt, supportedAt, borrowedAt, lendedAt, returnOnProcessAt, returnConfirmedAt } = useTexts()
   const profile = useSelectors((state) => state.profile.value)
   const profileImageUrl = useSelectors((state) => state.profileImageUrl.value)
-  // const [sendedProfileImage, setSendedProfileImage] = useState(false)
-  // const [sendedDefaultProfile, setSendedDefaultProfile] = useState('')
-  // const [sendedProfileImageUrl, setSendedProfileImageUrl] = useState('')
   const [sendingProfile, setSendingProfile] = useState(null)
   const id = message?.id || ''
   const shadowColor = getShadowColor(id)
@@ -38,9 +35,6 @@ function SpecificsRear({
       const docSnap = await getDoc(docRef)
       const userData = docSnap.data()
       setSendingProfile(userData)
-      // setSendedProfileImage(userData.connectedProfileImage)
-      // setSendedDefaultProfile(userData.connectedDefaultProfile)
-      // setSendedProfileImageUrl(userData.connectedProfileImageUrl)
     }
     messages()
   }, [connectedClock, confirmingClock, returningClock, confirmedReturnClock])
