@@ -136,7 +136,7 @@ function SpecificsRear({
               {statusCollection.map((value) => {
                 if (value.messageClock) {
                   return (
-                    <div className="flex justify-start gap-5">
+                    <div className={`flex ${value.isBorrowing ? 'justify-start' : 'justify-end'} gap-5`}>
                       {value.isBorrowing ?
                         <>
                           <Avatars element={value.passingProfile} />
