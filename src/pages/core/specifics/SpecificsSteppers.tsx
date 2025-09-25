@@ -6,7 +6,7 @@ interface Props {
   round: number
 }
 
-function SpecificsSteppers({ message, round }: Props) {
+function SpecificsSteppers({ message }: Props) {
   const {process} = useTexts()
   return (
     <div className="flex flex-col gap-1">
