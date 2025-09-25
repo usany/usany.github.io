@@ -15,7 +15,7 @@ interface Props {
   drawerOpenTrue: () => void
   connectedUser: {}
 }
-function SpecificsTradesPopups({ isCreator, drawerOpenTrue, connectedUser }: Props) {
+function SpecificsTradesPopups({ isCreator, drawerOpenTrue, connectedUser, message }: Props) {
   const messageDisplayName = message.displayName
   const connectedDisplayName = connectedUser.displayName
   const {noOneYet} = useTexts()
