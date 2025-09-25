@@ -44,9 +44,9 @@ function SpecificsRear({
     }
     messages()
   }, [connectedClock, confirmingClock, returningClock, confirmedReturnClock])
-  const sendedProfileImage = sendingProfile.connectedProfileImage
-  const sendedDefaultProfile = sendingProfile.connectedDefaultProfile
-  const sendedProfileImageUrl = sendingProfile.connectedProfileImageUrl
+  const sendedProfileImage = sendingProfile?.connectedProfileImage
+  const sendedDefaultProfile = sendingProfile?.connectedDefaultProfile
+  const sendedProfileImageUrl = sendingProfile?.connectedProfileImageUrl
 
   const passingValueCreator = {
     profileImage: message.creatorProfileImage,
