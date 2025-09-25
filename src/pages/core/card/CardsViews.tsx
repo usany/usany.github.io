@@ -1,12 +1,8 @@
-import { User } from 'firebase/auth'
 import Tilt from 'react-parallax-tilt'
 import { PulsatingButton } from 'src/components/ui/pulsating-button'
 import CardView from './CardView'
 import { DocumentData } from 'firebase/firestore'
 
-// interface Props {
-//   message: { id: string; text: object }
-// }
 const shadowColorArray = [
   'lightblue',
   'lightcoral',
