@@ -105,9 +105,10 @@ function SpecificsRear({
               {message.createdClock && (
                 <div className="flex justify-between">
                   <Avatars element={passingValueCreator} />
-                  <FormatClock messageClock={message.createdClock} />
                   <div className="flex items-center">
-                    {message.createdClock}에 생성
+                    {createdAt}
+                    <FormatClock messageClock={message.createdClock} />
+                    {/* {message.createdClock}에 생성 */}
                   </div>
                 </div>
               )}
