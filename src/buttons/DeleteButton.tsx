@@ -5,11 +5,8 @@ import { useSelectors, useTexts } from 'src/hooks'
 import { dbservice } from 'src/baseApi/serverbase'
 import { useState } from 'react'
 import deleteMessage from 'src/pages/core/card/deleteMessage'
+import onDelete from './onDelete'
 
-const onDelete = async (id: string) => {
-  const data = doc(dbservice, `num/${id}`)
-  deleteDoc(data)
-}
 const DeleteButton = ({ message, decreaseRound }) => {
   const {remove, deleted} = useTexts()
   const [removed, setRemoved] = useState(false)
