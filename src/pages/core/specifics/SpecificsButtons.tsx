@@ -23,34 +23,10 @@ function SpecificsButtons({
   handleReturningClock,
   handleConfirmedReturnClock,
 }: Props) {
-  const [num, setNum] = useState<number | null>(null)
-  const [points, setPoints] = useState<number | null>(null)
-  useEffect(() => {
-    const creatorPoints = async () => {
-      const docRef = doc(dbservice, `members/${message.creatorId}`)
-      const docSnap = await getDoc(docRef)
-      const points = docSnap.data()?.points
-      setNum(points)
-    }
-    creatorPoints()
-  }, [])
-  useEffect(() => {
-    const connectedPoints = async () => {
-      const docRef = doc(dbservice, `members/${message?.connectedId}`)
-      const docSnap = await getDoc(docRef)
-      const points = docSnap.data()?.points
-      setPoints(points)
-    }
-    if (message.connectedId !== null) {
-      connectedPoints()
-    }
-  })
   return (
     <div className="flex justify-center pt-5">
       <Btn
         message={message}
-        num={num}
-        points={points}
         round={round}
         increaseRound={increaseRound}
         decreaseRound={decreaseRound}
