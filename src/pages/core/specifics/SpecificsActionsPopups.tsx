@@ -1,6 +1,5 @@
 import { Drawer, DrawerContent, DrawerTrigger } from '@/components/ui/drawer'
 import { ScrollArea } from '@radix-ui/react-scroll-area'
-import { User } from 'firebase/auth'
 import { Dialog, DialogContent, DialogTrigger } from 'src/components/ui/dialog'
 import useLargeMedia from 'src/hooks/useLargeMedia'
 import Avatars from 'src/pages/core/Avatars'
