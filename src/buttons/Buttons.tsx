@@ -109,8 +109,6 @@ function Btn({
           )}
           {message.text.choose === 2 && (
             <ConfirmReturnButton
-              num={num}
-              points={points}
               message={message}
               increaseRound={increaseRound}
               handleConfirmedReturnClock={handleConfirmedReturnClock}
@@ -123,8 +121,6 @@ function Btn({
       <div className="flex justify-center">
         {message.text.choose === 1 && (
           <ConfirmReturnButton
-            num={num}
-            points={points}
             message={message}
             increaseRound={increaseRound}
             handleConfirmedReturnClock={handleConfirmedReturnClock}
