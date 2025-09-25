@@ -56,27 +56,24 @@ const StopSupportButton = ({
   handleConnectedClock,
 }) => {
   const languages = useSelectors((state) => state.languages.value)
-  const profile = useSelectors((state) => state.profile.value)
-
+  const {supportMessageSent} = useTexts()
   return (
     <div className="flex justify-center">
       <div className="px-5">
-        {languages === 'ko' ? '승낙 메시지 전송 완료' : 'Support message sent'}
+        {supportMessageSent}
       </div>
       <Button
         variant="outlined"
         onClick={() => {
-          if (profile) {
-            onStopSupporting(message)
-            decreaseRound()
-            changeConnectedUser({
-              uid: '',
-              displayName: '',
-              url: '',
-            })
-            toggleOnTransfer()
-            handleConnectedClock({ clock: '', cancelled: true })
-          }
+          onStopSupporting(message)
+          decreaseRound()
+          changeConnectedUser({
+            uid: '',
+            displayName: '',
+            url: '',
+          })
+          toggleOnTransfer()
+          handleConnectedClock({ clock: '', cancelled: true })
         }}
         startIcon={<SendIcon />}
       >
