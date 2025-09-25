@@ -38,6 +38,7 @@ function SpecificsRear({
     }
     messages()
   }, [connectedClock, confirmingClock, returningClock, confirmedReturnClock])
+  const sendingProfile = getCard
   const sendedProfileImage = sendingProfile?.connectedProfileImage
   const sendedDefaultProfile = sendingProfile?.connectedDefaultProfile
   const sendedProfileImageUrl = sendingProfile?.connectedProfileImageUrl
