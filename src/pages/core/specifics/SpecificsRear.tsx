@@ -123,6 +123,7 @@ function SpecificsRear({
               {confirmingMoment && (
                 <div className="flex justify-between">
                   <Avatars element={passingValueCreator} />
+                  <FormatClock messageClock={confirmingMoment} />
                   <div className="flex items-center">
                     {confirmingMoment}에 받음
                   </div>
@@ -131,6 +132,7 @@ function SpecificsRear({
               {returningMoment && (
                 <div className="flex justify-between">
                   <Avatars element={passingValueCreator} />
+                  <FormatClock messageClock={returningMoment} />
                   <div className="flex items-center">
                     {returningMoment}에 반납 진행
                   </div>
@@ -138,6 +140,7 @@ function SpecificsRear({
               )}
               {confirmedReturnMoment && (
                 <div className="flex justify-between">
+                  <FormatClock messageClock={confirmedReturnMoment} />
                   <div className="flex items-center">
                     {confirmedReturnMoment}에 반납 확인
                   </div>
