@@ -6,11 +6,11 @@ import { useSelectors } from 'src/hooks'
 import { webSocket } from 'src/webSocket.tsx'
 import specificProcess from './specificProcess'
 
-const getPoints = async (id: string) => {
+const getMemberData = async (id: string) => {
   const docRef = doc(dbservice, `members/${id}`)
   const docSnap = await getDoc(docRef)
-  const points = docSnap.data()?.points
-  return points
+  const memberData = docSnap.data()
+  return memberData
 }
 export interface UserData {
   createdCards: string[]
@@ -38,17 +38,17 @@ const onConfirmReturn = async ({ num, points, message, uid, profileUrl }) => {
     round: 5,
     confirmedReturnClock: new Date().toString(),
   })
+  const docRef = doc(dbservice, `members/${message.creatorId}`)
+  const creatorData = getMemberData(message.creatorId)
+  const connectedData = getMemberData(message.connectedId)
+
   const point = doc(dbservice, `members/${message.creatorId}`)
   const connectedPoint = doc(
     dbservice,
     `members/${dataDoc.data()?.connectedId}`,
   )
-  const creatorSnap = await getDoc(point)
-  const connectedSnap = await getDoc(connectedPoint)
-  const creatorData = creatorSnap.data() as UserData
-  const connectedData = connectedSnap.data() as UserData
-  const creatorDone = creatorSnap.data()?.done || []
-  const connectedDone = connectedSnap.data()?.done || []
+  const creatorDone = creatorData?.done || []
+  const connectedDone = connectedData?.done || []
   const createdCards = creatorData?.createdCards
   const connectedCards = connectedData?.connectedCards
   const newCreatedCards = createdCards.filter(
