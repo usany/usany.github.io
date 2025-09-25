@@ -43,9 +43,6 @@ function Btn({
     }
     return (
       <SupportButton
-        move={move}
-        handleClose={handleClose}
-        handleDialog={handleDialog}
         message={message}
         increaseRound={increaseRound}
         changeConnectedUser={changeConnectedUser}
