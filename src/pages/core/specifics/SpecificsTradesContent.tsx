@@ -33,7 +33,6 @@ const SpecificsTradesContent = ({
   const uid = isCreator ? message?.creatorId : connectedUser.uid
   const displayName = isCreator ? message.displayName : connectedUser.displayName
   const url = isCreator ? message.creatorUrl : connectedUser.url
-
   return (
     <>
       <div className="flex flex-col items-center pt-5">
@@ -64,7 +63,7 @@ const SpecificsTradesContent = ({
             </Button>
           </DrawerClose>
         </Link>
-        {profile?.uid !== message?.creatorId && (
+        {profile?.uid !== message?.creatorId && profile?.uid !== connectedUser?.uid && (
           <Link
             to={`/piazza/?id=${conversation}`}
             state={{
