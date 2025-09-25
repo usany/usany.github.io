@@ -6,6 +6,7 @@ import SpecificsFront from './SpecificsDefault'
 import SpecificsDefault from './SpecificsDefault'
 import getShadowColor from './getShadowColor'
 import { RotateCcw, Redo } from 'lucide-react';
+import deleteMessage from '../card/deleteMessage'
 
 interface Props {
   message: {}
@@ -22,7 +23,6 @@ function Specifics({
   connectedUser,
   changeConnectedUser,
   toggleOnTransfer,
-  removeMessage,
   connectedClock,
   confirmingClock,
   returningClock,
@@ -41,6 +41,7 @@ function Specifics({
   const flipCards = () => {
     setCardFlipped(!cardFlipped)
   }
+  const removeMessage = deleteMessage
 
   return (
     <div

@@ -141,7 +141,6 @@ const MorphingDialogs = ({
           connectedUser={connectedUser}
           changeConnectedUser={changeConnectedUser}
           toggleOnTransfer={toggleOnTransfer}
-          deleteMessage={deleteMessage}
           connectedClock={connectedClock}
           confirmingClock={confirmingClock}
           returningClock={returningClock}
