@@ -42,8 +42,11 @@ const Cards = ({
         </>
       ) : (
         <>
-          {
-          // delayed ||
+          <MorphingDialogs
+            message={message}
+          />
+          {/* {
+          delayed ||
           location.pathname === '/board' ||
           location.pathname === '/profile' ? (
             <MorphingDialogs
@@ -51,7 +54,7 @@ const Cards = ({
             />
           ) : (
             <CardsViews message={message} />
-          )}
+          )} */}
         </>
       )}
     </div>
