@@ -4,7 +4,6 @@ import EmptyChattingStacks from './EmptyChattingStacks'
 import { useSortedChattings } from './useSortedChattings'
 
 const MessageStacks = () => {
-  const profile = useSelectors((state) => state.profile.value)
   const languages = useSelectors((state) => state.languages.value)
   const index = languages === 'ko' || languages === 'en' ? languages : 'ko'
   const { chattings, changeChattings, sorted, chattingNone } = useSortedChattings()
