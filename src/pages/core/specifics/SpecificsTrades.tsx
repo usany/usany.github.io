@@ -25,7 +25,6 @@ function SpecificsTrades({ drawerOpenTrue, message, connectedUser }: Props) {
       ? messageDisplayName.slice(0, 10) + '......'
       : messageDisplayName
   const connectedMessageName = connectedDisplayName?.length > 10 ? connectedDisplayName.slice(0, 10) + '......' : connectedDisplayName
-  const conversation = message?.creatorId < profile?.uid ? message?.creatorId.slice(0, 6) + profile?.uid.slice(0, 6) : profile?.uid.slice(0, 6) + message?.creatorId.slice(0, 6)
   return (
     <div className="flex justify-center pt-3">
       <div className="flex flex-col items-center px-5 gap-1">
@@ -148,7 +147,6 @@ function SpecificsTrades({ drawerOpenTrue, message, connectedUser }: Props) {
                       connectedProfileImageUrl: connectedUser.url,
                       connectedDefaultProfile: connectedUser.url,
                     }}
-                    conversation={conversation}
                     connectedUser={connectedUser}
                   />
                 }
@@ -193,7 +191,6 @@ function SpecificsTrades({ drawerOpenTrue, message, connectedUser }: Props) {
                 <SpecificsTradesContent
                   isCreator={true}
                   message={message}
-                  conversation={conversation}
                   connectedUser={connectedUser}
                 />
               }
