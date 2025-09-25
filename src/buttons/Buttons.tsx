@@ -21,14 +21,7 @@ function Btn({
   handleReturningClock,
   handleConfirmedReturnClock,
 }) {
-  const [move, setMove] = useState(false)
   const languages = useSelectors((state) => state.languages.value)
-  const handleClose = () => {
-    setMove(false)
-  }
-  const handleDialog = () => {
-    setMove(true)
-  }
   const profile = useSelectors((state) => state.profile.value)
 
   const isOwner = message.creatorId === profile?.uid
