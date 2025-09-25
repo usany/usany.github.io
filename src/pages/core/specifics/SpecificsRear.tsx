@@ -80,7 +80,7 @@ function SpecificsRear({
       messageClock: message.createdClock
     },
     {
-      isBorrowing: message.text.choose === 1,
+      isBorrowing: message.text.choose !== 1,
       passingProfile: passingValueConnected,
       text: supportedAt,
       messageClock: connectedMoment
@@ -92,13 +92,13 @@ function SpecificsRear({
       messageClock: confirmingMoment
     },
     {
-      isBorrowing: message.text.choose === 1,
+      isBorrowing: true,
       passingProfile: message.text.choose === 1 ? passingValueCreator : passingValueConnected,
       text: returnOnProcessAt,
       messageClock: returningMoment
     },
     {
-      isBorrowing: message.text.choose === 1,
+      isBorrowing: false,
       passingProfile: message.text.choose === 1 ? passingValueConnected : passingValueCreator,
       text: returnConfirmedAt,
       messageClock: confirmedReturnMoment
@@ -133,6 +133,31 @@ function SpecificsRear({
           <Divider />
           {message.text.choose === 1 ? (
             <div className='pt-5'>
+              {statusCollection.map((value) => {
+                if (value.messageClock) {
+                  return (
+                    <div className="flex justify-start gap-5">
+                      {value.isBorrowing ?
+                        <>
+                          <Avatars element={passingValueCreator} />
+                          <div className="flex items-center">
+                            {createdAt}
+                            <FormatClock messageClock={message.createdClock} />
+                          </div>
+                        </>
+                        :
+                        <>
+                          <Avatars element={passingValueCreator} />
+                          <div className="flex items-center">
+                            {createdAt}
+                            <FormatClock messageClock={message.createdClock} />
+                          </div>
+                        </>
+                      }
+                    </div>
+                  )
+                }
+              })}
               {message.createdClock && (
                 <div className="flex justify-start gap-5">
                   <Avatars element={passingValueCreator} />
