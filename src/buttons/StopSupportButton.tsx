@@ -55,7 +55,6 @@ const StopSupportButton = ({
   toggleOnTransfer,
   handleConnectedClock,
 }) => {
-  const languages = useSelectors((state) => state.languages.value)
   const {supportMessageSent, cancel} = useTexts()
   return (
     <div className="flex justify-center">
