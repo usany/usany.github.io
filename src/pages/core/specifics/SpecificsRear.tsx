@@ -71,7 +71,6 @@ function SpecificsRear({
   const confirmedReturnMoment = message?.confirmedReturnClock
     ? message.confirmedReturnClock
     : confirmedReturnClock
-  const createdClock = new Date(message.createdClock)
 
   return (
     <div className="backSide">
@@ -102,11 +101,11 @@ function SpecificsRear({
           <Divider />
           {message.text.choose === 1 ? (
             <>
-              {createdClock && (
+              {message.createdClock && (
                 <div className="flex justify-between">
                   <Avatars element={passingValueCreator} />
                   <div className="flex items-center">
-                    {createdClock}에 생성
+                    {message.createdClock}에 생성
                   </div>
                 </div>
               )}
