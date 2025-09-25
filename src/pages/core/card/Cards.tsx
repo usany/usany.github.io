@@ -5,6 +5,7 @@ import CardsLongPressed from './CardsLongPressed'
 import CardsViews from './CardsViews'
 import { useRound } from './useRound'
 import { DocumentData } from 'firebase/firestore'
+import deleteMessage from './deleteMessage'
 
 interface Props {
   message: DocumentData
@@ -19,7 +20,6 @@ const Cards = ({
   message,
   longPressCard,
   changeLongPressCard,
-  deleteMessage,
   delayed,
   delayedFalse,
 }: Props) => {

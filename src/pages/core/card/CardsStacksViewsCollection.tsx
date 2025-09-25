@@ -2,13 +2,6 @@ import { useEffect, useState } from 'react'
 import { useSelectors } from 'src/hooks'
 import Cards from './Cards'
 import { DocumentData } from 'firebase/firestore'
-const deleteMessage = (id: string) => {
-  const item = document.getElementById(id)
-  item?.classList.add('transition')
-  item?.addEventListener('transitionend', () => {
-    item?.remove()
-  })
-}
 
 const CardsStacksViewsCollection = ({
   messages,
@@ -55,7 +48,6 @@ const CardsStacksViewsCollection = ({
                   message={value}
                   longPressCard={longPressCard}
                   changeLongPressCard={changeLongPressCard}
-                  deleteMessage={deleteMessage}
                   delayed={delayed}
                   delayedFalse={delayedFalse}
                 />
