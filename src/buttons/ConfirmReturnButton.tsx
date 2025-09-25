@@ -43,11 +43,6 @@ const onConfirmReturn = async ({ num, points, message, uid, profileUrl }) => {
   const creatorData = getMemberData(message.creatorId)
   const connectedData = getMemberData(message.connectedId)
 
-  const point = doc(dbservice, `members/${message.creatorId}`)
-  const connectedPoint = doc(
-    dbservice,
-    `members/${dataDoc.data()?.connectedId}`,
-  )
   const creatorDone = creatorData?.done || []
   const connectedDone = connectedData?.done || []
   const createdCards = creatorData?.createdCards
