@@ -17,7 +17,7 @@ interface Props {
   shadowColor: string
 }
 
-async function SpecificsRear({
+function SpecificsRear({
   message,
   connectedClock,
   confirmingClock,
@@ -29,16 +29,7 @@ async function SpecificsRear({
   const profileImageUrl = useSelectors((state) => state.profileImageUrl.value)
   const id = message?.id || ''
   const shadowColor = getShadowColor(id)
-  // useEffect(() => {
-  //   const messages = async () => {
-  //     const docRef = doc(dbservice, `num/${message.id}`)
-  //     const docSnap = await getDoc(docRef)
-  //     const userData = docSnap.data()
-  //     setSendingProfile(userData)
-  //   }
-  //   messages()
-  // }, [connectedClock, confirmingClock, returningClock, confirmedReturnClock])
-  const sendingProfile = await getCard(id)
+  const sendingProfile = getCard(id)
   const sendedProfileImage = sendingProfile?.connectedProfileImage
   const sendedDefaultProfile = sendingProfile?.connectedDefaultProfile
   const sendedProfileImageUrl = sendingProfile?.connectedProfileImageUrl
