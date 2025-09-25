@@ -88,17 +88,17 @@ function Auth() {
       {profile ? (
         <div className="flex flex-col gap-5 items-center">
           {mailSent ? (
-            <div>
+            <>
               {languages === 'en' && sentAConfirmingMail} {profile.email}
               {languages === 'ko' && sentAConfirmingMail}. {inputTheNumber}.
-            </div>
+            </>
           ) : (
-            <div>
+            <>
               {languages === 'en' && weWillSendYouAConfirmingMailTo}{' '}
               {profile.email}
               {languages === 'ko' && weWillSendYouAConfirmingMailTo}.{' '}
               {checkTheNumber}.
-            </div>
+            </>
           )}
           {mailSent && (
             <AuthPassword

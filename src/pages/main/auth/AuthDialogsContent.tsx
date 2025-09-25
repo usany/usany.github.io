@@ -26,7 +26,7 @@ function AuthDialogsContent() {
       <AuthMethods agreed={agreed} changeAgreed={changeAgreed} />
       <div className="flex flex-col p-3">
         {onlyTakesOneMinuteToRegisterAccount}
-            {playlistReadyForYouToGetRidOfBoredom}
+        {playlistReadyForYouToGetRidOfBoredom}
       </div>
       <div className="flex justify-center pt-3">
         <Playlist />
