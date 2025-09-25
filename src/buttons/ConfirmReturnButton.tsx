@@ -27,7 +27,7 @@ interface Props {
   increaseRound: () => void
 }
 
-const onConfirmReturn = async ({ message, profileUrl }) => {
+const onConfirmReturn = async ({ message }) => {
   const profile = useSelectors((state) => state.profile.value)
   const { messagingToken } = await specificProcess({
     message: message,
@@ -54,6 +54,7 @@ const onConfirmReturn = async ({ message, profileUrl }) => {
   const newConnectedCards = connectedCards.filter(
     (element) => element !== message.id,
   )
+  const profileUrl = profile?.profileImage ? profile?.profileImageUrl : profile?.defaultProfile
 
   if (message.text.choose === 1) {
     const creatorBorrowDone = creatorData?.borrowDoneCount || []
@@ -83,8 +84,6 @@ const onConfirmReturn = async ({ message, profileUrl }) => {
   webSocket.emit('confirmReturn', passingObject)
 }
 const ConfirmReturnButton = ({
-  num,
-  points,
   message,
   increaseRound,
   handleConfirmedReturnClock,
@@ -98,10 +97,10 @@ const ConfirmReturnButton = ({
       onClick={() => {
         onConfirmReturn({
           message: message,
-          profileUrl: profile?.profileImage ? profile?.profileImageUrl : profile?.defaultProfile,
         })
         increaseRound()
-        handleConfirmedReturnClock(new Date().toString())
+        const clock = new Date().toString()
+        handleConfirmedReturnClock(clock)
       }}
       startIcon={<SendIcon />}
     >
