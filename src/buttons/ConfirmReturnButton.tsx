@@ -69,8 +69,8 @@ const onConfirmReturn = async ({ num, points, message, uid, profileUrl }) => {
       lendDoneCount: [...connectedLendDone, message.id],
     })
   } else {
-    const creatorLendDone = creatorSnap.data()?.lendDoneCount || []
-    const connectedBorrowDone = connectedSnap.data()?.borrowDoneCount || []
+    const creatorLendDone = creatorData?.lendDoneCount || []
+    const connectedBorrowDone = connectedData?.borrowDoneCount || []
     updateDoc(creatorRef, { points: num + message.point })
     updateDoc(connectedRef, { points: points - message.point })
     updateDoc(creatorRef, { lendDoneCount: [...creatorLendDone, message.id] })
