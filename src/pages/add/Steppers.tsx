@@ -29,14 +29,14 @@ function Steppers({ message }) {
       <Stepper
         activeStep={message.round - 1} alternativeLabel>
         {steps[index].map((label) => (
-            <Step key={label}>
-              <StepLabel>
-                <div className='text-xs'>
-                  {label}
-                </div>
-              </StepLabel>
-            </Step>
-          ))}
+          <Step key={label}>
+            <StepLabel>
+              <div className='text-xs'>
+                {label}
+              </div>
+            </StepLabel>
+          </Step>
+        ))}
       </Stepper>
     </div>
   )
