@@ -20,10 +20,6 @@ import { useRound } from '../card/useRound'
 
 interface Props {
   message: { id: string; text: object }
-  isOwner: boolean
-  num: number | null
-  points: number | null
-  round: number
 }
 const MorphingDialogs = ({
   message,
