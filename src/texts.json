@@ -341,7 +341,7 @@
     "createdAt": "Created at: ",
     "supportedAt": "Supported at: ",
     "borrowedAt": "Borrowed at: ",
-    "lendedAt": ": ",
+    "lendedAt": "Lended at: ",
     "returnOnProcessAt": "반납 진행: ",
     "returnConfirmedAt": "반납 확인: ",
     "/profile": "User Profile",

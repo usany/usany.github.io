@@ -23,7 +23,7 @@ function SpecificsRear({
   returningClock,
   confirmedReturnClock,
 }: Props) {
-  const { borrowing, lending } = useTexts()
+  const { borrowing, lending, createdAt, supportedAt, borrowedAt, lendedAt, returnOnProcessAt, returnConfirmedAt } = useTexts()
   const profile = useSelectors((state) => state.profile.value)
   const profileImageUrl = useSelectors((state) => state.profileImageUrl.value)
   const [sendedProfileImage, setSendedProfileImage] = useState(false)
