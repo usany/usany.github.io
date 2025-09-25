@@ -6,7 +6,7 @@ import { useSelectors } from 'src/hooks'
 import { webSocket } from 'src/webSocket.tsx'
 import specificProcess from './specificProcess'
 
-const useStopSupporting = async (message) => {
+const onStopSupporting = async (message) => {
   const profile = useSelectors((state) => state.profile.value)
   const profileUrl = profile?.profileImage ? profile?.profileImageUrl : profile?.defaultProfile,
 
@@ -67,7 +67,7 @@ const StopSupportButton = ({
         variant="outlined"
         onClick={() => {
           if (profile) {
-            useStopSupporting(message)
+            onStopSupporting(message)
             decreaseRound()
             changeConnectedUser({
               uid: '',
