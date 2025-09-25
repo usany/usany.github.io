@@ -26,9 +26,10 @@ function SpecificsRear({
   const { borrowing, lending, createdAt, supportedAt, borrowedAt, lendedAt, returnOnProcessAt, returnConfirmedAt } = useTexts()
   const profile = useSelectors((state) => state.profile.value)
   const profileImageUrl = useSelectors((state) => state.profileImageUrl.value)
-  const [sendedProfileImage, setSendedProfileImage] = useState(false)
-  const [sendedDefaultProfile, setSendedDefaultProfile] = useState('')
-  const [sendedProfileImageUrl, setSendedProfileImageUrl] = useState('')
+  // const [sendedProfileImage, setSendedProfileImage] = useState(false)
+  // const [sendedDefaultProfile, setSendedDefaultProfile] = useState('')
+  // const [sendedProfileImageUrl, setSendedProfileImageUrl] = useState('')
+  const [sendingProfile, setSendingProfile] = useState(null)
   const id = message?.id || ''
   const shadowColor = getShadowColor(id)
   useEffect(() => {
@@ -36,12 +37,17 @@ function SpecificsRear({
       const docRef = doc(dbservice, `num/${message.id}`)
       const docSnap = await getDoc(docRef)
       const userData = docSnap.data()
-      setSendedProfileImage(userData.connectedProfileImage)
-      setSendedDefaultProfile(userData.connectedDefaultProfile)
-      setSendedProfileImageUrl(userData.connectedProfileImageUrl)
+      setSendingProfile(userData)
+      // setSendedProfileImage(userData.connectedProfileImage)
+      // setSendedDefaultProfile(userData.connectedDefaultProfile)
+      // setSendedProfileImageUrl(userData.connectedProfileImageUrl)
     }
     messages()
   }, [connectedClock, confirmingClock, returningClock, confirmedReturnClock])
+  const sendedProfileImage = sendingProfile.connectedProfileImage
+  const sendedDefaultProfile = sendingProfile.connectedDefaultProfile
+  const sendedProfileImageUrl = sendingProfile.connectedProfileImageUrl
+
   const passingValueCreator = {
     profileImage: message.creatorProfileImage,
     defaultProfile: message.creatorDefaultProfile,
