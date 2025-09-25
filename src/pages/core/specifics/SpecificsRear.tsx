@@ -9,6 +9,7 @@ import { useSelectors } from 'src/hooks'
 import { useTexts } from 'src/hooks'
 import Avatars from '../Avatars'
 import getShadowColor from './getShadowColor'
+import { FormatClock } from 'src/pages/piazza/piazzaScreen/PiazzaScreenView'
 
 interface Props {
   message: {}
@@ -104,6 +105,7 @@ function SpecificsRear({
               {message.createdClock && (
                 <div className="flex justify-between">
                   <Avatars element={passingValueCreator} />
+                  <FormatClock messageClock={message.createdClock} />
                   <div className="flex items-center">
                     {message.createdClock}에 생성
                   </div>
