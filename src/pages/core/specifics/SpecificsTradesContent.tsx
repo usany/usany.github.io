@@ -37,7 +37,7 @@ const SpecificsTradesContent = ({
     <>
       <div className="flex flex-col items-center pt-5">
         <Avatars element={passingProfile} profile={true} piazza={null} />
-        <div>{displayName}</div>
+        <>{displayName}</>
       </div>
       <div className="flex justify-center p-5">
         <Link
