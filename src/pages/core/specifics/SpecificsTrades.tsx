@@ -17,7 +17,6 @@ interface Props {
   connectedUser: {}
 }
 function SpecificsTrades({ drawerOpenTrue, message, connectedUser }: Props) {
-  const [conversation, setConversation] = useState('')
   const messageDisplayName = message.displayName
   const connectedDisplayName = connectedUser.displayName
   const profile = useSelectors((state) => state.profile.value)
@@ -27,18 +26,7 @@ function SpecificsTrades({ drawerOpenTrue, message, connectedUser }: Props) {
       ? messageDisplayName.slice(0, 10) + '......'
       : messageDisplayName
   const connectedMessageName = connectedDisplayName?.length > 10 ? connectedDisplayName.slice(0, 10) + '......' : connectedDisplayName
-
-  useEffect(() => {
-    if (message?.creatorId < profile?.uid) {
-      setConversation(
-        message?.creatorId.slice(0, 6) + profile?.uid.slice(0, 6),
-      )
-    } else {
-      setConversation(
-        profile?.uid.slice(0, 6) + message?.creatorId.slice(0, 6),
-      )
-    }
-  }, [message])
+  const conversation = message?.creatorId < profile?.uid ?message?.creatorId.slice(0, 6) + profile?.uid.slice(0, 6) : profile?.uid.slice(0, 6) + message?.creatorId.slice(0, 6)
   return (
     <div className="flex justify-center pt-3">
       <div className="flex flex-col items-center px-5 gap-1">
