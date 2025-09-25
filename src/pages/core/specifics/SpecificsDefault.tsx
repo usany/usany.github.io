@@ -11,7 +11,7 @@ import getShadowColor from './getShadowColor'
 import { staticArray } from '../card/CardView'
 
 const SpecificsDefault = ({ drawerOpenTrue, message, connectedUser, round,
-  increaseRound, decreaseRound, changeOnPulse, changeConnectedUser, toggleOnTransfer, removeMessage, handleConnectedClock, handleConfirmingClock, handleReturningClock, handleConfirmedReturnClock
+  increaseRound, decreaseRound, changeOnPulse, changeConnectedUser, toggleOnTransfer, handleConnectedClock, handleConfirmingClock, handleReturningClock, handleConfirmedReturnClock
 }) => {
   const id = message?.id || ''
   const shadowColor = getShadowColor(id)
@@ -58,7 +58,6 @@ const SpecificsDefault = ({ drawerOpenTrue, message, connectedUser, round,
             changeOnPulse={changeOnPulse}
             changeConnectedUser={changeConnectedUser}
             toggleOnTransfer={toggleOnTransfer}
-            removeMessage={removeMessage}
             handleConnectedClock={handleConnectedClock}
             handleConfirmingClock={handleConfirmingClock}
             handleReturningClock={handleReturningClock}

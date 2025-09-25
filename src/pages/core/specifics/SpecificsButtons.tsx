@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react'
 import { dbservice } from 'src/baseApi/serverbase'
 import Btn from 'src/buttons/Buttons'
 import { useSelectors } from 'src/hooks'
+import deleteMessage from '../card/deleteMessage'
 
 interface Props {
   message: {}
@@ -17,7 +18,6 @@ function SpecificsButtons({
   message,
   changeConnectedUser,
   toggleOnTransfer,
-  removeMessage,
   handleConnectedClock,
   handleConfirmingClock,
   handleReturningClock,
@@ -28,10 +28,11 @@ function SpecificsButtons({
   const [deleted, setDeleted] = useState<boolean>(false)
   const languages = useSelectors((state) => state.languages.value)
 
-  const deleteMessage = () => {
+  const deletingMessage = () => {
     setDeleted(true)
-    removeMessage(message)
+    deleteMessage(message.id)
   }
+  console.log(message)
   useEffect(() => {
     const creatorPoints = async () => {
       const docRef = doc(dbservice, `members/${message.creatorId}`)
@@ -60,7 +61,7 @@ function SpecificsButtons({
             message={message}
             num={num}
             points={points}
-            deleteMessage={deleteMessage}
+            deleteMessage={deletingMessage}
             round={round}
             increaseRound={increaseRound}
             decreaseRound={decreaseRound}
