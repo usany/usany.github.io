@@ -32,6 +32,24 @@ function Btn({
   const profile = useSelectors((state) => state.profile.value)
 
   const isOwner = message.creatorId === profile?.uid
+  if (isOwner) {
+    if (round === 1) {
+      return (
+        <DeleteButton
+          message={message}
+          decreaseRound={decreaseRound}
+        />
+      )
+    } else if (round === 2) {
+      return (
+        <ConfirmButton
+          message={message}
+          increaseRound={increaseRound}
+          handleConfirmingClock={handleConfirmingClock}
+        />
+      )
+    }
+  }
   return (
     <>
       {isOwner ? (
