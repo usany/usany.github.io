@@ -8,7 +8,7 @@ import { DocumentData } from 'firebase/firestore'
 interface Props {
   isCreator: boolean
   message: DocumentData
-  connectedUser: object
+  connectedUser: object | null
 }
 const SpecificsTradesContent = ({
   isCreator,
