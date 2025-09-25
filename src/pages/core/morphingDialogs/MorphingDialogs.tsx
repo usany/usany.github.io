@@ -36,7 +36,7 @@ const MorphingDialogs = ({
   const [messageValue, setMessageValue] = useState({})
   useEffect(() => {
     setMessageValue(message)
-  })
+  }, [message])
   const round = messageValue.round
   const increaseRound = () => {
     setMessageValue((prev) => {
