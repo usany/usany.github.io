@@ -38,7 +38,7 @@ async function SpecificsRear({
   //   }
   //   messages()
   // }, [connectedClock, confirmingClock, returningClock, confirmedReturnClock])
-  const sendingProfile = await getCard(message.id)
+  const sendingProfile = await getCard(id)
   const sendedProfileImage = sendingProfile?.connectedProfileImage
   const sendedDefaultProfile = sendingProfile?.connectedDefaultProfile
   const sendedProfileImageUrl = sendingProfile?.connectedProfileImageUrl
