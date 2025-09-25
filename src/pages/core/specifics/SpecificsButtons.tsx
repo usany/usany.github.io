@@ -24,20 +24,18 @@ function SpecificsButtons({
   handleConfirmedReturnClock,
 }: Props) {
   return (
-    <div className="flex justify-center pt-5">
-      <Btn
-        message={message}
-        round={round}
-        increaseRound={increaseRound}
-        decreaseRound={decreaseRound}
-        changeConnectedUser={changeConnectedUser}
-        toggleOnTransfer={toggleOnTransfer}
-        handleConnectedClock={handleConnectedClock}
-        handleConfirmingClock={handleConfirmingClock}
-        handleReturningClock={handleReturningClock}
-        handleConfirmedReturnClock={handleConfirmedReturnClock}
-      />
-    </div>
+    <Btn
+      message={message}
+      round={round}
+      increaseRound={increaseRound}
+      decreaseRound={decreaseRound}
+      changeConnectedUser={changeConnectedUser}
+      toggleOnTransfer={toggleOnTransfer}
+      handleConnectedClock={handleConnectedClock}
+      handleConfirmingClock={handleConfirmingClock}
+      handleReturningClock={handleReturningClock}
+      handleConfirmedReturnClock={handleConfirmedReturnClock}
+    />
   )
 }
 
