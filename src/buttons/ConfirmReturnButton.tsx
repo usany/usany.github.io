@@ -64,24 +64,12 @@ const onConfirmReturn = async ({ num, points, message, uid, profileUrl }) => {
     const connectedLendDone = connectedData?.lendDoneCount || []
     updateDoc(creatorRef, { borrowDoneCount: [...creatorBorrowDone, message.id], points: creatorData.points - message.point, createdCards: [...newCreatedCards] })
     updateDoc(connectedRef, { lendDoneCount: [...connectedLendDone, message.id], points: connectedData.points + message.point, connectedCards: [...newConnectedCards] })
-    // updateDoc(creatorRef, { borrowDoneCount: [...creatorBorrowDone, message.id] })
-    // updateDoc(connectedRef, {
-    //   lendDoneCount: [...connectedLendDone, message.id],
-    // })
   } else {
     const creatorLendDone = creatorData?.lendDoneCount || []
     const connectedBorrowDone = connectedData?.borrowDoneCount || []
     updateDoc(creatorRef, { lendDoneCount: [...creatorLendDone, message.id], points: creatorData.points + message.point, createdCards: [...newCreatedCards] })
     updateDoc(connectedRef, { borrowDoneCount: [...connectedBorrowDone, message.id], points: connectedData.points - message.point, connectedCards: [...newConnectedCards] })
-    // updateDoc(creatorRef, { lendDoneCount: [...creatorLendDone, message.id] })
-    // updateDoc(connectedRef, {
-    //   borrowDoneCount: [...connectedBorrowDone, message.id],
-    // })
   }
-  // updateDoc(creatorRef, { createdCards: [...newCreatedCards] })
-  // updateDoc(connectedRef, {
-  //   connectedCards: [...newConnectedCards],
-  // })
 
   const passingObject = {
     id: message.id,
