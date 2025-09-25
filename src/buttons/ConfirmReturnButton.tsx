@@ -88,7 +88,6 @@ const ConfirmReturnButton = ({
   increaseRound,
   handleConfirmedReturnClock,
 }: Props) => {
-  const languages = useSelectors((state) => state.languages.value)
   const {returnConfirmed} = useTexts()
   return (
     <Button
