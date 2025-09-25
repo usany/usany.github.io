@@ -14,7 +14,10 @@ import getCard from '../getCard'
 
 interface Props {
   message: {}
-  shadowColor: string
+  connectedClock: string
+  confirmingClock: string
+  returningClock: string
+  confirmedReturnClock: string
 }
 
 function SpecificsRear({
