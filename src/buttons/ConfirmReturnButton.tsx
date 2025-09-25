@@ -27,10 +27,11 @@ interface Props {
   increaseRound: () => void
 }
 
-const onConfirmReturn = async ({ num, points, message, uid, profileUrl }) => {
+const onConfirmReturn = async ({ message, profileUrl }) => {
+  const profile = useSelectors((state) => state.profile.value)
   const { messagingToken } = await specificProcess({
     message: message,
-    toUid: message.text.choose === 1 ? null : uid,
+    toUid: message.text.choose === 1 ? null : profile?.uid,
   })
   const dataRef = doc(dbservice, `num/${message.id}`)
   const dataDoc = await getDoc(dataRef)
@@ -96,10 +97,7 @@ const ConfirmReturnButton = ({
       variant="outlined"
       onClick={() => {
         onConfirmReturn({
-          num: num,
-          points: points,
           message: message,
-          uid: profile?.uid,
           profileUrl: profile?.profileImage ? profile?.profileImageUrl : profile?.defaultProfile,
         })
         increaseRound()
