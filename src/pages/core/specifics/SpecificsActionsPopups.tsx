@@ -45,28 +45,26 @@ function SpecificsActionsPopups({ drawerOpenTrue, message }: Props) {
   }
 
   return (
-    <>
-      <Drawer>
-        <DrawerTrigger onClick={drawerOpenTrue}>
-          <Avatars
-            element={passingProfile}
-            uid={message.creatorId}
-            profile={false}
-            profileColor={''}
-            profileUrl={message.creatorUrl}
+    <Drawer>
+      <DrawerTrigger onClick={drawerOpenTrue}>
+        <Avatars
+          element={passingProfile}
+          uid={message.creatorId}
+          profile={false}
+          profileColor={''}
+          profileUrl={message.creatorUrl}
+        />
+      </DrawerTrigger>
+      <DrawerContent className="flex flex-col justify-center px-5 bg-light-2 dark:bg-dark-2 max-h-[60%]">
+        <ScrollArea className="overflow-y-scroll">
+          <DrawersBar />
+          <SpecificsActionsPopupsContents
+            drawerOpenTrue={drawerOpenTrue}
+            message={message}
           />
-        </DrawerTrigger>
-        <DrawerContent className="flex flex-col justify-center px-5 bg-light-2 dark:bg-dark-2 max-h-[60%]">
-          <ScrollArea className="overflow-y-scroll">
-            <DrawersBar />
-            <SpecificsActionsPopupsContents
-              drawerOpenTrue={drawerOpenTrue}
-              message={message}
-            />
-          </ScrollArea>
-        </DrawerContent>
-      </Drawer>
-    </>
+        </ScrollArea>
+      </DrawerContent>
+    </Drawer>
   )
 }
 
