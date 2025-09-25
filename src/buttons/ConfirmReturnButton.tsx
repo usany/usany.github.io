@@ -6,6 +6,12 @@ import { useSelectors } from 'src/hooks'
 import { webSocket } from 'src/webSocket.tsx'
 import specificProcess from './specificProcess'
 
+const getPoints = async (id: string) => {
+  const docRef = doc(dbservice, `members/${id}`)
+  const docSnap = await getDoc(docRef)
+  const points = docSnap.data()?.points
+  return points
+}
 export interface UserData {
   createdCards: string[]
   connectedCards: string[]
@@ -22,10 +28,11 @@ interface Props {
 }
 
 const onConfirmReturn = async ({ num, points, message, uid, profileUrl }) => {
-  const { data, messagingToken } = await specificProcess({
+  const { messagingToken } = await specificProcess({
     message: message,
     toUid: message.text.choose === 1 ? null : uid,
   })
+  const data = doc(dbservice, `num/${message.id}`)
   const dataDoc = await getDoc(data)
   updateDoc(data, {
     round: 5,
