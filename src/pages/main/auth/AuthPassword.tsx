@@ -7,18 +7,16 @@ interface Props {
 }
 function AuthPassword({ numberString, handleNumberString }: Props) {
   return (
-    <>
-      <InputOTP maxLength={6} pattern={REGEXP_ONLY_DIGITS} onChange={(newValue) => handleNumberString(newValue)} value={numberString}>
-        <InputOTPGroup>
-          <InputOTPSlot index={0} />
-          <InputOTPSlot index={1} />
-          <InputOTPSlot index={2} />
-          <InputOTPSlot index={3} />
-          <InputOTPSlot index={4} />
-          <InputOTPSlot index={5} />
-        </InputOTPGroup>
-      </InputOTP>
-    </>
+    <InputOTP maxLength={6} pattern={REGEXP_ONLY_DIGITS} onChange={(newValue) => handleNumberString(newValue)} value={numberString}>
+      <InputOTPGroup>
+        <InputOTPSlot index={0} />
+        <InputOTPSlot index={1} />
+        <InputOTPSlot index={2} />
+        <InputOTPSlot index={3} />
+        <InputOTPSlot index={4} />
+        <InputOTPSlot index={5} />
+      </InputOTPGroup>
+    </InputOTP>
   )
 }
 
