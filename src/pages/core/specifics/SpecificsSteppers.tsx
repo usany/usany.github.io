@@ -10,7 +10,7 @@ function SpecificsSteppers({ message, round }: Props) {
   const {process} = useTexts()
   return (
     <div className="flex flex-col gap-1">
-      <div className="flex pt-5">{process} {round}</div>
+      <div className="flex pt-5">{process} {message.round}</div>
       <Steppers message={message} round={round} />
     </div>
   );

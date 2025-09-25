@@ -60,14 +60,14 @@ const lendSteps = {
   ]
 }
 
-function Steppers({ message, round }) {
+function Steppers({ message }) {
   const languages = useSelectors((state) => state.languages.value)
   const index = (languages === 'ko' || languages === 'en') ? languages : 'ko'
 
   return (
     <div>
       <Stepper
-        activeStep={round - 1} alternativeLabel>
+        activeStep={message.round - 1} alternativeLabel>
         {message.text.choose === 1 &&
           steps[index].map((label) => (
             <Step key={label}>
