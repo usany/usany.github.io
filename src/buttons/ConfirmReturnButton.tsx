@@ -38,7 +38,8 @@ const onConfirmReturn = async ({ num, points, message, uid, profileUrl }) => {
     round: 5,
     confirmedReturnClock: new Date().toString(),
   })
-  const docRef = doc(dbservice, `members/${message.creatorId}`)
+  const creatorRef = doc(dbservice, `members/${message.creatorId}`)
+  const connectedRef = doc(dbservice, `members/${message.creatorId}`)
   const creatorData = getMemberData(message.creatorId)
   const connectedData = getMemberData(message.connectedId)
 
@@ -61,24 +62,24 @@ const onConfirmReturn = async ({ num, points, message, uid, profileUrl }) => {
   if (message.text.choose === 1) {
     const creatorBorrowDone = creatorData?.borrowDoneCount || []
     const connectedLendDone = connectedData?.lendDoneCount || []
-    updateDoc(point, { points: num - message.point })
-    updateDoc(connectedPoint, { points: points + message.point })
-    updateDoc(point, { borrowDoneCount: [...creatorBorrowDone, message.id] })
-    updateDoc(connectedPoint, {
+    updateDoc(creatorRef, { points: num - message.point })
+    updateDoc(connectedRef, { points: points + message.point })
+    updateDoc(creatorRef, { borrowDoneCount: [...creatorBorrowDone, message.id] })
+    updateDoc(connectedRef, {
       lendDoneCount: [...connectedLendDone, message.id],
     })
   } else {
     const creatorLendDone = creatorSnap.data()?.lendDoneCount || []
     const connectedBorrowDone = connectedSnap.data()?.borrowDoneCount || []
-    updateDoc(point, { points: num + message.point })
-    updateDoc(connectedPoint, { points: points - message.point })
-    updateDoc(point, { lendDoneCount: [...creatorLendDone, message.id] })
-    updateDoc(connectedPoint, {
+    updateDoc(creatorRef, { points: num + message.point })
+    updateDoc(connectedRef, { points: points - message.point })
+    updateDoc(creatorRef, { lendDoneCount: [...creatorLendDone, message.id] })
+    updateDoc(connectedRef, {
       borrowDoneCount: [...connectedBorrowDone, message.id],
     })
   }
-  updateDoc(point, { createdCards: [...newCreatedCards] })
-  updateDoc(connectedPoint, {
+  updateDoc(creatorRef, { createdCards: [...newCreatedCards] })
+  updateDoc(connectedRef, {
     connectedCards: [...newConnectedCards],
   })
 
