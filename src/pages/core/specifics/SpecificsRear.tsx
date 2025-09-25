@@ -131,41 +131,40 @@ function SpecificsRear({
             <div>{lending}</div>
           </div>
           <Divider />
-          {message.text.choose === 1 ? (
+          {statusCollection.map((value) => {
+            if (value.messageClock) {
+              return (
+                <div className={`flex ${value.isBorrowing ? 'justify-start' : 'justify-end'} gap-5`}>
+                  {value.isBorrowing ?
+                    <>
+                      <Avatars element={value.passingProfile} />
+                      <div className="flex items-center">
+                        {value.text}
+                        <FormatClock messageClock={value.messageClock} />
+                      </div>
+                    </>
+                    :
+                    <>
+                      <div className="flex items-center">
+                        {value.text}
+                        <FormatClock messageClock={value.messageClock} />
+                      </div>
+                      <Avatars element={value.passingProfile} />
+                    </>
+                  }
+                </div>
+              )
+            }
+            return null
+          })}
+          {/* {message.text.choose === 1 ? (
             <div className='pt-5'>
-              {statusCollection.map((value) => {
-                if (value.messageClock) {
-                  return (
-                    <div className={`flex ${value.isBorrowing ? 'justify-start' : 'justify-end'} gap-5`}>
-                      {value.isBorrowing ?
-                        <>
-                          <Avatars element={value.passingProfile} />
-                          <div className="flex items-center">
-                            {value.text}
-                            <FormatClock messageClock={value.messageClock} />
-                          </div>
-                        </>
-                        :
-                        <>
-                          <div className="flex items-center">
-                            {value.text}
-                            <FormatClock messageClock={value.messageClock} />
-                          </div>
-                          <Avatars element={value.passingProfile} />
-                        </>
-                      }
-                    </div>
-                  )
-                }
-                return null
-              })}
               {message.createdClock && (
                 <div className="flex justify-start gap-5">
                   <Avatars element={passingValueCreator} />
                   <div className="flex items-center">
                     {createdAt}
                     <FormatClock messageClock={message.createdClock} />
-                    {/* {message.createdClock}에 생성 */}
                   </div>
                 </div>
               )}
@@ -249,7 +248,7 @@ function SpecificsRear({
                 </div>
               )}
             </div>
-          )}
+          )} */}
         </CardContent>
       </Card>
     </div>
