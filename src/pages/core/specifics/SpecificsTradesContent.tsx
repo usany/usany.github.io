@@ -14,7 +14,6 @@ interface Props {
 const SpecificsTradesContent = ({
   isCreator,
   message,
-  conversation,
   connectedUser,
 }: Props) => {
   const profile = useSelectors((state) => state.profile.value)
@@ -33,6 +32,8 @@ const SpecificsTradesContent = ({
   const uid = isCreator ? message?.creatorId : connectedUser.uid
   const displayName = isCreator ? message.displayName : connectedUser.displayName
   const url = isCreator ? message.creatorUrl : connectedUser.url
+  const conversation = message?.creatorId < profile?.uid ? message?.creatorId.slice(0, 6) + profile?.uid.slice(0, 6) : profile?.uid.slice(0, 6) + message?.creatorId.slice(0, 6)
+
   return (
     <>
       <div className="flex flex-col items-center pt-5">

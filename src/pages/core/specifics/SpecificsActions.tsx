@@ -4,6 +4,7 @@ import { useSelectors, useTexts } from 'src/hooks'
 import SpecificsActionsPopups from './SpecificsActionsPopups'
 import Popups from '../Popups'
 import Avatars from '../Avatars'
+import SpecificsTradesContent from './SpecificsTradesContent'
 const items = {
   Usan: '우산',
   Yangsan: '양산',
@@ -28,7 +29,7 @@ function SpecificsActions({ drawerOpenTrue, message }: Props) {
     defaultProfile: message?.creatorDefaultProfile,
     profileImageUrl: message?.creatorProfileImageUrl,
   }
-
+  const isCreator = message.creatorId === profile?.uid
   return (
     <div className="flex justify-between gap-1">
       <div className="flex flex-col gap-1 items-center">
@@ -46,7 +47,7 @@ function SpecificsActions({ drawerOpenTrue, message }: Props) {
           title={message.displayName}
           content={
             <SpecificsTradesContent
-              isCreator={true}
+              isCreator={isCreator}
               message={message}
               conversation={conversation}
               connectedUser={connectedUser}
