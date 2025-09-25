@@ -7,7 +7,7 @@ const items = {
   Yangsan: '양산',
 }
 interface Props {
-  userObj: User | null
+  drawerOpenTrue: () => void
   message: {}
 }
 
