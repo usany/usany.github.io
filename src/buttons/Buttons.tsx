@@ -40,7 +40,6 @@ function Btn({
           {round === 1 && (
             <DeleteButton
               message={message}
-              deleteMessage={deleteMessage}
               decreaseRound={decreaseRound}
             />
           )}

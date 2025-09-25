@@ -27,10 +27,6 @@ function SpecificsButtons({
   const [points, setPoints] = useState<number | null>(null)
   const [removed, setRemoved] = useState<boolean>(false)
   const {deleted} = useTexts()
-  const deletingMessage = () => {
-    setRemoved(true)
-    deleteMessage(message?.id)
-  }
   useEffect(() => {
     const creatorPoints = async () => {
       const docRef = doc(dbservice, `members/${message.creatorId}`)
@@ -53,31 +49,22 @@ function SpecificsButtons({
   })
   return (
     <div className="flex justify-center pt-5">
-      {!removed ? (
-        <div className="flex justify-center">
-          <Btn
-            message={message}
-            num={num}
-            points={points}
-            deleteMessage={deletingMessage}
-            round={round}
-            increaseRound={increaseRound}
-            decreaseRound={decreaseRound}
-            changeConnectedUser={changeConnectedUser}
-            toggleOnTransfer={toggleOnTransfer}
-            handleConnectedClock={handleConnectedClock}
-            handleConfirmingClock={handleConfirmingClock}
-            handleReturningClock={handleReturningClock}
-            handleConfirmedReturnClock={handleConfirmedReturnClock}
-          />
-        </div>
-      ) : (
-        <div className="flex justify-center">
-          <Button variant="outlined" disabled>
-            {deleted}
-          </Button>
-        </div>
-      )}
+      <div className="flex justify-center">
+        <Btn
+          message={message}
+          num={num}
+          points={points}
+          round={round}
+          increaseRound={increaseRound}
+          decreaseRound={decreaseRound}
+          changeConnectedUser={changeConnectedUser}
+          toggleOnTransfer={toggleOnTransfer}
+          handleConnectedClock={handleConnectedClock}
+          handleConfirmingClock={handleConfirmingClock}
+          handleReturningClock={handleReturningClock}
+          handleConfirmedReturnClock={handleConfirmedReturnClock}
+        />
+      </div>
     </div>
   )
 }
