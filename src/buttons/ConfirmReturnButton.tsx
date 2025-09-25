@@ -78,10 +78,10 @@ const onConfirmReturn = async ({ num, points, message, uid, profileUrl }) => {
     //   borrowDoneCount: [...connectedBorrowDone, message.id],
     // })
   }
-  updateDoc(creatorRef, { createdCards: [...newCreatedCards] })
-  updateDoc(connectedRef, {
-    connectedCards: [...newConnectedCards],
-  })
+  // updateDoc(creatorRef, { createdCards: [...newCreatedCards] })
+  // updateDoc(connectedRef, {
+  //   connectedCards: [...newConnectedCards],
+  // })
 
   const passingObject = {
     id: message.id,
