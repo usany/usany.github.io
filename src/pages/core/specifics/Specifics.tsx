@@ -2,11 +2,9 @@ import { useState } from 'react'
 import Tilt from 'react-parallax-tilt'
 import { PulsatingButton } from 'src/components/ui/pulsating-button'
 import SpecificsRear from './SpecificsRear'
-import SpecificsFront from './SpecificsDefault'
 import SpecificsDefault from './SpecificsDefault'
 import getShadowColor from './getShadowColor'
 import { RotateCcw, Redo } from 'lucide-react';
-import deleteMessage from '../card/deleteMessage'
 
 interface Props {
   message: {}
