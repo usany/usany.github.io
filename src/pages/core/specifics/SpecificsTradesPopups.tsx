@@ -26,53 +26,64 @@ function SpecificsTradesPopups({ isCreator }: Props) {
   const connectedMessageName = connectedDisplayName?.length > 10 ? connectedDisplayName.slice(0, 10) + '......' : connectedDisplayName
   if (isCreator) {
     return (
+      <div className="flex flex-col items-center">
+        <Popups
+          trigger={
+            <SpecificsTradesTrigger
+              onClick={drawerOpenTrue}
+              isCreator={true}
+              message={message}
+            />
+          }
+          title={<SpecificsTradesTitle message={message} connectedUser={connectedUser} isCreator={true} />}
+          content={
+            <SpecificsTradesContent
+              isCreator={true}
+              message={message}
+              connectedUser={connectedUser}
+            />
+          }
+        />
+        <Chip className="specific" size="small" label={messageName} />
+      </div>
+    )
+  }
+  return (
+    <div className="flex flex-col items-center">
       <Popups
         trigger={
           <SpecificsTradesTrigger
             onClick={drawerOpenTrue}
-            isCreator={true}
-            message={message}
+            isCreator={false}
+            message={{
+              ...message,
+              connectedProfileImage: true,
+              connectedProfileImageUrl: connectedUser.url,
+              connectedDefaultProfile: connectedUser.url,
+            }}
           />
         }
-        title={<SpecificsTradesTitle message={message} connectedUser={connectedUser} isCreator={true} />}
+        title={<SpecificsTradesTitle message={message} connectedUser={connectedUser} isCreator={false} />}
         content={
           <SpecificsTradesContent
-            isCreator={true}
-            message={message}
+            isCreator={false}
+            message={{
+              ...message,
+              connectedProfileImage: true,
+              connectedProfileImageUrl: connectedUser.url,
+              connectedDefaultProfile: connectedUser.url,
+            }}
             connectedUser={connectedUser}
           />
         }
       />
-    )
-  }
-  return (
-    <Popups
-      trigger={
-        <SpecificsTradesTrigger
-          onClick={drawerOpenTrue}
-          isCreator={false}
-          message={{
-            ...message,
-            connectedProfileImage: true,
-            connectedProfileImageUrl: connectedUser.url,
-            connectedDefaultProfile: connectedUser.url,
-          }}
-        />
-      }
-      title={<SpecificsTradesTitle message={message} connectedUser={connectedUser} isCreator={false} />}
-      content={
-        <SpecificsTradesContent
-          isCreator={false}
-          message={{
-            ...message,
-            connectedProfileImage: true,
-            connectedProfileImageUrl: connectedUser.url,
-            connectedDefaultProfile: connectedUser.url,
-          }}
-          connectedUser={connectedUser}
-        />
-      }
-    />
+      <Chip
+        className="specific"
+        size="small"
+        variant={!connectedUser.uid ? 'outlined' : undefined}
+        label={connectedUser.uid ? connectedMessageName : noOneYet}
+      />
+    </div>
   )
 }
 
