@@ -2,7 +2,7 @@ import SendIcon from '@mui/icons-material/Send'
 import Button from '@mui/material/Button'
 import { doc, getDoc, updateDoc } from 'firebase/firestore'
 import { dbservice } from 'src/baseApi/serverbase'
-import { useSelectors } from 'src/hooks'
+import { useSelectors, useTexts } from 'src/hooks'
 import { webSocket } from 'src/webSocket.tsx'
 import specificProcess from './specificProcess'
 
@@ -56,7 +56,7 @@ const StopSupportButton = ({
   handleConnectedClock,
 }) => {
   const languages = useSelectors((state) => state.languages.value)
-  const {supportMessageSent} = useTexts()
+  const {supportMessageSent, cancel} = useTexts()
   return (
     <div className="flex justify-center">
       <div className="px-5">
@@ -77,7 +77,7 @@ const StopSupportButton = ({
         }}
         startIcon={<SendIcon />}
       >
-        {languages === 'ko' ? '취소' : 'Cancel'}
+        {cancel}
       </Button>
     </div>
   )
