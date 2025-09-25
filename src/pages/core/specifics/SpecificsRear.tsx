@@ -10,6 +10,7 @@ import { useTexts } from 'src/hooks'
 import Avatars from '../Avatars'
 import getShadowColor from './getShadowColor'
 import FormatClock from '../FormatClock'
+import getCard from '../getCard'
 
 interface Props {
   message: {}
@@ -38,7 +39,7 @@ function SpecificsRear({
     }
     messages()
   }, [connectedClock, confirmingClock, returningClock, confirmedReturnClock])
-  const sendingProfile = getCard
+  const sendingProfile = getCard()
   const sendedProfileImage = sendingProfile?.connectedProfileImage
   const sendedDefaultProfile = sendingProfile?.connectedDefaultProfile
   const sendedProfileImageUrl = sendingProfile?.connectedProfileImageUrl
