@@ -126,7 +126,6 @@ function Specifics({
                 changeOnPulse={changeOnPulse}
                 changeConnectedUser={changeConnectedUser}
                 toggleOnTransfer={toggleOnTransfer}
-                removeMessage={removeMessage}
                 handleConnectedClock={handleConnectedClock}
                 handleConfirmingClock={handleConfirmingClock}
                 handleReturningClock={handleReturningClock}

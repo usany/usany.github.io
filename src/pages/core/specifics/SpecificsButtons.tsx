@@ -30,9 +30,8 @@ function SpecificsButtons({
 
   const deletingMessage = () => {
     setDeleted(true)
-    deleteMessage(message.id)
+    deleteMessage(message?.id)
   }
-  console.log(message)
   useEffect(() => {
     const creatorPoints = async () => {
       const docRef = doc(dbservice, `members/${message.creatorId}`)
