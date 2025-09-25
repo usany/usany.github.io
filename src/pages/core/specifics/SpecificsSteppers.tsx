@@ -11,7 +11,7 @@ function SpecificsSteppers({ message, round }: Props) {
   return (
     <div className="flex flex-col gap-1">
       <div className="flex pt-5">{process} {message.round}</div>
-      <Steppers message={message} round={round} />
+      <Steppers message={message} />
     </div>
   );
 }
