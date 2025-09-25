@@ -83,25 +83,25 @@ function SpecificsRear({
       isBorrowing: message.text.choose === 1,
       passingProfile: passingValueConnected,
       text: supportedAt,
-      messageClock: message.createdClock
+      messageClock: connectedMoment
+    },
+    {
+      isBorrowing: message.text.choose === 1,
+      passingProfile: passingValueCreator,
+      text: message.text.choose === 1 ? borrowedAt : lendedAt,
+      messageClock: confirmingMoment
     },
     {
       isBorrowing: message.text.choose === 1,
       passingProfile: passingValueCreator,
       text: createdAt,
-      messageClock: message.createdClock
+      messageClock: returningMoment
     },
     {
       isBorrowing: message.text.choose === 1,
       passingProfile: passingValueCreator,
       text: createdAt,
-      messageClock: message.createdClock
-    },
-    {
-      isBorrowing: message.text.choose === 1,
-      passingProfile: passingValueCreator,
-      text: createdAt,
-      messageClock: message.createdClock
+      messageClock: confirmedReturnMoment
     },
   ]
   return (
