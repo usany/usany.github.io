@@ -62,13 +62,13 @@ const onConfirmReturn = async ({ num, points, message, uid, profileUrl }) => {
   if (message.text.choose === 1) {
     const creatorBorrowDone = creatorData?.borrowDoneCount || []
     const connectedLendDone = connectedData?.lendDoneCount || []
-    updateDoc(creatorRef, { borrowDoneCount: [...creatorBorrowDone, message.id], points: creatorData.points - message.point, createdCards: [...newCreatedCards] })
-    updateDoc(connectedRef, { lendDoneCount: [...connectedLendDone, message.id], points: connectedData.points + message.point, connectedCards: [...newConnectedCards] })
+    updateDoc(creatorRef, { borrowDoneCount: [...creatorBorrowDone, message.id], points: creatorData.points - message.point, createdCards: [...newCreatedCards], done: [...creatorDone, message.id] })
+    updateDoc(connectedRef, { lendDoneCount: [...connectedLendDone, message.id], points: connectedData.points + message.point, connectedCards: [...newConnectedCards], done: [...connectedDone, message.id] })
   } else {
     const creatorLendDone = creatorData?.lendDoneCount || []
     const connectedBorrowDone = connectedData?.borrowDoneCount || []
-    updateDoc(creatorRef, { lendDoneCount: [...creatorLendDone, message.id], points: creatorData.points + message.point, createdCards: [...newCreatedCards] })
-    updateDoc(connectedRef, { borrowDoneCount: [...connectedBorrowDone, message.id], points: connectedData.points - message.point, connectedCards: [...newConnectedCards] })
+    updateDoc(creatorRef, { lendDoneCount: [...creatorLendDone, message.id], points: creatorData.points + message.point, createdCards: [...newCreatedCards], done: [...creatorDone, message.id], })
+    updateDoc(connectedRef, { borrowDoneCount: [...connectedBorrowDone, message.id], points: connectedData.points - message.point, connectedCards: [...newConnectedCards], done: [...connectedDone, message.id] })
   }
 
   const passingObject = {
@@ -83,12 +83,12 @@ const onConfirmReturn = async ({ num, points, message, uid, profileUrl }) => {
     preferLanguage: dataDoc.data()?.preferLanguage || 'ko',
     confirmedReturnClock: new Date().toString(),
   }
-  updateDoc(point, {
-    done: [...creatorDone, message.id],
-  })
-  updateDoc(connectedPoint, {
-    done: [...connectedDone, message.id],
-  })
+  // updateDoc(creatorRef, {
+  //   done: [...creatorDone, message.id],
+  // })
+  // updateDoc(connectedRef, {
+  //   done: [...connectedDone, message.id],
+  // })
 
   webSocket.emit('confirmReturn', passingObject)
 }
