@@ -50,33 +50,44 @@ function SpecificsTradesPopups({ isCreator, drawerOpenTrue, connectedUser }: Pro
   }
   return (
     <div className="flex flex-col items-center">
-      <Popups
-        trigger={
-          <SpecificsTradesTrigger
-            onClick={drawerOpenTrue}
-            isCreator={false}
-            message={{
-              ...message,
-              connectedProfileImage: true,
-              connectedProfileImageUrl: connectedUser.url,
-              connectedDefaultProfile: connectedUser.url,
-            }}
-          />
-        }
-        title={<SpecificsTradesTitle message={message} connectedUser={connectedUser} isCreator={false} />}
-        content={
-          <SpecificsTradesContent
-            isCreator={false}
-            message={{
-              ...message,
-              connectedProfileImage: true,
-              connectedProfileImageUrl: connectedUser.url,
-              connectedDefaultProfile: connectedUser.url,
-            }}
-            connectedUser={connectedUser}
-          />
-        }
-      />
+      {connectedUser.uid ? (
+        <Popups
+          trigger={
+            <SpecificsTradesTrigger
+              onClick={drawerOpenTrue}
+              isCreator={false}
+              message={{
+                ...message,
+                connectedProfileImage: true,
+                connectedProfileImageUrl: connectedUser.url,
+                connectedDefaultProfile: connectedUser.url,
+              }}
+            />
+          }
+          title={<SpecificsTradesTitle message={message} connectedUser={connectedUser} isCreator={false} />}
+          content={
+            <SpecificsTradesContent
+              isCreator={false}
+              message={{
+                ...message,
+                connectedProfileImage: true,
+                connectedProfileImageUrl: connectedUser.url,
+                connectedDefaultProfile: connectedUser.url,
+              }}
+              connectedUser={connectedUser}
+            />
+          }
+        />
+      ) : (
+        <Avatar
+          className={`bg-light-3 dark:bg-dark-3 border border-dashed`}
+        >
+          <AvatarImage src={connectedUser.url} />
+          <AvatarFallback className="text-xl border-none">
+            ?
+          </AvatarFallback>
+        </Avatar>
+      )}
       <Chip
         className="specific"
         size="small"
