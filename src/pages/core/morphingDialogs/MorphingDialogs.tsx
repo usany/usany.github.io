@@ -42,15 +42,15 @@ const MorphingDialogs = ({
     setMessageValue((prev) => {
       return (
         {...prev, round: prev.round+1}
-      )}
-    )
+      )
+    })
   }
   const decreaseRound = () => {
     setMessageValue((prev) => {
       return (
         {...prev, round: prev.round-1}
-      )}
-    )
+      )
+    })
   }
   const handleConnectedClock = (newValue) => {
     setConnectedClock(newValue)
@@ -149,7 +149,7 @@ const MorphingDialogs = ({
           round={round}
           increaseRound={increaseRound}
           decreaseRound={decreaseRound}
-          message={message}
+          message={messageValue}
           onPulse={onPulse}
           changeOnPulse={changeOnPulse}
           connectedUser={connectedUser}
