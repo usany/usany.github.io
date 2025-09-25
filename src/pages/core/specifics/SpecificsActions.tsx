@@ -29,7 +29,6 @@ function SpecificsActions({ drawerOpenTrue, message }: Props) {
     defaultProfile: message?.creatorDefaultProfile,
     profileImageUrl: message?.creatorProfileImageUrl,
   }
-  const isCreator = message.creatorId === profile?.uid
   return (
     <div className="flex justify-between gap-1">
       <div className="flex flex-col gap-1 items-center">
@@ -47,10 +46,9 @@ function SpecificsActions({ drawerOpenTrue, message }: Props) {
           title={message.displayName}
           content={
             <SpecificsTradesContent
-              isCreator={isCreator}
+              isCreator={true}
               message={message}
-              conversation={conversation}
-              connectedUser={connectedUser}
+              connectedUser={null}
             />
           }
         />
