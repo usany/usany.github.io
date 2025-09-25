@@ -2,6 +2,7 @@ import Tilt from 'react-parallax-tilt'
 import { PulsatingButton } from 'src/components/ui/pulsating-button'
 import CardView from './CardView'
 import { DocumentData } from 'firebase/firestore'
+import getShadowColor from '../specifics/getShadowColor'
 
 const shadowColorArray = [
   'lightblue',
@@ -20,7 +21,6 @@ const shadowColorArray = [
 const alpha = Array.from(Array(26)).map((e, i) => i + 65)
 const letters = alpha.map((x) => String.fromCharCode(x))
 const numbers = Array.from({ length: 10 }, (e, i) => `${i}`)
-const mergedArray = letters.concat(numbers)
 interface Props {
   message: DocumentData
   onPulse?: boolean
@@ -28,10 +28,7 @@ interface Props {
 }
 const CardsViews = ({ message, onPulse, onTransfer }: Props) => {
   const id = message?.id || ''
-  const shadowColor =
-    shadowColorArray[
-    mergedArray.indexOf(String(id[0]).toUpperCase()) % shadowColorArray.length
-    ]
+  const shadowColor = getShadowColor(id)
   return (
     <Tilt>
       {onPulse ? (
