@@ -25,10 +25,7 @@ function SpecificsActionsPopups({ drawerOpenTrue, message }: Props) {
         <DialogTrigger onClick={drawerOpenTrue}>
           <Avatars
             element={passingProfile}
-            uid={message.creatorId}
             profile={false}
-            profileColor={''}
-            profileUrl={message.creatorUrl}
           />
         </DialogTrigger>
         <DialogContent className="flex flex-col justify-center px-5 bg-light-2 dark:bg-dark-2 max-h-[60%]">
@@ -49,10 +46,7 @@ function SpecificsActionsPopups({ drawerOpenTrue, message }: Props) {
       <DrawerTrigger onClick={drawerOpenTrue}>
         <Avatars
           element={passingProfile}
-          uid={message.creatorId}
           profile={false}
-          profileColor={''}
-          profileUrl={message.creatorUrl}
         />
       </DrawerTrigger>
       <DrawerContent className="flex flex-col justify-center px-5 bg-light-2 dark:bg-dark-2 max-h-[60%]">
