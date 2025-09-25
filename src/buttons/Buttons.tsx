@@ -93,64 +93,7 @@ function Btn({
   }
   return (
     <>
-      {isOwner ? (
-        <>
-          {round === 1 && (
-            <DeleteButton
-              message={message}
-              decreaseRound={decreaseRound}
-            />
-          )}
-          {round === 2 && (
-            <ConfirmButton
-              message={message}
-              increaseRound={increaseRound}
-              handleConfirmingClock={handleConfirmingClock}
-            />
-          )}
-          {round === 3 && (
-            <div className="flex justify-center">
-              {message.text.choose === 1 && (
-                <ReturningButton
-                  message={message}
-                  increaseRound={increaseRound}
-                  handleReturningClock={handleReturningClock}
-                />
-              )}
-              {message.text.choose === 2 && (
-                <div>{message.connectedName} 님이 빌리는 중</div>
-              )}
-            </div>
-          )}
-          {round === 4 && (
-            <div className="flex justify-center">
-              {message.text.choose === 1 && (
-                <div>
-                  {languages === 'ko'
-                    ? '주인에게 확인 중'
-                    : 'Asking the owner to confirm'}
-                </div>
-              )}
-              {message.text.choose === 2 && (
-                <ConfirmReturnButton
-                  num={num}
-                  points={points}
-                  message={message}
-                  increaseRound={increaseRound}
-                  handleConfirmedReturnClock={handleConfirmedReturnClock}
-                />
-              )}
-            </div>
-          )}
-          {round === 5 && (
-            <div>
-              {languages === 'ko' ? '완료된 카드입니다' : 'Sharing completed'}
-            </div>
-          )}
-        </>
-      ) : (
-        <>
-          {round === 1 && (
+      {round === 1 && (
             <SupportButton
               move={move}
               handleClose={handleClose}
@@ -214,8 +157,6 @@ function Btn({
               {languages === 'ko' ? '완료된 카드입니다' : 'Sharing completed'}
             </div>
           )}
-        </>
-      )}
     </>
   )
 }
