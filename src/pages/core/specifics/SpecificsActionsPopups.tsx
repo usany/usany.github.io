@@ -31,7 +31,6 @@ function SpecificsActionsPopups({ drawerOpenTrue, message }: Props) {
           <ScrollArea className="overflow-y-scroll">
             <DrawersBar />
             <SpecificsActionsPopupsContents
-              drawerOpenTrue={drawerOpenTrue}
               message={message}
             />
           </ScrollArea>
@@ -52,7 +51,6 @@ function SpecificsActionsPopups({ drawerOpenTrue, message }: Props) {
         <ScrollArea className="overflow-y-scroll">
           <DrawersBar />
           <SpecificsActionsPopupsContents
-            drawerOpenTrue={drawerOpenTrue}
             message={message}
           />
         </ScrollArea>
