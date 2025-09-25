@@ -1,20 +1,9 @@
 import { useState } from "react";
-import { useSelectors, useTexts } from "src/hooks";
+import { useTexts } from "src/hooks";
 import AuthForm from "src/pages/main/auth/AuthForm";
 import AuthMethods from "./AuthMethods";
+import Playlist from "src/pages/core/Playlist";
 
-export const Playlist = () => {
-  const theme = useSelectors((state) => state.theme.value);
-  return (
-    <iframe
-      src={import.meta.env.VITE_SPOTIFY_URL+`${theme !== 'light' ? '&theme=0' : ''}`}
-      width="90%"
-      height="200"
-      allow="autoplay; clipboard-write; fullscreen; picture-in-picture"
-      loading="lazy"
-    />
-  )
-}
 function AuthDialogsContent() {
   const [agreed, setAgreed] = useState(false)
   const changeAgreed = () => {

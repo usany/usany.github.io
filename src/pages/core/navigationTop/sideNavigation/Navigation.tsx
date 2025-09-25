@@ -16,15 +16,13 @@ import {
 import { useId, } from 'react';
 import { useSelectors } from 'src/hooks'
 import Avatars from '../../Avatars'
-import IframePlayer from './iframePlayer/IframePlayer'
 import Links from './links/Links'
 import NavigationSignedIn from './navigationSignedIn/NavigationSignedIn'
 import NavigationSignedOut from './navigationSignedOut/NavigationSignedOut'
 import { useTexts } from 'src/hooks'
-import { Playlist } from 'src/pages/main/auth/AuthDialogsContent';
+import Playlist from '../../Playlist';
 
 function Navigation() {
-  const theme = useSelectors((state) => state.theme.value)
   const linkId = useId();
   const { myProfile, userSearch, groupChat, report, collection, signOut, needNetworkConnection } = useTexts()
   const profile = useSelectors((state) => state.profile.value)
@@ -105,13 +103,6 @@ function Navigation() {
           {profile?.certificated && onLine &&
             <div className="absolute flex justify-center bottom-0">
               <Playlist />
-              {/* <iframe
-                src={`https://open.spotify.com/embed/playlist/41clCj2piQBL3BSEFQN9J3?utm_source=generator${mode === 'dark' && '&theme=0'}`}
-                width="90%"
-                height="200"
-                allow="autoplay; clipboard-write; fullscreen; picture-in-picture"
-                loading="lazy"
-              /> */}
             </div>
           }
         </nav>
