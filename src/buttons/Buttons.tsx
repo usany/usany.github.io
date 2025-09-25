@@ -91,72 +91,128 @@ function Btn({
       </div>
     )
   }
+  if (round === 1) {
+    return (
+      <SupportButton
+        move={move}
+        handleClose={handleClose}
+        handleDialog={handleDialog}
+        message={message}
+        increaseRound={increaseRound}
+        changeConnectedUser={changeConnectedUser}
+        toggleOnTransfer={toggleOnTransfer}
+        handleConnectedClock={handleConnectedClock}
+      />
+    )
+  } else if (round === 2) {
+    return (
+      <StopSupportButton
+        message={message}
+        decreaseRound={decreaseRound}
+        changeConnectedUser={changeConnectedUser}
+        toggleOnTransfer={toggleOnTransfer}
+        handleConnectedClock={handleConnectedClock}
+      />
+    )
+  } else if (round === 3) {
+    return (
+      <div className="flex justify-center">
+        {message.text.choose === 1 && (
+          <div>
+            {message.displayName}{' '}
+            {languages === 'ko' ? '님이 빌리는 중' : 'is borrowing'}
+          </div>
+        )}
+        {message.text.choose === 2 && (
+          <ReturningButton
+            message={message}
+            increaseRound={increaseRound}
+            handleReturningClock={handleReturningClock}
+          />
+        )}
+      </div>
+    )
+  } else if (round === 4) {
+    <div className="flex justify-center">
+      {message.text.choose === 1 && (
+        <ConfirmReturnButton
+          num={num}
+          points={points}
+          message={message}
+          increaseRound={increaseRound}
+          handleConfirmedReturnClock={handleConfirmedReturnClock}
+        />
+      )}
+      {message.text.choose === 2 && (
+        <div>
+          {message.item}{' '}
+          {languages === 'ko'
+            ? '주인에게 확인 중'
+            : 'Asking the owner to confirm'}
+        </div>
+      )}
+    </div>
+  } else {
+    return (
+      <div>
+        {languages === 'ko' ? '완료된 카드입니다' : 'Sharing completed'}
+      </div>
+    )
+  }
   return (
     <>
-      {round === 1 && (
-            <SupportButton
-              move={move}
-              handleClose={handleClose}
-              handleDialog={handleDialog}
+      {round === 2 && (
+        <StopSupportButton
+          message={message}
+          decreaseRound={decreaseRound}
+          changeConnectedUser={changeConnectedUser}
+          toggleOnTransfer={toggleOnTransfer}
+          handleConnectedClock={handleConnectedClock}
+        />
+      )}
+      {round === 3 && (
+        <div className="flex justify-center">
+          {message.text.choose === 1 && (
+            <div>
+              {message.displayName}{' '}
+              {languages === 'ko' ? '님이 빌리는 중' : 'is borrowing'}
+            </div>
+          )}
+          {message.text.choose === 2 && (
+            <ReturningButton
               message={message}
               increaseRound={increaseRound}
-              changeConnectedUser={changeConnectedUser}
-              toggleOnTransfer={toggleOnTransfer}
-              handleConnectedClock={handleConnectedClock}
+              handleReturningClock={handleReturningClock}
             />
           )}
-          {round === 2 && (
-            <StopSupportButton
+        </div>
+      )}
+      {round === 4 && (
+        <div className="flex justify-center">
+          {message.text.choose === 1 && (
+            <ConfirmReturnButton
+              num={num}
+              points={points}
               message={message}
-              decreaseRound={decreaseRound}
-              changeConnectedUser={changeConnectedUser}
-              toggleOnTransfer={toggleOnTransfer}
-              handleConnectedClock={handleConnectedClock}
+              increaseRound={increaseRound}
+              handleConfirmedReturnClock={handleConfirmedReturnClock}
             />
           )}
-          {round === 3 && (
-            <div className="flex justify-center">
-              {message.text.choose === 1 && (
-                <div>
-                  {message.displayName}{' '}
-                  {languages === 'ko' ? '님이 빌리는 중' : 'is borrowing'}
-                </div>
-              )}
-              {message.text.choose === 2 && (
-                <ReturningButton
-                  message={message}
-                  increaseRound={increaseRound}
-                  handleReturningClock={handleReturningClock}
-                />
-              )}
-            </div>
-          )}
-          {round === 4 && (
-            <div className="flex justify-center">
-              {message.text.choose === 1 && (
-                <ConfirmReturnButton
-                  num={num}
-                  points={points}
-                  message={message}
-                  increaseRound={increaseRound}
-                  handleConfirmedReturnClock={handleConfirmedReturnClock}
-                />
-              )}
-              {message.text.choose === 2 && (
-                <div>
-                  {message.item}{' '}
-                  {languages === 'ko'
-                    ? '주인에게 확인 중'
-                    : 'Asking the owner to confirm'}
-                </div>
-              )}
-            </div>
-          )}
-          {round === 5 && (
+          {message.text.choose === 2 && (
             <div>
-              {languages === 'ko' ? '완료된 카드입니다' : 'Sharing completed'}
+              {message.item}{' '}
+              {languages === 'ko'
+                ? '주인에게 확인 중'
+                : 'Asking the owner to confirm'}
             </div>
           )}
+        </div>
+      )}
+      {round === 5 && (
+        <div>
+          {languages === 'ko' ? '완료된 카드입니다' : 'Sharing completed'}
+        </div>
+      )}
     </>
   )
 }
