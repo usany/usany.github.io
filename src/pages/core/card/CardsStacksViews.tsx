@@ -6,14 +6,8 @@ import { dbservice } from 'src/baseApi/serverbase';
 import CardDroppable from './CardsDroppable';
 import CardsStacksViewsCollection from './CardsStacksViewsCollection';
 import { useSelectors } from 'src/hooks';
-const deleteMessage = (id: string) => {
-  console.log(id)
-  const item = document.getElementById(id)
-  item?.classList.add('transition')
-  item?.addEventListener('transitionend', () => {
-    item?.remove()
-  })
-}
+import deleteMessage from './deleteMessage';
+
 const handleDelete = async ({
   id,
   profile,
