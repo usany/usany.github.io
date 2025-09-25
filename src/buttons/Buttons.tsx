@@ -152,68 +152,11 @@ function Btn({
         </div>
       )}
     </div>
-  } else {
-    return (
-      <div>
-        {languages === 'ko' ? '완료된 카드입니다' : 'Sharing completed'}
-      </div>
-    )
   }
   return (
-    <>
-      {round === 2 && (
-        <StopSupportButton
-          message={message}
-          decreaseRound={decreaseRound}
-          changeConnectedUser={changeConnectedUser}
-          toggleOnTransfer={toggleOnTransfer}
-          handleConnectedClock={handleConnectedClock}
-        />
-      )}
-      {round === 3 && (
-        <div className="flex justify-center">
-          {message.text.choose === 1 && (
-            <div>
-              {message.displayName}{' '}
-              {languages === 'ko' ? '님이 빌리는 중' : 'is borrowing'}
-            </div>
-          )}
-          {message.text.choose === 2 && (
-            <ReturningButton
-              message={message}
-              increaseRound={increaseRound}
-              handleReturningClock={handleReturningClock}
-            />
-          )}
-        </div>
-      )}
-      {round === 4 && (
-        <div className="flex justify-center">
-          {message.text.choose === 1 && (
-            <ConfirmReturnButton
-              num={num}
-              points={points}
-              message={message}
-              increaseRound={increaseRound}
-              handleConfirmedReturnClock={handleConfirmedReturnClock}
-            />
-          )}
-          {message.text.choose === 2 && (
-            <div>
-              {message.item}{' '}
-              {languages === 'ko'
-                ? '주인에게 확인 중'
-                : 'Asking the owner to confirm'}
-            </div>
-          )}
-        </div>
-      )}
-      {round === 5 && (
-        <div>
-          {languages === 'ko' ? '완료된 카드입니다' : 'Sharing completed'}
-        </div>
-      )}
-    </>
+    <div>
+      {languages === 'ko' ? '완료된 카드입니다' : 'Sharing completed'}
+    </div>
   )
 }
 
