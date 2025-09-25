@@ -9,7 +9,7 @@ import { useSelectors } from 'src/hooks'
 import { useTexts } from 'src/hooks'
 import Avatars from '../Avatars'
 import getShadowColor from './getShadowColor'
-import { FormatClock } from 'src/pages/piazza/piazzaScreen/PiazzaScreenView'
+import FormatClock from '../FormatClock'
 
 interface Props {
   message: {}
@@ -113,6 +113,7 @@ function SpecificsRear({
               )}
               {connectedMoment && (
                 <div className="flex justify-between">
+                  <FormatClock messageClock={connectedMoment} />
                   <div className="flex items-center">
                     {connectedMoment}에 지원
                   </div>
