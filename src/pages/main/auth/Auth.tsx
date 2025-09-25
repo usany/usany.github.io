@@ -56,7 +56,6 @@ function Auth() {
         language: localStorage.getItem('languages') || 'ko',
       }),
     })
-    console.log('sending')
   }
   const confirmNumber = async () => {
     if (numberString === createdNumber) {
