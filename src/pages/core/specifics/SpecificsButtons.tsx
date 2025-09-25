@@ -47,22 +47,20 @@ function SpecificsButtons({
   })
   return (
     <div className="flex justify-center pt-5">
-      <div className="flex justify-center">
-        <Btn
-          message={message}
-          num={num}
-          points={points}
-          round={round}
-          increaseRound={increaseRound}
-          decreaseRound={decreaseRound}
-          changeConnectedUser={changeConnectedUser}
-          toggleOnTransfer={toggleOnTransfer}
-          handleConnectedClock={handleConnectedClock}
-          handleConfirmingClock={handleConfirmingClock}
-          handleReturningClock={handleReturningClock}
-          handleConfirmedReturnClock={handleConfirmedReturnClock}
-        />
-      </div>
+      <Btn
+        message={message}
+        num={num}
+        points={points}
+        round={round}
+        increaseRound={increaseRound}
+        decreaseRound={decreaseRound}
+        changeConnectedUser={changeConnectedUser}
+        toggleOnTransfer={toggleOnTransfer}
+        handleConnectedClock={handleConnectedClock}
+        handleConfirmingClock={handleConfirmingClock}
+        handleReturningClock={handleReturningClock}
+        handleConfirmedReturnClock={handleConfirmedReturnClock}
+      />
     </div>
   )
 }
