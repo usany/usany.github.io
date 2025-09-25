@@ -139,24 +139,25 @@ function SpecificsRear({
                     <div className="flex justify-start gap-5">
                       {value.isBorrowing ?
                         <>
-                          <Avatars element={passingValueCreator} />
+                          <Avatars element={value.passingProfile} />
                           <div className="flex items-center">
-                            {createdAt}
-                            <FormatClock messageClock={message.createdClock} />
+                            {value.text}
+                            <FormatClock messageClock={value.messageClock} />
                           </div>
                         </>
                         :
                         <>
-                          <Avatars element={passingValueCreator} />
                           <div className="flex items-center">
-                            {createdAt}
-                            <FormatClock messageClock={message.createdClock} />
+                            {value.text}
+                            <FormatClock messageClock={value.messageClock} />
                           </div>
+                          <Avatars element={value.passingProfile} />
                         </>
                       }
                     </div>
                   )
                 }
+                return null
               })}
               {message.createdClock && (
                 <div className="flex justify-start gap-5">
