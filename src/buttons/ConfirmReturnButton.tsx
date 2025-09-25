@@ -5,13 +5,8 @@ import { dbservice } from 'src/baseApi/serverbase'
 import { useSelectors, useTexts } from 'src/hooks'
 import { webSocket } from 'src/webSocket.tsx'
 import specificProcess from './specificProcess'
+import getMemberData from 'src/pages/core/getMemberData'
 
-const getMemberData = async (id: string) => {
-  const docRef = doc(dbservice, `members/${id}`)
-  const docSnap = await getDoc(docRef)
-  const memberData = docSnap.data()
-  return memberData
-}
 export interface UserData {
   createdCards: string[]
   connectedCards: string[]
@@ -46,8 +41,8 @@ const onConfirmReturn = async ({ message }) => {
 
   const creatorDone = creatorData?.done || []
   const connectedDone = connectedData?.done || []
-  const createdCards = creatorData?.createdCards
-  const connectedCards = connectedData?.connectedCards
+  const createdCards = creatorData?.createdCards as string[]
+  const connectedCards = connectedData?.connectedCards as string[]
   const newCreatedCards = createdCards.filter(
     (element) => element !== message.id,
   )
