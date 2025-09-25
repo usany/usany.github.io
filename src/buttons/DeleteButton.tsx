@@ -3,26 +3,37 @@ import Button from '@mui/material/Button'
 import { deleteDoc, doc } from 'firebase/firestore'
 import { useSelectors, useTexts } from 'src/hooks'
 import { dbservice } from 'src/baseApi/serverbase'
+import { useState } from 'react'
+import deleteMessage from 'src/pages/core/card/deleteMessage'
 
-const onDelete = async ({ message }) => {
-  const data = doc(dbservice, `num/${message.id}`)
+const onDelete = async (id: string) => {
+  const data = doc(dbservice, `num/${id}`)
   deleteDoc(data)
 }
-const DeleteButton = ({ message, deleteMessage, decreaseRound }) => {
-  const {remove} = useTexts()
+const DeleteButton = ({ message, decreaseRound }) => {
+  const {remove, deleted} = useTexts()
+  const [removed, setRemoved] = useState(false)
+
   return (
     <div className="flex justify-center">
-      <Button
-        variant="outlined"
-        onClick={() => {
-          onDelete({ message: message })
-          deleteMessage()
-          decreaseRound()
-        }}
-        startIcon={<DeleteIcon />}
-      >
-        {remove}
-      </Button>
+      {!removed ?
+        <Button
+          variant="outlined"
+          onClick={() => {
+            onDelete(message?.id)
+            deleteMessage(message?.id)
+            decreaseRound()
+            setRemoved(true)
+          }}
+          startIcon={<DeleteIcon />}
+        >
+          {remove}
+        </Button>
+        :
+        <Button variant="outlined" disabled>
+          {deleted}
+        </Button>
+      }
     </div>
   )
 }
