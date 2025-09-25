@@ -50,9 +50,6 @@ const Cards = ({
           location.pathname === '/profile' ? (
             <MorphingDialogs
               message={message}
-              round={round}
-              increaseRound={increaseRound}
-              decreaseRound={decreaseRound}
             />
           ) : (
             <CardsViews message={message} />

@@ -16,6 +16,7 @@ import { useOnPulseCallback } from './useOnPulseCallback'
 import { usePulse } from './usePulse'
 import { useStopSupportingTradesCallback } from './useStopSupportingTradesCallback'
 import { useSupportTradesCallback } from './useSupportTradesCallback'
+import { useRound } from '../card/useRound'
 
 interface Props {
   message: { id: string; text: object }
@@ -26,9 +27,6 @@ interface Props {
 }
 const MorphingDialogs = ({
   message,
-  round,
-  increaseRound,
-  decreaseRound,
 }: Props) => {
   const [onTransfer, setOnTransfer] = useState(false)
   const [connectedClock, setConnectedClock] = useState({
@@ -38,6 +36,8 @@ const MorphingDialogs = ({
   const [confirmingClock, setConfirmingClock] = useState('')
   const [returningClock, setReturningClock] = useState('')
   const [confirmedReturnClock, setConfirmedReturnClock] = useState('')
+  const { round, increaseRound, decreaseRound } = useRound(message)
+
   const handleConnectedClock = (newValue) => {
     setConnectedClock(newValue)
   }
