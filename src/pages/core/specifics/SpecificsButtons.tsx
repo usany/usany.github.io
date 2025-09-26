@@ -1,4 +1,4 @@
-import { useSelectors } from 'src/hooks'
+import { useSelectors, useTexts } from 'src/hooks'
 import ConfirmButton from 'src/pages/core/specifics/buttons/ConfirmButton'
 import ConfirmReturnButton from 'src/pages/core/specifics/buttons/ConfirmReturnButton'
 import DeleteButton from 'src/pages/core/specifics/buttons/DeleteButton'
@@ -25,7 +25,7 @@ function SpecificsButtons({
 }: Props) {
   const languages = useSelectors((state) => state.languages.value)
   const profile = useSelectors((state) => state.profile.value)
-
+  const {askingTheOwnerToConfirm} = useTexts()
   const isOwner = message.creatorId === profile?.uid
   if (message.round === 1) {
     if (isOwner) {
@@ -104,9 +104,7 @@ function SpecificsButtons({
         <div className="flex justify-center">
           {message.text.choose === 1 && (
             <div>
-              {languages === 'ko'
-                ? '주인에게 확인 중'
-                : 'Asking the owner to confirm'}
+              {askingTheOwnerToConfirm}
             </div>
           )}
           {message.text.choose === 2 && (
@@ -131,9 +129,7 @@ function SpecificsButtons({
         {message.text.choose === 2 && (
           <div>
             {message.item}{' '}
-            {languages === 'ko'
-              ? '주인에게 확인 중'
-              : 'Asking the owner to confirm'}
+            {askingTheOwnerToConfirm}
           </div>
         )}
       </div>
