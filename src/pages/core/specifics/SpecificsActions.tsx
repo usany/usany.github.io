@@ -33,24 +33,6 @@ function SpecificsActions({ message, drawerOpenTrue }: Props) {
     <div className="flex justify-between gap-1">
       <div className="flex flex-col items-center">
         <SpecificsActionsPopups message={message} drawerOpenTrue={drawerOpenTrue} />
-        <Popups
-          trigger={
-            <div onClick={drawerOpenTrue}>
-              <Avatars
-                element={passingProfile}
-                profile={false}
-              />
-            </div>
-          }
-          title={message.displayName}
-          content={
-            <SpecificsTradesContent
-              isCreator={true}
-              message={message}
-              connectedUser={null}
-            />
-          }
-        />
         <Chip
           className="specific"
           size="small"
