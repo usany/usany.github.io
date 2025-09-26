@@ -84,9 +84,7 @@ function SpecificsButtons({
     return (
       <div className="flex justify-center">
         {message.text.choose === 1 && (
-          <>
-            {message.displayName} {isBorrowing}
-          </>
+          <>{message.displayName} {isBorrowing}</>
         )}
         {message.text.choose === 2 && (
           <ReturningButton
