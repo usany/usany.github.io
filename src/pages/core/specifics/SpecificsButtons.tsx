@@ -12,7 +12,7 @@ interface Props {
 }
 
 function SpecificsButtons({
-  round,
+  // round,
   increaseRound,
   decreaseRound,
   message,
