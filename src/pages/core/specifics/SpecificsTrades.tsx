@@ -19,14 +19,8 @@ interface Props {
 function SpecificsTrades({ drawerOpenTrue, message, connectedUser }: Props) {
   const messageDisplayName = message.displayName
   const connectedDisplayName = connectedUser.displayName
-  const {borrowing, lending, noOneYet, pointsReward} = useTexts()
-  const messageName =
-    messageDisplayName.length > 10
-      ? messageDisplayName.slice(0, 10) + '......'
-      : messageDisplayName
-  const connectedMessageName = connectedDisplayName?.length > 10 ? connectedDisplayName.slice(0, 10) + '......' : connectedDisplayName
+  const {borrowing, lending, pointsReward} = useTexts()
   const profile = useSelectors((state) => state.profile.value)
-  const isCreator = message.creatorId === profile.uid
   return (
     <div className="flex justify-center pt-3">
       <div className="flex flex-col items-center px-5 gap-1">
