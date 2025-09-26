@@ -1,11 +1,11 @@
-import Button from '@mui/material/Button'
-import { User } from 'firebase/auth'
-import { doc, getDoc } from 'firebase/firestore'
-import { useEffect, useState } from 'react'
-import { dbservice } from 'src/baseApi/serverbase'
-import Btn from 'src/buttons/Buttons'
-import { useSelectors, useTexts } from 'src/hooks'
-import deleteMessage from '../card/deleteMessage'
+import { useSelectors } from 'src/hooks'
+import ConfirmButton from 'src/buttons/ConfirmButton'
+import ConfirmReturnButton from 'src/buttons/ConfirmReturnButton'
+import DeleteButton from 'src/buttons/DeleteButton'
+import ReturningButton from 'src/buttons/ReturningButton'
+import StopSupportButton from 'src/buttons/StopSupportButton'
+import SupportButton from 'src/buttons/SupportButton'
+// import Btn from 'src/buttons/Buttons'
 
 interface Props {
   message: {}
@@ -23,19 +23,126 @@ function SpecificsButtons({
   handleReturningClock,
   handleConfirmedReturnClock,
 }: Props) {
+  const languages = useSelectors((state) => state.languages.value)
+  const profile = useSelectors((state) => state.profile.value)
+
+  const isOwner = message.creatorId === profile?.uid
+  if (round === 1) {
+    if (isOwner) {
+      return (
+        <DeleteButton
+          message={message}
+          decreaseRound={decreaseRound}
+        />
+      )
+    }
+    return (
+      <SupportButton
+        message={message}
+        increaseRound={increaseRound}
+        changeConnectedUser={changeConnectedUser}
+        toggleOnTransfer={toggleOnTransfer}
+        handleConnectedClock={handleConnectedClock}
+      />
+    )
+  } else if (round === 2) {
+    if (isOwner) {
+      return (
+        <ConfirmButton
+          message={message}
+          increaseRound={increaseRound}
+          handleConfirmingClock={handleConfirmingClock}
+        />
+      )
+    }
+    return (
+      <StopSupportButton
+        message={message}
+        decreaseRound={decreaseRound}
+        changeConnectedUser={changeConnectedUser}
+        toggleOnTransfer={toggleOnTransfer}
+        handleConnectedClock={handleConnectedClock}
+      />
+    )
+  } else if (round === 3) {
+    if (isOwner) {
+      return (
+        <div className="flex justify-center">
+          {message.text.choose === 1 && (
+            <ReturningButton
+              message={message}
+              increaseRound={increaseRound}
+              handleReturningClock={handleReturningClock}
+            />
+          )}
+          {message.text.choose === 2 && (
+            <div>{message.connectedName} 님이 빌리는 중</div>
+          )}
+        </div>
+      )
+    }
+    return (
+      <div className="flex justify-center">
+        {message.text.choose === 1 && (
+          <div>
+            {message.displayName}{' '}
+            {languages === 'ko' ? '님이 빌리는 중' : 'is borrowing'}
+          </div>
+        )}
+        {message.text.choose === 2 && (
+          <ReturningButton
+            message={message}
+            increaseRound={increaseRound}
+            handleReturningClock={handleReturningClock}
+          />
+        )}
+      </div>
+    )
+  } else if (round === 4) {
+    if (isOwner) {
+      return (
+        <div className="flex justify-center">
+          {message.text.choose === 1 && (
+            <div>
+              {languages === 'ko'
+                ? '주인에게 확인 중'
+                : 'Asking the owner to confirm'}
+            </div>
+          )}
+          {message.text.choose === 2 && (
+            <ConfirmReturnButton
+              message={message}
+              increaseRound={increaseRound}
+              handleConfirmedReturnClock={handleConfirmedReturnClock}
+            />
+          )}
+        </div>
+      )
+    }
+    return (
+      <div className="flex justify-center">
+        {message.text.choose === 1 && (
+          <ConfirmReturnButton
+            message={message}
+            increaseRound={increaseRound}
+            handleConfirmedReturnClock={handleConfirmedReturnClock}
+          />
+        )}
+        {message.text.choose === 2 && (
+          <div>
+            {message.item}{' '}
+            {languages === 'ko'
+              ? '주인에게 확인 중'
+              : 'Asking the owner to confirm'}
+          </div>
+        )}
+      </div>
+    )
+  }
   return (
-    <Btn
-      message={message}
-      round={round}
-      increaseRound={increaseRound}
-      decreaseRound={decreaseRound}
-      changeConnectedUser={changeConnectedUser}
-      toggleOnTransfer={toggleOnTransfer}
-      handleConnectedClock={handleConnectedClock}
-      handleConfirmingClock={handleConfirmingClock}
-      handleReturningClock={handleReturningClock}
-      handleConfirmedReturnClock={handleConfirmedReturnClock}
-    />
+    <div>
+      {languages === 'ko' ? '완료된 카드입니다' : 'Sharing completed'}
+    </div>
   )
 }
 
