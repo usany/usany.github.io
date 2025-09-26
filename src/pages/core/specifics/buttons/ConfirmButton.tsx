@@ -1,27 +1,28 @@
 import SendIcon from '@mui/icons-material/Send'
 import Button from '@mui/material/Button'
-import { getDoc, updateDoc } from 'firebase/firestore'
+import { doc, getDoc, updateDoc } from 'firebase/firestore'
 import { useSelectors } from 'src/hooks'
 import { webSocket } from 'src/webSocket.tsx'
 import specificProcess from './specificProcess'
+import { dbservice } from 'src/baseApi/serverbase'
 
 const onConfirm = async ({ message, uid, profileUrl }) => {
-  const { data, messagingToken } = await specificProcess({
+  const { messagingToken } = await specificProcess({
     message: message,
     toUid: uid,
   })
-  console.log(data)
-  const doc = await getDoc(data)
+  const docRef = doc(dbservice, `num/${message.id}`)
+  const document = await getDoc(docRef)
   const passingObject = {
     id: message.id,
     choose: message.text.choose,
     sendingToken: messagingToken,
     creatorId: message.creatorId,
     creatorName: message.displayName,
-    connectedId: doc.data()?.connectedId,
-    connectedName: doc.data()?.connectedName,
+    connectedId: document.data()?.connectedId,
+    connectedName: document.data()?.connectedName,
     connectedUrl: profileUrl,
-    preferLanguage: doc.data()?.preferLanguage || 'ko',
+    preferLanguage: document.data()?.preferLanguage || 'ko',
     confirmingClock: new Date().toString(),
   }
   updateDoc(data, {
