@@ -10,11 +10,10 @@ const items = {
   Yangsan: '양산',
 }
 interface Props {
-  drawerOpenTrue: () => void
   message: {}
 }
 
-function SpecificsActions({ drawerOpenTrue, message }: Props) {
+function SpecificsActions({ message }: Props) {
   const messageDisplayName = message.displayName
   const languages = useSelectors((state) => state.languages.value)
   const profile = useSelectors((state) => state.profile.value)
@@ -31,7 +30,7 @@ function SpecificsActions({ drawerOpenTrue, message }: Props) {
   }
   return (
     <div className="flex justify-between gap-1">
-      <div className="flex flex-col gap-1 items-center">
+      <div className="flex flex-col items-center">
         <Popups
           trigger={
             <Avatars

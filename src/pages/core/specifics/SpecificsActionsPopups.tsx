@@ -5,57 +5,37 @@ import useLargeMedia from 'src/hooks/useLargeMedia'
 import Avatars from 'src/pages/core/Avatars'
 import DrawersBar from 'src/pages/core/DrawersBar'
 import SpecificsActionsPopupsContents from './SpecificsActionsPopupsContents'
+import Popups from '../Popups'
+import SpecificsTradesContent from './SpecificsTradesContent'
 
 interface Props {
-  drawerOpenTrue: () => void
   message: {}
 }
 
-function SpecificsActionsPopups({ drawerOpenTrue, message }: Props) {
-  const largeMedia = useLargeMedia()
+function SpecificsActionsPopups({ message }: Props) {
   const passingProfile = {
     profileImage: message?.creatorProfileImage,
     defaultProfile: message?.creatorDefaultProfile,
     profileImageUrl: message?.creatorProfileImageUrl,
   }
-  if (largeMedia) {
-    return (
-      <Dialog>
-        <DialogTrigger onClick={drawerOpenTrue}>
-          <Avatars
-            element={passingProfile}
-            profile={false}
-          />
-        </DialogTrigger>
-        <DialogContent className="flex flex-col justify-center px-5 bg-light-2 dark:bg-dark-2 max-h-[60%]">
-          <ScrollArea className="overflow-y-scroll">
-            <DrawersBar />
-            <SpecificsActionsPopupsContents
-              message={message}
-            />
-          </ScrollArea>
-        </DialogContent>
-      </Dialog>
-    )
-  }
 
   return (
-    <Drawer>
-      <DrawerTrigger onClick={drawerOpenTrue}>
+    <Popups
+      trigger={
         <Avatars
           element={passingProfile}
           profile={false}
         />
-      </DrawerTrigger>
-      <DrawerContent className="flex flex-col justify-center px-5 bg-light-2 dark:bg-dark-2 max-h-[60%]">
-        <ScrollArea className="overflow-y-scroll">
-          <DrawersBar />
-          <SpecificsActionsPopupsContents
-            message={message}
-          />
-        </ScrollArea>
-      </DrawerContent>
-    </Drawer>
+      }
+      title={message.displayName}
+      content={
+        <SpecificsTradesContent
+          isCreator={true}
+          message={message}
+          connectedUser={null}
+        />
+      }
+    />
   )
 }
 
