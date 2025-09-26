@@ -28,6 +28,7 @@ const SpecificsDefault = ({ drawerOpenTrue, message, connectedUser, round,
         <CardContent>
           <SpecificsActions
             message={message}
+            drawerOpenTrue={drawerOpenTrue}
           />
           <div className="flex justify-center pt-1">
             <CardMedia
