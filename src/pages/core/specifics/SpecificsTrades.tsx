@@ -25,6 +25,8 @@ function SpecificsTrades({ drawerOpenTrue, message, connectedUser }: Props) {
       ? messageDisplayName.slice(0, 10) + '......'
       : messageDisplayName
   const connectedMessageName = connectedDisplayName?.length > 10 ? connectedDisplayName.slice(0, 10) + '......' : connectedDisplayName
+  const profile = useSelectors((state) => state.profile.value)
+  const isCreator = message.creatorId === profile.uid
   return (
     <div className="flex justify-center pt-3">
       <div className="flex flex-col items-center px-5 gap-1">

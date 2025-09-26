@@ -63,7 +63,7 @@ const SpecificsTradesContent = ({
             </Button>
           </DrawerClose>
         </Link>
-        {profile?.uid !== message?.creatorId && profile?.uid !== connectedUser?.uid && (
+        {profile?.uid !== uid && (
           <Link
             to={`/piazza/?id=${conversation}`}
             state={{
