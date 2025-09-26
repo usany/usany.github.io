@@ -1,10 +1,10 @@
 import { useSelectors } from 'src/hooks'
-import ConfirmButton from 'src/buttons/ConfirmButton'
-import ConfirmReturnButton from 'src/buttons/ConfirmReturnButton'
-import DeleteButton from 'src/buttons/DeleteButton'
-import ReturningButton from 'src/buttons/ReturningButton'
-import StopSupportButton from 'src/buttons/StopSupportButton'
-import SupportButton from 'src/buttons/SupportButton'
+import ConfirmButton from 'src/pages/core/specifics/buttons/ConfirmButton'
+import ConfirmReturnButton from 'src/pages/core/specifics/buttons/ConfirmReturnButton'
+import DeleteButton from 'src/pages/core/specifics/buttons/DeleteButton'
+import ReturningButton from 'src/pages/core/specifics/buttons/ReturningButton'
+import StopSupportButton from 'src/pages/core/specifics/buttons/StopSupportButton'
+import SupportButton from 'src/pages/core/specifics/buttons/SupportButton'
 // import Btn from 'src/buttons/Buttons'
 
 interface Props {
