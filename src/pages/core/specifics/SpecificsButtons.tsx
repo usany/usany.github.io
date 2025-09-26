@@ -27,7 +27,7 @@ function SpecificsButtons({
   const profile = useSelectors((state) => state.profile.value)
 
   const isOwner = message.creatorId === profile?.uid
-  if (round === 1) {
+  if (message.round === 1) {
     if (isOwner) {
       return (
         <DeleteButton
@@ -45,7 +45,7 @@ function SpecificsButtons({
         handleConnectedClock={handleConnectedClock}
       />
     )
-  } else if (round === 2) {
+  } else if (message.round === 2) {
     if (isOwner) {
       return (
         <ConfirmButton
@@ -64,7 +64,7 @@ function SpecificsButtons({
         handleConnectedClock={handleConnectedClock}
       />
     )
-  } else if (round === 3) {
+  } else if (message.round === 3) {
     if (isOwner) {
       return (
         <div className="flex justify-center">
@@ -98,7 +98,7 @@ function SpecificsButtons({
         )}
       </div>
     )
-  } else if (round === 4) {
+  } else if (message.round === 4) {
     if (isOwner) {
       return (
         <div className="flex justify-center">
