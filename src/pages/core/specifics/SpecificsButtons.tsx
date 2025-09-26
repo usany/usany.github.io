@@ -25,7 +25,7 @@ function SpecificsButtons({
 }: Props) {
   const languages = useSelectors((state) => state.languages.value)
   const profile = useSelectors((state) => state.profile.value)
-  const {isBorrowing, askingTheOwnerToConfirm} = useTexts()
+  const {isBorrowing, askingTheOwnerToConfirm, sharingCompleted} = useTexts()
   const isOwner = message.creatorId === profile?.uid
   if (message.round === 1) {
     if (isOwner) {
@@ -134,7 +134,7 @@ function SpecificsButtons({
   }
   return (
     <div>
-      {languages === 'ko' ? '완료된 카드입니다' : 'Sharing completed'}
+      {sharingCompleted}
     </div>
   )
 }
