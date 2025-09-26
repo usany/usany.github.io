@@ -133,7 +133,7 @@ function SpecificsButtons({
     )
   }
   return (
-    <div>
+    <div className="flex justify-center">
       {sharingCompleted}
     </div>
   )
