@@ -25,7 +25,7 @@ function SpecificsButtons({
 }: Props) {
   const languages = useSelectors((state) => state.languages.value)
   const profile = useSelectors((state) => state.profile.value)
-  const {askingTheOwnerToConfirm} = useTexts()
+  const {isBorrowing, askingTheOwnerToConfirm} = useTexts()
   const isOwner = message.creatorId === profile?.uid
   if (message.round === 1) {
     if (isOwner) {
@@ -76,7 +76,7 @@ function SpecificsButtons({
             />
           )}
           {message.text.choose === 2 && (
-            <div>{message.connectedName} 님이 빌리는 중</div>
+            <>{message.connectedName} {isBorrowing}</>
           )}
         </div>
       )
@@ -86,7 +86,7 @@ function SpecificsButtons({
         {message.text.choose === 1 && (
           <div>
             {message.displayName}{' '}
-            {languages === 'ko' ? '님이 빌리는 중' : 'is borrowing'}
+            {isBorrowing}
           </div>
         )}
         {message.text.choose === 2 && (
