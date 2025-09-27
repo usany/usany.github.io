@@ -1,8 +1,6 @@
 import DeleteIcon from '@mui/icons-material/Delete'
 import Button from '@mui/material/Button'
-import { deleteDoc, doc } from 'firebase/firestore'
 import { useSelectors, useTexts } from 'src/hooks'
-import { dbservice } from 'src/baseApi/serverbase'
 import { useState } from 'react'
 import deleteMessage from 'src/pages/core/card/deleteMessage'
 import onDelete from './onDelete'
