@@ -2,7 +2,7 @@ import SendIcon from '@mui/icons-material/Send'
 import Button from '@mui/material/Button'
 import { doc, getDoc, updateDoc } from 'firebase/firestore'
 import { dbservice } from 'src/baseApi/serverbase'
-import { useSelectors } from 'src/hooks'
+import { useSelectors, useTexts } from 'src/hooks'
 import { webSocket } from 'src/webSocket.tsx'
 import specificProcess from './specificProcess'
 
@@ -51,7 +51,7 @@ const SupportButton = ({
   handleConnectedClock,
 }) => {
   const profile = useSelectors((state) => state.profile.value)
-  const languages = useSelectors((state) => state.languages.value)
+  const { confirm } = useTexts()
   const profileImageUrl = useSelectors((state) => state.profileImageUrl.value)
   const sendingProfile = profile?.profileImage
     ? profileImageUrl
@@ -80,7 +80,7 @@ const SupportButton = ({
         }}
         startIcon={<SendIcon />}
       >
-        {languages === 'ko' ? '승낙하기' : 'Confirm'}
+        {confirm}
       </Button>
     </div>
   )
