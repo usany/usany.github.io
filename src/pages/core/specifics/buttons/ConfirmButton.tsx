@@ -51,7 +51,7 @@ const ConfirmButton = ({ message, increaseRound, handleConfirmingClock }) => {
       }}
       startIcon={<SendIcon />}
     >
-      {languages === 'ko' ? '승낙 메시지 확인' : 'Confirm support message'}
+      {confirmSupportMessage}
     </Button>
   )
 }

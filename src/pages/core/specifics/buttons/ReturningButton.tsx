@@ -1,7 +1,7 @@
 import SendIcon from '@mui/icons-material/Send'
 import Button from '@mui/material/Button'
 import { getDoc, updateDoc } from 'firebase/firestore'
-import { useSelectors } from 'src/hooks'
+import { useSelectors, useTexts } from 'src/hooks'
 import { webSocket } from 'src/webSocket.tsx'
 import specificProcess from './specificProcess'
 
@@ -31,9 +31,8 @@ const onReturning = async ({ message, uid, profileUrl }) => {
 }
 
 const ReturningButton = ({ message, increaseRound, handleReturningClock }) => {
-  const languages = useSelectors((state) => state.languages.value)
   const profile = useSelectors((state) => state.profile.value)
-
+  const {return} = useTexts()
   return (
     <Button
       variant="outlined"
@@ -48,7 +47,7 @@ const ReturningButton = ({ message, increaseRound, handleReturningClock }) => {
       }}
       startIcon={<SendIcon />}
     >
-      {languages === 'ko' ? '반납하기' : 'Return'}
+      {return}
     </Button>
   )
 }
