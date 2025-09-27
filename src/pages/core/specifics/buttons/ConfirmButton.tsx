@@ -33,7 +33,6 @@ const onConfirm = async ({ message, uid, profileUrl }) => {
 }
 
 const ConfirmButton = ({ message, increaseRound, handleConfirmingClock }) => {
-  const languages = useSelectors((state) => state.languages.value)
   const profile = useSelectors((state) => state.profile.value)
   const {confirmSupportMessage} = useTexts()
 
