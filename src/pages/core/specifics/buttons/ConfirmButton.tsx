@@ -1,7 +1,7 @@
 import SendIcon from '@mui/icons-material/Send'
 import Button from '@mui/material/Button'
 import { doc, getDoc, updateDoc } from 'firebase/firestore'
-import { useSelectors } from 'src/hooks'
+import { useSelectors, useTexts } from 'src/hooks'
 import { webSocket } from 'src/webSocket.tsx'
 import specificProcess from './specificProcess'
 import { dbservice } from 'src/baseApi/serverbase'
@@ -35,6 +35,7 @@ const onConfirm = async ({ message, uid, profileUrl }) => {
 const ConfirmButton = ({ message, increaseRound, handleConfirmingClock }) => {
   const languages = useSelectors((state) => state.languages.value)
   const profile = useSelectors((state) => state.profile.value)
+  const {confirmSupportMessage} = useTexts()
 
   return (
     <Button
