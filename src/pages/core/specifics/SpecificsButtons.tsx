@@ -23,7 +23,6 @@ function SpecificsButtons({
   handleReturningClock,
   handleConfirmedReturnClock,
 }: Props) {
-  const languages = useSelectors((state) => state.languages.value)
   const profile = useSelectors((state) => state.profile.value)
   const {isBorrowing, askingTheOwnerToConfirm, sharingCompleted} = useTexts()
   const isOwner = message.creatorId === profile?.uid
