@@ -32,7 +32,7 @@ const onReturning = async ({ message, uid, profileUrl }) => {
 
 const ReturningButton = ({ message, increaseRound, handleReturningClock }) => {
   const profile = useSelectors((state) => state.profile.value)
-  const {return} = useTexts()
+  const {returning} = useTexts()
   return (
     <Button
       variant="outlined"
@@ -47,7 +47,7 @@ const ReturningButton = ({ message, increaseRound, handleReturningClock }) => {
       }}
       startIcon={<SendIcon />}
     >
-      {return}
+      {returning}
     </Button>
   )
 }
