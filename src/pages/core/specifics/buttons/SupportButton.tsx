@@ -7,11 +7,12 @@ import { webSocket } from 'src/webSocket.tsx'
 import specificProcess from './specificProcess'
 
 const onSupporting = async ({ message, profile, profileUrl }) => {
-  const { data, messagingToken } = await specificProcess({
+  const docRef = doc(dbservice, `num/${message.id}`)
+  const { messagingToken } = await specificProcess({
     message: message,
     toUid: null,
   })
-  const userDoc = await getDoc(data)
+  const userDoc = await getDoc(docRef)
   const passingObject = {
     id: message.id,
     choose: message.text.choose,
@@ -27,7 +28,7 @@ const onSupporting = async ({ message, profile, profileUrl }) => {
   const connectedUserRef = doc(dbservice, `members/${profile.uid}`)
   const connectedUserSnap = await getDoc(connectedUserRef)
   const connectedUserData = connectedUserSnap.data()
-  updateDoc(data, {
+  updateDoc(docRef, {
     round: 2,
     connectedId: profile.uid,
     connectedName: profile.displayName,
