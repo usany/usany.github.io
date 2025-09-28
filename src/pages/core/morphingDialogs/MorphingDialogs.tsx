@@ -4,6 +4,7 @@ import {
   MorphingDialogTrigger,
 } from '@/components/ui/morphing-dialog'
 import { User } from 'firebase/auth'
+import { useRound } from '../card/useRound'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { webSocket } from 'src/webSocket'
@@ -16,7 +17,6 @@ import { useOnPulseCallback } from './useOnPulseCallback'
 import { usePulse } from './usePulse'
 import { useStopSupportingTradesCallback } from './useStopSupportingTradesCallback'
 import { useSupportTradesCallback } from './useSupportTradesCallback'
-import { useRound } from '../card/useRound'
 
 interface Props {
   message: { id: string; text: object }
@@ -124,6 +124,7 @@ const MorphingDialogs = ({
       )
     }
   }, [])
+
   return (
     <MorphingDialog
       transition={{
