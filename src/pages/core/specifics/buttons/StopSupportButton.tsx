@@ -9,12 +9,12 @@ import specificProcess from './specificProcess'
 const onStopSupporting = async (message) => {
   const profile = useSelectors((state) => state.profile.value)
   const profileUrl = profile?.profileImage ? profile?.profileImageUrl : profile?.defaultProfile
-  
-  const { data, messagingToken } = await specificProcess({
+  const docRef = doc(dbservice, `num/${message.id}`)
+  const { messagingToken } = await specificProcess({
     message: message,
     toUid: null,
   })
-  const userDoc = await getDoc(data)
+  const userDoc = await getDoc(docRef)
   const passingObject = {
     id: message.id,
     choose: message.text.choose,
@@ -26,7 +26,7 @@ const onStopSupporting = async (message) => {
     connectedUrl: profileUrl,
     preferLanguage: userDoc.data()?.preferLanguage || 'ko',
   }
-  updateDoc(data, {
+  updateDoc(docRef, {
     round: 1,
     connectedId: null,
     connectedName: null,
