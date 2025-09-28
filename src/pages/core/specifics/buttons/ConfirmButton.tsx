@@ -25,7 +25,7 @@ const onConfirm = async ({ message, uid, profileUrl }) => {
     preferLanguage: document.data()?.preferLanguage || 'ko',
     confirmingClock: new Date().toString(),
   }
-  updateDoc(data, {
+  updateDoc(docRef, {
     round: 3,
     confirmingClock: new Date().toString(),
   })
@@ -35,7 +35,6 @@ const onConfirm = async ({ message, uid, profileUrl }) => {
 const ConfirmButton = ({ message, increaseRound, handleConfirmingClock }) => {
   const profile = useSelectors((state) => state.profile.value)
   const {confirmSupportMessage} = useTexts()
-
   return (
     <Button
       variant="outlined"
