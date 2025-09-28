@@ -3,8 +3,6 @@ import {
   MorphingDialogContainer,
   MorphingDialogTrigger,
 } from '@/components/ui/morphing-dialog'
-import { User } from 'firebase/auth'
-import { useRound } from '../card/useRound'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { webSocket } from 'src/webSocket'
@@ -32,7 +30,6 @@ const MorphingDialogs = ({
   const [confirmingClock, setConfirmingClock] = useState('')
   const [returningClock, setReturningClock] = useState('')
   const [confirmedReturnClock, setConfirmedReturnClock] = useState('')
-  // const { round, increaseRound, decreaseRound } = useRound(message)
   const [messageValue, setMessageValue] = useState({})
   useEffect(() => {
     setMessageValue(message)
