@@ -28,9 +28,9 @@ const onConfirmReturn = async ({ message }) => {
     message: message,
     toUid: message.text.choose === 1 ? null : profile?.uid,
   })
-  const dataRef = doc(dbservice, `num/${message.id}`)
-  const dataDoc = await getDoc(dataRef)
-  updateDoc(dataRef, {
+  const docRef = doc(dbservice, `num/${message.id}`)
+  const dataDoc = await getDoc(docRef)
+  updateDoc(docRef, {
     round: 5,
     confirmedReturnClock: new Date().toString(),
   })
