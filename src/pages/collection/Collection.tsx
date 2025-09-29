@@ -1,0 +1,278 @@
+import { GoogleGenAI } from '@google/genai'
+import { doc, getDocs, setDoc } from 'firebase/firestore'
+import { Film, PlusCircle } from 'lucide-react'
+import { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { dbservice } from 'src/baseApi/serverbase'
+import {
+  MorphingDialog,
+  MorphingDialogContainer,
+  MorphingDialogContent,
+  MorphingDialogTrigger,
+} from 'src/components/ui/morphing-dialog'
+import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
+import { useTexts } from 'src/hooks'
+import Avatars from '../core/Avatars'
+import PageTitle from '../core/pageTitle/PageTitle'
+import Popups from '../core/Popups'
+import supabase from 'src/baseApi/base'
+import { decode } from 'base64-arraybuffer'
+import { User } from 'firebase/auth'
+import { useSelectors } from 'src/hooks'
+
+function Collection() {
+  const profile = useSelectors((state) => state.profile.value)
+  const genai = new GoogleGenAI({ apiKey: import.meta.env.VITE_GEMINI_API_KEY })
+  const {
+    register,
+    uploadMyFile,
+    save,
+    cannotFindAnUmbrella,
+    findingAnUmbrella,
+    collection,
+  } = useTexts()
+  async function chat(url) {
+    try {
+      let file = 'png'
+      const fileText = url.slice(url.indexOf('/') + 1, url.indexOf('/') + 2)
+      if (fileText === 'p') {
+        file = 'png'
+      } else if (fileText === 'j') {
+        file = 'jpeg'
+      }
+      const contents = [
+        {
+          inlineData: {
+            mimeType: `image/${file}`,
+            data: url.slice(url.indexOf(',') + 1),
+          },
+        },
+        { text: 'Is there any umbrella? Yes or no.' },
+      ]
+      const response = await genai.models.generateContent({
+        model: 'gemini-2.5-flash',
+        contents: contents,
+      })
+      setLoading(false)
+      return response.text
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  const [loading, setLoading] = useState(false)
+  const [isUmbrella, setIsUmbrella] = useState('')
+  const [images, setImages] = useState([])
+  const [attachment, setAttachment] = useState(null)
+  const changeAttachment = (newValue) => setAttachment(newValue)
+  const [changedImage, setChangedImage] = useState({
+    attachment: false,
+    profileCharacter: '',
+    profileImage: false,
+    defaultProfile: '',
+    profileImageUrl: '',
+    profileColor: '',
+    initial: true,
+    changed: false,
+  })
+  const [drawerOpen, setDrawerOpen] = useState(false)
+  const dispatch = useDispatch()
+  const initialProfile = {
+    attachment: false,
+    profileCharacter: '',
+    profileImage: false,
+    defaultProfile: '',
+    profileImageUrl: '',
+    profileColor: '',
+    initial: true,
+    changed: false,
+  }
+  const navigate = useNavigate()
+  const handleChangedImage = (newValue) => setChangedImage(newValue)
+  const onFileChange = (event) => {
+    const {
+      target: { files },
+    } = event
+    const theFile = files[0]
+    console.log(files)
+    const reader = new FileReader()
+    reader.onloadend = async (finishedEvent) => {
+      const {
+        currentTarget: { result },
+      } = finishedEvent
+      changeAttachment(result)
+      setLoading(true)
+      const response = await chat(result)
+      setIsUmbrella(response)
+    }
+    reader.readAsDataURL(theFile)
+  }
+  const newImage = async () => {
+    if (attachment) {
+      setImages((images) => [
+        {
+          uid: profile.uid,
+          displayName: profile.displayName,
+          defaultProfile: attachment,
+        },
+        ...images,
+      ])
+      const now = new Date().getTime()
+      const id = profile.uid + now.toString()
+      const docRef = doc(dbservice, `collections/${id}`)
+      setDoc(docRef, {
+        uid: profile.uid,
+        displayName: profile.displayName,
+        defaultProfile: `https://ijsfbngiyhgvolsprxeh.supabase.co/storage/v1/object/public/remake/${id}`,
+      })
+      const splitedArray = attachment.split(';base64,')
+      const content = splitedArray[0].slice(5)
+      const base64 = splitedArray[1]
+      const { data, error } = await supabase.storage
+        .from('remake')
+        .update(`collection/${id}`, decode(base64), {
+          contentType: content,
+        })
+      if (data) {
+        console.log(data)
+      } else {
+        console.log(error)
+      }
+    }
+  }
+  useEffect(() => {
+    if (loading) {
+      setChangedImage({
+        attachment: false,
+        profileCharacter: '',
+        profileImage: false,
+        defaultProfile: '',
+        profileImageUrl: '',
+        profileColor: '',
+        initial: true,
+        changed: false,
+      })
+    }
+    if (attachment && !changedImage.attachment) {
+      setChangedImage({
+        ...changedImage,
+        attachment: true,
+        profileImage: true,
+        profileImageUrl: attachment,
+        changed: true,
+      })
+    }
+  }, [loading])
+  useEffect(() => {
+    const bringImages = async () => {
+      const ref = collection(dbservice, 'collections')
+      const docs = await getDocs(ref)
+      const newImages = []
+      docs.forEach((element) => {
+        const uid = element.data().uid
+        const displayName = element.data().displayName
+        const defaultProfile = element.data().defaultProfile
+        if (defaultProfile) {
+          newImages.push({
+            uid: uid,
+            displayName: displayName,
+            defaultProfile: defaultProfile,
+          })
+        }
+      })
+      setImages(newImages)
+    }
+    bringImages()
+  }, [])
+  useEffect(() => {
+    dispatch(changeBottomNavigation(5))
+  }, [])
+  return (
+    <div>
+      <PageTitle icon={<Film />} title={collection} />
+      <Popups
+        trigger={
+          <div
+            className="flex gap-5 justify-center"
+            onClick={() => {
+              handleChangedImage({
+                ...changedImage,
+                attachment: '',
+                profileColor: initialProfile.profileColor,
+                profileImage: false,
+                defaultProfile: initialProfile.defaultProfile,
+                changed: false,
+              })
+              changeAttachment(null)
+            }}
+          >
+            <PlusCircle />
+            {register}
+          </div>
+        }
+        title={register}
+        content={
+          <div className="flex flex-col px-5 items-center gap-5">
+            <Avatars
+              element={changedImage.changed ? changedImage : initialProfile}
+              profile={true}
+            />
+            {!loading && (
+              <>
+                <label
+                  htmlFor="file"
+                  className="p-5 rounded border border-dashed"
+                >
+                  {uploadMyFile}
+                </label>
+                <input id="file" type="file" onChange={onFileChange} hidden />
+                {['n', 'N'].indexOf(isUmbrella ? isUmbrella[0] : isUmbrella) !==
+                  -1 && <div>{cannotFindAnUmbrella}</div>}
+              </>
+            )}
+            {loading && <div>{findingAnUmbrella}</div>}
+          </div>
+        }
+        close={
+          attachment &&
+          !loading &&
+          ['y', 'Y'].indexOf(isUmbrella ? isUmbrella[0] : isUmbrella) !==
+            -1 && <div onClick={newImage}>{save}</div>
+        }
+        attachment={changedImage}
+      />
+      <div className="grid grid-cols-[repeat(auto-fit,minmax(80px,1fr))] col-span-full p-5">
+        {images.map((element, index) => {
+          return (
+            <MorphingDialog key={index}>
+              <MorphingDialogTrigger>
+                <img
+                  src={element.defaultProfile}
+                  className="w-[80px] h-[80px]"
+                  onClick={() => {
+                    navigate(`/collection?id=${index}`)
+                  }}
+                />
+              </MorphingDialogTrigger>
+              <MorphingDialogContainer>
+                <MorphingDialogContent
+                  drawerOpen={drawerOpen}
+                  drawerOpenFalse={() => setDrawerOpen(false)}
+                >
+                  <div className="flex flex-col">
+                    <div>
+                      {element.displayName} {register}
+                    </div>
+                    <img src={element.defaultProfile} />
+                  </div>
+                </MorphingDialogContent>
+              </MorphingDialogContainer>
+            </MorphingDialog>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
+export default Collection
