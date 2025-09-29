@@ -1,6 +1,6 @@
 import Switch from '@mui/material/Switch';
 import { styled } from '@mui/material/styles';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useSelectors, useTexts } from "src/hooks";
 import { changePiazzaSwitch } from 'src/stateSlices/piazzaSwitchSlice';
 
@@ -38,7 +38,6 @@ const MessageSwitch = styled(Switch)(({ theme }) => ({
 }));
 
 function PiazzaSwitch() {
-  const languages = useSelectors(state => state.languages.value)
   const piazzaSwitch = useSelectors(state => state.piazzaSwitch.value)
   const dispatch = useDispatch()
   const {addToMyMessages} = useTexts()
