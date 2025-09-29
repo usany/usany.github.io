@@ -12,7 +12,7 @@ import { changeNewMessageTrue } from 'src/stateSlices/newMessageSlice'
 import { useTexts } from 'src/hooks'
 import { webSocket } from 'src/webSocket.tsx'
 
-function PiazzaFormCallsContent() {
+function PiazzaFormCallsContent({chattingUser}) {
   const { message, send, selectCall, videoCall, audioCall } = useTexts()
   const calls = [
     {id: 'video', text: videoCall},
@@ -25,7 +25,6 @@ function PiazzaFormCallsContent() {
     ? location.search.slice(location.search.indexOf('=') + 1)
     : 'piazza'
   const [searchParams, setSearchParams] = useSearchParams()
-  const { message, send, selectCall, videoCall, audioCall } = useTexts()
   const userUid = profile?.uid
   const userName = profile?.displayName
 

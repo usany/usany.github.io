@@ -323,52 +323,53 @@ function PiazzaForm({
           }
           title={selectCall}
           content={
-            <div className="flex justify-center gap-5 p-5">
-              <Card
-                className="colorOne"
-                sx={{
-                  height: '100%',
-                }}
-              >
-                <CardContent>
-                  <div
-                    className="flex flex-col items-center gap-5"
-                    onClick={() => {
-                      onCall('video')
-                    }}
-                  >
-                    <DrawerClose>
-                      <div className="flex justify-center">
-                        <UserRound />
-                      </div>
-                      {videoCall}
-                    </DrawerClose>
-                  </div>
-                </CardContent>
-              </Card>
-              <Card
-                className="colorOne"
-                sx={{
-                  height: '100%',
-                }}
-              >
-                <CardContent>
-                  <div
-                    className="flex flex-col items-center gap-5"
-                    onClick={() => {
-                      onCall('audio')
-                    }}
-                  >
-                    <DrawerClose>
-                      <div className="flex justify-center">
-                        <AlarmCheck />
-                      </div>
-                      {audioCall}
-                    </DrawerClose>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
+            <PiazzaFormCallsContent chattingUser={chattingUser}/>
+            // <div className="flex justify-center gap-5 p-5">
+            //   <Card
+            //     className="colorOne"
+            //     sx={{
+            //       height: '100%',
+            //     }}
+            //   >
+            //     <CardContent>
+            //       <div
+            //         className="flex flex-col items-center gap-5"
+            //         onClick={() => {
+            //           onCall('video')
+            //         }}
+            //       >
+            //         <DrawerClose>
+            //           <div className="flex justify-center">
+            //             <UserRound />
+            //           </div>
+            //           {videoCall}
+            //         </DrawerClose>
+            //       </div>
+            //     </CardContent>
+            //   </Card>
+            //   <Card
+            //     className="colorOne"
+            //     sx={{
+            //       height: '100%',
+            //     }}
+            //   >
+            //     <CardContent>
+            //       <div
+            //         className="flex flex-col items-center gap-5"
+            //         onClick={() => {
+            //           onCall('audio')
+            //         }}
+            //       >
+            //         <DrawerClose>
+            //           <div className="flex justify-center">
+            //             <AlarmCheck />
+            //           </div>
+            //           {audioCall}
+            //         </DrawerClose>
+            //       </div>
+            //     </CardContent>
+            //   </Card>
+            // </div>
           }
         />
       )}
