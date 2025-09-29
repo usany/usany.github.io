@@ -101,7 +101,6 @@ function Specifics({
                   drawerOpenTrue={drawerOpenTrue}
                   message={message}
                   connectedUser={connectedUser}
-                  // round={round}
                   increaseRound={increaseRound}
                   decreaseRound={decreaseRound}
                   changeOnPulse={changeOnPulse}
@@ -118,7 +117,6 @@ function Specifics({
                 drawerOpenTrue={drawerOpenTrue}
                 message={message}
                 connectedUser={connectedUser}
-                // round={round}
                 increaseRound={increaseRound}
                 decreaseRound={decreaseRound}
                 changeOnPulse={changeOnPulse}
