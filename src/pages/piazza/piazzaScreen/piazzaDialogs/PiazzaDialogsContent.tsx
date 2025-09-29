@@ -7,7 +7,7 @@ import Avatars from 'src/pages/core/Avatars'
 const PiazzaDialogsContent = ({
   user,
   initiateContinuing,
-  handleMessagesList,
+  // handleMessagesList,
 }) => {
   const { state } = useLocation()
   const conversation = state?.conversation || 'piazza'
@@ -46,10 +46,7 @@ const PiazzaDialogsContent = ({
             <DrawerClose>
               <Button
                 variant="outlined"
-                onClick={() => {
-                  handleMessagesList([])
-                  initiateContinuing()
-                }}
+                onClick={initiateContinuing}
               >
                 {privateMessaging}
               </Button>

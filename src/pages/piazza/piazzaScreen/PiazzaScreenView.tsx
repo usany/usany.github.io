@@ -335,6 +335,10 @@ function PiazzaScreenView({
   const messagesArray = navigator.onLine
     ? messagesList
     : JSON.parse(localStorage.getItem(conversation) || '[]')
+  const initiateContinuing = () => {
+    setContinuing(null)
+    handleMessagesList([])
+  }
   return (
     <>
       <div ref={boxRef} className={`p-1 border-t rounded-xl overflow-auto`}>
@@ -469,9 +473,8 @@ function PiazzaScreenView({
                             }
                             content={
                               <PiazzaDialogsContent
-                                initiateContinuing={() => setContinuing(null)}
+                                initiateContinuing={initiateContinuing}
                                 user={user}
-                                handleMessagesList={handleMessagesList}
                               />
                             }
                           />
@@ -536,9 +539,8 @@ function PiazzaScreenView({
                             }
                             content={
                               <PiazzaDialogsContent
-                                initiateContinuing={() => setContinuing(null)}
+                                initiateContinuing={initiateContinuing}
                                 user={user}
-                                handleMessagesList={handleMessagesList}
                               />
                             }
                           />
