@@ -144,7 +144,6 @@ const MorphingDialogs = ({
       </MorphingDialogTrigger>
       <MorphingDialogContainer>
         <Morphings
-          round={round}
           increaseRound={increaseRound}
           decreaseRound={decreaseRound}
           message={messageValue}

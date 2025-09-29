@@ -9,7 +9,6 @@ interface Props {
 }
 
 const Morphings = ({
-  round,
   increaseRound,
   decreaseRound,
   message,
@@ -40,7 +39,6 @@ const Morphings = ({
       drawerOpenFalse={drawerOpenFalse}
     >
       <Specifics
-        round={round}
         increaseRound={increaseRound}
         decreaseRound={decreaseRound}
         drawerOpenTrue={drawerOpenTrue}
