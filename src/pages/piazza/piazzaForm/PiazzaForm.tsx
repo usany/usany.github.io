@@ -236,6 +236,19 @@ function PiazzaForm({
         const userDocRef = doc(dbservice, `members/${chattingUser.uid}`)
         const userDocSnap = await getDoc(userDocRef)
         const userChattings = userDocSnap.data().chattings || {}
+        const myConversation = myDocSnap.data().conversation || []
+        const userConversation = userDocSnap.data().conversation || []
+        if (myConversation.indexOf(conversation) === -1) {
+          await updateDoc(myDocRef, {
+            conversation: [...myConversation, conversation],
+          })
+          dispatch(changeNewMessageTrue())
+        }
+        if (userConversation.indexOf(conversation) === -1) {
+          await updateDoc(userDocRef, {
+            conversation: [...userConversation, conversation],
+          })
+        }
         const userChattingsNumber =
           userChattings[conversation]?.messageCount || 0
         myChattings[conversation] = messageObj
