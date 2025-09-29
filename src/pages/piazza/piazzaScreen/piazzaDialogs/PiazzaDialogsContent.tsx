@@ -1,7 +1,5 @@
 import Button from '@mui/material/Button'
 import { Link, useLocation } from 'react-router-dom'
-// import Avatar from '@mui/material/Avatar';
-// import { blue } from '@mui/material/colors';
 import { DrawerClose } from '@/components/ui/drawer'
 import { useEffect, useState } from 'react'
 import { useSelectors } from 'src/hooks'
@@ -56,15 +54,6 @@ const PiazzaDialogsContent = ({
   return (
     <div>
       <div className="flex flex-col items-center pt-5">
-        {/* {user?.displayName !== displayedName && (
-          <div>
-            {languages === 'ko' ? (
-              <div>({displayedName}에서 개명)</div>
-            ) : (
-              <div>(Changed name from {displayedName})</div>
-            )}
-          </div>
-        )} */}
         <Avatars
           element={user}
           uid={profile?.uid}
@@ -74,20 +63,6 @@ const PiazzaDialogsContent = ({
           fallback=""
           piazza={null}
         />
-        {/* <Avatar className={'bg-profile-blue'}>
-                <AvatarImage src={user?.profileImageUrl} />
-                <AvatarFallback className='text-xl border-none	'>{user?.displayName[0]}</AvatarFallback>
-              </Avatar> */}
-        {/* <div>{user?.displayName}</div> */}
-        {/* {user?.displayName !== displayedName && (
-          <div>
-            {languages === 'ko' ? (
-              <div>({displayedName}에서 개명)</div>
-            ) : (
-              <div>(Changed name from {displayedName})</div>
-            )}
-          </div>
-        )} */}
       </div>
       <div className="flex justify-center p-5">
         <Link to={`/profile?id=${user?.uid}`} state={{ element: user }}>
@@ -112,10 +87,7 @@ const PiazzaDialogsContent = ({
                 variant="outlined"
                 onClick={() => {
                   handleMessagesList([])
-                  // handleChangeMessage(true)
-                  // handleMultiple(false)
                   initiateContinuing()
-                  // handleClose()
                 }}
               >
                 {languages === 'ko' ? '개인 대화' : 'Private messaging'}
