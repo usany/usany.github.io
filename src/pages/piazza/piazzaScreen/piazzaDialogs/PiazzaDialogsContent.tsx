@@ -15,8 +15,7 @@ const PiazzaDialogsContent = ({
   const profile = useSelectors((state) => state.profile.value)
   const partialProfileUid = profile?.uid.slice(0, 6)
   const partialUserUid = user?.uid.slice(0, 6)
-  const mergedUid = user?.uid < profile?.uid ? partialUserUid+partialProfileUid : partialProfileUid+partialUserUid
-  const newConversation = mergedUid
+  const newConversation = user?.uid < profile?.uid ? partialUserUid+partialProfileUid : partialProfileUid+partialUserUid
 
   return (
     <div>
