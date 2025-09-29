@@ -14,7 +14,6 @@ interface Props {
 const PiazzaTitle = ({ displayName }: Props) => {
   const languages = useSelectors((state) => state.languages.value)
   const index = (languages === 'ko' || languages === 'en') ? languages : 'ko'
-  // const { state } = useLocation()
   const conversation = location.search ? location.search.slice(location.search.indexOf('=') + 1) : 'piazza'
   return (
     <div className='flex w-screen justify-between'>
