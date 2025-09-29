@@ -12,14 +12,6 @@ import { changeNewMessageTrue } from 'src/stateSlices/newMessageSlice'
 import { useTexts } from 'src/hooks'
 import { webSocket } from 'src/webSocket.tsx'
 
-const forms = {
-  ko: '메세지를 작성해 주세요',
-  en: 'Input message',
-}
-// const send = {
-//   ko: '전송',
-//   en: 'send',
-// }
 interface Props {
   chattingUser: {
     uid: string
@@ -48,8 +40,6 @@ function PiazzaForm({
   const conversation = location.search
     ? location.search.slice(location.search.indexOf('=') + 1)
     : 'piazza'
-  const languages = useSelectors((state) => state.languages.value)
-  const index = languages === 'ko' || languages === 'en' ? languages : 'ko'
   const [searchParams, setSearchParams] = useSearchParams()
   const { message, send, selectCall, videoCall, audioCall } = useTexts()
   const userUid = profile?.uid
