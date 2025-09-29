@@ -41,7 +41,6 @@ function PiazzaForm({
   const conversation = location.search
     ? location.search.slice(location.search.indexOf('=') + 1)
     : 'piazza'
-  const [searchParams, setSearchParams] = useSearchParams()
   const { message, send, selectCall, videoCall, audioCall } = useTexts()
   const userUid = profile?.uid
   const userName = profile?.displayName
