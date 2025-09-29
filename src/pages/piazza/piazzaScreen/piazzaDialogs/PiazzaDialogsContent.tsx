@@ -14,15 +14,11 @@ const PiazzaDialogsContent = ({
   const conversation = state?.conversation || 'piazza'
   const languages = useSelectors((state) => state.languages.value)
   const profile = useSelectors((state) => state.profile.value)
-  const [newConversation, setNewConversation] = useState('')
-  useEffect(() => {
-    if (user) {
-      const partialProfileUid = profile?.uid.slice(0, 6)
-      const partialUserUid = user?.uid.slice(0, 6)
-      const mergedUid = user?.uid < profile?.uid ? partialUserUid+partialProfileUid : partialProfileUid+partialUserUid
-      setNewConversation(mergedUid)
-    }
-  }, [user])
+  const partialProfileUid = profile?.uid.slice(0, 6)
+  const partialUserUid = user?.uid.slice(0, 6)
+  const mergedUid = user?.uid < profile?.uid ? partialUserUid+partialProfileUid : partialProfileUid+partialUserUid
+  const newConversation = mergedUid
+
   return (
     <div>
       <div className="flex flex-col items-center pt-5">
