@@ -19,8 +19,16 @@ function PiazzaScreen({
 }: Props) {
   return (
     <>
-      {isKeyboardOpen ? (
-        <div className="fixed bottom-[50px] w-screen h-full bg-light-3 dark:bg-dark-3 flex flex-col pt-[120px]">
+      <div className={`fixed bottom-[50px] w-screen h-full bg-light-3 dark:bg-dark-3 flex flex-col ${isKeyboardOpen ? 'bottom-[50px] h-full pt-[120px]' : 'bottom-[110px] h-[60%]'}`}>
+        <PiazzaScreenView
+          messagesList={messagesList}
+          handleMessagesList={handleMessagesList}
+          handleChatUid={handleChatUid}
+          handleChatDisplayName={handleChatDisplayName}
+        />
+      </div>
+      {/* {isKeyboardOpen ? (
+        <div className={`fixed bottom-[50px] w-screen h-full bg-light-3 dark:bg-dark-3 flex flex-col ${isKeyboardOpen ? 'bottom-[50px] h-full pt-[120px]' : 'bottom-[110px] h-[60%]'}`}>
           <PiazzaScreenView
             messagesList={messagesList}
             handleMessagesList={handleMessagesList}
@@ -37,7 +45,7 @@ function PiazzaScreen({
             handleChatDisplayName={handleChatDisplayName}
           />
         </div>
-      )}
+      )} */}
     </>
   )
 }
