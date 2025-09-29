@@ -330,213 +330,213 @@ function PiazzaScreenView({
     handleMessagesList([])
   }
   return (
-    <>
-      <div ref={boxRef} className={`p-1 border-t rounded-xl overflow-auto`}>
-        <ul>
-          {isLoading && (
-            <div className="flex justify-center bg-light-2 dark:bg-dark-2 rounded">
-              로딩
-            </div>
-          )}
-          {messagesArray.map((value, index) => {
-            let passingValue
-            if (conversation === 'piazza') {
-              passingValue = value
-            } else {
-              if (value.userUid === value.userOne) {
-                passingValue = {
-                  userUid: value.userOne,
-                  id: value.userOneDisplayName,
-                  profileImage: value.userOneProfileImage || value.profileImage,
-                  defaultProfile:
-                    value.userOneDefaultProfile || value.defaultProfile,
-                  profileImageUrl:
-                    value.userOneProfileUrl || value.profileImageUrl,
-                }
-              } else {
-                passingValue = {
-                  userUid: value.userTwo,
-                  id: value.userTwoDisplayName,
-                  profileImage: value.userTwoProfileImage || value.profileImage,
-                  defaultProfile:
-                    value.userTwoDefaultProfile || value.defaultProfile,
-                  profileImageUrl:
-                    value.userTwoProfileUrl || value.profileImageUrl,
-                }
-              }
-            }
-            let userDirection
-            const clock = new Date(value.messageClock)
-            if (value.userUid === profile?.uid) {
-              userDirection = 'text-right'
-            } else {
-              userDirection = 'text-left'
-            }
-            let previousUid
-            if (index > 0) {
-              previousUid = messagesArray[index - 1].userUid
-            }
-            if (index < messagesArray.length - 1) {
-              if (messagesArray[index + 1].userUid === profile?.uid) {
-              }
-            }
-            let messageAmpm
-            let messageHours = clock.getHours()
-            let messageMonth = (clock.getMonth() + 1).toString()
-            let messageDate = clock.getDate().toString()
-            if (messageHours >= 13) {
-              messageAmpm = '오후'
-              if (messageHours !== 12) {
-                messageHours = messageHours - 12
+    <div ref={boxRef} className={`p-1 border-t rounded-xl overflow-auto`}>
+      <ul>
+        {isLoading && (
+          <div className="flex justify-center bg-light-2 dark:bg-dark-2 rounded">
+            로딩
+          </div>
+        )}
+        {messagesArray.map((value, index) => {
+          let passingValue
+          if (conversation === 'piazza') {
+            passingValue = value
+          } else {
+            if (value.userUid === value.userOne) {
+              passingValue = {
+                userUid: value.userOne,
+                id: value.userOneDisplayName,
+                profileImage: value.userOneProfileImage || value.profileImage,
+                defaultProfile:
+                  value.userOneDefaultProfile || value.defaultProfile,
+                profileImageUrl:
+                  value.userOneProfileUrl || value.profileImageUrl,
               }
             } else {
-              messageAmpm = '오전'
-              if (messageHours === 0) {
-                messageHours = messageHours + 12
+              passingValue = {
+                userUid: value.userTwo,
+                id: value.userTwoDisplayName,
+                profileImage: value.userTwoProfileImage || value.profileImage,
+                defaultProfile:
+                  value.userTwoDefaultProfile || value.defaultProfile,
+                profileImageUrl:
+                  value.userTwoProfileUrl || value.profileImageUrl,
               }
             }
-            if (clock.getMonth() + 1 < 10) {
-              messageMonth = '0' + messageMonth
+          }
+          let userDirection
+          const clock = new Date(value.messageClock)
+          if (value.userUid === profile?.uid) {
+            userDirection = 'text-right'
+          } else {
+            userDirection = 'text-left'
+          }
+          let previousUid
+          if (index > 0) {
+            previousUid = messagesArray[index - 1].userUid
+          }
+          if (index < messagesArray.length - 1) {
+            if (messagesArray[index + 1].userUid === profile?.uid) {
             }
-            if (messageDate.length === 1) {
-              messageDate = '0' + messageDate
+          }
+          let messageAmpm
+          let messageHours = clock.getHours()
+          let messageMonth = (clock.getMonth() + 1).toString()
+          let messageDate = clock.getDate().toString()
+          if (messageHours >= 13) {
+            messageAmpm = '오후'
+            if (messageHours !== 12) {
+              messageHours = messageHours - 12
             }
-            return (
-              <li
-                key={index}
-                ref={index === continueNumber ? messagesEndRef : null}
-                className={userDirection}
-              >
-                {previousUid !== value.userUid && (
+          } else {
+            messageAmpm = '오전'
+            if (messageHours === 0) {
+              messageHours = messageHours + 12
+            }
+          }
+          if (clock.getMonth() + 1 < 10) {
+            messageMonth = '0' + messageMonth
+          }
+          if (messageDate.length === 1) {
+            messageDate = '0' + messageDate
+          }
+          return (
+            <li
+              key={index}
+              ref={index === continueNumber ? messagesEndRef : null}
+              className={userDirection}
+            >
+              {previousUid !== value.userUid && (
+                <div>
+                  <div
+                    className={`flex justify-${
+                      value.userUid !== profile?.uid ? 'start' : 'end'
+                    }`}
+                  >
+                    {userDirection === 'text-left' ? (
+                      <div className="flex gap-3 pt-3">
+                        <Popups
+                          trigger={
+                            <Avatars
+                              element={passingValue}
+                              piazza={() =>
+                                onDrawer({
+                                  userUid: passingValue.userUid,
+                                  displayName: passingValue.id,
+                                })
+                              }
+                              profile={false}
+                            />
+                          }
+                          title={
+                            <div>
+                              <div className="flex justify-center">
+                                {user?.displayName}
+                              </div>
+                              {user?.displayName !== displayedName && (
+                                <div>
+                                  {languages === 'ko' ? (
+                                    <div>({displayedName}에서 개명)</div>
+                                  ) : (
+                                    <div>
+                                      (Changed name from {displayedName})
+                                    </div>
+                                  )}
+                                </div>
+                              )}
+                            </div>
+                          }
+                          content={
+                            <PiazzaDialogsContent
+                              initiateContinuing={initiateContinuing}
+                              user={user}
+                            />
+                          }
+                        />
+                        <div>{value.id}</div>
+                      </div>
+                    ) : (
+                      <div className="flex gap-3 pt-3">
+                        <div>{value.id}</div>
+                        <Popups
+                          trigger={
+                            <Avatars
+                              element={passingValue}
+                              piazza={() =>
+                                onDrawer({
+                                  userUid: passingValue.userUid,
+                                  displayName: passingValue.id,
+                                })
+                              }
+                              profile={false}
+                            />
+                          }
+                          title={
+                            <div>
+                              <div className="flex justify-center">
+                                {user?.displayName}
+                              </div>
+                              {user?.displayName !== displayedName && (
+                                <div>
+                                  {languages === 'ko' ? (
+                                    <div>({displayedName}에서 개명)</div>
+                                  ) : (
+                                    <div>
+                                      (Changed name from {displayedName})
+                                    </div>
+                                  )}
+                                </div>
+                              )}{' '}
+                            </div>
+                          }
+                          content={
+                            <PiazzaDialogsContent
+                              initiateContinuing={initiateContinuing}
+                              user={user}
+                            />
+                          }
+                        />
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
+              {value.userUid !== profile?.uid ? (
+                <div className="flex gap-3 justify-start">
+                  <div className="other rounded-tr-lg rounded-bl-lg rounded-br-lg p-1 bg-light-1 dark:bg-dark-1">
+                    {value.msg}
+                  </div>
                   <div>
-                    <div
-                      className={`flex justify-${
-                        value.userUid !== profile?.uid ? 'start' : 'end'
-                      }`}
-                    >
-                      {userDirection === 'text-left' ? (
-                        <div className="flex gap-3 pt-3">
-                          <Popups
-                            trigger={
-                              <Avatars
-                                element={passingValue}
-                                piazza={() =>
-                                  onDrawer({
-                                    userUid: passingValue.userUid,
-                                    displayName: passingValue.id,
-                                  })
-                                }
-                                profile={false}
-                              />
-                            }
-                            title={
-                              <div>
-                                <div className="flex justify-center">
-                                  {user?.displayName}
-                                </div>
-                                {user?.displayName !== displayedName && (
-                                  <div>
-                                    {languages === 'ko' ? (
-                                      <div>({displayedName}에서 개명)</div>
-                                    ) : (
-                                      <div>
-                                        (Changed name from {displayedName})
-                                      </div>
-                                    )}
-                                  </div>
-                                )}
-                              </div>
-                            }
-                            content={
-                              <PiazzaDialogsContent
-                                initiateContinuing={initiateContinuing}
-                                user={user}
-                              />
-                            }
-                          />
-                          <div>{value.id}</div>
-                        </div>
-                      ) : (
-                        <div className="flex gap-3 pt-3">
-                          <div>{value.id}</div>
-                          <Popups
-                            trigger={
-                              <Avatars
-                                element={passingValue}
-                                piazza={() =>
-                                  onDrawer({
-                                    userUid: passingValue.userUid,
-                                    displayName: passingValue.id,
-                                  })
-                                }
-                                profile={false}
-                              />
-                            }
-                            title={
-                              <div>
-                                <div className="flex justify-center">
-                                  {user?.displayName}
-                                </div>
-                                {user?.displayName !== displayedName && (
-                                  <div>
-                                    {languages === 'ko' ? (
-                                      <div>({displayedName}에서 개명)</div>
-                                    ) : (
-                                      <div>
-                                        (Changed name from {displayedName})
-                                      </div>
-                                    )}
-                                  </div>
-                                )}{' '}
-                              </div>
-                            }
-                            content={
-                              <PiazzaDialogsContent
-                                initiateContinuing={initiateContinuing}
-                                user={user}
-                              />
-                            }
-                          />
-                        </div>
-                      )}
-                    </div>
+                    {clock.getFullYear()}-{messageMonth}-{messageDate}{' '}
+                    {languages === 'ko' && messageAmpm} {messageHours}:
+                    {clock.getMinutes() < 10 && '0'}
+                    {clock.getMinutes()}
+                    {languages === 'en' &&
+                      (messageAmpm === '오전' ? 'am' : 'pm')}
                   </div>
-                )}
-                {value.userUid !== profile?.uid ? (
-                  <div className="flex gap-3 justify-start">
-                    <div className="other rounded-tr-lg rounded-bl-lg rounded-br-lg p-1 bg-light-1 dark:bg-dark-1">
-                      {value.msg}
-                    </div>
-                    <div>
-                      {clock.getFullYear()}-{messageMonth}-{messageDate}{' '}
-                      {languages === 'ko' && messageAmpm} {messageHours}:
-                      {clock.getMinutes() < 10 && '0'}
-                      {clock.getMinutes()}
-                      {languages === 'en' &&
-                        (messageAmpm === '오전' ? 'am' : 'pm')}
-                    </div>
+                </div>
+              ) : (
+                <div className="flex gap-3 justify-end">
+                  <div>
+                    {clock.getFullYear()}-{messageMonth}-{messageDate}{' '}
+                    {languages === 'ko' && messageAmpm} {messageHours}:
+                    {clock.getMinutes() < 10 && '0'}
+                    {clock.getMinutes()}
+                    {languages === 'en' &&
+                      (messageAmpm === '오전' ? 'am' : 'pm')}
                   </div>
-                ) : (
-                  <div className="flex gap-3 justify-end">
-                    <div>
-                      {clock.getFullYear()}-{messageMonth}-{messageDate}{' '}
-                      {languages === 'ko' && messageAmpm} {messageHours}:
-                      {clock.getMinutes() < 10 && '0'}
-                      {clock.getMinutes()}
-                      {languages === 'en' &&
-                        (messageAmpm === '오전' ? 'am' : 'pm')}
-                    </div>
-                    <div className="me rounded-tl-lg rounded-bl-lg rounded-br-lg p-1 bg-light-1 dark:bg-dark-1">
-                      {value.msg}
-                    </div>
+                  <div className="me rounded-tl-lg rounded-bl-lg rounded-br-lg p-1 bg-light-1 dark:bg-dark-1">
+                    {value.msg}
                   </div>
-                )}
-              </li>
-            )
-          })}
-          <li ref={messagesEndRef} />
-        </ul>
-      </div>
+                </div>
+              )}
+            </li>
+          )
+        })}
+        <li ref={messagesEndRef} />
+      </ul>
+    </div>
+    <>
     </>
   )
 }
