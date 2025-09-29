@@ -21,9 +21,7 @@ const PiazzaTitle = ({ displayName }: Props) => {
         icon={<MessagesSquare />}
         title={conversation === 'piazza' ? piazzaTitles[index][0] : `${piazzaTitles[index][1]} ${displayName}`} />
       {conversation === 'piazza' &&
-        <div className='flex w-1/2 justify-end px-5 pt-5'>
-          <PiazzaSwitch />
-        </div>
+        <PiazzaSwitch />
       }
     </div>
   )
