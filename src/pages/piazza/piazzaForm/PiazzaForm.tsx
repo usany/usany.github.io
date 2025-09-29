@@ -32,7 +32,7 @@ function PiazzaForm({
   handleMessagesList,
 }: Props) {
   const piazzaForm = useSelectors((state) => state.piazzaForm.value)
-  const profile = useSelectors((state) => state.profile.value)
+  const profile = useSelectors((state) => state.profile?.value)
   const dispatch = useDispatch()
   const conversation = location.search
     ? location.search.slice(location.search.indexOf('=') + 1)
@@ -53,13 +53,13 @@ function PiazzaForm({
     let toUser
     let messagingToken
     if (chattingUser) {
-      toUserRef = doc(dbservice, `members/${chattingUser.uid}`)
+      toUserRef = doc(dbservice, `members/${chattingUser?.uid}`)
       toUser = await getDoc(toUserRef)
       messagingToken = toUser.data()?.messagingToken
     }
-    const profileUrl = profile.profileImage
-      ? profile.profileImageUrl
-      : profile.defaultProfile
+    const profileUrl = profile?.profileImage
+      ? profile?.profileImageUrl
+      : profile?.defaultProfile
     const sendData = {
       msg: message,
       userUid: userUid,
@@ -145,28 +145,28 @@ function PiazzaForm({
     try {
       const messageClockNumber = Date.now()
       const messageClock = new Date().toString()
-      const profileImageUrl = profile.profileImageUrl
-      const otherProfileUrl = chattingUser.profileImageUrl
-      const defaultProfile = profile.defaultProfile
-      const otherDefaultProfile = chattingUser.defaultProfile
-            const userOne = userUid < chattingUser.uid ? userUid : chattingUser.uid
-      const userTwo = userUid < chattingUser.uid ? chattingUser.uid : userUid
+      const profileImageUrl = profile?.profileImageUrl
+      const otherProfileUrl = chattingUser?.profileImageUrl
+      const defaultProfile = profile?.defaultProfile
+      const otherDefaultProfile = chattingUser?.defaultProfile
+            const userOne = userUid < chattingUser?.uid ? userUid : chattingUser?.uid
+      const userTwo = userUid < chattingUser?.uid ? chattingUser?.uid : userUid
       const userOneDisplayName =
-        userUid < chattingUser.uid ? userName : chattingUser.displayName
+        userUid < chattingUser?.uid ? userName : chattingUser?.displayName
       const userTwoDisplayName =
-        userUid < chattingUser.uid ? chattingUser.displayName : userName
+        userUid < chattingUser?.uid ? chattingUser?.displayName : userName
       let userOneProfileUrl =
-        userUid < chattingUser.uid ? profileImageUrl : otherProfileUrl
+        userUid < chattingUser?.uid ? profileImageUrl : otherProfileUrl
       let userTwoProfileUrl =
-        userUid < chattingUser.uid ? otherProfileUrl : profileImageUrl
+        userUid < chattingUser?.uid ? otherProfileUrl : profileImageUrl
       const userOneDefaultProfile =
-        userUid < chattingUser.uid ? defaultProfile : otherDefaultProfile
+        userUid < chattingUser?.uid ? defaultProfile : otherDefaultProfile
       const userTwoDefaultProfile =
-        userUid < chattingUser.uid ? otherDefaultProfile : defaultProfile
+        userUid < chattingUser?.uid ? otherDefaultProfile : defaultProfile
       const userOneProfileImage =
-        userUid < chattingUser.uid ? profile.profileImage : chattingUser.profileImage
+        userUid < chattingUser?.uid ? profile?.profileImage : chattingUser?.profileImage
       const userTwoProfileImage =
-        userUid < chattingUser.uid ? chattingUser.profileImage : profile.profileImage
+        userUid < chattingUser?.uid ? chattingUser?.profileImage : profile?.profileImage
       if (!userOneProfileUrl) {
         const userRef = doc(dbservice, `members/${userOne}`)
         const userSnap = await getDoc(userRef)
@@ -202,7 +202,7 @@ function PiazzaForm({
         const myDocRef = doc(dbservice, `members/${userUid}`)
         const myDocSnap = await getDoc(myDocRef)
         const myChattings = myDocSnap.data().chattings || {}
-        const userDocRef = doc(dbservice, `members/${chattingUser.uid}`)
+        const userDocRef = doc(dbservice, `members/${chattingUser?.uid}`)
         const userDocSnap = await getDoc(userDocRef)
         const userChattings = userDocSnap.data().chattings || {}
         const myConversation = myDocSnap.data().conversation || []
