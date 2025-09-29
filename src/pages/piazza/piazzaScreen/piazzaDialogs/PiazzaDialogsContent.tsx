@@ -5,8 +5,8 @@ import { useSelectors, useTexts } from 'src/hooks'
 import Avatars from 'src/pages/core/Avatars'
 
 const PiazzaDialogsContent = ({
-  initiateContinuing,
   user,
+  initiateContinuing,
   handleMessagesList,
 }) => {
   const { state } = useLocation()
