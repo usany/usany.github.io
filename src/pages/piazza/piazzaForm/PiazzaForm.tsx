@@ -149,39 +149,24 @@ function PiazzaForm({
       const otherProfileUrl = chattingUser.profileImageUrl
       const defaultProfile = profile.defaultProfile
       const otherDefaultProfile = chattingUser.defaultProfile
-      let userOne
-      let userTwo
-      let userOneDisplayName
-      let userTwoDisplayName
-      let userOneProfileUrl
-      let userTwoProfileUrl
-      let userOneDefaultProfile
-      let userTwoDefaultProfile
-      let userOneProfileImage
-      let userTwoProfileImage
-      if (userUid < chattingUser.uid) {
-        userOne = userUid
-        userTwo = chattingUser.uid
-        userOneDisplayName = userName
-        userTwoDisplayName = chattingUser.displayName
-        userOneProfileUrl = profileImageUrl
-        userTwoProfileUrl = otherProfileUrl
-        userOneDefaultProfile = defaultProfile
-        userTwoDefaultProfile = otherDefaultProfile
-        userOneProfileImage = profile.profileImage
-        userTwoProfileImage = chattingUser.profileImage
-      } else {
-        userOne = chattingUser.uid
-        userTwo = userUid
-        userOneDisplayName = chattingUser.displayName
-        userTwoDisplayName = userName
-        userOneProfileUrl = otherProfileUrl
-        userTwoProfileUrl = profileImageUrl
-        userOneDefaultProfile = otherDefaultProfile
-        userTwoDefaultProfile = defaultProfile
-        userOneProfileImage = chattingUser.profileImage
-        userTwoProfileImage = profile.profileImage
-      }
+            const userOne = userUid < chattingUser.uid ? userUid : chattingUser.uid
+      const userTwo = userUid < chattingUser.uid ? chattingUser.uid : userUid
+      const userOneDisplayName =
+        userUid < chattingUser.uid ? userName : chattingUser.displayName
+      const userTwoDisplayName =
+        userUid < chattingUser.uid ? chattingUser.displayName : userName
+      let userOneProfileUrl =
+        userUid < chattingUser.uid ? profileImageUrl : otherProfileUrl
+      let userTwoProfileUrl =
+        userUid < chattingUser.uid ? otherProfileUrl : profileImageUrl
+      const userOneDefaultProfile =
+        userUid < chattingUser.uid ? defaultProfile : otherDefaultProfile
+      const userTwoDefaultProfile =
+        userUid < chattingUser.uid ? otherDefaultProfile : defaultProfile
+      const userOneProfileImage =
+        userUid < chattingUser.uid ? profile.profileImage : chattingUser.profileImage
+      const userTwoProfileImage =
+        userUid < chattingUser.uid ? chattingUser.profileImage : profile.profileImage
       if (!userOneProfileUrl) {
         const userRef = doc(dbservice, `members/${userOne}`)
         const userSnap = await getDoc(userRef)
