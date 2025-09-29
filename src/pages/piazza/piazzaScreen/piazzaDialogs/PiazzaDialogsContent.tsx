@@ -18,7 +18,7 @@ const PiazzaDialogsContent = ({
   const newConversation = user?.uid < profile?.uid ? partialUserUid+partialProfileUid : partialProfileUid+partialUserUid
 
   return (
-    <div>
+    <>
       <div className="flex flex-col items-center pt-5">
         <Avatars
           element={user}
@@ -62,7 +62,7 @@ const PiazzaDialogsContent = ({
           </Link>
         )}
       </div>
-    </div>
+    </>
   )
 }
 
