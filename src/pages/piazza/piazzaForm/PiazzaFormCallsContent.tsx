@@ -1,0 +1,75 @@
+import { Card, CardContent } from '@mui/material'
+import { User } from 'firebase/auth'
+import { addDoc, collection, doc, getDoc, updateDoc } from 'firebase/firestore'
+import { AlarmCheck, PlusCircle, UserRound } from 'lucide-react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useSearchParams } from 'react-router-dom'
+import { dbservice } from 'src/baseApi/serverbase'
+import { DrawerClose } from 'src/components/ui/drawer'
+import { useSelectors } from 'src/hooks'
+import Popups from 'src/pages/core/Popups'
+import { changeNewMessageTrue } from 'src/stateSlices/newMessageSlice'
+import { useTexts } from 'src/hooks'
+import { webSocket } from 'src/webSocket.tsx'
+
+function PiazzaFormCallsContent() {
+  const { message, send, selectCall, videoCall, audioCall } = useTexts()
+  const calls = [
+    {id: 'video', text: videoCall},
+    {id: 'audio', text: audioCall},
+  ]
+  return (
+    <div className="flex justify-center gap-5 p-5">
+      {calls.map((value) => {
+        return (
+              <Card
+                className="colorOne"
+                sx={{
+                  height: '100%',
+                }}
+              >
+                <CardContent>
+                  <div
+                    className="flex flex-col items-center gap-5"
+                    onClick={() => {
+                      onCall(value.id)
+                    }}
+                  >
+                    <DrawerClose>
+                      <div className="flex justify-center">
+                        <UserRound />
+                      </div>
+                      {value.text}
+                    </DrawerClose>
+                  </div>
+                </CardContent>
+              </Card>
+              <Card
+                className="colorOne"
+                sx={{
+                  height: '100%',
+                }}
+              >
+                <CardContent>
+                  <div
+                    className="flex flex-col items-center gap-5"
+                    onClick={() => {
+                      onCall('audio')
+                    }}
+                  >
+                    <DrawerClose>
+                      <div className="flex justify-center">
+                        <AlarmCheck />
+                      </div>
+                      {audioCall}
+                    </DrawerClose>
+                  </div>
+                </CardContent>
+              </Card>
+        )
+      })}
+            </div>
+  )
+}
+
+export default PiazzaForm
