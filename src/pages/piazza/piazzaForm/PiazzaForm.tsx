@@ -363,7 +363,6 @@ function PiazzaForm({
                   <div
                     className="flex flex-col items-center gap-5"
                     onClick={() => {
-                      // document.getElementById('videoCall')?.click()
                       onCall('video')
                     }}
                   >
@@ -386,7 +385,6 @@ function PiazzaForm({
                   <div
                     className="flex flex-col items-center gap-5"
                     onClick={() => {
-                      // document.getElementById('audioCall')?.click()
                       onCall('audio')
                     }}
                   >
