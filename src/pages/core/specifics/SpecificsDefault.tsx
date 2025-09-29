@@ -10,7 +10,7 @@ import SpecificsTrades from './SpecificsTrades'
 import getShadowColor from './getShadowColor'
 import { staticArray } from '../card/CardView'
 
-const SpecificsDefault = ({ drawerOpenTrue, message, connectedUser, round,
+const SpecificsDefault = ({ drawerOpenTrue, message, connectedUser,
   increaseRound, decreaseRound, changeOnPulse, changeConnectedUser, toggleOnTransfer, handleConnectedClock, handleConfirmingClock, handleReturningClock, handleConfirmedReturnClock
 }) => {
   const id = message?.id || ''
