@@ -38,10 +38,10 @@ const MessageSwitch = styled(Switch)(({ theme }) => ({
 }));
 
 function PiazzaSwitch() {
-  const languages = useSelectors((state) => state.languages.value)
-  const piazzaSwitch = useSelector(state => state.piazzaSwitch.value)
+  const languages = useSelectors(state => state.languages.value)
+  const piazzaSwitch = useSelectors(state => state.piazzaSwitch.value)
   const dispatch = useDispatch()
-  
+
   const onClick = () => {
     if (piazzaSwitch === 'true') {
       window.localStorage.setItem('piazza', 'false')
