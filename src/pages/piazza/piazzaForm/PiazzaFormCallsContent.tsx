@@ -9,7 +9,7 @@ import { useTexts } from 'src/hooks'
 import { webSocket } from 'src/webSocket.tsx'
 
 function PiazzaFormCallsContent({chattingUser}) {
-  const { message, send, selectCall, videoCall, audioCall } = useTexts()
+  const { videoCall, audioCall } = useTexts()
   const calls = [
     {id: 'video', text: videoCall},
     {id: 'audio', text: audioCall},
