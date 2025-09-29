@@ -51,7 +51,7 @@ function PiazzaForm({
   const languages = useSelectors((state) => state.languages.value)
   const index = languages === 'ko' || languages === 'en' ? languages : 'ko'
   const [searchParams, setSearchParams] = useSearchParams()
-  const { selectCall, videoCall, audioCall } = useTexts()
+  const { send, selectCall, videoCall, audioCall } = useTexts()
   const userUid = profile?.uid
   const userName = profile?.displayName
 
@@ -390,7 +390,7 @@ function PiazzaForm({
         autoFocus
       />
       <button className="w-1/6 rounded bg-light-2 dark:bg-dark-2" type="submit">
-        {send[index]}
+        {send}
       </button>
     </form>
   )
