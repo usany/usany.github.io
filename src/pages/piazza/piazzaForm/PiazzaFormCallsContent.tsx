@@ -44,28 +44,6 @@ function PiazzaFormCallsContent() {
                   </div>
                 </CardContent>
               </Card>
-              <Card
-                className="colorOne"
-                sx={{
-                  height: '100%',
-                }}
-              >
-                <CardContent>
-                  <div
-                    className="flex flex-col items-center gap-5"
-                    onClick={() => {
-                      onCall('audio')
-                    }}
-                  >
-                    <DrawerClose>
-                      <div className="flex justify-center">
-                        <AlarmCheck />
-                      </div>
-                      {audioCall}
-                    </DrawerClose>
-                  </div>
-                </CardContent>
-              </Card>
         )
       })}
             </div>
