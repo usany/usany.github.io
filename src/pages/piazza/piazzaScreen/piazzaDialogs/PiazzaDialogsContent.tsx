@@ -7,7 +7,6 @@ import Avatars from 'src/pages/core/Avatars'
 const PiazzaDialogsContent = ({
   user,
   initiateContinuing,
-  // handleMessagesList,
 }) => {
   const { state } = useLocation()
   const conversation = state?.conversation || 'piazza'
