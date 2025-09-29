@@ -3,7 +3,6 @@ import PiazzaScreenView from './PiazzaScreenView'
 
 interface Props {
   isKeyboardOpen: boolean
-  userObj: User
   messagesList: []
   handleMessagesList: (newValue: []) => void
   handleChatUid: (newValue: string) => void
