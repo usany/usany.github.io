@@ -63,29 +63,29 @@ function PiazzaFormCallsContent() {
     <div className="flex justify-center gap-5 p-5">
       {calls.map((value) => {
         return (
-              <Card
-                key={value.id}
-                className="colorOne"
-                sx={{
-                  height: '100%',
+          <Card
+            key={value.id}
+            className="colorOne"
+            sx={{
+              height: '100%',
+            }}
+          >
+            <CardContent>
+              <div
+                className="flex flex-col items-center gap-5"
+                onClick={() => {
+                  onCall(value.id)
                 }}
               >
-                <CardContent>
-                  <div
-                    className="flex flex-col items-center gap-5"
-                    onClick={() => {
-                      onCall(value.id)
-                    }}
-                  >
-                    <DrawerClose>
-                      <div className="flex justify-center">
-                        <UserRound />
-                      </div>
-                      {value.text}
-                    </DrawerClose>
+                <DrawerClose>
+                  <div className="flex justify-center">
+                    <UserRound />
                   </div>
-                </CardContent>
-              </Card>
+                  {value.text}
+                </DrawerClose>
+              </div>
+            </CardContent>
+          </Card>
         )
       })}
             </div>
