@@ -139,7 +139,7 @@ function PiazzaScreenView({
     document.documentElement.scrollTo({
       top: 0,
       left: 0,
-      behavior: 'instant', // Optional if you want to skip the scrolling animation
+      behavior: 'instant',
     })
   }, [])
 
@@ -216,13 +216,11 @@ function PiazzaScreenView({
         const piazzaData = document.data()
         messagesArray.push({
           msg: message,
-          // type: 'me',
           userUid: userUid,
           id: userName,
           messageClockNumber: messageClockNumber,
           messageClock: messageClock,
           conversation: null,
-          // profileColor: profileColor,
           profileImageUrl: profileImageUrl,
           defaultProfile: defaultProfile,
           profileImage: profileImage || false,
@@ -277,13 +275,11 @@ function PiazzaScreenView({
         }
         messagesArray.push({
           msg: message,
-          // type: 'me',
           userUid: userUid,
           id: userName,
           messageClockNumber: messageClockNumber,
           messageClock: messageClock,
           conversation: null,
-          // profileColor: profileColor,
           profileImageUrl: profileImageUrl,
           defaultProfile: defaultProfile,
           profileImage: profileImage || false,
@@ -311,12 +307,9 @@ function PiazzaScreenView({
   }, [isLoading, currentConversation])
   const handleScroll = () => {
     if (
-      // boxRef.current.getBoundingClientRect().height + Math.round(boxRef.current.scrollTop) !==
-      // boxRef.current.offsetHeight ||
       boxRef.current.scrollTop !== 0 ||
       isLoading
     ) {
-      // console.log(document.documentElement.offsetHeight);
       return
     } else {
       console.log('scroll')
@@ -329,9 +322,6 @@ function PiazzaScreenView({
       return () => boxRef.current?.removeEventListener('scroll', handleScroll)
     }
   }, [isLoading])
-  // console.log(conversation)
-  // console.log(messagesList)
-  // console.log(user)
   const messagesArray = navigator.onLine
     ? messagesList
     : JSON.parse(localStorage.getItem(conversation) || '[]')
@@ -383,25 +373,11 @@ function PiazzaScreenView({
               userDirection = 'text-left'
             }
             let previousUid
-            // let passingClock
-            // let displayClock = 0
             if (index > 0) {
               previousUid = messagesArray[index - 1].userUid
             }
             if (index < messagesArray.length - 1) {
               if (messagesArray[index + 1].userUid === profile?.uid) {
-                // passingClock = new Date(messagesArray[index + 1].messageClock)
-                // if (clock.getFullYear() === passingClock.getFullYear()) {
-                //   if (clock.getMonth() === passingClock.getMonth()) {
-                //     if (clock.getDate() === passingClock.getDate()) {
-                //       if (clock.getHours() === passingClock.getHours()) {
-                //         if (clock.getMinutes() === passingClock.getMinutes()) {
-                //           displayClock = 1
-                //         }
-                //       }
-                //     }
-                //   }
-                // }
               }
             }
             let messageAmpm
@@ -478,25 +454,6 @@ function PiazzaScreenView({
                               />
                             }
                           />
-                          {/* <Avatars
-                              uid={profile?.uid}
-                              profile={false}
-                              profileColor=""
-                              profileUrl={value?.profileImageUrl}
-                              piazza={() =>
-                                onDrawer({
-                                  userUid: value.userUid,
-                                  displayName: value.id,
-                                })
-                              }
-                            /> */}
-                          {/* <Avatar onClick={() => {
-                              document.getElementById('drawer')?.click()
-                              onPrivate({ userUid: value.userUid, displayName: value.id })
-                            }} className={'bg-profile-blue'}>
-                              <AvatarImage src={value?.profileImageUrl} />
-                              <AvatarFallback className='text-xl border-none	'>{value?.id[0]}</AvatarFallback>
-                            </Avatar> */}
                           <div>{value.id}</div>
                         </div>
                       ) : (
@@ -513,10 +470,6 @@ function PiazzaScreenView({
                                   })
                                 }
                                 profile={false}
-                                // uid={profile?.uid}
-                                // profileColor=""
-                                // profileUrl={value.profileImageUrl}
-                                // defaultProfileUrl={value.defaultProfile}
                               />
                             }
                             title={
@@ -544,25 +497,6 @@ function PiazzaScreenView({
                               />
                             }
                           />
-                          {/* <Avatars
-                              uid={profile?.uid}
-                              profile={false}
-                              profileColor=""
-                              profileUrl={value?.profileImageUrl}
-                              piazza={() =>
-                                onDrawer({
-                                  userUid: value.userUid,
-                                  displayName: value.id,
-                                })
-                              }
-                            /> */}
-                          {/* <Avatar onClick={() => {
-                              document.getElementById('drawer')?.click()
-                              onPrivate({ userUid: value.userUid, displayName: value.id })
-                            }} className={'bg-profile-blue'}>
-                              <AvatarImage src={value?.profileImageUrl} />
-                              <AvatarFallback className='text-xl border-none	'>{value?.id[0]}</AvatarFallback>
-                            </Avatar> */}
                         </div>
                       )}
                     </div>
