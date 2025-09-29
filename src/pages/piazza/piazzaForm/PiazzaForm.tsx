@@ -74,7 +74,6 @@ function PiazzaForm({
     const profileUrl = profile.profileImage
       ? profile.profileImageUrl
       : profile.defaultProfile
-    // console.log(profile)
     const sendData = {
       msg: message,
       userUid: userUid,
@@ -285,30 +284,6 @@ function PiazzaForm({
             userTwoProfileImage: userTwoProfileImage,
           },
         ])
-      }
-    } catch (error) {
-      console.log(error)
-    }
-  }
-  const onMembersConversation = async () => {
-    try {
-      const chattingUid = chattingUser.uid
-      const myDocRef = doc(dbservice, `members/${userUid}`)
-      const myDocSnap = await getDoc(myDocRef)
-      const myConversation = myDocSnap.data().conversation || []
-      const userDocRef = doc(dbservice, `members/${chattingUid}`)
-      const userDocSnap = await getDoc(userDocRef)
-      const userConversation = userDocSnap.data().conversation || []
-      if (myConversation.indexOf(conversation) === -1) {
-        await updateDoc(myDocRef, {
-          conversation: [...myConversation, conversation],
-        })
-        dispatch(changeNewMessageTrue())
-      }
-      if (userConversation.indexOf(conversation) === -1) {
-        await updateDoc(userDocRef, {
-          conversation: [...userConversation, conversation],
-        })
       }
     } catch (error) {
       console.log(error)
