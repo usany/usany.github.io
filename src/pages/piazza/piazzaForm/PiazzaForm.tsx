@@ -105,7 +105,6 @@ function PiazzaForm({
           console.log('messageNew')
         }
         onFormConversation()
-        onMembersConversation()
       }
     }
     handleMessages('')
