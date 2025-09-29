@@ -42,7 +42,7 @@ function PiazzaForm({
   messagesList,
   handleMessagesList,
 }: Props) {
-  const piazzaForm = useSelector((state) => state.piazzaForm.value)
+  const piazzaForm = useSelectors((state) => state.piazzaForm.value)
   const profile = useSelectors((state) => state.profile.value)
   const dispatch = useDispatch()
   const conversation = location.search
