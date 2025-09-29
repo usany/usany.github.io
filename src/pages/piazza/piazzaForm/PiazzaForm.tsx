@@ -74,7 +74,7 @@ function PiazzaForm({
     const profileUrl = profile.profileImage
       ? profile.profileImageUrl
       : profile.defaultProfile
-    console.log(profile)
+    // console.log(profile)
     const sendData = {
       msg: message,
       userUid: userUid,
@@ -324,7 +324,6 @@ function PiazzaForm({
       conversationUid: chattingUser?.uid,
       conversationName: chattingUser?.displayName,
     }
-    console.log(passingObject)
     webSocket.emit('call', passingObject)
     setSearchParams((searchParams) => {
       searchParams.set('call', selection)
