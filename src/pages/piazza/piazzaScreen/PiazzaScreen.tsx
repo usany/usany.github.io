@@ -17,7 +17,7 @@ function PiazzaScreen({
   handleChatDisplayName,
 }: Props) {
   return (
-    <div className={`fixed bottom-[50px] w-screen h-full bg-light-3 dark:bg-dark-3 flex flex-col ${isKeyboardOpen ? 'bottom-[50px] h-full pt-[120px]' : 'bottom-[110px] h-[60%]'}`}>
+    <div className={`fixed w-screen bg-light-3 dark:bg-dark-3 flex flex-col ${isKeyboardOpen ? 'bottom-[50px] h-full pt-[120px]' : 'bottom-[110px] h-[60%]'}`}>
       <PiazzaScreenView
         messagesList={messagesList}
         handleMessagesList={handleMessagesList}
