@@ -16,10 +16,10 @@ const forms = {
   ko: '메세지를 작성해 주세요',
   en: 'Input message',
 }
-const send = {
-  ko: '전송',
-  en: 'send',
-}
+// const send = {
+//   ko: '전송',
+//   en: 'send',
+// }
 interface Props {
   chattingUser: {
     uid: string
@@ -51,7 +51,7 @@ function PiazzaForm({
   const languages = useSelectors((state) => state.languages.value)
   const index = languages === 'ko' || languages === 'en' ? languages : 'ko'
   const [searchParams, setSearchParams] = useSearchParams()
-  const { send, selectCall, videoCall, audioCall } = useTexts()
+  const { message, send, selectCall, videoCall, audioCall } = useTexts()
   const userUid = profile?.uid
   const userName = profile?.displayName
 
@@ -384,7 +384,7 @@ function PiazzaForm({
       )}
       <input
         className="w-full p-3 rounded bg-light-1 dark:bg-dark-1"
-        placeholder={forms[index]}
+        placeholder={message}
         onChange={onChangeMsgHandler}
         value={messages}
         autoFocus
