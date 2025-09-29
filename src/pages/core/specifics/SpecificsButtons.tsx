@@ -5,14 +5,12 @@ import DeleteButton from 'src/pages/core/specifics/buttons/DeleteButton'
 import ReturningButton from 'src/pages/core/specifics/buttons/ReturningButton'
 import StopSupportButton from 'src/pages/core/specifics/buttons/StopSupportButton'
 import SupportButton from 'src/pages/core/specifics/buttons/SupportButton'
-// import Btn from 'src/buttons/Buttons'
 
 interface Props {
   message: {}
 }
 
 function SpecificsButtons({
-  // round,
   increaseRound,
   decreaseRound,
   message,
