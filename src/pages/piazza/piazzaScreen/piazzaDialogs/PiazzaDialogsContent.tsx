@@ -21,11 +21,7 @@ const PiazzaDialogsContent = ({
       <div className="flex flex-col items-center pt-5">
         <Avatars
           element={user}
-          uid={profile?.uid}
           profile={true}
-          profileColor=""
-          profileUrl={user?.profileImageUrl}
-          fallback=""
           piazza={null}
         />
       </div>
