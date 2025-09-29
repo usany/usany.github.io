@@ -1,6 +1,5 @@
 import Switch from '@mui/material/Switch';
 import { styled } from '@mui/material/styles';
-// import { useBottomNavigationStore, usePiazzaSwitchStore } from 'src/store'
 import { useDispatch, useSelector } from 'react-redux';
 import { useSelectors } from "src/hooks";
 import { changePiazzaSwitch } from 'src/stateSlices/piazzaSwitchSlice';
@@ -39,18 +38,6 @@ const MessageSwitch = styled(Switch)(({ theme }) => ({
 }));
 
 function PiazzaSwitch() {
-  // const [switches, setSwitches] = useState('')
-  // useEffect(() => {
-  //   if (!switches) {
-  //     const piazza = window.localStorage.getItem('piazza')
-  //     setSwitches(piazza)
-  //   }
-  // })
-  // console.log(switches)
-  // const piazzaSwitch = usePiazzaSwitchStore((state) => state.piazzaSwitch)
-  // const handlePiazzaSwitchOn = usePiazzaSwitchStore((state) => state.handlePiazzaSwitchOn)
-  // const handlePiazzaSwitchOff = usePiazzaSwitchStore((state) => state.handlePiazzaSwitchOff)
-  // const handlePiazzaSwitch = usePiazzaSwitchStore((state) => state.handlePiazzaSwitch)
   const languages = useSelectors((state) => state.languages.value)
   const piazzaSwitch = useSelector(state => state.piazzaSwitch.value)
   const dispatch = useDispatch()
@@ -58,11 +45,9 @@ function PiazzaSwitch() {
   const onClick = () => {
     if (piazzaSwitch === 'true') {
       window.localStorage.setItem('piazza', 'false')
-      // handlePiazzaSwitchOff()
       dispatch(changePiazzaSwitch('false'))
     } else {
       window.localStorage.setItem('piazza', 'true')
-      // handlePiazzaSwitchOn()
       dispatch(changePiazzaSwitch('true'))
     }
   }
@@ -70,10 +55,8 @@ function PiazzaSwitch() {
   return (
     <div className='flex flex-col'>
       <div className='text-sm'>{languages === 'ko' ? '단체 대화 메세지에 추가' : 'Group Message in My Messages'}</div>
-      {/* <div className='text-sm'>알림 받기</div> */}
       <div className='flex justify-end'>
         <MessageSwitch onClick={() => onClick()} inputProps={{ 'aria-label': 'ant design' }} checked={piazzaSwitch === 'true'} />
-        {/* <MessageSwitch /> */}
       </div>
     </div>
   );
