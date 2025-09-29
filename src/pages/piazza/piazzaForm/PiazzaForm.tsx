@@ -112,9 +112,9 @@ function PiazzaForm({
     handleMessages('')
   }
 
-  // const onChangeMsgHandler = (e) => {
-  //   handleMessages(e.target.value)
-  // }
+  const onChangeMsgHandler = (event) => {
+    handleMessages(event.target.value)
+  }
 
   const onForm = async () => {
     try {
@@ -344,7 +344,7 @@ function PiazzaForm({
               <PlusCircle />
             </div>
           }
-          title={<div>{selectCall}</div>}
+          title={selectCall}
           content={
             <div className="flex justify-center gap-5 p-5">
               <Card
@@ -364,7 +364,7 @@ function PiazzaForm({
                       <div className="flex justify-center">
                         <UserRound />
                       </div>
-                      <div>{videoCall}</div>
+                      {videoCall}
                     </DrawerClose>
                   </div>
                 </CardContent>
@@ -386,7 +386,7 @@ function PiazzaForm({
                       <div className="flex justify-center">
                         <AlarmCheck />
                       </div>
-                      <div>{audioCall}</div>
+                      {audioCall}
                     </DrawerClose>
                   </div>
                 </CardContent>
@@ -398,7 +398,7 @@ function PiazzaForm({
       <input
         className="w-full p-3 rounded bg-light-1 dark:bg-dark-1"
         placeholder={forms[index]}
-        onChange={(event) => handleMessages(event.target.value)}
+        onChange={onChangeMsgHandler}
         value={messages}
         autoFocus
       />
