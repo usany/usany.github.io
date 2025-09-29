@@ -1,14 +1,10 @@
 import { Card, CardContent } from '@mui/material'
-import { User } from 'firebase/auth'
 import { addDoc, collection, doc, getDoc, updateDoc } from 'firebase/firestore'
 import { AlarmCheck, PlusCircle, UserRound } from 'lucide-react'
-import { useDispatch, useSelector } from 'react-redux'
 import { useSearchParams } from 'react-router-dom'
 import { dbservice } from 'src/baseApi/serverbase'
 import { DrawerClose } from 'src/components/ui/drawer'
 import { useSelectors } from 'src/hooks'
-import Popups from 'src/pages/core/Popups'
-import { changeNewMessageTrue } from 'src/stateSlices/newMessageSlice'
 import { useTexts } from 'src/hooks'
 import { webSocket } from 'src/webSocket.tsx'
 
@@ -18,9 +14,7 @@ function PiazzaFormCallsContent({chattingUser}) {
     {id: 'video', text: videoCall},
     {id: 'audio', text: audioCall},
   ]
-  const piazzaForm = useSelectors((state) => state.piazzaForm.value)
   const profile = useSelectors((state) => state.profile.value)
-  const dispatch = useDispatch()
   const conversation = location.search
     ? location.search.slice(location.search.indexOf('=') + 1)
     : 'piazza'
