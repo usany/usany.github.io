@@ -11,7 +11,6 @@ const PiazzaDialogsContent = ({
 }) => {
   const { state } = useLocation()
   const conversation = state?.conversation || 'piazza'
-  const languages = useSelectors((state) => state.languages.value)
   const profile = useSelectors((state) => state.profile.value)
   const partialProfileUid = profile?.uid.slice(0, 6)
   const partialUserUid = user?.uid.slice(0, 6)
