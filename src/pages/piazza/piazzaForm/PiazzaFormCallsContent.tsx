@@ -18,7 +18,18 @@ function PiazzaFormCallsContent() {
     {id: 'video', text: videoCall},
     {id: 'audio', text: audioCall},
   ]
-    const onCall = async (selection) => {
+  const piazzaForm = useSelectors((state) => state.piazzaForm.value)
+  const profile = useSelectors((state) => state.profile.value)
+  const dispatch = useDispatch()
+  const conversation = location.search
+    ? location.search.slice(location.search.indexOf('=') + 1)
+    : 'piazza'
+  const [searchParams, setSearchParams] = useSearchParams()
+  const { message, send, selectCall, videoCall, audioCall } = useTexts()
+  const userUid = profile?.uid
+  const userName = profile?.displayName
+
+  const onCall = async (selection) => {
     document.getElementById(`${selection}Call`)?.click()
     let toUserRef
     let toUser
