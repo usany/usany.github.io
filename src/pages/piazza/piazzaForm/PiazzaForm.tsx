@@ -323,6 +323,10 @@ function PiazzaForm({
       id: userName,
       conversationUid: chattingUser?.uid,
       conversationName: chattingUser?.displayName,
+      // profileImage: profileImage,
+      // defaultProfile: defaultProfile,
+      // profileImageUrl: profileImageUrl,
+      // profileUrl: profileUrl,
     }
     console.log(passingObject)
     webSocket.emit('call', passingObject)
