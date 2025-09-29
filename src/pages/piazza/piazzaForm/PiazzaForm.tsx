@@ -100,13 +100,11 @@ function PiazzaForm({
       if (message) {
         if (messagesList.length !== 0) {
           webSocket.emit('message', sendData)
-          console.log('message')
         } else {
           webSocket.emit('messageNew', sendData)
           console.log('messageNew')
         }
-        onFormConversation()
-        onMembersConversation()
+        updateConversations()
       }
     }
     handleMessages('')
@@ -156,7 +154,7 @@ function PiazzaForm({
       console.log(error)
     }
   }
-  const onFormConversation = async () => {
+  const updateConversations = async () => {
     const message = messages
     try {
       const messageClockNumber = Date.now()
@@ -231,10 +229,12 @@ function PiazzaForm({
 
         await addDoc(collection(dbservice, `chats_${conversation}`), messageObj)
         const myDocRef = doc(dbservice, `members/${userUid}`)
-        const myDocSnap = await getDoc(myDocRef)
-        const myChattings = myDocSnap.data().chattings || {}
         const userDocRef = doc(dbservice, `members/${chattingUser.uid}`)
-        const userDocSnap = await getDoc(userDocRef)
+        const [myDocSnap, userDocSnap] = await Promise.all([
+          getDoc(myDocRef),
+          getDoc(userDocRef),
+        ])
+        const myChattings = myDocSnap.data().chattings || {}
         const userChattings = userDocSnap.data().chattings || {}
         const userChattingsNumber =
           userChattings[conversation]?.messageCount || 0
@@ -243,12 +243,10 @@ function PiazzaForm({
           ...messageObj,
           messageCount: userChattingsNumber + 1,
         }
-        await updateDoc(myDocRef, {
-          chattings: myChattings,
-        })
-        await updateDoc(userDocRef, {
-          chattings: userChattings,
-        })
+        await Promise.all([
+          updateDoc(myDocRef, { chattings: myChattings }),
+          updateDoc(userDocRef, { chattings: userChattings }),
+        ])
         handleMessagesList((prev) => [
           ...prev,
           {
@@ -273,29 +271,34 @@ function PiazzaForm({
           },
         ])
       }
-    } catch (error) {
-      console.log(error)
-    }
-  }
-  const onMembersConversation = async () => {
-    try {
+      // Update conversation membership for both users
       const chattingUid = chattingUser.uid
-      const myDocRef = doc(dbservice, `members/${userUid}`)
-      const myDocSnap = await getDoc(myDocRef)
-      const myConversation = myDocSnap.data().conversation || []
-      const userDocRef = doc(dbservice, `members/${chattingUid}`)
-      const userDocSnap = await getDoc(userDocRef)
-      const userConversation = userDocSnap.data().conversation || []
+      const myDocRef2 = doc(dbservice, `members/${userUid}`)
+      const userDocRef2 = doc(dbservice, `members/${chattingUid}`)
+      const [myDocSnap2, userDocSnap2] = await Promise.all([
+        getDoc(myDocRef2),
+        getDoc(userDocRef2),
+      ])
+      const myConversation = myDocSnap2.data().conversation || []
+      const userConversation = userDocSnap2.data().conversation || []
+      const updates = []
       if (myConversation.indexOf(conversation) === -1) {
-        await updateDoc(myDocRef, {
-          conversation: [...myConversation, conversation],
-        })
+        updates.push(
+          updateDoc(myDocRef2, {
+            conversation: [...myConversation, conversation],
+          })
+        )
         dispatch(changeNewMessageTrue())
       }
       if (userConversation.indexOf(conversation) === -1) {
-        await updateDoc(userDocRef, {
-          conversation: [...userConversation, conversation],
-        })
+        updates.push(
+          updateDoc(userDocRef2, {
+            conversation: [...userConversation, conversation],
+          })
+        )
+      }
+      if (updates.length > 0) {
+        await Promise.all(updates)
       }
     } catch (error) {
       console.log(error)
