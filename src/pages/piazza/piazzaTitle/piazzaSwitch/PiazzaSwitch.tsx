@@ -41,7 +41,7 @@ function PiazzaSwitch() {
   const languages = useSelectors((state) => state.languages.value)
   const piazzaSwitch = useSelector(state => state.piazzaSwitch.value)
   const dispatch = useDispatch()
-
+  
   const onClick = () => {
     if (piazzaSwitch === 'true') {
       window.localStorage.setItem('piazza', 'false')
@@ -56,7 +56,7 @@ function PiazzaSwitch() {
     <div className='flex flex-col'>
       <div className='text-sm'>{languages === 'ko' ? '단체 대화 메세지에 추가' : 'Group Message in My Messages'}</div>
       <div className='flex justify-end'>
-        <MessageSwitch onClick={() => onClick()} inputProps={{ 'aria-label': 'ant design' }} checked={piazzaSwitch === 'true'} />
+        <MessageSwitch onClick={onClick} inputProps={{ 'aria-label': 'ant design' }} checked={piazzaSwitch === 'true'} />
       </div>
     </div>
   );
