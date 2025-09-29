@@ -1,7 +1,7 @@
 import Switch from '@mui/material/Switch';
 import { styled } from '@mui/material/styles';
 import { useDispatch, useSelector } from 'react-redux';
-import { useSelectors } from "src/hooks";
+import { useSelectors, useTexts } from "src/hooks";
 import { changePiazzaSwitch } from 'src/stateSlices/piazzaSwitchSlice';
 
 const MessageSwitch = styled(Switch)(({ theme }) => ({
@@ -41,7 +41,7 @@ function PiazzaSwitch() {
   const languages = useSelectors(state => state.languages.value)
   const piazzaSwitch = useSelectors(state => state.piazzaSwitch.value)
   const dispatch = useDispatch()
-
+  const {addToMyMessages} = useTexts()
   const onClick = () => {
     if (piazzaSwitch === 'true') {
       window.localStorage.setItem('piazza', 'false')
@@ -54,7 +54,7 @@ function PiazzaSwitch() {
 
   return (
     <div className='flex flex-col'>
-      <div className='text-sm'>{languages === 'ko' ? '단체 대화 메세지에 추가' : 'Group Message in My Messages'}</div>
+      <div className='text-sm'>{addToMyMessages}</div>
       <div className='flex justify-end'>
         <MessageSwitch onClick={onClick} inputProps={{ 'aria-label': 'ant design' }} checked={piazzaSwitch === 'true'} />
       </div>
