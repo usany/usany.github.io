@@ -71,9 +71,9 @@ function PiazzaFormCallsContent({chattingUser}) {
                 }}
               >
                 <DrawerClose>
-                  <div className="flex justify-center">
+                  {/* <div className="flex justify-center">
                     <UserRound />
-                  </div>
+                  </div> */}
                   {value.text}
                 </DrawerClose>
               </div>

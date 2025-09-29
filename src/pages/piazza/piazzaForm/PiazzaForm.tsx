@@ -279,35 +279,6 @@ function PiazzaForm({
       console.log(error)
     }
   }
-  const onCall = async (selection) => {
-    document.getElementById(`${selection}Call`)?.click()
-    let toUserRef
-    let toUser
-    let messagingToken
-    let preferLanguage
-    if (chattingUser) {
-      toUserRef = doc(dbservice, `members/${chattingUser.uid}`)
-      toUser = await getDoc(toUserRef)
-      messagingToken = toUser.data()?.messagingToken
-      preferLanguage = toUser.data()?.preferLanguage
-    }
-    const passingObject = {
-      conversation: conversation,
-      isVideo: true,
-      sendingToken: messagingToken,
-      connectedUrl: `/piazza?id=${conversation}&call=${selection}`,
-      preferLanguage: preferLanguage,
-      userUid: userUid,
-      id: userName,
-      conversationUid: chattingUser?.uid,
-      conversationName: chattingUser?.displayName,
-    }
-    webSocket.emit('call', passingObject)
-    setSearchParams((searchParams) => {
-      searchParams.set('call', selection)
-      return searchParams
-    })
-  }
   return (
     <form
       className={`fixed w-screen ${
