@@ -112,9 +112,9 @@ function PiazzaForm({
     handleMessages('')
   }
 
-  const onChangeMsgHandler = (e) => {
-    handleMessages(e.target.value)
-  }
+  // const onChangeMsgHandler = (e) => {
+  //   handleMessages(e.target.value)
+  // }
 
   const onForm = async () => {
     try {
@@ -399,7 +399,7 @@ function PiazzaForm({
       <input
         className="w-full p-3 rounded bg-light-1 dark:bg-dark-1"
         placeholder={forms[index]}
-        onChange={onChangeMsgHandler}
+        onChange={(event) => handleMessages(event.target.value)}
         value={messages}
         autoFocus
       />
