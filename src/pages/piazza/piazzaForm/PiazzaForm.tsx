@@ -45,7 +45,6 @@ function PiazzaForm({
   const piazzaForm = useSelector((state) => state.piazzaForm.value)
   const profile = useSelectors((state) => state.profile.value)
   const dispatch = useDispatch()
-  // const { state } = useLocation()
   const conversation = location.search
     ? location.search.slice(location.search.indexOf('=') + 1)
     : 'piazza'
@@ -324,10 +323,6 @@ function PiazzaForm({
       id: userName,
       conversationUid: chattingUser?.uid,
       conversationName: chattingUser?.displayName,
-      // profileImage: profileImage,
-      // defaultProfile: defaultProfile,
-      // profileImageUrl: profileImageUrl,
-      // profileUrl: profileUrl,
     }
     console.log(passingObject)
     webSocket.emit('call', passingObject)
