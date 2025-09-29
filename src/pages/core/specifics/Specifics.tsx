@@ -11,7 +11,6 @@ interface Props {
 }
 
 function Specifics({
-  round,
   increaseRound,
   decreaseRound,
   drawerOpenTrue,
