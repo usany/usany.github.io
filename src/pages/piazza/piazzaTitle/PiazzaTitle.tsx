@@ -1,5 +1,5 @@
 import { MessagesSquare } from 'lucide-react'
-import { useSelectors } from 'src/hooks'
+import { useSelectors, useTexts } from 'src/hooks'
 import PageTitle from 'src/pages/core/pageTitle/PageTitle'
 import PiazzaSwitch from 'src/pages/piazza/piazzaTitle/piazzaSwitch/PiazzaSwitch'
 
@@ -20,7 +20,7 @@ const PiazzaTitle = ({ displayName }: Props) => {
     <div className='flex w-screen justify-between'>
       <PageTitle
         icon={<MessagesSquare />}
-        title={conversation === 'piazza' ? piazzaTitles[index][0] : `${piazzaTitles[index][1]} ${displayName}`} />
+        title={conversation === 'piazza' ? groupMessaging : `${privateMessaging} ${displayName}`} />
       {conversation === 'piazza' &&
         <PiazzaSwitch />
       }
