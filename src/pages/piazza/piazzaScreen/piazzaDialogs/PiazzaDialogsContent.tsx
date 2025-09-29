@@ -16,7 +16,7 @@ const PiazzaDialogsContent = ({
   const partialProfileUid = profile?.uid.slice(0, 6)
   const partialUserUid = user?.uid.slice(0, 6)
   const newConversation = user?.uid < profile?.uid ? partialUserUid+partialProfileUid : partialProfileUid+partialUserUid
-
+  const {privateMessaging} = useTexts()
   return (
     <>
       <div className="flex flex-col items-center pt-5">
@@ -56,7 +56,7 @@ const PiazzaDialogsContent = ({
                   initiateContinuing()
                 }}
               >
-                {languages === 'ko' ? '개인 대화' : 'Private messaging'}
+                {privateMessaging}
               </Button>
             </DrawerClose>
           </Link>
