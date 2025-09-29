@@ -21,24 +21,6 @@ const PiazzaDialogsContent = ({
       const partialUserUid = user?.uid.slice(0, 6)
       const mergedUid = user?.uid < profile?.uid ? partialUserUid+partialProfileUid : partialProfileUid+partialUserUid
       setNewConversation(mergedUid)
-      // if (user?.uid < profile?.uid) {
-      // } else {
-      //   const mergedUid = partialProfileUid+partialUserUid
-      //   setNewConversation(
-      //     profile?.uid[0] +
-      //       profile?.uid[1] +
-      //       profile?.uid[2] +
-      //       profile?.uid[3] +
-      //       profile?.uid[4] +
-      //       profile?.uid[5] +
-      //       user?.uid[0] +
-      //       user?.uid[1] +
-      //       user?.uid[2] +
-      //       user?.uid[3] +
-      //       user?.uid[4] +
-      //       user?.uid[5],
-      //   )
-      // }
     }
   }, [user])
   return (
