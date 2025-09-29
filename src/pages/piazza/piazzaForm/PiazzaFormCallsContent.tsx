@@ -18,11 +18,42 @@ function PiazzaFormCallsContent() {
     {id: 'video', text: videoCall},
     {id: 'audio', text: audioCall},
   ]
+    const onCall = async (selection) => {
+    document.getElementById(`${selection}Call`)?.click()
+    let toUserRef
+    let toUser
+    let messagingToken
+    let preferLanguage
+    if (chattingUser) {
+      toUserRef = doc(dbservice, `members/${chattingUser.uid}`)
+      toUser = await getDoc(toUserRef)
+      messagingToken = toUser.data()?.messagingToken
+      preferLanguage = toUser.data()?.preferLanguage
+    }
+    const passingObject = {
+      conversation: conversation,
+      isVideo: true,
+      sendingToken: messagingToken,
+      connectedUrl: `/piazza?id=${conversation}&call=${selection}`,
+      preferLanguage: preferLanguage,
+      userUid: userUid,
+      id: userName,
+      conversationUid: chattingUser?.uid,
+      conversationName: chattingUser?.displayName,
+    }
+    webSocket.emit('call', passingObject)
+    setSearchParams((searchParams) => {
+      searchParams.set('call', selection)
+      return searchParams
+    })
+  }
+
   return (
     <div className="flex justify-center gap-5 p-5">
       {calls.map((value) => {
         return (
               <Card
+                key={value.id}
                 className="colorOne"
                 sx={{
                   height: '100%',
