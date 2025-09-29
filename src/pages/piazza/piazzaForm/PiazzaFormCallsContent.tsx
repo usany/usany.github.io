@@ -50,4 +50,4 @@ function PiazzaFormCallsContent() {
   )
 }
 
-export default PiazzaForm
+export default PiazzaFormCallsContent
