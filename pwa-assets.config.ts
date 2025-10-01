@@ -9,7 +9,7 @@ export default defineConfig({
   },
   preset,
   images: [
-    'public/applicationImage.jpg',
+    // 'public/applicationImage.jpg',
     // 'public/16.png',
     // 'public/20.png',
     // 'public/29.png',
