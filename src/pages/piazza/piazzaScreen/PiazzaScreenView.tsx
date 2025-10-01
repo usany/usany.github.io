@@ -536,8 +536,6 @@ function PiazzaScreenView({
         <li ref={messagesEndRef} />
       </ul>
     </div>
-    <>
-    </>
   )
 }
 
