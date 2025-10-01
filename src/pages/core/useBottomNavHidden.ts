@@ -6,7 +6,7 @@ import { Pencil, Presentation, Umbrella } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useSelectors } from 'src/hooks/useSelectors';
+import { useSelectors } from 'src/hooks';
 import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice';
 import { changePiazzaForm } from "src/stateSlices/piazzaFormSlice";
 import useBottomNav from "./useBottomNav";

@@ -9,7 +9,6 @@ interface Props {
 }
 
 const Morphings = ({
-  round,
   increaseRound,
   decreaseRound,
   message,
@@ -18,7 +17,6 @@ const Morphings = ({
   connectedUser,
   changeConnectedUser,
   toggleOnTransfer,
-  deleteMessage,
   connectedClock,
   confirmingClock,
   returningClock,
@@ -41,7 +39,6 @@ const Morphings = ({
       drawerOpenFalse={drawerOpenFalse}
     >
       <Specifics
-        round={round}
         increaseRound={increaseRound}
         decreaseRound={decreaseRound}
         drawerOpenTrue={drawerOpenTrue}
@@ -51,7 +48,6 @@ const Morphings = ({
         connectedUser={connectedUser}
         changeConnectedUser={changeConnectedUser}
         toggleOnTransfer={toggleOnTransfer}
-        removeMessage={deleteMessage}
         connectedClock={connectedClock}
         confirmingClock={confirmingClock}
         returningClock={returningClock}

@@ -4,28 +4,26 @@ import TextField from '@mui/material/TextField'
 import { deleteUser, User } from 'firebase/auth'
 import { deleteDoc, doc } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-// import supabase from 'src/baseApi/base'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { dbservice } from 'src/baseApi/serverbase'
-import { useSelectors } from 'src/hooks/useSelectors'
-import useTexts from 'src/useTexts'
+import { useSelectors } from 'src/hooks'
+import { useTexts } from 'src/hooks'
 
-interface Props {
-  user: object
-}
-const ProfileMembersDrawersContent = ({ user }: Props) => {
+const ProfileMembersDrawersContent = () => {
   const [confirmEmail, setConfirmEmail] = useState(false)
   const [process, setProcess] = useState(false)
   const {
     mail,
     deleteAccount,
     noProcessingCard,
-    ongoingCards,
+    processingCard,
     toDeleteAccountInputMail,
     canDeleteAccountWhenYouHaveNoProcessingBorrwingOrLendingCard,
   } = useTexts()
   const navigate = useNavigate()
   const profile = useSelectors((state) => state.profile.value)
+  const {state} = useLocation()
+  const user = state?.element || profile
 
   const onChange = (event) => {
     const {
@@ -38,24 +36,22 @@ const ProfileMembersDrawersContent = ({ user }: Props) => {
     }
   }
   const delist = async () => {
-    await deleteDoc(doc(dbservice, `members/${profile?.uid}`))
-    deleteUser(user)
-      .then(() => {
-        console.log(user)
-        // User deleted.
-      })
-      .catch((error) => {
-        console.log(error)
-        // An error ocurred
-        // ...
-      })
-    // const { data, error } = await supabase.auth.admin.deleteUser(user)
-    // if (data) {
-    //   console.log(data)
-    // } else {
-    //   console.log(error)
-    // }
-    navigate('/')
+    if (process && confirmEmail) {
+      await deleteDoc(doc(dbservice, `members/${profile?.uid}`))
+      deleteUser(user)
+        .then(() => {
+          console.log(user)
+          // User deleted.
+        })
+        .catch((error) => {
+          console.log(error)
+          // An error ocurred
+          // ...
+        })
+      navigate('/')
+    } else {
+      alert('Cannot delete')
+    }
   }
   useEffect(() => {
     const createdCards = user.userData?.createdCards
@@ -73,24 +69,12 @@ const ProfileMembersDrawersContent = ({ user }: Props) => {
     <>
       <div className="p-5">
         {canDeleteAccountWhenYouHaveNoProcessingBorrwingOrLendingCard}
-        {process ? (
-          <div className="flex justify-center">
-            <Chip
-              label={noProcessingCard}
-              sx={{ bgcolor: '#7fc4bc', color: 'white' }}
-            />
-          </div>
-        ) : (
-          <div className="flex justify-center">
-            <Chip
-              label={ongoingCards}
-              sx={{
-                bgcolor: '#e76e50',
-                color: 'white',
-              }}
-            />
-          </div>
-        )}
+        <div className="flex justify-center">
+          <Chip
+            label={process ? noProcessingCard : processingCard}
+            sx={{ bgcolor: process ? '#7fc4bc' : '#e76e50', color: 'white' }}
+          />
+        </div>
         <div>{toDeleteAccountInputMail}</div>
       </div>
       <div className="flex flex-col justify-center p-5 gap-5">

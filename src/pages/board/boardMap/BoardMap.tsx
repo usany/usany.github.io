@@ -7,43 +7,19 @@ import {
 import { collection, getDocs, orderBy, query } from 'firebase/firestore'
 import { MapIcon } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import { dbservice } from 'src/baseApi/serverbase'
-import { useSelectors } from 'src/hooks/useSelectors'
+import { useSelectors, useTexts } from 'src/hooks'
 import locationsCollectionLetters from 'src/pages/add/locationsCollectionLetters'
-import FilterDialogs from 'src/pages/board/FilterDialogs/FilterDialogs'
-
-const registeredMap = {
-  ko: '등록 지도',
-  en: 'Registered map',
-}
-const registeredMapExplanation = {
-  ko: '표시된 곳을 선택하면 해당하는 내용만 확인할 수 있어요',
-  en: 'Click a marker to filter specific location',
-}
-const selectItems = [
-  {
-    ko: '우산',
-    en: 'Usan',
-  },
-  {
-    ko: '양산',
-    en: 'Yangsan',
-  },
-]
+import FilterDialogsTrigger from '../FilterDialogs/FilterDialogsTrigger'
 
 interface Props {
   selectedValues: object
-  handleSelectedValues: () => void
-  searchParams: object
+  handleSelectedValues: (newValue: {
+    id: string
+    newValue: string
+  }) => void
 }
-// const area = [
-//   {
-//     westSouth: { lat: 37.5927551, lng: 127.047462 },
-//     westNorth: { lat: 37.6010743, lng: 127.047462 },
-//     eastSouth: { lat: 37.5927551, lng: 127.0571999 },
-//     eastNorth: { lat: 37.6010743, lng: 127.0571999 },
-//   },
-// ]
 
 const markers = [
   {
@@ -114,10 +90,7 @@ const defaultLocation = markers[0].location
 function BoardMap({
   selectedValues,
   handleSelectedValues,
-  searchParams,
 }: Props) {
-  // const [messages, setMessages] = useState<Array<object>>([])
-  // const [mapAccordion, setMapAccordion] = useState(false);
   const [items, setItems] = useState({
     cl: {
       usanOne: 0,
@@ -174,17 +147,16 @@ function BoardMap({
       yangsanTwo: 0,
     },
   })
-  // const [choose, setChoose] = useState(false)
   const languages = useSelectors((state) => state.languages.value)
-  const selection = languages === 'ko' || languages === 'en' ? languages : 'ko'
+  const [searchParams, setSearchParams] = useSearchParams()
   const onLine = useSelectors((state) => state.onLine.value)
   const [calledMap, setCalledMap] = useState(null)
   const [markings, setMarkings] = useState([])
   const [markersList, setMarkersList] = useState([])
-  // const [searchParams, setSearchParams] = useSearchParams()
   const [onAccordion, setOnAccordion] = useState(false)
   const selectedValueTwo = searchParams.get('selectedValueTwo')
   const theme = useSelectors((state) => state.theme.value)
+  const {borrowing, lending, needNetworkConnection, registeredMap, registeredMapExplanation, itemOne, itemTwo} = useTexts()
   useEffect(() => {
     document.documentElement.scrollTo({
       top: 0,
@@ -195,8 +167,6 @@ function BoardMap({
 
   useEffect(() => {
     const bringMessages = async () => {
-      // let order = 'asc'
-
       const collectionQuery = query(
         collection(dbservice, 'num'),
         orderBy('creatorClock'),
@@ -259,10 +229,6 @@ function BoardMap({
           yangsanTwo: 0,
         },
       }
-      // let usanOneCount = 0
-      // let usanTwoCount = 0
-      // let yangsanOneCount = 0
-      // let yangsanTwoCount = 0
       docs.forEach((doc) => {
         newArray.push(doc.data())
         if (doc.data().item === '우산') {
@@ -290,36 +256,16 @@ function BoardMap({
           }
         }
       })
-      // setMessages(newArray)
       setItems(itemCount)
     }
     bringMessages()
   }, [selectedValues[1].value])
   const onClickMarker = (newValue) => {
     handleSelectedValues({ id: 'selectedValueTwo', newValue: newValue.ko })
-    // setSelectedLocation(newValue.en)
   }
-  // const onClickMarkerItem = (newValue) => {
-  //   handleSelectedValues({ id: 'selectedValueOne', newValue: newValue })
-  // }
   const mapRef = useRef(null)
-  // const { naver } = window
-  // let location
-  // let map
-  // if (mapRef.current && naver) {
-  //   location = new naver.maps.LatLng(defaultLocation.lat, defaultLocation.lng)
-  //   map = new naver.maps.Map(mapRef.current, {
-  //     center: location,
-  //     zoom: 17,
-  //   })
-  // }
   const displayMap = () => {
     const { naver } = window
-
-    // const infowindow = new naver.maps.InfoWindow({
-    //   content: contentString,
-    //   backgroundColor: '#777',
-    // })
     if (mapRef.current && naver) {
       const markersCollection = []
       const infoWindows = []
@@ -354,25 +300,25 @@ function BoardMap({
             </div>
             <div key={index} className="flex gap-5">
                 <div className="pt-1">
-                  ${selectItems[0][selection]}
+                  ${itemOne}
                 </div>
                 <div className="pt-3">
-                  ${languages === 'ko' ? '빌리기: ' : 'Borrowing: '}
+                  ${borrowing}
                   ${items[key].usanOne}
                 </div>
                 <div className="pt-3">
-                  ${languages === 'ko' ? '빌려주기: ' : 'Lending: '}
+                  ${lending}
                   ${items[key].usanTwo}
                 </div>
                 <div className="pt-1">
-                  ${selectItems[1][selection]}
+                  ${itemTwo}
                 </div>
                 <div className="pt-3">
-                  ${languages === 'ko' ? '빌리기: ' : 'Borrowing: '}
+                  ${borrowing}
                   ${items[key].yangsanOne}
                 </div>
                 <div className="pt-3">
-                  ${languages === 'ko' ? '빌려주기: ' : 'Lending: '}
+                  ${lending}
                   ${items[key].yangsanTwo}
                 </div>
               </div>
@@ -381,43 +327,6 @@ function BoardMap({
         const infoWindow = new naver.maps.InfoWindow({
           id: value.label.ko,
           content: contentString,
-          // <div className="flex flex-col text-black">
-          //   <div className="flex justify-center">
-          //     {languages === 'ko'
-          //       ? selectedValues[1].value
-          //       : selectedLocation}
-          //   </div>
-          //   {selectItems.map((value, index) => {
-          //     return (
-          //       <div className="flex gap-5">
-          //         <div className="pt-1">
-          //           <Chip
-          //             label={`${selectItems[index][selection]}`}
-          //             onClick={() => {
-          //               setChoose(true)
-          //               onClickMarkerItem(
-          //                 `${selectItems[index].ko}`,
-          //               )
-          //             }}
-          //           />
-          //         </div>
-          //         <div className="pt-3">
-          //           {languages === 'ko' ? '빌리기' : 'Borrowing'}:{' '}
-          //           {index ? items.yangsanOne : items.usanOne}{' '}
-          //           {languages === 'ko' ? '요청' : 'requests'}
-          //         </div>
-          //         <div className="pt-3">
-          //           {languages === 'ko' ? '빌려주기' : 'Lending'}:{' '}
-          //           {index ? items.yangsanTwo : items.usanTwo}{' '}
-          //           {languages === 'ko' ? '요청' : 'requests'}
-          //         </div>
-          //       </div>
-          //     )
-          //   })}
-          // </div>
-          // '<div style="width:150px;text-align:center;padding:10px;">The Letter is <b>"' +
-          // String(index) +
-          // '"</b>.</div>',
           backgroundColor: theme === 'light' ? '#fff' : '#777',
           anchorColor: theme === 'light' ? '#fff' : '#777',
           borderColor: theme !== 'light' ? '#fff' : '#777',
@@ -445,13 +354,6 @@ function BoardMap({
       for (let number = 0, length = markers.length; number < length; number++) {
         naver.maps.Event.addListener(markersCollection[number], 'click', () => {
           getClickHandler(number)
-          // if (onMarker) {
-          //   onMarkerFalse()
-          //   onClickMarker({ ko: '전체 장소' })
-          // } else {
-          //   onMarkerTrue()
-          //   onClickMarker(markers[number].label)
-          // }
         })
       }
     }
@@ -475,147 +377,45 @@ function BoardMap({
     }
   }, [selectedValueTwo])
   return (
-    <div>
+    <div className="w-[1000px]">
       <Accordion type="single" collapsible>
         <AccordionItem value="item-1">
           <AccordionTrigger
             onClick={() => {
-              // document.getElementById('boardMap')?.click()
-              // setTimeout(
-              //   () =>
-              //     document.getElementsByClassName('dismissButton')[0]?.click(),
-              //   500,
-              // )
-              // setTimeout(
-              //   () =>
-              //     document.getElementsByClassName('dismissButton')[0]?.click(),
-              //   1500,
-              // )
-              // displayMap()
-              // setTimeout(displayMap, 10)
               setOnAccordion(!onAccordion)
             }}
             className="rounded shadow-md px-3 flex sticky top-16 z-30 w-full items-center justify-between bg-light-2/50 dark:bg-dark-2/50"
           >
             <div className="flex gap-5">
               <MapIcon />
-              <div>{registeredMap[selection]}</div>
+              <div>{registeredMap}</div>
             </div>
-            {/* <AccordionTrigger
-              id="boardMap"
-              onClick={() => setTimeout(displayMap, 10)}
-            ></AccordionTrigger> */}
           </AccordionTrigger>
           <AccordionContent>
-            <div>
-              {/* <div className="p-5">
-                59.9156636,10.7507967 표시된 곳을 선택하면 해당하는 내용만
-                확인할 수 있어요
-              </div> */}
+            <>
               {selectedValues[1].value === '전체 장소' ? (
                 <div className="flex p-5">
-                  {onLine && registeredMapExplanation[selection]}
+                  {onLine && registeredMapExplanation}
                 </div>
               ) : (
                 <div className="flex p-5">
-                  <FilterDialogs
-                    selectedValues={selectedValues}
-                    handleSelectedValues={handleSelectedValues}
+                  <FilterDialogsTrigger
                   />
                 </div>
               )}
-            </div>
-            <div className="w-full h-[300px]">
+            </>
+            <>
               {onLine ? (
-                <>
-                  {/* <Map
-                    mapId={import.meta.env.VITE_MAPID}
-                    defaultCenter={defaultLocation}
-                    defaultZoom={17}
-                    gestureHandling={'greedy'}
-                    disableDefaultUI={true}
-                  >
-                    {markers.map((value) => {
-                      return (
-                        <AdvancedMarker
-                          onClick={() => {
-                            onClickMarker(value.label)
-                            onMarkerTrue()
-                          }}
-                          position={value.location}
-                        >
-                          <Pin
-                            background={'#1f9d58'}
-                            borderColor={'#006425'}
-                            glyphColor={'#60d98f'}
-                          />
-                        </AdvancedMarker>
-                      )
-                    })}
-                    <InfoWindow
-                      minWidth={290}
-                      position={
-                        markers.find(
-                          (element) =>
-                            element.label.ko === selectedValues[1].value,
-                        )?.location
-                      }
-                      onClose={() => {
-                        onClickMarker({ ko: '전체 장소' })
-                        if (choose) {
-                          onClickMarkerItem('전체 아이템')
-                          setChoose(false)
-                        }
-                        onMarkerFalse()
-                      }}
-                    >
-                      <div className="flex flex-col text-black">
-                        <div className="flex justify-center">
-                          {languages === 'ko'
-                            ? selectedValues[1].value
-                            : selectedLocation}
-                        </div>
-                        {selectItems.map((value, index) => {
-                          return (
-                            <div className="flex gap-5">
-                              <div className="pt-1">
-                                <Chip
-                                  label={`${selectItems[index][selection]}`}
-                                  onClick={() => {
-                                    setChoose(true)
-                                    onClickMarkerItem(
-                                      `${selectItems[index].ko}`,
-                                    )
-                                  }}
-                                />
-                              </div>
-                              <div className="pt-3">
-                                {languages === 'ko' ? '빌리기' : 'Borrowing'}:{' '}
-                                {index ? items.yangsanOne : items.usanOne}{' '}
-                                {languages === 'ko' ? '요청' : 'requests'}
-                              </div>
-                              <div className="pt-3">
-                                {languages === 'ko' ? '빌려주기' : 'Lending'}:{' '}
-                                {index ? items.yangsanTwo : items.usanTwo}{' '}
-                                {languages === 'ko' ? '요청' : 'requests'}
-                              </div>
-                            </div>
-                          )
-                        })}
-                      </div>
-                    </InfoWindow>
-                  </Map> */}
-                  <div
-                    ref={mapRef}
-                    style={{ width: '100%', height: '500px' }}
-                  ></div>
-                </>
+                <div
+                  ref={mapRef}
+                  className='w-full h-[300px]'
+                ></div>
               ) : (
                 <div className="flex justify-center">
-                  네트워크 연결이 필요합니다
+                  {needNetworkConnection}
                 </div>
               )}
-            </div>
+            </>
           </AccordionContent>
         </AccordionItem>
       </Accordion>

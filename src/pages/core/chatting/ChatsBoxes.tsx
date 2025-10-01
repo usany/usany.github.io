@@ -1,14 +1,13 @@
 import { Avatar, AvatarImage } from '@/components/ui/avatar'
 import { User } from 'firebase/auth'
 import staticImage from 'src/assets/blue.png'
-import { useSelectors } from 'src/hooks/useSelectors'
+import { useSelectors } from 'src/hooks'
 import Avatars from 'src/pages/core/Avatars'
 import ChatsBoxesChips from './ChatsBoxesChips'
 import ChatsBoxesClock from './ChatsBoxesClock'
 import ChatsBoxesRoom from './ChatsBoxesRoom'
 interface Props {
   chattingUid: string
-  userObj: User
   profileUrl: string
   displayName: string
   multiple: boolean
@@ -22,13 +21,13 @@ interface Props {
 
 const ChatsBoxes = ({
   chattingUid,
-  userObj,
   displayName,
   multiple,
   clock,
   message,
 }: Props) => {
   const languages = useSelectors((state) => state.languages.value)
+  const profile = useSelectors((state) => state.profile.value)
   let messageAmpm
   let messageHours = clock.getHours()
   let messageMonth = (clock.getMonth() + 1).toString()
@@ -69,7 +68,7 @@ const ChatsBoxes = ({
   let messageDefaultProfile
   let passingValue
   if (!multiple) {
-    if (userObj.uid !== message.userOne) {
+    if (profile?.uid !== message.userOne) {
       messageProfileImage = message.userOneProfileImage
       messageProfileImageUrl = message.userOneProfileUrl
       messageDefaultProfile = message.userOneDefaultProfile
@@ -88,7 +87,6 @@ const ChatsBoxes = ({
       defaultProfile: messageDefaultProfile,
     }
   }
-  // console.log(message)
   return (
     <div>
       {clockValue[0] !== 'N' &&
@@ -113,7 +111,7 @@ const ChatsBoxes = ({
             </div>
             <div className="flex justify-between px-3">
               <div>{message?.message}</div>
-              <ChatsBoxesChips userObj={userObj} message={message} />
+              <ChatsBoxesChips userObj={profile} message={message} />
             </div>
           </div>
         </div>

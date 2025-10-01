@@ -1,26 +1,27 @@
 import BeachAccess from '@mui/icons-material/BeachAccess'
 import Badge from '@mui/material/Badge'
-import { useSelector } from 'react-redux'
-import LoadingsSkeletons from 'src/components/recycle/recycleLoadingsSkeletons'
+import { useLocation } from 'react-router-dom'
+// import LoadingsSkeletons from 'src/components/recycle/recycleLoadingsSkeletons'
+import { useSelectors } from 'src/hooks'
 import Avatars from 'src/pages/core/Avatars'
 
 const ProfileView = ({
-  user,
   changedImage,
   changeAttachment,
   handleChangedImage,
 }) => {
-  const profileUrl = useSelector((state) => state.profileUrl.value)
-  const profile = useSelector((state) => state.profile.value)
+  const {state} = useLocation()
+  const profile = useSelectors((state) => state.profile.value)
+  const user = state?.element || profile
   return (
     <div
       onClick={() => {
         handleChangedImage({
           ...changedImage,
           attachment: '',
-          profileColor: profile.profileColor,
+          profileColor: profile?.profileColor,
           profileImage: false,
-          defaultProfile: profile.defaultProfile,
+          defaultProfile: profile?.defaultProfile,
           changed: false,
         })
         changeAttachment(null)
@@ -35,7 +36,7 @@ const ProfileView = ({
             </button>
           }
         >
-          {profileUrl ? (
+          {profile ? (
             <Avatars element={profile} piazza={null} profile={true} />
           ) : (
             <LoadingsSkeletons height={'[192px]'} width={'[192px]'} />

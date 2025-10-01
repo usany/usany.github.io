@@ -3,7 +3,7 @@ import {
   DrawerClose,
   DrawerContent,
   DrawerTitle,
-  DrawerTrigger
+  DrawerTrigger,
 } from '@/components/ui/drawer'
 import { ScrollArea } from '@radix-ui/react-scroll-area'
 import {
@@ -16,18 +16,29 @@ import {
 import useLargeMedia from 'src/hooks/useLargeMedia'
 import DrawersBar from 'src/pages/core/DrawersBar'
 
-const Popups = ({ trigger, title, content, close, attachment, onLink }) => {
-  // const profileColor = useSelector((state) => state.profileColor.value);
-  // const profileUrl = useSelector((state) => state.profileUrl.value);
-  // console.log(onLink?.state)
-
+interface Props {
+  trigger: React.ReactNode
+  title: React.ReactNode
+  content: React.ReactNode
+  close?: React.ReactNode
+  attachment?: boolean
+  onLink?: boolean
+}
+const Popups = ({
+  trigger,
+  title,
+  content,
+  close = null,
+  attachment = false,
+  onLink = false,
+}: Props) => {
   const largeMedia = useLargeMedia()
   if (largeMedia) {
     return (
       <div className="flex justify-center">
         <Dialog>
-          <DialogTrigger className='w-full'>{trigger}</DialogTrigger>
-          <DialogContent className="bg-light-2 dark:bg-dark-2 h-[50vh]">
+          <DialogTrigger className="w-full">{trigger}</DialogTrigger>
+          <DialogContent className="bg-light-2 dark:bg-dark-2 h-[50vh] min-w-[850px]">
             <ScrollArea className="overflow-y-scroll">
               <DrawersBar />
               <DialogTitle className="flex justify-center p-5">
@@ -51,21 +62,8 @@ const Popups = ({ trigger, title, content, close, attachment, onLink }) => {
   }
   return (
     <div className="flex justify-center">
-      {/* <Drawer direction="left">
-        <DrawerTrigger>{trigger}</DrawerTrigger>
-        <DrawerContent className="bg-light-2 dark:bg-dark-2 right-auto top-0 mt-0 w-[310px] overflow-hidden rounded-[10px]">
-          <DrawerHeader>
-            <DrawerTitle>Are you absolutely sure?</DrawerTitle>
-            <DrawerDescription>This action cannot be undone.</DrawerDescription>
-          </DrawerHeader>
-          <DrawerFooter>
-            <DrawerClose></DrawerClose>
-          </DrawerFooter>
-        </DrawerContent>
-      </Drawer>
- */}
       <Drawer>
-        <DrawerTrigger className='w-full'>{trigger}</DrawerTrigger>
+        <DrawerTrigger className="w-full">{trigger}</DrawerTrigger>
         <DrawerContent className="bg-light-2 dark:bg-dark-2 max-h-[75vh]">
           <ScrollArea className="overflow-y-scroll">
             <DrawersBar />

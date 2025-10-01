@@ -1,16 +1,15 @@
-// import { CardActionArea, CardActions } from '@mui/material';
-// import { useBottomNavigationStore } from 'src/store'
-import { User } from 'firebase/auth'
+import { DocumentData } from "firebase/firestore"
 
 
 interface Props {
-  userObj: User | null
-  message: {}
+  message: DocumentData
+  connectedUser: object
+  isCreator: boolean
 }
-function SpecificsTradesTitle({ drawerOpenTrue, userObj, message, round, connectedUser }: Props) {
-
+function SpecificsTradesTitle({ message, connectedUser, isCreator }: Props) {
+  const displayName = isCreator ? message.displayName : connectedUser.displayName
   return (
-    <div>프로필 확인</div>
+    <>{displayName}</>
   )
 }
 

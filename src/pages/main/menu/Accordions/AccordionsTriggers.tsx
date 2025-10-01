@@ -3,9 +3,11 @@ import { AccordionTrigger } from '@/components/ui/accordion'
 
 interface Props {
   value: {
+    value: string
     id: string
-    item: string
     onClick: () => void
+    item: JSX.Element
+    content: JSX.Element
   }
 }
 
@@ -19,7 +21,7 @@ function AccordionsTriggers({ value }: Props) {
           }}
           className="rounded shadow-md px-3 flex sticky top-16 z-30 w-full items-center justify-between bg-light-2/50 dark:bg-dark-2/50"
         >
-          <div>{value.item}</div>
+          {value.item}
           <AccordionTrigger
             id={value.id}
             onClick={value.onClick}

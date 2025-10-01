@@ -3,14 +3,15 @@ import TextField from '@mui/material/TextField'
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from 'firebase/auth'
 import { collection, getDocs, query } from 'firebase/firestore'
 import { useState } from 'react'
-import { useSelector } from 'react-redux'
 import staticMail from 'src/assets/signMail.svg'
 import { auth, dbservice } from 'src/baseApi/serverbase'
-import { useSelectors } from 'src/hooks/useSelectors.tsx'
+import { useSelectors } from 'src/hooks'
 import setDocUser from 'src/pages/core/setDocUser.ts'
-import useTexts from 'src/useTexts.ts'
+import { useTexts } from 'src/hooks'
 import AuthDialogs from './AuthDialogs.tsx'
 import supabase from 'src/baseApi/base.tsx'
+import { useDispatch } from 'react-redux'
+import { changeProfile } from 'src/stateSlices/profileSlice.tsx'
 
 interface Props {
   signIn: boolean
@@ -19,9 +20,9 @@ interface Props {
 const AuthForm = ({ signIn, agreed }: Props) => {
   const [account, setAccount] = useState({ email: '', password: '' })
   const [error, setError] = useState('')
-  const languages = useSelectors((state) => state.languages.value)
-  const { needToAgreeOnPrivateInformationPolicy } = useTexts()
-  const onLine = useSelector((state) => state.onLine.value)
+  const dispatch = useDispatch()
+  const { needToAgreeOnPrivateInformationPolicy, needNetworkConnection, mail, password, logIn, newAccount } = useTexts()
+  const onLine = useSelectors((state) => state.onLine.value)
   const onSubmitSignIn = async (event) => {
     event.preventDefault()
     try {
@@ -53,16 +54,12 @@ const AuthForm = ({ signIn, agreed }: Props) => {
           const docsRef = query(collection(dbservice, 'members'))
           const docs = await getDocs(docsRef)
           const docsLength = docs.docs.length
-          setDocUser({
+          const newProfile = await setDocUser({
             uid: uid,
             email: email,
             ranking: docsLength,
           })
-          await updateProfile(data.user, {
-            displayName: data.user.email,
-          }).catch((error) => {
-            console.log('error')
-          })
+          dispatch(changeProfile(newProfile))
         } catch (error) {
           console.log(error)
           if (error.message === 'Firebase: Error (auth/invalid-credential).') {
@@ -86,7 +83,7 @@ const AuthForm = ({ signIn, agreed }: Props) => {
           setError(errorMessage)
         }
       } else {
-        alert('네트워크 연결이 필요합니다')
+        alert(needNetworkConnection)
       }
     }
   }
@@ -111,7 +108,7 @@ const AuthForm = ({ signIn, agreed }: Props) => {
         >
           <div className="flex justify-center px-3">
             <TextField
-              label={languages === 'ko' ? '이메일' : 'email'}
+              label={mail}
               value={account.email}
               onChange={onChange}
               variant="outlined"
@@ -123,7 +120,7 @@ const AuthForm = ({ signIn, agreed }: Props) => {
           </div>
           <div className="flex justify-center px-3">
             <TextField
-              label={languages === 'ko' ? '비밀번호' : 'password'}
+              label={password}
               value={account.password}
               onChange={onChange}
               variant="outlined"
@@ -134,7 +131,7 @@ const AuthForm = ({ signIn, agreed }: Props) => {
             />
           </div>
           <div className="flex flex-col justify-center p-3">
-            {signIn || agreed &&
+            {(signIn || agreed) &&
               <Button
                 variant="outlined"
                 startIcon={<img src={staticMail} className="w-[20px]" />}
@@ -142,12 +139,8 @@ const AuthForm = ({ signIn, agreed }: Props) => {
                 type="submit"
               >
                 {signIn
-                  ? languages === 'ko'
-                    ? '로그인'
-                    : 'Sign in'
-                  : languages === 'ko'
-                    ? '회원가입'
-                    : 'Register'}
+                  ? logIn
+                  : newAccount}
               </Button>
             }
             {!signIn && !agreed && (

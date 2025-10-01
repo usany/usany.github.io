@@ -1,12 +1,21 @@
-import { useSelectors } from "src/hooks/useSelectors"
+import { Card } from "@mui/material"
+import { useTexts } from "src/hooks"
+import useCardsBackground from "src/hooks/useCardsBackground"
 
-const ProfilePointsTrigger = ({ user, cards, followers, alliesCollection, selection }) => {
-  const languages = useSelectors((state) => state.languages.value)
+const ProfilePointsTrigger = ({ cards }) => {
+  const {points} = useTexts()
+  const { colorTwo } = useCardsBackground()
+
   return (
-    <div className='p-5'>
-      <div>{languages === 'ko' ? '포인트' : 'Points'}</div>
+    <Card
+      sx={{
+        bgcolor: colorTwo,
+        padding: '20px'
+      }}
+    >
+      <div>{points}</div>
       <div className='flex justify-center'>{cards.point}</div>
-    </div>
+    </Card>
   )
 }
 

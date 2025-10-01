@@ -6,14 +6,13 @@ import {
 } from '@/components/ui/chart'
 import { useDispatch } from 'react-redux'
 import { Label, Pie, PieChart } from 'recharts'
-import { useSelectors } from 'src/hooks/useSelectors'
+import { useTexts } from 'src/hooks'
 import { changeCompletedAction } from 'src/stateSlices/completedActionSlice'
 import Carousels from '../core/specifics/Carousels'
-import ProfileCompletedContent from './ProfileCompletedContent'
 
-const ProfileCompleted = ({ user, cards }) => {
+const ProfileCompleted = ({ cards }) => {
   const dispatch = useDispatch()
-  const languages = useSelectors((state) => state.languages.value)
+  const {borrowing, lending, activitiesCompleted} = useTexts()
   const actions = [
     {
       action: 'borrow',
@@ -31,11 +30,11 @@ const ProfileCompleted = ({ user, cards }) => {
       label: 'total',
     },
     borrow: {
-      label: languages === 'ko' ? '빌리기' : 'Borrowing',
+      label: borrowing,
       color: '#e76e50',
     },
     lend: {
-      label: languages === 'ko' ? '빌려주기' : 'Lending',
+      label: lending,
       color: '#7fc4bc',
     },
   } satisfies ChartConfig
@@ -82,7 +81,7 @@ const ProfileCompleted = ({ user, cards }) => {
                         y={(viewBox.cy || 0) + 24}
                         className="fill-foreground"
                       >
-                        {languages === 'ko' ? '활동 횟수' : 'Activities Count'}
+                        {activitiesCompleted}
                       </tspan>
                     </text>
                   )
@@ -97,7 +96,7 @@ const ProfileCompleted = ({ user, cards }) => {
           />
         </PieChart>
       </ChartContainer>
-      {cards.done && <Carousels user={user} cards={<ProfileCompletedContent user={user} />} />}
+      {cards.done && <Carousels />}
     </div>
   )
 }

@@ -7,14 +7,18 @@ import {
 } from "@/components/ui/carousel";
 import { collection, getDocs, query } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useLocation } from "react-router-dom";
 import { dbservice } from 'src/baseApi/serverbase';
+import { useSelectors } from "src/hooks";
 import Cards from 'src/pages/core/card/Cards';
 
-const Carousels = ({ user, cards }) => {
+const Carousels = () => {
+  const {state} = useLocation()
+  const profile = useSelectors((state) => state.profile.value)
+  const user = state?.element || profile
   const [messagesList, setMessagesList] = useState([])
   const [cardNumber, setCardNumber] = useState(1)
-  const completedAction = useSelector(state => state.completedAction.value)
+  const completedAction = useSelectors(state => state.completedAction.value)
   const handleCardNumber = (newValue) => setCardNumber(newValue)
   useEffect(() => {
     const getMessage = async () => {
@@ -39,13 +43,13 @@ const Carousels = ({ user, cards }) => {
       if (element.creatorId === user.uid && element.text.choose === 1) {
         return (
           <CarouselItem key={element.id} className='flex justify-center'>
-            <Cards message={element} isOwner={true} userObj={user} num={null} points={null} />
+            <Cards message={element} isOwner={true} num={null} points={null} />
           </CarouselItem>
         )
       } else if (element.creatorId !== user.uid && element.text.choose === 2) {
         return (
           <CarouselItem key={element.id} className='flex justify-center'>
-            <Cards message={element} isOwner={false} userObj={user} num={null} points={null} />
+            <Cards message={element} isOwner={false} num={null} points={null} />
           </CarouselItem>
         )
       }
@@ -58,13 +62,13 @@ const Carousels = ({ user, cards }) => {
       if (element.creatorId === user.uid && element.text.choose === 2) {
         return (
           <CarouselItem key={element.id} className='flex justify-center'>
-            <Cards message={element} isOwner={true} userObj={user} num={null} points={null} />
+            <Cards message={element} isOwner={true} num={null} points={null} />
           </CarouselItem>
         )
       } else if (element.creatorId !== user.uid && element.text.choose === 1) {
         return (
           <CarouselItem key={element.id} className='flex justify-center'>
-            <Cards message={element} isOwner={false} userObj={user} num={null} points={null} />
+            <Cards message={element} isOwner={false} num={null} points={null} />
           </CarouselItem>
         )
       }
@@ -90,12 +94,8 @@ const Carousels = ({ user, cards }) => {
         <CarouselContent className='min-w-[265px]'>
           {selectedList}
         </CarouselContent>
-        <div onClick={() => setCardNumber(cardNumber - 1)}>
-          <CarouselPrevious />
-        </div>
-        <div onClick={() => setCardNumber(cardNumber + 1)}>
-          <CarouselNext />
-        </div>
+        <CarouselPrevious />
+        <CarouselNext />
       </Carousel>
       <div>{completedAction ? completedAction === 'borrow' ? '빌리기: ' : '빌려주기: ' : '활동 횟수: '} {cardNumber}/{selectedList.length}</div>
     </div>

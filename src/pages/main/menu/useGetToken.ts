@@ -3,7 +3,9 @@ import { doc, updateDoc } from 'firebase/firestore'
 import { getToken } from 'firebase/messaging'
 import { useEffect } from 'react'
 import { dbservice, messaging } from 'src/baseApi/serverbase'
-const useGetToken = (userObj: User) => {
+import { useSelectors } from 'src/hooks'
+const useGetToken = () => {
+  const profile = useSelectors((state) => state.profile.value)
   useEffect(() => {
     const requestPermission = async () => {
       try {
@@ -18,7 +20,7 @@ const useGetToken = (userObj: User) => {
           // return (
           //     webSocket.off('messagingToken', token)
           // )
-          const myDoc = doc(dbservice, `members/${userObj.uid}`)
+          const myDoc = doc(dbservice, `members/${profile?.uid}`)
           updateDoc(myDoc, { messagingToken: token })
         } else {
           console.log('No registration token available.')
@@ -28,6 +30,6 @@ const useGetToken = (userObj: User) => {
       }
     }
     requestPermission()
-  }, [])
+  }, [profile])
 }
 export default useGetToken

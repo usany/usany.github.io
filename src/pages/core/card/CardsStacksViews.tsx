@@ -1,66 +1,53 @@
 import { DndContext } from '@dnd-kit/core';
 import { User } from 'firebase/auth';
-import { deleteDoc, doc, getDoc, updateDoc } from "firebase/firestore";
+import { deleteDoc, doc, DocumentData, getDoc, updateDoc } from "firebase/firestore";
 import { useState } from 'react';
 import { dbservice } from 'src/baseApi/serverbase';
 import CardDroppable from './CardsDroppable';
 import CardsStacksViewsCollection from './CardsStacksViewsCollection';
-const deleteMessage = (id: string) => {
-  console.log(id)
-  const item = document.getElementById(id)
-  item?.classList.add('transition')
-  item?.addEventListener('transitionend', () => {
-    item?.remove()
-  })
-}
+import { useSelectors } from 'src/hooks';
+import deleteMessage from './deleteMessage';
+
 const handleDelete = async ({
   id,
-  userObj,
+  profile,
   changeLongPressCard,
 }: {
   id: string
-  changeLongPressCard: (newValue: null) => void
+  profile: DocumentData | null | undefined
+  changeLongPressCard: (newValue: string) => void
 }) => {
   const data = doc(dbservice, `num/${id}`)
   const messageId = data.id
   await deleteDoc(doc(dbservice, `num/${id}`));
-  const userRef = doc(dbservice, `members/${userObj.uid}`)
+  const userRef = doc(dbservice, `members/${profile?.uid}`)
   const userSnap = await getDoc(userRef)
-  const newMessages = userSnap.data()?.createdCards.filter((element) => element !== id)
-  console.log(newMessages)
+  const newMessages = userSnap.data()?.createdCards.filter((element: string) => element !== id)
   updateDoc(userRef, { createdCards: newMessages })
   deleteMessage(messageId)
-  changeLongPressCard(null)
+  changeLongPressCard('')
 }
 
 const CardsStacksViews = ({
-  userObj,
   messages,
-  // changeLongPressCard,
 }: {
-  userObj: User
-  messages: { round: number; creatorId: string }[]
+  messages: DocumentData[]
 }) => {
-  // const [longPressed, setLongPressed] = useState(false)
-  // const changeLongPressed = (newValue: boolean) => setLongPressed(newValue)
   const [longPressCard, setLongPressCard] = useState('')
-  const changeLongPressCard = (newValue) => setLongPressCard(newValue)
+  const profile = useSelectors((state) => state.profile.value)
+  const changeLongPressCard = (newValue: string) => setLongPressCard(newValue)
   return (
     <DndContext
       onDragEnd={(element) => {
         if (element.over) {
           const id = element.active.id.toString()
-          handleDelete({ id: id, userObj: userObj, changeLongPressCard: changeLongPressCard })
-          // setLongPressed(false)
+          handleDelete({ id: id, profile: profile, changeLongPressCard: changeLongPressCard })
         }
       }}
     >
       {longPressCard && <CardDroppable />}
       <CardsStacksViewsCollection
-        userObj={userObj}
         messages={messages}
-        // longPressed={longPressed}
-        // changeLongPressed={changeLongPressed}
         longPressCard={longPressCard}
         changeLongPressCard={changeLongPressCard}
       />

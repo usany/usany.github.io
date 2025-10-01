@@ -7,9 +7,9 @@ import useCardsBackground from 'src/hooks/useCardsBackground'
 import useLongPress from 'src/hooks/useLongPress'
 import ChatsBoxes from 'src/pages/core/chatting/ChatsBoxes'
 import ChatsDelete from './ChatsDelete'
+import { useSelectors } from 'src/hooks'
 
 interface Props {
-  userObj: User
   profileUrl: string
   conversation: string
   displayName: string
@@ -24,7 +24,6 @@ interface Props {
 }
 
 const Chats = ({
-  userObj,
   conversation,
   clock,
   message,
@@ -38,13 +37,14 @@ const Chats = ({
   changeChattings,
 }: Props) => {
   const [longPressed, setLongPressed] = useState(false)
+  const profile = useSelectors((state) => state.profile.value)
   const chatsRef = useRef()
   const multiple = conversation === 'piazza' ? true : false
   let displayName
   let chattingUid
   let profileUrl
   if (conversation !== 'piazza') {
-    if (userObj.uid === chattings[conversation].userOne) {
+    if (profile?.uid === chattings[conversation].userOne) {
       displayName = chattings[conversation].userTwoDisplayName
       chattingUid = chattings[conversation].userTwo
       profileUrl = chattings[conversation].userTwoProfileUrl
@@ -128,14 +128,13 @@ const Chats = ({
                   state={{
                     conversation: conversation,
                     displayName: displayName,
-                    userUid: userObj.uid,
+                    userUid: profile?.uid,
                     chattingUid: chattingUid,
                     multiple: multiple,
                   }}
                 >
                   <ChatsBoxes
                     chattingUid={chattingUid}
-                    userObj={userObj}
                     profileUrl={profileUrl}
                     displayName={displayName}
                     multiple={multiple}
@@ -158,7 +157,6 @@ const Chats = ({
                 >
                   <ChatsBoxes
                     chattingUid={chattingUid}
-                    userObj={userObj}
                     profileUrl={profileUrl}
                     displayName={displayName}
                     multiple={multiple}
@@ -172,7 +170,6 @@ const Chats = ({
         </div>
         {longPressed && (
           <ChatsDelete
-            userObj={userObj}
             conversation={conversation}
             changeLongPressChat={changeLongPressChat}
             changeChattings={changeChattings}

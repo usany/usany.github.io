@@ -1,6 +1,6 @@
 import { Suspense, lazy } from 'react'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
-import { useSelectors } from 'src/hooks/useSelectors'
+import { useSelectors } from 'src/hooks'
 import Navigations from 'src/pages/core/Navigations'
 import NavigationTop from 'src/pages/core/navigationTop/NavigationTop'
 import Home from 'src/pages/main/Home'
@@ -13,10 +13,10 @@ import Boards from 'src/pages/board/Boards'
 const Router = () => {
   // const Home = lazy(() => import('src/pages/main/Home'))
   // const Profile = lazy(() => import('src/pages/profile/Profile'))
-  const Ranking = lazy(() => import('src/pages/search/Ranking'))
-  const Contact = lazy(() => import('src/pages/contact/Contact'))
   // const Piazza = lazy(() => import('src/pages/piazza/Piazza'))
+  const Search = lazy(() => import('src/pages/search/Search'))
   const Collection = lazy(() => import('src/pages/collection/Collection'))
+  const Contact = lazy(() => import('src/pages/contact/Contact'))
   const profile = useSelectors((state) => state.profile.value)
   return (
     <BrowserRouter basename="/">
@@ -32,7 +32,7 @@ const Router = () => {
               {profile?.certificated && (
                 <>
                   <Route path="/profile" element={<Profile />} />
-                  <Route path="/ranking" element={<Ranking />} />
+                  <Route path="/ranking" element={<Search />} />
                   <Route path="/piazza" element={<Piazza />} />
                   <Route path="/collection" element={<Collection />} />
                 </>

@@ -1,5 +1,5 @@
 import { Building } from 'lucide-react'
-import { useSelectors } from 'src/hooks/useSelectors'
+import { useSelectors } from 'src/hooks'
 import locationsBuildings from 'src/pages/add/locationsBuildings'
 import locationsCollection from 'src/pages/add/locationsCollection'
 import locationsCollectionLetters from 'src/pages/add/locationsCollectionLetters'

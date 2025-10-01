@@ -3,27 +3,24 @@ import useLongPress from 'src/hooks/useLongPress'
 import MorphingDialogs from '../morphingDialogs/MorphingDialogs'
 import CardsLongPressed from './CardsLongPressed'
 import CardsViews from './CardsViews'
-import { useRound } from './useRound'
+import { DocumentData } from 'firebase/firestore'
 
 interface Props {
-  message: { id: string; text: object }
-  isOwner: boolean
-  num: number | null
-  points: number | null
+  message: DocumentData
+  longPressCard: string
+  changeLongPressCard: (newValue: string) => void
+  deleteMessage: () => void
+  delayed: boolean
+  delayedFalse: () => void
 }
 
 const Cards = ({
   message,
-  isOwner,
-  num,
-  points,
   longPressCard,
   changeLongPressCard,
-  deleteMessage,
-  delayed,
-  delayedFalse,
+  // delayed,
+  // delayedFalse,
 }: Props) => {
-  const { round, increaseRound, decreaseRound } = useRound(message)
   const cardsRef = useRef()
   useLongPress(cardsRef, () => {
     changeLongPressCard(message.id)
@@ -37,7 +34,7 @@ const Cards = ({
               longPressCard={longPressCard}
               message={message}
               changeLongPressCard={changeLongPressCard}
-              delayedFalse={delayedFalse}
+              // delayedFalse={delayedFalse}
             />
           ) : (
             <CardsViews message={message} />
@@ -45,22 +42,19 @@ const Cards = ({
         </>
       ) : (
         <>
-          {delayed ||
+          <MorphingDialogs
+            message={message}
+          />
+          {/* {
+          delayed ||
           location.pathname === '/board' ||
           location.pathname === '/profile' ? (
             <MorphingDialogs
               message={message}
-              isOwner={isOwner}
-              num={num}
-              points={points}
-              round={round}
-              increaseRound={increaseRound}
-              decreaseRound={decreaseRound}
-              deleteMessage={deleteMessage}
             />
           ) : (
             <CardsViews message={message} />
-          )}
+          )} */}
         </>
       )}
     </div>

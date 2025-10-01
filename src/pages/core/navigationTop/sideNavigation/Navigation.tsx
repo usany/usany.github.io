@@ -1,4 +1,3 @@
-import { doc, onSnapshot } from 'firebase/firestore'
 import {
   DoorOpen,
   Film,
@@ -7,189 +6,105 @@ import {
   Siren,
   UserRound,
 } from 'lucide-react'
-import { useEffect, useState } from 'react'
 import staticImage from 'src/assets/blue.png'
-import { auth, dbservice } from 'src/baseApi/serverbase'
 import {
   Drawer,
   DrawerClose,
   DrawerContent,
   DrawerTrigger,
 } from 'src/components/ui/drawer'
-import { useSelectors } from 'src/hooks/useSelectors'
-import texts from 'src/texts.json'
+import { useId, } from 'react';
+import { useSelectors } from 'src/hooks'
 import Avatars from '../../Avatars'
-import IframePlayer from './iframePlayer/IframePlayer'
 import Links from './links/Links'
 import NavigationSignedIn from './navigationSignedIn/NavigationSignedIn'
 import NavigationSignedOut from './navigationSignedOut/NavigationSignedOut'
-import useTexts from 'src/useTexts'
-interface Props {
-  handleSideNavigation: () => void
-}
+import { useTexts } from 'src/hooks'
+import Playlist from '../../Playlist';
 
-const onLogOutClick = async () => {
-  auth.signOut()
-}
-function Navigation({ handleSideNavigation }: Props) {
-  const [delayed, setDelayed] = useState(true)
-  const theme = useSelectors((state) => state.theme.value)
-  const languages = useSelectors((state) => state.languages.value)
+function Navigation() {
+  const linkId = useId();
+  const { myProfile, userSearch, groupChat, report, collection, signOut, needNetworkConnection } = useTexts()
   const profile = useSelectors((state) => state.profile.value)
   const onLine = useSelectors((state) => state.onLine.value)
-  const { needNetworkConnection } = useTexts()
-  const checkbox = () => {
-    handleSideNavigation()
-  }
-
-  const logOut = () => {
-    onLogOutClick()
-    setTimeout(() => {
-      location.reload()
-    }, 1000)
-  }
 
   const links = [
     {
       href: '/profile',
       passingState: null,
       icon: <UserRound />,
-      description: texts[languages as keyof typeof texts]['myProfile'],
-      onClick: () => checkbox(),
+      description: myProfile,
     },
     {
       href: '/ranking',
       passingState: null,
       icon: <SearchCheck />,
-      description: texts[languages as keyof typeof texts]['userRanking'],
-      onClick: () => checkbox(),
+      description: userSearch,
     },
     {
       href: '/piazza',
       passingState: { conversation: 'piazza', multiple: true },
       icon: <MessagesSquare />,
-      description: texts[languages as keyof typeof texts]['groupChat'],
-      onClick: () => checkbox(),
+      description: groupChat,
     },
     {
       href: '/contact',
       passingState: { multiple: true },
       icon: <Siren />,
-      description: texts[languages as keyof typeof texts]['report'],
-      onClick: () => checkbox(),
+      description: report,
     },
     {
       href: '/collection',
       passingState: { multiple: true },
       icon: <Film />,
-      description: texts[languages as keyof typeof texts]['collection'],
-      onClick: () => checkbox(),
+      description: collection,
     },
     {
       href: '/',
       passingState: { multiple: true },
       icon: <DoorOpen />,
-      description: texts[languages as keyof typeof texts]['signOut'],
-      onClick: () => logOut(),
+      description: signOut,
     },
   ]
-  setTimeout(() => setDelayed(false), 1000)
   return (
     <Drawer direction="left">
       <DrawerTrigger className="px-5">
-        {profile && profile?.certificated ? (
-          <Avatars element={profile} piazza={null} profile={false} />
-        ) : (
-          <>
-            {!delayed && (
-              <Avatars
-                element={{ defaultProfile: staticImage }}
-                piazza={null}
-                profile={false}
-              />
-            )}
-          </>
-        )}
+        <Avatars element={profile?.certificated ? profile : { defaultProfile: staticImage }} piazza={null} profile={false} />
       </DrawerTrigger>
       <DrawerContent className="border-none bg-light-2 dark:bg-dark-2 right-auto top-0 mt-0 w-[355px] overflow-hidden rounded-[10px]">
         <nav className="flex flex-col justify-between w-[350px]">
-          {profile?.certificated ? (
-            <div>
-              <NavigationSignedIn />
-              {onLine ? (
-                <div className="flex flex-col justify-between pt-5 gap-5">
-                  {links.map((value, index) => {
-                    return (
-                      <div key={index}>
-                        <DrawerClose>
-                          <Links
-                            href={value.href}
-                            passingState={value.passingState}
-                            onClick={value.onClick}
-                            icon={value.icon}
-                            description={value.description}
-                          />
-                        </DrawerClose>
-                      </div>
-                    )
-                  })}
-                </div>
-              ) : (
-                <div className="flex justify-center pt-5 gap-5">
-                  {needNetworkConnection}
-                </div>
-              )}
+          {profile?.certificated ? <NavigationSignedIn /> : <NavigationSignedOut />}
+          {onLine ? (
+            <div className="flex flex-col justify-between pt-5 gap-5">
+              {links.map((value) => {
+                const drawerLinks = (
+                  <DrawerClose key={`${linkId}-${value.href}`}>
+                    <Links
+                      href={value.href}
+                      passingState={value.passingState}
+                      icon={value.icon}
+                      description={value.description}
+                    />
+                  </DrawerClose>
+                )
+                if ((!['/contact', '/'].includes(value.href) && profile?.certificated) ||
+                    (value.href === '/' && profile) ||
+                    value.href === '/contact') {
+                  return drawerLinks;
+                }
+                return null
+              })}
             </div>
           ) : (
-            <div>
-              <NavigationSignedOut />
-              {onLine ? (
-                <div className="flex flex-col justify-between pt-5 gap-5">
-                  {links.map((value, index) => {
-                    if (value.href === '/contact') {
-                      return (
-                        <div key={index}>
-                          <DrawerClose>
-                            <Links
-                              key={index}
-                              href={value.href}
-                              passingState={value.passingState}
-                              onClick={value.onClick}
-                              icon={value.icon}
-                              description={value.description}
-                            />
-                          </DrawerClose>
-                        </div>
-                      )
-                    }
-                    if (!profile?.certificated && profile) {
-                      if (value.href === '/') {
-                        return (
-                          <div key={index}>
-                            <DrawerClose>
-                              <Links
-                                key={index}
-                                href={value.href}
-                                passingState={value.passingState}
-                                onClick={value.onClick}
-                                icon={value.icon}
-                                description={value.description}
-                              />
-                            </DrawerClose>
-                          </div>
-                        )
-                      }
-                    }
-                  })}
-                </div>
-              ) : (
-                <div className="flex justify-center pt-5 gap-5">
-                  {needNetworkConnection}
-                </div>
-              )}
+            <div className="flex justify-center pt-5 gap-5">
+              {needNetworkConnection}
             </div>
           )}
-          {profile?.certificated && onLine && <IframePlayer mode={theme} />}
+          {profile?.certificated && onLine &&
+            <div className="absolute flex justify-center bottom-0">
+              <Playlist />
+            </div>
+          }
         </nav>
       </DrawerContent>
     </Drawer>

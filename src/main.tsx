@@ -18,7 +18,14 @@ if ('serviceWorker' in navigator) {
       console.error('Service Worker registration failed:', error)
     })
 }
-
+if (typeof window !== 'undefined') { // Check if we're running in the browser.
+  const mq = window.matchMedia('(prefers-color-scheme: dark)')
+  if (!localStorage.getItem('theme')) {
+    if (mq.matches) {
+      document.documentElement.classList.add('dark')
+    }
+  }
+}
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <APIProvider

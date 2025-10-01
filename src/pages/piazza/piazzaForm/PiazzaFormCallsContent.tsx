@@ -8,11 +8,11 @@ import { useSelectors } from 'src/hooks'
 import { useTexts } from 'src/hooks'
 import { webSocket } from 'src/webSocket.tsx'
 
-function PiazzaFormCallsContent({ chattingUser }) {
+function PiazzaFormCallsContent({chattingUser}) {
   const { videoCall, audioCall } = useTexts()
   const calls = [
-    { id: 'video', text: videoCall },
-    { id: 'audio', text: audioCall },
+    {id: 'video', text: videoCall},
+    {id: 'audio', text: audioCall},
   ]
   const profile = useSelectors((state) => state.profile.value)
   const conversation = location.search

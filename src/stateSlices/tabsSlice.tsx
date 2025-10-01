@@ -6,7 +6,7 @@ interface TabsState {
 
 // Define the initial state using that type
 const initialState: TabsState = {
-  value: 0
+  value: location.search === '?action=lend' ? 1 : 0
 }
 
 const tabsReducer = createSlice({
