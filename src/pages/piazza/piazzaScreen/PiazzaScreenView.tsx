@@ -16,6 +16,8 @@ import Avatars from 'src/pages/core/Avatars'
 import Popups from 'src/pages/core/Popups'
 import { webSocket } from 'src/webSocket.tsx'
 import PiazzaDialogsContent from './piazzaDialogs/PiazzaDialogsContent'
+import PiazzaDialogsTitle from './PiazzaDialogsTitle'
+import PiazzaScreenClock from './PiazzaScreenClock'
 
 const PiazzaDialogsTitle = ({user, displayedName}) => {
   const languages = useSelectors((state) => state.languages.value)
@@ -64,11 +66,14 @@ const PiazzaScreenViewClock = ({ value }) => {
   )
 }
 interface Props {
+  isKeyboardOpen: boolean
   messagesList: []
   handleMessagesList: (newValue: []) => void
+  handleChatUid: (newValue: string) => void
+  handleChatDisplayName: (newValue: string) => void
 }
-
-function PiazzaScreenView({
+function PiazzaScreen({
+  isKeyboardOpen,
   messagesList,
   handleMessagesList,
   handleChatUid,
@@ -352,132 +357,133 @@ function PiazzaScreenView({
     handleMessagesList([])
   }
   return (
-    <div ref={boxRef} className='p-1 border-t rounded-xl overflow-auto'>
-      <ul>
-        {isLoading && (
-          <div className="flex justify-center bg-light-2 dark:bg-dark-2 rounded">
-            {loading}
-          </div>
-        )}
-        {messagesArray.map((value, index) => {
-          let passingValue
-          if (conversation === 'piazza') {
-            passingValue = value
-          } else {
-            if (value.userUid === value.userOne) {
-              passingValue = {
-                userUid: value.userOne,
-                id: value.userOneDisplayName,
-                profileImage: value.userOneProfileImage || value.profileImage,
-                defaultProfile:
-                  value.userOneDefaultProfile || value.defaultProfile,
-                profileImageUrl:
-                  value.userOneProfileUrl || value.profileImageUrl,
-              }
+    <div className={`fixed w-screen bg-light-3 dark:bg-dark-3 flex flex-col ${isKeyboardOpen ? 'bottom-[50px] h-full pt-[120px]' : 'bottom-[110px] h-[60%]'}`}>
+      <div ref={boxRef} className='p-1 border-t rounded-xl overflow-auto'>
+        <ul>
+          {isLoading && (
+            <div className="flex justify-center bg-light-2 dark:bg-dark-2 rounded">
+              {loading}
+            </div>
+          )}
+          {messagesArray.map((value, index) => {
+            let passingValue
+            if (conversation === 'piazza') {
+              passingValue = value
             } else {
-              passingValue = {
-                userUid: value.userTwo,
-                id: value.userTwoDisplayName,
-                profileImage: value.userTwoProfileImage || value.profileImage,
-                defaultProfile:
-                  value.userTwoDefaultProfile || value.defaultProfile,
-                profileImageUrl:
-                  value.userTwoProfileUrl || value.profileImageUrl,
+              if (value.userUid === value.userOne) {
+                passingValue = {
+                  userUid: value.userOne,
+                  id: value.userOneDisplayName,
+                  profileImage: value.userOneProfileImage || value.profileImage,
+                  defaultProfile:
+                    value.userOneDefaultProfile || value.defaultProfile,
+                  profileImageUrl:
+                    value.userOneProfileUrl || value.profileImageUrl,
+                }
+              } else {
+                passingValue = {
+                  userUid: value.userTwo,
+                  id: value.userTwoDisplayName,
+                  profileImage: value.userTwoProfileImage || value.profileImage,
+                  defaultProfile:
+                    value.userTwoDefaultProfile || value.defaultProfile,
+                  profileImageUrl:
+                    value.userTwoProfileUrl || value.profileImageUrl,
+                }
               }
             }
-          }
-          const userDirection = value.userUid === profile?.uid ? 'text-right' : 'text-left'
-          const previousUid = index > 0 ? messagesArray[index - 1].userUid : ''
-          console.log(passingValue)
-          return (
-            <li
-              key={index}
-              ref={index === continueNumber ? messagesEndRef : null}
-              className={userDirection}
-            >
-              {previousUid !== value.userUid && (
-                <div
-                  className={`flex justify-${
-                    value.userUid !== profile?.uid ? 'start' : 'end'
-                  }`}
-                >
-                  {userDirection === 'text-left' ? (
-                    <div className="flex gap-3 pt-3">
-                      <Popups
-                        trigger={
-                          <button onClick={() => onDrawer({
-                            userUid: passingValue.userUid,
-                            displayName: passingValue.id,
-                          })}>
-                            <Avatars
-                              element={passingValue}
-                              profile={false}
+            const userDirection = value.userUid === profile?.uid ? 'text-right' : 'text-left'
+            const previousUid = index > 0 ? messagesArray[index - 1].userUid : ''
+            return (
+              <li
+                key={index}
+                ref={index === continueNumber ? messagesEndRef : null}
+                className={userDirection}
+              >
+                {previousUid !== value.userUid && (
+                  <div
+                    className={`flex justify-${
+                      value.userUid !== profile?.uid ? 'start' : 'end'
+                    }`}
+                  >
+                    {userDirection === 'text-left' ? (
+                      <div className="flex gap-3 pt-3">
+                        <Popups
+                          trigger={
+                            <button onClick={() => onDrawer({
+                              userUid: passingValue.userUid,
+                              displayName: passingValue.id,
+                            })}>
+                              <Avatars
+                                element={passingValue}
+                                profile={false}
+                              />
+                            </button>
+                          }
+                          title={
+                            <PiazzaDialogsTitle user={user} displayedName={displayedName}/>
+                          }
+                          content={
+                            <PiazzaDialogsContent
+                              initiateContinuing={initiateContinuing}
+                              user={user}
                             />
-                          </button>
-                        }
-                        title={
-                          <PiazzaDialogsTitle user={user} displayedName={displayedName}/>
-                        }
-                        content={
-                          <PiazzaDialogsContent
-                            initiateContinuing={initiateContinuing}
-                            user={user}
-                          />
-                        }
-                      />
-                      {value.id}
-                    </div>
-                  ) : (
-                    <div className="flex gap-3 pt-3">
-                      {value.id}
-                      <Popups
-                        trigger={
-                          <button onClick={() => onDrawer({
-                            userUid: passingValue.userUid,
-                            displayName: passingValue.id,
-                          })}>
-                            <Avatars
-                              element={passingValue}
-                              profile={false}
+                          }
+                        />
+                        {value.id}
+                      </div>
+                    ) : (
+                      <div className="flex gap-3 pt-3">
+                        {value.id}
+                        <Popups
+                          trigger={
+                            <button onClick={() => onDrawer({
+                              userUid: passingValue.userUid,
+                              displayName: passingValue.id,
+                            })}>
+                              <Avatars
+                                element={passingValue}
+                                profile={false}
+                              />
+                            </button>
+                          }
+                          title={
+                            <PiazzaDialogsTitle user={user} displayedName={displayedName}/>
+                          }
+                          content={
+                            <PiazzaDialogsContent
+                              initiateContinuing={initiateContinuing}
+                              user={user}
                             />
-                          </button>
-                        }
-                        title={
-                          <PiazzaDialogsTitle user={user} displayedName={displayedName}/>
-                        }
-                        content={
-                          <PiazzaDialogsContent
-                            initiateContinuing={initiateContinuing}
-                            user={user}
-                          />
-                        }
-                      />
+                          }
+                        />
+                      </div>
+                    )}
+                  </div>
+                )}
+                {userDirection === 'text-left' ? (
+                  <div className="flex gap-3 justify-start">
+                    <div className="other rounded-tr-lg rounded-bl-lg rounded-br-lg p-1 bg-light-1 dark:bg-dark-1">
+                      {value.msg}
                     </div>
-                  )}
-                </div>
-              )}
-              {userDirection === 'text-left' ? (
-                <div className="flex gap-3 justify-start">
-                  <div className="other rounded-tr-lg rounded-bl-lg rounded-br-lg p-1 bg-light-1 dark:bg-dark-1">
-                    {value.msg}
+                    <PiazzaScreenClock value={value}/>
                   </div>
-                  <PiazzaScreenViewClock value={value}/>
-                </div>
-              ) : (
-                <div className="flex gap-3 justify-end">
-                  <PiazzaScreenViewClock value={value}/>
-                  <div className="me rounded-tl-lg rounded-bl-lg rounded-br-lg p-1 bg-light-1 dark:bg-dark-1">
-                    {value.msg}
+                ) : (
+                  <div className="flex gap-3 justify-end">
+                    <PiazzaScreenClock value={value}/>
+                    <div className="me rounded-tl-lg rounded-bl-lg rounded-br-lg p-1 bg-light-1 dark:bg-dark-1">
+                      {value.msg}
+                    </div>
                   </div>
-                </div>
-              )}
-            </li>
-          )
-        })}
-        <li ref={messagesEndRef} />
-      </ul>
+                )}
+              </li>
+            )
+          })}
+          <li ref={messagesEndRef} />
+        </ul>
+      </div>
     </div>
   )
 }
 
-export default PiazzaScreenView
+export default PiazzaScreen
