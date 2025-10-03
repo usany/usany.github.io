@@ -431,7 +431,7 @@ function PiazzaScreenView({
                           title={
                             <>
                               <PiazzaDialogsTitle user={user} displayedName={displayedName}/>
-                              <div className="flex justify-center">
+                              {/* <div className="flex justify-center">
                                 {user?.displayName}
                               </div>
                               {user?.displayName !== displayedName && (
@@ -444,7 +444,7 @@ function PiazzaScreenView({
                                     </>
                                   )}
                                 </>
-                              )}
+                              )} */}
                             </>
                           }
                           content={
@@ -475,7 +475,7 @@ function PiazzaScreenView({
                           title={
                             <>
                               <PiazzaDialogsTitle user={user} displayedName={displayedName}/>
-                              <div className="flex justify-center">
+                              {/* <div className="flex justify-center">
                                 {user?.displayName}
                               </div>
                               {user?.displayName !== displayedName && (
@@ -488,7 +488,7 @@ function PiazzaScreenView({
                                     </>
                                   )}
                                 </>
-                              )}
+                              )} */}
                             </>
                           }
                           content={
