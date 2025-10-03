@@ -289,7 +289,7 @@ function PiazzaScreenView({
       if (!messages.docs.length) {
         setContinueNumber(messages.docs.length)
       }
-      messages.forEach((doc, index) => {
+      messages.forEach((doc) => {
         if (messagesArray.length === messages.docs.length - 1) {
           setContinuing(doc)
           setContinueNumber(messages.docs.length - 1)
