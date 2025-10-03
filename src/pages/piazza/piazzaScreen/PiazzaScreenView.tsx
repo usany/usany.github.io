@@ -408,7 +408,7 @@ function PiazzaScreenView({
               className={userDirection}
             >
               {previousUid !== value.userUid && (
-                <div>
+                <>
                   <div
                     className={`flex justify-${
                       value.userUid !== profile?.uid ? 'start' : 'end'
@@ -430,7 +430,7 @@ function PiazzaScreenView({
                             />
                           }
                           title={
-                            <div>
+                            <>
                               <div className="flex justify-center">
                                 {user?.displayName}
                               </div>
@@ -445,7 +445,7 @@ function PiazzaScreenView({
                                   )}
                                 </div>
                               )}
-                            </div>
+                            </>
                           }
                           content={
                             <PiazzaDialogsContent
@@ -454,11 +454,11 @@ function PiazzaScreenView({
                             />
                           }
                         />
-                        <div>{value.id}</div>
+                        {value.id}
                       </div>
                     ) : (
                       <div className="flex gap-3 pt-3">
-                        <div>{value.id}</div>
+                        {value.id}
                         <Popups
                           trigger={
                             <Avatars
@@ -473,12 +473,12 @@ function PiazzaScreenView({
                             />
                           }
                           title={
-                            <div>
+                            <>
                               <div className="flex justify-center">
                                 {user?.displayName}
                               </div>
                               {user?.displayName !== displayedName && (
-                                <div>
+                                <>
                                   {languages === 'ko' ? (
                                     <div>({displayedName}에서 개명)</div>
                                   ) : (
@@ -486,9 +486,9 @@ function PiazzaScreenView({
                                       (Changed name from {displayedName})
                                     </div>
                                   )}
-                                </div>
+                                </>
                               )}{' '}
-                            </div>
+                            </>
                           }
                           content={
                             <PiazzaDialogsContent
@@ -500,7 +500,7 @@ function PiazzaScreenView({
                       </div>
                     )}
                   </div>
-                </div>
+                </>
               )}
               {value.userUid !== profile?.uid ? (
                 <div className="flex gap-3 justify-start">
