@@ -29,10 +29,10 @@ const PiazzaScreenViewClock = ({ value }) => {
   // if (index > 0) {
   //   previousUid = messagesArray[index - 1].userUid
   // }
-  if (index < messagesArray.length - 1) {
-    if (messagesArray[index + 1].userUid === profile?.uid) {
-    }
-  }
+  // if (index < messagesArray.length - 1) {
+  //   if (messagesArray[index + 1].userUid === profile?.uid) {
+  //   }
+  // }
   let messageHours = clock.getHours()
   const messageMonth = (clock.getMonth() + 1 < 10 ? '0':'')+(clock.getMonth() + 1).toString()
   const messageDate = (clock.getDate()<10 ? '0':'') + clock.getDate().toString()
