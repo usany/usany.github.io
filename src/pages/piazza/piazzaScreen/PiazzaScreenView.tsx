@@ -20,19 +20,6 @@ import PiazzaDialogsContent from './piazzaDialogs/PiazzaDialogsContent'
 const PiazzaScreenViewClock = ({ value }) => {
   const languages = useSelectors((state) => state.languages.value)
   const clock = new Date(value.messageClock)
-  // if (value.userUid === profile?.uid) {
-  //   userDirection = 'text-right'
-  // } else {
-  //   userDirection = 'text-left'
-  // }
-  // const previousUid = index > 0 ? messagesArray[index - 1].userUid : ''
-  // if (index > 0) {
-  //   previousUid = messagesArray[index - 1].userUid
-  // }
-  // if (index < messagesArray.length - 1) {
-  //   if (messagesArray[index + 1].userUid === profile?.uid) {
-  //   }
-  // }
   let messageHours = clock.getHours()
   const messageMonth = (clock.getMonth() + 1 < 10 ? '0':'')+(clock.getMonth() + 1).toString()
   const messageDate = (clock.getDate()<10 ? '0':'') + clock.getDate().toString()
@@ -186,7 +173,6 @@ function PiazzaScreenView({
 
   useEffect(() => {
     scrollToBottom()
-
     const checkMessage = async () => {
       if (conversation === 'piazza') {
         const piazzaRef = collection(dbservice, 'chats_group')
@@ -406,10 +392,10 @@ function PiazzaScreenView({
           }
           const userDirection = value.userUid === profile?.uid ? 'text-right' : 'text-left'
           const previousUid = index > 0 ? messagesArray[index - 1].userUid : ''
-          if (index < messagesArray.length - 1) {
-            if (messagesArray[index + 1].userUid === profile?.uid) {
-            }
-          }
+          // if (index < messagesArray.length - 1) {
+          //   if (messagesArray[index + 1].userUid === profile?.uid) {
+          //   }
+          // }
           return (
             <li
               key={index}
