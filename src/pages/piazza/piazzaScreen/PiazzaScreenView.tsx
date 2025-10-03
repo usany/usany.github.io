@@ -435,15 +435,15 @@ function PiazzaScreenView({
                                 {user?.displayName}
                               </div>
                               {user?.displayName !== displayedName && (
-                                <div>
+                                <>
                                   {languages === 'ko' ? (
-                                    <div>({displayedName}에서 개명)</div>
+                                    <>({displayedName}에서 개명)</>
                                   ) : (
-                                    <div>
+                                    <>
                                       (Changed name from {displayedName})
-                                    </div>
+                                    </>
                                   )}
-                                </div>
+                                </>
                               )}
                             </>
                           }
