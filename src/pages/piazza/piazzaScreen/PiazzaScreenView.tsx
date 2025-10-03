@@ -17,6 +17,7 @@ import Popups from 'src/pages/core/Popups'
 import { webSocket } from 'src/webSocket.tsx'
 import PiazzaDialogsContent from './piazzaDialogs/PiazzaDialogsContent'
 import PiazzaDialogsTitle from './PiazzaDialogsTitle'
+import PiazzaScreenClock from './PiazzaScreenClock'
 
 const PiazzaScreenViewClock = ({ value }) => {
   const languages = useSelectors((state) => state.languages.value)
@@ -442,11 +443,11 @@ function PiazzaScreenView({
                   <div className="other rounded-tr-lg rounded-bl-lg rounded-br-lg p-1 bg-light-1 dark:bg-dark-1">
                     {value.msg}
                   </div>
-                  <PiazzaScreenViewClock value={value}/>
+                  <PiazzaScreenClock value={value}/>
                 </div>
               ) : (
                 <div className="flex gap-3 justify-end">
-                  <PiazzaScreenViewClock value={value}/>
+                  <PiazzaScreenClock value={value}/>
                   <div className="me rounded-tl-lg rounded-bl-lg rounded-br-lg p-1 bg-light-1 dark:bg-dark-1">
                     {value.msg}
                   </div>
