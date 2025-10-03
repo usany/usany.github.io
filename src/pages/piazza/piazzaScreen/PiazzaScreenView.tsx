@@ -108,6 +108,7 @@ function PiazzaScreenView({
     const userRef = doc(dbservice, `members/${userUid}`)
     const userDoc = await getDoc(userRef)
     const userElement = userDoc.data()
+    console.log(userElement)
     setUser(userElement)
     setDisplayedName(displayName)
     // onPrivate({ userUid: userUid, displayName: displayName })
@@ -361,7 +362,7 @@ function PiazzaScreenView({
     handleMessagesList([])
   }
   return (
-    <div ref={boxRef} className=>
+    <div ref={boxRef} className='p-1 border-t rounded-xl overflow-auto'>
       <ul>
         {isLoading && (
           <div className="flex justify-center bg-light-2 dark:bg-dark-2 rounded">
@@ -414,16 +415,21 @@ function PiazzaScreenView({
                     <div className="flex gap-3 pt-3">
                       <Popups
                         trigger={
-                          <Avatars
-                            element={passingValue}
-                            piazza={() =>
-                              onDrawer({
-                                userUid: passingValue.userUid,
-                                displayName: passingValue.id,
-                              })
-                            }
-                            profile={false}
-                          />
+                          <button onClick={() => onDrawer({
+                            userUid: passingValue.userUid,
+                            displayName: passingValue.id,
+                          })}>
+                            <Avatars
+                              element={passingValue}
+                              piazza={() =>
+                                onDrawer({
+                                  userUid: passingValue.userUid,
+                                  displayName: passingValue.id,
+                                })
+                              }
+                              profile={false}
+                            />
+                          </button>
                         }
                         title={
                           <PiazzaDialogsTitle user={user} displayedName={displayedName}/>
@@ -442,16 +448,21 @@ function PiazzaScreenView({
                       {value.id}
                       <Popups
                         trigger={
-                          <Avatars
-                            element={passingValue}
-                            piazza={() =>
-                              onDrawer({
-                                userUid: passingValue.userUid,
-                                displayName: passingValue.id,
-                              })
-                            }
-                            profile={false}
-                          />
+                          <button onClick={() => onDrawer({
+                            userUid: passingValue.userUid,
+                            displayName: passingValue.id,
+                          })}>
+                            <Avatars
+                              element={passingValue}
+                              piazza={() =>
+                                onDrawer({
+                                  userUid: passingValue.userUid,
+                                  displayName: passingValue.id,
+                                })
+                              }
+                              profile={false}
+                            />
+                          </button>
                         }
                         title={
                           <PiazzaDialogsTitle user={user} displayedName={displayedName}/>
