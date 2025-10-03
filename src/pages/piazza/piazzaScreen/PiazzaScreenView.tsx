@@ -95,14 +95,6 @@ function PiazzaScreenView({
     }
   }, [conversation])
   const {loading} = useTexts()
-  // const languages = useSelectors((state) => state.languages.value)
-  // const onPrivate = async ({ userUid, displayName }) => {
-  //   const userRef = doc(dbservice, `members/${userUid}`)
-  //   const userDoc = await getDoc(userRef)
-  //   const userElement = userDoc.data()
-  //   setUser(userElement)
-  //   setDisplayedName(displayName)
-  // }
   const onDrawer = async ({ userUid, displayName }) => {
     document.getElementById('drawer')?.click()
     const userRef = doc(dbservice, `members/${userUid}`)
@@ -111,7 +103,6 @@ function PiazzaScreenView({
     console.log(userElement)
     setUser(userElement)
     setDisplayedName(displayName)
-    // onPrivate({ userUid: userUid, displayName: displayName })
   }
   const scrollNumber = 20
   useEffect(() => {
