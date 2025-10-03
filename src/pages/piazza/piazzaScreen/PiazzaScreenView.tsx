@@ -17,7 +17,7 @@ import Popups from 'src/pages/core/Popups'
 import { webSocket } from 'src/webSocket.tsx'
 import PiazzaDialogsContent from './piazzaDialogs/PiazzaDialogsContent'
 
-const PiazzaDialogsTitle = () => {
+const PiazzaDialogsTitle = ({user, displayedName}) => {
   const languages = useSelectors((state) => state.languages.value)
   return (
     <>
@@ -430,6 +430,7 @@ function PiazzaScreenView({
                           }
                           title={
                             <>
+                              <PiazzaDialogsTitle user={user} displayedName={displayedName}/>
                               <div className="flex justify-center">
                                 {user?.displayName}
                               </div>
@@ -473,6 +474,7 @@ function PiazzaScreenView({
                           }
                           title={
                             <>
+                              <PiazzaDialogsTitle user={user} displayedName={displayedName}/>
                               <div className="flex justify-center">
                                 {user?.displayName}
                               </div>
