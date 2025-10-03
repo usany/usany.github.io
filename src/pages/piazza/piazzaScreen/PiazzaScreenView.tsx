@@ -411,27 +411,6 @@ function PiazzaScreenView({
             if (messagesArray[index + 1].userUid === profile?.uid) {
             }
           }
-          // let messageHours = clock.getHours()
-          // const messageMonth = (clock.getMonth() + 1 < 10 ? '0':'')+(clock.getMonth() + 1).toString()
-          // const messageDate = (clock.getDate()<10 ? '0':'') + clock.getDate().toString()
-          // const messageAmpm = messageHours >= 13 ? '오후' : '오전'
-          // if (messageHours >= 13) {
-          //   messageAmpm = '오후'
-          //   if (messageHours !== 12) {
-          //     messageHours = messageHours - 12
-          //   }
-          // } else {
-          //   messageAmpm = '오전'
-          //   if (messageHours === 0) {
-          //     messageHours = messageHours + 12
-          //   }
-          // }
-          // if (clock.getMonth() + 1 < 10) {
-          //   messageMonth = '0' + messageMonth
-          // }
-          // if (messageDate.length === 1) {
-          //   messageDate = '0' + messageDate
-          // }
           return (
             <li
               key={index}
