@@ -9,13 +9,10 @@ import PiazzaTitle from 'src/pages/piazza/piazzaTitle/PiazzaTitle'
 import type { RootState } from 'src/store'
 import PiazzaMorphingDialogAudioCall from './components/PiazzaMorphingDialogAudioCall'
 import PiazzaMorphingDialogVideoCall from './components/PiazzaMorphingDialogVideoCall'
-// import { useDispatch } from 'react-redux'
-// import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
 
 function Piazza() {
   const [messages, setMessages] = useState('')
   const [messagesList, setMessagesList] = useState<[]>([])
-  // const dispatch = useDispatch()
   const { state } = useLocation() as any
   const [isKeyboardOpen, setIsKeyboardOpen] = useState(false)
   const [chattingUser, setChattingUser] = useState<any>(null)
