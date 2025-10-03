@@ -259,24 +259,12 @@ function PiazzaScreenView({
           setContinueNumber(messages.docs.length - 1)
         }
         const message = document.data().message
-        const userUid = document.data().userUid
         const userName = document.data().userName
-        const messageClock = document.data().messageClock
-        const messageClockNumber = document.data().messageClockNumber
-        const profileImageUrl = document.data()?.profileImageUrl
-        const defaultProfile = document.data()?.defaultProfile
-        const profileImage = document.data()?.profileImage
         const piazzaData = document.data()
         messagesArray.push({
           msg: message,
-          userUid: userUid,
           id: userName,
-          messageClockNumber: messageClockNumber,
-          messageClock: messageClock,
           conversation: null,
-          profileImageUrl: profileImageUrl,
-          defaultProfile: defaultProfile,
-          profileImage: profileImage || false,
           ...piazzaData,
         })
       })
@@ -307,13 +295,7 @@ function PiazzaScreenView({
           setContinueNumber(messages.docs.length - 1)
         }
         const message = doc.data().message
-        const userUid = doc.data().userUid
         const userName = doc.data().userName
-        const messageClock = doc.data().messageClock
-        const messageClockNumber = doc.data().messageClockNumber || 0
-        const profileImageUrl = doc.data()?.profileImageUrl
-        const defaultProfile = doc.data()?.defaultProfile
-        const profileImage = doc.data()?.profileImage
         const piazzaData = doc.data()
         const userOne = doc.data().userOne
         const userOneDisplayName = doc.data().userOneDisplayName
@@ -328,14 +310,8 @@ function PiazzaScreenView({
         }
         messagesArray.push({
           msg: message,
-          userUid: userUid,
           id: userName,
-          messageClockNumber: messageClockNumber,
-          messageClock: messageClock,
           conversation: null,
-          profileImageUrl: profileImageUrl,
-          defaultProfile: defaultProfile,
-          profileImage: profileImage || false,
           ...piazzaData,
         })
       })
