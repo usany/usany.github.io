@@ -482,7 +482,7 @@ function PiazzaScreenView({
                                     </>
                                   )}
                                 </>
-                              )}{' '}
+                              )}
                             </>
                           }
                           content={
