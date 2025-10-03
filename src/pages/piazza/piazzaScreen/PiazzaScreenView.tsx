@@ -105,9 +105,14 @@ function PiazzaScreenView({
     setUser(userElement)
     setDisplayedName(displayName)
   }
-  const onDrawer = ({ userUid, displayName }) => {
+  const onDrawer = async ({ userUid, displayName }) => {
     document.getElementById('drawer')?.click()
-    onPrivate({ userUid: userUid, displayName: displayName })
+    const userRef = doc(dbservice, `members/${userUid}`)
+    const userDoc = await getDoc(userRef)
+    const userElement = userDoc.data()
+    setUser(userElement)
+    setDisplayedName(displayName)
+    // onPrivate({ userUid: userUid, displayName: displayName })
   }
   const scrollNumber = 20
   useEffect(() => {
@@ -417,6 +422,7 @@ function PiazzaScreenView({
           //   if (messagesArray[index + 1].userUid === profile?.uid) {
           //   }
           // }
+          console.log(passingValue)
           return (
             <li
               key={index}
