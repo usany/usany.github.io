@@ -73,9 +73,9 @@ function Piazza() {
     }
   }, [isKeyboardOpen])
 
-  useEffect(() => {
-    dispatch(changeBottomNavigation(5))
-  })
+  // useEffect(() => {
+  //   dispatch(changeBottomNavigation(5))
+  // })
   useEffect(() => {
     if (searchParams.get('call') === 'video') {
       document.getElementById('videoCall')?.click()
