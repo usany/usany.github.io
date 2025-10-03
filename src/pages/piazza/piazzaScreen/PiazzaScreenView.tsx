@@ -159,11 +159,11 @@ function PiazzaScreenView({
         target,
         messageClock,
         messageClockNumber,
-        conversation,
         profileImageUrl,
         defaultProfile,
         profileImage,
         piazzaData,
+        conversation,
       } = message
       handleMessagesList((prev) => [
         ...prev,
