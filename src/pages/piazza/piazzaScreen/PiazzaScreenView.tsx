@@ -372,10 +372,10 @@ function PiazzaScreenView({
           // } else {
           //   userDirection = 'text-left'
           // }
-          let previousUid
-          if (index > 0) {
-            previousUid = messagesArray[index - 1].userUid
-          }
+          const previousUid = index > 0 ? messagesArray[index - 1].userUid : ''
+          // if (index > 0) {
+          //   previousUid = messagesArray[index - 1].userUid
+          // }
           if (index < messagesArray.length - 1) {
             if (messagesArray[index + 1].userUid === profile?.uid) {
             }
