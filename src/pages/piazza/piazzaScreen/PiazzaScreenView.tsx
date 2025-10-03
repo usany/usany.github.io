@@ -388,7 +388,6 @@ function PiazzaScreenView({
           }
           const userDirection = value.userUid === profile?.uid ? 'text-right' : 'text-left'
           const previousUid = index > 0 ? messagesArray[index - 1].userUid : ''
-          console.log(passingValue)
           return (
             <li
               key={index}
