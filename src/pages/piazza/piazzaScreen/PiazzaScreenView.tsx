@@ -27,11 +27,9 @@ const PiazzaDialogsTitle = ({user, displayedName}) => {
       {user?.displayName !== displayedName && (
         <>
           {languages === 'ko' ? (
-            <>({displayedName}에서 개명)</>
+            `(${displayedName}에서 개명)`
           ) : (
-            <>
-              (Changed name from {displayedName})
-            </>
+            `(Changed name from ${displayedName})`
           )}
         </>
       )}
