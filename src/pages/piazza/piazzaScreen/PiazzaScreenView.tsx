@@ -258,9 +258,14 @@ function PiazzaScreenView({
           setContinuing(document)
           setContinueNumber(messages.docs.length - 1)
         }
-        const message = document.data().message
-        const userName = document.data().userName
+        // const message = document.data().message
+        // const userName = document.data().userName
         const piazzaData = document.data()
+        const {
+          message,
+          userName,
+        } = piazzaData
+
         messagesArray.push({
           msg: message,
           id: userName,
