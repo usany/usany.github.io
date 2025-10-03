@@ -407,69 +407,67 @@ function PiazzaScreenView({
               className={userDirection}
             >
               {previousUid !== value.userUid && (
-                <>
-                  <div
-                    className={`flex justify-${
-                      value.userUid !== profile?.uid ? 'start' : 'end'
-                    }`}
-                  >
-                    {userDirection === 'text-left' ? (
-                      <div className="flex gap-3 pt-3">
-                        <Popups
-                          trigger={
-                            <Avatars
-                              element={passingValue}
-                              piazza={() =>
-                                onDrawer({
-                                  userUid: passingValue.userUid,
-                                  displayName: passingValue.id,
-                                })
-                              }
-                              profile={false}
-                            />
-                          }
-                          title={
-                            <PiazzaDialogsTitle user={user} displayedName={displayedName}/>
-                          }
-                          content={
-                            <PiazzaDialogsContent
-                              initiateContinuing={initiateContinuing}
-                              user={user}
-                            />
-                          }
-                        />
-                        {value.id}
-                      </div>
-                    ) : (
-                      <div className="flex gap-3 pt-3">
-                        {value.id}
-                        <Popups
-                          trigger={
-                            <Avatars
-                              element={passingValue}
-                              piazza={() =>
-                                onDrawer({
-                                  userUid: passingValue.userUid,
-                                  displayName: passingValue.id,
-                                })
-                              }
-                              profile={false}
-                            />
-                          }
-                          title={
-                            <PiazzaDialogsTitle user={user} displayedName={displayedName}/>
-                          }
-                          content={
-                            <PiazzaDialogsContent
-                              initiateContinuing={initiateContinuing}
-                              user={user}
-                            />
-                          }
-                        />
-                      </div>
-                    )}
-                  </div>
-                </>
+                <div
+                  className={`flex justify-${
+                    value.userUid !== profile?.uid ? 'start' : 'end'
+                  }`}
+                >
+                  {userDirection === 'text-left' ? (
+                    <div className="flex gap-3 pt-3">
+                      <Popups
+                        trigger={
+                          <Avatars
+                            element={passingValue}
+                            piazza={() =>
+                              onDrawer({
+                                userUid: passingValue.userUid,
+                                displayName: passingValue.id,
+                              })
+                            }
+                            profile={false}
+                          />
+                        }
+                        title={
+                          <PiazzaDialogsTitle user={user} displayedName={displayedName}/>
+                        }
+                        content={
+                          <PiazzaDialogsContent
+                            initiateContinuing={initiateContinuing}
+                            user={user}
+                          />
+                        }
+                      />
+                      {value.id}
+                    </div>
+                  ) : (
+                    <div className="flex gap-3 pt-3">
+                      {value.id}
+                      <Popups
+                        trigger={
+                          <Avatars
+                            element={passingValue}
+                            piazza={() =>
+                              onDrawer({
+                                userUid: passingValue.userUid,
+                                displayName: passingValue.id,
+                              })
+                            }
+                            profile={false}
+                          />
+                        }
+                        title={
+                          <PiazzaDialogsTitle user={user} displayedName={displayedName}/>
+                        }
+                        content={
+                          <PiazzaDialogsContent
+                            initiateContinuing={initiateContinuing}
+                            user={user}
+                          />
+                        }
+                      />
+                    </div>
+                  )}
+                </div>
               )}
               {userDirection === 'text-left' ? (
                 <div className="flex gap-3 justify-start">
