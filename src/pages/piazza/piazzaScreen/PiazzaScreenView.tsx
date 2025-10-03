@@ -17,6 +17,27 @@ import Popups from 'src/pages/core/Popups'
 import { webSocket } from 'src/webSocket.tsx'
 import PiazzaDialogsContent from './piazzaDialogs/PiazzaDialogsContent'
 
+const PiazzaDialogsTitle = () => {
+  const languages = useSelectors((state) => state.languages.value)
+  return (
+    <>
+      <div className="flex justify-center">
+        {user?.displayName}
+      </div>
+      {user?.displayName !== displayedName && (
+        <>
+          {languages === 'ko' ? (
+            <>({displayedName}에서 개명)</>
+          ) : (
+            <>
+              (Changed name from {displayedName})
+            </>
+          )}
+        </>
+      )}
+    </>
+  )
+}
 const PiazzaScreenViewClock = ({ value }) => {
   const languages = useSelectors((state) => state.languages.value)
   const clock = new Date(value.messageClock)
@@ -497,7 +518,7 @@ function PiazzaScreenView({
                   </div>
                 </>
               )}
-              {value.userUid !== profile?.uid ? (
+              {userDirection === 'text-left' ? (
                 <div className="flex gap-3 justify-start">
                   <div className="other rounded-tr-lg rounded-bl-lg rounded-br-lg p-1 bg-light-1 dark:bg-dark-1">
                     {value.msg}
