@@ -11,7 +11,7 @@ import {
 } from 'firebase/firestore'
 import { useEffect, useRef, useState } from 'react'
 import { dbservice } from 'src/baseApi/serverbase'
-import { useSelectors } from 'src/hooks'
+import { useSelectors, useTexts } from 'src/hooks'
 import Avatars from 'src/pages/core/Avatars'
 import Popups from 'src/pages/core/Popups'
 import { webSocket } from 'src/webSocket.tsx'
@@ -49,6 +49,7 @@ function PiazzaScreenView({
     }
   }, [conversation])
   const languages = useSelectors((state) => state.languages.value)
+  const {loading} = useTexts()
   const onPrivate = async ({ userUid, displayName }) => {
     const userRef = doc(dbservice, `members/${userUid}`)
     const userDoc = await getDoc(userRef)
@@ -334,7 +335,7 @@ function PiazzaScreenView({
       <ul>
         {isLoading && (
           <div className="flex justify-center bg-light-2 dark:bg-dark-2 rounded">
-            로딩
+            {loading}
           </div>
         )}
         {messagesArray.map((value, index) => {
@@ -364,13 +365,13 @@ function PiazzaScreenView({
               }
             }
           }
-          let userDirection
+          const userDirection = value.userUid === profile?.uid ? 'text-right' : 'text-left'
           const clock = new Date(value.messageClock)
-          if (value.userUid === profile?.uid) {
-            userDirection = 'text-right'
-          } else {
-            userDirection = 'text-left'
-          }
+          // if (value.userUid === profile?.uid) {
+          //   userDirection = 'text-right'
+          // } else {
+          //   userDirection = 'text-left'
+          // }
           let previousUid
           if (index > 0) {
             previousUid = messagesArray[index - 1].userUid
