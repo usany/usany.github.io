@@ -100,7 +100,6 @@ function PiazzaScreenView({
     const userRef = doc(dbservice, `members/${userUid}`)
     const userDoc = await getDoc(userRef)
     const userElement = userDoc.data()
-    console.log(userElement)
     setUser(userElement)
     setDisplayedName(displayName)
   }
