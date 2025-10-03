@@ -335,7 +335,6 @@ function PiazzaScreenView({
       )
       setIsLoading(false)
     }
-    // console.log(messagesList.length)
     if (conversation === 'piazza') {
       if (isLoading || (!messagesList.length && navigator.onLine)) {
         messageList()
