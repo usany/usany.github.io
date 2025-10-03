@@ -380,10 +380,10 @@ function PiazzaScreenView({
             if (messagesArray[index + 1].userUid === profile?.uid) {
             }
           }
-          const messageAmpm = messageHours >= 13 ? '오후' : '오전'
           let messageHours = clock.getHours()
           let messageMonth = (clock.getMonth() + 1).toString()
           let messageDate = clock.getDate().toString()
+          const messageAmpm = messageHours >= 13 ? '오후' : '오전'
           if (messageHours >= 13) {
             // messageAmpm = '오후'
             if (messageHours !== 12) {
