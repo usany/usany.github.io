@@ -421,12 +421,6 @@ function PiazzaScreenView({
                           })}>
                             <Avatars
                               element={passingValue}
-                              piazza={() =>
-                                onDrawer({
-                                  userUid: passingValue.userUid,
-                                  displayName: passingValue.id,
-                                })
-                              }
                               profile={false}
                             />
                           </button>
@@ -454,12 +448,6 @@ function PiazzaScreenView({
                           })}>
                             <Avatars
                               element={passingValue}
-                              piazza={() =>
-                                onDrawer({
-                                  userUid: passingValue.userUid,
-                                  displayName: passingValue.id,
-                                })
-                              }
                               profile={false}
                             />
                           </button>
