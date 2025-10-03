@@ -294,13 +294,15 @@ function PiazzaScreenView({
           setContinuing(doc)
           setContinueNumber(messages.docs.length - 1)
         }
-        const message = doc.data().message
-        const userName = doc.data().userName
         const piazzaData = doc.data()
-        const userOne = doc.data().userOne
-        const userOneDisplayName = doc.data().userOneDisplayName
-        const userTwo = doc.data().userTwo
-        const userTwoDisplayName = doc.data().userTwoDisplayName
+        const {
+          message,
+          userName,
+          userOne,
+          userOneDisplayName,
+          userTwo,
+          userTwoDisplayName
+        } = piazzaData
         if (userOne !== profile?.uid) {
           handleChatUid(userOne)
           handleChatDisplayName(userOneDisplayName)
