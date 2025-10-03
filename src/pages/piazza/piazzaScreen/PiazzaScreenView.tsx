@@ -429,23 +429,23 @@ function PiazzaScreenView({
                             />
                           }
                           title={
-                            <>
-                              <PiazzaDialogsTitle user={user} displayedName={displayedName}/>
-                              {/* <div className="flex justify-center">
-                                {user?.displayName}
-                              </div>
-                              {user?.displayName !== displayedName && (
-                                <>
-                                  {languages === 'ko' ? (
-                                    <>({displayedName}에서 개명)</>
-                                  ) : (
-                                    <>
-                                      (Changed name from {displayedName})
-                                    </>
-                                  )}
-                                </>
-                              )} */}
-                            </>
+                            <PiazzaDialogsTitle user={user} displayedName={displayedName}/>
+                            // <>
+                            //   <div className="flex justify-center">
+                            //     {user?.displayName}
+                            //   </div>
+                            //   {user?.displayName !== displayedName && (
+                            //     <>
+                            //       {languages === 'ko' ? (
+                            //         <>({displayedName}에서 개명)</>
+                            //       ) : (
+                            //         <>
+                            //           (Changed name from {displayedName})
+                            //         </>
+                            //       )}
+                            //     </>
+                            //   )}
+                            // </>
                           }
                           content={
                             <PiazzaDialogsContent
@@ -473,23 +473,23 @@ function PiazzaScreenView({
                             />
                           }
                           title={
-                            <>
-                              <PiazzaDialogsTitle user={user} displayedName={displayedName}/>
-                              {/* <div className="flex justify-center">
-                                {user?.displayName}
-                              </div>
-                              {user?.displayName !== displayedName && (
-                                <>
-                                  {languages === 'ko' ? (
-                                    <>({displayedName}에서 개명)</>
-                                  ) : (
-                                    <>
-                                      (Changed name from {displayedName})
-                                    </>
-                                  )}
-                                </>
-                              )} */}
-                            </>
+                            <PiazzaDialogsTitle user={user} displayedName={displayedName}/>
+                            // <>
+                            //   <div className="flex justify-center">
+                            //     {user?.displayName}
+                            //   </div>
+                            //   {user?.displayName !== displayedName && (
+                            //     <>
+                            //       {languages === 'ko' ? (
+                            //         <>({displayedName}에서 개명)</>
+                            //       ) : (
+                            //         <>
+                            //           (Changed name from {displayedName})
+                            //         </>
+                            //       )}
+                            //     </>
+                            //   )}
+                            // </>
                           }
                           content={
                             <PiazzaDialogsContent
