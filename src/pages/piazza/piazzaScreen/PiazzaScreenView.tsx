@@ -25,7 +25,7 @@ const PiazzaScreenViewClock = ({ value }) => {
   // } else {
   //   userDirection = 'text-left'
   // }
-  const previousUid = index > 0 ? messagesArray[index - 1].userUid : ''
+  // const previousUid = index > 0 ? messagesArray[index - 1].userUid : ''
   // if (index > 0) {
   //   previousUid = messagesArray[index - 1].userUid
   // }
@@ -555,25 +555,11 @@ function PiazzaScreenView({
                   <div className="other rounded-tr-lg rounded-bl-lg rounded-br-lg p-1 bg-light-1 dark:bg-dark-1">
                     {value.msg}
                   </div>
-                  <div>
-                    {clock.getFullYear()}-{messageMonth}-{messageDate}{' '}
-                    {languages === 'ko' && messageAmpm} {messageHours}:
-                    {clock.getMinutes() < 10 && '0'}
-                    {clock.getMinutes()}
-                    {languages === 'en' &&
-                      (messageAmpm === '오전' ? 'am' : 'pm')}
-                  </div>
+                  <PiazzaScreenViewClock value={value}/>
                 </div>
               ) : (
                 <div className="flex gap-3 justify-end">
-                  <div>
-                    {clock.getFullYear()}-{messageMonth}-{messageDate}{' '}
-                    {languages === 'ko' && messageAmpm} {messageHours}:
-                    {clock.getMinutes() < 10 && '0'}
-                    {clock.getMinutes()}
-                    {languages === 'en' &&
-                      (messageAmpm === '오전' ? 'am' : 'pm')}
-                  </div>
+                  <PiazzaScreenViewClock value={value}/>
                   <div className="me rounded-tl-lg rounded-bl-lg rounded-br-lg p-1 bg-light-1 dark:bg-dark-1">
                     {value.msg}
                   </div>
