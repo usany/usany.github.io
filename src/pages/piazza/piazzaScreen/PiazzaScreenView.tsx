@@ -361,7 +361,7 @@ function PiazzaScreenView({
     handleMessagesList([])
   }
   return (
-    <div ref={boxRef} className={`p-1 border-t rounded-xl overflow-auto`}>
+    <div ref={boxRef} className=>
       <ul>
         {isLoading && (
           <div className="flex justify-center bg-light-2 dark:bg-dark-2 rounded">
