@@ -382,7 +382,7 @@ function PiazzaScreenView({
           }
           let messageHours = clock.getHours()
           let messageMonth = (clock.getMonth() + 1).toString()
-          const messageDate = clock.getDate()%10 === 0 ? '0':''+ clock.getDate().toString()
+          const messageDate = (clock.getDate()<10 ? '0':'') + clock.getDate().toString()
           const messageAmpm = messageHours >= 13 ? '오후' : '오전'
           if (messageHours >= 13) {
             // messageAmpm = '오후'
