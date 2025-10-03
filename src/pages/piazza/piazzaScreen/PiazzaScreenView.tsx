@@ -17,6 +17,54 @@ import Popups from 'src/pages/core/Popups'
 import { webSocket } from 'src/webSocket.tsx'
 import PiazzaDialogsContent from './piazzaDialogs/PiazzaDialogsContent'
 
+const PiazzaScreenViewClock = ({ value }) => {
+  const languages = useSelectors((state) => state.languages.value)
+  const clock = new Date(value.messageClock)
+  // if (value.userUid === profile?.uid) {
+  //   userDirection = 'text-right'
+  // } else {
+  //   userDirection = 'text-left'
+  // }
+  const previousUid = index > 0 ? messagesArray[index - 1].userUid : ''
+  // if (index > 0) {
+  //   previousUid = messagesArray[index - 1].userUid
+  // }
+  if (index < messagesArray.length - 1) {
+    if (messagesArray[index + 1].userUid === profile?.uid) {
+    }
+  }
+  let messageHours = clock.getHours()
+  const messageMonth = (clock.getMonth() + 1 < 10 ? '0':'')+(clock.getMonth() + 1).toString()
+  const messageDate = (clock.getDate()<10 ? '0':'') + clock.getDate().toString()
+  const messageAmpm = messageHours >= 13 ? '오후' : '오전'
+  if (messageHours >= 13) {
+    // messageAmpm = '오후'
+    if (messageHours !== 12) {
+      messageHours = messageHours - 12
+    }
+  } else {
+    // messageAmpm = '오전'
+    if (messageHours === 0) {
+      messageHours = messageHours + 12
+    }
+  }
+  // if (clock.getMonth() + 1 < 10) {
+  //   messageMonth = '0' + messageMonth
+  // }
+  // if (messageDate.length === 1) {
+  //   messageDate = '0' + messageDate
+  // }
+  return (
+    <div>
+      {clock.getFullYear()}-{messageMonth}-{messageDate}{' '}
+      {languages === 'ko' && messageAmpm} {messageHours}:
+      {clock.getMinutes() < 10 && '0'}
+      {clock.getMinutes()}
+      {languages === 'en' &&
+        (messageAmpm === '오전' ? 'am' : 'pm')}
+    </div>
+  )
+}
 interface Props {
   messagesList: []
   handleMessagesList: (newValue: []) => void
@@ -295,7 +343,7 @@ function PiazzaScreenView({
       )
       setIsLoading(false)
     }
-    console.log(messagesList.length)
+    // console.log(messagesList.length)
     if (conversation === 'piazza') {
       if (isLoading || (!messagesList.length && navigator.onLine)) {
         messageList()
