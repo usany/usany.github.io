@@ -13,19 +13,17 @@ export const DefaultButtons = ({ label, ...props }: ButtonProps) => {
   const theme = useTheme()
   const bgcolor = theme.palette.mode === 'light' ? '#e2e8f0' : '#2d3848'
   return (
-    <>
-      <Button
-        variant="outlined"
-        sx={{
+    <Button
+      variant="outlined"
+      sx={{
+        bgcolor: bgcolor,
+        ':hover': {
           bgcolor: bgcolor,
-          ':hover': {
-            bgcolor: bgcolor,
-          },
-        }}
-        {...props}
-      >
-        {label}
-      </Button>
-    </>
+        },
+      }}
+      {...props}
+    >
+      {label}
+    </Button>
   )
 }
