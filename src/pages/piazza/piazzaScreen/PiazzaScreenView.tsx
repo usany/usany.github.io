@@ -359,7 +359,7 @@ function PiazzaScreen({
   return (
     <div className={`fixed w-screen bg-light-3 dark:bg-dark-3 flex flex-col ${isKeyboardOpen ? 'bottom-[50px] h-full pt-[120px]' : 'bottom-[110px] h-[60%]'}`}>
       <div ref={boxRef} className='p-1 border-t rounded-xl overflow-auto'>
-        <ul>
+        {/* <ul>
           {isLoading && (
             <div className="flex justify-center bg-light-2 dark:bg-dark-2 rounded">
               {loading}
@@ -480,7 +480,7 @@ function PiazzaScreen({
             )
           })}
           <li ref={messagesEndRef} />
-        </ul>
+        </ul> */}
       </div>
     </div>
   )

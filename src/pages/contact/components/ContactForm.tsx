@@ -4,11 +4,9 @@ import { addDoc, collection, doc, DocumentData, getDoc } from 'firebase/firestor
 import { useEffect, useState } from 'react'
 import { dbservice } from 'src/baseApi/serverbase'
 import { useSelectors, useTexts } from 'src/hooks'
-import {
-  ContactAddress,
-  ContactFormDrawers,
-  ContactDrawers
-} from './'
+import ContactAddress from './ContactAddress'
+import ContactFormDrawers from './ContactFormDrawers'
+import ContactDrawers from './ContactDrawers'
 import { useSearchParams } from 'react-router-dom'
 
 function ContactForm() {
