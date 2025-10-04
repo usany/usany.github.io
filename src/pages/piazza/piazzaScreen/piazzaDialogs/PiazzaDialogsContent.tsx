@@ -1,7 +1,8 @@
 import Button from '@mui/material/Button'
 import { Link, useLocation } from 'react-router-dom'
 import { DrawerClose } from '@/components/ui/drawer'
-import { useSelectors, useTexts } from 'src/hooks'
+import useSelectors from 'src/hooks/useSelectors'
+import useTexts from 'src/hooks/useTexts'
 import Avatars from 'src/pages/core/Avatars'
 
 const PiazzaDialogsContent = ({

@@ -1,4 +1,5 @@
-// import { useSelectors, useTexts } from 'src/hooks'
+// import useSelectors from 'src/hooks/useSelectors'
+import useTexts from 'src/hooks/useTexts'
 // import { useLocation } from 'react-router-dom'
 
 // const ProfileCompaniesTitle = ({

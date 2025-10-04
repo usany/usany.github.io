@@ -1,6 +1,7 @@
 import { Card } from "@mui/material";
 import useCardsBackground from "src/hooks/useCardsBackground";
-import { useSelectors, useTexts } from "src/hooks";
+import useSelectors from 'src/hooks/useSelectors'
+import useTexts from 'src/hooks/useTexts';
 
 interface Props {
   isPassword: boolean

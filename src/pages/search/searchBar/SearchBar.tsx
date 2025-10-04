@@ -1,7 +1,8 @@
 import TextField from '@mui/material/TextField';
 import { useSearchParams } from 'react-router-dom';
 import useCardsBackground from 'src/hooks/useCardsBackground';
-import { useSelectors, useTexts } from 'src/hooks';
+import useSelectors from 'src/hooks/useSelectors'
+import useTexts from 'src/hooks/useTexts';
 
 function SearchBar() {
   const [searchParams, setSearchParams] = useSearchParams()

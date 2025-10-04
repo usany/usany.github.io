@@ -2,7 +2,8 @@ import Button from '@mui/material/Button'
 import { Link } from 'react-router-dom'
 import { DrawerClose } from '@/components/ui/drawer'
 import Avatars from 'src/pages/core/Avatars'
-import { useSelectors, useTexts } from 'src/hooks'
+import useSelectors from 'src/hooks/useSelectors'
+import useTexts from 'src/hooks/useTexts'
 import { DocumentData } from 'firebase/firestore'
 
 interface Props {

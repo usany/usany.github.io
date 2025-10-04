@@ -1,5 +1,6 @@
 import Popups from "../../core/Popups";
-import { useSelectors, useTexts } from 'src/hooks';
+import useSelectors from 'src/hooks/useSelectors'
+import useTexts from 'src/hooks/useTexts';
 import ContactDrawersContent from "./ContactDrawersContent";
 import ContactDrawersTrigger from "./ContactDrawersTrigger";
 

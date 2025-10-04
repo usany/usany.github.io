@@ -1,6 +1,7 @@
 import Card from '@mui/material/Card'
 import { Link, useLocation } from 'react-router-dom'
-import { useSelectors, useTexts } from 'src/hooks'
+import useSelectors from 'src/hooks/useSelectors'
+import useTexts from 'src/hooks/useTexts'
 import useCardsBackground from '../../hooks/useCardsBackground'
 import Popups from '../core/Popups'
 import ProfileMembersDrawersContent from './ProfileMembersDrawersContent'

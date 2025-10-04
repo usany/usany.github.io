@@ -15,7 +15,8 @@
 // import Popups from 'src/pages/core/Popups'
 // import { webSocket } from 'src/webSocket.tsx'
 // import PiazzaDialogsContent from './piazzaDialogs/PiazzaDialogsContent'
-import { useSelectors, useTexts } from 'src/hooks'
+import useSelectors from 'src/hooks/useSelectors'
+import useTexts from 'src/hooks/useTexts'
 
 const PiazzaScreenClock = ({ value }) => {
   const languages = useSelectors((state) => state.languages.value)
