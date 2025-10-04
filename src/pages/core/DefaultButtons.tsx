@@ -2,14 +2,10 @@ import { Button, useTheme } from '@mui/material'
 
 export interface ButtonProps {
   label: string
-  // mode: PaletteMode
-  // bgcolor: string
-  /** Optional click handler */
   onClick?: () => void
 }
 
-/** Primary UI component for user interaction */
-export const DefaultButtons = ({ label, ...props }: ButtonProps) => {
+export const DefaultButtons = ({ label, onClick, ...props }: ButtonProps) => {
   const theme = useTheme()
   const bgcolor = theme.palette.mode === 'light' ? '#e2e8f0' : '#2d3848'
   return (
@@ -22,6 +18,7 @@ export const DefaultButtons = ({ label, ...props }: ButtonProps) => {
         },
       }}
       {...props}
+      onClick={onClick}
     >
       {label}
     </Button>
