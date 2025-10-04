@@ -21,7 +21,7 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 // More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
-export const defaultButtons: Story = {
+export const defaultButton: Story = {
   args: {}
 }
 // export { DefaultButtons } from 'src/pages/core/DefaultButtons'
