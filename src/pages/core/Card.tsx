@@ -3,6 +3,7 @@ import { Card, useTheme } from '@mui/material'
 export interface Props {
   label: string
   shadowColor: string
+  onClick: () => void
   mode: string
   sxObject: object
   /** Optional click handler */
