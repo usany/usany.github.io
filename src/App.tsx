@@ -1,5 +1,5 @@
 import Lotties from 'src/lottiesAnimation/Lotties'
-import { ThemeProvider } from '@mui/material/styles'
+import ThemeProvider from '@mui/material/styles/ThemeProvider'
 import Router from 'src/pages/core/router/Router'
 import { useNetwork, useSelectors, useUserObject, useColors } from './hooks'
 import 'src/global.css'
@@ -16,11 +16,9 @@ function App() {
   useContextMenu()
   useGetToken()
   return (
-    <>
-      <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
-        {profile !== undefined ? <Router /> : <Lotties />}
-      </ThemeProvider>
-    </>
+    <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
+      {profile !== undefined ? <Router /> : <Lotties />}
+    </ThemeProvider>
   )
 }
 
