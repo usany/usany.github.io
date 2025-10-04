@@ -9,7 +9,7 @@ import PageTitle from 'src/pages/core/pageTitle/PageTitle'
 import AuthButtons from 'src/pages/main/auth/AuthButtons'
 import AuthForm from 'src/pages/main/auth/AuthForm'
 import Motions from 'src/pages/main/auth/Motions'
-import { useTexts } from 'src/hooks'
+import useTexts from 'src/hooks/useTexts'
 import AuthPassword from './AuthPassword'
 import { changeProfile } from 'src/stateSlices/profileSlice'
 

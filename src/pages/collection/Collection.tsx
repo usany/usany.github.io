@@ -12,7 +12,7 @@ import {
   MorphingDialogTrigger,
 } from 'src/components/ui/morphing-dialog'
 import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
-import { useTexts } from 'src/hooks'
+import useTexts from 'src/hooks/useTexts'
 import Avatars from '../core/Avatars'
 import PageTitle from '../core/pageTitle/PageTitle'
 import Popups from '../core/Popups'

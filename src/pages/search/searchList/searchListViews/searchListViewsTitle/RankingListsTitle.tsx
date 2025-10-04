@@ -1,6 +1,6 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { useSearchParams } from 'react-router-dom'
-import { useTexts } from 'src/hooks'
+import useTexts from 'src/hooks/useTexts'
 import useLargeMedia from 'src/hooks/useLargeMedia'
 
 interface Props {

@@ -19,7 +19,7 @@ import Avatars from '../../Avatars'
 import Links from './links/Links'
 import NavigationSignedIn from './navigationSignedIn/NavigationSignedIn'
 import NavigationSignedOut from './navigationSignedOut/NavigationSignedOut'
-import { useTexts } from 'src/hooks'
+import useTexts from 'src/hooks/useTexts'
 import Playlist from '../../Playlist';
 
 function Navigation() {

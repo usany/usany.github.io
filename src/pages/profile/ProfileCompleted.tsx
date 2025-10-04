@@ -6,7 +6,7 @@ import {
 } from '@/components/ui/chart'
 import { useDispatch } from 'react-redux'
 import { Label, Pie, PieChart } from 'recharts'
-import { useTexts } from 'src/hooks'
+import useTexts from 'src/hooks/useTexts'
 import { changeCompletedAction } from 'src/stateSlices/completedActionSlice'
 import Carousels from '../core/specifics/Carousels'
 

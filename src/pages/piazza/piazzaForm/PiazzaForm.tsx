@@ -5,7 +5,7 @@ import { dbservice } from 'src/baseApi/serverbase'
 import { useSelectors } from 'src/hooks'
 import Popups from 'src/pages/core/Popups'
 import { changeNewMessageTrue } from 'src/stateSlices/newMessageSlice'
-import { useTexts } from 'src/hooks'
+import useTexts from 'src/hooks/useTexts'
 import { webSocket } from 'src/webSocket.tsx'
 import PiazzaFormCallsContent from './PiazzaFormCallsContent'
 

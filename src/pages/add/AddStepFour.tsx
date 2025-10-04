@@ -1,4 +1,4 @@
-import { useTexts } from 'src/hooks'
+import useTexts from 'src/hooks/useTexts'
 import AddStepTitle from 'src/pages/add/AddStepTitle'
 
 const AddStepFour = () => {

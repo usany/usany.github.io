@@ -1,5 +1,5 @@
 import { SearchCheck } from 'lucide-react'
-import { useTexts } from 'src/hooks'
+import useTexts from 'src/hooks/useTexts'
 import PageTitle from 'src/pages/core/pageTitle/PageTitle'
 import SearchBar from 'src/pages/search/searchBar/SearchBar'
 import SearchList from 'src/pages/search/searchList/SearchList'
