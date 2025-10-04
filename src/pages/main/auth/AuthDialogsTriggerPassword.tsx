@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { useSelectors } from "src/hooks";
+import useSelectors from 'src/hooks/useSelectors';
 
 function AuthDialogsTriggerPassword({findingPassword}) {
   const theme = useSelector((state) => state.theme.value);

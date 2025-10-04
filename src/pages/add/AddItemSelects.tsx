@@ -2,7 +2,7 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
-import { useSelectors } from 'src/hooks';
+import useSelectors from 'src/hooks/useSelectors';
 
 interface Props {
   item: string

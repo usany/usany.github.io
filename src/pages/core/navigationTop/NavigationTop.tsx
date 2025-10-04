@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import useLargeMedia from 'src/hooks/useLargeMedia'
-import { useSelectors } from 'src/hooks'
+import useSelectors from 'src/hooks/useSelectors'
 import Navigation from 'src/pages/core/navigationTop/sideNavigation/Navigation'
 import WeatherView from 'src/pages/core/navigationTop/weatherView/WeatherView'
 import ToggleTabs from 'src/pages/core/ToggleTabs'

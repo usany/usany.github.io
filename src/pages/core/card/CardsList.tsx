@@ -1,4 +1,4 @@
-import { useSelectors } from 'src/hooks'
+import useSelectors from 'src/hooks/useSelectors'
 import Cards from 'src/pages/core/card/Cards'
 import useTexts from 'src/hooks/useTexts'
 import { DocumentData } from 'firebase/firestore'

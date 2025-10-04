@@ -6,7 +6,7 @@ import { deleteDoc, doc } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { dbservice } from 'src/baseApi/serverbase'
-import { useSelectors } from 'src/hooks'
+import useSelectors from 'src/hooks/useSelectors'
 import useTexts from 'src/hooks/useTexts'
 
 const ProfileMembersDrawersContent = () => {

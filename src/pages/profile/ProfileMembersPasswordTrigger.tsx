@@ -1,6 +1,6 @@
 import { Card } from "@mui/material";
 import useCardsBackground from "src/hooks/useCardsBackground";
-import { useSelectors } from "src/hooks";
+import useSelectors from 'src/hooks/useSelectors';
 
 const ProfileMembersPasswordTrigger = () => {
   const { colorTwo } = useCardsBackground()

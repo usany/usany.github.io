@@ -1,5 +1,5 @@
 import { MessagesSquare, SearchCheck, Siren, UserRound } from "lucide-react";
-import { useSelectors } from "src/hooks";
+import useSelectors from 'src/hooks/useSelectors';
 import texts from '../../../texts.json'
 type RoutePath = '/profile' | '/ranking' | '/piazza' | '/contact';
 

@@ -14,7 +14,7 @@ import {
   DrawerTrigger,
 } from 'src/components/ui/drawer'
 import { useId, } from 'react';
-import { useSelectors } from 'src/hooks'
+import useSelectors from 'src/hooks/useSelectors'
 import Avatars from '../../Avatars'
 import Links from './links/Links'
 import NavigationSignedIn from './navigationSignedIn/NavigationSignedIn'

@@ -2,7 +2,7 @@ import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import Stepper from '@mui/material/Stepper';
 // import { useSelector } from 'react-redux';
-import { useSelectors } from 'src/hooks';
+import useSelectors from 'src/hooks/useSelectors';
 
 interface Props {
   addSteps: number

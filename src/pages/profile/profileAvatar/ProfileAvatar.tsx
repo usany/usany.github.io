@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 // import LoadingsSkeletons from 'src/components/recycle/recycleLoadingsSkeletons'
-import { useSelectors } from 'src/hooks'
+import useSelectors from 'src/hooks/useSelectors'
 import Avatars from 'src/pages/core/Avatars'
 import Popups from 'src/pages/core/Popups'
 import useTexts from 'src/hooks/useTexts'

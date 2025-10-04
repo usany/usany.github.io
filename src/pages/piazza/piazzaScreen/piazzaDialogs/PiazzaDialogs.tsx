@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 // import Avatar from '@mui/material/Avatar';
 // import { blue } from '@mui/material/colors';
-import { useSelectors } from 'src/hooks';
+import useSelectors from 'src/hooks/useSelectors';
 
 const PiazzaDialogs = ({ initiateContinuing, multiple, handleMultiple, user, userObj, handleMessagesList, displayedName, }) => {
   const [conversation, setConversation] = useState(null)

@@ -1,7 +1,7 @@
 import { Accordion, AccordionItem } from '@/components/ui/accordion'
 import { CreditCard, MessageCircleIcon } from 'lucide-react'
 import { useDispatch } from 'react-redux'
-import { useSelectors } from 'src/hooks'
+import useSelectors from 'src/hooks/useSelectors'
 import CardsStacks from 'src/pages/core/card/CardsStacks'
 import MessageStacks from 'src/pages/core/chatting/MessageStacks'
 import { cardOff, cardOn } from 'src/stateSlices/cardAccordionSlice'
