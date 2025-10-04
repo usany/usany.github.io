@@ -10,8 +10,7 @@ import PageTitle from 'src/pages/core/pageTitle/PageTitle';
 import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice';
 import Avatars from '../core/Avatars';
 import AddSteppers from './AddSteppers';
-import { useSelectors, useTexts } from 'src/hooks';
-
+import useTexts from 'src/hooks/useTexts'
 interface Props {
   borrow: boolean;
 }
