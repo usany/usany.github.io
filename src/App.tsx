@@ -1,7 +1,7 @@
 import Lotties from 'src/lottiesAnimation/Lotties'
 import ThemeProvider from '@mui/material/styles/ThemeProvider'
 import Router from 'src/pages/core/router/Router'
-import { useSelectors } from './hooks'
+import useSelectors from './hooks/useSelectors'
 import useColors from './hooks/useColors'
 import useUserObject from './hooks/useUserObject'
 import useNetwork from './hooks/useNetwork'
