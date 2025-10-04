@@ -1,6 +1,6 @@
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import Card from '@mui/material/Card';
-import { useTexts } from "src/hooks";
+import useTexts from "src/hooks/useTexts";
 import { DocumentData } from "firebase/firestore";
 interface Props {
   violationUser: DocumentData | null

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useTexts } from "src/hooks";
+import useTexts from "src/hooks/useTexts";
 import AuthForm from "src/pages/main/auth/AuthForm";
 import AuthMethods from "./AuthMethods";
 import Playlist from "src/pages/core/Playlist";
