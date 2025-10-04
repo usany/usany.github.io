@@ -10,7 +10,7 @@ import {
 import { useEffect, useState } from 'react'
 import { dbservice } from 'src/baseApi/serverbase'
 import { webSocket } from 'src/webSocket'
-import { useSelectors } from './useSelectors'
+import useSelectors from './useSelectors'
 
 // export default function useBottomNavigation() {
 //     const [pathname, setPathname] = useState('/')
