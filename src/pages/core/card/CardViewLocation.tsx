@@ -43,6 +43,7 @@ const CardViewLocation = ({ message }) => {
       message.text.counting
     }
   }
+  location = (!message.text.counter && location.length > 10) ? location.slice(0, 10)+'......' : location
   return (
     <div className="flex gap-1">
       <div className="flex items-center">
