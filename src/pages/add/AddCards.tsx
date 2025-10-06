@@ -122,7 +122,7 @@ const AddCards = ({ borrow, item, fromTo, locationState, display }: Props) => {
                         </div>
                         :
                         <div className="flex items-center">
-                          {languages === 'ko'
+                          {(languages === 'ko' && locationState?.locationOne !== '직접 입력')
                             ? locationState?.locationOne
                             : locationsBuildings['en'][
                                 locationsBuildings['ko'].indexOf(
