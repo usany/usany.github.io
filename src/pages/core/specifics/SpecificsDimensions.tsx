@@ -22,20 +22,30 @@ const getLocation = (message) => {
     locationsBuildings['en'][
     locationsBuildings['ko'].indexOf(message.text.count)
     ]
-  const locationTwo =
-    locationsCollection['en'][
-    Object.keys(locationsCollectionLetters).find(
-      (key) => locationsCollectionLetters[key] === message.text.count,
-    )
-    ][
-    locationsCollection['ko'][
-      Object.keys(locationsCollectionLetters).find(
-        (key) => locationsCollectionLetters[key] === message.text.count,
-      )
-    ].indexOf(message.text.counter)
-    ]
-  const location = locationOne + ' ' + locationTwo + ' ' + message.text.counting
-  return location
+    if (locationOne) {
+      const locationTwo =
+        locationsCollection['en'][
+        Object.keys(locationsCollectionLetters).find(
+          (key) => locationsCollectionLetters[key] === message.text.count,
+        )
+        ][
+        locationsCollection['ko'][
+          Object.keys(locationsCollectionLetters).find(
+            (key) => locationsCollectionLetters[key] === message.text.count,
+          )
+        ].indexOf(message.text.counter)
+        ]
+      const location = locationOne + ' ' + locationTwo + ' ' + message.text.counting
+      return location
+    }
+    const location =
+      message.text.count +
+      ' ' +
+      message.text.counter +
+      ' ' +
+      message.text.counting
+    return location
+
 }
 
 interface Props {

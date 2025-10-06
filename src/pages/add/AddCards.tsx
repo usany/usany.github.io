@@ -118,7 +118,7 @@ const AddCards = ({ borrow, item, fromTo, locationState, display }: Props) => {
                       {locationState?.locationOne && <Building />}
                       {locationState?.locationInput ?
                         <div className="flex items-center">
-                          {locationState?.locationInput}
+                          {locationState?.locationInput.length > 10 ? locationState?.locationInput.slice(0, 10)+'......' : locationState?.locationInput}
                         </div>
                         :
                         <div className="flex items-center">
