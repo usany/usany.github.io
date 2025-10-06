@@ -5,7 +5,6 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import TextField from "@mui/material/TextField";
 import useSelectors from 'src/hooks/useSelectors';
-import useTexts from "src/hooks/useTexts";
 
 export const locationsBuildings = {
   ko: ["중도", "청운", "푸른솔", "간호이과대", "경영대", "문과대", "의과대", "치과병원", "네오르네상스관", "직접 입력"],
@@ -139,7 +138,6 @@ function Selects({
 }: Props) {
   const matches = useMediaQuery("(min-width:990px)");
   const languages = useSelectors((state) => state.languages.value)
-  const {register} = useTexts()
   return (
     <div className={`flex ${matches ? "" : "flex-col"} gap-1 px-5`}>
       <FormControl variant="standard" sx={{ width: 150 }}>
@@ -221,7 +219,6 @@ function Selects({
       {(locationState.locationOne === "직접 입력" || locationState.locationOne === "Self input") && (
         <div className="flex pt-7">
           <TextField onChange={changeLocationInput} required autoFocus />
-          <Button>{register}</Button>
         </div>
       )}
     </div>

@@ -116,34 +116,40 @@ const AddCards = ({ borrow, item, fromTo, locationState, display }: Props) => {
                   {locationState && (
                     <div className="flex gap-1 items-center">
                       {locationState?.locationOne && <Building />}
-                      <div className="flex items-center">
-                        {languages === 'ko'
-                          ? locationState?.locationOne
-                          : locationsBuildings['en'][
-                              locationsBuildings['ko'].indexOf(
-                                locationState?.locationOne,
-                              )
-                            ]}{' '}
-                        {(languages === 'ko')
-                          ? locationState?.locationTwo
-                          : locationOne !== '직접 입력' && locationState?.locationOne &&
-                            locationsCollection['en'][
-                              Object.keys(locationsCollectionLetters).find(
-                                (key) =>
-                                  locationsCollectionLetters[key] ===
+                      {locationState?.locationInput ?
+                        <div className="flex items-center">
+                          {locationState?.locationInput}
+                        </div>
+                        :
+                        <div className="flex items-center">
+                          {languages === 'ko'
+                            ? locationState?.locationOne
+                            : locationsBuildings['en'][
+                                locationsBuildings['ko'].indexOf(
                                   locationState?.locationOne,
-                              )
-                            ][
-                              locationsCollection['ko'][
+                                )
+                              ]}{' '}
+                          {(languages === 'ko')
+                            ? locationState?.locationTwo
+                            : locationOne !== '직접 입력' && locationState?.locationOne &&
+                              locationsCollection['en'][
                                 Object.keys(locationsCollectionLetters).find(
                                   (key) =>
                                     locationsCollectionLetters[key] ===
                                     locationState?.locationOne,
                                 )
-                              ].indexOf(locationState?.locationTwo)
-                            ]}{' '}
-                        {locationState?.locationThree}
-                      </div>
+                              ][
+                                locationsCollection['ko'][
+                                  Object.keys(locationsCollectionLetters).find(
+                                    (key) =>
+                                      locationsCollectionLetters[key] ===
+                                      locationState?.locationOne,
+                                  )
+                                ].indexOf(locationState?.locationTwo)
+                              ]}{' '}
+                          {locationState?.locationThree}
+                        </div>
+                      }
                     </div>
                   )}
                   {fromTo.from && (
