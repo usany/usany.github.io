@@ -219,7 +219,7 @@ function Selects({
       {(locationState.locationOne === "직접 입력" || locationState.locationOne === "Self input") && (
         <div className="flex pt-7">
           <TextField
-            inputProps={{ maxLength: 12 }}
+            inputProps={{ maxLength: languages === 'ko' ? 12 : 21 }}
             onChange={changeLocationInput} required autoFocus />
         </div>
       )}
