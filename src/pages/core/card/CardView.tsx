@@ -3,9 +3,10 @@ import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
 import staticImgs from 'src/assets/pwa-512x512.png'
-import staticCl from 'src/assets/static_cl.jpg'
-import staticCw from 'src/assets/static_cw.jpg'
-import staticG from 'src/assets/static_g.jpg'
+import staticCl from 'src/assets/static_cl.jpeg'
+import staticCw from 'src/assets/static_cw.jpeg'
+import staticG from 'src/assets/static_g.jpeg'
+import staticE from 'src/assets/comratio.jpeg'
 import useCardsBackground from 'src/hooks/useCardsBackground'
 import CardViewLocation from './CardViewLocation'
 import CardViewTime from './CardViewTime'
@@ -16,7 +17,8 @@ export const staticArray = {
   '중도': staticCl,
   '간호이과대': staticG,
   '청운': staticCw,
-  'building': staticImgs
+  '경영대': staticE,
+  'building': staticImgs,
 }
 const CardView = ({ onTransfer, message, shadowColor }) => {
   const { colorTwo } = useCardsBackground()
