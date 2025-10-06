@@ -72,12 +72,15 @@ function Add({ borrow }: Props) {
       } else if (action.type === 'changeSeat') {
         return { ...state, locationThree: action.newState }
       } else if (action.type === 'changeLocationInput') {
-        return {
-          ...state,
-          locationTwo: '',
-          locationThree: '',
-          locationInput: action.newState,
+        if (action.newState.length < 13) {
+          return {
+            ...state,
+            locationTwo: '',
+            locationThree: '',
+            locationInput: action.newState,
+          }
         }
+        return state
       } else if (action.type === 'changeItem') {
         return {
           locationOne: '',
