@@ -19,19 +19,29 @@ const CardViewLocation = ({ message }) => {
       locationsBuildings['en'][
       locationsBuildings['ko'].indexOf(message.text.count)
       ]
-    const locationTwo =
-      locationsCollection['en'][
-      Object.keys(locationsCollectionLetters).find(
-        (key) => locationsCollectionLetters[key] === message.text.count,
-      )
-      ][
-      locationsCollection['ko'][
+    if (locationOne) {
+      const locationTwo = message.text.count === '직접 입력' ?
+        locationsCollection['en'][
         Object.keys(locationsCollectionLetters).find(
           (key) => locationsCollectionLetters[key] === message.text.count,
         )
-      ].indexOf(message.text.counter)
-      ]
-    location = locationOne + ' ' + locationTwo + ' ' + message.text.counting
+        ][
+        locationsCollection['ko'][
+          Object.keys(locationsCollectionLetters).find(
+            (key) => locationsCollectionLetters[key] === message.text.count,
+          )
+        ].indexOf(message.text.counter)
+        ]
+        : ''
+      location = locationOne + ' ' + locationTwo + ' ' + message.text.counting
+    } else {
+      location =
+      message.text.count +
+      ' ' +
+      message.text.counter +
+      ' ' +
+      message.text.counting
+    }
   }
   return (
     <div className="flex gap-1">
