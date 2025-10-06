@@ -124,9 +124,9 @@ const AddCards = ({ borrow, item, fromTo, locationState, display }: Props) => {
                                 locationState?.locationOne,
                               )
                             ]}{' '}
-                        {languages === 'ko'
+                        {(languages === 'ko')
                           ? locationState?.locationTwo
-                          : locationState?.locationOne &&
+                          : locationOne !== '직접 입력' && locationState?.locationOne &&
                             locationsCollection['en'][
                               Object.keys(locationsCollectionLetters).find(
                                 (key) =>
