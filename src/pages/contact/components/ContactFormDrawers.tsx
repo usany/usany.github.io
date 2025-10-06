@@ -4,7 +4,7 @@ import Popups from "../../core/Popups";
 import ContactFormDrawersContent from "./ContactFormDrawersContent";
 import ContactFormDrawersTitle from "./ContactFormDrawersTitle";
 import ContactFormDrawersTrigger from "./ContactFormDrawersTrigger";
-import { useSelectors } from 'src/hooks';
+import useSelectors from 'src/hooks/useSelectors';
 import { DocumentData } from 'firebase/firestore';
 
 interface Props {

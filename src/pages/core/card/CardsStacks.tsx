@@ -2,7 +2,7 @@ import { Skeleton } from 'src/components/ui/skeleton'
 import CardsStacksViews from './CardsStacksViews'
 import EmptyCard from './EmptyCard'
 import { useBringCards } from './useBringCards'
-import { useSelectors } from 'src/hooks'
+import useSelectors from 'src/hooks/useSelectors'
 import { DocumentData } from 'firebase/firestore'
 
 function CardsStacks() {

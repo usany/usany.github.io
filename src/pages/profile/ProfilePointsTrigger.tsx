@@ -1,5 +1,5 @@
 import { Card } from "@mui/material"
-import { useTexts } from "src/hooks"
+import useTexts from "src/hooks/useTexts"
 import useCardsBackground from "src/hooks/useCardsBackground"
 
 const ProfilePointsTrigger = ({ cards }) => {

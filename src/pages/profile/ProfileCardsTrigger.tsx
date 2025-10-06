@@ -1,6 +1,6 @@
 import { collection, getDocs, query } from 'firebase/firestore'
 import { dbservice } from 'src/baseApi/serverbase'
-import { useTexts } from 'src/hooks'
+import useTexts from 'src/hooks/useTexts'
 import Card from '@mui/material/Card'
 import useCardsBackground from '../../hooks/useCardsBackground'
 

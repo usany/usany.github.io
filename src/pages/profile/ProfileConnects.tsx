@@ -2,8 +2,8 @@ import Button from '@mui/material/Button'
 import { doc, getDoc, updateDoc } from 'firebase/firestore'
 import { Link, useLocation } from 'react-router-dom'
 import { dbservice } from 'src/baseApi/serverbase'
-import { useSelectors } from 'src/hooks'
-import { useTexts } from 'src/hooks'
+import useSelectors from 'src/hooks/useSelectors'
+import useTexts from 'src/hooks/useTexts'
 
 interface Props {
   alliesCollection: {list:string[]}[]

@@ -1,5 +1,5 @@
 import { Chip } from '@mui/material'
-import { useSelectors } from 'src/hooks'
+import useSelectors from 'src/hooks/useSelectors'
 
 const ChatsBoxesChips = ({ message }) => {
   const languages = useSelectors((state) => state.languages.value)

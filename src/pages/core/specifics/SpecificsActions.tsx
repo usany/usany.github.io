@@ -1,5 +1,6 @@
 import { Chip } from '@mui/material'
-import { useSelectors, useTexts } from 'src/hooks'
+import useSelectors from 'src/hooks/useSelectors'
+import useTexts from 'src/hooks/useTexts'
 import SpecificsActionsPopups from './SpecificsActionsPopups'
 const items = {
   Usan: '우산',

@@ -1,4 +1,4 @@
-import { useSelectors } from 'src/hooks'
+import useSelectors from 'src/hooks/useSelectors'
 import Auth from 'src/pages/main/auth/Auth'
 import Menu from 'src/pages/main/menu/Menu'
 

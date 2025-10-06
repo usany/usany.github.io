@@ -1,4 +1,4 @@
-import { useTexts } from "src/hooks";
+import useTexts from "src/hooks/useTexts";
 import Popups from "src/pages/core/Popups";
 import AuthDialogsContent from "./AuthDialogsContent";
 import AuthDialogsContentPassword from "./AuthDialogsContentPassword";

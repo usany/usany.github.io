@@ -7,7 +7,7 @@ import useCardsBackground from 'src/hooks/useCardsBackground'
 import useLongPress from 'src/hooks/useLongPress'
 import ChatsBoxes from 'src/pages/core/chatting/ChatsBoxes'
 import ChatsDelete from './ChatsDelete'
-import { useSelectors } from 'src/hooks'
+import useSelectors from 'src/hooks/useSelectors'
 
 interface Props {
   profileUrl: string

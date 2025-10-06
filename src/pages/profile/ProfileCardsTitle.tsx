@@ -1,5 +1,6 @@
 import { useLocation } from 'react-router-dom'
-import { useSelectors, useTexts } from 'src/hooks'
+import useSelectors from 'src/hooks/useSelectors'
+import useTexts from 'src/hooks/useTexts'
 
 interface Props {
   isFollowers?: boolean | null;

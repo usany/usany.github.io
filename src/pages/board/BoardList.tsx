@@ -1,5 +1,5 @@
 import { ScrollText } from "lucide-react";
-import { useTexts } from "src/hooks";
+import useTexts from "src/hooks/useTexts";
 import FilterDialogsTrigger from "./FilterDialogs/FilterDialogsTrigger";
 
 function BoardList() {

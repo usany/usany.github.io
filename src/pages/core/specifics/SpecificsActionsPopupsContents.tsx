@@ -1,7 +1,7 @@
 import { DrawerClose } from '@/components/ui/drawer'
 import Button from '@mui/material/Button'
 import { Link } from 'react-router-dom'
-import { useSelectors } from 'src/hooks'
+import useSelectors from 'src/hooks/useSelectors'
 import Avatars from 'src/pages/core/Avatars'
 
 interface Props {

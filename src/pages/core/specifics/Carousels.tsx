@@ -9,7 +9,7 @@ import { collection, getDocs, query } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { useLocation } from "react-router-dom";
 import { dbservice } from 'src/baseApi/serverbase';
-import { useSelectors } from "src/hooks";
+import useSelectors from 'src/hooks/useSelectors';
 import Cards from 'src/pages/core/card/Cards';
 
 const Carousels = () => {

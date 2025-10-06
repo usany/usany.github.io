@@ -1,5 +1,5 @@
 import Button from '@mui/material/Button';
-import { useTexts } from "src/hooks";
+import useTexts from "src/hooks/useTexts";
 import useCardsBackground from '../../../hooks/useCardsBackground';
 import { DocumentData } from "firebase/firestore";
 import ContactUserSelected from "./ContactUserSelected";
