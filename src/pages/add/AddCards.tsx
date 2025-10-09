@@ -12,6 +12,7 @@ import locationsCollection from './locationsCollection'
 import locationsCollectionLetters from './locationsCollectionLetters'
 import { DocumentData } from 'firebase/firestore'
 import useTexts from 'src/hooks/useTexts'
+import { useSearchParams } from 'react-router-dom'
 interface Clock {
   gmt: {
     getTime: () => number
@@ -72,7 +73,7 @@ const AddCards = ({ borrow, item, fromTo, locationState, display }: Props) => {
         >
           <CardContent sx={{ padding: '5px' }}>
             <div className="flex justify-between gap-1">
-              <Avatars element={profile} profile={false} piazza={null} />
+              <Avatars element={profile} profile={false} />
               {item && (
                 <div className="flex items-center">
                   <Chip
