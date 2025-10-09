@@ -253,10 +253,10 @@ function Add({ borrow }: Props) {
           confirmedReturnClock: null,
         })
         await updateDoc(user, { createdCards: [...userCreatedCards, card.id] })
-        const cardObject = await getDoc(doc(dbservice, `num/${card.id}`))
+        // const cardObject = await getDoc(doc(dbservice, `num/${card.id}`))
         setDisplay({
           id: card.id,
-          ...cardObject.data(),
+          // ...cardObject.data(),
         })
         setAddSteps(4)
       }
