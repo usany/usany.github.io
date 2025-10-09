@@ -58,7 +58,7 @@ const AddCards = ({ borrow, item, fromTo, locationState, display }: Props) => {
   const languages = useSelectors((state) => state.languages.value)
   const locationOne = locationState?.locationOne
   const staticImg = staticArray[locationOne] || staticArray['building']
-  const {borrowing, lending} = useTexts()
+  const {borrowing, lending, emptyCard} = useTexts()
   return (
     <div className="flex justify-center text-sm pt-5 p-1">
       <AnimatedList>
