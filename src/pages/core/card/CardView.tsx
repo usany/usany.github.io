@@ -43,7 +43,6 @@ const CardView = ({ onTransfer, message, shadowColor }) => {
             <CardMedia
               sx={{
                 width: 200 * 0.9,
-                // width: 159 * 0.9,
                 height: 141 * 0.9,
                 borderRadius: '10px'
               }}

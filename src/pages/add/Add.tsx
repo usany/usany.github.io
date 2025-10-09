@@ -200,7 +200,7 @@ function Add({ borrow }: Props) {
       } else {
         const calculating = () => {
           if (fromTo.from && fromTo.to) {
-            if (fromTo.to.year - fromTo.from.year > 0) {
+            if (fromTo.to.year - fromTo .from.year > 0) {
               return (fromTo.to.year - fromTo.from.year) * 366 * 24 * 60
             } else if (fromTo.to.month - fromTo.from.month > 0) {
               return (fromTo.to.month - fromTo.from.month) * 31 * 24 * 60
