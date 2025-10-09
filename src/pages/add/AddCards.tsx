@@ -81,15 +81,11 @@ const AddCards = ({ borrow, item, fromTo, locationState, display }: Props) => {
                         {languages === 'ko'
                           ? item
                           : item === '우산'
-                          ? 'Umbrella'
-                          : 'Yangsan'}{' '}
-                        {languages === 'ko'
-                          ? borrow
-                            ? ' 빌리기'
-                            : ' 빌려주기'
-                          : borrow
-                          ? ' borrowing'
-                          : ' lending'}
+                          ? 'Umbrella '
+                          : 'Yangsan '}
+                        {borrow
+                            ? borrowing
+                            : lending}
                       </div>
                     }
                   />
