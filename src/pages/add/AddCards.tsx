@@ -94,7 +94,7 @@ const AddCards = ({ borrow, item, fromTo, locationState, display }: Props) => {
             </div>
             {!item ? (
               <div className="flex justify-center pt-5">
-                {languages === 'ko' ? '빈 카드입니다' : 'Empty card'}
+                {emptyCard}
               </div>
             ) : (
               <>
