@@ -256,7 +256,6 @@ function Add({ borrow }: Props) {
         // const cardObject = await getDoc(doc(dbservice, `num/${card.id}`))
         setDisplay({
           id: card.id,
-          // ...cardObject.data(),
         })
         setAddSteps(4)
       }
