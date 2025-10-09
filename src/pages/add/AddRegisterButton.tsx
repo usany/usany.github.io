@@ -7,9 +7,8 @@ interface Props {
 }
 
 const AddRegisterButton = ({ submit }: Props) => {
-  const { registerButton } = useTexts()
+  const { registerButton, pleaseSignIn } = useTexts()
   const onLine = useSelectors((state) => state.onLine.value)
-  const {pleaseSignIn} = useTexts()
   return (
     <form className="flex justify-center pt-5" id="selection" onSubmit={submit}>
       {onLine ?
