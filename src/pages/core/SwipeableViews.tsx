@@ -14,7 +14,7 @@ export function SwipeableViews({
 }: {
 } & React.HTMLProps<HTMLDivElement>) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const scrollTimeout = useRef<number>();
+  const scrollTimeout = useRef<number>(undefined);
   const lastChildrenCount = useRef(0);
   const tabs = useSelector((state: TabsRootState) => state.tabs.value)
   const dispatch = useDispatch()
