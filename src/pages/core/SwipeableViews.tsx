@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import TabsRootState from "src/interfaces/TabsRootState";
 import { changeTabs } from 'src/stateSlices/tabsSlice';
 import "../../navigate/SwipeableViews.css";
+import { useSearchParams } from "react-router-dom";
 
 export function SwipeableViews({
   className = "",
@@ -17,6 +18,7 @@ export function SwipeableViews({
   const lastChildrenCount = useRef(0);
   const tabs = useSelector((state: TabsRootState) => state.tabs.value)
   const dispatch = useDispatch()
+  const [searchParams, setSearchParams] = useSearchParams()
 
   // on every rerender
   useEffect(() => {
@@ -84,6 +86,10 @@ export function SwipeableViews({
         const currentPage = Math.round(currentTarget.scrollLeft / pageWidth);
         if (currentPage === 0 || currentPage === 1) {
           dispatch(changeTabs(currentPage))
+          setSearchParams((searchParams) => {
+            searchParams.set('action', currentPage ? 'lending' : 'borrowing')
+            return searchParams
+          })
         }
       }, 100);
     },
