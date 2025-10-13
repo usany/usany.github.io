@@ -12,7 +12,6 @@ import locationsCollection from './locationsCollection'
 import locationsCollectionLetters from './locationsCollectionLetters'
 import { DocumentData } from 'firebase/firestore'
 import useTexts from 'src/hooks/useTexts'
-// import { useSearchParams } from 'react-router-dom'
 interface Clock {
   gmt: {
     getTime: () => number
