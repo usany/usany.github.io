@@ -45,7 +45,7 @@ const AuthButtons = () => {
               variant="outlined"
               onClick={() => {
                 if (onLine) {
-                  value.onClick
+                  value.onClick()
                 } else {
                   alert(needNetworkConnection)
                 }

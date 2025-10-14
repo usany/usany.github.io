@@ -11,6 +11,7 @@ import locationsBuildings from './locationsBuildings'
 import locationsCollection from './locationsCollection'
 import locationsCollectionLetters from './locationsCollectionLetters'
 import { DocumentData } from 'firebase/firestore'
+import useTexts from 'src/hooks/useTexts'
 interface Clock {
   gmt: {
     getTime: () => number
@@ -57,6 +58,7 @@ const AddCards = ({ borrow, item, fromTo, locationState, display }: Props) => {
   const languages = useSelectors((state) => state.languages.value)
   const locationOne = locationState?.locationOne
   const staticImg = staticArray[locationOne] || staticArray['building']
+  const {borrowing, lending, emptyCard} = useTexts()
   return (
     <div className="flex justify-center text-sm pt-5 p-1">
       <AnimatedList>
@@ -70,7 +72,7 @@ const AddCards = ({ borrow, item, fromTo, locationState, display }: Props) => {
         >
           <CardContent sx={{ padding: '5px' }}>
             <div className="flex justify-between gap-1">
-              <Avatars element={profile} profile={false} piazza={null} />
+              <Avatars element={profile} profile={false} />
               {item && (
                 <div className="flex items-center">
                   <Chip
@@ -79,15 +81,11 @@ const AddCards = ({ borrow, item, fromTo, locationState, display }: Props) => {
                         {languages === 'ko'
                           ? item
                           : item === '우산'
-                          ? 'Umbrella'
-                          : 'Yangsan'}{' '}
-                        {languages === 'ko'
-                          ? borrow
-                            ? ' 빌리기'
-                            : ' 빌려주기'
-                          : borrow
-                          ? ' borrowing'
-                          : ' lending'}
+                          ? 'Umbrella '
+                          : 'Yangsan '}
+                        {borrow
+                            ? borrowing
+                            : lending}
                       </div>
                     }
                   />
@@ -96,7 +94,7 @@ const AddCards = ({ borrow, item, fromTo, locationState, display }: Props) => {
             </div>
             {!item ? (
               <div className="flex justify-center pt-5">
-                {languages === 'ko' ? '빈 카드입니다' : 'Empty card'}
+                {emptyCard}
               </div>
             ) : (
               <>
