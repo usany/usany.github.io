@@ -10,21 +10,13 @@ export default defineConfig({
     VitePWA({
       registerType: 'prompt',
       injectRegister: 'auto',
-
       pwaAssets: {
         disabled: false,
         config: true,
       },
-      // includeAssets: [
-      //   'pwa-192x192.png',
-      //   'pwa-512x512.png',
-      //   'screen-01.png',
-      //   'screen.png',
-      //   'screens1.png',
-      //   'screens2.png',
-      // ],
       workbox: {
         globPatterns: ['**/*'],
+        maximumFileSizeToCacheInBytes: 6000000
       },
       // add this to cache all the
       // static assets in the public folder
@@ -45,26 +37,24 @@ export default defineConfig({
           {
             src: 'pwa-192x192.png',
             sizes: '192x192',
-            type: 'image/png',
-            purpose: 'any',
+            type: 'image/png'
           },
           {
-            src: 'pwa-192x192.png',
-            sizes: '192x192',
-            type: 'image/png',
-            purpose: 'maskable',
+            src: 'pwa-512x512.png',
+            sizes: '512x512',
+            type: 'image/png'
           },
           {
             src: 'pwa-512x512.png',
             sizes: '512x512',
             type: 'image/png',
-            purpose: 'any',
+            purpose: 'any'
           },
           {
-            src: 'pwa-512x512.png',
+            src: 'pwa-maskable-512x512.png',
             sizes: '512x512',
             type: 'image/png',
-            purpose: 'maskable',
+            purpose: 'maskable'
           },
         ],
         screenshots: [
@@ -88,13 +78,6 @@ export default defineConfig({
           },
         ],
       },
-
-      // workbox: {
-      //   globPatterns: ['**/*.{js,css,html,svg,png,ico}'],
-      //   cleanupOutdatedCaches: true,
-      //   clientsClaim: true,
-      // },
-
       devOptions: {
         enabled: false,
         navigateFallback: 'index.html',
