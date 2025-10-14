@@ -48,7 +48,7 @@ const ProfileLocations = () => {
     }
   }
   const onClickLocation = () => {
-    alert('Allow location access to update on-campus status on your profile')
+    alert('Allow location access to update on-campus status of your profile')
     navigator.geolocation.getCurrentPosition((position) => {
       setLocation({
         lat: position.coords.latitude,
