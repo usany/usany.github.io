@@ -45,7 +45,7 @@ const ProfileCompleted = ({ cards }) => {
       <div className="flex justify-center h-[250px]">
         <ChartContainer
           config={labels}
-          className="aspect-square max-h-[250px] pt-5 flex justify-center"
+          className="aspect-square max-h-[250px] pt-5"
         >
           <PieChart>
             <ChartLegend
