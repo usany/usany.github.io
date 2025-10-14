@@ -10,12 +10,14 @@ import { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { dbservice } from 'src/baseApi/serverbase'
 import useSelectors from 'src/hooks/useSelectors'
+import useTexts from 'src/hooks/useTexts'
 import Cards from 'src/pages/core/card/Cards'
 
 const Carousels = () => {
   const { state } = useLocation()
   const profile = useSelectors((state) => state.profile.value)
   const user = state?.element || profile
+  const { borrowing, lending, activitiesCompleted } = useTexts()
   const [messagesList, setMessagesList] = useState([])
   const [cardNumber, setCardNumber] = useState(1)
   const completedAction = useSelectors((state) => state.completedAction.value)
@@ -137,9 +139,9 @@ const Carousels = () => {
       <div>
         {completedAction
           ? completedAction === 'borrow'
-            ? '빌리기: '
-            : '빌려주기: '
-          : '활동 횟수: '}{' '}
+            ? `${borrowing}: `
+            : `${lending}: `
+          : `${activitiesCompleted}: `}{' '}
         {cardNumber}/{selectedList.length}
       </div>
     </div>
