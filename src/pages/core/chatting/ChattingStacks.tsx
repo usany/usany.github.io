@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import Chats from 'src/pages/core/chatting/Chats'
 import { webSocket } from 'src/webSocket.tsx'
 import { usePiazzaMessage } from './usePiazzaMessage'
-import { useSelectors } from 'src/hooks'
+import useSelectors from 'src/hooks/useSelectors'
 
 const ChattingStacks = ({
   chattings,

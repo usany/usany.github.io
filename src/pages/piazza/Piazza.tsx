@@ -1,13 +1,11 @@
 import { doc, getDoc } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
 import { useLocation, useSearchParams } from 'react-router-dom'
 import { dbservice } from 'src/baseApi/serverbase'
-import { useSelectors } from 'src/hooks'
+import useSelectors from 'src/hooks/useSelectors'
 import PiazzaForm from 'src/pages/piazza/piazzaForm/PiazzaForm'
 import PiazzaScreen from 'src/pages/piazza/piazzaScreen/PiazzaScreen'
 import PiazzaTitle from 'src/pages/piazza/piazzaTitle/PiazzaTitle'
-import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
 import type { RootState } from 'src/store'
 import PiazzaMorphingDialogAudioCall from './components/PiazzaMorphingDialogAudioCall'
 import PiazzaMorphingDialogVideoCall from './components/PiazzaMorphingDialogVideoCall'
@@ -15,7 +13,6 @@ import PiazzaMorphingDialogVideoCall from './components/PiazzaMorphingDialogVide
 function Piazza() {
   const [messages, setMessages] = useState('')
   const [messagesList, setMessagesList] = useState<[]>([])
-  const dispatch = useDispatch()
   const { state } = useLocation() as any
   const [isKeyboardOpen, setIsKeyboardOpen] = useState(false)
   const [chattingUser, setChattingUser] = useState<any>(null)
@@ -73,9 +70,9 @@ function Piazza() {
     }
   }, [isKeyboardOpen])
 
-  useEffect(() => {
-    dispatch(changeBottomNavigation(5))
-  })
+  // useEffect(() => {
+  //   dispatch(changeBottomNavigation(5))
+  // })
   useEffect(() => {
     if (searchParams.get('call') === 'video') {
       document.getElementById('videoCall')?.click()

@@ -1,6 +1,6 @@
 import { Button, Chip, ClickAwayListener, Tooltip } from '@mui/material'
 import { useEffect, useState } from 'react'
-import { useTexts } from 'src/hooks'
+import useTexts from 'src/hooks/useTexts'
 
 const ProfileLocationsChip = () => {
   const [open, setOpen] = useState(false)

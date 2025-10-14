@@ -7,7 +7,7 @@ import supabase from 'src/baseApi/base'
 import { dbservice } from 'src/baseApi/serverbase'
 import { changeProfile } from 'src/stateSlices/profileSlice'
 import { changeProfileUrl } from 'src/stateSlices/profileUrlSlice'
-import { useTexts } from 'src/hooks'
+import useTexts from 'src/hooks/useTexts'
 
 interface Props {
   changedImage: object

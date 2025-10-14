@@ -10,7 +10,7 @@ import { Chip } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { changeBottomNavigation } from "src/stateSlices/bottomNavigationSlice";
-import { useTexts } from "src/hooks";
+import useTexts from "src/hooks/useTexts";
 
 interface Props {
   isBorrow: boolean

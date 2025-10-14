@@ -8,7 +8,7 @@ import {
 } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 import { dbservice } from 'src/baseApi/serverbase'
-import { useTexts } from 'src/hooks'
+import useTexts from 'src/hooks/useTexts'
 import Lists from 'src/pages/search/searchList/searchListViews/Lists'
 import RankingListsTitle from 'src/pages/search/searchList/searchListViews/searchListViewsTitle/RankingListsTitle'
 

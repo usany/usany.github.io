@@ -1,5 +1,5 @@
 import { useSearchParams } from 'react-router-dom'
-import { useSelectors } from 'src/hooks'
+import useSelectors from 'src/hooks/useSelectors'
 import ListsView from './searchListViews/ListsView'
 
 function SearchProfile() {

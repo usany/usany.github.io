@@ -1,4 +1,4 @@
-import { useSelectors } from 'src/hooks'
+import useSelectors from 'src/hooks/useSelectors'
 
 const NavigationUser = () => {
   const languages = useSelectors((state) => state.languages.value)

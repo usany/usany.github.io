@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useSelectors } from 'src/hooks'
+import useSelectors from 'src/hooks/useSelectors'
 
 export const usePulse = ({ message, round }) => {
   const [onPulse, setOnPulse] = useState(false)

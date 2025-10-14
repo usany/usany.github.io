@@ -11,7 +11,7 @@ import {
 } from 'firebase/firestore'
 import { useEffect, useRef, useState } from 'react'
 import { dbservice } from 'src/baseApi/serverbase'
-import { useSelectors } from 'src/hooks'
+import useSelectors from 'src/hooks/useSelectors'
 import Avatars from 'src/pages/core/Avatars'
 import Popups from 'src/pages/core/Popups'
 import { webSocket } from 'src/webSocket.tsx'

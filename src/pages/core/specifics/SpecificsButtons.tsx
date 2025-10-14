@@ -1,4 +1,5 @@
-import { useSelectors, useTexts } from 'src/hooks'
+import useSelectors from 'src/hooks/useSelectors'
+import useTexts from 'src/hooks/useTexts'
 import ConfirmButton from 'src/pages/core/specifics/buttons/ConfirmButton'
 import ConfirmReturnButton from 'src/pages/core/specifics/buttons/ConfirmReturnButton'
 import DeleteButton from 'src/pages/core/specifics/buttons/DeleteButton'

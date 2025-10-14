@@ -1,7 +1,7 @@
 import { doc, getDoc } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 import { dbservice } from 'src/baseApi/serverbase'
-import { useSelectors } from 'src/hooks'
+import useSelectors from 'src/hooks/useSelectors'
 
 export const useSortedChattings = () => {
   const profile = useSelectors((state) => state.profile.value)

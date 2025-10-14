@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useSelectors } from 'src/hooks'
+import useSelectors from 'src/hooks/useSelectors'
 import Cards from './Cards'
 import { DocumentData } from 'firebase/firestore'
 

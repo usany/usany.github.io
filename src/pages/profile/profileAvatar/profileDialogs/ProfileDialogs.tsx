@@ -9,7 +9,8 @@ import staticRed01 from "src/assets/red1.png";
 import staticRed02 from "src/assets/red2.png";
 import Avatars from 'src/pages/core/Avatars';
 import { changeProfileColor } from 'src/stateSlices/profileColorSlice';
-import { useSelectors, useTexts } from 'src/hooks';
+import useSelectors from 'src/hooks/useSelectors'
+import useTexts from 'src/hooks/useTexts';
 import { changeProfile } from 'src/stateSlices/profileSlice';
 const images = {
   'profile-red': [staticRed01, staticRed02],

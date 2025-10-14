@@ -9,7 +9,8 @@ import { MapIcon } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { dbservice } from 'src/baseApi/serverbase'
-import { useSelectors, useTexts } from 'src/hooks'
+import useSelectors from 'src/hooks/useSelectors'
+import useTexts from 'src/hooks/useTexts'
 import locationsCollectionLetters from 'src/pages/add/locationsCollectionLetters'
 import FilterDialogsTrigger from '../FilterDialogs/FilterDialogsTrigger'
 
@@ -156,7 +157,7 @@ function BoardMap({
   const [onAccordion, setOnAccordion] = useState(false)
   const selectedValueTwo = searchParams.get('selectedValueTwo')
   const theme = useSelectors((state) => state.theme.value)
-  const {borrowing, lending, needNetworkConnection, registeredMap, registeredMapExplanation, itemOne, itemTwo} = useTexts()
+  const { borrowing, lending, needNetworkConnection, registeredMap, registeredMapExplanation, itemOne, itemTwo } = useTexts()
   useEffect(() => {
     document.documentElement.scrollTo({
       top: 0,

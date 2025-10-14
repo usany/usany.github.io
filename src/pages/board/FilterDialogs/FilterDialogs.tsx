@@ -1,5 +1,5 @@
 // import { Filter } from "lucide-react";
-import { useSelectors } from "src/hooks";
+import useSelectors from 'src/hooks/useSelectors';
 import locationsBuildings from "src/pages/add/locationsBuildings";
 import FilterDialogsTrigger from "./FilterDialogsTrigger";
 const itemsTitle = {

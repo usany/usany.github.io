@@ -2,7 +2,7 @@ import { cn } from '@/lib/utils'
 import * as React from 'react'
 import { useDispatch } from 'react-redux'
 import * as RechartsPrimitive from 'recharts'
-import { useSelectors } from 'src/hooks'
+import useSelectors from 'src/hooks/useSelectors'
 import { changeCompletedAction } from 'src/stateSlices/completedActionSlice'
 
 // Format: { THEME_NAME: CSS_SELECTOR }

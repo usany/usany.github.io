@@ -11,18 +11,24 @@ import {
 } from 'firebase/firestore'
 import { useEffect, useRef, useState } from 'react'
 import { dbservice } from 'src/baseApi/serverbase'
-import { useSelectors } from 'src/hooks'
+import useSelectors from 'src/hooks/useSelectors'
+import useTexts from 'src/hooks/useTexts'
 import Avatars from 'src/pages/core/Avatars'
 import Popups from 'src/pages/core/Popups'
 import { webSocket } from 'src/webSocket.tsx'
 import PiazzaDialogsContent from './piazzaDialogs/PiazzaDialogsContent'
+import PiazzaDialogsTitle from './PiazzaDialogsTitle'
+import PiazzaScreenClock from './PiazzaScreenClock'
 
 interface Props {
+  isKeyboardOpen: boolean
   messagesList: []
   handleMessagesList: (newValue: []) => void
+  handleChatUid: (newValue: string) => void
+  handleChatDisplayName: (newValue: string) => void
 }
-
-function PiazzaScreenView({
+function PiazzaScreen({
+  isKeyboardOpen,
   messagesList,
   handleMessagesList,
   handleChatUid,
@@ -48,17 +54,14 @@ function PiazzaScreenView({
       setCurrentConversation(conversation)
     }
   }, [conversation])
-  const languages = useSelectors((state) => state.languages.value)
-  const onPrivate = async ({ userUid, displayName }) => {
+  const {loading} = useTexts()
+  const onDrawer = async ({ userUid, displayName }) => {
+    document.getElementById('drawer')?.click()
     const userRef = doc(dbservice, `members/${userUid}`)
     const userDoc = await getDoc(userRef)
     const userElement = userDoc.data()
     setUser(userElement)
     setDisplayedName(displayName)
-  }
-  const onDrawer = ({ userUid, displayName }) => {
-    document.getElementById('drawer')?.click()
-    onPrivate({ userUid: userUid, displayName: displayName })
   }
   const scrollNumber = 20
   useEffect(() => {
@@ -107,11 +110,11 @@ function PiazzaScreenView({
         target,
         messageClock,
         messageClockNumber,
-        conversation,
         profileImageUrl,
         defaultProfile,
         profileImage,
         piazzaData,
+        conversation,
       } = message
       handleMessagesList((prev) => [
         ...prev,
@@ -145,7 +148,6 @@ function PiazzaScreenView({
 
   useEffect(() => {
     scrollToBottom()
-
     const checkMessage = async () => {
       if (conversation === 'piazza') {
         const piazzaRef = collection(dbservice, 'chats_group')
@@ -205,25 +207,16 @@ function PiazzaScreenView({
           setContinuing(document)
           setContinueNumber(messages.docs.length - 1)
         }
-        const message = document.data().message
-        const userUid = document.data().userUid
-        const userName = document.data().userName
-        const messageClock = document.data().messageClock
-        const messageClockNumber = document.data().messageClockNumber
-        const profileImageUrl = document.data()?.profileImageUrl
-        const defaultProfile = document.data()?.defaultProfile
-        const profileImage = document.data()?.profileImage
         const piazzaData = document.data()
+        const {
+          message,
+          userName,
+        } = piazzaData
+
         messagesArray.push({
           msg: message,
-          userUid: userUid,
           id: userName,
-          messageClockNumber: messageClockNumber,
-          messageClock: messageClock,
           conversation: null,
-          profileImageUrl: profileImageUrl,
-          defaultProfile: defaultProfile,
-          profileImage: profileImage || false,
           ...piazzaData,
         })
       })
@@ -248,24 +241,20 @@ function PiazzaScreenView({
       if (!messages.docs.length) {
         setContinueNumber(messages.docs.length)
       }
-      messages.forEach((doc, index) => {
+      messages.forEach((doc) => {
         if (messagesArray.length === messages.docs.length - 1) {
           setContinuing(doc)
           setContinueNumber(messages.docs.length - 1)
         }
-        const message = doc.data().message
-        const userUid = doc.data().userUid
-        const userName = doc.data().userName
-        const messageClock = doc.data().messageClock
-        const messageClockNumber = doc.data().messageClockNumber || 0
-        const profileImageUrl = doc.data()?.profileImageUrl
-        const defaultProfile = doc.data()?.defaultProfile
-        const profileImage = doc.data()?.profileImage
         const piazzaData = doc.data()
-        const userOne = doc.data().userOne
-        const userOneDisplayName = doc.data().userOneDisplayName
-        const userTwo = doc.data().userTwo
-        const userTwoDisplayName = doc.data().userTwoDisplayName
+        const {
+          message,
+          userName,
+          userOne,
+          userOneDisplayName,
+          userTwo,
+          userTwoDisplayName
+        } = piazzaData
         if (userOne !== profile?.uid) {
           handleChatUid(userOne)
           handleChatDisplayName(userOneDisplayName)
@@ -275,14 +264,8 @@ function PiazzaScreenView({
         }
         messagesArray.push({
           msg: message,
-          userUid: userUid,
           id: userName,
-          messageClockNumber: messageClockNumber,
-          messageClock: messageClock,
           conversation: null,
-          profileImageUrl: profileImageUrl,
-          defaultProfile: defaultProfile,
-          profileImage: profileImage || false,
           ...piazzaData,
         })
       })
@@ -294,7 +277,6 @@ function PiazzaScreenView({
       )
       setIsLoading(false)
     }
-    console.log(messagesList.length)
     if (conversation === 'piazza') {
       if (isLoading || (!messagesList.length && navigator.onLine)) {
         messageList()
@@ -330,84 +312,50 @@ function PiazzaScreenView({
     handleMessagesList([])
   }
   return (
-    <div ref={boxRef} className={`p-1 border-t rounded-xl overflow-auto`}>
-      <ul>
-        {isLoading && (
-          <div className="flex justify-center bg-light-2 dark:bg-dark-2 rounded">
-            로딩
-          </div>
-        )}
-        {messagesArray.map((value, index) => {
-          let passingValue
-          if (conversation === 'piazza') {
-            passingValue = value
-          } else {
-            if (value.userUid === value.userOne) {
-              passingValue = {
-                userUid: value.userOne,
-                id: value.userOneDisplayName,
-                profileImage: value.userOneProfileImage || value.profileImage,
-                defaultProfile:
-                  value.userOneDefaultProfile || value.defaultProfile,
-                profileImageUrl:
-                  value.userOneProfileUrl || value.profileImageUrl,
-              }
+    <div className={`fixed w-screen bg-light-3 dark:bg-dark-3 flex flex-col ${isKeyboardOpen ? 'bottom-[50px] h-full pt-[120px]' : 'bottom-[110px] h-[60%]'}`}>
+      <div ref={boxRef} className='p-1 border-t rounded-xl overflow-auto'>
+        {/* <ul>
+          {isLoading && (
+            <div className="flex justify-center bg-light-2 dark:bg-dark-2 rounded">
+              {loading}
+            </div>
+          )}
+          {messagesArray.map((value, index) => {
+            let passingValue
+            if (conversation === 'piazza') {
+              passingValue = value
             } else {
-              passingValue = {
-                userUid: value.userTwo,
-                id: value.userTwoDisplayName,
-                profileImage: value.userTwoProfileImage || value.profileImage,
-                defaultProfile:
-                  value.userTwoDefaultProfile || value.defaultProfile,
-                profileImageUrl:
-                  value.userTwoProfileUrl || value.profileImageUrl,
+              if (value.userUid === value.userOne) {
+                passingValue = {
+                  userUid: value.userOne,
+                  id: value.userOneDisplayName,
+                  profileImage: value.userOneProfileImage || value.profileImage,
+                  defaultProfile:
+                    value.userOneDefaultProfile || value.defaultProfile,
+                  profileImageUrl:
+                    value.userOneProfileUrl || value.profileImageUrl,
+                }
+              } else {
+                passingValue = {
+                  userUid: value.userTwo,
+                  id: value.userTwoDisplayName,
+                  profileImage: value.userTwoProfileImage || value.profileImage,
+                  defaultProfile:
+                    value.userTwoDefaultProfile || value.defaultProfile,
+                  profileImageUrl:
+                    value.userTwoProfileUrl || value.profileImageUrl,
+                }
               }
             }
-          }
-          let userDirection
-          const clock = new Date(value.messageClock)
-          if (value.userUid === profile?.uid) {
-            userDirection = 'text-right'
-          } else {
-            userDirection = 'text-left'
-          }
-          let previousUid
-          if (index > 0) {
-            previousUid = messagesArray[index - 1].userUid
-          }
-          if (index < messagesArray.length - 1) {
-            if (messagesArray[index + 1].userUid === profile?.uid) {
-            }
-          }
-          let messageAmpm
-          let messageHours = clock.getHours()
-          let messageMonth = (clock.getMonth() + 1).toString()
-          let messageDate = clock.getDate().toString()
-          if (messageHours >= 13) {
-            messageAmpm = '오후'
-            if (messageHours !== 12) {
-              messageHours = messageHours - 12
-            }
-          } else {
-            messageAmpm = '오전'
-            if (messageHours === 0) {
-              messageHours = messageHours + 12
-            }
-          }
-          if (clock.getMonth() + 1 < 10) {
-            messageMonth = '0' + messageMonth
-          }
-          if (messageDate.length === 1) {
-            messageDate = '0' + messageDate
-          }
-          return (
-            <li
-              key={index}
-              ref={index === continueNumber ? messagesEndRef : null}
-              className={userDirection}
-            >
-              {previousUid !== value.userUid && (
-                <div>
+            const userDirection = value.userUid === profile?.uid ? 'text-right' : 'text-left'
+            const previousUid = index > 0 ? messagesArray[index - 1].userUid : ''
+            return (
+              <li
+                key={index}
+                ref={index === continueNumber ? messagesEndRef : null}
+                className={userDirection}
+              >
+                {previousUid !== value.userUid && (
                   <div
                     className={`flex justify-${
                       value.userUid !== profile?.uid ? 'start' : 'end'
@@ -417,34 +365,18 @@ function PiazzaScreenView({
                       <div className="flex gap-3 pt-3">
                         <Popups
                           trigger={
-                            <Avatars
-                              element={passingValue}
-                              piazza={() =>
-                                onDrawer({
-                                  userUid: passingValue.userUid,
-                                  displayName: passingValue.id,
-                                })
-                              }
-                              profile={false}
-                            />
+                            <button onClick={() => onDrawer({
+                              userUid: passingValue.userUid,
+                              displayName: passingValue.id,
+                            })}>
+                              <Avatars
+                                element={passingValue}
+                                profile={false}
+                              />
+                            </button>
                           }
                           title={
-                            <div>
-                              <div className="flex justify-center">
-                                {user?.displayName}
-                              </div>
-                              {user?.displayName !== displayedName && (
-                                <div>
-                                  {languages === 'ko' ? (
-                                    <div>({displayedName}에서 개명)</div>
-                                  ) : (
-                                    <div>
-                                      (Changed name from {displayedName})
-                                    </div>
-                                  )}
-                                </div>
-                              )}
-                            </div>
+                            <PiazzaDialogsTitle user={user} displayedName={displayedName}/>
                           }
                           content={
                             <PiazzaDialogsContent
@@ -453,41 +385,25 @@ function PiazzaScreenView({
                             />
                           }
                         />
-                        <div>{value.id}</div>
+                        {value.id}
                       </div>
                     ) : (
                       <div className="flex gap-3 pt-3">
-                        <div>{value.id}</div>
+                        {value.id}
                         <Popups
                           trigger={
-                            <Avatars
-                              element={passingValue}
-                              piazza={() =>
-                                onDrawer({
-                                  userUid: passingValue.userUid,
-                                  displayName: passingValue.id,
-                                })
-                              }
-                              profile={false}
-                            />
+                            <button onClick={() => onDrawer({
+                              userUid: passingValue.userUid,
+                              displayName: passingValue.id,
+                            })}>
+                              <Avatars
+                                element={passingValue}
+                                profile={false}
+                              />
+                            </button>
                           }
                           title={
-                            <div>
-                              <div className="flex justify-center">
-                                {user?.displayName}
-                              </div>
-                              {user?.displayName !== displayedName && (
-                                <div>
-                                  {languages === 'ko' ? (
-                                    <div>({displayedName}에서 개명)</div>
-                                  ) : (
-                                    <div>
-                                      (Changed name from {displayedName})
-                                    </div>
-                                  )}
-                                </div>
-                              )}{' '}
-                            </div>
+                            <PiazzaDialogsTitle user={user} displayedName={displayedName}/>
                           }
                           content={
                             <PiazzaDialogsContent
@@ -499,44 +415,30 @@ function PiazzaScreenView({
                       </div>
                     )}
                   </div>
-                </div>
-              )}
-              {value.userUid !== profile?.uid ? (
-                <div className="flex gap-3 justify-start">
-                  <div className="other rounded-tr-lg rounded-bl-lg rounded-br-lg p-1 bg-light-1 dark:bg-dark-1">
-                    {value.msg}
+                )}
+                {userDirection === 'text-left' ? (
+                  <div className="flex gap-3 justify-start">
+                    <div className="other rounded-tr-lg rounded-bl-lg rounded-br-lg p-1 bg-light-1 dark:bg-dark-1">
+                      {value.msg}
+                    </div>
+                    <PiazzaScreenClock value={value}/>
                   </div>
-                  <div>
-                    {clock.getFullYear()}-{messageMonth}-{messageDate}{' '}
-                    {languages === 'ko' && messageAmpm} {messageHours}:
-                    {clock.getMinutes() < 10 && '0'}
-                    {clock.getMinutes()}
-                    {languages === 'en' &&
-                      (messageAmpm === '오전' ? 'am' : 'pm')}
+                ) : (
+                  <div className="flex gap-3 justify-end">
+                    <PiazzaScreenClock value={value}/>
+                    <div className="me rounded-tl-lg rounded-bl-lg rounded-br-lg p-1 bg-light-1 dark:bg-dark-1">
+                      {value.msg}
+                    </div>
                   </div>
-                </div>
-              ) : (
-                <div className="flex gap-3 justify-end">
-                  <div>
-                    {clock.getFullYear()}-{messageMonth}-{messageDate}{' '}
-                    {languages === 'ko' && messageAmpm} {messageHours}:
-                    {clock.getMinutes() < 10 && '0'}
-                    {clock.getMinutes()}
-                    {languages === 'en' &&
-                      (messageAmpm === '오전' ? 'am' : 'pm')}
-                  </div>
-                  <div className="me rounded-tl-lg rounded-bl-lg rounded-br-lg p-1 bg-light-1 dark:bg-dark-1">
-                    {value.msg}
-                  </div>
-                </div>
-              )}
-            </li>
-          )
-        })}
-        <li ref={messagesEndRef} />
-      </ul>
+                )}
+              </li>
+            )
+          })}
+          <li ref={messagesEndRef} />
+        </ul> */}
+      </div>
     </div>
   )
 }
 
-export default PiazzaScreenView
+export default PiazzaScreen

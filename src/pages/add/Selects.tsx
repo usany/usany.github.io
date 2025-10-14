@@ -1,14 +1,14 @@
-import { useMediaQuery } from "@mui/material";
+import { Button, useMediaQuery } from "@mui/material";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import TextField from "@mui/material/TextField";
-import { useSelectors } from "src/hooks";
+import useSelectors from 'src/hooks/useSelectors';
 
 export const locationsBuildings = {
-  ko: ["중도", "청운", "푸른솔", "간호이과대", "경영대", "문과대", "의과대", "치과병원", "네오르네상스관"],
-  en: ['Central library', 'Cheongwoon', 'Pureunsol', 'Nursing Science & Science', 'Business', 'Humanities', 'Medicine', 'Dental Hospital', 'Neo-Renaissance']
+  ko: ["중도", "청운", "푸른솔", "간호이과대", "경영대", "문과대", "의과대", "치과병원", "네오르네상스관", "직접 입력"],
+  en: ['Central library', 'Cheongwoon', 'Pureunsol', 'Nursing Science & Science', 'Business', 'Humanities', 'Medicine', 'Dental Hospital', 'Neo-Renaissance', 'Self input']
 }
 
 export const locationsCollection = {
@@ -105,6 +105,10 @@ export const location = {
     ko: settingLocations(locationsCollection['ko'].g, locationsCollection['ko'].g),
     en: settingLocations(locationsCollection['en'].g, locationsCollection['ko'].g)
   },
+  n: {
+    ko: settingLocations(locationsCollection['ko'].n, locationsCollection['ko'].n),
+    en: settingLocations(locationsCollection['en'].n, locationsCollection['ko'].n)
+  },
   k: {
     ko: settingLocations(locationsCollection['ko'].k, locationsCollection['ko'].k),
     en: settingLocations(locationsCollection['en'].k, locationsCollection['ko'].k),
@@ -138,7 +142,6 @@ function Selects({
 }: Props) {
   const matches = useMediaQuery("(min-width:990px)");
   const languages = useSelectors((state) => state.languages.value)
-
   return (
     <div className={`flex ${matches ? "" : "flex-col"} gap-1 px-5`}>
       <FormControl variant="standard" sx={{ width: 150 }}>
@@ -168,7 +171,7 @@ function Selects({
         </Select>
       </FormControl>
       {locationState.locationOne !== "" &&
-        locationState.locationOne !== "직접 입력" && (
+        locationState.locationOne !== "직접 입력" && locationState.locationOne !== "Self input" && (
           <FormControl variant="standard" sx={{ width: 150 }}>
             <InputLabel
             // id="demo-simple-select-standard-label1"
@@ -186,6 +189,7 @@ function Selects({
               {locationState.locationOne === "청운" && location.cw[languages]}
               {locationState.locationOne === "푸른솔" && location.p[languages]}
               {locationState.locationOne === "간호이과대" && location.g[languages]}
+              {locationState.locationOne === "네오르네상스관" && location.n[languages]}
               {locationState.locationOne === "경영대" && location.k[languages]}
               {locationState.locationOne === "문과대" && location.m[languages]}
               {locationState.locationOne === "의과대" && location.e[languages]}
@@ -217,9 +221,11 @@ function Selects({
             </Select>
           </FormControl>
         )}
-      {locationState.locationOne === "직접 입력" && (
-        <div className="pt-7">
-          <TextField onChange={changeLocationInput} required autoFocus />
+      {(locationState.locationOne === "직접 입력" || locationState.locationOne === "Self input") && (
+        <div className="flex pt-7">
+          <TextField
+            inputProps={{ maxLength: 25 }}
+            onChange={changeLocationInput} required autoFocus />
         </div>
       )}
     </div>

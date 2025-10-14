@@ -1,6 +1,6 @@
 import ProfileForm from 'src/pages/profile/ProfileForm'
 import ProfileConnects from 'src/pages/profile/ProfileConnects'
-import { useSelectors } from 'src/hooks'
+import useSelectors from 'src/hooks/useSelectors'
 import { useLocation } from 'react-router-dom'
 
 interface Props {

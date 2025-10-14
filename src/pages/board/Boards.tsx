@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
-import { useSelectors } from 'src/hooks'
+import useSelectors from 'src/hooks/useSelectors'
 import { SwipeableViews } from 'src/pages/core/SwipeableViews'
 import locationsBuildings from '../add/locationsBuildings'
 import LayoutBoard from './LayoutBoard'

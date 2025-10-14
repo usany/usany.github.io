@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { dbservice } from 'src/baseApi/serverbase';
 import CardDroppable from './CardsDroppable';
 import CardsStacksViewsCollection from './CardsStacksViewsCollection';
-import { useSelectors } from 'src/hooks';
+import useSelectors from 'src/hooks/useSelectors';
 import deleteMessage from './deleteMessage';
 
 const handleDelete = async ({

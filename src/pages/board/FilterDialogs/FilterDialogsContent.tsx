@@ -7,7 +7,8 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { useSearchParams } from 'react-router-dom'
-import { useSelectors, useTexts } from 'src/hooks'
+import useSelectors from 'src/hooks/useSelectors'
+import useTexts from 'src/hooks/useTexts'
 import locationsBuildings from 'src/pages/add/locationsBuildings'
 const items = {
   ko: ['전체 아이템', '우산', '양산'],

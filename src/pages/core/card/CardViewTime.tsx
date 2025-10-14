@@ -1,5 +1,5 @@
 import { Watch } from 'lucide-react'
-import { useSelectors } from 'src/hooks'
+import useSelectors from 'src/hooks/useSelectors'
 
 const CardViewTime = ({ message }) => {
   const languages = useSelectors((state) => state.languages.value)

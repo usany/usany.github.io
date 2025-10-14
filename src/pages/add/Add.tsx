@@ -4,7 +4,7 @@ import { Maximize2, Minimize2 } from 'lucide-react'
 import { useEffect, useReducer, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { dbservice } from 'src/baseApi/serverbase'
-import { useSelectors } from 'src/hooks'
+import useSelectors from 'src/hooks/useSelectors'
 import AddCards from 'src/pages/add/AddCards'
 import AddRegisterButton from 'src/pages/add/AddRegisterButton'
 import AddSnackBar from 'src/pages/add/AddSnackBar'
@@ -14,7 +14,7 @@ import AddSteppers from 'src/pages/add/AddSteppers'
 import AddStepThree from 'src/pages/add/AddStepThree'
 import AddStepTwo from 'src/pages/add/AddStepTwo'
 import PageTitle from 'src/pages/core/pageTitle/PageTitle'
-import { useTexts } from 'src/hooks'
+import useTexts from 'src/hooks/useTexts'
 
 interface Props {
   borrow: boolean
@@ -200,7 +200,7 @@ function Add({ borrow }: Props) {
       } else {
         const calculating = () => {
           if (fromTo.from && fromTo.to) {
-            if (fromTo.to.year - fromTo.from.year > 0) {
+            if (fromTo.to.year - fromTo .from.year > 0) {
               return (fromTo.to.year - fromTo.from.year) * 366 * 24 * 60
             } else if (fromTo.to.month - fromTo.from.month > 0) {
               return (fromTo.to.month - fromTo.from.month) * 31 * 24 * 60
@@ -253,10 +253,9 @@ function Add({ borrow }: Props) {
           confirmedReturnClock: null,
         })
         await updateDoc(user, { createdCards: [...userCreatedCards, card.id] })
-        const cardObject = await getDoc(doc(dbservice, `num/${card.id}`))
+        // const cardObject = await getDoc(doc(dbservice, `num/${card.id}`))
         setDisplay({
           id: card.id,
-          ...cardObject.data(),
         })
         setAddSteps(4)
       }

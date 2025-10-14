@@ -5,7 +5,7 @@ import { Maximize2, Minimize2 } from 'lucide-react';
 import { useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
-import { useSelectors } from 'src/hooks';
+import useSelectors from 'src/hooks/useSelectors';
 import { changeTabs } from 'src/stateSlices/tabsSlice';
 
 function a11yProps(index: number) {

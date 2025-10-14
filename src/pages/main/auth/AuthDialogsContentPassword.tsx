@@ -4,7 +4,8 @@ import { sendPasswordResetEmail } from 'firebase/auth'
 import { useState } from 'react'
 import staticMail from 'src/assets/signMail.svg'
 import { auth } from 'src/baseApi/serverbase'
-import { useSelectors, useTexts } from 'src/hooks'
+import useSelectors from 'src/hooks/useSelectors'
+import useTexts from 'src/hooks/useTexts'
 function AuthDialogsContentPassword() {
   const [email, setEmail] = useState('')
   const [status, setStatus] = useState('')

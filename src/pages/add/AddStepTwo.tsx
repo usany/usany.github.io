@@ -1,4 +1,4 @@
-import { useSelectors } from 'src/hooks'
+import useSelectors from 'src/hooks/useSelectors'
 import AddStepTitle from 'src/pages/add/AddStepTitle'
 import Selects from 'src/pages/add/Selects'
 
@@ -23,7 +23,7 @@ const AddStepTwo = ({ locationState, changeBuilding, changeRoom, changeSeat, cha
   const index = (languages === 'ko' || languages === 'en') ? languages : 'ko'
 
   return (
-    <div>
+    <div className='flex flex-col'>
       <AddStepTitle title={titles[index]} />
       <Selects
         locationState={locationState}

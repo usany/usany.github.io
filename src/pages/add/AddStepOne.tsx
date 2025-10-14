@@ -1,4 +1,4 @@
-import { useSelectors } from 'src/hooks'
+import useSelectors from 'src/hooks/useSelectors'
 import AddItemSelects from 'src/pages/add/AddItemSelects'
 import AddStepTitle from 'src/pages/add/AddStepTitle'
 

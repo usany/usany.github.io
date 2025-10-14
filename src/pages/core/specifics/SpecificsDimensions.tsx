@@ -1,7 +1,8 @@
 import { Chip } from '@mui/material'
 import { Building, Watch } from 'lucide-react'
 import useLargeMedia from 'src/hooks/useLargeMedia'
-import { useSelectors, useTexts } from 'src/hooks'
+import useSelectors from 'src/hooks/useSelectors'
+import useTexts from 'src/hooks/useTexts'
 import locationsBuildings from 'src/pages/add/locationsBuildings'
 import locationsCollection from 'src/pages/add/locationsCollection'
 import locationsCollectionLetters from 'src/pages/add/locationsCollectionLetters'
@@ -21,20 +22,30 @@ const getLocation = (message) => {
     locationsBuildings['en'][
     locationsBuildings['ko'].indexOf(message.text.count)
     ]
-  const locationTwo =
-    locationsCollection['en'][
-    Object.keys(locationsCollectionLetters).find(
-      (key) => locationsCollectionLetters[key] === message.text.count,
-    )
-    ][
-    locationsCollection['ko'][
-      Object.keys(locationsCollectionLetters).find(
-        (key) => locationsCollectionLetters[key] === message.text.count,
-      )
-    ].indexOf(message.text.counter)
-    ]
-  const location = locationOne + ' ' + locationTwo + ' ' + message.text.counting
-  return location
+    if (locationOne) {
+      const locationTwo =
+        locationsCollection['en'][
+        Object.keys(locationsCollectionLetters).find(
+          (key) => locationsCollectionLetters[key] === message.text.count,
+        )
+        ][
+        locationsCollection['ko'][
+          Object.keys(locationsCollectionLetters).find(
+            (key) => locationsCollectionLetters[key] === message.text.count,
+          )
+        ].indexOf(message.text.counter)
+        ]
+      const location = locationOne + ' ' + locationTwo + ' ' + message.text.counting
+      return location
+    }
+    const location =
+      message.text.count +
+      ' ' +
+      message.text.counter +
+      ' ' +
+      message.text.counting
+    return location
+
 }
 
 interface Props {

@@ -1,4 +1,4 @@
-import { useTexts } from "src/hooks";
+import useTexts from "src/hooks/useTexts";
 
 interface Props {
   findingPassword: boolean

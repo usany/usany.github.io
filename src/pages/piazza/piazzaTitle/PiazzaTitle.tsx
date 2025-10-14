@@ -1,5 +1,5 @@
 import { MessagesSquare } from 'lucide-react'
-import { useTexts } from 'src/hooks'
+import useTexts from 'src/hooks/useTexts'
 import PageTitle from 'src/pages/core/pageTitle/PageTitle'
 import PiazzaSwitch from 'src/pages/piazza/piazzaTitle/piazzaSwitch/PiazzaSwitch'
 
