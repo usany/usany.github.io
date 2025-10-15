@@ -21,14 +21,15 @@ const ProfileLocations = () => {
     locationConfirmed,
     locationUnconfirmed,
     campusLocationConfirmation,
-    failedLocationConfirmation
+    failedLocationConfirmation,
   } = useTexts()
-  const {state} = useLocation()
+  const { state } = useLocation()
   const profile = useSelectors((state) => state.profile.value)
   const userUid = state?.element.uid || profile?.uid
   const locationConfirmNumber = 50000000
   const confirmed = profile?.locationConfirmed
-  const locationConfirmation = confirmed && Date.now() - confirmed < locationConfirmNumber ? true : false
+  const locationConfirmation =
+    confirmed && Date.now() - confirmed < locationConfirmNumber ? true : false
   const dispatch = useDispatch()
 
   const onClick = () => {
@@ -42,11 +43,12 @@ const ProfileLocations = () => {
         location.lng < area.eastSouth.lng
       ) {
         updateDoc(myDoc, { locationConfirmed: Date.now() })
-        dispatch(changeProfile({...profile, locationConfirmed: true}))
+        dispatch(changeProfile({ ...profile, locationConfirmed: true }))
       }
     }
   }
   const onClickLocation = () => {
+    alert('Allow location access to update on-campus status of your profile')
     navigator.geolocation.getCurrentPosition((position) => {
       setLocation({
         lat: position.coords.latitude,
@@ -62,8 +64,10 @@ const ProfileLocations = () => {
           <div className="flex flex-col justify-center">
             <Chip
               sx={locationConfirmation ? {} : undefined}
-              color={locationConfirmation ? "success" : undefined}
-              label={locationConfirmation ? locationConfirmed : locationUnconfirmed}
+              color={locationConfirmation ? 'success' : undefined}
+              label={
+                locationConfirmation ? locationConfirmed : locationUnconfirmed
+              }
             />
             {userUid === profile?.uid && !locationConfirmation && (
               <Button onClick={onClickLocation} variant="outlined">
@@ -71,9 +75,7 @@ const ProfileLocations = () => {
               </Button>
             )}
           </div>
-          {profile?.uid === userUid && (
-            <ProfileLocationsChip />
-          )}
+          {profile?.uid === userUid && <ProfileLocationsChip />}
         </div>
         {!locationConfirmation && location.lat !== 0 && (
           <div>{failedLocationConfirmation}</div>

@@ -12,7 +12,7 @@ import Carousels from '../core/specifics/Carousels'
 
 const ProfileCompleted = ({ cards }) => {
   const dispatch = useDispatch()
-  const {borrowing, lending, activitiesCompleted} = useTexts()
+  const { borrowing, lending, activitiesCompleted } = useTexts()
   const actions = [
     {
       action: 'borrow',
@@ -42,60 +42,64 @@ const ProfileCompleted = ({ cards }) => {
 
   return (
     <div className="flex flex-col">
-      <ChartContainer
-        config={labels}
-        className="aspect-square max-h-[250px] pt-5"
-      >
-        <PieChart>
-          <ChartLegend
-            content={<ChartLegendContent nameKey="action" />}
-            className="text-base font-bold gap-2 [&>*]:basis-1/4 [&>*]:justify-center"
-            verticalAlign="bottom"
-          />
-          <Pie
-            data={actions}
-            dataKey="number"
-            nameKey="action"
-            onClick={(value) => {
-              const action = value.action
-              dispatch(changeCompletedAction(action))
-            }}
-            innerRadius={60}
-          >
-            <Label
-              content={({ viewBox }) => {
-                if (viewBox && 'cx' in viewBox && 'cy' in viewBox) {
-                  return (
-                    <text x={viewBox.cx} y={viewBox.cy} textAnchor="middle" onClick={() => {
-                      dispatch(changeCompletedAction(''))
-                    }}>
-                      <tspan
+      <div className="flex justify-center h-[250px] pt-5">
+        <ChartContainer config={labels} className="aspect-square max-h-[250px]">
+          <PieChart>
+            <ChartLegend
+              content={<ChartLegendContent nameKey="action" />}
+              className="text-base font-bold gap-2 [&>*]:basis-1/4 [&>*]:justify-center"
+              verticalAlign="bottom"
+            />
+            <Pie
+              data={actions}
+              dataKey="number"
+              nameKey="action"
+              onClick={(value) => {
+                const action = value.action
+                dispatch(changeCompletedAction(action))
+              }}
+              innerRadius={60}
+            >
+              <Label
+                content={({ viewBox }) => {
+                  if (viewBox && 'cx' in viewBox && 'cy' in viewBox) {
+                    return (
+                      <text
                         x={viewBox.cx}
                         y={viewBox.cy}
-                        className="fill-foreground text-3xl font-bold"
+                        textAnchor="middle"
+                        onClick={() => {
+                          dispatch(changeCompletedAction(''))
+                        }}
                       >
-                        {totalNumber.toLocaleString()}
-                      </tspan>
-                      <tspan
-                        x={viewBox.cx}
-                        y={(viewBox.cy || 0) + 24}
-                        className="fill-foreground"
-                      >
-                        {activitiesCompleted}
-                      </tspan>
-                    </text>
-                  )
-                }
-              }}
+                        <tspan
+                          x={viewBox.cx}
+                          y={viewBox.cy}
+                          className="fill-foreground text-3xl font-bold"
+                        >
+                          {totalNumber.toLocaleString()}
+                        </tspan>
+                        <tspan
+                          x={viewBox.cx}
+                          y={(viewBox.cy || 0) + 24}
+                          className="fill-foreground"
+                        >
+                          {activitiesCompleted}
+                        </tspan>
+                      </text>
+                    )
+                  }
+                }}
+              />
+            </Pie>
+            <ChartLegend
+              content={<ChartLegendContent nameKey="action" />}
+              className="text-base font-bold gap-2 [&>*]:basis-1/4 [&>*]:justify-center"
+              verticalAlign="top"
             />
-          </Pie>
-          <ChartLegend
-            content={<ChartLegendContent nameKey="action" />}
-            className="text-base font-bold gap-2 [&>*]:basis-1/4 [&>*]:justify-center"
-            verticalAlign="top"
-          />
-        </PieChart>
-      </ChartContainer>
+          </PieChart>
+        </ChartContainer>
+      </div>
       {cards.done && <Carousels />}
     </div>
   )
