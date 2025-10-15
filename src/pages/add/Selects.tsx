@@ -158,16 +158,6 @@ function Selects({
               <MenuItem key={index} value={locationsBuildings['ko'][index]}>{value}</MenuItem>
             )
           })}
-          {/* <MenuItem value={"중도"}>{languages === 'ko' ? '중도' : 'Central Library'}</MenuItem>
-          <MenuItem value={"청운"}>{languages === 'ko' ? '청운' : 'Cheongwoon'}</MenuItem>
-          <MenuItem value={"푸른솔"}>푸른솔</MenuItem>
-          <MenuItem value={"간호이과대"}>간호이과대</MenuItem>
-          <MenuItem value={"경영대"}>경영대</MenuItem>
-          <MenuItem value={"문과대"}>문과대</MenuItem>
-          <MenuItem value={"의과대"}>의과대</MenuItem>
-          <MenuItem value={"치과병원"}>치과병원</MenuItem>
-          <MenuItem value={"네오르네상스관"}>네오르네상스관</MenuItem>
-          <MenuItem value={"직접 입력"}>직접 입력</MenuItem> */}
         </Select>
       </FormControl>
       {locationState.locationOne !== "" &&
