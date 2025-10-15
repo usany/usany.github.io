@@ -91,7 +91,6 @@ function FilterDialogsContent({ handleSelectedValues }: Props) {
           </>
         )
       })}
-
     </div>
   )
 }
