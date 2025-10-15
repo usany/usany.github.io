@@ -3,6 +3,7 @@ import staticGoogle from 'src/assets/signGoogle.svg'
 import staticApple from 'src/assets/signApple.png'
 import staticMicrosoft from 'src/assets/signMicrosoft.svg'
 import {
+  onSocialClick,
   onSocialClickApple,
   onSocialClickGoogle,
   onSocialClickMicrosoft,
