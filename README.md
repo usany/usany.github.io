@@ -1,6 +1,6 @@
 # KHUSAN
 
-![Alt text](./src/assets/static_e.jpeg)
+![College of music](./src/assets/static_e.jpeg)
 <img src='./src/assets/static_e.jpeg' width='500px' />
 A campus umbrella sharing app for KHU.
 Currently available in Onestore, MS store, and web.
