@@ -42,6 +42,7 @@ const ProfileCompleted = ({ cards }) => {
 
   return (
     <div className="flex flex-col">
+      <div>practice</div>
       <div className="flex justify-center h-[250px]">
         <ChartContainer
           config={labels}
