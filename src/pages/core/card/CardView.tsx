@@ -7,7 +7,6 @@ import staticCl from 'src/assets/static_cl.jpeg'
 import staticCw from 'src/assets/static_cw.jpeg'
 import staticG from 'src/assets/static_g.jpeg'
 import staticE from 'src/assets/comratio.jpeg'
-import useCardsBackground from 'src/hooks/useCardsBackground'
 import CardViewLocation from './CardViewLocation'
 import CardViewTime from './CardViewTime'
 import CardViewTop from './CardViewTop'
@@ -21,7 +20,6 @@ export const staticArray = {
   'building': staticImgs,
 }
 const CardView = ({ onTransfer, message, shadowColor }) => {
-  const { colorTwo } = useCardsBackground()
   const staticImg = staticArray[message.text.count] || staticArray['building']
   return (
     <div className="flex flex-col gap-5">
@@ -32,7 +30,7 @@ const CardView = ({ onTransfer, message, shadowColor }) => {
           width: 200 * 0.9,
           height: 280 * 0.9,
           boxShadow: `1.5px 1.5px 1.5px 1.5px ${shadowColor}`,
-          bgcolor: colorTwo,
+          // bgcolor: colorTwo,
         }}
       >
         <CardContent
