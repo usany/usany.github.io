@@ -3,7 +3,10 @@
 ![College of music](./src/assets/static_e.jpeg)
 <img src='./src/assets/static_e.jpeg' width='500px' />
 A campus umbrella sharing app for KHU.
-Currently available in Onestore, MS store, and web.
+Currently available in
+**[Web: KHUSAN.co.kr](https://khusan.co.kr)
+**[Android: Onestore](https://m.onestore.co.kr/v2/ko-kr/app/0000776823),
+\*\*[Windows: MS store](https://apps.microsoft.com/detail/9n7801hsf6vh?hl=en-US&gl=US),
 
 ## Features
 
