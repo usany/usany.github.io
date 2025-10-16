@@ -4,7 +4,7 @@ import staticCw from 'src/assets/static_cw.jpeg'
 import staticG from 'src/assets/static_g.jpeg'
 import staticE from 'src/assets/comratio.jpeg'
 
-const buildingsObject = {
+export const buildingsObject = {
   cl: {
     ko: {
       name: '중도',
@@ -147,7 +147,7 @@ export const staticArray = {
   '경영대': staticE,
   'building': staticImgs,
 }
-export const locationsCollection = {
+const locationsCollection = {
   ko: {
     cl: [
       "1열(1F)",

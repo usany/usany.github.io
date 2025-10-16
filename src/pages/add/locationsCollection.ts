@@ -1,3 +1,6 @@
+import { buildingsObject } from "./locationsBuildings";
+
+const keysArray = Object.keys(buildingsObject)
 const locationsCollection = {
   ko: {
     cl: [
