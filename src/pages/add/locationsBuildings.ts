@@ -212,10 +212,10 @@ export const locationsCollectionLetters = {
 export const markers = Object.keys(buildingsObject).map((value) => {
   return {
     label: {
-      ko: locationsBuildings[value].ko,
-      en: locationsBuildings[value].en
+      ko: buildingsObject[value].ko,
+      en: buildingsObject[value].en
     },
-    location: locationsBuildings[value].location
+    location: buildingsObject[value].location
   }
 })
 // export const markers = [
