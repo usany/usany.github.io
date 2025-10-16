@@ -236,7 +236,7 @@ function BoardMap({
         const contentString = [
           `<div class="markerContainer">
             <div class="markerTitle">
-              ${languages === 'ko' ? value.label.ko : value.label.en}
+              ${languages === 'ko' ? value.label.ko.name : value.label.en.name}
             </div>
             <div key={index} className="flex gap-5">
                 <div className="pt-1">
