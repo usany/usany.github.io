@@ -42,7 +42,19 @@ const buildingsObject = {
     },
     image: staticCl,
     location: { lat: 37.5970966, lng: 127.0527314 },
-  }
+  },
+  g: {
+    ko: {
+      name: '간호이과대',
+      details : ["카페(B2)", "열람실(B2)"],
+    },
+    en: {
+      name: 'Nursing Science & Science',
+      details: ["Cafe(B2)", "Study Room(B2)"],
+    },
+    image: staticG,
+    location: { lat: 37.5960528, lng: 127.0536951 },
+  },
 }
 export const staticArray = {
   '중도': staticCl,
