@@ -231,7 +231,6 @@ function BoardMap({
         const key = Object.keys(locationsCollectionLetters).find(
           (key) => locationsCollectionLetters[key] === value.label.ko.name,
         )
-        console.log(key)
         const contentString = [
           `<div class="markerContainer">
             <div class="markerTitle">
