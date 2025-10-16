@@ -2,23 +2,24 @@ import { alpha } from '@mui/material'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
-import staticImgs from 'src/assets/pwa-512x512.png'
-import staticCl from 'src/assets/static_cl.jpeg'
-import staticCw from 'src/assets/static_cw.jpeg'
-import staticG from 'src/assets/static_g.jpeg'
-import staticE from 'src/assets/comratio.jpeg'
+// import staticImgs from 'src/assets/pwa-512x512.png'
+// import staticCl from 'src/assets/static_cl.jpeg'
+// import staticCw from 'src/assets/static_cw.jpeg'
+// import staticG from 'src/assets/static_g.jpeg'
+// import staticE from 'src/assets/comratio.jpeg'
 import CardViewLocation from './CardViewLocation'
 import CardViewTime from './CardViewTime'
 import CardViewTop from './CardViewTop'
 import CardViewTransfer from './CardViewTransfer'
+import { staticArray } from 'src/pages/add/locationsBuildings'
 
-export const staticArray = {
-  '중도': staticCl,
-  '간호이과대': staticG,
-  '청운': staticCw,
-  '경영대': staticE,
-  'building': staticImgs,
-}
+// export const staticArray = {
+//   '중도': staticCl,
+//   '간호이과대': staticG,
+//   '청운': staticCw,
+//   '경영대': staticE,
+//   'building': staticImgs,
+// }
 const CardView = ({ onTransfer, message, shadowColor }) => {
   const staticImg = staticArray[message.text.count] || staticArray['building']
   return (

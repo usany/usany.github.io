@@ -1,3 +1,17 @@
+import staticImgs from 'src/assets/pwa-512x512.png'
+import staticCl from 'src/assets/static_cl.jpeg'
+import staticCw from 'src/assets/static_cw.jpeg'
+import staticG from 'src/assets/static_g.jpeg'
+import staticE from 'src/assets/comratio.jpeg'
+
+export const staticArray = {
+  '중도': staticCl,
+  '간호이과대': staticG,
+  '청운': staticCw,
+  '경영대': staticE,
+  'building': staticImgs,
+}
+
 export const locationsCollection = {
   ko: {
     cl: [
