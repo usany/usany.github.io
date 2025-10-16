@@ -229,7 +229,6 @@ function BoardMap({
           id: value.label.ko,
         })
         const key = Object.keys(locationsCollectionLetters).find(
-          // (key) => locationsCollectionLetters[key] === value.label.ko,
           (key) => locationsCollectionLetters[key] === value.label.ko.name,
         )
         console.log(key)
