@@ -4,6 +4,46 @@ import staticCw from 'src/assets/static_cw.jpeg'
 import staticG from 'src/assets/static_g.jpeg'
 import staticE from 'src/assets/comratio.jpeg'
 
+const buildingsObject = {
+  cl: {
+    ko: {
+      name: '중도',
+      details : [
+        "1열(1F)",
+        "2열(2F)",
+        "3열(2F)",
+        "4열(4F)",
+        "집중열(1F)",
+        "1층 책상",
+        "1층 세미나실",
+        "매점(2F)",
+        "카페(1F)",
+        "중앙자료실 책상(3F)",
+        "참고열람실 책상(4F)",
+        "정기간행물 책상(4F)",
+      ]
+    },
+    en: {
+      name: 'Central library',
+      details: [
+        "Study #1(1F)",
+        "Study #2(2F)",
+        "Study #3(2F)",
+        "Study #4(4F)",
+        "Study Focus(1F)",
+        "1F Desks",
+        "1F Seminar",
+        "Cafeteria(2F)",
+        "Cafe(1F)",
+        "Central Desks(3F)",
+        "References Desks(4F)",
+        "Serials Desks(4F)",
+      ]
+    },
+    image: staticCl,
+    location: { lat: 37.5970966, lng: 127.0527314 },
+  }
+}
 export const staticArray = {
   '중도': staticCl,
   '간호이과대': staticG,
