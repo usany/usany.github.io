@@ -5,7 +5,6 @@ import useSelectors from 'src/hooks/useSelectors'
 import useTexts from 'src/hooks/useTexts'
 import locationsBuildings, { locationsCollectionLetters } from 'src/pages/add/locationsBuildings'
 import locationsCollection from 'src/pages/add/locationsCollection'
-// import locationsCollectionLetters from 'src/pages/add/locationsCollectionLetters'
 
 const getLocation = (message) => {
   const languages = useSelectors((state) => state.languages.value)

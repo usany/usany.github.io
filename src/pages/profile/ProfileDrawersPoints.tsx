@@ -5,7 +5,6 @@ import { useLocation } from 'react-router-dom'
 import { dbservice } from 'src/baseApi/serverbase'
 import useSelectors from 'src/hooks/useSelectors'
 import useTexts from 'src/hooks/useTexts'
-// import locationsCollectionLetters from '../add/locationsCollectionLetters'
 import locationsBuildings, { locationsCollection, locationsCollectionLetters } from '../add/locationsBuildings'
 
 const ProfileDrawersPoints = ({ cards }) => {

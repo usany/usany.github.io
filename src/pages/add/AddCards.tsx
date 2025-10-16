@@ -9,7 +9,6 @@ import Avatars from 'src/pages/core/Avatars'
 import { staticArray } from '../core/card/CardView'
 import locationsBuildings, { locationsCollectionLetters } from './locationsBuildings'
 import locationsCollection from './locationsCollection'
-// import locationsCollectionLetters from './locationsCollectionLetters'
 import { DocumentData } from 'firebase/firestore'
 import useTexts from 'src/hooks/useTexts'
 interface Clock {
