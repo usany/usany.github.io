@@ -8,14 +8,18 @@ import SpecificsDimensions from './SpecificsDimensions'
 import SpecificsSteppers from './SpecificsSteppers'
 import SpecificsTrades from './SpecificsTrades'
 import getShadowColor from './getShadowColor'
-import { staticArray } from 'src/pages/add/locationsBuildings'
+import { buildingsObject, staticArray } from 'src/pages/add/locationsBuildings'
 
 const SpecificsDefault = ({ drawerOpenTrue, message, connectedUser,
   increaseRound, decreaseRound, changeOnPulse, changeConnectedUser, toggleOnTransfer, handleConnectedClock, handleConfirmingClock, handleReturningClock, handleConfirmedReturnClock
 }) => {
   const id = message?.id || ''
   const shadowColor = getShadowColor(id)
-  const staticImg = staticArray[message.text.count] || staticArray['building']
+  const locationOne = message.text.count
+  const key = Object.keys(buildingsObject).find((key) => buildingsObject[key].ko.name === locationOne)
+  const staticImg = buildingsObject[key]?.image
+
+  // const staticImg = staticArray[message.text.count] || staticArray['building']
 
     return (
       <Card
