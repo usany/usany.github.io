@@ -18,7 +18,6 @@ const SpecificsDefault = ({ drawerOpenTrue, message, connectedUser,
   const locationOne = message.text.count
   const key = Object.keys(buildingsObject).find((key) => buildingsObject[key].ko.name === locationOne)
   const staticImg = buildingsObject[key]?.image
-
   // const staticImg = staticArray[message.text.count] || staticArray['building']
 
     return (

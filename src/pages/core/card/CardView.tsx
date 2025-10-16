@@ -12,7 +12,6 @@ const CardView = ({ onTransfer, message, shadowColor }) => {
   const locationOne = message.text.count
   const key = Object.keys(buildingsObject).find((key) => buildingsObject[key].ko.name === locationOne)
   const staticImg = buildingsObject[key]?.image
-
   // const staticImg = staticArray[message.text.count] || staticArray['building']
   return (
     <div className="flex flex-col gap-5">
