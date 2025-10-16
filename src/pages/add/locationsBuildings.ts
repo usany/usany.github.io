@@ -74,7 +74,7 @@ export const locationsCollectionLetters = {
   c: '치과병원',
   n: '네오르네상스관'
 };
-const markers = [
+export const markers = [
   {
     label: {
       ko: '중도',

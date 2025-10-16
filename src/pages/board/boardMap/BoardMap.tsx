@@ -12,7 +12,7 @@ import { dbservice } from 'src/baseApi/serverbase'
 import useSelectors from 'src/hooks/useSelectors'
 import useTexts from 'src/hooks/useTexts'
 import FilterDialogsTrigger from '../FilterDialogs/FilterDialogsTrigger'
-import { locationsCollectionLetters } from 'src/pages/add/locationsBuildings'
+import { locationsCollectionLetters, markers } from 'src/pages/add/locationsBuildings'
 
 interface Props {
   selectedValues: object
@@ -22,71 +22,71 @@ interface Props {
   }) => void
 }
 
-const markers = [
-  {
-    label: {
-      ko: '중도',
-      en: 'Central library',
-    },
-    location: { lat: 37.5970966, lng: 127.0527314 },
-  },
-  {
-    label: {
-      ko: '네오르네상스관',
-      en: 'Neo-Renaissance',
-    },
-    location: { lat: 37.5948201, lng: 127.053091 },
-  },
-  {
-    label: {
-      ko: '푸른솔',
-      en: 'Pureunsol',
-    },
-    location: { lat: 37.5941125, lng: 127.0557743 },
-  },
-  {
-    label: {
-      ko: '간호이과대',
-      en: 'Nursing Science & Science',
-    },
-    location: { lat: 37.5960528, lng: 127.0536951 },
-  },
-  {
-    label: {
-      ko: '문과대',
-      en: 'Humanities',
-    },
-    location: { lat: 37.5971991, lng: 127.0539612 },
-  },
-  {
-    label: {
-      ko: '청운',
-      en: 'Cheongwoon',
-    },
-    location: { lat: 37.594732, lng: 127.0517775 },
-  },
-  {
-    label: {
-      ko: '의과대',
-      en: 'Medicine',
-    },
-    location: { lat: 37.5939, lng: 127.0549 },
-  },
-  {
-    label: {
-      ko: '경영대',
-      en: 'Business',
-    },
-    location: { lat: 37.5967052, lng: 127.0552861 },
-  },
-  {
-    label: {
-      ko: '치과병원',
-      en: 'Dental Hospital',
-    },
-    location: { lat: 37.594054, lng: 127.0531189 },
-  },
-]
+// const markers = [
+//   {
+//     label: {
+//       ko: '중도',
+//       en: 'Central library',
+//     },
+//     location: { lat: 37.5970966, lng: 127.0527314 },
+//   },
+//   {
+//     label: {
+//       ko: '네오르네상스관',
+//       en: 'Neo-Renaissance',
+//     },
+//     location: { lat: 37.5948201, lng: 127.053091 },
+//   },
+//   {
+//     label: {
+//       ko: '푸른솔',
+//       en: 'Pureunsol',
+//     },
+//     location: { lat: 37.5941125, lng: 127.0557743 },
+//   },
+//   {
+//     label: {
+//       ko: '간호이과대',
+//       en: 'Nursing Science & Science',
+//     },
+//     location: { lat: 37.5960528, lng: 127.0536951 },
+//   },
+//   {
+//     label: {
+//       ko: '문과대',
+//       en: 'Humanities',
+//     },
+//     location: { lat: 37.5971991, lng: 127.0539612 },
+//   },
+//   {
+//     label: {
+//       ko: '청운',
+//       en: 'Cheongwoon',
+//     },
+//     location: { lat: 37.594732, lng: 127.0517775 },
+//   },
+//   {
+//     label: {
+//       ko: '의과대',
+//       en: 'Medicine',
+//     },
+//     location: { lat: 37.5939, lng: 127.0549 },
+//   },
+//   {
+//     label: {
+//       ko: '경영대',
+//       en: 'Business',
+//     },
+//     location: { lat: 37.5967052, lng: 127.0552861 },
+//   },
+//   {
+//     label: {
+//       ko: '치과병원',
+//       en: 'Dental Hospital',
+//     },
+//     location: { lat: 37.594054, lng: 127.0531189 },
+//   },
+// ]
 const defaultLocation = markers[0].location
 function BoardMap({
   selectedValues,
