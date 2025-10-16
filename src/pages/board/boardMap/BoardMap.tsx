@@ -331,30 +331,26 @@ function BoardMap({
             </div>
           </AccordionTrigger>
           <AccordionContent>
-            <>
-              {selectedValues[1].value === '전체 장소' ? (
-                <div className="flex p-5">
-                  {onLine && registeredMapExplanation}
-                </div>
-              ) : (
-                <div className="flex p-5">
-                  <FilterDialogsTrigger
-                  />
-                </div>
-              )}
-            </>
-            <>
-              {onLine ? (
-                <div
-                  ref={mapRef}
-                  className='w-full h-[300px]'
-                ></div>
-              ) : (
-                <div className="flex justify-center">
-                  {needNetworkConnection}
-                </div>
-              )}
-            </>
+            {selectedValues[1].value === '전체 장소' ? (
+              <div className="flex p-5">
+                {onLine && registeredMapExplanation}
+              </div>
+            ) : (
+              <div className="flex p-5">
+                <FilterDialogsTrigger
+                />
+              </div>
+            )}
+            {onLine ? (
+              <div
+                ref={mapRef}
+                className='w-full h-[300px]'
+              ></div>
+            ) : (
+              <div className="flex justify-center">
+                {needNetworkConnection}
+              </div>
+            )}
           </AccordionContent>
         </AccordionItem>
       </Accordion>
