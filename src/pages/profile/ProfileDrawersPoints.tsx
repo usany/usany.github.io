@@ -5,9 +5,8 @@ import { useLocation } from 'react-router-dom'
 import { dbservice } from 'src/baseApi/serverbase'
 import useSelectors from 'src/hooks/useSelectors'
 import useTexts from 'src/hooks/useTexts'
-import { locationsCollection } from '../add/Selects'
-import locationsCollectionLetters from '../add/locationsCollectionLetters'
-import locationsBuildings from '../add/locationsBuildings'
+// import locationsCollectionLetters from '../add/locationsCollectionLetters'
+import locationsBuildings, { locationsCollection, locationsCollectionLetters } from '../add/locationsBuildings'
 
 const ProfileDrawersPoints = ({ cards }) => {
   const [messages, setMessages] = useState([])

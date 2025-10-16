@@ -1,8 +1,8 @@
 import { Building } from 'lucide-react'
 import useSelectors from 'src/hooks/useSelectors'
-import locationsBuildings from 'src/pages/add/locationsBuildings'
+import locationsBuildings, { locationsCollectionLetters } from 'src/pages/add/locationsBuildings'
 import locationsCollection from 'src/pages/add/locationsCollection'
-import locationsCollectionLetters from 'src/pages/add/locationsCollectionLetters'
+// import locationsCollectionLetters from 'src/pages/add/locationsCollectionLetters'
 
 const CardViewLocation = ({ message }) => {
   const languages = useSelectors((state) => state.languages.value)
