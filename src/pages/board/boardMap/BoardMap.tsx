@@ -214,6 +214,8 @@ function BoardMap({
         zoom: 17,
       })
       setCalledMap(map)
+      console.log(markers)
+      console.log(locationsCollectionLetters)
       for (const value of markers) {
         const position = new naver.maps.LatLng(
           value.location.lat,
@@ -227,8 +229,10 @@ function BoardMap({
           id: value.label.ko,
         })
         const key = Object.keys(locationsCollectionLetters).find(
-          (key) => locationsCollectionLetters[key] === value.label.ko,
+          // (key) => locationsCollectionLetters[key] === value.label.ko,
+          (key) => locationsCollectionLetters[key] === value.label.ko.name,
         )
+        console.log(key)
         const contentString = [
           `<div class="markerContainer">
             <div class="markerTitle">
