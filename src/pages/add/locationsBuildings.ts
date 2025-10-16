@@ -209,7 +209,7 @@ export const locationsCollectionLetters = {
   c: '치과병원',
   n: '네오르네상스관'
 };
-const markers = Object.keys(buildingsObject).map((value) => {
+export const markers = Object.keys(buildingsObject).map((value) => {
   return {
     label: {
       ko: locationsBuildings[value].ko,
