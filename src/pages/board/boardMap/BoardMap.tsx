@@ -337,8 +337,7 @@ function BoardMap({
               </div>
             ) : (
               <div className="flex p-5">
-                <FilterDialogsTrigger
-                />
+                <FilterDialogsTrigger />
               </div>
             )}
             {onLine ? (
