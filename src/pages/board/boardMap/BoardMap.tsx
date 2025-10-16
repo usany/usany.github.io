@@ -214,8 +214,6 @@ function BoardMap({
         zoom: 17,
       })
       setCalledMap(map)
-      console.log(markers)
-      console.log(locationsCollectionLetters)
       for (const value of markers) {
         const position = new naver.maps.LatLng(
           value.location.lat,
