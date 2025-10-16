@@ -9,7 +9,6 @@ import SpecificsSteppers from './SpecificsSteppers'
 import SpecificsTrades from './SpecificsTrades'
 import getShadowColor from './getShadowColor'
 import { staticArray } from 'src/pages/add/locationsBuildings'
-// import { staticArray } from '../card/CardView'
 
 const SpecificsDefault = ({ drawerOpenTrue, message, connectedUser,
   increaseRound, decreaseRound, changeOnPulse, changeConnectedUser, toggleOnTransfer, handleConnectedClock, handleConfirmingClock, handleReturningClock, handleConfirmedReturnClock
