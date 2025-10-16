@@ -6,10 +6,14 @@ import CardViewLocation from './CardViewLocation'
 import CardViewTime from './CardViewTime'
 import CardViewTop from './CardViewTop'
 import CardViewTransfer from './CardViewTransfer'
-import { staticArray } from 'src/pages/add/locationsBuildings'
+import { buildingsObject, staticArray } from 'src/pages/add/locationsBuildings'
 
 const CardView = ({ onTransfer, message, shadowColor }) => {
-  const staticImg = staticArray[message.text.count] || staticArray['building']
+  const locationOne = message.text.count
+  const key = Object.keys(buildingsObject).find((key) => buildingsObject[key].ko.name === locationOne)
+  const staticImg = buildingsObject[key]?.image
+
+  // const staticImg = staticArray[message.text.count] || staticArray['building']
   return (
     <div className="flex flex-col gap-5">
       {onTransfer && <CardViewTransfer />}
