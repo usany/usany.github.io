@@ -13,7 +13,7 @@ function LottieScroll() {
   }
   return (
     <div className="flex flex-col justify-center p-[50px]">
-      <Lottie options={defaultOptions} height={40} width={40} />
+      <Lottie options={defaultOptions} height={200} width={200} />
     </div>
   )
 }

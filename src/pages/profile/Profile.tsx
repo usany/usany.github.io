@@ -147,7 +147,6 @@ function Profile() {
           <ProfileMembers />
         </>
       ) : (
-        // <div className="h-[250px]"></div>
         <LottieScroll />
       )}
     </div>
