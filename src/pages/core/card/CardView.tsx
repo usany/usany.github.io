@@ -3,7 +3,7 @@ import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
 import staticImgs from 'src/assets/pwa-512x512.png'
-import staticCl from 'src/assets/static_cl.jpeg'
+import staticCl from 'src/assets/static_cl.jpg'
 import staticCw from 'src/assets/static_cw.jpeg'
 import staticG from 'src/assets/static_g.jpeg'
 import staticE from 'src/assets/comratio.jpeg'
@@ -14,11 +14,11 @@ import CardViewTop from './CardViewTop'
 import CardViewTransfer from './CardViewTransfer'
 
 export const staticArray = {
-  '중도': staticCl,
-  '간호이과대': staticG,
-  '청운': staticCw,
-  '경영대': staticE,
-  'building': staticImgs,
+  중도: staticCl,
+  간호이과대: staticG,
+  청운: staticCw,
+  경영대: staticE,
+  building: staticImgs,
 }
 const CardView = ({ onTransfer, message, shadowColor }) => {
   const { colorTwo } = useCardsBackground()
@@ -27,7 +27,7 @@ const CardView = ({ onTransfer, message, shadowColor }) => {
     <div className="flex flex-col gap-5">
       {onTransfer && <CardViewTransfer />}
       <Card
-        className='colorTwo'
+        className="colorTwo"
         sx={{
           width: 200 * 0.9,
           height: 280 * 0.9,
@@ -44,7 +44,7 @@ const CardView = ({ onTransfer, message, shadowColor }) => {
               sx={{
                 width: 200 * 0.9,
                 height: 141 * 0.9,
-                borderRadius: '10px'
+                borderRadius: '10px',
               }}
               image={staticImg}
             />
