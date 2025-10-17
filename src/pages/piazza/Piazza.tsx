@@ -12,10 +12,10 @@ import PiazzaMorphingDialogVideoCall from './components/PiazzaMorphingDialogVide
 
 function Piazza() {
   const [messages, setMessages] = useState('')
-  const [messagesList, setMessagesList] = useState<[]>([])
+  const [messagesList, setMessagesList] = useState([])
   const { state } = useLocation() as any
   const [isKeyboardOpen, setIsKeyboardOpen] = useState(false)
-  const [chattingUser, setChattingUser] = useState<any>(null)
+  const [chattingUser, setChattingUser] = useState<string | null>(null)
   const [chatUid, setChatUid] = useState('')
   const [chatDisplayName, setChatDisplayName] = useState('')
   const [searchParams] = useSearchParams()
@@ -81,6 +81,7 @@ function Piazza() {
       document.getElementById('audioCall')?.click()
     }
   }, [])
+
   return (
     <>
       {!isKeyboardOpen && <PiazzaTitle displayName={chatDisplayName} />}
