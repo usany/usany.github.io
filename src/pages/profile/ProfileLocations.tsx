@@ -1,4 +1,4 @@
-import { Button, Chip, ClickAwayListener, Tooltip } from '@mui/material'
+import { Button, Chip, ClickAwayListener, Select, Tooltip } from '@mui/material'
 import { doc, getDoc, updateDoc } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
@@ -8,6 +8,7 @@ import useTexts from 'src/hooks/useTexts'
 import ProfileLocationsChip from './ProfileLocationsChip'
 import { useDispatch } from 'react-redux'
 import { changeProfile } from 'src/stateSlices/profileSlice'
+import useLargeMedia from 'src/hooks/useLargeMedia'
 
 const area = {
   westSouth: { lat: 37.5927551, lng: 127.047462 },
@@ -27,7 +28,9 @@ const ProfileLocations = () => {
   const profile = useSelectors((state) => state.profile.value)
   const userUid = state?.element.uid || profile?.uid
   const locationConfirmNumber = 50000000
-  const confirmed = profile?.locationConfirmed
+  const confirmed = profile?.locationConfirmed 
+  const largeMedia = useLargeMedia()
+  
   const locationConfirmation =
     confirmed && Date.now() - confirmed < locationConfirmNumber ? true : false
   const dispatch = useDispatch()
@@ -60,22 +63,31 @@ const ProfileLocations = () => {
   return (
     <div className="flex justify-center p-5">
       <div className="flex flex-col">
+        <Select>
+        </Select>
         <div className="flex justify-center items-start gap-5 p-5">
-          <div className="flex flex-col justify-center">
-            <Chip
-              sx={locationConfirmation ? {} : undefined}
-              color={locationConfirmation ? 'success' : undefined}
-              label={
-                locationConfirmation ? locationConfirmed : locationUnconfirmed
-              }
-            />
+          <div className={largeMedia ? "flex justify-center" : "flex flex-col"}>
+            <div className='flex justify-center'>
+              <Chip
+                sx={locationConfirmation ? {} : undefined}
+                color={locationConfirmation ? 'success' : undefined}
+                label={
+                  locationConfirmation ? locationConfirmed : 
+                  <div className='flex justify-center gap-1'>
+                    locationUnconfirmed
+                    <ProfileLocationsChip />
+                  </div>
+                }
+              />
+            </div>
             {userUid === profile?.uid && !locationConfirmation && (
-              <Button onClick={onClickLocation} variant="outlined">
-                {campusLocationConfirmation}
-              </Button>
+              <div className='flex'>
+                <Button onClick={onClickLocation} variant="outlined">
+                  {campusLocationConfirmation}
+                </Button>
+              </div>
             )}
           </div>
-          {profile?.uid === userUid && <ProfileLocationsChip />}
         </div>
         {!locationConfirmation && location.lat !== 0 && (
           <div>{failedLocationConfirmation}</div>
