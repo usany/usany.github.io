@@ -20,7 +20,6 @@ const ProfileForm = () => {
     needAnInput,
     completedChangingName,
     change,
-    nothingChanged
   } = useTexts()
 
   useEffect(() => {
@@ -28,20 +27,25 @@ const ProfileForm = () => {
       setNewDisplayName(profile.displayName)
     }
   }, [])
+  // let profileConfirmed = true
 
   const onSubmit = async (event) => {
     event.preventDefault()
-    if (!profileChangeConfirmed) {
-      alert(nothingChanged)
+    if (!newDisplayName) {
+      alert(needAnInput)
     } else {
-      const data = doc(dbservice, `members/${profile?.uid}`)
-      await updateDoc(data, { displayName: newDisplayName })
-        .then(() => {
-          alert(completedChangingName)
-        })
-        .catch((error) => {
-          console.log(error)
-        })
+      if (!profileConfirmed) {
+        alert(existingName)
+      } else {
+        const data = doc(dbservice, `members/${profile?.uid}`)
+        await updateDoc(data, { displayName: newDisplayName })
+          .then(() => {
+            alert(completedChangingName)
+          })
+          .catch((error) => {
+            console.log(error)
+          })
+      }
     }
   }
   const onChange = async (event) => {
@@ -83,6 +87,7 @@ const ProfileForm = () => {
           variant="outlined"
           form="profile"
           type="submit"
+          disabled={!profileChangeConfirmed}
         >
           {change}
         </Button>

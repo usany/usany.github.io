@@ -24,7 +24,7 @@ const ProfileMembersDrawersContent = () => {
   const profile = useSelectors((state) => state.profile.value)
   const {state} = useLocation()
   const user = state?.element || profile
-  console.log(profile)
+
   const onChange = (event) => {
     const {
       target: { value },
@@ -50,12 +50,12 @@ const ProfileMembersDrawersContent = () => {
         })
       navigate('/')
     } else {
-      alert('Cannot delete your account. Please fulfill the conditions.')
+      alert('Cannot delete')
     }
   }
   useEffect(() => {
-    const createdCards = profile?.createdCards
-    const connectedCards = profile?.connectedCards
+    const createdCards = user.userData?.createdCards
+    const connectedCards = user.userData?.connectedCards
     const createdNumber = createdCards?.length || 0
     const connectedNumber = connectedCards?.length || 0
     if (createdNumber === 0 && connectedNumber === 0) {
@@ -71,26 +71,23 @@ const ProfileMembersDrawersContent = () => {
         {canDeleteAccountWhenYouHaveNoProcessingBorrwingOrLendingCard}
         <div className="flex justify-center">
           <Chip
-            label={process ? 
-              noProcessingCard
-               : 
-              <>
-                Borrowing on process: {profile?.createdCards.length}
-                <br />
-                Lending on process: {profile?.connectedCards.length}
-              </>
-              //  processingCard
-              }
-            sx={{ bgcolor: process ? '#7fc4bc' : '#e76e50', color: 'white', paddingY: process ? 0 : 3 }}
+            label={process ? noProcessingCard : processingCard}
+            sx={{ bgcolor: process ? '#7fc4bc' : '#e76e50', color: 'white' }}
           />
         </div>
-        <div className='pt-5'>{toDeleteAccountInputMail}</div>
+        <div>{toDeleteAccountInputMail}</div>
       </div>
-      <div className="flex flex-col justify-center px-5 gap-5">
+      <div className="flex flex-col justify-center p-5 gap-5">
         <TextField label={mail} onChange={onChange} />
-        <Button variant="outlined" onClick={delist}>
-          {deleteAccount}
-        </Button>
+        {process && confirmEmail ? (
+          <Button variant="outlined" onClick={delist}>
+            {deleteAccount}
+          </Button>
+        ) : (
+          <Button variant="outlined" disabled>
+            {deleteAccount}
+          </Button>
+        )}
       </div>
     </>
   )

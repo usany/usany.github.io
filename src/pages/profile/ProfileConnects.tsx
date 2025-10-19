@@ -114,10 +114,10 @@ const ProfileConnects = ({ alliesCollection, handleFollowers }: Props) => {
           }
         }}
       >
-        {followButton ? follow : cancelFollow}
+        {followButton ? follow : cancelFollow} {user.displayName}
       </Button>
       <Link
-        to={`/piazza?id=${conversation}`}
+        to="/piazza"
         state={{
           conversation: conversation,
           displayName: user.displayName,
