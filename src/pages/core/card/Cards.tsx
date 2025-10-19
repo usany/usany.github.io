@@ -4,7 +4,7 @@ import MorphingDialogs from '../morphingDialogs/MorphingDialogs'
 import CardsLongPressed from './CardsLongPressed'
 import CardsViews from './CardsViews'
 import { DocumentData } from 'firebase/firestore'
-
+import { useLocation, useSearchParams } from 'react-router-dom'
 interface Props {
   message: DocumentData
   longPressCard: string
@@ -25,6 +25,8 @@ const Cards = ({
   useLongPress(cardsRef, () => {
     changeLongPressCard(message.id)
   })
+  const location = useLocation()
+  const [searchParams, setSearchParams] = useSearchParams()
   return (
     <div className="max-w-60 min-w-20 text-sm p-1" ref={cardsRef}>
       {longPressCard ? (

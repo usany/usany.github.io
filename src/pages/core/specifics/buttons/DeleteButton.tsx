@@ -7,29 +7,21 @@ import deleteMessage from 'src/pages/core/card/deleteMessage'
 import onDelete from './onDelete'
 
 const DeleteButton = ({ message, decreaseRound }) => {
-  const {remove, deleted} = useTexts()
-  const [removed, setRemoved] = useState(false)
+  const {remove} = useTexts()
 
   return (
     <div className="flex justify-center">
-      {!removed ?
-        <Button
-          variant="outlined"
-          onClick={() => {
-            onDelete(message?.id)
-            deleteMessage(message?.id)
-            decreaseRound()
-            setRemoved(true)
-          }}
-          startIcon={<DeleteIcon />}
-        >
-          {remove}
-        </Button>
-        :
-        <Button variant="outlined" disabled>
-          {deleted}
-        </Button>
-      }
+      <Button
+        variant="outlined"
+        onClick={() => {
+          onDelete(message?.id)
+          deleteMessage(message?.id)
+          decreaseRound()
+        }}
+        startIcon={<DeleteIcon />}
+      >
+        {remove}
+      </Button>
     </div>
   )
 }

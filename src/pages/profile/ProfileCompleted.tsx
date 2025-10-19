@@ -9,8 +9,14 @@ import { Label, Pie, PieChart } from 'recharts'
 import useTexts from 'src/hooks/useTexts'
 import { changeCompletedAction } from 'src/stateSlices/completedActionSlice'
 import Carousels from '../core/specifics/Carousels'
+import { Card } from 'src/components/ui/card'
+import useSelectors from 'src/hooks/useSelectors'
+import { useLocation } from 'react-router-dom'
 
 const ProfileCompleted = ({ cards }) => {
+  const { state } = useLocation()
+  const profile = useSelectors((state) => state.profile.value)
+  const userUid = state?.element.uid || profile?.uid
   const dispatch = useDispatch()
   const { borrowing, lending, activitiesCompleted } = useTexts()
   const actions = [
@@ -100,7 +106,17 @@ const ProfileCompleted = ({ cards }) => {
           </PieChart>
         </ChartContainer>
       </div>
-      {cards.done && <Carousels />}
+      {cards.done ? <Carousels /> : 
+        <div className='flex justify-center'>
+          <div className='w-[188px] h-[260px] bg-light-2 dark:bg-dark-2 rounded flex justify-center items-center text-center'>
+            {profile.uid === userUid ?
+              'Start collecting cards by sharing items with users'
+              :
+              'No cards'
+            }
+          </div>
+        </div>
+      }
     </div>
   )
 }

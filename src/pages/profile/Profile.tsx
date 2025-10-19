@@ -18,6 +18,7 @@ import { changeProfileColor } from 'src/stateSlices/profileColorSlice'
 import { changeProfileUrl } from 'src/stateSlices/profileUrlSlice'
 import { useImmer } from 'use-immer'
 import ProfileLocations from './ProfileLocations'
+import LottieScroll from 'src/lottiesAnimation/LottieScroll'
 
 function Profile() {
   const { state } = useLocation()
@@ -41,7 +42,7 @@ function Profile() {
   const profile = useSelectors((state) => state.profile.value)
   const userUid = state?.element.uid || profile?.uid
   const userDisplayName = state?.element.displayName || profile?.displayName
-  const {my, userProfile} = useTexts()
+  const { my, userProfile } = useTexts()
 
   useEffect(() => {
     const cards = async () => {
@@ -131,11 +132,7 @@ function Profile() {
     <div>
       <PageTitle
         icon={<UserRound />}
-        title={`${
-          userUid === profile?.uid
-            ? my
-            : shortenName
-        } ${userProfile}`}
+        title={`${userUid === profile?.uid ? my : shortenName} ${userProfile}`}
       />
       <ProfileAvatar />
       <ProfileLocations />
@@ -143,17 +140,14 @@ function Profile() {
         alliesCollection={alliesCollection}
         handleFollowers={handleFollowers}
       />
-      <ProfileCards
-        alliesCollection={alliesCollection}
-        cards={cards}
-      />
+      <ProfileCards alliesCollection={alliesCollection} cards={cards} />
       {scrolledToCompleted ? (
         <>
           <ProfileCompleted cards={cards} />
           <ProfileMembers />
         </>
       ) : (
-        <div className="h-[250px]"></div>
+        <LottieScroll />
       )}
     </div>
   )

@@ -55,33 +55,35 @@ const ProfileAvatar = () => {
   const handleChangedImage = (newValue) => setChangedImage(newValue)
   if (profile?.uid === user.uid) {
     return (
-      <Popups
-        trigger={
-          <ProfileView
-            user={user}
-            changeAttachment={changeAttachment}
-            changedImage={changedImage}
-            handleChangedImage={handleChangedImage}
-          />
-        }
-        title={changeProfile}
-        content={
-          <ProfileDialogs
-            attachment={attachment}
-            changeAttachment={changeAttachment}
-            changedImage={changedImage}
-            handleChangedImage={handleChangedImage}
-          />
-        }
-        close={
-          <ProfileClose
-            changedImage={changedImage}
-            handleChangedImage={handleChangedImage}
-            attachment={attachment}
-          />
-        }
-        attachment={changedImage}
-      />
+      <div className='flex justify-center'>
+        <Popups
+          trigger={
+            <ProfileView
+              user={user}
+              changeAttachment={changeAttachment}
+              changedImage={changedImage}
+              handleChangedImage={handleChangedImage}
+            />
+          }
+          title={changeProfile}
+          content={
+            <ProfileDialogs
+              attachment={attachment}
+              changeAttachment={changeAttachment}
+              changedImage={changedImage}
+              handleChangedImage={handleChangedImage}
+            />
+          }
+          close={
+            <ProfileClose
+              changedImage={changedImage}
+              handleChangedImage={handleChangedImage}
+              attachment={attachment}
+            />
+          }
+          attachment={changedImage}
+        />
+      </div>
     )
   }
   return (
