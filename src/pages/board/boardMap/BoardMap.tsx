@@ -11,8 +11,8 @@ import { useSearchParams } from 'react-router-dom'
 import { dbservice } from 'src/baseApi/serverbase'
 import useSelectors from 'src/hooks/useSelectors'
 import useTexts from 'src/hooks/useTexts'
-import locationsCollectionLetters from 'src/pages/add/locationsCollectionLetters'
 import FilterDialogsTrigger from '../FilterDialogs/FilterDialogsTrigger'
+import { locationsCollectionLetters, markers } from 'src/pages/add/locationsBuildings'
 
 interface Props {
   selectedValues: object
@@ -22,71 +22,6 @@ interface Props {
   }) => void
 }
 
-const markers = [
-  {
-    label: {
-      ko: '중도',
-      en: 'Central library',
-    },
-    location: { lat: 37.5970966, lng: 127.0527314 },
-  },
-  {
-    label: {
-      ko: '네오르네상스관',
-      en: 'Neo-Renaissance',
-    },
-    location: { lat: 37.5948201, lng: 127.053091 },
-  },
-  {
-    label: {
-      ko: '푸른솔',
-      en: 'Pureunsol',
-    },
-    location: { lat: 37.5941125, lng: 127.0557743 },
-  },
-  {
-    label: {
-      ko: '간호이과대',
-      en: 'Nursing Science & Science',
-    },
-    location: { lat: 37.5960528, lng: 127.0536951 },
-  },
-  {
-    label: {
-      ko: '문과대',
-      en: 'Humanities',
-    },
-    location: { lat: 37.5971991, lng: 127.0539612 },
-  },
-  {
-    label: {
-      ko: '청운',
-      en: 'Cheongwoon',
-    },
-    location: { lat: 37.594732, lng: 127.0517775 },
-  },
-  {
-    label: {
-      ko: '의과대',
-      en: 'Medicine',
-    },
-    location: { lat: 37.5939, lng: 127.0549 },
-  },
-  {
-    label: {
-      ko: '경영대',
-      en: 'Business',
-    },
-    location: { lat: 37.5967052, lng: 127.0552861 },
-  },
-  {
-    label: {
-      ko: '치과병원',
-      en: 'Dental Hospital',
-    },
-    location: { lat: 37.594054, lng: 127.0531189 },
-  },
-]
 const defaultLocation = markers[0].location
 function BoardMap({
   selectedValues,
@@ -292,12 +227,12 @@ function BoardMap({
           id: value.label.ko,
         })
         const key = Object.keys(locationsCollectionLetters).find(
-          (key) => locationsCollectionLetters[key] === value.label.ko,
+          (key) => locationsCollectionLetters[key] === value.label.ko.name,
         )
         const contentString = [
           `<div class="markerContainer">
             <div class="markerTitle">
-              ${languages === 'ko' ? value.label.ko : value.label.en}
+              ${languages === 'ko' ? value.label.ko.name : value.label.en.name}
             </div>
             <div key={index} className="flex gap-5">
                 <div className="pt-1">
@@ -393,30 +328,25 @@ function BoardMap({
             </div>
           </AccordionTrigger>
           <AccordionContent>
-            <>
-              {selectedValues[1].value === '전체 장소' ? (
-                <div className="flex p-5">
-                  {onLine && registeredMapExplanation}
-                </div>
-              ) : (
-                <div className="flex p-5">
-                  <FilterDialogsTrigger
-                  />
-                </div>
-              )}
-            </>
-            <>
-              {onLine ? (
-                <div
-                  ref={mapRef}
-                  className='w-full h-[300px]'
-                ></div>
-              ) : (
-                <div className="flex justify-center">
-                  {needNetworkConnection}
-                </div>
-              )}
-            </>
+            {selectedValues[1].value === '전체 장소' ? (
+              <div className="flex p-5">
+                {onLine && registeredMapExplanation}
+              </div>
+            ) : (
+              <div className="flex p-5">
+                <FilterDialogsTrigger />
+              </div>
+            )}
+            {onLine ? (
+              <div
+                ref={mapRef}
+                className='w-full h-[300px]'
+              ></div>
+            ) : (
+              <div className="flex justify-center">
+                {needNetworkConnection}
+              </div>
+            )}
           </AccordionContent>
         </AccordionItem>
       </Accordion>

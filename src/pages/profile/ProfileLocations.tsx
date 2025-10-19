@@ -1,10 +1,4 @@
-import {
-  Button,
-  Chip,
-  ClickAwayListener,
-  MenuItem,
-  Tooltip,
-} from '@mui/material'
+import { Button, Chip, ClickAwayListener, MenuItem, Tooltip } from '@mui/material'
 import { doc, getDoc, updateDoc } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
@@ -40,24 +34,24 @@ const ProfileLocations = () => {
     failedLocationConfirmation,
     save,
     nothingChanged,
-    saved,
+    saved
   } = useTexts()
   const { state } = useLocation()
   const profile = useSelectors((state) => state.profile.value)
   const userUid = state?.element.uid || profile?.uid
   const locationConfirmNumber = 50000000
-  const confirmed = profile?.locationConfirmed
+  const confirmed = profile?.locationConfirmed 
   const largeMedia = useLargeMedia()
-
+  
   const locationConfirmation =
     confirmed && Date.now() - confirmed < locationConfirmNumber ? true : false
   const dispatch = useDispatch()
   let selectedCampus = profile?.campus
   const onClickSaveCampus = () => {
     if (profile?.campus !== selectedCampus) {
-      dispatch(changeProfile({ ...profile, campus: selectedCampus }))
+      dispatch(changeProfile({...profile, campus: selectedCampus }))
       const ref = doc(dbservice, `members/${profile?.uid}`)
-      updateDoc(ref, { campus: selectedCampus })
+      updateDoc(ref, { campus: selectedCampus})
       alert(saved)
     } else {
       alert(nothingChanged)
@@ -91,14 +85,13 @@ const ProfileLocations = () => {
   return (
     <div className="flex justify-center p-10">
       <div className="flex flex-col">
-        <div className="flex">
-          <Select
-            defaultValue={profile?.campus || 'Seoul Campus'}
-            onValueChange={(newValue) => {
-              selectedCampus = newValue
-            }}
-          >
-            <SelectTrigger className="bg-light-1 dark:bg-dark-1">
+        <div className='flex'>
+          <Select defaultValue={profile?.campus || 'Seoul Campus'} onValueChange={(newValue) => {
+            selectedCampus = newValue
+          }}>
+            <SelectTrigger
+              className="bg-light-1 dark:bg-dark-1"
+            >
               <SelectValue />
             </SelectTrigger>
             <SelectContent className="bg-light-1 dark:bg-dark-1">
@@ -116,25 +109,22 @@ const ProfileLocations = () => {
           <Button onClick={onClickSaveCampus}>{save}</Button>
         </div>
         <div className="flex justify-center items-start gap-5 p-5">
-          <div className={largeMedia ? 'flex justify-center' : 'flex flex-col'}>
-            <div className="flex justify-center">
+          <div className={largeMedia ? "flex justify-center" : "flex flex-col"}>
+            <div className='flex justify-center'>
               <Chip
                 sx={locationConfirmation ? {} : undefined}
                 color={locationConfirmation ? 'success' : undefined}
                 label={
-                  locationConfirmation ? (
-                    locationConfirmed
-                  ) : (
-                    <div className="flex justify-center gap-1">
-                      locationUnconfirmed
-                      <ProfileLocationsChip />
-                    </div>
-                  )
+                  locationConfirmation ? locationConfirmed : 
+                  <div className='flex justify-center gap-1'>
+                    locationUnconfirmed
+                    <ProfileLocationsChip />
+                  </div>
                 }
               />
             </div>
             {userUid === profile?.uid && !locationConfirmation && (
-              <div className="flex">
+              <div className='flex'>
                 <Button onClick={onClickLocation} variant="outlined">
                   {campusLocationConfirmation}
                 </Button>

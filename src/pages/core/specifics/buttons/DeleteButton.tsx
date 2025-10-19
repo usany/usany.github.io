@@ -7,7 +7,7 @@ import deleteMessage from 'src/pages/core/card/deleteMessage'
 import onDelete from './onDelete'
 
 const DeleteButton = ({ message, decreaseRound }) => {
-  const { remove } = useTexts()
+  const {remove} = useTexts()
 
   return (
     <div className="flex justify-center">
