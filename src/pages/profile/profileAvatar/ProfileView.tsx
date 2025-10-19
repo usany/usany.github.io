@@ -1,5 +1,6 @@
 import BeachAccess from '@mui/icons-material/BeachAccess'
 import Badge from '@mui/material/Badge'
+import { Pen } from 'lucide-react'
 import { useLocation } from 'react-router-dom'
 // import LoadingsSkeletons from 'src/components/recycle/recycleLoadingsSkeletons'
 import useSelectors from 'src/hooks/useSelectors'
@@ -10,7 +11,7 @@ const ProfileView = ({
   changeAttachment,
   handleChangedImage,
 }) => {
-  const {state} = useLocation()
+  const { state } = useLocation()
   const profile = useSelectors((state) => state.profile.value)
   const user = state?.element || profile
   return (
@@ -31,8 +32,9 @@ const ProfileView = ({
         <Badge
           anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
           badgeContent={
-            <button className="p-1 bg-transparent border-dashed border-2">
-              <BeachAccess />
+            <button className="p-1 bg-transparent border-dashed border-2 rounded-xl">
+              {/* <BeachAccess /> */}
+              <Pen />
             </button>
           }
         >

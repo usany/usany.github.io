@@ -23,13 +23,14 @@ const time = {
   en: ['Recent', 'Older'],
 }
 interface Props {
-  selectedValues: {id: string, value: string}[]
-  handleSelectedValues: (object: {id: string, newValue: string}) => void
+  selectedValues: { id: string; value: string }[]
+  handleSelectedValues: (object: { id: string; newValue: string }) => void
 }
 function FilterDialogsContent({ handleSelectedValues }: Props) {
   const languages = useSelectors((state) => state.languages.value)
-  const selectedLanguage = languages === 'ko' || languages === 'en' ? languages : 'ko'
-  const {itemsTitle, locationsTitle, timeTitle} = useTexts()
+  const selectedLanguage =
+    languages === 'ko' || languages === 'en' ? languages : 'ko'
+  const { itemsTitle, locationsTitle, timeTitle } = useTexts()
   const [searchParams, setSearchParams] = useSearchParams()
   const selectedValueOne = searchParams.get('selectedValueOne') || '전체 아이템'
   const selectedValueTwo = searchParams.get('selectedValueTwo') || '전체 장소'
@@ -40,20 +41,20 @@ function FilterDialogsContent({ handleSelectedValues }: Props) {
       id: 'selectedValueOne',
       title: itemsTitle,
       selectedValue: selectedValueOne,
-      options: items
+      options: items,
     },
     {
       id: 'selectedValueTwo',
       title: locationsTitle,
       selectedValue: selectedValueTwo,
-      options: locations
+      options: locations,
     },
     {
       id: 'selectedValueThree',
       title: timeTitle,
       selectedValue: selectedValueThree,
-      options: time
-    }
+      options: time,
+    },
   ]
 
   return (
@@ -67,20 +68,21 @@ function FilterDialogsContent({ handleSelectedValues }: Props) {
               onValueChange={(newValue) =>
                 handleSelectedValues({
                   id: valueObject.id,
-                  newValue: newValue
+                  newValue: newValue,
                 })
               }
             >
-              <SelectTrigger
-                className="bg-light-1 dark:bg-dark-1"
-              >
+              <SelectTrigger className="bg-light-1 dark:bg-dark-1">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent className="bg-light-1 dark:bg-dark-1">
                 <SelectGroup>
                   {valueObject.options[selectedLanguage].map((value, index) => {
                     return (
-                      <SelectItem key={index} value={valueObject.options['ko'][index]}>
+                      <SelectItem
+                        key={index}
+                        value={valueObject.options['ko'][index]}
+                      >
                         {value}
                       </SelectItem>
                     )
@@ -91,7 +93,6 @@ function FilterDialogsContent({ handleSelectedValues }: Props) {
           </>
         )
       })}
-
     </div>
   )
 }

@@ -6,7 +6,7 @@ import useSelectors from 'src/hooks/useSelectors'
 import useTexts from 'src/hooks/useTexts'
 
 interface Props {
-  alliesCollection: {list:string[]}[]
+  alliesCollection: { list: string[] }[]
   handleFollowers: () => void
 }
 const ProfileConnects = ({ alliesCollection, handleFollowers }: Props) => {
@@ -100,7 +100,10 @@ const ProfileConnects = ({ alliesCollection, handleFollowers }: Props) => {
       }
     }
   }
-  const conversation = user.uid < profile?.uid ? user.uid.slice(0, 5)+profile?.uid.slice(0, 5) : profile?.uid.slice(0, 5)+user.uid.slice(0, 5)
+  const conversation =
+    user.uid < profile?.uid
+      ? user.uid.slice(0, 5) + profile?.uid.slice(0, 5)
+      : profile?.uid.slice(0, 5) + user.uid.slice(0, 5)
   return (
     <div className="flex justify-center pt-10">
       <Button
@@ -114,10 +117,10 @@ const ProfileConnects = ({ alliesCollection, handleFollowers }: Props) => {
           }
         }}
       >
-        {followButton ? follow : cancelFollow} {user.displayName}
+        {followButton ? follow : cancelFollow}
       </Button>
       <Link
-        to="/piazza"
+        to={`/piazza?id=${conversation}`}
         state={{
           conversation: conversation,
           displayName: user.displayName,
