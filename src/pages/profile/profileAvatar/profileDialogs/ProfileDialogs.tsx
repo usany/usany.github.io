@@ -92,11 +92,6 @@ const ProfileDialogs = ({ attachment, changeAttachment, changedImage, handleChan
             <Check />}</div>
         </div>
       </div>
-      {!changedImage.changed &&
-        <div className='flex justify-center p-5'>
-          <Button variant='outlined' disabled>{save}</Button>
-        </div>
-      }
     </>
   )
 }
