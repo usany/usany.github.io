@@ -20,7 +20,7 @@ const ProfileForm = () => {
     needAnInput,
     completedChangingName,
     change,
-    nothingChanged
+    nothingChanged,
   } = useTexts()
 
   useEffect(() => {
@@ -72,10 +72,10 @@ const ProfileForm = () => {
             {profileChangeConfirmed
               ? readyToChange
               : newDisplayName
-                ? (newDisplayName === profile?.displayName
-                  ? currentName
-                  : existingName)
-                : needAnInput}
+              ? newDisplayName === profile?.displayName
+                ? currentName
+                : existingName
+              : needAnInput}
           </div>
         </div>
         <Button

@@ -22,7 +22,7 @@ const ProfileMembersDrawersContent = () => {
   } = useTexts()
   const navigate = useNavigate()
   const profile = useSelectors((state) => state.profile.value)
-  const {state} = useLocation()
+  const { state } = useLocation()
   const user = state?.element || profile
   console.log(profile)
   const onChange = (event) => {
@@ -71,20 +71,26 @@ const ProfileMembersDrawersContent = () => {
         {canDeleteAccountWhenYouHaveNoProcessingBorrwingOrLendingCard}
         <div className="flex justify-center">
           <Chip
-            label={process ? 
-              noProcessingCard
-               : 
-              <>
-                Borrowing on process: {profile?.createdCards.length}
-                <br />
-                Lending on process: {profile?.connectedCards.length}
-              </>
+            label={
+              process ? (
+                noProcessingCard
+              ) : (
+                <>
+                  Borrowing on process: {profile?.createdCards.length}
+                  <br />
+                  Lending on process: {profile?.connectedCards.length}
+                </>
+              )
               //  processingCard
-              }
-            sx={{ bgcolor: process ? '#7fc4bc' : '#e76e50', color: 'white', paddingY: process ? 0 : 3 }}
+            }
+            sx={{
+              bgcolor: process ? '#7fc4bc' : '#e76e50',
+              color: 'white',
+              paddingY: process ? 0 : 3,
+            }}
           />
         </div>
-        <div className='pt-5'>{toDeleteAccountInputMail}</div>
+        <div className="pt-5">{toDeleteAccountInputMail}</div>
       </div>
       <div className="flex flex-col justify-center px-5 gap-5">
         <TextField label={mail} onChange={onChange} />

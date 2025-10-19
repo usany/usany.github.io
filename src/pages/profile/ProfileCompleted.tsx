@@ -106,17 +106,17 @@ const ProfileCompleted = ({ cards }) => {
           </PieChart>
         </ChartContainer>
       </div>
-      {cards.done ? <Carousels /> : 
-        <div className='flex justify-center'>
-          <div className='w-[188px] h-[260px] bg-light-2 dark:bg-dark-2 rounded flex justify-center items-center text-center'>
-            {profile.uid === userUid ?
-              'Start collecting cards by sharing items with users'
-              :
-              'No cards'
-            }
+      {cards.done ? (
+        <Carousels />
+      ) : (
+        <div className="flex justify-center">
+          <div className="w-[188px] h-[260px] bg-light-2 dark:bg-dark-2 rounded flex justify-center items-center text-center">
+            {profile.uid === userUid
+              ? 'Start collecting cards by sharing items with users'
+              : 'No cards'}
           </div>
         </div>
-      }
+      )}
     </div>
   )
 }

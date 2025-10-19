@@ -23,7 +23,7 @@ const ProfileAvatar = () => {
     initial: true,
     changed: false,
   })
-  const {state} = useLocation()
+  const { state } = useLocation()
   const profile = useSelectors((state) => state.profile.value)
   const user = state?.element || profile
 
@@ -55,7 +55,7 @@ const ProfileAvatar = () => {
   const handleChangedImage = (newValue) => setChangedImage(newValue)
   if (profile?.uid === user.uid) {
     return (
-      <div className='flex justify-center'>
+      <div className="flex justify-center">
         <Popups
           trigger={
             <ProfileView
