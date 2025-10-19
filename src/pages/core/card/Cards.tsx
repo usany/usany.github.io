@@ -18,9 +18,9 @@ const Cards = ({
   message,
   longPressCard,
   changeLongPressCard,
-}: // delayed,
-// delayedFalse,
-Props) => {
+  // delayed,
+  // delayedFalse,
+}: Props) => {
   const cardsRef = useRef()
   useLongPress(cardsRef, () => {
     changeLongPressCard(message.id)
@@ -44,7 +44,9 @@ Props) => {
         </>
       ) : (
         <>
-          <MorphingDialogs message={message} />
+          <MorphingDialogs
+            message={message}
+          />
           {/* {
           delayed ||
           location.pathname === '/board' ||

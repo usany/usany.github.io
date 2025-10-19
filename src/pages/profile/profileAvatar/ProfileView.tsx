@@ -11,7 +11,7 @@ const ProfileView = ({
   changeAttachment,
   handleChangedImage,
 }) => {
-  const { state } = useLocation()
+  const {state} = useLocation()
   const profile = useSelectors((state) => state.profile.value)
   const user = state?.element || profile
   return (

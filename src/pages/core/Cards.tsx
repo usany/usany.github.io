@@ -1,40 +1,64 @@
-import { Card, useTheme } from '@mui/material'
-
-export interface Props {
-  label: string
-  shadowColor: string
-  onClick: () => void
-  mode: string
-  sxObject: object
-  /** Optional click handler */
-  // onClick?: () => void
+import { useRef } from 'react'
+import useLongPress from 'src/hooks/useLongPress'
+import MorphingDialogs from '../morphingDialogs/MorphingDialogs'
+import CardsLongPressed from './CardsLongPressed'
+import CardsViews from './CardsViews'
+import { DocumentData } from 'firebase/firestore'
+import { useLocation, useSearchParams } from 'react-router-dom'
+interface Props {
+  message: DocumentData
+  longPressCard: string
+  changeLongPressCard: (newValue: string) => void
+  deleteMessage: () => void
+  delayed: boolean
+  delayedFalse: () => void
 }
 
-/** Primary UI component for user interaction */
-export const Cards = ({ label, sxObject, mode, ...props }: Props) => {
-  const theme = useTheme()
-  let bgcolor
-  if (mode === 'colorThree') {
-    bgcolor = theme.palette.mode === 'light' ? '#cbd5df' : '#1a202c'
-  } else if (mode === 'colorTwo') {
-    bgcolor = theme.palette.mode === 'light' ? '#e2e8f0' : '#2d3848'
-  } else {
-    bgcolor = theme.palette.mode === 'light' ? '#f7fafb' : '#5c6778'
-  }
+const Cards = ({
+  message,
+  longPressCard,
+  changeLongPressCard,
+}: // delayed,
+// delayedFalse,
+Props) => {
+  const cardsRef = useRef()
+  useLongPress(cardsRef, () => {
+    changeLongPressCard(message.id)
+  })
+  const location = useLocation()
+  const [searchParams, setSearchParams] = useSearchParams()
   return (
-    <>
-      <Card
-        sx={{
-          bgcolor: bgcolor,
-          ':hover': {
-            bgcolor: bgcolor,
-          },
-          ...sxObject,
-        }}
-        {...props}
-      >
-        {label}
-      </Card>
-    </>
+    <div className="max-w-60 min-w-20 text-sm p-1" ref={cardsRef}>
+      {longPressCard ? (
+        <>
+          {longPressCard === message.id ? (
+            <CardsLongPressed
+              longPressCard={longPressCard}
+              message={message}
+              changeLongPressCard={changeLongPressCard}
+              // delayedFalse={delayedFalse}
+            />
+          ) : (
+            <CardsViews message={message} />
+          )}
+        </>
+      ) : (
+        <>
+          <MorphingDialogs message={message} />
+          {/* {
+          delayed ||
+          location.pathname === '/board' ||
+          location.pathname === '/profile' ? (
+            <MorphingDialogs
+              message={message}
+            />
+          ) : (
+            <CardsViews message={message} />
+          )} */}
+        </>
+      )}
+    </div>
   )
 }
+
+export default Cards
