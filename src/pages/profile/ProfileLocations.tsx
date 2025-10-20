@@ -133,7 +133,7 @@ const ProfileLocations = () => {
           </div>
         </div>
         {!locationConfirmation && location.lat !== 0 && (
-          <div>{failedLocationConfirmation}</div>
+          <>{failedLocationConfirmation}</>
         )}
       </div>
     </div>

@@ -1,7 +1,8 @@
 import DeleteIcon from '@mui/icons-material/Delete'
 import { doc, getDoc, updateDoc } from 'firebase/firestore'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { dbservice } from 'src/baseApi/serverbase'
+import useSelectors from 'src/hooks/useSelectors'
 import { changePiazzaSwitch } from 'src/stateSlices/piazzaSwitchSlice'
 
 const ChatsDelete = ({
