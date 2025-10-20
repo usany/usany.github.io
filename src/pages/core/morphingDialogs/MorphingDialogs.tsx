@@ -133,7 +133,7 @@ const MorphingDialogs = ({
         <Link
           key={message.id}
           // Moving to the product page
-          to={`${location.pathname}?id=${message.id}`}
+          to={`${location.pathname}?card=${message.id}`}
         >
           <CardsViews
             message={message}

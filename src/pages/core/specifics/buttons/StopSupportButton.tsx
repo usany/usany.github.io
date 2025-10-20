@@ -57,6 +57,48 @@ const StopSupportButton = ({
   handleConnectedClock,
 }) => {
   const {supportMessageSent, cancel} = useTexts()
+  const profile = useSelectors((state) => state.profile.value)
+  const onStopSupporting = async (message) => {
+    const profileUrl = profile?.profileImage ? profile?.profileImageUrl : profile?.defaultProfile
+    const docRef = doc(dbservice, `num/${message.id}`)
+    const { messagingToken } = await specificProcess({
+      message: message,
+      toUid: null,
+    })
+    const userDoc = await getDoc(docRef)
+    const passingObject = {
+      id: message.id,
+      choose: message.text.choose,
+      sendingToken: messagingToken,
+      creatorId: message.creatorId,
+      creatorName: message.displayName,
+      connectedId: profile?.uid,
+      connectedName: profile?.displayName,
+      connectedUrl: profileUrl,
+      preferLanguage: userDoc.data()?.preferLanguage || 'ko',
+    }
+    updateDoc(docRef, {
+      round: 1,
+      connectedId: null,
+      connectedName: null,
+      connectedClock: null,
+      connectedProfileImage: false,
+      connectedDefaultProfile: null,
+      connectedProfileImageUrl: null,
+      connectedUrl: null,
+    })
+    const connectedUserRef = doc(dbservice, `members/${profile?.uid}`)
+    const connectedUserSnap = await getDoc(connectedUserRef)
+    const connectedUserData = connectedUserSnap.data()
+    const connectedUserConnectedCards = connectedUserData?.connectedCards
+    const newConnectedUserConnectedCards = connectedUserConnectedCards.filter(
+      (element) => element !== message.id,
+    )
+    updateDoc(connectedUserRef, {
+      connectedCards: [...newConnectedUserConnectedCards],
+    })
+    webSocket.emit('stop supporting', passingObject)
+  }
   return (
     <div className="flex justify-center">
       <div className="px-5">
