@@ -47,7 +47,7 @@ const ProfileCompleted = ({ cards }) => {
   const totalNumber = actions.reduce((acc, curr) => acc + curr.number, 0)
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col gap-5">
       <div className="flex justify-center h-[250px] pt-5">
         <ChartContainer config={labels} className="aspect-square max-h-[250px]">
           <PieChart>

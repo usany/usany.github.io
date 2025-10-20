@@ -153,7 +153,7 @@ function MorphingDialogContent({
     useState<HTMLElement | null>(null)
   const navigate = useNavigate()
   const [searchParams] = useSearchParams();
-  const id = searchParams.get("id");
+  const card = searchParams.get("card");
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
@@ -219,10 +219,10 @@ function MorphingDialogContent({
     drawerOpenFalse()
   })
   useEffect(() => {
-    if (!id) {
+    if (!card) {
       setIsOpen(false)
     }
-  }, [id])
+  }, [card])
 
   return (
     <motion.div

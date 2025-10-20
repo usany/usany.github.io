@@ -18,8 +18,6 @@ const Cards = ({
   message,
   longPressCard,
   changeLongPressCard,
-  // delayed,
-  // delayedFalse,
 }: Props) => {
   const cardsRef = useRef()
   useLongPress(cardsRef, () => {
@@ -36,7 +34,6 @@ const Cards = ({
               longPressCard={longPressCard}
               message={message}
               changeLongPressCard={changeLongPressCard}
-              // delayedFalse={delayedFalse}
             />
           ) : (
             <CardsViews message={message} />
@@ -44,19 +41,13 @@ const Cards = ({
         </>
       ) : (
         <>
+        {searchParams.get('id') ? 
+          <CardsViews message={message} />
+          :
           <MorphingDialogs
             message={message}
           />
-          {/* {
-          delayed ||
-          location.pathname === '/board' ||
-          location.pathname === '/profile' ? (
-            <MorphingDialogs
-              message={message}
-            />
-          ) : (
-            <CardsViews message={message} />
-          )} */}
+        }
         </>
       )}
     </div>

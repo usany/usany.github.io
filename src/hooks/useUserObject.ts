@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux'
 import { doc, getDoc } from 'firebase/firestore'
 import { dbservice } from 'src/baseApi/serverbase'
 import { changeProfile } from 'src/stateSlices/profileSlice'
+import useSelectors from './useSelectors'
 
 const useUserObject = () => {
   const dispatch = useDispatch()
@@ -18,6 +19,11 @@ const useUserObject = () => {
       newProfile.profileImageUrl = profileImage.attachment
     }
     dispatch(changeProfile(newProfile))
+  }
+  const onLine = useSelectors((state) => state.onLine.value)
+  if (!onLine) {
+    dispatch(changeProfile(null))
+    return null
   }
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
