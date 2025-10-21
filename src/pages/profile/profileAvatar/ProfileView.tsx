@@ -1,25 +1,28 @@
 import BeachAccess from '@mui/icons-material/BeachAccess'
 import Badge from '@mui/material/Badge'
-import { useSelector } from 'react-redux'
-import LoadingsSkeletons from 'src/components/recycle/recycleLoadingsSkeletons'
+import { Pen } from 'lucide-react'
+import { useLocation } from 'react-router-dom'
+// import LoadingsSkeletons from 'src/components/recycle/recycleLoadingsSkeletons'
+import useSelectors from 'src/hooks/useSelectors'
 import Avatars from 'src/pages/core/Avatars'
 
 const ProfileView = ({
-  user,
   changedImage,
   changeAttachment,
   handleChangedImage,
 }) => {
-  const profile = useSelector((state) => state.profile.value)
+  const {state} = useLocation()
+  const profile = useSelectors((state) => state.profile.value)
+  const user = state?.element || profile
   return (
     <div
       onClick={() => {
         handleChangedImage({
           ...changedImage,
           attachment: '',
-          profileColor: profile.profileColor,
+          profileColor: profile?.profileColor,
           profileImage: false,
-          defaultProfile: profile.defaultProfile,
+          defaultProfile: profile?.defaultProfile,
           changed: false,
         })
         changeAttachment(null)
@@ -29,8 +32,9 @@ const ProfileView = ({
         <Badge
           anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
           badgeContent={
-            <button className="p-1 bg-transparent border-dashed border-2">
-              <BeachAccess />
+            <button className="p-1 bg-transparent border-dashed border-2 rounded-xl">
+              {/* <BeachAccess /> */}
+              <Pen />
             </button>
           }
         >

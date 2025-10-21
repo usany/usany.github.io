@@ -1,26 +1,12 @@
 import { Chip } from '@mui/material'
-import { useSelector } from 'react-redux'
-import { useSelectors } from 'src/hooks'
+import useTexts from 'src/hooks/useTexts'
 import Avatars from '../Avatars'
 
 const CardViewTop = ({ message }) => {
-  const languages = useSelectors((state) => state.languages.value)
+  const {borrowing, lending} = useTexts()
   const profileUrl = message?.creatorUrl
   const item = message.item
-  let action
-  if (languages === 'ko') {
-    if (message.text.choose === 1) {
-      action = ' 빌리기'
-    } else {
-      action = ' 빌려주기'
-    }
-  } else {
-    if (message.text.choose === 1) {
-      action = ' borrowing'
-    } else {
-      action = ' lending'
-    }
-  }
+  const action = message.text.choose === 1 ? borrowing : lending
   const passingValue = {
     profileImage: message.creatorProfileImage,
     defaultProfile: message.creatorDefaultProfile,

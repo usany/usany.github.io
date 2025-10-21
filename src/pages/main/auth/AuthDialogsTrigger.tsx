@@ -1,16 +1,13 @@
-import { useSelector } from "react-redux";
-import { useSelectors } from "src/hooks";
+import useTexts from "src/hooks/useTexts";
 
-function AuthDialogsTrigger() {
-  const theme = useSelector((state) => state.theme.value);
-  const languages = useSelectors((state) => state.languages.value)
+interface Props {
+  findingPassword: boolean
+}
+function AuthDialogsTrigger({findingPassword}: Props) {
+  const {findPassword, newAccount} = useTexts()
   return (
     <>
-      {/* <div className="flex justify-center text-xs p-5">
-        <Divider sx={{ width: "15%", padding: "5px" }} /> */}
-      <div>{languages === 'ko' ? '회원가입' : 'Register'}</div>
-      {/* <Divider sx={{ width: "15%", padding: "5px" }} />
-      </div> */}
+      {findingPassword ? findPassword : newAccount}
     </>
   );
 }

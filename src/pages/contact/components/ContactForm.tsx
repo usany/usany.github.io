@@ -3,20 +3,14 @@ import TextField from '@mui/material/TextField'
 import { addDoc, collection, doc, DocumentData, getDoc } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 import { dbservice } from 'src/baseApi/serverbase'
-import { useSelectors, useTexts } from 'src/hooks'
-import {
-  ContactAddress,
-  ContactFormDrawers,
-  ContactDrawersTrigger,
-  ContactDrawersTitle,
-  ContactDrawersContent,
-  ContactDrawers
-} from './'
-import Popups from '../../core/Popups'
+import useSelectors from 'src/hooks/useSelectors'
+import useTexts from 'src/hooks/useTexts'
+import ContactAddress from './ContactAddress'
+import ContactFormDrawers from './ContactFormDrawers'
+import ContactDrawers from './ContactDrawers'
 import { useSearchParams } from 'react-router-dom'
 
 function ContactForm() {
-  // const { state } = useLocation()
   const [searchParams, setSearchParams] = useSearchParams()
   const [message, setMessage] = useState({title: '', content: ''})
   const [violationUser, setViolationUser] = useState<DocumentData | null>(null)

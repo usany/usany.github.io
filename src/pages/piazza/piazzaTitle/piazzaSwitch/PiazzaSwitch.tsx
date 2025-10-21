@@ -1,8 +1,8 @@
 import Switch from '@mui/material/Switch';
 import { styled } from '@mui/material/styles';
-// import { useBottomNavigationStore, usePiazzaSwitchStore } from 'src/store'
-import { useDispatch, useSelector } from 'react-redux';
-import { useSelectors } from "src/hooks";
+import { useDispatch } from 'react-redux';
+import useSelectors from 'src/hooks/useSelectors'
+import useTexts from 'src/hooks/useTexts';
 import { changePiazzaSwitch } from 'src/stateSlices/piazzaSwitchSlice';
 
 const MessageSwitch = styled(Switch)(({ theme }) => ({
@@ -39,41 +39,26 @@ const MessageSwitch = styled(Switch)(({ theme }) => ({
 }));
 
 function PiazzaSwitch() {
-  // const [switches, setSwitches] = useState('')
-  // useEffect(() => {
-  //   if (!switches) {
-  //     const piazza = window.localStorage.getItem('piazza')
-  //     setSwitches(piazza)
-  //   }
-  // })
-  // console.log(switches)
-  // const piazzaSwitch = usePiazzaSwitchStore((state) => state.piazzaSwitch)
-  // const handlePiazzaSwitchOn = usePiazzaSwitchStore((state) => state.handlePiazzaSwitchOn)
-  // const handlePiazzaSwitchOff = usePiazzaSwitchStore((state) => state.handlePiazzaSwitchOff)
-  // const handlePiazzaSwitch = usePiazzaSwitchStore((state) => state.handlePiazzaSwitch)
-  const languages = useSelectors((state) => state.languages.value)
-  const piazzaSwitch = useSelector(state => state.piazzaSwitch.value)
+  const piazzaSwitch = useSelectors(state => state.piazzaSwitch.value)
   const dispatch = useDispatch()
-
+  const {addToMyMessages} = useTexts()
   const onClick = () => {
     if (piazzaSwitch === 'true') {
       window.localStorage.setItem('piazza', 'false')
-      // handlePiazzaSwitchOff()
       dispatch(changePiazzaSwitch('false'))
     } else {
       window.localStorage.setItem('piazza', 'true')
-      // handlePiazzaSwitchOn()
       dispatch(changePiazzaSwitch('true'))
     }
   }
 
   return (
-    <div className='flex flex-col'>
-      <div className='text-sm'>{languages === 'ko' ? '단체 대화 메세지에 추가' : 'Group Message in My Messages'}</div>
-      {/* <div className='text-sm'>알림 받기</div> */}
-      <div className='flex justify-end'>
-        <MessageSwitch onClick={() => onClick()} inputProps={{ 'aria-label': 'ant design' }} checked={piazzaSwitch === 'true'} />
-        {/* <MessageSwitch /> */}
+    <div className='flex w-1/2 justify-end px-5 pt-5'>
+      <div className='flex flex-col'>
+        <div className='text-sm'>{addToMyMessages}</div>
+        <div className='flex justify-end'>
+          <MessageSwitch onClick={onClick} inputProps={{ 'aria-label': 'ant design' }} checked={piazzaSwitch === 'true'} />
+        </div>
       </div>
     </div>
   );

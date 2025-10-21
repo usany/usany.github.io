@@ -1,46 +1,19 @@
-import { User } from "firebase/auth";
 import { ScrollText } from "lucide-react";
-import { useSelectors } from "src/hooks";
-import FilterDialogs from "src/pages/board/FilterDialogs/FilterDialogs";
-// import { AlarmCheck, AlertCircle, Building, Clock, DoorOpen, MessagesSquare, Pen, PenBox, Pencil, PenSquare, PenTool, Presentation, Search, SearchCheck, SearchCode, SearchSlash, Siren, TowerControl, Umbrella, UserCheck, UserRound, Watch } from "lucide-react";
+import useTexts from "src/hooks/useTexts";
+import FilterDialogsTrigger from "./FilterDialogs/FilterDialogsTrigger";
 
-const cardList = {
-  ko: '카드 목록',
-  en: 'Card list'
-}
-interface Props {
-  userObj: User | null;
-}
-
-function BoardList({ selectedValues }) {
-  // const [selectedValues, setSelectedValues] = useImmer([
-  //   {
-  //     id: "selectedValueOne",
-  //     value: "전체 아이템",
-  //   },
-  //   {
-  //     id: "selectedValueTwo",
-  //     value: "전체 장소",
-  //   },
-  //   {
-  //     id: "selectedValueThree",
-  //     value: "최신순",
-  //   },
-  // ]);
-  const languages = useSelectors((state) => state.languages.value)
-  const index = (languages === 'ko' || languages === 'en') ? languages : 'ko'
+function BoardList() {
+  const { cardList } = useTexts()
 
   return (
     <div className="rounded shadow-md flex p-3 justify-between bg-light-2/50 dark:bg-dark-2/50">
       <div className="truncate pt-1">
         <div className='flex gap-5'>
-          <ScrollText />{cardList[index]}
+          <ScrollText />{cardList}
         </div>
       </div>
       <div className="truncate flex gap-1">
-        <FilterDialogs
-          selectedValues={selectedValues}
-        />
+        <FilterDialogsTrigger />
       </div>
     </div>
   );

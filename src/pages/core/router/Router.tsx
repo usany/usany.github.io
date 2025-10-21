@@ -1,6 +1,6 @@
 import { Suspense, lazy } from 'react'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
-import { useSelectors } from 'src/hooks'
+import useSelectors from 'src/hooks/useSelectors'
 import Navigations from 'src/pages/core/Navigations'
 import NavigationTop from 'src/pages/core/navigationTop/NavigationTop'
 import Home from 'src/pages/main/Home'

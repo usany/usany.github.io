@@ -5,9 +5,9 @@ import { collection, getDocs, query } from 'firebase/firestore'
 import { useState } from 'react'
 import staticMail from 'src/assets/signMail.svg'
 import { auth, dbservice } from 'src/baseApi/serverbase'
-import { useSelectors } from 'src/hooks'
+import useSelectors from 'src/hooks/useSelectors'
 import setDocUser from 'src/pages/core/setDocUser.ts'
-import { useTexts } from 'src/hooks'
+import useTexts from 'src/hooks/useTexts'
 import AuthDialogs from './AuthDialogs.tsx'
 import supabase from 'src/baseApi/base.tsx'
 import { useDispatch } from 'react-redux'
@@ -21,8 +21,7 @@ const AuthForm = ({ signIn, agreed }: Props) => {
   const [account, setAccount] = useState({ email: '', password: '' })
   const [error, setError] = useState('')
   const dispatch = useDispatch()
-  const languages = useSelectors((state) => state.languages.value)
-  const { needToAgreeOnPrivateInformationPolicy } = useTexts()
+  const { needToAgreeOnPrivateInformationPolicy, needNetworkConnection, mail, password, logIn, newAccount } = useTexts()
   const onLine = useSelectors((state) => state.onLine.value)
   const onSubmitSignIn = async (event) => {
     event.preventDefault()
@@ -84,7 +83,7 @@ const AuthForm = ({ signIn, agreed }: Props) => {
           setError(errorMessage)
         }
       } else {
-        alert('네트워크 연결이 필요합니다')
+        alert(needNetworkConnection)
       }
     }
   }
@@ -99,7 +98,6 @@ const AuthForm = ({ signIn, agreed }: Props) => {
       setAccount({ ...account, password: value })
     }
   }
-  console.log(agreed)
   return (
     <div className="flex justify-center p-5">
       <div className="flex flex-col border border-solid w-[470px] rounded-lg pt-5">
@@ -110,7 +108,7 @@ const AuthForm = ({ signIn, agreed }: Props) => {
         >
           <div className="flex justify-center px-3">
             <TextField
-              label={languages === 'ko' ? '이메일' : 'email'}
+              label={mail}
               value={account.email}
               onChange={onChange}
               variant="outlined"
@@ -122,7 +120,7 @@ const AuthForm = ({ signIn, agreed }: Props) => {
           </div>
           <div className="flex justify-center px-3">
             <TextField
-              label={languages === 'ko' ? '비밀번호' : 'password'}
+              label={password}
               value={account.password}
               onChange={onChange}
               variant="outlined"
@@ -141,12 +139,8 @@ const AuthForm = ({ signIn, agreed }: Props) => {
                 type="submit"
               >
                 {signIn
-                  ? languages === 'ko'
-                    ? '로그인'
-                    : 'Sign in'
-                  : languages === 'ko'
-                    ? '회원가입'
-                    : 'Register'}
+                  ? logIn
+                  : newAccount}
               </Button>
             }
             {!signIn && !agreed && (

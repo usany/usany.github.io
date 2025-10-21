@@ -1,8 +1,4 @@
 {
-  "ts-node": {
-    "esm": true,
-    "experimentalSpecifierResolution": "node"
-  },
   "compilerOptions": {
     "target": "ES2022",
     "useDefineForClassFields": true,
@@ -33,11 +29,11 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true,
-    "esModuleInterop": true,
+    "noFallthroughCasesInSwitch": true
   },
   "include": [
-    "src", "./jest.setup.ts"],
+    "src"
+  ],
   "references": [
     {
       "path": "./tsconfig.node.json"

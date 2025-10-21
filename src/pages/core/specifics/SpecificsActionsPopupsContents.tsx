@@ -1,28 +1,17 @@
 import { DrawerClose } from '@/components/ui/drawer'
 import Button from '@mui/material/Button'
-import { User } from 'firebase/auth'
-import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { useSelectors } from 'src/hooks'
+import useSelectors from 'src/hooks/useSelectors'
 import Avatars from 'src/pages/core/Avatars'
 
 interface Props {
   message: {}
 }
 
-function SpecificsActionsPopupsContents({ drawerOpenTrue, message }: Props) {
-  const [conversation, setConversation] = useState('')
+function SpecificsActionsPopupsContents({ message }: Props) {
   const profile = useSelectors((state) => state.profile.value)
   const uid = profile?.uid
-  useEffect(() => {
-    if (drawerOpenTrue) {
-      if (message?.creatorId < uid) {
-        setConversation(message?.creatorId.slice(0, 6) + uid.slice(0, 6))
-      } else {
-        setConversation(uid.slice(0, 6) + message?.creatorId.slice(0, 6))
-      }
-    }
-  }, [message])
+  const conversation = message?.creatorId < uid ? message?.creatorId.slice(0, 6) + uid.slice(0, 6) : uid.slice(0, 6) + message?.creatorId.slice(0, 6)
   const passingProfile = {
     profileImage: message?.creatorProfileImage,
     defaultProfile: message?.creatorDefaultProfile,

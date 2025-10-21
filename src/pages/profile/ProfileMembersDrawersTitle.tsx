@@ -1,9 +1,12 @@
-import { useTexts } from "src/hooks";
+import useTexts from "src/hooks/useTexts";
 
-const ProfileMembersDrawersTitle = () => {
-  const { deleteAccount } = useTexts()
+interface Props {
+  isPassword: boolean
+}
+const ProfileMembersDrawersTitle = ({isPassword}: Props) => {
+  const { changePassword, deleteAccount } = useTexts()
   return (
-    <div>{deleteAccount}</div>
+    <div>{isPassword ? changePassword : deleteAccount}</div>
   );
 };
 

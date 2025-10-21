@@ -1,44 +1,51 @@
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import Divider from '@mui/material/Divider'
-import { doc, getDoc } from 'firebase/firestore'
-import { useEffect, useState } from 'react'
+// import { doc, getDoc } from 'firebase/firestore'
+// import { useEffect, useState } from 'react'
+// import { dbservice } from 'src/baseApi/serverbase'
 import staticImage from 'src/assets/umbrella512.png'
-import { dbservice } from 'src/baseApi/serverbase'
-import { useSelectors } from 'src/hooks'
-import { useTexts } from 'src/hooks'
+import useSelectors from 'src/hooks/useSelectors'
+import useTexts from 'src/hooks/useTexts'
 import Avatars from '../Avatars'
+import getShadowColor from './getShadowColor'
+import FormatClock from '../FormatClock'
+import getCard from '../getCard'
 
 interface Props {
   message: {}
-  shadowColor: string
+  connectedClock: string
+  confirmingClock: string
+  returningClock: string
+  confirmedReturnClock: string
 }
 
 function SpecificsRear({
   message,
-  shadowColor,
   connectedClock,
   confirmingClock,
   returningClock,
   confirmedReturnClock,
 }: Props) {
-  const { borrowing, lending } = useTexts()
+  const { borrowing, lending, createdAt, supportedAt, borrowedAt, lendedAt, returnOnProcessAt, returnConfirmedAt } = useTexts()
   const profile = useSelectors((state) => state.profile.value)
   const profileImageUrl = useSelectors((state) => state.profileImageUrl.value)
-  const [sendedProfileImage, setSendedProfileImage] = useState(false)
-  const [sendedDefaultProfile, setSendedDefaultProfile] = useState('')
-  const [sendedProfileImageUrl, setSendedProfileImageUrl] = useState('')
-  useEffect(() => {
-    const messages = async () => {
-      const docRef = doc(dbservice, `num/${message.id}`)
-      const docSnap = await getDoc(docRef)
-      const userData = docSnap.data()
-      setSendedProfileImage(userData.connectedProfileImage)
-      setSendedDefaultProfile(userData.connectedDefaultProfile)
-      setSendedProfileImageUrl(userData.connectedProfileImageUrl)
-    }
-    messages()
-  }, [connectedClock, confirmingClock, returningClock, confirmedReturnClock])
+  const id = message?.id || ''
+  const shadowColor = getShadowColor(id)
+  // useEffect(() => {
+  //   const messages = async () => {
+  //     const docRef = doc(dbservice, `num/${message.id}`)
+  //     const docSnap = await getDoc(docRef)
+  //     const userData = docSnap.data()
+  //     setSendingProfile(userData)
+  //   }
+  //   messages()
+  // }, [connectedClock, confirmingClock, returningClock, confirmedReturnClock])
+  const sendingProfile = getCard(id)
+  const sendedProfileImage = sendingProfile?.connectedProfileImage
+  const sendedDefaultProfile = sendingProfile?.connectedDefaultProfile
+  const sendedProfileImageUrl = sendingProfile?.connectedProfileImageUrl
+
   const passingValueCreator = {
     profileImage: message.creatorProfileImage,
     defaultProfile: message.creatorDefaultProfile,
@@ -55,8 +62,6 @@ function SpecificsRear({
       sendedProfileImageUrl ||
       profileImageUrl,
   }
-  console.log(passingValueConnected)
-  console.log(sendedProfileImage)
   const connectedMoment = connectedClock.cancelled
     ? ''
     : message?.connectedClock
@@ -71,7 +76,38 @@ function SpecificsRear({
   const confirmedReturnMoment = message?.confirmedReturnClock
     ? message.confirmedReturnClock
     : confirmedReturnClock
-  console.log(passingValueConnected)
+  const statusCollection = [
+    {
+      isBorrowing: message.text.choose === 1,
+      passingProfile: passingValueCreator,
+      text: createdAt,
+      messageClock: message.createdClock
+    },
+    {
+      isBorrowing: message.text.choose !== 1,
+      passingProfile: passingValueConnected,
+      text: supportedAt,
+      messageClock: connectedMoment
+    },
+    {
+      isBorrowing: message.text.choose === 1,
+      passingProfile: passingValueCreator,
+      text: message.text.choose === 1 ? borrowedAt : lendedAt,
+      messageClock: confirmingMoment
+    },
+    {
+      isBorrowing: true,
+      passingProfile: message.text.choose === 1 ? passingValueCreator : passingValueConnected,
+      text: returnOnProcessAt,
+      messageClock: returningMoment
+    },
+    {
+      isBorrowing: false,
+      passingProfile: message.text.choose === 1 ? passingValueConnected : passingValueCreator,
+      text: returnConfirmedAt,
+      messageClock: confirmedReturnMoment
+    },
+  ]
   return (
     <div className="backSide">
       <Card
@@ -99,18 +135,46 @@ function SpecificsRear({
             <div>{lending}</div>
           </div>
           <Divider />
-          {message.text.choose === 1 ? (
-            <>
+          {statusCollection.map((value) => {
+            if (value.messageClock) {
+              return (
+                <div className={`flex ${value.isBorrowing ? 'justify-start' : 'justify-end'} gap-5`}>
+                  {value.isBorrowing ?
+                    <>
+                      <Avatars element={value.passingProfile} />
+                      <div className="flex items-center">
+                        {value.text}
+                        <FormatClock messageClock={value.messageClock} />
+                      </div>
+                    </>
+                    :
+                    <>
+                      <div className="flex items-center">
+                        {value.text}
+                        <FormatClock messageClock={value.messageClock} />
+                      </div>
+                      <Avatars element={value.passingProfile} />
+                    </>
+                  }
+                </div>
+              )
+            }
+            return null
+          })}
+          {/* {message.text.choose === 1 ? (
+            <div className='pt-5'>
               {message.createdClock && (
-                <div className="flex justify-between">
+                <div className="flex justify-start gap-5">
                   <Avatars element={passingValueCreator} />
                   <div className="flex items-center">
-                    {message.createdClock}에 생성
+                    {createdAt}
+                    <FormatClock messageClock={message.createdClock} />
                   </div>
                 </div>
               )}
               {connectedMoment && (
                 <div className="flex justify-between">
+                  <FormatClock messageClock={connectedMoment} />
                   <div className="flex items-center">
                     {connectedMoment}에 지원
                   </div>
@@ -120,6 +184,7 @@ function SpecificsRear({
               {confirmingMoment && (
                 <div className="flex justify-between">
                   <Avatars element={passingValueCreator} />
+                  <FormatClock messageClock={confirmingMoment} />
                   <div className="flex items-center">
                     {confirmingMoment}에 받음
                   </div>
@@ -128,6 +193,7 @@ function SpecificsRear({
               {returningMoment && (
                 <div className="flex justify-between">
                   <Avatars element={passingValueCreator} />
+                  <FormatClock messageClock={returningMoment} />
                   <div className="flex items-center">
                     {returningMoment}에 반납 진행
                   </div>
@@ -135,15 +201,16 @@ function SpecificsRear({
               )}
               {confirmedReturnMoment && (
                 <div className="flex justify-between">
+                  <FormatClock messageClock={confirmedReturnMoment} />
                   <div className="flex items-center">
                     {confirmedReturnMoment}에 반납 확인
                   </div>
                   <Avatars element={passingValueConnected} />
                 </div>
               )}
-            </>
+            </div>
           ) : (
-            <>
+            <div className='pt-5'>
               {message.createdClock && (
                 <div className="flex justify-between">
                   <div className="flex items-center">
@@ -184,8 +251,8 @@ function SpecificsRear({
                   <Avatars element={passingValueCreator} />
                 </div>
               )}
-            </>
-          )}
+            </div>
+          )} */}
         </CardContent>
       </Card>
     </div>

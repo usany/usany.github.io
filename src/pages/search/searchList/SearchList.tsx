@@ -1,27 +1,42 @@
 import {
   collection,
+  doc,
   getDocs,
   limit,
   orderBy,
   query,
   startAfter,
+  updateDoc,
 } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { dbservice } from 'src/baseApi/serverbase'
-import { useTexts } from 'src/hooks'
+import useSelectors from 'src/hooks/useSelectors'
+import useTexts from 'src/hooks/useTexts'
 import ListsView from './searchListViews/ListsView'
-
-function SearchList() {
+import { useDispatch } from 'react-redux'
+import { changeProfile } from 'src/stateSlices/profileSlice'
+let point
+let samePointIndex
+function SearchList({multiple}) {
   const [rank, setRank] = useState([])
-  // const [ranker, setRanker] = useState([])
-  // const profile = useSelectors((state) => state.profile.value)
   const [continuing, setContinuing] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
   const [searchParams, setSearchParams] = useSearchParams()
-  const userSearch = searchParams.get('search')
   const scrollNumber = 20
   const { loading } = useTexts()
+  const userSearch = searchParams.get('search')
+  const profile = useSelectors((state) => state.profile.value)
+  if (searchParams.get('search') && !multiple) return null
+  if (!multiple) return (
+    <ListsView
+      elements={[profile]}
+      userSearch={null}
+      multiple={false}
+      handleUser={null}
+    />
+  )
+  const dispatch = useDispatch()
   useEffect(() => {
     const membersList = async () => {
       const collectionQuery = query(
@@ -31,41 +46,50 @@ function SearchList() {
         startAfter(continuing ? continuing : ''),
       )
       const docs = await getDocs(collectionQuery)
+      const length = rank.length
       const newArray = docs.docs.map((document, index) => {
+        if (document.data().points !== point) {
+          point = document.data().points
+          samePointIndex = length + index
+        }
+        const user = doc(dbservice, `members/${document?.id}`)
+        const newRank = samePointIndex ? samePointIndex + 1 : index + 1
+        if (document.data()?.ranking !== newRank && multiple) {
+          console.log(document.data()?.ranking)
+          updateDoc(user, { ranking: newRank })
+          if (document.id === profile?.uid) {
+            dispatch(changeProfile({...profile, ranking: newRank}))
+          }
+        }
+        if (userSearch) {
+          for (let number = 0; number < userSearch.length; number++) {
+            if (document.data().displayName[number] !== userSearch[number]) {
+              return null
+            }
+          }
+        }
+
         if (rank.indexOf(document) === -1) {
           if (index + 1 === docs.docs.length) {
             setContinuing(document)
           }
           return {
-            ...document.data(),
+            ...document.data(), ranking: samePointIndex+1
           }
         }
         return null
       })
       setRank([...rank, ...newArray])
-      // if (ranker.length === 0) {
-      //   const docRef = doc(dbservice, `members/${profile?.uid}`)
-      //   const myDocSnap = await getDoc(docRef)
-      //   const myDocSnapData = myDocSnap.data()
-      //   newArray.map((document, index) => {
-      //     if (document.uid === profile?.uid) {
-      //       newArray[index].rank = index + 1
-      //     }
-      //   })
-      //   setRanker([myDocSnapData])
-      // }
       setIsLoading(false)
     }
     const searchingMembersList = async () => {
       const collectionQuery = query(
         collection(dbservice, 'members'),
         orderBy('points', 'desc'),
-        // limit(scrollNumber),
         startAfter(continuing ? continuing : ''),
       )
       const docs = await getDocs(collectionQuery)
       const newArray = docs.docs.map((document, index) => {
-        console.log(rank.indexOf(document))
         if (rank.indexOf(document) === -1) {
           if (index + 1 === docs.docs.length) {
             setContinuing(document)
@@ -84,7 +108,6 @@ function SearchList() {
     }
     if (userSearch) {
       searchingMembersList()
-      console.log(userSearch)
     }
   }, [isLoading, userSearch])
   const handleScroll = () => {

@@ -2,11 +2,9 @@ import { useMediaQuery } from '@mui/material'
 import { addDoc, collection, doc, getDoc, updateDoc } from 'firebase/firestore'
 import { Maximize2, Minimize2 } from 'lucide-react'
 import { useEffect, useReducer, useState } from 'react'
-import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { dbservice } from 'src/baseApi/serverbase'
-import { useSelectors } from 'src/hooks'
-import TabsRootState from 'src/interfaces/TabsRootState'
+import useSelectors from 'src/hooks/useSelectors'
 import AddCards from 'src/pages/add/AddCards'
 import AddRegisterButton from 'src/pages/add/AddRegisterButton'
 import AddSnackBar from 'src/pages/add/AddSnackBar'
@@ -16,7 +14,7 @@ import AddSteppers from 'src/pages/add/AddSteppers'
 import AddStepThree from 'src/pages/add/AddStepThree'
 import AddStepTwo from 'src/pages/add/AddStepTwo'
 import PageTitle from 'src/pages/core/pageTitle/PageTitle'
-import { useTexts } from 'src/hooks'
+import useTexts from 'src/hooks/useTexts'
 
 interface Props {
   borrow: boolean
@@ -24,14 +22,11 @@ interface Props {
 interface LocationEvent extends EventTarget {
   target: { value: string }
 }
-interface LocationEvents {
-  target: { value: string }
-}
-interface DisplayCard {
-  id: string
-}
+
 interface Clock {
-  gmt: {}
+  gmt: {
+    getTime: () => number
+  }
   year: number
   month: number
   day: number
@@ -45,36 +40,32 @@ interface FromTo {
 
 function Add({ borrow }: Props) {
   const [addSteps, setAddSteps] = useState(0)
-  const [display, setDisplay] = useState<DisplayCard | null>(null)
+  const [display, setDisplay] = useState({
+    id: '',
+  })
   const [item, setItem] = useState('')
-  const tabs = useSelector((state: TabsRootState) => state.tabs.value)
+  const tabs = useSelectors((state) => state.tabs.value)
   const [fromTo, setFromTo] = useState<FromTo>({ from: null, to: null })
-  const [enableRegister, setEnableRegister] = useState(false)
   const matches = useMediaQuery('(min-width:850px)')
-  const languages = useSelectors((state) => state.languages.value)
   const profile = useSelectors((state) => state.profile.value)
-  const { pleaseCheckTime } = useTexts()
+  const { pleaseCheckTime, borrowing, lending, card, register, needAnInput } = useTexts()
   const navigate = useNavigate()
-
-  function changeAddSteps(newValue) {
-    setAddSteps(newValue)
-  }
   const [locationState, locationDispatch] = useReducer(
     (
       state: {
-        locationOne: string | null
-        locationTwo: string | null
-        locationThree: string | null
-        locationInput: string | null
+        locationOne: string
+        locationTwo: string
+        locationThree: string
+        locationInput: string
       },
-      action: { type: string; newState: string | null },
+      action: { type: string; newState: string },
     ) => {
       if (action.type === 'changeBuilding') {
         return {
-          ...state,
           locationOne: action.newState,
           locationTwo: '',
           locationThree: '',
+          locationInput: ''
         }
       } else if (action.type === 'changeRoom') {
         return { ...state, locationTwo: action.newState, locationThree: '' }
@@ -127,37 +118,20 @@ function Add({ borrow }: Props) {
     setItem('')
   }, [tabs])
 
-  useEffect(() => {
-    if (addSteps === 3) {
-      setTimeout(() => setAddSteps(4), 5000)
-    }
-  })
-  useEffect(() => {
-    if (fromTo?.from && fromTo?.to) {
-      if (
-        fromTo.from.gmt <= fromTo.to.gmt &&
-        fromTo.from.gmt >= Date.now() &&
-        fromTo.to.gmt >= Date.now()
-      ) {
-        setEnableRegister(true)
-      } else {
-        setEnableRegister(false)
-      }
-    }
-  }, [fromTo])
-  const changeItem = (event: PointerEvent) => {
+  const changeItem = (event: LocationEvent) => {
     const {
       target: { value },
     } = event
     setItem(value)
-    locationDispatch({ type: 'changeItem', newState: null })
+    locationDispatch({ type: 'changeItem', newState: '' })
+    setFromTo({from: null, to: null})
     if (value) {
       setAddSteps(1)
     } else {
       setAddSteps(0)
     }
   }
-  const changeLocationInput = (event: LocationEvents) => {
+  const changeLocationInput = (event: LocationEvent) => {
     // event.preventDefault()
     const {
       target: { value },
@@ -208,9 +182,8 @@ function Add({ borrow }: Props) {
     setAddSteps(2)
   }
 
-  const submit = async (event) => {
+  const submit = async (event: EventTarget) => {
     event.preventDefault()
-    let calculatePoint = 0
     if (
       (locationState.locationInput !== '' ||
         (locationState.locationOne !== '' &&
@@ -218,37 +191,32 @@ function Add({ borrow }: Props) {
       fromTo.from !== null &&
       fromTo.to !== null
     ) {
-      if (fromTo.from.gmt > fromTo.to.gmt) {
+      if (fromTo.from.gmt.getTime() > fromTo.to.gmt.getTime()) {
         alert(pleaseCheckTime)
-      } else if (fromTo.from.gmt < Date.now()) {
+      } else if (fromTo.from.gmt.getTime() < Date.now()) {
         alert(pleaseCheckTime)
-      } else if (fromTo.to.gmt < Date.now()) {
+      } else if (fromTo.to.gmt.getTime() < Date.now()) {
         alert(pleaseCheckTime)
       } else {
-        if (fromTo.to.year - fromTo.from.year > 0) {
-          calculatePoint = (fromTo.to.year - fromTo.from.year) * 366 * 24 * 60
-        } else if (fromTo.to.month - fromTo.from.month > 0) {
-          calculatePoint = (fromTo.to.month - fromTo.from.month) * 31 * 24 * 60
-        } else if (fromTo.to.day - fromTo.from.day > 0) {
-          calculatePoint = (fromTo.to.day - fromTo.from.day) * 24 * 60
-        } else if (fromTo.to.hour - fromTo.from.hour > 0) {
-          calculatePoint = (fromTo.to.hour - fromTo.from.hour) * 60
-        } else if (fromTo.to.minute - fromTo.from.minute > 0) {
-          calculatePoint = fromTo.to.minute - fromTo.from.minute
+        const calculating = () => {
+          if (fromTo.from && fromTo.to) {
+            if (fromTo.to.year - fromTo .from.year > 0) {
+              return (fromTo.to.year - fromTo.from.year) * 366 * 24 * 60
+            } else if (fromTo.to.month - fromTo.from.month > 0) {
+              return (fromTo.to.month - fromTo.from.month) * 31 * 24 * 60
+            } else if (fromTo.to.day - fromTo.from.day > 0) {
+              return (fromTo.to.day - fromTo.from.day) * 24 * 60
+            } else if (fromTo.to.hour - fromTo.from.hour > 0) {
+              return (fromTo.to.hour - fromTo.from.hour) * 60
+            } else if (fromTo.to.minute - fromTo.from.minute > 0) {
+              return fromTo.to.minute - fromTo.from.minute
+            }
+          }
+          return 0
         }
-
-        let location
-        if (locationState.locationOne === '직접 입력') {
-          location = locationState.locationInput
-        } else {
-          location = locationState.locationOne
-        }
-        let choose
-        if (borrow) {
-          choose = 1
-        } else {
-          choose = 2
-        }
+        const calculatePoint = calculating()
+        const location = locationState.locationOne === '직접 입력' ? locationState.locationInput : locationState.locationOne
+        const choose = borrow ? 1 : 2
         const user = doc(dbservice, `members/${profile?.uid}`)
         const getDocUser = await getDoc(user)
         const userCreatedCards = getDocUser.data()?.createdCards || []
@@ -284,21 +252,20 @@ function Add({ borrow }: Props) {
           returningClock: null,
           confirmedReturnClock: null,
         })
-        console.log(user)
         await updateDoc(user, { createdCards: [...userCreatedCards, card.id] })
-        const cardObject = await getDoc(doc(dbservice, `num/${card.id}`))
+        // const cardObject = await getDoc(doc(dbservice, `num/${card.id}`))
         setDisplay({
           id: card.id,
-          ...cardObject.data(),
         })
-        setAddSteps(3)
+        setAddSteps(4)
       }
     } else {
-      alert('내용을 입력해 주세요')
+      alert(needAnInput)
     }
   }
   const onChangeFrom = (event) => {
     setFromTo({
+      ...fromTo,
       from: {
         gmt: event.$d,
         year: event.$y,
@@ -307,9 +274,12 @@ function Add({ borrow }: Props) {
         hour: event.$H,
         minute: event.$m,
       },
-      to: fromTo.to,
     })
-    setAddSteps(2)
+    if (fromTo?.to && event.$d.getTime() <= fromTo.to?.gmt.getTime()) {
+      setAddSteps(3)
+    } else {
+      setAddSteps(2)
+    }
   }
   const onChangeTo = (event) => {
     setFromTo({
@@ -323,7 +293,11 @@ function Add({ borrow }: Props) {
         minute: event.$m,
       },
     })
-    setAddSteps(2)
+    if (fromTo?.from && fromTo.from?.gmt.getTime() <= event.$d.getTime()) {
+      setAddSteps(3)
+    } else {
+      setAddSteps(2)
+    }
   }
 
   return (
@@ -332,25 +306,20 @@ function Add({ borrow }: Props) {
         icon={borrow ? <Minimize2 /> : <Maximize2 />}
         title={`${
           borrow
-            ? languages === 'ko'
-              ? '빌리기 '
-              : 'Borrowing '
-            : languages === 'ko'
-            ? '빌려주기 '
-            : 'Lending '
-        } ${languages === 'ko' ? '카드 등록' : 'Card Registeration'}`}
+            ? borrowing
+            : lending
+        } ${card} ${register}`}
       />
       <AddSteppers addSteps={addSteps} borrow={borrow} />
-      {matches ? (
-        <div className="flex justify-center">
-          <AddCards
-            borrow={borrow}
-            addSteps={addSteps}
-            item={item}
-            fromTo={fromTo}
-            locationState={locationState}
-            display={display}
-          />
+      <div className={`flex justify-center ${!matches && 'min-w-[400px]' }`}>
+        <AddCards
+          borrow={borrow}
+          item={item}
+          fromTo={fromTo}
+          locationState={locationState}
+          display={display}
+        />
+        {matches ?
           <div className="flex flex-col w-[624px]">
             <div className="flex">
               <AddStepOne borrow={borrow} item={item} changeItem={changeItem} />
@@ -371,46 +340,36 @@ function Add({ borrow }: Props) {
               />
             )}
           </div>
-        </div>
-      ) : (
-        <div className="flex justify-center min-w-[400px]">
-          <AddCards
-            borrow={borrow}
-            addSteps={addSteps}
-            item={item}
-            fromTo={fromTo}
-            locationState={locationState}
-            display={display}
-          />
-          <div>
-            <AddStepOne borrow={borrow} item={item} changeItem={changeItem} />
-            {addSteps > 0 && (
-              <AddStepTwo
-                locationState={locationState}
-                changeBuilding={changeBuilding}
-                changeRoom={changeRoom}
-                changeSeat={changeSeat}
-                changeLocationInput={changeLocationInput}
-              />
+        :
+          <div className='flex flex-col'>
+            <div className='flex flex-col'>
+              <AddStepOne borrow={borrow} item={item} changeItem={changeItem} />
+              {addSteps > 0 && (
+                <AddStepTwo
+                  locationState={locationState}
+                  changeBuilding={changeBuilding}
+                  changeRoom={changeRoom}
+                  changeSeat={changeSeat}
+                  changeLocationInput={changeLocationInput}
+                />
+              )}
+            </div>
+            {addSteps > 1 && (
+              <AddStepThree onChangeFrom={onChangeFrom} onChangeTo={onChangeTo} />
             )}
           </div>
-        </div>
-      )}
-      {!matches && addSteps > 1 && (
-        <AddStepThree onChangeFrom={onChangeFrom} onChangeTo={onChangeTo} />
-      )}
-      {addSteps === 2 && !enableRegister && fromTo.from && fromTo.to && (
+        }
+      </div>
+      {addSteps === 2 && fromTo.from && fromTo.to && (
         <div className="flex justify-center">{pleaseCheckTime}</div>
       )}
-      {addSteps === 2 && (
+      {addSteps === 3 && (
         <AddRegisterButton
           submit={submit}
-          fromTo={fromTo}
-          enableRegister={enableRegister}
         />
       )}
-      {addSteps > 2 && <AddStepFour display={display} />}
-      {addSteps === 3 && <AddSnackBar changeAddSteps={changeAddSteps} />}
+      {addSteps > 3 && <AddStepFour />}
+      {addSteps === 4 && <AddSnackBar />}
     </div>
   )
 }

@@ -3,7 +3,7 @@ import { doc, updateDoc } from 'firebase/firestore'
 import { getToken } from 'firebase/messaging'
 import { useEffect } from 'react'
 import { dbservice, messaging } from 'src/baseApi/serverbase'
-import { useSelectors } from 'src/hooks'
+import useSelectors from 'src/hooks/useSelectors'
 const useGetToken = () => {
   const profile = useSelectors((state) => state.profile.value)
   useEffect(() => {

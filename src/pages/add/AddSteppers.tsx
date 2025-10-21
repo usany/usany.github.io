@@ -1,7 +1,8 @@
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import Stepper from '@mui/material/Stepper';
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
+import useSelectors from 'src/hooks/useSelectors';
 
 interface Props {
   addSteps: number
@@ -23,20 +24,11 @@ const lendSteps = [
   ...stepsTwoToFour
 ];
 const stepsCollection = [borrowSteps, lendSteps]
-const stepOneItemsLanguages = 'Usan / Yangsan selection'
 const stepsTwoToFourLanguages = [
   ['Location', 'Input'],
   ['Time', 'Input'],
   ['Registeration', 'Complete'],
 ]
-// const borrowStepsLanguages = [
-//   ['What are you borrowing?', stepOneItemsLanguages],
-//   ...stepsTwoToFourLanguages
-// ]
-// const lendStepsLanguages = [
-//   ['What are you lending?', stepOneItemsLanguages],
-//   ...stepsTwoToFourLanguages
-// ]
 const borrowStepsLanguages = [
   ['What are you', 'borrowing?'],
   ...stepsTwoToFourLanguages
@@ -47,35 +39,22 @@ const lendStepsLanguages = [
 ]
 const stepsCollectionLanguages = [borrowStepsLanguages, lendStepsLanguages]
 function AddSteppers({ addSteps, borrow }: Props) {
-  const languages = useSelector((state) => state.languages.value)
+  const languages = useSelectors((state) => state.languages.value)
+  const collection = languages === 'ko' ? stepsCollection : stepsCollectionLanguages
   return (
     <div className='w-full'>
       <Stepper
         activeStep={addSteps}
         alternativeLabel
       >
-        {languages === 'ko' ?
-          stepsCollection[[true, false].indexOf(borrow)].map((label, index) => {
+        {
+          collection[[true, false].indexOf(borrow)].map((label, index) => {
             return (
               <Step key={index}>
                 <StepLabel>
                   {label.map((element, index) => {
                     return (
-                      <div key={index} className='truncate'>{element}</div>
-                    )
-                  })}
-                </StepLabel>
-              </Step>
-            )
-          })
-          :
-          stepsCollectionLanguages[[true, false].indexOf(borrow)].map((label, index) => {
-            return (
-              <Step key={index}>
-                <StepLabel>
-                  {label.map((element, index) => {
-                    return (
-                      <div key={index} className='truncate text-xs'>{element}</div>
+                      <div key={index} className={`${languages !== 'ko' && 'text-xs'} truncate`}>{element}</div>
                     )
                   })}
                 </StepLabel>

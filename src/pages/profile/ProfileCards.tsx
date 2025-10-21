@@ -1,90 +1,37 @@
-import Card from '@mui/material/Card'
-import { collection, getDocs, query } from 'firebase/firestore'
 import { useState } from 'react'
-import { dbservice } from 'src/baseApi/serverbase'
-import { DrawerClose } from 'src/components/ui/drawer'
-import useCardsBackground from '../../hooks/useCardsBackground'
 import Popups from '../core/Popups'
-import ListsView from '../search/searchList/searchListViews/ListsView'
-import ProfileCompaniesTitle from './ProfileCompaniesTitle'
-import ProfileCompaniesTrigger from './ProfileCompaniesTrigger'
-import ProfileDrawersEmptyCompanies from './ProfileDrawersEmptyCompanies'
+import ProfileCardsTitle from './ProfileCardsTitle'
+import ProfileCardsTrigger from './ProfileCardsTrigger'
+import ProfileDrawersAllies from './ProfileDrawersAllies'
 import ProfileDrawersPoints from './ProfileDrawersPoints'
-import ProfilePointsTitle from './ProfilePointsTitle'
-import ProfilePointsTrigger from './ProfilePointsTrigger'
 
-const ProfileCards = ({ user, alliesCollection, cards }) => {
+const ProfileCards = ({ alliesCollection, cards }) => {
   const [companies, setCompanies] = useState([])
-  const usersCollection = async (index) => {
-    const elementsCollection = []
-    const collectionRef = collection(dbservice, 'members')
-    const docs = await getDocs(query(collectionRef))
-    docs.forEach((element) => {
-      if (alliesCollection[index].list.indexOf(element.data().uid) !== -1) {
-        elementsCollection.push(element.data())
-      }
-    })
-    setCompanies(elementsCollection)
-  }
-  const { colorTwo } = useCardsBackground()
-  const followerList = [true, false]
-  const onClick = (index) => {
-    usersCollection(index)
-  }
+  const isFollowersList = [true, false]
+  
   return (
     <div className="flex justify-center pt-5">
-      <Card
-        sx={{
-          bgcolor: colorTwo,
-        }}
-      >
-        <Popups
-          trigger={<ProfilePointsTrigger cards={cards} />}
-          title={<ProfilePointsTitle user={user} />}
-          content={<ProfileDrawersPoints user={user} cards={cards} />}
-          close={null}
-          attachment={null}
-        />
-      </Card>
-      {followerList.map((value, index) => {
-        const onLink = {
-          to: 'profile',
-          state: user,
-        }
+      <Popups
+        trigger={<ProfileCardsTrigger cards={cards} />}
+        title={<ProfileCardsTitle />}
+        content={<ProfileDrawersPoints cards={cards} />}
+        close={null}
+      />
+      {isFollowersList.map((value, index) => {
         return (
-          <Card
-            sx={{
-              bgcolor: colorTwo,
-            }}
-          >
-            <Popups
-              trigger={
-                <ProfileCompaniesTrigger
-                  followers={value}
-                  alliesCollection={alliesCollection[index].list}
-                  onClick={() => onClick(index)}
-                />
-              }
-              title={<ProfileCompaniesTitle user={user} followers={value} />}
-              content={
-                !companies.length && (
-                  <ProfileDrawersEmptyCompanies followings={index} />
-                )
-              }
-              close={
-                <DrawerClose>
-                  <ListsView
-                    elements={companies}
-                    multiple={true}
-                    userSearch={null}
-                    handleUser={null}
-                  />
-                </DrawerClose>
-              }
-              attachment={true}
-              onLink={onLink}
-            />
-          </Card>
+          <Popups
+            trigger={
+              <ProfileCardsTrigger
+                isFollowers={value}
+                alliesCollectionList={alliesCollection[index].list}
+                handleCompanies={(newValue) => setCompanies(newValue)}
+              />
+            }
+            title={<ProfileCardsTitle isFollowers={value} />}
+            content={
+              <ProfileDrawersAllies companies={companies} />
+            }
+          />
         )
       })}
     </div>

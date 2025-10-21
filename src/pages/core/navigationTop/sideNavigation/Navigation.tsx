@@ -14,16 +14,15 @@ import {
   DrawerTrigger,
 } from 'src/components/ui/drawer'
 import { useId, } from 'react';
-import { useSelectors } from 'src/hooks'
+import useSelectors from 'src/hooks/useSelectors'
 import Avatars from '../../Avatars'
-import IframePlayer from './iframePlayer/IframePlayer'
 import Links from './links/Links'
 import NavigationSignedIn from './navigationSignedIn/NavigationSignedIn'
 import NavigationSignedOut from './navigationSignedOut/NavigationSignedOut'
-import { useTexts } from 'src/hooks'
+import useTexts from 'src/hooks/useTexts'
+import Playlist from '../../Playlist';
 
 function Navigation() {
-  const theme = useSelectors((state) => state.theme.value)
   const linkId = useId();
   const { myProfile, userSearch, groupChat, report, collection, signOut, needNetworkConnection } = useTexts()
   const profile = useSelectors((state) => state.profile.value)
@@ -101,7 +100,11 @@ function Navigation() {
               {needNetworkConnection}
             </div>
           )}
-          {profile?.certificated && onLine && <IframePlayer mode={theme} />}
+          {profile?.certificated && onLine &&
+            <div className="absolute flex justify-center bottom-0">
+              <Playlist />
+            </div>
+          }
         </nav>
       </DrawerContent>
     </Drawer>

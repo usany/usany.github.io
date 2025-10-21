@@ -5,22 +5,17 @@ import { useState } from 'react';
 import { dbservice } from 'src/baseApi/serverbase';
 import CardDroppable from './CardsDroppable';
 import CardsStacksViewsCollection from './CardsStacksViewsCollection';
-import { useSelectors } from 'src/hooks';
-const deleteMessage = (id: string) => {
-  console.log(id)
-  const item = document.getElementById(id)
-  item?.classList.add('transition')
-  item?.addEventListener('transitionend', () => {
-    item?.remove()
-  })
-}
+import useSelectors from 'src/hooks/useSelectors';
+import deleteMessage from './deleteMessage';
+
 const handleDelete = async ({
   id,
   profile,
   changeLongPressCard,
 }: {
   id: string
-  changeLongPressCard: (newValue: null) => void
+  profile: DocumentData | null | undefined
+  changeLongPressCard: (newValue: string) => void
 }) => {
   const data = doc(dbservice, `num/${id}`)
   const messageId = data.id
@@ -30,7 +25,7 @@ const handleDelete = async ({
   const newMessages = userSnap.data()?.createdCards.filter((element: string) => element !== id)
   updateDoc(userRef, { createdCards: newMessages })
   deleteMessage(messageId)
-  changeLongPressCard(null)
+  changeLongPressCard('')
 }
 
 const CardsStacksViews = ({
@@ -40,7 +35,7 @@ const CardsStacksViews = ({
 }) => {
   const [longPressCard, setLongPressCard] = useState('')
   const profile = useSelectors((state) => state.profile.value)
-  const changeLongPressCard = (newValue) => setLongPressCard(newValue)
+  const changeLongPressCard = (newValue: string) => setLongPressCard(newValue)
   return (
     <DndContext
       onDragEnd={(element) => {

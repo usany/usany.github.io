@@ -1,60 +1,48 @@
 import { Chip } from '@mui/material'
-import { User } from 'firebase/auth'
-import { useSelectors } from 'src/hooks'
+import useSelectors from 'src/hooks/useSelectors'
+import useTexts from 'src/hooks/useTexts'
 import SpecificsActionsPopups from './SpecificsActionsPopups'
 const items = {
   Usan: '우산',
   Yangsan: '양산',
 }
 interface Props {
-  userObj: User | null
   message: {}
+  drawerOpenTrue: () => void
 }
 
-function SpecificsActions({ drawerOpenTrue, message }: Props) {
+function SpecificsActions({ message, drawerOpenTrue }: Props) {
   const messageDisplayName = message.displayName
   const languages = useSelectors((state) => state.languages.value)
   const profile = useSelectors((state) => state.profile.value)
-
+  const {my, registration, borrowing, lending} = useTexts()
   const messageName =
     messageDisplayName.length > 10
       ? messageDisplayName.slice(0, 10) + '......'
       : messageDisplayName
+  const messageItem = languages === 'ko' ? message.item : Object.keys(items).find((key) => items[key] === message.item)
   return (
     <div className="flex justify-between gap-1">
-      <div className="flex flex-col gap-1 items-center">
-        <SpecificsActionsPopups
-          drawerOpenTrue={drawerOpenTrue}
-          message={message}
-        />
+      <div className="flex flex-col items-center">
+        <SpecificsActionsPopups message={message} drawerOpenTrue={drawerOpenTrue} />
         <Chip
           className="specific"
           size="small"
           label={`${
             message.creatorId === profile?.uid
-              ? languages === 'ko'
-                ? '내가'
-                : 'My'
+              ? my
               : messageName
-          } ${languages === 'ko' ? '작성함' : 'registration'}`}
+          } ${registration}`}
         />
       </div>
       <div className="flex items-center">
         <Chip
           className="specific"
           size="small"
-          label={`${
-            languages === 'ko'
-              ? message.item
-              : Object.keys(items).find((key) => items[key] === message.item)
-          } ${
+          label={`${messageItem} ${
             message.text.choose === 1
-              ? languages === 'ko'
-                ? ' 빌리기'
-                : ' borrowing'
-              : languages === 'ko'
-              ? ' 빌려주기'
-              : ' lending'
+              ? borrowing
+              : lending
           }`}
         />
       </div>

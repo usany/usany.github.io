@@ -1,25 +1,14 @@
-import { Card, CardContent } from '@mui/material'
-import { User } from 'firebase/auth'
 import { addDoc, collection, doc, getDoc, updateDoc } from 'firebase/firestore'
 import { AlarmCheck, PlusCircle, UserRound } from 'lucide-react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useSearchParams } from 'react-router-dom'
 import { dbservice } from 'src/baseApi/serverbase'
-import { DrawerClose } from 'src/components/ui/drawer'
-import { useSelectors } from 'src/hooks'
+import useSelectors from 'src/hooks/useSelectors'
 import Popups from 'src/pages/core/Popups'
 import { changeNewMessageTrue } from 'src/stateSlices/newMessageSlice'
-import { useTexts } from 'src/hooks'
+import useTexts from 'src/hooks/useTexts'
 import { webSocket } from 'src/webSocket.tsx'
+import PiazzaFormCallsContent from './PiazzaFormCallsContent'
 
-const forms = {
-  ko: '메세지를 작성해 주세요',
-  en: 'Input message',
-}
-const send = {
-  ko: '전송',
-  en: 'send',
-}
 interface Props {
   chattingUser: {
     uid: string
@@ -42,17 +31,13 @@ function PiazzaForm({
   messagesList,
   handleMessagesList,
 }: Props) {
-  const piazzaForm = useSelector((state) => state.piazzaForm.value)
-  const profile = useSelectors((state) => state.profile.value)
+  const piazzaForm = useSelectors((state) => state.piazzaForm.value)
+  const profile = useSelectors((state) => state.profile?.value)
   const dispatch = useDispatch()
-  // const { state } = useLocation()
   const conversation = location.search
     ? location.search.slice(location.search.indexOf('=') + 1)
     : 'piazza'
-  const languages = useSelectors((state) => state.languages.value)
-  const index = languages === 'ko' || languages === 'en' ? languages : 'ko'
-  const [searchParams, setSearchParams] = useSearchParams()
-  const { selectCall, videoCall, audioCall } = useTexts()
+  const { message, send, selectCall, videoCall, audioCall } = useTexts()
   const userUid = profile?.uid
   const userName = profile?.displayName
 
@@ -72,10 +57,9 @@ function PiazzaForm({
       toUser = await getDoc(toUserRef)
       messagingToken = toUser.data()?.messagingToken
     }
-    const profileUrl = profile.profileImage
-      ? profile.profileImageUrl
-      : profile.defaultProfile
-    console.log(profile)
+    const profileUrl = profile?.profileImage
+      ? profile?.profileImageUrl
+      : profile?.defaultProfile
     const sendData = {
       msg: message,
       userUid: userUid,
@@ -84,8 +68,8 @@ function PiazzaForm({
       messageClock: messageClock,
       // target: privateTarget,
       conversation: conversation,
-      conversationUid: chattingUser?.uid,
-      conversationName: chattingUser?.displayName,
+      conversationUid: chattingUser.uid,
+      conversationName: chattingUser.displayName,
       profileImage: profileImage,
       defaultProfile: defaultProfile,
       profileImageUrl: profileImageUrl,
@@ -107,14 +91,13 @@ function PiazzaForm({
           console.log('messageNew')
         }
         onFormConversation()
-        onMembersConversation()
       }
     }
     handleMessages('')
   }
 
-  const onChangeMsgHandler = (e) => {
-    handleMessages(e.target.value)
+  const onChangeMsgHandler = (event) => {
+    handleMessages(event.target.value)
   }
 
   const onForm = async () => {
@@ -162,43 +145,28 @@ function PiazzaForm({
     try {
       const messageClockNumber = Date.now()
       const messageClock = new Date().toString()
-      const profileImageUrl = profile.profileImageUrl
+      const profileImageUrl = profile?.profileImageUrl
       const otherProfileUrl = chattingUser.profileImageUrl
-      const defaultProfile = profile.defaultProfile
+      const defaultProfile = profile?.defaultProfile
       const otherDefaultProfile = chattingUser.defaultProfile
-      let userOne
-      let userTwo
-      let userOneDisplayName
-      let userTwoDisplayName
-      let userOneProfileUrl
-      let userTwoProfileUrl
-      let userOneDefaultProfile
-      let userTwoDefaultProfile
-      let userOneProfileImage
-      let userTwoProfileImage
-      if (userUid < chattingUser.uid) {
-        userOne = userUid
-        userTwo = chattingUser.uid
-        userOneDisplayName = userName
-        userTwoDisplayName = chattingUser.displayName
-        userOneProfileUrl = profileImageUrl
-        userTwoProfileUrl = otherProfileUrl
-        userOneDefaultProfile = defaultProfile
-        userTwoDefaultProfile = otherDefaultProfile
-        userOneProfileImage = profile.profileImage
-        userTwoProfileImage = chattingUser.profileImage
-      } else {
-        userOne = chattingUser.uid
-        userTwo = userUid
-        userOneDisplayName = chattingUser.displayName
-        userTwoDisplayName = userName
-        userOneProfileUrl = otherProfileUrl
-        userTwoProfileUrl = profileImageUrl
-        userOneDefaultProfile = otherDefaultProfile
-        userTwoDefaultProfile = defaultProfile
-        userOneProfileImage = chattingUser.profileImage
-        userTwoProfileImage = profile.profileImage
-      }
+            const userOne = userUid < chattingUser.uid ? userUid : chattingUser.uid
+      const userTwo = userUid < chattingUser.uid ? chattingUser.uid : userUid
+      const userOneDisplayName =
+        userUid < chattingUser.uid ? userName : chattingUser.displayName
+      const userTwoDisplayName =
+        userUid < chattingUser.uid ? chattingUser.displayName : userName
+      let userOneProfileUrl =
+        userUid < chattingUser.uid ? profileImageUrl : otherProfileUrl
+      let userTwoProfileUrl =
+        userUid < chattingUser.uid ? otherProfileUrl : profileImageUrl
+      const userOneDefaultProfile =
+        userUid < chattingUser.uid ? defaultProfile : otherDefaultProfile
+      const userTwoDefaultProfile =
+        userUid < chattingUser.uid ? otherDefaultProfile : defaultProfile
+      const userOneProfileImage =
+        userUid < chattingUser.uid ? profile?.profileImage : chattingUser.profileImage
+      const userTwoProfileImage =
+        userUid < chattingUser.uid ? chattingUser.profileImage : profile?.profileImage
       if (!userOneProfileUrl) {
         const userRef = doc(dbservice, `members/${userOne}`)
         const userSnap = await getDoc(userRef)
@@ -237,6 +205,19 @@ function PiazzaForm({
         const userDocRef = doc(dbservice, `members/${chattingUser.uid}`)
         const userDocSnap = await getDoc(userDocRef)
         const userChattings = userDocSnap.data().chattings || {}
+        const myConversation = myDocSnap.data().conversation || []
+        const userConversation = userDocSnap.data().conversation || []
+        if (myConversation.indexOf(conversation) === -1) {
+          await updateDoc(myDocRef, {
+            conversation: [...myConversation, conversation],
+          })
+          dispatch(changeNewMessageTrue())
+        }
+        if (userConversation.indexOf(conversation) === -1) {
+          await updateDoc(userDocRef, {
+            conversation: [...userConversation, conversation],
+          })
+        }
         const userChattingsNumber =
           userChattings[conversation]?.messageCount || 0
         myChattings[conversation] = messageObj
@@ -278,64 +259,6 @@ function PiazzaForm({
       console.log(error)
     }
   }
-  const onMembersConversation = async () => {
-    try {
-      const chattingUid = chattingUser.uid
-      const myDocRef = doc(dbservice, `members/${userUid}`)
-      const myDocSnap = await getDoc(myDocRef)
-      const myConversation = myDocSnap.data().conversation || []
-      const userDocRef = doc(dbservice, `members/${chattingUid}`)
-      const userDocSnap = await getDoc(userDocRef)
-      const userConversation = userDocSnap.data().conversation || []
-      if (myConversation.indexOf(conversation) === -1) {
-        await updateDoc(myDocRef, {
-          conversation: [...myConversation, conversation],
-        })
-        dispatch(changeNewMessageTrue())
-      }
-      if (userConversation.indexOf(conversation) === -1) {
-        await updateDoc(userDocRef, {
-          conversation: [...userConversation, conversation],
-        })
-      }
-    } catch (error) {
-      console.log(error)
-    }
-  }
-  const onCall = async (selection) => {
-    document.getElementById(`${selection}Call`)?.click()
-    let toUserRef
-    let toUser
-    let messagingToken
-    let preferLanguage
-    if (chattingUser) {
-      toUserRef = doc(dbservice, `members/${chattingUser.uid}`)
-      toUser = await getDoc(toUserRef)
-      messagingToken = toUser.data()?.messagingToken
-      preferLanguage = toUser.data()?.preferLanguage
-    }
-    const passingObject = {
-      conversation: conversation,
-      isVideo: true,
-      sendingToken: messagingToken,
-      connectedUrl: `/piazza?id=${conversation}&call=${selection}`,
-      preferLanguage: preferLanguage,
-      userUid: userUid,
-      id: userName,
-      conversationUid: chattingUser?.uid,
-      conversationName: chattingUser?.displayName,
-      // profileImage: profileImage,
-      // defaultProfile: defaultProfile,
-      // profileImageUrl: profileImageUrl,
-      // profileUrl: profileUrl,
-    }
-    console.log(passingObject)
-    webSocket.emit('call', passingObject)
-    setSearchParams((searchParams) => {
-      searchParams.set('call', selection)
-      return searchParams
-    })
-  }
   return (
     <form
       className={`fixed w-screen ${
@@ -350,68 +273,21 @@ function PiazzaForm({
               <PlusCircle />
             </div>
           }
-          title={<div>{selectCall}</div>}
+          title={selectCall}
           content={
-            <div className="flex justify-center gap-5 p-5">
-              <Card
-                className="colorOne"
-                sx={{
-                  height: '100%',
-                }}
-              >
-                <CardContent>
-                  <div
-                    className="flex flex-col items-center gap-5"
-                    onClick={() => {
-                      // document.getElementById('videoCall')?.click()
-                      onCall('video')
-                    }}
-                  >
-                    <DrawerClose>
-                      <div className="flex justify-center">
-                        <UserRound />
-                      </div>
-                      <div>{videoCall}</div>
-                    </DrawerClose>
-                  </div>
-                </CardContent>
-              </Card>
-              <Card
-                className="colorOne"
-                sx={{
-                  height: '100%',
-                }}
-              >
-                <CardContent>
-                  <div
-                    className="flex flex-col items-center gap-5"
-                    onClick={() => {
-                      // document.getElementById('audioCall')?.click()
-                      onCall('audio')
-                    }}
-                  >
-                    <DrawerClose>
-                      <div className="flex justify-center">
-                        <AlarmCheck />
-                      </div>
-                      <div>{audioCall}</div>
-                    </DrawerClose>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
+            <PiazzaFormCallsContent chattingUser={chattingUser}/>
           }
         />
       )}
       <input
         className="w-full p-3 rounded bg-light-1 dark:bg-dark-1"
-        placeholder={forms[index]}
+        placeholder={message}
         onChange={onChangeMsgHandler}
         value={messages}
         autoFocus
       />
       <button className="w-1/6 rounded bg-light-2 dark:bg-dark-2" type="submit">
-        {send[index]}
+        {send}
       </button>
     </form>
   )

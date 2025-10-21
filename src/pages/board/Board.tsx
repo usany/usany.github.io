@@ -1,10 +1,10 @@
-import { User } from 'firebase/auth'
 import { collection, getDocs, orderBy, query } from 'firebase/firestore'
 import { Maximize2, Minimize2 } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { dbservice } from 'src/baseApi/serverbase'
-import { useSelectors } from 'src/hooks'
+import useSelectors from 'src/hooks/useSelectors'
+import useTexts from 'src/hooks/useTexts'
 import BoardMap from 'src/pages/board/boardMap/BoardMap'
 import PageTitle from 'src/pages/core/pageTitle/PageTitle'
 import { SwipeableViews } from 'src/pages/core/SwipeableViews'
@@ -14,7 +14,7 @@ import CardsList from '../core/card/CardsList'
 import Popups from '../core/Popups'
 import BoardList from './BoardList'
 import FilterDialogsContent from './FilterDialogs/FilterDialogsContent'
-import FilterDialogsTitle from './FilterDialogs/FilterDialogsTitle'
+import { DocumentData } from 'firebase/firestore';
 
 const items = {
   ko: ['전체 아이템', '우산', '양산'],
@@ -31,7 +31,13 @@ const time = {
 const options = [items.ko, locations.ko, time.ko]
 
 function Board() {
-  const [messages, setMessages] = useState<Array<object>>([])
+  const [messages, setMessages] = useState<{
+    loaded: boolean,
+    items:Array<DocumentData>
+  }>({
+      loaded: false,
+      items: [],
+    })
   const [selectedValues, setSelectedValues] = useImmer([
     {
       id: 'selectedValueOne',
@@ -46,7 +52,6 @@ function Board() {
       value: '최신순',
     },
   ])
-  const [messageLoaded, setMessageLoaded] = useState(false)
   const navigate = useNavigate()
   const [searchParams, setSearchParams] = useSearchParams()
   const selectedSearchParams = [
@@ -85,9 +90,8 @@ function Board() {
       return searchParams
     })
   }
-  const languages = useSelectors((state) => state.languages.value)
   const profile = useSelectors((state) => state.profile.value)
-
+  const {borrowing, lending, cardList, filtering} = useTexts()
   useEffect(() => {
     document.documentElement.scrollTo({
       top: 0,
@@ -97,10 +101,7 @@ function Board() {
   }, [])
   useEffect(() => {
     const bringMessages = async () => {
-      let order = 'asc'
-      if (selectedValues[2].value === '최신순' || !selectedValues[2].value) {
-        order = 'desc'
-      }
+      const order =selectedValues[2].value === '최신순' || !selectedValues[2].value ? 'asc' : 'desc'
       const collectionQuery = query(
         collection(dbservice, 'num'),
         orderBy('creatorClock', order),
@@ -110,8 +111,7 @@ function Board() {
       docs.forEach((doc) => {
         newArray.push({ id: doc.id, ...doc.data() })
       })
-      setMessages(newArray)
-      setMessageLoaded(true)
+      setMessages({loaded: true, items: newArray})
     }
     if (profile) {
       bringMessages()
@@ -130,7 +130,7 @@ function Board() {
   }, [])
 
   return (
-    <div>
+    <>
       {/* <AlarmCheck />
             <AlertCircle />
             <Siren />
@@ -157,60 +157,51 @@ function Board() {
         <PageTitle
           icon={<Minimize2 />}
           title={
-            languages === 'ko' ? '빌리기 카드 목록' : 'Borrowing Card Board'
+            `${borrowing} ${cardList}`
           }
         />
         <PageTitle
           icon={<Maximize2 />}
           title={
-            languages === 'ko' ? '빌려주기 카드 목록' : 'Lending Card Board'
+            `${lending} ${cardList}`
           }
         />
       </SwipeableViews>
-      <div className="px-5">
-        <div className="flex justify-center">
-          <div className="w-[1000px]">
-            <BoardMap
-              selectedValues={selectedSearchParams}
-              handleSelectedValues={handleSelectedValues}
-              searchParams={searchParams}
-            />
-          </div>
+      <div className="flex justify-center px-5">
+        <BoardMap
+          selectedValues={selectedSearchParams}
+          handleSelectedValues={handleSelectedValues}
+        />
+      </div>
+      <div className="truncate flex justify-center sticky top-16 z-30 px-5">
+        <div className="w-[1000px] shadow-md">
+          <Popups
+            trigger={<BoardList />}
+            title={filtering}
+            content={
+              <FilterDialogsContent
+                selectedValues={selectedSearchParams}
+                handleSelectedValues={handleSelectedValues}
+              />
+            }
+          />
         </div>
       </div>
-      <>
-        <div className="truncate flex justify-center sticky top-16 z-30 px-5">
-          <div className="w-[1000px] shadow-md">
-            <Popups
-              trigger={<BoardList selectedValues={selectedSearchParams} />}
-              title={<FilterDialogsTitle />}
-              content={
-                <FilterDialogsContent
-                  selectedValues={selectedSearchParams}
-                  handleSelectedValues={handleSelectedValues}
-                />
-              }
+      <SwipeableViews>
+        {messages.loaded && (
+          <>
+            <CardsList
+              choose={1}
+              messages={messages.items}
             />
-          </div>
-        </div>
-        <SwipeableViews>
-          {messageLoaded && (
-            <>
-              <CardsList
-                choose={1}
-                messages={messages}
-                selectedValues={selectedValues}
-              />
-              <CardsList
-                choose={2}
-                messages={messages}
-                selectedValues={selectedValues}
-              />
-            </>
-          )}
-        </SwipeableViews>
-      </>
-    </div>
+            <CardsList
+              choose={2}
+              messages={messages.items}
+            />
+          </>
+        )}
+      </SwipeableViews>
+    </>
   )
 }
 

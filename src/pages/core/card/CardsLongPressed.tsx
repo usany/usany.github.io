@@ -6,15 +6,14 @@ const CardsLongPressed = ({
   longPressCard,
   message,
   changeLongPressCard,
-  delayedFalse,
+  // delayedFalse,
 }) => {
   return (
     <ClickAwayListener
       onClickAway={() => {
         if (longPressCard === message.id) {
           changeLongPressCard(null)
-          // changeLongPressed(false)
-          delayedFalse()
+          // delayedFalse()
         }
       }}
     >
@@ -22,9 +21,6 @@ const CardsLongPressed = ({
         <Draggable id={message.id}>
           <div
             className="longPress touch-none"
-            // onClick={() => {
-            //   changeLongPressed(false)
-            // }}
           >
             <CardsViews message={message} />
           </div>

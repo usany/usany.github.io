@@ -1,12 +1,20 @@
 import Divider from '@mui/material/Divider'
 import { collection, getDocs, orderBy, query } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import { dbservice } from 'src/baseApi/serverbase'
-import { useTexts } from 'src/hooks'
+import useSelectors from 'src/hooks/useSelectors'
+import useTexts from 'src/hooks/useTexts'
+import locationsBuildings, { locationsCollectionLetters } from '../add/locationsBuildings'
+import locationsCollection from '../add/locationsCollection'
 
-const ProfileDrawersPoints = ({ user, cards }) => {
+const ProfileDrawersPoints = ({ cards }) => {
   const [messages, setMessages] = useState([])
-  const { empty } = useTexts()
+  const profile = useSelectors((state) => state.profile.value)
+  const { state } = useLocation()
+  const user = state?.element || profile
+  const { borrowedFrom, lendedTo, points, empty, fromReceipt, toReceipt } = useTexts()
+  const languages = useSelectors((state) => state.languages.value)
   useEffect(() => {
     const bringMessages = async () => {
       const messagesArray = []
@@ -28,45 +36,56 @@ const ProfileDrawersPoints = ({ user, cards }) => {
       bringMessages()
     }
   }, [cards])
-  // console.log(cards)
   const pointsList = messages.map((element, index) => {
     return (
       <div key={index}>
         <div className="flex flex-col justify-center p-5">
           {user.uid === element.creatorId && (
             <div className="flex justify-center">
-              {element.connectedName}에게{' '}
-              {element.text.choose === 1 ? '빌림' : '빌려줌'}
+              {languages === 'en' && (element.text.choose === 1 ? borrowedFrom : lendedTo)}
+              {element.connectedName}
+              {languages === 'ko' && (element.text.choose === 1 ? borrowedFrom : lendedTo)}
             </div>
           )}
           {user.uid === element.connectedId && (
             <div className="flex justify-center">
-              {element.displayName}에게{' '}
-              {element.text.choose === 1 ? '빌려줌' : '빌림'}
+              {languages === 'en' && (element.text.choose === 1 ? borrowedFrom : lendedTo)}
+              {element.displayName}
+              {languages === 'ko' && (element.text.choose === 1 ? borrowedFrom : lendedTo)}
             </div>
           )}
           <div className="flex justify-center">
-            {element.text.count} {element.text.counter} {element.text.counting}
+            {locationsBuildings[languages][locationsBuildings['ko'].indexOf(element.text.count)]} {locationsCollection[languages][
+                                Object.keys(locationsCollectionLetters).find(
+                                  (key) =>
+                                    locationsCollectionLetters[key] ===
+                                    element.text.count,
+                                )
+                              ][
+                                locationsCollection['ko'][
+                                  Object.keys(locationsCollectionLetters).find(
+                                    (key) =>
+                                      locationsCollectionLetters[key] ===
+                                      element.text.count,
+                                  )
+                                ].indexOf(element.text.counter)
+                              ]} {element.text.counting}
           </div>
           <div className="flex justify-center">
-            {element.text.clock.year}년 {element.text.clock.month}월{' '}
-            {element.text.clock.day}일 {element.text.clock.hour}시{' '}
-            {element.text.clock.minute}분부터
+            {fromReceipt} {element.text.clock.year}-{element.text.clock.month}-{element.text.clock.day} {element.text.clock.hour}:{element.text.clock.minute}
           </div>
           <div className="flex justify-center">
-            {element.text.clocker.year}년 {element.text.clocker.month}월{' '}
-            {element.text.clocker.day}일 {element.text.clocker.hour}시{' '}
-            {element.text.clocker.minute}분까지
+            {toReceipt} {element.text.clocker.year}-{element.text.clocker.month}-{element.text.clocker.day} {element.text.clocker.hour}:{element.text.clocker.minute}
           </div>
           {user.uid === element.creatorId && (
             <div className="flex justify-center">
-              포인트 {element.text.choose === 1 ? '-' : '+'}
+              {points} {element.text.choose === 1 ? '-' : '+'}
               {element.point}
             </div>
           )}
           {user.uid === element.connectedId && (
             <div className="flex justify-center">
-              포인트 {element.text.choose === 1 ? '+' : '-'}
+              {points} {element.text.choose === 1 ? '+' : '-'}
               {element.point}
             </div>
           )}

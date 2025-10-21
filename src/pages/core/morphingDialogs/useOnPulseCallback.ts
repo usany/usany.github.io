@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { useSelectors } from 'src/hooks'
+import useSelectors from 'src/hooks/useSelectors'
 import { webSocket } from 'src/webSocket'
 
 export const useOnPulseCallback = ({ round, changeOnPulse, message }) => {

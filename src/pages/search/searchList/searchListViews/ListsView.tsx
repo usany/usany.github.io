@@ -1,19 +1,16 @@
-import { useState } from 'react'
-// import Avatar from '@mui/material/Avatar';
+import useSelectors from 'src/hooks/useSelectors'
+import useTexts from 'src/hooks/useTexts'
 import { Chip, Divider } from '@mui/material'
-import { doc, updateDoc } from 'firebase/firestore'
 import { Ban, Check } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
-import { dbservice } from 'src/baseApi/serverbase'
-import { useSelectors } from 'src/hooks'
 import Avatars from 'src/pages/core/Avatars'
 
 const ListsView = ({ elements, userSearch, multiple, handleUser }) => {
-  const [newRanking, setNewRanking] = useState(0)
   const navigate = useNavigate()
+  const {empty} = useTexts()
   const profile = useSelectors((state) => state.profile.value)
-  const link = '/profile'
   const onClick = (element) => {
+    const link = '/profile'
     const userLink =
       element.uid === profile?.uid ? link : link + `/?id=${element.uid}`
     if (location.pathname !== '/contact') {
@@ -26,28 +23,20 @@ const ListsView = ({ elements, userSearch, multiple, handleUser }) => {
       handleUser(element)
     }
   }
-  let point
-  let samePointIndex
+  if (!elements.length) return (
+    <div className="flex justify-center">
+      <div className="rounded shadow-md bg-light-1 dark:bg-dark-1 p-5">
+        {empty}
+      </div>
+    </div>
+  )
   return (
     <div className="flex truncate justify-center">
       <div className="w-[1000px]">
         {elements.map((element, index) => {
-          if (element.points !== point) {
-            point = element.points
-            samePointIndex = index
-          }
-          if (element.uid === profile?.uid) {
-            const user = doc(dbservice, `members/${profile?.uid}`)
-            const newRank = samePointIndex ? samePointIndex + 1 : index + 1
-            if (!newRanking && multiple) {
-              updateDoc(user, { ranking: newRank })
-              setNewRanking(newRank)
-            }
-          }
           if (userSearch) {
             for (let number = 0; number < userSearch.length; number++) {
               if (element?.displayName[number] !== userSearch[number]) {
-                // userNameConfirm = false
                 return null
               }
             }
@@ -73,15 +62,9 @@ const ListsView = ({ elements, userSearch, multiple, handleUser }) => {
                     `bg-[#e2e8f0] dark:bg-[#2d3848] rounded`
                   }`}
               >
-                {!multiple ? (
-                  <div className="flex items-center justify-center w-[100px]">
-                    {newRanking ? newRanking : element.ranking}
-                  </div>
-                ) : (
-                  <div className="flex items-center justify-center w-[100px]">
-                    {samePointIndex ? samePointIndex + 1 : index + 1}
-                  </div>
-                )}
+                <div className="flex items-center justify-center w-[100px]">
+                  {multiple ? element.ranking : profile?.ranking}
+                </div>
                 <div className="flex items-center">
                   <Avatars element={element} piazza={null} profile={false} />
                 </div>
@@ -90,11 +73,7 @@ const ListsView = ({ elements, userSearch, multiple, handleUser }) => {
                   <div className="overflow-hidden">{element.points}</div>
                 </div>
                 <div className="flex justify-center items-center w-[67px]">
-                  {locationConfirmed ? (
-                    <Chip sx={{}} color="success" label={<Check />} />
-                  ) : (
-                    <Chip label={<Ban />} />
-                  )}
+                  <Chip sx={locationConfirmed ? {} : undefined} color={locationConfirmed ? "success" : undefined} label={locationConfirmed ? <Check /> : <Ban />} />
                 </div>
               </div>
               <Divider />

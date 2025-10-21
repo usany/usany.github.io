@@ -4,15 +4,14 @@ import { deleteDoc, doc, updateDoc } from 'firebase/firestore'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { dbservice } from 'src/baseApi/serverbase'
-import { useSelectors } from 'src/hooks'
+import useSelectors from 'src/hooks/useSelectors'
 import PageTitle from 'src/pages/core/pageTitle/PageTitle'
 import AuthButtons from 'src/pages/main/auth/AuthButtons'
 import AuthForm from 'src/pages/main/auth/AuthForm'
 import Motions from 'src/pages/main/auth/Motions'
-import { useTexts } from 'src/hooks'
+import useTexts from 'src/hooks/useTexts'
 import AuthPassword from './AuthPassword'
 import { changeProfile } from 'src/stateSlices/profileSlice'
-// import { changeUserCertificated } from 'src/stateSlices/userCertificatedSlice'
 
 function Auth() {
   const [numberString, setNumberString] = useState('')
@@ -30,6 +29,10 @@ function Auth() {
     sendMail,
     sendMailAgain,
     cancelRegistration,
+    confirmingMail,
+    signIn,
+    welcomeToKhusan,
+    playlistReadyForYouToGetRidOfBoredom
   } = useTexts()
   const handleNumberString = (newValue) => {
     setNumberString(newValue)
@@ -53,7 +56,6 @@ function Auth() {
         language: localStorage.getItem('languages') || 'ko',
       }),
     })
-    console.log('sending')
   }
   const confirmNumber = async () => {
     if (numberString === createdNumber) {
@@ -78,65 +80,57 @@ function Auth() {
     }
   }
   return (
-    <div>
+    <>
+      <PageTitle
+        title={profile ? confirmingMail : signIn}
+      />
       {profile ? (
-        <div>
-          <PageTitle
-            title={languages === 'ko' ? '메일 확인' : 'Confirming mail'}
-          />
-          <div className="flex flex-col gap-5 items-center">
-            {mailSent ? (
-              <div>
-                {languages === 'en' && sentAConfirmingMail} {profile.email}
-                {languages === 'ko' && sentAConfirmingMail}. {inputTheNumber}.
-              </div>
-            ) : (
-              <div>
-                {languages === 'en' && weWillSendYouAConfirmingMailTo}{' '}
-                {profile.email}
-                {languages === 'ko' && weWillSendYouAConfirmingMailTo}.{' '}
-                {checkTheNumber}.
-              </div>
+        <div className="flex flex-col gap-5 items-center">
+          {mailSent ? (
+            <>
+              {languages === 'en' && sentAConfirmingMail} {profile.email}
+              {languages === 'ko' && sentAConfirmingMail}. {inputTheNumber}.
+            </>
+          ) : (
+            <>
+              {languages === 'en' && weWillSendYouAConfirmingMailTo}{' '}
+              {profile.email}
+              {languages === 'ko' && weWillSendYouAConfirmingMailTo}.{' '}
+              {checkTheNumber}.
+            </>
+          )}
+          {mailSent && (
+            <AuthPassword
+              numberString={numberString}
+              handleNumberString={handleNumberString}
+            />
+          )}
+          <div className="flex gap-5">
+            {numberString.length === 6 && (
+              <Button onClick={confirmNumber}>{confirm}</Button>
             )}
-            {mailSent && (
-              <AuthPassword
-                profile={profile}
-                numberString={numberString}
-                handleNumberString={handleNumberString}
-              />
-            )}
-            <div className="flex gap-5">
-              {numberString.length === 6 && (
-                <Button onClick={confirmNumber}>{confirm}</Button>
-              )}
-              <Button onClick={sendNumberMail}>
-                {mailSent ? sendMailAgain : sendMail}
-              </Button>
-            </div>
-            <Button onClick={cancelUserRegistration}>
-              {cancelRegistration}
+            <Button onClick={sendNumberMail}>
+              {mailSent ? sendMailAgain : sendMail}
             </Button>
           </div>
+          <Button onClick={cancelUserRegistration}>
+            {cancelRegistration}
+          </Button>
         </div>
       ) : (
-        <div>
-          <PageTitle title={languages === 'ko' ? '로그인' : 'Sign in'} />
+        <>
           <div className="flex justify-center p-5">
-            {languages === 'ko'
-              ? '반갑습니다. 캠퍼스 우산 공유 서비스 쿠우산입니다.'
-              : 'Welcome. This is usan sharing service khusan'}
+            {welcomeToKhusan}
           </div>
           <AuthForm signIn={true} agreed={true} />
           <AuthButtons />
           <div className="flex justify-center pt-5 px-5">
-            {languages === 'ko'
-              ? '날씨 플레이리스트도 준비되어 있어요.'
-              : 'Weather playlist is also available for you.'}
+            {playlistReadyForYouToGetRidOfBoredom}
           </div>
           <Motions />
-        </div>
+        </>
       )}
-    </div>
+    </>
   )
 }
 

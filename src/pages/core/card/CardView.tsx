@@ -2,25 +2,17 @@ import { alpha } from '@mui/material'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
-import staticImgs from 'src/assets/pwa-512x512.png'
-import staticCl from 'src/assets/static_cl.jpg'
-import staticCw from 'src/assets/static_cw.jpg'
-import staticG from 'src/assets/static_g.jpg'
-import useCardsBackground from 'src/hooks/useCardsBackground'
 import CardViewLocation from './CardViewLocation'
 import CardViewTime from './CardViewTime'
 import CardViewTop from './CardViewTop'
 import CardViewTransfer from './CardViewTransfer'
+import { buildingsObject, staticArray } from 'src/pages/add/locationsBuildings'
 
-export const staticArray = {
-  '중도': staticCl,
-  '간호이과대': staticG,
-  '청운': staticCw,
-  'building': staticImgs
-}
 const CardView = ({ onTransfer, message, shadowColor }) => {
-  const { color } = useCardsBackground()
-  const staticImg = staticArray[message.text.count] || staticArray['building']
+  const locationOne = message.text.count
+  const key = Object.keys(buildingsObject).find((key) => buildingsObject[key].ko.name === locationOne)
+  const staticImg = buildingsObject[key]?.image
+  // const staticImg = staticArray[message.text.count] || staticArray['building']
   return (
     <div className="flex flex-col gap-5">
       {onTransfer && <CardViewTransfer />}
@@ -30,7 +22,7 @@ const CardView = ({ onTransfer, message, shadowColor }) => {
           width: 200 * 0.9,
           height: 280 * 0.9,
           boxShadow: `1.5px 1.5px 1.5px 1.5px ${shadowColor}`,
-          bgcolor: color,
+          // bgcolor: colorTwo,
         }}
       >
         <CardContent
@@ -41,7 +33,6 @@ const CardView = ({ onTransfer, message, shadowColor }) => {
             <CardMedia
               sx={{
                 width: 200 * 0.9,
-                // width: 159 * 0.9,
                 height: 141 * 0.9,
                 borderRadius: '10px'
               }}

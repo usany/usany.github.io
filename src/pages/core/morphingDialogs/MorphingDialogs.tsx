@@ -3,7 +3,6 @@ import {
   MorphingDialogContainer,
   MorphingDialogTrigger,
 } from '@/components/ui/morphing-dialog'
-import { User } from 'firebase/auth'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { webSocket } from 'src/webSocket'
@@ -19,17 +18,9 @@ import { useSupportTradesCallback } from './useSupportTradesCallback'
 
 interface Props {
   message: { id: string; text: object }
-  isOwner: boolean
-  num: number | null
-  points: number | null
-  round: number
 }
 const MorphingDialogs = ({
   message,
-  round,
-  increaseRound,
-  decreaseRound,
-  deleteMessage,
 }: Props) => {
   const [onTransfer, setOnTransfer] = useState(false)
   const [connectedClock, setConnectedClock] = useState({
@@ -39,6 +30,25 @@ const MorphingDialogs = ({
   const [confirmingClock, setConfirmingClock] = useState('')
   const [returningClock, setReturningClock] = useState('')
   const [confirmedReturnClock, setConfirmedReturnClock] = useState('')
+  const [messageValue, setMessageValue] = useState({})
+  useEffect(() => {
+    setMessageValue(message)
+  }, [message])
+  const round = messageValue.round
+  const increaseRound = () => {
+    setMessageValue((prev) => {
+      return (
+        {...prev, round: prev.round+1}
+      )
+    })
+  }
+  const decreaseRound = () => {
+    setMessageValue((prev) => {
+      return (
+        {...prev, round: prev.round-1}
+      )
+    })
+  }
   const handleConnectedClock = (newValue) => {
     setConnectedClock(newValue)
   }
@@ -111,6 +121,7 @@ const MorphingDialogs = ({
       )
     }
   }, [])
+
   return (
     <MorphingDialog
       transition={{
@@ -122,7 +133,7 @@ const MorphingDialogs = ({
         <Link
           key={message.id}
           // Moving to the product page
-          to={`${location.pathname}?id=${message.id}`}
+          to={`${location.pathname}?card=${message.id}`}
         >
           <CardsViews
             message={message}
@@ -133,16 +144,14 @@ const MorphingDialogs = ({
       </MorphingDialogTrigger>
       <MorphingDialogContainer>
         <Morphings
-          round={round}
           increaseRound={increaseRound}
           decreaseRound={decreaseRound}
-          message={message}
+          message={messageValue}
           onPulse={onPulse}
           changeOnPulse={changeOnPulse}
           connectedUser={connectedUser}
           changeConnectedUser={changeConnectedUser}
           toggleOnTransfer={toggleOnTransfer}
-          deleteMessage={deleteMessage}
           connectedClock={connectedClock}
           confirmingClock={confirmingClock}
           returningClock={returningClock}

@@ -1,11 +1,7 @@
-import { User } from 'firebase/auth'
-import { collection, getDocs, orderBy, query } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
-import { dbservice } from 'src/baseApi/serverbase'
-import { useSelectors } from 'src/hooks'
+import useSelectors from 'src/hooks/useSelectors'
 import { SwipeableViews } from 'src/pages/core/SwipeableViews'
-import { useImmer } from 'use-immer'
 import locationsBuildings from '../add/locationsBuildings'
 import LayoutBoard from './LayoutBoard'
 import Board from './Board'
@@ -63,12 +59,12 @@ function Boards() {
 
   return (
     <>
-      {profile && profile?.certificated ? (
+      {profile?.certificated ? (
         <Board />
       ) : (
         <SwipeableViews>
-          <LayoutBoard borrow={true} />
-          <LayoutBoard borrow={false} />
+          <LayoutBoard isBorrow={true} />
+          <LayoutBoard isBorrow={false} />
         </SwipeableViews>
       )}
     </>

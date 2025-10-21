@@ -1,21 +1,20 @@
 import { Card } from "@mui/material";
 import useCardsBackground from "src/hooks/useCardsBackground";
-import { useSelectors } from "src/hooks";
+import useSelectors from 'src/hooks/useSelectors'
+import useTexts from 'src/hooks/useTexts';
 
-const ProfileMembersDrawersTrigger = () => {
+interface Props {
+  isPassword: boolean
+}
+const ProfileMembersDrawersTrigger = ({isPassword}: Props) => {
   const { colorTwo } = useCardsBackground()
-  const languages = useSelectors((state) => state.languages.value)
-
+  const {changePassword, deleteAccount} = useTexts()
   return (
     <Card sx={{ width: "100%", bgcolor: colorTwo }}>
       <div
         className="flex justify-center p-5"
       >
-        {languages === 'ko' ?
-          '회원 탈퇴'
-          :
-          'Delete Account'
-        }
+        {isPassword ? changePassword : deleteAccount}
       </div>
     </Card>
   );

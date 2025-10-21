@@ -1,50 +1,60 @@
-// import { CardActionArea, CardActions } from '@mui/material';
-// import { useBottomNavigationStore } from 'src/store'
 import { Chip } from '@mui/material'
 import { Building, Watch } from 'lucide-react'
 import useLargeMedia from 'src/hooks/useLargeMedia'
-import { useSelectors } from 'src/hooks'
-import locationsBuildings from 'src/pages/add/locationsBuildings'
+import useSelectors from 'src/hooks/useSelectors'
+import useTexts from 'src/hooks/useTexts'
+import locationsBuildings, { locationsCollectionLetters } from 'src/pages/add/locationsBuildings'
 import locationsCollection from 'src/pages/add/locationsCollection'
-import locationsCollectionLetters from 'src/pages/add/locationsCollectionLetters'
+
+const getLocation = (message) => {
+  const languages = useSelectors((state) => state.languages.value)
+  if (languages === 'ko') {
+    const location =
+      message.text.count +
+      ' ' +
+      message.text.counter +
+      ' ' +
+      message.text.counting
+    return location
+  }
+  const locationOne =
+    locationsBuildings['en'][
+    locationsBuildings['ko'].indexOf(message.text.count)
+    ]
+    if (locationOne) {
+      const locationTwo =
+        locationsCollection['en'][
+        Object.keys(locationsCollectionLetters).find(
+          (key) => locationsCollectionLetters[key] === message.text.count,
+        )
+        ][
+        locationsCollection['ko'][
+          Object.keys(locationsCollectionLetters).find(
+            (key) => locationsCollectionLetters[key] === message.text.count,
+          )
+        ].indexOf(message.text.counter)
+        ]
+      const location = locationOne + ' ' + locationTwo + ' ' + message.text.counting
+      return location
+    }
+    const location =
+      message.text.count +
+      ' ' +
+      message.text.counter +
+      ' ' +
+      message.text.counting
+    return location
+
+}
 
 interface Props {
   message: {}
 }
 
 function SpecificsDimensions({ message }: Props) {
-  const languages = useSelectors((state) => state.languages.value)
   const largeMedia = useLargeMedia()
-  let locationOne
-  let locationTwo
-  let location
-  if (languages === 'ko') {
-    location =
-      message.text.count +
-      ' ' +
-      message.text.counter +
-      ' ' +
-      message.text.counting
-  } else {
-    locationOne =
-      locationsBuildings['en'][
-      locationsBuildings['ko'].indexOf(message.text.count)
-      ]
-    locationTwo =
-      locationsCollection['en'][
-      Object.keys(locationsCollectionLetters).find(
-        (key) => locationsCollectionLetters[key] === message.text.count,
-      )
-      ][
-      locationsCollection['ko'][
-        Object.keys(locationsCollectionLetters).find(
-          (key) => locationsCollectionLetters[key] === message.text.count,
-        )
-      ].indexOf(message.text.counter)
-      ]
-    location = locationOne + ' ' + locationTwo + ' ' + message.text.counting
-  }
-
+  const location = getLocation(message)
+  const {meetingAt, passingAt, returningAt} = useTexts()
   return (
     <div
       className={`flex text-xs scale-90 ${!largeMedia && 'flex-col'} justify-around gap-1 pt-5`}
@@ -54,7 +64,7 @@ function SpecificsDimensions({ message }: Props) {
           <Building />
         </div>
         <div className="px-1">
-          {languages === 'ko' ? '전달 장소:' : 'Meeting at'}
+          {meetingAt}
         </div>
         <Chip
           className='specific'
@@ -68,15 +78,7 @@ function SpecificsDimensions({ message }: Props) {
         <div className={`${!largeMedia && 'flex'}`}>
           <div className="flex items-center">
             <div className="px-1">
-              {languages === 'ko' ? (
-                '대여 시간:'
-              ) : (
-                <div className="flex items-center">
-                  <div className="flex flex-col">
-                    <div>Passing at</div>
-                  </div>
-                </div>
-              )}
+              {passingAt}
             </div>
             <Chip
               className='specific'
@@ -86,15 +88,7 @@ function SpecificsDimensions({ message }: Props) {
           </div>
           <div className="flex items-center">
             <div className="px-1">
-              {languages === 'ko' ? (
-                '반납 시간:'
-              ) : (
-                <div className="flex items-center">
-                  <div className="flex flex-col">
-                    <div>Returning at</div>
-                  </div>
-                </div>
-              )}
+              {returningAt}
             </div>
             <Chip
               className='specific'

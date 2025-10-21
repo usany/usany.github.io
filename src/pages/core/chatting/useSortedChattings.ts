@@ -1,8 +1,10 @@
 import { doc, getDoc } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 import { dbservice } from 'src/baseApi/serverbase'
+import useSelectors from 'src/hooks/useSelectors'
 
-export const useSortedChattings = ({ userObj }) => {
+export const useSortedChattings = () => {
+  const profile = useSelectors((state) => state.profile.value)
   const [chattings, setChattings] = useState({})
   const [chattingNone, setChattingNone] = useState(false)
   const changeChattings = (newValue) => setChattings(newValue)
@@ -16,7 +18,7 @@ export const useSortedChattings = ({ userObj }) => {
   })
   useEffect(() => {
     const bringChattings = async () => {
-      const docRef = doc(dbservice, `members/${userObj.uid}`)
+      const docRef = doc(dbservice, `members/${profile?.uid}`)
       const docSnap = await getDoc(docRef)
       const newChattings = docSnap.data()?.chattings || {}
       setChattings(newChattings)

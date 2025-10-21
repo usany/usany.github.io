@@ -1,15 +1,13 @@
 import Switch from '@mui/material/Switch'
 import { styled } from '@mui/material/styles'
 import { useState } from 'react'
-import { useSelector } from 'react-redux'
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from 'src/components/ui/accordion'
-import { useSelectors } from 'src/hooks'
-import { useTexts } from 'src/hooks'
+import useTexts from 'src/hooks/useTexts'
 const MessageSwitch = styled(Switch)(({ theme }) => ({
   padding: 8,
   '& .MuiSwitch-track': {
@@ -43,7 +41,11 @@ const MessageSwitch = styled(Switch)(({ theme }) => ({
   },
 }))
 
-function AuthMethods({ agreed, changeAgreed }) {
+interface Props {
+  agreed: boolean
+  changeAgreed: () => void
+}
+function AuthMethods({ agreed, changeAgreed }: Props) {
   const [accordion, setAccordion] = useState('item')
   const { privateInformationPolicy, agreeOnPrivateInformationPolicy } =
     useTexts()

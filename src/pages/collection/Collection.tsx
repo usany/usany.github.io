@@ -12,14 +12,14 @@ import {
   MorphingDialogTrigger,
 } from 'src/components/ui/morphing-dialog'
 import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
-import { useTexts } from 'src/hooks'
+import useTexts from 'src/hooks/useTexts'
 import Avatars from '../core/Avatars'
 import PageTitle from '../core/pageTitle/PageTitle'
 import Popups from '../core/Popups'
 import supabase from 'src/baseApi/base'
 import { decode } from 'base64-arraybuffer'
 import { User } from 'firebase/auth'
-import { useSelectors } from 'src/hooks'
+import useSelectors from 'src/hooks/useSelectors'
 
 function Collection() {
   const profile = useSelectors((state) => state.profile.value)

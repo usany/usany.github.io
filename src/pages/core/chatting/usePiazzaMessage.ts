@@ -1,7 +1,7 @@
 import { collection, getDocs, limit, orderBy, query } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 import { dbservice } from 'src/baseApi/serverbase'
-import { useSelectors } from 'src/hooks'
+import useSelectors from 'src/hooks/useSelectors'
 
 export const usePiazzaMessage = () => {
   const [piazzaMessage, setPiazzaMessage] = useState<{

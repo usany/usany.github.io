@@ -11,8 +11,8 @@ export default [
       globals: {
         ...globals.browser,
         clients: true,
-      },
-    },
+      }
+    }
   },
   pluginJs.configs.recommended,
   ...tseslint.configs.recommended,

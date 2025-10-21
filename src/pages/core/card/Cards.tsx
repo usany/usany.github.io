@@ -3,28 +3,28 @@ import useLongPress from 'src/hooks/useLongPress'
 import MorphingDialogs from '../morphingDialogs/MorphingDialogs'
 import CardsLongPressed from './CardsLongPressed'
 import CardsViews from './CardsViews'
-import { useRound } from './useRound'
-
+import { DocumentData } from 'firebase/firestore'
+import { useLocation, useSearchParams } from 'react-router-dom'
 interface Props {
-  message: { id: string; text: object }
-  isOwner: boolean
-  num: number | null
-  points: number | null
+  message: DocumentData
+  longPressCard: string
+  changeLongPressCard: (newValue: string) => void
+  deleteMessage: () => void
+  delayed: boolean
+  delayedFalse: () => void
 }
 
 const Cards = ({
   message,
   longPressCard,
   changeLongPressCard,
-  deleteMessage,
-  delayed,
-  delayedFalse,
 }: Props) => {
-  const { round, increaseRound, decreaseRound } = useRound(message)
   const cardsRef = useRef()
   useLongPress(cardsRef, () => {
     changeLongPressCard(message.id)
   })
+  const location = useLocation()
+  const [searchParams, setSearchParams] = useSearchParams()
   return (
     <div className="max-w-60 min-w-20 text-sm p-1" ref={cardsRef}>
       {longPressCard ? (
@@ -34,7 +34,6 @@ const Cards = ({
               longPressCard={longPressCard}
               message={message}
               changeLongPressCard={changeLongPressCard}
-              delayedFalse={delayedFalse}
             />
           ) : (
             <CardsViews message={message} />
@@ -42,19 +41,13 @@ const Cards = ({
         </>
       ) : (
         <>
-          {delayed ||
-          location.pathname === '/board' ||
-          location.pathname === '/profile' ? (
-            <MorphingDialogs
-              message={message}
-              round={round}
-              increaseRound={increaseRound}
-              decreaseRound={decreaseRound}
-              deleteMessage={deleteMessage}
-            />
-          ) : (
-            <CardsViews message={message} />
-          )}
+        {searchParams.get('id') ? 
+          <CardsViews message={message} />
+          :
+          <MorphingDialogs
+            message={message}
+          />
+        }
         </>
       )}
     </div>

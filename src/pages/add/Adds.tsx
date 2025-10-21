@@ -1,4 +1,4 @@
-import { useSelectors } from 'src/hooks'
+import useSelectors from 'src/hooks/useSelectors'
 import { SwipeableViews } from 'src/pages/core/SwipeableViews'
 import Add from './Add'
 import Layout from './Layout'

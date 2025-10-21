@@ -3,13 +3,13 @@ import TextField from '@mui/material/TextField'
 import { sendPasswordResetEmail } from 'firebase/auth'
 import { useState } from 'react'
 import staticMail from 'src/assets/signMail.svg'
-// import supabase from 'src/baseApi/base'
 import { auth } from 'src/baseApi/serverbase'
-import { useSelectors } from 'src/hooks'
+import useSelectors from 'src/hooks/useSelectors'
+import useTexts from 'src/hooks/useTexts'
 function AuthDialogsContentPassword() {
   const [email, setEmail] = useState('')
   const [status, setStatus] = useState('')
-  const languages = useSelectors((state) => state.languages.value)
+  const {needNetworkConnection, weWillSendYouAPasswordResetMail, mail, sendMail, sentAConfirmingMail, failed} = useTexts()
   const onChange = (event) => {
     const {
       target: { value },
@@ -34,33 +34,20 @@ function AuthDialogsContentPassword() {
           // const errorMessage = error.message
           // ..
         })
-      // const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
-      //   redirectTo: '/',
-      // })
-
-      // if (data) {
-      //   console.log(data)
-      // } else {
-      //   console.log(error)
-      // }
     } else {
-      alert('네트워크 연결이 필요합니다')
+      alert(needNetworkConnection)
     }
   }
   return (
     <div className="flex justify-center p-5">
       <div className="flex flex-col border border-solid w-[470px] rounded-lg pt-5">
         <div className="flex p-3">
-          {languages === 'ko' ? (
-            <div>비밀번호 재설정 메일을 보내드릴게요</div>
-          ) : (
-            <div>We will send you a password reset email</div>
-          )}
+          {weWillSendYouAPasswordResetMail}
         </div>
-        <form id={'password'} className="pt-3" onSubmit={passwordEmail}>
+        <form id='password' className="pt-3" onSubmit={passwordEmail}>
           <div className="flex justify-center px-3">
             <TextField
-              label={languages === 'ko' ? '이메일' : 'email'}
+              label={mail}
               value={email}
               onChange={onChange}
               variant="outlined"
@@ -77,16 +64,16 @@ function AuthDialogsContentPassword() {
               form={'password'}
               type="submit"
             >
-              {languages === 'ko' ? '메일 전송' : 'Send Mail'}
+              {sendMail}
             </Button>
             {status === 'sent' && (
               <div className="flex pt-5">
-                {languages === 'ko' ? '메일을 보냈습니다.' : 'Sent mail.'}
+                {sentAConfirmingMail}
               </div>
             )}
             {status === 'error' && (
               <div className="flex pt-5">
-                {languages === 'ko' ? '전송에 실패했습니다.' : 'Failed sending'}
+                {failed}
               </div>
             )}
           </div>
