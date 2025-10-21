@@ -1,7 +1,6 @@
-import { useEffect, useState } from 'react'
+import { DocumentData } from 'firebase/firestore'
 import useSelectors from 'src/hooks/useSelectors'
 import Cards from './Cards'
-import { DocumentData } from 'firebase/firestore'
 
 const CardsStacksViewsCollection = ({
   messages,
