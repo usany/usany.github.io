@@ -122,7 +122,7 @@ const ProfileLocations = () => {
                 label={
                   locationConfirmation ? locationConfirmed :
                   <button className='flex justify-center gap-1' onClick={onClickLocation}>
-                    locationUnconfirmed
+                    {locationUnconfirmed}
                     <ProfileLocationsChip />
                   </button>
                 }
