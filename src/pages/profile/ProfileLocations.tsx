@@ -18,7 +18,7 @@ import useTexts from 'src/hooks/useTexts'
 import { changeProfile } from 'src/stateSlices/profileSlice'
 import ProfileLocationsChip from './ProfileLocationsChip'
 
-const campuses = ['Seoul Campus', 'Global Campus', 'Gwangleung Campus']
+const campuses = ['Seoul Campus', 'Global Campus', 'Gwangneung Campus']
 const area = {
   westSouth: { lat: 37.5927551, lng: 127.047462 },
   westNorth: { lat: 37.6010743, lng: 127.047462 },
