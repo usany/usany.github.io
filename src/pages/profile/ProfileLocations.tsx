@@ -120,11 +120,13 @@ const ProfileLocations = () => {
                 sx={locationConfirmation ? {} : undefined}
                 color={locationConfirmation ? 'success' : undefined}
                 label={
-                  locationConfirmation ? locationConfirmed :
+                  locationConfirmation ? locationConfirmed : userUid === profile?.uid ?
                   <button className='flex justify-center gap-1' onClick={onClickLocation}>
                     {locationUnconfirmed}
                     <ProfileLocationsChip />
                   </button>
+                  :
+                  locationUnconfirmed
                 }
               />
             </div>
