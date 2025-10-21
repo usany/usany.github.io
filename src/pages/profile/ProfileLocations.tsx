@@ -99,32 +99,6 @@ const ProfileLocations = () => {
             locationUnconfirmed
           }
         />
-        {/* <div className="flex justify-center items-start gap-5 p-5">
-          <div className={largeMedia ? "flex justify-center" : "flex flex-col"}>
-            <div className='flex justify-center'>
-              <Chip
-                sx={locationConfirmation ? {} : undefined}
-                color={locationConfirmation ? 'success' : undefined}
-                label={
-                  locationConfirmation ? locationConfirmed : userUid === profile?.uid ?
-                  <button className='flex justify-center gap-1' onClick={onClickLocation}>
-                    {locationUnconfirmed}
-                    <ProfileLocationsChip />
-                  </button>
-                  :
-                  locationUnconfirmed
-                }
-              />
-            </div>
-            {userUid === profile?.uid && !locationConfirmation && (
-              <div className='flex'>
-                <Button onClick={onClickLocation} variant="outlined">
-                  {campusLocationConfirmation}
-                </Button>
-              </div>
-            )}
-          </div>
-        </div> */}
         {userUid === profile?.uid ?
           <div className='flex items-center'>
             <Select defaultValue={profile?.campus || 'Seoul Campus'} onValueChange={(newValue) => {
@@ -139,7 +113,7 @@ const ProfileLocations = () => {
                 <SelectGroup>
                   {campuses.map((value, index) => {
                     return (
-                      <SelectItem key={index} value={value}>
+                      <SelectItem key={index} value={value.slice(0, value.indexOf(' '))}>
                         {value}
                       </SelectItem>
                     )
