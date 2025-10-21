@@ -1,8 +1,8 @@
-import useSelectors from 'src/hooks/useSelectors'
-import useTexts from 'src/hooks/useTexts'
 import { Chip, Divider } from '@mui/material'
 import { Ban, Check } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
+import useSelectors from 'src/hooks/useSelectors'
+import useTexts from 'src/hooks/useTexts'
 import Avatars from 'src/pages/core/Avatars'
 
 const ListsView = ({ elements, userSearch, multiple, handleUser }) => {
@@ -72,7 +72,8 @@ const ListsView = ({ elements, userSearch, multiple, handleUser }) => {
                   <div className="overflow-hidden">{displayName}</div>
                   <div className="overflow-hidden">{element.points}</div>
                 </div>
-                <div className="flex justify-center items-center w-[67px]">
+                <div className="flex justify-center items-center w-[67px] gap-1">
+                  {element?.campus || 'Seoul'}
                   <Chip sx={locationConfirmed ? {} : undefined} color={locationConfirmed ? "success" : undefined} label={locationConfirmed ? <Check /> : <Ban />} />
                 </div>
               </div>
