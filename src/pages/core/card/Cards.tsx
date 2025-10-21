@@ -1,6 +1,6 @@
 import { DocumentData } from 'firebase/firestore'
 import { useEffect, useRef } from 'react'
-import { useSearchParams } from 'react-router-dom'
+import { useLocation, useSearchParams } from 'react-router-dom'
 import useLongPress from 'src/hooks/useLongPress'
 import MorphingDialogs from '../morphingDialogs/MorphingDialogs'
 import CardsLongPressed from './CardsLongPressed'
@@ -21,13 +21,16 @@ const Cards = ({
 }: Props) => {
   const cardsRef = useRef()
   useLongPress(cardsRef, () => {
-    changeLongPressCard(message.id)
+    if (location.pathname === '/') {
+      changeLongPressCard(message.id)
+    }
   })
   useEffect(() => {
-    if (!longPressCard) {
+    if (!longPressCard && location.pathname === '/') {
       changeLongPressCard('')
     }
   }, [longPressCard])
+  const location = useLocation()
   const [searchParams, setSearchParams] = useSearchParams()
   return (
     <div className="max-w-60 min-w-20 text-sm p-1" ref={cardsRef}>
