@@ -10,7 +10,7 @@ function CardsStacks() {
   const { messages, cardLoaded }: { messages: DocumentData[], cardLoaded: boolean } = useBringCards(profile)
 
   return (
-    <div id='cards'>
+    <div>
       {!cardLoaded && !messages.length && navigator.onLine &&
         <Skeleton className='w-full h-[260px] rounded bg-light-3 dark:bg-dark-3' />
       }
