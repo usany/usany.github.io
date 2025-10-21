@@ -20,19 +20,19 @@ const Cards = ({
   changeLongPressCard,
 }: Props) => {
   const cardsRef = useRef()
-  useLongPress(cardsRef, () => {
-    if (location.pathname === '/') {
-      changeLongPressCard(message.id)
-    }
-  })
-  useEffect(() => {
-    if (!longPressCard && location.pathname === '/') {
-      changeLongPressCard('')
-    }
-  }, [longPressCard])
   const location = useLocation()
   const [searchParams, setSearchParams] = useSearchParams()
   return (
+    useLongPress(cardsRef, () => {
+      if (location.pathname === '/') {
+        changeLongPressCard(message.id)
+      }
+    })
+    useEffect(() => {
+      if (!longPressCard && location.pathname === '/') {
+        changeLongPressCard('')
+      }
+    }, [longPressCard])
     <div className="max-w-60 min-w-20 text-sm p-1" ref={cardsRef}>
       {longPressCard ? (
         <>
