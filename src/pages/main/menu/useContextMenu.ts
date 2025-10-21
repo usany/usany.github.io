@@ -5,11 +5,11 @@ const useContextMenu = () => {
       e.preventDefault() // prevents the default right-click menu from appearing
     }
     // add the event listener to the component's root element
-    const rootElement = document.getElementById('sample')
-    rootElement?.addEventListener('contextmenu', handleContextMenu)
+    // const rootElement = document.getElementById('cards')
+    document.addEventListener('contextmenu', handleContextMenu)
     // remove the event listener when the component is unmounted
     return () => {
-      rootElement?.removeEventListener('contextmenu', handleContextMenu)
+      document.removeEventListener('contextmenu', handleContextMenu)
     }
   }, [])
 }

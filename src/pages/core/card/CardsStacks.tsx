@@ -1,16 +1,18 @@
+import { DocumentData } from 'firebase/firestore'
 import { Skeleton } from 'src/components/ui/skeleton'
+import useSelectors from 'src/hooks/useSelectors'
+import useContextMenu from 'src/pages/main/menu/useContextMenu'
 import CardsStacksViews from './CardsStacksViews'
 import EmptyCard from './EmptyCard'
 import { useBringCards } from './useBringCards'
-import useSelectors from 'src/hooks/useSelectors'
-import { DocumentData } from 'firebase/firestore'
 
 function CardsStacks() {
   const profile = useSelectors((state) => state.profile.value)
   const { messages, cardLoaded }: { messages: DocumentData[], cardLoaded: boolean } = useBringCards(profile)
+  useContextMenu()
 
   return (
-    <div>
+    <div id='cards'>
       {!cardLoaded && !messages.length && navigator.onLine &&
         <Skeleton className='w-full h-[260px] rounded bg-light-3 dark:bg-dark-3' />
       }
