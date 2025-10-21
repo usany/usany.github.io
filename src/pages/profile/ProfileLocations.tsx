@@ -130,13 +130,13 @@ const ProfileLocations = () => {
                 }
               />
             </div>
-            {userUid === profile?.uid && !locationConfirmation && (
+            {/* {userUid === profile?.uid && !locationConfirmation && (
               <div className='flex'>
                 <Button onClick={onClickLocation} variant="outlined">
                   {campusLocationConfirmation}
                 </Button>
               </div>
-            )}
+            )} */}
           </div>
         </div>
         {!locationConfirmation && location.lat !== 0 && (
