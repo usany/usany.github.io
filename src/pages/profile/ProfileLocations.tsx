@@ -85,34 +85,7 @@ const ProfileLocations = () => {
   }
   return (
     <div className="flex justify-center p-10">
-      <div className="flex flex-col">
-        {userUid === profile?.uid ?
-          <div className='flex'>
-            <Select defaultValue={profile?.campus || 'Seoul Campus'} onValueChange={(newValue) => {
-              selectedCampus = newValue
-            }}>
-              <SelectTrigger
-                className="w-52 bg-light-1 dark:bg-dark-1"
-              >
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent className="bg-light-1 dark:bg-dark-1">
-                <SelectGroup>
-                  {campuses.map((value, index) => {
-                    return (
-                      <SelectItem key={index} value={value}>
-                        {value}
-                      </SelectItem>
-                    )
-                  })}
-                </SelectGroup>
-              </SelectContent>
-            </Select>
-            <Button onClick={onClickSaveCampus}>{save}</Button>
-          </div>
-        :
-          <div className='flex justify-center'>{userCampus || 'Seoul Campus'}</div>
-        }
+      <div className="flex">
         <div className="flex justify-center items-start gap-5 p-5">
           <div className={largeMedia ? "flex justify-center" : "flex flex-col"}>
             <div className='flex justify-center'>
@@ -139,6 +112,33 @@ const ProfileLocations = () => {
             )} */}
           </div>
         </div>
+        {userUid === profile?.uid ?
+          <div className='flex items-center'>
+            <Select defaultValue={profile?.campus || 'Seoul Campus'} onValueChange={(newValue) => {
+              selectedCampus = newValue
+            }}>
+              <SelectTrigger
+                className="w-52 bg-light-1 dark:bg-dark-1"
+              >
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent className="bg-light-1 dark:bg-dark-1">
+                <SelectGroup>
+                  {campuses.map((value, index) => {
+                    return (
+                      <SelectItem key={index} value={value}>
+                        {value}
+                      </SelectItem>
+                    )
+                  })}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+            <Button onClick={onClickSaveCampus}>{save}</Button>
+          </div>
+        :
+          <div className='flex justify-center'>{userCampus || 'Seoul Campus'}</div>
+        }
         {!locationConfirmation && location.lat !== 0 && (
           <>{failedLocationConfirmation}</>
         )}
