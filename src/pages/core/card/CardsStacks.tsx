@@ -1,7 +1,6 @@
 import { DocumentData } from 'firebase/firestore'
 import { Skeleton } from 'src/components/ui/skeleton'
 import useSelectors from 'src/hooks/useSelectors'
-import useContextMenu from 'src/pages/main/menu/useContextMenu'
 import CardsStacksViews from './CardsStacksViews'
 import EmptyCard from './EmptyCard'
 import { useBringCards } from './useBringCards'
@@ -9,7 +8,6 @@ import { useBringCards } from './useBringCards'
 function CardsStacks() {
   const profile = useSelectors((state) => state.profile.value)
   const { messages, cardLoaded }: { messages: DocumentData[], cardLoaded: boolean } = useBringCards(profile)
-  useContextMenu()
 
   return (
     <div id='cards'>
