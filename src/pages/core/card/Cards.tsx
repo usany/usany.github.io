@@ -25,7 +25,7 @@ const Cards = ({
   })
   useEffect(() => {
     if (!longPressCard) {
-      changeLongPressCard(null)
+      changeLongPressCard('')
     }
   }, [longPressCard])
   const location = useLocation()
