@@ -4,6 +4,398 @@ import staticCw from 'src/assets/static_cw.jpeg'
 import staticG from 'src/assets/static_g.jpeg'
 import staticE from 'src/assets/comratio.jpeg'
 
+export const buildingsObj = {
+  se: {
+    cl: {
+      ko: {
+        name: '중도',
+        details : [
+          "1열(1F)",
+          "2열(2F)",
+          "3열(2F)",
+          "4열(4F)",
+          "집중열(1F)",
+          "1층 책상",
+          "1층 세미나실",
+          "매점(2F)",
+          "카페(1F)",
+          "중앙자료실 책상(3F)",
+          "참고열람실 책상(4F)",
+          "정기간행물 책상(4F)",
+        ]
+      },
+      en: {
+        name: 'Central library',
+        details: [
+          "Study #1(1F)",
+          "Study #2(2F)",
+          "Study #3(2F)",
+          "Study #4(4F)",
+          "Study Focus(1F)",
+          "1F Desks",
+          "1F Seminar",
+          "Cafeteria(2F)",
+          "Cafe(1F)",
+          "Central Desks(3F)",
+          "References Desks(4F)",
+          "Serials Desks(4F)",
+        ]
+      },
+      image: staticCl,
+      location: { lat: 37.5970966, lng: 127.0527314 },
+    },
+    g: {
+      ko: {
+        name: '간호이과대',
+        details : ["카페(B2)", "열람실(B2)"],
+      },
+      en: {
+        name: 'Nursing Science & Science',
+        details: ["Cafe(B2)", "Study Room(B2)"],
+      },
+      image: staticG,
+      location: { lat: 37.5960528, lng: 127.0536951 },
+    },
+    cw: {
+      ko: {
+        name: '청운',
+        details: ["매점(B1)", "글로벌존(B1)"],
+      },
+      en: {
+        name: 'Cheongwoon',
+        details: ["Cafeteria(B1)", "Global(B1)"],
+      },
+      image: staticCw,
+      location: { lat: 37.594732, lng: 127.0517775 },
+    },
+    p: {
+      ko: {
+        name: '푸른솔',
+        details: ["매점(1F)"],
+      },
+      en: {
+        name: 'Pureunsol',
+        details: ["Cafeteria(1F)"],
+      },
+      image: staticImgs,
+      location: { lat: 37.5941125, lng: 127.0557743 },
+    },
+    k: {
+      ko: {
+        name: '경영대',
+        details: ["카페"],
+      },
+      en: {
+        name: 'Business',
+        details: ["Cafe"],
+      },
+      image: staticE,
+      location: { lat: 37.5967052, lng: 127.0552861 },
+    },
+    m: {
+      ko: {
+        name: '문과대',
+        details: ["복사실"],
+      },
+      en: {
+        name: 'Humanities',
+        details: ["Printer Room"],
+      },
+      image: staticImgs,
+      location: { lat: 37.5971991, lng: 127.0539612 },
+    },
+    e: {
+      ko: {
+        name: '의과대',
+        details: ["1열(5F)", "2열(6F)"],
+      },
+      en: {
+        name: 'Medicine',
+        details: ["Study #1(5F)", "Study #2(6F)"],
+      },
+      image: staticImgs,
+      location: { lat: 37.5939, lng: 127.0549 },
+    },
+    c: {
+      ko: {
+        name: '치과병원',
+        details: ["1층 로비"],
+      },
+      en: {
+        name: 'Dental Hospital',
+        details: ["1F Robby"],
+      },
+      image: staticImgs,
+      location: { lat: 37.594054, lng: 127.0531189 },
+    },
+    n: {
+      ko: {
+        name: '네오르네상스관',
+        details: ["1층 로비"],
+      },
+      en: {
+        name: 'Neo-Renaissance',
+        details: ["1F Robby"],
+      },
+      image: staticImgs,
+      location: { lat: 37.5948201, lng: 127.053091 },
+    },
+    seeui: {
+      ko: {
+        name: '의료원',
+        details: [
+          "1층 로비",
+          "직접 입력"
+        ],
+      },
+      en: {
+        name: 'Medical Center',
+        details: [
+          "1F Robby",
+          "Self input"
+        ],
+      },
+      image: staticImgs,
+      location: { lat: 37.5948201, lng: 127.053091 },
+    },
+    sechi: {
+      ko: {
+        name: '치과대',
+        details: [
+          "1층 로비",
+          "직접 입력"
+        ],
+      },
+      en: {
+        name: 'Dentistry',
+        details: [
+          "1F Robby",
+          "Self input"
+        ],
+      },
+      image: staticImgs,
+      location: { lat: 37.5948201, lng: 127.053091 },
+    },
+    sey: {
+      ko: {
+        name: '약학대',
+        details: [
+          "1층 로비",
+          "직접 입력"
+        ],
+      },
+      en: {
+        name: 'Pharmacy',
+        details: [
+          "1F Robby",
+          "Self input"
+        ],
+      },
+      image: staticImgs,
+      location: { lat: 37.5948201, lng: 127.053091 },
+    },
+    semi: {
+      ko: {
+        name: '미술대',
+        details: [
+          "1층 로비",
+          "직접 입력"
+        ],
+      },
+      en: {
+        name: 'Fine Arts',
+        details: [
+          "1F Robby",
+          "Self input"
+        ],
+      },
+      image: staticImgs,
+      location: { lat: 37.5948201, lng: 127.053091 },
+    },
+    seg: {
+      ko: {
+        name: '국제교육원',
+        details: [
+          "1층 로비",
+          "직접 입력"
+        ],
+      },
+      en: {
+        name: 'International Education',
+        details: [
+          "1F Robby",
+          "Self input"
+        ],
+      },
+      image: staticImgs,
+      location: { lat: 37.5948201, lng: 127.053091 },
+    },
+    ses: {
+      ko: {
+        name: '생활과학대',
+        details: [
+          "1층 로비",
+          "직접 입력"
+        ],
+      },
+      en: {
+        name: 'Human Ecology',
+        details: [
+          "1F Robby",
+          "Self input"
+        ],
+      },
+      image: staticImgs,
+      location: { lat: 37.5948201, lng: 127.053091 },
+    },
+    seha: {
+      ko: {
+        name: '한의과',
+        details: [
+          "1층 로비",
+          "직접 입력"
+        ],
+      },
+      en: {
+        name: 'Korean Medicine',
+        details: [
+          "1F Robby",
+          "Self input"
+        ],
+      },
+      image: staticImgs,
+      location: { lat: 37.5948201, lng: 127.053091 },
+    },
+    see: {
+      ko: {
+        name: '음악대',
+        details: [
+          "1층 로비",
+          "직접 입력"
+        ],
+      },
+      en: {
+        name: 'Music',
+        details: [
+          "1F Robby",
+          "Self input"
+        ],
+      },
+      image: staticImgs,
+      location: { lat: 37.5948201, lng: 127.053091 },
+    },
+    semo: {
+      ko: {
+        name: '무용학부관',
+        details: [
+          "1층 로비",
+          "직접 입력"
+        ],
+      },
+      en: {
+        name: 'Dance',
+        details: [
+          "1F Robby",
+          "Self input"
+        ],
+      },
+      image: staticImgs,
+      location: { lat: 37.5948201, lng: 127.053091 },
+    },
+    seb: {
+      ko: {
+        name: '법학관',
+        details: [
+          "1층 로비",
+          "직접 입력"
+        ],
+      },
+      en: {
+        name: 'Law',
+        details: [
+          "1F Robby",
+          "Self input"
+        ],
+      },
+      image: staticImgs,
+      location: { lat: 37.5948201, lng: 127.053091 },
+    },
+    seh: {
+      ko: {
+        name: '호텔관광대',
+        details: [
+          "1층 로비",
+          "직접 입력"
+        ],
+      },
+      en: {
+        name: 'Hotel and Tourism Management',
+        details: [
+          "1F Robby",
+          "Self input"
+        ],
+      },
+      image: staticImgs,
+      location: { lat: 37.5948201, lng: 127.053091 },
+    },
+    seno: {
+      ko: {
+        name: '노란지붕문화센터',
+        details: [
+          "1층 로비",
+          "직접 입력"
+        ],
+      },
+      en: {
+        name: 'Yellow Roof Building',
+        details: [
+          "1F Robby",
+          "Self input"
+        ],
+      },
+      image: staticImgs,
+      location: { lat: 37.5948201, lng: 127.053091 },
+    },
+  },
+  gw: {
+    gwcl: {
+      ko: {
+        name: '중도',
+        details : [
+          '1층 로비',
+          '직접 입력'
+        ]
+      },
+      en: {
+        name: 'Central library',
+        details: [
+          "1F Robby",
+          "Self input"
+        ]
+      },
+      image: staticCl,
+      location: { lat: 37.5970966, lng: 127.0527314 },
+    },
+    gwc: {
+      ko: {
+        name: '체육관',
+        details : [
+          '1층 로비',
+          '직접 입력'
+        ]
+      },
+      en: {
+        name: 'Gym',
+        details: [
+          "1F Robby",
+          "Self input"
+        ]
+      },
+      image: staticCl,
+      location: { lat: 37.5970966, lng: 127.0527314 },
+    }
+  }
+}
 export const buildingsObject = {
   cl: {
     ko: {
