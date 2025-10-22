@@ -355,11 +355,16 @@ function BoardMap({
             </div>
           </AccordionTrigger>
           <AccordionContent>
-            <div className='flex'>
-              <Chip label={
-                <button></button>
-              }
-              />
+            <div className='flex gap-1'>
+              {campusesArray.map((value) => {
+                return (
+                  <Chip
+                    label={
+                      <button onClick={value.onClick}>{value.name}</button>
+                    }
+                  />
+                )
+              })}
             </div>
             {selectedValues[1].value === '전체 장소' ? (
               <div className="flex p-5">
