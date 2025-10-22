@@ -12,7 +12,7 @@ import { dbservice } from 'src/baseApi/serverbase'
 import useSelectors from 'src/hooks/useSelectors'
 import useTexts from 'src/hooks/useTexts'
 import FilterDialogsTrigger from '../FilterDialogs/FilterDialogsTrigger'
-import { locationsCollectionLetters, markers } from 'src/pages/add/locationsBuildings'
+import { locationsCollectionLetters, markers, buildingsObj } from 'src/pages/add/locationsBuildings'
 
 interface Props {
   selectedValues: object
@@ -22,6 +22,10 @@ interface Props {
   }) => void
 }
 
+const defaultLocations = {
+  se: buildingsObj.se.secl.location,
+  gw: buildingsObj.gw.gwcl.location,
+}
 const defaultLocation = markers[0].location
 function BoardMap({
   selectedValues,
@@ -83,6 +87,13 @@ function BoardMap({
       yangsanTwo: 0,
     },
   })
+  const profile = useSelectors((state) => state.profile.value)
+  const locations = {
+    Seoul: 'se',
+    Global: 'gl',
+    Gwangneung: 'gw'
+  }
+  const location = locations[profile?.campus || 'Seoul']
   const languages = useSelectors((state) => state.languages.value)
   const [searchParams, setSearchParams] = useSearchParams()
   const onLine = useSelectors((state) => state.onLine.value)
