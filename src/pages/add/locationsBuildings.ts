@@ -227,7 +227,7 @@ export const buildingsObj = {
         ],
       },
       image: staticImgs,
-      location: { lat: 37.5948201, lng: 127.053091 },
+      location: { lat: 37.594129, lng: 127.051861 },
       itemCounts: itemCounts
     },
     sech: {
@@ -246,7 +246,7 @@ export const buildingsObj = {
         ],
       },
       image: staticImgs,
-      location: { lat: 37.5948201, lng: 127.053091 },
+      location: { lat: 37.594145, lng: 127.053778 },
       itemCounts: itemCounts
     },
     sey: {
@@ -265,7 +265,7 @@ export const buildingsObj = {
         ],
       },
       image: staticImgs,
-      location: { lat: 37.5948201, lng: 127.053091 },
+      location: { lat: 37.593816, lng: 127.055599 },
       itemCounts: itemCounts
     },
     semi: {
@@ -284,7 +284,7 @@ export const buildingsObj = {
         ],
       },
       image: staticImgs,
-      location: { lat: 37.5948201, lng: 127.053091 },
+      location: { lat: 37.595635, lng: 127.048585 },
       itemCounts: itemCounts
     },
     sego: {
