@@ -255,7 +255,6 @@ function BoardMap({
           id: value[1][languages].name,
         })
         const key = value[0]
-        console.log(key)
         // const key = Object.keys(locationsCollectionLetters).find(
         //   (key) => locationsCollectionLetters[key] === value[1][languages].name,
         // )
