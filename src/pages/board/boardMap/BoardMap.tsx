@@ -355,6 +355,7 @@ function BoardMap({
             </div>
           </AccordionTrigger>
           <AccordionContent>
+            <div className='flex flex-col p-5 gap-5'>
             <div className='flex gap-1'>
               {campusesArray.map((value) => {
                 return (
@@ -368,14 +369,15 @@ function BoardMap({
               })}
             </div>
             {selectedValues[1].value === '전체 장소' ? (
-              <div className="flex p-5">
+              <div className="flex">
                 {onLine && registeredMapExplanation}
               </div>
             ) : (
-              <div className="flex p-5">
+              <div className="flex">
                 <FilterDialogsTrigger />
               </div>
             )}
+            </div>
             {onLine ? (
               <div
                 ref={mapRef}
