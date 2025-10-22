@@ -224,7 +224,7 @@ function BoardMap({
     bringMessages()
   }, [selectedValues[1].value])
   const onClickMarker = (newValue) => {
-    handleSelectedValues({ id: 'selectedValueTwo', newValue: newValue.ko })
+    handleSelectedValues({ id: 'selectedValueTwo', newValue: newValue })
   }
   const mapRef = useRef(null)
   const displayMap = () => {
@@ -310,10 +310,10 @@ function BoardMap({
 
         if (infoWindow.getMap()) {
           infoWindow.close()
-          onClickMarker({ ko: '전체 장소' })
+          onClickMarker('전체 장소')
         } else {
           infoWindow.open(map, marker)
-          onClickMarker(markers[seq].label)
+          onClickMarker(entries[seq][1].ko.name)
         }
       }
       for (let number = 0, length = Object.keys(buildingsObj[selectedLocation]).length; number < length; number++) {
