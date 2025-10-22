@@ -325,7 +325,7 @@ function BoardMap({
     if (onAccordion) {
       displayMap()
     }
-  }, [languages, theme, onAccordion])
+  }, [languages, theme, onAccordion, selectedLocation])
   useEffect(() => {
     if (selectedValueTwo && markings.length && calledMap) {
       const index = markings.findIndex((value) => value.id === selectedValueTwo)
