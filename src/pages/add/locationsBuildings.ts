@@ -4,6 +4,12 @@ import staticCw from 'src/assets/static_cw.jpeg'
 import staticG from 'src/assets/static_g.jpeg'
 import staticE from 'src/assets/comratio.jpeg'
 
+const itemCounts = {
+  usanOne: 0,
+  usanTwo: 0,
+  yangsanOne: 0,
+  yangsanTwo: 0,
+}
 export const buildingsObj = {
   se: {
     cl: {
@@ -22,6 +28,7 @@ export const buildingsObj = {
           "중앙자료실 책상(3F)",
           "참고열람실 책상(4F)",
           "정기간행물 책상(4F)",
+          "직접 입력"
         ]
       },
       en: {
@@ -39,106 +46,170 @@ export const buildingsObj = {
           "Central Desks(3F)",
           "References Desks(4F)",
           "Serials Desks(4F)",
+          "Self input"
         ]
       },
       image: staticCl,
       location: { lat: 37.5970966, lng: 127.0527314 },
+      itemCounts: itemCounts
     },
     g: {
       ko: {
         name: '간호이과대',
-        details : ["카페(B2)", "열람실(B2)"],
+        details : [
+          "카페(B2)",
+          "열람실(B2)",
+          "직접 입력"
+        ],
       },
       en: {
         name: 'Nursing Science & Science',
-        details: ["Cafe(B2)", "Study Room(B2)"],
+        details: [
+          "Cafe(B2)",
+          "Study Room(B2)",
+          "Self input"
+        ],
       },
       image: staticG,
       location: { lat: 37.5960528, lng: 127.0536951 },
+      itemCounts: itemCounts
     },
     cw: {
       ko: {
         name: '청운',
-        details: ["매점(B1)", "글로벌존(B1)"],
+        details: [
+          "매점(B1)",
+          "글로벌존(B1)",
+          "직접 입력"
+        ],
       },
       en: {
         name: 'Cheongwoon',
-        details: ["Cafeteria(B1)", "Global(B1)"],
+        details: [
+          "Cafeteria(B1)",
+          "Global(B1)",
+          "Self input"
+        ],
       },
       image: staticCw,
       location: { lat: 37.594732, lng: 127.0517775 },
+      itemCounts: itemCounts
     },
     p: {
       ko: {
         name: '푸른솔',
-        details: ["매점(1F)"],
+        details: [
+          "매점(1F)",
+          "직접 입력"
+        ],
       },
       en: {
         name: 'Pureunsol',
-        details: ["Cafeteria(1F)"],
+        details: [
+          "Cafeteria(1F)",
+          "Self input"
+        ],
       },
       image: staticImgs,
       location: { lat: 37.5941125, lng: 127.0557743 },
+      itemCounts: itemCounts
     },
     k: {
       ko: {
         name: '경영대',
-        details: ["카페"],
+        details: [
+          "카페",
+          "직접 입력"
+        ],
       },
       en: {
         name: 'Business',
-        details: ["Cafe"],
+        details: [
+          "Cafe",
+          "Self input"
+        ],
       },
       image: staticE,
       location: { lat: 37.5967052, lng: 127.0552861 },
+      itemCounts: itemCounts
     },
     m: {
       ko: {
         name: '문과대',
-        details: ["복사실"],
+        details: [
+          "복사실",
+          "직접 입력"
+        ],
       },
       en: {
         name: 'Humanities',
-        details: ["Printer Room"],
+        details: [
+          "Printer Room",
+          "Self input"
+        ],
       },
       image: staticImgs,
       location: { lat: 37.5971991, lng: 127.0539612 },
+      itemCounts: itemCounts
     },
     e: {
       ko: {
         name: '의과대',
-        details: ["1열(5F)", "2열(6F)"],
+        details: [
+          "1열(5F)",
+          "2열(6F)",
+          "직접 입력"
+        ],
       },
       en: {
         name: 'Medicine',
-        details: ["Study #1(5F)", "Study #2(6F)"],
+        details: [
+          "Study #1(5F)",
+          "Study #2(6F)",
+          "Self input"
+        ],
       },
       image: staticImgs,
       location: { lat: 37.5939, lng: 127.0549 },
+      itemCounts: itemCounts
     },
     c: {
       ko: {
         name: '치과병원',
-        details: ["1층 로비"],
+        details: [
+          "1층 로비",
+          "직접 입력"
+        ],
       },
       en: {
         name: 'Dental Hospital',
-        details: ["1F Robby"],
+        details: [
+          "1F Robby",
+          "Self input"
+        ],
       },
       image: staticImgs,
       location: { lat: 37.594054, lng: 127.0531189 },
+      itemCounts: itemCounts
     },
     n: {
       ko: {
         name: '네오르네상스관',
-        details: ["1층 로비"],
+        details: [
+          "1층 로비",
+          "직접 입력"
+        ],
       },
       en: {
         name: 'Neo-Renaissance',
-        details: ["1F Robby"],
+        details: [
+          "1F Robby",
+          "Self input"
+        ],
       },
       image: staticImgs,
       location: { lat: 37.5948201, lng: 127.053091 },
+      itemCounts: itemCounts
     },
     seeui: {
       ko: {
@@ -157,6 +228,7 @@ export const buildingsObj = {
       },
       image: staticImgs,
       location: { lat: 37.5948201, lng: 127.053091 },
+      itemCounts: itemCounts
     },
     sechi: {
       ko: {
@@ -175,6 +247,7 @@ export const buildingsObj = {
       },
       image: staticImgs,
       location: { lat: 37.5948201, lng: 127.053091 },
+      itemCounts: itemCounts
     },
     sey: {
       ko: {
@@ -193,6 +266,7 @@ export const buildingsObj = {
       },
       image: staticImgs,
       location: { lat: 37.5948201, lng: 127.053091 },
+      itemCounts: itemCounts
     },
     semi: {
       ko: {
@@ -211,6 +285,7 @@ export const buildingsObj = {
       },
       image: staticImgs,
       location: { lat: 37.5948201, lng: 127.053091 },
+      itemCounts: itemCounts
     },
     seg: {
       ko: {
@@ -229,6 +304,7 @@ export const buildingsObj = {
       },
       image: staticImgs,
       location: { lat: 37.5948201, lng: 127.053091 },
+      itemCounts: itemCounts
     },
     ses: {
       ko: {
@@ -247,10 +323,11 @@ export const buildingsObj = {
       },
       image: staticImgs,
       location: { lat: 37.5948201, lng: 127.053091 },
+      itemCounts: itemCounts
     },
     seha: {
       ko: {
-        name: '한의과',
+        name: '한의과대',
         details: [
           "1층 로비",
           "직접 입력"
@@ -265,6 +342,7 @@ export const buildingsObj = {
       },
       image: staticImgs,
       location: { lat: 37.5948201, lng: 127.053091 },
+      itemCounts: itemCounts
     },
     see: {
       ko: {
@@ -283,6 +361,7 @@ export const buildingsObj = {
       },
       image: staticImgs,
       location: { lat: 37.5948201, lng: 127.053091 },
+      itemCounts: itemCounts
     },
     semo: {
       ko: {
@@ -301,6 +380,7 @@ export const buildingsObj = {
       },
       image: staticImgs,
       location: { lat: 37.5948201, lng: 127.053091 },
+      itemCounts: itemCounts
     },
     seb: {
       ko: {
@@ -319,6 +399,7 @@ export const buildingsObj = {
       },
       image: staticImgs,
       location: { lat: 37.5948201, lng: 127.053091 },
+      itemCounts: itemCounts
     },
     seh: {
       ko: {
@@ -337,6 +418,7 @@ export const buildingsObj = {
       },
       image: staticImgs,
       location: { lat: 37.5948201, lng: 127.053091 },
+      itemCounts: itemCounts
     },
     seno: {
       ko: {
@@ -355,6 +437,7 @@ export const buildingsObj = {
       },
       image: staticImgs,
       location: { lat: 37.5948201, lng: 127.053091 },
+      itemCounts: itemCounts
     },
   },
   gw: {
@@ -375,6 +458,7 @@ export const buildingsObj = {
       },
       image: staticImgs,
       location: { lat: 37.748849, lng: 127.185880 },
+      itemCounts: itemCounts
     },
     gwc: {
       ko: {
@@ -393,6 +477,7 @@ export const buildingsObj = {
       },
       image: staticImgs,
       location: { lat: 37.749414, lng: 127.186413 },
+      itemCounts: itemCounts
     }
   }
 }
