@@ -241,25 +241,28 @@ function BoardMap({
         zoom: 17,
       })
       setCalledMap(map)
-      for (const value of markers) {
+      const entries = Object.entries(buildingsObj[selectedLocation])
+      for (const value of entries) {
         const position = new naver.maps.LatLng(
-          value.location.lat,
-          value.location.lng,
+          value[1].location.lat,
+          value[1].location.lng,
         )
 
         const marker = new naver.maps.Marker({
           map: map,
           position: position,
-          title: value.label,
-          id: value.label.ko,
+          title: value[1][languages].name,
+          id: value[1][languages].name,
         })
-        const key = Object.keys(locationsCollectionLetters).find(
-          (key) => locationsCollectionLetters[key] === value.label.ko.name,
-        )
+        const key = value[0]
+        console.log(key)
+        // const key = Object.keys(locationsCollectionLetters).find(
+        //   (key) => locationsCollectionLetters[key] === value[1][languages].name,
+        // )
         const contentString = [
           `<div class="markerContainer">
             <div class="markerTitle">
-              ${languages === 'ko' ? value.label.ko.name : value.label.en.name}
+              ${languages === 'ko' ? value[1][languages].name : value[1][languages].name}
             </div>
             <div key={index} className="flex gap-5">
                 <div className="pt-1">
@@ -267,28 +270,28 @@ function BoardMap({
                 </div>
                 <div className="pt-3">
                   ${borrowing}
-                  ${items[key].usanOne}
+                  ${value[1].itemCounts.usanOne}
                 </div>
                 <div className="pt-3">
                   ${lending}
-                  ${items[key].usanTwo}
+                  ${value[1].itemCounts.usanTwo}
                 </div>
                 <div className="pt-1">
                   ${itemTwo}
                 </div>
                 <div className="pt-3">
                   ${borrowing}
-                  ${items[key].yangsanOne}
+                  ${value[1].itemCounts.yangsanOne}
                 </div>
                 <div className="pt-3">
                   ${lending}
-                  ${items[key].yangsanTwo}
+                  ${value[1].itemCounts.yangsanTwo}
                 </div>
               </div>
           </div>`,
         ].join('')
         const infoWindow = new naver.maps.InfoWindow({
-          id: value.label.ko,
+          id: value[1][languages].name,
           content: contentString,
           backgroundColor: theme === 'light' ? '#fff' : '#777',
           anchorColor: theme === 'light' ? '#fff' : '#777',
@@ -314,7 +317,7 @@ function BoardMap({
           onClickMarker(markers[seq].label)
         }
       }
-      for (let number = 0, length = markers.length; number < length; number++) {
+      for (let number = 0, length = Object.keys(buildingsObj[selectedLocation]).length; number < length; number++) {
         naver.maps.Event.addListener(markersCollection[number], 'click', () => {
           getClickHandler(number)
         })
