@@ -13,6 +13,7 @@ import useSelectors from 'src/hooks/useSelectors'
 import useTexts from 'src/hooks/useTexts'
 import FilterDialogsTrigger from '../FilterDialogs/FilterDialogsTrigger'
 import { locationsCollectionLetters, markers, buildingsObj } from 'src/pages/add/locationsBuildings'
+import { Chip } from '@mui/material'
 
 interface Props {
   selectedValues: object
@@ -87,13 +88,28 @@ function BoardMap({
       yangsanTwo: 0,
     },
   })
+  const [selectedLocation, setSelectedLocation] = useState('')
   const profile = useSelectors((state) => state.profile.value)
   const locations = {
     Seoul: 'se',
     Global: 'gl',
     Gwangneung: 'gw'
   }
-  const location = locations[profile?.campus || 'Seoul']
+  const campusesArray = [
+    {
+      name: 'Seoul',
+      onClick: () => setSelectedLocation('se')
+    },
+    {
+      name: 'Gwangneung',
+      onClick: () => setSelectedLocation('gw')
+    },
+  ]
+  useEffect(() => {
+    if (!selectedLocation) {
+      setSelectedLocation(locations[profile?.campus || 'Seoul'])
+    }
+  }, [])
   const languages = useSelectors((state) => state.languages.value)
   const [searchParams, setSearchParams] = useSearchParams()
   const onLine = useSelectors((state) => state.onLine.value)
@@ -217,8 +233,8 @@ function BoardMap({
       const markersCollection = []
       const infoWindows = []
       const location = new naver.maps.LatLng(
-        defaultLocation.lat,
-        defaultLocation.lng,
+        defaultLocations[selectedLocation || 'se'].lat,
+        defaultLocations[selectedLocation || 'se'].lng,
       )
       const map = new naver.maps.Map(mapRef.current, {
         center: location,
@@ -339,6 +355,12 @@ function BoardMap({
             </div>
           </AccordionTrigger>
           <AccordionContent>
+            <div className='flex'>
+              <Chip label={
+                <button></button>
+              }
+              />
+            </div>
             {selectedValues[1].value === '전체 장소' ? (
               <div className="flex p-5">
                 {onLine && registeredMapExplanation}
