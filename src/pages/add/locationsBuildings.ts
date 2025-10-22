@@ -12,7 +12,7 @@ const itemCounts = {
 }
 export const buildingsObj = {
   se: {
-    cl: {
+    secl: {
       ko: {
         name: '중도',
         details : [
@@ -53,11 +53,11 @@ export const buildingsObj = {
       location: { lat: 37.5970966, lng: 127.0527314 },
       itemCounts: itemCounts
     },
-    g: {
+    seg: {
       ko: {
         name: '간호이과대',
         details : [
-          "카페(B2)",
+          "카페(B2)", 
           "열람실(B2)",
           "직접 입력"
         ],
@@ -65,7 +65,7 @@ export const buildingsObj = {
       en: {
         name: 'Nursing Science & Science',
         details: [
-          "Cafe(B2)",
+          "Cafe(B2)", 
           "Study Room(B2)",
           "Self input"
         ],
@@ -74,11 +74,11 @@ export const buildingsObj = {
       location: { lat: 37.5960528, lng: 127.0536951 },
       itemCounts: itemCounts
     },
-    cw: {
+    sec: {
       ko: {
         name: '청운',
         details: [
-          "매점(B1)",
+          "매점(B1)", 
           "글로벌존(B1)",
           "직접 입력"
         ],
@@ -86,7 +86,7 @@ export const buildingsObj = {
       en: {
         name: 'Cheongwoon',
         details: [
-          "Cafeteria(B1)",
+          "Cafeteria(B1)", 
           "Global(B1)",
           "Self input"
         ],
@@ -95,7 +95,7 @@ export const buildingsObj = {
       location: { lat: 37.594732, lng: 127.0517775 },
       itemCounts: itemCounts
     },
-    p: {
+    sep: {
       ko: {
         name: '푸른솔',
         details: [
@@ -114,7 +114,7 @@ export const buildingsObj = {
       location: { lat: 37.5941125, lng: 127.0557743 },
       itemCounts: itemCounts
     },
-    k: {
+    sek: {
       ko: {
         name: '경영대',
         details: [
@@ -133,7 +133,7 @@ export const buildingsObj = {
       location: { lat: 37.5967052, lng: 127.0552861 },
       itemCounts: itemCounts
     },
-    m: {
+    sem: {
       ko: {
         name: '문과대',
         details: [
@@ -152,11 +152,11 @@ export const buildingsObj = {
       location: { lat: 37.5971991, lng: 127.0539612 },
       itemCounts: itemCounts
     },
-    e: {
+    seeu: {
       ko: {
         name: '의과대',
         details: [
-          "1열(5F)",
+          "1열(5F)", 
           "2열(6F)",
           "직접 입력"
         ],
@@ -164,7 +164,7 @@ export const buildingsObj = {
       en: {
         name: 'Medicine',
         details: [
-          "Study #1(5F)",
+          "Study #1(5F)", 
           "Study #2(6F)",
           "Self input"
         ],
@@ -173,7 +173,7 @@ export const buildingsObj = {
       location: { lat: 37.5939, lng: 127.0549 },
       itemCounts: itemCounts
     },
-    c: {
+    sechi: {
       ko: {
         name: '치과병원',
         details: [
@@ -192,7 +192,7 @@ export const buildingsObj = {
       location: { lat: 37.594054, lng: 127.0531189 },
       itemCounts: itemCounts
     },
-    n: {
+    sen: {
       ko: {
         name: '네오르네상스관',
         details: [
@@ -230,7 +230,7 @@ export const buildingsObj = {
       location: { lat: 37.5948201, lng: 127.053091 },
       itemCounts: itemCounts
     },
-    sechi: {
+    sech: {
       ko: {
         name: '치과대',
         details: [
@@ -287,7 +287,7 @@ export const buildingsObj = {
       location: { lat: 37.5948201, lng: 127.053091 },
       itemCounts: itemCounts
     },
-    seg: {
+    sego: {
       ko: {
         name: '국제교육원',
         details: [
