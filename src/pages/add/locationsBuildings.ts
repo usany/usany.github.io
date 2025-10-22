@@ -373,8 +373,8 @@ export const buildingsObj = {
           "Self input"
         ]
       },
-      image: staticCl,
-      location: { lat: 37.5970966, lng: 127.0527314 },
+      image: staticImgs,
+      location: { lat: 37.748849, lng: 127.185880 },
     },
     gwc: {
       ko: {
@@ -391,8 +391,8 @@ export const buildingsObj = {
           "Self input"
         ]
       },
-      image: staticCl,
-      location: { lat: 37.5970966, lng: 127.0527314 },
+      image: staticImgs,
+      location: { lat: 37.749414, lng: 127.186413 },
     }
   }
 }
