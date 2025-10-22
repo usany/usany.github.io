@@ -57,7 +57,7 @@ export const buildingsObj = {
       ko: {
         name: '간호이과대',
         details : [
-          "카페(B2)", 
+          "카페(B2)",
           "열람실(B2)",
           "직접 입력"
         ],
@@ -65,7 +65,7 @@ export const buildingsObj = {
       en: {
         name: 'Nursing Science & Science',
         details: [
-          "Cafe(B2)", 
+          "Cafe(B2)",
           "Study Room(B2)",
           "Self input"
         ],
@@ -78,7 +78,7 @@ export const buildingsObj = {
       ko: {
         name: '청운',
         details: [
-          "매점(B1)", 
+          "매점(B1)",
           "글로벌존(B1)",
           "직접 입력"
         ],
@@ -86,7 +86,7 @@ export const buildingsObj = {
       en: {
         name: 'Cheongwoon',
         details: [
-          "Cafeteria(B1)", 
+          "Cafeteria(B1)",
           "Global(B1)",
           "Self input"
         ],
@@ -156,7 +156,7 @@ export const buildingsObj = {
       ko: {
         name: '의과대',
         details: [
-          "1열(5F)", 
+          "1열(5F)",
           "2열(6F)",
           "직접 입력"
         ],
@@ -164,7 +164,7 @@ export const buildingsObj = {
       en: {
         name: 'Medicine',
         details: [
-          "Study #1(5F)", 
+          "Study #1(5F)",
           "Study #2(6F)",
           "Self input"
         ],
@@ -303,7 +303,7 @@ export const buildingsObj = {
         ],
       },
       image: staticImgs,
-      location: { lat: 37.5948201, lng: 127.053091 },
+      location: { lat: 37.596160, lng: 127.050868 },
       itemCounts: itemCounts
     },
     ses: {
@@ -322,7 +322,7 @@ export const buildingsObj = {
         ],
       },
       image: staticImgs,
-      location: { lat: 37.5948201, lng: 127.053091 },
+      location: { lat: 37.595954, lng: 127.051321 },
       itemCounts: itemCounts
     },
     seha: {
@@ -341,7 +341,7 @@ export const buildingsObj = {
         ],
       },
       image: staticImgs,
-      location: { lat: 37.5948201, lng: 127.053091 },
+      location: { lat: 37.596108, lng: 127.053975 },
       itemCounts: itemCounts
     },
     see: {
@@ -360,7 +360,7 @@ export const buildingsObj = {
         ],
       },
       image: staticImgs,
-      location: { lat: 37.5948201, lng: 127.053091 },
+      location: { lat: 37.595846, lng: 127.055458 },
       itemCounts: itemCounts
     },
     semo: {
@@ -379,7 +379,7 @@ export const buildingsObj = {
         ],
       },
       image: staticImgs,
-      location: { lat: 37.5948201, lng: 127.053091 },
+      location: { lat: 37.596216, lng: 127.055687 },
       itemCounts: itemCounts
     },
     seb: {
@@ -398,7 +398,7 @@ export const buildingsObj = {
         ],
       },
       image: staticImgs,
-      location: { lat: 37.5948201, lng: 127.053091 },
+      location: { lat: 37.597883, lng: 127.053854 },
       itemCounts: itemCounts
     },
     seh: {
@@ -417,7 +417,7 @@ export const buildingsObj = {
         ],
       },
       image: staticImgs,
-      location: { lat: 37.5948201, lng: 127.053091 },
+      location: { lat: 37.595474, lng: 127.051071 },
       itemCounts: itemCounts
     },
     seno: {
@@ -436,7 +436,7 @@ export const buildingsObj = {
         ],
       },
       image: staticImgs,
-      location: { lat: 37.5948201, lng: 127.053091 },
+      location: { lat: 37.594503, lng: 127.052378 },
       itemCounts: itemCounts
     },
   },
