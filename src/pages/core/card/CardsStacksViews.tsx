@@ -1,11 +1,10 @@
 import { DndContext } from '@dnd-kit/core';
-import { User } from 'firebase/auth';
 import { deleteDoc, doc, DocumentData, getDoc, updateDoc } from "firebase/firestore";
 import { useState } from 'react';
 import { dbservice } from 'src/baseApi/serverbase';
+import useSelectors from 'src/hooks/useSelectors';
 import CardDroppable from './CardsDroppable';
 import CardsStacksViewsCollection from './CardsStacksViewsCollection';
-import useSelectors from 'src/hooks/useSelectors';
 import deleteMessage from './deleteMessage';
 
 const handleDelete = async ({
@@ -33,7 +32,7 @@ const CardsStacksViews = ({
 }: {
   messages: DocumentData[]
 }) => {
-  const [longPressCard, setLongPressCard] = useState('')
+  const [longPressCard, setLongPressCard] = useState(undefined)
   const profile = useSelectors((state) => state.profile.value)
   const changeLongPressCard = (newValue: string) => setLongPressCard(newValue)
   return (

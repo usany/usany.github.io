@@ -1,10 +1,10 @@
-import { useRef } from 'react'
+import { DocumentData } from 'firebase/firestore'
+import { useEffect, useRef } from 'react'
+import { useLocation, useSearchParams } from 'react-router-dom'
 import useLongPress from 'src/hooks/useLongPress'
 import MorphingDialogs from '../morphingDialogs/MorphingDialogs'
 import CardsLongPressed from './CardsLongPressed'
 import CardsViews from './CardsViews'
-import { DocumentData } from 'firebase/firestore'
-import { useLocation, useSearchParams } from 'react-router-dom'
 interface Props {
   message: DocumentData
   longPressCard: string
@@ -20,11 +20,18 @@ const Cards = ({
   changeLongPressCard,
 }: Props) => {
   const cardsRef = useRef()
-  useLongPress(cardsRef, () => {
-    changeLongPressCard(message.id)
-  })
-  const location = useLocation()
   const [searchParams, setSearchParams] = useSearchParams()
+  const location = useLocation()
+  useLongPress(cardsRef, () => {
+    if (location.pathname === '/') {
+      changeLongPressCard(message.id)
+    }
+  })
+  useEffect(() => {
+    if (!longPressCard && location.pathname === '/') {
+      changeLongPressCard('')
+    }
+  }, [longPressCard])
   return (
     <div className="max-w-60 min-w-20 text-sm p-1" ref={cardsRef}>
       {longPressCard ? (
@@ -41,7 +48,7 @@ const Cards = ({
         </>
       ) : (
         <>
-        {searchParams.get('id') ? 
+        {searchParams.get('id') ?
           <CardsViews message={message} />
           :
           <MorphingDialogs
