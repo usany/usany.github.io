@@ -506,11 +506,11 @@ export const buildingsObj = {
     }
   }
 }
-export const buildingsObject = {
-  input: buildingsObj.input,
-  ...buildingsObj.se,
-  ...buildingsObj.gw
-}
+// export const buildingsObject = {
+//   input: buildingsObj.input,
+//   ...buildingsObj.se,
+//   ...buildingsObj.gw
+// }
 // export const staticArray = {
 //   '중도': staticCl,
 //   '간호이과대': staticG,
