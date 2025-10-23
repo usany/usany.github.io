@@ -63,7 +63,7 @@ function Add({ borrow }: Props) {
     ) => {
       if (action.type === 'changeBuilding') {
         return {
-          locationSymbol: action.newState.symbol
+          locationSymbol: action.newState.symbol,
           locationOne: action.newState.name,
           locationTwo: '',
           locationThree: '',

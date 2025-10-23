@@ -663,26 +663,17 @@ export const markers = Object.keys(buildingsObject).map((value) => {
 })
 
 const keysArray = ['seall', ...Object.keys(buildingsObj.se), 'gwall', ...Object.keys(buildingsObj.gw)]
-// const keysArray = Object.keys(buildingsObject)
 const locationsBuildings = {
   ko: keysArray.map((value) => {
-    if (value === 'seall') return '서울캠퍼스 전체'
-    if (value === 'gwall') return '광릉캠퍼스 전체'
-    return (buildingsObj[value.slice(0, 2)][value].ko.name)
+    if (value === 'seall') return [value, '서울캠퍼스 전체']
+    if (value === 'gwall') return [value, '광릉캠퍼스 전체']
+    return ([value, buildingsObj[value.slice(0, 2)][value].ko.name])
   }),
   en : keysArray.map((value) => {
     if (value === 'seall') return 'All SeoulCampus'
     if (value === 'gwall') return 'All GwangneungCampus'
-    return (buildingsObj[value.slice(0, 2)][value].en.name)
+    return ([value, buildingsObj[value.slice(0, 2)][value].en.name])
   }),
 }
-// const locationsBuildings = {
-//   ko: keysArray.map((value) => {
-//     return (buildingsObject[value].ko.name)
-//   }),
-//   en : keysArray.map((value) => {
-//     return (buildingsObject[value].en.name)
-//   }),
-// }
 
 export default locationsBuildings
