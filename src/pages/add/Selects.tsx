@@ -7,6 +7,7 @@ import TextField from "@mui/material/TextField";
 import useSelectors from 'src/hooks/useSelectors';
 import locationsBuildings, { buildingsObj, locationsBuildingsArray, locationsCollectionLetters } from "./locationsBuildings";
 import locationsCollection from "./locationsCollection";
+import useTexts from "src/hooks/useTexts";
 
 const settingSeats = (number) => {
   return Array(number)
@@ -85,9 +86,9 @@ function Selects({
   const languages = useSelectors((state) => state.languages.value)
   const locationOne = locationState?.locationOne
   const key = locationOne ? Object.keys(locationsCollectionLetters).find((key) => locationsCollectionLetters[key] === locationState.locationOne) : ''
-  const details = locationOne ? buildingsObj[key.slice(0, 2)][key][languages].details : {}
-  const koDetails = locationOne ? buildingsObj[key.slice(0, 2)][key]['ko'].details : {}
-  const menuItems = locationOne ? settingLocations(details, koDetails) : null
+  const details = (locationOne && locationOne !== '직접 입력') ? buildingsObj[key.slice(0, 2)][key][languages].details : {}
+  const koDetails = (locationOne && locationOne !== '직접 입력') ? buildingsObj[key.slice(0, 2)][key]['ko'].details : {}
+  const menuItems = (locationOne && locationOne !== '직접 입력') ? settingLocations(details, koDetails) : null
   return (
     <div className={`flex ${matches ? "" : "flex-col"} gap-1 px-5`}>
       <FormControl variant="standard" sx={{ width: 150 }}>
@@ -108,6 +109,7 @@ function Selects({
               <MenuItem key={index} value={koBuilding}>{name}</MenuItem>
             )
           })}
+          <MenuItem value={'직접 입력'}>Self input</MenuItem>
         </Select>
       </FormControl>
       {locationState.locationOne !== "" &&

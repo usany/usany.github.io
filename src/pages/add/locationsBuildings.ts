@@ -27,6 +27,15 @@ export const buildingsObj = {
       name: 'Entire Gwangneung Campus'
     }
   },
+  input: {
+    ko: {
+      name: '직접 입력'
+    },
+    en: {
+      name: 'Self input'
+    },
+    image: staticImgs
+  },
   se: {
     secl: {
       ko: {
@@ -519,8 +528,9 @@ export const markers = Object.keys(buildingsObject).map((value) => {
 })
 
 const keysArray = ['seall', ...Object.keys(buildingsObj.se), 'gwall', ...Object.keys(buildingsObj.gw)]
-const keysWithoutAllArray = [...Object.keys(buildingsObj.se), ...Object.keys(buildingsObj.gw)]
+const keysWithoutAllArray = ['input', ...Object.keys(buildingsObj.se), ...Object.keys(buildingsObj.gw)]
 export const locationsCollectionLetters = Object.fromEntries(keysWithoutAllArray.map((value) => {
+  if (value === 'input') return [value, buildingsObj[value].ko.name]
   return (
     [value, buildingsObj[value.slice(0, 2)][value].ko.name]
   )
