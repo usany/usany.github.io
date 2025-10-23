@@ -519,6 +519,7 @@ export const buildingsObject = {
 //   'building': staticImgs,
 // }
 export const markers = Object.keys(buildingsObject).map((value) => {
+  if (value === 'input') return null
   return {
     label: {
       ko: buildingsObject[value].ko,
