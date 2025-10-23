@@ -663,19 +663,19 @@ export const markers = Object.keys(buildingsObject).map((value) => {
 })
 
 const keysArray = ['seall', ...Object.keys(buildingsObj.se), 'gwall', ...Object.keys(buildingsObj.gw)]
-// const locationsBuildings = {
-//   ko: keysArray.map((value) => {
-//     if (value === 'seall') return {symbol: value, name: '서울캠퍼스 전체'}
-//     if (value === 'gwall') return {symbol: value, name: '광릉캠퍼스 전체'}
-//     return ({symbol: value, name: buildingsObj[value.slice(0, 2)][value].ko.name})
-//   }),
-//   en : keysArray.map((value) => {
-//     if (value === 'seall') return {symbol: value, name: 'All SeoulCampus'}
-//     if (value === 'gwall') return {symbol: value, name: 'All GwangneungCampus'}
-//     return ({symbol: value, name: buildingsObj[value.slice(0, 2)][value].en.name})
-//   }),
-// }
-const locationsBuildings = keysArray.map((value) => {
+const locationsBuildings = {
+  ko: keysArray.map((value) => {
+    if (value === 'seall') return {symbol: value, name: '서울캠퍼스 전체'}
+    if (value === 'gwall') return {symbol: value, name: '광릉캠퍼스 전체'}
+    return ({symbol: value, name: buildingsObj[value.slice(0, 2)][value].ko.name})
+  }),
+  en : keysArray.map((value) => {
+    if (value === 'seall') return {symbol: value, name: 'All SeoulCampus'}
+    if (value === 'gwall') return {symbol: value, name: 'All GwangneungCampus'}
+    return ({symbol: value, name: buildingsObj[value.slice(0, 2)][value].en.name})
+  }),
+}
+export const locationsBuildingsArray = keysArray.map((value) => {
   if (value.slice(2) === 'all') {
     return (
       {[value]: buildingsObj[value]}

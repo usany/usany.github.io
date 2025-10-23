@@ -15,6 +15,7 @@ import AddStepThree from 'src/pages/add/AddStepThree'
 import AddStepTwo from 'src/pages/add/AddStepTwo'
 import PageTitle from 'src/pages/core/pageTitle/PageTitle'
 import useTexts from 'src/hooks/useTexts'
+import { locationsBuildingsArray } from './locationsBuildings'
 
 interface Props {
   borrow: boolean
@@ -37,7 +38,6 @@ interface FromTo {
   from: Clock | null
   to: Clock | null
 }
-
 function Add({ borrow }: Props) {
   const [addSteps, setAddSteps] = useState(0)
   const [display, setDisplay] = useState({
@@ -53,7 +53,6 @@ function Add({ borrow }: Props) {
   const [locationState, locationDispatch] = useReducer(
     (
       state: {
-        locationSymbol: string
         locationOne: string
         locationTwo: string
         locationThree: string
@@ -62,11 +61,9 @@ function Add({ borrow }: Props) {
       action: { type: string; newState: string },
     ) => {
       if (action.type === 'changeBuilding') {
-        const key = Object.keys(action.newState)[0]
-        const koBuilding = action.newState[key].ko.name
+        console.log(action.newState)
         return {
-          locationSymbol: key,
-          locationOne: koBuilding,
+          locationOne: action.newState,
           locationTwo: '',
           locationThree: '',
           locationInput: ''
@@ -84,7 +81,6 @@ function Add({ borrow }: Props) {
         }
       } else if (action.type === 'changeItem') {
         return {
-          locationSymbol: '',
           locationOne: '',
           locationTwo: '',
           locationThree: '',
@@ -95,7 +91,6 @@ function Add({ borrow }: Props) {
       }
     },
     {
-      locationSymbol: '',
       locationOne: '',
       locationTwo: '',
       locationThree: '',

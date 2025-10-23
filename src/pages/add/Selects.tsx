@@ -5,7 +5,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import TextField from "@mui/material/TextField";
 import useSelectors from 'src/hooks/useSelectors';
-import locationsBuildings from "./locationsBuildings";
+import locationsBuildings, { locationsBuildingsArray } from "./locationsBuildings";
 import locationsCollection from "./locationsCollection";
 
 const settingSeats = (number) => {
@@ -31,42 +31,42 @@ export const location = {
   two: settingSeats(315),
   three: settingSeats(156),
   four: settingSeats(149),
-  cl: {
-    ko: settingLocations(locationsCollection['ko'].cl, locationsCollection['ko'].cl),
-    en: settingLocations(locationsCollection['en'].cl, locationsCollection['ko'].cl)
-  },
-  cw: {
-    ko: settingLocations(locationsCollection['ko'].cw, locationsCollection['ko'].cw),
-    en: settingLocations(locationsCollection['en'].cw, locationsCollection['ko'].cw)
-  },
-  p: {
-    ko: settingLocations(locationsCollection['ko'].p, locationsCollection['ko'].p),
-    en: settingLocations(locationsCollection['en'].p, locationsCollection['en'].p)
-  },
-  g: {
-    ko: settingLocations(locationsCollection['ko'].g, locationsCollection['ko'].g),
-    en: settingLocations(locationsCollection['en'].g, locationsCollection['ko'].g)
-  },
-  n: {
-    ko: settingLocations(locationsCollection['ko'].n, locationsCollection['ko'].n),
-    en: settingLocations(locationsCollection['en'].n, locationsCollection['ko'].n)
-  },
-  k: {
-    ko: settingLocations(locationsCollection['ko'].k, locationsCollection['ko'].k),
-    en: settingLocations(locationsCollection['en'].k, locationsCollection['ko'].k),
-  },
-  m: {
-    ko: settingLocations(locationsCollection['ko'].m, locationsCollection['ko'].m),
-    en: settingLocations(locationsCollection['en'].m, locationsCollection['ko'].m),
-  },
-  e: {
-    ko: settingLocations(locationsCollection['ko'].e, locationsCollection['ko'].e),
-    en: settingLocations(locationsCollection['en'].e, locationsCollection['ko'].e),
-  },
-  c: {
-    ko: settingLocations(locationsCollection['ko'].c, locationsCollection['ko'].c),
-    en: settingLocations(locationsCollection['en'].c, locationsCollection['ko'].c),
-  }
+  // cl: {
+  //   ko: settingLocations(locationsCollection['ko'].cl, locationsCollection['ko'].cl),
+  //   en: settingLocations(locationsCollection['en'].cl, locationsCollection['ko'].cl)
+  // },
+  // cw: {
+  //   ko: settingLocations(locationsCollection['ko'].cw, locationsCollection['ko'].cw),
+  //   en: settingLocations(locationsCollection['en'].cw, locationsCollection['ko'].cw)
+  // },
+  // p: {
+  //   ko: settingLocations(locationsCollection['ko'].p, locationsCollection['ko'].p),
+  //   en: settingLocations(locationsCollection['en'].p, locationsCollection['en'].p)
+  // },
+  // g: {
+  //   ko: settingLocations(locationsCollection['ko'].g, locationsCollection['ko'].g),
+  //   en: settingLocations(locationsCollection['en'].g, locationsCollection['ko'].g)
+  // },
+  // n: {
+  //   ko: settingLocations(locationsCollection['ko'].n, locationsCollection['ko'].n),
+  //   en: settingLocations(locationsCollection['en'].n, locationsCollection['ko'].n)
+  // },
+  // k: {
+  //   ko: settingLocations(locationsCollection['ko'].k, locationsCollection['ko'].k),
+  //   en: settingLocations(locationsCollection['en'].k, locationsCollection['ko'].k),
+  // },
+  // m: {
+  //   ko: settingLocations(locationsCollection['ko'].m, locationsCollection['ko'].m),
+  //   en: settingLocations(locationsCollection['en'].m, locationsCollection['ko'].m),
+  // },
+  // e: {
+  //   ko: settingLocations(locationsCollection['ko'].e, locationsCollection['ko'].e),
+  //   en: settingLocations(locationsCollection['en'].e, locationsCollection['ko'].e),
+  // },
+  // c: {
+  //   ko: settingLocations(locationsCollection['ko'].c, locationsCollection['ko'].c),
+  //   en: settingLocations(locationsCollection['en'].c, locationsCollection['ko'].c),
+  // }
 }
 interface Props {
   locationState: { locationOne: string | undefined, locationTwo: string | undefined, locationThree: string | undefined, locationInput: string | undefined }
@@ -96,11 +96,12 @@ function Selects({
           onChange={changeBuilding}
         // label="Age"
         >
-          {locationsBuildings.map((value, index) => {
+          {locationsBuildingsArray.map((value, index) => {
             const key = Object.keys(value)[0]
             const name = value[key][languages].name
+            const koBuilding = value[key].ko.name
             return (
-              <MenuItem key={index} value={value}>{name}</MenuItem>
+              <MenuItem key={index} value={koBuilding}>{name}</MenuItem>
             )
           })}
         </Select>
