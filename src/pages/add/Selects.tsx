@@ -111,7 +111,7 @@ function Selects({
         </Select>
       </FormControl>
       {locationState.locationOne !== "" &&
-        locationState.locationOne !== "직접 입력" && locationState.locationOne !== "Self input" && (
+        locationState.locationOne !== "직접 입력" && (
           <FormControl variant="standard" sx={{ width: 150 }}>
             <InputLabel
             // id="demo-simple-select-standard-label1"
@@ -162,7 +162,7 @@ function Selects({
             </Select>
           </FormControl>
         )}
-      {(locationState.locationOne === "직접 입력" || locationState.locationOne === "Self input") && (
+      {(locationState.locationOne === "직접 입력" || locationState.locationTwo === "직접 입력") && (
         <div className="flex pt-7">
           <TextField
             inputProps={{ maxLength: 25 }}
