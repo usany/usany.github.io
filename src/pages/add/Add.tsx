@@ -53,6 +53,7 @@ function Add({ borrow }: Props) {
   const [locationState, locationDispatch] = useReducer(
     (
       state: {
+        locationSymbol: string
         locationOne: string
         locationTwo: string
         locationThree: string
@@ -62,7 +63,8 @@ function Add({ borrow }: Props) {
     ) => {
       if (action.type === 'changeBuilding') {
         return {
-          locationOne: action.newState,
+          locationSymbol: action.newState.symbol
+          locationOne: action.newState.name,
           locationTwo: '',
           locationThree: '',
           locationInput: ''
@@ -80,6 +82,7 @@ function Add({ borrow }: Props) {
         }
       } else if (action.type === 'changeItem') {
         return {
+          locationSymbol: '',
           locationOne: '',
           locationTwo: '',
           locationThree: '',
@@ -90,6 +93,7 @@ function Add({ borrow }: Props) {
       }
     },
     {
+      locationSymbol: '',
       locationOne: '',
       locationTwo: '',
       locationThree: '',

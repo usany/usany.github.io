@@ -1,14 +1,15 @@
-import { buildingsObject } from "./locationsBuildings";
+import { buildingsObj, buildingsObject } from "./locationsBuildings";
 
-const keysArray = Object.keys(buildingsObject)
+const seoulKeysArray = Object.keys(buildingsObj.se)
+const gwangneungKeysArray = Object.keys(buildingsObj.gw)
+const keysArray = seoulKeysArray.concat(gwangneungKeysArray)
 const locationsCollection = {
   ko: Object.fromEntries(
-    keysArray.map((value) => [value, buildingsObject[value].ko.details])
+    keysArray.map((value) => [value, buildingsObj[value.slice(0, 2)][value].ko.details])
   ),
   en: Object.fromEntries(
-    keysArray.map((value) => [value, buildingsObject[value].en.details])
+    keysArray.map((value) => [value, buildingsObj[value.slice(0, 2)][value].en.details])
   ),
 };
-
 export default locationsCollection
 

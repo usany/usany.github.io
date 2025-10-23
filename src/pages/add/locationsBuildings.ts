@@ -11,6 +11,22 @@ const itemCounts = {
   yangsanTwo: 0,
 }
 export const buildingsObj = {
+  seall: {
+    ko: {
+      name: '서울캠퍼스 전체'
+    },
+    en: {
+      name: 'Entire Seoul Campus'
+    }
+  },
+  gwall: {
+    ko: {
+      name: '광릉캠퍼스 전체'
+    },
+    en: {
+      name: 'Entire Gwangneung Campus'
+    }
+  },
   se: {
     secl: {
       ko: {
