@@ -507,6 +507,7 @@ export const buildingsObj = {
   }
 }
 export const buildingsObject = {
+  input: buildingsObj.input,
   ...buildingsObj.se,
   ...buildingsObj.gw
 }
@@ -527,7 +528,6 @@ export const markers = Object.keys(buildingsObject).map((value) => {
   }
 })
 
-const keysArray = ['seall', ...Object.keys(buildingsObj.se), 'gwall', ...Object.keys(buildingsObj.gw)]
 const keysWithoutAllArray = ['input', ...Object.keys(buildingsObj.se), ...Object.keys(buildingsObj.gw)]
 export const locationsCollectionLetters = Object.fromEntries(keysWithoutAllArray.map((value) => {
   if (value === 'input') return [value, buildingsObj[value].ko.name]
@@ -535,7 +535,7 @@ export const locationsCollectionLetters = Object.fromEntries(keysWithoutAllArray
     [value, buildingsObj[value.slice(0, 2)][value].ko.name]
   )
 }))
-
+const keysArray = ['seall', ...Object.keys(buildingsObj.se), 'gwall', ...Object.keys(buildingsObj.gw)]
 export const locationsBuildingsArray = keysArray.map((value) => {
   if (value.slice(2) === 'all') {
     return (
