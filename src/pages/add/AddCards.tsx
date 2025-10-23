@@ -61,7 +61,6 @@ const AddCards = ({ borrow, item, fromTo, locationState, display }: Props) => {
     return buildingsObj[value.slice(0, 2)][value].ko.name === locationOne
   }) : ''
   const staticImg = (locationOne && locationOne !== '직접 입력') ? buildingsObj[key?.slice(0, 2)][key]?.image : staticArray['building']
-  // const staticImg = staticArray[locationOne] || staticArray['building']
   const {borrowing, lending, emptyCard} = useTexts()
   return (
     <div className="flex justify-center text-sm pt-5 p-1">
