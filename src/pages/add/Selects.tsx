@@ -5,7 +5,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import TextField from "@mui/material/TextField";
 import useSelectors from 'src/hooks/useSelectors';
-import locationsBuildings, { locationsBuildingsArray } from "./locationsBuildings";
+import locationsBuildings, { buildingsObj, locationsBuildingsArray, locationsCollectionLetters } from "./locationsBuildings";
 import locationsCollection from "./locationsCollection";
 
 const settingSeats = (number) => {
@@ -17,14 +17,14 @@ const settingSeats = (number) => {
       </MenuItem>
     ));
 };
-const settingLocations = (building, korBuilding) => {
-  return building.map((value, index) => (
-    <MenuItem key={index + 1} value={korBuilding[index]}>
-      {value}
-    </MenuItem >
-  ));
-};
-console.log(locationsCollection)
+// const settingLocations = (building, korBuilding) => {
+//   return building.map((value, index) => (
+//     <MenuItem key={index + 1} value={korBuilding[index]}>
+//       {value}
+//     </MenuItem >
+//   ));
+// };
+// console.log(locationsCollection)
 export const location = {
   one: settingSeats(181),
   focus: settingSeats(46),
@@ -84,7 +84,7 @@ function Selects({
 }: Props) {
   const matches = useMediaQuery("(min-width:990px)");
   const languages = useSelectors((state) => state.languages.value)
-
+  const key = Object.keys(locationsCollectionLetters).find((key) => locationsCollectionLetters[key] === locationState.locationOne)
   return (
     <div className={`flex ${matches ? "" : "flex-col"} gap-1 px-5`}>
       <FormControl variant="standard" sx={{ width: 150 }}>
@@ -121,7 +121,8 @@ function Selects({
               onChange={changeRoom}
             // label="Age"
             >
-              {locationState.locationOne === "중도" && location.cl[languages]}
+              {key && buildingsObj[key?.slice(0, 2)][key][languages].details}
+              {/* {locationState.locationOne === "중도" && location.cl[languages]}
               {locationState.locationOne === "청운" && location.cw[languages]}
               {locationState.locationOne === "푸른솔" && location.p[languages]}
               {locationState.locationOne === "간호이과대" && location.g[languages]}
@@ -129,7 +130,7 @@ function Selects({
               {locationState.locationOne === "경영대" && location.k[languages]}
               {locationState.locationOne === "문과대" && location.m[languages]}
               {locationState.locationOne === "의과대" && location.e[languages]}
-              {locationState.locationOne === "치과병원" && location.c[languages]}
+              {locationState.locationOne === "치과병원" && location.c[languages]} */}
             </Select>
           </FormControl>
         )}

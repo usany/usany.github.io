@@ -6,7 +6,7 @@ import { Building, Watch } from 'lucide-react'
 import { AnimatedList } from 'src/components/ui/animated-list'
 import useSelectors from 'src/hooks/useSelectors'
 import Avatars from 'src/pages/core/Avatars'
-import { buildingsObject, staticArray } from 'src/pages/add/locationsBuildings'
+import { buildingsObj, buildingsObject, staticArray } from 'src/pages/add/locationsBuildings'
 import locationsBuildings, { locationsCollectionLetters } from './locationsBuildings'
 import locationsCollection from './locationsCollection'
 import { DocumentData } from 'firebase/firestore'
@@ -56,8 +56,8 @@ const AddCards = ({ borrow, item, fromTo, locationState, display }: Props) => {
   ] : undefined
   const languages = useSelectors((state) => state.languages.value)
   const locationOne = locationState?.locationOne
-  const key = Object.keys(buildingsObject).find((key) => buildingsObject[key].ko.name === locationOne)
-  const staticImg = buildingsObject[key]?.image
+  const key = locationOne ? Object.keys(locationsCollectionLetters).find((value) => buildingsObj[value.slice(0, 2)][value].ko.name === locationOne) : ''
+  const staticImg = locationOne ? buildingsObj[key?.slice(0, 2)][key]?.image : staticArray['building']
   // const staticImg = staticArray[locationOne] || staticArray['building']
   const {borrowing, lending, emptyCard} = useTexts()
   return (

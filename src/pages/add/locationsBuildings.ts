@@ -498,140 +498,8 @@ export const buildingsObj = {
   }
 }
 export const buildingsObject = {
-  cl: {
-    ko: {
-      name: '중도',
-      details : [
-        "1열(1F)",
-        "2열(2F)",
-        "3열(2F)",
-        "4열(4F)",
-        "집중열(1F)",
-        "1층 책상",
-        "1층 세미나실",
-        "매점(2F)",
-        "카페(1F)",
-        "중앙자료실 책상(3F)",
-        "참고열람실 책상(4F)",
-        "정기간행물 책상(4F)",
-      ]
-    },
-    en: {
-      name: 'Central library',
-      details: [
-        "Study #1(1F)",
-        "Study #2(2F)",
-        "Study #3(2F)",
-        "Study #4(4F)",
-        "Study Focus(1F)",
-        "1F Desks",
-        "1F Seminar",
-        "Cafeteria(2F)",
-        "Cafe(1F)",
-        "Central Desks(3F)",
-        "References Desks(4F)",
-        "Serials Desks(4F)",
-      ]
-    },
-    image: staticCl,
-    location: { lat: 37.5970966, lng: 127.0527314 },
-  },
-  g: {
-    ko: {
-      name: '간호이과대',
-      details : ["카페(B2)", "열람실(B2)"],
-    },
-    en: {
-      name: 'Nursing Science & Science',
-      details: ["Cafe(B2)", "Study Room(B2)"],
-    },
-    image: staticG,
-    location: { lat: 37.5960528, lng: 127.0536951 },
-  },
-  cw: {
-    ko: {
-      name: '청운',
-      details: ["매점(B1)", "글로벌존(B1)"],
-    },
-    en: {
-      name: 'Cheongwoon',
-      details: ["Cafeteria(B1)", "Global(B1)"],
-    },
-    image: staticCw,
-    location: { lat: 37.594732, lng: 127.0517775 },
-  },
-  p: {
-    ko: {
-      name: '푸른솔',
-      details: ["매점(1F)"],
-    },
-    en: {
-      name: 'Pureunsol',
-      details: ["Cafeteria(1F)"],
-    },
-    image: staticImgs,
-    location: { lat: 37.5941125, lng: 127.0557743 },
-  },
-  k: {
-    ko: {
-      name: '경영대',
-      details: ["카페"],
-    },
-    en: {
-      name: 'Business',
-      details: ["Cafe"],
-    },
-    image: staticE,
-    location: { lat: 37.5967052, lng: 127.0552861 },
-  },
-  m: {
-    ko: {
-      name: '문과대',
-      details: ["복사실"],
-    },
-    en: {
-      name: 'Humanities',
-      details: ["Printer Room"],
-    },
-    image: staticImgs,
-    location: { lat: 37.5971991, lng: 127.0539612 },
-  },
-  e: {
-    ko: {
-      name: '의과대',
-      details: ["1열(5F)", "2열(6F)"],
-    },
-    en: {
-      name: 'Medicine',
-      details: ["Study #1(5F)", "Study #2(6F)"],
-    },
-    image: staticImgs,
-    location: { lat: 37.5939, lng: 127.0549 },
-  },
-  c: {
-    ko: {
-      name: '치과병원',
-      details: ["1층 로비"],
-    },
-    en: {
-      name: 'Dental Hospital',
-      details: ["1F Robby"],
-    },
-    image: staticImgs,
-    location: { lat: 37.594054, lng: 127.0531189 },
-  },
-  n: {
-    ko: {
-      name: '네오르네상스관',
-      details: ["1층 로비"],
-    },
-    en: {
-      name: 'Neo-Renaissance',
-      details: ["1F Robby"],
-    },
-    image: staticImgs,
-    location: { lat: 37.5948201, lng: 127.053091 },
-  },
+  ...buildingsObj.se,
+  ...buildingsObj.gw
 }
 export const staticArray = {
   '중도': staticCl,
@@ -640,17 +508,6 @@ export const staticArray = {
   '경영대': staticE,
   'building': staticImgs,
 }
-// export const locationsCollectionLetters = {
-//   cl: '중도',
-//   cw: '청운',
-//   p: '푸른솔',
-//   g: '간호이과대',
-//   k: '경영대',
-//   m: '문과대',
-//   e: '의과대',
-//   c: '치과병원',
-//   n: '네오르네상스관'
-// };
 export const markers = Object.keys(buildingsObject).map((value) => {
   return {
     label: {
@@ -671,13 +528,13 @@ export const locationsCollectionLetters = Object.fromEntries(keysWithoutAllArray
 
 const locationsBuildings = {
   ko: keysArray.map((value) => {
-    if (value === 'seall') return {symbol: value, name: '서울캠퍼스 전체'}
-    if (value === 'gwall') return {symbol: value, name: '광릉캠퍼스 전체'}
-    return ({symbol: value, name: buildingsObj[value.slice(0, 2)][value].ko.name})
+    if (value === 'seall') return '서울캠퍼스 전체'
+    if (value === 'gwall') return '광릉캠퍼스 전체'
+    return (buildingsObj[value.slice(0, 2)][value].ko.name)
   }),
   en : keysArray.map((value) => {
-    if (value === 'seall') return {symbol: value, name: 'All SeoulCampus'}
-    if (value === 'gwall') return {symbol: value, name: 'All GwangneungCampus'}
+    if (value === 'seall') return 'All SeoulCampus'
+    if (value === 'gwall') return 'All GwangneungCampus'
     return ({symbol: value, name: buildingsObj[value.slice(0, 2)][value].en.name})
   }),
 }
