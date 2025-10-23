@@ -535,7 +535,7 @@ const locationsBuildings = {
   en : keysArray.map((value) => {
     if (value === 'seall') return 'All SeoulCampus'
     if (value === 'gwall') return 'All GwangneungCampus'
-    return ({symbol: value, name: buildingsObj[value.slice(0, 2)][value].en.name})
+    return (buildingsObj[value.slice(0, 2)][value].en.name)
   }),
 }
 export const locationsBuildingsArray = keysArray.map((value) => {

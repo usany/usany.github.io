@@ -100,6 +100,7 @@ function Selects({
             const key = Object.keys(value)[0]
             const name = value[key][languages].name
             const koBuilding = value[key].ko.name
+            if (key.slice(2) === 'all') return null
             return (
               <MenuItem key={index} value={koBuilding}>{name}</MenuItem>
             )
