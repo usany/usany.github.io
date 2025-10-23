@@ -122,7 +122,7 @@ function Selects({
               onChange={changeRoom}
             // label="Age"
             >
-              {key && buildingsObj[key?.slice(0, 2)][key][languages].details}
+              {key && buildingsObj[key.slice(0, 2)][key][languages].details}
               {/* {locationState.locationOne === "중도" && location.cl[languages]}
               {locationState.locationOne === "청운" && location.cw[languages]}
               {locationState.locationOne === "푸른솔" && location.p[languages]}
