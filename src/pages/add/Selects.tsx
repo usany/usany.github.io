@@ -17,14 +17,13 @@ const settingSeats = (number) => {
       </MenuItem>
     ));
 };
-// const settingLocations = (building, korBuilding) => {
-//   return building.map((value, index) => (
-//     <MenuItem key={index + 1} value={korBuilding[index]}>
-//       {value}
-//     </MenuItem >
-//   ));
-// };
-// console.log(locationsCollection)
+const settingLocations = (building, korBuilding) => {
+  return building.map((value, index) => (
+    <MenuItem key={index + 1} value={korBuilding[index]}>
+      {value}
+    </MenuItem >
+  ));
+};
 export const location = {
   one: settingSeats(181),
   focus: settingSeats(46),
@@ -84,7 +83,11 @@ function Selects({
 }: Props) {
   const matches = useMediaQuery("(min-width:990px)");
   const languages = useSelectors((state) => state.languages.value)
-  const key = Object.keys(locationsCollectionLetters).find((key) => locationsCollectionLetters[key] === locationState.locationOne)
+  const locationOne = locationState?.locationOne
+  const key = locationOne ? Object.keys(locationsCollectionLetters).find((key) => locationsCollectionLetters[key] === locationState.locationOne) : ''
+  const details = locationOne ? buildingsObj[key.slice(0, 2)][key][languages].details : {}
+  const koDetails = locationOne ? buildingsObj[key.slice(0, 2)][key]['ko'].details : {}
+  const menuItems = locationOne ? settingLocations(details, koDetails) : null
   return (
     <div className={`flex ${matches ? "" : "flex-col"} gap-1 px-5`}>
       <FormControl variant="standard" sx={{ width: 150 }}>
@@ -122,7 +125,7 @@ function Selects({
               onChange={changeRoom}
             // label="Age"
             >
-              {key && buildingsObj[key.slice(0, 2)][key][languages].details}
+              {menuItems}
               {/* {locationState.locationOne === "중도" && location.cl[languages]}
               {locationState.locationOne === "청운" && location.cw[languages]}
               {locationState.locationOne === "푸른솔" && location.p[languages]}
