@@ -640,18 +640,17 @@ export const staticArray = {
   '경영대': staticE,
   'building': staticImgs,
 }
-
-export const locationsCollectionLetters = {
-  cl: '중도',
-  cw: '청운',
-  p: '푸른솔',
-  g: '간호이과대',
-  k: '경영대',
-  m: '문과대',
-  e: '의과대',
-  c: '치과병원',
-  n: '네오르네상스관'
-};
+// export const locationsCollectionLetters = {
+//   cl: '중도',
+//   cw: '청운',
+//   p: '푸른솔',
+//   g: '간호이과대',
+//   k: '경영대',
+//   m: '문과대',
+//   e: '의과대',
+//   c: '치과병원',
+//   n: '네오르네상스관'
+// };
 export const markers = Object.keys(buildingsObject).map((value) => {
   return {
     label: {
@@ -663,6 +662,13 @@ export const markers = Object.keys(buildingsObject).map((value) => {
 })
 
 const keysArray = ['seall', ...Object.keys(buildingsObj.se), 'gwall', ...Object.keys(buildingsObj.gw)]
+const keysWithoutAllArray = [...Object.keys(buildingsObj.se), ...Object.keys(buildingsObj.gw)]
+export const locationsCollectionLetters = Object.fromEntries(keysWithoutAllArray.map((value) => {
+  return (
+    [value, buildingsObj[value.slice(0, 2)][value].ko.name]
+  )
+}))
+
 const locationsBuildings = {
   ko: keysArray.map((value) => {
     if (value === 'seall') return {symbol: value, name: '서울캠퍼스 전체'}
