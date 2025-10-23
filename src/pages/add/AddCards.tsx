@@ -118,7 +118,7 @@ const AddCards = ({ borrow, item, fromTo, locationState, display }: Props) => {
                   {locationState && (
                     <div className="flex gap-1 items-center">
                       {locationState?.locationOne && <Building />}
-                      {locationState?.locationInput ?
+                      {locationState?.locationOne === '직접 입력' && locationState?.locationInput ?
                         <div className="flex items-center">
                           {locationState?.locationInput.length > 10 ? locationState?.locationInput.slice(0, 10)+'......' : locationState?.locationInput}
                         </div>
@@ -131,7 +131,7 @@ const AddCards = ({ borrow, item, fromTo, locationState, display }: Props) => {
                                   locationState?.locationOne,
                                 )
                               ]}{' '}
-                          {(languages === 'ko')
+                          {locationState?.locationTwo !== '직접 입력' && (languages === 'ko'
                             ? locationState?.locationTwo
                             : locationOne !== '직접 입력' && locationState?.locationOne &&
                               locationsCollection['en'][
@@ -148,8 +148,9 @@ const AddCards = ({ borrow, item, fromTo, locationState, display }: Props) => {
                                       locationState?.locationOne,
                                   )
                                 ].indexOf(locationState?.locationTwo)
-                              ]}{' '}
+                              ])}{' '}
                           {locationState?.locationThree}
+                          {locationState?.locationInput.length > 10 ? locationState?.locationInput.slice(0, 10)+'......' : locationState?.locationInput}
                         </div>
                       }
                     </div>
