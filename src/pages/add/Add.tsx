@@ -73,11 +73,19 @@ function Add({ borrow }: Props) {
       } else if (action.type === 'changeSeat') {
         return { ...state, locationThree: action.newState }
       } else if (action.type === 'changeLocationInput') {
-        return {
-          ...state,
-          locationTwo: '',
-          locationThree: '',
-          locationInput: action.newState,
+        if (state.locationOne === '직접 입력') {
+          return {
+            ...state,
+            locationTwo: '',
+            locationThree: '',
+            locationInput: action.newState,
+          }
+        } else {
+          return {
+            ...state,
+            locationThree: '',
+            locationInput: action.newState,
+          }
         }
       } else if (action.type === 'changeItem') {
         return {
