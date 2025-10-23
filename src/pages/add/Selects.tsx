@@ -5,7 +5,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import TextField from "@mui/material/TextField";
 import useSelectors from 'src/hooks/useSelectors';
-import locationsBuildings, { buildingsObj } from "./locationsBuildings";
+import locationsBuildings from "./locationsBuildings";
 import locationsCollection from "./locationsCollection";
 
 const settingSeats = (number) => {
@@ -84,19 +84,7 @@ function Selects({
 }: Props) {
   const matches = useMediaQuery("(min-width:990px)");
   const languages = useSelectors((state) => state.languages.value)
-  const keysArray = ['seall', ...Object.keys(buildingsObj.se), 'gwall', ...Object.keys(buildingsObj.gw)]
-  const locationsBuildings = {
-    ko: keysArray.map((value) => {
-      if (value === 'seall') return {symbol: value, name: '서울캠퍼스 전체'}
-      if (value === 'gwall') return {symbol: value, name: '광릉캠퍼스 전체'}
-      return ({symbol: value, name: buildingsObj[value.slice(0, 2)][value].ko.name})
-    }),
-    en : keysArray.map((value) => {
-      if (value === 'seall') return {symbol: value, name: 'All SeoulCampus'}
-      if (value === 'gwall') return {symbol: value, name: 'All GwangneungCampus'}
-      return ({symbol: value, name: buildingsObj[value.slice(0, 2)][value].en.name})
-    }),
-  }
+
   return (
     <div className={`flex ${matches ? "" : "flex-col"} gap-1 px-5`}>
       <FormControl variant="standard" sx={{ width: 150 }}>
@@ -108,9 +96,11 @@ function Selects({
           onChange={changeBuilding}
         // label="Age"
         >
-          {locationsBuildings[languages].map((value, index) => {
+          {locationsBuildings.map((value, index) => {
+            const key = Object.keys(value)[0]
+            const name = value[key][languages].name
             return (
-              <MenuItem key={index} value={value[1]}>{value[1]}</MenuItem>
+              <MenuItem key={index} value={value}>{name}</MenuItem>
             )
           })}
         </Select>

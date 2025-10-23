@@ -62,9 +62,11 @@ function Add({ borrow }: Props) {
       action: { type: string; newState: string },
     ) => {
       if (action.type === 'changeBuilding') {
+        const key = Object.keys(action.newState)[0]
+        const koBuilding = action.newState[key].ko.name
         return {
-          locationSymbol: action.newState.symbol,
-          locationOne: action.newState.name,
+          locationSymbol: key,
+          locationOne: koBuilding,
           locationTwo: '',
           locationThree: '',
           locationInput: ''
