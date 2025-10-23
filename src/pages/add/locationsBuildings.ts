@@ -510,13 +510,13 @@ export const buildingsObject = {
   ...buildingsObj.se,
   ...buildingsObj.gw
 }
-export const staticArray = {
-  '중도': staticCl,
-  '간호이과대': staticG,
-  '청운': staticCw,
-  '경영대': staticE,
-  'building': staticImgs,
-}
+// export const staticArray = {
+//   '중도': staticCl,
+//   '간호이과대': staticG,
+//   '청운': staticCw,
+//   '경영대': staticE,
+//   'building': staticImgs,
+// }
 export const markers = Object.keys(buildingsObject).map((value) => {
   return {
     label: {
@@ -536,6 +536,16 @@ export const locationsCollectionLetters = Object.fromEntries(keysWithoutAllArray
   )
 }))
 
+export const locationsBuildingsArray = keysArray.map((value) => {
+  if (value.slice(2) === 'all') {
+    return (
+      {[value]: buildingsObj[value]}
+    )
+  }
+  return (
+    {[value]: buildingsObj[value.slice(0, 2)][value]}
+  )
+})
 const locationsBuildings = {
   ko: keysArray.map((value) => {
     if (value === 'seall') return '서울캠퍼스 전체'
@@ -548,15 +558,5 @@ const locationsBuildings = {
     return (buildingsObj[value.slice(0, 2)][value].en.name)
   }),
 }
-export const locationsBuildingsArray = keysArray.map((value) => {
-  if (value.slice(2) === 'all') {
-    return (
-      {[value]: buildingsObj[value]}
-    )
-  }
-  return (
-    {[value]: buildingsObj[value.slice(0, 2)][value]}
-  )
-})
 
 export default locationsBuildings
