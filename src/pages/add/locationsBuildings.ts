@@ -518,14 +518,17 @@ export const buildingsObject = {
 //   '경영대': staticE,
 //   'building': staticImgs,
 // }
-export const markers = Object.keys(buildingsObject).map((value) => {
-  if (value === 'input') return null
+const markingBuildings = {
+  ...buildingsObj.se,
+  ...buildingsObj.gw
+}
+export const markers = Object.keys(markingBuildings).map((value) => {
   return {
     label: {
-      ko: buildingsObject[value].ko,
-      en: buildingsObject[value].en
+      ko: markingBuildings[value].ko,
+      en: markingBuildings[value].en
     },
-    location: buildingsObject[value].location
+    location: markingBuildings[value].location
   }
 })
 
