@@ -59,9 +59,9 @@ function SpecificsTradesPopups({ isCreator, drawerOpenTrue, connectedUser, messa
               isCreator={false}
               message={{
                 ...message,
-                connectedProfileImage: true,
-                connectedProfileImageUrl: connectedUser.url,
-                connectedDefaultProfile: connectedUser.url,
+                // connectedProfileImage: true,
+                // connectedProfileImageUrl: connectedUser.url,
+                // connectedDefaultProfile: connectedUser.url,
               }}
             />
           }
@@ -71,9 +71,9 @@ function SpecificsTradesPopups({ isCreator, drawerOpenTrue, connectedUser, messa
               isCreator={false}
               message={{
                 ...message,
-                connectedProfileImage: true,
-                connectedProfileImageUrl: connectedUser.url,
-                connectedDefaultProfile: connectedUser.url,
+                // connectedProfileImage: true,
+                // connectedProfileImageUrl: connectedUser.url,
+                // connectedDefaultProfile: connectedUser.url,
               }}
               connectedUser={connectedUser}
             />

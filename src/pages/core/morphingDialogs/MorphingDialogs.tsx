@@ -15,6 +15,7 @@ import { useOnPulseCallback } from './useOnPulseCallback'
 import { usePulse } from './usePulse'
 import { useStopSupportingTradesCallback } from './useStopSupportingTradesCallback'
 import { useSupportTradesCallback } from './useSupportTradesCallback'
+import useSelectors from 'src/hooks/useSelectors'
 
 interface Props {
   message: { id: string; text: object }
@@ -31,10 +32,19 @@ const MorphingDialogs = ({
   const [returningClock, setReturningClock] = useState('')
   const [confirmedReturnClock, setConfirmedReturnClock] = useState('')
   const [messageValue, setMessageValue] = useState({})
+  const profile = useSelectors((state) => state.profile.value)
   useEffect(() => {
     setMessageValue(message)
   }, [message])
-  const round = messageValue.round
+  const round = messageValue?.round
+  useEffect(() => {
+    if (messageValue?.round > 1 && !messageValue?.profileImage) {
+      setMessageValue((prev) => {
+        return {...prev, connectedProfileImage: profile.profileImage, connectedProfileImageUrl: profile.profileImageUrl, connectedDefaultProfile: profile.defaultProfile}
+      })
+    }
+  }, [round])
+  const changeMessageValue = (newValue) => setMessageValue(newValue)
   const increaseRound = () => {
     setMessageValue((prev) => {
       return (
@@ -160,6 +170,7 @@ const MorphingDialogs = ({
           handleConfirmingClock={handleConfirmingClock}
           handleReturningClock={handleReturningClock}
           handleConfirmedReturnClock={handleConfirmedReturnClock}
+          changeMessageValue={changeMessageValue}
         />
       </MorphingDialogContainer>
     </MorphingDialog>
