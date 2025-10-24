@@ -9,10 +9,13 @@ import SpecificsSteppers from './SpecificsSteppers'
 import SpecificsTrades from './SpecificsTrades'
 import getShadowColor from './getShadowColor'
 import { buildingsObj, staticArray } from 'src/pages/add/locationsBuildings'
+import { useState } from 'react'
 
 const SpecificsDefault = ({ drawerOpenTrue, message, connectedUser,
   increaseRound, decreaseRound, changeOnPulse, changeConnectedUser, toggleOnTransfer, handleConnectedClock, handleConfirmingClock, handleReturningClock, handleConfirmedReturnClock
 }) => {
+  const [issue, setIssue] = useState(false)
+  const changeIssue = () => setIssue((prev) => !prev)
   const id = message?.id || ''
   const shadowColor = getShadowColor(id)
   const locationOne = message.text.count
@@ -56,7 +59,7 @@ const SpecificsDefault = ({ drawerOpenTrue, message, connectedUser,
             connectedUser={connectedUser}
           />
           <Divider />
-          <SpecificsSteppers message={message} />
+          <SpecificsSteppers message={message} issue={issue} />
           <Divider />
           <SpecificsButtons
             increaseRound={increaseRound}
@@ -69,6 +72,7 @@ const SpecificsDefault = ({ drawerOpenTrue, message, connectedUser,
             handleConfirmingClock={handleConfirmingClock}
             handleReturningClock={handleReturningClock}
             handleConfirmedReturnClock={handleConfirmedReturnClock}
+            changeIssue={changeIssue}
           />
         </CardContent>
       </Card>

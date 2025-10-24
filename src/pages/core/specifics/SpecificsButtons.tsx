@@ -6,6 +6,7 @@ import DeleteButton from 'src/pages/core/specifics/buttons/DeleteButton'
 import ReturningButton from 'src/pages/core/specifics/buttons/ReturningButton'
 import StopSupportButton from 'src/pages/core/specifics/buttons/StopSupportButton'
 import SupportButton from 'src/pages/core/specifics/buttons/SupportButton'
+import ProblemButton from './buttons/Buttons'
 
 interface Props {
   message: {}
@@ -21,6 +22,7 @@ function SpecificsButtons({
   handleConfirmingClock,
   handleReturningClock,
   handleConfirmedReturnClock,
+  changeIssue
 }: Props) {
   const profile = useSelectors((state) => state.profile.value)
   const {isBorrowing, askingTheOwnerToConfirm, sharingCompleted} = useTexts()
@@ -74,7 +76,10 @@ function SpecificsButtons({
             />
           )}
           {message.text.choose === 2 && (
-            <>{message.connectedName} {isBorrowing}</>
+            <>
+              {message.connectedName} {isBorrowing}
+              <ProblemButton changeIssue={changeIssue}/>
+            </>
           )}
         </div>
       )
@@ -82,7 +87,10 @@ function SpecificsButtons({
     return (
       <div className="flex justify-center">
         {message.text.choose === 1 && (
-          <>{message.displayName} {isBorrowing}</>
+          <>
+            {message.displayName} {isBorrowing}
+            <ProblemButton changeIssue={changeIssue}/>
+          </>
         )}
         {message.text.choose === 2 && (
           <ReturningButton
