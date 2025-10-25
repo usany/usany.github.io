@@ -46,18 +46,21 @@ function RankingListsTitle({ multiple }: Props) {
           </div>
           <div>{points}</div>
         </div>
-        {largeMedia ? (
-          <div className="flex justify-center items-center w-[67px]">
-            {/* {locationConfirmation} */}
-            Campus
+        <div className="flex flex-col justify-center items-center w-[67px]">
+          <div>Campus</div>
+          <div>Verified</div>
+        </div>
+        {/* {largeMedia ? (
+          <div className="flex flex-col justify-center items-center w-[67px]">
+            <div>Campus</div>
+            <div>Verified</div>
           </div>
         ) : (
           <div className="flex flex-col justify-center items-center w-[67px]">
-            {/* <div>{location}</div>
-            <div>{confirmation}</div> */}
-            Campus
+            <div>Campus</div>
+            <div>Verified</div>
           </div>
-        )}
+        )} */}
       </div>
     </div>
   )
