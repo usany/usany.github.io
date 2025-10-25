@@ -51,7 +51,7 @@ function SpecificsTradesPopups({ isCreator, drawerOpenTrue, connectedUser, messa
   }
   return (
     <div className="flex flex-col items-center">
-      {connectedUser.uid ? (
+      {message.connectedId ? (
         <Popups
           trigger={
             <SpecificsTradesTrigger
