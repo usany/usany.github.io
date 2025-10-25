@@ -468,14 +468,14 @@ export const buildingsObj = {
   gw: {
     gwb: {
       ko: {
-        name: '광릉-본관',
+        name: '광릉 본관',
         details: [
           '1층 로비',
           '직접 입력'
         ]
       },
       en: {
-        name: 'Gwangneung-Main building',
+        name: 'Gwangneung Main building',
         details: [
           "1F Robby",
           "Self input"
@@ -487,14 +487,14 @@ export const buildingsObj = {
     },
     gwcl: {
       ko: {
-        name: '광릉-중도',
+        name: '광릉 중도',
         details : [
           '1층 로비',
           '직접 입력'
         ]
       },
       en: {
-        name: 'Gwangneung-Central library',
+        name: 'Gwangneung Central library',
         details: [
           "1F Robby",
           "Self input"
@@ -506,14 +506,14 @@ export const buildingsObj = {
     },
     gwc: {
       ko: {
-        name: '광릉-체육관',
+        name: '광릉 체육관',
         details : [
           '1층 로비',
           '직접 입력'
         ]
       },
       en: {
-        name: 'Gwangneung-Gym',
+        name: 'Gwangneung Gym',
         details: [
           "1F Robby",
           "Self input"
