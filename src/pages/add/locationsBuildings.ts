@@ -627,14 +627,14 @@ export const locationsBuildingsArray = keysArray.map((value) => {
 const locationsBuildings = {
   ko: keysArray.map((value) => {
     if (value === 'seall') return '서울캠퍼스 전체'
-    if (value === 'gwall') return '광릉캠퍼스 전체'
     if (value === 'guall') return '국제캠퍼스 전체'
+    if (value === 'gwall') return '광릉캠퍼스 전체'
     return (buildingsObj[value.slice(0, 2)][value].ko.name)
   }),
   en : keysArray.map((value) => {
     if (value === 'seall') return 'All SeoulCampus'
-    if (value === 'gwall') return 'All GwangneungCampus'
     if (value === 'guall') return 'All GlobalCampus'
+    if (value === 'gwall') return 'All GwangneungCampus'
     return (buildingsObj[value.slice(0, 2)][value].en.name)
   }),
 }
