@@ -79,7 +79,7 @@ function SpecificsButtons({
           {message.text.choose === 2 && (
             <>
               {message.connectedName} {isBorrowing}
-              <ProblemButton changeIssue={changeIssue}/>
+              <ProblemButton issue={issue} changeIssue={changeIssue}/>
             </>
           )}
         </div>
@@ -90,7 +90,7 @@ function SpecificsButtons({
         {message.text.choose === 1 && (
           <>
             {message.displayName} {isBorrowing}
-            <ProblemButton changeIssue={changeIssue}/>
+            <ProblemButton issue={issue} changeIssue={changeIssue}/>
           </>
         )}
         {message.text.choose === 2 && (
@@ -118,7 +118,7 @@ function SpecificsButtons({
                 increaseRound={increaseRound}
                 handleConfirmedReturnClock={handleConfirmedReturnClock}
               />}
-              <ProblemButton changeIssue={changeIssue}/>
+              <ProblemButton issue={issue} changeIssue={changeIssue}/>
             </>
           )}
         </div>
@@ -133,7 +133,7 @@ function SpecificsButtons({
               increaseRound={increaseRound}
               handleConfirmedReturnClock={handleConfirmedReturnClock}
             />}
-            <ProblemButton changeIssue={changeIssue}/>
+            <ProblemButton issue={issue} changeIssue={changeIssue}/>
           </>
         )}
         {message.text.choose === 2 && (

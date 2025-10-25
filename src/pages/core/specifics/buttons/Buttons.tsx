@@ -1,12 +1,12 @@
 import { Button } from '@mui/material'
 
-function ProblemButton({changeIssue}) {
+function ProblemButton({issue, changeIssue}) {
   return (
     <Button
       variant='outlined'
       onClick={changeIssue}
     >
-      Issue Occured
+      {issue ? 'Issue Resolved' : 'Issue Occured'}
     </Button>
   )
 }
