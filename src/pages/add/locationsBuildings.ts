@@ -491,7 +491,7 @@ export const buildingsObj = {
         ]
       },
       en: {
-        name: 'Central library',
+        name: 'Gwangneung-Central library',
         details: [
           "1F Robby",
           "Self input"
@@ -503,14 +503,14 @@ export const buildingsObj = {
     },
     gwc: {
       ko: {
-        name: '체육관',
+        name: '광릉-체육관',
         details : [
           '1층 로비',
           '직접 입력'
         ]
       },
       en: {
-        name: 'Gym',
+        name: 'Gwangneung-Gym',
         details: [
           "1F Robby",
           "Self input"
