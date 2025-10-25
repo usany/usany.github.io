@@ -86,19 +86,6 @@ const ProfileLocations = () => {
   return (
     <div className="flex justify-center p-10">
       <div className={`flex ${!largeMedia && 'flex-col'} items-center gap-1`}>
-        <Chip
-          sx={locationConfirmation ? {} : undefined}
-          color={locationConfirmation ? 'success' : undefined}
-          label={
-            locationConfirmation ? locationConfirmed : userUid === profile?.uid ?
-            <button className='flex justify-center gap-1' onClick={onClickLocation}>
-              {locationUnconfirmed}
-              <ProfileLocationsChip />
-            </button>
-            :
-            locationUnconfirmed
-          }
-        />
         {userUid === profile?.uid ?
           <div className='flex items-center'>
             <Select defaultValue={profile?.campus || 'Seoul Campus'} onValueChange={(newValue) => {
@@ -126,6 +113,19 @@ const ProfileLocations = () => {
         :
           <div className='flex justify-center'>{userCampus || 'Seoul Campus'}</div>
         }
+        <Chip
+          sx={locationConfirmation ? {} : undefined}
+          color={locationConfirmation ? 'success' : undefined}
+          label={
+            locationConfirmation ? locationConfirmed : userUid === profile?.uid ?
+            <button className='flex justify-center gap-1' onClick={onClickLocation}>
+              {locationUnconfirmed}
+              <ProfileLocationsChip />
+            </button>
+            :
+            locationUnconfirmed
+          }
+        />
         {!locationConfirmation && location.lat !== 0 && (
           <>{failedLocationConfirmation}</>
         )}
