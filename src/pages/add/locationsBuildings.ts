@@ -552,7 +552,7 @@ export const buildingsObj = {
     }
   },
   gu: {
-    gug: {
+    gugo: {
       ko: {
         name: '공과대',
         details: [
