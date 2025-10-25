@@ -590,6 +590,7 @@ export const buildingsObj = {
       location: { lat: 37.748940, lng: 127.186673 },
       itemCounts: itemCounts
     },
+    
   }
 }
 const markingBuildings = {
