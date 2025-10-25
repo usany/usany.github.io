@@ -38,7 +38,7 @@ const MorphingDialogs = ({
   }, [message])
   const round = messageValue?.round
   useEffect(() => {
-    if (messageValue?.round > 1 && !messageValue?.profileImage) {
+    if (messageValue?.round > 1 && !messageValue?.connectedProfileImage) {
       setMessageValue((prev) => {
         return {...prev, connectedProfileImage: profile.profileImage, connectedProfileImageUrl: profile.profileImageUrl, connectedDefaultProfile: profile.defaultProfile}
       })
