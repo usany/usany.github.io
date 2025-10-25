@@ -101,6 +101,10 @@ function BoardMap({
       onClick: () => setSelectedLocation('se')
     },
     {
+      name: 'Global',
+      onClick: () => setSelectedLocation('gu')
+    },
+    {
       name: 'Gwangneung',
       onClick: () => setSelectedLocation('gw')
     },
