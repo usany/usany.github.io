@@ -46,11 +46,17 @@ const MorphingDialogs = ({
   }, [round])
   const changeMessageValue = (newValue) => setMessageValue(newValue)
   const increaseRound = () => {
-    setMessageValue((prev) => {
-      return (
-        {...prev, round: prev.round+1}
-      )
-    })
+    if (messageValue.round === 1) {
+      setMessageValue((prev) => {
+        return {...prev, connectedProfileImage: profile.profileImage, connectedProfileImageUrl: profile.profileImageUrl, connectedDefaultProfile: profile.defaultProfile, round: prev.round+1}
+      })
+    } else {
+      setMessageValue((prev) => {
+        return (
+          {...prev, round: prev.round+1}
+        )
+      })
+    }
   }
   const decreaseRound = () => {
     setMessageValue((prev) => {
