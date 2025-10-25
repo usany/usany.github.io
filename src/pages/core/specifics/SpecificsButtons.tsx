@@ -78,7 +78,7 @@ function SpecificsButtons({
           )}
           {message.text.choose === 2 && (
             <>
-              {issue ? `${message.connectedName} ${isBorrowing}` : 'Please report the issue'}
+              {issue ? 'Please report the issue' : `${message.connectedName} ${isBorrowing}`}
               <ProblemButton issue={issue} changeIssue={changeIssue}/>
             </>
           )}
@@ -89,7 +89,7 @@ function SpecificsButtons({
       <div className="flex justify-center">
         {message.text.choose === 1 && (
           <>
-            {issue ? `${message.displayName} ${isBorrowing}` : 'Please report the issue'}
+            {issue ? 'Please report the issue' : `${message.displayName} ${isBorrowing}`}
             <ProblemButton issue={issue} changeIssue={changeIssue}/>
           </>
         )}
