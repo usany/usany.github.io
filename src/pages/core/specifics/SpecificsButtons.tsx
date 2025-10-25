@@ -113,7 +113,7 @@ function SpecificsButtons({
           )}
           {message.text.choose === 2 && (
             <>
-              {!issue && <ConfirmReturnButton
+              {issue ? 'Please report the issue' : <ConfirmReturnButton
                 message={message}
                 increaseRound={increaseRound}
                 handleConfirmedReturnClock={handleConfirmedReturnClock}
@@ -128,7 +128,7 @@ function SpecificsButtons({
       <div className="flex justify-center">
         {message.text.choose === 1 && (
           <>
-            {!issue && <ConfirmReturnButton
+            {issue ? 'Please report the issue' : <ConfirmReturnButton
               message={message}
               increaseRound={increaseRound}
               handleConfirmedReturnClock={handleConfirmedReturnClock}
