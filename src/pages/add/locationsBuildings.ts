@@ -27,6 +27,8 @@ export const buildingsObj = {
       name: 'Entire Gwangneung Campus'
     }
   },
+  guall: {
+  },
   input: {
     ko: {
       name: '직접 입력'
@@ -312,7 +314,7 @@ export const buildingsObj = {
       location: { lat: 37.595635, lng: 127.048585 },
       itemCounts: itemCounts
     },
-    sego: {
+    segu: {
       ko: {
         name: '국제교육원',
         details: [
