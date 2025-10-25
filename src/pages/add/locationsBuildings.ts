@@ -28,6 +28,12 @@ export const buildingsObj = {
     }
   },
   guall: {
+    ko: {
+      name: '국제캠퍼스 전체'
+    },
+    en: {
+      name: 'Entire Global Campus'
+    }
   },
   input: {
     ko: {
