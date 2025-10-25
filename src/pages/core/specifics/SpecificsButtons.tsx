@@ -137,10 +137,10 @@ function SpecificsButtons({
           </>
         )}
         {message.text.choose === 2 && (
-          <div>
+          <>
             {message.item}{' '}
             {askingTheOwnerToConfirm}
-          </div>
+          </>
         )}
       </div>
     )
