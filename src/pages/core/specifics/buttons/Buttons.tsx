@@ -1,5 +1,4 @@
 import { Button } from '@mui/material'
-import useSelectors from 'src/hooks/useSelectors'
 
 function ProblemButton({changeIssue}) {
   return (
