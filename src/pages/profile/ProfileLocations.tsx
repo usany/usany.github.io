@@ -85,7 +85,7 @@ const ProfileLocations = () => {
   }
   return (
     <div className="flex justify-center p-10">
-      <div className='flex items-center gap-1'>
+      <div className={`flex ${!largeMedia && 'flex-col'} items-center gap-1`}>
         <Chip
           sx={locationConfirmation ? {} : undefined}
           color={locationConfirmation ? 'success' : undefined}
