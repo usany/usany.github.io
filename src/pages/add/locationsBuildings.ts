@@ -571,6 +571,234 @@ export const buildingsObj = {
       location: { lat: 37.748940, lng: 127.186673 },
       itemCounts: itemCounts
     },
+    guch: {
+      ko: {
+        name: '체육대',
+        details: [
+          '1층 로비',
+          '직접 입력'
+        ]
+      },
+      en: {
+        name: 'Physical Education',
+        details: [
+          "1F Robby",
+          "Self input"
+        ]
+      },
+      image: staticImgs,
+      location: { lat: 37.748940, lng: 127.186673 },
+      itemCounts: itemCounts
+    },
+    guw: {
+      ko: {
+        name: '체육대',
+        details: [
+          '1층 로비',
+          '직접 입력'
+        ]
+      },
+      en: {
+        name: 'Physical Education',
+        details: [
+          "1F Robby",
+          "Self input"
+        ]
+      },
+      image: staticImgs,
+      location: { lat: 37.748940, lng: 127.186673 },
+      itemCounts: itemCounts
+    },
+    gum: {
+      ko: {
+        name: '체육대',
+        details: [
+          '1층 로비',
+          '직접 입력'
+        ]
+      },
+      en: {
+        name: 'Physical Education',
+        details: [
+          "1F Robby",
+          "Self input"
+        ]
+      },
+      image: staticImgs,
+      location: { lat: 37.748940, lng: 127.186673 },
+      itemCounts: itemCounts
+    },
+    gug: {
+      ko: {
+        name: '체육대',
+        details: [
+          '1층 로비',
+          '직접 입력'
+        ]
+      },
+      en: {
+        name: 'Physical Education',
+        details: [
+          "1F Robby",
+          "Self input"
+        ]
+      },
+      image: staticImgs,
+      location: { lat: 37.748940, lng: 127.186673 },
+      itemCounts: itemCounts
+    },
+    gud: {
+      ko: {
+        name: '체육대',
+        details: [
+          '1층 로비',
+          '직접 입력'
+        ]
+      },
+      en: {
+        name: 'Physical Education',
+        details: [
+          "1F Robby",
+          "Self input"
+        ]
+      },
+      image: staticImgs,
+      location: { lat: 37.748940, lng: 127.186673 },
+      itemCounts: itemCounts
+    },
+    gucha: {
+      ko: {
+        name: '체육대',
+        details: [
+          '1층 로비',
+          '직접 입력'
+        ]
+      },
+      en: {
+        name: 'Physical Education',
+        details: [
+          "1F Robby",
+          "Self input"
+        ]
+      },
+      image: staticImgs,
+      location: { lat: 37.748940, lng: 127.186673 },
+      itemCounts: itemCounts
+    },
+    gus: {
+      ko: {
+        name: '체육대',
+        details: [
+          '1층 로비',
+          '직접 입력'
+        ]
+      },
+      en: {
+        name: 'Physical Education',
+        details: [
+          "1F Robby",
+          "Self input"
+        ]
+      },
+      image: staticImgs,
+      location: { lat: 37.748940, lng: 127.186673 },
+      itemCounts: itemCounts
+    },
+    guy: {
+      ko: {
+        name: '체육대',
+        details: [
+          '1층 로비',
+          '직접 입력'
+        ]
+      },
+      en: {
+        name: 'Physical Education',
+        details: [
+          "1F Robby",
+          "Self input"
+        ]
+      },
+      image: staticImgs,
+      location: { lat: 37.748940, lng: 127.186673 },
+      itemCounts: itemCounts
+    },
+    guh: {
+      ko: {
+        name: '체육대',
+        details: [
+          '1층 로비',
+          '직접 입력'
+        ]
+      },
+      en: {
+        name: 'Physical Education',
+        details: [
+          "1F Robby",
+          "Self input"
+        ]
+      },
+      image: staticImgs,
+      location: { lat: 37.748940, lng: 127.186673 },
+      itemCounts: itemCounts
+    },
+    gucl: {
+      ko: {
+        name: '체육대',
+        details: [
+          '1층 로비',
+          '직접 입력'
+        ]
+      },
+      en: {
+        name: 'Physical Education',
+        details: [
+          "1F Robby",
+          "Self input"
+        ]
+      },
+      image: staticImgs,
+      location: { lat: 37.748940, lng: 127.186673 },
+      itemCounts: itemCounts
+    },
+    guj: {
+      ko: {
+        name: '체육대',
+        details: [
+          '1층 로비',
+          '직접 입력'
+        ]
+      },
+      en: {
+        name: 'Physical Education',
+        details: [
+          "1F Robby",
+          "Self input"
+        ]
+      },
+      image: staticImgs,
+      location: { lat: 37.748940, lng: 127.186673 },
+      itemCounts: itemCounts
+    },
+    gugu: {
+      ko: {
+        name: '체육대',
+        details: [
+          '1층 로비',
+          '직접 입력'
+        ]
+      },
+      en: {
+        name: 'Physical Education',
+        details: [
+          "1F Robby",
+          "Self input"
+        ]
+      },
+      image: staticImgs,
+      location: { lat: 37.748940, lng: 127.186673 },
+      itemCounts: itemCounts
+    },
     guc: {
       ko: {
         name: '체육대',
@@ -590,7 +818,6 @@ export const buildingsObj = {
       location: { lat: 37.748940, lng: 127.186673 },
       itemCounts: itemCounts
     },
-    
   }
 }
 const markingBuildings = {
