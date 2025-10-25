@@ -801,14 +801,14 @@ export const buildingsObj = {
     },
     guc: {
       ko: {
-        name: '체육대',
+        name: '천문대',
         details: [
           '1층 로비',
           '직접 입력'
         ]
       },
       en: {
-        name: 'Physical Education',
+        name: 'Observatory',
         details: [
           "1F Robby",
           "Self input"
