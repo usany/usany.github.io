@@ -506,18 +506,6 @@ export const buildingsObj = {
     }
   }
 }
-// export const buildingsObject = {
-//   input: buildingsObj.input,
-//   ...buildingsObj.se,
-//   ...buildingsObj.gw
-// }
-// export const staticArray = {
-//   '중도': staticCl,
-//   '간호이과대': staticG,
-//   '청운': staticCw,
-//   '경영대': staticE,
-//   'building': staticImgs,
-// }
 const markingBuildings = {
   ...buildingsObj.se,
   ...buildingsObj.gw
