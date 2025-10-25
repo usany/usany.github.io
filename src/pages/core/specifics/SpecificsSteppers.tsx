@@ -4,6 +4,7 @@ import Steppers from "src/pages/add/Steppers";
 
 interface Props {
   message: {};
+  issue: boolean
 }
 
 function SpecificsSteppers({ message, issue }: Props) {

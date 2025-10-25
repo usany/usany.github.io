@@ -107,9 +107,9 @@ function SpecificsButtons({
       return (
         <div className="flex justify-center">
           {message.text.choose === 1 && (
-            <div>
+            <>
               {askingTheOwnerToConfirm}
-            </div>
+            </>
           )}
           {message.text.choose === 2 && (
             <>
