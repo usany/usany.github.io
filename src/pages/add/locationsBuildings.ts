@@ -808,7 +808,7 @@ export const buildingsObj = {
         ]
       },
       en: {
-        name: 'Observatory',
+        name: 'Astronomical Observatory',
         details: [
           "1F Robby",
           "Self input"
