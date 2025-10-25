@@ -481,6 +481,9 @@ export const buildingsObj = {
           "Self input"
         ]
       },
+      image: staticImgs,
+      location: { lat: 37.748940, lng: 127.186673 },
+      itemCounts: itemCounts
     },
     gwcl: {
       ko: {
