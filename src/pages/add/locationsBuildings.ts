@@ -606,7 +606,7 @@ export const markers = Object.keys(markingBuildings).map((value) => {
   }
 })
 
-const keysWithoutAllArray = ['input', ...Object.keys(buildingsObj.se), ...Object.keys(buildingsObj.gw)]
+const keysWithoutAllArray = ['input', ...Object.keys(buildingsObj.se), ...Object.keys(buildingsObj.gu), ...Object.keys(buildingsObj.gw)]
 export const locationsCollectionLetters = Object.fromEntries(keysWithoutAllArray.map((value) => {
   if (value === 'input') return [value, buildingsObj[value].ko.name]
   return (
