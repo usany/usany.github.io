@@ -28,7 +28,7 @@ const defaultLocations = {
   gu: buildingsObj.gw.gwcl.location,
   gw: buildingsObj.gw.gwcl.location,
 }
-const defaultLocation = markers[0].location
+// const defaultLocation = markers[0].location
 function BoardMap({
   selectedValues,
   handleSelectedValues,
