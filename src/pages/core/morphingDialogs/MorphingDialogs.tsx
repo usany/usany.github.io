@@ -59,11 +59,17 @@ const MorphingDialogs = ({
     }
   }
   const decreaseRound = () => {
-    setMessageValue((prev) => {
-      return (
-        {...prev, round: prev.round-1}
-      )
-    })
+    if (messageValue.round === 2) {
+      setMessageValue((prev) => {
+        return {...prev, connectedProfileImage: '', connectedProfileImageUrl: '', connectedDefaultProfile: '', round: prev.round-1}
+      })
+    } else {
+      setMessageValue((prev) => {
+        return (
+          {...prev, round: prev.round-1}
+        )
+      })
+    }
   }
   const handleConnectedClock = (newValue) => {
     setConnectedClock(newValue)
