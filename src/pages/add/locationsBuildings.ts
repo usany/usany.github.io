@@ -613,7 +613,7 @@ export const locationsCollectionLetters = Object.fromEntries(keysWithoutAllArray
     [value, buildingsObj[value.slice(0, 2)][value].ko.name]
   )
 }))
-const keysArray = ['seall', ...Object.keys(buildingsObj.se), 'gwall', ...Object.keys(buildingsObj.gw)]
+const keysArray = ['seall', ...Object.keys(buildingsObj.se), 'guall', ...Object.keys(buildingsObj.gu), 'gwall', ...Object.keys(buildingsObj.gw)]
 export const locationsBuildingsArray = keysArray.map((value) => {
   if (value.slice(2) === 'all') {
     return (
