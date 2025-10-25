@@ -407,7 +407,7 @@ export const buildingsObj = {
       location: { lat: 37.596216, lng: 127.055687 },
       itemCounts: itemCounts
     },
-    seb: {
+    sebe: {
       ko: {
         name: '법학관',
         details: [
@@ -462,6 +462,25 @@ export const buildingsObj = {
       },
       image: staticImgs,
       location: { lat: 37.594503, lng: 127.052378 },
+      itemCounts: itemCounts
+    },
+    seb: {
+      ko: {
+        name: '서울 본관',
+        details: [
+          "1층 로비",
+          "직접 입력"
+        ],
+      },
+      en: {
+        name: 'Seoul Main Building',
+        details: [
+          "1F Robby",
+          "Self input"
+        ],
+      },
+      image: staticImgs,
+      location: { lat: 37.597156, lng: 127.051767 },
       itemCounts: itemCounts
     },
   },
