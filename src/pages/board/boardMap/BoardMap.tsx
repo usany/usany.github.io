@@ -92,7 +92,7 @@ function BoardMap({
   const profile = useSelectors((state) => state.profile.value)
   const locations = {
     Seoul: 'se',
-    Global: 'gl',
+    Global: 'gu',
     Gwangneung: 'gw'
   }
   const campusesArray = [
