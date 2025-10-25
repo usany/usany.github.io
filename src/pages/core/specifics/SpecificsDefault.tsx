@@ -72,6 +72,7 @@ const SpecificsDefault = ({ drawerOpenTrue, message, connectedUser,
             handleConfirmingClock={handleConfirmingClock}
             handleReturningClock={handleReturningClock}
             handleConfirmedReturnClock={handleConfirmedReturnClock}
+            issue={issue}
             changeIssue={changeIssue}
           />
         </CardContent>

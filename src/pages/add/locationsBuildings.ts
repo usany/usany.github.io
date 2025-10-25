@@ -550,6 +550,46 @@ export const buildingsObj = {
       location: { lat: 37.749414, lng: 127.186413 },
       itemCounts: itemCounts
     }
+  },
+  gu: {
+    gug: {
+      ko: {
+        name: '공과대',
+        details: [
+          '1층 로비',
+          '직접 입력'
+        ]
+      },
+      en: {
+        name: 'Engineering',
+        details: [
+          "1F Robby",
+          "Self input"
+        ]
+      },
+      image: staticImgs,
+      location: { lat: 37.748940, lng: 127.186673 },
+      itemCounts: itemCounts
+    },
+    guc: {
+      ko: {
+        name: '체육대',
+        details: [
+          '1층 로비',
+          '직접 입력'
+        ]
+      },
+      en: {
+        name: 'Physical Education',
+        details: [
+          "1F Robby",
+          "Self input"
+        ]
+      },
+      image: staticImgs,
+      location: { lat: 37.748940, lng: 127.186673 },
+      itemCounts: itemCounts
+    },
   }
 }
 const markingBuildings = {

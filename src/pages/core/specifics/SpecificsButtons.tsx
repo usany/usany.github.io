@@ -22,6 +22,7 @@ function SpecificsButtons({
   handleConfirmingClock,
   handleReturningClock,
   handleConfirmedReturnClock,
+  issue,
   changeIssue
 }: Props) {
   const profile = useSelectors((state) => state.profile.value)
@@ -112,11 +113,11 @@ function SpecificsButtons({
           )}
           {message.text.choose === 2 && (
             <>
-              <ConfirmReturnButton
+              {!issue && <ConfirmReturnButton
                 message={message}
                 increaseRound={increaseRound}
                 handleConfirmedReturnClock={handleConfirmedReturnClock}
-              />
+              />}
               <ProblemButton changeIssue={changeIssue}/>
             </>
           )}
@@ -127,11 +128,11 @@ function SpecificsButtons({
       <div className="flex justify-center">
         {message.text.choose === 1 && (
           <>
-            <ConfirmReturnButton
+            {!issue && <ConfirmReturnButton
               message={message}
               increaseRound={increaseRound}
               handleConfirmedReturnClock={handleConfirmedReturnClock}
-            />
+            />}
             <ProblemButton changeIssue={changeIssue}/>
           </>
         )}
