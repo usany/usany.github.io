@@ -48,7 +48,7 @@ const MorphingDialogs = ({
   const increaseRound = () => {
     if (messageValue.round === 1) {
       setMessageValue((prev) => {
-        return {...prev, connectedProfileImage: profile.profileImage, connectedProfileImageUrl: profile.profileImageUrl, connectedDefaultProfile: profile.defaultProfile, round: prev.round+1}
+        return {...prev, connectedId: profile.uid, connectedProfileImage: profile.profileImage, connectedProfileImageUrl: profile.profileImageUrl, connectedDefaultProfile: profile.defaultProfile, round: prev.round+1}
       })
     } else {
       setMessageValue((prev) => {
@@ -61,7 +61,7 @@ const MorphingDialogs = ({
   const decreaseRound = () => {
     if (messageValue.round === 2) {
       setMessageValue((prev) => {
-        return {...prev, connectedProfileImage: '', connectedProfileImageUrl: '', connectedDefaultProfile: '', round: prev.round-1}
+        return {...prev, connectedId: '', connectedProfileImage: false, connectedProfileImageUrl: '', connectedDefaultProfile: '', round: prev.round-1}
       })
     } else {
       setMessageValue((prev) => {
