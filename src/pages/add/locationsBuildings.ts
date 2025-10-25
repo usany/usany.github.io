@@ -592,14 +592,14 @@ export const buildingsObj = {
     },
     guw: {
       ko: {
-        name: '체육대',
+        name: '외국어대',
         details: [
           '1층 로비',
           '직접 입력'
         ]
       },
       en: {
-        name: 'Physical Education',
+        name: 'Foreign Languages',
         details: [
           "1F Robby",
           "Self input"
@@ -611,14 +611,14 @@ export const buildingsObj = {
     },
     gum: {
       ko: {
-        name: '체육대',
+        name: '멀관',
         details: [
           '1층 로비',
           '직접 입력'
         ]
       },
       en: {
-        name: 'Physical Education',
+        name: 'Multimedia',
         details: [
           "1F Robby",
           "Self input"
@@ -630,14 +630,14 @@ export const buildingsObj = {
     },
     gug: {
       ko: {
-        name: '체육대',
+        name: '글관',
         details: [
           '1층 로비',
           '직접 입력'
         ]
       },
       en: {
-        name: 'Physical Education',
+        name: 'Global',
         details: [
           "1F Robby",
           "Self input"
@@ -649,14 +649,14 @@ export const buildingsObj = {
     },
     gud: {
       ko: {
-        name: '체육대',
+        name: '도예관',
         details: [
           '1층 로비',
           '직접 입력'
         ]
       },
       en: {
-        name: 'Physical Education',
+        name: 'Ceramic Art',
         details: [
           "1F Robby",
           "Self input"
@@ -668,14 +668,14 @@ export const buildingsObj = {
     },
     gucha: {
       ko: {
-        name: '체육대',
+        name: '체육관',
         details: [
           '1층 로비',
           '직접 입력'
         ]
       },
       en: {
-        name: 'Physical Education',
+        name: 'Gym',
         details: [
           "1F Robby",
           "Self input"
@@ -687,14 +687,14 @@ export const buildingsObj = {
     },
     gus: {
       ko: {
-        name: '체육대',
+        name: '생명과학대',
         details: [
           '1층 로비',
           '직접 입력'
         ]
       },
       en: {
-        name: 'Physical Education',
+        name: 'Life Sciences',
         details: [
           "1F Robby",
           "Self input"
@@ -706,14 +706,14 @@ export const buildingsObj = {
     },
     guy: {
       ko: {
-        name: '체육대',
+        name: '예술디자인대',
         details: [
           '1층 로비',
           '직접 입력'
         ]
       },
       en: {
-        name: 'Physical Education',
+        name: 'Arts and Design',
         details: [
           "1F Robby",
           "Self input"
@@ -725,14 +725,14 @@ export const buildingsObj = {
     },
     guh: {
       ko: {
-        name: '체육대',
+        name: '국제 학생회관',
         details: [
           '1층 로비',
           '직접 입력'
         ]
       },
       en: {
-        name: 'Physical Education',
+        name: 'Global Student Center',
         details: [
           "1F Robby",
           "Self input"
@@ -744,14 +744,14 @@ export const buildingsObj = {
     },
     gucl: {
       ko: {
-        name: '체육대',
+        name: '국제 중도',
         details: [
           '1층 로비',
           '직접 입력'
         ]
       },
       en: {
-        name: 'Physical Education',
+        name: 'Global Central Library',
         details: [
           "1F Robby",
           "Self input"
@@ -763,14 +763,14 @@ export const buildingsObj = {
     },
     guj: {
       ko: {
-        name: '체육대',
+        name: '전자정보/응용과학대',
         details: [
           '1층 로비',
           '직접 입력'
         ]
       },
       en: {
-        name: 'Physical Education',
+        name: 'Electronics Information and Applied Science',
         details: [
           "1F Robby",
           "Self input"
@@ -782,14 +782,14 @@ export const buildingsObj = {
     },
     gugu: {
       ko: {
-        name: '체육대',
+        name: '국제대',
         details: [
           '1층 로비',
           '직접 입력'
         ]
       },
       en: {
-        name: 'Physical Education',
+        name: 'International Studies',
         details: [
           "1F Robby",
           "Self input"
