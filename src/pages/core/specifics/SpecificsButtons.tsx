@@ -8,6 +8,8 @@ import StopSupportButton from 'src/pages/core/specifics/buttons/StopSupportButto
 import SupportButton from 'src/pages/core/specifics/buttons/SupportButton'
 import ProblemButton from './buttons/ProblemButton'
 import ProfileMembersLink from 'src/pages/profile/ProfileMembersLink'
+import { doc, getDoc } from 'firebase/firestore'
+import { dbservice } from 'src/baseApi/serverbase'
 
 interface Props {
   message: {}
@@ -29,6 +31,12 @@ function SpecificsButtons({
   const profile = useSelectors((state) => state.profile.value)
   const {isBorrowing, askingTheOwnerToConfirm, sharingCompleted} = useTexts()
   const isOwner = message.creatorId === profile?.uid
+  let otherUserProfile
+  if (issue) {
+    const otherUser = isOwner ? message.connectedId : message.creatorId
+    const ref = doc(dbservice, `members/${otherUser}`)
+    otherUserProfile = getDoc(ref).data()
+  }
   if (message.round === 1) {
     if (isOwner) {
       return (
