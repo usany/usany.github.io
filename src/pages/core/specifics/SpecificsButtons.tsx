@@ -95,7 +95,7 @@ function SpecificsButtons({
           )}
           {message.text.choose === 2 && (
             <>
-              {issue ? 'Please report the issue' : `${message.connectedName} ${isBorrowing}`}
+              {issue ? pleaseReportTheIssue : `${message.connectedName} ${isBorrowing}`}
               <ProblemButton message={message} issue={issue} changeIssue={changeIssue}/>
             </>
           )}
@@ -106,7 +106,7 @@ function SpecificsButtons({
       <div className="flex justify-center">
         {message.text.choose === 1 && (
           <div className='flex flex-col'>
-            {issue ? 'Please report the issue' : `${message.displayName} ${isBorrowing}`}
+            {issue ? pleaseReportTheIssue : `${message.displayName} ${isBorrowing}`}
             <ProblemButton message={message} issue={issue} changeIssue={changeIssue}/>
           </div>
         )}
@@ -130,7 +130,7 @@ function SpecificsButtons({
           )}
           {message.text.choose === 2 && (
             <div className='flex flex-col'>
-              {issue && 'Please report the issue'}
+              {issue && pleaseReportTheIssue}
               <div className='flex'>
                 {issue ? <ProfileMembersLink otherUserProfile={otherUserProfile}/> : <ConfirmReturnButton
                   message={message}
@@ -148,7 +148,7 @@ function SpecificsButtons({
       <div className="flex justify-center">
         {message.text.choose === 1 && (
           <div className='flex flex-col'>
-            {issue && 'Please report the issue'}
+            {issue && pleaseReportTheIssue}
             <div className='flex'>
               {issue ? <ProfileMembersLink otherUserProfile={otherUserProfile} /> : <ConfirmReturnButton
                 message={message}
