@@ -127,14 +127,14 @@ function SpecificsButtons({
     return (
       <div className="flex justify-center">
         {message.text.choose === 1 && (
-          <>
+          <div className='flex flex-col'>
             {issue ? 'Please report the issue' : <ConfirmReturnButton
               message={message}
               increaseRound={increaseRound}
               handleConfirmedReturnClock={handleConfirmedReturnClock}
             />}
             <ProblemButton message={message} issue={issue} changeIssue={changeIssue}/>
-          </>
+          </div>
         )}
         {message.text.choose === 2 && (
           <>
