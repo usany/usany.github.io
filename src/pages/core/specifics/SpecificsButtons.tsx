@@ -131,7 +131,7 @@ function SpecificsButtons({
             <div className='flex flex-col'>
               {issue && 'Please report the issue'}
               <div className='flex'>
-                {issue ? <ProfileMembersLink /> : <ConfirmReturnButton
+                {issue ? <ProfileMembersLink otherUserProfile={otherUserProfile}/> : <ConfirmReturnButton
                   message={message}
                   increaseRound={increaseRound}
                   handleConfirmedReturnClock={handleConfirmedReturnClock}
@@ -149,7 +149,7 @@ function SpecificsButtons({
           <div className='flex flex-col'>
             {issue && 'Please report the issue'}
             <div className='flex'>
-              {issue ? <ProfileMembersLink /> : <ConfirmReturnButton
+              {issue ? <ProfileMembersLink otherUserProfile={otherUserProfile} /> : <ConfirmReturnButton
                 message={message}
                 increaseRound={increaseRound}
                 handleConfirmedReturnClock={handleConfirmedReturnClock}

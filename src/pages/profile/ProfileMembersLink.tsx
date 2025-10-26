@@ -7,16 +7,13 @@ import { Button } from '@mui/material'
 import { doc } from 'firebase/firestore'
 import { dbservice } from 'src/baseApi/serverbase'
 
-const ProfileMembersLink = () => {
+const ProfileMembersLink = ({otherUserProfile}) => {
   const {state} = useLocation()
   // const { colorTwo } = useCardsBackground()
   const { report } = useTexts()
   const profile = useSelectors((state) => state.profile.value)
-  let user = state?.element || profile
   const location = useLocation()
-  if (location.pathname === '/') {
-    const ref = doc(dbservice, `member/${}`)
-  }
+  const user = location.pathname !== '/' ? (state?.element || profile) : otherUserProfile
   return (
     <Link to={`/contact/?id=${user.uid}`} state={{ user: user }}>
       <div className="flex justify-center">
