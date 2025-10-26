@@ -7,7 +7,6 @@ import ReturningButton from 'src/pages/core/specifics/buttons/ReturningButton'
 import StopSupportButton from 'src/pages/core/specifics/buttons/StopSupportButton'
 import SupportButton from 'src/pages/core/specifics/buttons/SupportButton'
 import ProblemButton from './buttons/ProblemButton'
-import ProfileMembersLink from 'src/pages/profile/ProfileMembersLink'
 
 interface Props {
   message: {}
@@ -79,10 +78,7 @@ function SpecificsButtons({
           )}
           {message.text.choose === 2 && (
             <>
-              {issue ? <div>
-                Please report the issue
-                <ProfileMembersLink />
-              </div> : `${message.connectedName} ${isBorrowing}`}
+              {issue ? 'Please report the issue' : `${message.connectedName} ${isBorrowing}`}
               <ProblemButton message={message} issue={issue} changeIssue={changeIssue}/>
             </>
           )}
@@ -92,13 +88,10 @@ function SpecificsButtons({
     return (
       <div className="flex justify-center">
         {message.text.choose === 1 && (
-          <>
-            {issue ? <div>
-                Please report the issue
-                <ProfileMembersLink />
-              </div> : `${message.displayName} ${isBorrowing}`}
+          <div className='flex flex-col'>
+            {issue ? 'Please report the issue' : `${message.displayName} ${isBorrowing}`}
             <ProblemButton message={message} issue={issue} changeIssue={changeIssue}/>
-          </>
+          </div>
         )}
         {message.text.choose === 2 && (
           <ReturningButton
@@ -120,10 +113,7 @@ function SpecificsButtons({
           )}
           {message.text.choose === 2 && (
             <>
-              {issue ? <div>
-                Please report the issue
-                <ProfileMembersLink />
-              </div> : <ConfirmReturnButton
+              {issue ? 'Please report the issue' : <ConfirmReturnButton
                 message={message}
                 increaseRound={increaseRound}
                 handleConfirmedReturnClock={handleConfirmedReturnClock}
@@ -138,10 +128,7 @@ function SpecificsButtons({
       <div className="flex justify-center">
         {message.text.choose === 1 && (
           <>
-            {issue ? <div>
-                Please report the issue
-                <ProfileMembersLink />
-              </div> : <ConfirmReturnButton
+            {issue ? 'Please report the issue' : <ConfirmReturnButton
               message={message}
               increaseRound={increaseRound}
               handleConfirmedReturnClock={handleConfirmedReturnClock}
