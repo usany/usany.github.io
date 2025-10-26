@@ -7,7 +7,7 @@ import { webSocket } from 'src/webSocket'
 function ProblemButton({ message, issue, changeIssue }) {
   const profile = useSelectors((state) => state.profile.value)
   const uid = profile.uid
-  const onIssueFalse = async (issue) => {
+  const onIssue = async () => {
     const { messagingToken } = await specificProcess({
       message: message,
       toUid: uid,
@@ -26,7 +26,7 @@ function ProblemButton({ message, issue, changeIssue }) {
     <Button
       variant='outlined'
       onClick={() => {
-        onIssue(issue)
+        onIssue()
         changeIssue()
       }}
     >
