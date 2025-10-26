@@ -111,7 +111,7 @@ const ProfileLocations = () => {
             <Button onClick={onClickSaveCampus}>{save}</Button>
           </div>
         :
-          <div className='flex justify-center'>{userCampus || 'Seoul Campus'}</div>
+          <div className='flex justify-center'>{campuses[languages][campuses.en.indexOf(userCampus || 'Seoul Campus')]}</div>
         }
         <Chip
           sx={locationConfirmation ? {} : undefined}
