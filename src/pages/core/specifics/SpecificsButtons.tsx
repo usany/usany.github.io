@@ -7,6 +7,7 @@ import ReturningButton from 'src/pages/core/specifics/buttons/ReturningButton'
 import StopSupportButton from 'src/pages/core/specifics/buttons/StopSupportButton'
 import SupportButton from 'src/pages/core/specifics/buttons/SupportButton'
 import ProblemButton from './buttons/ProblemButton'
+import ProfileMembersLink from 'src/pages/profile/ProfileMembersLink'
 
 interface Props {
   message: {}
@@ -114,12 +115,14 @@ function SpecificsButtons({
           {message.text.choose === 2 && (
             <div className='flex flex-col'>
               {issue && 'Please report the issue'}
-              {issue ? 'Please report the issue' : <ConfirmReturnButton
-                message={message}
-                increaseRound={increaseRound}
-                handleConfirmedReturnClock={handleConfirmedReturnClock}
-              />}
-              <ProblemButton message={message} issue={issue} changeIssue={changeIssue}/>
+              <div className='flex'>
+                {issue ? <ProfileMembersLink /> : <ConfirmReturnButton
+                  message={message}
+                  increaseRound={increaseRound}
+                  handleConfirmedReturnClock={handleConfirmedReturnClock}
+                />}
+                <ProblemButton message={message} issue={issue} changeIssue={changeIssue}/>
+              </div>
             </div>
           )}
         </div>
@@ -130,12 +133,14 @@ function SpecificsButtons({
         {message.text.choose === 1 && (
           <div className='flex flex-col'>
             {issue && 'Please report the issue'}
-            {issue ? 'Please report the issue' : <ConfirmReturnButton
-              message={message}
-              increaseRound={increaseRound}
-              handleConfirmedReturnClock={handleConfirmedReturnClock}
-            />}
-            <ProblemButton message={message} issue={issue} changeIssue={changeIssue}/>
+            <div className='flex'>
+              {issue ? <ProfileMembersLink /> : <ConfirmReturnButton
+                message={message}
+                increaseRound={increaseRound}
+                handleConfirmedReturnClock={handleConfirmedReturnClock}
+              />}
+              <ProblemButton message={message} issue={issue} changeIssue={changeIssue}/>
+            </div>
           </div>
         )}
         {message.text.choose === 2 && (
