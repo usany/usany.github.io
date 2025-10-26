@@ -1,33 +1,34 @@
 import { Button } from '@mui/material'
 import specificProcess from './specificProcess'
-import { doc, getDoc } from 'firebase/firestore'
+import { doc, getDoc, updateDoc } from 'firebase/firestore'
 import { dbservice } from 'src/baseApi/serverbase'
+import { webSocket } from 'src/webSocket'
 
 function ProblemButton({message, issue, changeIssue}) {
   const onIssue = async () => {
     const { messagingToken } = await specificProcess({
-    message: message,
-    toUid: uid,
-  })
-  const docRef = doc(dbservice, `num/${message.id}`)
-  const document = await getDoc(docRef)
-  const passingObject = {
-    id: message.id,
-    choose: message.text.choose,
-    sendingToken: messagingToken,
-    creatorId: message.creatorId,
-    creatorName: message.displayName,
-    connectedId: document.data()?.connectedId,
-    connectedName: document.data()?.connectedName,
-    connectedUrl: profileUrl,
-    preferLanguage: document.data()?.preferLanguage || 'ko',
-    confirmingClock: new Date().toString(),
-  }
-  updateDoc(docRef, {
-    round: 3,
-    confirmingClock: new Date().toString(),
-  })
-  webSocket.emit('confirm', passingObject)
+      message: message,
+      toUid: uid,
+    })
+    const docRef = doc(dbservice, `num/${message.id}`)
+    const document = await getDoc(docRef)
+    const passingObject = {
+      id: message.id,
+      choose: message.text.choose,
+      sendingToken: messagingToken,
+      creatorId: message.creatorId,
+      creatorName: message.displayName,
+      connectedId: document.data()?.connectedId,
+      connectedName: document.data()?.connectedName,
+      connectedUrl: profileUrl,
+      preferLanguage: document.data()?.preferLanguage || 'ko',
+      confirmingClock: new Date().toString(),
+    }
+    updateDoc(docRef, {
+      round: 3,
+      confirmingClock: new Date().toString(),
+    })
+    webSocket.emit('confirm', passingObject)
   }
   return (
     <Button
