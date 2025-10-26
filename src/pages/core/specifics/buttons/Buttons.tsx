@@ -7,7 +7,7 @@ import { webSocket } from 'src/webSocket'
 function ProblemButton({ message, issue, changeIssue }) {
   const profile = useSelectors((state) => state.profile.value)
   const uid = profile.uid
-  const onIssueFalse = async () => {
+  const onIssueFalse = async (issue) => {
     const { messagingToken } = await specificProcess({
       message: message,
       toUid: uid,
@@ -15,20 +15,10 @@ function ProblemButton({ message, issue, changeIssue }) {
     const docRef = doc(dbservice, `num/${message.id}`)
     const document = await getDoc(docRef)
     const passingObject = {
-      // id: message.id,
-      // choose: message.text.choose,
-      // sendingToken: messagingToken,
-      // creatorId: message.creatorId,
-      // creatorName: message.displayName,
-      // connectedId: document.data()?.connectedId,
-      // connectedName: document.data()?.connectedName,
-      // connectedUrl: profileUrl,
-      // preferLanguage: document.data()?.preferLanguage || 'ko',
-      // confirmingClock: new Date().toString(),
     }
     updateDoc(docRef, {
-      issue: false,
-      issueClock: new Date().toString(),
+      issue: issue ? false : true,
+      issueClock: issue ? '' : new Date().toString(),
     })
     webSocket.emit('confirm', passingObject)
   }
@@ -36,7 +26,7 @@ function ProblemButton({ message, issue, changeIssue }) {
     <Button
       variant='outlined'
       onClick={() => {
-        onIssueFalse()
+        onIssue(issue)
         changeIssue()
       }}
     >
