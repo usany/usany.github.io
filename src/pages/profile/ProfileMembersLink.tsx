@@ -7,7 +7,7 @@ import { Button } from '@mui/material'
 
 const ProfileMembersLink = () => {
   const {state} = useLocation()
-  const { colorTwo } = useCardsBackground()
+  // const { colorTwo } = useCardsBackground()
   const { report } = useTexts()
   const profile = useSelectors((state) => state.profile.value)
   const user = state?.element || profile
@@ -17,11 +17,11 @@ const ProfileMembersLink = () => {
         <Button variant='outlined'>
           {report}
         </Button>
-        <Card sx={{ bgcolor: colorTwo }}>
+        {/* <Card sx={{ bgcolor: colorTwo }}>
           <div className="flex justify-center p-5">
             {report}
           </div>
-        </Card>
+        </Card> */}
       </div>
     </Link>
   )
