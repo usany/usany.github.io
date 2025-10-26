@@ -3,6 +3,7 @@ import specificProcess from './specificProcess'
 import { doc, getDoc, updateDoc } from 'firebase/firestore'
 import { dbservice } from 'src/baseApi/serverbase'
 import { webSocket } from 'src/webSocket'
+import useSelectors from 'src/hooks/useSelectors'
 
 function ProblemButton({ message, issue, changeIssue }) {
   const profile = useSelectors((state) => state.profile.value)
@@ -15,12 +16,22 @@ function ProblemButton({ message, issue, changeIssue }) {
     const docRef = doc(dbservice, `num/${message.id}`)
     const document = await getDoc(docRef)
     const passingObject = {
+      id: message.id,
+      choose: message.text.choose,
+      sendingToken: messagingToken,
+      creatorId: message.creatorId,
+      creatorName: message.displayName,
+      connectedId: document.data()?.connectedId,
+      connectedName: document.data()?.connectedName,
+      connectedUrl: profileUrl,
+      preferLanguage: document.data()?.preferLanguage || 'ko',
+      confirmingClock: new Date().toString(),
     }
     updateDoc(docRef, {
       issue: issue ? false : true,
       issueClock: issue ? '' : new Date().toString(),
     })
-    webSocket.emit('confirm', passingObject)
+    webSocket.emit(issue ? 'issueFalse' : 'issueTrue', passingObject)
   }
   return (
     <Button
