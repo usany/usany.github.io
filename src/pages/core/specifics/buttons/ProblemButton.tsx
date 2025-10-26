@@ -8,6 +8,7 @@ import useSelectors from 'src/hooks/useSelectors'
 function ProblemButton({ message, issue, changeIssue }) {
   const profile = useSelectors((state) => state.profile.value)
   const uid = profile.uid
+  const profileUrl = profile.profileImage ? profile.profileImageUrl : profile.defaultProfile
   const onIssue = async () => {
     const { messagingToken } = await specificProcess({
       message: message,
