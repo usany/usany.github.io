@@ -101,7 +101,7 @@ const ProfileLocations = () => {
                   {campuses[languages].map((value, index) => {
                     return (
                       <SelectItem key={index} value={campuses.en[index]}>
-                        {value.slice(0, value.indexOf(' '))}
+                        {languages === 'ko' ? value : value.slice(0, value.indexOf(' '))}
                       </SelectItem>
                     )
                   })}
