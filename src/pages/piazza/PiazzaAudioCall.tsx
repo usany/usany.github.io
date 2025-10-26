@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react'
 import useLargeMedia from 'src/hooks/useLargeMedia'
 import { webSocket } from 'src/webSocket'
 
+let alerted = false
 function PiazzaAudioCall() {
   const [options, setOptions] = useState([])
   const [audioOn, setAudioOn] = useState(true)
@@ -43,6 +44,15 @@ function PiazzaAudioCall() {
   const roomName = location.search.slice(4)
   console.log(location.search.slice(4))
   useEffect(() => {
+    if (!alerted) {
+      setTimeout(() => {
+        alert('Allow audio access to make an audio call.')
+      }, 5)
+      alerted = true
+    }
+  }, [])
+
+  useEffect(() => {
     const initial = async () => {
       await getDevices()
       // const initialStream = await navigator.mediaDevices.getUserMedia(initialConstraints)
@@ -51,7 +61,6 @@ function PiazzaAudioCall() {
   }, [])
   useEffect(() => {
     if (myRef.current) {
-      alert('Allow audio access to make an audio call.')
       myRef.current.srcObject = stream
     }
   }, [stream])
