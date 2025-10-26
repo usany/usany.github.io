@@ -11,10 +11,15 @@ const ProfileMembersLink = () => {
   const { report } = useTexts()
   const profile = useSelectors((state) => state.profile.value)
   const user = state?.element || profile
+  const location = useLocation()
   return (
     <Link to={`/contact/?id=${user.uid}`} state={{ user: user }}>
       <div className="flex justify-center">
-        <Button variant='outlined'>
+        <Button variant='outlined' onClick={() => {
+          if (location.pathname === '/') {
+            document.body.classList.remove('overflow-hidden')
+          }
+        }}>
           {report}
         </Button>
         {/* <Card sx={{ bgcolor: colorTwo }}>
