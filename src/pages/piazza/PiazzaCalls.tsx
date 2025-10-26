@@ -5,6 +5,7 @@ import { webSocket } from 'src/webSocket'
 
 let myStream
 let myPeerConnection
+let alerted = false
 function PiazzaCalls() {
   const [options, setOptions] = useState([])
   const [audioOn, setAudioOn] = useState(true)
@@ -127,15 +128,19 @@ function PiazzaCalls() {
       myStream.getTracks().forEach((track) => myPeerConnection.addTrack(track, myStream))
     }
   }
-  // useEffect(() => {
-  //   alert('Allow video and audio access to call with other users.')
-  // })
+  useEffect(() => {
+    if (!alerted) {
+      setTimeout(() => {
+        alert('Allow video and audio access to make a video call.')
+      }, 5)
+      alerted = true
+    }
+  }, [])
   async function initCall() {
     await getMedia(null)
     makeConnection()
   }
   async function handleWelcome() {
-    alert('Allow video and audio access to make a video call.')
     await initCall()
     webSocket.emit('joinRoom', roomName, initCall)
   }
