@@ -5,8 +5,6 @@ interface Props {
 }
 
 function SpecificsActionsPopupsTriggers({ message }: Props) {
-
-
   return (
     <>
       <Avatars
