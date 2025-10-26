@@ -18,7 +18,7 @@ import useTexts from 'src/hooks/useTexts'
 import { changeProfile } from 'src/stateSlices/profileSlice'
 import ProfileLocationsChip from './ProfileLocationsChip'
 
-const campuses = ['Seoul Campus', 'Global Campus', 'Gwangneung Campus']
+const campuses = {ko: ['서울캠퍼스', '광릉캠퍼스', '광릉캠퍼스'], en: ['Seoul Campus', 'Global Campus', 'Gwangneung Campus']}
 const area = {
   westSouth: { lat: 37.5927551, lng: 127.047462 },
   westNorth: { lat: 37.6010743, lng: 127.047462 },
@@ -43,7 +43,7 @@ const ProfileLocations = () => {
   const locationConfirmNumber = 50000000
   const confirmed = profile?.locationConfirmed
   const largeMedia = useLargeMedia()
-
+  const languages = useSelectors((state) => state.languages.value)
   const locationConfirmation =
     confirmed && Date.now() - confirmed < locationConfirmNumber ? true : false
   const dispatch = useDispatch()
@@ -88,7 +88,7 @@ const ProfileLocations = () => {
       <div className={`flex ${!largeMedia && 'flex-col'} items-center gap-1`}>
         {userUid === profile?.uid ?
           <div className='flex items-center'>
-            <Select defaultValue={profile?.campus || 'Seoul Campus'} onValueChange={(newValue) => {
+            <Select defaultValue={campuses[languages][campuses.en.indexOf(profile?.campus || 'Seoul Campus')]} onValueChange={(newValue) => {
               selectedCampus = newValue
             }}>
               <SelectTrigger
@@ -98,7 +98,7 @@ const ProfileLocations = () => {
               </SelectTrigger>
               <SelectContent className="bg-light-1 dark:bg-dark-1">
                 <SelectGroup>
-                  {campuses.map((value, index) => {
+                  {campuses[languages].map((value, index) => {
                     return (
                       <SelectItem key={index} value={value.slice(0, value.indexOf(' '))}>
                         {value}
