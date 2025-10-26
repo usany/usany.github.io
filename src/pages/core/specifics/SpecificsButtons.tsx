@@ -38,11 +38,11 @@ function SpecificsButtons({
       if (issue) {
         const otherUser = isOwner ? message.connectedId : message.creatorId
         const ref = doc(dbservice, `members/${otherUser}`)
-        otherUserProfile = await getDoc(ref)
+        const userDoc = await getDoc(ref)
+        setOtherUserProfile(userDoc.data())
       }
     }
   }, [issue])
-  let otherUserProfile
   if (message.round === 1) {
     if (isOwner) {
       return (
