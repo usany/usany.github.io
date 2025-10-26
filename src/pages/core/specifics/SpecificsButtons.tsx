@@ -42,6 +42,7 @@ function SpecificsButtons({
         setOtherUserProfile(userDoc.data())
       }
     }
+    getOtherUser()
   }, [issue])
   if (message.round === 1) {
     if (isOwner) {
