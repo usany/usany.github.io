@@ -112,14 +112,14 @@ function SpecificsButtons({
             </>
           )}
           {message.text.choose === 2 && (
-            <>
+            <div className='flex flex-col'>
               {issue ? 'Please report the issue' : <ConfirmReturnButton
                 message={message}
                 increaseRound={increaseRound}
                 handleConfirmedReturnClock={handleConfirmedReturnClock}
               />}
               <ProblemButton message={message} issue={issue} changeIssue={changeIssue}/>
-            </>
+            </div>
           )}
         </div>
       )
