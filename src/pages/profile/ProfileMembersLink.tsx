@@ -1,11 +1,9 @@
 import Card from '@mui/material/Card'
+import useCardsBackground from '../../hooks/useCardsBackground'
 import { Link, useLocation, useSearchParams } from 'react-router-dom'
 import useSelectors from 'src/hooks/useSelectors'
 import useTexts from 'src/hooks/useTexts'
-import useCardsBackground from '../../hooks/useCardsBackground'
 import { Button } from '@mui/material'
-import { doc } from 'firebase/firestore'
-import { dbservice } from 'src/baseApi/serverbase'
 
 const ProfileMembersLink = ({otherUserProfile}) => {
   const {state} = useLocation()
