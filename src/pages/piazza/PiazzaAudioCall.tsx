@@ -51,6 +51,7 @@ function PiazzaAudioCall() {
   }, [])
   useEffect(() => {
     if (myRef.current) {
+      alert('Allow audio access to make an audio call.')
       myRef.current.srcObject = stream
     }
   }, [stream])

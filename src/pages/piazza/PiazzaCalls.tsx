@@ -127,11 +127,15 @@ function PiazzaCalls() {
       myStream.getTracks().forEach((track) => myPeerConnection.addTrack(track, myStream))
     }
   }
+  // useEffect(() => {
+  //   alert('Allow video and audio access to call with other users.')
+  // })
   async function initCall() {
     await getMedia(null)
     makeConnection()
   }
   async function handleWelcome() {
+    alert('Allow video and audio access to make a video call.')
     await initCall()
     webSocket.emit('joinRoom', roomName, initCall)
   }
