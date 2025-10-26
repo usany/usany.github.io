@@ -44,7 +44,7 @@ function ProblemButton({ message, issue, changeIssue }) {
         changeIssue()
       }}
     >
-      {issue ? issueOccured : issueCancel}
+      {issue ? issueCancel : issueOccured}
     </Button>
   )
 }

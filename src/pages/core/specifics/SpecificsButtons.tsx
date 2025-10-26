@@ -7,6 +7,7 @@ import ReturningButton from 'src/pages/core/specifics/buttons/ReturningButton'
 import StopSupportButton from 'src/pages/core/specifics/buttons/StopSupportButton'
 import SupportButton from 'src/pages/core/specifics/buttons/SupportButton'
 import ProblemButton from './buttons/ProblemButton'
+import ProfileMembersLink from 'src/pages/profile/ProfileMembersLink'
 
 interface Props {
   message: {}
@@ -78,7 +79,10 @@ function SpecificsButtons({
           )}
           {message.text.choose === 2 && (
             <>
-              {issue ? 'Please report the issue' : `${message.connectedName} ${isBorrowing}`}
+              {issue ? <div>
+                Please report the issue
+                <ProfileMembersLink />
+              </div> : `${message.connectedName} ${isBorrowing}`}
               <ProblemButton message={message} issue={issue} changeIssue={changeIssue}/>
             </>
           )}
@@ -89,7 +93,10 @@ function SpecificsButtons({
       <div className="flex justify-center">
         {message.text.choose === 1 && (
           <>
-            {issue ? 'Please report the issue' : `${message.displayName} ${isBorrowing}`}
+            {issue ? <div>
+                Please report the issue
+                <ProfileMembersLink />
+              </div> : `${message.displayName} ${isBorrowing}`}
             <ProblemButton message={message} issue={issue} changeIssue={changeIssue}/>
           </>
         )}
@@ -113,7 +120,10 @@ function SpecificsButtons({
           )}
           {message.text.choose === 2 && (
             <>
-              {issue ? 'Please report the issue' : <ConfirmReturnButton
+              {issue ? <div>
+                Please report the issue
+                <ProfileMembersLink />
+              </div> : <ConfirmReturnButton
                 message={message}
                 increaseRound={increaseRound}
                 handleConfirmedReturnClock={handleConfirmedReturnClock}
@@ -128,7 +138,10 @@ function SpecificsButtons({
       <div className="flex justify-center">
         {message.text.choose === 1 && (
           <>
-            {issue ? 'Please report the issue' : <ConfirmReturnButton
+            {issue ? <div>
+                Please report the issue
+                <ProfileMembersLink />
+              </div> : <ConfirmReturnButton
               message={message}
               increaseRound={increaseRound}
               handleConfirmedReturnClock={handleConfirmedReturnClock}
