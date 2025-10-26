@@ -4,10 +4,10 @@ import { doc, getDoc, updateDoc } from 'firebase/firestore'
 import { dbservice } from 'src/baseApi/serverbase'
 import { webSocket } from 'src/webSocket'
 
-function ProblemButton({message, issue, changeIssue}) {
+function ProblemButton({ message, issue, changeIssue }) {
   const profile = useSelectors((state) => state.profile.value)
   const uid = profile.uid
-  const onIssue = async () => {
+  const onIssueFalse = async () => {
     const { messagingToken } = await specificProcess({
       message: message,
       toUid: uid,
@@ -27,7 +27,7 @@ function ProblemButton({message, issue, changeIssue}) {
       // confirmingClock: new Date().toString(),
     }
     updateDoc(docRef, {
-      issue: issue ? false : true,
+      issue: false,
       issueClock: new Date().toString(),
     })
     webSocket.emit('confirm', passingObject)
@@ -36,7 +36,7 @@ function ProblemButton({message, issue, changeIssue}) {
     <Button
       variant='outlined'
       onClick={() => {
-        onIssue()
+        onIssueFalse()
         changeIssue()
       }}
     >
