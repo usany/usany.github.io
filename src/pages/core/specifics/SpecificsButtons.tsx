@@ -32,7 +32,7 @@ function SpecificsButtons({
   const profile = useSelectors((state) => state.profile.value)
   const {isBorrowing, askingTheOwnerToConfirm, sharingCompleted} = useTexts()
   const isOwner = message.creatorId === profile?.uid
-  const [otherUserProfile, setOtherUserProfile] = useState(null)
+  const [otherUserProfile, setOtherUserProfile] = useState({uid: ''})
   useEffect(() => {
     const getOtherUser = async () => {
       if (issue) {
