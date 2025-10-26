@@ -4,9 +4,11 @@ import { doc, getDoc, updateDoc } from 'firebase/firestore'
 import { dbservice } from 'src/baseApi/serverbase'
 import { webSocket } from 'src/webSocket'
 import useSelectors from 'src/hooks/useSelectors'
+import useTexts from 'src/hooks/useTexts'
 
 function ProblemButton({ message, issue, changeIssue }) {
   const profile = useSelectors((state) => state.profile.value)
+  const {issueOccured, issueCancel} = useTexts()
   const uid = profile.uid
   const profileUrl = profile.profileImage ? profile.profileImageUrl : profile.defaultProfile
   const onIssue = async () => {
@@ -42,7 +44,7 @@ function ProblemButton({ message, issue, changeIssue }) {
         changeIssue()
       }}
     >
-      {issue ? 'Issue Resolved' : 'Issue Occured'}
+      {issue ? issueOccured : issueCancel}
     </Button>
   )
 }
