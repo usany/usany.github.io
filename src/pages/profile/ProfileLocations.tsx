@@ -30,7 +30,7 @@ const ProfileLocations = () => {
   const {
     locationConfirmed,
     locationUnconfirmed,
-    campusLocationConfirmation,
+    // campusLocationConfirmation,
     failedLocationConfirmation,
     save,
     nothingChanged,
