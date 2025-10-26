@@ -113,6 +113,7 @@ function SpecificsButtons({
           )}
           {message.text.choose === 2 && (
             <div className='flex flex-col'>
+              {issue && 'Please report the issue'}
               {issue ? 'Please report the issue' : <ConfirmReturnButton
                 message={message}
                 increaseRound={increaseRound}
@@ -128,6 +129,7 @@ function SpecificsButtons({
       <div className="flex justify-center">
         {message.text.choose === 1 && (
           <div className='flex flex-col'>
+            {issue && 'Please report the issue'}
             {issue ? 'Please report the issue' : <ConfirmReturnButton
               message={message}
               increaseRound={increaseRound}
