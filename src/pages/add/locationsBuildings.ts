@@ -568,7 +568,7 @@ export const buildingsObj = {
         ]
       },
       image: staticImgs,
-      location: { lat: 37.748940, lng: 127.186673 },
+      location: { lat: 37.245777, lng: 127.080122 },
       itemCounts: itemCounts
     },
     guch: {
@@ -587,7 +587,7 @@ export const buildingsObj = {
         ]
       },
       image: staticImgs,
-      location: { lat: 37.748940, lng: 127.186673 },
+      location: { lat: 37.244233, lng: 127.080537 },
       itemCounts: itemCounts
     },
     guw: {
@@ -606,7 +606,7 @@ export const buildingsObj = {
         ]
       },
       image: staticImgs,
-      location: { lat: 37.748940, lng: 127.186673 },
+      location: { lat: 37.245254, lng: 127.077793 },
       itemCounts: itemCounts
     },
     gum: {
@@ -625,7 +625,7 @@ export const buildingsObj = {
         ]
       },
       image: staticImgs,
-      location: { lat: 37.748940, lng: 127.186673 },
+      location: { lat: 37.244588, lng: 127.076785 },
       itemCounts: itemCounts
     },
     gug: {
@@ -644,7 +644,7 @@ export const buildingsObj = {
         ]
       },
       image: staticImgs,
-      location: { lat: 37.748940, lng: 127.186673 },
+      location: { lat: 37.243973, lng: 127.076319 },
       itemCounts: itemCounts
     },
     gud: {
@@ -663,7 +663,7 @@ export const buildingsObj = {
         ]
       },
       image: staticImgs,
-      location: { lat: 37.748940, lng: 127.186673 },
+      location: { lat: 37.243563, lng: 127.081166 },
       itemCounts: itemCounts
     },
     gucha: {
@@ -682,7 +682,7 @@ export const buildingsObj = {
         ]
       },
       image: staticImgs,
-      location: { lat: 37.748940, lng: 127.186673 },
+      location: { lat: 37.242903, lng: 127.080062 },
       itemCounts: itemCounts
     },
     gus: {
@@ -701,7 +701,7 @@ export const buildingsObj = {
         ]
       },
       image: staticImgs,
-      location: { lat: 37.748940, lng: 127.186673 },
+      location: { lat: 37.242897, lng: 127.081157 },
       itemCounts: itemCounts
     },
     guy: {
@@ -720,7 +720,7 @@ export const buildingsObj = {
         ]
       },
       image: staticImgs,
-      location: { lat: 37.748940, lng: 127.186673 },
+      location: { lat: 37.241527, lng: 127.084456 },
       itemCounts: itemCounts
     },
     guh: {
@@ -739,7 +739,7 @@ export const buildingsObj = {
         ]
       },
       image: staticImgs,
-      location: { lat: 37.748940, lng: 127.186673 },
+      location: { lat: 37.241807, lng: 127.079968 },
       itemCounts: itemCounts
     },
     gucl: {
@@ -758,7 +758,7 @@ export const buildingsObj = {
         ]
       },
       image: staticImgs,
-      location: { lat: 37.748940, lng: 127.186673 },
+      location: { lat: 37.240681, lng: 127.079700 },
       itemCounts: itemCounts
     },
     guj: {
@@ -777,7 +777,7 @@ export const buildingsObj = {
         ]
       },
       image: staticImgs,
-      location: { lat: 37.748940, lng: 127.186673 },
+      location: { lat: 37.239730, lng: 127.083383 },
       itemCounts: itemCounts
     },
     gugu: {
@@ -796,7 +796,7 @@ export const buildingsObj = {
         ]
       },
       image: staticImgs,
-      location: { lat: 37.748940, lng: 127.186673 },
+      location: { lat: 37.239750, lng: 127.081414 },
       itemCounts: itemCounts
     },
     guc: {
@@ -815,7 +815,7 @@ export const buildingsObj = {
         ]
       },
       image: staticImgs,
-      location: { lat: 37.748940, lng: 127.186673 },
+      location: { lat: 37.238631, lng: 127.081878 },
       itemCounts: itemCounts
     },
   }

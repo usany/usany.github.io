@@ -143,6 +143,32 @@ const MorphingDialogs = ({
       )
     }
   }, [])
+  useEffect(() => {
+    if (!webSocket) return
+    function sIssueTrue() {
+      setMessageValue((prev) => ({...prev, issue: true}))
+    }
+    webSocket.on(`sIssueTrue${message.id}`, sIssueTrue)
+    return () => {
+      webSocket.off(
+        `sIssueTrue${message.id}`,
+        sIssueTrue,
+      )
+    }
+  }, [])
+  useEffect(() => {
+    if (!webSocket) return
+    function sIssueFalse() {
+      setMessageValue((prev) => ({...prev, issue: true}))
+    }
+    webSocket.on(`sIssueFalse${message.id}`, sIssueFalse)
+    return () => {
+      webSocket.off(
+        `sIssueFalse${message.id}`,
+        sIssueFalse,
+      )
+    }
+  }, [])
 
   return (
     <MorphingDialog

@@ -25,7 +25,7 @@ interface Props {
 
 const defaultLocations = {
   se: buildingsObj.se.secl.location,
-  gu: buildingsObj.gw.gwcl.location,
+  gu: buildingsObj.gu.gucl.location,
   gw: buildingsObj.gw.gwcl.location,
 }
 // const defaultLocation = markers[0].location
