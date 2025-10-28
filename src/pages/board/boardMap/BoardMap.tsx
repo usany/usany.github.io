@@ -112,7 +112,7 @@ function BoardMap({
   ]
   useEffect(() => {
     if (!selectedLocation) {
-      setSelectedLocation(locations[profile?.campus || 'Seoul'])
+      setSelectedLocation(locations[profile?.campus && profile?.campus.slice(0, profile?.campus.indexOf(' ')) || 'Seoul'])
     }
   }, [])
   const languages = useSelectors((state) => state.languages.value)
@@ -246,7 +246,7 @@ function BoardMap({
         zoom: 17,
       })
       setCalledMap(map)
-      const entries = Object.entries(buildingsObj[selectedLocation] && buildingsObj[selectedLocation].slice(0, buildingsObj[selectedLocation].indexOf(' ')))
+      const entries = Object.entries(buildingsObj[selectedLocation])
       for (const value of entries) {
         const position = new naver.maps.LatLng(
           value[1].location.lat,
