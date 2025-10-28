@@ -33,62 +33,7 @@ function BoardMap({
   selectedValues,
   handleSelectedValues,
 }: Props) {
-  const [items, setItems] = useState({
-    cl: {
-      usanOne: 0,
-      usanTwo: 0,
-      yangsanOne: 0,
-      yangsanTwo: 0,
-    },
-    cw: {
-      usanOne: 0,
-      usanTwo: 0,
-      yangsanOne: 0,
-      yangsanTwo: 0,
-    },
-    p: {
-      usanOne: 0,
-      usanTwo: 0,
-      yangsanOne: 0,
-      yangsanTwo: 0,
-    },
-    g: {
-      usanOne: 0,
-      usanTwo: 0,
-      yangsanOne: 0,
-      yangsanTwo: 0,
-    },
-    k: {
-      usanOne: 0,
-      usanTwo: 0,
-      yangsanOne: 0,
-      yangsanTwo: 0,
-    },
-    m: {
-      usanOne: 0,
-      usanTwo: 0,
-      yangsanOne: 0,
-      yangsanTwo: 0,
-    },
-    e: {
-      usanOne: 0,
-      usanTwo: 0,
-      yangsanOne: 0,
-      yangsanTwo: 0,
-    },
-    c: {
-      usanOne: 0,
-      usanTwo: 0,
-      yangsanOne: 0,
-      yangsanTwo: 0,
-    },
-    n: {
-      usanOne: 0,
-      usanTwo: 0,
-      yangsanOne: 0,
-      yangsanTwo: 0,
-    },
-  })
+  const [items, setItems] = useState({})
   const [selectedLocation, setSelectedLocation] = useState('')
   const profile = useSelectors((state) => state.profile.value)
   const locations = {
@@ -141,62 +86,11 @@ function BoardMap({
       )
       const docs = await getDocs(collectionQuery)
       const newArray = []
-      const itemCount = {
-        cl: {
-          usanOne: 0,
-          usanTwo: 0,
-          yangsanOne: 0,
-          yangsanTwo: 0,
-        },
-        cw: {
-          usanOne: 0,
-          usanTwo: 0,
-          yangsanOne: 0,
-          yangsanTwo: 0,
-        },
-        p: {
-          usanOne: 0,
-          usanTwo: 0,
-          yangsanOne: 0,
-          yangsanTwo: 0,
-        },
-        g: {
-          usanOne: 0,
-          usanTwo: 0,
-          yangsanOne: 0,
-          yangsanTwo: 0,
-        },
-        k: {
-          usanOne: 0,
-          usanTwo: 0,
-          yangsanOne: 0,
-          yangsanTwo: 0,
-        },
-        m: {
-          usanOne: 0,
-          usanTwo: 0,
-          yangsanOne: 0,
-          yangsanTwo: 0,
-        },
-        e: {
-          usanOne: 0,
-          usanTwo: 0,
-          yangsanOne: 0,
-          yangsanTwo: 0,
-        },
-        c: {
-          usanOne: 0,
-          usanTwo: 0,
-          yangsanOne: 0,
-          yangsanTwo: 0,
-        },
-        n: {
-          usanOne: 0,
-          usanTwo: 0,
-          yangsanOne: 0,
-          yangsanTwo: 0,
-        },
-      }
+      const keys = Object.keys(locationsCollectionLetters)
+      keys.splice(keys.indexOf('input'), 1)
+      const itemCount = Object.fromEntries(keys.map((value) => {
+        return [value, locationsCollectionLetters[value]]
+      }))
       docs.forEach((doc) => {
         newArray.push(doc.data())
         if (doc.data().item === '우산') {
