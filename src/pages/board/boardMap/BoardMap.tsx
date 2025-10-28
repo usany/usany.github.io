@@ -12,7 +12,7 @@ import { dbservice } from 'src/baseApi/serverbase'
 import useSelectors from 'src/hooks/useSelectors'
 import useTexts from 'src/hooks/useTexts'
 import FilterDialogsTrigger from '../FilterDialogs/FilterDialogsTrigger'
-import { locationsCollectionLetters, markers, buildingsObj } from 'src/pages/add/locationsBuildings'
+import { locationsCollectionLetters, markers, buildingsObj, locationsBuildingsArray } from 'src/pages/add/locationsBuildings'
 import { Chip } from '@mui/material'
 
 interface Props {
@@ -89,7 +89,12 @@ function BoardMap({
       const keys = Object.keys(locationsCollectionLetters)
       keys.splice(keys.indexOf('input'), 1)
       const itemCount = Object.fromEntries(keys.map((value) => {
-        return [value, locationsCollectionLetters[value]]
+        return [value, {
+          usanOne: 0,
+          usanTwo: 0,
+          yangsanOne: 0,
+          yangsanTwo: 0,
+        }]
       }))
       docs.forEach((doc) => {
         newArray.push(doc.data())
@@ -160,7 +165,7 @@ function BoardMap({
         const contentString = [
           `<div class="markerContainer">
             <div class="markerTitle">
-              ${languages === 'ko' ? value[1][languages].name : value[1][languages].name}
+              ${value[1][languages].name}
             </div>
             <div key={index} className="flex gap-5">
                 <div className="pt-1">
@@ -168,22 +173,22 @@ function BoardMap({
                 </div>
                 <div className="pt-3">
                   ${borrowing}
-                  ${value[1].itemCounts.usanOne}
+                  ${items[key].usanOne}
                 </div>
                 <div className="pt-3">
                   ${lending}
-                  ${value[1].itemCounts.usanTwo}
+                  ${items[key].usanTwo}
                 </div>
                 <div className="pt-1">
                   ${itemTwo}
                 </div>
                 <div className="pt-3">
                   ${borrowing}
-                  ${value[1].itemCounts.yangsanOne}
+                  ${items[key].yangsanOne}
                 </div>
                 <div className="pt-3">
                   ${lending}
-                  ${value[1].itemCounts.yangsanTwo}
+                  ${items[key].yangsanTwo}
                 </div>
               </div>
           </div>`,
