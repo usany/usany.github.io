@@ -246,7 +246,7 @@ function BoardMap({
         zoom: 17,
       })
       setCalledMap(map)
-      const entries = Object.entries(buildingsObj[selectedLocation].slice(0, buildingsObj[selectedLocation].indexOf(' ')))
+      const entries = Object.entries(buildingsObj[selectedLocation] && buildingsObj[selectedLocation].slice(0, buildingsObj[selectedLocation].indexOf(' ')))
       for (const value of entries) {
         const position = new naver.maps.LatLng(
           value[1].location.lat,
