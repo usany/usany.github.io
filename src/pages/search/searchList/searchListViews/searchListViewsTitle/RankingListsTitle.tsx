@@ -23,7 +23,7 @@ function RankingListsTitle({ multiple }: Props) {
   if (!multiple && searchParams.get('search')) return null
   return (
     <div className="flex truncate justify-center">
-      <div className={`flex justify-around w-[1000px]`}>
+      <div className={`flex w-[1000px]`}>
         {largeMedia ? (
           <div className="flex items-center justify-center w-[100px]">
             {multiple ? user : my} {ranking}
@@ -40,13 +40,13 @@ function RankingListsTitle({ multiple }: Props) {
             <AvatarFallback className="text-xl border-none">?</AvatarFallback>
           </Avatar>
         </div>
-        <div className="flex flex-col justify-center overflow-hidden w-40">
+        <div className="flex flex-col justify-center overflow-hidden px-3 w-32">
           <div>
             {multiple ? user : my} {name}
           </div>
           <div>{points}</div>
         </div>
-        <div className="flex flex-col justify-center items-center w-[67px]">
+        <div className="flex flex-col justify-center items-center w-[100px]">
           <div>Campus</div>
           <div>Verification</div>
         </div>
