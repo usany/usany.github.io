@@ -54,7 +54,7 @@ const ListsView = ({ elements, userSearch, multiple, handleUser }) => {
               onClick={() => onClick(element)}
             >
               <div
-                className={`flex
+                className={`flex justify-around
                   ${
                     location.pathname === '/ranking' &&
                     multiple &&
@@ -73,7 +73,7 @@ const ListsView = ({ elements, userSearch, multiple, handleUser }) => {
                   <div className="overflow-hidden">{element.points}</div>
                 </div>
                 <div className="flex flex-col justify-center items-center w-[100px]">
-                  {element?.campus || 'Seoul'}
+                  {element?.campus && element?.campus.slice(0, element?.campus.indexOf(' ')) || 'Seoul'}
                   <Chip sx={{height: '25px'}} color={locationConfirmed ? "success" : undefined} label={locationConfirmed ? <Check /> : <Ban />} />
                 </div>
               </div>

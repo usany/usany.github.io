@@ -23,7 +23,7 @@ function RankingListsTitle({ multiple }: Props) {
   if (!multiple && searchParams.get('search')) return null
   return (
     <div className="flex truncate justify-center">
-      <div className={`flex w-[1000px]`}>
+      <div className={`flex justify-around w-[1000px]`}>
         {largeMedia ? (
           <div className="flex items-center justify-center w-[100px]">
             {multiple ? user : my} {ranking}

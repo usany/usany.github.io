@@ -24,7 +24,7 @@ const NavigationTop = () => {
         <Navigation />
         <div className={`flex ${!largeMedia && 'flex-col'} items-center`}>
           {scrollNavigation && scrollLocation && <NavigationScroll />}
-          <div>
+          <>
             {bottomNavigation % 2 === 0 && <ToggleTabs />}
             {bottomNavigation === 1 && (
               <>
@@ -38,7 +38,7 @@ const NavigationTop = () => {
                 )}
               </>
             )}
-          </div>
+          </>
         </div>
         {navigator.onLine ? (
           <WeatherView />
