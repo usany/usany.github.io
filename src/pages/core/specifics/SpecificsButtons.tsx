@@ -27,7 +27,8 @@ function SpecificsButtons({
   handleReturningClock,
   handleConfirmedReturnClock,
   issue,
-  changeIssue
+  changeIssue,
+  changeMessageValue
 }: Props) {
   const profile = useSelectors((state) => state.profile.value)
   const {isBorrowing, askingTheOwnerToConfirm, sharingCompleted} = useTexts()
@@ -96,7 +97,7 @@ function SpecificsButtons({
           {message.text.choose === 2 && (
             <>
               {issue ? pleaseReportTheIssue : `${message.connectedName} ${isBorrowing}`}
-              <ProblemButton message={message} issue={issue} changeIssue={changeIssue}/>
+              <ProblemButton message={message} issue={issue} changeIssue={changeIssue} changeMessageValue={changeMessageValue}/>
             </>
           )}
         </div>
@@ -107,7 +108,7 @@ function SpecificsButtons({
         {message.text.choose === 1 && (
           <div className='flex flex-col'>
             {issue ? pleaseReportTheIssue : `${message.displayName} ${isBorrowing}`}
-            <ProblemButton message={message} issue={issue} changeIssue={changeIssue}/>
+            <ProblemButton message={message} issue={issue} changeIssue={changeIssue} changeMessageValue={changeMessageValue}/>
           </div>
         )}
         {message.text.choose === 2 && (
@@ -132,13 +133,12 @@ function SpecificsButtons({
             <div className='flex flex-col'>
               {issue && pleaseReportTheIssue}
               <div className='flex'>
-                {issue ? <ProfileMembersLink otherUserProfile={otherUserProfile}/> : <ConfirmReturnButton
+                {issue ? <ProblemButton message={message} issue={issue} changeIssue={changeIssue} changeMessageValue={changeMessageValue}/> : <ConfirmReturnButton
                   message={message}
                   increaseRound={increaseRound}
                   handleConfirmedReturnClock={handleConfirmedReturnClock}
                 />}
-                <ProblemButton message={message} issue={issue} changeIssue={changeIssue}/>
-              </div>
+                <ProblemButton message={message} issue={issue} changeIssue={changeIssue} changeMessageValue={changeMessageValue}/>              </div>
             </div>
           )}
         </div>

@@ -28,6 +28,7 @@ function Specifics({
   handleConfirmingClock,
   handleReturningClock,
   handleConfirmedReturnClock,
+  changeMessageValue
 }: Props) {
   const [cardFlipped, setCardFlipped] = useState(false)
   const [cardTilt, setCardTilt] = useState(false)
@@ -109,6 +110,7 @@ function Specifics({
                   handleConfirmingClock={handleConfirmingClock}
                   handleReturningClock={handleReturningClock}
                   handleConfirmedReturnClock={handleConfirmedReturnClock}
+                  changeMessageValue={changeMessageValue}
                 />
               </PulsatingButton>
             ) : (
@@ -125,6 +127,7 @@ function Specifics({
                 handleConfirmingClock={handleConfirmingClock}
                 handleReturningClock={handleReturningClock}
                 handleConfirmedReturnClock={handleConfirmedReturnClock}
+                changeMessageValue={changeMessageValue}
               />
             )}
           </div>

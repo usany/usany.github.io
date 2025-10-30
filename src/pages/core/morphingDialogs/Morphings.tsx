@@ -25,6 +25,7 @@ const Morphings = ({
   handleConfirmingClock,
   handleReturningClock,
   handleConfirmedReturnClock,
+  changeMessageValue
 }: Props) => {
   const [drawerOpen, setDrawerOpen] = useState(false)
   const drawerOpenTrue = () => {
@@ -56,6 +57,7 @@ const Morphings = ({
         handleConfirmingClock={handleConfirmingClock}
         handleReturningClock={handleReturningClock}
         handleConfirmedReturnClock={handleConfirmedReturnClock}
+        changeMessageValue={changeMessageValue}
       />
     </MorphingDialogContent>
   )

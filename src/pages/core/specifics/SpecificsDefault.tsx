@@ -12,7 +12,7 @@ import { buildingsObj, staticArray } from 'src/pages/add/locationsBuildings'
 import { useEffect, useState } from 'react'
 
 const SpecificsDefault = ({ drawerOpenTrue, message, connectedUser,
-  increaseRound, decreaseRound, changeOnPulse, changeConnectedUser, toggleOnTransfer, handleConnectedClock, handleConfirmingClock, handleReturningClock, handleConfirmedReturnClock
+  increaseRound, decreaseRound, changeOnPulse, changeConnectedUser, toggleOnTransfer, handleConnectedClock, handleConfirmingClock, handleReturningClock, handleConfirmedReturnClock, changeMessageValue
 }) => {
   const [issue, setIssue] = useState(false)
   const changeIssue = () => setIssue((prev) => !prev)
@@ -76,6 +76,7 @@ const SpecificsDefault = ({ drawerOpenTrue, message, connectedUser,
             handleConfirmedReturnClock={handleConfirmedReturnClock}
             issue={issue}
             changeIssue={changeIssue}
+            changeMessageValue={changeMessageValue}
           />
         </CardContent>
       </Card>

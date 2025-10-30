@@ -6,7 +6,7 @@ import { webSocket } from 'src/webSocket'
 import useSelectors from 'src/hooks/useSelectors'
 import useTexts from 'src/hooks/useTexts'
 
-function ProblemButton({ message, issue, changeIssue }) {
+function ProblemButton({ message, issue, changeIssue, changeMessageValue }) {
   const profile = useSelectors((state) => state.profile.value)
   const {issueOccured, issueCancel} = useTexts()
   const uid = profile.uid
@@ -44,6 +44,7 @@ function ProblemButton({ message, issue, changeIssue }) {
       onClick={() => {
         onIssue()
         changeIssue()
+        changeMessageValue((prev) => ({...prev, issue: issue ? false : true, issueClock: issue ? '' : new Date().toString()}))
       }}
     >
       {issue ? issueCancel : issueOccured}
