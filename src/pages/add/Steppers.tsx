@@ -22,6 +22,7 @@ const steps = {
 
 function Steppers({ message }) {
   const languages = useSelectors((state) => state.languages.value)
+  console.log(message)
   return (
     <div>
       <Stepper

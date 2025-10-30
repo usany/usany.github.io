@@ -138,7 +138,8 @@ function SpecificsButtons({
                   increaseRound={increaseRound}
                   handleConfirmedReturnClock={handleConfirmedReturnClock}
                 />}
-                <ProblemButton message={message} issue={issue} changeIssue={changeIssue} changeMessageValue={changeMessageValue}/>              </div>
+                <ProblemButton message={message} issue={issue} changeIssue={changeIssue} changeMessageValue={changeMessageValue}/>              
+              </div>
             </div>
           )}
         </div>
