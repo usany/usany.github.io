@@ -20,7 +20,7 @@ const steps = {
   ]
 }
 
-function Steppers({ message, issue }) {
+function Steppers({ message }) {
   const languages = useSelectors((state) => state.languages.value)
   return (
     <div>
@@ -28,7 +28,7 @@ function Steppers({ message, issue }) {
         activeStep={message.round - 1} alternativeLabel>
         {steps[languages].map((label, index) => {
           let error = undefined
-          if (index === message.round -1 && issue) {
+          if (index === message.round -1 && message?.issue) {
             error = !false
           }
           return (
