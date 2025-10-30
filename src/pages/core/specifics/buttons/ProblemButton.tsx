@@ -44,7 +44,7 @@ function ProblemButton({ message, issue, changeIssue, changeMessageValue }) {
       onClick={() => {
         onIssue()
         changeIssue()
-        changeMessageValue((prev) => ({...prev, issue: issue ? false : true, issueClock: issue ? '' : new Date().toString()}))
+        changeMessageValue((prev) => ({...prev, issue: !prev.issue, issueClock: prev.issue ? '' : new Date().toString()}))
       }}
     >
       {issue ? issueCancel : issueOccured}
