@@ -138,7 +138,7 @@ function SpecificsButtons({
                   increaseRound={increaseRound}
                   handleConfirmedReturnClock={handleConfirmedReturnClock}
                 />}
-                <ProblemButton message={message} issue={issue} changeIssue={changeIssue} changeMessageValue={changeMessageValue}/>              
+                <ProblemButton message={message} issue={issue} changeIssue={changeIssue} changeMessageValue={changeMessageValue}/>
               </div>
             </div>
           )}
@@ -156,7 +156,7 @@ function SpecificsButtons({
                 increaseRound={increaseRound}
                 handleConfirmedReturnClock={handleConfirmedReturnClock}
               />}
-              <ProblemButton message={message} issue={issue} changeIssue={changeIssue}/>
+              <ProblemButton message={message} issue={issue} changeIssue={changeIssue} changeMessageValue={changeMessageValue}/>
             </div>
           </div>
         )}
