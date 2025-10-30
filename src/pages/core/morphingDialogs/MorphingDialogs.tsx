@@ -145,8 +145,8 @@ const MorphingDialogs = ({
   }, [])
   useEffect(() => {
     if (!webSocket) return
-    function sIssueTrue() {
-      setMessageValue((prev) => ({...prev, issue: true}))
+    function sIssueTrue(res) {
+      setMessageValue((prev) => ({...prev, issue: true, issueClock: res.issueClock}))
     }
     webSocket.on(`sIssueTrue${message.id}`, sIssueTrue)
     return () => {

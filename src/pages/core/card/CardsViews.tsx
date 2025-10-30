@@ -13,7 +13,7 @@ const CardsViews = ({ message, onPulse, onTransfer }: Props) => {
   const shadowColor = getShadowColor(id)
   return (
     <Tilt>
-      {onPulse ? (
+      {onPulse || message.issue ? (
         <PulsatingButton pulseColor={shadowColor}>
           <CardView
             onTransfer={false}

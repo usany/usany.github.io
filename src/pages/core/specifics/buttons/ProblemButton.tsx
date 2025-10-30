@@ -29,6 +29,8 @@ function ProblemButton({ message, issue, changeIssue }) {
       connectedUrl: profileUrl,
       preferLanguage: document.data()?.preferLanguage || 'ko',
       confirmingClock: new Date().toString(),
+      issue: issue ? false : true,
+      issueClock: issue ? '' : new Date().toString(),
     }
     updateDoc(docRef, {
       issue: issue ? false : true,

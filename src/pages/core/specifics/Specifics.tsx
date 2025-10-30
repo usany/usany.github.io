@@ -91,7 +91,7 @@ function Specifics({
       >
         <div className={`cards ${cardFlipped && 'rotatingCards'} z-50`}>
           <div className="sides">
-            {onPulse ? (
+            {onPulse || message.issue ? (
               <PulsatingButton
                 pulseColor={shadowColor}
                 className="cursor-default"

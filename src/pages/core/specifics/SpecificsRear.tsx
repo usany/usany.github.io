@@ -107,6 +107,12 @@ function SpecificsRear({
       text: returnConfirmedAt,
       messageClock: confirmedReturnMoment
     },
+    {
+      isBorrowing: false,
+      passingProfile: message.text.choose === 1 ? passingValueConnected : passingValueCreator,
+      text: 'Issued: ',
+      messageClock: message.issueClock
+    }
   ]
   return (
     <div className="backSide">

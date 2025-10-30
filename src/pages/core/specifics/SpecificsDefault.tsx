@@ -9,7 +9,7 @@ import SpecificsSteppers from './SpecificsSteppers'
 import SpecificsTrades from './SpecificsTrades'
 import getShadowColor from './getShadowColor'
 import { buildingsObj, staticArray } from 'src/pages/add/locationsBuildings'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 const SpecificsDefault = ({ drawerOpenTrue, message, connectedUser,
   increaseRound, decreaseRound, changeOnPulse, changeConnectedUser, toggleOnTransfer, handleConnectedClock, handleConfirmingClock, handleReturningClock, handleConfirmedReturnClock
@@ -27,7 +27,9 @@ const SpecificsDefault = ({ drawerOpenTrue, message, connectedUser,
   const key = Object.keys(buildingsObject).find((key) => buildingsObject[key].ko.name === locationOne)
   const staticImg = buildingsObject[key]?.image
   // const staticImg = staticArray[message.text.count] || staticArray['building']
-
+  useEffect(() => {
+    setIssue(message?.issue)
+  }, [message])
     return (
       <Card
         className="colorTwo"
