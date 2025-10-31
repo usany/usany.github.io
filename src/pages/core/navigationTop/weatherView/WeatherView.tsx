@@ -3,7 +3,6 @@ import useTexts from 'src/hooks/useTexts'
 import { useGetWeatherQuery } from 'src/stateSlices/weather'
 
 const WeatherView = () => {
-  // const languages = useSelectors((state) => state.languages.value)
   const { loading, failed, hoegi, seocheon, jinjeop } = useTexts()
   const profile = useSelectors((state) => state.profile.value)
   const campus = profile?.campus.slice(0, profile?.campus.indexOf(' ')) || 'Seoul'
