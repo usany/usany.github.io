@@ -4,9 +4,9 @@ import { useGetWeatherQuery } from 'src/stateSlices/weather'
 
 const WeatherView = () => {
   const languages = useSelectors((state) => state.languages.value)
-  const { loading, failed } = useTexts()
+  const { loading, failed, hoegi } = useTexts()
   const profile = useSelectors((state) => state.profile.value)
-  const {hoegi} = useTexts()
+  // const {hoegi} = useTexts()
   const campus = profile?.campus.slice(0, profile?.campus.indexOf(' ')) || 'Seoul'
   const campusText = campus === 'Seoul' ? hoegi : campus === 'Global' ? languages === 'ko' ? '서천동' : 'Seocheon' : languages === 'ko' ? '진접동' : 'JinJeop'
   const LATITUDE = campus === 'Seoul' ? 37.5948 : campus === 'Global' ? 37.245777 : 37.748940
