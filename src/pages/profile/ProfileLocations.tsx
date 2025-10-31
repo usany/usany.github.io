@@ -91,7 +91,7 @@ const ProfileLocations = () => {
       <div className={`flex ${!largeMedia && 'flex-col'} items-center gap-1`}>
         {userUid === profile?.uid ?
           <div className='flex items-center'>
-            <Select defaultValue={campuses[languages][campuses.en.indexOf(profile?.campus || 'Seoul Campus')]} onValueChange={(newValue) => {
+            <Select defaultValue={campuses.en[campuses.en.indexOf(profile?.campus || 'Seoul Campus')]} onValueChange={(newValue) => {
               selectedCampus = newValue
             }}>
               <SelectTrigger
