@@ -27,7 +27,7 @@ function SpecificsRear({
   returningClock,
   confirmedReturnClock,
 }: Props) {
-  const { borrowing, lending, createdAt, supportedAt, borrowedAt, lendedAt, returnOnProcessAt, returnConfirmedAt } = useTexts()
+  const { borrowing, lending, createdAt, supportedAt, borrowedAt, lendedAt, returnOnProcessAt, returnConfirmedAt, issued } = useTexts()
   const profile = useSelectors((state) => state.profile.value)
   const profileImageUrl = useSelectors((state) => state.profileImageUrl.value)
   const id = message?.id || ''
@@ -110,7 +110,7 @@ function SpecificsRear({
     {
       isBorrowing: false,
       passingProfile: message.text.choose === 1 ? passingValueConnected : passingValueCreator,
-      text: 'Issued: ',
+      text: issued,
       messageClock: message.issueClock
     }
   ]
