@@ -159,7 +159,7 @@ const MorphingDialogs = ({
   useEffect(() => {
     if (!webSocket) return
     function sIssueFalse() {
-      setMessageValue((prev) => ({...prev, issue: true}))
+      setMessageValue((prev) => ({...prev, issue: false}))
     }
     webSocket.on(`sIssueFalse${message.id}`, sIssueFalse)
     return () => {
@@ -185,6 +185,7 @@ const MorphingDialogs = ({
         >
           <CardsViews
             message={message}
+            issue={messageValue?.issue}
             onPulse={onPulse}
             onTransfer={onTransfer}
           />
