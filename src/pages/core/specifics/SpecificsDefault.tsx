@@ -8,7 +8,7 @@ import SpecificsDimensions from './SpecificsDimensions'
 import SpecificsSteppers from './SpecificsSteppers'
 import SpecificsTrades from './SpecificsTrades'
 import getShadowColor from './getShadowColor'
-import { buildingsObj, staticArray } from 'src/pages/add/locationsBuildings'
+import { buildingsObj } from 'src/pages/add/locationsBuildings'
 import { useEffect, useState } from 'react'
 
 const SpecificsDefault = ({ drawerOpenTrue, message, connectedUser,
