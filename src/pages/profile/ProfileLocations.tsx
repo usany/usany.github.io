@@ -19,7 +19,7 @@ import { changeProfile } from 'src/stateSlices/profileSlice'
 import ProfileLocationsChip from './ProfileLocationsChip'
 
 const campuses = {
-  ko: ['서울캠퍼스', '광릉캠퍼스', '광릉캠퍼스'],
+  ko: ['서울캠퍼스', '국제캠퍼스', '광릉캠퍼스'],
   en: ['Seoul Campus', 'Global Campus', 'Gwangneung Campus']
 }
 const area = {
@@ -28,6 +28,12 @@ const area = {
   eastSouth: { lat: 37.5927551, lng: 127.0571999 },
   eastNorth: { lat: 37.6010743, lng: 127.0571999 },
 }
+const areas = {
+  se: area,
+  gu: area,
+  gw: area
+}
+
 const ProfileLocations = () => {
   const [location, setLocation] = useState({ lat: 0, lng: 0 })
   const {
