@@ -82,6 +82,21 @@ const ProfileLocations = () => {
       }
     }
   }
+  const onLocationBoundary = () => {
+    const myDoc = doc(dbservice, `members/${profile?.uid}`)
+    if (
+      location.lat > area.westSouth.lat &&
+      location.lat < area.westNorth.lat
+    ) {
+      if (
+        location.lng > area.westSouth.lng &&
+        location.lng < area.eastSouth.lng
+      ) {
+        updateDoc(myDoc, { locationConfirmed: Date.now() })
+        dispatch(changeProfile({ ...profile, locationConfirmed: true }))
+      }
+    }
+  }
   const onClickLocation = () => {
     alert('Allow location access to update on-campus status of your profile')
     navigator.geolocation.getCurrentPosition((position) => {
