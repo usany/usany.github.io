@@ -10,7 +10,6 @@ import SpecificsTrades from './SpecificsTrades'
 import getShadowColor from './getShadowColor'
 import { buildingsObj } from 'src/pages/add/locationsBuildings'
 import { useEffect, useState } from 'react'
-
 const SpecificsDefault = ({ drawerOpenTrue, message, connectedUser,
   increaseRound, decreaseRound, changeOnPulse, changeConnectedUser, toggleOnTransfer, handleConnectedClock, handleConfirmingClock, handleReturningClock, handleConfirmedReturnClock, changeMessageValue
 }) => {
