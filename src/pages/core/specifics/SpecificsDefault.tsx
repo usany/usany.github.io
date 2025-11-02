@@ -29,57 +29,58 @@ const SpecificsDefault = ({ drawerOpenTrue, message, connectedUser,
   useEffect(() => {
     setIssue(message?.issue)
   }, [message])
-    return (
-      <Card
-        className="colorTwo"
-        sx={{
-          maxWidth: `${window.screen.width * 0.9}px`,
-          boxShadow: `1.9px 1.9px 1.9px 1.9px ${shadowColor}`,
-        }}
-      >
-        <CardContent>
-          <SpecificsActions
-            message={message}
-            drawerOpenTrue={drawerOpenTrue}
+
+  return (
+    <Card
+      className="colorTwo"
+      sx={{
+        maxWidth: `${window.screen.width * 0.9}px`,
+        boxShadow: `1.9px 1.9px 1.9px 1.9px ${shadowColor}`,
+      }}
+    >
+      <CardContent>
+        <SpecificsActions
+          message={message}
+          drawerOpenTrue={drawerOpenTrue}
+        />
+        <div className="flex justify-center pt-1">
+          <CardMedia
+            sx={{
+              width: ((200 * 188) / 141) * 0.9,
+              height: 188 * 0.9,
+              borderRadius: '10px',
+            }}
+            image={staticImg}
           />
-          <div className="flex justify-center pt-1">
-            <CardMedia
-              sx={{
-                width: ((200 * 188) / 141) * 0.9,
-                height: 188 * 0.9,
-                borderRadius: '10px',
-              }}
-              image={staticImg}
-            />
-          </div>
-          <SpecificsDimensions message={message} />
-          <Divider />
-          <SpecificsTrades
-            drawerOpenTrue={drawerOpenTrue}
-            message={message}
-            connectedUser={connectedUser}
-          />
-          <Divider />
-          <SpecificsSteppers message={message} />
-          <Divider />
-          <SpecificsButtons
-            increaseRound={increaseRound}
-            decreaseRound={decreaseRound}
-            message={message}
-            changeOnPulse={changeOnPulse}
-            changeConnectedUser={changeConnectedUser}
-            toggleOnTransfer={toggleOnTransfer}
-            handleConnectedClock={handleConnectedClock}
-            handleConfirmingClock={handleConfirmingClock}
-            handleReturningClock={handleReturningClock}
-            handleConfirmedReturnClock={handleConfirmedReturnClock}
-            issue={issue}
-            changeIssue={changeIssue}
-            changeMessageValue={changeMessageValue}
-          />
-        </CardContent>
-      </Card>
-    )
-  }
+        </div>
+        <SpecificsDimensions message={message} />
+        <Divider />
+        <SpecificsTrades
+          drawerOpenTrue={drawerOpenTrue}
+          message={message}
+          connectedUser={connectedUser}
+        />
+        <Divider />
+        <SpecificsSteppers message={message} />
+        <Divider />
+        <SpecificsButtons
+          increaseRound={increaseRound}
+          decreaseRound={decreaseRound}
+          message={message}
+          changeOnPulse={changeOnPulse}
+          changeConnectedUser={changeConnectedUser}
+          toggleOnTransfer={toggleOnTransfer}
+          handleConnectedClock={handleConnectedClock}
+          handleConfirmingClock={handleConfirmingClock}
+          handleReturningClock={handleReturningClock}
+          handleConfirmedReturnClock={handleConfirmedReturnClock}
+          issue={issue}
+          changeIssue={changeIssue}
+          changeMessageValue={changeMessageValue}
+        />
+      </CardContent>
+    </Card>
+  )
+}
 
 export default SpecificsDefault
