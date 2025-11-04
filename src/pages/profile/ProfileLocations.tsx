@@ -99,7 +99,7 @@ const ProfileLocations = () => {
   }
   const onLocationBoundary = () => {
     const myDoc = doc(dbservice, `members/${profile?.uid}`)
-    const key = profile?.campus || 'Seoul'
+    const key = profile?.campus.slice(0, profile?.campus.indexOf(' ')) || 'Seoul'
     if (
       location.lat > areas[key].westSouth.lat &&
       location.lat < areas[key].westNorth.lat
