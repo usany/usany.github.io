@@ -201,7 +201,7 @@ export const buildingsObj = {
       location: { lat: 37.5967052, lng: 127.0552861 },
       itemCounts: itemCounts
     },
-    sem: {
+    semu: {
       ko: {
         name: '문과대',
         details: [
@@ -431,7 +431,7 @@ export const buildingsObj = {
       location: { lat: 37.595846, lng: 127.055458 },
       itemCounts: itemCounts
     },
-    semo: {
+    sem: {
       ko: {
         name: '무용학부관',
         details: [
