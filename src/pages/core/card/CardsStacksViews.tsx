@@ -26,6 +26,8 @@ const handleDelete = async ({
     const newMessages = userSnap.data()?.createdCards.filter((element: string) => element !== id)
     updateDoc(userRef, { createdCards: newMessages })
     deleteMessage(messageId)
+  } else {
+    alert('Processing cards cannot be deleted')
   }
   changeLongPressCard('')
 }
