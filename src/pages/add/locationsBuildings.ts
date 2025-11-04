@@ -16,7 +16,7 @@ import guy from 'src/assets/guy.jpg'
 import guh from 'src/assets/guh.jpg'
 import gucl from 'src/assets/gucl.jpg'
 import guj from 'src/assets/guj.jpg'
-import gug from 'src/assets/gug.jpg'
+import gugu from 'src/assets/gugu.jpg'
 import guc from 'src/assets/guc.jpg'
 
 const itemCounts = {
@@ -810,7 +810,7 @@ export const buildingsObj = {
           "Self input"
         ]
       },
-      image: gug,
+      image: gugu,
       location: { lat: 37.239750, lng: 127.081414 },
       itemCounts: itemCounts
     },
