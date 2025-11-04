@@ -6,6 +6,11 @@ import staticE from 'src/assets/comratio.jpeg'
 import gwcl from 'src/assets/gwcl.png'
 import gwb from 'src/assets/gwb.png'
 import gwc from 'src/assets/gwc.png'
+import gugo from 'src/assets/gugo.png'
+import guch from 'src/assets/guch.png'
+import guw from 'src/assets/guw.png'
+import gum from 'src/assets/gum.png'
+import gucl from 'src/assets/gucl.png'
 
 const itemCounts = {
   usanOne: 0,
@@ -534,7 +539,7 @@ export const buildingsObj = {
       location: { lat: 37.748849, lng: 127.185880 },
       itemCounts: itemCounts
     },
-    gwc: {
+    gwcha: {
       ko: {
         name: '광릉 체육관',
         details : [
