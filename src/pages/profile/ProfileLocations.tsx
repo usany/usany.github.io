@@ -91,12 +91,12 @@ const ProfileLocations = () => {
     const myDoc = doc(dbservice, `members/${profile?.uid}`)
     const key = profile?.campus || 'Seoul'
     if (
-      location.lat > area.westSouth.lat &&
-      location.lat < area.westNorth.lat
+      location.lat > areas[key].westSouth.lat &&
+      location.lat < areas[key].westNorth.lat
     ) {
       if (
-        location.lng > area.westSouth.lng &&
-        location.lng < area.eastSouth.lng
+        location.lng > areas[key].westSouth.lng &&
+        location.lng < areas[key].eastSouth.lng
       ) {
         updateDoc(myDoc, { locationConfirmed: Date.now() })
         dispatch(changeProfile({ ...profile, locationConfirmed: true }))
