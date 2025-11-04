@@ -462,7 +462,7 @@ export const buildingsObj = {
           "Self input"
         ],
       },
-      image: staticImgs,
+      image: seb,
       location: { lat: 37.597883, lng: 127.053854 },
       itemCounts: itemCounts
     },
@@ -481,7 +481,7 @@ export const buildingsObj = {
           "Self input"
         ],
       },
-      image: staticImgs,
+      image: seh,
       location: { lat: 37.595474, lng: 127.051071 },
       itemCounts: itemCounts
     },
@@ -519,7 +519,7 @@ export const buildingsObj = {
           "Self input"
         ],
       },
-      image: staticImgs,
+      image: seb,
       location: { lat: 37.597156, lng: 127.051767 },
       itemCounts: itemCounts
     },
