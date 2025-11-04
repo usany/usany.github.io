@@ -3,6 +3,9 @@ import staticCl from 'src/assets/static_cl.jpeg'
 import staticCw from 'src/assets/static_cw.jpeg'
 import staticG from 'src/assets/static_g.jpeg'
 import staticE from 'src/assets/comratio.jpeg'
+import gwcl from 'src/assets/gwcl.png'
+import gwb from 'src/assets/gwb.png'
+import gwc from 'src/assets/gwc.png'
 
 const itemCounts = {
   usanOne: 0,
@@ -508,7 +511,7 @@ export const buildingsObj = {
           "Self input"
         ]
       },
-      image: staticImgs,
+      image: gwb,
       location: { lat: 37.748940, lng: 127.186673 },
       itemCounts: itemCounts
     },
@@ -527,7 +530,7 @@ export const buildingsObj = {
           "Self input"
         ]
       },
-      image: staticImgs,
+      image: gwcl,
       location: { lat: 37.748849, lng: 127.185880 },
       itemCounts: itemCounts
     },
@@ -546,7 +549,7 @@ export const buildingsObj = {
           "Self input"
         ]
       },
-      image: staticImgs,
+      image: gwc,
       location: { lat: 37.749414, lng: 127.186413 },
       itemCounts: itemCounts
     }
