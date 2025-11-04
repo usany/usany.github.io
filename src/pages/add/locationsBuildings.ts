@@ -882,5 +882,4 @@ const locationsBuildings = {
     return (buildingsObj[value.slice(0, 2)][value].en.name)
   }),
 }
-
 export default locationsBuildings
