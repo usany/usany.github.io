@@ -31,6 +31,9 @@ const setDocUser = async ({ uid, email, ranking }) => {
     conversation: [],
     chattings: {},
     certificated: false,
+    done: [],
+    campus: 'Seoul'
+    profileColor: profileColor,
   }
   await setDoc(doc(dbservice, 'members', `${uid}`), userObject)
   return userObject
