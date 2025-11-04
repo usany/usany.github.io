@@ -582,7 +582,7 @@ export const buildingsObj = {
           "Self input"
         ]
       },
-      image: staticImgs,
+      image: gugo,
       location: { lat: 37.245777, lng: 127.080122 },
       itemCounts: itemCounts
     },
@@ -601,7 +601,7 @@ export const buildingsObj = {
           "Self input"
         ]
       },
-      image: staticImgs,
+      image: guch,
       location: { lat: 37.244233, lng: 127.080537 },
       itemCounts: itemCounts
     },
@@ -620,7 +620,7 @@ export const buildingsObj = {
           "Self input"
         ]
       },
-      image: staticImgs,
+      image: guw,
       location: { lat: 37.245254, lng: 127.077793 },
       itemCounts: itemCounts
     },
@@ -639,7 +639,7 @@ export const buildingsObj = {
           "Self input"
         ]
       },
-      image: staticImgs,
+      image: gum,
       location: { lat: 37.244588, lng: 127.076785 },
       itemCounts: itemCounts
     },
@@ -658,7 +658,7 @@ export const buildingsObj = {
           "Self input"
         ]
       },
-      image: staticImgs,
+      image: gum,
       location: { lat: 37.243973, lng: 127.076319 },
       itemCounts: itemCounts
     },
@@ -677,7 +677,7 @@ export const buildingsObj = {
           "Self input"
         ]
       },
-      image: staticImgs,
+      image: gud,
       location: { lat: 37.243563, lng: 127.081166 },
       itemCounts: itemCounts
     },
@@ -696,7 +696,7 @@ export const buildingsObj = {
           "Self input"
         ]
       },
-      image: staticImgs,
+      image: gucha,
       location: { lat: 37.242903, lng: 127.080062 },
       itemCounts: itemCounts
     },
@@ -715,7 +715,7 @@ export const buildingsObj = {
           "Self input"
         ]
       },
-      image: staticImgs,
+      image: gus,
       location: { lat: 37.242897, lng: 127.081157 },
       itemCounts: itemCounts
     },
@@ -734,7 +734,7 @@ export const buildingsObj = {
           "Self input"
         ]
       },
-      image: staticImgs,
+      image: guy,
       location: { lat: 37.241527, lng: 127.084456 },
       itemCounts: itemCounts
     },
@@ -753,7 +753,7 @@ export const buildingsObj = {
           "Self input"
         ]
       },
-      image: staticImgs,
+      image: guh,
       location: { lat: 37.241807, lng: 127.079968 },
       itemCounts: itemCounts
     },
@@ -772,7 +772,7 @@ export const buildingsObj = {
           "Self input"
         ]
       },
-      image: staticImgs,
+      image: gucl,
       location: { lat: 37.240681, lng: 127.079700 },
       itemCounts: itemCounts
     },
@@ -791,7 +791,7 @@ export const buildingsObj = {
           "Self input"
         ]
       },
-      image: staticImgs,
+      image: guj,
       location: { lat: 37.239730, lng: 127.083383 },
       itemCounts: itemCounts
     },
@@ -810,7 +810,7 @@ export const buildingsObj = {
           "Self input"
         ]
       },
-      image: staticImgs,
+      image: gug,
       location: { lat: 37.239750, lng: 127.081414 },
       itemCounts: itemCounts
     },
@@ -829,7 +829,7 @@ export const buildingsObj = {
           "Self input"
         ]
       },
-      image: staticImgs,
+      image: guc,
       location: { lat: 37.238631, lng: 127.081878 },
       itemCounts: itemCounts
     },
