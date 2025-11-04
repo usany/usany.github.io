@@ -12,13 +12,16 @@ import sek from 'src/assets/sek.jpg'
 import sem from 'src/assets/sem.jpg'
 import semi from 'src/assets/semi.jpg'
 import sech from 'src/assets/sech.jpg'
+import sechi from 'src/assets/sechi.jpg'
 import see from 'src/assets/see.jpg'
 import segu from 'src/assets/segu.jpg'
 import seg from 'src/assets/seg.jpg'
 import seh from 'src/assets/seh.jpg'
 import sej from 'src/assets/sej.jpg'
+import seu from 'src/assets/seu.jpg'
 import sen from 'src/assets/sen.jpg'
 import sey from 'src/assets/sey.jpg'
+import ses from 'src/assets/ses.jpg'
 import gwcl from 'src/assets/gwcl.png'
 import gwb from 'src/assets/gwb.png'
 import gwc from 'src/assets/gwc.png'
@@ -175,7 +178,7 @@ export const buildingsObj = {
           "Self input"
         ],
       },
-      image: staticImgs,
+      image: sep,
       location: { lat: 37.5941125, lng: 127.0557743 },
       itemCounts: itemCounts
     },
@@ -194,7 +197,7 @@ export const buildingsObj = {
           "Self input"
         ],
       },
-      image: staticE,
+      image: sek,
       location: { lat: 37.5967052, lng: 127.0552861 },
       itemCounts: itemCounts
     },
@@ -234,7 +237,7 @@ export const buildingsObj = {
           "Self input"
         ],
       },
-      image: staticImgs,
+      image: seeu,
       location: { lat: 37.5939, lng: 127.0549 },
       itemCounts: itemCounts
     },
@@ -253,7 +256,7 @@ export const buildingsObj = {
           "Self input"
         ],
       },
-      image: staticImgs,
+      image: sechi,
       location: { lat: 37.594054, lng: 127.0531189 },
       itemCounts: itemCounts
     },
@@ -272,7 +275,7 @@ export const buildingsObj = {
           "Self input"
         ],
       },
-      image: staticImgs,
+      image: sen,
       location: { lat: 37.5948201, lng: 127.053091 },
       itemCounts: itemCounts
     },
@@ -291,7 +294,7 @@ export const buildingsObj = {
           "Self input"
         ],
       },
-      image: staticImgs,
+      image: seu,
       location: { lat: 37.594129, lng: 127.051861 },
       itemCounts: itemCounts
     },
@@ -310,7 +313,7 @@ export const buildingsObj = {
           "Self input"
         ],
       },
-      image: staticImgs,
+      image: sech,
       location: { lat: 37.594145, lng: 127.053778 },
       itemCounts: itemCounts
     },
@@ -329,7 +332,7 @@ export const buildingsObj = {
           "Self input"
         ],
       },
-      image: staticImgs,
+      image: sey,
       location: { lat: 37.593816, lng: 127.055599 },
       itemCounts: itemCounts
     },
@@ -348,7 +351,7 @@ export const buildingsObj = {
           "Self input"
         ],
       },
-      image: staticImgs,
+      image: semi,
       location: { lat: 37.595635, lng: 127.048585 },
       itemCounts: itemCounts
     },
@@ -367,7 +370,7 @@ export const buildingsObj = {
           "Self input"
         ],
       },
-      image: staticImgs,
+      image: segu,
       location: { lat: 37.596160, lng: 127.050868 },
       itemCounts: itemCounts
     },
@@ -386,7 +389,7 @@ export const buildingsObj = {
           "Self input"
         ],
       },
-      image: staticImgs,
+      image: ses,
       location: { lat: 37.595954, lng: 127.051321 },
       itemCounts: itemCounts
     },
@@ -424,7 +427,7 @@ export const buildingsObj = {
           "Self input"
         ],
       },
-      image: staticImgs,
+      image: see,
       location: { lat: 37.595846, lng: 127.055458 },
       itemCounts: itemCounts
     },
@@ -443,7 +446,7 @@ export const buildingsObj = {
           "Self input"
         ],
       },
-      image: staticImgs,
+      image: sem,
       location: { lat: 37.596216, lng: 127.055687 },
       itemCounts: itemCounts
     },
