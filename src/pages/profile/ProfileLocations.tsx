@@ -29,14 +29,14 @@ const area = {
   eastNorth: { lat: 37.6010743, lng: 127.0571999 },
 }
 const areas = {
-  Seoul: {
+  'Seoul': {
     westSouth: { lat: 37.5927551, lng: 127.047462 },
     westNorth: { lat: 37.6010743, lng: 127.047462 },
     eastSouth: { lat: 37.5927551, lng: 127.0571999 },
     eastNorth: { lat: 37.6010743, lng: 127.0571999 },
   },
-  Global: area,
-  Gwangneung: area
+  'Global': area,
+  'Gwangneung': area
 }
 
 const ProfileLocations = () => {
