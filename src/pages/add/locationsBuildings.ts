@@ -10,6 +10,7 @@ import seeu from 'src/assets/seeu.jpg'
 import sep from 'src/assets/sep.jpg'
 import sek from 'src/assets/sek.jpg'
 import sem from 'src/assets/sem.jpg'
+import semu from 'src/assets/semu.jpg'
 import semi from 'src/assets/semi.jpg'
 import sech from 'src/assets/sech.jpg'
 import sechi from 'src/assets/sechi.jpg'
@@ -117,7 +118,7 @@ export const buildingsObj = {
           "Self input"
         ]
       },
-      image: staticCl,
+      image: secl,
       location: { lat: 37.5970966, lng: 127.0527314 },
       itemCounts: itemCounts
     },
@@ -159,7 +160,7 @@ export const buildingsObj = {
           "Self input"
         ],
       },
-      image: staticCw,
+      image: sec,
       location: { lat: 37.594732, lng: 127.0517775 },
       itemCounts: itemCounts
     },
@@ -216,7 +217,7 @@ export const buildingsObj = {
           "Self input"
         ],
       },
-      image: staticImgs,
+      image: semu,
       location: { lat: 37.5971991, lng: 127.0539612 },
       itemCounts: itemCounts
     },
