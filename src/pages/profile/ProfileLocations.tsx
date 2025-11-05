@@ -42,10 +42,10 @@ const areas = {
     eastNorth: { lat: 37.747550, lng: 127.184942 },
   },
   'Gwangneung': {
-    westSouth: { lat: 37.750293, lng: 127.187882 },
-    westNorth: { lat: 37.750293, lng: 127.184942 },
-    eastSouth: { lat: 37.747550, lng: 127.187882 },
-    eastNorth: { lat: 37.747550, lng: 127.184942 },
+    westSouth: { lat: 37.747516, lng: 127.184923 },
+    westNorth: { lat: 37.750271, lng: 127.184923 },
+    eastSouth: { lat: 37.747516, lng: 127.188091 },
+    eastNorth: { lat: 37.750271, lng: 127.188091 },
   }
 }
 
