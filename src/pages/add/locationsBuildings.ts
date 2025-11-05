@@ -267,14 +267,14 @@ export const buildingsObj = {
       ko: {
         name: '치과병원',
         details: [
-          "1층 로비",
+          "1층 복도",
           "직접 입력"
         ],
       },
       en: {
         name: 'Dental Hospital',
         details: [
-          "1F Robby",
+          "1F Hallway",
           "Self input"
         ],
       },
@@ -286,14 +286,14 @@ export const buildingsObj = {
       ko: {
         name: '네오르네상스관',
         details: [
-          "1층 로비",
+          "1층 복도",
           "직접 입력"
         ],
       },
       en: {
         name: 'Neo-Renaissance',
         details: [
-          "1F Robby",
+          "1F Hallway",
           "Self input"
         ],
       },
@@ -305,14 +305,14 @@ export const buildingsObj = {
       ko: {
         name: '의료원',
         details: [
-          "1층 로비",
+          "1층 복도",
           "직접 입력"
         ],
       },
       en: {
         name: 'Medical Center',
         details: [
-          "1F Robby",
+          "1F Hallway",
           "Self input"
         ],
       },
@@ -324,14 +324,14 @@ export const buildingsObj = {
       ko: {
         name: '치과대',
         details: [
-          "1층 로비",
+          "1층 복도",
           "직접 입력"
         ],
       },
       en: {
         name: 'Dentistry',
         details: [
-          "1F Robby",
+          "1F Hallway",
           "Self input"
         ],
       },
@@ -343,14 +343,14 @@ export const buildingsObj = {
       ko: {
         name: '약학대',
         details: [
-          "1층 로비",
+          "1층 복도",
           "직접 입력"
         ],
       },
       en: {
         name: 'Pharmacy',
         details: [
-          "1F Robby",
+          "1F Hallway",
           "Self input"
         ],
       },
@@ -362,14 +362,14 @@ export const buildingsObj = {
       ko: {
         name: '미술대',
         details: [
-          "1층 로비",
+          "1층 복도",
           "직접 입력"
         ],
       },
       en: {
         name: 'Fine Arts',
         details: [
-          "1F Robby",
+          "1F Hallway",
           "Self input"
         ],
       },
@@ -381,14 +381,14 @@ export const buildingsObj = {
       ko: {
         name: '국제교육원',
         details: [
-          "1층 로비",
+          "1층 복도",
           "직접 입력"
         ],
       },
       en: {
         name: 'International Education',
         details: [
-          "1F Robby",
+          "1F Hallway",
           "Self input"
         ],
       },
@@ -400,14 +400,14 @@ export const buildingsObj = {
       ko: {
         name: '생활과학대',
         details: [
-          "1층 로비",
+          "1층 복도",
           "직접 입력"
         ],
       },
       en: {
         name: 'Human Ecology',
         details: [
-          "1F Robby",
+          "1F Hallway",
           "Self input"
         ],
       },
@@ -419,14 +419,14 @@ export const buildingsObj = {
       ko: {
         name: '한의과대',
         details: [
-          "1층 로비",
+          "1층 복도",
           "직접 입력"
         ],
       },
       en: {
         name: 'Korean Medicine',
         details: [
-          "1F Robby",
+          "1F Hallway",
           "Self input"
         ],
       },
@@ -438,14 +438,14 @@ export const buildingsObj = {
       ko: {
         name: '음악대',
         details: [
-          "1층 로비",
+          "1층 복도",
           "직접 입력"
         ],
       },
       en: {
         name: 'Music',
         details: [
-          "1F Robby",
+          "1F Hallway",
           "Self input"
         ],
       },
@@ -457,14 +457,14 @@ export const buildingsObj = {
       ko: {
         name: '무용학부관',
         details: [
-          "1층 로비",
+          "1층 복도",
           "직접 입력"
         ],
       },
       en: {
         name: 'Dance',
         details: [
-          "1F Robby",
+          "1F Hallway",
           "Self input"
         ],
       },
@@ -476,14 +476,14 @@ export const buildingsObj = {
       ko: {
         name: '법학관',
         details: [
-          "1층 로비",
+          "1층 복도",
           "직접 입력"
         ],
       },
       en: {
         name: 'Law',
         details: [
-          "1F Robby",
+          "1F Hallway",
           "Self input"
         ],
       },
@@ -495,14 +495,14 @@ export const buildingsObj = {
       ko: {
         name: '호텔관광대',
         details: [
-          "1층 로비",
+          "1층 복도",
           "직접 입력"
         ],
       },
       en: {
         name: 'Hotel and Tourism Management',
         details: [
-          "1F Robby",
+          "1F Hallway",
           "Self input"
         ],
       },
@@ -514,14 +514,14 @@ export const buildingsObj = {
       ko: {
         name: '노란지붕문화센터',
         details: [
-          "1층 로비",
+          "1층 복도",
           "직접 입력"
         ],
       },
       en: {
         name: 'Yellow Roof Building',
         details: [
-          "1F Robby",
+          "1F Hallway",
           "Self input"
         ],
       },
@@ -533,14 +533,14 @@ export const buildingsObj = {
       ko: {
         name: '서울 본관',
         details: [
-          "1층 로비",
+          "1층 복도",
           "직접 입력"
         ],
       },
       en: {
         name: 'Seoul Main Building',
         details: [
-          "1F Robby",
+          "1F Hallway",
           "Self input"
         ],
       },
@@ -554,14 +554,14 @@ export const buildingsObj = {
       ko: {
         name: '광릉 본관',
         details: [
-          '1층 로비',
+          '1층 복도',
           '직접 입력'
         ]
       },
       en: {
         name: 'Gwangneung Main building',
         details: [
-          "1F Robby",
+          "1F Hallway",
           "Self input"
         ]
       },
@@ -573,14 +573,14 @@ export const buildingsObj = {
       ko: {
         name: '광릉 중도',
         details : [
-          '1층 로비',
+          '1층 복도',
           '직접 입력'
         ]
       },
       en: {
         name: 'Gwangneung Central library',
         details: [
-          "1F Robby",
+          "1F Hallway",
           "Self input"
         ]
       },
@@ -592,14 +592,14 @@ export const buildingsObj = {
       ko: {
         name: '광릉 체육관',
         details : [
-          '1층 로비',
+          '1층 복도',
           '직접 입력'
         ]
       },
       en: {
         name: 'Gwangneung Gym',
         details: [
-          "1F Robby",
+          "1F Hallway",
           "Self input"
         ]
       },
@@ -613,14 +613,14 @@ export const buildingsObj = {
       ko: {
         name: '공과대',
         details: [
-          '1층 로비',
+          '1층 복도',
           '직접 입력'
         ]
       },
       en: {
         name: 'Engineering',
         details: [
-          "1F Robby",
+          "1F Hallway",
           "Self input"
         ]
       },
@@ -632,14 +632,14 @@ export const buildingsObj = {
       ko: {
         name: '체육대',
         details: [
-          '1층 로비',
+          '1층 복도',
           '직접 입력'
         ]
       },
       en: {
         name: 'Physical Education',
         details: [
-          "1F Robby",
+          "1F Hallway",
           "Self input"
         ]
       },
@@ -651,14 +651,14 @@ export const buildingsObj = {
       ko: {
         name: '외국어대',
         details: [
-          '1층 로비',
+          '1층 복도',
           '직접 입력'
         ]
       },
       en: {
         name: 'Foreign Languages',
         details: [
-          "1F Robby",
+          "1F Hallway",
           "Self input"
         ]
       },
@@ -670,14 +670,14 @@ export const buildingsObj = {
       ko: {
         name: '멀관',
         details: [
-          '1층 로비',
+          '1층 복도',
           '직접 입력'
         ]
       },
       en: {
         name: 'Multimedia',
         details: [
-          "1F Robby",
+          "1F Hallway",
           "Self input"
         ]
       },
@@ -689,14 +689,14 @@ export const buildingsObj = {
       ko: {
         name: '글관',
         details: [
-          '1층 로비',
+          '1층 복도',
           '직접 입력'
         ]
       },
       en: {
         name: 'Global',
         details: [
-          "1F Robby",
+          "1F Hallway",
           "Self input"
         ]
       },
@@ -708,14 +708,14 @@ export const buildingsObj = {
       ko: {
         name: '도예관',
         details: [
-          '1층 로비',
+          '1층 복도',
           '직접 입력'
         ]
       },
       en: {
         name: 'Ceramic Art',
         details: [
-          "1F Robby",
+          "1F Hallway",
           "Self input"
         ]
       },
@@ -727,14 +727,14 @@ export const buildingsObj = {
       ko: {
         name: '체육관',
         details: [
-          '1층 로비',
+          '1층 복도',
           '직접 입력'
         ]
       },
       en: {
         name: 'Gym',
         details: [
-          "1F Robby",
+          "1F Hallway",
           "Self input"
         ]
       },
@@ -746,14 +746,14 @@ export const buildingsObj = {
       ko: {
         name: '생명과학대',
         details: [
-          '1층 로비',
+          '1층 복도',
           '직접 입력'
         ]
       },
       en: {
         name: 'Life Sciences',
         details: [
-          "1F Robby",
+          "1F Hallway",
           "Self input"
         ]
       },
@@ -765,14 +765,14 @@ export const buildingsObj = {
       ko: {
         name: '예술디자인대',
         details: [
-          '1층 로비',
+          '1층 복도',
           '직접 입력'
         ]
       },
       en: {
         name: 'Arts and Design',
         details: [
-          "1F Robby",
+          "1F Hallway",
           "Self input"
         ]
       },
@@ -784,14 +784,14 @@ export const buildingsObj = {
       ko: {
         name: '국제 학생회관',
         details: [
-          '1층 로비',
+          '1층 복도',
           '직접 입력'
         ]
       },
       en: {
         name: 'Global Student Center',
         details: [
-          "1F Robby",
+          "1F Hallway",
           "Self input"
         ]
       },
@@ -803,14 +803,14 @@ export const buildingsObj = {
       ko: {
         name: '국제 중도',
         details: [
-          '1층 로비',
+          '1층 복도',
           '직접 입력'
         ]
       },
       en: {
         name: 'Global Central Library',
         details: [
-          "1F Robby",
+          "1F Hallway",
           "Self input"
         ]
       },
@@ -822,14 +822,14 @@ export const buildingsObj = {
       ko: {
         name: '전자정보/응용과학대',
         details: [
-          '1층 로비',
+          '1층 복도',
           '직접 입력'
         ]
       },
       en: {
         name: 'Electronics Information and Applied Science',
         details: [
-          "1F Robby",
+          "1F Hallway",
           "Self input"
         ]
       },
@@ -841,14 +841,14 @@ export const buildingsObj = {
       ko: {
         name: '국제대',
         details: [
-          '1층 로비',
+          '1층 복도',
           '직접 입력'
         ]
       },
       en: {
         name: 'International Studies',
         details: [
-          "1F Robby",
+          "1F Hallway",
           "Self input"
         ]
       },
@@ -860,14 +860,14 @@ export const buildingsObj = {
       ko: {
         name: '천문대',
         details: [
-          '1층 로비',
+          '1층 복도',
           '직접 입력'
         ]
       },
       en: {
         name: 'Astronomical Observatory',
         details: [
-          "1F Robby",
+          "1F Hallway",
           "Self input"
         ]
       },
