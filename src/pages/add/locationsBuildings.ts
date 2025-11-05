@@ -217,7 +217,7 @@ export const buildingsObj = {
         ],
       },
       image: sej,
-      location: { lat: 37.5967052, lng: 127.0552861 },
+      location: { lat: 37.597450, lng: 127.055350 },
       itemCounts: itemCounts
     },
     semu: {
