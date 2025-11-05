@@ -17,6 +17,7 @@ import sechi from 'src/assets/sechi.jpg'
 import see from 'src/assets/see.jpg'
 import segu from 'src/assets/segu.jpg'
 // import seg from 'src/assets/seg.jpg'
+import seno from 'src/assets/seno.png'
 import seh from 'src/assets/seh.jpg'
 import sej from 'src/assets/sej.jpg'
 import seu from 'src/assets/seu.jpg'
@@ -522,7 +523,7 @@ export const buildingsObj = {
           "Self input"
         ],
       },
-      image: staticImgs,
+      image: seno,
       location: { lat: 37.594503, lng: 127.052378 },
       itemCounts: itemCounts
     },
