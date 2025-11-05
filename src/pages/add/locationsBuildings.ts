@@ -215,7 +215,6 @@ export const buildingsObj = {
       en: {
         name: 'Political Science & Economics',
         details: [
-          "Cafe",
           "Self input"
         ],
       },
