@@ -36,10 +36,10 @@ const areas = {
     eastNorth: { lat: 37.6010743, lng: 127.0571999 },
   },
   'Global': {
-    westSouth: { lat: 37.750293, lng: 127.187882 },
-    westNorth: { lat: 37.750293, lng: 127.184942 },
-    eastSouth: { lat: 37.747550, lng: 127.187882 },
-    eastNorth: { lat: 37.747550, lng: 127.184942 },
+    westSouth: { lat: 37.236211, lng: 127.075580 },
+    westNorth: { lat: 37.247801, lng: 127.075580 },
+    eastSouth: { lat: 37.236211, lng: 127.089419 },
+    eastNorth: { lat: 37.247801, lng: 127.089419 },
   },
   'Gwangneung': {
     westSouth: { lat: 37.747516, lng: 127.184923 },
