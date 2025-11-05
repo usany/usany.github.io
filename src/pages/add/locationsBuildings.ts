@@ -17,7 +17,7 @@ import sech from 'src/assets/sech.jpg'
 import sechi from 'src/assets/sechi.jpg'
 import see from 'src/assets/see.jpg'
 import segu from 'src/assets/segu.jpg'
-// import seg from 'src/assets/seg.jpg'
+import seg from 'src/assets/seg.jpg'
 import seno from 'src/assets/seno.png'
 import seh from 'src/assets/seh.jpg'
 import sej from 'src/assets/sej.jpg'
@@ -41,6 +41,7 @@ import gucl from 'src/assets/gucl.jpg'
 import guj from 'src/assets/guj.jpg'
 import gugu from 'src/assets/gugu.jpg'
 import guc from 'src/assets/guc.jpg'
+import input from 'src/assets/input.jpg'
 
 const itemCounts = {
   usanOne: 0,
@@ -80,7 +81,7 @@ export const buildingsObj = {
     en: {
       name: 'Self input'
     },
-    image: staticImgs
+    image: input
   },
   se: {
     secl: {
@@ -429,7 +430,7 @@ export const buildingsObj = {
           "Self input"
         ],
       },
-      image: staticImgs,
+      image: staticG,
       location: { lat: 37.596108, lng: 127.053975 },
       itemCounts: itemCounts
     },
