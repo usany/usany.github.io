@@ -210,7 +210,7 @@ export const buildingsObj = {
         ],
       },
       en: {
-        name: 'Business',
+        name: 'Political Science & Economics',
         details: [
           "Cafe",
           "Self input"
