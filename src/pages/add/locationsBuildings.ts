@@ -4,6 +4,7 @@ import staticCw from 'src/assets/static_cw.jpeg'
 import staticG from 'src/assets/static_g.jpeg'
 import staticE from 'src/assets/comratio.jpeg'
 import secl from 'src/assets/secl.jpg'
+import sebe from 'src/assets/sebe.jpg'
 import seb from 'src/assets/seb.jpg'
 import sec from 'src/assets/sec.jpg'
 import seeu from 'src/assets/seeu.jpg'
@@ -485,7 +486,7 @@ export const buildingsObj = {
           "Self input"
         ],
       },
-      image: seb,
+      image: sebe,
       location: { lat: 37.597883, lng: 127.053854 },
       itemCounts: itemCounts
     },
