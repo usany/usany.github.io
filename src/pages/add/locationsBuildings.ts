@@ -86,7 +86,7 @@ export const buildingsObj = {
   se: {
     secl: {
       ko: {
-        name: '중도',
+        name: '서울 중도',
         details : [
           "1열(1F)",
           "2열(2F)",
@@ -104,7 +104,7 @@ export const buildingsObj = {
         ]
       },
       en: {
-        name: 'Central library',
+        name: 'Seoul Central library',
         details: [
           "Study #1(1F)",
           "Study #2(2F)",
