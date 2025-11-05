@@ -202,6 +202,24 @@ export const buildingsObj = {
       location: { lat: 37.5967052, lng: 127.0552861 },
       itemCounts: itemCounts
     },
+    sej: {
+      ko: {
+        name: '정경대',
+        details: [
+          "직접 입력"
+        ],
+      },
+      en: {
+        name: 'Business',
+        details: [
+          "Cafe",
+          "Self input"
+        ],
+      },
+      image: sej,
+      location: { lat: 37.5967052, lng: 127.0552861 },
+      itemCounts: itemCounts
+    },
     semu: {
       ko: {
         name: '문과대',
