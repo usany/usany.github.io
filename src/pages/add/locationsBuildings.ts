@@ -18,6 +18,7 @@ import sechi from 'src/assets/sechi.jpg'
 import see from 'src/assets/see.jpg'
 import segu from 'src/assets/segu.jpg'
 import seg from 'src/assets/seg.jpg'
+import seha from 'src/assets/seha.png'
 import seno from 'src/assets/seno.png'
 import seh from 'src/assets/seh.jpg'
 import sej from 'src/assets/sej.jpg'
@@ -143,7 +144,7 @@ export const buildingsObj = {
           "Self input"
         ],
       },
-      image: staticG,
+      image: seg,
       location: { lat: 37.5960528, lng: 127.0536951 },
       itemCounts: itemCounts
     },
@@ -430,7 +431,7 @@ export const buildingsObj = {
           "Self input"
         ],
       },
-      image: staticG,
+      image: seha,
       location: { lat: 37.596108, lng: 127.053975 },
       itemCounts: itemCounts
     },
