@@ -28,6 +28,7 @@ import ses from 'src/assets/ses.jpg'
 import gwcl from 'src/assets/gwcl.png'
 import gwb from 'src/assets/gwb.png'
 import gwc from 'src/assets/gwc.png'
+import gug from 'src/assets/gug.png'
 import gugo from 'src/assets/gugo.jpg'
 import guch from 'src/assets/guch.jpg'
 import guw from 'src/assets/guw.jpg'
@@ -699,7 +700,7 @@ export const buildingsObj = {
           "Self input"
         ]
       },
-      image: gum,
+      image: gug,
       location: { lat: 37.243973, lng: 127.076319 },
       itemCounts: itemCounts
     },
