@@ -31,6 +31,10 @@ export const location = {
   two: settingSeats(315),
   three: settingSeats(156),
   four: settingSeats(149),
+  guOne: settingSeats(410),
+  guButter: settingSeats(156),
+  guHyeyum: settingSeats(188),
+  guTwo: settingSeats(326),
   // cl: {
   //   ko: settingLocations(locationsCollection['ko'].cl, locationsCollection['ko'].cl),
   //   en: settingLocations(locationsCollection['en'].cl, locationsCollection['ko'].cl)
