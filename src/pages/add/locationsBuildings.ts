@@ -45,7 +45,7 @@ import gugu from 'src/assets/gugu.jpg'
 import guc from 'src/assets/guc.jpg'
 import input from 'src/assets/input.jpg'
 
-const itemCounts = {
+export const itemCounts = {
   usanOne: 0,
   usanTwo: 0,
   yangsanOne: 0,
@@ -439,8 +439,8 @@ export const buildingsObj = {
       ko: {
         name: '음악대',
         details: [
-          "1층 복도",
           "직접 입력",
+          "1층 복도",
           "B101\t5강의실",
           "B102\t6강의실",
           "B103\t7강의실",
@@ -539,8 +539,8 @@ export const buildingsObj = {
       en: {
         name: 'Music',
         details: [
+          "Self input",
           "1F Hallway",
-          "Self input"
         ],
       },
       image: see,
