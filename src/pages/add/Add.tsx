@@ -15,7 +15,7 @@ import AddStepThree from 'src/pages/add/AddStepThree'
 import AddStepTwo from 'src/pages/add/AddStepTwo'
 import PageTitle from 'src/pages/core/pageTitle/PageTitle'
 import useTexts from 'src/hooks/useTexts'
-import { locationsBuildingsArray } from './locationsBuildings'
+// import { locationsBuildingsArray } from './locationsBuildings'
 
 interface Props {
   borrow: boolean
