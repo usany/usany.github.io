@@ -738,14 +738,14 @@ export const buildingsObj = {
     },
     gucha: {
       ko: {
-        name: '체육관',
+        name: '국제 체육관',
         details: [
           '직접 입력',
           '1층 복도'
         ]
       },
       en: {
-        name: 'Gym',
+        name: 'Global Gym',
         details: [
           "Self input",
           "1F Hallway"
