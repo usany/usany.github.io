@@ -487,7 +487,7 @@ export const buildingsObj = {
       location: { lat: 37.597883, lng: 127.053854 },
       itemCounts: itemCounts
     },
-    seho: {
+    seh: {
       ko: {
         name: '호텔관광대',
         details: [
