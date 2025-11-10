@@ -1,5 +1,4 @@
-export const sechiKo: string[] = [
-  "치과병원",
+export const sechiKo = [
   "B101\t강당",
   "B103\t대학원세미나실",
   "B104\t강의실",
@@ -11,8 +10,7 @@ export const sechiKo: string[] = [
   "B129\t3D SIMULATION CENTER ",
   "B130\t치주과의국(B28호)",
 ]
-export const sechiEn: string[] = [
-  "Dental Hospital",
+export const sechiEn = [
   "B101\tAuditorium",
   "B103\tGraduate Seminar Room",
   "B104\tLecture Room",

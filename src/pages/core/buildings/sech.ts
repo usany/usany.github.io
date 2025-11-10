@@ -1,5 +1,4 @@
-export const sechKo: string[] = [
-  "치과대학",
+export const sechKo = [
   "B401\t제1강의실",
   "B402\t실습준비실(임상전단계-기공)",
   "B403\t임상전단계실습실-기공",
@@ -95,8 +94,7 @@ export const sechKo: string[] = [
   "715\t생체재료공동연구실",
   "716\tCOLD ROOM",
 ]
-export const sechEn: string[] = [
-  "College of Dentistry",
+export const sechEn = [
   "B401\tLecture Room 1",
   "B402\tPractice Preparation Room (Preclinical – Dental Technology)",
   "B403\tPreclinical Practice Lab – Dental Technology",
