@@ -52,6 +52,8 @@ import { secEn, secKo } from '../core/buildings/sec'
 import { sehoEn, sehoKo } from '../core/buildings/seho'
 import { semEn, semKo } from '../core/buildings/sem'
 import { seguEn, seguKo } from '../core/buildings/segu'
+import { sesEn, sesKo } from '../core/buildings/ses'
+import { sebEn, sebKo } from '../core/buildings/seb'
 
 export const itemCounts = {
   usanOne: 0,
@@ -334,14 +336,16 @@ export const buildingsObj = {
         name: '생활과학대',
         details: [
           "직접 입력",
-          "1층 복도"
+          "1층 복도",
+          ...sesKo
         ],
       },
       en: {
         name: 'Human Ecology',
         details: [
           "Self input",
-          "1F Hallway"
+          "1F Hallway",
+          ...sesEn
         ],
       },
       image: ses,
@@ -353,14 +357,16 @@ export const buildingsObj = {
         name: '서울 본관',
         details: [
           "직접 입력",
-          "1층 복도"
+          "1층 복도",
+          ...sebKo
         ],
       },
       en: {
         name: 'Seoul Main Building',
         details: [
           "Self input",
-          "1F Hallway"
+          "1F Hallway",
+          ...sebEn
         ],
       },
       image: seb,
