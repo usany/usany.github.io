@@ -45,6 +45,8 @@ import { sechiEn, sechiKo } from '../core/buildings/sechi'
 import { seeEn, seeKo } from '../core/buildings/see'
 import { seeuEn, seeuKo } from '../core/buildings/seeu'
 import { seeuiEn, seeuiKo } from '../core/buildings/seeui'
+import { seyEn, seyKo } from '../core/buildings/sey'
+import { sepEn, sepKo } from '../core/buildings/sep'
 
 export const itemCounts = {
   usanOne: 0,
@@ -178,14 +180,16 @@ export const buildingsObj = {
         name: '약학대',
         details: [
           "직접 입력",
-          "1층 복도"
+          "1층 복도",
+          ...seyKo
         ],
       },
       en: {
         name: 'Pharmacy',
         details: [
           "Self input",
-          "1F Hallway"
+          "1F Hallway",
+          ...seyEn
         ],
       },
       image: sey,
@@ -197,14 +201,16 @@ export const buildingsObj = {
         name: '푸른솔',
         details: [
           "직접 입력",
-          "매점(1F)"
+          "매점(1F)",
+          ...sepKo
         ],
       },
       en: {
         name: 'Pureunsol',
         details: [
           "Self input",
-          "Cafeteria(1F)"
+          "Cafeteria(1F)",
+          ...sepEn
         ],
       },
       image: sep,
