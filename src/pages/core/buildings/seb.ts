@@ -307,7 +307,4 @@ export const sebEn = [
   "501	Storage 4",
   "601	Storage 5",
   "701	Storage 6",
-  "Open-air Theater",
-  "101	Tennis Court",
-  "102	Basketball Court"
 ];
