@@ -1,5 +1,4 @@
-export const seeuKo: string[] = [
-  "의과대학",
+export const seeuKo = [
   "B201\t기관실\t제1의학관",
   "B202\t암예방소재개발연구센터(MRC)\t제1의학관",
   "B203\t암예방소재개발연구센터(MRC)\t제1의학관",
@@ -216,8 +215,7 @@ export const seeuKo: string[] = [
   "903\t사무실\t제1의학관",
   "1001\t노인성 및 뇌질환연구소\t제1의학관",
 ]
-export const seeuEn: string[] = [
-  "College of Medicine",
+export const seeuEn = [
   "B201\tPlant Room\tMedical Building 1",
   "B202\tCancer Prevention Material Development Research Center (MRC)\tMedical Building 1",
   "B203\tCancer Prevention Material Development Research Center (MRC)\tMedical Building 1",
