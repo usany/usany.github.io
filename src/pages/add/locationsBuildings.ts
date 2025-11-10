@@ -44,11 +44,11 @@ import guj from 'src/assets/guj.jpg'
 import gugu from 'src/assets/gugu.jpg'
 import guc from 'src/assets/guc.jpg'
 import input from 'src/assets/input.jpg'
-import { seeEn, seeKo } from '../core/locations/see'
-import { seeuiEn, seeuiKo } from '../core/locations/seeui'
-import { sechiEn, sechiKo } from '../core/locations/sechi'
-import { sechEn, sechKo } from '../core/locations/sech'
-import { seeuEn, seeuKo } from '../core/locations/seeu'
+import { seeEn, seeKo } from '../core/buildings/see'
+import { seeuiEn, seeuiKo } from '../core/buildings/seeui'
+import { sechiEn, sechiKo } from '../core/buildings/sechi'
+import { sechEn, sechKo } from '../core/buildings/sech'
+import { seeuEn, seeuKo } from '../core/buildings/seeu'
 
 export const itemCounts = {
   usanOne: 0,
@@ -533,7 +533,7 @@ export const buildingsObj = {
           "Self input"
         ],
       },
-    
+
       image: sebe,
       location: { lat: 37.597883, lng: 127.053854 },
       itemCounts: itemCounts
