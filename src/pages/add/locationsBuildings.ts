@@ -48,6 +48,10 @@ import { seeuiEn, seeuiKo } from '../core/buildings/seeui'
 import { seyEn, seyKo } from '../core/buildings/sey'
 import { sepEn, sepKo } from '../core/buildings/sep'
 import { senEn, senKo } from '../core/buildings/sen'
+import { secEn, secKo } from '../core/buildings/sec'
+import { sehoEn, sehoKo } from '../core/buildings/seho'
+import { semEn, semKo } from '../core/buildings/sem'
+import { seguEn, seguKo } from '../core/buildings/segu'
 
 export const itemCounts = {
   usanOne: 0,
@@ -245,7 +249,8 @@ export const buildingsObj = {
         details: [
           "직접 입력",
           "매점(B1)",
-          "글로벌존(B1)"
+          "글로벌존(B1)",
+          ...secKo
         ],
       },
       en: {
@@ -253,7 +258,8 @@ export const buildingsObj = {
         details: [
           "Self input",
           "Cafeteria(B1)",
-          "Global(B1)"
+          "Global(B1)",
+          ...secEn
         ],
       },
       image: sec,
@@ -265,14 +271,16 @@ export const buildingsObj = {
         name: '호텔관광대',
         details: [
           "직접 입력",
-          "1층 복도"
+          "1층 복도",
+          ...sehoKo
         ],
       },
       en: {
         name: 'Hotel and Tourism Management',
         details: [
           "Self input",
-          "1F Hallway"
+          "1F Hallway",
+          ...sehoEn
         ],
       },
       image: seh,
@@ -284,14 +292,16 @@ export const buildingsObj = {
         name: '미술대',
         details: [
           "직접 입력",
-          "1층 복도"
+          "1층 복도",
+          ...semKo
         ],
       },
       en: {
         name: 'Fine Arts',
         details: [
           "Self input",
-          "1F Hallway"
+          "1F Hallway",
+          ...semEn
         ],
       },
       image: semi,
@@ -303,14 +313,16 @@ export const buildingsObj = {
         name: '국제교육원',
         details: [
           "직접 입력",
-          "1층 복도"
+          "1층 복도",
+          ...seguKo
         ],
       },
       en: {
         name: 'International Education',
         details: [
           "Self input",
-          "1F Hallway"
+          "1F Hallway",
+          ...seguEn
         ],
       },
       image: segu,
