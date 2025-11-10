@@ -225,7 +225,7 @@ export const buildingsObj = {
       location: { lat: 37.597450, lng: 127.055350 },
       itemCounts: itemCounts
     },
-    semu: {
+    semun: {
       ko: {
         name: '문과대',
         details: [
@@ -360,7 +360,7 @@ export const buildingsObj = {
       location: { lat: 37.593816, lng: 127.055599 },
       itemCounts: itemCounts
     },
-    semi: {
+    sem: {
       ko: {
         name: '미술대',
         details: [
@@ -417,7 +417,7 @@ export const buildingsObj = {
       location: { lat: 37.595954, lng: 127.051321 },
       itemCounts: itemCounts
     },
-    seha: {
+    seh: {
       ko: {
         name: '한의과대',
         details: [
@@ -449,7 +449,7 @@ export const buildingsObj = {
       location: { lat: 37.595846, lng: 127.055458 },
       itemCounts: itemCounts
     },
-    sem: {
+    semu: {
       ko: {
         name: '무용학부관',
         details: [
@@ -487,7 +487,7 @@ export const buildingsObj = {
       location: { lat: 37.597883, lng: 127.053854 },
       itemCounts: itemCounts
     },
-    seh: {
+    seho: {
       ko: {
         name: '호텔관광대',
         details: [
