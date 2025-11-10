@@ -45,6 +45,10 @@ import gugu from 'src/assets/gugu.jpg'
 import guc from 'src/assets/guc.jpg'
 import input from 'src/assets/input.jpg'
 import { seeEn, seeKo } from '../core/locations/see'
+import { seeuiEn, seeuiKo } from '../core/locations/seeui'
+import { sechiEn, sechiKo } from '../core/locations/sechi'
+import { sechEn, sechKo } from '../core/locations/sech'
+import { seeuEn, seeuKo } from '../core/locations/seeu'
 
 export const itemCounts = {
   usanOne: 0,
@@ -91,15 +95,17 @@ export const buildingsObj = {
       ko: {
         name: '의료원',
         details: [
+          "직접 입력",
           "1층 복도",
-          "직접 입력"
+          ...seeuiKo
         ],
       },
       en: {
         name: 'Medical Center',
         details: [
+          "Self input",
           "1F Hallway",
-          "Self input"
+          ...seeuiEn
         ],
       },
       image: seu,
@@ -110,15 +116,17 @@ export const buildingsObj = {
       ko: {
         name: '치과병원',
         details: [
+          "직접 입력",
           "1층 복도",
-          "직접 입력"
+          ...sechiKo
         ],
       },
       en: {
         name: 'Dental Hospital',
         details: [
+          "Self input",
           "1F Hallway",
-          "Self input"
+          ...sechiEn
         ],
       },
       image: sechi,
@@ -129,15 +137,17 @@ export const buildingsObj = {
       ko: {
         name: '치과대',
         details: [
+          "직접 입력",
           "1층 복도",
-          "직접 입력"
+          ...sechKo
         ],
       },
       en: {
         name: 'Dentistry',
         details: [
+          "Self input",
           "1F Hallway",
-          "Self input"
+          ...sechEn
         ],
       },
       image: sech,
@@ -148,17 +158,19 @@ export const buildingsObj = {
       ko: {
         name: '의과대',
         details: [
+          "직접 입력",
           "1열(5F)",
           "2열(6F)",
-          "직접 입력"
+          ...seeuKo
         ],
       },
       en: {
         name: 'Medicine',
         details: [
+          "Self input",
           "Study #1(5F)",
           "Study #2(6F)",
-          "Self input"
+          ...seeuEn
         ],
       },
       image: seeu,
@@ -521,7 +533,7 @@ export const buildingsObj = {
           "Self input"
         ],
       },
-
+    
       image: sebe,
       location: { lat: 37.597883, lng: 127.053854 },
       itemCounts: itemCounts
