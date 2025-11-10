@@ -434,11 +434,19 @@ export const buildingsObj = {
     see: {
       ko: {
         name: '음악대',
-        details: seeKo,
+        details: [
+          "직접 입력",
+          "1층 복도",
+          ...seeKo
+        ],
       },
       en: {
         name: 'Music',
-        details: seeEn,
+        details: [
+          "1F Hallway",
+          "Self input",
+          seeEn,
+        ],
       },
       image: see,
       location: { lat: 37.595846, lng: 127.055458 },
