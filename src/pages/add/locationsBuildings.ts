@@ -44,7 +44,7 @@ import guj from 'src/assets/guj.jpg'
 import gugu from 'src/assets/gugu.jpg'
 import guc from 'src/assets/guc.jpg'
 import input from 'src/assets/input.jpg'
-import { seeEn, seeKo } from './see'
+import { seeEn, seeKo } from '../core/locations/see'
 
 export const itemCounts = {
   usanOne: 0,
@@ -87,6 +87,257 @@ export const buildingsObj = {
     image: input
   },
   se: {
+    seeui: {
+      ko: {
+        name: '의료원',
+        details: [
+          "1층 복도",
+          "직접 입력"
+        ],
+      },
+      en: {
+        name: 'Medical Center',
+        details: [
+          "1F Hallway",
+          "Self input"
+        ],
+      },
+      image: seu,
+      location: { lat: 37.594129, lng: 127.051861 },
+      itemCounts: itemCounts
+    },
+    sechi: {
+      ko: {
+        name: '치과병원',
+        details: [
+          "1층 복도",
+          "직접 입력"
+        ],
+      },
+      en: {
+        name: 'Dental Hospital',
+        details: [
+          "1F Hallway",
+          "Self input"
+        ],
+      },
+      image: sechi,
+      location: { lat: 37.594054, lng: 127.0531189 },
+      itemCounts: itemCounts
+    },
+    sech: {
+      ko: {
+        name: '치과대',
+        details: [
+          "1층 복도",
+          "직접 입력"
+        ],
+      },
+      en: {
+        name: 'Dentistry',
+        details: [
+          "1F Hallway",
+          "Self input"
+        ],
+      },
+      image: sech,
+      location: { lat: 37.594145, lng: 127.053778 },
+      itemCounts: itemCounts
+    },
+    seeu: {
+      ko: {
+        name: '의과대',
+        details: [
+          "1열(5F)",
+          "2열(6F)",
+          "직접 입력"
+        ],
+      },
+      en: {
+        name: 'Medicine',
+        details: [
+          "Study #1(5F)",
+          "Study #2(6F)",
+          "Self input"
+        ],
+      },
+      image: seeu,
+      location: { lat: 37.5939, lng: 127.0549 },
+      itemCounts: itemCounts
+    },
+    sey: {
+      ko: {
+        name: '약학대',
+        details: [
+          "1층 복도",
+          "직접 입력"
+        ],
+      },
+      en: {
+        name: 'Pharmacy',
+        details: [
+          "1F Hallway",
+          "Self input"
+        ],
+      },
+      image: sey,
+      location: { lat: 37.593816, lng: 127.055599 },
+      itemCounts: itemCounts
+    },
+    sep: {
+      ko: {
+        name: '푸른솔',
+        details: [
+          "매점(1F)",
+          "직접 입력"
+        ],
+      },
+      en: {
+        name: 'Pureunsol',
+        details: [
+          "Cafeteria(1F)",
+          "Self input"
+        ],
+      },
+      image: sep,
+      location: { lat: 37.5941125, lng: 127.0557743 },
+      itemCounts: itemCounts
+    },
+    sen: {
+      ko: {
+        name: '네오르네상스관',
+        details: [
+          "1층 복도",
+          "직접 입력"
+        ],
+      },
+      en: {
+        name: 'Neo-Renaissance',
+        details: [
+          "1F Hallway",
+          "Self input"
+        ],
+      },
+      image: sen,
+      location: { lat: 37.5948201, lng: 127.053091 },
+      itemCounts: itemCounts
+    },
+    sec: {
+      ko: {
+        name: '청운',
+        details: [
+          "매점(B1)",
+          "글로벌존(B1)",
+          "직접 입력"
+        ],
+      },
+      en: {
+        name: 'Cheongwoon',
+        details: [
+          "Cafeteria(B1)",
+          "Global(B1)",
+          "Self input"
+        ],
+      },
+      image: sec,
+      location: { lat: 37.594732, lng: 127.0517775 },
+      itemCounts: itemCounts
+    },
+    seho: {
+      ko: {
+        name: '호텔관광대',
+        details: [
+          "1층 복도",
+          "직접 입력"
+        ],
+      },
+      en: {
+        name: 'Hotel and Tourism Management',
+        details: [
+          "1F Hallway",
+          "Self input"
+        ],
+      },
+      image: seh,
+      location: { lat: 37.595474, lng: 127.051071 },
+      itemCounts: itemCounts
+    },
+    sem: {
+      ko: {
+        name: '미술대',
+        details: [
+          "1층 복도",
+          "직접 입력"
+        ],
+      },
+      en: {
+        name: 'Fine Arts',
+        details: [
+          "1F Hallway",
+          "Self input"
+        ],
+      },
+      image: semi,
+      location: { lat: 37.595635, lng: 127.048585 },
+      itemCounts: itemCounts
+    },
+    segu: {
+      ko: {
+        name: '국제교육원',
+        details: [
+          "1층 복도",
+          "직접 입력"
+        ],
+      },
+      en: {
+        name: 'International Education',
+        details: [
+          "1F Hallway",
+          "Self input"
+        ],
+      },
+      image: segu,
+      location: { lat: 37.596160, lng: 127.050868 },
+      itemCounts: itemCounts
+    },
+    ses: {
+      ko: {
+        name: '생활과학대',
+        details: [
+          "1층 복도",
+          "직접 입력"
+        ],
+      },
+      en: {
+        name: 'Human Ecology',
+        details: [
+          "1F Hallway",
+          "Self input"
+        ],
+      },
+      image: ses,
+      location: { lat: 37.595954, lng: 127.051321 },
+      itemCounts: itemCounts
+    },
+    seb: {
+      ko: {
+        name: '서울 본관',
+        details: [
+          "1층 복도",
+          "직접 입력"
+        ],
+      },
+      en: {
+        name: 'Seoul Main Building',
+        details: [
+          "1F Hallway",
+          "Self input"
+        ],
+      },
+      image: seb,
+      location: { lat: 37.597156, lng: 127.051767 },
+      itemCounts: itemCounts
+    },
     secl: {
       ko: {
         name: '서울 중도',
@@ -149,44 +400,55 @@ export const buildingsObj = {
       location: { lat: 37.5960528, lng: 127.0536951 },
       itemCounts: itemCounts
     },
-    sec: {
+    seh: {
       ko: {
-        name: '청운',
+        name: '한의과대',
         details: [
-          "매점(B1)",
-          "글로벌존(B1)",
+          "1층 복도",
           "직접 입력"
         ],
       },
       en: {
-        name: 'Cheongwoon',
+        name: 'Korean Medicine',
         details: [
-          "Cafeteria(B1)",
-          "Global(B1)",
+          "1F Hallway",
           "Self input"
         ],
       },
-      image: sec,
-      location: { lat: 37.594732, lng: 127.0517775 },
+      image: seha,
+      location: { lat: 37.596108, lng: 127.053975 },
       itemCounts: itemCounts
     },
-    sep: {
+    see: {
       ko: {
-        name: '푸른솔',
+        name: '음악대',
+        details: seeKo,
+      },
+      en: {
+        name: 'Music',
+        details: seeEn,
+      },
+      image: see,
+      location: { lat: 37.595846, lng: 127.055458 },
+      itemCounts: itemCounts
+    },
+    semu: {
+      ko: {
+        name: '무용학부관',
         details: [
-          "매점(1F)",
+          "1층 복도",
           "직접 입력"
         ],
       },
       en: {
-        name: 'Pureunsol',
+        name: 'Dance',
         details: [
-          "Cafeteria(1F)",
+          "1F Hallway",
           "Self input"
         ],
       },
-      image: sep,
-      location: { lat: 37.5941125, lng: 127.0557743 },
+      image: sem,
+      location: { lat: 37.596216, lng: 127.055687 },
       itemCounts: itemCounts
     },
     sek: {
@@ -244,230 +506,6 @@ export const buildingsObj = {
       location: { lat: 37.5971991, lng: 127.0539612 },
       itemCounts: itemCounts
     },
-    seeu: {
-      ko: {
-        name: '의과대',
-        details: [
-          "1열(5F)",
-          "2열(6F)",
-          "직접 입력"
-        ],
-      },
-      en: {
-        name: 'Medicine',
-        details: [
-          "Study #1(5F)",
-          "Study #2(6F)",
-          "Self input"
-        ],
-      },
-      image: seeu,
-      location: { lat: 37.5939, lng: 127.0549 },
-      itemCounts: itemCounts
-    },
-    sechi: {
-      ko: {
-        name: '치과병원',
-        details: [
-          "1층 복도",
-          "직접 입력"
-        ],
-      },
-      en: {
-        name: 'Dental Hospital',
-        details: [
-          "1F Hallway",
-          "Self input"
-        ],
-      },
-      image: sechi,
-      location: { lat: 37.594054, lng: 127.0531189 },
-      itemCounts: itemCounts
-    },
-    sen: {
-      ko: {
-        name: '네오르네상스관',
-        details: [
-          "1층 복도",
-          "직접 입력"
-        ],
-      },
-      en: {
-        name: 'Neo-Renaissance',
-        details: [
-          "1F Hallway",
-          "Self input"
-        ],
-      },
-      image: sen,
-      location: { lat: 37.5948201, lng: 127.053091 },
-      itemCounts: itemCounts
-    },
-    seeui: {
-      ko: {
-        name: '의료원',
-        details: [
-          "1층 복도",
-          "직접 입력"
-        ],
-      },
-      en: {
-        name: 'Medical Center',
-        details: [
-          "1F Hallway",
-          "Self input"
-        ],
-      },
-      image: seu,
-      location: { lat: 37.594129, lng: 127.051861 },
-      itemCounts: itemCounts
-    },
-    sech: {
-      ko: {
-        name: '치과대',
-        details: [
-          "1층 복도",
-          "직접 입력"
-        ],
-      },
-      en: {
-        name: 'Dentistry',
-        details: [
-          "1F Hallway",
-          "Self input"
-        ],
-      },
-      image: sech,
-      location: { lat: 37.594145, lng: 127.053778 },
-      itemCounts: itemCounts
-    },
-    sey: {
-      ko: {
-        name: '약학대',
-        details: [
-          "1층 복도",
-          "직접 입력"
-        ],
-      },
-      en: {
-        name: 'Pharmacy',
-        details: [
-          "1F Hallway",
-          "Self input"
-        ],
-      },
-      image: sey,
-      location: { lat: 37.593816, lng: 127.055599 },
-      itemCounts: itemCounts
-    },
-    sem: {
-      ko: {
-        name: '미술대',
-        details: [
-          "1층 복도",
-          "직접 입력"
-        ],
-      },
-      en: {
-        name: 'Fine Arts',
-        details: [
-          "1F Hallway",
-          "Self input"
-        ],
-      },
-      image: semi,
-      location: { lat: 37.595635, lng: 127.048585 },
-      itemCounts: itemCounts
-    },
-    segu: {
-      ko: {
-        name: '국제교육원',
-        details: [
-          "1층 복도",
-          "직접 입력"
-        ],
-      },
-      en: {
-        name: 'International Education',
-        details: [
-          "1F Hallway",
-          "Self input"
-        ],
-      },
-      image: segu,
-      location: { lat: 37.596160, lng: 127.050868 },
-      itemCounts: itemCounts
-    },
-    ses: {
-      ko: {
-        name: '생활과학대',
-        details: [
-          "1층 복도",
-          "직접 입력"
-        ],
-      },
-      en: {
-        name: 'Human Ecology',
-        details: [
-          "1F Hallway",
-          "Self input"
-        ],
-      },
-      image: ses,
-      location: { lat: 37.595954, lng: 127.051321 },
-      itemCounts: itemCounts
-    },
-    seh: {
-      ko: {
-        name: '한의과대',
-        details: [
-          "1층 복도",
-          "직접 입력"
-        ],
-      },
-      en: {
-        name: 'Korean Medicine',
-        details: [
-          "1F Hallway",
-          "Self input"
-        ],
-      },
-      image: seha,
-      location: { lat: 37.596108, lng: 127.053975 },
-      itemCounts: itemCounts
-    },
-    see: {
-      ko: {
-        name: '음악대',
-        details: seeKo,
-      },
-      en: {
-        name: 'Music',
-        details: seeEn,
-      },
-      image: see,
-      location: { lat: 37.595846, lng: 127.055458 },
-      itemCounts: itemCounts
-    },
-    semu: {
-      ko: {
-        name: '무용학부관',
-        details: [
-          "1층 복도",
-          "직접 입력"
-        ],
-      },
-      en: {
-        name: 'Dance',
-        details: [
-          "1F Hallway",
-          "Self input"
-        ],
-      },
-      image: sem,
-      location: { lat: 37.596216, lng: 127.055687 },
-      itemCounts: itemCounts
-    },
     sebe: {
       ko: {
         name: '법학관',
@@ -483,27 +521,9 @@ export const buildingsObj = {
           "Self input"
         ],
       },
+
       image: sebe,
       location: { lat: 37.597883, lng: 127.053854 },
-      itemCounts: itemCounts
-    },
-    seh: {
-      ko: {
-        name: '호텔관광대',
-        details: [
-          "1층 복도",
-          "직접 입력"
-        ],
-      },
-      en: {
-        name: 'Hotel and Tourism Management',
-        details: [
-          "1F Hallway",
-          "Self input"
-        ],
-      },
-      image: seh,
-      location: { lat: 37.595474, lng: 127.051071 },
       itemCounts: itemCounts
     },
     seno: {
@@ -523,25 +543,6 @@ export const buildingsObj = {
       },
       image: seno,
       location: { lat: 37.594503, lng: 127.052378 },
-      itemCounts: itemCounts
-    },
-    seb: {
-      ko: {
-        name: '서울 본관',
-        details: [
-          "1층 복도",
-          "직접 입력"
-        ],
-      },
-      en: {
-        name: 'Seoul Main Building',
-        details: [
-          "1F Hallway",
-          "Self input"
-        ],
-      },
-      image: seb,
-      location: { lat: 37.597156, lng: 127.051767 },
       itemCounts: itemCounts
     },
   },
