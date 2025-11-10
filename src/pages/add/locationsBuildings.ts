@@ -1,54 +1,50 @@
-import staticImgs from 'src/assets/pwa-512x512.png'
-import staticCl from 'src/assets/static_cl.jpeg'
-import staticCw from 'src/assets/static_cw.jpeg'
-import seg from 'src/assets/static_g.jpeg'
-import staticE from 'src/assets/comratio.jpeg'
-import secl from 'src/assets/secl.jpg'
-import sebe from 'src/assets/sebe.jpg'
 import seb from 'src/assets/seb.jpg'
+import sebe from 'src/assets/sebe.jpg'
 import sec from 'src/assets/sec.jpg'
-import seeu from 'src/assets/seeu.jpg'
-import sep from 'src/assets/sep.jpg'
-import sek from 'src/assets/sek.jpg'
-import sem from 'src/assets/sem.jpg'
-import semu from 'src/assets/semu.png'
-import semi from 'src/assets/semi.jpg'
 import sech from 'src/assets/sech.jpg'
 import sechi from 'src/assets/sechi.jpg'
+import secl from 'src/assets/secl.jpg'
 import see from 'src/assets/see.jpg'
+import seeu from 'src/assets/seeu.jpg'
 import segu from 'src/assets/segu.jpg'
+import sek from 'src/assets/sek.jpg'
+import sem from 'src/assets/sem.jpg'
+import semi from 'src/assets/semi.jpg'
+import semu from 'src/assets/semu.png'
+import sep from 'src/assets/sep.jpg'
+import seg from 'src/assets/static_g.jpeg'
 // import seg from 'src/assets/seg.jpg'
-import seha from 'src/assets/seha.png'
-import seno from 'src/assets/seno.png'
-import seh from 'src/assets/seh.jpg'
-import sej from 'src/assets/sej.jpg'
-import seu from 'src/assets/seu.jpg'
-import sen from 'src/assets/sen.jpg'
-import sey from 'src/assets/sey.jpg'
-import ses from 'src/assets/ses.jpg'
-import gwcl from 'src/assets/gwcl.png'
-import gwb from 'src/assets/gwb.png'
-import gwc from 'src/assets/gwc.png'
+import guc from 'src/assets/guc.jpg'
+import guch from 'src/assets/guch.jpg'
+import gucha from 'src/assets/gucha.jpg'
+import gucl from 'src/assets/gucl.jpg'
+import gud from 'src/assets/gud.jpg'
 import gug from 'src/assets/gug.png'
 import gugo from 'src/assets/gugo.jpg'
-import guch from 'src/assets/guch.jpg'
-import guw from 'src/assets/guw.jpg'
-import gum from 'src/assets/gum.jpg'
-import gud from 'src/assets/gud.jpg'
-import gucha from 'src/assets/gucha.jpg'
-import gus from 'src/assets/gus.jpg'
-import guy from 'src/assets/guy.jpg'
-import guh from 'src/assets/guh.jpg'
-import gucl from 'src/assets/gucl.jpg'
-import guj from 'src/assets/guj.jpg'
 import gugu from 'src/assets/gugu.jpg'
-import guc from 'src/assets/guc.jpg'
+import guh from 'src/assets/guh.jpg'
+import guj from 'src/assets/guj.jpg'
+import gum from 'src/assets/gum.jpg'
+import gus from 'src/assets/gus.jpg'
+import guw from 'src/assets/guw.jpg'
+import guy from 'src/assets/guy.jpg'
+import gwb from 'src/assets/gwb.png'
+import gwc from 'src/assets/gwc.png'
+import gwcl from 'src/assets/gwcl.png'
 import input from 'src/assets/input.jpg'
-import { seeEn, seeKo } from '../core/buildings/see'
-import { seeuiEn, seeuiKo } from '../core/buildings/seeui'
-import { sechiEn, sechiKo } from '../core/buildings/sechi'
+import seh from 'src/assets/seh.jpg'
+import seha from 'src/assets/seha.png'
+import sej from 'src/assets/sej.jpg'
+import sen from 'src/assets/sen.jpg'
+import seno from 'src/assets/seno.png'
+import ses from 'src/assets/ses.jpg'
+import seu from 'src/assets/seu.jpg'
+import sey from 'src/assets/sey.jpg'
 import { sechEn, sechKo } from '../core/buildings/sech'
+import { sechiEn, sechiKo } from '../core/buildings/sechi'
+import { seeEn, seeKo } from '../core/buildings/see'
 import { seeuEn, seeuKo } from '../core/buildings/seeu'
+import { seeuiEn, seeuiKo } from '../core/buildings/seeui'
 
 export const itemCounts = {
   usanOne: 0,
@@ -181,15 +177,15 @@ export const buildingsObj = {
       ko: {
         name: '약학대',
         details: [
-          "1층 복도",
-          "직접 입력"
+          "직접 입력",
+          "1층 복도"
         ],
       },
       en: {
         name: 'Pharmacy',
         details: [
-          "1F Hallway",
-          "Self input"
+          "Self input",
+          "1F Hallway"
         ],
       },
       image: sey,
@@ -200,15 +196,15 @@ export const buildingsObj = {
       ko: {
         name: '푸른솔',
         details: [
-          "매점(1F)",
-          "직접 입력"
+          "직접 입력",
+          "매점(1F)"
         ],
       },
       en: {
         name: 'Pureunsol',
         details: [
-          "Cafeteria(1F)",
-          "Self input"
+          "Self input",
+          "Cafeteria(1F)"
         ],
       },
       image: sep,
@@ -219,15 +215,15 @@ export const buildingsObj = {
       ko: {
         name: '네오르네상스관',
         details: [
-          "1층 복도",
-          "직접 입력"
+          "직접 입력",
+          "1층 복도"
         ],
       },
       en: {
         name: 'Neo-Renaissance',
         details: [
-          "1F Hallway",
-          "Self input"
+          "Self input",
+          "1F Hallway"
         ],
       },
       image: sen,
@@ -238,17 +234,17 @@ export const buildingsObj = {
       ko: {
         name: '청운',
         details: [
+          "직접 입력",
           "매점(B1)",
-          "글로벌존(B1)",
-          "직접 입력"
+          "글로벌존(B1)"
         ],
       },
       en: {
         name: 'Cheongwoon',
         details: [
+          "Self input",
           "Cafeteria(B1)",
-          "Global(B1)",
-          "Self input"
+          "Global(B1)"
         ],
       },
       image: sec,
@@ -259,15 +255,15 @@ export const buildingsObj = {
       ko: {
         name: '호텔관광대',
         details: [
-          "1층 복도",
-          "직접 입력"
+          "직접 입력",
+          "1층 복도"
         ],
       },
       en: {
         name: 'Hotel and Tourism Management',
         details: [
-          "1F Hallway",
-          "Self input"
+          "Self input",
+          "1F Hallway"
         ],
       },
       image: seh,
@@ -278,15 +274,15 @@ export const buildingsObj = {
       ko: {
         name: '미술대',
         details: [
-          "1층 복도",
-          "직접 입력"
+          "직접 입력",
+          "1층 복도"
         ],
       },
       en: {
         name: 'Fine Arts',
         details: [
-          "1F Hallway",
-          "Self input"
+          "Self input",
+          "1F Hallway"
         ],
       },
       image: semi,
@@ -297,15 +293,15 @@ export const buildingsObj = {
       ko: {
         name: '국제교육원',
         details: [
-          "1층 복도",
-          "직접 입력"
+          "직접 입력",
+          "1층 복도"
         ],
       },
       en: {
         name: 'International Education',
         details: [
-          "1F Hallway",
-          "Self input"
+          "Self input",
+          "1F Hallway"
         ],
       },
       image: segu,
@@ -316,15 +312,15 @@ export const buildingsObj = {
       ko: {
         name: '생활과학대',
         details: [
-          "1층 복도",
-          "직접 입력"
+          "직접 입력",
+          "1층 복도"
         ],
       },
       en: {
         name: 'Human Ecology',
         details: [
-          "1F Hallway",
-          "Self input"
+          "Self input",
+          "1F Hallway"
         ],
       },
       image: ses,
@@ -335,15 +331,15 @@ export const buildingsObj = {
       ko: {
         name: '서울 본관',
         details: [
-          "1층 복도",
-          "직접 입력"
+          "직접 입력",
+          "1층 복도"
         ],
       },
       en: {
         name: 'Seoul Main Building',
         details: [
-          "1F Hallway",
-          "Self input"
+          "Self input",
+          "1F Hallway"
         ],
       },
       image: seb,
@@ -354,6 +350,7 @@ export const buildingsObj = {
       ko: {
         name: '서울 중도',
         details : [
+          "직접 입력",
           "1열(1F)",
           "2열(2F)",
           "3열(2F)",
@@ -365,13 +362,13 @@ export const buildingsObj = {
           "카페(1F)",
           "중앙자료실 책상(3F)",
           "참고열람실 책상(4F)",
-          "정기간행물 책상(4F)",
-          "직접 입력"
+          "정기간행물 책상(4F)"
         ]
       },
       en: {
         name: 'Seoul Central library',
         details: [
+          "Self input",
           "Study #1(1F)",
           "Study #2(2F)",
           "Study #3(2F)",
@@ -383,8 +380,7 @@ export const buildingsObj = {
           "Cafe(1F)",
           "Central Desks(3F)",
           "References Desks(4F)",
-          "Serials Desks(4F)",
-          "Self input"
+          "Serials Desks(4F)"
         ]
       },
       image: secl,
@@ -395,17 +391,17 @@ export const buildingsObj = {
       ko: {
         name: '간호이과대',
         details : [
+          "직접 입력",
           "카페(B2)",
-          "열람실(B2)",
-          "직접 입력"
+          "열람실(B2)"
         ],
       },
       en: {
         name: 'Nursing Science & Science',
         details: [
+          "Self input",
           "Cafe(B2)",
-          "Study Room(B2)",
-          "Self input"
+          "Study Room(B2)"
         ],
       },
       image: seg,
@@ -416,15 +412,15 @@ export const buildingsObj = {
       ko: {
         name: '한의과대',
         details: [
-          "1층 복도",
-          "직접 입력"
+          "직접 입력",
+          "1층 복도"
         ],
       },
       en: {
         name: 'Korean Medicine',
         details: [
-          "1F Hallway",
-          "Self input"
+          "Self input",
+          "1F Hallway"
         ],
       },
       image: seha,
@@ -443,9 +439,9 @@ export const buildingsObj = {
       en: {
         name: 'Music',
         details: [
-          "1F Hallway",
           "Self input",
-          seeEn,
+          "1F Hallway",
+          ...seeEn
         ],
       },
       image: see,
@@ -456,15 +452,15 @@ export const buildingsObj = {
       ko: {
         name: '무용학부관',
         details: [
-          "1층 복도",
-          "직접 입력"
+          "직접 입력",
+          "1층 복도"
         ],
       },
       en: {
         name: 'Dance',
         details: [
-          "1F Hallway",
-          "Self input"
+          "Self input",
+          "1F Hallway"
         ],
       },
       image: sem,
@@ -475,15 +471,15 @@ export const buildingsObj = {
       ko: {
         name: '경영대',
         details: [
-          "카페",
-          "직접 입력"
+          "직접 입력",
+          "카페"
         ],
       },
       en: {
         name: 'Business',
         details: [
-          "Cafe",
-          "Self input"
+          "Self input",
+          "Cafe"
         ],
       },
       image: sek,
@@ -511,15 +507,15 @@ export const buildingsObj = {
       ko: {
         name: '문과대',
         details: [
-          "복사실",
-          "직접 입력"
+          "직접 입력",
+          "복사실"
         ],
       },
       en: {
         name: 'Humanities',
         details: [
-          "Printer Room",
-          "Self input"
+          "Self input",
+          "Printer Room"
         ],
       },
       image: semu,
@@ -530,15 +526,15 @@ export const buildingsObj = {
       ko: {
         name: '법학관',
         details: [
-          "1층 복도",
-          "직접 입력"
+          "직접 입력",
+          "1층 복도"
         ],
       },
       en: {
         name: 'Law',
         details: [
-          "1F Hallway",
-          "Self input"
+          "Self input",
+          "1F Hallway"
         ],
       },
 
@@ -550,15 +546,15 @@ export const buildingsObj = {
       ko: {
         name: '노란지붕문화센터',
         details: [
-          "1층 복도",
-          "직접 입력"
+          "직접 입력",
+          "1층 복도"
         ],
       },
       en: {
         name: 'Yellow Roof Building',
         details: [
-          "1F Hallway",
-          "Self input"
+          "Self input",
+          "1F Hallway"
         ],
       },
       image: seno,
@@ -571,15 +567,15 @@ export const buildingsObj = {
       ko: {
         name: '광릉 본관',
         details: [
-          '1층 복도',
-          '직접 입력'
+          '직접 입력',
+          '1층 복도'
         ]
       },
       en: {
         name: 'Gwangneung Main building',
         details: [
-          "1F Hallway",
-          "Self input"
+          "Self input",
+          "1F Hallway"
         ]
       },
       image: gwb,
@@ -590,15 +586,15 @@ export const buildingsObj = {
       ko: {
         name: '광릉 중도',
         details : [
-          '1층 복도',
-          '직접 입력'
+          '직접 입력',
+          '1층 복도'
         ]
       },
       en: {
         name: 'Gwangneung Central library',
         details: [
-          "1F Hallway",
-          "Self input"
+          "Self input",
+          "1F Hallway"
         ]
       },
       image: gwcl,
@@ -609,15 +605,15 @@ export const buildingsObj = {
       ko: {
         name: '광릉 체육관',
         details : [
-          '1층 복도',
-          '직접 입력'
+          '직접 입력',
+          '1층 복도'
         ]
       },
       en: {
         name: 'Gwangneung Gym',
         details: [
-          "1F Hallway",
-          "Self input"
+          "Self input",
+          "1F Hallway"
         ]
       },
       image: gwc,
@@ -630,15 +626,15 @@ export const buildingsObj = {
       ko: {
         name: '공과대',
         details: [
-          '1층 복도',
-          '직접 입력'
+          '직접 입력',
+          '1층 복도'
         ]
       },
       en: {
         name: 'Engineering',
         details: [
-          "1F Hallway",
-          "Self input"
+          "Self input",
+          "1F Hallway"
         ]
       },
       image: gugo,
@@ -649,15 +645,15 @@ export const buildingsObj = {
       ko: {
         name: '체육대',
         details: [
-          '1층 복도',
-          '직접 입력'
+          '직접 입력',
+          '1층 복도'
         ]
       },
       en: {
         name: 'Physical Education',
         details: [
-          "1F Hallway",
-          "Self input"
+          "Self input",
+          "1F Hallway"
         ]
       },
       image: guch,
@@ -668,15 +664,15 @@ export const buildingsObj = {
       ko: {
         name: '외국어대',
         details: [
-          '1층 복도',
-          '직접 입력'
+          '직접 입력',
+          '1층 복도'
         ]
       },
       en: {
         name: 'Foreign Languages',
         details: [
-          "1F Hallway",
-          "Self input"
+          "Self input",
+          "1F Hallway"
         ]
       },
       image: guw,
@@ -687,15 +683,15 @@ export const buildingsObj = {
       ko: {
         name: '멀관',
         details: [
-          '1층 복도',
-          '직접 입력'
+          '직접 입력',
+          '1층 복도'
         ]
       },
       en: {
         name: 'Multimedia',
         details: [
-          "1F Hallway",
-          "Self input"
+          "Self input",
+          "1F Hallway"
         ]
       },
       image: gum,
@@ -706,15 +702,15 @@ export const buildingsObj = {
       ko: {
         name: '글관',
         details: [
-          '1층 복도',
-          '직접 입력'
+          '직접 입력',
+          '1층 복도'
         ]
       },
       en: {
         name: 'Global',
         details: [
-          "1F Hallway",
-          "Self input"
+          "Self input",
+          "1F Hallway"
         ]
       },
       image: gug,
@@ -725,15 +721,15 @@ export const buildingsObj = {
       ko: {
         name: '도예관',
         details: [
-          '1층 복도',
-          '직접 입력'
+          '직접 입력',
+          '1층 복도'
         ]
       },
       en: {
         name: 'Ceramic Art',
         details: [
-          "1F Hallway",
-          "Self input"
+          "Self input",
+          "1F Hallway"
         ]
       },
       image: gud,
@@ -744,15 +740,15 @@ export const buildingsObj = {
       ko: {
         name: '체육관',
         details: [
-          '1층 복도',
-          '직접 입력'
+          '직접 입력',
+          '1층 복도'
         ]
       },
       en: {
         name: 'Gym',
         details: [
-          "1F Hallway",
-          "Self input"
+          "Self input",
+          "1F Hallway"
         ]
       },
       image: gucha,
@@ -763,15 +759,15 @@ export const buildingsObj = {
       ko: {
         name: '생명과학대',
         details: [
-          '1층 복도',
-          '직접 입력'
+          '직접 입력',
+          '1층 복도'
         ]
       },
       en: {
         name: 'Life Sciences',
         details: [
-          "1F Hallway",
-          "Self input"
+          "Self input",
+          "1F Hallway"
         ]
       },
       image: gus,
@@ -782,15 +778,15 @@ export const buildingsObj = {
       ko: {
         name: '예술디자인대',
         details: [
-          '1층 복도',
-          '직접 입력'
+          '직접 입력',
+          '1층 복도'
         ]
       },
       en: {
         name: 'Arts and Design',
         details: [
-          "1F Hallway",
-          "Self input"
+          "Self input",
+          "1F Hallway"
         ]
       },
       image: guy,
@@ -801,15 +797,15 @@ export const buildingsObj = {
       ko: {
         name: '국제 학생회관',
         details: [
-          '1층 복도',
-          '직접 입력'
+          '직접 입력',
+          '1층 복도'
         ]
       },
       en: {
         name: 'Global Student Center',
         details: [
-          "1F Hallway",
-          "Self input"
+          "Self input",
+          "1F Hallway"
         ]
       },
       image: guh,
@@ -820,15 +816,15 @@ export const buildingsObj = {
       ko: {
         name: '국제 중도',
         details: [
-          '1층 복도',
-          '직접 입력'
+          '직접 입력',
+          '1층 복도'
         ]
       },
       en: {
         name: 'Global Central Library',
         details: [
-          "1F Hallway",
-          "Self input"
+          "Self input",
+          "1F Hallway"
         ]
       },
       image: gucl,
@@ -839,15 +835,15 @@ export const buildingsObj = {
       ko: {
         name: '전자정보/응용과학대',
         details: [
-          '1층 복도',
-          '직접 입력'
+          '직접 입력',
+          '1층 복도'
         ]
       },
       en: {
         name: 'Electronics Information and Applied Science',
         details: [
-          "1F Hallway",
-          "Self input"
+          "Self input",
+          "1F Hallway"
         ]
       },
       image: guj,
@@ -858,15 +854,15 @@ export const buildingsObj = {
       ko: {
         name: '국제대',
         details: [
-          '1층 복도',
-          '직접 입력'
+          '직접 입력',
+          '1층 복도'
         ]
       },
       en: {
         name: 'International Studies',
         details: [
-          "1F Hallway",
-          "Self input"
+          "Self input",
+          "1F Hallway"
         ]
       },
       image: gugu,
@@ -877,15 +873,15 @@ export const buildingsObj = {
       ko: {
         name: '천문대',
         details: [
-          '1층 복도',
-          '직접 입력'
+          '직접 입력',
+          '1층 복도'
         ]
       },
       en: {
         name: 'Astronomical Observatory',
         details: [
-          "1F Hallway",
-          "Self input"
+          "Self input",
+          "1F Hallway"
         ]
       },
       image: guc,
