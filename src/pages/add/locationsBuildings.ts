@@ -44,7 +44,7 @@ import guj from 'src/assets/guj.jpg'
 import gugu from 'src/assets/gugu.jpg'
 import guc from 'src/assets/guc.jpg'
 import input from 'src/assets/input.jpg'
-import { seeEn } from './see'
+import { seeEn, seeKo } from './see'
 
 export const itemCounts = {
   usanOne: 0,
