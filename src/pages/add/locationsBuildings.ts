@@ -54,6 +54,10 @@ import { semEn, semKo } from '../core/buildings/sem'
 import { seguEn, seguKo } from '../core/buildings/segu'
 import { sesEn, sesKo } from '../core/buildings/ses'
 import { sebEn, sebKo } from '../core/buildings/seb'
+import { semuEn, semuKo } from '../core/buildings/semu'
+import { sekEn, sekKo } from '../core/buildings/sek'
+import { sejEn, sejKo } from '../core/buildings/sej'
+import { sebeEn, sebeKo } from '../core/buildings/sebe'
 
 export const itemCounts = {
   usanOne: 0,
@@ -480,14 +484,16 @@ export const buildingsObj = {
         name: '무용학부관',
         details: [
           "직접 입력",
-          "1층 복도"
+          "1층 복도",
+          ...semuKo
         ],
       },
       en: {
         name: 'Dance',
         details: [
           "Self input",
-          "1F Hallway"
+          "1F Hallway",
+          ...semuEn
         ],
       },
       image: sem,
@@ -499,14 +505,16 @@ export const buildingsObj = {
         name: '경영대',
         details: [
           "직접 입력",
-          "카페"
+          "카페",
+          ...sekKo
         ],
       },
       en: {
         name: 'Business',
         details: [
           "Self input",
-          "Cafe"
+          "Cafe",
+          ...sekEn
         ],
       },
       image: sek,
@@ -517,13 +525,15 @@ export const buildingsObj = {
       ko: {
         name: '정경대',
         details: [
-          "직접 입력"
+          "직접 입력",
+          ...sejKo
         ],
       },
       en: {
         name: 'Political Science & Economics',
         details: [
-          "Self input"
+          "Self input",
+          ...sejEn
         ],
       },
       image: sej,
@@ -554,14 +564,16 @@ export const buildingsObj = {
         name: '법학관',
         details: [
           "직접 입력",
-          "1층 복도"
+          "1층 복도",
+          ...sebeKo
         ],
       },
       en: {
         name: 'Law',
         details: [
           "Self input",
-          "1F Hallway"
+          "1F Hallway",
+          ...sebeEn
         ],
       },
 
