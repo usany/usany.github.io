@@ -707,7 +707,7 @@ export const buildingsObj = {
         ]
       },
       en: {
-        name: 'Global',
+        name: 'Global Hall',
         details: [
           "Self input",
           "1F Hallway"
