@@ -93,6 +93,7 @@ function Selects({
   const details = (locationOne && locationOne !== '직접 입력') ? buildingsObj[key.slice(0, 2)][key][languages].details : {}
   const koDetails = (locationOne && locationOne !== '직접 입력') ? buildingsObj[key.slice(0, 2)][key]['ko'].details : {}
   const menuItems = (locationOne && locationOne !== '직접 입력') ? settingLocations(details, koDetails) : null
+  const {selfInput} = useTexts()
   return (
     <div className={`flex ${matches ? "" : "flex-col"} gap-1 px-5`}>
       <FormControl variant="standard" sx={{ width: 150 }}>
@@ -113,7 +114,7 @@ function Selects({
               <MenuItem key={index} value={koBuilding}>{name}</MenuItem>
             )
           })}
-          <MenuItem value={'직접 입력'}>Self input</MenuItem>
+          <MenuItem value={'직접 입력'}>{selfInput}</MenuItem>
         </Select>
       </FormControl>
       {locationState.locationOne !== "" &&
@@ -171,6 +172,7 @@ function Selects({
       {(locationState.locationOne === "직접 입력" || locationState.locationTwo === "직접 입력") && (
         <div className="flex pt-7">
           <TextField
+            label={selfInput}
             inputProps={{ maxLength: 25 }}
             onChange={changeLocationInput} required autoFocus />
         </div>
