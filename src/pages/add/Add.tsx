@@ -195,8 +195,8 @@ function Add({ borrow }: Props) {
     event.preventDefault()
     if (
       (locationState.locationInput !== '' ||
-        (locationState.locationOne !== '' &&
-          locationState.locationTwo !== '')) &&
+        (['', '직접 입력'].indexOf(locationState.locationOne) === -1 &&
+          ['', '직접 입력'].indexOf(locationState.locationTwo) === -1)) &&
       fromTo.from !== null &&
       fromTo.to !== null
     ) {
