@@ -239,7 +239,7 @@ export const buildingsObj = {
         ],
       },
       en: {
-        name: 'Pureunsol',
+        name: 'Hangbok Dormitory',
         details: [
           "Self input",
           "1F Hallway",
