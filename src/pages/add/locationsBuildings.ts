@@ -59,6 +59,10 @@ import { sekEn, sekKo } from '../core/buildings/sek'
 import { sejEn, sejKo } from '../core/buildings/sej'
 import { sebeEn, sebeKo } from '../core/buildings/sebe'
 import { seeuihEn, seeuihKo } from '../core/buildings/seeuih'
+import { sehanEn, sehanKo } from '../core/buildings/sehan'
+import { seseEn, seseKo } from '../core/buildings/sese'
+import { sesehEn, sesehKo } from '../core/buildings/seseh'
+import { seaEn, seaKo } from '../core/buildings/sea'
 
 export const itemCounts = {
   usanOne: 0,
@@ -235,7 +239,7 @@ export const buildingsObj = {
         details: [
           "직접 입력",
           "1층 복도",
-          ...sepKo
+          ...sehanKo
         ],
       },
       en: {
@@ -243,7 +247,7 @@ export const buildingsObj = {
         details: [
           "Self input",
           "1F Hallway",
-          ...sepEn
+          ...sehanEn
         ],
       },
       image: sep,
@@ -256,7 +260,7 @@ export const buildingsObj = {
         details: [
           "직접 입력",
           "1층 복도",
-          ...sepKo
+          ...seseKo
         ],
       },
       en: {
@@ -264,7 +268,7 @@ export const buildingsObj = {
         details: [
           "Self input",
           "1F Hallway",
-          ...sepEn
+          ...seseEn
         ],
       },
       image: sep,
@@ -277,7 +281,7 @@ export const buildingsObj = {
         details: [
           "직접 입력",
           "1층 복도",
-          ...sepKo
+          ...sesehKo
         ],
       },
       en: {
@@ -285,7 +289,7 @@ export const buildingsObj = {
         details: [
           "Self input",
           "1F Hallway",
-          ...sepEn
+          ...sesehEn
         ],
       },
       image: sep,
@@ -319,7 +323,7 @@ export const buildingsObj = {
         details: [
           "직접 입력",
           "매점(1F)",
-          ...sepKo
+          ...seaKo
         ],
       },
       en: {
@@ -327,7 +331,7 @@ export const buildingsObj = {
         details: [
           "Self input",
           "Cafeteria(1F)",
-          ...sepEn
+          ...seaEn
         ],
       },
       image: sep,
