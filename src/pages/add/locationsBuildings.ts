@@ -32,8 +32,8 @@ import gwb from 'src/assets/gwb.png'
 import gwc from 'src/assets/gwc.png'
 import gwcl from 'src/assets/gwcl.png'
 import input from 'src/assets/input.jpg'
-import seh from 'src/assets/seh.jpg'
-import seha from 'src/assets/seha.png'
+import seho from 'src/assets/seho.jpg'
+import seh from 'src/assets/seh.png'
 import sej from 'src/assets/sej.jpg'
 import sen from 'src/assets/sen.jpg'
 import seno from 'src/assets/seno.png'
@@ -454,7 +454,7 @@ export const buildingsObj = {
           "1F Hallway"
         ],
       },
-      image: seha,
+      image: seh,
       location: { lat: 37.596108, lng: 127.053975 },
       itemCounts: itemCounts
     },
