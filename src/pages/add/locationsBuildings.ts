@@ -605,6 +605,27 @@ export const buildingsObj = {
       location: { lat: 37.595846, lng: 127.055458 },
       itemCounts: itemCounts
     },
+    seha: {
+      ko: {
+        name: '학생회관',
+        details: [
+          "직접 입력",
+          "1층 복도",
+          ...seeKo
+        ],
+      },
+      en: {
+        name: 'Student Center',
+        details: [
+          "Self input",
+          "1F Hallway",
+          ...seeEn
+        ],
+      },
+      image: see,
+      location: { lat: 37.595846, lng: 127.055458 },
+      itemCounts: itemCounts
+    },
     semu: {
       ko: {
         name: '무용학부관',
