@@ -769,6 +769,48 @@ export const buildingsObj = {
       location: { lat: 37.597883, lng: 127.053854 },
       itemCounts: itemCounts
     },
+    seja: {
+      ko: {
+        name: '자연사박물관',
+        details: [
+          "직접 입력",
+          "1층 복도",
+          ...sebeKo
+        ],
+      },
+      en: {
+        name: 'Natural History Museum',
+        details: [
+          "Self input",
+          "1F Hallway",
+          ...sebeEn
+        ],
+      },
+      image: sebe,
+      location: { lat: 37.597883, lng: 127.053854 },
+      itemCounts: itemCounts
+    },
+    sesa: {
+      ko: {
+        name: '삼의원',
+        details: [
+          "직접 입력",
+          "1층 복도",
+          ...sebeKo
+        ],
+      },
+      en: {
+        name: 'Sameuiwon',
+        details: [
+          "Self input",
+          "1F Hallway",
+          ...sebeEn
+        ],
+      },
+      image: sebe,
+      location: { lat: 37.597883, lng: 127.053854 },
+      itemCounts: itemCounts
+    },
     seno: {
       ko: {
         name: '노란지붕문화센터',
