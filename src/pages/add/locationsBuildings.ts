@@ -9,7 +9,7 @@ import seeu from 'src/assets/seeu.jpg'
 import segu from 'src/assets/segu.jpg'
 import sek from 'src/assets/sek.jpg'
 import sem from 'src/assets/sem.jpg'
-import semi from 'src/assets/semi.jpg'
+import semun from 'src/assets/semun.jpg'
 import semu from 'src/assets/semu.png'
 import sep from 'src/assets/sep.jpg'
 import seg from 'src/assets/static_g.jpeg'
@@ -310,7 +310,7 @@ export const buildingsObj = {
           ...semEn
         ],
       },
-      image: semi,
+      image: sem,
       location: { lat: 37.595635, lng: 127.048585 },
       itemCounts: itemCounts
     },
@@ -496,7 +496,7 @@ export const buildingsObj = {
           ...semuEn
         ],
       },
-      image: sem,
+      image: semu,
       location: { lat: 37.596216, lng: 127.055687 },
       itemCounts: itemCounts
     },
@@ -555,7 +555,7 @@ export const buildingsObj = {
           "Printer Room"
         ],
       },
-      image: semu,
+      image: semun,
       location: { lat: 37.5971991, lng: 127.0539612 },
       itemCounts: itemCounts
     },
