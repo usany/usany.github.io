@@ -186,6 +186,27 @@ export const buildingsObj = {
       location: { lat: 37.5939, lng: 127.0549 },
       itemCounts: itemCounts
     },
+    seeuih: {
+      ko: {
+        name: '의학계열도서관',
+        details: [
+          "직접 입력",
+          "1층 복도",
+          ...seyKo
+        ],
+      },
+      en: {
+        name: 'Medical Library',
+        details: [
+          "Self input",
+          "1F Hallway",
+          ...seyEn
+        ],
+      },
+      image: sey,
+      location: { lat: 37.593816, lng: 127.055599 },
+      itemCounts: itemCounts
+    },
     sey: {
       ko: {
         name: '약학대',
