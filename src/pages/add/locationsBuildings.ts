@@ -63,6 +63,11 @@ import { sehanEn, sehanKo } from '../core/buildings/sehan'
 import { seseEn, seseKo } from '../core/buildings/sese'
 import { sesehEn, sesehKo } from '../core/buildings/seseh'
 import { seaEn, seaKo } from '../core/buildings/sea'
+import { seshEn, seshKo } from '../core/buildings/sesh'
+import { sehaEn, sehaKo } from '../core/buildings/seha'
+import { sebeoEn, sebeoKo } from '../core/buildings/sebeo'
+import { sebeopEn, sebeopKo } from '../core/buildings/sebeop'
+import { sesaEn, sesaKo } from '../core/buildings/sesa'
 
 export const itemCounts = {
   usanOne: 0,
@@ -472,7 +477,7 @@ export const buildingsObj = {
         details: [
           "직접 입력",
           "1층 복도",
-          ...sesKo
+          ...seshKo
         ],
       },
       en: {
@@ -480,7 +485,7 @@ export const buildingsObj = {
         details: [
           "Self input",
           "1F Hallway",
-          ...sesEn
+          ...seshEn
         ],
       },
       image: ses,
@@ -616,7 +621,7 @@ export const buildingsObj = {
         details: [
           "직접 입력",
           "1층 복도",
-          ...seeKo
+          ...sehaKo
         ],
       },
       en: {
@@ -624,7 +629,7 @@ export const buildingsObj = {
         details: [
           "Self input",
           "1F Hallway",
-          ...seeEn
+          ...sehaEn
         ],
       },
       image: see,
@@ -738,7 +743,7 @@ export const buildingsObj = {
         details: [
           "직접 입력",
           "1층 복도",
-          ...sebeKo
+          ...sebeoKo
         ],
       },
       en: {
@@ -746,7 +751,7 @@ export const buildingsObj = {
         details: [
           "Self input",
           "1F Hallway",
-          ...sebeEn
+          ...sebeoEn
         ],
       },
       image: sebe,
@@ -759,7 +764,7 @@ export const buildingsObj = {
         details: [
           "직접 입력",
           "1층 복도",
-          ...sebeKo
+          ...sebeopKo
         ],
       },
       en: {
@@ -767,7 +772,7 @@ export const buildingsObj = {
         details: [
           "Self input",
           "1F Hallway",
-          ...sebeEn
+          ...sebeopEn
         ],
       },
       image: sebe,
@@ -780,7 +785,6 @@ export const buildingsObj = {
         details: [
           "직접 입력",
           "1층 복도",
-          ...sebeKo
         ],
       },
       en: {
@@ -788,7 +792,6 @@ export const buildingsObj = {
         details: [
           "Self input",
           "1F Hallway",
-          ...sebeEn
         ],
       },
       image: sebe,
@@ -801,7 +804,7 @@ export const buildingsObj = {
         details: [
           "직접 입력",
           "1층 복도",
-          ...sebeKo
+          ...sesaKo
         ],
       },
       en: {
@@ -809,7 +812,7 @@ export const buildingsObj = {
         details: [
           "Self input",
           "1F Hallway",
-          ...sebeEn
+          ...sesaEn
         ],
       },
       image: sebe,
