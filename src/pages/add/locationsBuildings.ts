@@ -716,7 +716,7 @@ export const buildingsObj = {
         ],
       },
       en: {
-        name: 'First Law',
+        name: 'Law Main',
         details: [
           "Self input",
           "1F Hallway",
