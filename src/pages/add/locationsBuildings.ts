@@ -234,7 +234,6 @@ export const buildingsObj = {
         details: [
           "직접 입력",
           "1층 복도",
-          "매점(1F)",
           ...sepKo
         ],
       },
