@@ -461,6 +461,27 @@ export const buildingsObj = {
       location: { lat: 37.595954, lng: 127.051321 },
       itemCounts: itemCounts
     },
+    sesh: {
+      ko: {
+        name: '신문방송국',
+        details: [
+          "직접 입력",
+          "1층 복도",
+          ...sesKo
+        ],
+      },
+      en: {
+        name: 'Media Center',
+        details: [
+          "Self input",
+          "1F Hallway",
+          ...sesEn
+        ],
+      },
+      image: ses,
+      location: { lat: 37.595954, lng: 127.051321 },
+      itemCounts: itemCounts
+    },
     seb: {
       ko: {
         name: '서울 본관',
