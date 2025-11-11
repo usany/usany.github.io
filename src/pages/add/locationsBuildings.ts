@@ -816,7 +816,7 @@ export const buildingsObj = {
         ],
       },
       image: sebe,
-      location: { lat: 37.597216, lng: 127.055738 },
+      location: { lat: 37.597215, lng: 127.055711 },
       itemCounts: itemCounts
     },
     seno: {
