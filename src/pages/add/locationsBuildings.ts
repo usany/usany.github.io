@@ -748,6 +748,27 @@ export const buildingsObj = {
       location: { lat: 37.597883, lng: 127.053854 },
       itemCounts: itemCounts
     },
+    sebeop: {
+      ko: {
+        name: '법학부속관',
+        details: [
+          "직접 입력",
+          "1층 복도",
+          ...sebeKo
+        ],
+      },
+      en: {
+        name: 'Law Attached',
+        details: [
+          "Self input",
+          "1F Hallway",
+          ...sebeEn
+        ],
+      },
+      image: sebe,
+      location: { lat: 37.597883, lng: 127.053854 },
+      itemCounts: itemCounts
+    },
     seno: {
       ko: {
         name: '노란지붕문화센터',
