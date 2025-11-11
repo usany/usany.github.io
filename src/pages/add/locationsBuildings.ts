@@ -708,7 +708,7 @@ export const buildingsObj = {
     },
     sebe: {
       ko: {
-        name: '법학관',
+        name: '제1법학관',
         details: [
           "직접 입력",
           "1층 복도",
@@ -716,7 +716,7 @@ export const buildingsObj = {
         ],
       },
       en: {
-        name: 'Law',
+        name: 'First Law',
         details: [
           "Self input",
           "1F Hallway",
