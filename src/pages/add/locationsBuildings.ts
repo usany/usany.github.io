@@ -249,6 +249,27 @@ export const buildingsObj = {
       location: { lat: 37.5941125, lng: 127.0557743 },
       itemCounts: itemCounts
     },
+    sese: {
+      ko: {
+        name: '세화원',
+        details: [
+          "직접 입력",
+          "1층 복도",
+          ...sepKo
+        ],
+      },
+      en: {
+        name: 'Sewhawon',
+        details: [
+          "Self input",
+          "1F Hallway",
+          ...sepEn
+        ],
+      },
+      image: sep,
+      location: { lat: 37.5941125, lng: 127.0557743 },
+      itemCounts: itemCounts
+    },
     sep: {
       ko: {
         name: '푸른솔',
