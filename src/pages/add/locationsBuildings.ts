@@ -1339,3 +1339,4 @@ const locationsBuildings = {
   }),
 }
 export default locationsBuildings
+ 
