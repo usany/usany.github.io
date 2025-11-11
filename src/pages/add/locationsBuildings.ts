@@ -58,6 +58,7 @@ import { semuEn, semuKo } from '../core/buildings/semu'
 import { sekEn, sekKo } from '../core/buildings/sek'
 import { sejEn, sejKo } from '../core/buildings/sej'
 import { sebeEn, sebeKo } from '../core/buildings/sebe'
+import { seeuihEn, seeuihKo } from '../core/buildings/seeuih'
 
 export const itemCounts = {
   usanOne: 0,
@@ -192,7 +193,7 @@ export const buildingsObj = {
         details: [
           "직접 입력",
           "1층 복도",
-          ...seyKo
+          ...seeuihKo
         ],
       },
       en: {
@@ -200,7 +201,7 @@ export const buildingsObj = {
         details: [
           "Self input",
           "1F Hallway",
-          ...seyEn
+          ...seeuihEn
         ],
       },
       image: sey,
