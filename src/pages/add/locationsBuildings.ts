@@ -723,7 +723,6 @@ export const buildingsObj = {
           ...sebeEn
         ],
       },
-
       image: sebe,
       location: { lat: 37.597883, lng: 127.053854 },
       itemCounts: itemCounts
