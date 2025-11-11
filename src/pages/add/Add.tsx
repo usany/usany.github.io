@@ -363,12 +363,15 @@ function Add({ borrow }: Props) {
                 />
               )}
             </div>
-            {addSteps > 1 && (
+            {/* {addSteps > 1 && (
               <AddStepThree onChangeFrom={onChangeFrom} onChangeTo={onChangeTo} />
-            )}
+            )} */}
           </div>
         }
       </div>
+      {!matches && addSteps > 1 && (
+        <AddStepThree onChangeFrom={onChangeFrom} onChangeTo={onChangeTo} />
+      )}
       {addSteps === 2 && fromTo.from && fromTo.to && (
         <div className="flex justify-center">{pleaseCheckTime}</div>
       )}
