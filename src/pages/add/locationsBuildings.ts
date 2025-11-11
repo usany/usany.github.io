@@ -9,11 +9,11 @@ import seeu from 'src/assets/seeu.jpg'
 import segu from 'src/assets/segu.jpg'
 import sek from 'src/assets/sek.jpg'
 import sem from 'src/assets/sem.jpg'
-import semun from 'src/assets/semun.jpg'
+import semun from 'src/assets/semun.png'
 import semu from 'src/assets/semu.png'
 import sep from 'src/assets/sep.jpg'
-import seg from 'src/assets/static_g.jpeg'
 // import seg from 'src/assets/seg.jpg'
+import seg from 'src/assets/static_g.jpeg'
 import guc from 'src/assets/guc.jpg'
 import guch from 'src/assets/guch.jpg'
 import gucha from 'src/assets/gucha.jpg'
@@ -40,6 +40,17 @@ import seno from 'src/assets/seno.png'
 import ses from 'src/assets/ses.jpg'
 import seeui from 'src/assets/seeui.jpg'
 import sey from 'src/assets/sey.jpg'
+import seja from 'src/assets/seja.png'
+import sesa from 'src/assets/sesa.jpg'
+import seha from 'src/assets/seha.jpg'
+import sebeop from 'src/assets/sebeop.jpg'
+import sebeo from 'src/assets/sebeo.jpg'
+import seeuih from 'src/assets/seeuih.jpg'
+import sea from 'src/assets/sea.jpg'
+import sesh from 'src/assets/sesh.jpg'
+import sehan from 'src/assets/sehan.jpg'
+import sese from 'src/assets/sese.jpg'
+import seseh from 'src/assets/seseh.jpg'
 import { sechEn, sechKo } from '../core/buildings/sech'
 import { sechiEn, sechiKo } from '../core/buildings/sechi'
 import { seeEn, seeKo } from '../core/buildings/see'
@@ -213,7 +224,7 @@ export const buildingsObj = {
           ...seeuihEn
         ],
       },
-      image: sey,
+      image: seeuih,
       location: { lat: 37.594019, lng: 127.054878 },
       itemCounts: itemCounts
     },
@@ -255,7 +266,7 @@ export const buildingsObj = {
           ...sehanEn
         ],
       },
-      image: sep,
+      image: sehan,
       location: { lat: 37.593811, lng: 127.056095 },
       itemCounts: itemCounts
     },
@@ -276,7 +287,7 @@ export const buildingsObj = {
           ...seseEn
         ],
       },
-      image: sep,
+      image: sese,
       location: { lat: 37.593896, lng: 127.056223 },
       itemCounts: itemCounts
     },
@@ -297,7 +308,7 @@ export const buildingsObj = {
           ...sesehEn
         ],
       },
-      image: sep,
+      image: seseh,
       location: { lat: 37.594521, lng: 127.056078 },
       itemCounts: itemCounts
     },
@@ -339,7 +350,7 @@ export const buildingsObj = {
           ...seaEn
         ],
       },
-      image: sep,
+      image: sea,
       location: { lat: 37.5941125, lng: 127.0557743 },
       itemCounts: itemCounts
     },
@@ -488,7 +499,7 @@ export const buildingsObj = {
           ...seshEn
         ],
       },
-      image: ses,
+      image: sesh,
       location: { lat: 37.596378, lng: 127.051277 },
       itemCounts: itemCounts
     },
@@ -617,7 +628,7 @@ export const buildingsObj = {
     },
     seha: {
       ko: {
-        name: '학생회관',
+        name: '서울 학생회관',
         details: [
           "직접 입력",
           "1층 복도",
@@ -625,14 +636,14 @@ export const buildingsObj = {
         ],
       },
       en: {
-        name: 'Student Center',
+        name: 'Seoul Student Center',
         details: [
           "Self input",
           "1F Hallway",
           ...sehaEn
         ],
       },
-      image: see,
+      image: seha,
       location: { lat: 37.595396, lng: 127.055538 },
       itemCounts: itemCounts
     },
@@ -754,7 +765,7 @@ export const buildingsObj = {
           ...sebeoEn
         ],
       },
-      image: sebe,
+      image: sebeo,
       location: { lat: 37.598517, lng: 127.054022 },
       itemCounts: itemCounts
     },
@@ -775,7 +786,7 @@ export const buildingsObj = {
           ...sebeopEn
         ],
       },
-      image: sebe,
+      image: sebeop,
       location: { lat: 37.598875, lng: 127.053977 },
       itemCounts: itemCounts
     },
@@ -794,7 +805,7 @@ export const buildingsObj = {
           "1F Hallway",
         ],
       },
-      image: sebe,
+      image: seja,
       location: { lat: 37.597632, lng: 127.055116 },
       itemCounts: itemCounts
     },
@@ -815,7 +826,7 @@ export const buildingsObj = {
           ...sesaEn
         ],
       },
-      image: sebe,
+      image: sesa,
       location: { lat: 37.597215, lng: 127.055711 },
       itemCounts: itemCounts
     },
@@ -899,6 +910,25 @@ export const buildingsObj = {
     }
   },
   gu: {
+    gue: {
+      ko: {
+        name: '애지원',
+        details: [
+          '직접 입력',
+          '1층 복도'
+        ]
+      },
+      en: {
+        name: 'Aejiwon',
+        details: [
+          "Self input",
+          "1F Hallway"
+        ]
+      },
+      image: gugo,
+      location: { lat: 37.245777, lng: 127.080122 },
+      itemCounts: itemCounts
+    },
     gugo: {
       ko: {
         name: '공과대',
@@ -909,6 +939,44 @@ export const buildingsObj = {
       },
       en: {
         name: 'Engineering',
+        details: [
+          "Self input",
+          "1F Hallway"
+        ]
+      },
+      image: gugo,
+      location: { lat: 37.245777, lng: 127.080122 },
+      itemCounts: itemCounts
+    },
+    guwonj: {
+      ko: {
+        name: '원자로센터',
+        details: [
+          '직접 입력',
+          '1층 복도'
+        ]
+      },
+      en: {
+        name: 'Nuclear Reactor',
+        details: [
+          "Self input",
+          "1F Hallway"
+        ]
+      },
+      image: gugo,
+      location: { lat: 37.245777, lng: 127.080122 },
+      itemCounts: itemCounts
+    },
+    gugon: {
+      ko: {
+        name: '공학실험동',
+        details: [
+          '직접 입력',
+          '1층 복도'
+        ]
+      },
+      en: {
+        name: 'Engineering Facilities',
         details: [
           "Self input",
           "1F Hallway"
@@ -937,7 +1005,7 @@ export const buildingsObj = {
       location: { lat: 37.244233, lng: 127.080537 },
       itemCounts: itemCounts
     },
-    guw: {
+    guwo: {
       ko: {
         name: '외국어대',
         details: [
@@ -1013,6 +1081,25 @@ export const buildingsObj = {
       location: { lat: 37.243563, lng: 127.081166 },
       itemCounts: itemCounts
     },
+    guo: {
+      ko: {
+        name: '온실',
+        details: [
+          '직접 입력',
+          '1층 복도'
+        ]
+      },
+      en: {
+        name: 'Greenhouse',
+        details: [
+          "Self input",
+          "1F Hallway"
+        ]
+      },
+      image: gud,
+      location: { lat: 37.243563, lng: 127.081166 },
+      itemCounts: itemCounts
+    },
     gucha: {
       ko: {
         name: '국제 체육관',
@@ -1051,6 +1138,44 @@ export const buildingsObj = {
       location: { lat: 37.242897, lng: 127.081157 },
       itemCounts: itemCounts
     },
+    guh: {
+      ko: {
+        name: '한방재료가공',
+        details: [
+          '직접 입력',
+          '1층 복도'
+        ]
+      },
+      en: {
+        name: 'Training Farm',
+        details: [
+          "Self input",
+          "1F Hallway"
+        ]
+      },
+      image: gus,
+      location: { lat: 37.242897, lng: 127.081157 },
+      itemCounts: itemCounts
+    },
+    gusi: {
+      ko: {
+        name: '실험연구동',
+        details: [
+          '직접 입력',
+          '1층 복도'
+        ]
+      },
+      en: {
+        name: 'Experimental',
+        details: [
+          "Self input",
+          "1F Hallway"
+        ]
+      },
+      image: gus,
+      location: { lat: 37.242897, lng: 127.081157 },
+      itemCounts: itemCounts
+    },
     guy: {
       ko: {
         name: '예술디자인대',
@@ -1070,7 +1195,26 @@ export const buildingsObj = {
       location: { lat: 37.241527, lng: 127.084456 },
       itemCounts: itemCounts
     },
-    guh: {
+    gudo: {
+      ko: {
+        name: '동서의학',
+        details: [
+          '직접 입력',
+          '1층 복도'
+        ]
+      },
+      en: {
+        name: 'East-West Medical Science',
+        details: [
+          "Self input",
+          "1F Hallway"
+        ]
+      },
+      image: guy,
+      location: { lat: 37.241527, lng: 127.084456 },
+      itemCounts: itemCounts
+    },
+    guha: {
       ko: {
         name: '국제 학생회관',
         details: [
@@ -1108,7 +1252,7 @@ export const buildingsObj = {
       location: { lat: 37.240681, lng: 127.079700 },
       itemCounts: itemCounts
     },
-    guj: {
+    guje: {
       ko: {
         name: '전자정보/응용과학대',
         details: [
