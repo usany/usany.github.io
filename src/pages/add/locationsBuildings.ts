@@ -910,25 +910,6 @@ export const buildingsObj = {
     }
   },
   gu: {
-    gue: {
-      ko: {
-        name: '애지원',
-        details: [
-          '직접 입력',
-          '1층 복도'
-        ]
-      },
-      en: {
-        name: 'Aejiwon',
-        details: [
-          "Self input",
-          "1F Hallway"
-        ]
-      },
-      image: gugo,
-      location: { lat: 37.245777, lng: 127.080122 },
-      itemCounts: itemCounts
-    },
     gugo: {
       ko: {
         name: '공과대',
