@@ -363,9 +363,6 @@ function Add({ borrow }: Props) {
                 />
               )}
             </div>
-            {/* {addSteps > 1 && (
-              <AddStepThree onChangeFrom={onChangeFrom} onChangeTo={onChangeTo} />
-            )} */}
           </div>
         }
       </div>
