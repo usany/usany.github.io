@@ -150,6 +150,7 @@ function Add({ borrow }: Props) {
       setAddSteps(2)
     } else {
       setAddSteps(1)
+      setFromTo({from: null, to: null})
     }
   }
   const changeBuilding = (event: LocationEvent) => {
@@ -345,7 +346,6 @@ function Add({ borrow }: Props) {
             </div>
             {addSteps > 1 && (
               <AddStepThree
-                fromTo={fromTo}
                 onChangeFrom={onChangeFrom}
                 onChangeTo={onChangeTo}
               />
@@ -369,7 +369,7 @@ function Add({ borrow }: Props) {
         }
       </div>
       {!matches && addSteps > 1 && (
-        <AddStepThree fromTo={fromTo} onChangeFrom={onChangeFrom} onChangeTo={onChangeTo} />
+        <AddStepThree onChangeFrom={onChangeFrom} onChangeTo={onChangeTo} />
       )}
       {addSteps === 2 && fromTo.from && fromTo.to && (
         <div className="flex justify-center">{pleaseCheckTime}</div>
