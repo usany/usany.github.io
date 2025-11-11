@@ -38,7 +38,7 @@ import sej from 'src/assets/sej.jpg'
 import sen from 'src/assets/sen.jpg'
 import seno from 'src/assets/seno.png'
 import ses from 'src/assets/ses.jpg'
-import seu from 'src/assets/seu.jpg'
+import seeui from 'src/assets/seeui.jpg'
 import sey from 'src/assets/sey.jpg'
 import { sechEn, sechKo } from '../core/buildings/sech'
 import { sechiEn, sechiKo } from '../core/buildings/sechi'
@@ -117,7 +117,7 @@ export const buildingsObj = {
           ...seeuiEn
         ],
       },
-      image: seu,
+      image: seeui,
       location: { lat: 37.594129, lng: 127.051861 },
       itemCounts: itemCounts
     },

@@ -149,8 +149,8 @@ function Add({ borrow }: Props) {
     if (value) {
       setAddSteps(2)
     } else {
-      setAddSteps(1)
       setFromTo({from: null, to: null})
+      setAddSteps(1)
     }
   }
   const changeBuilding = (event: LocationEvent) => {
