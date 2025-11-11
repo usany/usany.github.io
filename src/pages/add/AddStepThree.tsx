@@ -7,7 +7,7 @@ interface Props {
   onChangeTo: (event: {}) => void
 }
 
-const AddStepThree = ({ onChangeFrom, onChangeTo }: Props) => {
+const AddStepThree = ({ fromTo, onChangeFrom, onChangeTo }: Props) => {
   const languages = useSelectors((state) => state.languages.value)
 
   // const title = ['3. 시간 입력']

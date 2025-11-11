@@ -168,7 +168,8 @@ function Add({ borrow }: Props) {
     locationDispatch({ type: 'changeRoom', newState: value })
     if (
       locationState.locationOne !== '중도' &&
-      locationState.locationOne !== '직접 입력'
+      locationState.locationOne !== '직접 입력' &&
+      value !== '직접 입력'
     ) {
       setAddSteps(2)
     } else if (
@@ -344,6 +345,7 @@ function Add({ borrow }: Props) {
             </div>
             {addSteps > 1 && (
               <AddStepThree
+                fromTo={fromTo}
                 onChangeFrom={onChangeFrom}
                 onChangeTo={onChangeTo}
               />
@@ -367,7 +369,7 @@ function Add({ borrow }: Props) {
         }
       </div>
       {!matches && addSteps > 1 && (
-        <AddStepThree onChangeFrom={onChangeFrom} onChangeTo={onChangeTo} />
+        <AddStepThree fromTo={fromTo} onChangeFrom={onChangeFrom} onChangeTo={onChangeTo} />
       )}
       {addSteps === 2 && fromTo.from && fromTo.to && (
         <div className="flex justify-center">{pleaseCheckTime}</div>
