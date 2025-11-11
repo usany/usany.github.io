@@ -214,7 +214,7 @@ export const buildingsObj = {
         ],
       },
       image: sey,
-      location: { lat: 37.593816, lng: 127.055599 },
+      location: { lat: 37.594019, lng: 127.054878 },
       itemCounts: itemCounts
     },
     sey: {
