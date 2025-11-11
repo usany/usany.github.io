@@ -289,7 +289,7 @@ export const buildingsObj = {
           ...sehoEn
         ],
       },
-      image: seh,
+      image: seho,
       location: { lat: 37.595474, lng: 127.051071 },
       itemCounts: itemCounts
     },
