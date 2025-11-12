@@ -983,7 +983,7 @@ export const buildingsObj = {
         ]
       },
       image: gugo,
-      location: { lat: 37.245777, lng: 127.080122 },
+      location: { lat: 37.247091, lng: 127.080882 },
       itemCounts: itemCounts
     },
     gugon: {
@@ -1002,7 +1002,7 @@ export const buildingsObj = {
         ]
       },
       image: gugo,
-      location: { lat: 37.247001, lng: 127.081196 },
+      location: { lat: 37.247006, lng: 127.081223 },
       itemCounts: itemCounts
     },
     guch: {
@@ -1135,7 +1135,7 @@ export const buildingsObj = {
         ]
       },
       image: gud,
-      location: { lat: 37.243563, lng: 127.081166 },
+      location: { lat: 37.243336, lng: 127.081176 },
       itemCounts: itemCounts
     },
     gucha: {
@@ -1192,7 +1192,7 @@ export const buildingsObj = {
         ]
       },
       image: gus,
-      location: { lat: 37.242897, lng: 127.081157 },
+      location: { lat: 37.243897, lng: 127.083366 },
       itemCounts: itemCounts
     },
     gusi: {
@@ -1211,7 +1211,7 @@ export const buildingsObj = {
         ]
       },
       image: gus,
-      location: { lat: 37.242897, lng: 127.081157 },
+      location: { lat: 37.240523, lng: 127.085917 },
       itemCounts: itemCounts
     },
     guy: {
