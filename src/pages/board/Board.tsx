@@ -128,7 +128,7 @@ function Board() {
     if (profile) {
       bringMessages()
     }
-  }, [selectedValues[2].value])
+  }, [selectedValues])
   useEffect(() => {
     const bringMessages = async () => {
       const order =selectedValues[2].value === '최신순' || !selectedValues[2].value ? 'asc' : 'desc'
