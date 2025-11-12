@@ -108,6 +108,36 @@ function Board() {
       )
       const docs = await getDocs(collectionQuery)
       const newArray = []
+      const globalIndex = locationsBuildings.ko.indexOf('국제캠퍼스 전체')
+      const gwangneungIndex = locationsBuildings.ko.indexOf('광릉캠퍼스 전체')
+      docs.forEach((doc) => {
+        if (selectedValues[0] === '전체 아이템' || selectedValues[0] === doc.data().item) {
+          if (selectedValues[1] === '전체 장소' || selectedValues[1] === doc.data().text.count) {
+            newArray.push({ id: doc.id, ...doc.data() })
+          } else if (selectedValues[1] === '서울캠퍼스 전체' && locationsBuildings.indexOf(doc.data().text.count) < globalIndex) {
+            newArray.push({ id: doc.id, ...doc.data() })
+          } else if (selectedValues[1] === '국제캠퍼스 전체' && locationsBuildings.indexOf(doc.data().text.count) < gwangneungIndex) {
+            newArray.push({ id: doc.id, ...doc.data() })
+          } else if (selectedValues[1] === '광릉캠퍼스 전체' && locationsBuildings.indexOf(doc.data().text.count) > gwangneungIndex) {
+            newArray.push({ id: doc.id, ...doc.data() })
+          }
+        }
+      })
+      setMessages({loaded: true, items: newArray})
+    }
+    if (profile) {
+      bringMessages()
+    }
+  }, [selectedValues[2].value])
+  useEffect(() => {
+    const bringMessages = async () => {
+      const order =selectedValues[2].value === '최신순' || !selectedValues[2].value ? 'asc' : 'desc'
+      const collectionQuery = query(
+        collection(dbservice, 'num'),
+        orderBy('creatorClock', order),
+      )
+      const docs = await getDocs(collectionQuery)
+      const newArray = []
       docs.forEach((doc) => {
         newArray.push({ id: doc.id, ...doc.data() })
       })
