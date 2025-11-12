@@ -70,6 +70,7 @@ function BoardMap({
   const selectedValueTwo = searchParams.get('selectedValueTwo')
   const theme = useSelectors((state) => state.theme.value)
   const { borrowing, lending, needNetworkConnection, registeredMap, registeredMapExplanation, itemOne, itemTwo } = useTexts()
+  const [currentMarker, setCurrentMarker] = useState('')
   useEffect(() => {
     document.documentElement.scrollTo({
       top: 0,
@@ -129,6 +130,8 @@ function BoardMap({
   }, [selectedValues[1].value])
   const onClickMarker = (newValue) => {
     handleSelectedValues({ id: 'selectedValueTwo', newValue: newValue })
+    const marker = newValue === '전체 장소' ? '' : newValue
+    setCurrentMarker(marker)
   }
   const mapRef = useRef(null)
   const displayMap = () => {
@@ -274,13 +277,14 @@ function BoardMap({
                 )
               })}
             </div>
-            {selectedValues[1].value === '전체 장소' ? (
+            {!currentMarker ? (
               <div className="flex">
                 {onLine && registeredMapExplanation}
               </div>
             ) : (
               <div className="flex">
-                <FilterDialogsTrigger />
+                {/* <FilterDialogsTrigger /> */}
+                <Chip label={languages === 'ko' ? currentMarker : locationsBuildings['en'][locationsBuildings['ko'].indexOf(currentMarker)]} />
               </div>
             )}
             </div>
