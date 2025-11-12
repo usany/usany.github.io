@@ -1249,7 +1249,7 @@ export const buildingsObj = {
         ]
       },
       image: guy,
-      location: { lat: 37.241527, lng: 127.084456 },
+      location: { lat: 37.242018, lng: 127.081071 },
       itemCounts: itemCounts
     },
     guha: {
