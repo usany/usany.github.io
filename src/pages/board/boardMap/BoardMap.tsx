@@ -12,7 +12,7 @@ import { dbservice } from 'src/baseApi/serverbase'
 import useSelectors from 'src/hooks/useSelectors'
 import useTexts from 'src/hooks/useTexts'
 import FilterDialogsTrigger from '../FilterDialogs/FilterDialogsTrigger'
-import { locationsCollectionLetters, markers, buildingsObj, locationsBuildingsArray } from 'src/pages/add/locationsBuildings'
+import locationsBuildings, { locationsCollectionLetters, markers, buildingsObj, locationsBuildingsArray } from 'src/pages/add/locationsBuildings'
 import { Chip } from '@mui/material'
 
 interface Props {
