@@ -967,25 +967,6 @@ export const buildingsObj = {
       location: { lat: 37.245777, lng: 127.080122 },
       itemCounts: itemCounts
     },
-    gugo: {
-      ko: {
-        name: '공과대',
-        details: [
-          '직접 입력',
-          '1층 복도'
-        ]
-      },
-      en: {
-        name: 'Engineering',
-        details: [
-          "Self input",
-          "1F Hallway"
-        ]
-      },
-      image: gugo,
-      location: { lat: 37.245777, lng: 127.080122 },
-      itemCounts: itemCounts
-    },
     guwonj: {
       ko: {
         name: '원자로센터',
