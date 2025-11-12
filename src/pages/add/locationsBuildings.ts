@@ -910,6 +910,44 @@ export const buildingsObj = {
     }
   },
   gu: {
+    gue: {
+      ko: {
+        name: '애지원',
+        details: [
+          '직접 입력',
+          '1층 복도'
+        ]
+      },
+      en: {
+        name: 'Aejiwon',
+        details: [
+          "Self input",
+          "1F Hallway"
+        ]
+      },
+      image: gugo,
+      location: { lat: 37.249139, lng: 127.081291 },
+      itemCounts: itemCounts
+    },
+    guw: {
+      ko: {
+        name: '우정원',
+        details: [
+          '직접 입력',
+          '1층 복도'
+        ]
+      },
+      en: {
+        name: 'Woojungwon',
+        details: [
+          "Self input",
+          "1F Hallway"
+        ]
+      },
+      image: gugo,
+      location: { lat: 37.245792, lng: 127.076886 },
+      itemCounts: itemCounts
+    },
     gugo: {
       ko: {
         name: '공과대',
@@ -945,7 +983,7 @@ export const buildingsObj = {
         ]
       },
       image: gugo,
-      location: { lat: 37.245777, lng: 127.080122 },
+      location: { lat: 37.247091, lng: 127.080882 },
       itemCounts: itemCounts
     },
     gugon: {
@@ -964,7 +1002,7 @@ export const buildingsObj = {
         ]
       },
       image: gugo,
-      location: { lat: 37.245777, lng: 127.080122 },
+      location: { lat: 37.247006, lng: 127.081223 },
       itemCounts: itemCounts
     },
     guch: {
@@ -1043,6 +1081,25 @@ export const buildingsObj = {
       location: { lat: 37.243973, lng: 127.076319 },
       itemCounts: itemCounts
     },
+    guj: {
+      ko: {
+        name: '제2기숙사',
+        details: [
+          '직접 입력',
+          '1층 복도'
+        ]
+      },
+      en: {
+        name: 'The Second Dormitory',
+        details: [
+          "Self input",
+          "1F Hallway"
+        ]
+      },
+      image: gug,
+      location: { lat: 37.243755, lng: 127.076859 },
+      itemCounts: itemCounts
+    },
     gud: {
       ko: {
         name: '도예관',
@@ -1078,7 +1135,7 @@ export const buildingsObj = {
         ]
       },
       image: gud,
-      location: { lat: 37.243563, lng: 127.081166 },
+      location: { lat: 37.243336, lng: 127.081176 },
       itemCounts: itemCounts
     },
     gucha: {
@@ -1135,7 +1192,7 @@ export const buildingsObj = {
         ]
       },
       image: gus,
-      location: { lat: 37.242897, lng: 127.081157 },
+      location: { lat: 37.243897, lng: 127.083366 },
       itemCounts: itemCounts
     },
     gusi: {
@@ -1154,7 +1211,7 @@ export const buildingsObj = {
         ]
       },
       image: gus,
-      location: { lat: 37.242897, lng: 127.081157 },
+      location: { lat: 37.240523, lng: 127.085917 },
       itemCounts: itemCounts
     },
     guy: {
@@ -1192,7 +1249,7 @@ export const buildingsObj = {
         ]
       },
       image: guy,
-      location: { lat: 37.241527, lng: 127.084456 },
+      location: { lat: 37.242018, lng: 127.081071 },
       itemCounts: itemCounts
     },
     guha: {
