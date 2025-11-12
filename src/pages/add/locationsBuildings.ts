@@ -1002,7 +1002,7 @@ export const buildingsObj = {
         ]
       },
       image: gugo,
-      location: { lat: 37.245777, lng: 127.080122 },
+      location: { lat: 37.247001, lng: 127.081196 },
       itemCounts: itemCounts
     },
     guch: {
