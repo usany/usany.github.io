@@ -910,6 +910,63 @@ export const buildingsObj = {
     }
   },
   gu: {
+    gue: {
+      ko: {
+        name: '애지원',
+        details: [
+          '직접 입력',
+          '1층 복도'
+        ]
+      },
+      en: {
+        name: 'Aejiwon',
+        details: [
+          "Self input",
+          "1F Hallway"
+        ]
+      },
+      image: gugo,
+      location: { lat: 37.245777, lng: 127.080122 },
+      itemCounts: itemCounts
+    },
+    guw: {
+      ko: {
+        name: '우정원',
+        details: [
+          '직접 입력',
+          '1층 복도'
+        ]
+      },
+      en: {
+        name: 'Woojungwon',
+        details: [
+          "Self input",
+          "1F Hallway"
+        ]
+      },
+      image: gugo,
+      location: { lat: 37.245777, lng: 127.080122 },
+      itemCounts: itemCounts
+    },
+    gugo: {
+      ko: {
+        name: '공과대',
+        details: [
+          '직접 입력',
+          '1층 복도'
+        ]
+      },
+      en: {
+        name: 'Engineering',
+        details: [
+          "Self input",
+          "1F Hallway"
+        ]
+      },
+      image: gugo,
+      location: { lat: 37.245777, lng: 127.080122 },
+      itemCounts: itemCounts
+    },
     gugo: {
       ko: {
         name: '공과대',
@@ -1034,6 +1091,25 @@ export const buildingsObj = {
       },
       en: {
         name: 'Global Hall',
+        details: [
+          "Self input",
+          "1F Hallway"
+        ]
+      },
+      image: gug,
+      location: { lat: 37.243973, lng: 127.076319 },
+      itemCounts: itemCounts
+    },
+    guj: {
+      ko: {
+        name: '제2기숙사',
+        details: [
+          '직접 입력',
+          '1층 복도'
+        ]
+      },
+      en: {
+        name: 'The Second Dormitory',
         details: [
           "Self input",
           "1F Hallway"
@@ -1339,4 +1415,3 @@ const locationsBuildings = {
   }),
 }
 export default locationsBuildings
- 
