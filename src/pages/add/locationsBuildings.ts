@@ -926,7 +926,7 @@ export const buildingsObj = {
         ]
       },
       image: gugo,
-      location: { lat: 37.245777, lng: 127.080122 },
+      location: { lat: 37.249139, lng: 127.081291 },
       itemCounts: itemCounts
     },
     guw: {
@@ -945,7 +945,7 @@ export const buildingsObj = {
         ]
       },
       image: gugo,
-      location: { lat: 37.245777, lng: 127.080122 },
+      location: { lat: 37.245792, lng: 127.076886 },
       itemCounts: itemCounts
     },
     gugo: {
@@ -1097,7 +1097,7 @@ export const buildingsObj = {
         ]
       },
       image: gug,
-      location: { lat: 37.243973, lng: 127.076319 },
+      location: { lat: 37.243755, lng: 127.076859 },
       itemCounts: itemCounts
     },
     gud: {
