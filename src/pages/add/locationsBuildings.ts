@@ -19,14 +19,23 @@ import guch from 'src/assets/guch.jpg'
 import gucha from 'src/assets/gucha.jpg'
 import gucl from 'src/assets/gucl.jpg'
 import gud from 'src/assets/gud.jpg'
+import gudo from 'src/assets/gudo.jpg'
+import gue from 'src/assets/gue.jpg'
 import gug from 'src/assets/gug.png'
 import gugo from 'src/assets/gugo.jpg'
+import gugon from 'src/assets/gugon.jpg'
 import gugu from 'src/assets/gugu.jpg'
 import guh from 'src/assets/guh.jpg'
+import guha from 'src/assets/guha.jpg'
 import guj from 'src/assets/guj.jpg'
+import guje from 'src/assets/guje.jpg'
 import gum from 'src/assets/gum.jpg'
+import guo from 'src/assets/guo.jpg'
 import gus from 'src/assets/gus.jpg'
+import gusi from 'src/assets/gusi.jpg'
 import guw from 'src/assets/guw.jpg'
+import guwo from 'src/assets/guwo.jpg'
+import guwonj from 'src/assets/guwonj.jpg'
 import guy from 'src/assets/guy.jpg'
 import gwb from 'src/assets/gwb.png'
 import gwc from 'src/assets/gwc.png'
@@ -79,6 +88,25 @@ import { sehaEn, sehaKo } from '../core/buildings/seha'
 import { sebeoEn, sebeoKo } from '../core/buildings/sebeo'
 import { sebeopEn, sebeopKo } from '../core/buildings/sebeop'
 import { sesaEn, sesaKo } from '../core/buildings/sesa'
+import { gueEn, gueKo } from '../core/buildings/gue'
+import { guwEn, guwKo } from '../core/buildings/guw'
+import { gugoEn, gugoKo } from '../core/buildings/gugo'
+import { gugonEn, gugonKo } from '../core/buildings/gugon'
+import { guchEn, guchKo } from '../core/buildings/guch'
+import { guwoEn, guwoKo } from '../core/buildings/guwo'
+import { gumEn, gumKo } from '../core/buildings/gum'
+import { gugEn, gugKo } from '../core/buildings/gug'
+import { gujEn, gujKo } from '../core/buildings/guj'
+import { guchaEn, guchaKo } from '../core/buildings/gucha'
+import { gusEn, gusKo } from '../core/buildings/gus'
+import { guhEn, guhKo } from '../core/buildings/guh'
+import { gusiEn, gusiKo } from '../core/buildings/gusi'
+import { guyEn, guyKo } from '../core/buildings/guy'
+import { gudoEn, gudoKo } from '../core/buildings/gudo'
+import { guhaEn, guhaKo } from '../core/buildings/guha'
+import { gujeEn, gujeKo } from '../core/buildings/guje'
+import { guguEn, guguKo } from '../core/buildings/gugu'
+import { gucEn, gucKo } from '../core/buildings/guc'
 
 export const itemCounts = {
   usanOne: 0,
@@ -915,17 +943,19 @@ export const buildingsObj = {
         name: '애지원',
         details: [
           '직접 입력',
-          '1층 복도'
+          '1층 복도',
+          ...gueKo
         ]
       },
       en: {
         name: 'Aejiwon',
         details: [
           "Self input",
-          "1F Hallway"
+          "1F Hallway",
+          ...gueEn
         ]
       },
-      image: gugo,
+      image: gue,
       location: { lat: 37.249139, lng: 127.081291 },
       itemCounts: itemCounts
     },
@@ -934,17 +964,19 @@ export const buildingsObj = {
         name: '우정원',
         details: [
           '직접 입력',
-          '1층 복도'
+          '1층 복도',
+          ...guwKo
         ]
       },
       en: {
         name: 'Woojungwon',
         details: [
           "Self input",
-          "1F Hallway"
+          "1F Hallway",
+          ...guwEn
         ]
       },
-      image: gugo,
+      image: guw,
       location: { lat: 37.245792, lng: 127.076886 },
       itemCounts: itemCounts
     },
@@ -953,14 +985,16 @@ export const buildingsObj = {
         name: '공과대',
         details: [
           '직접 입력',
-          '1층 복도'
+          '1층 복도',
+          ...gugoKo
         ]
       },
       en: {
         name: 'Engineering',
         details: [
           "Self input",
-          "1F Hallway"
+          "1F Hallway",
+          ...gugoEn
         ]
       },
       image: gugo,
@@ -982,7 +1016,7 @@ export const buildingsObj = {
           "1F Hallway"
         ]
       },
-      image: gugo,
+      image: guwonj,
       location: { lat: 37.247091, lng: 127.080882 },
       itemCounts: itemCounts
     },
@@ -991,17 +1025,19 @@ export const buildingsObj = {
         name: '공학실험동',
         details: [
           '직접 입력',
-          '1층 복도'
+          '1층 복도',
+          ...gugonKo
         ]
       },
       en: {
         name: 'Engineering Facilities',
         details: [
           "Self input",
-          "1F Hallway"
+          "1F Hallway",
+          ...gugonEn
         ]
       },
-      image: gugo,
+      image: gugon,
       location: { lat: 37.247006, lng: 127.081223 },
       itemCounts: itemCounts
     },
@@ -1010,14 +1046,16 @@ export const buildingsObj = {
         name: '체육대',
         details: [
           '직접 입력',
-          '1층 복도'
+          '1층 복도',
+          ...guchKo
         ]
       },
       en: {
         name: 'Physical Education',
         details: [
           "Self input",
-          "1F Hallway"
+          "1F Hallway",
+          ...guchEn
         ]
       },
       image: guch,
@@ -1029,17 +1067,19 @@ export const buildingsObj = {
         name: '외국어대',
         details: [
           '직접 입력',
-          '1층 복도'
+          '1층 복도',
+          ...guwoKo
         ]
       },
       en: {
         name: 'Foreign Languages',
         details: [
           "Self input",
-          "1F Hallway"
+          "1F Hallway",
+          ...guwoEn
         ]
       },
-      image: guw,
+      image: guwo,
       location: { lat: 37.245254, lng: 127.077793 },
       itemCounts: itemCounts
     },
@@ -1048,14 +1088,16 @@ export const buildingsObj = {
         name: '멀관',
         details: [
           '직접 입력',
-          '1층 복도'
+          '1층 복도',
+          ...gumKo
         ]
       },
       en: {
         name: 'Multimedia',
         details: [
           "Self input",
-          "1F Hallway"
+          "1F Hallway",
+          ...gumEn
         ]
       },
       image: gum,
@@ -1067,14 +1109,16 @@ export const buildingsObj = {
         name: '글관',
         details: [
           '직접 입력',
-          '1층 복도'
+          '1층 복도',
+          ...gugKo
         ]
       },
       en: {
         name: 'Global Hall',
         details: [
           "Self input",
-          "1F Hallway"
+          "1F Hallway",
+          ...gugEn
         ]
       },
       image: gug,
@@ -1086,17 +1130,19 @@ export const buildingsObj = {
         name: '제2기숙사',
         details: [
           '직접 입력',
-          '1층 복도'
+          '1층 복도',
+          ...gujKo
         ]
       },
       en: {
         name: 'The Second Dormitory',
         details: [
           "Self input",
-          "1F Hallway"
+          "1F Hallway",
+          ...gujEn
         ]
       },
-      image: gug,
+      image: guj,
       location: { lat: 37.243755, lng: 127.076859 },
       itemCounts: itemCounts
     },
@@ -1105,7 +1151,7 @@ export const buildingsObj = {
         name: '도예관',
         details: [
           '직접 입력',
-          '1층 복도'
+          '1층 복도',
         ]
       },
       en: {
@@ -1134,7 +1180,7 @@ export const buildingsObj = {
           "1F Hallway"
         ]
       },
-      image: gud,
+      image: guo,
       location: { lat: 37.243336, lng: 127.081176 },
       itemCounts: itemCounts
     },
@@ -1143,14 +1189,16 @@ export const buildingsObj = {
         name: '국제 체육관',
         details: [
           '직접 입력',
-          '1층 복도'
+          '1층 복도',
+          ...guchaKo
         ]
       },
       en: {
         name: 'Global Gym',
         details: [
           "Self input",
-          "1F Hallway"
+          "1F Hallway",
+          ...guchaEn
         ]
       },
       image: gucha,
@@ -1162,14 +1210,16 @@ export const buildingsObj = {
         name: '생명과학대',
         details: [
           '직접 입력',
-          '1층 복도'
+          '1층 복도',
+          ...gusKo
         ]
       },
       en: {
         name: 'Life Sciences',
         details: [
           "Self input",
-          "1F Hallway"
+          "1F Hallway",
+          ...gusEn
         ]
       },
       image: gus,
@@ -1181,17 +1231,19 @@ export const buildingsObj = {
         name: '한방재료가공',
         details: [
           '직접 입력',
-          '1층 복도'
+          '1층 복도',
+          ...guhKo
         ]
       },
       en: {
         name: 'Training Farm',
         details: [
           "Self input",
-          "1F Hallway"
+          "1F Hallway",
+          ...guhEn
         ]
       },
-      image: gus,
+      image: guh,
       location: { lat: 37.243897, lng: 127.083366 },
       itemCounts: itemCounts
     },
@@ -1200,17 +1252,19 @@ export const buildingsObj = {
         name: '실험연구동',
         details: [
           '직접 입력',
-          '1층 복도'
+          '1층 복도',
+          ...gusiKo
         ]
       },
       en: {
         name: 'Experimental',
         details: [
           "Self input",
-          "1F Hallway"
+          "1F Hallway",
+          ...gusiEn
         ]
       },
-      image: gus,
+      image: gusi,
       location: { lat: 37.240523, lng: 127.085917 },
       itemCounts: itemCounts
     },
@@ -1219,14 +1273,16 @@ export const buildingsObj = {
         name: '예술디자인대',
         details: [
           '직접 입력',
-          '1층 복도'
+          '1층 복도',
+          ...guyKo
         ]
       },
       en: {
         name: 'Arts and Design',
         details: [
           "Self input",
-          "1F Hallway"
+          "1F Hallway",
+          ...guyEn
         ]
       },
       image: guy,
@@ -1238,17 +1294,19 @@ export const buildingsObj = {
         name: '동서의학',
         details: [
           '직접 입력',
-          '1층 복도'
+          '1층 복도',
+          ...gudoKo
         ]
       },
       en: {
         name: 'East-West Medical Science',
         details: [
           "Self input",
-          "1F Hallway"
+          "1F Hallway",
+          ...gudoEn
         ]
       },
-      image: guy,
+      image: gudo,
       location: { lat: 37.242018, lng: 127.081071 },
       itemCounts: itemCounts
     },
@@ -1257,17 +1315,19 @@ export const buildingsObj = {
         name: '국제 학생회관',
         details: [
           '직접 입력',
-          '1층 복도'
+          '1층 복도',
+          ...guhaKo
         ]
       },
       en: {
         name: 'Global Student Center',
         details: [
           "Self input",
-          "1F Hallway"
+          "1F Hallway",
+          ...guhaEn
         ]
       },
-      image: guh,
+      image: guha,
       location: { lat: 37.241807, lng: 127.079968 },
       itemCounts: itemCounts
     },
@@ -1295,17 +1355,19 @@ export const buildingsObj = {
         name: '전자정보/응용과학대',
         details: [
           '직접 입력',
-          '1층 복도'
+          '1층 복도',
+          ...gujeKo
         ]
       },
       en: {
         name: 'Electronics Information and Applied Science',
         details: [
           "Self input",
-          "1F Hallway"
+          "1F Hallway",
+          ...gujeEn
         ]
       },
-      image: guj,
+      image: guje,
       location: { lat: 37.239730, lng: 127.083383 },
       itemCounts: itemCounts
     },
@@ -1314,14 +1376,16 @@ export const buildingsObj = {
         name: '국제대',
         details: [
           '직접 입력',
-          '1층 복도'
+          '1층 복도',
+          ...guguKo
         ]
       },
       en: {
         name: 'International Studies',
         details: [
           "Self input",
-          "1F Hallway"
+          "1F Hallway",
+          ...guguEn
         ]
       },
       image: gugu,
@@ -1333,14 +1397,16 @@ export const buildingsObj = {
         name: '천문대',
         details: [
           '직접 입력',
-          '1층 복도'
+          '1층 복도',
+          ...gucKo
         ]
       },
       en: {
         name: 'Astronomical Observatory',
         details: [
           "Self input",
-          "1F Hallway"
+          "1F Hallway",
+          ...gucEn
         ]
       },
       image: guc,
