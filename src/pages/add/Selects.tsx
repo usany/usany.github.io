@@ -107,7 +107,10 @@ function Selects({
         >
           {locationsBuildingsArray.map((value, index) => {
             const key = Object.keys(value)[0]
-            const name = value[key][languages].name
+            const campuses = languages === 'ko' ? ['서울', '국제', '광릉'] : ['Seoul', 'Global', 'Gwangneung']
+            const campusIndex = key.slice(0, 2) === 'se' ? 0 : key.slice(0, 2) === 'gu' ? 1 : 2
+            const nameWithoutCampus = campuses.indexOf(value[key][languages].name.split(' ')[0]) === -1 ? value[key][languages].name : value[key][languages].name.replace(value[key][languages].name.split(' ')[0], '')
+            const name = campuses[campusIndex] + ': ' + nameWithoutCampus
             const koBuilding = value[key].ko.name
             if (key.slice(2) === 'all') return null
             return (
