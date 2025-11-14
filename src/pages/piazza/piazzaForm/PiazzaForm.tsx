@@ -8,6 +8,7 @@ import { changeNewMessageTrue } from 'src/stateSlices/newMessageSlice'
 import useTexts from 'src/hooks/useTexts'
 import { webSocket } from 'src/webSocket.tsx'
 import PiazzaFormCallsContent from './PiazzaFormCallsContent'
+import { useRef } from 'react'
 
 interface Props {
   chattingUser: {
@@ -42,7 +43,7 @@ function PiazzaForm({
   const { message, send, selectCall, videoCall, audioCall } = useTexts()
   const userUid = profile?.uid
   const userName = profile?.displayName
-
+  const inputRef = useRef(null)
   const onSendSubmitHandler = async (event) => {
     event.preventDefault()
     const message = messages
@@ -261,6 +262,7 @@ function PiazzaForm({
       console.log(error)
     }
   }
+
   return (
     <form
       className={`fixed w-screen ${
@@ -273,7 +275,7 @@ function PiazzaForm({
           trigger={
             <div className="flex items-center px-1 h-full rounded bg-light-2 dark:bg-dark-2">
               <PlusCircle />
-              samples
+              sample
             </div>
           }
           title={selectCall}
@@ -283,11 +285,15 @@ function PiazzaForm({
         />
       )}
       <input
+        ref={inputRef}
         className="w-full p-3 rounded bg-light-1 dark:bg-dark-1"
         placeholder={message}
         onChange={onChangeMsgHandler}
         value={messages}
         autoFocus
+        onFocus={() => {
+          inputRef.current?.scrollIntoView
+        }}
       />
       <button className="w-1/6 rounded bg-light-2 dark:bg-dark-2" type="submit">
         {send}
