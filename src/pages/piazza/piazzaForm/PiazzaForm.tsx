@@ -262,14 +262,11 @@ function PiazzaForm({
       console.log(error)
     }
   }
-  // useEffect(() => {
-  //   if (piazzaForm) {
-  //     window.scrollTo({
-  //       top: document.body.scrollHeight,
-  //       behavior: 'smooth',
-  //     })
-  //   }
-  // }, [piazzaForm])
+  useEffect(() => {
+    if (piazzaForm) {
+      inputRef.current?.scrollIntoView()
+    }
+  }, [piazzaForm])
   return (
     <form
       className={`fixed w-screen ${
@@ -282,7 +279,7 @@ function PiazzaForm({
           trigger={
             <div className="flex items-center px-1 h-full rounded bg-light-2 dark:bg-dark-2">
               <PlusCircle />
-              sample
+              samples
             </div>
           }
           title={selectCall}
@@ -303,8 +300,8 @@ function PiazzaForm({
           //   top: document.body.scrollHeight,
           //   behavior: 'smooth', // Optional if you want to skip the scrolling animation
           // })
-          inputRef.current?.scrollIntoView()
-          setTimeout(() => inputRef.current?.scrollIntoView(), 500)
+          // inputRef.current?.scrollIntoView()
+          // setTimeout(() => inputRef.current?.scrollIntoView(), 500)
         }}
       />
       <button className="w-1/6 rounded bg-light-2 dark:bg-dark-2" type="submit">
