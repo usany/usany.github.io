@@ -46,6 +46,7 @@ function PiazzaScreen({
   const conversation = location.search
     ? location.search.slice(location.search.indexOf('=') + 1)
     : 'piazza'
+  const piazzaForm = useSelectors((state) => state.piazzaForm.value)
   useEffect(() => {
     if (currentConversation !== conversation || conversation === 'piazza') {
       handleMessagesList([])
@@ -312,7 +313,7 @@ function PiazzaScreen({
     handleMessagesList([])
   }
   return (
-    <div className={`fixed w-screen bg-light-3 dark:bg-dark-3 flex flex-col ${isKeyboardOpen ? 'bottom-[50px] h-full pt-[120px]' : 'bottom-[110px] h-[60%]'}`}>
+    <div className={`fixed w-screen bg-light-3 dark:bg-dark-3 flex flex-col ${piazzaForm ? 'bottom-[50px] h-full pt-[120px]' : 'bottom-[110px] h-[60%]'}`}>
       <div ref={boxRef} className='p-1 border-t rounded-xl overflow-auto'>
         <ul>
           {isLoading && (
