@@ -46,10 +46,12 @@ function Navigations() {
   // console.log(window.visualViewport?.height)
   useEffect(() => {
     const listener = () => {
-      const newState =
-        window.screen.height - window.screen.height > 1000
-          ? 500
-          : 300 > (window.visualViewport?.height || window.screen.height)
+      const minKeyboardHeight = 300
+      const newState = window.screen.height - minKeyboardHeight > (window.visualViewport?.height || window.screen.height)
+      // const newState =
+      //   window.screen.height - minKeyboardHeight > 1000
+      //     ? 500
+      //     : 300 > (window.visualViewport?.height || window.screen.height)
       if (isKeyboardOpen !== newState) {
         setIsKeyboardOpen(newState)
         dispatch(changePiazzaForm(newState))
@@ -71,7 +73,7 @@ function Navigations() {
     }
   }, [isKeyboardOpen])
   const navigate = useNavigate()
-
+  console.log(window.visualViewport?.height)
   return (
     <>
       {!piazzaForm && (
