@@ -18,7 +18,7 @@ function Navigations() {
   const [backgroundColor, setBackgroundColor] = useState('#e2e8f0')
   const [isKeyboardOpen, setIsKeyboardOpen] = useState(false)
   const theme = useSelector((state: ThemeRootState) => state.theme.value)
-  const piazzaForm = useSelector((state) => state.piazzaForm.value)
+  const piazzaForm = useSelectors((state) => state.piazzaForm.value)
   const bottomNavigation = useSelectors((state) => state.bottomNavigation.value)
   const languages = useSelectors((state) => state.languages.value)
   const profile = useSelectors((state) => state.profile.value)
@@ -43,7 +43,6 @@ function Navigations() {
       dispatch(changeBottomNavigation(5))
     }
   })
-  // console.log(window.visualViewport?.height)
   useEffect(() => {
     const listener = () => {
       const minKeyboardHeight = 300
@@ -71,7 +70,7 @@ function Navigations() {
         // visualViewport?.removeEventListener('resize', listener);
       }
     }
-  }, [isKeyboardOpen])
+  }, [piazzaForm])
   const navigate = useNavigate()
   console.log(window.screen.height)
   console.log(window.visualViewport?.height)
