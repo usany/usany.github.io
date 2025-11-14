@@ -286,7 +286,7 @@ function PiazzaForm({
         placeholder={message}
         onChange={onChangeMsgHandler}
         value={messages}
-        autoFocus={!isKeyboardOpen}
+        autoFocus
       />
       <button className="w-1/6 rounded bg-light-2 dark:bg-dark-2" type="submit">
         {send}
