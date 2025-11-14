@@ -275,7 +275,7 @@ function PiazzaForm({
           trigger={
             <div className="flex items-center px-1 h-full rounded bg-light-2 dark:bg-dark-2">
               <PlusCircle />
-              sample
+              samples
             </div>
           }
           title={selectCall}
@@ -293,6 +293,7 @@ function PiazzaForm({
         autoFocus
         onFocus={() => {
           inputRef.current?.scrollIntoView
+          setTimeout(() => inputRef.current?.scrollIntoView, 1000)
         }}
       />
       <button className="w-1/6 rounded bg-light-2 dark:bg-dark-2" type="submit">
