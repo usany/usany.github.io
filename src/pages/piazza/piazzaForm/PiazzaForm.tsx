@@ -8,7 +8,7 @@ import { changeNewMessageTrue } from 'src/stateSlices/newMessageSlice'
 import useTexts from 'src/hooks/useTexts'
 import { webSocket } from 'src/webSocket.tsx'
 import PiazzaFormCallsContent from './PiazzaFormCallsContent'
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
 
 interface Props {
   chattingUser: {
@@ -262,7 +262,14 @@ function PiazzaForm({
       console.log(error)
     }
   }
-
+  useEffect(() => {
+    if (piazzaForm) {
+      window.scrollTo({
+        top: document.body.scrollHeight,
+        behavior: 'smooth', // Optional if you want to skip the scrolling animation
+      })
+    }
+  }, [piazzaForm])
   return (
     <form
       className={`fixed w-screen ${
@@ -275,7 +282,7 @@ function PiazzaForm({
           trigger={
             <div className="flex items-center px-1 h-full rounded bg-light-2 dark:bg-dark-2">
               <PlusCircle />
-              sample
+              sends
             </div>
           }
           title={selectCall}
