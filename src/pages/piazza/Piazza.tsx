@@ -22,6 +22,7 @@ function Piazza() {
   const [chatDisplayName, setChatDisplayName] = useState('')
   const [searchParams] = useSearchParams()
   const dispatch = useDispatch()
+  const piazzaForm = useSelectors((state) => state.piazzaForm.value)
   const handleChatUid = (newValue: string) => {
     setChatUid(newValue)
   }
@@ -48,7 +49,7 @@ function Piazza() {
       bringChattingUser()
     }
   }, [conversation, chatUid])
-  const piazzaForm = useSelectors((state: RootState) => state.piazzaForm.value)
+  // const piazzaForm = useSelectors((state: RootState) => state.piazzaForm.value)
   // useEffect(() => {
   //   const listener = () => {
   //     const minKeyboardHeight = 300
@@ -89,7 +90,7 @@ function Piazza() {
   }, [])
   return (
     <>
-      {!isKeyboardOpen && <PiazzaTitle displayName={chatDisplayName} />}
+      {!piazzaForm && <PiazzaTitle displayName={chatDisplayName} />}
       <PiazzaScreen
         isKeyboardOpen={piazzaForm}
         messagesList={messagesList}
