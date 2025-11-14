@@ -51,8 +51,8 @@ function Navigations() {
       //   window.screen.height - minKeyboardHeight > 1000
       //     ? 500
       //     : 300 > (window.visualViewport?.height || window.screen.height)
-      if (isKeyboardOpen !== newState) {
-        setIsKeyboardOpen(newState)
+      if (piazzaForm !== newState) {
+        // setIsKeyboardOpen(newState)
         dispatch(changePiazzaForm(newState))
       }
     }
