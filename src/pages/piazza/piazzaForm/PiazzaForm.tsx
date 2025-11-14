@@ -264,7 +264,7 @@ function PiazzaForm({
   }
   useEffect(() => {
     if (piazzaForm) {
-      inputRef.current?.scrollIntoView()
+      inputRef.current?.scrollIntoView({behavior: 'smooth'})
     }
   }, [piazzaForm])
   return (
