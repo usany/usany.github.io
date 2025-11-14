@@ -295,14 +295,14 @@ function PiazzaForm({
         onChange={onChangeMsgHandler}
         value={messages}
         autoFocus
-        onFocus={() => {
-          // window.scrollTo({
-          //   top: document.body.scrollHeight,
-          //   behavior: 'smooth', // Optional if you want to skip the scrolling animation
-          // })
-          // inputRef.current?.scrollIntoView()
-          // setTimeout(() => inputRef.current?.scrollIntoView(), 500)
-        }}
+        // onFocus={() => {
+        //   window.scrollTo({
+        //     top: document.body.scrollHeight,
+        //     behavior: 'smooth',
+        //   })
+        //   inputRef.current?.scrollIntoView()
+        //   setTimeout(() => inputRef.current?.scrollIntoView(), 500)
+        // }}
       />
       <button className="w-1/6 rounded bg-light-2 dark:bg-dark-2" type="submit">
         {send}
