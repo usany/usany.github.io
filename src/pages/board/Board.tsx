@@ -197,12 +197,10 @@ function Board() {
           }
         />
       </SwipeableViews>
-      <div className="flex justify-center px-1">
-        <BoardMap
-          selectedValues={selectedSearchParams}
-          handleSelectedValues={handleSelectedValues}
-        />
-      </div>
+      <BoardMap
+        selectedValues={selectedSearchParams}
+        handleSelectedValues={handleSelectedValues}
+      />
       <div className="truncate flex justify-center sticky top-16 z-30 px-1">
         <div className="w-[1000px] shadow-md">
           <Popups
