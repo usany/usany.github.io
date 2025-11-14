@@ -249,20 +249,30 @@ function BoardMap({
     }
   }, [selectedValueTwo])
   return (
-    <div className="w-[1000px]">
+    <div className="flex justify-center px-1">
       <Accordion type="single" collapsible>
         <AccordionItem value="item-1">
-          <AccordionTrigger
-            onClick={() => {
-              setOnAccordion(!onAccordion)
-            }}
-            className="rounded shadow-md px-3 flex sticky top-16 z-30 w-full items-center justify-between bg-light-2/50 dark:bg-dark-2/50"
-          >
-            <div className="flex gap-5">
-              <MapIcon />
-              <div>{registeredMap}</div>
+          <div className="flex justify-center sticky top-16 z-30 px-5">
+            <div className="w-[1000px]">
+              <button
+                onClick={() => {
+                  document.getElementById('boardMap')?.click()
+                }}
+                className="rounded shadow-md px-3 flex sticky top-16 z-30 w-full items-center justify-between bg-light-2/50 dark:bg-dark-2/50"
+              >
+                <div className="flex gap-5">
+                  <MapIcon />
+                  <div>{registeredMap}</div>
+                </div>
+                <AccordionTrigger
+                  id='boardMap'
+                  onClick={() => {
+                    setOnAccordion(!onAccordion)
+                  }}
+                ></AccordionTrigger>
+              </button>
             </div>
-          </AccordionTrigger>
+          </div>
           <AccordionContent>
             <div className='flex flex-col p-5 gap-5'>
             <div className='flex gap-1'>
