@@ -249,10 +249,10 @@ function BoardMap({
     }
   }, [selectedValueTwo])
   return (
-    <div className="flex justify-center px-1">
+    <div className="flex flex-col justify-center">
       <Accordion type="single" collapsible>
         <AccordionItem value="item-1">
-          <div className="flex justify-center sticky top-16 z-30 px-5">
+          <div className="flex justify-center sticky top-16 z-30 px-1">
             <div className="w-[1000px]">
               <button
                 onClick={() => {
