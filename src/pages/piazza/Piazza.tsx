@@ -98,6 +98,7 @@ function Piazza() {
         handleMessages={(newValue) => setMessages(newValue)}
         messagesList={messagesList}
         handleMessagesList={(newValue) => setMessagesList(newValue)}
+        isKeyboardOpen={isKeyboardOpen}
       />
       <PiazzaMorphingDialogVideoCall
         chattingUser={chattingUser}
