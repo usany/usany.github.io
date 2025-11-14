@@ -73,6 +73,7 @@ function Navigations() {
     }
   }, [isKeyboardOpen])
   const navigate = useNavigate()
+  console.log(window.screen.height)
   console.log(window.visualViewport?.height)
   return (
     <>
