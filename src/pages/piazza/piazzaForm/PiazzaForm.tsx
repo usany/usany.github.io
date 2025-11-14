@@ -268,11 +268,12 @@ function PiazzaForm({
       } flex gap-px`}
       onSubmit={onSendSubmitHandler}
     >
-      {/* {conversation && conversation !== 'piazza' && (
+      {conversation && conversation !== 'piazza' && (
         <Popups
           trigger={
             <div className="flex items-center px-1 h-full rounded bg-light-2 dark:bg-dark-2">
               <PlusCircle />
+              sending
             </div>
           }
           title={selectCall}
@@ -280,7 +281,7 @@ function PiazzaForm({
             <PiazzaFormCallsContent chattingUser={chattingUser}/>
           }
         />
-      )} */}
+      )}
       <input
         className="w-full p-3 rounded bg-light-1 dark:bg-dark-1"
         placeholder={message}
