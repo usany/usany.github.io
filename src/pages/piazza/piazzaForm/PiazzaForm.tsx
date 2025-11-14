@@ -22,6 +22,7 @@ interface Props {
   handleMessages: (newValue: string) => void
   messagesList: []
   handleMessagesList: (newValue: []) => void
+  isKeyboardOpen: boolean
 }
 function PiazzaForm({
   chattingUser,
@@ -30,6 +31,7 @@ function PiazzaForm({
   handleMessages,
   messagesList,
   handleMessagesList,
+  isKeyboardOpen
 }: Props) {
   const piazzaForm = useSelectors((state) => state.piazzaForm.value)
   const profile = useSelectors((state) => state.profile?.value)
@@ -284,7 +286,7 @@ function PiazzaForm({
         placeholder={message}
         onChange={onChangeMsgHandler}
         value={messages}
-        autoFocus
+        autoFocus={isKeyboardOpen}
       />
       <button className="w-1/6 rounded bg-light-2 dark:bg-dark-2" type="submit">
         {send}
