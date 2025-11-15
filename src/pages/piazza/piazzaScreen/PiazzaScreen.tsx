@@ -315,7 +315,7 @@ function PiazzaScreen({
   }
 
   const containerHeight = piazzaForm
-    ? `calc(100vh - 150px)`
+    ? `calc(100vh - ${50*3}px)`
     : 'calc(100vh - 110px - 60%)'
 
   return (
