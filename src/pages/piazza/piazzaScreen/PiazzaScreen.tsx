@@ -314,14 +314,12 @@ function PiazzaScreen({
     handleMessagesList([])
   }
 
-  const containerHeight = 'calc(100vh-100px)'
-    // ? `calc(100vh-100px)`
-    // : 'calc(100vh - 110px - 60%)'
+  const containerHeight = `calc(100vh-${1.4*50}px)`
 
   return (
     <>
       <div ref={boxRef} className={`p-1 border-t rounded-xl overflow-auto fixed w-screen bg-light-3 dark:bg-dark-3 flex flex-col ${piazzaForm ? `bottom-[50px] h-[${containerHeight}]` : 'bottom-[110px] h-[60%]'}`}
-        // style={piazzaForm ? { height: containerHeight } : {}}
+        style={piazzaForm ? { height: containerHeight } : {}}
       >
         <ul>
           {isLoading && (
