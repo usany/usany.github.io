@@ -279,7 +279,7 @@ function PiazzaForm({
           trigger={
             <div className="flex items-center px-1 h-full rounded bg-light-2 dark:bg-dark-2">
               <PlusCircle />
-              sendings
+              sends
             </div>
           }
           title={selectCall}
