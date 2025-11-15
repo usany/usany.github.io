@@ -18,6 +18,8 @@ const NavigationTop = () => {
   useScroll()
   const scrollLocation =
     ['/', '/add', '/board'].indexOf(location.pathname) === -1
+  const piazzaForm = useSelectors((state) => state.piazzaForm.value)
+  if (piazzaForm) return null
   return (
     <nav className="shadow-md fixed z-50 bg-light-2 dark:bg-dark-2 rounded truncate">
       <div className="flex justify-between w-screen items-center">

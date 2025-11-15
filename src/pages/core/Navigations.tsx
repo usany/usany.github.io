@@ -9,6 +9,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import useSelectors from 'src/hooks/useSelectors'
 import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
 import { changePiazzaForm } from 'src/stateSlices/piazzaFormSlice'
+import { changeScreenHeight } from 'src/stateSlices/screenHeight'
 import texts from 'src/texts.json'
 
 interface ThemeRootState {
@@ -44,7 +45,9 @@ function Navigations() {
     }
   })
   useEffect(() => {
-    const listener = () => {
+    const listener = (event) => {
+      const height = event?.target.height ? event?.target.height.toFixed(0) : 0
+      console.log(height)
       const minKeyboardHeight = 300
       const newState = window.screen.height - minKeyboardHeight > (window.visualViewport?.height || window.screen.height)
       // const newState =
@@ -54,9 +57,10 @@ function Navigations() {
       if (piazzaForm !== newState) {
         // setIsKeyboardOpen(newState)
         dispatch(changePiazzaForm(newState))
+        // dispatch(changeScreenHeight(height))
       }
     }
-    window.addEventListener('resize', listener)
+    window.addEventListener('resize', (event) => listener(event))
     if (typeof visualViewport !== 'undefined') {
       window.visualViewport?.addEventListener('resize', listener)
     }
@@ -66,7 +70,7 @@ function Navigations() {
     // }
     return () => {
       if (typeof visualViewport !== 'undefined') {
-        window.visualViewport?.removeEventListener('resize', listener)
+        window.visualViewport?.removeEventListener('resize', (event) => listener(event))
         // visualViewport?.removeEventListener('resize', listener);
       }
     }
