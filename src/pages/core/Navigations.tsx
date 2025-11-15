@@ -57,12 +57,13 @@ function Navigations() {
       if (piazzaForm !== newState) {
         // setIsKeyboardOpen(newState)
         dispatch(changePiazzaForm(newState))
+        document.body.style.height = `${event?.target.height}px`
         // dispatch(changeScreenHeight(height))
       }
     }
     window.addEventListener('resize', (event) => listener(event))
     if (typeof visualViewport !== 'undefined') {
-      window.visualViewport?.addEventListener('resize', listener)
+      window.visualViewport?.addEventListener('resize', (event) => listener(event))
     }
     // visualViewport?.addEventListener('resize', listener)
     // if (typeof visualViewport !== 'undefined') {
