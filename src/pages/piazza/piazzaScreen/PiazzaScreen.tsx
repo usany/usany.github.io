@@ -314,9 +314,9 @@ function PiazzaScreen({
     handleMessagesList([])
   }
 
-  const containerHeight = piazzaForm
-    ? `calc(100vh-${2*50}px)`
-    : 'calc(100vh - 110px - 60%)'
+  const containerHeight = 'calc(100vh-100px)'
+    // ? `calc(100vh-100px)`
+    // : 'calc(100vh - 110px - 60%)'
 
   return (
     <>
