@@ -17,7 +17,6 @@ interface ThemeRootState {
 }
 function Navigations() {
   const [backgroundColor, setBackgroundColor] = useState('#e2e8f0')
-  const [isKeyboardOpen, setIsKeyboardOpen] = useState(false)
   const theme = useSelector((state: ThemeRootState) => state.theme.value)
   const piazzaForm = useSelectors((state) => state.piazzaForm.value)
   const bottomNavigation = useSelectors((state) => state.bottomNavigation.value)
@@ -81,7 +80,7 @@ function Navigations() {
   console.log(window.visualViewport?.height)
   return (
     <>
-      {!piazzaForm && (
+      {!piazzaForm && location.pathname !== '/piazza' && (
         <div className="w-screen border-t z-50 fixed rounded-t bottom-0 start-0 end-0">
           <BottomNavigation
             sx={{ bgcolor: alpha(backgroundColor, 0.8) }}

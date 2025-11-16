@@ -2,7 +2,6 @@ import Lottie from 'react-lottie';
 // import Lottie from 'lottie-react'
 import rain from 'src/assets/Animation.json';
 import { TextRoll } from 'src/components/motion-primitives/text-roll';
-// import begin from 'src/assets/begin.mp4'
 function Lotties() {
   const defaultOptions = {
     loop: true,
