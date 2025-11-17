@@ -16,7 +16,7 @@ const items = {
 }
 const locations = {
   ko: ['전체 장소', ...locationsBuildings['ko']],
-  en: ['All locations', ...locationsBuildings['en']],
+  en: ['All Places', ...locationsBuildings['en']],
 }
 const time = {
   ko: ['최신순', '오래된'],
