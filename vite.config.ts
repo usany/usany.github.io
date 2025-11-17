@@ -22,12 +22,12 @@ export default defineConfig({
       // static assets in the public folder
       includeAssets: ['**/*'],
       manifest: {
-        name: 'khusan umbrella',
-        short_name: 'khusan umbrella',
+        name: 'KHUSAN',
+        short_name: 'KHUSAN',
         start_url: '/',
         scope: '/',
         display: 'standalone',
-        description: 'A description for your application',
+        description: 'KHU campus umbrella sharing app',
         lang: 'en',
         dir: 'ltr',
         theme_color: '#000000',
