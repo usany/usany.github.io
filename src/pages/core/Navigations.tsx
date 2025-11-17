@@ -80,7 +80,7 @@ function Navigations() {
   console.log(window.visualViewport?.height)
   return (
     <>
-      {!piazzaForm && location.pathname !== '/piazza' && (
+      {(!piazzaForm || location.pathname !== '/piazza') && (
         <div className="w-screen border-t z-50 fixed rounded-t bottom-0 start-0 end-0">
           <BottomNavigation
             sx={{ bgcolor: alpha(backgroundColor, 0.8) }}
