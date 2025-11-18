@@ -24,7 +24,7 @@ import Playlist from '../../Playlist';
 
 function Navigation() {
   const linkId = useId();
-  const { myProfile, userSearch, groupChat, report, collection, signOut, needNetworkConnection } = useTexts()
+  const { myProfile, userSearch, groupChat, report, exhibition, signOut, needNetworkConnection } = useTexts()
   const profile = useSelectors((state) => state.profile.value)
   const onLine = useSelectors((state) => state.onLine.value)
 
