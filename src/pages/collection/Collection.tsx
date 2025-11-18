@@ -1,5 +1,5 @@
 import { GoogleGenAI } from '@google/genai'
-import { doc, getDocs, setDoc } from 'firebase/firestore'
+import { collection, doc, getDocs, setDoc } from 'firebase/firestore'
 import { Film, PlusCircle } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
@@ -30,8 +30,9 @@ function Collection() {
     save,
     cannotFindAnUmbrella,
     findingAnUmbrella,
-    collection,
+    exhibition,
   } = useTexts()
+  const [error, setError] = useState('')
   async function chat(url) {
     try {
       let file = 'png'
@@ -58,6 +59,7 @@ function Collection() {
       return response.text
     } catch (error) {
       console.log(error)
+      setError(error)
     }
   }
   const [loading, setLoading] = useState(false)
@@ -123,7 +125,7 @@ function Collection() {
       setDoc(docRef, {
         uid: profile.uid,
         displayName: profile.displayName,
-        defaultProfile: `https://ijsfbngiyhgvolsprxeh.supabase.co/storage/v1/object/public/remake/${id}`,
+        defaultProfile: `https://ijsfbngiyhgvolsprxeh.supabase.co/storage/v1/object/public/remake/collection/${id}`,
       })
       const splitedArray = attachment.split(';base64,')
       const content = splitedArray[0].slice(5)
@@ -189,7 +191,7 @@ function Collection() {
   }, [])
   return (
     <div>
-      <PageTitle icon={<Film />} title={collection} />
+      <PageTitle icon={<Film />} title={exhibition} />
       <Popups
         trigger={
           <div
@@ -243,6 +245,7 @@ function Collection() {
       />
       <div className="grid grid-cols-[repeat(auto-fit,minmax(80px,1fr))] col-span-full p-5">
         {images.map((element, index) => {
+          console.log(element.defaultProfile)
           return (
             <MorphingDialog key={index}>
               <MorphingDialogTrigger>

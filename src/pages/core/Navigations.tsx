@@ -47,7 +47,7 @@ function Navigations() {
     const listener = (event) => {
       const height = event?.target.height ? event?.target.height.toFixed(0) : 0
       console.log(height)
-      const minKeyboardHeight = 300
+      const minKeyboardHeight = 400
       const newState = window.screen.height - minKeyboardHeight > (window.visualViewport?.height || window.screen.height)
       // const newState =
       //   window.screen.height - minKeyboardHeight > 1000
