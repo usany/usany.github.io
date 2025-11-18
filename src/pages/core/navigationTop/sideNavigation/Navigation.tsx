@@ -57,7 +57,7 @@ function Navigation() {
       href: '/collection',
       passingState: { multiple: true },
       icon: <Film />,
-      description: collection,
+      description: exhibition,
     },
     {
       href: '/',
