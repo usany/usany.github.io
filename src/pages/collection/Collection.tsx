@@ -30,7 +30,7 @@ function Collection() {
     save,
     cannotFindAnUmbrella,
     findingAnUmbrella,
-    collection,
+    exhibition,
   } = useTexts()
   async function chat(url) {
     try {
@@ -189,7 +189,7 @@ function Collection() {
   }, [])
   return (
     <div>
-      <PageTitle icon={<Film />} title={collection} />
+      <PageTitle icon={<Film />} title={exhibition} />
       <Popups
         trigger={
           <div
