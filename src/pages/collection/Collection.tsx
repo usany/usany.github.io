@@ -32,6 +32,7 @@ function Collection() {
     findingAnUmbrella,
     exhibition,
   } = useTexts()
+  const [error, setError] = useState('')
   async function chat(url) {
     try {
       let file = 'png'
@@ -58,6 +59,7 @@ function Collection() {
       return response.text
     } catch (error) {
       console.log(error)
+      setError(error)
     }
   }
   const [loading, setLoading] = useState(false)
