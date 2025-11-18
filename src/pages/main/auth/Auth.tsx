@@ -44,7 +44,8 @@ function Auth() {
     }
     setCreatedNumber(number)
     setMailSent(true)
-    await fetch('https://service-ceni.onrender.com/mail', {
+    // await fetch('https://service-ceni.onrender.com/mail', {
+    await fetch('https://sending-ten.vercel.app/mail', {
     // await fetch('http://localhost:5000/mail', {
       method: 'POST',
       headers: {
