@@ -45,7 +45,7 @@ function Auth() {
     setCreatedNumber(number)
     setMailSent(true)
     await fetch('https://service-ceni.onrender.com/mail', {
-      // await fetch('http://localhost:5000/mail', {
+    // await fetch('http://localhost:5000/mail', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -53,7 +53,7 @@ function Auth() {
       body: JSON.stringify({
         to: profile?.email,
         number: number,
-        language: localStorage.getItem('languages') || 'ko',
+        language: languages,
       }),
     })
   }
