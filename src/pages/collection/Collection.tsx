@@ -1,5 +1,5 @@
 import { GoogleGenAI } from '@google/genai'
-import { doc, getDocs, setDoc } from 'firebase/firestore'
+import { collection, doc, getDocs, setDoc } from 'firebase/firestore'
 import { Film, PlusCircle } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
@@ -123,7 +123,7 @@ function Collection() {
       setDoc(docRef, {
         uid: profile.uid,
         displayName: profile.displayName,
-        defaultProfile: `https://ijsfbngiyhgvolsprxeh.supabase.co/storage/v1/object/public/remake/${id}`,
+        defaultProfile: `https://ijsfbngiyhgvolsprxeh.supabase.co/storage/v1/object/public/remake/collection/${id}`,
       })
       const splitedArray = attachment.split(';base64,')
       const content = splitedArray[0].slice(5)
@@ -243,6 +243,7 @@ function Collection() {
       />
       <div className="grid grid-cols-[repeat(auto-fit,minmax(80px,1fr))] col-span-full p-5">
         {images.map((element, index) => {
+          console.log(element.defaultProfile)
           return (
             <MorphingDialog key={index}>
               <MorphingDialogTrigger>
