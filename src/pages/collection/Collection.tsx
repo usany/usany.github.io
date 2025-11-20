@@ -78,16 +78,16 @@ function Collection() {
   })
   const [drawerOpen, setDrawerOpen] = useState(false)
   const dispatch = useDispatch()
-  const initialProfile = {
-    attachment: false,
-    profileCharacter: '',
-    profileImage: false,
-    defaultProfile: '',
-    profileImageUrl: '',
-    profileColor: '',
-    initial: true,
-    changed: false,
-  }
+  // const initialProfile = {
+  //   attachment: false,
+  //   profileCharacter: '',
+  //   profileImage: false,
+  //   defaultProfile: '',
+  //   profileImageUrl: '',
+  //   profileColor: '',
+  //   initial: true,
+  //   changed: false,
+  // }
   const navigate = useNavigate()
   const handleChangedImage = (newValue) => setChangedImage(newValue)
   const onFileChange = (event) => {
@@ -203,18 +203,20 @@ function Collection() {
           <div
             className="flex gap-5 justify-center"
             onClick={() => {
-              handleChangedImage({
-                attachment: false,
-                profileCharacter: '',
-                profileImage: false,
-                defaultProfile: '',
-                profileImageUrl: '',
-                profileColor: '',
-                initial: true,
-                changed: false,
-              })
-              changeAttachment(null)
-              setIsUmbrella('')
+              if (!loading) {
+                handleChangedImage({
+                  attachment: false,
+                  profileCharacter: '',
+                  profileImage: false,
+                  defaultProfile: '',
+                  profileImageUrl: '',
+                  profileColor: '',
+                  initial: true,
+                  changed: false,
+                })
+                changeAttachment(null)
+                setIsUmbrella('')
+              }
             }}
           >
             <PlusCircle />
@@ -239,8 +241,8 @@ function Collection() {
                     {uploadMyFile}
                   </label>
                   {/* <input id="file" type="file" onChange={onFileChange} hidden /> */}
-                  {['n', 'N'].indexOf(isUmbrella ? isUmbrella[0] : isUmbrella) !==
-                    -1 && <div>{cannotFindAnUmbrella}</div>}
+                  {/* {['n', 'N'].indexOf(isUmbrella ? isUmbrella[0] : isUmbrella) !==
+                    -1 && <div>{cannotFindAnUmbrella}</div>} */}
                 </>
               }
               {/* {!loading && (
@@ -259,6 +261,8 @@ function Collection() {
               <input id="file" type="file" onChange={onFileChange} hidden />
               {loading && <div>{findingAnUmbrella}</div>}
             </div>
+            {!loading && ['n', 'N'].indexOf(isUmbrella ? isUmbrella[0] : isUmbrella) !==
+                -1 && <div className='flex justify-center'>{cannotFindAnUmbrella}</div>}
             <div className='flex justify-center'>
               {isUmbrella && !loading &&
                 <>
@@ -278,6 +282,8 @@ function Collection() {
                     document.getElementById('close')?.click()
                   }}>{register}</Button>
               }
+              {/* {!loading && ['n', 'N'].indexOf(isUmbrella ? isUmbrella[0] : isUmbrella) !==
+                -1 && <div>{cannotFindAnUmbrella}</div>} */}
               {/* <Button variant='outlined' onClick={() => {
                 newImage()
                 document.getElementById('close')?.click()
