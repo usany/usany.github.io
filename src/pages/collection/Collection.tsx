@@ -262,12 +262,12 @@ function Collection() {
               {loading && <div>{findingAnUmbrella}</div>}
             </div>
             {!loading && ['n', 'N'].indexOf(isUmbrella ? isUmbrella[0] : isUmbrella) !==
-                -1 && <div className='flex justify-center'>{cannotFindAnUmbrella}</div>}
+                -1 && <div className='flex justify-center pt-5'>{cannotFindAnUmbrella}</div>}
             <div className='flex justify-center'>
               {isUmbrella && !loading &&
                 <>
                   <Button variant='outlined' sx={{padding: 0}}>
-                    <label htmlFor="file" className='flex justify-center items-center w-full h-full'>
+                    <label htmlFor="file" className='flex justify-center items-center w-full h-full p-[5px] px-[10px]'>
                       {uploadMyFile}
                     </label>
                   </Button>
