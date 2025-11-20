@@ -31,7 +31,7 @@ function Collection() {
     findingAnUmbrella,
     exhibition,
   } = useTexts()
-  const [error, setError] = useState('')
+  const [error, setError] = useState(false)
   async function chat(url) {
     try {
       let file = 'png'
@@ -58,7 +58,8 @@ function Collection() {
       return response.text
     } catch (error) {
       console.log(error)
-      setError(error)
+      setError(true)
+      setLoading(false)
     }
   }
   const [loading, setLoading] = useState(false)
@@ -216,6 +217,7 @@ function Collection() {
                 })
                 changeAttachment(null)
                 setIsUmbrella('')
+                setError(false)
               }
             }}
           >
@@ -261,6 +263,7 @@ function Collection() {
               <input id="file" type="file" onChange={onFileChange} hidden />
               {loading && <div>{findingAnUmbrella}</div>}
             </div>
+            {error && <div>인공지능이 현재 바쁩니다. 다시 시도해주세요.</div>}
             {!loading && ['n', 'N'].indexOf(isUmbrella ? isUmbrella[0] : isUmbrella) !==
                 -1 && <div className='flex justify-center pt-5'>{cannotFindAnUmbrella}</div>}
             <div className='flex justify-center'>
