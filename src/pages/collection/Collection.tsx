@@ -262,7 +262,7 @@ function Collection() {
               {loading && <div>{findingAnUmbrella}</div>}
             </div>
             <div className='flex justify-center'>
-              {isUmbrella &&
+              {isUmbrella && !loading &&
                 <>
                   <Button variant='outlined' sx={{padding: 0}}>
                     <label htmlFor="file" className='flex justify-center items-center w-full h-full'>
