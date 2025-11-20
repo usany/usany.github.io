@@ -28,7 +28,6 @@ function Collection() {
   const {
     register,
     uploadMyFile,
-    save,
     cannotFindAnUmbrella,
     findingAnUmbrella,
     exhibition,
@@ -278,7 +277,7 @@ function Collection() {
                   <Button variant='outlined' onClick={() => {
                     newImage()
                     document.getElementById('close')?.click()
-                  }}>{save}</Button>
+                  }}>{register}</Button>
               }
               {/* <Button variant='outlined' onClick={() => {
                 newImage()
