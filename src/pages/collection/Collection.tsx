@@ -18,7 +18,6 @@ import PageTitle from '../core/pageTitle/PageTitle'
 import Popups from '../core/Popups'
 import supabase from 'src/baseApi/base'
 import { decode } from 'base64-arraybuffer'
-import { User } from 'firebase/auth'
 import useSelectors from 'src/hooks/useSelectors'
 import { Button } from '@mui/material'
 
