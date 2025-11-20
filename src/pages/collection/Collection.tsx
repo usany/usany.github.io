@@ -18,7 +18,6 @@ import PageTitle from '../core/pageTitle/PageTitle'
 import Popups from '../core/Popups'
 import supabase from 'src/baseApi/base'
 import { decode } from 'base64-arraybuffer'
-import { User } from 'firebase/auth'
 import useSelectors from 'src/hooks/useSelectors'
 import { Button } from '@mui/material'
 
@@ -28,12 +27,11 @@ function Collection() {
   const {
     register,
     uploadMyFile,
-    save,
     cannotFindAnUmbrella,
     findingAnUmbrella,
     exhibition,
   } = useTexts()
-  const [error, setError] = useState('')
+  const [error, setError] = useState(false)
   async function chat(url) {
     try {
       let file = 'png'
@@ -60,7 +58,8 @@ function Collection() {
       return response.text
     } catch (error) {
       console.log(error)
-      setError(error)
+      setError(true)
+      setLoading(false)
     }
   }
   const [loading, setLoading] = useState(false)
@@ -80,16 +79,16 @@ function Collection() {
   })
   const [drawerOpen, setDrawerOpen] = useState(false)
   const dispatch = useDispatch()
-  const initialProfile = {
-    attachment: false,
-    profileCharacter: '',
-    profileImage: false,
-    defaultProfile: '',
-    profileImageUrl: '',
-    profileColor: '',
-    initial: true,
-    changed: false,
-  }
+  // const initialProfile = {
+  //   attachment: false,
+  //   profileCharacter: '',
+  //   profileImage: false,
+  //   defaultProfile: '',
+  //   profileImageUrl: '',
+  //   profileColor: '',
+  //   initial: true,
+  //   changed: false,
+  // }
   const navigate = useNavigate()
   const handleChangedImage = (newValue) => setChangedImage(newValue)
   const onFileChange = (event) => {
@@ -205,18 +204,21 @@ function Collection() {
           <div
             className="flex gap-5 justify-center"
             onClick={() => {
-              handleChangedImage({
-                attachment: false,
-                profileCharacter: '',
-                profileImage: false,
-                defaultProfile: '',
-                profileImageUrl: '',
-                profileColor: '',
-                initial: true,
-                changed: false,
-              })
-              changeAttachment(null)
-              setIsUmbrella('')
+              if (!loading) {
+                handleChangedImage({
+                  attachment: false,
+                  profileCharacter: '',
+                  profileImage: false,
+                  defaultProfile: '',
+                  profileImageUrl: '',
+                  profileColor: '',
+                  initial: true,
+                  changed: false,
+                })
+                changeAttachment(null)
+                setIsUmbrella('')
+                setError(false)
+              }
             }}
           >
             <PlusCircle />
@@ -241,8 +243,8 @@ function Collection() {
                     {uploadMyFile}
                   </label>
                   {/* <input id="file" type="file" onChange={onFileChange} hidden /> */}
-                  {['n', 'N'].indexOf(isUmbrella ? isUmbrella[0] : isUmbrella) !==
-                    -1 && <div>{cannotFindAnUmbrella}</div>}
+                  {/* {['n', 'N'].indexOf(isUmbrella ? isUmbrella[0] : isUmbrella) !==
+                    -1 && <div>{cannotFindAnUmbrella}</div>} */}
                 </>
               }
               {/* {!loading && (
@@ -261,11 +263,14 @@ function Collection() {
               <input id="file" type="file" onChange={onFileChange} hidden />
               {loading && <div>{findingAnUmbrella}</div>}
             </div>
+            {error && <div className='flex justify-center'>인공지능이 현재 바쁩니다. 다시 시도해주세요.</div>}
+            {!loading && ['n', 'N'].indexOf(isUmbrella ? isUmbrella[0] : isUmbrella) !==
+                -1 && <div className='flex justify-center pt-5'>{cannotFindAnUmbrella}</div>}
             <div className='flex justify-center'>
-              {isUmbrella &&
+              {isUmbrella && !loading &&
                 <>
                   <Button variant='outlined' sx={{padding: 0}}>
-                    <label htmlFor="file" className='flex justify-center items-center w-full h-full'>
+                    <label htmlFor="file" className='flex justify-center items-center w-full h-full p-[5px] px-[10px]'>
                       {uploadMyFile}
                     </label>
                   </Button>
@@ -278,8 +283,10 @@ function Collection() {
                   <Button variant='outlined' onClick={() => {
                     newImage()
                     document.getElementById('close')?.click()
-                  }}>{save}</Button>
+                  }}>{register}</Button>
               }
+              {/* {!loading && ['n', 'N'].indexOf(isUmbrella ? isUmbrella[0] : isUmbrella) !==
+                -1 && <div>{cannotFindAnUmbrella}</div>} */}
               {/* <Button variant='outlined' onClick={() => {
                 newImage()
                 document.getElementById('close')?.click()
