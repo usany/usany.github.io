@@ -104,6 +104,13 @@ function Collection() {
         currentTarget: { result },
       } = finishedEvent
       changeAttachment(result)
+      setChangedImage({
+        ...changedImage,
+        attachment: true,
+        profileImage: true,
+        profileImageUrl: result,
+        changed: true,
+      })
       setLoading(true)
       const response = await chat(result)
       setIsUmbrella(response)
@@ -143,29 +150,29 @@ function Collection() {
       }
     }
   }
-  useEffect(() => {
-    if (loading) {
-      setChangedImage({
-        attachment: false,
-        profileCharacter: '',
-        profileImage: false,
-        defaultProfile: '',
-        profileImageUrl: '',
-        profileColor: '',
-        initial: true,
-        changed: false,
-      })
-    }
-    if (attachment && !changedImage.attachment) {
-      setChangedImage({
-        ...changedImage,
-        attachment: true,
-        profileImage: true,
-        profileImageUrl: attachment,
-        changed: true,
-      })
-    }
-  }, [loading])
+  // useEffect(() => {
+  //   if (loading) {
+  //     setChangedImage({
+  //       attachment: false,
+  //       profileCharacter: '',
+  //       profileImage: false,
+  //       defaultProfile: '',
+  //       profileImageUrl: '',
+  //       profileColor: '',
+  //       initial: true,
+  //       changed: false,
+  //     })
+  //   }
+  //   if (attachment && !changedImage.attachment) {
+  //     setChangedImage({
+  //       ...changedImage,
+  //       attachment: true,
+  //       profileImage: true,
+  //       profileImageUrl: attachment,
+  //       changed: true,
+  //     })
+  //   }
+  // }, [loading])
   useEffect(() => {
     const bringImages = async () => {
       const ref = collection(dbservice, 'collections')
