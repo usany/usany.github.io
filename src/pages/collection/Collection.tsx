@@ -269,7 +269,8 @@ function Collection() {
                 </div>
               }
             </div>
-            {error && <div className='flex justify-center'>인공지능이 바쁩니다. 다시 시도해주세요.</div>}
+            {/* {error && <div className='flex justify-center'>인공지능이 바쁩니다. 다시 시도해주세요.</div>} */}
+            {error && <div className='flex justify-center'>AI is busy. Please try again.</div>}
             {!loading && ['n', 'N'].indexOf(isUmbrella ? isUmbrella[0] : isUmbrella) !==
                 -1 && <div className='flex justify-center pt-5'>{cannotFindAnUmbrella}</div>}
             <div className='flex justify-center'>
