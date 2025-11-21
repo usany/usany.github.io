@@ -20,6 +20,7 @@ import supabase from 'src/baseApi/base'
 import { decode } from 'base64-arraybuffer'
 import useSelectors from 'src/hooks/useSelectors'
 import { Button } from '@mui/material'
+import LottieScroll from 'src/lottiesAnimation/LottieScroll'
 
 function Collection() {
   const profile = useSelectors((state) => state.profile.value)
@@ -235,7 +236,7 @@ function Collection() {
                   profile={true}
                 />
                 :
-                <>
+                <div className='p-5'>
                   <label
                     htmlFor="file"
                     className="flex justify-center items-center w-48 h-48 p-5 rounded border border-dashed"
@@ -245,7 +246,7 @@ function Collection() {
                   {/* <input id="file" type="file" onChange={onFileChange} hidden /> */}
                   {/* {['n', 'N'].indexOf(isUmbrella ? isUmbrella[0] : isUmbrella) !==
                     -1 && <div>{cannotFindAnUmbrella}</div>} */}
-                </>
+                </div>
               }
               {/* {!loading && (
                 <>
@@ -261,7 +262,12 @@ function Collection() {
                 </>
               )} */}
               <input id="file" type="file" onChange={onFileChange} hidden />
-              {loading && <div>{findingAnUmbrella}</div>}
+              {loading &&
+                <div className='flex flex-col justify-center items-center'>
+                  {findingAnUmbrella}
+                  <LottieScroll />
+                </div>
+              }
             </div>
             {error && <div className='flex justify-center'>인공지능이 바쁩니다. 다시 시도해주세요.</div>}
             {!loading && ['n', 'N'].indexOf(isUmbrella ? isUmbrella[0] : isUmbrella) !==
@@ -312,7 +318,7 @@ function Collection() {
                   src={element.defaultProfile}
                   className="w-[80px] h-[80px]"
                   onClick={() => {
-                    navigate(`/collection?id=${index}`)
+                    navigate(`/collection?card=${index}`)
                   }}
                 />
               </MorphingDialogTrigger>

@@ -50,7 +50,7 @@ const areas = {
 }
 
 const ProfileLocations = () => {
-  const [location, setLocation] = useState({ lat: 0, lng: 0 })
+  const [location, setLocation] = useState({ lat: 0, lng: 0, error: false })
   const {
     locationConfirmed,
     locationUnconfirmed,
@@ -111,17 +111,23 @@ const ProfileLocations = () => {
         updateDoc(myDoc, { locationConfirmed: Date.now() })
         dispatch(changeProfile({ ...profile, locationConfirmed: true }))
       }
+    } else {
+      setLocation({...location, error: true})
     }
   }
   const onClickLocation = () => {
     alert('Allow location access to update on-campus status of your profile')
     navigator.geolocation.getCurrentPosition((position) => {
       setLocation({
+        ...location,
         lat: position.coords.latitude,
         lng: position.coords.longitude,
       })
+    }, (error) => {
+      console.log(error)
+      setLocation({...location, error: String(error)})
     })
-    onClick()
+    onLocationBoundary()
   }
   return (
     <div className="flex justify-center p-10">
@@ -166,7 +172,7 @@ const ProfileLocations = () => {
             locationUnconfirmed
           }
         />
-        {!locationConfirmation && location.lat !== 0 && (
+        {!locationConfirmation && location.error && (
           <>{failedLocationConfirmation}</>
         )}
       </div>

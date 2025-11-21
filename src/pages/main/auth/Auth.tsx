@@ -57,6 +57,8 @@ function Auth() {
         language: languages,
       }),
     })
+    setCreatedNumber(number)
+    setMailSent(true)
   }
   const confirmNumber = async () => {
     if (numberString === createdNumber) {
@@ -110,7 +112,12 @@ function Auth() {
             {numberString.length === 6 && (
               <Button onClick={confirmNumber}>{confirm}</Button>
             )}
-            <Button onClick={sendNumberMail}>
+            <Button onClick={() => {
+              if (mailSent) {
+                alert('Mail sent again')
+              }
+              sendNumberMail()
+            }}>
               {mailSent ? sendMailAgain : sendMail}
             </Button>
           </div>
