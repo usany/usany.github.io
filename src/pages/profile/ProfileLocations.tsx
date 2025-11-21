@@ -118,6 +118,7 @@ const ProfileLocations = () => {
   const onClickLocation = () => {
     alert('Allow location access to update on-campus status of your profile')
     navigator.geolocation.getCurrentPosition((position) => {
+      console.log(position)
       const newLocation = {
         ...location,
         lat: position.coords.latitude,
@@ -144,7 +145,6 @@ const ProfileLocations = () => {
       console.log(error)
       setLocation({...location, error: true})
     })
-    onLocationBoundary()
   }
   return (
     <div className="flex justify-center p-10">
