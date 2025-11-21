@@ -82,21 +82,21 @@ const ProfileLocations = () => {
       alert(nothingChanged)
     }
   }
-  const onClick = () => {
-    const myDoc = doc(dbservice, `members/${profile?.uid}`)
-    if (
-      location.lat > area.westSouth.lat &&
-      location.lat < area.westNorth.lat
-    ) {
-      if (
-        location.lng > area.westSouth.lng &&
-        location.lng < area.eastSouth.lng
-      ) {
-        updateDoc(myDoc, { locationConfirmed: Date.now() })
-        dispatch(changeProfile({ ...profile, locationConfirmed: true }))
-      }
-    }
-  }
+  // const onClick = () => {
+  //   const myDoc = doc(dbservice, `members/${profile?.uid}`)
+  //   if (
+  //     location.lat > area.westSouth.lat &&
+  //     location.lat < area.westNorth.lat
+  //   ) {
+  //     if (
+  //       location.lng > area.westSouth.lng &&
+  //       location.lng < area.eastSouth.lng
+  //     ) {
+  //       updateDoc(myDoc, { locationConfirmed: Date.now() })
+  //       dispatch(changeProfile({ ...profile, locationConfirmed: true }))
+  //     }
+  //   }
+  // }
   const onLocationBoundary = () => {
     const myDoc = doc(dbservice, `members/${profile?.uid}`)
     const key = profile?.campus.slice(0, profile?.campus.indexOf(' ')) || 'Seoul'
@@ -125,7 +125,7 @@ const ProfileLocations = () => {
       })
     }, (error) => {
       console.log(error)
-      setLocation({...location, error: String(error)})
+      setLocation({...location, error: true})
     })
     onLocationBoundary()
   }
