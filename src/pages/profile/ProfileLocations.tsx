@@ -65,7 +65,7 @@ const ProfileLocations = () => {
   const userUid = state?.element.uid || profile?.uid
   const userCampus = state?.element.campus || profile?.campus
   const locationConfirmNumber = 50000000
-  const confirmed = profile?.locationConfirmed
+  const confirmed = state?.element ? state?.element.locationConfirmed : profile?.locationConfirmed
   const largeMedia = useLargeMedia()
   const languages = useSelectors((state) => state.languages.value)
   const locationConfirmation =
