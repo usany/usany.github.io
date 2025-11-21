@@ -328,10 +328,10 @@ function Collection() {
                   drawerOpenFalse={() => setDrawerOpen(false)}
                 >
                   <div className="flex flex-col">
-                    <div>
-                      {element.displayName} {register}
-                    </div>
                     <img src={element.defaultProfile} />
+                    <div>
+                      {element.displayName}
+                    </div>
                   </div>
                 </MorphingDialogContent>
               </MorphingDialogContainer>
