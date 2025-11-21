@@ -52,9 +52,9 @@ const areas = {
 const ProfileLocations = () => {
   const [location, setLocation] = useState({ lat: 0, lng: 0, error: false })
   const {
+    // campusLocationConfirmation,
     locationConfirmed,
     locationUnconfirmed,
-    // campusLocationConfirmation,
     failedLocationConfirmation,
     save,
     nothingChanged,
