@@ -118,11 +118,28 @@ const ProfileLocations = () => {
   const onClickLocation = () => {
     alert('Allow location access to update on-campus status of your profile')
     navigator.geolocation.getCurrentPosition((position) => {
-      setLocation({
+      const newLocation = {
         ...location,
         lat: position.coords.latitude,
         lng: position.coords.longitude,
-      })
+      }
+      const myDoc = doc(dbservice, `members/${profile?.uid}`)
+      const key = profile?.campus.slice(0, profile?.campus.indexOf(' ')) || 'Seoul'
+      if (
+        newLocation.lat > areas[key].westSouth.lat &&
+        newLocation.lat < areas[key].westNorth.lat
+      ) {
+        if (
+          newLocation.lng > areas[key].westSouth.lng &&
+          newLocation.lng < areas[key].eastSouth.lng
+        ) {
+          updateDoc(myDoc, { locationConfirmed: Date.now() })
+          dispatch(changeProfile({ ...profile, locationConfirmed: true }))
+        }
+        setLocation(newLocation)
+      } else {
+        setLocation({...newLocation, error: true})
+      }
     }, (error) => {
       console.log(error)
       setLocation({...location, error: true})
