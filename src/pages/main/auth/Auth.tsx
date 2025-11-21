@@ -32,7 +32,8 @@ function Auth() {
     confirmingMail,
     signIn,
     welcomeToKhusan,
-    playlistReadyForYouToGetRidOfBoredom
+    playlistReadyForYouToGetRidOfBoredom,
+    mailSentAgain
   } = useTexts()
   const handleNumberString = (newValue) => {
     setNumberString(newValue)
@@ -114,7 +115,7 @@ function Auth() {
             )}
             <Button onClick={() => {
               if (mailSent) {
-                alert('Mail sent again')
+                alert(mailSentAgain)
               }
               sendNumberMail()
             }}>
