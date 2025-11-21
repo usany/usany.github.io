@@ -97,24 +97,24 @@ const ProfileLocations = () => {
   //     }
   //   }
   // }
-  const onLocationBoundary = () => {
-    const myDoc = doc(dbservice, `members/${profile?.uid}`)
-    const key = profile?.campus.slice(0, profile?.campus.indexOf(' ')) || 'Seoul'
-    if (
-      location.lat > areas[key].westSouth.lat &&
-      location.lat < areas[key].westNorth.lat
-    ) {
-      if (
-        location.lng > areas[key].westSouth.lng &&
-        location.lng < areas[key].eastSouth.lng
-      ) {
-        updateDoc(myDoc, { locationConfirmed: Date.now() })
-        dispatch(changeProfile({ ...profile, locationConfirmed: true }))
-      }
-    } else {
-      setLocation({...location, error: true})
-    }
-  }
+  // const onLocationBoundary = () => {
+  //   const myDoc = doc(dbservice, `members/${profile?.uid}`)
+  //   const key = profile?.campus.slice(0, profile?.campus.indexOf(' ')) || 'Seoul'
+  //   if (
+  //     location.lat > areas[key].westSouth.lat &&
+  //     location.lat < areas[key].westNorth.lat
+  //   ) {
+  //     if (
+  //       location.lng > areas[key].westSouth.lng &&
+  //       location.lng < areas[key].eastSouth.lng
+  //     ) {
+  //       updateDoc(myDoc, { locationConfirmed: Date.now() })
+  //       dispatch(changeProfile({ ...profile, locationConfirmed: true }))
+  //     }
+  //   } else {
+  //     setLocation({...location, error: true})
+  //   }
+  // }
   const onClickLocation = () => {
     alert('Allow location access to update on-campus status of your profile')
     navigator.geolocation.getCurrentPosition((position) => {
