@@ -58,7 +58,8 @@ const ProfileLocations = () => {
     failedLocationConfirmation,
     save,
     nothingChanged,
-    saved
+    saved,
+    allowLocationAccessToUpdateOnCampusStatusOfYourProfile
   } = useTexts()
   const { state } = useLocation()
   const profile = useSelectors((state) => state.profile.value)
@@ -116,7 +117,7 @@ const ProfileLocations = () => {
   //   }
   // }
   const onClickLocation = () => {
-    alert('Allow location access to update on-campus status of your profile')
+    alert(allowLocationAccessToUpdateOnCampusStatusOfYourProfile)
     navigator.geolocation.getCurrentPosition((position) => {
       console.log(position)
       const newLocation = {
