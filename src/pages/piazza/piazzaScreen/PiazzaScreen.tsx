@@ -81,21 +81,23 @@ function PiazzaScreen({
         profileImage,
         conversation,
       } = message
-      handleMessagesList((prev) => [
-        ...prev,
-        {
-          msg: msg,
-          type: target ? 'private' : 'other',
-          userUid: userUid,
-          id: id,
-          messageClock: messageClock,
-          messageClockNumber: messageClockNumber,
-          conversation: null,
-          profileImageUrl: profileImageUrl,
-          defaultProfile: defaultProfile,
-          profileImage: profileImage,
-        },
-      ])
+      if (conversation !== 'piazza') {
+        handleMessagesList((prev) => [
+          ...prev,
+          {
+            msg: msg,
+            type: target ? 'private' : 'other',
+            userUid: userUid,
+            id: id,
+            messageClock: messageClock,
+            messageClockNumber: messageClockNumber,
+            conversation: null,
+            profileImageUrl: profileImageUrl,
+            defaultProfile: defaultProfile,
+            profileImage: profileImage,
+          },
+        ])
+      }
     }
     webSocket.on('sMessagePiazza', sMessageCallback)
     return () => {
