@@ -78,6 +78,7 @@ const ProfileLocations = () => {
       dispatch(changeProfile({...profile, campus: selectedCampus, locationConfirmed: null }))
       const ref = doc(dbservice, `members/${profile?.uid}`)
       updateDoc(ref, { campus: selectedCampus, locationConfirmed: null })
+      setLocation({...location, error: false})
       alert(saved)
     } else {
       alert(nothingChanged)
@@ -119,7 +120,6 @@ const ProfileLocations = () => {
   // }
   const onClickLocation = () => {
     alert(allowLocationAccessToUpdateOnCampusStatusOfYourProfile)
-    setLoading(true)
     navigator.geolocation.getCurrentPosition((position) => {
       console.log(position)
       const newLocation = {
@@ -186,7 +186,10 @@ const ProfileLocations = () => {
           color={locationConfirmation ? 'success' : undefined}
           label={
             locationConfirmation ? locationConfirmed : userUid === profile?.uid ?
-            <button className='flex justify-center gap-1' onClick={onClickLocation}>
+            <button className='flex justify-center gap-1' onClick={() => {
+              setLoading(true)
+              onClickLocation()
+            }}>
               {locationUnconfirmed}
               <ProfileLocationsChip />
             </button>
