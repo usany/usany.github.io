@@ -190,6 +190,7 @@ const ProfileLocations = () => {
             locationUnconfirmed
           }
         />
+        <div>{profile?.locationConfirmed}</div>
         {!locationConfirmation && location.error && (
           <>{failedLocationConfirmation}</>
         )}
