@@ -77,7 +77,7 @@ const ProfileLocations = () => {
     if (profile?.campus !== selectedCampus) {
       dispatch(changeProfile({...profile, campus: selectedCampus, locationConfirmed: null }))
       const ref = doc(dbservice, `members/${profile?.uid}`)
-      updateDoc(ref, { campus: selectedCampus})
+      updateDoc(ref, { campus: selectedCampus, locationConfirmed: null })
       alert(saved)
     } else {
       alert(nothingChanged)
