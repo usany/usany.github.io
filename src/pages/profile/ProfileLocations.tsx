@@ -83,6 +83,7 @@ const ProfileLocations = () => {
       alert(nothingChanged)
     }
   }
+  const [loading, setLoading] = useState(false)
   // const onClick = () => {
   //   const myDoc = doc(dbservice, `members/${profile?.uid}`)
   //   if (
@@ -118,6 +119,7 @@ const ProfileLocations = () => {
   // }
   const onClickLocation = () => {
     alert(allowLocationAccessToUpdateOnCampusStatusOfYourProfile)
+    setLoading(true)
     navigator.geolocation.getCurrentPosition((position) => {
       console.log(position)
       const newLocation = {
@@ -142,9 +144,11 @@ const ProfileLocations = () => {
       } else {
         setLocation({...newLocation, error: true})
       }
+      setLoading(false)
     }, (error) => {
       console.log(error)
       setLocation({...location, error: true})
+      setLoading(false)
     })
   }
   return (
@@ -191,6 +195,7 @@ const ProfileLocations = () => {
           }
         />
         <div>{profile?.locationConfirmed}</div>
+        {loading && <div>loading</div>}
         {!locationConfirmation && location.error && (
           <>{failedLocationConfirmation}</>
         )}
