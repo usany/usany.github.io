@@ -230,7 +230,7 @@ function Collection() {
         title={register}
         content={
           <>
-            <div>AI will find an Umbrella</div>
+            <div className='flex justify-center'>AI will find an Umbrella</div>
             <div className="flex flex-col px-5 items-center gap-5">
               {changedImage.changed ?
                 <Avatars
@@ -273,11 +273,15 @@ function Collection() {
             </div>
             {/* {error && <div className='flex justify-center'>인공지능이 바쁩니다. 다시 시도해주세요.</div>} */}
             {error && <div className='flex justify-center'>AI is busy. Please try again.</div>}
-            {!loading && ['n', 'N'].indexOf(isUmbrella ? isUmbrella[0] : isUmbrella) !==
-                -1 && <div className='flex justify-center pt-5'>{cannotFindAnUmbrella}</div>}
+            {/* {!loading && ['n', 'N'].indexOf(isUmbrella ? isUmbrella[0] : isUmbrella) !==
+                -1 && <div className='flex justify-center pt-5'>{cannotFindAnUmbrella}</div>} */}
             {!loading && <div className='flex flex-col'>
-              {['y', 'Y'].indexOf(isUmbrella ? isUmbrella[0] : isUmbrella) !==
-                -1 ? <LottieOnce /> : <LottieScroll />}
+              {isUmbrella && <>
+                {(['y', 'Y'].indexOf(isUmbrella ? isUmbrella[0] : isUmbrella) !==
+                  -1) ? <LottieOnce /> : <LottieScroll />}
+              </>}
+              {!loading && ['n', 'N'].indexOf(isUmbrella ? isUmbrella[0] : isUmbrella) !==
+                -1 && <div className='flex justify-center pt-5'>{cannotFindAnUmbrella}</div>}
               <div className='flex justify-center'>
                 {isUmbrella &&
                   <>
