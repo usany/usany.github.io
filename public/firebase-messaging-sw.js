@@ -100,6 +100,160 @@
 //     console.log(error)
 //   }
 // }
+const cacheName = 'caching'
+const version = 'v0.0.1'
+const integratedName = cacheName + version
+const appShellFiles = ['/blue.png']
+self.addEventListener('install', (event) => {
+  console.log('swinstall')
+  event.waitUntil(
+    caches.open(integratedName).then(function (cache) {
+      return cache.addAll(appShellFiles)
+    }),
+  )
+  // event.waitUntil(cacheStaticAssets())
+})
+self.addEventListener('activate', (event) => {
+  console.log('swactivate')
+  event.waitUntil(
+    caches.keys().then(function (keys) {
+      // Remove caches whose name is no longer valid
+      return Promise.all(
+        keys
+          .filter(function (key) {
+            console.log(key.indexOf(integratedName))
+            return key.indexOf(integratedName) !== 0
+          })
+          .map(function (key) {
+            return caches.delete(key)
+          }),
+      )
+    }),
+  )
+
+  self.clients.claim()
+  // event.waitUntil(caches.delete(CACHE\_NAME).then(cacheStaticAssets));
+})
+self.addEventListener('fetch', (event) => {
+  const request = event.request
+  event.respondWith(
+    // tell broswer, from now on I handle this fetch event
+    caches.match(event.request).then((response) => {
+      if (response) {
+        // if the response is found in cache, return it
+        return response
+      }
+
+      // else, fetch the request, cache it, and then return it
+      return fetch(event.request).then((response) => {
+        return caches.open(cacheName + version).then((cache) => {
+          const responseClone = response.clone()
+          cache.put(event.request, responseClone)
+          return response
+        })
+      })
+    }),
+  )
+
+  // Always fetch non-GET requests from the network
+  if (request.method !== 'GET') {
+    event.respondWith(
+      fetch(request).catch(function () {
+        return caches.match('/offline')
+      }),
+    )
+
+    return
+  }
+
+  // For HTML requests, try the network first, fall back to the cache,
+  // finally the offline page
+  if (
+    request.headers.get('Accept')?.indexOf('text/html') !== -1 &&
+    request.url.startsWith(this.origin)
+  ) {
+    // The request is text/html, so respond by caching the
+    // item or showing the /offline offline
+    event.respondWith(
+      fetch(request)
+        .then(function (response) {
+          // Stash a copy of this page in the cache
+          const copy = response.clone()
+          caches.open(version + cacheName).then(function (cache) {
+            cache.put(request, copy)
+          })
+          return response
+        })
+        .catch(function () {
+          return caches.match(request).then(function (response) {
+            // return the cache response or the /offline page.
+            return response || caches.match('/offline')
+          })
+        }),
+    )
+    return
+  }
+})
+self.addEventListener('sync', (event) => {})
+self.addEventListener('push', (event) => {
+  console.log(event.data.json().notification)
+  const notificationType = event.data.json().data.type
+  if (notificationType === 'piazza') {
+    const options = {
+      body: String(event.data.json().notification.body),
+      icon: event.data.json().data.body,
+      badge: event.data.json().data.body,
+      actions: [
+        {
+          action: 'reply',
+          type: 'text',
+          title: 'send',
+          placeholder: 'reply',
+        },
+        {
+          action: 'no',
+          type: 'button',
+          title: 'close',
+        },
+      ],
+      data: event.data.json().data,
+      tag: event.data.json().data.title,
+      renotify: true,
+      requireInteraction: true,
+      vibrate: [
+        500, 110, 500, 110, 450, 110, 200, 110, 170, 40, 450, 110, 200, 110,
+        170, 40, 500,
+      ],
+    }
+    event.waitUntil(
+      self.registration.showNotification(
+        event.data.json().notification.title,
+        options,
+      ),
+    )
+  } else if (notificationType === 'card') {
+    const options = {
+      body: String(event.data.json().notification.body),
+      icon: event.data.json().data.body,
+      badge: event.data.json().data.body,
+      data: event.data.json().data,
+      // tag: event.data.json().data.title,
+      tag: 'renotify',
+      renotify: true,
+      requireInteraction: true,
+      vibrate: [
+        500, 110, 500, 110, 450, 110, 200, 110, 170, 40, 450, 110, 200, 110,
+        170, 40, 500,
+      ],
+    }
+    event.waitUntil(
+      self.registration.showNotification(
+        event.data.json().notification.title,
+        options,
+      ),
+    )
+  }
+})
 self.addEventListener('notificationclick', (event) => {
   // clients.openWindow("https://jameshfisher.com/");
   console.log(event)
