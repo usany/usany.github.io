@@ -12,8 +12,8 @@ function LottieProcess() {
     },
   }
   return (
-    <div className="flex flex-col justify-center p-[50px]">
-      <Lottie options={defaultOptions} height={200} width={200} />
+    <div className="flex flex-col justify-center">
+      <Lottie options={defaultOptions} height={50} width={50} />
     </div>
   )
 }

@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux'
 import { dbservice } from 'src/baseApi/serverbase'
 import useSelectors from 'src/hooks/useSelectors'
 import useTexts from 'src/hooks/useTexts'
-import LottieOnce from 'src/lottiesAnimation/LottieOnce'
+import LottieProcess from 'src/lottiesAnimation/LottieProcess'
 import PageTitle from 'src/pages/core/pageTitle/PageTitle'
 import AuthButtons from 'src/pages/main/auth/AuthButtons'
 import AuthForm from 'src/pages/main/auth/AuthForm'
@@ -89,7 +89,7 @@ function Auth() {
       <PageTitle
         title={profile ? confirmingMail : signIn}
       />
-      <LottieOnce color={'blue'}/>
+      <LottieProcess />
       {profile ? (
         <div className="flex flex-col gap-5 items-center">
           {mailSent ? (

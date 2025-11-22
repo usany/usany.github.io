@@ -17,6 +17,7 @@ import {
 import useSelectors from 'src/hooks/useSelectors'
 import useTexts from 'src/hooks/useTexts'
 import LottieOnce from 'src/lottiesAnimation/LottieOnce'
+import LottieProcess from 'src/lottiesAnimation/LottieProcess'
 import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
 import Avatars from '../core/Avatars'
 import PageTitle from '../core/pageTitle/PageTitle'
@@ -265,6 +266,7 @@ function Collection() {
               <input id="file" type="file" onChange={onFileChange} hidden />
               {loading &&
                 <div className='flex flex-col justify-center items-center'>
+                  <LottieProcess />
                   {findingAnUmbrella}
                 </div>
               }
@@ -279,7 +281,7 @@ function Collection() {
                   -1) ? <LottieOnce color={'blue'} /> : <LottieOnce color={'red'}  />}
               </>}
               {!loading && ['n', 'N'].indexOf(isUmbrella ? isUmbrella[0] : isUmbrella) !==
-                -1 && <div className='flex justify-center pt-5'>{cannotFindAnUmbrella}</div>}
+                -1 && <div className='flex justify-center'>{cannotFindAnUmbrella}</div>}
               <div className='flex justify-center'>
                 {isUmbrella &&
                   <>
