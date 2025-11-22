@@ -38,7 +38,7 @@ const Popups = ({
       <div className="flex justify-center">
         <Dialog>
           <DialogTrigger className="w-full">{trigger}</DialogTrigger>
-          <DialogContent className="bg-light-2 dark:bg-dark-2 min-h-[75vh] min-w-[850px]">
+          <DialogContent className="bg-light-2 dark:bg-dark-2 h-[75vh] min-w-[850px]">
             <ScrollArea className="overflow-y-scroll">
               <DrawersBar />
               <DialogTitle className="flex justify-center p-5">
