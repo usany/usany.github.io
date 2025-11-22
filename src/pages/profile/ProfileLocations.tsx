@@ -75,7 +75,7 @@ const ProfileLocations = () => {
   let selectedCampus = profile?.campus
   const onClickSaveCampus = () => {
     if (profile?.campus !== selectedCampus) {
-      dispatch(changeProfile({...profile, campus: selectedCampus }))
+      dispatch(changeProfile({...profile, campus: selectedCampus, locationConfirmed: null }))
       const ref = doc(dbservice, `members/${profile?.uid}`)
       updateDoc(ref, { campus: selectedCampus})
       alert(saved)
@@ -136,7 +136,7 @@ const ProfileLocations = () => {
           newLocation.lng < areas[key].eastSouth.lng
         ) {
           updateDoc(myDoc, { locationConfirmed: Date.now() })
-          dispatch(changeProfile({ ...profile, locationConfirmed: true }))
+          dispatch(changeProfile({ ...profile, locationConfirmed: Date.now() }))
         }
         setLocation(newLocation)
       } else {
