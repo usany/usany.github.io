@@ -22,6 +22,7 @@ import useSelectors from 'src/hooks/useSelectors'
 import { Button } from '@mui/material'
 import LottieScroll from 'src/lottiesAnimation/LottieScroll'
 import LottieOnce from 'src/lottiesAnimation/LottieOnce'
+import LottieProcess from 'src/lottiesAnimation/LottieProcess'
 
 function Collection() {
   const profile = useSelectors((state) => state.profile.value)
@@ -267,7 +268,7 @@ function Collection() {
               {loading &&
                 <div className='flex flex-col justify-center items-center'>
                   {findingAnUmbrella}
-                  <LottieScroll />
+                  <LottieProcess />
                 </div>
               }
             </div>
@@ -278,10 +279,10 @@ function Collection() {
             {!loading && <div className='flex flex-col'>
               {isUmbrella && <>
                 {(['y', 'Y'].indexOf(isUmbrella ? isUmbrella[0] : isUmbrella) !==
-                  -1) ? <LottieOnce /> : <LottieScroll />}
+                  -1) ? <LottieOnce color={'blue'} /> : <LottieOnce color={'red'} />}
               </>}
               {!loading && ['n', 'N'].indexOf(isUmbrella ? isUmbrella[0] : isUmbrella) !==
-                -1 && <div className='flex justify-center pt-5'>{cannotFindAnUmbrella}</div>}
+                -1 && <div className='flex justify-center'>{cannotFindAnUmbrella}</div>}
               <div className='flex justify-center'>
                 {isUmbrella &&
                   <>
