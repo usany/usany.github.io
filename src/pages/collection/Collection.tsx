@@ -21,6 +21,8 @@ import { decode } from 'base64-arraybuffer'
 import useSelectors from 'src/hooks/useSelectors'
 import { Button } from '@mui/material'
 import LottieScroll from 'src/lottiesAnimation/LottieScroll'
+import LottieOnce from 'src/lottiesAnimation/LottieOnce'
+import LottieProcess from 'src/lottiesAnimation/LottieProcess'
 
 function Collection() {
   const profile = useSelectors((state) => state.profile.value)
@@ -229,6 +231,7 @@ function Collection() {
         title={register}
         content={
           <>
+            <div className='flex justify-center'>AI will find an Umbrella</div>
             <div className="flex flex-col px-5 items-center gap-5">
               {changedImage.changed ?
                 <Avatars
@@ -265,39 +268,47 @@ function Collection() {
               {loading &&
                 <div className='flex flex-col justify-center items-center'>
                   {findingAnUmbrella}
-                  <LottieScroll />
+                  <LottieProcess />
                 </div>
               }
             </div>
-            {error && <div className='flex justify-center'>인공지능이 바쁩니다. 다시 시도해주세요.</div>}
-            {!loading && ['n', 'N'].indexOf(isUmbrella ? isUmbrella[0] : isUmbrella) !==
-                -1 && <div className='flex justify-center pt-5'>{cannotFindAnUmbrella}</div>}
-            <div className='flex justify-center'>
-              {isUmbrella && !loading &&
-                <>
-                  <Button variant='outlined' sx={{padding: 0}}>
-                    <label htmlFor="file" className='flex justify-center items-center w-full h-full p-[5px] px-[10px]'>
-                      {uploadMyFile}
-                    </label>
-                  </Button>
-                </>
-              }
-              {
-                !loading &&
-                ['y', 'Y'].indexOf(isUmbrella ? isUmbrella[0] : isUmbrella) !==
-                  -1 &&
-                  <Button variant='outlined' onClick={() => {
-                    newImage()
-                    document.getElementById('close')?.click()
-                  }}>{register}</Button>
-              }
-              {/* {!loading && ['n', 'N'].indexOf(isUmbrella ? isUmbrella[0] : isUmbrella) !==
-                -1 && <div>{cannotFindAnUmbrella}</div>} */}
-              {/* <Button variant='outlined' onClick={() => {
-                newImage()
-                document.getElementById('close')?.click()
-              }}>{save}</Button> */}
-            </div>
+            {error && <div className='flex justify-center'>AI is busy. Please try again.</div>}
+            {/* {error && <div className='flex justify-center'>인공지능이 바쁩니다. 다시 시도해주세요.</div>} */}
+            {/* {!loading && ['n', 'N'].indexOf(isUmbrella ? isUmbrella[0] : isUmbrella) !==
+                -1 && <div className='flex justify-center pt-5'>{cannotFindAnUmbrella}</div>} */}
+            {!loading && <div className='flex flex-col'>
+              {isUmbrella && <>
+                {(['y', 'Y'].indexOf(isUmbrella ? isUmbrella[0] : isUmbrella) !==
+                  -1) ? <LottieOnce color={'blue'} /> : <LottieOnce color={'red'} />}
+              </>}
+              {!loading && ['n', 'N'].indexOf(isUmbrella ? isUmbrella[0] : isUmbrella) !==
+                -1 && <div className='flex justify-center'>{cannotFindAnUmbrella}</div>}
+              <div className='flex justify-center'>
+                {isUmbrella &&
+                  <>
+                    <Button variant='outlined' sx={{padding: 0}}>
+                      <label htmlFor="file" className='flex justify-center items-center w-full h-full p-[5px] px-[10px]'>
+                        {uploadMyFile}
+                      </label>
+                    </Button>
+                  </>
+                }
+                {
+                  ['y', 'Y'].indexOf(isUmbrella ? isUmbrella[0] : isUmbrella) !==
+                    -1 &&
+                    <Button variant='outlined' onClick={() => {
+                      newImage()
+                      document.getElementById('close')?.click()
+                    }}>{register}</Button>
+                }
+                {/* {!loading && ['n', 'N'].indexOf(isUmbrella ? isUmbrella[0] : isUmbrella) !==
+                  -1 && <div>{cannotFindAnUmbrella}</div>} */}
+                {/* <Button variant='outlined' onClick={() => {
+                  newImage()
+                  document.getElementById('close')?.click()
+                }}>{save}</Button> */}
+              </div>
+            </div>}
           </>
         }
         close={
@@ -328,10 +339,10 @@ function Collection() {
                   drawerOpenFalse={() => setDrawerOpen(false)}
                 >
                   <div className="flex flex-col">
-                    <div>
-                      {element.displayName} {register}
-                    </div>
                     <img src={element.defaultProfile} />
+                    <div>
+                      {element.displayName}
+                    </div>
                   </div>
                 </MorphingDialogContent>
               </MorphingDialogContainer>

@@ -1,6 +1,7 @@
 import { Button } from '@mui/material'
 import { useEffect, useRef, useState } from 'react'
 import useLargeMedia from 'src/hooks/useLargeMedia'
+import useTexts from 'src/hooks/useTexts'
 import { webSocket } from 'src/webSocket'
 
 let myStream
@@ -18,6 +19,7 @@ function PiazzaCalls() {
     audio: true,
     video: true,
   }
+  const {allowAudioAndVideoAccessToMakeACall} = useTexts()
   const roomName = location.search.slice(4)
   async function handleMuteClick() {
     const promise = myStream
@@ -131,7 +133,7 @@ function PiazzaCalls() {
   useEffect(() => {
     if (!alerted) {
       setTimeout(() => {
-        alert('Allow video and audio access to make a video call.')
+        alert(allowAudioAndVideoAccessToMakeACall)
       }, 5)
       alerted = true
     }

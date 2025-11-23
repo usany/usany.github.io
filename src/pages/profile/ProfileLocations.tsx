@@ -22,12 +22,12 @@ const campuses = {
   ko: ['서울캠퍼스', '국제캠퍼스', '광릉캠퍼스'],
   en: ['Seoul Campus', 'Global Campus', 'Gwangneung Campus']
 }
-const area = {
-  westSouth: { lat: 37.5927551, lng: 127.047462 },
-  westNorth: { lat: 37.6010743, lng: 127.047462 },
-  eastSouth: { lat: 37.5927551, lng: 127.0571999 },
-  eastNorth: { lat: 37.6010743, lng: 127.0571999 },
-}
+// const area = {
+//   westSouth: { lat: 37.5927551, lng: 127.047462 },
+//   westNorth: { lat: 37.6010743, lng: 127.047462 },
+//   eastSouth: { lat: 37.5927551, lng: 127.0571999 },
+//   eastNorth: { lat: 37.6010743, lng: 127.0571999 },
+// }
 const areas = {
   'Seoul': {
     westSouth: { lat: 37.5927551, lng: 127.047462 },
@@ -52,20 +52,21 @@ const areas = {
 const ProfileLocations = () => {
   const [location, setLocation] = useState({ lat: 0, lng: 0, error: false })
   const {
+    // campusLocationConfirmation,
     locationConfirmed,
     locationUnconfirmed,
-    // campusLocationConfirmation,
     failedLocationConfirmation,
     save,
     nothingChanged,
-    saved
+    saved,
+    allowLocationAccessToUpdateOnCampusStatusOfYourProfile
   } = useTexts()
   const { state } = useLocation()
   const profile = useSelectors((state) => state.profile.value)
   const userUid = state?.element.uid || profile?.uid
   const userCampus = state?.element.campus || profile?.campus
   const locationConfirmNumber = 50000000
-  const confirmed = profile?.locationConfirmed
+  const confirmed = state?.element ? state?.element.locationConfirmed : profile?.locationConfirmed
   const largeMedia = useLargeMedia()
   const languages = useSelectors((state) => state.languages.value)
   const locationConfirmation =
@@ -74,60 +75,81 @@ const ProfileLocations = () => {
   let selectedCampus = profile?.campus
   const onClickSaveCampus = () => {
     if (profile?.campus !== selectedCampus) {
-      dispatch(changeProfile({...profile, campus: selectedCampus }))
+      dispatch(changeProfile({...profile, campus: selectedCampus, locationConfirmed: null }))
       const ref = doc(dbservice, `members/${profile?.uid}`)
-      updateDoc(ref, { campus: selectedCampus})
+      updateDoc(ref, { campus: selectedCampus, locationConfirmed: null })
+      setLocation({...location, error: false})
       alert(saved)
     } else {
       alert(nothingChanged)
     }
   }
-  const onClick = () => {
-    const myDoc = doc(dbservice, `members/${profile?.uid}`)
-    if (
-      location.lat > area.westSouth.lat &&
-      location.lat < area.westNorth.lat
-    ) {
-      if (
-        location.lng > area.westSouth.lng &&
-        location.lng < area.eastSouth.lng
-      ) {
-        updateDoc(myDoc, { locationConfirmed: Date.now() })
-        dispatch(changeProfile({ ...profile, locationConfirmed: true }))
-      }
-    }
-  }
-  const onLocationBoundary = () => {
-    const myDoc = doc(dbservice, `members/${profile?.uid}`)
-    const key = profile?.campus.slice(0, profile?.campus.indexOf(' ')) || 'Seoul'
-    if (
-      location.lat > areas[key].westSouth.lat &&
-      location.lat < areas[key].westNorth.lat
-    ) {
-      if (
-        location.lng > areas[key].westSouth.lng &&
-        location.lng < areas[key].eastSouth.lng
-      ) {
-        updateDoc(myDoc, { locationConfirmed: Date.now() })
-        dispatch(changeProfile({ ...profile, locationConfirmed: true }))
-      }
-    } else {
-      setLocation({...location, error: true})
-    }
-  }
+  const [loading, setLoading] = useState(false)
+  // const onClick = () => {
+  //   const myDoc = doc(dbservice, `members/${profile?.uid}`)
+  //   if (
+  //     location.lat > area.westSouth.lat &&
+  //     location.lat < area.westNorth.lat
+  //   ) {
+  //     if (
+  //       location.lng > area.westSouth.lng &&
+  //       location.lng < area.eastSouth.lng
+  //     ) {
+  //       updateDoc(myDoc, { locationConfirmed: Date.now() })
+  //       dispatch(changeProfile({ ...profile, locationConfirmed: true }))
+  //     }
+  //   }
+  // }
+  // const onLocationBoundary = () => {
+  //   const myDoc = doc(dbservice, `members/${profile?.uid}`)
+  //   const key = profile?.campus.slice(0, profile?.campus.indexOf(' ')) || 'Seoul'
+  //   if (
+  //     location.lat > areas[key].westSouth.lat &&
+  //     location.lat < areas[key].westNorth.lat
+  //   ) {
+  //     if (
+  //       location.lng > areas[key].westSouth.lng &&
+  //       location.lng < areas[key].eastSouth.lng
+  //     ) {
+  //       updateDoc(myDoc, { locationConfirmed: Date.now() })
+  //       dispatch(changeProfile({ ...profile, locationConfirmed: true }))
+  //     }
+  //   } else {
+  //     setLocation({...location, error: true})
+  //   }
+  // }
   const onClickLocation = () => {
-    alert('Allow location access to update on-campus status of your profile')
+    alert(allowLocationAccessToUpdateOnCampusStatusOfYourProfile)
     navigator.geolocation.getCurrentPosition((position) => {
-      setLocation({
+      console.log(position)
+      const newLocation = {
         ...location,
         lat: position.coords.latitude,
         lng: position.coords.longitude,
-      })
+      }
+      const myDoc = doc(dbservice, `members/${profile?.uid}`)
+      const key = profile?.campus.slice(0, profile?.campus.indexOf(' ')) || 'Seoul'
+      if (
+        newLocation.lat > areas[key].westSouth.lat &&
+        newLocation.lat < areas[key].westNorth.lat
+      ) {
+        if (
+          newLocation.lng > areas[key].westSouth.lng &&
+          newLocation.lng < areas[key].eastSouth.lng
+        ) {
+          updateDoc(myDoc, { locationConfirmed: Date.now() })
+          dispatch(changeProfile({ ...profile, locationConfirmed: Date.now() }))
+        }
+        setLocation(newLocation)
+      } else {
+        setLocation({...newLocation, error: true})
+      }
+      setLoading(false)
     }, (error) => {
       console.log(error)
-      setLocation({...location, error: String(error)})
+      setLocation({...location, error: true})
+      setLoading(false)
     })
-    onLocationBoundary()
   }
   return (
     <div className="flex justify-center p-10">
@@ -164,7 +186,10 @@ const ProfileLocations = () => {
           color={locationConfirmation ? 'success' : undefined}
           label={
             locationConfirmation ? locationConfirmed : userUid === profile?.uid ?
-            <button className='flex justify-center gap-1' onClick={onClickLocation}>
+            <button className='flex justify-center gap-1' onClick={() => {
+              setLoading(true)
+              onClickLocation()
+            }}>
               {locationUnconfirmed}
               <ProfileLocationsChip />
             </button>
@@ -172,6 +197,7 @@ const ProfileLocations = () => {
             locationUnconfirmed
           }
         />
+        {loading && <div>loading</div>}
         {!locationConfirmation && location.error && (
           <>{failedLocationConfirmation}</>
         )}

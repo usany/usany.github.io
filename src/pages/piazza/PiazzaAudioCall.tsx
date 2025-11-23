@@ -1,6 +1,7 @@
 import { Button } from '@mui/material'
 import { useEffect, useRef, useState } from 'react'
 import useLargeMedia from 'src/hooks/useLargeMedia'
+import useTexts from 'src/hooks/useTexts'
 import { webSocket } from 'src/webSocket'
 
 let alerted = false
@@ -18,6 +19,7 @@ function PiazzaAudioCall() {
     audio: true,
     video: false,
   }
+  const {allowAudioAccessToMakeAnAudioCall} = useTexts()
   const iceServers = [
     { urls: "stun:stun.l.google.com:19302" },
     { urls: "stun:stun.l.google.com:5349" },
@@ -46,7 +48,7 @@ function PiazzaAudioCall() {
   useEffect(() => {
     if (!alerted) {
       setTimeout(() => {
-        alert('Allow audio access to make an audio call.')
+        alert(allowAudioAccessToMakeAnAudioCall)
       }, 5)
       alerted = true
     }
