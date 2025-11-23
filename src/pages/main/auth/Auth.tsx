@@ -1,17 +1,18 @@
 import { Button } from '@mui/material'
-import { deleteUser, getAuth, User } from 'firebase/auth'
+import { deleteUser, getAuth } from 'firebase/auth'
 import { deleteDoc, doc, updateDoc } from 'firebase/firestore'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { dbservice } from 'src/baseApi/serverbase'
 import useSelectors from 'src/hooks/useSelectors'
+import useTexts from 'src/hooks/useTexts'
+import LottieProcess from 'src/lottiesAnimation/LottieProcess'
 import PageTitle from 'src/pages/core/pageTitle/PageTitle'
 import AuthButtons from 'src/pages/main/auth/AuthButtons'
 import AuthForm from 'src/pages/main/auth/AuthForm'
 import Motions from 'src/pages/main/auth/Motions'
-import useTexts from 'src/hooks/useTexts'
-import AuthPassword from './AuthPassword'
 import { changeProfile } from 'src/stateSlices/profileSlice'
+import AuthPassword from './AuthPassword'
 
 function Auth() {
   const [numberString, setNumberString] = useState('')

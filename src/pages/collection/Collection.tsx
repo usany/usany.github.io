@@ -1,9 +1,12 @@
 import { GoogleGenAI } from '@google/genai'
+import { Button } from '@mui/material'
+import { decode } from 'base64-arraybuffer'
 import { collection, doc, getDocs, setDoc } from 'firebase/firestore'
 import { Film, PlusCircle } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import supabase from 'src/baseApi/base'
 import { dbservice } from 'src/baseApi/serverbase'
 import {
   MorphingDialog,
@@ -11,18 +14,14 @@ import {
   MorphingDialogContent,
   MorphingDialogTrigger,
 } from 'src/components/ui/morphing-dialog'
-import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
+import useSelectors from 'src/hooks/useSelectors'
 import useTexts from 'src/hooks/useTexts'
+import LottieOnce from 'src/lottiesAnimation/LottieOnce'
+import LottieProcess from 'src/lottiesAnimation/LottieProcess'
+import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
 import Avatars from '../core/Avatars'
 import PageTitle from '../core/pageTitle/PageTitle'
 import Popups from '../core/Popups'
-import supabase from 'src/baseApi/base'
-import { decode } from 'base64-arraybuffer'
-import useSelectors from 'src/hooks/useSelectors'
-import { Button } from '@mui/material'
-import LottieScroll from 'src/lottiesAnimation/LottieScroll'
-import LottieOnce from 'src/lottiesAnimation/LottieOnce'
-import LottieProcess from 'src/lottiesAnimation/LottieProcess'
 
 function Collection() {
   const profile = useSelectors((state) => state.profile.value)
@@ -267,8 +266,8 @@ function Collection() {
               <input id="file" type="file" onChange={onFileChange} hidden />
               {loading &&
                 <div className='flex flex-col justify-center items-center'>
-                  {findingAnUmbrella}
                   <LottieProcess />
+                  {findingAnUmbrella}
                 </div>
               }
             </div>
@@ -279,7 +278,7 @@ function Collection() {
             {!loading && <div className='flex flex-col'>
               {isUmbrella && <>
                 {(['y', 'Y'].indexOf(isUmbrella ? isUmbrella[0] : isUmbrella) !==
-                  -1) ? <LottieOnce color={'blue'} /> : <LottieOnce color={'red'} />}
+                  -1) ? <LottieOnce color={'blue'} /> : <LottieOnce color={'red'}  />}
               </>}
               {!loading && ['n', 'N'].indexOf(isUmbrella ? isUmbrella[0] : isUmbrella) !==
                 -1 && <div className='flex justify-center'>{cannotFindAnUmbrella}</div>}
