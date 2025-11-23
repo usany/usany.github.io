@@ -197,7 +197,6 @@ const ProfileLocations = () => {
             locationUnconfirmed
           }
         />
-        <div>{profile?.locationConfirmed}</div>
         {loading && <div>loading</div>}
         {!locationConfirmation && location.error && (
           <>{failedLocationConfirmation}</>
