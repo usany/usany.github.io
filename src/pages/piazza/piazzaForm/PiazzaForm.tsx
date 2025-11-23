@@ -8,6 +8,7 @@ import { changeNewMessageTrue } from 'src/stateSlices/newMessageSlice'
 import useTexts from 'src/hooks/useTexts'
 import { webSocket } from 'src/webSocket.tsx'
 import PiazzaFormCallsContent from './PiazzaFormCallsContent'
+import { useEffect, useRef } from 'react'
 
 interface Props {
   chattingUser: {
@@ -22,6 +23,7 @@ interface Props {
   handleMessages: (newValue: string) => void
   messagesList: []
   handleMessagesList: (newValue: []) => void
+  isKeyboardOpen: boolean
 }
 function PiazzaForm({
   chattingUser,
@@ -30,6 +32,7 @@ function PiazzaForm({
   handleMessages,
   messagesList,
   handleMessagesList,
+  isKeyboardOpen
 }: Props) {
   const piazzaForm = useSelectors((state) => state.piazzaForm.value)
   const profile = useSelectors((state) => state.profile?.value)
@@ -40,7 +43,7 @@ function PiazzaForm({
   const { message, send, selectCall, videoCall, audioCall } = useTexts()
   const userUid = profile?.uid
   const userName = profile?.displayName
-
+  const inputRef = useRef(null)
   const onSendSubmitHandler = async (event) => {
     event.preventDefault()
     const message = messages
@@ -68,8 +71,8 @@ function PiazzaForm({
       messageClock: messageClock,
       // target: privateTarget,
       conversation: conversation,
-      conversationUid: chattingUser.uid,
-      conversationName: chattingUser.displayName,
+      conversationUid: chattingUser?.uid,
+      conversationName: chattingUser?.displayName,
       profileImage: profileImage,
       defaultProfile: defaultProfile,
       profileImageUrl: profileImageUrl,
@@ -259,6 +262,11 @@ function PiazzaForm({
       console.log(error)
     }
   }
+  useEffect(() => {
+    if (piazzaForm) {
+      inputRef.current?.scrollIntoView({behavior: 'smooth'})
+    }
+  }, [piazzaForm])
   return (
     <form
       className={`fixed w-screen ${
@@ -280,11 +288,20 @@ function PiazzaForm({
         />
       )}
       <input
+        ref={inputRef}
         className="w-full p-3 rounded bg-light-1 dark:bg-dark-1"
         placeholder={message}
         onChange={onChangeMsgHandler}
         value={messages}
         autoFocus
+        // onFocus={() => {
+        //   window.scrollTo({
+        //     top: document.body.scrollHeight,
+        //     behavior: 'smooth',
+        //   })
+        //   inputRef.current?.scrollIntoView()
+        //   setTimeout(() => inputRef.current?.scrollIntoView(), 500)
+        // }}
       />
       <button className="w-1/6 rounded bg-light-2 dark:bg-dark-2" type="submit">
         {send}

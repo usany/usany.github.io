@@ -1,17 +1,18 @@
 import { Button } from '@mui/material'
-import { deleteUser, getAuth, User } from 'firebase/auth'
+import { deleteUser, getAuth } from 'firebase/auth'
 import { deleteDoc, doc, updateDoc } from 'firebase/firestore'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { dbservice } from 'src/baseApi/serverbase'
 import useSelectors from 'src/hooks/useSelectors'
+import useTexts from 'src/hooks/useTexts'
+import LottieOnce from 'src/lottiesAnimation/LottieOnce'
 import PageTitle from 'src/pages/core/pageTitle/PageTitle'
 import AuthButtons from 'src/pages/main/auth/AuthButtons'
 import AuthForm from 'src/pages/main/auth/AuthForm'
 import Motions from 'src/pages/main/auth/Motions'
-import useTexts from 'src/hooks/useTexts'
-import AuthPassword from './AuthPassword'
 import { changeProfile } from 'src/stateSlices/profileSlice'
+import AuthPassword from './AuthPassword'
 
 function Auth() {
   const [numberString, setNumberString] = useState('')
@@ -32,7 +33,8 @@ function Auth() {
     confirmingMail,
     signIn,
     welcomeToKhusan,
-    playlistReadyForYouToGetRidOfBoredom
+    playlistReadyForYouToGetRidOfBoredom,
+    mailSentAgain
   } = useTexts()
   const handleNumberString = (newValue) => {
     setNumberString(newValue)
@@ -44,8 +46,9 @@ function Auth() {
     }
     setCreatedNumber(number)
     setMailSent(true)
-    await fetch('https://service-ceni.onrender.com/mail', {
-      // await fetch('http://localhost:5000/mail', {
+    // await fetch('https://service-ceni.onrender.com/mail', {
+    await fetch('https://sending-ten.vercel.app/mail', {
+    // await fetch('http://localhost:5000/mail', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -53,9 +56,11 @@ function Auth() {
       body: JSON.stringify({
         to: profile?.email,
         number: number,
-        language: localStorage.getItem('languages') || 'ko',
+        language: languages,
       }),
     })
+    setCreatedNumber(number)
+    setMailSent(true)
   }
   const confirmNumber = async () => {
     if (numberString === createdNumber) {
@@ -84,6 +89,7 @@ function Auth() {
       <PageTitle
         title={profile ? confirmingMail : signIn}
       />
+      <LottieOnce color={'blue'}/>
       {profile ? (
         <div className="flex flex-col gap-5 items-center">
           {mailSent ? (
@@ -109,7 +115,12 @@ function Auth() {
             {numberString.length === 6 && (
               <Button onClick={confirmNumber}>{confirm}</Button>
             )}
-            <Button onClick={sendNumberMail}>
+            <Button onClick={() => {
+              if (mailSent) {
+                alert(mailSentAgain)
+              }
+              sendNumberMail()
+            }}>
               {mailSent ? sendMailAgain : sendMail}
             </Button>
           </div>

@@ -40,24 +40,16 @@ function RankingListsTitle({ multiple }: Props) {
             <AvatarFallback className="text-xl border-none">?</AvatarFallback>
           </Avatar>
         </div>
-        <div className="flex flex-col justify-center overflow-hidden w-40">
+        <div className="flex flex-col justify-center overflow-hidden px-3 w-32">
           <div>
             {multiple ? user : my} {name}
           </div>
           <div>{points}</div>
         </div>
-        {largeMedia ? (
-          <div className="flex justify-center items-center w-[67px]">
-            {/* {locationConfirmation} */}
-            Campus
-          </div>
-        ) : (
-          <div className="flex flex-col justify-center items-center w-[67px]">
-            {/* <div>{location}</div>
-            <div>{confirmation}</div> */}
-            Campus
-          </div>
-        )}
+        <div className="flex flex-col justify-center items-center w-[100px]">
+          <div>Campus</div>
+          <div>Verification</div>
+        </div>
       </div>
     </div>
   )

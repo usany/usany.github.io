@@ -22,7 +22,7 @@ const NavigationScroll = () => {
   }
 
   return (
-    <div className="flex text-sm p-5 gap-5 items-center">
+    <div className="flex text-sm gap-3 items-center">
       {icons[currentPath]}
       {texts[languages][currentPath]}
     </div>

@@ -1,8 +1,10 @@
 import { Button } from '@mui/material'
 import { useEffect, useRef, useState } from 'react'
 import useLargeMedia from 'src/hooks/useLargeMedia'
+import useTexts from 'src/hooks/useTexts'
 import { webSocket } from 'src/webSocket'
 
+let alerted = false
 function PiazzaAudioCall() {
   const [options, setOptions] = useState([])
   const [audioOn, setAudioOn] = useState(true)
@@ -17,6 +19,7 @@ function PiazzaAudioCall() {
     audio: true,
     video: false,
   }
+  const {allowAudioAccessToMakeAnAudioCall} = useTexts()
   const iceServers = [
     { urls: "stun:stun.l.google.com:19302" },
     { urls: "stun:stun.l.google.com:5349" },
@@ -42,6 +45,15 @@ function PiazzaAudioCall() {
   });
   const roomName = location.search.slice(4)
   console.log(location.search.slice(4))
+  useEffect(() => {
+    if (!alerted) {
+      setTimeout(() => {
+        alert(allowAudioAccessToMakeAnAudioCall)
+      }, 5)
+      alerted = true
+    }
+  }, [])
+
   useEffect(() => {
     const initial = async () => {
       await getDevices()

@@ -8,7 +8,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import useSelectors from 'src/hooks/useSelectors';
 import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice';
-import { changePiazzaForm } from "src/stateSlices/piazzaFormSlice";
 import useBottomNav from "./useBottomNav";
 
 // const lightTheme = createTheme({
@@ -40,32 +39,31 @@ import useBottomNav from "./useBottomNav";
 //   theme: string
 // }
 function useBottomNavHidden() {
-  const [isKeyboardOpen, setIsKeyboardOpen] = useState<boolean | number>(false);
-  const dispatch = useDispatch()
+  // const [isKeyboardOpen, setIsKeyboardOpen] = useState<boolean | number>(false);
+  // const dispatch = useDispatch()
 
-  useEffect(() => {
-    const listener = () => {
-      const newState = window.screen.height - window.screen.height > 1000 ? 500 : 300 > (window.visualViewport?.height || window.screen.height)
-      if (isKeyboardOpen !== newState) {
-        setIsKeyboardOpen(newState);
-        if (new)
-          dispatch(changePiazzaForm(newState))
-      }
-    };
-    window.addEventListener('resize', listener)
-    if (typeof visualViewport !== 'undefined') {
-      window.visualViewport?.addEventListener('resize', listener);
-    }
-    visualViewport?.addEventListener('resize', listener)
-    if (typeof visualViewport !== 'undefined') {
-      visualViewport?.addEventListener('resize', listener);
-    }
-    return () => {
-      if (typeof visualViewport !== 'undefined') {
-        window.visualViewport?.removeEventListener('resize', listener);
-      }
-    };
-  }, [isKeyboardOpen]);
+  // useEffect(() => {
+  //   const listener = () => {
+  //     const newState = window.screen.height - window.screen.height > 1000 ? 500 : 300 > (window.visualViewport?.height || window.screen.height)
+  //     if (isKeyboardOpen !== newState) {
+  //       setIsKeyboardOpen(newState);
+  //       if (new)
+  //     }
+  //   };
+  //   window.addEventListener('resize', listener)
+  //   if (typeof visualViewport !== 'undefined') {
+  //     window.visualViewport?.addEventListener('resize', listener);
+  //   }
+  //   visualViewport?.addEventListener('resize', listener)
+  //   if (typeof visualViewport !== 'undefined') {
+  //     visualViewport?.addEventListener('resize', listener);
+  //   }
+  //   return () => {
+  //     if (typeof visualViewport !== 'undefined') {
+  //       window.visualViewport?.removeEventListener('resize', listener);
+  //     }
+  //   };
+  // }, [isKeyboardOpen]);
 }
 
 export default useBottomNavHidden

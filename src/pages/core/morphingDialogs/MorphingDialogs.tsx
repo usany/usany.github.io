@@ -15,6 +15,7 @@ import { useOnPulseCallback } from './useOnPulseCallback'
 import { usePulse } from './usePulse'
 import { useStopSupportingTradesCallback } from './useStopSupportingTradesCallback'
 import { useSupportTradesCallback } from './useSupportTradesCallback'
+import useSelectors from 'src/hooks/useSelectors'
 
 interface Props {
   message: { id: string; text: object }
@@ -31,23 +32,44 @@ const MorphingDialogs = ({
   const [returningClock, setReturningClock] = useState('')
   const [confirmedReturnClock, setConfirmedReturnClock] = useState('')
   const [messageValue, setMessageValue] = useState({})
+  const profile = useSelectors((state) => state.profile.value)
   useEffect(() => {
     setMessageValue(message)
   }, [message])
-  const round = messageValue.round
+  const round = messageValue?.round
+  useEffect(() => {
+    if (messageValue?.round > 1 && !messageValue?.connectedProfileImage) {
+      setMessageValue((prev) => {
+        return {...prev, connectedProfileImage: profile.profileImage, connectedProfileImageUrl: profile.profileImageUrl, connectedDefaultProfile: profile.defaultProfile}
+      })
+    }
+  }, [round])
+  const changeMessageValue = (newValue) => setMessageValue(newValue)
   const increaseRound = () => {
-    setMessageValue((prev) => {
-      return (
-        {...prev, round: prev.round+1}
-      )
-    })
+    if (messageValue.round === 1) {
+      setMessageValue((prev) => {
+        return {...prev, connectedId: profile.uid, connectedProfileImage: profile.profileImage, connectedProfileImageUrl: profile.profileImageUrl, connectedDefaultProfile: profile.defaultProfile, round: prev.round+1}
+      })
+    } else {
+      setMessageValue((prev) => {
+        return (
+          {...prev, round: prev.round+1}
+        )
+      })
+    }
   }
   const decreaseRound = () => {
-    setMessageValue((prev) => {
-      return (
-        {...prev, round: prev.round-1}
-      )
-    })
+    if (messageValue.round === 2) {
+      setMessageValue((prev) => {
+        return {...prev, connectedId: '', connectedProfileImage: false, connectedProfileImageUrl: '', connectedDefaultProfile: '', round: prev.round-1}
+      })
+    } else {
+      setMessageValue((prev) => {
+        return (
+          {...prev, round: prev.round-1}
+        )
+      })
+    }
   }
   const handleConnectedClock = (newValue) => {
     setConnectedClock(newValue)
@@ -121,6 +143,32 @@ const MorphingDialogs = ({
       )
     }
   }, [])
+  useEffect(() => {
+    if (!webSocket) return
+    function sIssueTrue(res) {
+      setMessageValue((prev) => ({...prev, issue: true, issueClock: res.issueClock}))
+    }
+    webSocket.on(`sIssueTrue${message.id}`, sIssueTrue)
+    return () => {
+      webSocket.off(
+        `sIssueTrue${message.id}`,
+        sIssueTrue,
+      )
+    }
+  }, [])
+  useEffect(() => {
+    if (!webSocket) return
+    function sIssueFalse() {
+      setMessageValue((prev) => ({...prev, issue: false, issueClock: ''}))
+    }
+    webSocket.on(`sIssueFalse${message.id}`, sIssueFalse)
+    return () => {
+      webSocket.off(
+        `sIssueFalse${message.id}`,
+        sIssueFalse,
+      )
+    }
+  }, [])
 
   return (
     <MorphingDialog
@@ -137,6 +185,7 @@ const MorphingDialogs = ({
         >
           <CardsViews
             message={message}
+            issue={messageValue?.issue}
             onPulse={onPulse}
             onTransfer={onTransfer}
           />
@@ -160,6 +209,7 @@ const MorphingDialogs = ({
           handleConfirmingClock={handleConfirmingClock}
           handleReturningClock={handleReturningClock}
           handleConfirmedReturnClock={handleConfirmedReturnClock}
+          changeMessageValue={changeMessageValue}
         />
       </MorphingDialogContainer>
     </MorphingDialog>

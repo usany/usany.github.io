@@ -8,12 +8,12 @@ interface Props {
   onPulse?: boolean
   onTransfer?: boolean
 }
-const CardsViews = ({ message, onPulse, onTransfer }: Props) => {
+const CardsViews = ({ message, issue, onPulse, onTransfer }: Props) => {
   const id = message?.id || ''
   const shadowColor = getShadowColor(id)
   return (
     <Tilt>
-      {onPulse ? (
+      {onPulse || issue ? (
         <PulsatingButton pulseColor={shadowColor}>
           <CardView
             onTransfer={false}

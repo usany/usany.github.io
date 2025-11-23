@@ -58,7 +58,6 @@ function Profile() {
     }
     cards()
   }, [state])
-
   const handleFollowers = ({ list }) => {
     setAlliesCollection((draft) => {
       const followers = draft.find((todo) => todo.id === 'followers')

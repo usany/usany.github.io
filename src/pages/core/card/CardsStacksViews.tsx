@@ -17,13 +17,18 @@ const handleDelete = async ({
   changeLongPressCard: (newValue: string) => void
 }) => {
   const data = doc(dbservice, `num/${id}`)
-  const messageId = data.id
-  await deleteDoc(doc(dbservice, `num/${id}`));
-  const userRef = doc(dbservice, `members/${profile?.uid}`)
-  const userSnap = await getDoc(userRef)
-  const newMessages = userSnap.data()?.createdCards.filter((element: string) => element !== id)
-  updateDoc(userRef, { createdCards: newMessages })
-  deleteMessage(messageId)
+  const snap = await getDoc(data)
+  if (snap.data().round === 1) {
+    const messageId = data.id
+    await deleteDoc(doc(dbservice, `num/${id}`));
+    const userRef = doc(dbservice, `members/${profile?.uid}`)
+    const userSnap = await getDoc(userRef)
+    const newMessages = userSnap.data()?.createdCards.filter((element: string) => element !== id)
+    updateDoc(userRef, { createdCards: newMessages })
+    deleteMessage(messageId)
+  } else {
+    alert('Processing cards cannot be deleted')
+  }
   changeLongPressCard('')
 }
 

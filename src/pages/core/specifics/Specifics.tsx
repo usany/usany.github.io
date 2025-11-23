@@ -28,6 +28,7 @@ function Specifics({
   handleConfirmingClock,
   handleReturningClock,
   handleConfirmedReturnClock,
+  changeMessageValue
 }: Props) {
   const [cardFlipped, setCardFlipped] = useState(false)
   const [cardTilt, setCardTilt] = useState(false)
@@ -91,7 +92,7 @@ function Specifics({
       >
         <div className={`cards ${cardFlipped && 'rotatingCards'} z-50`}>
           <div className="sides">
-            {onPulse ? (
+            {onPulse || message.issue ? (
               <PulsatingButton
                 pulseColor={shadowColor}
                 className="cursor-default"
@@ -109,6 +110,7 @@ function Specifics({
                   handleConfirmingClock={handleConfirmingClock}
                   handleReturningClock={handleReturningClock}
                   handleConfirmedReturnClock={handleConfirmedReturnClock}
+                  changeMessageValue={changeMessageValue}
                 />
               </PulsatingButton>
             ) : (
@@ -125,6 +127,7 @@ function Specifics({
                 handleConfirmingClock={handleConfirmingClock}
                 handleReturningClock={handleReturningClock}
                 handleConfirmedReturnClock={handleConfirmedReturnClock}
+                changeMessageValue={changeMessageValue}
               />
             )}
           </div>

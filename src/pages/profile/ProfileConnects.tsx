@@ -105,7 +105,6 @@ const ProfileConnects = ({ alliesCollection, handleFollowers }: Props) => {
     <div className="flex justify-center pt-10">
       <Button
         variant="outlined"
-        sx={{ overflow: 'hidden' }}
         onClick={() => {
           if (followButton) {
             followUser()
@@ -127,7 +126,7 @@ const ProfileConnects = ({ alliesCollection, handleFollowers }: Props) => {
           profileUrl: user.profileImageUrl,
         }}
       >
-        <Button variant="outlined" sx={{ overflow: 'hidden' }}>
+        <Button variant="outlined">
           {sendMessage}
         </Button>
       </Link>

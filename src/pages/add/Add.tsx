@@ -15,6 +15,7 @@ import AddStepThree from 'src/pages/add/AddStepThree'
 import AddStepTwo from 'src/pages/add/AddStepTwo'
 import PageTitle from 'src/pages/core/pageTitle/PageTitle'
 import useTexts from 'src/hooks/useTexts'
+// import { locationsBuildingsArray } from './locationsBuildings'
 
 interface Props {
   borrow: boolean
@@ -37,7 +38,6 @@ interface FromTo {
   from: Clock | null
   to: Clock | null
 }
-
 function Add({ borrow }: Props) {
   const [addSteps, setAddSteps] = useState(0)
   const [display, setDisplay] = useState({
@@ -61,6 +61,7 @@ function Add({ borrow }: Props) {
       action: { type: string; newState: string },
     ) => {
       if (action.type === 'changeBuilding') {
+        console.log(action.newState)
         return {
           locationOne: action.newState,
           locationTwo: '',
@@ -72,11 +73,19 @@ function Add({ borrow }: Props) {
       } else if (action.type === 'changeSeat') {
         return { ...state, locationThree: action.newState }
       } else if (action.type === 'changeLocationInput') {
-        return {
-          ...state,
-          locationTwo: '',
-          locationThree: '',
-          locationInput: action.newState,
+        if (state.locationOne === '직접 입력') {
+          return {
+            ...state,
+            locationTwo: '',
+            locationThree: '',
+            locationInput: action.newState,
+          }
+        } else {
+          return {
+            ...state,
+            locationThree: '',
+            locationInput: action.newState,
+          }
         }
       } else if (action.type === 'changeItem') {
         return {
@@ -140,6 +149,7 @@ function Add({ borrow }: Props) {
     if (value) {
       setAddSteps(2)
     } else {
+      setFromTo({from: null, to: null})
       setAddSteps(1)
     }
   }
@@ -159,7 +169,8 @@ function Add({ borrow }: Props) {
     locationDispatch({ type: 'changeRoom', newState: value })
     if (
       locationState.locationOne !== '중도' &&
-      locationState.locationOne !== '직접 입력'
+      locationState.locationOne !== '직접 입력' &&
+      value !== '직접 입력'
     ) {
       setAddSteps(2)
     } else if (
@@ -186,8 +197,8 @@ function Add({ borrow }: Props) {
     event.preventDefault()
     if (
       (locationState.locationInput !== '' ||
-        (locationState.locationOne !== '' &&
-          locationState.locationTwo !== '')) &&
+        (['', '직접 입력'].indexOf(locationState.locationOne) === -1 &&
+          ['', '직접 입력'].indexOf(locationState.locationTwo) === -1)) &&
       fromTo.from !== null &&
       fromTo.to !== null
     ) {
@@ -354,12 +365,12 @@ function Add({ borrow }: Props) {
                 />
               )}
             </div>
-            {addSteps > 1 && (
-              <AddStepThree onChangeFrom={onChangeFrom} onChangeTo={onChangeTo} />
-            )}
           </div>
         }
       </div>
+      {!matches && addSteps > 1 && (
+        <AddStepThree onChangeFrom={onChangeFrom} onChangeTo={onChangeTo} />
+      )}
       {addSteps === 2 && fromTo.from && fromTo.to && (
         <div className="flex justify-center">{pleaseCheckTime}</div>
       )}

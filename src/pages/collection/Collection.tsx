@@ -1,9 +1,12 @@
 import { GoogleGenAI } from '@google/genai'
-import { doc, getDocs, setDoc } from 'firebase/firestore'
+import { Button } from '@mui/material'
+import { decode } from 'base64-arraybuffer'
+import { collection, doc, getDocs, setDoc } from 'firebase/firestore'
 import { Film, PlusCircle } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import supabase from 'src/baseApi/base'
 import { dbservice } from 'src/baseApi/serverbase'
 import {
   MorphingDialog,
@@ -11,15 +14,13 @@ import {
   MorphingDialogContent,
   MorphingDialogTrigger,
 } from 'src/components/ui/morphing-dialog'
-import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
+import useSelectors from 'src/hooks/useSelectors'
 import useTexts from 'src/hooks/useTexts'
+import LottieOnce from 'src/lottiesAnimation/LottieOnce'
+import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
 import Avatars from '../core/Avatars'
 import PageTitle from '../core/pageTitle/PageTitle'
 import Popups from '../core/Popups'
-import supabase from 'src/baseApi/base'
-import { decode } from 'base64-arraybuffer'
-import { User } from 'firebase/auth'
-import useSelectors from 'src/hooks/useSelectors'
 
 function Collection() {
   const profile = useSelectors((state) => state.profile.value)
@@ -27,11 +28,11 @@ function Collection() {
   const {
     register,
     uploadMyFile,
-    save,
     cannotFindAnUmbrella,
     findingAnUmbrella,
-    collection,
+    exhibition,
   } = useTexts()
+  const [error, setError] = useState(false)
   async function chat(url) {
     try {
       let file = 'png'
@@ -58,6 +59,8 @@ function Collection() {
       return response.text
     } catch (error) {
       console.log(error)
+      setError(true)
+      setLoading(false)
     }
   }
   const [loading, setLoading] = useState(false)
@@ -77,16 +80,16 @@ function Collection() {
   })
   const [drawerOpen, setDrawerOpen] = useState(false)
   const dispatch = useDispatch()
-  const initialProfile = {
-    attachment: false,
-    profileCharacter: '',
-    profileImage: false,
-    defaultProfile: '',
-    profileImageUrl: '',
-    profileColor: '',
-    initial: true,
-    changed: false,
-  }
+  // const initialProfile = {
+  //   attachment: false,
+  //   profileCharacter: '',
+  //   profileImage: false,
+  //   defaultProfile: '',
+  //   profileImageUrl: '',
+  //   profileColor: '',
+  //   initial: true,
+  //   changed: false,
+  // }
   const navigate = useNavigate()
   const handleChangedImage = (newValue) => setChangedImage(newValue)
   const onFileChange = (event) => {
@@ -101,6 +104,13 @@ function Collection() {
         currentTarget: { result },
       } = finishedEvent
       changeAttachment(result)
+      setChangedImage({
+        ...changedImage,
+        attachment: true,
+        profileImage: true,
+        profileImageUrl: result,
+        changed: true,
+      })
       setLoading(true)
       const response = await chat(result)
       setIsUmbrella(response)
@@ -123,7 +133,7 @@ function Collection() {
       setDoc(docRef, {
         uid: profile.uid,
         displayName: profile.displayName,
-        defaultProfile: `https://ijsfbngiyhgvolsprxeh.supabase.co/storage/v1/object/public/remake/${id}`,
+        defaultProfile: `https://ijsfbngiyhgvolsprxeh.supabase.co/storage/v1/object/public/remake/collection/${id}`,
       })
       const splitedArray = attachment.split(';base64,')
       const content = splitedArray[0].slice(5)
@@ -140,29 +150,29 @@ function Collection() {
       }
     }
   }
-  useEffect(() => {
-    if (loading) {
-      setChangedImage({
-        attachment: false,
-        profileCharacter: '',
-        profileImage: false,
-        defaultProfile: '',
-        profileImageUrl: '',
-        profileColor: '',
-        initial: true,
-        changed: false,
-      })
-    }
-    if (attachment && !changedImage.attachment) {
-      setChangedImage({
-        ...changedImage,
-        attachment: true,
-        profileImage: true,
-        profileImageUrl: attachment,
-        changed: true,
-      })
-    }
-  }, [loading])
+  // useEffect(() => {
+  //   if (loading) {
+  //     setChangedImage({
+  //       attachment: false,
+  //       profileCharacter: '',
+  //       profileImage: false,
+  //       defaultProfile: '',
+  //       profileImageUrl: '',
+  //       profileColor: '',
+  //       initial: true,
+  //       changed: false,
+  //     })
+  //   }
+  //   if (attachment && !changedImage.attachment) {
+  //     setChangedImage({
+  //       ...changedImage,
+  //       attachment: true,
+  //       profileImage: true,
+  //       profileImageUrl: attachment,
+  //       changed: true,
+  //     })
+  //   }
+  // }, [loading])
   useEffect(() => {
     const bringImages = async () => {
       const ref = collection(dbservice, 'collections')
@@ -189,21 +199,27 @@ function Collection() {
   }, [])
   return (
     <div>
-      <PageTitle icon={<Film />} title={collection} />
+      <PageTitle icon={<Film />} title={exhibition} />
       <Popups
         trigger={
           <div
             className="flex gap-5 justify-center"
             onClick={() => {
-              handleChangedImage({
-                ...changedImage,
-                attachment: '',
-                profileColor: initialProfile.profileColor,
-                profileImage: false,
-                defaultProfile: initialProfile.defaultProfile,
-                changed: false,
-              })
-              changeAttachment(null)
+              if (!loading) {
+                handleChangedImage({
+                  attachment: false,
+                  profileCharacter: '',
+                  profileImage: false,
+                  defaultProfile: '',
+                  profileImageUrl: '',
+                  profileColor: '',
+                  initial: true,
+                  changed: false,
+                })
+                changeAttachment(null)
+                setIsUmbrella('')
+                setError(false)
+              }
             }}
           >
             <PlusCircle />
@@ -212,37 +228,97 @@ function Collection() {
         }
         title={register}
         content={
-          <div className="flex flex-col px-5 items-center gap-5">
-            <Avatars
-              element={changedImage.changed ? changedImage : initialProfile}
-              profile={true}
-            />
-            {!loading && (
-              <>
-                <label
-                  htmlFor="file"
-                  className="p-5 rounded border border-dashed"
-                >
-                  {uploadMyFile}
-                </label>
-                <input id="file" type="file" onChange={onFileChange} hidden />
-                {['n', 'N'].indexOf(isUmbrella ? isUmbrella[0] : isUmbrella) !==
-                  -1 && <div>{cannotFindAnUmbrella}</div>}
-              </>
-            )}
-            {loading && <div>{findingAnUmbrella}</div>}
-          </div>
+          <>
+            <div className='flex justify-center'>AI will find an Umbrella</div>
+            <div className="flex flex-col px-5 items-center gap-5">
+              {changedImage.changed ?
+                <Avatars
+                  element={changedImage}
+                  profile={true}
+                />
+                :
+                <div className='p-5'>
+                  <label
+                    htmlFor="file"
+                    className="flex justify-center items-center w-48 h-48 p-5 rounded border border-dashed"
+                  >
+                    {uploadMyFile}
+                  </label>
+                  {/* <input id="file" type="file" onChange={onFileChange} hidden /> */}
+                  {/* {['n', 'N'].indexOf(isUmbrella ? isUmbrella[0] : isUmbrella) !==
+                    -1 && <div>{cannotFindAnUmbrella}</div>} */}
+                </div>
+              }
+              {/* {!loading && (
+                <>
+                  <label
+                    htmlFor="file"
+                    className="p-5 rounded border border-dashed"
+                  >
+                    {uploadMyFile}
+                  </label>
+                  <input id="file" type="file" onChange={onFileChange} hidden />
+                  {['n', 'N'].indexOf(isUmbrella ? isUmbrella[0] : isUmbrella) !==
+                    -1 && <div>{cannotFindAnUmbrella}</div>}
+                </>
+              )} */}
+              <input id="file" type="file" onChange={onFileChange} hidden />
+              {loading &&
+                <div className='flex flex-col justify-center items-center'>
+                  {findingAnUmbrella}
+                </div>
+              }
+            </div>
+            {error && <div className='flex justify-center'>AI is busy. Please try again.</div>}
+            {/* {error && <div className='flex justify-center'>인공지능이 바쁩니다. 다시 시도해주세요.</div>} */}
+            {/* {!loading && ['n', 'N'].indexOf(isUmbrella ? isUmbrella[0] : isUmbrella) !==
+                -1 && <div className='flex justify-center pt-5'>{cannotFindAnUmbrella}</div>} */}
+            {!loading && <div className='flex flex-col'>
+              {isUmbrella && <>
+                {(['y', 'Y'].indexOf(isUmbrella ? isUmbrella[0] : isUmbrella) !==
+                  -1) ? <LottieOnce color={'blue'} /> : <LottieOnce color={'red'}  />}
+              </>}
+              {!loading && ['n', 'N'].indexOf(isUmbrella ? isUmbrella[0] : isUmbrella) !==
+                -1 && <div className='flex justify-center pt-5'>{cannotFindAnUmbrella}</div>}
+              <div className='flex justify-center'>
+                {isUmbrella &&
+                  <>
+                    <Button variant='outlined' sx={{padding: 0}}>
+                      <label htmlFor="file" className='flex justify-center items-center w-full h-full p-[5px] px-[10px]'>
+                        {uploadMyFile}
+                      </label>
+                    </Button>
+                  </>
+                }
+                {
+                  ['y', 'Y'].indexOf(isUmbrella ? isUmbrella[0] : isUmbrella) !==
+                    -1 &&
+                    <Button variant='outlined' onClick={() => {
+                      newImage()
+                      document.getElementById('close')?.click()
+                    }}>{register}</Button>
+                }
+                {/* {!loading && ['n', 'N'].indexOf(isUmbrella ? isUmbrella[0] : isUmbrella) !==
+                  -1 && <div>{cannotFindAnUmbrella}</div>} */}
+                {/* <Button variant='outlined' onClick={() => {
+                  newImage()
+                  document.getElementById('close')?.click()
+                }}>{save}</Button> */}
+              </div>
+            </div>}
+          </>
         }
         close={
           attachment &&
           !loading &&
           ['y', 'Y'].indexOf(isUmbrella ? isUmbrella[0] : isUmbrella) !==
-            -1 && <div onClick={newImage}>{save}</div>
+            -1 && <div id='close'></div>
         }
-        attachment={changedImage}
+        attachment={changedImage.attachment}
       />
       <div className="grid grid-cols-[repeat(auto-fit,minmax(80px,1fr))] col-span-full p-5">
         {images.map((element, index) => {
+          console.log(element.defaultProfile)
           return (
             <MorphingDialog key={index}>
               <MorphingDialogTrigger>
@@ -250,7 +326,7 @@ function Collection() {
                   src={element.defaultProfile}
                   className="w-[80px] h-[80px]"
                   onClick={() => {
-                    navigate(`/collection?id=${index}`)
+                    navigate(`/collection?card=${index}`)
                   }}
                 />
               </MorphingDialogTrigger>
@@ -260,10 +336,10 @@ function Collection() {
                   drawerOpenFalse={() => setDrawerOpen(false)}
                 >
                   <div className="flex flex-col">
-                    <div>
-                      {element.displayName} {register}
-                    </div>
                     <img src={element.defaultProfile} />
+                    <div>
+                      {element.displayName}
+                    </div>
                   </div>
                 </MorphingDialogContent>
               </MorphingDialogContainer>

@@ -6,6 +6,11 @@ import DeleteButton from 'src/pages/core/specifics/buttons/DeleteButton'
 import ReturningButton from 'src/pages/core/specifics/buttons/ReturningButton'
 import StopSupportButton from 'src/pages/core/specifics/buttons/StopSupportButton'
 import SupportButton from 'src/pages/core/specifics/buttons/SupportButton'
+import ProblemButton from './buttons/ProblemButton'
+import ProfileMembersLink from 'src/pages/profile/ProfileMembersLink'
+import { doc, getDoc } from 'firebase/firestore'
+import { dbservice } from 'src/baseApi/serverbase'
+import { useEffect, useState } from 'react'
 
 interface Props {
   message: {}
@@ -21,10 +26,26 @@ function SpecificsButtons({
   handleConfirmingClock,
   handleReturningClock,
   handleConfirmedReturnClock,
+  issue,
+  changeIssue,
+  changeMessageValue
 }: Props) {
   const profile = useSelectors((state) => state.profile.value)
   const {isBorrowing, askingTheOwnerToConfirm, sharingCompleted} = useTexts()
   const isOwner = message.creatorId === profile?.uid
+  const [otherUserProfile, setOtherUserProfile] = useState({uid: ''})
+  const {pleaseReportTheIssue} = useTexts()
+  useEffect(() => {
+    const getOtherUser = async () => {
+      if (issue) {
+        const otherUser = isOwner ? message.connectedId : message.creatorId
+        const ref = doc(dbservice, `members/${otherUser}`)
+        const userDoc = await getDoc(ref)
+        setOtherUserProfile(userDoc.data())
+      }
+    }
+    getOtherUser()
+  }, [issue])
   if (message.round === 1) {
     if (isOwner) {
       return (
@@ -74,7 +95,10 @@ function SpecificsButtons({
             />
           )}
           {message.text.choose === 2 && (
-            <>{message.connectedName} {isBorrowing}</>
+            <>
+              {issue ? pleaseReportTheIssue : `${message.connectedName} ${isBorrowing}`}
+              <ProblemButton message={message} issue={issue} changeIssue={changeIssue} changeMessageValue={changeMessageValue}/>
+            </>
           )}
         </div>
       )
@@ -82,7 +106,10 @@ function SpecificsButtons({
     return (
       <div className="flex justify-center">
         {message.text.choose === 1 && (
-          <>{message.displayName} {isBorrowing}</>
+          <div className='flex flex-col'>
+            {issue ? pleaseReportTheIssue : `${message.displayName} ${isBorrowing}`}
+            <ProblemButton message={message} issue={issue} changeIssue={changeIssue} changeMessageValue={changeMessageValue}/>
+          </div>
         )}
         {message.text.choose === 2 && (
           <ReturningButton
@@ -98,16 +125,22 @@ function SpecificsButtons({
       return (
         <div className="flex justify-center">
           {message.text.choose === 1 && (
-            <div>
+            <>
               {askingTheOwnerToConfirm}
-            </div>
+            </>
           )}
           {message.text.choose === 2 && (
-            <ConfirmReturnButton
-              message={message}
-              increaseRound={increaseRound}
-              handleConfirmedReturnClock={handleConfirmedReturnClock}
-            />
+            <div className='flex flex-col'>
+              {issue && pleaseReportTheIssue}
+              <div className='flex'>
+                {issue ? <ProblemButton message={message} issue={issue} changeIssue={changeIssue} changeMessageValue={changeMessageValue}/> : <ConfirmReturnButton
+                  message={message}
+                  increaseRound={increaseRound}
+                  handleConfirmedReturnClock={handleConfirmedReturnClock}
+                />}
+                <ProblemButton message={message} issue={issue} changeIssue={changeIssue} changeMessageValue={changeMessageValue}/>
+              </div>
+            </div>
           )}
         </div>
       )
@@ -115,17 +148,23 @@ function SpecificsButtons({
     return (
       <div className="flex justify-center">
         {message.text.choose === 1 && (
-          <ConfirmReturnButton
-            message={message}
-            increaseRound={increaseRound}
-            handleConfirmedReturnClock={handleConfirmedReturnClock}
-          />
+          <div className='flex flex-col'>
+            {issue && pleaseReportTheIssue}
+            <div className='flex'>
+              {issue ? <ProfileMembersLink otherUserProfile={otherUserProfile} /> : <ConfirmReturnButton
+                message={message}
+                increaseRound={increaseRound}
+                handleConfirmedReturnClock={handleConfirmedReturnClock}
+              />}
+              <ProblemButton message={message} issue={issue} changeIssue={changeIssue} changeMessageValue={changeMessageValue}/>
+            </div>
+          </div>
         )}
         {message.text.choose === 2 && (
-          <div>
+          <>
             {message.item}{' '}
             {askingTheOwnerToConfirm}
-          </div>
+          </>
         )}
       </div>
     )

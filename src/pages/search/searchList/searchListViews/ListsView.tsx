@@ -68,13 +68,13 @@ const ListsView = ({ elements, userSearch, multiple, handleUser }) => {
                 <div className="flex items-center">
                   <Avatars element={element} piazza={null} profile={false} />
                 </div>
-                <div className="flex flex-col justify-center items-start overflow-hidden w-40">
+                <div className="flex flex-col justify-center items-start overflow-hidden px-3 w-32">
                   <div className="overflow-hidden">{displayName}</div>
                   <div className="overflow-hidden">{element.points}</div>
                 </div>
-                <div className="flex justify-center items-center w-[67px] gap-1">
-                  {element?.campus || 'Seoul'}
-                  <Chip sx={locationConfirmed ? {} : undefined} color={locationConfirmed ? "success" : undefined} label={locationConfirmed ? <Check /> : <Ban />} />
+                <div className="flex flex-col justify-center items-center w-[100px]">
+                  {element?.campus && element?.campus.slice(0, element?.campus.indexOf(' ')) || 'Seoul'}
+                  <Chip sx={{height: '25px'}} color={locationConfirmed ? "success" : undefined} label={locationConfirmed ? <Check /> : <Ban />} />
                 </div>
               </div>
               <Divider />

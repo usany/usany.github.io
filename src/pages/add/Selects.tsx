@@ -5,58 +5,9 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import TextField from "@mui/material/TextField";
 import useSelectors from 'src/hooks/useSelectors';
-import locationsBuildings from "./locationsBuildings";
-
-export const locationsCollection = {
-  ko: {
-    cl: [
-      "1열(1F)",
-      "2열(2F)",
-      "3열(2F)",
-      "4열(4F)",
-      "집중열(1F)",
-      "1층 책상",
-      "1층 세미나실",
-      "매점(2F)",
-      "카페(1F)",
-      "중앙자료실 책상(3F)",
-      "참고열람실 책상(4F)",
-      "정기간행물 책상(4F)",
-    ],
-    cw: ["매점(B1)", "글로벌존(B1)"],
-    p: ["매점(1F)"],
-    g: ["카페(B2)", "열람실(B2)"],
-    k: ["카페"],
-    m: ["복사실"],
-    e: ["1열(5F)", "2열(6F)"],
-    c: ["1층 로비"],
-    n: ["1층 로비"]
-  },
-  en: {
-    cl: [
-      "Study #1(1F)",
-      "Study #2(2F)",
-      "Study #3(2F)",
-      "Study #4(4F)",
-      "Study Focus(1F)",
-      "1F Desks",
-      "1F Seminar",
-      "Cafeteria(2F)",
-      "Cafe(1F)",
-      "Central Desks(3F)",
-      "References Desks(4F)",
-      "Serials Desks(4F)",
-    ],
-    cw: ["Cafeteria(B1)", "Global(B1)"],
-    p: ["Cafeteria(1F)"],
-    g: ["Cafe(B2)", "Study Room(B2)"],
-    k: ["Cafe"],
-    m: ["Printer Room"],
-    e: ["Study #1(5F)", "Study #2(6F)"],
-    c: ["1F Robby"],
-    n: ["1F Robby"]
-  }
-};
+import locationsBuildings, { buildingsObj, locationsBuildingsArray, locationsCollectionLetters } from "./locationsBuildings";
+import locationsCollection from "./locationsCollection";
+import useTexts from "src/hooks/useTexts";
 
 const settingSeats = (number) => {
   return Array(number)
@@ -80,42 +31,46 @@ export const location = {
   two: settingSeats(315),
   three: settingSeats(156),
   four: settingSeats(149),
-  cl: {
-    ko: settingLocations(locationsCollection['ko'].cl, locationsCollection['ko'].cl),
-    en: settingLocations(locationsCollection['en'].cl, locationsCollection['ko'].cl)
-  },
-  cw: {
-    ko: settingLocations(locationsCollection['ko'].cw, locationsCollection['ko'].cw),
-    en: settingLocations(locationsCollection['en'].cw, locationsCollection['ko'].cw)
-  },
-  p: {
-    ko: settingLocations(locationsCollection['ko'].p, locationsCollection['ko'].p),
-    en: settingLocations(locationsCollection['en'].p, locationsCollection['en'].p)
-  },
-  g: {
-    ko: settingLocations(locationsCollection['ko'].g, locationsCollection['ko'].g),
-    en: settingLocations(locationsCollection['en'].g, locationsCollection['ko'].g)
-  },
-  n: {
-    ko: settingLocations(locationsCollection['ko'].n, locationsCollection['ko'].n),
-    en: settingLocations(locationsCollection['en'].n, locationsCollection['ko'].n)
-  },
-  k: {
-    ko: settingLocations(locationsCollection['ko'].k, locationsCollection['ko'].k),
-    en: settingLocations(locationsCollection['en'].k, locationsCollection['ko'].k),
-  },
-  m: {
-    ko: settingLocations(locationsCollection['ko'].m, locationsCollection['ko'].m),
-    en: settingLocations(locationsCollection['en'].m, locationsCollection['ko'].m),
-  },
-  e: {
-    ko: settingLocations(locationsCollection['ko'].e, locationsCollection['ko'].e),
-    en: settingLocations(locationsCollection['en'].e, locationsCollection['ko'].e),
-  },
-  c: {
-    ko: settingLocations(locationsCollection['ko'].c, locationsCollection['ko'].c),
-    en: settingLocations(locationsCollection['en'].c, locationsCollection['ko'].c),
-  }
+  guOne: settingSeats(410),
+  guButter: settingSeats(156),
+  guHyeyum: settingSeats(188),
+  guTwo: settingSeats(326),
+  // cl: {
+  //   ko: settingLocations(locationsCollection['ko'].cl, locationsCollection['ko'].cl),
+  //   en: settingLocations(locationsCollection['en'].cl, locationsCollection['ko'].cl)
+  // },
+  // cw: {
+  //   ko: settingLocations(locationsCollection['ko'].cw, locationsCollection['ko'].cw),
+  //   en: settingLocations(locationsCollection['en'].cw, locationsCollection['ko'].cw)
+  // },
+  // p: {
+  //   ko: settingLocations(locationsCollection['ko'].p, locationsCollection['ko'].p),
+  //   en: settingLocations(locationsCollection['en'].p, locationsCollection['en'].p)
+  // },
+  // g: {
+  //   ko: settingLocations(locationsCollection['ko'].g, locationsCollection['ko'].g),
+  //   en: settingLocations(locationsCollection['en'].g, locationsCollection['ko'].g)
+  // },
+  // n: {
+  //   ko: settingLocations(locationsCollection['ko'].n, locationsCollection['ko'].n),
+  //   en: settingLocations(locationsCollection['en'].n, locationsCollection['ko'].n)
+  // },
+  // k: {
+  //   ko: settingLocations(locationsCollection['ko'].k, locationsCollection['ko'].k),
+  //   en: settingLocations(locationsCollection['en'].k, locationsCollection['ko'].k),
+  // },
+  // m: {
+  //   ko: settingLocations(locationsCollection['ko'].m, locationsCollection['ko'].m),
+  //   en: settingLocations(locationsCollection['en'].m, locationsCollection['ko'].m),
+  // },
+  // e: {
+  //   ko: settingLocations(locationsCollection['ko'].e, locationsCollection['ko'].e),
+  //   en: settingLocations(locationsCollection['en'].e, locationsCollection['ko'].e),
+  // },
+  // c: {
+  //   ko: settingLocations(locationsCollection['ko'].c, locationsCollection['ko'].c),
+  //   en: settingLocations(locationsCollection['en'].c, locationsCollection['ko'].c),
+  // }
 }
 interface Props {
   locationState: { locationOne: string | undefined, locationTwo: string | undefined, locationThree: string | undefined, locationInput: string | undefined }
@@ -133,6 +88,12 @@ function Selects({
 }: Props) {
   const matches = useMediaQuery("(min-width:990px)");
   const languages = useSelectors((state) => state.languages.value)
+  const locationOne = locationState?.locationOne
+  const key = locationOne ? Object.keys(locationsCollectionLetters).find((key) => locationsCollectionLetters[key] === locationState.locationOne) : ''
+  const details = (locationOne && locationOne !== '직접 입력') ? buildingsObj[key.slice(0, 2)][key][languages].details : {}
+  const koDetails = (locationOne && locationOne !== '직접 입력') ? buildingsObj[key.slice(0, 2)][key]['ko'].details : {}
+  const menuItems = (locationOne && locationOne !== '직접 입력') ? settingLocations(details, koDetails) : null
+  const {selfInput} = useTexts()
   return (
     <div className={`flex ${matches ? "" : "flex-col"} gap-1 px-5`}>
       <FormControl variant="standard" sx={{ width: 150 }}>
@@ -144,15 +105,23 @@ function Selects({
           onChange={changeBuilding}
         // label="Age"
         >
-          {locationsBuildings[languages].map((value, index) => {
+          {locationsBuildingsArray.map((value, index) => {
+            const key = Object.keys(value)[0]
+            const campuses = languages === 'ko' ? ['서울', '국제', '광릉'] : ['Seoul', 'Global', 'Gwangneung']
+            const campusIndex = key.slice(0, 2) === 'se' ? 0 : key.slice(0, 2) === 'gu' ? 1 : 2
+            const nameWithoutCampus = campuses.indexOf(value[key][languages].name.split(' ')[0]) === -1 ? value[key][languages].name : value[key][languages].name.replace(value[key][languages].name.split(' ')[0], '')
+            const name = campuses[campusIndex] + ': ' + nameWithoutCampus
+            const koBuilding = value[key].ko.name
+            if (key.slice(2) === 'all') return null
             return (
-              <MenuItem key={index} value={locationsBuildings['ko'][index]}>{value}</MenuItem>
+              <MenuItem key={index} value={koBuilding}>{name}</MenuItem>
             )
           })}
+          <MenuItem value={'직접 입력'}>{selfInput}</MenuItem>
         </Select>
       </FormControl>
       {locationState.locationOne !== "" &&
-        locationState.locationOne !== "직접 입력" && locationState.locationOne !== "Self input" && (
+        locationState.locationOne !== "직접 입력" && (
           <FormControl variant="standard" sx={{ width: 150 }}>
             <InputLabel
             // id="demo-simple-select-standard-label1"
@@ -166,7 +135,8 @@ function Selects({
               onChange={changeRoom}
             // label="Age"
             >
-              {locationState.locationOne === "중도" && location.cl[languages]}
+              {menuItems}
+              {/* {locationState.locationOne === "중도" && location.cl[languages]}
               {locationState.locationOne === "청운" && location.cw[languages]}
               {locationState.locationOne === "푸른솔" && location.p[languages]}
               {locationState.locationOne === "간호이과대" && location.g[languages]}
@@ -174,7 +144,7 @@ function Selects({
               {locationState.locationOne === "경영대" && location.k[languages]}
               {locationState.locationOne === "문과대" && location.m[languages]}
               {locationState.locationOne === "의과대" && location.e[languages]}
-              {locationState.locationOne === "치과병원" && location.c[languages]}
+              {locationState.locationOne === "치과병원" && location.c[languages]} */}
             </Select>
           </FormControl>
         )}
@@ -202,9 +172,10 @@ function Selects({
             </Select>
           </FormControl>
         )}
-      {(locationState.locationOne === "직접 입력" || locationState.locationOne === "Self input") && (
+      {(locationState.locationOne === "직접 입력" || locationState.locationTwo === "직접 입력") && (
         <div className="flex pt-7">
           <TextField
+            label={selfInput}
             inputProps={{ maxLength: 25 }}
             onChange={changeLocationInput} required autoFocus />
         </div>

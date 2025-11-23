@@ -22,21 +22,26 @@ const steps = {
 
 function Steppers({ message }) {
   const languages = useSelectors((state) => state.languages.value)
-  const index = (languages === 'ko' || languages === 'en') ? languages : 'ko'
-
+  console.log(message)
   return (
     <div>
       <Stepper
         activeStep={message.round - 1} alternativeLabel>
-        {steps[index].map((label) => (
-          <Step key={label}>
-            <StepLabel>
-              <div className='text-xs'>
-                {label}
-              </div>
-            </StepLabel>
-          </Step>
-        ))}
+        {steps[languages].map((label, index) => {
+          let error = undefined
+          if (index === message.round -1 && message?.issue) {
+            error = !false
+          }
+          return (
+            <Step key={label}>
+              <StepLabel error={error}>
+                <div className='text-xs'>
+                  {label}
+                </div>
+              </StepLabel>
+            </Step>
+          )
+        })}
       </Stepper>
     </div>
   )

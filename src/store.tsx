@@ -21,6 +21,7 @@ import { scrollNavigationReducer } from './stateSlices/scrollNavigationSlice'
 import { userCertificatedReducer } from './stateSlices/userCertificatedSlice'
 import { weather } from './stateSlices/weather'
 import { currentUserApi } from './stateSlices/baseQuery'
+import { screenHeightReducer } from './stateSlices/screenHeight'
 
 export const store = configureStore({
   reducer: {
@@ -46,6 +47,7 @@ export const store = configureStore({
     changingUser: changingUserReducer.reducer,
     onLine: onLineReducer.reducer,
     user: currentUserApi.reducer,
+    screenHeight: screenHeightReducer.reducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat([

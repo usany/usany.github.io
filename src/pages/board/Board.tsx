@@ -22,7 +22,7 @@ const items = {
 }
 const locations = {
   ko: ['전체 장소', ...locationsBuildings['ko']],
-  en: ['All locations', ...locationsBuildings['en']],
+  en: ['All Places', ...locationsBuildings['en']],
 }
 const time = {
   ko: ['최신순', '오래된'],
@@ -108,6 +108,36 @@ function Board() {
       )
       const docs = await getDocs(collectionQuery)
       const newArray = []
+      const globalIndex = locationsBuildings.ko.indexOf('국제캠퍼스 전체')
+      const gwangneungIndex = locationsBuildings.ko.indexOf('광릉캠퍼스 전체')
+      docs.forEach((doc) => {
+        if (selectedValues[0].value === '전체 아이템' || selectedValues[0].value === doc.data().item) {
+          if (selectedValues[1].value === '전체 장소' || selectedValues[1].value === doc.data().text.count) {
+            newArray.push({ id: doc.id, ...doc.data() })
+          } else if (selectedValues[1].value === '서울캠퍼스 전체' && locationsBuildings.ko.indexOf(doc.data().text.count) < globalIndex) {
+            newArray.push({ id: doc.id, ...doc.data() })
+          } else if (selectedValues[1].value === '국제캠퍼스 전체' && locationsBuildings.ko.indexOf(doc.data().text.count) < gwangneungIndex) {
+            newArray.push({ id: doc.id, ...doc.data() })
+          } else if (selectedValues[1].value === '광릉캠퍼스 전체' && locationsBuildings.ko.indexOf(doc.data().text.count) > gwangneungIndex) {
+            newArray.push({ id: doc.id, ...doc.data() })
+          }
+        }
+      })
+      setMessages({loaded: true, items: newArray})
+    }
+    if (profile) {
+      bringMessages()
+    }
+  }, [selectedValues])
+  useEffect(() => {
+    const bringMessages = async () => {
+      const order =selectedValues[2].value === '최신순' || !selectedValues[2].value ? 'asc' : 'desc'
+      const collectionQuery = query(
+        collection(dbservice, 'num'),
+        orderBy('creatorClock', order),
+      )
+      const docs = await getDocs(collectionQuery)
+      const newArray = []
       docs.forEach((doc) => {
         newArray.push({ id: doc.id, ...doc.data() })
       })
@@ -167,13 +197,11 @@ function Board() {
           }
         />
       </SwipeableViews>
-      <div className="flex justify-center px-5">
-        <BoardMap
-          selectedValues={selectedSearchParams}
-          handleSelectedValues={handleSelectedValues}
-        />
-      </div>
-      <div className="truncate flex justify-center sticky top-16 z-30 px-5">
+      <BoardMap
+        selectedValues={selectedSearchParams}
+        handleSelectedValues={handleSelectedValues}
+      />
+      <div className="truncate flex justify-center sticky top-16 z-30 px-1">
         <div className="w-[1000px] shadow-md">
           <Popups
             trigger={<BoardList />}

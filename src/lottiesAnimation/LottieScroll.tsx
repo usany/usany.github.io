@@ -1,12 +1,12 @@
 import Lottie from 'react-lottie'
 // import Lottie from 'lottie-react'
-import scroll from './scroll.json'
+import success from './Success.json'
 
 function LottieScroll() {
   const defaultOptions = {
     loop: true,
     autoplay: true,
-    animationData: scroll,
+    animationData: success,
     rendererSettings: {
       preserveAspectRatio: 'xMidYMid slice',
     },

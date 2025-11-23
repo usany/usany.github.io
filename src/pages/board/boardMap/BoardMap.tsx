@@ -12,7 +12,8 @@ import { dbservice } from 'src/baseApi/serverbase'
 import useSelectors from 'src/hooks/useSelectors'
 import useTexts from 'src/hooks/useTexts'
 import FilterDialogsTrigger from '../FilterDialogs/FilterDialogsTrigger'
-import { locationsCollectionLetters, markers } from 'src/pages/add/locationsBuildings'
+import locationsBuildings, { locationsCollectionLetters, markers, buildingsObj, locationsBuildingsArray } from 'src/pages/add/locationsBuildings'
+import { Chip } from '@mui/material'
 
 interface Props {
   selectedValues: object
@@ -22,67 +23,43 @@ interface Props {
   }) => void
 }
 
-const defaultLocation = markers[0].location
+const defaultLocations = {
+  se: buildingsObj.se.secl.location,
+  gu: buildingsObj.gu.gucl.location,
+  gw: buildingsObj.gw.gwcl.location,
+}
+// const defaultLocation = markers[0].location
 function BoardMap({
   selectedValues,
   handleSelectedValues,
 }: Props) {
-  const [items, setItems] = useState({
-    cl: {
-      usanOne: 0,
-      usanTwo: 0,
-      yangsanOne: 0,
-      yangsanTwo: 0,
+  const [items, setItems] = useState({})
+  const [selectedLocation, setSelectedLocation] = useState('')
+  const profile = useSelectors((state) => state.profile.value)
+  const locations = {
+    Seoul: 'se',
+    Global: 'gu',
+    Gwangneung: 'gw'
+  }
+  const campusesArray = [
+    {
+      name: 'Seoul',
+      onClick: () => setSelectedLocation('se')
     },
-    cw: {
-      usanOne: 0,
-      usanTwo: 0,
-      yangsanOne: 0,
-      yangsanTwo: 0,
+    {
+      name: 'Global',
+      onClick: () => setSelectedLocation('gu')
     },
-    p: {
-      usanOne: 0,
-      usanTwo: 0,
-      yangsanOne: 0,
-      yangsanTwo: 0,
+    {
+      name: 'Gwangneung',
+      onClick: () => setSelectedLocation('gw')
     },
-    g: {
-      usanOne: 0,
-      usanTwo: 0,
-      yangsanOne: 0,
-      yangsanTwo: 0,
-    },
-    k: {
-      usanOne: 0,
-      usanTwo: 0,
-      yangsanOne: 0,
-      yangsanTwo: 0,
-    },
-    m: {
-      usanOne: 0,
-      usanTwo: 0,
-      yangsanOne: 0,
-      yangsanTwo: 0,
-    },
-    e: {
-      usanOne: 0,
-      usanTwo: 0,
-      yangsanOne: 0,
-      yangsanTwo: 0,
-    },
-    c: {
-      usanOne: 0,
-      usanTwo: 0,
-      yangsanOne: 0,
-      yangsanTwo: 0,
-    },
-    n: {
-      usanOne: 0,
-      usanTwo: 0,
-      yangsanOne: 0,
-      yangsanTwo: 0,
-    },
-  })
+  ]
+  useEffect(() => {
+    if (!selectedLocation) {
+      setSelectedLocation(locations[profile?.campus && profile?.campus.slice(0, profile?.campus.indexOf(' ')) || 'Seoul'])
+    }
+  }, [])
   const languages = useSelectors((state) => state.languages.value)
   const [searchParams, setSearchParams] = useSearchParams()
   const onLine = useSelectors((state) => state.onLine.value)
@@ -93,6 +70,7 @@ function BoardMap({
   const selectedValueTwo = searchParams.get('selectedValueTwo')
   const theme = useSelectors((state) => state.theme.value)
   const { borrowing, lending, needNetworkConnection, registeredMap, registeredMapExplanation, itemOne, itemTwo } = useTexts()
+  const [currentMarker, setCurrentMarker] = useState('')
   useEffect(() => {
     document.documentElement.scrollTo({
       top: 0,
@@ -109,62 +87,16 @@ function BoardMap({
       )
       const docs = await getDocs(collectionQuery)
       const newArray = []
-      const itemCount = {
-        cl: {
+      const keys = Object.keys(locationsCollectionLetters)
+      keys.splice(keys.indexOf('input'), 1)
+      const itemCount = Object.fromEntries(keys.map((value) => {
+        return [value, {
           usanOne: 0,
           usanTwo: 0,
           yangsanOne: 0,
           yangsanTwo: 0,
-        },
-        cw: {
-          usanOne: 0,
-          usanTwo: 0,
-          yangsanOne: 0,
-          yangsanTwo: 0,
-        },
-        p: {
-          usanOne: 0,
-          usanTwo: 0,
-          yangsanOne: 0,
-          yangsanTwo: 0,
-        },
-        g: {
-          usanOne: 0,
-          usanTwo: 0,
-          yangsanOne: 0,
-          yangsanTwo: 0,
-        },
-        k: {
-          usanOne: 0,
-          usanTwo: 0,
-          yangsanOne: 0,
-          yangsanTwo: 0,
-        },
-        m: {
-          usanOne: 0,
-          usanTwo: 0,
-          yangsanOne: 0,
-          yangsanTwo: 0,
-        },
-        e: {
-          usanOne: 0,
-          usanTwo: 0,
-          yangsanOne: 0,
-          yangsanTwo: 0,
-        },
-        c: {
-          usanOne: 0,
-          usanTwo: 0,
-          yangsanOne: 0,
-          yangsanTwo: 0,
-        },
-        n: {
-          usanOne: 0,
-          usanTwo: 0,
-          yangsanOne: 0,
-          yangsanTwo: 0,
-        },
-      }
+        }]
+      }))
       docs.forEach((doc) => {
         newArray.push(doc.data())
         if (doc.data().item === '우산') {
@@ -197,7 +129,9 @@ function BoardMap({
     bringMessages()
   }, [selectedValues[1].value])
   const onClickMarker = (newValue) => {
-    handleSelectedValues({ id: 'selectedValueTwo', newValue: newValue.ko })
+    handleSelectedValues({ id: 'selectedValueTwo', newValue: newValue })
+    const marker = newValue === '전체 장소' ? '' : newValue
+    setCurrentMarker(marker)
   }
   const mapRef = useRef(null)
   const displayMap = () => {
@@ -206,33 +140,35 @@ function BoardMap({
       const markersCollection = []
       const infoWindows = []
       const location = new naver.maps.LatLng(
-        defaultLocation.lat,
-        defaultLocation.lng,
+        defaultLocations[selectedLocation || 'se'].lat,
+        defaultLocations[selectedLocation || 'se'].lng,
       )
       const map = new naver.maps.Map(mapRef.current, {
         center: location,
         zoom: 17,
       })
       setCalledMap(map)
-      for (const value of markers) {
+      const entries = Object.entries(buildingsObj[selectedLocation])
+      for (const value of entries) {
         const position = new naver.maps.LatLng(
-          value.location.lat,
-          value.location.lng,
+          value[1].location.lat,
+          value[1].location.lng,
         )
 
         const marker = new naver.maps.Marker({
           map: map,
           position: position,
-          title: value.label,
-          id: value.label.ko,
+          title: value[1][languages].name,
+          id: value[1][languages].name,
         })
-        const key = Object.keys(locationsCollectionLetters).find(
-          (key) => locationsCollectionLetters[key] === value.label.ko.name,
-        )
+        const key = value[0]
+        // const key = Object.keys(locationsCollectionLetters).find(
+        //   (key) => locationsCollectionLetters[key] === value[1][languages].name,
+        // )
         const contentString = [
           `<div class="markerContainer">
             <div class="markerTitle">
-              ${languages === 'ko' ? value.label.ko.name : value.label.en.name}
+              ${value[1][languages].name}
             </div>
             <div key={index} className="flex gap-5">
                 <div className="pt-1">
@@ -261,7 +197,7 @@ function BoardMap({
           </div>`,
         ].join('')
         const infoWindow = new naver.maps.InfoWindow({
-          id: value.label.ko,
+          id: value[1][languages].name,
           content: contentString,
           backgroundColor: theme === 'light' ? '#fff' : '#777',
           anchorColor: theme === 'light' ? '#fff' : '#777',
@@ -281,13 +217,13 @@ function BoardMap({
 
         if (infoWindow.getMap()) {
           infoWindow.close()
-          onClickMarker({ ko: '전체 장소' })
+          onClickMarker('전체 장소')
         } else {
           infoWindow.open(map, marker)
-          onClickMarker(markers[seq].label)
+          onClickMarker(entries[seq][1].ko.name)
         }
       }
-      for (let number = 0, length = markers.length; number < length; number++) {
+      for (let number = 0, length = Object.keys(buildingsObj[selectedLocation]).length; number < length; number++) {
         naver.maps.Event.addListener(markersCollection[number], 'click', () => {
           getClickHandler(number)
         })
@@ -298,7 +234,7 @@ function BoardMap({
     if (onAccordion) {
       displayMap()
     }
-  }, [languages, theme, onAccordion])
+  }, [languages, theme, onAccordion, selectedLocation])
   useEffect(() => {
     if (selectedValueTwo && markings.length && calledMap) {
       const index = markings.findIndex((value) => value.id === selectedValueTwo)
@@ -313,30 +249,55 @@ function BoardMap({
     }
   }, [selectedValueTwo])
   return (
-    <div className="w-[1000px]">
+    <div className="flex flex-col justify-center">
       <Accordion type="single" collapsible>
         <AccordionItem value="item-1">
-          <AccordionTrigger
-            onClick={() => {
-              setOnAccordion(!onAccordion)
-            }}
-            className="rounded shadow-md px-3 flex sticky top-16 z-30 w-full items-center justify-between bg-light-2/50 dark:bg-dark-2/50"
-          >
-            <div className="flex gap-5">
-              <MapIcon />
-              <div>{registeredMap}</div>
+          <div className="flex justify-center sticky top-16 z-30 px-1">
+            <div className="w-[1000px]">
+              <button
+                onClick={() => {
+                  document.getElementById('boardMap')?.click()
+                }}
+                className="rounded shadow-md px-3 flex sticky top-16 z-30 w-full items-center justify-between bg-light-2/50 dark:bg-dark-2/50"
+              >
+                <div className="flex gap-5">
+                  <MapIcon />
+                  <div>{registeredMap}</div>
+                </div>
+                <AccordionTrigger
+                  id='boardMap'
+                  onClick={() => {
+                    setOnAccordion(!onAccordion)
+                  }}
+                ></AccordionTrigger>
+              </button>
             </div>
-          </AccordionTrigger>
+          </div>
           <AccordionContent>
-            {selectedValues[1].value === '전체 장소' ? (
-              <div className="flex p-5">
+            <div className='flex flex-col p-5 gap-5'>
+            <div className='flex gap-1'>
+              {campusesArray.map((value) => {
+                return (
+                  <Chip
+                    sx={selectedLocation === locations[value.name] ? {}:undefined}
+                    label={
+                      <button onClick={value.onClick}>{value.name}</button>
+                    }
+                  />
+                )
+              })}
+            </div>
+            {!currentMarker ? (
+              <div className="flex">
                 {onLine && registeredMapExplanation}
               </div>
             ) : (
-              <div className="flex p-5">
-                <FilterDialogsTrigger />
+              <div className="flex">
+                {/* <FilterDialogsTrigger /> */}
+                <Chip label={languages === 'ko' ? currentMarker : locationsBuildings['en'][locationsBuildings['ko'].indexOf(currentMarker)]} />
               </div>
             )}
+            </div>
             {onLine ? (
               <div
                 ref={mapRef}
