@@ -134,7 +134,7 @@ function Collection() {
       setDoc(docRef, {
         uid: profile.uid,
         displayName: profile.displayName,
-        defaultProfile: `https://ijsfbngiyhgvolsprxeh.supabase.co/storage/v1/object/public/remake/collection/${id}`,
+        defaultProfile: `${import.meta.env.VITE_SUPABASE_STORAGE_URL}/${id}`,
       })
       const splitedArray = attachment.split(';base64,')
       const content = splitedArray[0].slice(5)
