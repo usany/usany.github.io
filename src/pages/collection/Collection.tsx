@@ -32,6 +32,8 @@ function Collection() {
     cannotFindAnUmbrella,
     findingAnUmbrella,
     exhibition,
+    aiIsLookingForAnUmbrella,
+    aiIsBusy,
   } = useTexts()
   const [error, setError] = useState(false)
   async function chat(url) {
@@ -230,7 +232,7 @@ function Collection() {
         title={register}
         content={
           <>
-            <div className='flex justify-center'>인공지능이 우산을 찾습니다.</div>
+            <div className='flex justify-center'>{aiIsLookingForAnUmbrella}</div>
             <div className="flex flex-col px-5 items-center gap-5">
               {changedImage.changed ?
                 <Avatars
@@ -271,7 +273,7 @@ function Collection() {
                 </div>
               }
             </div>
-            {error && <div className='flex justify-center'>인공지능이 바쁩니다. 다시 시도해주세요.</div>}
+            {error && <div className='flex justify-center'>{aiIsBusy}</div>}
             {/* {!loading && ['n', 'N'].indexOf(isUmbrella ? isUmbrella[0] : isUmbrella) !==
                 -1 && <div className='flex justify-center pt-5'>{cannotFindAnUmbrella}</div>} */}
             {!loading && <div className='flex flex-col'>
