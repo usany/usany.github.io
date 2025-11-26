@@ -72,6 +72,7 @@ const ProfileLocations = () => {
   const confirmed = state?.element ? state?.element.locationConfirmed : profile?.locationConfirmed
   const largeMedia = useLargeMedia()
   const languages = useSelectors((state) => state.languages.value)
+  const theme = useSelectors((state) => state.theme.value)
   const locationConfirmation =
     confirmed && Date.now() - confirmed < locationConfirmNumber ? true : false
   const dispatch = useDispatch()
@@ -185,7 +186,7 @@ const ProfileLocations = () => {
           <div className='flex justify-center'>{campuses[languages][campuses.en.indexOf(userCampus || 'Seoul Campus')]}</div>
         }
         <Chip
-          sx={locationConfirmation ? {} : undefined}
+          sx={locationConfirmation ? {color: theme === 'light' ? 'black' : 'white' } : undefined}
           color={locationConfirmation ? 'success' : undefined}
           label={
             locationConfirmation ? <div className='flex justify-center items-center gap-1'><LottieOnce color={'blue'} />{locationConfirmed}</div> : userUid === profile?.uid ?
