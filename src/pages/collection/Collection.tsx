@@ -22,8 +22,10 @@ import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
 import Avatars from '../core/Avatars'
 import PageTitle from '../core/pageTitle/PageTitle'
 import Popups from '../core/Popups'
+import useCardsBackground from 'src/hooks/useCardsBackground'
 
 function Collection() {
+  const {colorTwo} = useCardsBackground()
   const profile = useSelectors((state) => state.profile.value)
   const genai = new GoogleGenAI({ apiKey: import.meta.env.VITE_GEMINI_API_KEY })
   const {
@@ -287,7 +289,7 @@ function Collection() {
               <div className='flex justify-center'>
                 {isUmbrella &&
                   <>
-                    <Button variant='outlined' sx={{padding: 0}}>
+                    <Button variant='outlined' sx={{padding: 0, backgroundColor: colorTwo}}>
                       <label htmlFor="file" className='flex justify-center items-center w-full h-full p-[5px] px-[10px]'>
                         {newUpload}
                       </label>
@@ -297,7 +299,7 @@ function Collection() {
                 {
                   ['y', 'Y'].indexOf(isUmbrella ? isUmbrella[0] : isUmbrella) !==
                     -1 &&
-                    <Button variant='outlined' onClick={() => {
+                    <Button variant='outlined' sx={{backgroundColor: colorTwo}} onClick={() => {
                       newImage()
                       document.getElementById('close')?.click()
                     }}>{register}</Button>
