@@ -32,6 +32,7 @@ function Collection() {
     cannotFindAnUmbrella,
     findingAnUmbrella,
     exhibition,
+    newUpload,
     aiIsLookingForAnUmbrella,
     aiIsBusy,
   } = useTexts()
@@ -288,7 +289,7 @@ function Collection() {
                   <>
                     <Button variant='outlined' sx={{padding: 0}}>
                       <label htmlFor="file" className='flex justify-center items-center w-full h-full p-[5px] px-[10px]'>
-                        {uploadMyFile}
+                        {newUpload}
                       </label>
                     </Button>
                   </>
