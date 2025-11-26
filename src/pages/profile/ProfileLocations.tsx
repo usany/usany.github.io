@@ -189,7 +189,7 @@ const ProfileLocations = () => {
           color={locationConfirmation ? 'success' : undefined}
           label={
             locationConfirmation ? <div className='flex gap-1'><LottieOnce color={'blue'} />{locationConfirmed}</div> : userUid === profile?.uid ?
-            <button className='flex justify-center gap-1' onClick={() => {
+            <button className='flex justify-center items-center gap-1' onClick={() => {
               setIsLoading(true)
               onClickLocation()
             }}>
@@ -198,7 +198,7 @@ const ProfileLocations = () => {
               <ProfileLocationsChip />
             </button>
             :
-            <div className='flex gap-1'>
+            <div className='flex justify-center items-center gap-1'>
               <LottieOnce color={'red'} />
               {locationUnconfirmed}
             </div>

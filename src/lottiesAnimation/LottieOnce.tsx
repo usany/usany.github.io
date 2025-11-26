@@ -13,7 +13,7 @@ function LottieOnce({color}) {
     },
   }
   return (
-    <div className="flex flex-col justify-center pt-5">
+    <div className="flex flex-col justify-center">
       <Lottie options={defaultOptions} height={30} width={30} />
     </div>
   )

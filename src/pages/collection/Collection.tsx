@@ -275,10 +275,10 @@ function Collection() {
             {/* {!loading && ['n', 'N'].indexOf(isUmbrella ? isUmbrella[0] : isUmbrella) !==
                 -1 && <div className='flex justify-center pt-5'>{cannotFindAnUmbrella}</div>} */}
             {!loading && <div className='flex flex-col'>
-              {isUmbrella && <>
+              {isUmbrella && <div className='pt-5'>
                 {(['y', 'Y'].indexOf(isUmbrella ? isUmbrella[0] : isUmbrella) !==
                   -1) ? <LottieOnce color={'blue'} /> : <LottieOnce color={'red'}  />}
-              </>}
+              </div>}
               {!loading && ['n', 'N'].indexOf(isUmbrella ? isUmbrella[0] : isUmbrella) !==
                 -1 && <div className='flex justify-center'>{cannotFindAnUmbrella}</div>}
               <div className='flex justify-center'>
