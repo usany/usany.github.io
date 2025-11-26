@@ -17,6 +17,8 @@ import useSelectors from 'src/hooks/useSelectors'
 import useTexts from 'src/hooks/useTexts'
 import { changeProfile } from 'src/stateSlices/profileSlice'
 import ProfileLocationsChip from './ProfileLocationsChip'
+import LottieOnce from 'src/lottiesAnimation/LottieOnce'
+import LottieProcess from 'src/lottiesAnimation/LottieProcess'
 
 const campuses = {
   ko: ['서울캠퍼스', '국제캠퍼스', '광릉캠퍼스'],
@@ -59,7 +61,8 @@ const ProfileLocations = () => {
     save,
     nothingChanged,
     saved,
-    allowLocationAccessToUpdateOnCampusStatusOfYourProfile
+    allowLocationAccessToUpdateOnCampusStatusOfYourProfile,
+    loading
   } = useTexts()
   const { state } = useLocation()
   const profile = useSelectors((state) => state.profile.value)
@@ -84,7 +87,7 @@ const ProfileLocations = () => {
       alert(nothingChanged)
     }
   }
-  const [loading, setLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
   // const onClick = () => {
   //   const myDoc = doc(dbservice, `members/${profile?.uid}`)
   //   if (
@@ -144,11 +147,11 @@ const ProfileLocations = () => {
       } else {
         setLocation({...newLocation, error: true})
       }
-      setLoading(false)
+      setIsLoading(false)
     }, (error) => {
       console.log(error)
       setLocation({...location, error: true})
-      setLoading(false)
+      setIsLoading(false)
     })
   }
   return (
@@ -185,21 +188,30 @@ const ProfileLocations = () => {
           sx={locationConfirmation ? {} : undefined}
           color={locationConfirmation ? 'success' : undefined}
           label={
-            locationConfirmation ? locationConfirmed : userUid === profile?.uid ?
+            locationConfirmation ? <div className='flex gap-1'><LottieOnce color={'blue'} />{locationConfirmed}</div> : userUid === profile?.uid ?
             <button className='flex justify-center gap-1' onClick={() => {
-              setLoading(true)
+              setIsLoading(true)
               onClickLocation()
             }}>
+              <LottieOnce color={'red'} />
               {locationUnconfirmed}
               <ProfileLocationsChip />
             </button>
             :
-            locationUnconfirmed
+            <div className='flex gap-1'>
+              <LottieOnce color={'red'} />
+              {locationUnconfirmed}
+            </div>
           }
         />
-        {loading && <div>loading</div>}
+        {isLoading &&
+          <div className='flex flex-col items-center'>
+            <LottieProcess />
+            {loading}
+          </div>
+        }
         {!locationConfirmation && location.error && (
-          <>{failedLocationConfirmation}</>
+          <div className='flex flex-col'><LottieOnce color={'red'} />{failedLocationConfirmation}</div>
         )}
       </div>
     </div>
