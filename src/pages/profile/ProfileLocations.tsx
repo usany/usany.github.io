@@ -188,7 +188,7 @@ const ProfileLocations = () => {
           sx={locationConfirmation ? {} : undefined}
           color={locationConfirmation ? 'success' : undefined}
           label={
-            locationConfirmation ? <div className='flex gap-1'><LottieOnce color={'blue'} />{locationConfirmed}</div> : userUid === profile?.uid ?
+            locationConfirmation ? <div className='flex justify-center items-center gap-1'><LottieOnce color={'blue'} />{locationConfirmed}</div> : userUid === profile?.uid ?
             <button className='flex justify-center items-center gap-1' onClick={() => {
               setIsLoading(true)
               onClickLocation()
