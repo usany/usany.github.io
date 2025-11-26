@@ -189,7 +189,10 @@ const ProfileLocations = () => {
           sx={locationConfirmation ? {color: theme === 'light' ? 'black' : 'white' } : undefined}
           color={locationConfirmation ? 'success' : undefined}
           label={
-            locationConfirmation ? <div className='flex justify-center items-center gap-1'><LottieOnce color={'blue'} />{locationConfirmed}</div> : userUid === profile?.uid ?
+            isLoading ? <div className='flex justify-center items-center gap-1'>
+            <LottieProcess />
+            {loading}
+          </div> : locationConfirmation ? <div className='flex justify-center items-center gap-1'><LottieOnce color={'blue'} />{locationConfirmed}</div> : location.error ? <div className='flex justify-center items-center gap-1'><LottieOnce color={'red'} />{failedLocationConfirmation}</div> : userUid === profile?.uid ?
             <button className='flex justify-center items-center gap-1' onClick={() => {
               setIsLoading(true)
               onClickLocation()
@@ -205,15 +208,15 @@ const ProfileLocations = () => {
             </div>
           }
         />
-        {isLoading &&
+        {/* {isLoading &&
           <div className='flex flex-col items-center'>
             <LottieProcess />
             {loading}
           </div>
-        }
-        {!locationConfirmation && location.error && (
+        } */}
+        {/* {!locationConfirmation && location.error && (
           <div className='flex flex-col'><LottieOnce color={'red'} />{failedLocationConfirmation}</div>
-        )}
+        )} */}
       </div>
     </div>
   )
