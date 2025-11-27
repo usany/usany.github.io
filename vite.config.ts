@@ -59,12 +59,27 @@ export default defineConfig({
         ],
         screenshots: [
           {
-            src: 'screens1.png',
+            src: 'screen1.png',
             sizes: '1900x1920',
             type: 'image/png',
           },
           {
-            src: 'screens2.png',
+            src: 'screen2.png',
+            sizes: '1900x1920',
+            type: 'image/png',
+          },
+          {
+            src: 'screen3.png',
+            sizes: '1900x1920',
+            type: 'image/png',
+          },
+          {
+            src: 'screen4.png',
+            sizes: '1900x1920',
+            type: 'image/png',
+          },
+          {
+            src: 'screen5.png',
             sizes: '1900x1920',
             type: 'image/png',
           },
