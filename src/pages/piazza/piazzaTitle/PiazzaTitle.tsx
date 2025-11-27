@@ -14,7 +14,7 @@ const PiazzaTitle = ({ displayName }: Props) => {
     <div className='flex w-screen justify-between'>
       <PageTitle
         icon={<MessagesSquare />}
-        title={conversation === 'piazza' ? groupMessaging : `${privateMessaging} ${displayName.length > 10 ? displayName.slice(0, 10) : displayName}`} 
+        title={conversation === 'piazza' ? groupMessaging : `${privateMessaging} ${displayName.length > 10 ? displayName.slice(0, 10)+'...' : displayName}`} 
       />
       {conversation === 'piazza' &&
         <PiazzaSwitch />
