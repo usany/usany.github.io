@@ -59,7 +59,7 @@ const ProfileDialogs = ({ attachment, changeAttachment, changedImage, handleChan
           profile={true}
         />
         <div className='flex-col px-5 content-center p-5'>
-          <label htmlFor='file' className='flex flex-col p-5 rounded border border-dashed'><FileOpenIcon />{uploadMyFile}</label>
+          <label htmlFor='file' className='flex flex-col p-5 rounded border border-dashed items-center'><FileOpenIcon />{uploadMyFile}</label>
           <input id='file' type='file' onChange={onFileChange} hidden />
         </div>
       </div>
