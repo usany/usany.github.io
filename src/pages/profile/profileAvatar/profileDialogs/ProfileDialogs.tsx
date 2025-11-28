@@ -12,6 +12,8 @@ import { changeProfileColor } from 'src/stateSlices/profileColorSlice';
 import useSelectors from 'src/hooks/useSelectors'
 import useTexts from 'src/hooks/useTexts';
 import { changeProfile } from 'src/stateSlices/profileSlice';
+import FileOpenIcon from '@mui/icons-material/FileOpen';
+
 const images = {
   // 'profile-red': [staticRed01, staticRed02],
   // '#2196f3': [staticBlue01, staticBlue02],
@@ -57,7 +59,7 @@ const ProfileDialogs = ({ attachment, changeAttachment, changedImage, handleChan
           profile={true}
         />
         <div className='flex-col px-5 content-center p-5'>
-          <label htmlFor='file' className='p-5 rounded border border-dashed'>{uploadMyFile}</label>
+          <label htmlFor='file' className='flex flex-col p-5 rounded border border-dashed'><FileOpenIcon />{uploadMyFile}</label>
           <input id='file' type='file' onChange={onFileChange} hidden />
         </div>
       </div>

@@ -23,6 +23,7 @@ import Avatars from '../core/Avatars'
 import PageTitle from '../core/pageTitle/PageTitle'
 import Popups from '../core/Popups'
 import useCardsBackground from 'src/hooks/useCardsBackground'
+import FileOpenIcon from '@mui/icons-material/FileOpen';
 
 function Collection() {
   const {colorTwo} = useCardsBackground()
@@ -246,8 +247,9 @@ function Collection() {
                 <div className='p-5'>
                   <label
                     htmlFor="file"
-                    className="flex justify-center items-center w-48 h-48 p-5 rounded border border-dashed"
+                    className="flex flex-col justify-center items-center w-48 h-48 p-5 rounded border border-dashed"
                   >
+                    <FileOpenIcon />
                     {uploadMyFile}
                   </label>
                   {/* <input id="file" type="file" onChange={onFileChange} hidden /> */}
