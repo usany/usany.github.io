@@ -107,6 +107,8 @@ import { guhaEn, guhaKo } from '../core/buildings/guha'
 import { gujeEn, gujeKo } from '../core/buildings/guje'
 import { guguEn, guguKo } from '../core/buildings/gugu'
 import { gucEn, gucKo } from '../core/buildings/guc'
+import { guclEn, guclKo } from '../core/buildings/gucl'
+import { seclEn, seclKo } from '../core/buildings/secl'
 
 export const itemCounts = {
   usanOne: 0,
@@ -568,7 +570,8 @@ export const buildingsObj = {
           "카페(1F)",
           "중앙자료실 책상(3F)",
           "참고열람실 책상(4F)",
-          "정기간행물 책상(4F)"
+          "정기간행물 책상(4F)",
+          ...seclKo
         ]
       },
       en: {
@@ -586,7 +589,8 @@ export const buildingsObj = {
           "Cafe(1F)",
           "Central Desks(3F)",
           "References Desks(4F)",
-          "Serials Desks(4F)"
+          "Serials Desks(4F)",
+          ...seclEn
         ]
       },
       image: secl,
@@ -1336,14 +1340,16 @@ export const buildingsObj = {
         name: '국제 중도',
         details: [
           '직접 입력',
-          '1층 복도'
+          '1층 복도',
+          ...guclKo
         ]
       },
       en: {
         name: 'Global Central Library',
         details: [
           "Self input",
-          "1F Hallway"
+          "1F Hallway",
+          ...guclEn
         ]
       },
       image: gucl,
