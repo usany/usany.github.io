@@ -6,7 +6,7 @@ import Select from "@mui/material/Select";
 import TextField from "@mui/material/TextField";
 import useSelectors from 'src/hooks/useSelectors';
 import locationsBuildings, { buildingsObj, locationsBuildingsArray, locationsCollectionLetters } from "./locationsBuildings";
-import locationsCollection from "./locationsCollection";
+// import locationsCollection from "./locationsCollection";
 import useTexts from "src/hooks/useTexts";
 
 const settingSeats = (number) => {
