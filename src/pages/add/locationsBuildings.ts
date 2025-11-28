@@ -1340,7 +1340,10 @@ export const buildingsObj = {
         name: '국제 중도',
         details: [
           '직접 입력',
-          '1층 복도',
+          '1열(1F)',
+          '벗터(1F)',
+          '헤움(2F)',
+          '2열(2F)',
           ...guclKo
         ]
       },
@@ -1348,7 +1351,10 @@ export const buildingsObj = {
         name: 'Global Central Library',
         details: [
           "Self input",
-          "1F Hallway",
+          "Study #1(1F)",
+          "Butter(1F)",
+          "Hyeyum(2F)",
+          "Study #2(2F)",
           ...guclEn
         ]
       },
