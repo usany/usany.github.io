@@ -1342,7 +1342,7 @@ export const buildingsObj = {
           '직접 입력',
           '1열(1F)',
           '벗터(1F)',
-          '헤움(2F)',
+          '혜움(2F)',
           '2열(2F)',
           ...guclKo
         ]

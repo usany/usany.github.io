@@ -94,6 +94,7 @@ function Selects({
   const koDetails = (locationOne && locationOne !== '직접 입력') ? buildingsObj[key.slice(0, 2)][key]['ko'].details : {}
   const menuItems = (locationOne && locationOne !== '직접 입력') ? settingLocations(details, koDetails) : null
   const {selfInput} = useTexts()
+  console.log(locationState?.locationOne)
   return (
     <div className={`flex ${matches ? "" : "flex-col"} gap-1 px-5`}>
       <FormControl variant="standard" sx={{ width: 150 }}>
@@ -148,7 +149,7 @@ function Selects({
             </Select>
           </FormControl>
         )}
-      {["1열(1F)", "2열(2F)", "3열(2F)", "4열(4F)", "집중열(1F)", '벗터(1F)', '헤움(2F)'].indexOf(
+      {["1열(1F)", "2열(2F)", "3열(2F)", "4열(4F)", "집중열(1F)", '벗터(1F)', '혜움(2F)'].indexOf(
         locationState.locationTwo
       ) !== -1 && (
           <FormControl variant="standard" sx={{ width: 150 }}>
@@ -164,13 +165,13 @@ function Selects({
               onChange={changeSeat}
             // label="Age"
             >
-              {locationState.locationTwo === "1열(1F)" && locationState.locationOne === '서울 중도' ? location.one : location.guOne}
-              {locationState.locationTwo === "2열(2F)" && locationState.locationOne === '서울 중도' ? location.two : location.guTwo}
+              {locationState.locationTwo === "1열(1F)" && (locationState.locationOne === '서울 중도' ? location.one : location.guOne)}
+              {locationState.locationTwo === "2열(2F)" && (locationState.locationOne === '서울 중도' ? location.two : location.guTwo)}
               {locationState.locationTwo === "3열(2F)" && location.three}
               {locationState.locationTwo === "4열(4F)" && location.four}
               {locationState.locationTwo === "집중열(1F)" && location.focus}
               {locationState.locationTwo === '벗터(1F)' && location.guButter}
-              {locationState.locationTwo === "헤움(2F)" && location.guHyeyum}
+              {locationState.locationTwo === "혜움(2F)" && location.guHyeyum}
             </Select>
           </FormControl>
         )}
