@@ -26,7 +26,7 @@ const settingLocations = (building, korBuilding) => {
   ));
 };
 export const location = {
-  one: settingSeats(181),
+  one: settingSeats(210),
   focus: settingSeats(46),
   two: settingSeats(315),
   three: settingSeats(156),
