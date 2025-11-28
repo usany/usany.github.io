@@ -9,8 +9,7 @@ interface Props {
 }
 const CardsList = ({ choose, messages }: Props) => {
   const { empty, needNetworkConnection } = useTexts()
-  const chosenMessages = messages
-    .map((message) => {
+  const chosenMessages = messages.map((message) => {
       if (message?.text.choose === choose && message?.round === 1) {
         return (
           <Cards
@@ -19,7 +18,7 @@ const CardsList = ({ choose, messages }: Props) => {
         )
       }
       return null
-    })
+    }).filter((element) => element !== null)
   const onLine = useSelectors((state) => state.onLine.value)
   return (
     <div className="flex justify-center w-screen">
