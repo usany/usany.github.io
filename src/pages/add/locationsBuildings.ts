@@ -575,14 +575,14 @@ export const buildingsObj = {
         ]
       },
       en: {
-        name: 'Seoul Central library',
+        name: 'Seoul Central Library',
         details: [
           "Self input",
           "Study #1(1F)",
           "Study #2(2F)",
           "Study #3(2F)",
           "Study #4(4F)",
-          "Study Focus(1F)",
+          "Study Quiet(1F)",
           "1F Desks",
           "1F Seminar",
           "Cafeteria(2F)",
