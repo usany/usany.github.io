@@ -13,13 +13,13 @@ import useSelectors from 'src/hooks/useSelectors'
 import useTexts from 'src/hooks/useTexts';
 import { changeProfile } from 'src/stateSlices/profileSlice';
 const images = {
-  'profile-red': [staticRed01, staticRed02],
-  '#2196f3': [staticBlue01, staticBlue02],
-  'profile-amber': [staticGold01, staticGold02],
+  // 'profile-red': [staticRed01, staticRed02],
+  // '#2196f3': [staticBlue01, staticBlue02],
+  // 'profile-amber': [staticGold01, staticGold02],
+  // gold: [staticGold01, staticGold02],
   'profileRed': [staticRed01, staticRed02],
   'profileBlue': [staticBlue01, staticBlue02],
   'profileGold': [staticGold01, staticGold02],
-  gold: [staticGold01, staticGold02],
 }
 const ProfileDialogs = ({ attachment, changeAttachment, changedImage, handleChangedImage }) => {
   const { currentImageWillBeDeletedWhenCharacterImagesAreSelected, uploadMyFile, save } = useTexts()
