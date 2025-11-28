@@ -1,8 +1,8 @@
 import { Button } from '@mui/material';
 import { Check } from 'lucide-react';
 import { useDispatch, useSelector } from 'react-redux';
-import staticBlue01 from "src/assets/blue02.png";
-import staticBlue02 from "src/assets/blue03.png";
+import staticBlue01 from "src/assets/blue1.png";
+import staticBlue02 from "src/assets/blue2.png";
 import staticGold01 from "src/assets/gold1.png";
 import staticGold02 from "src/assets/gold2.png";
 import staticRed01 from "src/assets/red1.png";
