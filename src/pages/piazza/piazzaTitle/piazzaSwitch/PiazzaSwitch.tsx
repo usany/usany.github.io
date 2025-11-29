@@ -57,7 +57,7 @@ function PiazzaSwitch() {
       <div className='flex flex-col'>
         <div className='truncate text-sm'>{addToMyMessages}</div>
         <div className='flex justify-end'>
-          <MessageSwitch sx={{}} onClick={onClick} inputProps={{ 'aria-label': 'ant design' }} checked={piazzaSwitch === 'true'} />
+          <MessageSwitch onClick={onClick} inputProps={{ 'aria-label': 'ant design' }} checked={piazzaSwitch === 'true'} />
         </div>
       </div>
     </div>
