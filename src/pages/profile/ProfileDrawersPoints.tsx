@@ -55,19 +55,16 @@ const ProfileDrawersPoints = ({ cards }) => {
             </div>
           )}
           <div className="flex justify-center">
-            {element.text.count === '중도' && '서울 중도'}
             {locationsBuildings[languages][locationsBuildings['ko'].indexOf(element.text.count)]} {locationsCollection[languages][
               Object.keys(locationsCollectionLetters).find(
                 (key) =>
-                  locationsCollectionLetters[key] ===
-                  (element.text.count === '중도' ? '서울 중도' : element.text.count),
+                  locationsCollectionLetters[key] === element.text.count
               )
             ][
               locationsCollection['ko'][
                 Object.keys(locationsCollectionLetters).find(
                   (key) =>
-                    locationsCollectionLetters[key] ===
-                    (element.text.count === '중도' ? '서울 중도' : element.text.count),
+                    locationsCollectionLetters[key] === element.text.count
                 )
               ].indexOf(element.text.counter)
             ]} {element.text.counting}
