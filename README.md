@@ -6,8 +6,8 @@ A campus umbrella sharing app for KHU.
 Currently available in
 * [Web: KHUSAN.co.kr](https://khusan.co.kr)
 * [Android: Onestore](https://m.onestore.co.kr/v2/ko-kr/app/0000776823),
-* [Windows: MS store](https://apps.microsoft.com/detail/9n7801hsf6vh?hl=en-US&gl=US),
-
+* [Windows: MS Store](https://apps.microsoft.com/detail/9n7801hsf6vh?hl=ko-KR&gl=KR),
+* [ios: App Store](https://apps.apple.com/us/app/khusan/id6753282828?l=ko)
 ## Features
 
 \*\*Register an account
