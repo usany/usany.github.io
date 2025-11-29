@@ -38,6 +38,7 @@ const ConfirmButton = ({ message, increaseRound, handleConfirmingClock }) => {
   const {confirmSupportMessage} = useTexts()
   return (
     <Button
+      className='colorOne'
       variant="outlined"
       onClick={() => {
         onConfirm({
