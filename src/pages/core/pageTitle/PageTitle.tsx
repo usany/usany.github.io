@@ -1,4 +1,10 @@
+import { Dock } from 'lucide-react'
 import { ReactNode } from 'react'
+import { AnimatedGroup } from 'src/components/motion-primitives/animated-group'
+import { AnimatedNumber } from 'src/components/motion-primitives/animated-number'
+import { ScrollProgress } from 'src/components/motion-primitives/scroll-progress'
+import { TextLoop } from 'src/components/motion-primitives/text-loop'
+import { TextScramble } from 'src/components/motion-primitives/text-scramble'
 
 interface Props {
   icon?: ReactNode
@@ -10,6 +16,15 @@ const PageTitle = ({ icon, title }: Props) => {
     <div className="flex text-2xl p-5 gap-5 items-center">
       {icon}
       {title}
+      <Dock>practice</Dock>
+      <AnimatedGroup>practice</AnimatedGroup>
+      <AnimatedNumber value={1} />
+      <ScrollProgress />
+      <TextLoop>
+        <>practice</>
+        <>practice</>
+      </TextLoop>
+      <TextScramble>practice</TextScramble>
     </div>
   )
 }
