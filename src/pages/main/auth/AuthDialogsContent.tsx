@@ -9,17 +9,17 @@ function AuthDialogsContent() {
   const changeAgreed = () => {
     setAgreed(!agreed)
   }
-  const {onlyTakesOneMinuteToRegisterAccount, playlistReadyForYouToGetRidOfBoredom} = useTexts()
+  // const {onlyTakesOneMinuteToRegisterAccount, playlistReadyForYouToGetRidOfBoredom} = useTexts()
   return (
     <>
-      <AuthMethods agreed={agreed} changeAgreed={changeAgreed} />
-      <div className="flex flex-col p-3">
+      {/* <div className="flex flex-col p-3">
         {onlyTakesOneMinuteToRegisterAccount}
         {playlistReadyForYouToGetRidOfBoredom}
       </div>
       <div className="flex justify-center pt-3">
         <Playlist />
-      </div>
+      </div> */}
+      <AuthMethods agreed={agreed} changeAgreed={changeAgreed} />
       <AuthForm signIn={false} agreed={agreed} />
     </>
   );

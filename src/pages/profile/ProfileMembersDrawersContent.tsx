@@ -5,7 +5,7 @@ import { deleteUser, User } from 'firebase/auth'
 import { deleteDoc, doc } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { dbservice } from 'src/baseApi/serverbase'
+import { auth, dbservice } from 'src/baseApi/serverbase'
 import useSelectors from 'src/hooks/useSelectors'
 import useTexts from 'src/hooks/useTexts'
 
@@ -37,18 +37,20 @@ const ProfileMembersDrawersContent = () => {
   }
   const delist = async () => {
     if (process && confirmEmail) {
-      await deleteDoc(doc(dbservice, `members/${profile?.uid}`))
-      deleteUser(user)
-        .then(() => {
-          console.log(user)
-          // User deleted.
-        })
-        .catch((error) => {
-          console.log(error)
-          // An error ocurred
-          // ...
-        })
-      navigate('/')
+      if (auth.currentUser) {
+        await deleteDoc(doc(dbservice, `members/${profile?.uid}`))
+        deleteUser(auth.currentUser)
+          .then(() => {
+            console.log(user)
+            // User deleted.
+          })
+          .catch((error) => {
+            console.log(error)
+            // An error ocurred
+            // ...
+          })
+          navigate('/')
+      }
     } else {
       alert('Cannot delete your account. Please fulfill the conditions.')
     }
