@@ -133,6 +133,9 @@ const AuthForm = ({ signIn, agreed }: Props) => {
           <div className="flex flex-col justify-center p-3">
             {(signIn || agreed) &&
               <Button
+                className={signIn
+                  ? ''
+                  : 'colorOne'}
                 variant="outlined"
                 startIcon={<img src={staticMail} className="w-[20px]" />}
                 form={signIn ? 'auth' : 'signUp'}
