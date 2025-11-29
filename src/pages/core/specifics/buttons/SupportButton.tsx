@@ -61,6 +61,7 @@ const SupportButton = ({
   return (
     <div className="flex justify-center">
       <Button
+        className='colorOne'
         variant="outlined"
         onClick={() => {
           if (profile) {

@@ -89,9 +89,8 @@ function Auth() {
       <PageTitle
         title={profile ? confirmingMail : signIn}
       />
-      <LottieProcess />
       {profile ? (
-        <div className="flex flex-col gap-5 items-center">
+        <div className="flex flex-col gap-5 items-center p-5">
           {mailSent ? (
             <>
               {languages === 'en' && sentAConfirmingMail} {profile.email}
@@ -112,10 +111,8 @@ function Auth() {
             />
           )}
           <div className="flex gap-5">
-            {numberString.length === 6 && (
-              <Button onClick={confirmNumber}>{confirm}</Button>
-            )}
-            <Button onClick={() => {
+            {mailSent && <Button className='colorTwo' variant="outlined" onClick={confirmNumber}>{confirm}</Button>}
+            <Button className='colorTwo' variant="outlined" onClick={() => {
               if (mailSent) {
                 alert(mailSentAgain)
               }
@@ -123,8 +120,10 @@ function Auth() {
             }}>
               {mailSent ? sendMailAgain : sendMail}
             </Button>
+            {/* {numberString.length === 6 && (
+            )} */}
           </div>
-          <Button onClick={cancelUserRegistration}>
+          <Button className='colorTwo' variant="outlined" onClick={cancelUserRegistration}>
             {cancelRegistration}
           </Button>
         </div>

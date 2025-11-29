@@ -12,8 +12,8 @@ import sem from 'src/assets/sem.jpg'
 import semun from 'src/assets/semun.png'
 import semu from 'src/assets/semu.png'
 import sep from 'src/assets/sep.jpg'
-// import seg from 'src/assets/seg.jpg'
-import seg from 'src/assets/static_g.jpeg'
+import seg from 'src/assets/seg.jpg'
+// import seg from 'src/assets/static_g.jpeg'
 import guc from 'src/assets/guc.jpg'
 import guch from 'src/assets/guch.jpg'
 import gucha from 'src/assets/gucha.jpg'
@@ -107,6 +107,8 @@ import { guhaEn, guhaKo } from '../core/buildings/guha'
 import { gujeEn, gujeKo } from '../core/buildings/guje'
 import { guguEn, guguKo } from '../core/buildings/gugu'
 import { gucEn, gucKo } from '../core/buildings/guc'
+import { guclEn, guclKo } from '../core/buildings/gucl'
+import { seclEn, seclKo } from '../core/buildings/secl'
 
 export const itemCounts = {
   usanOne: 0,
@@ -568,25 +570,27 @@ export const buildingsObj = {
           "카페(1F)",
           "중앙자료실 책상(3F)",
           "참고열람실 책상(4F)",
-          "정기간행물 책상(4F)"
+          "정기간행물 책상(4F)",
+          ...seclKo
         ]
       },
       en: {
-        name: 'Seoul Central library',
+        name: 'Seoul Central Library',
         details: [
           "Self input",
           "Study #1(1F)",
           "Study #2(2F)",
           "Study #3(2F)",
           "Study #4(4F)",
-          "Study Focus(1F)",
+          "Study Quiet(1F)",
           "1F Desks",
           "1F Seminar",
           "Cafeteria(2F)",
           "Cafe(1F)",
           "Central Desks(3F)",
           "References Desks(4F)",
-          "Serials Desks(4F)"
+          "Serials Desks(4F)",
+          ...seclEn
         ]
       },
       image: secl,
@@ -611,7 +615,7 @@ export const buildingsObj = {
         ],
       },
       image: seg,
-      location: { lat: 37.5960528, lng: 127.0536951 },
+      location: { lat: 37.595593, lng: 127.053713 },
       itemCounts: itemCounts
     },
     seh: {
@@ -630,7 +634,7 @@ export const buildingsObj = {
         ],
       },
       image: seh,
-      location: { lat: 37.596108, lng: 127.053975 },
+      location: { lat: 37.595593, lng: 127.054021 },
       itemCounts: itemCounts
     },
     see: {
@@ -1336,14 +1340,22 @@ export const buildingsObj = {
         name: '국제 중도',
         details: [
           '직접 입력',
-          '1층 복도'
+          '1열(1F)',
+          '벗터(1F)',
+          '혜움(2F)',
+          '2열(2F)',
+          ...guclKo
         ]
       },
       en: {
         name: 'Global Central Library',
         details: [
           "Self input",
-          "1F Hallway"
+          "Study #1(1F)",
+          "Butter(1F)",
+          "Hyeyum(2F)",
+          "Study #2(2F)",
+          ...guclEn
         ]
       },
       image: gucl,

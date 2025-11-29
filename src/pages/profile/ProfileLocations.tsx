@@ -17,6 +17,8 @@ import useSelectors from 'src/hooks/useSelectors'
 import useTexts from 'src/hooks/useTexts'
 import { changeProfile } from 'src/stateSlices/profileSlice'
 import ProfileLocationsChip from './ProfileLocationsChip'
+import LottieOnce from 'src/lottiesAnimation/LottieOnce'
+import LottieProcess from 'src/lottiesAnimation/LottieProcess'
 
 const campuses = {
   ko: ['서울캠퍼스', '국제캠퍼스', '광릉캠퍼스'],
@@ -59,7 +61,8 @@ const ProfileLocations = () => {
     save,
     nothingChanged,
     saved,
-    allowLocationAccessToUpdateOnCampusStatusOfYourProfile
+    allowLocationAccessToUpdateOnCampusStatusOfYourProfile,
+    loading
   } = useTexts()
   const { state } = useLocation()
   const profile = useSelectors((state) => state.profile.value)
@@ -69,6 +72,7 @@ const ProfileLocations = () => {
   const confirmed = state?.element ? state?.element.locationConfirmed : profile?.locationConfirmed
   const largeMedia = useLargeMedia()
   const languages = useSelectors((state) => state.languages.value)
+  const theme = useSelectors((state) => state.theme.value)
   const locationConfirmation =
     confirmed && Date.now() - confirmed < locationConfirmNumber ? true : false
   const dispatch = useDispatch()
@@ -84,7 +88,7 @@ const ProfileLocations = () => {
       alert(nothingChanged)
     }
   }
-  const [loading, setLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
   // const onClick = () => {
   //   const myDoc = doc(dbservice, `members/${profile?.uid}`)
   //   if (
@@ -144,11 +148,11 @@ const ProfileLocations = () => {
       } else {
         setLocation({...newLocation, error: true})
       }
-      setLoading(false)
+      setIsLoading(false)
     }, (error) => {
       console.log(error)
       setLocation({...location, error: true})
-      setLoading(false)
+      setIsLoading(false)
     })
   }
   return (
@@ -182,25 +186,37 @@ const ProfileLocations = () => {
           <div className='flex justify-center'>{campuses[languages][campuses.en.indexOf(userCampus || 'Seoul Campus')]}</div>
         }
         <Chip
-          sx={locationConfirmation ? {} : undefined}
+          sx={locationConfirmation ? {color: theme === 'light' ? 'black' : 'white' } : undefined}
           color={locationConfirmation ? 'success' : undefined}
           label={
-            locationConfirmation ? locationConfirmed : userUid === profile?.uid ?
-            <button className='flex justify-center gap-1' onClick={() => {
-              setLoading(true)
+            isLoading ? <div className='flex justify-center items-center gap-1'>
+            <LottieProcess />
+            {loading}
+          </div> : locationConfirmation ? <div className='flex justify-center items-center gap-1'><LottieOnce color={'blue'} />{locationConfirmed}</div> : location.error ? <div className='flex justify-center items-center gap-1'><LottieOnce color={'red'} />{failedLocationConfirmation}</div> : userUid === profile?.uid ?
+            <button className='flex justify-center items-center gap-1' onClick={() => {
+              setIsLoading(true)
               onClickLocation()
             }}>
+              <LottieOnce color={'red'} />
               {locationUnconfirmed}
               <ProfileLocationsChip />
             </button>
             :
-            locationUnconfirmed
+            <div className='flex justify-center items-center gap-1'>
+              <LottieOnce color={'red'} />
+              {locationUnconfirmed}
+            </div>
           }
         />
-        {loading && <div>loading</div>}
-        {!locationConfirmation && location.error && (
-          <>{failedLocationConfirmation}</>
-        )}
+        {/* {isLoading &&
+          <div className='flex flex-col items-center'>
+            <LottieProcess />
+            {loading}
+          </div>
+        } */}
+        {/* {!locationConfirmation && location.error && (
+          <div className='flex flex-col'><LottieOnce color={'red'} />{failedLocationConfirmation}</div>
+        )} */}
       </div>
     </div>
   )

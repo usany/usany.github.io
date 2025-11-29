@@ -105,6 +105,7 @@ const StopSupportButton = ({
         {supportMessageSent}
       </div>
       <Button
+        className='colorOne'
         variant="outlined"
         onClick={() => {
           onStopSupporting(message)

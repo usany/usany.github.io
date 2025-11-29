@@ -40,7 +40,7 @@ const AuthButtons = () => {
         {buttons.map((value) => {
           return (
             <Button
-              className="colorTwo"
+              className='colorTwo'
               startIcon={value.image}
               variant="outlined"
               onClick={() => {

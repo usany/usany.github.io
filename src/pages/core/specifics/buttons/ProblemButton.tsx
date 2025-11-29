@@ -40,6 +40,7 @@ function ProblemButton({ message, issue, changeIssue, changeMessageValue }) {
   }
   return (
     <Button
+      className='colorOne'
       variant='outlined'
       onClick={() => {
         onIssue()

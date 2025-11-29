@@ -22,8 +22,11 @@ import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
 import Avatars from '../core/Avatars'
 import PageTitle from '../core/pageTitle/PageTitle'
 import Popups from '../core/Popups'
+import useCardsBackground from 'src/hooks/useCardsBackground'
+import FileOpenIcon from '@mui/icons-material/FileOpen';
 
 function Collection() {
+  const {colorOne} = useCardsBackground()
   const profile = useSelectors((state) => state.profile.value)
   const genai = new GoogleGenAI({ apiKey: import.meta.env.VITE_GEMINI_API_KEY })
   const {
@@ -32,6 +35,9 @@ function Collection() {
     cannotFindAnUmbrella,
     findingAnUmbrella,
     exhibition,
+    newUpload,
+    aiIsLookingForAnUmbrella,
+    aiIsBusy,
   } = useTexts()
   const [error, setError] = useState(false)
   async function chat(url) {
@@ -134,7 +140,7 @@ function Collection() {
       setDoc(docRef, {
         uid: profile.uid,
         displayName: profile.displayName,
-        defaultProfile: `https://ijsfbngiyhgvolsprxeh.supabase.co/storage/v1/object/public/remake/collection/${id}`,
+        defaultProfile: `${import.meta.env.VITE_SUPABASE_STORAGE_URL}/${id}`,
       })
       const splitedArray = attachment.split(';base64,')
       const content = splitedArray[0].slice(5)
@@ -230,7 +236,7 @@ function Collection() {
         title={register}
         content={
           <>
-            <div className='flex justify-center'>AI will find an Umbrella</div>
+            <div className='flex justify-center'>{aiIsLookingForAnUmbrella}</div>
             <div className="flex flex-col px-5 items-center gap-5">
               {changedImage.changed ?
                 <Avatars
@@ -241,8 +247,9 @@ function Collection() {
                 <div className='p-5'>
                   <label
                     htmlFor="file"
-                    className="flex justify-center items-center w-48 h-48 p-5 rounded border border-dashed"
+                    className="flex flex-col justify-center items-center w-48 h-48 p-5 rounded border border-dashed"
                   >
+                    <FileOpenIcon />
                     {uploadMyFile}
                   </label>
                   {/* <input id="file" type="file" onChange={onFileChange} hidden /> */}
@@ -271,23 +278,22 @@ function Collection() {
                 </div>
               }
             </div>
-            {error && <div className='flex justify-center'>AI is busy. Please try again.</div>}
-            {/* {error && <div className='flex justify-center'>인공지능이 바쁩니다. 다시 시도해주세요.</div>} */}
+            {error && <div className='flex justify-center'>{aiIsBusy}</div>}
             {/* {!loading && ['n', 'N'].indexOf(isUmbrella ? isUmbrella[0] : isUmbrella) !==
                 -1 && <div className='flex justify-center pt-5'>{cannotFindAnUmbrella}</div>} */}
             {!loading && <div className='flex flex-col'>
-              {isUmbrella && <>
+              {isUmbrella && <div className='pt-5'>
                 {(['y', 'Y'].indexOf(isUmbrella ? isUmbrella[0] : isUmbrella) !==
                   -1) ? <LottieOnce color={'blue'} /> : <LottieOnce color={'red'}  />}
-              </>}
+              </div>}
               {!loading && ['n', 'N'].indexOf(isUmbrella ? isUmbrella[0] : isUmbrella) !==
                 -1 && <div className='flex justify-center'>{cannotFindAnUmbrella}</div>}
               <div className='flex justify-center'>
                 {isUmbrella &&
                   <>
-                    <Button variant='outlined' sx={{padding: 0}}>
+                    <Button className='colorOne' variant='outlined' sx={{padding: 0, backgroundColor: colorOne}}>
                       <label htmlFor="file" className='flex justify-center items-center w-full h-full p-[5px] px-[10px]'>
-                        {uploadMyFile}
+                        {newUpload}
                       </label>
                     </Button>
                   </>
@@ -295,7 +301,7 @@ function Collection() {
                 {
                   ['y', 'Y'].indexOf(isUmbrella ? isUmbrella[0] : isUmbrella) !==
                     -1 &&
-                    <Button variant='outlined' onClick={() => {
+                    <Button className='colorOne' variant='outlined' onClick={() => {
                       newImage()
                       document.getElementById('close')?.click()
                     }}>{register}</Button>

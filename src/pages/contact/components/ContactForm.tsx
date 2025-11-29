@@ -103,7 +103,7 @@ function ContactForm() {
       />
       <div className="flex justify-center pt-2.5">
         <ContactDrawers />
-        <Button variant="outlined" form="auth" onClick={onSubmit}>
+        <Button className='colorTwo' variant="outlined" form="auth" onClick={onSubmit}>
           {send}
         </Button>
       </div>

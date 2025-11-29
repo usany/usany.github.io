@@ -47,7 +47,7 @@ const ProfileMembersPasswordContent = () => {
         <TextField type='password' name={newPassword} label={newPassword} onChange={onChange} required />
         <TextField type='password' name={newPasswordConfirm} label={newPasswordConfirm} onChange={onChange} required />
         <div className='flex justify-center pt-5'>
-          <Button variant="outlined" form='changePassword' type='submit'>
+          <Button className='colorOne' variant="outlined" form='changePassword' type='submit'>
             {changePassword}
           </Button>
         </div>

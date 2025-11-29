@@ -5,7 +5,7 @@ import { deleteUser, User } from 'firebase/auth'
 import { deleteDoc, doc } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { dbservice } from 'src/baseApi/serverbase'
+import { auth, dbservice } from 'src/baseApi/serverbase'
 import useSelectors from 'src/hooks/useSelectors'
 import useTexts from 'src/hooks/useTexts'
 
@@ -35,20 +35,24 @@ const ProfileMembersDrawersContent = () => {
       setConfirmEmail(false)
     }
   }
-  const delist = async () => {
+  const delist = () => {
     if (process && confirmEmail) {
-      await deleteDoc(doc(dbservice, `members/${profile?.uid}`))
-      deleteUser(user)
-        .then(() => {
-          console.log(user)
-          // User deleted.
-        })
-        .catch((error) => {
-          console.log(error)
-          // An error ocurred
-          // ...
-        })
-      navigate('/')
+      if (auth.currentUser) {
+        deleteUser(auth.currentUser)
+          .then(async () => {
+            await deleteDoc(doc(dbservice, `members/${profile?.uid}`))
+            navigate('/')
+            console.log(user)
+            // User deleted.
+          })
+          .catch((error) => {
+            console.log(error)
+            // An error ocurred
+            // ...
+          })
+        // navigate('/')
+        // await deleteDoc(doc(dbservice, `members/${profile?.uid}`))
+      }
     } else {
       alert('Cannot delete your account. Please fulfill the conditions.')
     }
@@ -84,11 +88,11 @@ const ProfileMembersDrawersContent = () => {
             sx={{ bgcolor: process ? '#7fc4bc' : '#e76e50', color: 'white', paddingY: process ? 0 : 3 }}
           />
         </div>
-        <div className='pt-5'>{toDeleteAccountInputMail}</div>
       </div>
-      <div className="flex flex-col justify-center px-5 gap-5">
+      <div className="flex flex-col justify-center p-5 gap-5">
+        <div className='pt-5'>{toDeleteAccountInputMail}</div>
         <TextField label={mail} onChange={onChange} />
-        <Button variant="outlined" onClick={delist}>
+        <Button className='colorOne' variant="outlined" onClick={delist}>
           {deleteAccount}
         </Button>
       </div>
