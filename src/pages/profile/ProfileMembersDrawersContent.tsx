@@ -35,12 +35,13 @@ const ProfileMembersDrawersContent = () => {
       setConfirmEmail(false)
     }
   }
-  const delist = async () => {
+  const delist = () => {
     if (process && confirmEmail) {
       if (auth.currentUser) {
-        await deleteDoc(doc(dbservice, `members/${profile?.uid}`))
         deleteUser(auth.currentUser)
-          .then(() => {
+          .then(async () => {
+            await deleteDoc(doc(dbservice, `members/${profile?.uid}`))
+            navigate('/')
             console.log(user)
             // User deleted.
           })
@@ -49,7 +50,8 @@ const ProfileMembersDrawersContent = () => {
             // An error ocurred
             // ...
           })
-          navigate('/')
+        // navigate('/')
+        // await deleteDoc(doc(dbservice, `members/${profile?.uid}`))
       }
     } else {
       alert('Cannot delete your account. Please fulfill the conditions.')
@@ -86,9 +88,9 @@ const ProfileMembersDrawersContent = () => {
             sx={{ bgcolor: process ? '#7fc4bc' : '#e76e50', color: 'white', paddingY: process ? 0 : 3 }}
           />
         </div>
-        <div className='pt-5'>{toDeleteAccountInputMail}</div>
       </div>
-      <div className="flex flex-col justify-center px-5 gap-5">
+      <div className="flex flex-col justify-center p-5 gap-5">
+        <div className='pt-5'>{toDeleteAccountInputMail}</div>
         <TextField label={mail} onChange={onChange} />
         <Button variant="outlined" onClick={delist}>
           {deleteAccount}

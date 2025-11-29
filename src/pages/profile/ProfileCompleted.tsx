@@ -46,7 +46,6 @@ const ProfileCompleted = ({ cards }) => {
     },
   } satisfies ChartConfig
   const totalNumber = actions.reduce((acc, curr) => acc + curr.number, 0)
-
   return (
     <div className="flex flex-col gap-5">
       <div className="flex justify-center h-[250px] pt-5">
@@ -107,7 +106,7 @@ const ProfileCompleted = ({ cards }) => {
           </PieChart>
         </ChartContainer>
       </div>
-      {cards.done ? <Carousels /> :
+      {cards.done?.length ? <Carousels /> :
         <div className='flex justify-center'>
           <div className='w-[188px] h-[260px] bg-light-2 dark:bg-dark-2 rounded flex justify-center items-center text-center'>
             {profile.uid === userUid ?

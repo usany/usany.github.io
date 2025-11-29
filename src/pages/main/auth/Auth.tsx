@@ -90,7 +90,7 @@ function Auth() {
         title={profile ? confirmingMail : signIn}
       />
       {profile ? (
-        <div className="flex flex-col gap-5 items-center">
+        <div className="flex flex-col gap-5 items-center p-5">
           {mailSent ? (
             <>
               {languages === 'en' && sentAConfirmingMail} {profile.email}
