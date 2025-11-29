@@ -84,6 +84,7 @@ const ContactDrawersContent = () => {
                   )}
                   <div className="flex pt-3 justify-center">
                     <Button
+                      className='colorOne'
                       variant="outlined"
                       onClick={() => deleteMessage(value)}
                     >
