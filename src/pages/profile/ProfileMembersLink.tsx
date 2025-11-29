@@ -15,7 +15,7 @@ const ProfileMembersLink = ({otherUserProfile}) => {
   return (
     <Link to={`/contact/?id=${user.uid}`} state={{ user: user }}>
       <div className="flex justify-center">
-        <Button variant='outlined' onClick={() => {
+        <Button className='colorTwo' variant='outlined' onClick={() => {
           if (location.pathname === '/') {
             document.body.classList.remove('overflow-hidden')
           }

@@ -92,7 +92,7 @@ const ProfileMembersDrawersContent = () => {
       <div className="flex flex-col justify-center p-5 gap-5">
         <div className='pt-5'>{toDeleteAccountInputMail}</div>
         <TextField label={mail} onChange={onChange} />
-        <Button variant="outlined" onClick={delist}>
+        <Button className='colorOne' variant="outlined" onClick={delist}>
           {deleteAccount}
         </Button>
       </div>
