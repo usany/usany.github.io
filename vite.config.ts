@@ -16,7 +16,7 @@ export default defineConfig({
       },
       workbox: {
         globPatterns: ['**/*'],
-        maximumFileSizeToCacheInBytes: 7000000
+        maximumFileSizeToCacheInBytes: 60000000
       },
       // add this to cache all the
       // static assets in the public folder
