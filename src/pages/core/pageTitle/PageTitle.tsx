@@ -1,5 +1,5 @@
 import { Dock } from 'lucide-react'
-import { ReactNode } from 'react'
+import { ReactNode, useRef } from 'react'
 import { AnimatedGroup } from 'src/components/motion-primitives/animated-group'
 import { AnimatedNumber } from 'src/components/motion-primitives/animated-number'
 import { ScrollProgress } from 'src/components/motion-primitives/scroll-progress'
@@ -12,6 +12,7 @@ interface Props {
 }
 
 const PageTitle = ({ icon, title }: Props) => {
+  const scrollRef = useRef()
   return (
     <div className="flex text-2xl p-5 gap-5 items-center">
       {icon}
@@ -19,7 +20,7 @@ const PageTitle = ({ icon, title }: Props) => {
       <Dock>practice</Dock>
       <AnimatedGroup>practice</AnimatedGroup>
       <AnimatedNumber value={1} />
-      <ScrollProgress />
+      <ScrollProgress containerRef={scrollRef.current}/>
       <TextLoop>
         <>practice</>
         <>practice</>
