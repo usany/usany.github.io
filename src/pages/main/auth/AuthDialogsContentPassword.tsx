@@ -59,6 +59,7 @@ function AuthDialogsContentPassword() {
           </div>
           <div className="flex flex-col justify-center p-3">
             <Button
+              className='colorTwo'
               variant="outlined"
               startIcon={<img src={staticMail} className="w-[20px]" />}
               form={'password'}
