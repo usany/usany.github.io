@@ -111,8 +111,8 @@ function Auth() {
             />
           )}
           <div className="flex gap-5">
-            {mailSent && <Button variant="outlined" onClick={confirmNumber}>{confirm}</Button>}
-            <Button variant="outlined" onClick={() => {
+            {mailSent && <Button className='colorTwo' variant="outlined" onClick={confirmNumber}>{confirm}</Button>}
+            <Button className='colorTwo' variant="outlined" onClick={() => {
               if (mailSent) {
                 alert(mailSentAgain)
               }
@@ -123,7 +123,7 @@ function Auth() {
             {/* {numberString.length === 6 && (
             )} */}
           </div>
-          <Button variant="outlined" onClick={cancelUserRegistration}>
+          <Button className='colorTwo' variant="outlined" onClick={cancelUserRegistration}>
             {cancelRegistration}
           </Button>
         </div>
