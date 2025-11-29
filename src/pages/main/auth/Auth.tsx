@@ -111,7 +111,7 @@ function Auth() {
             />
           )}
           <div className="flex gap-5">
-            <Button variant="outlined" onClick={confirmNumber}>{confirm}</Button>
+            {mailSent && <Button variant="outlined" onClick={confirmNumber}>{confirm}</Button>}
             <Button variant="outlined" onClick={() => {
               if (mailSent) {
                 alert(mailSentAgain)
