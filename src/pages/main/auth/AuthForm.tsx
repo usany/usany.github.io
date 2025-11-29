@@ -134,7 +134,7 @@ const AuthForm = ({ signIn, agreed }: Props) => {
             {(signIn || agreed) &&
               <Button
                 className={signIn
-                  ? ''
+                  ? 'colorTwo'
                   : 'colorOne'}
                 variant="outlined"
                 startIcon={<img src={staticMail} className="w-[20px]" />}
