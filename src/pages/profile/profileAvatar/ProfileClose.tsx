@@ -91,6 +91,7 @@ const ProfileClose = ({
     <div>
       {changedImage.changed && (
         <Button
+          className='colorOne'
           variant="outlined"
           onClick={() => {
             handleChangedImage({ ...changedImage, changed: false })
