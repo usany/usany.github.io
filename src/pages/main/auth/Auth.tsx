@@ -134,6 +134,7 @@ function Auth() {
           </div>
           <AuthForm signIn={true} agreed={true} />
           <AuthButtons />
+          <div>practice</div>
           <div className="flex justify-center pt-5 px-5">
             {playlistReadyForYouToGetRidOfBoredom}
           </div>
