@@ -54,13 +54,13 @@ const ProfileCardsTrigger: React.FC<Props> = ({
       {cards ?
         <>
           <div>{points}</div>
-          <div className='flex justify-center'><AnimatedNumber value={animatedPoints} /></div>
+          <div className='flex justify-center'><AnimatedNumber value={animatedPoints.points} /></div>
         </>
         :
         <div onClick={usersCollection}>
           <div>{isFollowers ? follower : following}</div>
           <div className="flex justify-center">
-            <AnimatedNumber value={alliesCollectionList?.length || 0} />
+            <AnimatedNumber value={isFollowers ? animatedPoints.followers : animatedPoints.followings} />
           </div>
         </div>
       }
