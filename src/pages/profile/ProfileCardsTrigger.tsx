@@ -21,7 +21,7 @@ const ProfileCardsTrigger: React.FC<Props> = ({
   alliesCollectionList = [],
   handleCompanies = () => {}
 }: Props) => {
-  const [animatedPoints, setAnimatedPoints] = useState({points: 1, followers: 1, followings: 1})
+  const [animatedPoints, setAnimatedPoints] = useState({points: 0, followers: 0, followings: 0})
   const { points, follower, following } = useTexts()
   const { colorTwo } = useCardsBackground()
   const usersCollection = async () => {
@@ -39,11 +39,11 @@ const ProfileCardsTrigger: React.FC<Props> = ({
     if (cards) {
       setAnimatedPoints({...animatedPoints, points: cards?.point})
     } else if (isFollowers) {
-      setAnimatedPoints({...animatedPoints, followers: alliesCollectionList?.length })
+      setAnimatedPoints({...animatedPoints, followers: alliesCollectionList?.length || 0 })
     } else {
-      setAnimatedPoints({...animatedPoints, followings: alliesCollectionList?.length })
+      setAnimatedPoints({...animatedPoints, followings: alliesCollectionList?.length || 0 })
     }
-  }, [cards])
+  }, [cards?.point, alliesCollectionList?.length])
   return (
     <Card
       sx={{
@@ -54,13 +54,14 @@ const ProfileCardsTrigger: React.FC<Props> = ({
       {cards ?
         <>
           <div>{points}</div>
-          <div className='flex justify-center'><AnimatedNumber value={animatedPoints.points} /></div>
+          <div className='flex justify-center'>{animatedPoints.points ? <AnimatedNumber value={animatedPoints.points} /> : 0}</div>
         </>
         :
         <div onClick={usersCollection}>
           <div>{isFollowers ? follower : following}</div>
           <div className="flex justify-center">
-            <AnimatedNumber value={isFollowers ? animatedPoints.followers : animatedPoints.followings} />
+            {isFollowers ? (animatedPoints.followers ? <AnimatedNumber value={animatedPoints.followers} /> : 0) : (animatedPoints.followings ? <AnimatedNumber value={animatedPoints.followings} /> : 0)}
+            {/* <AnimatedNumber value={isFollowers ? animatedPoints.followers : animatedPoints.followings} /> */}
           </div>
         </div>
       }
