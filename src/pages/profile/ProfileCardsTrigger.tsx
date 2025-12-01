@@ -21,7 +21,7 @@ const ProfileCardsTrigger: React.FC<Props> = ({
   alliesCollectionList = [],
   handleCompanies = () => {}
 }: Props) => {
-  const [animatedPoints, setAnimatedPoints] = useState(1)
+  const [animatedPoints, setAnimatedPoints] = useState({points: 1, followers: 1, followings: 1})
   const { points, follower, following } = useTexts()
   const { colorTwo } = useCardsBackground()
   const usersCollection = async () => {
@@ -36,8 +36,14 @@ const ProfileCardsTrigger: React.FC<Props> = ({
     handleCompanies(elementsCollection)
   }
   useEffect(() => {
-    setAnimatedPoints(cards?.point)
-  }, [cards?.point])
+    if (cards) {
+      setAnimatedPoints({...animatedPoints, points: cards?.point})
+    } else if (isFollowers) {
+      setAnimatedPoints({...animatedPoints, followers: alliesCollectionList?.length })
+    } else {
+      setAnimatedPoints({...animatedPoints, followings: alliesCollectionList?.length })
+    }
+  }, [cards])
   return (
     <Card
       sx={{
@@ -54,7 +60,7 @@ const ProfileCardsTrigger: React.FC<Props> = ({
         <div onClick={usersCollection}>
           <div>{isFollowers ? follower : following}</div>
           <div className="flex justify-center">
-            {alliesCollectionList?.length || 0}
+            <AnimatedNumber value={alliesCollectionList?.length || 0} />
           </div>
         </div>
       }
