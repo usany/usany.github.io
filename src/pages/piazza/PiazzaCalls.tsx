@@ -1,10 +1,12 @@
 import { Button } from '@mui/material'
 import { useEffect, useRef, useState } from 'react'
 import useLargeMedia from 'src/hooks/useLargeMedia'
+import useTexts from 'src/hooks/useTexts'
 import { webSocket } from 'src/webSocket'
 
 let myStream
 let myPeerConnection
+let alerted = false
 function PiazzaCalls() {
   const [options, setOptions] = useState([])
   const [audioOn, setAudioOn] = useState(true)
@@ -17,6 +19,7 @@ function PiazzaCalls() {
     audio: true,
     video: true,
   }
+  const {allowAudioAndVideoAccessToMakeACall} = useTexts()
   const roomName = location.search.slice(4)
   async function handleMuteClick() {
     const promise = myStream
@@ -127,6 +130,14 @@ function PiazzaCalls() {
       myStream.getTracks().forEach((track) => myPeerConnection.addTrack(track, myStream))
     }
   }
+  useEffect(() => {
+    if (!alerted) {
+      setTimeout(() => {
+        alert(allowAudioAndVideoAccessToMakeACall)
+      }, 5)
+      alerted = true
+    }
+  }, [])
   async function initCall() {
     await getMedia(null)
     makeConnection()

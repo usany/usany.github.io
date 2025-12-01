@@ -6,7 +6,7 @@ import { Building, Watch } from 'lucide-react'
 import { AnimatedList } from 'src/components/ui/animated-list'
 import useSelectors from 'src/hooks/useSelectors'
 import Avatars from 'src/pages/core/Avatars'
-import { buildingsObject, staticArray } from 'src/pages/add/locationsBuildings'
+import { buildingsObj, buildingsObject, staticArray } from 'src/pages/add/locationsBuildings'
 import locationsBuildings, { locationsCollectionLetters } from './locationsBuildings'
 import locationsCollection from './locationsCollection'
 import { DocumentData } from 'firebase/firestore'
@@ -56,9 +56,11 @@ const AddCards = ({ borrow, item, fromTo, locationState, display }: Props) => {
   ] : undefined
   const languages = useSelectors((state) => state.languages.value)
   const locationOne = locationState?.locationOne
-  const key = Object.keys(buildingsObject).find((key) => buildingsObject[key].ko.name === locationOne)
-  const staticImg = buildingsObject[key]?.image
-  // const staticImg = staticArray[locationOne] || staticArray['building']
+  const key = locationOne ? Object.keys(locationsCollectionLetters).find((value) => {
+    if (value === 'input') return buildingsObj[value].ko.name === locationOne
+    return buildingsObj[value.slice(0, 2)][value].ko.name === locationOne
+  }) : ''
+  const staticImg = (locationOne && locationOne !== '직접 입력') ? buildingsObj[key?.slice(0, 2)][key]?.image : buildingsObj.input.image
   const {borrowing, lending, emptyCard} = useTexts()
   return (
     <div className="flex justify-center text-sm pt-5 p-1">
@@ -82,11 +84,12 @@ const AddCards = ({ borrow, item, fromTo, locationState, display }: Props) => {
                         {languages === 'ko'
                           ? item
                           : item === '우산'
-                          ? 'Umbrella '
-                          : 'Yangsan '}
+                          ? 'Umbrella'
+                          : 'Yangsan'}
+                        {' '}
                         {borrow
-                            ? borrowing
-                            : lending}
+                            ? ' '+borrowing
+                            : ' '+lending}
                       </div>
                     }
                   />
@@ -115,7 +118,7 @@ const AddCards = ({ borrow, item, fromTo, locationState, display }: Props) => {
                   {locationState && (
                     <div className="flex gap-1 items-center">
                       {locationState?.locationOne && <Building />}
-                      {locationState?.locationInput ?
+                      {locationState?.locationOne === '직접 입력' && locationState?.locationInput ?
                         <div className="flex items-center">
                           {locationState?.locationInput.length > 10 ? locationState?.locationInput.slice(0, 10)+'......' : locationState?.locationInput}
                         </div>
@@ -128,7 +131,7 @@ const AddCards = ({ borrow, item, fromTo, locationState, display }: Props) => {
                                   locationState?.locationOne,
                                 )
                               ]}{' '}
-                          {(languages === 'ko')
+                          {locationState?.locationTwo !== '직접 입력' && (languages === 'ko'
                             ? locationState?.locationTwo
                             : locationOne !== '직접 입력' && locationState?.locationOne &&
                               locationsCollection['en'][
@@ -145,8 +148,9 @@ const AddCards = ({ borrow, item, fromTo, locationState, display }: Props) => {
                                       locationState?.locationOne,
                                   )
                                 ].indexOf(locationState?.locationTwo)
-                              ]}{' '}
+                              ])}{' '}
                           {locationState?.locationThree}
+                          {locationState?.locationInput.length > 10 ? locationState?.locationInput.slice(0, 10)+'......' : locationState?.locationInput}
                         </div>
                       }
                     </div>

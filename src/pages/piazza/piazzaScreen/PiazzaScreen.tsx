@@ -46,6 +46,8 @@ function PiazzaScreen({
   const conversation = location.search
     ? location.search.slice(location.search.indexOf('=') + 1)
     : 'piazza'
+  const piazzaForm = useSelectors((state) => state.piazzaForm.value)
+  // const screenHeight = useSelectors((state) => state.screenHeight.value)
   useEffect(() => {
     if (currentConversation !== conversation || conversation === 'piazza') {
       handleMessagesList([])
@@ -79,21 +81,23 @@ function PiazzaScreen({
         profileImage,
         conversation,
       } = message
-      handleMessagesList((prev) => [
-        ...prev,
-        {
-          msg: msg,
-          type: target ? 'private' : 'other',
-          userUid: userUid,
-          id: id,
-          messageClock: messageClock,
-          messageClockNumber: messageClockNumber,
-          conversation: null,
-          profileImageUrl: profileImageUrl,
-          defaultProfile: defaultProfile,
-          profileImage: profileImage,
-        },
-      ])
+      if (conversation !== 'piazza') {
+        handleMessagesList((prev) => [
+          ...prev,
+          {
+            msg: msg,
+            type: target ? 'private' : 'other',
+            userUid: userUid,
+            id: id,
+            messageClock: messageClock,
+            messageClockNumber: messageClockNumber,
+            conversation: null,
+            profileImageUrl: profileImageUrl,
+            defaultProfile: defaultProfile,
+            profileImage: profileImage,
+          },
+        ])
+      }
     }
     webSocket.on('sMessagePiazza', sMessageCallback)
     return () => {
@@ -311,9 +315,16 @@ function PiazzaScreen({
     setContinuing(null)
     handleMessagesList([])
   }
+
+  const containerHeight = piazzaForm
+    ? `50%`
+    : 'calc(100vh - 110px - 60%)'
+
   return (
-    <div className={`fixed w-screen bg-light-3 dark:bg-dark-3 flex flex-col ${isKeyboardOpen ? 'bottom-[50px] h-full pt-[120px]' : 'bottom-[110px] h-[60%]'}`}>
-      <div ref={boxRef} className='p-1 border-t rounded-xl overflow-auto'>
+    <>
+      <div ref={boxRef} className={`p-1 border-t rounded-xl overflow-auto fixed w-screen bg-light-3 dark:bg-dark-3 flex flex-col ${piazzaForm ? 'top-0 bottom-[50px]' : 'bottom-[110px] h-[60%]'}`}
+        // style={piazzaForm ? { height: containerHeight } : {}}
+      >
         <ul>
           {isLoading && (
             <div className="flex justify-center bg-light-2 dark:bg-dark-2 rounded">
@@ -437,7 +448,7 @@ function PiazzaScreen({
           <li ref={messagesEndRef} />
         </ul>
       </div>
-    </div>
+    </>
   )
 }
 

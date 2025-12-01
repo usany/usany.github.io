@@ -3,6 +3,7 @@ import Chats from 'src/pages/core/chatting/Chats'
 import { webSocket } from 'src/webSocket.tsx'
 import { usePiazzaMessage } from './usePiazzaMessage'
 import useSelectors from 'src/hooks/useSelectors'
+import EmptyCard from '../card/EmptyCard'
 
 const ChattingStacks = ({
   chattings,
@@ -167,7 +168,9 @@ const ChattingStacks = ({
       webSocket.off(`sNewMessage`, sNewMessageCallback)
     }
   })
-  console.log(chattings)
+  if (!sorted.length) return (
+    <EmptyCard />
+  )
   return (
     <>
       {sorted.map((element) => {

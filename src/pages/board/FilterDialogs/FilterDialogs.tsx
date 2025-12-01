@@ -12,11 +12,11 @@ const items = {
 }
 const locationsTitle = {
   ko: '장소 선택',
-  en: 'All locations'
+  en: 'All Places'
 }
 const locations = {
   ko: ['전체 장소', ...locationsBuildings['ko']],
-  en: ['All locations', ...locationsBuildings['en']]
+  en: ['All Places', ...locationsBuildings['en']]
 }
 const timeTitle = {
   ko: '시간 정렬',

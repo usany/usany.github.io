@@ -27,7 +27,7 @@ const PiazzaDialogsContent = ({
       </div>
       <div className="flex justify-center p-5">
         <Link to={`/profile?id=${user?.uid}`} state={{ element: user }}>
-          <Button variant="outlined" onClick={() => {}}>
+          <Button className='colorOne' variant="outlined" onClick={() => {}}>
             {userProfile}
           </Button>
         </Link>
@@ -45,6 +45,7 @@ const PiazzaDialogsContent = ({
           >
             <DrawerClose>
               <Button
+                className='colorOne' 
                 variant="outlined"
                 onClick={initiateContinuing}
               >

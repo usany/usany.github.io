@@ -9,6 +9,8 @@ import PiazzaTitle from 'src/pages/piazza/piazzaTitle/PiazzaTitle'
 import type { RootState } from 'src/store'
 import PiazzaMorphingDialogAudioCall from './components/PiazzaMorphingDialogAudioCall'
 import PiazzaMorphingDialogVideoCall from './components/PiazzaMorphingDialogVideoCall'
+import { changePiazzaForm } from 'src/stateSlices/piazzaFormSlice'
+import { useDispatch } from 'react-redux'
 
 function Piazza() {
   const [messages, setMessages] = useState('')
@@ -19,6 +21,8 @@ function Piazza() {
   const [chatUid, setChatUid] = useState('')
   const [chatDisplayName, setChatDisplayName] = useState('')
   const [searchParams] = useSearchParams()
+  const dispatch = useDispatch()
+  const piazzaForm = useSelectors((state) => state.piazzaForm.value)
   const handleChatUid = (newValue: string) => {
     setChatUid(newValue)
   }
@@ -45,30 +49,33 @@ function Piazza() {
       bringChattingUser()
     }
   }, [conversation, chatUid])
-  const piazzaForm = useSelectors((state: RootState) => state.piazzaForm.value)
-  useEffect(() => {
-    const listener = () => {
-      const newState =
-        window.screen.height - 300 >
-        (window.visualViewport?.height || window.screen.height)
-      if (isKeyboardOpen !== newState) {
-        setIsKeyboardOpen(newState)
-      }
-    }
-    window.addEventListener('resize', listener)
-    if (typeof visualViewport !== 'undefined') {
-      window.visualViewport?.addEventListener('resize', listener)
-    }
-    visualViewport?.addEventListener('resize', listener)
-    if (typeof visualViewport !== 'undefined') {
-      visualViewport?.addEventListener('resize', listener)
-    }
-    return () => {
-      if (typeof visualViewport !== 'undefined') {
-        window.visualViewport?.removeEventListener('resize', listener)
-      }
-    }
-  }, [isKeyboardOpen])
+  // const piazzaForm = useSelectors((state: RootState) => state.piazzaForm.value)
+  // useEffect(() => {
+  //   const listener = () => {
+  //     const minKeyboardHeight = 300
+  //     const newState = window.screen.height - minKeyboardHeight > (window.visualViewport?.height || window.screen.height)
+  //     const newState =
+  //       window.screen.height - 300 >
+  //       (window.visualViewport?.height || window.screen.height)
+  //     if (isKeyboardOpen !== newState) {
+  //       setIsKeyboardOpen(newState)
+  //       dispatch(changePiazzaForm(newState))
+  //     }
+  //   }
+  //   window.addEventListener('resize', listener)
+  //   if (typeof visualViewport !== 'undefined') {
+  //     window.visualViewport?.addEventListener('resize', listener)
+  //   }
+  //   visualViewport?.addEventListener('resize', listener)
+  //   if (typeof visualViewport !== 'undefined') {
+  //     visualViewport?.addEventListener('resize', listener)
+  //   }
+  //   return () => {
+  //     if (typeof visualViewport !== 'undefined') {
+  //       window.visualViewport?.removeEventListener('resize', listener)
+  //     }
+  //   }
+  // }, [isKeyboardOpen])
 
   // useEffect(() => {
   //   dispatch(changeBottomNavigation(5))
@@ -83,7 +90,7 @@ function Piazza() {
   }, [])
   return (
     <>
-      {!isKeyboardOpen && <PiazzaTitle displayName={chatDisplayName} />}
+      {!piazzaForm && <PiazzaTitle displayName={chatDisplayName} />}
       <PiazzaScreen
         isKeyboardOpen={piazzaForm}
         messagesList={messagesList}
@@ -98,6 +105,7 @@ function Piazza() {
         handleMessages={(newValue) => setMessages(newValue)}
         messagesList={messagesList}
         handleMessagesList={(newValue) => setMessagesList(newValue)}
+        isKeyboardOpen={isKeyboardOpen}
       />
       <PiazzaMorphingDialogVideoCall
         chattingUser={chattingUser}

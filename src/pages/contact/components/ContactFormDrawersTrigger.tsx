@@ -15,11 +15,7 @@ function ContactFormDrawersTrigger({ violationUser }: Props) {
   if (violationUser) return <ContactUserSelected violationUser={violationUser} color={colorTwo} />
   return (
     <div className='flex justify-center'>
-      <Button sx={{
-        bgcolor: colorTwo, ":hover": {
-          bgcolor: colorTwo
-        }
-      }} variant='outlined' form='auth'>{registerReportingUser}</Button>
+      <Button className='colorTwo' variant='outlined' form='auth'>{registerReportingUser}</Button>
     </div>
   )
 }

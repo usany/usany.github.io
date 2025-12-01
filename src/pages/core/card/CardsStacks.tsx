@@ -1,9 +1,9 @@
+import { DocumentData } from 'firebase/firestore'
 import { Skeleton } from 'src/components/ui/skeleton'
+import useSelectors from 'src/hooks/useSelectors'
 import CardsStacksViews from './CardsStacksViews'
 import EmptyCard from './EmptyCard'
 import { useBringCards } from './useBringCards'
-import useSelectors from 'src/hooks/useSelectors'
-import { DocumentData } from 'firebase/firestore'
 
 function CardsStacks() {
   const profile = useSelectors((state) => state.profile.value)

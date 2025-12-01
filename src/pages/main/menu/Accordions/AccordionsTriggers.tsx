@@ -13,7 +13,7 @@ interface Props {
 
 function AccordionsTriggers({ value }: Props) {
   return (
-    <div className="flex justify-center sticky top-16 z-30 px-5">
+    <div className="flex justify-center sticky top-16 z-30 px-1">
       <div className="w-[1000px]">
         <button
           onClick={() => {

@@ -1,8 +1,8 @@
 import { Button } from '@mui/material';
 import { Check } from 'lucide-react';
 import { useDispatch, useSelector } from 'react-redux';
-import staticBlue01 from "src/assets/blue02.png";
-import staticBlue02 from "src/assets/blue03.png";
+import staticBlue01 from "src/assets/blue1.png";
+import staticBlue02 from "src/assets/blue2.png";
 import staticGold01 from "src/assets/gold1.png";
 import staticGold02 from "src/assets/gold2.png";
 import staticRed01 from "src/assets/red1.png";
@@ -12,14 +12,16 @@ import { changeProfileColor } from 'src/stateSlices/profileColorSlice';
 import useSelectors from 'src/hooks/useSelectors'
 import useTexts from 'src/hooks/useTexts';
 import { changeProfile } from 'src/stateSlices/profileSlice';
+import FileOpenIcon from '@mui/icons-material/FileOpen';
+
 const images = {
-  'profile-red': [staticRed01, staticRed02],
-  '#2196f3': [staticBlue01, staticBlue02],
-  'profile-amber': [staticGold01, staticGold02],
+  // 'profile-red': [staticRed01, staticRed02],
+  // '#2196f3': [staticBlue01, staticBlue02],
+  // 'profile-amber': [staticGold01, staticGold02],
+  // gold: [staticGold01, staticGold02],
   'profileRed': [staticRed01, staticRed02],
   'profileBlue': [staticBlue01, staticBlue02],
   'profileGold': [staticGold01, staticGold02],
-  gold: [staticGold01, staticGold02],
 }
 const ProfileDialogs = ({ attachment, changeAttachment, changedImage, handleChangedImage }) => {
   const { currentImageWillBeDeletedWhenCharacterImagesAreSelected, uploadMyFile, save } = useTexts()
@@ -57,7 +59,7 @@ const ProfileDialogs = ({ attachment, changeAttachment, changedImage, handleChan
           profile={true}
         />
         <div className='flex-col px-5 content-center p-5'>
-          <label htmlFor='file' className='p-5 rounded border border-dashed'>{uploadMyFile}</label>
+          <label htmlFor='file' className='flex flex-col p-5 rounded border border-dashed items-center'><FileOpenIcon />{uploadMyFile}</label>
           <input id='file' type='file' onChange={onFileChange} hidden />
         </div>
       </div>

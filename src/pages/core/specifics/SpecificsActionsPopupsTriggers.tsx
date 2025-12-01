@@ -5,8 +5,6 @@ interface Props {
 }
 
 function SpecificsActionsPopupsTriggers({ message }: Props) {
-
-
   return (
     <>
       <Avatars
@@ -15,7 +13,6 @@ function SpecificsActionsPopupsTriggers({ message }: Props) {
         profileColor={''}
         profileUrl={message.creatorUrl}
       />
-
     </>
   )
 }

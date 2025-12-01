@@ -1,15 +1,8 @@
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import BeachAccess from '@mui/icons-material/BeachAccess'
 import EastIcon from '@mui/icons-material/East'
 import HorizontalRuleIcon from '@mui/icons-material/HorizontalRule'
 import WestIcon from '@mui/icons-material/West'
-import { Chip } from '@mui/material'
-import useSelectors from 'src/hooks/useSelectors'
 import useTexts from 'src/hooks/useTexts'
-import Popups from '../Popups'
-import SpecificsTradesContent from './SpecificsTradesContent'
-import SpecificsTradesTitle from './SpecificsTradesTitle'
-import SpecificsTradesTrigger from './SpecificsTradeTrigger'
 import SpecificsTradesPopups from './SpecificsTradesPopups'
 
 interface Props {

@@ -4,7 +4,7 @@ import Divider from '@mui/material/Divider'
 // import { doc, getDoc } from 'firebase/firestore'
 // import { useEffect, useState } from 'react'
 // import { dbservice } from 'src/baseApi/serverbase'
-import staticImage from 'src/assets/umbrella512.png'
+import staticImage from 'src/assets/umbrellasfixed.png'
 import useSelectors from 'src/hooks/useSelectors'
 import useTexts from 'src/hooks/useTexts'
 import Avatars from '../Avatars'
@@ -27,7 +27,7 @@ function SpecificsRear({
   returningClock,
   confirmedReturnClock,
 }: Props) {
-  const { borrowing, lending, createdAt, supportedAt, borrowedAt, lendedAt, returnOnProcessAt, returnConfirmedAt } = useTexts()
+  const { borrowing, lending, createdAt, supportedAt, borrowedAt, lendedAt, returnOnProcessAt, returnConfirmedAt, issued } = useTexts()
   const profile = useSelectors((state) => state.profile.value)
   const profileImageUrl = useSelectors((state) => state.profileImageUrl.value)
   const id = message?.id || ''
@@ -107,6 +107,12 @@ function SpecificsRear({
       text: returnConfirmedAt,
       messageClock: confirmedReturnMoment
     },
+    {
+      isBorrowing: false,
+      passingProfile: message.text.choose === 1 ? passingValueConnected : passingValueCreator,
+      text: issued,
+      messageClock: message.issueClock
+    }
   ]
   return (
     <div className="backSide">

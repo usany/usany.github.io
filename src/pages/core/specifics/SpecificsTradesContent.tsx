@@ -55,6 +55,7 @@ const SpecificsTradesContent = ({
         >
           <DrawerClose>
             <Button
+              className='colorOne'
               variant="outlined"
               onClick={() => {
                 document.body.classList.remove('overflow-hidden')
@@ -78,6 +79,7 @@ const SpecificsTradesContent = ({
           >
             <DrawerClose>
               <Button
+                className='colorOne'
                 variant="outlined"
                 onClick={() => {
                   document.body.classList.remove('overflow-hidden')

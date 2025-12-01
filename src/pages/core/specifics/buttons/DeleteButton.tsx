@@ -12,6 +12,7 @@ const DeleteButton = ({ message, decreaseRound }) => {
   return (
     <div className="flex justify-center">
       <Button
+        className='colorOne'
         variant="outlined"
         onClick={() => {
           onDelete(message?.id)

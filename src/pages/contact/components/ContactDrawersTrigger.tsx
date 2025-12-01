@@ -4,7 +4,7 @@ import useTexts from 'src/hooks/useTexts'
 const ContactDrawersTrigger = () => {
   const {reportList} = useTexts()
   return (
-    <Button variant="outlined" form="auth">
+    <Button className='colorTwo' variant="outlined" form="auth">
       {reportList}
     </Button>
   )

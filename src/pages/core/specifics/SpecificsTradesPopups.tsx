@@ -3,8 +3,8 @@ import BeachAccess from '@mui/icons-material/BeachAccess'
 import EastIcon from '@mui/icons-material/East'
 import HorizontalRuleIcon from '@mui/icons-material/HorizontalRule'
 import WestIcon from '@mui/icons-material/West'
-import { Chip } from '@mui/material'
 import useSelectors from 'src/hooks/useSelectors'
+import { Chip } from '@mui/material'
 import useTexts from 'src/hooks/useTexts'
 import Popups from '../Popups'
 import SpecificsTradesContent from './SpecificsTradesContent'
@@ -51,7 +51,7 @@ function SpecificsTradesPopups({ isCreator, drawerOpenTrue, connectedUser, messa
   }
   return (
     <div className="flex flex-col items-center">
-      {connectedUser.uid ? (
+      {message.connectedId ? (
         <Popups
           trigger={
             <SpecificsTradesTrigger
@@ -59,9 +59,9 @@ function SpecificsTradesPopups({ isCreator, drawerOpenTrue, connectedUser, messa
               isCreator={false}
               message={{
                 ...message,
-                connectedProfileImage: true,
-                connectedProfileImageUrl: connectedUser.url,
-                connectedDefaultProfile: connectedUser.url,
+                // connectedProfileImage: true,
+                // connectedProfileImageUrl: connectedUser.url,
+                // connectedDefaultProfile: connectedUser.url,
               }}
             />
           }
@@ -71,9 +71,9 @@ function SpecificsTradesPopups({ isCreator, drawerOpenTrue, connectedUser, messa
               isCreator={false}
               message={{
                 ...message,
-                connectedProfileImage: true,
-                connectedProfileImageUrl: connectedUser.url,
-                connectedDefaultProfile: connectedUser.url,
+                // connectedProfileImage: true,
+                // connectedProfileImageUrl: connectedUser.url,
+                // connectedDefaultProfile: connectedUser.url,
               }}
               connectedUser={connectedUser}
             />

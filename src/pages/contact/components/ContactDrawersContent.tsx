@@ -63,7 +63,7 @@ const ContactDrawersContent = () => {
           <div>
             <Accordion type="single" collapsible className="w-full">
               <AccordionItem value={index.toString()}>
-                <AccordionTrigger>{value.messageTitle}</AccordionTrigger>
+                <AccordionTrigger className='bg-light-1/50 dark:bg-dark-1/50 rounded shadow-md'>{value.messageTitle}</AccordionTrigger>
                 <AccordionContent>
                   <div>{value.message}</div>
                   {value?.violationUser ? (
@@ -84,6 +84,7 @@ const ContactDrawersContent = () => {
                   )}
                   <div className="flex pt-3 justify-center">
                     <Button
+                      className='colorOne'
                       variant="outlined"
                       onClick={() => deleteMessage(value)}
                     >

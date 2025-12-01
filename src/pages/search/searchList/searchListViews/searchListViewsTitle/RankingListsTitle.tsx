@@ -1,7 +1,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { useSearchParams } from 'react-router-dom'
-import useTexts from 'src/hooks/useTexts'
 import useLargeMedia from 'src/hooks/useLargeMedia'
+import useTexts from 'src/hooks/useTexts'
 
 interface Props {
   multiple: boolean
@@ -40,22 +40,16 @@ function RankingListsTitle({ multiple }: Props) {
             <AvatarFallback className="text-xl border-none">?</AvatarFallback>
           </Avatar>
         </div>
-        <div className="flex flex-col justify-center overflow-hidden w-40">
+        <div className="flex flex-col justify-center overflow-hidden px-3 w-32">
           <div>
             {multiple ? user : my} {name}
           </div>
           <div>{points}</div>
         </div>
-        {largeMedia ? (
-          <div className="flex justify-center items-center w-[67px]">
-            {locationConfirmation}
-          </div>
-        ) : (
-          <div className="flex flex-col justify-center items-center w-[67px]">
-            <div>{location}</div>
-            <div>{confirmation}</div>
-          </div>
-        )}
+        <div className="flex flex-col justify-center items-center w-[100px]">
+          <div>Campus</div>
+          <div>Verification</div>
+        </div>
       </div>
     </div>
   )

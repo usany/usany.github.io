@@ -38,6 +38,7 @@ const ReturningButton = ({ message, increaseRound, handleReturningClock }) => {
   const {returnText} = useTexts()
   return (
     <Button
+      className='colorOne'
       variant="outlined"
       onClick={() => {
         increaseRound()

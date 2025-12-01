@@ -6,7 +6,8 @@ import ProfileDrawersAllies from './ProfileDrawersAllies'
 import ProfileDrawersPoints from './ProfileDrawersPoints'
 
 const ProfileCards = ({ alliesCollection, cards }) => {
-  const [companies, setCompanies] = useState([])
+  const [followers, setFollowers] = useState([])
+  const [followings, setFollowings] = useState([])
   const isFollowersList = [true, false]
   
   return (
@@ -24,12 +25,18 @@ const ProfileCards = ({ alliesCollection, cards }) => {
               <ProfileCardsTrigger
                 isFollowers={value}
                 alliesCollectionList={alliesCollection[index].list}
-                handleCompanies={(newValue) => setCompanies(newValue)}
+                handleCompanies={(newValue) => {
+                  if (index) {
+                    setFollowings(newValue)
+                  } else {
+                    setFollowers(newValue)
+                  }
+                }}
               />
             }
             title={<ProfileCardsTitle isFollowers={value} />}
             content={
-              <ProfileDrawersAllies companies={companies} />
+              <ProfileDrawersAllies companies={index ? followings : followers} />
             }
           />
         )

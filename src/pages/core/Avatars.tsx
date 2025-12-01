@@ -10,6 +10,7 @@ interface Props {
 const Avatars = ({ element, profile, piazza }: Props) => {
   const profileImage = element?.profileImage
   const defaultProfile = element?.defaultProfile
+  console.log(defaultProfile)
   return (
     <Avatar className={profile ? "w-48 h-48":''} onClick={profile ? piazza : undefined}>
       <AvatarImage

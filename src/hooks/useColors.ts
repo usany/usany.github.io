@@ -33,18 +33,23 @@ const useColors = () => {
           },
         },
       },
+      // MuiButtonBase: {
+      //   defaultProps: {
+      //     sx: {
+      //       bgcolor: colorTwo,
+      //     },
+      //   }
+      // },
       MuiButton: {
-        defaultProps: {
-          sx: {
-            bgcolor: colorTwo,
-            ':hover': {
-              bgcolor: colorTwo,
-            },
-          },
-        },
         styleOverrides: {
           root: {
             variants: [
+              {
+                props: { className: 'colorOne' },
+                style: {
+                  backgroundColor: colorOne,
+                },
+              },
               {
                 props: { className: 'colorTwo' },
                 style: {

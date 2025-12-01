@@ -7,7 +7,7 @@ interface Props {
 }
 function AccordionsContents({ content, index }: Props) {
   return (
-    <div className={`flex justify-center ${index && 'px-5'}`}>
+    <div className={`flex justify-center ${index && 'px-1'}`}>
       {!index ? (
         <div className="w-[1000px]">
           <AccordionContent className="text-sm max-w-[1000px]">

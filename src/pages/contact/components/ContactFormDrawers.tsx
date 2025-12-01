@@ -20,7 +20,7 @@ function ContactFormDrawers({ violationUser, changeViolationUser }: Props) {
     <div className='flex gap-5 pt-3 px-5'>
       <Popups trigger={<ContactFormDrawersTrigger violationUser={violationUser} />} title={<ContactFormDrawersTitle />} content={<ContactFormDrawersContent changeViolationUser={changeViolationUser} />} />
       {violationUser &&
-        <Button variant='outlined' onClick={() => changeViolationUser(null)}><Ban /></Button>
+        <Button className='colorTwo' variant='outlined' onClick={() => changeViolationUser(null)}><Ban /></Button>
       }
     </div>
   )

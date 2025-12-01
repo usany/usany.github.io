@@ -30,7 +30,7 @@ const ProfileMembers = () => {
           />
         </div>
       ) : (
-        <ProfileMembersLink />
+        <ProfileMembersLink otherUserProfile={{uid: ''}}/>
       )}
     </div>
   )
