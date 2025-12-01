@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { TextLoop } from 'src/components/ui/text-loop';
+import { TextLoop } from 'src/components/motion-primitives/text-loop';
 
 const Motions = () => {
     const slides = [
@@ -54,7 +54,6 @@ const Motions = () => {
 
     return (
         <div className='flex justify-center'>
-        <div className="relative w-1/2 overflow-hidden p-5">
             <TextLoop>
                 {duplicatedSlides.map((slide, index) => (
                     <span key={index} className="flex flex-shrink-0 px-5 text-xl">
@@ -62,7 +61,8 @@ const Motions = () => {
                     </span>
                 ))}
             </TextLoop>
-            {/* <motion.div
+        {/* <div className="relative w-1/2 overflow-hidden p-5">
+            <motion.div
                 className="flex"
                 animate={{
                     x: ['0%', `-${(slides.length-1)*100}%`],
@@ -79,8 +79,8 @@ const Motions = () => {
                         {slide.title} - {slide.musician}
                     </span>
                 ))}
-            </motion.div> */}
-        </div>
+            </motion.div>
+        </div> */}
         </div>
     );
 };
