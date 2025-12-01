@@ -3,6 +3,8 @@ import { dbservice } from 'src/baseApi/serverbase'
 import useTexts from 'src/hooks/useTexts'
 import Card from '@mui/material/Card'
 import useCardsBackground from '../../hooks/useCardsBackground'
+import { useEffect, useState } from 'react'
+import { AnimatedNumber } from 'src/components/motion-primitives/animated-number'
 
 interface Props {
   cards?: {
@@ -19,6 +21,7 @@ const ProfileCardsTrigger: React.FC<Props> = ({
   alliesCollectionList = [],
   handleCompanies = () => {}
 }: Props) => {
+  const [animatedPoints, setAnimatedPoints] = useState(1)
   const { points, follower, following } = useTexts()
   const { colorTwo } = useCardsBackground()
   const usersCollection = async () => {
@@ -32,7 +35,9 @@ const ProfileCardsTrigger: React.FC<Props> = ({
     })
     handleCompanies(elementsCollection)
   }
-
+  useEffect(() => {
+    setAnimatedPoints(cards?.point)
+  }, [cards?.point])
   return (
     <Card
       sx={{
@@ -43,7 +48,7 @@ const ProfileCardsTrigger: React.FC<Props> = ({
       {cards ?
         <>
           <div>{points}</div>
-          <div className='flex justify-center'>{cards.point}</div>
+          <div className='flex justify-center'><AnimatedNumber value={animatedPoints} /></div>
         </>
         :
         <div onClick={usersCollection}>
