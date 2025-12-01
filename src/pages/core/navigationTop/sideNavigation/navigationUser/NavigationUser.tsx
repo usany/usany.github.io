@@ -1,8 +1,15 @@
+import { useEffect, useState } from 'react'
+import { AnimatedNumber } from 'src/components/motion-primitives/animated-number'
 import useSelectors from 'src/hooks/useSelectors'
 
 const NavigationUser = () => {
   const languages = useSelectors((state) => state.languages.value)
   const profile = useSelectors((state) => state.profile.value)
+  const points = profile?.points
+  const [animatingPoints, setAnimatingPoints] = useState(1)
+  useEffect(() => {
+    setAnimatingPoints(points)
+  }, [points])
   return (
     <div>
       <div className="max-w-[200px] max-h-[200px] overflow-hidden">
@@ -18,7 +25,7 @@ const NavigationUser = () => {
       {profile?.certificated ? (
         <div>
           {languages === 'ko' ? '내 포인트: ' : 'My Points: '}
-          {profile?.points}
+          <AnimatedNumber value={animatingPoints} />
         </div>
       ) : (
         <div>
