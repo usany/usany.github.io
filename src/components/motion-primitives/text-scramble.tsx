@@ -14,7 +14,8 @@ export type TextScrambleProps = {
 } & MotionProps;
 
 const defaultChars =
-  'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  '_';
+  // 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
 export function TextScramble({
   children,

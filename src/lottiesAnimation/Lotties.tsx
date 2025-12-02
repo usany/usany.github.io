@@ -15,7 +15,7 @@ function Lotties() {
   const language = Math.random()
   return (
     <div className='flex flex-col justify-center items-center pt-[250px]'>
-      <TextScramble className='flex flex-col text-5xl'>{language < 0.5 ? '쿠우산' : 'KHUSAN'}</TextScramble>
+      <TextScramble className='flex flex-col text-5xl'>{language < 0.5 ? '쿠우산_' : 'KHUSAN_'}</TextScramble>
       <Lottie options={defaultOptions} height={200} width={200} />
     </div>
   )
