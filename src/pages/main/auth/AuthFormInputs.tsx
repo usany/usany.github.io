@@ -100,56 +100,56 @@ const AuthFormInputs = ({ signIn, agreed }: Props) => {
   }
   return (
     <form
-          id={signIn ? 'auth' : 'signUp'}
-          className="pt-3"
-          onSubmit={signIn ? onSubmitSignIn : onSubmitSignUp}
-        >
-          <div className="flex justify-center px-3">
-            <TextField
-              label={mail}
-              value={account.email}
-              onChange={onChange}
-              variant="outlined"
-              name="email"
-              type="email"
-              fullWidth
-              required
-            />
-          </div>
-          <div className="flex justify-center px-3">
-            <TextField
-              label={password}
-              value={account.password}
-              onChange={onChange}
-              variant="outlined"
-              name="password"
-              type="password"
-              fullWidth
-              required
-            />
-          </div>
-          <div className="flex flex-col justify-center p-3">
-            {(signIn || agreed) &&
-              <Button
-                className={signIn
-                  ? 'colorTwo'
-                  : 'colorOne'}
-                variant="outlined"
-                startIcon={<img src={staticMail} className="w-[20px]" />}
-                form={signIn ? 'auth' : 'signUp'}
-                type="submit"
-              >
-                {signIn
-                  ? logIn
-                  : newAccount}
-              </Button>
-            }
-            {!signIn && !agreed && (
-              <div>{needToAgreeOnPrivateInformationPolicy}</div>
-            )}
-            <span>{error}</span>
-          </div>
-        </form>
+      id={signIn ? 'auth' : 'signUp'}
+      className="pt-3"
+      onSubmit={signIn ? onSubmitSignIn : onSubmitSignUp}
+    >
+      <div className="flex justify-center px-3">
+        <TextField
+          label={mail}
+          value={account.email}
+          onChange={onChange}
+          variant="outlined"
+          name="email"
+          type="email"
+          fullWidth
+          required
+        />
+      </div>
+      <div className="flex justify-center px-3">
+        <TextField
+          label={password}
+          value={account.password}
+          onChange={onChange}
+          variant="outlined"
+          name="password"
+          type="password"
+          fullWidth
+          required
+        />
+      </div>
+      <div className="flex flex-col justify-center p-3">
+        {(signIn || agreed) &&
+          <Button
+            className={signIn
+              ? 'colorTwo'
+              : 'colorOne'}
+            variant="outlined"
+            startIcon={<img src={staticMail} className="w-[20px]" />}
+            form={signIn ? 'auth' : 'signUp'}
+            type="submit"
+          >
+            {signIn
+              ? logIn
+              : newAccount}
+          </Button>
+        }
+        {!signIn && !agreed && (
+          <div>{needToAgreeOnPrivateInformationPolicy}</div>
+        )}
+        <span>{error}</span>
+      </div>
+    </form>
   )
 }
 
