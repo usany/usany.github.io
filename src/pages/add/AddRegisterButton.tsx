@@ -12,7 +12,7 @@ const AddRegisterButton = ({ submit }: Props) => {
   return (
     <form className="flex justify-center pt-5" id="selection" onSubmit={submit}>
       {onLine ?
-        <Button variant="outlined" form="selection" type="submit">
+        <Button className='colorTwo' variant="outlined" form="selection" type="submit">
           {registerButton}
         </Button>
         :
