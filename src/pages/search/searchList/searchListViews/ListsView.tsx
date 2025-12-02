@@ -1,6 +1,7 @@
 import { Chip, Divider } from '@mui/material'
 import { Ban, Check } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
+import { AnimatedGroup } from 'src/components/motion-primitives/animated-group'
 import useSelectors from 'src/hooks/useSelectors'
 import useTexts from 'src/hooks/useTexts'
 import Avatars from 'src/pages/core/Avatars'
@@ -32,7 +33,7 @@ const ListsView = ({ elements, userSearch, multiple, handleUser }) => {
   )
   return (
     <div className="flex truncate justify-center">
-      <div className="w-[1000px]">
+      <AnimatedGroup className="w-[1000px]">
         {elements.map((element, index) => {
           if (userSearch) {
             for (let number = 0; number < userSearch.length; number++) {
@@ -81,7 +82,7 @@ const ListsView = ({ elements, userSearch, multiple, handleUser }) => {
             </div>
           )
         })}
-      </div>
+      </AnimatedGroup>
     </div>
   )
 }
