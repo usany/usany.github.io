@@ -78,10 +78,10 @@ const Popups = ({
         <DrawerTrigger className="w-full">{trigger}</DrawerTrigger>
         <DrawerContent className="bg-light-2 dark:bg-dark-2 max-h-[75vh]">
           <ScrollArea className="overflow-y-scroll" ref={docRef}>
-            <ScrollProgress
+            {progress && <ScrollProgress
               containerRef={docRef}
               className="fixed top-5 bg-[#0090FF]"
-            />
+            />}
             <DrawersBar />
             <DrawerTitle className="flex justify-center p-5">
               {title}
