@@ -6,6 +6,9 @@ import {
   DrawerTrigger,
 } from '@/components/ui/drawer'
 import { ScrollArea } from '@radix-ui/react-scroll-area'
+import { Scroll } from 'lucide-react'
+import { useRef } from 'react'
+import { ScrollProgress } from 'src/components/motion-primitives/scroll-progress'
 import {
   Dialog,
   DialogClose,
@@ -33,13 +36,19 @@ const Popups = ({
   onLink = false,
 }: Props) => {
   const largeMedia = useLargeMedia()
+  const docRef = useRef(null)
+  
   if (largeMedia) {
     return (
       <div className="flex justify-center">
         <Dialog>
           <DialogTrigger className="w-full">{trigger}</DialogTrigger>
-          <DialogContent className="bg-light-2 dark:bg-dark-2 h-[75vh] min-w-[850px]">
-            <ScrollArea className="overflow-y-scroll">
+          <DialogContent className="bg-light-2 dark:bg-dark-2 max-h-[75vh] min-w-[850px]">
+            <ScrollArea className="overflow-y-scroll" ref={docRef}>
+              <ScrollProgress
+                containerRef={docRef}
+                className="fixed top-5 bg-[#0090FF]"
+              />
               <DrawersBar />
               <DialogTitle className="flex justify-center p-5">
                 {title}
@@ -55,6 +64,8 @@ const Popups = ({
                 </div>
               )}
             </ScrollArea>
+            {/* <ScrollArea className="overflow-y-scroll" ref={docRef}>
+            </ScrollArea> */}
           </DialogContent>
         </Dialog>
       </div>
@@ -65,7 +76,11 @@ const Popups = ({
       <Drawer>
         <DrawerTrigger className="w-full">{trigger}</DrawerTrigger>
         <DrawerContent className="bg-light-2 dark:bg-dark-2 max-h-[75vh]">
-          <ScrollArea className="overflow-y-scroll">
+          <ScrollArea className="overflow-y-scroll" ref={docRef}>
+            <ScrollProgress
+              containerRef={docRef}
+              className="fixed top-5 bg-[#0090FF]"
+            />
             <DrawersBar />
             <DrawerTitle className="flex justify-center p-5">
               {title}
