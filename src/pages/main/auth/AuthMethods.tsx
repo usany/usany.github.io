@@ -44,23 +44,24 @@ const MessageSwitch = styled(Switch)(({ theme }) => ({
 interface Props {
   agreed: boolean
   changeAgreed: () => void
+  changeProgress: () => void
 }
-function AuthMethods({ agreed, changeAgreed }: Props) {
+function AuthMethods({ agreed, changeAgreed, changeProgress }: Props) {
   const [accordion, setAccordion] = useState('item')
   const { privateInformationPolicy, agreeOnPrivateInformationPolicy } =
     useTexts()
-  const changeAccordion = () => {
-    if (accordion) {
-      setAccordion('')
-    } else {
-      setAccordion('item')
-    }
-  }
+  // const changeAccordion = () => {
+  //   if (accordion) {
+  //     setAccordion('')
+  //   } else {
+  //     setAccordion('item')
+  //   }
+  // }
   return (
     <div className="flex flex-col">
       <Accordion type="single" collapsible>
         <AccordionItem value="item-1">
-          <AccordionTrigger className="px-3" onClick={() => changeAccordion()}>
+          <AccordionTrigger className="px-3" onClick={() => changeProgress()}>
             쿠우산KHUSAN {privateInformationPolicy}
           </AccordionTrigger>
           <AccordionContent className="px-3">
