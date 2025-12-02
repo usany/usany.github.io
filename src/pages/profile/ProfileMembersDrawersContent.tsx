@@ -4,10 +4,12 @@ import TextField from '@mui/material/TextField'
 import { deleteUser, User } from 'firebase/auth'
 import { deleteDoc, doc, getDoc } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { auth, dbservice } from 'src/baseApi/serverbase'
 import useSelectors from 'src/hooks/useSelectors'
 import useTexts from 'src/hooks/useTexts'
+import { changeProfile } from 'src/stateSlices/profileSlice'
 
 const ProfileMembersDrawersContent = () => {
   const [confirmEmail, setConfirmEmail] = useState(false)
@@ -23,6 +25,7 @@ const ProfileMembersDrawersContent = () => {
   const navigate = useNavigate()
   const profile = useSelectors((state) => state.profile.value)
   const {state} = useLocation()
+  const dispatch = useDispatch()
   const user = state?.element || profile
   console.log(profile)
   const onChange = (event) => {
@@ -65,6 +68,7 @@ const ProfileMembersDrawersContent = () => {
       const connectedCards = userDoc.data()?.connectedCards
       const createdNumber = createdCards?.length || 0
       const connectedNumber = connectedCards?.length || 0
+      dispatch(changeProfile({...profile, createdCards: createdCards, connectedNumber: connectedNumber}))
       if (createdNumber === 0 && connectedNumber === 0) {
         setProcess(true)
       } else {
