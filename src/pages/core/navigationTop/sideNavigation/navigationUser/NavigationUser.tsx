@@ -6,7 +6,7 @@ const NavigationUser = () => {
   const languages = useSelectors((state) => state.languages.value)
   const profile = useSelectors((state) => state.profile.value)
   const points = profile?.points
-  const [animatingPoints, setAnimatingPoints] = useState(1)
+  const [animatingPoints, setAnimatingPoints] = useState(0)
   useEffect(() => {
     setAnimatingPoints(points)
   }, [points])
