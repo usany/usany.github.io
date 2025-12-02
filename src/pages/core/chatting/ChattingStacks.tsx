@@ -4,6 +4,7 @@ import { webSocket } from 'src/webSocket.tsx'
 import { usePiazzaMessage } from './usePiazzaMessage'
 import useSelectors from 'src/hooks/useSelectors'
 import EmptyCard from '../card/EmptyCard'
+import { AnimatedGroup } from 'src/components/motion-primitives/animated-group'
 
 const ChattingStacks = ({
   chattings,
@@ -172,7 +173,7 @@ const ChattingStacks = ({
     <EmptyCard />
   )
   return (
-    <>
+    <AnimatedGroup>
       {sorted.map((element) => {
         if (element === 'piazza') {
           const message = navigator.onLine ? piazzaMessage : JSON.parse(localStorage.getItem('group') || '{}')
@@ -240,7 +241,7 @@ const ChattingStacks = ({
           }
         }
       })}
-    </>
+    </AnimatedGroup>
   )
 }
 
