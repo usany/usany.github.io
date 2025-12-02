@@ -1,6 +1,7 @@
 import { DocumentData } from 'firebase/firestore'
 import useSelectors from 'src/hooks/useSelectors'
 import Cards from './Cards'
+import { AnimatedGroup } from 'src/components/motion-primitives/animated-group'
 
 const CardsStacksViewsCollection = ({
   messages,
@@ -27,7 +28,7 @@ const CardsStacksViewsCollection = ({
   }
   const messagesArray = onLine ? messages : JSON.parse(localStorage.getItem('cards') || '[]') as DocumentData[]
   return (
-    <div
+    <AnimatedGroup
       id="items"
       className="grid grid-cols-[repeat(auto-fit,minmax(180px,1fr))] col-span-full"
     >
@@ -55,7 +56,7 @@ const CardsStacksViewsCollection = ({
           }
         }
       })}
-    </div>
+    </AnimatedGroup>
   )
 }
 
