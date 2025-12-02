@@ -2,7 +2,7 @@ import { Chip } from '@mui/material'
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
 import { deleteUser, User } from 'firebase/auth'
-import { deleteDoc, doc } from 'firebase/firestore'
+import { deleteDoc, doc, getDoc } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { auth, dbservice } from 'src/baseApi/serverbase'
@@ -58,15 +58,20 @@ const ProfileMembersDrawersContent = () => {
     }
   }
   useEffect(() => {
-    const createdCards = profile?.createdCards
-    const connectedCards = profile?.connectedCards
-    const createdNumber = createdCards?.length || 0
-    const connectedNumber = connectedCards?.length || 0
-    if (createdNumber === 0 && connectedNumber === 0) {
-      setProcess(true)
-    } else {
-      setProcess(false)
+    const getUserData = async () => {
+      const docRef = doc(dbservice, `members/${profile?.uid}`)
+      const userDoc = await getDoc(docRef)
+      const createdCards = userDoc.data()?.createdCards
+      const connectedCards = userDoc.data()?.connectedCards
+      const createdNumber = createdCards?.length || 0
+      const connectedNumber = connectedCards?.length || 0
+      if (createdNumber === 0 && connectedNumber === 0) {
+        setProcess(true)
+      } else {
+        setProcess(false)
+      }
     }
+    getUserData()
   }, [user])
 
   return (
