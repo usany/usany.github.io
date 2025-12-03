@@ -90,7 +90,6 @@ function Auth() {
       <PageTitle
         title={profile ? confirmingMail : signIn}
       />
-      <div>practice</div>
       {profile ? (
         <div className="flex flex-col gap-5 items-center p-5">
           {mailSent ? (
