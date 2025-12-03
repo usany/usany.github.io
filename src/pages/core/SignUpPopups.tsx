@@ -42,15 +42,21 @@ const SignUpPopups = ({
   const docRef = useRef(null)
   useEffect(() => {
     const handleScroll = () => {
-      const scrollTop = docRef.current.scrollTop
-      const scrollHeight = docRef.current.scrollHeight
-      const clientHeight = docRef.current.clientHeight
-      const scrollPercentage = scrollTop/(scrollHeight-clientHeight)*100
-      setProgress(scrollPercentage)
+      if (docRef.current) {
+        const scrollTop = docRef.current.scrollTop
+        const scrollHeight = docRef.current.scrollHeight
+        const clientHeight = docRef.current.clientHeight
+        const scrollPercentage = scrollTop/(scrollHeight-clientHeight)*100
+        setProgress(scrollPercentage)
+      }
     }
     if (docRef.current) {
       docRef.current.addEventListener('scroll', handleScroll)
-      return () => docRef.current.removeEventListener('scroll', handleScroll)
+      return () => {
+        if (docRef.current) {
+          docRef.current.removeEventListener('scroll', handleScroll)
+        }
+      }
     }
   }, [docRef.current])
   if (largeMedia) {
@@ -59,12 +65,8 @@ const SignUpPopups = ({
         <Dialog>
           <DialogTrigger className="w-full">{trigger}</DialogTrigger>
           <DialogContent className="bg-light-2 dark:bg-dark-2 max-h-[75vh] min-w-[850px]">
+            <LinearProgress sx={{positon: 'fixed', top: '10px', left: 0, width: '100%'}} variant='determinate' value={progress} />
             <ScrollArea className="overflow-y-scroll absolute" ref={docRef}>
-              <LinearProgress sx={{positon: 'sticky', top: '10px', left: 0, width: '100%'}} variant='determinate' value={progress} />
-              {/* <ScrollProgress
-                containerRef={docRef}
-                className="fixed top-5 bg-[#0090FF]"
-              /> */}
               <DrawersBar />
               <DialogTitle className="flex justify-center p-5">
                 {title}
@@ -92,8 +94,8 @@ const SignUpPopups = ({
       <Drawer>
         <DrawerTrigger className="w-full">{trigger}</DrawerTrigger>
         <DrawerContent className="bg-light-2 dark:bg-dark-2 max-h-[75vh]">
+          <LinearProgress sx={{positon: 'fixed', top: '10px', left: 0, width: '100%'}} variant='determinate' value={progress} />
           <ScrollArea className="overflow-y-scroll absolute" ref={docRef}>
-            <LinearProgress sx={{positon: 'sticky', top: '10px', left: 0, width: '100%'}} variant='determinate' value={progress} />
             {/* <ScrollProgress
               containerRef={docsRef}
               className="fixed top-5 bg-[#0090FF]"
