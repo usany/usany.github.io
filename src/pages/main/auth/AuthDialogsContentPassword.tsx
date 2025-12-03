@@ -70,7 +70,7 @@ function AuthDialogsContentPassword() {
             </Button>
             {status === 'sent' && (
               <div className="flex pt-5">
-                {languages === 'ko' && email} {sentAConfirmingMail} {languages === 'en' && email}
+                {languages === 'ko' && email}{sentAConfirmingMail} {languages === 'en' && email}
               </div>
             )}
             {status === 'error' && (
