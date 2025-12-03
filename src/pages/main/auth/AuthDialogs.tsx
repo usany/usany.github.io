@@ -7,7 +7,7 @@ import { useState } from "react";
 import SignUpPopups from "src/pages/core/SignUpPopups";
 
 function AuthDialogs() {
-  const {findPassword, welcomeToKhusan, findPassword} = useTexts()
+  const {findPassword, newAccount, welcomeToKhusan} = useTexts()
   const [onProgress, setOnProgress] = useState(false)
   const changeProgress = (newValue: boolean) => setOnProgress(newValue)
   const progressFalse = () => setOnProgress(false)
