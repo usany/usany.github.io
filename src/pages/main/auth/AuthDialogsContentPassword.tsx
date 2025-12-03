@@ -69,7 +69,7 @@ function AuthDialogsContentPassword() {
             </Button>
             {status === 'sent' && (
               <div className="flex pt-5">
-                {sentAConfirmingMail}
+                {sentAConfirmingMail} {email}
               </div>
             )}
             {status === 'error' && (
