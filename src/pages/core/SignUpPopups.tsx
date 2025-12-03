@@ -5,7 +5,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from '@/components/ui/drawer'
-import { ScrollArea } from '@radix-ui/react-scroll-area'
+import { ScrollArea } from '@/components/ui/scroll-area'
 import { Scroll } from 'lucide-react'
 import { useRef } from 'react'
 import { ScrollProgress } from 'src/components/motion-primitives/scroll-progress'
@@ -26,6 +26,7 @@ interface Props {
   close?: React.ReactNode
   attachment?: boolean
   onLink?: boolean
+  progress?: boolean
 }
 const SignUpPopups = ({
   trigger,
