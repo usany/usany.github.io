@@ -48,6 +48,7 @@ const SignUpPopups = ({
     const clientHeight = current.clientHeight
     const scrollPercentage = scrollTop/(scrollHeight-clientHeight)*100
     setProgress(scrollPercentage)
+    if (scrollPercentage > 99) setProgress(100)
   }
   useEffect(() => {
     const current = docRef.current
@@ -63,7 +64,9 @@ const SignUpPopups = ({
         <Dialog>
           <DialogTrigger className="w-full">{trigger}</DialogTrigger>
           <DialogContent className="bg-light-2 dark:bg-dark-2 max-h-[75vh] min-w-[850px]">
-            <LinearProgress sx={{positon: 'fixed', top: '5px', left: 0, width: '100%'}} variant='determinate' value={progress} />
+            <div>
+              <LinearProgress sx={{positon: 'fixed', left: 0, width: '100%', height:'20px', borderRadius: '10px'}} variant='determinate' value={progress} />
+            </div>
             <ScrollArea className="overflow-y-scroll absolute" ref={docRef}>
               <DrawersBar />
               <DialogTitle className="flex justify-center p-5">
@@ -92,7 +95,9 @@ const SignUpPopups = ({
       <Drawer>
         <DrawerTrigger className="w-full">{trigger}</DrawerTrigger>
         <DrawerContent className="bg-light-2 dark:bg-dark-2 max-h-[75vh]">
-          <LinearProgress sx={{positon: 'fixed', top: '5px', left: 0, width: '100%'}} variant='determinate' value={progress} />
+          <div>
+            <LinearProgress sx={{positon: 'fixed', left: 0, width: '100%', height:'20px', borderRadius: '10px'}} variant='determinate' value={progress} />
+          </div>
           <ScrollArea className="overflow-y-scroll absolute" ref={docRef}>
             {/* <ScrollProgress
               containerRef={docsRef}
