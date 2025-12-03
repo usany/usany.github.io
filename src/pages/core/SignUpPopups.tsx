@@ -40,16 +40,16 @@ const SignUpPopups = ({
   const [progress, setProgress] = useState(0)
   const largeMedia = useLargeMedia()
   const docRef = useRef(null)
-  useEffect(() => {
-    const handleScroll = () => {
-      if (docRef.current) {
-        const scrollTop = docRef.current.scrollTop
-        const scrollHeight = docRef.current.scrollHeight
-        const clientHeight = docRef.current.clientHeight
-        const scrollPercentage = scrollTop/(scrollHeight-clientHeight)*100
-        setProgress(scrollPercentage)
-      }
+  const handleScroll = () => {
+    if (docRef.current) {
+      const scrollTop = docRef.current.scrollTop
+      const scrollHeight = docRef.current.scrollHeight
+      const clientHeight = docRef.current.clientHeight
+      const scrollPercentage = scrollTop/(scrollHeight-clientHeight)*100
+      setProgress(scrollPercentage)
     }
+  }
+  useEffect(() => {
     if (docRef.current) {
       docRef.current.addEventListener('scroll', handleScroll)
       return () => {
