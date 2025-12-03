@@ -39,26 +39,24 @@ const SignUpPopups = ({
 }: Props) => {
   const [progress, setProgress] = useState(0)
   const largeMedia = useLargeMedia()
-  const docRef = useRef(null)
+  const docRef = useRef<HTMLDivElement | null>(null)
   const handleScroll = () => {
-    if (docRef.current) {
-      const scrollTop = docRef.current.scrollTop
-      const scrollHeight = docRef.current.scrollHeight
-      const clientHeight = docRef.current.clientHeight
-      const scrollPercentage = scrollTop/(scrollHeight-clientHeight)*100
-      setProgress(scrollPercentage)
-    }
+    const current = docRef.current
+    if (!current) return
+    const scrollTop = current.scrollTop
+    const scrollHeight = current.scrollHeight
+    const clientHeight = current.clientHeight
+    const scrollPercentage = scrollTop/(scrollHeight-clientHeight)*100
+    setProgress(scrollPercentage)
   }
   useEffect(() => {
-    if (docRef.current) {
-      docRef.current.addEventListener('scroll', handleScroll)
-      return () => {
-        if (docRef.current) {
-          docRef.current.removeEventListener('scroll', handleScroll)
-        }
-      }
+    const current = docRef.current
+    if (!current) return
+    current.addEventListener('scroll', handleScroll)
+    return () => {
+      current.removeEventListener('scroll', handleScroll)
     }
-  }, [docRef.current])
+  }, [current])
   if (largeMedia) {
     return (
       <div className="flex justify-center">
