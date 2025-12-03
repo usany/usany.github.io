@@ -7,7 +7,7 @@ interface Props {
 function AuthDialogsTrigger({findingPassword, progressFalse}: Props) {
   const {findPassword, newAccount} = useTexts()
   return (
-    <button className='h-full' onClick={progressFalse}>
+    <button className='h-full w-full' onClick={progressFalse}>
       {findingPassword ? findPassword : newAccount}
     </button>
   );
