@@ -60,7 +60,7 @@ const SignUpPopups = ({
           <DialogTrigger className="w-full">{trigger}</DialogTrigger>
           <DialogContent className="bg-light-2 dark:bg-dark-2 max-h-[75vh] min-w-[850px]">
             <ScrollArea className="overflow-y-scroll absolute" ref={docRef}>
-              <LinearProgress sx={{positon: 'fixed', top: '10px', left: 0, width: '100%'}} variant='determinate' value={progress} />
+              <LinearProgress sx={{positon: 'sticky', top: '10px', left: 0, width: '100%'}} variant='determinate' value={progress} />
               {/* <ScrollProgress
                 containerRef={docRef}
                 className="fixed top-5 bg-[#0090FF]"
@@ -93,7 +93,7 @@ const SignUpPopups = ({
         <DrawerTrigger className="w-full">{trigger}</DrawerTrigger>
         <DrawerContent className="bg-light-2 dark:bg-dark-2 max-h-[75vh]">
           <ScrollArea className="overflow-y-scroll absolute" ref={docRef}>
-            <LinearProgress sx={{positon: 'fixed', top: '10px', left: 0, width: '100%'}} variant='determinate' value={progress} />
+            <LinearProgress sx={{positon: 'sticky', top: '10px', left: 0, width: '100%'}} variant='determinate' value={progress} />
             {/* <ScrollProgress
               containerRef={docsRef}
               className="fixed top-5 bg-[#0090FF]"
