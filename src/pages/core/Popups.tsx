@@ -36,8 +36,6 @@ const Popups = ({
   onLink = false,
 }: Props) => {
   const largeMedia = useLargeMedia()
-  // const docRef = useRef(null)
-  const docsRef = useRef(null)
   
   if (largeMedia) {
     return (
@@ -46,10 +44,6 @@ const Popups = ({
           <DialogTrigger className="w-full">{trigger}</DialogTrigger>
           <DialogContent className="bg-light-2 dark:bg-dark-2 max-h-[75vh] min-w-[850px]">
             <ScrollArea className="overflow-y-scroll absolute">
-              {/* {progress && <ScrollProgress
-                containerRef={docRef}
-                className="fixed top-5 bg-[#0090FF]"
-              />} */}
               <DrawersBar />
               <DialogTitle className="flex justify-center p-5">
                 {title}
@@ -75,7 +69,7 @@ const Popups = ({
       <Drawer>
         <DrawerTrigger className="w-full">{trigger}</DrawerTrigger>
         <DrawerContent className="bg-light-2 dark:bg-dark-2 max-h-[75vh]">
-          <ScrollArea className="overflow-y-scroll absolute" ref={docsRef}>
+          <ScrollArea className="overflow-y-scroll absolute">
             <DrawersBar />
             <DrawerTitle className="flex justify-center p-5">
               {title}
