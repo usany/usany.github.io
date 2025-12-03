@@ -37,7 +37,7 @@ const Popups = ({
   progress
 }: Props) => {
   const largeMedia = useLargeMedia()
-  const docRef = useRef(null)
+  // const docRef = useRef(null)
   const docsRef = useRef(null)
   
   if (largeMedia) {
@@ -46,11 +46,11 @@ const Popups = ({
         <Dialog>
           <DialogTrigger className="w-full">{trigger}</DialogTrigger>
           <DialogContent className="bg-light-2 dark:bg-dark-2 max-h-[75vh] min-w-[850px]">
-            <ScrollArea className="overflow-y-scroll absolute" ref={docRef}>
-              {progress && <ScrollProgress
+            <ScrollArea className="overflow-y-scroll absolute">
+              {/* {progress && <ScrollProgress
                 containerRef={docRef}
                 className="fixed top-5 bg-[#0090FF]"
-              />}
+              />} */}
               <DrawersBar />
               <DialogTitle className="flex justify-center p-5">
                 {title}
