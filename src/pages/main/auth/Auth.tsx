@@ -13,6 +13,7 @@ import AuthForm from 'src/pages/main/auth/AuthForm'
 import Motions from 'src/pages/main/auth/Motions'
 import { changeProfile } from 'src/stateSlices/profileSlice'
 import AuthPassword from './AuthPassword'
+import { TextScramble } from 'src/components/motion-primitives/text-scramble'
 
 function Auth() {
   const [numberString, setNumberString] = useState('')
@@ -129,9 +130,9 @@ function Auth() {
         </div>
       ) : (
         <>
-          <div className="flex justify-center p-5">
+          <TextScramble className="flex justify-center p-5">
             {welcomeToKhusan}
-          </div>
+          </TextScramble>
           <AuthForm signIn={true} agreed={true} />
           <AuthButtons />
           <div className="flex justify-center pt-5 px-5">

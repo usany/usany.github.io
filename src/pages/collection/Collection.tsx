@@ -24,6 +24,7 @@ import PageTitle from '../core/pageTitle/PageTitle'
 import Popups from '../core/Popups'
 import useCardsBackground from 'src/hooks/useCardsBackground'
 import FileOpenIcon from '@mui/icons-material/FileOpen';
+import { AnimatedGroup } from 'src/components/motion-primitives/animated-group'
 
 function Collection() {
   const {colorOne} = useCardsBackground()
@@ -324,9 +325,8 @@ function Collection() {
         }
         attachment={changedImage.attachment}
       />
-      <div className="grid grid-cols-[repeat(auto-fit,minmax(80px,1fr))] col-span-full p-5">
+      {images.length && <AnimatedGroup className="grid grid-cols-[repeat(auto-fit,minmax(80px,1fr))] col-span-full p-5">
         {images.map((element, index) => {
-          console.log(element.defaultProfile)
           return (
             <MorphingDialog key={index}>
               <MorphingDialogTrigger>
@@ -354,7 +354,7 @@ function Collection() {
             </MorphingDialog>
           )
         })}
-      </div>
+      </AnimatedGroup>}
     </div>
   )
 }

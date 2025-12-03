@@ -2,6 +2,7 @@ import useSelectors from 'src/hooks/useSelectors'
 import Cards from 'src/pages/core/card/Cards'
 import useTexts from 'src/hooks/useTexts'
 import { DocumentData } from 'firebase/firestore'
+import { AnimatedGroup } from 'src/components/motion-primitives/animated-group'
 
 interface Props {
   choose: number
@@ -25,9 +26,9 @@ const CardsList = ({ choose, messages }: Props) => {
       {onLine ? (
         <>
           {chosenMessages.length ? (
-            <div className="grid grid-cols-[repeat(auto-fit,minmax(180px,1fr))] place-items-center col-span-full w-screen">
+            <AnimatedGroup className="grid grid-cols-[repeat(auto-fit,minmax(180px,1fr))] place-items-center col-span-full w-screen">
               {chosenMessages}
-            </div>
+            </AnimatedGroup>
           ) : (
             <div className="flex justify-center p-5">{empty}</div>
           )}

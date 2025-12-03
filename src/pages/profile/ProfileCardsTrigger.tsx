@@ -3,6 +3,8 @@ import { dbservice } from 'src/baseApi/serverbase'
 import useTexts from 'src/hooks/useTexts'
 import Card from '@mui/material/Card'
 import useCardsBackground from '../../hooks/useCardsBackground'
+import { useEffect, useState } from 'react'
+import { AnimatedNumber } from 'src/components/motion-primitives/animated-number'
 
 interface Props {
   cards?: {
@@ -19,6 +21,7 @@ const ProfileCardsTrigger: React.FC<Props> = ({
   alliesCollectionList = [],
   handleCompanies = () => {}
 }: Props) => {
+  const [animatedPoints, setAnimatedPoints] = useState({points: 0, followers: 0, followings: 0})
   const { points, follower, following } = useTexts()
   const { colorTwo } = useCardsBackground()
   const usersCollection = async () => {
@@ -32,7 +35,15 @@ const ProfileCardsTrigger: React.FC<Props> = ({
     })
     handleCompanies(elementsCollection)
   }
-
+  useEffect(() => {
+    if (cards) {
+      setAnimatedPoints({...animatedPoints, points: cards?.point})
+    } else if (isFollowers) {
+      setAnimatedPoints({...animatedPoints, followers: alliesCollectionList?.length || 0 })
+    } else {
+      setAnimatedPoints({...animatedPoints, followings: alliesCollectionList?.length || 0 })
+    }
+  }, [cards?.point, alliesCollectionList?.length])
   return (
     <Card
       sx={{
@@ -43,13 +54,14 @@ const ProfileCardsTrigger: React.FC<Props> = ({
       {cards ?
         <>
           <div>{points}</div>
-          <div className='flex justify-center'>{cards.point}</div>
+          <div className='flex justify-center'>{<AnimatedNumber value={animatedPoints.points} />}</div>
         </>
         :
         <div onClick={usersCollection}>
           <div>{isFollowers ? follower : following}</div>
           <div className="flex justify-center">
-            {alliesCollectionList?.length || 0}
+            {isFollowers ? <AnimatedNumber value={animatedPoints.followers} /> : <AnimatedNumber value={animatedPoints.followings} />}
+            {/* <AnimatedNumber value={isFollowers ? animatedPoints.followers : animatedPoints.followings} /> */}
           </div>
         </div>
       }
