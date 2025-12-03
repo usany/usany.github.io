@@ -3,6 +3,7 @@ import {
   GoogleAuthProvider,
   OAuthProvider,
   signInWithPopup,
+  signInWithRedirect,
   updateProfile,
 } from 'firebase/auth'
 import {
@@ -140,6 +141,7 @@ const onSocialClickMicrosoft = () => {
     .catch((error) => {
       console.log(error)
     })
+  // signInWithRedirect(auth, providerMicrosoft)
 }
 const onSocialClickApple = () => {
   const providerApple = new OAuthProvider('apple.com')

@@ -33,7 +33,7 @@ const ListsView = ({ elements, userSearch, multiple, handleUser }) => {
   )
   return (
     <div className="flex truncate justify-center">
-      <AnimatedGroup className="w-[1000px]">
+      <div className="w-[1000px]">
         {elements.map((element, index) => {
           if (userSearch) {
             for (let number = 0; number < userSearch.length; number++) {
@@ -82,7 +82,7 @@ const ListsView = ({ elements, userSearch, multiple, handleUser }) => {
             </div>
           )
         })}
-      </AnimatedGroup>
+      </div>
     </div>
   )
 }
