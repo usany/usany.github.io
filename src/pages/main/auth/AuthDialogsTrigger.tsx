@@ -1,7 +1,6 @@
 import useTexts from "src/hooks/useTexts";
 
 interface Props {
-  findingPassword: boolean
   progressFalse: () => void
 }
 function AuthDialogsTrigger({progressFalse}: Props) {
