@@ -4,11 +4,11 @@ interface Props {
   findingPassword: boolean
   progressFalse: () => void
 }
-function AuthDialogsTrigger({findingPassword, progressFalse}: Props) {
-  const {findPassword, newAccount} = useTexts()
+function AuthDialogsTrigger({progressFalse}: Props) {
+  const {newAccount} = useTexts()
   return (
     <button className='h-full' onClick={progressFalse}>
-      {findingPassword ? findPassword : newAccount}
+      {newAccount}
     </button>
   );
 }

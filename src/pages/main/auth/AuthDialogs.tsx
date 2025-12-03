@@ -7,7 +7,7 @@ import { useState } from "react";
 import SignUpPopups from "src/pages/core/SignUpPopups";
 
 function AuthDialogs() {
-  const {findPassword, newAccount, welcomeToKhusan} = useTexts()
+  const {findPassword, welcomeToKhusan} = useTexts()
   const [onProgress, setOnProgress] = useState(false)
   const changeProgress = (newValue: boolean) => setOnProgress(newValue)
   const progressFalse = () => setOnProgress(false)
@@ -18,7 +18,7 @@ function AuthDialogs() {
         content={<AuthDialogsContentPassword />}
       />
       <div className='flex items-center text-xl'>|</div>
-      <SignUpPopups trigger={<AuthDialogsTrigger findingPassword={false} progressFalse={progressFalse}/>}
+      <SignUpPopups trigger={<AuthDialogsTrigger progressFalse={progressFalse}/>}
         title={welcomeToKhusan}
         content={<AuthDialogsContent changeProgress={changeProgress}/>}
         onProgress={onProgress}
