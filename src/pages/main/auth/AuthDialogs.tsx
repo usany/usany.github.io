@@ -4,6 +4,7 @@ import AuthDialogsContent from "./AuthDialogsContent";
 import AuthDialogsContentPassword from "./AuthDialogsContentPassword";
 import AuthDialogsTrigger from "./AuthDialogsTrigger";
 import { useState } from "react";
+import SignUpPopups from "src/pages/core/SignUPPopups";
 
 function AuthDialogs() {
   const {findPassword, welcomeToKhusan} = useTexts()
@@ -17,7 +18,7 @@ function AuthDialogs() {
         content={<AuthDialogsContentPassword />}
       />
       <div className='flex items-center text-xl'>|</div>
-      <Popups trigger={<AuthDialogsTrigger findingPassword={false} progressFalse={progressFalse}/>}
+      <SignUpPopups trigger={<AuthDialogsTrigger findingPassword={false} progressFalse={progressFalse}/>}
         title={welcomeToKhusan}
         content={<AuthDialogsContent changeProgress={changeProgress}/>}
         progress={progress}
