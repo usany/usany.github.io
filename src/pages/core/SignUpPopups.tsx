@@ -40,7 +40,6 @@ const SignUpPopups = ({
   const [progress, setProgress] = useState(0)
   const largeMedia = useLargeMedia()
   const docRef = useRef(null)
-  const docsRef = useRef(null)
   useEffect(() => {
     const handleScroll = () => {
       const scrollTop = docRef.current.scrollTop
@@ -93,7 +92,7 @@ const SignUpPopups = ({
       <Drawer>
         <DrawerTrigger className="w-full">{trigger}</DrawerTrigger>
         <DrawerContent className="bg-light-2 dark:bg-dark-2 max-h-[75vh]">
-          <ScrollArea className="overflow-y-scroll absolute" ref={docsRef}>
+          <ScrollArea className="overflow-y-scroll absolute" ref={docRef}>
             <LinearProgress sx={{positon: 'fixed', top: '10px', left: 0, width: '100%'}} variant='determinate' value={progress} />
             {/* <ScrollProgress
               containerRef={docsRef}
