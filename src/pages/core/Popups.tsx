@@ -38,6 +38,7 @@ const Popups = ({
 }: Props) => {
   const largeMedia = useLargeMedia()
   const docRef = useRef(null)
+  const docsRef = useRef(null)
   
   if (largeMedia) {
     return (
@@ -77,9 +78,9 @@ const Popups = ({
       <Drawer>
         <DrawerTrigger className="w-full">{trigger}</DrawerTrigger>
         <DrawerContent className="bg-light-2 dark:bg-dark-2 max-h-[75vh]">
-          <ScrollArea className="overflow-y-scroll absolute" ref={docRef}>
+          <ScrollArea className="overflow-y-scroll absolute" ref={docsRef}>
             {progress && <ScrollProgress
-              containerRef={docRef}
+              containerRef={docsRef}
               className="fixed top-5 bg-[#0090FF]"
             />}
             <DrawersBar />
