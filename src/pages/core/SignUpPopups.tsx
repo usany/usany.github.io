@@ -56,7 +56,7 @@ const SignUpPopups = ({
     return () => {
       current.removeEventListener('scroll', handleScroll)
     }
-  }, [current])
+  }, [docRef.current])
   if (largeMedia) {
     return (
       <div className="flex justify-center">
