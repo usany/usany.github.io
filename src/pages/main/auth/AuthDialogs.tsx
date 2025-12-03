@@ -13,7 +13,7 @@ function AuthDialogs() {
   const progressFalse = () => setOnProgress(false)
   return (
     <div className='flex justify-center text-xs p-5 gap-5'>
-      <Popups trigger={<AuthDialogsTrigger findingPassword={true}/>}
+      <Popups trigger={<AuthDialogsTrigger findingPassword={true} progressFalse={progressFalse}/>}
         title={findPassword}
         content={<AuthDialogsContentPassword />}
       />
