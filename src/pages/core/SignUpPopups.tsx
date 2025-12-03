@@ -27,7 +27,7 @@ interface Props {
   close?: React.ReactNode
   attachment?: boolean
   onLink?: boolean
-  progress?: boolean
+  onProgress?: boolean
 }
 const SignUpPopups = ({
   trigger,
@@ -36,6 +36,7 @@ const SignUpPopups = ({
   close = null,
   attachment = false,
   onLink = false,
+  onProgress
 }: Props) => {
   const [progress, setProgress] = useState(0)
   const largeMedia = useLargeMedia()
@@ -64,9 +65,9 @@ const SignUpPopups = ({
         <Dialog>
           <DialogTrigger className="w-full">{trigger}</DialogTrigger>
           <DialogContent className="bg-light-2 dark:bg-dark-2 max-h-[75vh] min-w-[850px]">
-            <div>
+            {onProgress && <div>
               <LinearProgress sx={{positon: 'fixed', left: 0, width: '100%', height:'10px', borderRadius: '10px'}} variant='determinate' value={progress} />
-            </div>
+            </div>}
             <ScrollArea className="overflow-y-scroll absolute" ref={docRef}>
               <DrawersBar />
               <DialogTitle className="flex justify-center p-5">

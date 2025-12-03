@@ -8,9 +8,9 @@ import SignUpPopups from "src/pages/core/SignUpPopups";
 
 function AuthDialogs() {
   const {findPassword, welcomeToKhusan} = useTexts()
-  const [progress, setProgress] = useState(false)
-  const changeProgress = () => setProgress(!progress)
-  const progressFalse = () => setProgress(false)
+  const [onProgress, setOnProgress] = useState(false)
+  const changeProgress = (newValue) => setOnProgress(newValue)
+  const progressFalse = () => setOnProgress(false)
   return (
     <div className='flex justify-center text-xs p-5 gap-5'>
       <Popups trigger={<AuthDialogsTrigger findingPassword={true}/>}
@@ -21,7 +21,7 @@ function AuthDialogs() {
       <SignUpPopups trigger={<AuthDialogsTrigger findingPassword={false} progressFalse={progressFalse}/>}
         title={welcomeToKhusan}
         content={<AuthDialogsContent changeProgress={changeProgress}/>}
-        progress={progress}
+        onProgress={onProgress}
       />
     </div>
   );
