@@ -9,7 +9,7 @@ import SignUpPopups from "src/pages/core/SignUpPopups";
 function AuthDialogs() {
   const {findPassword, welcomeToKhusan} = useTexts()
   const [onProgress, setOnProgress] = useState(false)
-  const changeProgress = (newValue) => setOnProgress(newValue)
+  const changeProgress = (newValue: boolean) => setOnProgress(newValue)
   const progressFalse = () => setOnProgress(false)
   return (
     <div className='flex justify-center text-xs p-5 gap-5'>
