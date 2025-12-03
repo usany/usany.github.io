@@ -4,7 +4,7 @@ import AuthDialogsContent from "./AuthDialogsContent";
 import AuthDialogsContentPassword from "./AuthDialogsContentPassword";
 import AuthDialogsTrigger from "./AuthDialogsTrigger";
 import { useState } from "react";
-import SignUpPopups from "src/pages/core/SignUPPopups";
+import SignUpPopups from "src/pages/core/SignUpPopups";
 
 function AuthDialogs() {
   const {findPassword, welcomeToKhusan} = useTexts()
