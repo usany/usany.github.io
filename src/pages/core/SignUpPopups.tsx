@@ -48,10 +48,10 @@ const SignUpPopups = ({
           <DialogTrigger className="w-full">{trigger}</DialogTrigger>
           <DialogContent className="bg-light-2 dark:bg-dark-2 max-h-[75vh] min-w-[850px]">
             <ScrollArea className="overflow-y-scroll absolute" ref={docRef}>
-              {progress && <ScrollProgress
+              <ScrollProgress
                 containerRef={docRef}
                 className="fixed top-5 bg-[#0090FF]"
-              />}
+              />
               <DrawersBar />
               <DialogTitle className="flex justify-center p-5">
                 {title}
@@ -80,10 +80,10 @@ const SignUpPopups = ({
         <DrawerTrigger className="w-full">{trigger}</DrawerTrigger>
         <DrawerContent className="bg-light-2 dark:bg-dark-2 max-h-[75vh]">
           <ScrollArea className="overflow-y-scroll absolute" ref={docsRef}>
-            {progress && <ScrollProgress
+            <ScrollProgress
               containerRef={docsRef}
               className="fixed top-5 bg-[#0090FF]"
-            />}
+            />
             <DrawersBar />
             <DrawerTitle className="flex justify-center p-5">
               {title}
