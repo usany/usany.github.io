@@ -95,9 +95,9 @@ const SignUpPopups = ({
       <Drawer>
         <DrawerTrigger className="w-full">{trigger}</DrawerTrigger>
         <DrawerContent className="bg-light-2 dark:bg-dark-2 max-h-[75vh]">
-          <div>
+          {onProgress && <div>
             <LinearProgress sx={{positon: 'fixed', left: 0, width: '100%', height:'10px', borderRadius: '10px'}} variant='determinate' value={progress} />
-          </div>
+          </div>}
           <ScrollArea className="overflow-y-scroll absolute" ref={docRef}>
             <DrawersBar />
             <DrawerTitle className="flex justify-center p-5">
