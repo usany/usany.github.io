@@ -47,7 +47,7 @@ interface Props {
   changeProgress: () => void
 }
 function AuthMethods({ agreed, changeAgreed, changeProgress }: Props) {
-  const [accordion, setAccordion] = useState('item')
+  // const [accordion, setAccordion] = useState('item')
   const { privateInformationPolicy, agreeOnPrivateInformationPolicy } =
     useTexts()
   const docRef = useRef(null)
@@ -63,8 +63,8 @@ function AuthMethods({ agreed, changeAgreed, changeProgress }: Props) {
       <Accordion type="single" collapsible>
         <AccordionItem value="item-1">
           <AccordionTrigger ref={docRef} className="px-3" onClick={(event) => {
-            changeProgress(event.target['data-state'] === 'open' ? false : true)
-            // changeProgress()
+            const newValue = event.target.dataset.state === 'open' ? false : true
+            changeProgress(newValue)
           }}>
             쿠우산KHUSAN {privateInformationPolicy}
           </AccordionTrigger>
