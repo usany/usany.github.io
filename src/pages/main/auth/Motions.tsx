@@ -56,7 +56,7 @@ const Motions = () => {
         <div className='flex justify-center'>
             <TextLoop>
                 {duplicatedSlides.map((slide, index) => (
-                    <span key={index} className="flex flex-shrink-0 px-5 text-xl">
+                    <span key={index} className="flex flex-shrink-0 px-5 text-sm">
                         {slide.title} - {slide.musician}
                     </span>
                 ))}
