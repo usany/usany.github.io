@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { auth } from 'src/baseApi/serverbase'
+import { auth, onSocialClick } from 'src/baseApi/serverbase'
 import 'src/global.css'
 import { useDispatch } from 'react-redux'
 import { doc, getDoc } from 'firebase/firestore'
@@ -32,6 +32,7 @@ const useUserObject = () => {
     const handleRedirectResult = async () => {
       try {
         const result = await getRedirectResult(auth)
+        onSocialClick(result)
         const user = result?.user
         if (user?.uid) {
           await setProfile(user.uid)
