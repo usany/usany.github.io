@@ -48,8 +48,7 @@ const SignUpPopups = ({
     const scrollHeight = current.scrollHeight
     const clientHeight = current.clientHeight
     const scrollPercentage = scrollTop/(scrollHeight-clientHeight)*100
-    setProgress(scrollPercentage)
-    if (scrollPercentage > 99) setProgress(100)
+    setProgress(scrollPercentage > 99 ? 100 : scrollPercentage)
   }
   useEffect(() => {
     const current = docRef.current
