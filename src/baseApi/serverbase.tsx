@@ -129,28 +129,31 @@ const onSocialClickGoogle = () => {
     'https://www.googleapis.com/auth/contacts.readonly',
   )
   console.log(emails)
-  signInWithPopup(auth, providerGoogle.addScope('email'))
-    .then((result) => onSocialClick(result))
-    .catch((error) => {
-      console.log(error)
-    })
+  signInWithRedirect(auth, providerGoogle.addScope('email'))
+  // signInWithPopup(auth, providerGoogle.addScope('email'))
+  //   .then((result) => onSocialClick(result))
+  //   .catch((error) => {
+  //     console.log(error)
+  //   })
 }
 const onSocialClickMicrosoft = () => {
   const providerMicrosoft = new OAuthProvider('microsoft.com')
-  signInWithPopup(auth, providerMicrosoft)
-    .then((result) => onSocialClick(result))
-    .catch((error) => {
-      console.log(error)
-    })
+  signInWithRedirect(auth, providerMicrosoft)
+  // signInWithPopup(auth, providerMicrosoft)
+  //   .then((result) => onSocialClick(result))
+  //   .catch((error) => {
+  //     console.log(error)
+  //   })
   // signInWithRedirect(auth, providerMicrosoft)
 }
 const onSocialClickApple = () => {
   const providerApple = new OAuthProvider('apple.com')
-  signInWithPopup(auth, providerApple)
-    .then((result) => onSocialClick(result))
-    .catch((error) => {
-      console.log(error)
-    })
+  signInWithRedirect(auth, providerApple)
+  // signInWithPopup(auth, providerApple)
+  //   .then((result) => onSocialClick(result))
+  //   .catch((error) => {
+  //     console.log(error)
+  //   })
 }
 
 export {
