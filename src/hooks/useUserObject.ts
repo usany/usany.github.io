@@ -6,6 +6,7 @@ import { doc, getDoc } from 'firebase/firestore'
 import { dbservice } from 'src/baseApi/serverbase'
 import { changeProfile } from 'src/stateSlices/profileSlice'
 import useSelectors from './useSelectors'
+import { getRedirectResult } from 'firebase/auth'
 
 const useUserObject = () => {
   const dispatch = useDispatch()
@@ -28,6 +29,20 @@ const useUserObject = () => {
     return null
   }
   useEffect(() => {
+    const handleRedirectResult = async () => {
+      try {
+        const result = await getRedirectResult(auth)
+        const user = result?.user
+        if (user?.uid) {
+          await setProfile(user.uid)
+        } else {
+          dispatch(changeProfile(null))
+        }
+      } catch (error) {
+        console.error('Error handling redirect result', error)
+      }
+    }
+    handleRedirectResult()
     auth.onAuthStateChanged((user) => {
       // const reloading = sessionStorage.getItem('reloading')
       // if (user === null && !reloading) {
