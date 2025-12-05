@@ -27,7 +27,7 @@ import setDocUser from 'src/pages/core/setDocUser'
 // Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: 'AIzaSyAtraq33KBmaj0rkDAfOdXmEQtVnamrQtc',
-  authDomain: 'https://khusan.co.kr/__/auth/handler',
+  authDomain: 'khusan.co.kr',
   // authDomain: import.meta.env.VITE_AUTH_DOMAIN,
   projectId: import.meta.env.VITE_PROJECT_ID,
   storageBucket: import.meta.env.VITE_STORAGE_BUCKET,
@@ -144,7 +144,6 @@ const onSocialClickMicrosoft = () => {
   //   .catch((error) => {
   //     console.log(error)
   //   })
-  // signInWithRedirect(auth, providerMicrosoft)
 }
 const onSocialClickApple = () => {
   const providerApple = new OAuthProvider('apple.com')
