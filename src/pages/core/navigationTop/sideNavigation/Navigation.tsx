@@ -100,11 +100,11 @@ function Navigation() {
               {needNetworkConnection}
             </div>
           )}
-          {profile?.certificated && onLine &&
+          {/* {profile?.certificated && onLine &&
             <div className="absolute flex justify-center bottom-0">
               <Playlist />
             </div>
-          }
+          } */}
         </nav>
       </DrawerContent>
     </Drawer>

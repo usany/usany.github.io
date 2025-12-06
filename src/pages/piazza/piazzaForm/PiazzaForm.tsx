@@ -274,19 +274,6 @@ function PiazzaForm({
       } flex gap-px`}
       onSubmit={onSendSubmitHandler}
     >
-      {conversation && conversation !== 'piazza' && (
-        <Popups
-          trigger={
-            <div className="flex items-center px-1 h-full rounded bg-light-2 dark:bg-dark-2">
-              <PlusCircle />
-            </div>
-          }
-          title={selectCall}
-          content={
-            <PiazzaFormCallsContent chattingUser={chattingUser}/>
-          }
-        />
-      )}
       <input
         ref={inputRef}
         className="w-full p-3 rounded bg-light-1 dark:bg-dark-1"
@@ -294,14 +281,6 @@ function PiazzaForm({
         onChange={onChangeMsgHandler}
         value={messages}
         autoFocus
-        // onFocus={() => {
-        //   window.scrollTo({
-        //     top: document.body.scrollHeight,
-        //     behavior: 'smooth',
-        //   })
-        //   inputRef.current?.scrollIntoView()
-        //   setTimeout(() => inputRef.current?.scrollIntoView(), 500)
-        // }}
       />
       <button className="w-1/6 rounded bg-light-2 dark:bg-dark-2" type="submit">
         {send}
