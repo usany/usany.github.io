@@ -7,8 +7,8 @@ import PiazzaForm from 'src/pages/piazza/piazzaForm/PiazzaForm'
 import PiazzaScreen from 'src/pages/piazza/piazzaScreen/PiazzaScreen'
 import PiazzaTitle from 'src/pages/piazza/piazzaTitle/PiazzaTitle'
 import type { RootState } from 'src/store'
-import PiazzaMorphingDialogAudioCall from './components/PiazzaMorphingDialogAudioCall'
-import PiazzaMorphingDialogVideoCall from './components/PiazzaMorphingDialogVideoCall'
+// import PiazzaMorphingDialogAudioCall from './components/PiazzaMorphingDialogAudioCall'
+// import PiazzaMorphingDialogVideoCall from './components/PiazzaMorphingDialogVideoCall'
 import { changePiazzaForm } from 'src/stateSlices/piazzaFormSlice'
 import { useDispatch } from 'react-redux'
 
@@ -107,14 +107,14 @@ function Piazza() {
         handleMessagesList={(newValue) => setMessagesList(newValue)}
         isKeyboardOpen={isKeyboardOpen}
       />
-      <PiazzaMorphingDialogVideoCall
+      {/* <PiazzaMorphingDialogVideoCall
         chattingUser={chattingUser}
         conversation={conversation}
       />
       <PiazzaMorphingDialogAudioCall
         chattingUser={chattingUser}
         conversation={conversation}
-      />
+      /> */}
     </>
   )
 }
