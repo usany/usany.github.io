@@ -46,8 +46,7 @@ const ProfileMembersDrawersContent = () => {
           .then(async () => {
             await deleteDoc(doc(dbservice, `members/${profile?.uid}`))
             navigate('/')
-            // dispatch(changeProfile(null))
-            location.reload()
+            dispatch(changeProfile(null))
             console.log(user)
             // User deleted.
           })
