@@ -54,11 +54,11 @@ const useUserObject = () => {
     }
     handleRedirectResult()
     auth.onAuthStateChanged((user) => {
-      const reloading = sessionStorage.getItem('reloading')
-      if (user === null && !reloading) {
-        sessionStorage.setItem('reloading', 'true')
-        location.reload()
-      }
+      // const reloading = sessionStorage.getItem('reloading')
+      // if (user === null && !reloading) {
+      //   sessionStorage.setItem('reloading', 'true')
+      //   location.reload()
+      // }
       if (user?.uid) {
         setProfile(user?.uid)
       } else {
