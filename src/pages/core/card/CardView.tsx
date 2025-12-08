@@ -13,6 +13,7 @@ const CardView = ({ onTransfer, message, shadowColor }) => {
   const buildingsObject = {
     input: buildingsObj.input,
     ...buildingsObj.se,
+    ...buildingsObj.gu,
     ...buildingsObj.gw
   }
   const key = Object.keys(buildingsObject).find((key) => buildingsObject[key].ko.name === locationOne)
