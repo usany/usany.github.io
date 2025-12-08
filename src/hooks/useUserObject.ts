@@ -46,7 +46,6 @@ const useUserObject = () => {
             dispatch(changeProfile(null))
           }
         })
-
         // if (user?.uid) {
         //   await setProfile(user.uid)
         // } else {
