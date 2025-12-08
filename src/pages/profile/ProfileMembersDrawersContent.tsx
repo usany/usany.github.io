@@ -39,12 +39,14 @@ const ProfileMembersDrawersContent = () => {
     }
   }
   const delist = () => {
+    console.log('practice')
     if (process && confirmEmail) {
       if (auth.currentUser) {
         deleteUser(auth.currentUser)
           .then(async () => {
             await deleteDoc(doc(dbservice, `members/${profile?.uid}`))
-            navigate('/')
+            // navigate('/')
+            dispatch(changeProfile(null))
             console.log(user)
             // User deleted.
           })
@@ -53,6 +55,7 @@ const ProfileMembersDrawersContent = () => {
             // An error ocurred
             // ...
           })
+        
         // navigate('/')
         // await deleteDoc(doc(dbservice, `members/${profile?.uid}`))
       }

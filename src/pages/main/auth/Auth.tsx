@@ -78,7 +78,7 @@ function Auth() {
     if (auth) {
       deleteUser(auth.currentUser)
         .then(() => {
-          location.reload()
+          // location.reload()
         })
         .catch((error) => {
           console.log(error)

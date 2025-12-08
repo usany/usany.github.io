@@ -141,12 +141,16 @@ const onSocialClickGoogle = () => {
 }
 const onSocialClickMicrosoft = () => {
   const providerMicrosoft = new OAuthProvider('microsoft.com')
-  signInWithRedirect(auth, providerMicrosoft)
-  // signInWithPopup(auth, providerMicrosoft)
-  //   .then((result) => onSocialClick(result))
-  //   .catch((error) => {
-  //     console.log(error)
-  //   })
+  if (location.pathname === 'khusan.co.kr') {
+    signInWithRedirect(auth, providerMicrosoft)
+  } else {
+    signInWithPopup(auth, providerMicrosoft)
+    .then((result) => onSocialClick(result))
+    .catch((error) => {
+      console.log(error)
+    })
+  }
+  // signInWithRedirect(auth, providerMicrosoft)
 }
 const onSocialClickApple = () => {
   const providerApple = new OAuthProvider('apple.com')
