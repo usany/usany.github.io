@@ -20,9 +20,11 @@ const useUserObject = () => {
     if (profileImage?.attachment && newProfile) {
       newProfile.profileImageUrl = profileImage.attachment
     }
-    setTimeout(() => {
+    if (newProfile) {
       dispatch(changeProfile(newProfile))
-    }, 200)
+      // setTimeout(() => {
+      // }, 200)
+    }
   }
   const onLine = useSelectors((state) => state.onLine.value)
   if (!onLine) {
@@ -43,6 +45,9 @@ const useUserObject = () => {
             dispatch(changeProfile(null))
           }
         })
+        if (!result) {
+          dispatch(changeProfile(null))
+        }
         // if (user?.uid) {
         //   await setProfile(user.uid)
         // } else {
@@ -53,6 +58,7 @@ const useUserObject = () => {
       }
     }
     handleRedirectResult()
+    if (profile === undefined)
     auth.onAuthStateChanged((user) => {
       if (user?.uid) {
         setProfile(user?.uid)
