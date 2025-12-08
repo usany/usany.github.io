@@ -36,13 +36,13 @@ const useUserObject = () => {
         console.log(result)
         onSocialClick(result)
         const user = result?.user
-        // auth.onAuthStateChanged((user) => {
-        //   if (user?.uid) {
-        //     setProfile(user?.uid)
-        //   } else {
-        //     dispatch(changeProfile(null))
-        //   }
-        // })
+        auth.onAuthStateChanged((user) => {
+          if (user?.uid) {
+            setProfile(user?.uid)
+          } else {
+            dispatch(changeProfile(null))
+          }
+        })
         if (user?.uid) {
           await setProfile(user.uid)
         } else {
