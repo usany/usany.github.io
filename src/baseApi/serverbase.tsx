@@ -128,13 +128,16 @@ const onSocialClickGoogle = () => {
   const emails = providerGoogle.addScope(
     'https://www.googleapis.com/auth/contacts.readonly',
   )
-  console.log(emails)
-  signInWithRedirect(auth, providerGoogle.addScope('email'))
-  // signInWithPopup(auth, providerGoogle.addScope('email'))
-  //   .then((result) => onSocialClick(result))
-  //   .catch((error) => {
-  //     console.log(error)
-  //   })
+  console.log(location.pathname)
+  if (location.pathname === 'khusan.co.kr') {
+    signInWithRedirect(auth, providerGoogle.addScope('email'))
+  } else {
+    signInWithPopup(auth, providerGoogle.addScope('email'))
+    .then((result) => onSocialClick(result))
+    .catch((error) => {
+      console.log(error)
+    })
+  }
 }
 const onSocialClickMicrosoft = () => {
   const providerMicrosoft = new OAuthProvider('microsoft.com')

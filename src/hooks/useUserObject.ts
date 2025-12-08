@@ -9,6 +9,7 @@ import useSelectors from './useSelectors'
 import { getRedirectResult } from 'firebase/auth'
 
 const useUserObject = () => {
+  const profile = useSelectors((state) => state.profile.value)
   const dispatch = useDispatch()
   const setProfile = async (uid: string) => {
     const docRef = doc(dbservice, `members/${uid}`)
@@ -32,8 +33,16 @@ const useUserObject = () => {
     const handleRedirectResult = async () => {
       try {
         const result = await getRedirectResult(auth)
+        console.log(result)
         onSocialClick(result)
         const user = result?.user
+        // auth.onAuthStateChanged((user) => {
+        //   if (user?.uid) {
+        //     setProfile(user?.uid)
+        //   } else {
+        //     dispatch(changeProfile(null))
+        //   }
+        // })
         if (user?.uid) {
           await setProfile(user.uid)
         } else {
@@ -44,18 +53,20 @@ const useUserObject = () => {
       }
     }
     handleRedirectResult()
-    auth.onAuthStateChanged((user) => {
-      // const reloading = sessionStorage.getItem('reloading')
-      // if (user === null && !reloading) {
-      //   sessionStorage.setItem('reloading', 'true')
-      //   location.reload()
-      // }
-      if (user?.uid) {
-        setProfile(user?.uid)
-      } else {
-        dispatch(changeProfile(null))
-      }
-    })
+    if (profile === undefined) {
+      auth.onAuthStateChanged((user) => {
+        // const reloading = sessionStorage.getItem('reloading')
+        // if (user === null && !reloading) {
+        //   sessionStorage.setItem('reloading', 'true')
+        //   location.reload()
+        // }
+        if (user?.uid) {
+          setProfile(user?.uid)
+        } else {
+          dispatch(changeProfile(null))
+        }
+      })
+    }
   }, [])
 }
 export default useUserObject

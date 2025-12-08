@@ -21,6 +21,7 @@ const SpecificsDefault = ({ drawerOpenTrue, message, connectedUser,
   const buildingsObject = {
     input: buildingsObj.input,
     ...buildingsObj.se,
+    ...buildingsObj.gu,
     ...buildingsObj.gw
   }
   const key = Object.keys(buildingsObject).find((key) => buildingsObject[key].ko.name === locationOne)
