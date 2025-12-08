@@ -59,7 +59,7 @@ const useUserObject = () => {
         console.error('Error handling redirect result', error)
       }
     }
-    if (location.pathname === 'khusan.co.kr') {
+    if (location.hostname === 'khusan.co.kr') {
       handleRedirectResult()
     }
     auth.onAuthStateChanged((user) => {
