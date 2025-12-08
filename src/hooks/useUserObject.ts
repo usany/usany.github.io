@@ -36,7 +36,9 @@ const useUserObject = () => {
       try {
         const result = await getRedirectResult(auth)
         console.log(result)
-        onSocialClick(result)
+        if (result) {
+          onSocialClick(result)
+        }
         // const user = result?.user
         auth.onAuthStateChanged((user) => {
           if (user?.uid) {
@@ -57,15 +59,18 @@ const useUserObject = () => {
         console.error('Error handling redirect result', error)
       }
     }
-    handleRedirectResult()
-    if (profile === undefined)
-    auth.onAuthStateChanged((user) => {
-      if (user?.uid) {
-        setProfile(user?.uid)
-      } else {
-        dispatch(changeProfile(null))
-      }
-    })
+    if (location.pathname === 'khusan.co.kr') {
+      handleRedirectResult()
+    }
+    if (profile === undefined) {
+      auth.onAuthStateChanged((user) => {
+        if (user?.uid) {
+          setProfile(user?.uid)
+        } else {
+          dispatch(changeProfile(null))
+        }
+      })
+    }
   }, [])
 }
 export default useUserObject
