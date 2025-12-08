@@ -35,7 +35,7 @@ const useUserObject = () => {
         const result = await getRedirectResult(auth)
         console.log(result)
         onSocialClick(result)
-        const user = result?.user
+        // const user = result?.user
         auth.onAuthStateChanged((user) => {
           if (user?.uid) {
             setProfile(user?.uid)
