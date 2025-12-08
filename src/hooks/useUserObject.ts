@@ -43,30 +43,28 @@ const useUserObject = () => {
             dispatch(changeProfile(null))
           }
         })
-        if (user?.uid) {
-          await setProfile(user.uid)
-        } else {
-          dispatch(changeProfile(null))
-        }
+        // if (user?.uid) {
+        //   await setProfile(user.uid)
+        // } else {
+        //   dispatch(changeProfile(null))
+        // }
       } catch (error) {
         console.error('Error handling redirect result', error)
       }
     }
     handleRedirectResult()
-    if (profile === undefined) {
-      auth.onAuthStateChanged((user) => {
-        // const reloading = sessionStorage.getItem('reloading')
-        // if (user === null && !reloading) {
-        //   sessionStorage.setItem('reloading', 'true')
-        //   location.reload()
-        // }
-        if (user?.uid) {
-          setProfile(user?.uid)
-        } else {
-          dispatch(changeProfile(null))
-        }
-      })
-    }
+    auth.onAuthStateChanged((user) => {
+      const reloading = sessionStorage.getItem('reloading')
+      if (user === null && !reloading) {
+        sessionStorage.setItem('reloading', 'true')
+        location.reload()
+      }
+      if (user?.uid) {
+        setProfile(user?.uid)
+      } else {
+        dispatch(changeProfile(null))
+      }
+    })
   }, [])
 }
 export default useUserObject
