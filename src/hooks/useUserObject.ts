@@ -20,9 +20,11 @@ const useUserObject = () => {
     if (profileImage?.attachment && newProfile) {
       newProfile.profileImageUrl = profileImage.attachment
     }
-    setTimeout(() => {
+    if (newProfile) {
       dispatch(changeProfile(newProfile))
-    }, 200)
+      // setTimeout(() => {
+      // }, 200)
+    }
   }
   const onLine = useSelectors((state) => state.onLine.value)
   if (!onLine) {
@@ -34,7 +36,9 @@ const useUserObject = () => {
       try {
         const result = await getRedirectResult(auth)
         console.log(result)
-        onSocialClick(result)
+        if (result) {
+          onSocialClick(result)
+        }
         // const user = result?.user
         auth.onAuthStateChanged((user) => {
           if (user?.uid) {
@@ -43,6 +47,9 @@ const useUserObject = () => {
             dispatch(changeProfile(null))
           }
         })
+        if (!result) {
+          dispatch(changeProfile(null))
+        }
         // if (user?.uid) {
         //   await setProfile(user.uid)
         // } else {
@@ -52,19 +59,19 @@ const useUserObject = () => {
         console.error('Error handling redirect result', error)
       }
     }
-    handleRedirectResult()
+    if (location.hostname === 'khusan.co.kr') {
+      handleRedirectResult()
+    }
     auth.onAuthStateChanged((user) => {
-      // const reloading = sessionStorage.getItem('reloading')
-      // if (user === null && !reloading) {
-      //   sessionStorage.setItem('reloading', 'true')
-      //   location.reload()
-      // }
+      console.log(user)
       if (user?.uid) {
         setProfile(user?.uid)
       } else {
         dispatch(changeProfile(null))
       }
     })
+    // if (profile === undefined) {
+    // }
   }, [])
 }
 export default useUserObject

@@ -128,8 +128,8 @@ const onSocialClickGoogle = () => {
   const emails = providerGoogle.addScope(
     'https://www.googleapis.com/auth/contacts.readonly',
   )
-  console.log(location.pathname)
-  if (location.pathname === 'khusan.co.kr') {
+  // console.log(location)
+  if (location.hostname === 'khusan.co.kr') {
     signInWithRedirect(auth, providerGoogle.addScope('email'))
   } else {
     signInWithPopup(auth, providerGoogle.addScope('email'))
@@ -141,7 +141,7 @@ const onSocialClickGoogle = () => {
 }
 const onSocialClickMicrosoft = () => {
   const providerMicrosoft = new OAuthProvider('microsoft.com')
-  if (location.pathname === 'khusan.co.kr') {
+  if (location.hostname === 'khusan.co.kr') {
     signInWithRedirect(auth, providerMicrosoft)
   } else {
     signInWithPopup(auth, providerMicrosoft)
@@ -154,12 +154,15 @@ const onSocialClickMicrosoft = () => {
 }
 const onSocialClickApple = () => {
   const providerApple = new OAuthProvider('apple.com')
-  signInWithRedirect(auth, providerApple)
-  // signInWithPopup(auth, providerApple)
-  //   .then((result) => onSocialClick(result))
-  //   .catch((error) => {
-  //     console.log(error)
-  //   })
+  if (location.hostname === 'khusan.co.kr') {
+    signInWithRedirect(auth, providerApple)
+  } else {
+    signInWithPopup(auth, providerApple)
+      .then((result) => onSocialClick(result))
+      .catch((error) => {
+        console.log(error)
+      })
+  }
 }
 
 export {
