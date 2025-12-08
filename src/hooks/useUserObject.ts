@@ -62,15 +62,16 @@ const useUserObject = () => {
     if (location.pathname === 'khusan.co.kr') {
       handleRedirectResult()
     }
-    if (profile === undefined) {
-      auth.onAuthStateChanged((user) => {
-        if (user?.uid) {
-          setProfile(user?.uid)
-        } else {
-          dispatch(changeProfile(null))
-        }
-      })
-    }
+    auth.onAuthStateChanged((user) => {
+      console.log(user)
+      if (user?.uid) {
+        setProfile(user?.uid)
+      } else {
+        dispatch(changeProfile(null))
+      }
+    })
+    // if (profile === undefined) {
+    // }
   }, [])
 }
 export default useUserObject

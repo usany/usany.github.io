@@ -154,12 +154,15 @@ const onSocialClickMicrosoft = () => {
 }
 const onSocialClickApple = () => {
   const providerApple = new OAuthProvider('apple.com')
-  signInWithRedirect(auth, providerApple)
-  // signInWithPopup(auth, providerApple)
-  //   .then((result) => onSocialClick(result))
-  //   .catch((error) => {
-  //     console.log(error)
-  //   })
+  if (location.pathname === 'khusan.co.kr') {
+    signInWithRedirect(auth, providerApple)
+  } else {
+    signInWithPopup(auth, providerApple)
+      .then((result) => onSocialClick(result))
+      .catch((error) => {
+        console.log(error)
+      })
+  }
 }
 
 export {
