@@ -128,7 +128,7 @@ const onSocialClickGoogle = () => {
   const emails = providerGoogle.addScope(
     'https://www.googleapis.com/auth/contacts.readonly',
   )
-  console.log(location)
+  // console.log(location)
   if (location.pathname === 'khusan.co.kr') {
     signInWithRedirect(auth, providerGoogle.addScope('email'))
   } else {
