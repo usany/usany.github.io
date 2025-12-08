@@ -129,7 +129,7 @@ const onSocialClickGoogle = () => {
     'https://www.googleapis.com/auth/contacts.readonly',
   )
   // console.log(location)
-  if (location.pathname === 'khusan.co.kr') {
+  if (location.hostname === 'khusan.co.kr') {
     signInWithRedirect(auth, providerGoogle.addScope('email'))
   } else {
     signInWithPopup(auth, providerGoogle.addScope('email'))
@@ -141,7 +141,7 @@ const onSocialClickGoogle = () => {
 }
 const onSocialClickMicrosoft = () => {
   const providerMicrosoft = new OAuthProvider('microsoft.com')
-  if (location.pathname === 'khusan.co.kr') {
+  if (location.hostname === 'khusan.co.kr') {
     signInWithRedirect(auth, providerMicrosoft)
   } else {
     signInWithPopup(auth, providerMicrosoft)
@@ -154,7 +154,7 @@ const onSocialClickMicrosoft = () => {
 }
 const onSocialClickApple = () => {
   const providerApple = new OAuthProvider('apple.com')
-  if (location.pathname === 'khusan.co.kr') {
+  if (location.hostname === 'khusan.co.kr') {
     signInWithRedirect(auth, providerApple)
   } else {
     signInWithPopup(auth, providerApple)
