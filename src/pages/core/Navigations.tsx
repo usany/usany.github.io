@@ -55,9 +55,9 @@ function Navigations() {
       //     : 300 > (window.visualViewport?.height || window.screen.height)
       if (piazzaForm !== newState) {
         // setIsKeyboardOpen(newState)
+        // dispatch(changeScreenHeight(height))
         dispatch(changePiazzaForm(newState))
         document.body.style.height = `${event?.target.height}px`
-        // dispatch(changeScreenHeight(height))
       }
     }
     window.addEventListener('resize', (event) => listener(event))
