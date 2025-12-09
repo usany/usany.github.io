@@ -54,8 +54,6 @@ function Navigations() {
       //     ? 500
       //     : 300 > (window.visualViewport?.height || window.screen.height)
       if (piazzaForm !== newState) {
-        // setIsKeyboardOpen(newState)
-        // dispatch(changeScreenHeight(height))
         dispatch(changePiazzaForm(newState))
         document.body.style.height = `${event?.target.height}px`
       }
@@ -64,14 +62,9 @@ function Navigations() {
     if (typeof visualViewport !== 'undefined') {
       window.visualViewport?.addEventListener('resize', (event) => listener(event))
     }
-    // visualViewport?.addEventListener('resize', listener)
-    // if (typeof visualViewport !== 'undefined') {
-    //   visualViewport?.addEventListener('resize', listener);
-    // }
     return () => {
       if (typeof visualViewport !== 'undefined') {
         window.visualViewport?.removeEventListener('resize', (event) => listener(event))
-        // visualViewport?.removeEventListener('resize', listener);
       }
     }
   }, [piazzaForm])
