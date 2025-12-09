@@ -81,9 +81,9 @@ function Navigations() {
   return (
     <>
       {(!piazzaForm || location.pathname !== '/piazza') && (
-        <div className="w-screen border-t z-50 fixed rounded-t bottom-0 start-0 end-0">
+        <div className="w-screen z-50 fixed bottom-0 start-0 end-0">
           <BottomNavigation
-            sx={{ bgcolor: alpha(backgroundColor, 0.8) }}
+            sx={{ bgcolor: alpha(backgroundColor, 0.8), borderRadius: '10px', borderTop: '1px solid' }}
             showLabels
             value={bottomNavigation}
             onChange={(event, newValue) => {
