@@ -54,6 +54,8 @@ function Navigations() {
       //     ? 500
       //     : 300 > (window.visualViewport?.height || window.screen.height)
       if (piazzaForm !== newState) {
+        // setIsKeyboardOpen(newState)
+        // dispatch(changeScreenHeight(height))
         dispatch(changePiazzaForm(newState))
         document.body.style.height = `${event?.target.height}px`
       }
