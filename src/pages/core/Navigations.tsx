@@ -55,23 +55,18 @@ function Navigations() {
       //     : 300 > (window.visualViewport?.height || window.screen.height)
       if (piazzaForm !== newState) {
         // setIsKeyboardOpen(newState)
+        // dispatch(changeScreenHeight(height))
         dispatch(changePiazzaForm(newState))
         document.body.style.height = `${event?.target.height}px`
-        // dispatch(changeScreenHeight(height))
       }
     }
     window.addEventListener('resize', (event) => listener(event))
     if (typeof visualViewport !== 'undefined') {
       window.visualViewport?.addEventListener('resize', (event) => listener(event))
     }
-    // visualViewport?.addEventListener('resize', listener)
-    // if (typeof visualViewport !== 'undefined') {
-    //   visualViewport?.addEventListener('resize', listener);
-    // }
     return () => {
       if (typeof visualViewport !== 'undefined') {
         window.visualViewport?.removeEventListener('resize', (event) => listener(event))
-        // visualViewport?.removeEventListener('resize', listener);
       }
     }
   }, [piazzaForm])
@@ -81,9 +76,9 @@ function Navigations() {
   return (
     <>
       {(!piazzaForm || location.pathname !== '/piazza') && (
-        <div className="w-screen border-t z-50 fixed rounded-t bottom-0 start-0 end-0">
+        <div className="w-screen z-50 fixed bottom-0 start-0 end-0">
           <BottomNavigation
-            sx={{ bgcolor: alpha(backgroundColor, 0.8) }}
+            sx={{ bgcolor: alpha(backgroundColor, 0.8), borderRadius: '10px', borderTop: '1px solid' }}
             showLabels
             value={bottomNavigation}
             onChange={(event, newValue) => {
