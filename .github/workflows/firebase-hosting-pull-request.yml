@@ -32,7 +32,7 @@ jobs:
           VITE_LOCALHOST: ${{ secrets.VITE_LOCALHOST }}
           VITE_GHPAGE: ${{ secrets.VITE_GHPAGE }}
           VITE_GEMINI_API_KEY: ${{ secrets.VITE_GEMINI_API_KEY }}
-          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_BASIC_URL: ${{ secrets.VITE_SUPABASE_BASIC_URL }}
           VITE_SUPABASE_STORAGE_URL: ${{ secrets.VITE_SUPABASE_STORAGE_URL }}
           VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
           VITE_SPOTIFY_URL: ${{ secrets.VITE_SPOTIFY_URL }}
