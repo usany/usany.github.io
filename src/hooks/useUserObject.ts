@@ -21,9 +21,9 @@ const useUserObject = () => {
       newProfile.profileImageUrl = profileImage.attachment
     }
     if (newProfile) {
-      dispatch(changeProfile(newProfile))
-      // setTimeout(() => {
-      // }, 200)
+      setTimeout(() => {
+        dispatch(changeProfile(newProfile))
+      }, 200)
     }
   }
   const onLine = useSelectors((state) => state.onLine.value)
