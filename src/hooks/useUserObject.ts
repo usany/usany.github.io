@@ -23,7 +23,7 @@ const useUserObject = () => {
     if (newProfile) {
       setTimeout(() => {
         dispatch(changeProfile(newProfile))
-      }, 5000)
+      }, 200)
     }
   }
   const onLine = useSelectors((state) => state.onLine.value)
@@ -44,7 +44,9 @@ const useUserObject = () => {
           if (user?.uid) {
             setProfile(user?.uid)
           } else {
-            dispatch(changeProfile(null))
+            setTimeout(() => {
+              dispatch(changeProfile(null))
+            }, 1000)
           }
         })
         if (!result) {
@@ -67,7 +69,9 @@ const useUserObject = () => {
       if (user?.uid) {
         setProfile(user?.uid)
       } else {
-        dispatch(changeProfile(null))
+        setTimeout(() => {
+          dispatch(changeProfile(null))
+        }, 1000)
       }
     })
     // if (profile === undefined) {
