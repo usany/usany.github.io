@@ -23,7 +23,7 @@ const useUserObject = () => {
     if (newProfile) {
       setTimeout(() => {
         dispatch(changeProfile(newProfile))
-      }, 200)
+      }, 500)
     }
   }
   const onLine = useSelectors((state) => state.onLine.value)
