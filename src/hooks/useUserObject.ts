@@ -74,8 +74,6 @@ const useUserObject = () => {
         }, 1000)
       }
     })
-    // if (profile === undefined) {
-    // }
   }, [])
 }
 export default useUserObject
