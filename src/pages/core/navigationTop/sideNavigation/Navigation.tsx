@@ -5,28 +5,31 @@ import {
   SearchCheck,
   Siren,
   UserRound,
-} from 'lucide-react'
-import staticImage from 'src/assets/blue.png'
+} from 'lucide-react';
+import { useId, useState } from 'react';
+import { createPortal } from 'react-dom';
+import staticImage from 'src/assets/blue.png';
 import {
   Drawer,
   DrawerClose,
   DrawerContent,
   DrawerTrigger,
-} from 'src/components/ui/drawer'
-import { useId, } from 'react';
-import useSelectors from 'src/hooks/useSelectors'
-import Avatars from '../../Avatars'
-import Links from './links/Links'
-import NavigationSignedIn from './navigationSignedIn/NavigationSignedIn'
-import NavigationSignedOut from './navigationSignedOut/NavigationSignedOut'
-import useTexts from 'src/hooks/useTexts'
+} from 'src/components/ui/drawer';
+import useSelectors from 'src/hooks/useSelectors';
+import useTexts from 'src/hooks/useTexts';
+import Avatars from '../../Avatars';
 import Playlist from '../../Playlist';
+import Links from './links/Links';
+import NavigationSignedIn from './navigationSignedIn/NavigationSignedIn';
+import NavigationSignedOut from './navigationSignedOut/NavigationSignedOut';
 
 function Navigation() {
   const linkId = useId();
+  const [open, setOpen] = useState(false);
   const { myProfile, userSearch, groupChat, report, exhibition, signOut, needNetworkConnection } = useTexts()
   const profile = useSelectors((state) => state.profile.value)
   const onLine = useSelectors((state) => state.onLine.value)
+  const showPlaylist = profile?.certificated && onLine
 
   const links = [
     {
@@ -67,9 +70,23 @@ function Navigation() {
     },
   ]
   return (
-    <Drawer direction="left">
+    <>
+      {showPlaylist &&
+        createPortal(
+          <div
+            className={`fixed bottom-4 left-4 z-[120] flex justify-start transition-all duration-200 ${
+              open ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+            }`}
+          >
+            <div className="flex w-[350px] justify-center">
+              <Playlist />
+            </div>
+          </div>,
+          document.body,
+        )}
+      <Drawer direction="left" open={open} onOpenChange={setOpen}>
       <DrawerTrigger className="px-5">
-        <Avatars element={profile?.certificated ? profile : { defaultProfile: staticImage }} piazza={null} profile={false} />
+        <Avatars element={profile?.certificated ? profile : { defaultProfile: staticImage }} piazza={() => {}} profile={false} />
       </DrawerTrigger>
       <DrawerContent className="border-none bg-light-2 dark:bg-dark-2 right-auto top-0 mt-0 w-[355px] overflow-hidden rounded-[10px]">
         <nav className="flex flex-col justify-between w-[350px]">
@@ -100,14 +117,10 @@ function Navigation() {
               {needNetworkConnection}
             </div>
           )}
-          {profile?.certificated && onLine &&
-            <div className="absolute flex justify-center bottom-0">
-              <Playlist />
-            </div>
-          }
         </nav>
       </DrawerContent>
-    </Drawer>
+      </Drawer>
+    </>
   )
 }
 
