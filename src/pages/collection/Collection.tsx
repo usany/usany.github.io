@@ -356,7 +356,7 @@ function Collection() {
                     <div className='flex justify-end'>
                       {element.displayName}
                     </div>
-                    {(element?.userUid ? element.userUid === profile.uid : element.uid.includes(profile.uid)) && <Button className='colorOne' variant='outlined' onClick={() => {
+                    {element.userUid === profile.uid && <Button className='colorOne' variant='outlined' onClick={() => {
                       navigate('/collection')
                       deleteImage(element.uid)
                     }}>practice</Button>}
