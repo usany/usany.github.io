@@ -15,10 +15,6 @@ import { changeProfile } from 'src/stateSlices/profileSlice';
 import FileOpenIcon from '@mui/icons-material/FileOpen';
 
 const images = {
-  // 'profile-red': [staticRed01, staticRed02],
-  // '#2196f3': [staticBlue01, staticBlue02],
-  // 'profile-amber': [staticGold01, staticGold02],
-  // gold: [staticGold01, staticGold02],
   'profileRed': [staticRed01, staticRed02],
   'profileBlue': [staticBlue01, staticBlue02],
   'profileGold': [staticGold01, staticGold02],
