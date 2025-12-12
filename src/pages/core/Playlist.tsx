@@ -1,6 +1,9 @@
 import useSelectors from 'src/hooks/useSelectors';
 
-const Playlist = ({open}) => {
+interface Props {
+  open: boolean
+}
+const Playlist = ({open}: Props) => {
   const theme = useSelectors((state) => state.theme.value);
   return (
     <div
