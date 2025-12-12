@@ -158,6 +158,10 @@ function Collection() {
       }
     }
   }
+  const deleteImage = async (id) => {
+    await supabase.storage.from('remake').remove([`collection/${id}`])
+    setImages((prev) => prev.filter((value) => value.uid !== id))
+  }
   // useEffect(() => {
   //   if (loading) {
   //     setChangedImage({
@@ -348,9 +352,7 @@ function Collection() {
                     <div className='flex justify-end'>
                       {element.displayName}
                     </div>
-                    {element.uid === profile.uid && <Button className='colorOne' variant='outlined' onClick={() => {
-
-                    }}>practice</Button>}
+                    {element.uid === profile.uid && <Button className='colorOne' variant='outlined' onClick={() =>deleteImage(element.uid)}>practice</Button>}
                   </div>
                 </MorphingDialogContent>
               </MorphingDialogContainer>
