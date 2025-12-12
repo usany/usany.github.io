@@ -17,7 +17,7 @@ interface ThemeRootState {
 }
 function Navigations() {
   const [backgroundColor, setBackgroundColor] = useState('#e2e8f0')
-  const theme = useSelector((state: ThemeRootState) => state.theme.value)
+  const theme = useSelectors((state) => state.theme.value)
   const piazzaForm = useSelectors((state) => state.piazzaForm.value)
   const bottomNavigation = useSelectors((state) => state.bottomNavigation.value)
   const languages = useSelectors((state) => state.languages.value)
