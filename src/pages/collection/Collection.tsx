@@ -348,6 +348,9 @@ function Collection() {
                     <div className='flex justify-end'>
                       {element.displayName}
                     </div>
+                    {element.uid === profile.uid && <Button className='colorOne' variant='outlined' onClick={() => {
+
+                    }}>practice</Button>}
                   </div>
                 </MorphingDialogContent>
               </MorphingDialogContainer>
