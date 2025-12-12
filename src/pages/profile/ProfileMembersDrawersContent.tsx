@@ -21,6 +21,8 @@ const ProfileMembersDrawersContent = () => {
     processingCard,
     toDeleteAccountInputMail,
     canDeleteAccountWhenYouHaveNoProcessingBorrwingOrLendingCard,
+    borrowingOnProcess,
+    lendingOnProcess
   } = useTexts()
   const navigate = useNavigate()
   const profile = useSelectors((state) => state.profile.value)
@@ -91,9 +93,9 @@ const ProfileMembersDrawersContent = () => {
               noProcessingCard
                : 
               <>
-                Borrowing on process: {profile?.createdCards.length}
+                {borrowingOnProcess}: {profile?.createdCards.length}
                 <br />
-                Lending on process: {profile?.connectedCards.length}
+                {lendingOnProcess}: {profile?.connectedCards.length}
               </>
               //  processingCard
               }
