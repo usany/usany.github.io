@@ -74,7 +74,7 @@ function Navigation() {
       {showPlaylist &&
         createPortal(
           <div
-            className={`fixed bottom-4 left-4 z-[120] flex justify-start transition-all ${
+            className={`fixed bottom-0 left-0 z-[120] flex justify-start transition-all ${
               open ? 'opacity-100 pointer-events-auto duration-250' : 'opacity-0 pointer-events-none duration-0'
             }`}
           >
