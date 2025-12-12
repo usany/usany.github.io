@@ -84,7 +84,7 @@ function Navigation() {
           </div>,
           document.body,
         )}
-      <Drawer direction="left" open={open} onOpenChange={(value) => setTimeout(() => setOpen(value), 1000)}>
+      <Drawer direction="left" onOpenChange={(value) => value ? setTimeout(() => setOpen(value), 250) : setOpen(value)}>
       <DrawerTrigger className="px-5">
         <Avatars element={profile?.certificated ? profile : { defaultProfile: staticImage }} piazza={() => {}} profile={false} />
       </DrawerTrigger>
