@@ -1,7 +1,7 @@
 import { GoogleGenAI } from '@google/genai'
 import { Button } from '@mui/material'
 import { decode } from 'base64-arraybuffer'
-import { collection, doc, getDocs, setDoc } from 'firebase/firestore'
+import { collection, deleteDoc, doc, getDocs, setDoc } from 'firebase/firestore'
 import { Film, PlusCircle } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
@@ -138,7 +138,7 @@ function Collection() {
         ...images,
       ])
       const docRef = doc(dbservice, `collections/${id}`)
-      setDoc(docRef, {
+      await setDoc(docRef, {
         uid: id,
         userUid: profile.uid,
         displayName: profile.displayName,
@@ -160,6 +160,8 @@ function Collection() {
     }
   }
   const deleteImage = async (id) => {
+    const docRef = doc(dbservice, `collections/${id}`)
+    await deleteDoc(docRef)
     await supabase.storage.from('remake').remove([`collection/${id}`])
     setImages((prev) => prev.filter((value) => value.uid !== id))
   }
