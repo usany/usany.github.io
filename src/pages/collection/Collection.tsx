@@ -132,6 +132,7 @@ function Collection() {
       setImages((images) => [
         {
           uid: id,
+          userUid: profile.uid,
           displayName: profile.displayName,
           defaultProfile: attachment,
         },
@@ -196,11 +197,13 @@ function Collection() {
       const newImages = []
       docs.forEach((element) => {
         const uid = element.data().uid
+        const userUid = element.data().userUid
         const displayName = element.data().displayName
         const defaultProfile = element.data().defaultProfile
         if (defaultProfile) {
           newImages.push({
             uid: uid,
+            userUid: userUid,
             displayName: displayName,
             defaultProfile: defaultProfile,
           })
