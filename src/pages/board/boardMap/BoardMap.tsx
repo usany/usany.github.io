@@ -97,8 +97,8 @@ function BoardMap({
         return [value, {
           usanOne: 0,
           usanTwo: 0,
-          yangsanOne: 0,
-          yangsanTwo: 0,
+          ParasolOne: 0,
+          ParasolTwo: 0,
         }]
       }))
       docs.forEach((doc) => {
@@ -119,11 +119,11 @@ function BoardMap({
         } else if (doc.data().item === '양산') {
           if (doc.data().text.choose === 1) {
             if (key) {
-              itemCount[key].yangsanOne += 1
+              itemCount[key].ParasolOne += 1
             }
           } else if (doc.data().text.choose === 2) {
             if (key) {
-              itemCount[key].yangsanTwo += 1
+              itemCount[key].ParasolTwo += 1
             }
           }
         }
@@ -191,11 +191,11 @@ function BoardMap({
                 </div>
                 <div className="pt-3">
                   ${borrowing}
-                  ${items[key].yangsanOne}
+                  ${items[key].ParasolOne}
                 </div>
                 <div className="pt-3">
                   ${lending}
-                  ${items[key].yangsanTwo}
+                  ${items[key].ParasolTwo}
                 </div>
               </div>
           </div>`,

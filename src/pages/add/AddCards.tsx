@@ -85,7 +85,7 @@ const AddCards = ({ borrow, item, fromTo, locationState, display }: Props) => {
                           ? item
                           : item === '우산'
                           ? 'Umbrella'
-                          : 'Yangsan'}
+                          : 'Parasol'}
                         {' '}
                         {borrow
                             ? ' '+borrowing

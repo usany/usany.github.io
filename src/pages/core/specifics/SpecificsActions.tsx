@@ -4,7 +4,7 @@ import useTexts from 'src/hooks/useTexts'
 import SpecificsActionsPopups from './SpecificsActionsPopups'
 const items = {
   Usan: '우산',
-  Yangsan: '양산',
+  Parasol: '양산',
 }
 interface Props {
   message: {}

@@ -18,7 +18,7 @@ import { DocumentData } from 'firebase/firestore';
 
 const items = {
   ko: ['전체 아이템', '우산', '양산'],
-  en: ['All items', 'Usan', 'Yangsan'],
+  en: ['All items', 'Usan', 'Parasol'],
 }
 const locations = {
   ko: ['전체 장소', ...locationsBuildings['ko']],
