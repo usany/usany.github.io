@@ -41,17 +41,21 @@ function BoardMap({
     Global: 'gu',
     Gwangneung: 'gw'
   }
+  const {seoul, global, gwangneung} = useTexts()
   const campusesArray = [
     {
       name: 'Seoul',
+      displayName: seoul,
       onClick: () => setSelectedLocation('se')
     },
     {
       name: 'Global',
+      displayName: global,
       onClick: () => setSelectedLocation('gu')
     },
     {
       name: 'Gwangneung',
+      displayName: gwangneung,
       onClick: () => setSelectedLocation('gw')
     },
   ]
@@ -281,7 +285,7 @@ function BoardMap({
                   <Chip
                     sx={selectedLocation === locations[value.name] ? {}:undefined}
                     label={
-                      <button onClick={value.onClick}>{value.name}</button>
+                      <button onClick={value.onClick}>{value.displayName}</button>
                     }
                   />
                 )

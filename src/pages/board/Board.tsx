@@ -161,28 +161,6 @@ function Board() {
 
   return (
     <>
-      {/* <AlarmCheck />
-            <AlertCircle />
-            <Siren />
-            <Presentation />
-            <DoorOpen />
-            <UserRound />
-            <UserCheck />
-            <MessagesSquare />
-            <Umbrella />
-            <TowerControl />
-            <Clock />
-            <Building />
-            <Watch />
-            <Pencil />
-            <Search />
-            <SearchCheck />
-            <SearchCode />
-            <SearchSlash />
-            <Pen />
-            <PenBox />
-            <PenTool />
-            <PenSquare /> */}
       <SwipeableViews>
         <PageTitle
           icon={<Minimize2 />}
