@@ -127,16 +127,16 @@ function Collection() {
   }
   const newImage = async () => {
     if (attachment) {
+      const now = new Date().getTime()
+      const id = profile.uid + now.toString()
       setImages((images) => [
         {
-          uid: profile.uid,
+          uid: id,
           displayName: profile.displayName,
           defaultProfile: attachment,
         },
         ...images,
       ])
-      const now = new Date().getTime()
-      const id = profile.uid + now.toString()
       const docRef = doc(dbservice, `collections/${id}`)
       setDoc(docRef, {
         uid: id,
