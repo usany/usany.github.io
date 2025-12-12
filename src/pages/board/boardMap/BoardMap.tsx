@@ -303,10 +303,12 @@ function BoardMap({
             )}
             </div>
             {onLine ? (
+              <div className='px-5'>
               <div
                 ref={mapRef}
                 className='w-full h-[300px]'
               ></div>
+              </div>
             ) : (
               <div className="flex justify-center">
                 {needNetworkConnection}
