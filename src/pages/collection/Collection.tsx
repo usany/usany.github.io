@@ -359,10 +359,12 @@ function Collection() {
                     <div className='flex justify-end'>
                       {element.displayName}
                     </div>
+                    <div className='flex justify-end'>
                     {element.userUid === profile.uid && <Button className='colorOne' variant='outlined' onClick={() => {
                       navigate('/collection')
                       deleteImage(element.uid)
                     }}>practice</Button>}
+                    </div>
                   </div>
                 </MorphingDialogContent>
               </MorphingDialogContainer>
