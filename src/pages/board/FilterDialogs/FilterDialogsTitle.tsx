@@ -7,7 +7,7 @@ const itemsTitle = {
 }
 const items = {
   ko: ['전체 아이템', '우산', '양산'],
-  en: ['All items', 'Usan', 'Parasol']
+  en: ['All items', 'Umbrella', 'Parasol']
 }
 const locationsTitle = {
   ko: '장소 선택',

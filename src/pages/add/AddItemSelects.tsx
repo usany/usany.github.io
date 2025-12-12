@@ -20,7 +20,7 @@ function AddItemSelects({ item, changeItem }: Props) {
           value={item}
           onChange={changeItem}
         >
-          <MenuItem value={'우산'}>{languages === 'ko' ? '우산' : 'Usan'}</MenuItem>
+          <MenuItem value={'우산'}>{languages === 'ko' ? '우산' : 'Umbrella'}</MenuItem>
           <MenuItem value={'양산'}>{languages === 'ko' ? '양산' : 'Parasol'}</MenuItem>
         </Select>
       </FormControl>

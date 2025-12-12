@@ -4,7 +4,7 @@ import locationsBuildings from "src/pages/add/locationsBuildings";
 import { useSearchParams } from "react-router-dom";
 const items = {
   ko: ['전체 아이템', '우산', '양산'],
-  en: ['All items', 'Usan', 'Parasol']
+  en: ['All items', 'Umbrella', 'Parasol']
 }
 const locations = {
   ko: ['전체 장소', ...locationsBuildings['ko']],
