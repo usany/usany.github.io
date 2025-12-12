@@ -345,7 +345,7 @@ function Collection() {
                 >
                   <div className="flex flex-col">
                     <img src={element.defaultProfile} />
-                    <div>
+                    <div className='flex justify-end'>
                       {element.displayName}
                     </div>
                   </div>
