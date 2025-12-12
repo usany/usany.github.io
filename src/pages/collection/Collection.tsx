@@ -139,7 +139,7 @@ function Collection() {
       const id = profile.uid + now.toString()
       const docRef = doc(dbservice, `collections/${id}`)
       setDoc(docRef, {
-        uid: profile.uid,
+        uid: id,
         displayName: profile.displayName,
         defaultProfile: `${import.meta.env.VITE_SUPABASE_STORAGE_URL}/${id}`,
       })
@@ -162,6 +162,7 @@ function Collection() {
     await supabase.storage.from('remake').remove([`collection/${id}`])
     setImages((prev) => prev.filter((value) => value.uid !== id))
   }
+  console.log(images)
   // useEffect(() => {
   //   if (loading) {
   //     setChangedImage({
@@ -338,7 +339,7 @@ function Collection() {
                   src={element.defaultProfile}
                   className="w-[80px] h-[80px]"
                   onClick={() => {
-                    navigate(`/collection?card=${index}`)
+                    navigate(`/collection?card=${element.uid}`)
                   }}
                 />
               </MorphingDialogTrigger>
@@ -352,7 +353,10 @@ function Collection() {
                     <div className='flex justify-end'>
                       {element.displayName}
                     </div>
-                    {element.uid === profile.uid && <Button className='colorOne' variant='outlined' onClick={() =>deleteImage(element.uid)}>practice</Button>}
+                    {element.uid.includes(profile.uid) && <Button className='colorOne' variant='outlined' onClick={() => {
+                      navigate('/collection')
+                      deleteImage(element.uid)
+                    }}>practice</Button>}
                   </div>
                 </MorphingDialogContent>
               </MorphingDialogContainer>
