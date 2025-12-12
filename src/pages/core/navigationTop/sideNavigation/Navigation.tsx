@@ -71,19 +71,18 @@ function Navigation() {
   ]
   return (
     <>
-      {showPlaylist &&
-        createPortal(
-          <Playlist open={open} />,
-          // <div
-          //   className={`fixed bottom-0 left-0 z-[120] flex justify-start transition-all ${
-          //     open ? 'opacity-100 pointer-events-auto duration-250' : 'opacity-0 pointer-events-none duration-0'
-          //   }`}
-          // >
-          //   <div className="flex w-[350px] justify-center">
-          //   </div>
-          // </div>,
-          document.body,
-        )}
+      {showPlaylist && createPortal(
+        <Playlist open={open} />,
+        // <div
+        //   className={`fixed bottom-0 left-0 z-[120] flex justify-start transition-all ${
+        //     open ? 'opacity-100 pointer-events-auto duration-250' : 'opacity-0 pointer-events-none duration-0'
+        //   }`}
+        // >
+        //   <div className="flex w-[350px] justify-center">
+        //   </div>
+        // </div>,
+        document.body
+      )}
       <Drawer direction="left" onOpenChange={(value) => value ? setTimeout(() => setOpen(value), 250) : setOpen(value)}>
       <DrawerTrigger className="px-5">
         <Avatars element={profile?.certificated ? profile : { defaultProfile: staticImage }} piazza={() => {}} profile={false} />
