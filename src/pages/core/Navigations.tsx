@@ -1,7 +1,6 @@
 import { alpha } from '@mui/material'
 import BottomNavigation from '@mui/material/BottomNavigation'
 import BottomNavigationAction from '@mui/material/BottomNavigationAction'
-import { User } from 'firebase/auth'
 import { Pencil, Presentation, Umbrella } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -9,12 +8,8 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import useSelectors from 'src/hooks/useSelectors'
 import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
 import { changePiazzaForm } from 'src/stateSlices/piazzaFormSlice'
-import { changeScreenHeight } from 'src/stateSlices/screenHeight'
 import texts from 'src/texts.json'
 
-interface ThemeRootState {
-  theme: string
-}
 function Navigations() {
   const [backgroundColor, setBackgroundColor] = useState('#e2e8f0')
   const theme = useSelectors((state) => state.theme.value)
