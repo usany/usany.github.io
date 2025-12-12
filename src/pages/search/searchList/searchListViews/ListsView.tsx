@@ -1,7 +1,6 @@
 import { Chip, Divider } from '@mui/material'
 import { Ban, Check } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
-import { AnimatedGroup } from 'src/components/motion-primitives/animated-group'
 import useSelectors from 'src/hooks/useSelectors'
 import useTexts from 'src/hooks/useTexts'
 import Avatars from 'src/pages/core/Avatars'
