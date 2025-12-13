@@ -27,6 +27,7 @@ import FileOpenIcon from '@mui/icons-material/FileOpen';
 import { AnimatedGroup } from 'src/components/motion-primitives/animated-group'
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import ThumbUpAltOutlinedIcon from '@mui/icons-material/ThumbUpAltOutlined';
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 
 function Collection() {
   const {colorOne} = useCardsBackground()
@@ -388,7 +389,7 @@ function Collection() {
                           connectUser(element.uid)
                         }
                       }}>
-                        {connectedUsers.includes(profile.uid) ? <div className='flex gap-1'><ThumbsDown />{`${connectedUsers.length}`}</div> : <div className='flex gap-1'><ThumbsUp />{`${connectedUsers.length}`}</div>}
+                        {connectedUsers.includes(profile.uid) ? <div className='flex gap-1'><ThumbUpIcon />{`${connectedUsers.length}`}</div> : <div className='flex gap-1'><ThumbUpAltOutlinedIcon />{`${connectedUsers.length}`}</div>}
                       </Button>
                       {element.userUid === profile.uid && <Button className='colorOne' variant='outlined' onClick={() => {
                         navigate('/collection')
