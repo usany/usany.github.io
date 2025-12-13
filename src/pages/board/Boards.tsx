@@ -47,11 +47,11 @@ function Boards() {
   }, [])
   useEffect(() => {
     if (!window.location.search) {
-      navigate('/board?action=borrow')
+      navigate('/board?action=borrow', {replace: true})
     } else {
       selectedSearchParams.map((element, index) => {
         if (options[index].indexOf(element.value) === -1) {
-          navigate('/add?action=borrow')
+          navigate('/add?action=borrow', {replace: true})
         }
       })
     }

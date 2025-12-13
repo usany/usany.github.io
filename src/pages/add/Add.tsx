@@ -115,11 +115,11 @@ function Add({ borrow }: Props) {
   }, [])
   useEffect(() => {
     if (!window.location.search) {
-      navigate('/add?action=borrow')
+      navigate('/add?action=borrow', {replace: true})
     } else if (
       ['?action=borrow', '?action=lend'].indexOf(window.location.search) === -1
     ) {
-      navigate('/add?action=borrow')
+      navigate('/add?action=borrow', {replace: true})
     }
   }, [])
   useEffect(() => {
