@@ -147,10 +147,10 @@ function MorphingDialogContent({
 }: MorphingDialogContentProps) {
   const { setIsOpen, isOpen, uniqueId, triggerRef } = useMorphingDialog()
   const containerRef = useRef<HTMLDivElement>(null!)
-  const [firstFocusableElement, setFirstFocusableElement] =
-    useState<HTMLElement | null>(null)
-  const [lastFocusableElement, setLastFocusableElement] =
-    useState<HTMLElement | null>(null)
+  // const [firstFocusableElement, setFirstFocusableElement] =
+  //   useState<HTMLElement | null>(null)
+  // const [lastFocusableElement, setLastFocusableElement] =
+  //   useState<HTMLElement | null>(null)
   const navigate = useNavigate()
   const [searchParams] = useSearchParams();
   const card = searchParams.get("card");
@@ -158,24 +158,24 @@ function MorphingDialogContent({
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
         setIsOpen(false)
-        // navigate(`${location.pathname}`, { replace: true })
-        navigate(-1)
+        navigate(`${location.pathname}`, { replace: true })
+        // navigate(-1)
       }
-      if (event.key === 'Tab') {
-        if (!firstFocusableElement || !lastFocusableElement) return
+      // if (event.key === 'Tab') {
+      //   if (!firstFocusableElement || !lastFocusableElement) return
 
-        if (event.shiftKey) {
-          if (document.activeElement === firstFocusableElement) {
-            event.preventDefault()
-            lastFocusableElement.focus()
-          }
-        } else {
-          if (document.activeElement === lastFocusableElement) {
-            event.preventDefault()
-            firstFocusableElement.focus()
-          }
-        }
-      }
+      //   if (event.shiftKey) {
+      //     if (document.activeElement === firstFocusableElement) {
+      //       event.preventDefault()
+      //       lastFocusableElement.focus()
+      //     }
+      //   } else {
+      //     if (document.activeElement === lastFocusableElement) {
+      //       event.preventDefault()
+      //       firstFocusableElement.focus()
+      //     }
+      //   }
+      // }
     }
 
     document.addEventListener('keydown', handleKeyDown)
@@ -183,24 +183,24 @@ function MorphingDialogContent({
     return () => {
       document.removeEventListener('keydown', handleKeyDown)
     }
-  }, [setIsOpen, firstFocusableElement, lastFocusableElement])
+  }, [setIsOpen])
 
   useEffect(() => {
     if (isOpen) {
       document.body.classList.add('overflow-hidden')
-      const focusableElements = containerRef.current?.querySelectorAll(
-        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
-      )
-      if (focusableElements && focusableElements.length > 0) {
-        setFirstFocusableElement(focusableElements[0] as HTMLElement)
-        setLastFocusableElement(
-          focusableElements[focusableElements.length - 1] as HTMLElement,
-        )
-          ; (focusableElements[0] as HTMLElement).focus()
-      }
+      // const focusableElements = containerRef.current?.querySelectorAll(
+      //   'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+      // )
+      // if (focusableElements && focusableElements.length > 0) {
+      //   setFirstFocusableElement(focusableElements[0] as HTMLElement)
+      //   setLastFocusableElement(
+      //     focusableElements[focusableElements.length - 1] as HTMLElement,
+      //   )
+      //     ; (focusableElements[0] as HTMLElement).focus()
+      // }
     } else {
       document.body.classList.remove('overflow-hidden')
-      triggerRef.current?.focus()
+      // triggerRef.current?.focus()
     }
   }, [isOpen, triggerRef])
   // useEffect(() => {
@@ -213,8 +213,8 @@ function MorphingDialogContent({
   useClickOutside(containerRef, () => {
     if (isOpen && !drawerOpen) {
       setIsOpen(false)
-      // navigate(`${location.pathname}`, { replace: true })
-      navigate(-1)
+      navigate(`${location.pathname}`, { replace: true })
+      // navigate(-1)
     }
     drawerOpenFalse()
   })
