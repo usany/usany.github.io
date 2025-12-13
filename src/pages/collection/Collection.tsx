@@ -1,7 +1,7 @@
 import { GoogleGenAI } from '@google/genai'
 import { Button } from '@mui/material'
 import { decode } from 'base64-arraybuffer'
-import { collection, deleteDoc, doc, getDocs, setDoc } from 'firebase/firestore'
+import { arrayRemove, arrayUnion, collection, deleteDoc, doc, getDocs, setDoc, updateDoc } from 'firebase/firestore'
 import { Film, PlusCircle } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
@@ -87,6 +87,7 @@ function Collection() {
     changed: false,
   })
   const [drawerOpen, setDrawerOpen] = useState(false)
+  const [connectedUsers, setConnectedUsers] = useState([])
   const dispatch = useDispatch()
   // const initialProfile = {
   //   attachment: false,
@@ -168,7 +169,20 @@ function Collection() {
     await supabase.storage.from('remake').remove([`collection/${id}`])
     setImages((prev) => prev.filter((value) => value.uid !== id))
   }
-  console.log(images)
+  const connectUser = async (id) => {
+    const docRef = doc(dbservice, `collections/${id}`)
+    // await updateDoc(docRef, {
+    //   connectedUsers: arrayUnion(profile.uid)
+    // })
+    setConnectedUsers((prev) => [...prev, profile.uid])
+  }
+  const disconnectUser = async (id) => {
+    const docRef = doc(dbservice, `collections/${id}`)
+    // await updateDoc(docRef, {
+    //   connectedUsers: arrayRemove(profile.uid)
+    // })
+    setConnectedUsers((prev) => prev.filter((value) => value !== profile.uid))
+  }
   // useEffect(() => {
   //   if (loading) {
   //     setChangedImage({
@@ -202,13 +216,14 @@ function Collection() {
         const userUid = element.data().userUid
         const displayName = element.data().displayName
         const defaultProfile = element.data().defaultProfile
+        const connectedUsers = element.data().connectedUsers
         if (defaultProfile) {
           newImages.push({
             uid: uid,
             userUid: userUid,
             displayName: displayName,
             defaultProfile: defaultProfile,
-            connectedUsers: element.data().connectedUsers
+            connectedUsers: connectedUsers
           })
         }
       })
@@ -219,6 +234,7 @@ function Collection() {
   useEffect(() => {
     dispatch(changeBottomNavigation(5))
   }, [])
+  console.log(images)
   return (
     <div>
       <PageTitle icon={<Film />} title={exhibition} />
@@ -349,6 +365,7 @@ function Collection() {
                   className="w-[80px] h-[80px]"
                   onClick={() => {
                     navigate(`/collection?card=${element.uid}`)
+                    setConnectedUsers(element.connectedUsers)
                   }}
                 />
               </MorphingDialogTrigger>
@@ -364,9 +381,14 @@ function Collection() {
                     </div>
                     <div className='flex justify-end gap-1'>
                       <Button className='colorOne' variant='outlined' onClick={() => {
-                        navigate('/collection')
-                        deleteImage(element.uid)
-                      }}>practice</Button>
+                        if (connectedUsers.includes(profile.uid)) {
+                          disconnectUser(element.uid)
+                        } else {
+                          connectUser(element.uid)
+                        }
+                      }}>
+                        {connectedUsers.includes(profile.uid) ? `disconnect ${connectedUsers.length}` : `connect ${connectedUsers.length}`}
+                      </Button>
                       {element.userUid === profile.uid && <Button className='colorOne' variant='outlined' onClick={() => {
                         navigate('/collection')
                         deleteImage(element.uid)
