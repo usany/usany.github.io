@@ -2,7 +2,7 @@ import { GoogleGenAI } from '@google/genai'
 import { Button } from '@mui/material'
 import { decode } from 'base64-arraybuffer'
 import { arrayRemove, arrayUnion, collection, deleteDoc, doc, getDocs, setDoc, updateDoc } from 'firebase/firestore'
-import { Film, PlusCircle } from 'lucide-react'
+import { Ban, BanIcon, Delete, Film, PlusCircle, ThumbsDown, ThumbsUp } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
@@ -25,6 +25,8 @@ import Popups from '../core/Popups'
 import useCardsBackground from 'src/hooks/useCardsBackground'
 import FileOpenIcon from '@mui/icons-material/FileOpen';
 import { AnimatedGroup } from 'src/components/motion-primitives/animated-group'
+import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
+import ThumbUpAltOutlinedIcon from '@mui/icons-material/ThumbUpAltOutlined';
 
 function Collection() {
   const {colorOne} = useCardsBackground()
@@ -171,16 +173,16 @@ function Collection() {
   }
   const connectUser = async (id) => {
     const docRef = doc(dbservice, `collections/${id}`)
-    // await updateDoc(docRef, {
-    //   connectedUsers: arrayUnion(profile.uid)
-    // })
+    await updateDoc(docRef, {
+      connectedUsers: arrayUnion(profile.uid)
+    })
     setConnectedUsers((prev) => [...prev, profile.uid])
   }
   const disconnectUser = async (id) => {
     const docRef = doc(dbservice, `collections/${id}`)
-    // await updateDoc(docRef, {
-    //   connectedUsers: arrayRemove(profile.uid)
-    // })
+    await updateDoc(docRef, {
+      connectedUsers: arrayRemove(profile.uid)
+    })
     setConnectedUsers((prev) => prev.filter((value) => value !== profile.uid))
   }
   // useEffect(() => {
@@ -234,7 +236,6 @@ function Collection() {
   useEffect(() => {
     dispatch(changeBottomNavigation(5))
   }, [])
-  console.log(images)
   return (
     <div>
       <PageTitle icon={<Film />} title={exhibition} />
@@ -387,12 +388,12 @@ function Collection() {
                           connectUser(element.uid)
                         }
                       }}>
-                        {connectedUsers.includes(profile.uid) ? `disconnect ${connectedUsers.length}` : `connect ${connectedUsers.length}`}
+                        {connectedUsers.includes(profile.uid) ? <div className='flex gap-1'><ThumbsDown />{`${connectedUsers.length}`}</div> : <div className='flex gap-1'><ThumbsUp />{`${connectedUsers.length}`}</div>}
                       </Button>
                       {element.userUid === profile.uid && <Button className='colorOne' variant='outlined' onClick={() => {
                         navigate('/collection')
                         deleteImage(element.uid)
-                      }}>delete</Button>}
+                      }}>{<Ban />}</Button>}
                     </div>
                   </div>
                 </MorphingDialogContent>
