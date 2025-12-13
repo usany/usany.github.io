@@ -135,6 +135,7 @@ function Collection() {
           userUid: profile.uid,
           displayName: profile.displayName,
           defaultProfile: attachment,
+          connectedUsers: []
         },
         ...images,
       ])
@@ -144,6 +145,7 @@ function Collection() {
         userUid: profile.uid,
         displayName: profile.displayName,
         defaultProfile: `${import.meta.env.VITE_SUPABASE_STORAGE_URL}/${id}`,
+        connectedUsers: []
       })
       const splitedArray = attachment.split(';base64,')
       const content = splitedArray[0].slice(5)
@@ -206,6 +208,7 @@ function Collection() {
             userUid: userUid,
             displayName: displayName,
             defaultProfile: defaultProfile,
+            connectedUsers: element.data().connectedUsers
           })
         }
       })
@@ -359,11 +362,15 @@ function Collection() {
                     <div className='flex justify-end'>
                       {element.displayName}
                     </div>
-                    <div className='flex justify-end'>
-                    {element.userUid === profile.uid && <Button className='colorOne' variant='outlined' onClick={() => {
-                      navigate('/collection')
-                      deleteImage(element.uid)
-                    }}>practice</Button>}
+                    <div className='flex justify-end gap-1'>
+                      <Button className='colorOne' variant='outlined' onClick={() => {
+                        navigate('/collection')
+                        deleteImage(element.uid)
+                      }}>practice</Button>
+                      {element.userUid === profile.uid && <Button className='colorOne' variant='outlined' onClick={() => {
+                        navigate('/collection')
+                        deleteImage(element.uid)
+                      }}>delete</Button>}
                     </div>
                   </div>
                 </MorphingDialogContent>
