@@ -366,7 +366,7 @@ function Collection() {
                   src={element.defaultProfile}
                   className="w-[80px] h-[80px]"
                   onClick={() => {
-                    navigate(`/collection?card=${element.uid}`)
+                    navigate(`/collection?card=${element.uid}`, {replace: true})
                     setConnectedUsers(element.connectedUsers)
                   }}
                 />
@@ -392,7 +392,7 @@ function Collection() {
                         {connectedUsers.includes(profile.uid) ? <div className='flex gap-1'><ThumbUpIcon />{`${connectedUsers.length}`}</div> : <div className='flex gap-1'><ThumbUpAltOutlinedIcon />{`${connectedUsers.length}`}</div>}
                       </Button>
                       {element.userUid === profile.uid && <Button className='colorOne' variant='outlined' onClick={() => {
-                        navigate('/collection')
+                        navigate('/collection', {replace: true})
                         deleteImage(element.uid)
                       }}>{<Ban />}</Button>}
                     </div>
