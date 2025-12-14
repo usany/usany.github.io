@@ -2,7 +2,7 @@ import { alpha } from '@mui/material'
 import BottomNavigation from '@mui/material/BottomNavigation'
 import BottomNavigationAction from '@mui/material/BottomNavigationAction'
 import { Pencil, Presentation, Umbrella } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { useEffect, useLayoutEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useLocation, useNavigate } from 'react-router-dom'
 import useSelectors from 'src/hooks/useSelectors'
@@ -19,7 +19,7 @@ function Navigations() {
   const profile = useSelectors((state) => state.profile.value)
   const tabs = useSelectors((state) => state.tabs.value)
   const dispatch = useDispatch()
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (theme === 'dark') {
       setBackgroundColor('#2d3848')
     } else {
