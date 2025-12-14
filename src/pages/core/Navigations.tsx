@@ -5,6 +5,7 @@ import { Pencil, Presentation, Umbrella } from 'lucide-react'
 import { useEffect, useLayoutEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useLocation, useNavigate } from 'react-router-dom'
+import useCardsBackground from 'src/hooks/useCardsBackground'
 import useSelectors from 'src/hooks/useSelectors'
 import { changeBottomNavigation } from 'src/stateSlices/bottomNavigationSlice'
 import { changePiazzaForm } from 'src/stateSlices/piazzaFormSlice'
@@ -12,6 +13,7 @@ import texts from 'src/texts.json'
 
 function Navigations() {
   const [backgroundColor, setBackgroundColor] = useState('#e2e8f0')
+  const {colorTwo} = useCardsBackground()
   const theme = useSelectors((state) => state.theme.value)
   const piazzaForm = useSelectors((state) => state.piazzaForm.value)
   const bottomNavigation = useSelectors((state) => state.bottomNavigation.value)
@@ -73,7 +75,7 @@ function Navigations() {
       {(!piazzaForm || location.pathname !== '/piazza') && (
         <div className="w-screen z-50 fixed bottom-0 start-0 end-0">
           <BottomNavigation
-            sx={{ bgcolor: alpha(backgroundColor, 0.8), borderRadius: '10px', borderTop: '1px solid' }}
+            sx={{ bgcolor: alpha(colorTwo, 0.8), borderRadius: '10px', borderTop: '1px solid' }}
             showLabels
             value={bottomNavigation}
             onChange={(event, newValue) => {
