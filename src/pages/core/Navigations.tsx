@@ -19,7 +19,7 @@ function Navigations() {
   const profile = useSelectors((state) => state.profile.value)
   const tabs = useSelectors((state) => state.tabs.value)
   const dispatch = useDispatch()
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (theme === 'dark') {
       setBackgroundColor('#2d3848')
     } else {
