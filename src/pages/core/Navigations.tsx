@@ -12,8 +12,6 @@ import { changePiazzaForm } from 'src/stateSlices/piazzaFormSlice'
 import texts from 'src/texts.json'
 
 function Navigations() {
-  // const [backgroundColor, setBackgroundColor] = useState('#e2e8f0')
-  // const theme = useSelectors((state) => state.theme.value)
   const {colorTwo} = useCardsBackground()
   const piazzaForm = useSelectors((state) => state.piazzaForm.value)
   const bottomNavigation = useSelectors((state) => state.bottomNavigation.value)
@@ -21,6 +19,8 @@ function Navigations() {
   const profile = useSelectors((state) => state.profile.value)
   const tabs = useSelectors((state) => state.tabs.value)
   const dispatch = useDispatch()
+  // const [backgroundColor, setBackgroundColor] = useState('#e2e8f0')
+  // const theme = useSelectors((state) => state.theme.value)
   // useEffect(() => {
   //   if (theme === 'dark') {
   //     setBackgroundColor('#2d3848')
