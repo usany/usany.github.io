@@ -170,7 +170,7 @@ function BoardMap({
         //   (key) => locationsCollectionLetters[key] === value[1][languages].name,
         // )
         const contentString = [
-          `<div class="markerContainer">
+          `<div className="markerContainer p-5">
             <div class="markerTitle">
               ${value[1][languages].name}
             </div>
