@@ -170,7 +170,7 @@ function BoardMap({
         //   (key) => locationsCollectionLetters[key] === value[1][languages].name,
         // )
         const contentString = [
-          `<div className="markerContainer p-5">
+          `<div class="markerContainer">
             <div class="markerTitle">
               ${value[1][languages].name}
             </div>
@@ -203,6 +203,7 @@ function BoardMap({
         const infoWindow = new naver.maps.InfoWindow({
           id: value[1][languages].name,
           content: contentString,
+          maxWidth: 250,
           backgroundColor: theme === 'light' ? '#fff' : '#777',
           anchorColor: theme === 'light' ? '#fff' : '#777',
           borderColor: theme !== 'light' ? '#fff' : '#777',
