@@ -97,7 +97,6 @@ function PiazzaForm({
       }
     }
     handleMessages('')
-    inputRef.current?.focus()
   }
 
   const onChangeMsgHandler = (event) => {
@@ -273,7 +272,10 @@ function PiazzaForm({
       className={`fixed w-screen ${
         piazzaForm ? 'bottom-0' : 'bottom-[60px]'
       } flex gap-px`}
-      onSubmit={onSendSubmitHandler}
+      onSubmit={(event) => {
+        inputRef.current?.focus()
+        onSendSubmitHandler(event)
+      }}
     >
       {conversation && conversation !== 'piazza' && (
         <Popups
