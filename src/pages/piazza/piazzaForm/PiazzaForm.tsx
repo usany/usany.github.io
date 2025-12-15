@@ -97,6 +97,7 @@ function PiazzaForm({
       }
     }
     handleMessages('')
+    inputRef.current?.focus()
   }
 
   const onChangeMsgHandler = (event) => {
