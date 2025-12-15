@@ -445,7 +445,7 @@ function PiazzaScreen({
               </li>
             )
           })}
-          <li id='messagesEnd' ref={messagesEndRef} />
+          <li ref={messagesEndRef} />
         </ul>
       </div>
     </>

@@ -275,7 +275,6 @@ function PiazzaForm({
       onSubmit={(event) => {
         inputRef.current?.focus()
         onSendSubmitHandler(event)
-        document.getElementById('messagesEnd')?.scrollIntoView()
       }}
     >
       {conversation && conversation !== 'piazza' && (
