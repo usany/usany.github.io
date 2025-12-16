@@ -27,8 +27,8 @@ const useGetToken = () => {
           console.log('No registration token available.')
         }
       } catch (err) {
-        // alert(err)
         console.error('Error getting token:', err)
+        // alert(err)
       }
     }
     requestPermission()
