@@ -23,7 +23,7 @@ const NavigationTop = () => {
   return (
     <>
       {(!piazzaForm || location.pathname !== '/piazza') &&
-        <nav className="shadow-md fixed z-50 bg-light-2 dark:bg-dark-2 rounded truncate">
+        <nav className="shadow-md fixed z-50 bg-light-2 dark:bg-dark-2 rounded truncate w-screen">
           <div className="flex justify-between w-screen items-center">
             <Navigation />
             <div className={`flex ${!largeMedia && 'flex-col'} items-center`}>
