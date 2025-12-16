@@ -15,7 +15,7 @@ const useGetToken = () => {
         })
         if (token) {
           console.log('Token generated:', token)
-          alert(token)
+          // alert(token)
           // Send this token to your server to store it for later use
           // webSocket.on('messagingToken', token)
           // return (
@@ -27,7 +27,7 @@ const useGetToken = () => {
           console.log('No registration token available.')
         }
       } catch (err) {
-        alert(err)
+        // alert(err)
         console.error('Error getting token:', err)
       }
     }
