@@ -12,7 +12,7 @@ import { changePiazzaForm } from 'src/stateSlices/piazzaFormSlice'
 import texts from 'src/texts.json'
 
 function Navigations() {
-  const {colorTwo} = useCardsBackground()
+  const { colorTwo } = useCardsBackground()
   const piazzaForm = useSelectors((state) => state.piazzaForm.value)
   const bottomNavigation = useSelectors((state) => state.bottomNavigation.value)
   const languages = useSelectors((state) => state.languages.value)
@@ -72,44 +72,77 @@ function Navigations() {
   // console.log(window.visualViewport?.height)
   return (
     <>
-      {(!piazzaForm || location.pathname !== '/piazza') && (
-        <div className="w-screen z-50 fixed bottom-0 start-0 end-0">
-          <BottomNavigation
-            sx={{ bgcolor: alpha(colorTwo, 0.8), borderRadius: '10px', borderTop: '1px solid' }}
-            showLabels
-            value={bottomNavigation}
-            onChange={(event, newValue) => {
-              dispatch(changeBottomNavigation(newValue))
-            }}
-          >
-            <BottomNavigationAction
-              onClick={() =>
-                navigate(`/add?action=${tabs ? 'lend' : 'borrow'}`)
-              }
-              label={texts[languages as keyof typeof texts]['register']}
-              icon={<Pencil />}
-            />
-            <BottomNavigationAction
-              onClick={() => navigate('/')}
-              label={
-                profile?.certificated
-                  ? texts[languages as keyof typeof texts]['myStatus']
-                  : texts[languages as keyof typeof texts]['logIn']
-              }
-              icon={<Umbrella />}
-            />
-            <BottomNavigationAction
-              onClick={() =>
-                navigate(`/board?action=${tabs ? 'lend' : 'borrow'}`)
-              }
-              label={texts[languages as keyof typeof texts]['board']}
-              icon={<Presentation />}
-            />
-          </BottomNavigation>
-        </div>
-      )}
-    </>
-  )
+      <div className="w-screen z-50 fixed bottom-0 start-0 end-0">
+        <BottomNavigation
+          sx={{ bgcolor: alpha(colorTwo, 0.8), borderRadius: '10px', borderTop: '1px solid' }}
+          showLabels
+          value={bottomNavigation}
+          onChange={(event, newValue) => {
+            dispatch(changeBottomNavigation(newValue))
+          }}
+        >
+          <BottomNavigationAction
+            onClick={() =>
+              navigate(`/add?action=${tabs ? 'lend' : 'borrow'}`)
+            }
+            label={texts[languages as keyof typeof texts]['register']}
+            icon={<Pencil />}
+          />
+          <BottomNavigationAction
+            onClick={() => navigate('/')}
+            label={
+              profile?.certificated
+                ? texts[languages as keyof typeof texts]['myStatus']
+                : texts[languages as keyof typeof texts]['logIn']
+            }
+            icon={<Umbrella />}
+          />
+          <BottomNavigationAction
+            onClick={() =>
+              navigate(`/board?action=${tabs ? 'lend' : 'borrow'}`)
+            }
+            label={texts[languages as keyof typeof texts]['board']}
+            icon={<Presentation />}
+          />
+        </BottomNavigation>
+        {/* {(!piazzaForm || location.pathname !== '/piazza') && (
+          <div className="w-screen z-50 fixed bottom-0 start-0 end-0">
+            <BottomNavigation
+              sx={{ bgcolor: alpha(colorTwo, 0.8), borderRadius: '10px', borderTop: '1px solid' }}
+              showLabels
+              value={bottomNavigation}
+              onChange={(event, newValue) => {
+                dispatch(changeBottomNavigation(newValue))
+              }}
+            >
+              <BottomNavigationAction
+                onClick={() =>
+                  navigate(`/add?action=${tabs ? 'lend' : 'borrow'}`)
+                }
+                label={texts[languages as keyof typeof texts]['register']}
+                icon={<Pencil />}
+              />
+              <BottomNavigationAction
+                onClick={() => navigate('/')}
+                label={
+                  profile?.certificated
+                    ? texts[languages as keyof typeof texts]['myStatus']
+                    : texts[languages as keyof typeof texts]['logIn']
+                }
+                icon={<Umbrella />}
+              />
+              <BottomNavigationAction
+                onClick={() =>
+                  navigate(`/board?action=${tabs ? 'lend' : 'borrow'}`)
+                }
+                label={texts[languages as keyof typeof texts]['board']}
+                icon={<Presentation />}
+              />
+            </BottomNavigation>
+          </div>
+        )} */}
+      </>
+      )
 }
 
-export default Navigations
+      export default Navigations
