@@ -269,7 +269,7 @@ function PiazzaForm({
   }, [piazzaForm])
   return (
     <form
-      className={`fixed w-screen ${
+      className={`fixed w-full ${
         piazzaForm ? 'bottom-0' : 'bottom-[60px]'
       } flex gap-px`}
       onSubmit={(event) => {

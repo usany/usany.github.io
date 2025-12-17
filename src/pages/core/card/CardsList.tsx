@@ -22,11 +22,11 @@ const CardsList = ({ choose, messages }: Props) => {
     }).filter((element) => element !== null)
   const onLine = useSelectors((state) => state.onLine.value)
   return (
-    <div className="flex justify-center w-screen">
+    <div className="flex justify-center w-full">
       {onLine ? (
         <>
           {chosenMessages.length ? (
-            <AnimatedGroup className="grid grid-cols-[repeat(auto-fit,minmax(180px,1fr))] place-items-center col-span-full w-screen">
+            <AnimatedGroup className="grid grid-cols-[repeat(auto-fit,minmax(180px,1fr))] place-items-center col-span-full w-full">
               {chosenMessages}
             </AnimatedGroup>
           ) : (

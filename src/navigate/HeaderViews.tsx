@@ -88,7 +88,7 @@ const HeaderViews = ({ userObj }: Props) => {
         handleSideNavigation={handleSideNavigation}
         sideNavigation={sideNavigation}
       />
-      <div className="flex justify-between w-screen">
+      <div className="flex justify-between w-full">
         <div className="px-5 pt-1">
           <div>
             {profileUrl ? (

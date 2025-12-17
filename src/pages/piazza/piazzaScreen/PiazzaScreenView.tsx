@@ -358,7 +358,7 @@ function PiazzaScreen({
     handleMessagesList([])
   }
   return (
-    <div className={`fixed w-screen bg-light-3 dark:bg-dark-3 flex flex-col ${isKeyboardOpen ? 'bottom-[50px] h-full pt-[120px]' : 'bottom-[110px] h-[60%]'}`}>
+    <div className={`fixed w-full bg-light-3 dark:bg-dark-3 flex flex-col ${isKeyboardOpen ? 'bottom-[50px] h-full pt-[120px]' : 'bottom-[110px] h-[60%]'}`}>
       <div ref={boxRef} className='p-1 border-t rounded-xl overflow-auto'>
         {/* <ul>
           {isLoading && (

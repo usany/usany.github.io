@@ -104,7 +104,7 @@ const ChatsBoxes = ({
               profileUrl={message}
             />
           )}
-          <div className="flex flex-col w-screen">
+          <div className="flex flex-col w-full">
             <div className="flex justify-between">
               <ChatsBoxesRoom displayName={displayName} multiple={multiple} />
               <ChatsBoxesClock message={message} />
