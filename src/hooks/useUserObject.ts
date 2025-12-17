@@ -54,9 +54,9 @@ const useUserObject = () => {
             }, 5000)
           }
         })
-        if (!result) {
-          dispatch(changeProfile(null))
-        }
+        // if (!result) {
+        //   dispatch(changeProfile(null))
+        // }
         // if (user?.uid) {
         //   await setProfile(user.uid)
         // } else {
