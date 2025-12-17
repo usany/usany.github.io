@@ -382,7 +382,7 @@ function Collection() {
                       <div className='flex justify-end'>
                         {element.displayName}
                       </div>
-                      <div className='flex justify-end gap-1'>
+                      <div className='flex justify-end gap-1 px-5'>
                         <Button className='colorOne' variant='outlined' onClick={() => {
                           if (connectedUsers.includes(profile.uid)) {
                             disconnectUser(element.uid)

@@ -7,7 +7,7 @@
   src: url('src/assets/fonts/OTF/MaruBuri-Light.otf') format('opentype')
 }
 html {
-  overflow-y:scroll;
+  overflow-y: scroll;
 }
 ::selection {
   background: #CFCFCF;
