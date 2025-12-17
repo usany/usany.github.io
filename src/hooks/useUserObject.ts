@@ -27,11 +27,11 @@ const useUserObject = () => {
       }, 200)
     }
   }
-  const onLine = useSelectors((state) => state.onLine.value)
-  if (!onLine) {
-    dispatch(changeProfile(null))
-    return null
-  }
+  // const onLine = useSelectors((state) => state.onLine.value)
+  // if (!onLine) {
+  //   dispatch(changeProfile(null))
+  //   return null
+  // }
   console.log(profile)
   useEffect(() => {
     const handleRedirectResult = async () => {
