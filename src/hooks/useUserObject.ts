@@ -45,9 +45,7 @@ const useUserObject = () => {
         auth.onAuthStateChanged((user) => {
           if (user?.uid) {
             console.log(user?.uid)
-                        setTimeout(() => {
             setProfile(user?.uid)
-                        }, 5000)
           } else {
             setTimeout(() => {
               dispatch(changeProfile(null))
@@ -73,9 +71,7 @@ const useUserObject = () => {
       console.log(user)
       if (user?.uid) {
         console.log(user?.uid)
-                                setTimeout(() => {
         setProfile(user?.uid)
-                }, 5000)
       } else {
         setTimeout(() => {
           dispatch(changeProfile(null))
