@@ -177,7 +177,7 @@ const ChattingStacks = ({
     <EmptyCard />
   )
   return (
-    <AnimatedGroup>
+    <AnimatedGroup className='w-full'>
       {sorted.map((element) => {
         if (element === 'piazza') {
           const message = navigator.onLine ? piazzaMessage : JSON.parse(localStorage.getItem('group') || '{}')

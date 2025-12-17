@@ -293,7 +293,7 @@ const ChartLegendContent = React.forwardRef<
               : 'No completed activities'}
           </div>
         )}
-        <div className="flex gap-5 w-full">
+        <div className="flex gap-5 w-screen">
           {payload.map((item) => {
             const key = `${nameKey || item.dataKey || 'value'}`
             const itemConfig = getPayloadConfigFromPayload(config, item, key)
