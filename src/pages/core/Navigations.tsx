@@ -109,9 +109,9 @@ function Navigations() {
             </BottomNavigation>
           </div>)
         }
-        </div>
-      </>
-      )
+      </div>
+    </>
+  )
 }
 
-      export default Navigations
+export default Navigations
