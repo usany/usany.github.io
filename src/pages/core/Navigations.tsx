@@ -72,9 +72,9 @@ function Navigations() {
   // console.log(window.visualViewport?.height)
   return (
     <>
-      <div className="w-screen z-50 fixed bottom-0 start-0 end-0">
+      <div className="w-full z-50 fixed bottom-0 start-0 end-0">
         {(!piazzaForm || location.pathname !== '/piazza') && (
-          <div className="w-screen z-50 fixed bottom-0 start-0 end-0">
+          <div className="w-full z-50 fixed bottom-0 start-0 end-0">
             <BottomNavigation
               sx={{ bgcolor: alpha(colorTwo, 0.8), borderRadius: '10px', borderTop: '1px solid' }}
               showLabels
