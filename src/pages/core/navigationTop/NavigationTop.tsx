@@ -19,7 +19,7 @@ const NavigationTop = () => {
   const scrollLocation =
     ['/', '/add', '/board'].indexOf(location.pathname) === -1
   const piazzaForm = useSelectors((state) => state.piazzaForm.value)
-  if (piazzaForm && location.pathname === '/piazza') return null
+  // if (piazzaForm && location.pathname === '/piazza') return null
   return (
     <>
       {(!piazzaForm || location.pathname !== '/piazza') &&
