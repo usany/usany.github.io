@@ -43,11 +43,13 @@ const useUserObject = () => {
         auth.onAuthStateChanged((user) => {
           if (user?.uid) {
             console.log(user?.uid)
-            setProfile(user?.uid)
+            setTimeout(() => {
+              setProfile(user?.uid)
+            }, 1000)
           } else {
             setTimeout(() => {
               dispatch(changeProfile(null))
-            }, 5000)
+            }, 2500)
           }
         })
         // if (!result) {
@@ -69,11 +71,13 @@ const useUserObject = () => {
       console.log(user)
       if (user?.uid) {
         console.log(user?.uid)
-        setProfile(user?.uid)
+        setTimeout(() => {
+          setProfile(user?.uid)
+        }, 1000)
       } else {
         setTimeout(() => {
           dispatch(changeProfile(null))
-        }, 5000)
+        }, 2500)
       }
     })
   }, [])
