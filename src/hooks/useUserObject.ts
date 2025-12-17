@@ -21,6 +21,7 @@ const useUserObject = () => {
       newProfile.profileImageUrl = profileImage.attachment
     }
     if (newProfile) {
+      console.log(newProfile)
       setTimeout(() => {
         dispatch(changeProfile(newProfile))
       }, 200)
@@ -42,6 +43,7 @@ const useUserObject = () => {
         // const user = result?.user
         auth.onAuthStateChanged((user) => {
           if (user?.uid) {
+            console.log(user?.uid)
             setProfile(user?.uid)
           } else {
             setTimeout(() => {
@@ -67,6 +69,7 @@ const useUserObject = () => {
     auth.onAuthStateChanged((user) => {
       console.log(user)
       if (user?.uid) {
+        console.log(user?.uid)
         setProfile(user?.uid)
       } else {
         setTimeout(() => {
