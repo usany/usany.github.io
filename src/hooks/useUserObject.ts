@@ -66,20 +66,20 @@ const useUserObject = () => {
     }
     if (location.hostname === 'khusan.co.kr') {
       handleRedirectResult()
+    } else {
+      auth.onAuthStateChanged((user) => {
+        if (user?.uid) {
+          console.log(user?.uid)
+          setTimeout(() => {
+            setProfile(user?.uid)
+          }, 1000)
+        } else {
+          setTimeout(() => {
+            dispatch(changeProfile(null))
+          }, 1000)
+        }
+      })
     }
-    auth.onAuthStateChanged((user) => {
-      console.log(user)
-      if (user?.uid) {
-        console.log(user?.uid)
-        setTimeout(() => {
-          setProfile(user?.uid)
-        }, 1000)
-      } else {
-        setTimeout(() => {
-          dispatch(changeProfile(null))
-        }, 1000)
-      }
-    })
   }, [])
 }
 export default useUserObject
