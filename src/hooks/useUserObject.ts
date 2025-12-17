@@ -49,7 +49,7 @@ const useUserObject = () => {
           } else {
             setTimeout(() => {
               dispatch(changeProfile(null))
-            }, 2500)
+            }, 1500)
           }
         })
         // if (!result) {
@@ -77,7 +77,7 @@ const useUserObject = () => {
       } else {
         setTimeout(() => {
           dispatch(changeProfile(null))
-        }, 2500)
+        }, 1500)
       }
     })
   }, [])
