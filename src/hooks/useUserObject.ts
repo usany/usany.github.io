@@ -27,11 +27,11 @@ const useUserObject = () => {
       }, 200)
     }
   }
-  // const onLine = useSelectors((state) => state.onLine.value)
-  // if (!onLine) {
-  //   dispatch(changeProfile(null))
-  //   return null
-  // }
+  const onLine = useSelectors((state) => state.onLine.value)
+  if (!onLine) {
+    dispatch(changeProfile(null))
+    return null
+  }
   console.log(profile)
   useEffect(() => {
     const handleRedirectResult = async () => {
@@ -45,7 +45,9 @@ const useUserObject = () => {
         auth.onAuthStateChanged((user) => {
           if (user?.uid) {
             console.log(user?.uid)
+                        setTimeout(() => {
             setProfile(user?.uid)
+                        }, 5000)
           } else {
             setTimeout(() => {
               dispatch(changeProfile(null))
@@ -71,7 +73,9 @@ const useUserObject = () => {
       console.log(user)
       if (user?.uid) {
         console.log(user?.uid)
+                                setTimeout(() => {
         setProfile(user?.uid)
+                }, 5000)
       } else {
         setTimeout(() => {
           dispatch(changeProfile(null))
