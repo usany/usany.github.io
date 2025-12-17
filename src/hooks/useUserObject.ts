@@ -31,55 +31,54 @@ const useUserObject = () => {
     return null
   }
   console.log(profile)
-  useEffect(() => {
-    const handleRedirectResult = async () => {
-      try {
-        const result = await getRedirectResult(auth)
-        console.log(result)
-        if (result) {
-          onSocialClick(result)
-        }
-        // const user = result?.user
-        auth.onAuthStateChanged((user) => {
-          if (user?.uid) {
-            console.log(user?.uid)
-            setTimeout(() => {
-              setProfile(user?.uid)
-            }, 1000)
-          } else {
-            setTimeout(() => {
-              dispatch(changeProfile(null))
-            }, 1000)
-          }
-        })
-        // if (!result) {
-        //   dispatch(changeProfile(null))
-        // }
-        // if (user?.uid) {
-        //   await setProfile(user.uid)
-        // } else {
-        //   dispatch(changeProfile(null))
-        // }
-      } catch (error) {
-        console.error('Error handling redirect result', error)
+  const handleRedirectResult = async () => {
+    try {
+      const result = await getRedirectResult(auth)
+      console.log(result)
+      if (result) {
+        onSocialClick(result)
       }
+      // const user = result?.user
+      // auth.onAuthStateChanged((user) => {
+      //   if (user?.uid) {
+      //     console.log(user?.uid)
+      //     setTimeout(() => {
+      //       setProfile(user?.uid)
+      //     }, 1000)
+      //   } else {
+      //     setTimeout(() => {
+      //       dispatch(changeProfile(null))
+      //     }, 1000)
+      //   }
+      // })
+      // if (!result) {
+      //   dispatch(changeProfile(null))
+      // }
+      // if (user?.uid) {
+      //   await setProfile(user.uid)
+      // } else {
+      //   dispatch(changeProfile(null))
+      // }
+    } catch (error) {
+      console.error('Error handling redirect result', error)
     }
+  }
+  useEffect(() => {
     if (location.hostname === 'khusan.co.kr') {
       handleRedirectResult()
-    } else {
-      auth.onAuthStateChanged((user) => {
-        if (user?.uid) {
-          console.log(user?.uid)
-          setTimeout(() => {
-            setProfile(user?.uid)
-          }, 1000)
-        } else {
-          setTimeout(() => {
-            dispatch(changeProfile(null))
-          }, 1000)
-        }
-      })
-    }
+    } 
+    auth.onAuthStateChanged((user) => {
+      if (user?.uid) {
+        console.log(user?.uid)
+        setTimeout(() => {
+          setProfile(user?.uid)
+        }, 1000)
+      } else {
+        setTimeout(() => {
+          dispatch(changeProfile(null))
+        }, 1000)
+      }
+    })
   }, [])
 }
 export default useUserObject
