@@ -32,6 +32,7 @@ const useUserObject = () => {
     dispatch(changeProfile(null))
     return null
   }
+  console.log(profile)
   useEffect(() => {
     const handleRedirectResult = async () => {
       try {
