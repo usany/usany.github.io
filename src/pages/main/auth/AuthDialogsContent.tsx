@@ -13,7 +13,7 @@ function AuthDialogsContent({changeProgress}) {
   const largeMedia = useLargeMedia()
   return (
     <div className='flex justify-center'>
-      <div className="flex flex-col w-[470px] rounded-lg pt-5">
+      <div className={`${!largeMedia && 'w-[470px]'} flex flex-col`}>
         <AuthMethods agreed={agreed} changeAgreed={changeAgreed} changeProgress={changeProgress}/>
         <AuthForm signIn={false} agreed={agreed} />
       </div>
