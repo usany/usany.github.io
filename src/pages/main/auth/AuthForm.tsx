@@ -23,7 +23,7 @@ const AuthForm = ({ signIn, agreed }: Props) => {
   const largeMedia = useLargeMedia()
   return (
     <div className="flex justify-center p-5">
-      <div className={`flex flex-col border border-solid rounded-lg pt-5 ${signIn ? 'w-[470px]' : largeMedia ? 'justify-center w-[470px]' : 'w-full'}`}>
+      <div className={`flex flex-col border border-solid rounded-lg pt-5 ${signIn || largeMedia ? 'w-[470px]' : 'w-full'}`}>
         <AuthFormInputs signIn={signIn} agreed={agreed} />
         {signIn && <AuthDialogs />}
       </div>
