@@ -59,7 +59,7 @@ function AuthMethods({ agreed, changeAgreed, changeProgress }: Props) {
   //   }
   // }
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col w-full">
       <Accordion type="single" collapsible>
         <AccordionItem value="item-1">
           <AccordionTrigger ref={docRef} className="px-3" onClick={(event) => {
