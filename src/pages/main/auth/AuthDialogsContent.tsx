@@ -13,7 +13,7 @@ function AuthDialogsContent({changeProgress}) {
   const largeMedia = useLargeMedia()
   // const {onlyTakesOneMinuteToRegisterAccount, playlistReadyForYouToGetRidOfBoredom} = useTexts()
   return (
-    <div className={`${!largeMedia && 'w-full'}`}>
+    <div className={`${!largeMedia && 'w-[470px]'}`}>
       {/* <div className="flex flex-col p-3">
         {onlyTakesOneMinuteToRegisterAccount}
         {playlistReadyForYouToGetRidOfBoredom}
