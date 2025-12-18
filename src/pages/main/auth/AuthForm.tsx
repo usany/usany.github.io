@@ -22,7 +22,7 @@ const AuthForm = ({ signIn, agreed }: Props) => {
 
   return (
     <div className="flex justify-center p-5">
-      <div className="flex flex-col border border-solid rounded-lg pt-5">
+      <div className={`flex flex-col border border-solid rounded-lg pt-5 ${signIn ? 'w-[470px]' : 'w-full'}`}>
         <AuthFormInputs signIn={signIn} agreed={agreed} />
         {signIn && <AuthDialogs />}
       </div>
