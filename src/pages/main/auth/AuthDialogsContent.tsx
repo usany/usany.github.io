@@ -10,9 +10,11 @@ function AuthDialogsContent({changeProgress}) {
   }
   const largeMedia = useLargeMedia()
   return (
-    <div className={`${!largeMedia && 'w-[470px]'}`}>
-      <AuthMethods agreed={agreed} changeAgreed={changeAgreed} changeProgress={changeProgress}/>
-      <AuthForm signIn={false} agreed={agreed} />
+    <div className="flex justify-center p-5">
+      <div className={`${!largeMedia && 'w-[470px]'} flex flex-col`}>
+        <AuthMethods agreed={agreed} changeAgreed={changeAgreed} changeProgress={changeProgress}/>
+        <AuthForm signIn={false} agreed={agreed} />
+      </div>
     </div>
   );
 }

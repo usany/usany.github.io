@@ -35,7 +35,7 @@ const AuthButtons = () => {
     },
   ]
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center pt-5">
       <div className="flex flex-col">
         {buttons.map((value) => {
           return (
