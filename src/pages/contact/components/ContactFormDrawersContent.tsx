@@ -54,7 +54,7 @@ function ContactFormDrawersContent({ changeViolationUser }: Props) {
             elements={users}
             multiple={true}
             userSearch={userSearch}
-            ranking={false}
+            ranking={true}
             handleUser={changeViolationUser}
           />
         </div>
