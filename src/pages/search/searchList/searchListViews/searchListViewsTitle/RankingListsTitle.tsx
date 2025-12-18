@@ -17,8 +17,6 @@ function RankingListsTitle({ multiple }: Props) {
     locationConfirmation,
     location,
     confirmation,
-    campus,
-    verification
   } = useTexts()
   const [searchParams, setSearchParams] = useSearchParams()
 
@@ -49,8 +47,8 @@ function RankingListsTitle({ multiple }: Props) {
           <div>{points}</div>
         </div>
         <div className="flex flex-col justify-center items-center w-[100px]">
-          <div>{campus}</div>
-          <div>{verification}</div>
+          <div>Campus</div>
+          <div>Verification</div>
         </div>
       </div>
     </div>
