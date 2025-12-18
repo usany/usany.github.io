@@ -13,16 +13,17 @@ import supabase from 'src/baseApi/base.tsx'
 import { useDispatch } from 'react-redux'
 import { changeProfile } from 'src/stateSlices/profileSlice.tsx'
 import AuthFormInputs from './AuthFormInputs.tsx'
+import useLargeMedia from 'src/hooks/useLargeMedia.ts'
 
 interface Props {
   signIn: boolean
   agreed: boolean
 }
 const AuthForm = ({ signIn, agreed }: Props) => {
-
+  const largeMedia = useLargeMedia()
   return (
     <div className="flex justify-center p-5">
-      <div className={`flex flex-col border border-solid rounded-lg pt-5 ${signIn ? 'w-[470px]' : 'w-full'}`}>
+      <div className={`flex flex-col border border-solid rounded-lg pt-5 ${signIn ? 'w-[470px]' : largeMedia ? 'flex justify-center w-[470px]' : 'w-full'}`}>
         <AuthFormInputs signIn={signIn} agreed={agreed} />
         {signIn && <AuthDialogs />}
       </div>
