@@ -5,7 +5,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from '@/components/ui/drawer'
-import { ScrollArea } from '@/components/ui/scroll-area'
+import { ScrollArea } from '@radix-ui/react-scroll-area'
 import { LinearProgress } from '@mui/material'
 import { Scroll } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'

@@ -21,7 +21,7 @@ interface Props {
 const AuthForm = ({ signIn, agreed }: Props) => {
 
   return (
-    <div className="flex justify-center pt-5">
+    <div className="flex justify-center pt-5 px-5">
       <div className="flex flex-col border border-solid w-[470px] rounded-lg pt-5">
         <AuthFormInputs signIn={signIn} agreed={agreed} />
         {signIn && <AuthDialogs />}
