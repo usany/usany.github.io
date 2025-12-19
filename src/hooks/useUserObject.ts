@@ -69,10 +69,10 @@ const useUserObject = () => {
     } 
     auth.onAuthStateChanged((user) => {
       if (user?.uid) {
-        console.log(user?.uid)
+        const delay = profile === null ? 0 : 1000
         setTimeout(() => {
           setProfile(user?.uid)
-        }, 1000)
+        }, delay)
       } else {
         setTimeout(() => {
           dispatch(changeProfile(null))
