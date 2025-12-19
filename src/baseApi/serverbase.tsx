@@ -118,9 +118,9 @@ const onSocialClick = async (result) => {
         defaultProfile: url,
       })
     })
-    setTimeout(() => {
-      location.reload()
-    }, 1000)
+    // setTimeout(() => {
+    //   location.reload()
+    // }, 1000)
   }
 }
 const onSocialClickGoogle = () => {

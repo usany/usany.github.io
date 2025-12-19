@@ -34,6 +34,7 @@ const useUserObject = () => {
   console.log(profile)
   const handleRedirectResult = async () => {
     try {
+      dispatch(changeLoading(true))
       const result = await getRedirectResult(auth)
       console.log(result)
       if (result) {

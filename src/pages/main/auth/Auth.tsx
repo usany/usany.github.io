@@ -65,14 +65,14 @@ function Auth() {
     setMailSent(true)
   }
   const confirmNumber = async () => {
-    dispatch(changeLoading(true))
+    // dispatch(changeLoading(true))
     if (numberString === createdNumber) {
       const userDocRef = doc(dbservice, `members/${profile?.uid}`)
       await updateDoc(userDocRef, { certificated: true })
       dispatch(changeProfile({ ...profile, certificated: true }))
-      dispatch(changeLoading(false))
+      // dispatch(changeLoading(false))
     } else {
-      dispatch(changeLoading(false))
+      // dispatch(changeLoading(false))
       alert(checkTheNumber)
     }
   }
@@ -83,7 +83,6 @@ function Auth() {
       dispatch(changeLoading(true))
       deleteUser(auth.currentUser)
         .then(() => {
-          dispatch(changeLoading(false))
           // location.reload()
         })
         .catch((error) => {
