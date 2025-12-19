@@ -9,6 +9,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { auth, dbservice } from 'src/baseApi/serverbase'
 import useSelectors from 'src/hooks/useSelectors'
 import useTexts from 'src/hooks/useTexts'
+import { changeLoading } from 'src/stateSlices/loadingSlice'
 import { changeProfile } from 'src/stateSlices/profileSlice'
 
 const ProfileMembersDrawersContent = () => {
@@ -44,6 +45,7 @@ const ProfileMembersDrawersContent = () => {
     console.log('practice')
     if (process && confirmEmail) {
       if (auth.currentUser) {
+        dispatch(changeLoading(true))
         deleteUser(auth.currentUser)
           .then(async () => {
             await deleteDoc(doc(dbservice, `members/${profile?.uid}`))
@@ -53,6 +55,7 @@ const ProfileMembersDrawersContent = () => {
             // User deleted.
           })
           .catch((error) => {
+            dispatch(changeLoading(false))
             console.log(error)
             // An error ocurred
             // ...

@@ -68,8 +68,8 @@ const useUserObject = () => {
     if (location.hostname === 'khusan.co.kr') {
       handleRedirectResult()
     } 
+    const delay = profile === undefined ? 1000 : 0
     auth.onAuthStateChanged((user) => {
-      const delay = profile === undefined ? 1000 : 0
       if (user?.uid) {
         setTimeout(() => {
           dispatch(changeLoading(false))
