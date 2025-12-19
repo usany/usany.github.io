@@ -7,7 +7,6 @@ export const useSortedChattings = () => {
   const profile = useSelectors((state) => state.profile.value)
   const [chattings, setChattings] = useState({})
   const changeChattings = (newValue) => setChattings(newValue)
-  const changeChattingNone = (newValue) => setChattingNone(newValue)
   const chattingsArray = navigator.onLine ? chattings : JSON.parse(localStorage.getItem('chattings') || '[]')
   const sorted = Object.keys(chattingsArray).sort((elementOne, elementTwo) => {
     return (
@@ -31,7 +30,5 @@ export const useSortedChattings = () => {
     chattings: chattings,
     changeChattings: changeChattings,
     sorted: sorted,
-    chattingNone: chattingNone,
-    changeChattingNone: changeChattingNone
   }
 }
