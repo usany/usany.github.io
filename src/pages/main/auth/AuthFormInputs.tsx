@@ -29,6 +29,7 @@ const AuthFormInputs = ({ signIn, agreed }: Props) => {
       dispatch(changeLoading(true))
       await signInWithEmailAndPassword(auth, account.email, account.password)
     } catch (error) {
+      dispatch(changeLoading(false))
       console.log(error)
       const errorMessage = '로그인 실패: 계정을 확인해 주세요'
       setError(errorMessage)

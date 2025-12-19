@@ -14,6 +14,7 @@ import Motions from 'src/pages/main/auth/Motions'
 import { changeProfile } from 'src/stateSlices/profileSlice'
 import AuthPassword from './AuthPassword'
 import { TextScramble } from 'src/components/motion-primitives/text-scramble'
+import { changeLoading } from 'src/stateSlices/loadingSlice'
 
 function Auth() {
   const [numberString, setNumberString] = useState('')
@@ -64,11 +65,13 @@ function Auth() {
     setMailSent(true)
   }
   const confirmNumber = async () => {
+    dispatch(changeLoading(true))
     if (numberString === createdNumber) {
       const userDocRef = doc(dbservice, `members/${profile?.uid}`)
       await updateDoc(userDocRef, { certificated: true })
       dispatch(changeProfile({ ...profile, certificated: true }))
     } else {
+      dispatch(changeLoading(false))
       alert(checkTheNumber)
     }
   }
