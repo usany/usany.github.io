@@ -56,6 +56,7 @@ const ProfileMembersDrawersContent = () => {
           })
           .catch((error) => {
             dispatch(changeLoading(false))
+            alert(error)
             console.log(error)
             // An error ocurred
             // ...
