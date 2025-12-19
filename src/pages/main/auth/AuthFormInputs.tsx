@@ -11,6 +11,7 @@ import useTexts from 'src/hooks/useTexts'
 import supabase from 'src/baseApi/base.tsx'
 import { useDispatch } from 'react-redux'
 import { changeProfile } from 'src/stateSlices/profileSlice.tsx'
+import { changeLoading } from 'src/stateSlices/loadingSlice'
 
 interface Props {
   signIn: boolean

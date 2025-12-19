@@ -1,4 +1,4 @@
-import { Suspense, lazy } from 'react'
+import { Suspense, lazy, useEffect } from 'react'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import useSelectors from 'src/hooks/useSelectors'
 import Navigations from 'src/pages/core/Navigations'
@@ -9,6 +9,11 @@ import Profile from 'src/pages/profile/Profile'
 import Adds from '../../add/Adds'
 import Loadings from './loadings/Loadings'
 import Boards from 'src/pages/board/Boards'
+import { createPortal } from 'react-dom'
+import LottieProcess from 'src/lottiesAnimation/LottieProcess'
+import Lotties from 'src/lottiesAnimation/Lotties'
+import Lottie from 'react-lottie'
+import LottieLoading from 'src/lottiesAnimation/LottieLoading'
 
 const Router = () => {
   // const Home = lazy(() => import('src/pages/main/Home'))
@@ -18,6 +23,7 @@ const Router = () => {
   const Collection = lazy(() => import('src/pages/collection/Collection'))
   const Contact = lazy(() => import('src/pages/contact/Contact'))
   const profile = useSelectors((state) => state.profile.value)
+  const loading = useSelectors((state) => state.loading.value)
   return (
     <BrowserRouter basename="/">
       <div className="flex flex-col">
@@ -43,6 +49,7 @@ const Router = () => {
         </div>
         <Navigations />
       </div>
+      {loading && createPortal(<div className='z-50 bg-blue h-screen w-screen'><LottieLoading /></div>, document.body)}
     </BrowserRouter>
   )
 }
