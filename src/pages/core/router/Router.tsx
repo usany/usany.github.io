@@ -49,7 +49,9 @@ const Router = () => {
         </div>
         <Navigations />
       </div>
-      {loading && createPortal(<div className='z-50 bg-blue h-screen w-screen'><LottieLoading /></div>, document.body)}
+      {loading && createPortal(<div className='fixed z-50 inset-0 h-full w-full bg-white/40 backdrop-blur-lg dark:bg-black/40'>
+        <LottieLoading />
+        </div>, document.body)}
     </BrowserRouter>
   )
 }
