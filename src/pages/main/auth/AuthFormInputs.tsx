@@ -11,6 +11,7 @@ import useTexts from 'src/hooks/useTexts'
 import supabase from 'src/baseApi/base.tsx'
 import { useDispatch } from 'react-redux'
 import { changeProfile } from 'src/stateSlices/profileSlice.tsx'
+import { changeLoading } from 'src/stateSlices/loadingSlice'
 
 interface Props {
   signIn: boolean
@@ -25,7 +26,9 @@ const AuthFormInputs = ({ signIn, agreed }: Props) => {
   const onSubmitSignIn = async (event) => {
     event.preventDefault()
     try {
+      dispatch(changeLoading(true))
       await signInWithEmailAndPassword(auth, account.email, account.password)
+      dispatch(changeLoading(false))
     } catch (error) {
       console.log(error)
       const errorMessage = '로그인 실패: 계정을 확인해 주세요'
