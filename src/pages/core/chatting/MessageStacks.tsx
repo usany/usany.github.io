@@ -10,7 +10,7 @@ const MessageStacks = () => {
   const chattingsArray = navigator.onLine ? chattings : JSON.parse(localStorage.getItem('chattings') || '[]')
   return (
     <div className="flex flex-col gap-1 w-full">
-      {navigator.onLine && chattingNone && <EmptyChattingStacks index={index} />}
+      {/* {navigator.onLine && chattingNone && <EmptyChattingStacks index={index} />} */}
       <ChattingStacks
         chattings={chattingsArray}
         changeChattings={changeChattings}

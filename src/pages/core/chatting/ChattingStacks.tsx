@@ -173,7 +173,7 @@ const ChattingStacks = ({
       webSocket.off(`sNewMessage`, sNewMessageCallback)
     }
   })
-  if (!sorted.length) return (
+  if (!chattings) return (
     <EmptyCard />
   )
   return (
