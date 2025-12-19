@@ -13,8 +13,10 @@ function LottieLoading() {
     }
   };
   return (
-    <div className='fixed top-[50%] left-[50%] right-[50%] z-50'>
-      <Lottie options={defaultOptions} height={200} width={200} />
+    <div className='fixed z-50 inset-0 h-full w-full bg-black/50'>
+      <div className='flex items-center h-full'>
+        <Lottie options={defaultOptions} height={200} width={200} />
+      </div>
     </div>
   )
 }
