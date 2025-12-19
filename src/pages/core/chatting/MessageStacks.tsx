@@ -1,6 +1,4 @@
-import useSelectors from 'src/hooks/useSelectors'
 import ChattingStacks from './ChattingStacks'
-import EmptyChattingStacks from './EmptyChattingStacks'
 import { useSortedChattings } from './useSortedChattings'
 
 const MessageStacks = () => {
