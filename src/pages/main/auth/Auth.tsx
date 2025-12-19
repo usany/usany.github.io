@@ -70,6 +70,7 @@ function Auth() {
       const userDocRef = doc(dbservice, `members/${profile?.uid}`)
       await updateDoc(userDocRef, { certificated: true })
       dispatch(changeProfile({ ...profile, certificated: true }))
+      dispatch(changeLoading(false))
     } else {
       dispatch(changeLoading(false))
       alert(checkTheNumber)
@@ -79,11 +80,15 @@ function Auth() {
     await deleteDoc(doc(dbservice, `members/${profile?.uid}`))
     const auth = getAuth()
     if (auth) {
+      dispatch(changeLoading(true))
       deleteUser(auth.currentUser)
         .then(() => {
+          dispatch(changeLoading(false))
           // location.reload()
         })
         .catch((error) => {
+          dispatch(changeLoading(false))
+          alert(error)
           console.log(error)
         })
     }
