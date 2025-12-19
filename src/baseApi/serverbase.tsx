@@ -3,7 +3,9 @@ import {
   GoogleAuthProvider,
   OAuthProvider,
   signInWithPopup,
+  signInWithRedirect,
   updateProfile,
+  type UserCredential,
 } from 'firebase/auth'
 import {
   collection,
@@ -58,7 +60,8 @@ const messaging = getMessaging(app)
 // auth.languageCode = 'en'
 auth.useDeviceLanguage()
 
-const onSocialClick = async (result) => {
+const onSocialClick = async (result: UserCredential) => {
+  console.log(result)
   const uid = result.user.uid
   const email = result.user.email
   const docRef = doc(dbservice, `members/${uid}`)
@@ -134,13 +137,18 @@ const onSocialClickGoogle = () => {
     })
 }
 const onSocialClickMicrosoft = () => {
+  console.log('Current URL before redirect:', window.location.href)
+  console.log('Auth domain:', auth.config.authDomain)
+  
   const providerMicrosoft = new OAuthProvider('microsoft.com')
-  signInWithPopup(auth, providerMicrosoft)
-    .then((result) => onSocialClick(result))
+  
+  signInWithRedirect(auth, providerMicrosoft)
+    .then(() => {
+    })
     .catch((error) => {
-      console.log(error)
     })
 }
+
 const onSocialClickApple = () => {
   const providerApple = new OAuthProvider('apple.com')
   signInWithPopup(auth, providerApple)

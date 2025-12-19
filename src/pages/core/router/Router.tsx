@@ -37,7 +37,7 @@ const Router = () => {
                   <Route path="/collection" element={<Collection />} />
                 </>
               )}
-              <Route path="*" element={<Navigate to="/" replace />} />
+              {/* <Route path="*" element={<Navigate to="/" replace />} /> */}
             </Routes>
           </Suspense>
         </div>
