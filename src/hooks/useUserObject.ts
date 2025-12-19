@@ -7,6 +7,7 @@ import { dbservice } from 'src/baseApi/serverbase'
 import { changeProfile } from 'src/stateSlices/profileSlice'
 import useSelectors from './useSelectors'
 import { getRedirectResult } from 'firebase/auth'
+import { changeLoading } from 'src/stateSlices/loadingSlice'
 
 const useUserObject = () => {
   const profile = useSelectors((state) => state.profile.value)
@@ -68,15 +69,17 @@ const useUserObject = () => {
       handleRedirectResult()
     } 
     auth.onAuthStateChanged((user) => {
+      const delay = profile === undefined ? 1000 : 0
       if (user?.uid) {
-        console.log(user?.uid)
         setTimeout(() => {
+          dispatch(changeLoading(false))
           setProfile(user?.uid)
-        }, 1000)
+        }, delay)
       } else {
         setTimeout(() => {
+          dispatch(changeLoading(false))
           dispatch(changeProfile(null))
-        }, 1000)
+        }, delay)
       }
     })
   }, [])
