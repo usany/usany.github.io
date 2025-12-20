@@ -81,7 +81,7 @@ function PiazzaScreen({
         profileImage,
         conversation,
       } = message
-      if (conversation !== 'piazza') {
+      if (conversation === 'piazza') {
         handleMessagesList((prev) => [
           ...prev,
           {
