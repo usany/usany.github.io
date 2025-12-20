@@ -81,6 +81,7 @@ function PiazzaForm({
     }
     if (multiple) {
       if (sendData && message) {
+        console.log(message)
         webSocket.emit('piazzaMessage', sendData)
         onForm()
       }
