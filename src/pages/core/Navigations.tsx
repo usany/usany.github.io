@@ -42,14 +42,16 @@ function Navigations() {
   })
   useEffect(() => {
     const listener = (event) => {
-      const height = event?.target.height ? event?.target.height.toFixed(0) : 0
-      console.log(height)
       const minKeyboardHeight = 400
       const newState = window.screen.height - minKeyboardHeight > (window.visualViewport?.height || window.screen.height)
+      // const height = event?.target.height ? event?.target.height.toFixed(0) : 0
+      // console.log(height)
       // const newState =
       //   window.screen.height - minKeyboardHeight > 1000
       //     ? 500
       //     : 300 > (window.visualViewport?.height || window.screen.height)
+      // console.log(window.screen.height)
+      // console.log(window.visualViewport?.height)
       if (piazzaForm !== newState) {
         // setIsKeyboardOpen(newState)
         // dispatch(changeScreenHeight(height))
