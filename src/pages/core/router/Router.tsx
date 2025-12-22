@@ -1,4 +1,4 @@
-import { Suspense, lazy, useEffect } from 'react'
+import { Suspense, lazy } from 'react'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import useSelectors from 'src/hooks/useSelectors'
 import Navigations from 'src/pages/core/Navigations'
@@ -10,9 +10,6 @@ import Adds from '../../add/Adds'
 import Loadings from './loadings/Loadings'
 import Boards from 'src/pages/board/Boards'
 import { createPortal } from 'react-dom'
-import LottieProcess from 'src/lottiesAnimation/LottieProcess'
-import Lotties from 'src/lottiesAnimation/Lotties'
-import Lottie from 'react-lottie'
 import LottieLoading from 'src/lottiesAnimation/LottieLoading'
 
 const Router = () => {
