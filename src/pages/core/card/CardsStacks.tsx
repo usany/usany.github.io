@@ -8,7 +8,7 @@ import { useBringCards } from './useBringCards'
 function CardsStacks() {
   const profile = useSelectors((state) => state.profile.value)
   const { messages, cardLoaded }: { messages: DocumentData[], cardLoaded: boolean } = useBringCards(profile)
-
+  console.log(messages)
   return (
     <div>
       {!cardLoaded && !messages.length && navigator.onLine &&

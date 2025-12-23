@@ -24,6 +24,7 @@ const Cards = ({
   const [searchParams, setSearchParams] = useSearchParams()
   const location = useLocation()
   const [messageValue, setMessageValue] = useState({})
+  const profile = useSelectors((state) => state.profile.value)
   useEffect(() => {
     setMessageValue(message)
   }, [message])
