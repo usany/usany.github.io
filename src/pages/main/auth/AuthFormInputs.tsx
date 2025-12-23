@@ -8,10 +8,10 @@ import { auth, dbservice } from 'src/baseApi/serverbase'
 import useSelectors from 'src/hooks/useSelectors'
 import setDocUser from 'src/pages/core/setDocUser.ts'
 import useTexts from 'src/hooks/useTexts'
-import AuthDialogs from './AuthDialogs.tsx'
 import supabase from 'src/baseApi/base.tsx'
 import { useDispatch } from 'react-redux'
 import { changeProfile } from 'src/stateSlices/profileSlice.tsx'
+import { changeLoading } from 'src/stateSlices/loadingSlice'
 
 interface Props {
   signIn: boolean
@@ -26,8 +26,10 @@ const AuthFormInputs = ({ signIn, agreed }: Props) => {
   const onSubmitSignIn = async (event) => {
     event.preventDefault()
     try {
+      dispatch(changeLoading(true))
       await signInWithEmailAndPassword(auth, account.email, account.password)
     } catch (error) {
+      dispatch(changeLoading(false))
       console.log(error)
       const errorMessage = '로그인 실패: 계정을 확인해 주세요'
       setError(errorMessage)

@@ -81,7 +81,7 @@ function PiazzaScreen({
         profileImage,
         conversation,
       } = message
-      if (conversation !== 'piazza') {
+      if (conversation === 'piazza') {
         handleMessagesList((prev) => [
           ...prev,
           {
@@ -322,7 +322,7 @@ function PiazzaScreen({
 
   return (
     <>
-      <div ref={boxRef} className={`p-1 border-t rounded-xl overflow-auto fixed w-screen bg-light-3 dark:bg-dark-3 flex flex-col ${piazzaForm ? 'top-0 bottom-[50px]' : 'bottom-[110px] h-[60%]'}`}
+      <div ref={boxRef} className={`p-1 border-t rounded-xl overflow-auto fixed w-full bg-light-3 dark:bg-dark-3 flex flex-col ${piazzaForm ? 'top-0 bottom-[50px]' : 'bottom-[110px] h-[60%]'}`}
         // style={piazzaForm ? { height: containerHeight } : {}}
       >
         <ul>

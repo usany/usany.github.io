@@ -1,8 +1,8 @@
 import { GoogleGenAI } from '@google/genai'
 import { Button } from '@mui/material'
 import { decode } from 'base64-arraybuffer'
-import { collection, doc, getDocs, setDoc } from 'firebase/firestore'
-import { Film, PlusCircle } from 'lucide-react'
+import { arrayRemove, arrayUnion, collection, deleteDoc, doc, getDocs, setDoc, updateDoc } from 'firebase/firestore'
+import { Ban, BanIcon, Delete, Film, PlusCircle, ThumbsDown, ThumbsUp } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
@@ -25,6 +25,9 @@ import Popups from '../core/Popups'
 import useCardsBackground from 'src/hooks/useCardsBackground'
 import FileOpenIcon from '@mui/icons-material/FileOpen';
 import { AnimatedGroup } from 'src/components/motion-primitives/animated-group'
+import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
+import ThumbUpAltOutlinedIcon from '@mui/icons-material/ThumbUpAltOutlined';
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 
 function Collection() {
   const {colorOne} = useCardsBackground()
@@ -87,6 +90,7 @@ function Collection() {
     changed: false,
   })
   const [drawerOpen, setDrawerOpen] = useState(false)
+  const [connectedUsers, setConnectedUsers] = useState([])
   const dispatch = useDispatch()
   // const initialProfile = {
   //   attachment: false,
@@ -127,21 +131,25 @@ function Collection() {
   }
   const newImage = async () => {
     if (attachment) {
+      const now = new Date().getTime()
+      const id = profile.uid + now.toString()
       setImages((images) => [
         {
-          uid: profile.uid,
+          uid: id,
+          userUid: profile.uid,
           displayName: profile.displayName,
           defaultProfile: attachment,
+          connectedUsers: []
         },
         ...images,
       ])
-      const now = new Date().getTime()
-      const id = profile.uid + now.toString()
       const docRef = doc(dbservice, `collections/${id}`)
-      setDoc(docRef, {
-        uid: profile.uid,
+      await setDoc(docRef, {
+        uid: id,
+        userUid: profile.uid,
         displayName: profile.displayName,
         defaultProfile: `${import.meta.env.VITE_SUPABASE_STORAGE_URL}/${id}`,
+        connectedUsers: []
       })
       const splitedArray = attachment.split(';base64,')
       const content = splitedArray[0].slice(5)
@@ -157,6 +165,26 @@ function Collection() {
         console.log(error)
       }
     }
+  }
+  const deleteImage = async (id) => {
+    const docRef = doc(dbservice, `collections/${id}`)
+    await deleteDoc(docRef)
+    await supabase.storage.from('remake').remove([`collection/${id}`])
+    setImages((prev) => prev.filter((value) => value.uid !== id))
+  }
+  const connectUser = async (id) => {
+    const docRef = doc(dbservice, `collections/${id}`)
+    await updateDoc(docRef, {
+      connectedUsers: arrayUnion(profile.uid)
+    })
+    setConnectedUsers((prev) => [...prev, profile.uid])
+  }
+  const disconnectUser = async (id) => {
+    const docRef = doc(dbservice, `collections/${id}`)
+    await updateDoc(docRef, {
+      connectedUsers: arrayRemove(profile.uid)
+    })
+    setConnectedUsers((prev) => prev.filter((value) => value !== profile.uid))
   }
   // useEffect(() => {
   //   if (loading) {
@@ -188,13 +216,17 @@ function Collection() {
       const newImages = []
       docs.forEach((element) => {
         const uid = element.data().uid
+        const userUid = element.data().userUid
         const displayName = element.data().displayName
         const defaultProfile = element.data().defaultProfile
+        const connectedUsers = element.data().connectedUsers
         if (defaultProfile) {
           newImages.push({
             uid: uid,
+            userUid: userUid,
             displayName: displayName,
             defaultProfile: defaultProfile,
+            connectedUsers: connectedUsers
           })
         }
       })
@@ -325,36 +357,54 @@ function Collection() {
         }
         attachment={changedImage.attachment}
       />
-      {images.length && <AnimatedGroup className="grid grid-cols-[repeat(auto-fit,minmax(80px,1fr))] col-span-full p-5">
-        {images.map((element, index) => {
-          return (
-            <MorphingDialog key={index}>
-              <MorphingDialogTrigger>
-                <img
-                  src={element.defaultProfile}
-                  className="w-[80px] h-[80px]"
-                  onClick={() => {
-                    navigate(`/collection?card=${index}`)
-                  }}
-                />
-              </MorphingDialogTrigger>
-              <MorphingDialogContainer>
-                <MorphingDialogContent
-                  drawerOpen={drawerOpen}
-                  drawerOpenFalse={() => setDrawerOpen(false)}
-                >
-                  <div className="flex flex-col">
-                    <img src={element.defaultProfile} />
-                    <div>
-                      {element.displayName}
+      {images.length > 0 && 
+        <AnimatedGroup className="grid grid-cols-[repeat(auto-fit,minmax(80px,1fr))] col-span-full p-5">
+          {images.map((element, index) => {
+            return (
+              <MorphingDialog key={index}>
+                <MorphingDialogTrigger>
+                  <img
+                    src={element.defaultProfile}
+                    className="w-[80px] h-[80px]"
+                    onClick={() => {
+                      navigate(`/collection?card=${element.uid}`, {replace: true})
+                      setConnectedUsers(element.connectedUsers)
+                    }}
+                  />
+                </MorphingDialogTrigger>
+                <MorphingDialogContainer>
+                  <MorphingDialogContent
+                    drawerOpen={drawerOpen}
+                    drawerOpenFalse={() => setDrawerOpen(false)}
+                  >
+                    <div className="flex flex-col px-5">
+                      <img src={element.defaultProfile} />
+                      <div className='flex justify-end'>
+                        {element.displayName}
+                      </div>
+                      <div className='flex justify-end gap-1'>
+                        <Button className='colorOne' variant='outlined' onClick={() => {
+                          if (connectedUsers.includes(profile.uid)) {
+                            disconnectUser(element.uid)
+                          } else {
+                            connectUser(element.uid)
+                          }
+                        }}>
+                          {connectedUsers.includes(profile.uid) ? <div className='flex gap-1'><ThumbUpIcon />{`${connectedUsers.length}`}</div> : <div className='flex gap-1'><ThumbUpAltOutlinedIcon />{`${connectedUsers.length}`}</div>}
+                        </Button>
+                        {element.userUid === profile.uid && <Button className='colorOne' variant='outlined' onClick={() => {
+                          navigate('/collection', {replace: true})
+                          deleteImage(element.uid)
+                        }}>{<Ban />}</Button>}
+                      </div>
                     </div>
-                  </div>
-                </MorphingDialogContent>
-              </MorphingDialogContainer>
-            </MorphingDialog>
-          )
-        })}
-      </AnimatedGroup>}
+                  </MorphingDialogContent>
+                </MorphingDialogContainer>
+              </MorphingDialog>
+            )
+          })}
+        </AnimatedGroup>
+      }
     </div>
   )
 }

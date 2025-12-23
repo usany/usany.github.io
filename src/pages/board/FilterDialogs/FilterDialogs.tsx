@@ -4,11 +4,11 @@ import locationsBuildings from "src/pages/add/locationsBuildings";
 import FilterDialogsTrigger from "./FilterDialogsTrigger";
 const itemsTitle = {
   ko: '우산 / 양산 선택',
-  en: 'Select Usan / Yangsan'
+  en: 'Select Usan / Parasol'
 }
 const items = {
   ko: ['전체 아이템', '우산', '양산'],
-  en: ['All items', 'Usan', 'Yangsan']
+  en: ['All items', 'Umbrella', 'Parasol']
 }
 const locationsTitle = {
   ko: '장소 선택',

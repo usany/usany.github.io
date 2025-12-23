@@ -9,6 +9,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { auth, dbservice } from 'src/baseApi/serverbase'
 import useSelectors from 'src/hooks/useSelectors'
 import useTexts from 'src/hooks/useTexts'
+import { changeLoading } from 'src/stateSlices/loadingSlice'
 import { changeProfile } from 'src/stateSlices/profileSlice'
 
 const ProfileMembersDrawersContent = () => {
@@ -21,6 +22,8 @@ const ProfileMembersDrawersContent = () => {
     processingCard,
     toDeleteAccountInputMail,
     canDeleteAccountWhenYouHaveNoProcessingBorrwingOrLendingCard,
+    borrowingOnProcess,
+    lendingOnProcess
   } = useTexts()
   const navigate = useNavigate()
   const profile = useSelectors((state) => state.profile.value)
@@ -39,20 +42,26 @@ const ProfileMembersDrawersContent = () => {
     }
   }
   const delist = () => {
+    console.log('practice')
     if (process && confirmEmail) {
       if (auth.currentUser) {
+        dispatch(changeLoading(true))
         deleteUser(auth.currentUser)
           .then(async () => {
             await deleteDoc(doc(dbservice, `members/${profile?.uid}`))
-            navigate('/')
+            // navigate('/')
+            dispatch(changeProfile(null))
             console.log(user)
             // User deleted.
           })
           .catch((error) => {
+            dispatch(changeLoading(false))
+            alert(error)
             console.log(error)
             // An error ocurred
             // ...
           })
+        
         // navigate('/')
         // await deleteDoc(doc(dbservice, `members/${profile?.uid}`))
       }
@@ -88,9 +97,9 @@ const ProfileMembersDrawersContent = () => {
               noProcessingCard
                : 
               <>
-                Borrowing on process: {profile?.createdCards.length}
+                {borrowingOnProcess}: {profile?.createdCards.length}
                 <br />
-                Lending on process: {profile?.connectedCards.length}
+                {lendingOnProcess}: {profile?.connectedCards.length}
               </>
               //  processingCard
               }

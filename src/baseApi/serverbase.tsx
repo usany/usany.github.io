@@ -5,7 +5,6 @@ import {
   signInWithPopup,
   signInWithRedirect,
   updateProfile,
-  type UserCredential,
 } from 'firebase/auth'
 import {
   collection,
@@ -28,7 +27,8 @@ import setDocUser from 'src/pages/core/setDocUser'
 // Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: 'AIzaSyAtraq33KBmaj0rkDAfOdXmEQtVnamrQtc',
-  authDomain: import.meta.env.VITE_AUTH_DOMAIN,
+  authDomain: 'khusan.co.kr',
+  // authDomain: import.meta.env.VITE_AUTH_DOMAIN,
   projectId: import.meta.env.VITE_PROJECT_ID,
   storageBucket: import.meta.env.VITE_STORAGE_BUCKET,
   messagingSenderId: import.meta.env.VITE_MESSAGING_SENDER_ID,
@@ -60,8 +60,7 @@ const messaging = getMessaging(app)
 // auth.languageCode = 'en'
 auth.useDeviceLanguage()
 
-const onSocialClick = async (result: UserCredential) => {
-  console.log(result)
+const onSocialClick = async (result) => {
   const uid = result.user.uid
   const email = result.user.email
   const docRef = doc(dbservice, `members/${uid}`)
@@ -119,9 +118,9 @@ const onSocialClick = async (result: UserCredential) => {
         defaultProfile: url,
       })
     })
-    setTimeout(() => {
-      location.reload()
-    }, 1000)
+    // setTimeout(() => {
+    //   location.reload()
+    // }, 1000)
   }
 }
 const onSocialClickGoogle = () => {
@@ -129,33 +128,41 @@ const onSocialClickGoogle = () => {
   const emails = providerGoogle.addScope(
     'https://www.googleapis.com/auth/contacts.readonly',
   )
-  console.log(emails)
-  signInWithPopup(auth, providerGoogle.addScope('email'))
+  // console.log(location)
+  if (location.hostname === 'khusan.co.kr') {
+    signInWithRedirect(auth, providerGoogle.addScope('email'))
+  } else {
+    signInWithPopup(auth, providerGoogle.addScope('email'))
     .then((result) => onSocialClick(result))
     .catch((error) => {
       console.log(error)
     })
+  }
 }
 const onSocialClickMicrosoft = () => {
-  console.log('Current URL before redirect:', window.location.href)
-  console.log('Auth domain:', auth.config.authDomain)
-  
   const providerMicrosoft = new OAuthProvider('microsoft.com')
-  
-  signInWithRedirect(auth, providerMicrosoft)
-    .then(() => {
-    })
-    .catch((error) => {
-    })
-}
-
-const onSocialClickApple = () => {
-  const providerApple = new OAuthProvider('apple.com')
-  signInWithPopup(auth, providerApple)
+  if (location.hostname === 'khusan.co.kr') {
+    signInWithRedirect(auth, providerMicrosoft)
+  } else {
+    signInWithPopup(auth, providerMicrosoft)
     .then((result) => onSocialClick(result))
     .catch((error) => {
       console.log(error)
     })
+  }
+  // signInWithRedirect(auth, providerMicrosoft)
+}
+const onSocialClickApple = () => {
+  const providerApple = new OAuthProvider('apple.com')
+  if (location.hostname === 'khusan.co.kr') {
+    signInWithRedirect(auth, providerApple)
+  } else {
+    signInWithPopup(auth, providerApple)
+      .then((result) => onSocialClick(result))
+      .catch((error) => {
+        console.log(error)
+      })
+  }
 }
 
 export {

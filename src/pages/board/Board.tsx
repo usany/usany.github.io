@@ -18,7 +18,7 @@ import { DocumentData } from 'firebase/firestore';
 
 const items = {
   ko: ['전체 아이템', '우산', '양산'],
-  en: ['All items', 'Usan', 'Yangsan'],
+  en: ['All items', 'Umbrella', 'Parasol'],
 }
 const locations = {
   ko: ['전체 장소', ...locationsBuildings['ko']],
@@ -149,11 +149,11 @@ function Board() {
   }, [selectedValues[2].value])
   useEffect(() => {
     if (!window.location.search) {
-      navigate('/board?action=borrow')
+      navigate('/board?action=borrow', {replace: true})
     } else {
       selectedSearchParams.map((element, index) => {
         if (options[index].indexOf(element.value) === -1) {
-          navigate('/add?action=borrow')
+          navigate('/add?action=borrow', {replace: true})
         }
       })
     }
@@ -161,28 +161,6 @@ function Board() {
 
   return (
     <>
-      {/* <AlarmCheck />
-            <AlertCircle />
-            <Siren />
-            <Presentation />
-            <DoorOpen />
-            <UserRound />
-            <UserCheck />
-            <MessagesSquare />
-            <Umbrella />
-            <TowerControl />
-            <Clock />
-            <Building />
-            <Watch />
-            <Pencil />
-            <Search />
-            <SearchCheck />
-            <SearchCode />
-            <SearchSlash />
-            <Pen />
-            <PenBox />
-            <PenTool />
-            <PenSquare /> */}
       <SwipeableViews>
         <PageTitle
           icon={<Minimize2 />}

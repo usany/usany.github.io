@@ -4,6 +4,7 @@ import { webSocket } from 'src/webSocket.tsx'
 import { usePiazzaMessage } from './usePiazzaMessage'
 import useSelectors from 'src/hooks/useSelectors'
 import EmptyCard from '../card/EmptyCard'
+import { AnimatedGroup } from 'src/components/motion-primitives/animated-group'
 
 const ChattingStacks = ({
   chattings,
@@ -126,53 +127,57 @@ const ChattingStacks = ({
         conversationName,
         profileUrl
       } = message
-      let userOne
-      let userTwo
-      let userOneDisplayName
-      let userTwoDisplayName
-      let userOneProfileUrl
-      let userTwoProfileUrl
-      const messageCount = chattings[conversation]?.messageCount || 1
-      if (userUid < conversationUid) {
-        userOne = userUid
-        userTwo = conversationUid
-        userOneDisplayName = id
-        userTwoDisplayName = conversationName
-        userOneProfileUrl = profileUrl
-      } else {
-        userOne = conversationUid
-        userTwo = userUid
-        userOneDisplayName = conversationName
-        userTwoDisplayName = id
-        userTwoProfileUrl = profileUrl
+      if (conversationUid === profile.uid) {
+        let userOne
+        let userTwo
+        let userOneDisplayName
+        let userTwoDisplayName
+        let userOneProfileUrl
+        let userTwoProfileUrl
+        const messageCount = chattings[conversation]?.messageCount || 1
+        if (userUid < conversationUid) {
+          userOne = userUid
+          userTwo = conversationUid
+          userOneDisplayName = id
+          userTwoDisplayName = conversationName
+          userOneProfileUrl = profileUrl
+        } else {
+          userOne = conversationUid
+          userTwo = userUid
+          userOneDisplayName = conversationName
+          userTwoDisplayName = id
+          userTwoProfileUrl = profileUrl
+        }
+        const replaceObj = {
+          userUid: userUid,
+          userName: id,
+          userOne: userOne,
+          userOneDisplayName: userOneDisplayName,
+          userTwo: userTwo,
+          userTwoDisplayName: userTwoDisplayName,
+          message: msg,
+          messageClock: messageClock,
+          messageClockNumber: messageClockNumber,
+          userOneProfileUrl: userOneProfileUrl,
+          userTwoProfileUrl: userTwoProfileUrl,
+          messageCount: messageCount,
+        }
+        const newChattings = { ...chattings, [conversation]: replaceObj }
+        changeChattings(newChattings)
       }
-      const replaceObj = {
-        userUid: userUid,
-        userName: id,
-        userOne: userOne,
-        userOneDisplayName: userOneDisplayName,
-        userTwo: userTwo,
-        userTwoDisplayName: userTwoDisplayName,
-        message: msg,
-        messageClock: messageClock,
-        messageClockNumber: messageClockNumber,
-        userOneProfileUrl: userOneProfileUrl,
-        userTwoProfileUrl: userTwoProfileUrl,
-        messageCount: messageCount,
-      }
-      const newChattings = { ...chattings, [conversation]: replaceObj }
-      changeChattings(newChattings)
+      console.log(conversationUid)
+      console.log(profile.uid)
     }
     webSocket.on(`sNewMessage`, sNewMessageCallback)
     return () => {
       webSocket.off(`sNewMessage`, sNewMessageCallback)
     }
   })
-  if (!sorted.length) return (
+  if (!chattings) return (
     <EmptyCard />
   )
   return (
-    <>
+    <AnimatedGroup className='w-full'>
       {sorted.map((element) => {
         if (element === 'piazza') {
           const message = navigator.onLine ? piazzaMessage : JSON.parse(localStorage.getItem('group') || '{}')
@@ -240,7 +245,7 @@ const ChattingStacks = ({
           }
         }
       })}
-    </>
+    </AnimatedGroup>
   )
 }
 

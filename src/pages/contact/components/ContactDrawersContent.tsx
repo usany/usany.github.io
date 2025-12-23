@@ -75,8 +75,8 @@ const ContactDrawersContent = () => {
                         elements={[value.violationUser]}
                         multiple={true}
                         userSearch={true}
-                        ranking={false}
-                        handleUser={(value) => console.log(value)}
+                        ranking={true}
+                        handleUser={() => {}}
                       />
                     </div>
                   ) : (

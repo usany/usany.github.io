@@ -1,6 +1,6 @@
 import Switch from '@mui/material/Switch'
 import { styled } from '@mui/material/styles'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import {
   Accordion,
   AccordionContent,
@@ -47,9 +47,10 @@ interface Props {
   changeProgress: () => void
 }
 function AuthMethods({ agreed, changeAgreed, changeProgress }: Props) {
-  const [accordion, setAccordion] = useState('item')
+  // const [accordion, setAccordion] = useState('item')
   const { privateInformationPolicy, agreeOnPrivateInformationPolicy } =
     useTexts()
+  const docRef = useRef(null)
   // const changeAccordion = () => {
   //   if (accordion) {
   //     setAccordion('')
@@ -58,10 +59,13 @@ function AuthMethods({ agreed, changeAgreed, changeProgress }: Props) {
   //   }
   // }
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col w-full">
       <Accordion type="single" collapsible>
         <AccordionItem value="item-1">
-          <AccordionTrigger className="px-3" onClick={() => changeProgress()}>
+          <AccordionTrigger ref={docRef} className="px-3" onClick={(event) => {
+            const newValue = event.target.dataset.state === 'open' ? false : true
+            changeProgress(newValue)
+          }}>
             쿠우산KHUSAN {privateInformationPolicy}
           </AccordionTrigger>
           <AccordionContent className="px-3">

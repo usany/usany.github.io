@@ -10,6 +10,7 @@ const SpecificsTradesTrigger = ({
     defaultProfile: isCreator ? message.creatorDefaultProfile : message.connectedDefaultProfile,
     profileImageUrl: isCreator ? message.creatorProfileImageUrl : message.connectedProfileImageUrl
   }
+  console.log(passingProfile)
   return (
     <div onClick={onClick}>
       <Avatars

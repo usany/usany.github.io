@@ -55,7 +55,7 @@ function Allies() {
             {followers?.map((element, index) => {
               return (
                 <div key={index} className='flex'>
-                  <div className='flex justify-between w-screen'>
+                  <div className='flex justify-between w-full'>
                     <div className='flex'>
                       <ListItemAvatar>
                         <Avatar alt={element.displayName} sx={{ bgcolor: element.profileColor }} src="./src" />
@@ -91,7 +91,7 @@ function Allies() {
           {elements?.map((element, index) => {
             return (
               <div key={index}>
-                <div className='flex justify-between w-screen px-5'>
+                <div className='flex justify-between w-full px-5'>
                   <div>
                     <Avatars element={element} uid={element.uid} profileColor={element.profileColor} profileUrl={element.profileUrl} profile={false} piazza={null} />
                     {/* <ListItemAvatar>

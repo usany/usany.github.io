@@ -14,6 +14,18 @@ import Motions from 'src/pages/main/auth/Motions'
 import { changeProfile } from 'src/stateSlices/profileSlice'
 import AuthPassword from './AuthPassword'
 import { TextScramble } from 'src/components/motion-primitives/text-scramble'
+import { changeLoading } from 'src/stateSlices/loadingSlice'
+function SentryButton() {
+  return (
+    <button
+      onClick={() => {
+        throw new Error('This is your first error!');
+      }}
+    >
+      Break
+    </button>
+  );
+}
 
 function Auth() {
   const [numberString, setNumberString] = useState('')
@@ -49,7 +61,7 @@ function Auth() {
     setMailSent(true)
     // await fetch('https://service-ceni.onrender.com/mail', {
     await fetch('https://sending-ten.vercel.app/mail', {
-    // await fetch('http://localhost:5000/mail', {
+      // await fetch('http://localhost:5000/mail', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -64,11 +76,14 @@ function Auth() {
     setMailSent(true)
   }
   const confirmNumber = async () => {
+    // dispatch(changeLoading(true))
     if (numberString === createdNumber) {
       const userDocRef = doc(dbservice, `members/${profile?.uid}`)
       await updateDoc(userDocRef, { certificated: true })
       dispatch(changeProfile({ ...profile, certificated: true }))
+      // dispatch(changeLoading(false))
     } else {
+      // dispatch(changeLoading(false))
       alert(checkTheNumber)
     }
   }
@@ -76,11 +91,14 @@ function Auth() {
     await deleteDoc(doc(dbservice, `members/${profile?.uid}`))
     const auth = getAuth()
     if (auth) {
+      dispatch(changeLoading(true))
       deleteUser(auth.currentUser)
         .then(() => {
-          location.reload()
+          // location.reload()
         })
         .catch((error) => {
+          dispatch(changeLoading(false))
+          alert(error)
           console.log(error)
         })
     }
@@ -139,6 +157,7 @@ function Auth() {
             {playlistReadyForYouToGetRidOfBoredom}
           </div>
           <Motions />
+          <SentryButton />
         </>
       )}
     </>

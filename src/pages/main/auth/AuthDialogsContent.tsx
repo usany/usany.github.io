@@ -1,27 +1,23 @@
 import { useState } from "react";
-import useTexts from "src/hooks/useTexts";
 import AuthForm from "src/pages/main/auth/AuthForm";
 import AuthMethods from "./AuthMethods";
-import Playlist from "src/pages/core/Playlist";
+import useLargeMedia from "src/hooks/useLargeMedia";
+import useTexts from "src/hooks/useTexts";
 
 function AuthDialogsContent({changeProgress}) {
   const [agreed, setAgreed] = useState(false)
+
   const changeAgreed = () => {
     setAgreed(!agreed)
   }
-  // const {onlyTakesOneMinuteToRegisterAccount, playlistReadyForYouToGetRidOfBoredom} = useTexts()
+  const largeMedia = useLargeMedia()
   return (
-    <>
-      {/* <div className="flex flex-col p-3">
-        {onlyTakesOneMinuteToRegisterAccount}
-        {playlistReadyForYouToGetRidOfBoredom}
+    <div className='flex justify-center'>
+      <div className={`${!largeMedia ? 'w-[470px]': 'w-full'} flex flex-col`}>
+        <AuthMethods agreed={agreed} changeAgreed={changeAgreed} changeProgress={changeProgress}/>
+        <AuthForm signIn={false} agreed={agreed} />
       </div>
-      <div className="flex justify-center pt-3">
-        <Playlist />
-      </div> */}
-      <AuthMethods agreed={agreed} changeAgreed={changeAgreed} changeProgress={changeProgress}/>
-      <AuthForm signIn={false} agreed={agreed} />
-    </>
+    </div>
   );
 }
 

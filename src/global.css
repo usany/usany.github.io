@@ -6,10 +6,15 @@
   font-family: 'maruburi';
   src: url('src/assets/fonts/OTF/MaruBuri-Light.otf') format('opentype')
 }
+html {
+  overflow-y: scroll;
+}
 ::selection {
   background: #CFCFCF;
 }
-
+.markerContainer {
+  padding: 10px;
+}
 .flipCard {
   perspective: 1000px;
 }

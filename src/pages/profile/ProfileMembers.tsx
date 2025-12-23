@@ -1,5 +1,4 @@
-import Card from '@mui/material/Card'
-import { Link, useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import useSelectors from 'src/hooks/useSelectors'
 import useTexts from 'src/hooks/useTexts'
 import useCardsBackground from '../../hooks/useCardsBackground'

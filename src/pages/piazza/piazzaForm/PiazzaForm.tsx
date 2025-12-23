@@ -81,6 +81,7 @@ function PiazzaForm({
     }
     if (multiple) {
       if (sendData && message) {
+        console.log(message)
         webSocket.emit('piazzaMessage', sendData)
         onForm()
       }
@@ -269,10 +270,13 @@ function PiazzaForm({
   }, [piazzaForm])
   return (
     <form
-      className={`fixed w-screen ${
+      className={`fixed w-full ${
         piazzaForm ? 'bottom-0' : 'bottom-[60px]'
       } flex gap-px`}
-      onSubmit={onSendSubmitHandler}
+      onSubmit={(event) => {
+        inputRef.current?.focus()
+        onSendSubmitHandler(event)
+      }}
     >
       {conversation && conversation !== 'piazza' && (
         <Popups

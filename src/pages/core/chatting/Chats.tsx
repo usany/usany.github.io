@@ -84,7 +84,7 @@ const Chats = ({
         }
       }}
     >
-      <div className={`${longPressed && 'flex'}`}>
+      <div className={`${longPressed && 'flex w-full'}`}>
         <div
           ref={chatsRef}
           className={`${longPressed && 'longPress flex w-[calc(100%-48px)]'}`}

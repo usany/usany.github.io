@@ -54,14 +54,14 @@ const Motions = () => {
 
     return (
         <div className='flex justify-center'>
-            <TextLoop>
+            {/* <TextLoop>
                 {duplicatedSlides.map((slide, index) => (
-                    <span key={index} className="flex flex-shrink-0 px-5 text-xl">
+                    <span key={index} className="flex flex-shrink-0 px-5 text-sm">
                         {slide.title} - {slide.musician}
                     </span>
                 ))}
-            </TextLoop>
-        {/* <div className="relative w-1/2 overflow-hidden p-5">
+            </TextLoop> */}
+        <div className="relative w-1/2 overflow-hidden p-5">
             <motion.div
                 className="flex"
                 animate={{
@@ -80,7 +80,7 @@ const Motions = () => {
                     </span>
                 ))}
             </motion.div>
-        </div> */}
+        </div>
         </div>
     );
 };

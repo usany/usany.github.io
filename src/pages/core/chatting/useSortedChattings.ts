@@ -6,9 +6,7 @@ import useSelectors from 'src/hooks/useSelectors'
 export const useSortedChattings = () => {
   const profile = useSelectors((state) => state.profile.value)
   const [chattings, setChattings] = useState({})
-  const [chattingNone, setChattingNone] = useState(false)
   const changeChattings = (newValue) => setChattings(newValue)
-  const changeChattingNone = (newValue) => setChattingNone(newValue)
   const chattingsArray = navigator.onLine ? chattings : JSON.parse(localStorage.getItem('chattings') || '[]')
   const sorted = Object.keys(chattingsArray).sort((elementOne, elementTwo) => {
     return (
@@ -23,9 +21,6 @@ export const useSortedChattings = () => {
       const newChattings = docSnap.data()?.chattings || {}
       setChattings(newChattings)
       localStorage.setItem('chattings', JSON.stringify(newChattings))
-      if (!newChattings) {
-        setChattingNone(true)
-      }
     }
     if (navigator.onLine) {
       bringChattings()
@@ -35,7 +30,5 @@ export const useSortedChattings = () => {
     chattings: chattings,
     changeChattings: changeChattings,
     sorted: sorted,
-    chattingNone: chattingNone,
-    changeChattingNone: changeChattingNone
   }
 }

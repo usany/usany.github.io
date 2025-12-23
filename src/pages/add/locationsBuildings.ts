@@ -113,8 +113,8 @@ import { seclEn, seclKo } from '../core/buildings/secl'
 export const itemCounts = {
   usanOne: 0,
   usanTwo: 0,
-  yangsanOne: 0,
-  yangsanTwo: 0,
+  ParasolOne: 0,
+  ParasolTwo: 0,
 }
 export const buildingsObj = {
   seall: {

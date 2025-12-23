@@ -41,17 +41,21 @@ function BoardMap({
     Global: 'gu',
     Gwangneung: 'gw'
   }
+  const {seoul, global, gwangneung} = useTexts()
   const campusesArray = [
     {
       name: 'Seoul',
+      displayName: seoul,
       onClick: () => setSelectedLocation('se')
     },
     {
       name: 'Global',
+      displayName: global,
       onClick: () => setSelectedLocation('gu')
     },
     {
       name: 'Gwangneung',
+      displayName: gwangneung,
       onClick: () => setSelectedLocation('gw')
     },
   ]
@@ -93,8 +97,8 @@ function BoardMap({
         return [value, {
           usanOne: 0,
           usanTwo: 0,
-          yangsanOne: 0,
-          yangsanTwo: 0,
+          ParasolOne: 0,
+          ParasolTwo: 0,
         }]
       }))
       docs.forEach((doc) => {
@@ -115,11 +119,11 @@ function BoardMap({
         } else if (doc.data().item === '양산') {
           if (doc.data().text.choose === 1) {
             if (key) {
-              itemCount[key].yangsanOne += 1
+              itemCount[key].ParasolOne += 1
             }
           } else if (doc.data().text.choose === 2) {
             if (key) {
-              itemCount[key].yangsanTwo += 1
+              itemCount[key].ParasolTwo += 1
             }
           }
         }
@@ -187,11 +191,11 @@ function BoardMap({
                 </div>
                 <div className="pt-3">
                   ${borrowing}
-                  ${items[key].yangsanOne}
+                  ${items[key].ParasolOne}
                 </div>
                 <div className="pt-3">
                   ${lending}
-                  ${items[key].yangsanTwo}
+                  ${items[key].ParasolTwo}
                 </div>
               </div>
           </div>`,
@@ -199,6 +203,7 @@ function BoardMap({
         const infoWindow = new naver.maps.InfoWindow({
           id: value[1][languages].name,
           content: contentString,
+          maxWidth: 250,
           backgroundColor: theme === 'light' ? '#fff' : '#777',
           anchorColor: theme === 'light' ? '#fff' : '#777',
           borderColor: theme !== 'light' ? '#fff' : '#777',
@@ -281,7 +286,7 @@ function BoardMap({
                   <Chip
                     sx={selectedLocation === locations[value.name] ? {}:undefined}
                     label={
-                      <button onClick={value.onClick}>{value.name}</button>
+                      <button onClick={value.onClick}>{value.displayName}</button>
                     }
                   />
                 )
@@ -299,10 +304,12 @@ function BoardMap({
             )}
             </div>
             {onLine ? (
+              <div className='px-5'>
               <div
                 ref={mapRef}
                 className='w-full h-[300px]'
               ></div>
+              </div>
             ) : (
               <div className="flex justify-center">
                 {needNetworkConnection}

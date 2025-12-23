@@ -11,7 +11,7 @@ const PiazzaTitle = ({ displayName }: Props) => {
   const {groupMessaging, privateMessaging} = useTexts()
   const conversation = location.search ? location.search.slice(location.search.indexOf('=') + 1) : 'piazza'
   return (
-    <div className='flex w-screen justify-between'>
+    <div className='flex w-full justify-between'>
       <PageTitle
         icon={<MessagesSquare />}
         title={conversation === 'piazza' ? groupMessaging : `${privateMessaging} ${displayName.length > 10 ? displayName.slice(0, 10)+'...' : displayName}`} 

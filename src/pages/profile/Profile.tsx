@@ -1,7 +1,7 @@
 import { User } from 'firebase/auth'
 import { doc, getDoc } from 'firebase/firestore'
 import { UserRound } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useLocation } from 'react-router-dom'
 import { dbservice } from 'src/baseApi/serverbase'
@@ -43,7 +43,7 @@ function Profile() {
   const userUid = state?.element.uid || profile?.uid
   const userDisplayName = state?.element.displayName || profile?.displayName
   const { my, userProfile } = useTexts()
-
+  const scrollRef = useRef(null)
   useEffect(() => {
     const cards = async () => {
       const docRef = doc(dbservice, `members/${userUid}`)
@@ -128,7 +128,7 @@ function Profile() {
     return () => window.removeEventListener('scroll', scrollEffect)
   }, [])
   return (
-    <div>
+    <div ref={scrollRef}>
       <PageTitle
         icon={<UserRound />}
         title={`${userUid === profile?.uid ? my : shortenName} ${userProfile}`}

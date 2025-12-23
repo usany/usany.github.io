@@ -1,9 +1,13 @@
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { auth } from "src/baseApi/serverbase";
 import { DrawerClose } from "src/components/ui/drawer";
+import { changeLoading } from "src/stateSlices/loadingSlice";
 
 const Links = ({ href, passingState, icon, description }) => {
+  const dispatch = useDispatch()
   const logOut = () => {
+    dispatch(changeLoading(true))
     auth.signOut()
   }
   return (

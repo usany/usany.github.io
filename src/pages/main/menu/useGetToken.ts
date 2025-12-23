@@ -15,6 +15,7 @@ const useGetToken = () => {
         })
         if (token) {
           console.log('Token generated:', token)
+          // alert(token)
           // Send this token to your server to store it for later use
           // webSocket.on('messagingToken', token)
           // return (
@@ -27,6 +28,7 @@ const useGetToken = () => {
         }
       } catch (err) {
         console.error('Error getting token:', err)
+        // alert(err)
       }
     }
     requestPermission()

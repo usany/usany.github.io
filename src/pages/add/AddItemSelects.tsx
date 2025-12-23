@@ -15,13 +15,13 @@ function AddItemSelects({ item, changeItem }: Props) {
     <div>
       <FormControl variant="standard" sx={{ minWidth: 150 }}>
         <InputLabel
-        >{languages === 'ko' ? '우산 / 양산 선택' : 'Select Usan / Yangsan'}</InputLabel>
+        >{languages === 'ko' ? '우산 / 양산 선택' : 'Select Usan / Parasol'}</InputLabel>
         <Select
           value={item}
           onChange={changeItem}
         >
-          <MenuItem value={'우산'}>{languages === 'ko' ? '우산' : 'Usan'}</MenuItem>
-          <MenuItem value={'양산'}>{languages === 'ko' ? '양산' : 'Yangsan'}</MenuItem>
+          <MenuItem value={'우산'}>{languages === 'ko' ? '우산' : 'Umbrella'}</MenuItem>
+          <MenuItem value={'양산'}>{languages === 'ko' ? '양산' : 'Parasol'}</MenuItem>
         </Select>
       </FormControl>
     </div>

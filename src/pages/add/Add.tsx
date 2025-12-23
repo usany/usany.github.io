@@ -115,11 +115,11 @@ function Add({ borrow }: Props) {
   }, [])
   useEffect(() => {
     if (!window.location.search) {
-      navigate('/add?action=borrow')
+      navigate('/add?action=borrow', {replace: true})
     } else if (
       ['?action=borrow', '?action=lend'].indexOf(window.location.search) === -1
     ) {
-      navigate('/add?action=borrow')
+      navigate('/add?action=borrow', {replace: true})
     }
   }, [])
   useEffect(() => {
@@ -168,14 +168,14 @@ function Add({ borrow }: Props) {
     } = event
     locationDispatch({ type: 'changeRoom', newState: value })
     if (
-      locationState.locationOne !== '중도' &&
+      locationState.locationOne.indexOf('중도') === -1 &&
       locationState.locationOne !== '직접 입력' &&
       value !== '직접 입력'
     ) {
       setAddSteps(2)
     } else if (
-      locationState.locationOne === '중도' &&
-      ['1열(1F)', '2열(2F)', '3열(2F)', '4열(4F)', '집중열(1F)'].indexOf(
+      locationState.locationOne.indexOf('중도') !== -1 &&
+      ['1열(1F)', '2열(2F)', '3열(2F)', '4열(4F)', '집중열(1F)', '벗터(1F)', '혜움(2F)'].indexOf(
         value,
       ) === -1
     ) {

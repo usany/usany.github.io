@@ -21,7 +21,6 @@ function Piazza() {
   const [chatUid, setChatUid] = useState('')
   const [chatDisplayName, setChatDisplayName] = useState('')
   const [searchParams] = useSearchParams()
-  const dispatch = useDispatch()
   const piazzaForm = useSelectors((state) => state.piazzaForm.value)
   const handleChatUid = (newValue: string) => {
     setChatUid(newValue)

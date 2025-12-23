@@ -10,6 +10,7 @@ function AuthDialogsContentPassword() {
   const [email, setEmail] = useState('')
   const [status, setStatus] = useState('')
   const {needNetworkConnection, weWillSendYouAPasswordResetMail, mail, sendMail, sentAConfirmingMail, failed} = useTexts()
+  const languages = useSelectors((state) => state.languages.value)
   const onChange = (event) => {
     const {
       target: { value },
@@ -69,7 +70,7 @@ function AuthDialogsContentPassword() {
             </Button>
             {status === 'sent' && (
               <div className="flex pt-5">
-                {sentAConfirmingMail}
+                {languages === 'ko' && email}{sentAConfirmingMail} {languages === 'en' && email}
               </div>
             )}
             {status === 'error' && (

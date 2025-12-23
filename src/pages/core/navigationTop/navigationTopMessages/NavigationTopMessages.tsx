@@ -7,12 +7,14 @@ import { messageOff, messageOn } from "src/stateSlices/messageAccordionSlice";
 const NavigationTopMessages = () => {
   const messageAccordion = useSelectors((state) => state.messageAccordion.value);
   const dispatch = useDispatch();
+  const theme = useSelectors((state) => state.theme.value)
+  const color = theme === 'light' ? '#1976D2' : '#90CAF9'
 
   return (
     <div className="flex flex-col">
       <div className="flex justify-center w-16 h-[45px] pt-3">
         <MessageCircle
-          color={messageAccordion? "#2196f3":undefined}
+          color={messageAccordion? color:undefined}
           onClick={() => {
             if (messageAccordion) {
               dispatch(messageOff())
@@ -26,7 +28,7 @@ const NavigationTopMessages = () => {
         sx={{
           width: "100%",
           height: "1px",
-          backgroundColor: messageAccordion && "#2196f3",
+          backgroundColor: messageAccordion && color,
         }}
       />
     </div >

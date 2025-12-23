@@ -7,6 +7,14 @@ import App from 'src/App.tsx'
 import Lotties from 'src/lottiesAnimation/Lotties'
 import { store } from 'src/store'
 // import './i18n'
+import * as Sentry from "@sentry/react";
+
+Sentry.init({
+  dsn: "https://48a865f92cf9a300f5b31bb22d8a65ab@o4510585916882944.ingest.us.sentry.io/4510585944670208",
+  // Setting this option to true will send default PII data to Sentry.
+  // For example, automatic IP address collection on events
+  sendDefaultPii: true
+});
 
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker
