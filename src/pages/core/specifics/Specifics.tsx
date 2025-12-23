@@ -38,7 +38,7 @@ function Specifics({
   const flipCards = () => {
     setCardFlipped(!cardFlipped)
   }
-  const { onPulse } = usePulse({
+  const { onPulse, changeOnPulse } = usePulse({
     message: message,
     round: message?.round,
   })
