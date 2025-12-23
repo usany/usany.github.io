@@ -30,7 +30,10 @@ export const useBringCards = (profile) => {
           if (cardData) newArray.push(newObject)
         })
       )
-      setMessages(newArray)
+      const filteredArray = newArray.filter((value: DocumentData) => {
+        if (value.round !== 5) return value
+      })
+      setMessages(filteredArray)
       setCardLoaded(true)
     }
     if (navigator.onLine) {
