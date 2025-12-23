@@ -15,11 +15,15 @@ import { changeProfile } from 'src/stateSlices/profileSlice'
 import AuthPassword from './AuthPassword'
 import { TextScramble } from 'src/components/motion-primitives/text-scramble'
 import { changeLoading } from 'src/stateSlices/loadingSlice'
+import * as Sentry from "@sentry/react";
 
 function SentryButton() {
   return (
     <Button
       onClick={() => {
+        Sentry.logger.error(
+          Sentry.logger.fmt`Uh oh, something broke, here's the error'`
+        );
         throw new Error('These are errors!');
       }}
     >
