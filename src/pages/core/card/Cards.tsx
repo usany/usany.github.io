@@ -48,13 +48,13 @@ const Cards = ({
         </>
       ) : (
         <>
-        {searchParams.get('id') ?
-          <CardsViews message={message} />
-          :
-          <MorphingDialogs
-            message={message}
-          />
-        }
+          {searchParams.get('id') ?
+            <CardsViews message={message} />
+            :
+            <MorphingDialogs
+              message={message}
+            />
+          }
         </>
       )}
     </div>
