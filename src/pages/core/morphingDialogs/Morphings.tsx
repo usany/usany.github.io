@@ -12,8 +12,6 @@ const Morphings = ({
   increaseRound,
   decreaseRound,
   message,
-  onPulse,
-  changeOnPulse,
   connectedUser,
   changeConnectedUser,
   toggleOnTransfer,
@@ -44,8 +42,6 @@ const Morphings = ({
         decreaseRound={decreaseRound}
         drawerOpenTrue={drawerOpenTrue}
         message={message}
-        onPulse={onPulse}
-        changeOnPulse={changeOnPulse}
         connectedUser={connectedUser}
         changeConnectedUser={changeConnectedUser}
         toggleOnTransfer={toggleOnTransfer}
