@@ -16,9 +16,7 @@ function CardsStacks() {
       }
       {(!navigator.onLine || cardLoaded) && (
         <>
-          {navigator.onLine && !messages.filter((value: DocumentData) => {
-            if (value.round !== 5) return value
-          }).length ? (
+          {navigator.onLine && !messages.length ? (
             <EmptyCard />
           ) : (
             <CardsStacksViews
