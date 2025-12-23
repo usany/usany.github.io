@@ -84,6 +84,8 @@ const Cards = ({
             :
             <MorphingDialogs
               message={messageValue}
+              increaseRound={increaseRound}
+              decreaseRound={decreaseRound}
             />
           }
         </>

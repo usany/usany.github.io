@@ -22,6 +22,8 @@ interface Props {
 }
 const MorphingDialogs = ({
   message,
+  increaseRound,
+  decreaseRound
 }: Props) => {
   const [onTransfer, setOnTransfer] = useState(false)
   const [connectedClock, setConnectedClock] = useState({
@@ -45,32 +47,32 @@ const MorphingDialogs = ({
     }
   }, [round])
   const changeMessageValue = (newValue) => setMessageValue(newValue)
-  const increaseRound = () => {
-    if (messageValue.round === 1) {
-      setMessageValue((prev) => {
-        return {...prev, connectedId: profile.uid, connectedProfileImage: profile.profileImage, connectedProfileImageUrl: profile.profileImageUrl, connectedDefaultProfile: profile.defaultProfile, round: prev.round+1}
-      })
-    } else {
-      setMessageValue((prev) => {
-        return (
-          {...prev, round: prev.round+1}
-        )
-      })
-    }
-  }
-  const decreaseRound = () => {
-    if (messageValue.round === 2) {
-      setMessageValue((prev) => {
-        return {...prev, connectedId: '', connectedProfileImage: false, connectedProfileImageUrl: '', connectedDefaultProfile: '', round: prev.round-1}
-      })
-    } else {
-      setMessageValue((prev) => {
-        return (
-          {...prev, round: prev.round-1}
-        )
-      })
-    }
-  }
+  // const increaseRound = () => {
+  //   if (messageValue.round === 1) {
+  //     setMessageValue((prev) => {
+  //       return {...prev, connectedId: profile.uid, connectedProfileImage: profile.profileImage, connectedProfileImageUrl: profile.profileImageUrl, connectedDefaultProfile: profile.defaultProfile, round: prev.round+1}
+  //     })
+  //   } else {
+  //     setMessageValue((prev) => {
+  //       return (
+  //         {...prev, round: prev.round+1}
+  //       )
+  //     })
+  //   }
+  // }
+  // const decreaseRound = () => {
+  //   if (messageValue.round === 2) {
+  //     setMessageValue((prev) => {
+  //       return {...prev, connectedId: '', connectedProfileImage: false, connectedProfileImageUrl: '', connectedDefaultProfile: '', round: prev.round-1}
+  //     })
+  //   } else {
+  //     setMessageValue((prev) => {
+  //       return (
+  //         {...prev, round: prev.round-1}
+  //       )
+  //     })
+  //   }
+  // }
   const handleConnectedClock = (newValue) => {
     setConnectedClock(newValue)
   }
