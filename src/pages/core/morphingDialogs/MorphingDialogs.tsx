@@ -22,6 +22,7 @@ interface Props {
 }
 const MorphingDialogs = ({
   message,
+  changeMessage,
   increaseRound,
   decreaseRound
 }: Props) => {
@@ -33,27 +34,23 @@ const MorphingDialogs = ({
   const [confirmingClock, setConfirmingClock] = useState('')
   const [returningClock, setReturningClock] = useState('')
   const [confirmedReturnClock, setConfirmedReturnClock] = useState('')
-  const [messageValue, setMessageValue] = useState({})
   const profile = useSelectors((state) => state.profile.value)
+  const round = message?.round
   useEffect(() => {
-    setMessageValue(message)
-  }, [message])
-  const round = messageValue?.round
-  useEffect(() => {
-    if (messageValue?.round > 1 && !messageValue?.connectedProfileImage) {
-      setMessageValue((prev) => {
+    if (message?.round > 1 && !message?.connectedProfileImage) {
+      changeMessage((prev) => {
         return {...prev, connectedProfileImage: profile.profileImage, connectedProfileImageUrl: profile.profileImageUrl, connectedDefaultProfile: profile.defaultProfile}
       })
     }
   }, [round])
-  const changeMessageValue = (newValue) => setMessageValue(newValue)
+  const changemessage = (newValue) => changeMessage(newValue)
   // const increaseRound = () => {
-  //   if (messageValue.round === 1) {
-  //     setMessageValue((prev) => {
+  //   if (message.round === 1) {
+  //     changeMessage((prev) => {
   //       return {...prev, connectedId: profile.uid, connectedProfileImage: profile.profileImage, connectedProfileImageUrl: profile.profileImageUrl, connectedDefaultProfile: profile.defaultProfile, round: prev.round+1}
   //     })
   //   } else {
-  //     setMessageValue((prev) => {
+  //     changeMessage((prev) => {
   //       return (
   //         {...prev, round: prev.round+1}
   //       )
@@ -61,12 +58,12 @@ const MorphingDialogs = ({
   //   }
   // }
   // const decreaseRound = () => {
-  //   if (messageValue.round === 2) {
-  //     setMessageValue((prev) => {
+  //   if (message.round === 2) {
+  //     changeMessage((prev) => {
   //       return {...prev, connectedId: '', connectedProfileImage: false, connectedProfileImageUrl: '', connectedDefaultProfile: '', round: prev.round-1}
   //     })
   //   } else {
-  //     setMessageValue((prev) => {
+  //     changeMessage((prev) => {
   //       return (
   //         {...prev, round: prev.round-1}
   //       )
@@ -90,8 +87,8 @@ const MorphingDialogs = ({
     message: message,
   })
   const { onPulse, changeOnPulse } = usePulse({
-    message: messageValue,
-    round: messageValue?.round,
+    message: message,
+    round: message?.round,
   })
   useOnPulseCallback({
     round: round,
@@ -148,7 +145,7 @@ const MorphingDialogs = ({
   useEffect(() => {
     if (!webSocket) return
     function sIssueTrue(res) {
-      setMessageValue((prev) => ({...prev, issue: true, issueClock: res.issueClock}))
+      changeMessage((prev) => ({...prev, issue: true, issueClock: res.issueClock}))
     }
     webSocket.on(`sIssueTrue${message.id}`, sIssueTrue)
     return () => {
@@ -161,7 +158,7 @@ const MorphingDialogs = ({
   useEffect(() => {
     if (!webSocket) return
     function sIssueFalse() {
-      setMessageValue((prev) => ({...prev, issue: false, issueClock: ''}))
+      changeMessage((prev) => ({...prev, issue: false, issueClock: ''}))
     }
     webSocket.on(`sIssueFalse${message.id}`, sIssueFalse)
     return () => {
@@ -172,7 +169,7 @@ const MorphingDialogs = ({
     }
   }, [])
   console.log(message)
-  console.log(messageValue)
+  console.log(message)
   return (
     <MorphingDialog
       transition={{
@@ -187,7 +184,7 @@ const MorphingDialogs = ({
           to={`${location.pathname}?card=${message.id}`}
         >
           <CardsViews
-            message={messageValue}
+            message={message}
             onTransfer={onTransfer}
           />
         </Link>
@@ -196,7 +193,7 @@ const MorphingDialogs = ({
         <Morphings
           increaseRound={increaseRound}
           decreaseRound={decreaseRound}
-          message={messageValue}
+          message={message}
           onPulse={onPulse}
           changeOnPulse={changeOnPulse}
           connectedUser={connectedUser}
@@ -210,7 +207,7 @@ const MorphingDialogs = ({
           handleConfirmingClock={handleConfirmingClock}
           handleReturningClock={handleReturningClock}
           handleConfirmedReturnClock={handleConfirmedReturnClock}
-          changeMessageValue={changeMessageValue}
+          changemessage={changemessage}
         />
       </MorphingDialogContainer>
     </MorphingDialog>
