@@ -88,8 +88,8 @@ const MorphingDialogs = ({
     message: message,
   })
   const { onPulse, changeOnPulse } = usePulse({
-    message: message,
-    round: round,
+    message: messageValue,
+    round: messageValue?.round,
   })
   useOnPulseCallback({
     round: round,
@@ -169,7 +169,8 @@ const MorphingDialogs = ({
       )
     }
   }, [])
-
+  console.log(message)
+  console.log(messageValue)
   return (
     <MorphingDialog
       transition={{
@@ -185,8 +186,6 @@ const MorphingDialogs = ({
         >
           <CardsViews
             message={message}
-            issue={messageValue?.issue}
-            onPulse={onPulse}
             onTransfer={onTransfer}
           />
         </Link>
