@@ -5,6 +5,7 @@ import SpecificsRear from './SpecificsRear'
 import SpecificsDefault from './SpecificsDefault'
 import getShadowColor from './getShadowColor'
 import { RotateCcw, Redo } from 'lucide-react';
+import { usePulse } from '../morphingDialogs/usePulse'
 
 interface Props {
   message: {}
@@ -15,8 +16,6 @@ function Specifics({
   decreaseRound,
   drawerOpenTrue,
   message,
-  onPulse,
-  changeOnPulse,
   connectedUser,
   changeConnectedUser,
   toggleOnTransfer,
@@ -39,7 +38,11 @@ function Specifics({
   const flipCards = () => {
     setCardFlipped(!cardFlipped)
   }
-
+  const { onPulse } = usePulse({
+    message: message,
+    round: message?.round,
+  })
+  
   return (
     <div
       className="z-50 text-xs"
