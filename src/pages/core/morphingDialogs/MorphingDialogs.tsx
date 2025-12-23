@@ -185,7 +185,7 @@ const MorphingDialogs = ({
           to={`${location.pathname}?card=${message.id}`}
         >
           <CardsViews
-            message={message}
+            message={messageValue}
             onTransfer={onTransfer}
           />
         </Link>
