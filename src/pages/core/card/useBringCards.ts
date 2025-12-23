@@ -1,10 +1,13 @@
 import { doc, DocumentData, getDoc } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 import { dbservice } from 'src/baseApi/serverbase'
+import useSelectors from 'src/hooks/useSelectors'
 
-export const useBringCards = (profile) => {
+export const useBringCards = () => {
   const [messages, setMessages] = useState<DocumentData[]>([])
   const [cardLoaded, setCardLoaded] = useState(false)
+  const profile = useSelectors((state) => state.profile.value)
+  
   useEffect(() => {
     const bringCards = async () => {
       const newArray: DocumentData[] = []
