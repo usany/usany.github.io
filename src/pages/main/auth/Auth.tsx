@@ -15,15 +15,16 @@ import { changeProfile } from 'src/stateSlices/profileSlice'
 import AuthPassword from './AuthPassword'
 import { TextScramble } from 'src/components/motion-primitives/text-scramble'
 import { changeLoading } from 'src/stateSlices/loadingSlice'
+
 function SentryButton() {
   return (
-    <button
+    <Button
       onClick={() => {
-        throw new Error('This is your first error!');
+        throw new Error('These are errors!');
       }}
     >
       Break
-    </button>
+    </Button>
   );
 }
 
