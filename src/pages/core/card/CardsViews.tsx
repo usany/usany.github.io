@@ -17,7 +17,7 @@ const CardsViews = ({ message, onTransfer }: Props) => {
     message: message,
     round: message?.round,
   })
-  if (!message.id) return null
+  if (!id) return null
   return (
     <Tilt>
       {onPulse || issue ? (
