@@ -13,7 +13,7 @@ export const useConnectedUser = ({ message }) => {
       displayName: message.connectedName,
       url: message.connectedUrl,
     })
-  }, [])
+  }, [message])
   return {
     connectedUser: connectedUser,
     changeConnectedUser: changeConnectedUser,

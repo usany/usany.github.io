@@ -25,6 +25,7 @@ function SpecificsTradesPopups({ isCreator, drawerOpenTrue, connectedUser, messa
       ? messageDisplayName.slice(0, 10) + '......'
       : messageDisplayName
   const connectedMessageName = connectedDisplayName?.length > 10 ? connectedDisplayName.slice(0, 10) + '......' : connectedDisplayName
+  console.log(message)
   if (isCreator) {
     return (
       <div className="flex flex-col items-center">
