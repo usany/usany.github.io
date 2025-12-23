@@ -9,6 +9,7 @@ import CardViewTransfer from './CardViewTransfer'
 import { buildingsObj, staticArray } from 'src/pages/add/locationsBuildings'
 
 const CardView = ({ onTransfer, message, shadowColor }) => {
+  console.log(message)
   const locationOne = message.text.count
   const buildingsObject = {
     input: buildingsObj.input,
