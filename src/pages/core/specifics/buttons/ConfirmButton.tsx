@@ -46,7 +46,7 @@ const ConfirmButton = ({ message, increaseRound, handleConfirmingClock }) => {
           uid: profile?.uid,
           profileUrl: profile?.profileImage ? profile?.profileImageUrl : profile?.defaultProfile,
         })
-        increaseRound()
+        increaseRound(profile)
         handleConfirmingClock(new Date().toString())
       }}
       startIcon={<SendIcon />}

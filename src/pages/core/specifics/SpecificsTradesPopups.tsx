@@ -1,24 +1,20 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import BeachAccess from '@mui/icons-material/BeachAccess'
-import EastIcon from '@mui/icons-material/East'
-import HorizontalRuleIcon from '@mui/icons-material/HorizontalRule'
-import WestIcon from '@mui/icons-material/West'
-import useSelectors from 'src/hooks/useSelectors'
 import { Chip } from '@mui/material'
 import useTexts from 'src/hooks/useTexts'
 import Popups from '../Popups'
 import SpecificsTradesContent from './SpecificsTradesContent'
 import SpecificsTradesTitle from './SpecificsTradesTitle'
 import SpecificsTradesTrigger from './SpecificsTradeTrigger'
+import { DocumentData } from 'firebase/firestore'
 
 interface Props {
   isCreator: boolean
   drawerOpenTrue: () => void
-  connectedUser: {}
+  message: DocumentData
 }
-function SpecificsTradesPopups({ isCreator, drawerOpenTrue, connectedUser, message }: Props) {
+function SpecificsTradesPopups({ isCreator, drawerOpenTrue, message }: Props) {
   const messageDisplayName = message.displayName
-  const connectedDisplayName = connectedUser.displayName
+  const connectedDisplayName = message.connectedName
   const {noOneYet} = useTexts()
   const messageName =
     messageDisplayName.length > 10
@@ -37,12 +33,11 @@ function SpecificsTradesPopups({ isCreator, drawerOpenTrue, connectedUser, messa
               message={message}
             />
           }
-          title={<SpecificsTradesTitle message={message} connectedUser={connectedUser} isCreator={true} />}
+          title={<SpecificsTradesTitle message={message} isCreator={true} />}
           content={
             <SpecificsTradesContent
               isCreator={true}
               message={message}
-              connectedUser={connectedUser}
             />
           }
         />
@@ -60,23 +55,16 @@ function SpecificsTradesPopups({ isCreator, drawerOpenTrue, connectedUser, messa
               isCreator={false}
               message={{
                 ...message,
-                // connectedProfileImage: true,
-                // connectedProfileImageUrl: connectedUser.url,
-                // connectedDefaultProfile: connectedUser.url,
               }}
             />
           }
-          title={<SpecificsTradesTitle message={message} connectedUser={connectedUser} isCreator={false} />}
+          title={<SpecificsTradesTitle message={message} isCreator={false} />}
           content={
             <SpecificsTradesContent
               isCreator={false}
               message={{
                 ...message,
-                // connectedProfileImage: true,
-                // connectedProfileImageUrl: connectedUser.url,
-                // connectedDefaultProfile: connectedUser.url,
               }}
-              connectedUser={connectedUser}
             />
           }
         />
@@ -84,7 +72,7 @@ function SpecificsTradesPopups({ isCreator, drawerOpenTrue, connectedUser, messa
         <Avatar
           className={`bg-light-3 dark:bg-dark-3 border border-dashed`}
         >
-          <AvatarImage src={connectedUser.url} />
+          <AvatarImage src='' />
           <AvatarFallback className="text-xl border-none">
             ?
           </AvatarFallback>
@@ -93,8 +81,8 @@ function SpecificsTradesPopups({ isCreator, drawerOpenTrue, connectedUser, messa
       <Chip
         className="specific"
         size="small"
-        variant={!connectedUser.uid ? 'outlined' : undefined}
-        label={connectedUser.uid ? connectedMessageName : noOneYet}
+        variant={!message.connectedId ? 'outlined' : undefined}
+        label={message.connectedId ? connectedMessageName : noOneYet}
       />
     </div>
   )
