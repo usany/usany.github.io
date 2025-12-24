@@ -36,13 +36,13 @@ const MorphingDialogs = ({
   const [confirmedReturnClock, setConfirmedReturnClock] = useState('')
   const profile = useSelectors((state) => state.profile.value)
   const round = message?.round
-  useEffect(() => {
-    if (message?.round > 1 && !message?.connectedProfileImage) {
-      changeMessage((prev) => {
-        return {...prev, connectedProfileImage: profile.profileImage, connectedProfileImageUrl: profile.profileImageUrl, connectedDefaultProfile: profile.defaultProfile}
-      })
-    }
-  }, [round])
+  // useEffect(() => {
+  //   if (message?.round > 1 && !message?.connectedProfileImage) {
+  //     changeMessage((prev) => {
+  //       return {...prev, connectedProfileImage: profile.profileImage, connectedProfileImageUrl: profile.profileImageUrl, connectedDefaultProfile: profile.defaultProfile}
+  //     })
+  //   }
+  // }, [round])
   const changemessage = (newValue) => changeMessage(newValue)
   // const increaseRound = () => {
   //   if (message.round === 1) {
