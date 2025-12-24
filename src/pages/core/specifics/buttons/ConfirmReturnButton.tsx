@@ -48,8 +48,8 @@ const ConfirmReturnButton = ({
 
     const creatorDone = creatorData?.done || []
     const connectedDone = connectedData?.done || []
-    const createdCards = creatorData?.createdCards as string[]
-    const connectedCards = connectedData?.connectedCards as string[]
+    const createdCards = creatorData?.createdCards || [] as string[]
+    const connectedCards = connectedData?.connectedCards || [] as string[]
     const newCreatedCards = createdCards.filter(
       (element) => element !== message.id,
     )
