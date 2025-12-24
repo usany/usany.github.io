@@ -41,7 +41,7 @@ const ReturningButton = ({ message, increaseRound, handleReturningClock }) => {
       className='colorOne'
       variant="outlined"
       onClick={() => {
-        increaseRound()
+        increaseRound(profile)
         onReturning({
           message: message,
           uid: profile?.uid,

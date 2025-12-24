@@ -4,8 +4,9 @@ import { webSocket } from 'src/webSocket'
 export const useIncreaseCardCallback = ({ increaseRound, message }) => {
   useEffect(() => {
     if (!webSocket) return
-    function sIncreaseCardCallback() {
-      increaseRound()
+    function sIncreaseCardCallback(res) {
+      console.log(res)
+      increaseRound(res)
     }
     webSocket.on(`sIncrease${message.id}`, sIncreaseCardCallback)
     return () => {

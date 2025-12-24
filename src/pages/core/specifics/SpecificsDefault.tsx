@@ -59,7 +59,6 @@ const SpecificsDefault = ({ drawerOpenTrue, message, connectedUser,
         <SpecificsTrades
           drawerOpenTrue={drawerOpenTrue}
           message={message}
-          connectedUser={connectedUser}
         />
         <Divider />
         <SpecificsSteppers message={message} />

@@ -8,18 +8,17 @@ import SpecificsTradesPopups from './SpecificsTradesPopups'
 interface Props {
   drawerOpenTrue: () => void
   message: {}
-  connectedUser: {}
 }
-function SpecificsTrades({ drawerOpenTrue, message, connectedUser }: Props) {
+function SpecificsTrades({ drawerOpenTrue, message }: Props) {
   const {borrowing, lending, pointsReward} = useTexts()
   return (
     <div className="flex justify-center pt-3">
       <div className="flex flex-col items-center px-5 gap-1">
         {borrowing}
         {message.text.choose === 1 ? (
-          <SpecificsTradesPopups isCreator={true} drawerOpenTrue={drawerOpenTrue} connectedUser={connectedUser} message={message}/>
+          <SpecificsTradesPopups isCreator={true} drawerOpenTrue={drawerOpenTrue} message={message}/>
         ) : (
-          <SpecificsTradesPopups isCreator={false} drawerOpenTrue={drawerOpenTrue} connectedUser={connectedUser} message={message}/>
+          <SpecificsTradesPopups isCreator={false} drawerOpenTrue={drawerOpenTrue} message={message}/>
         )}
       </div>
       <div className="flex flex-col">
@@ -45,9 +44,9 @@ function SpecificsTrades({ drawerOpenTrue, message, connectedUser }: Props) {
       <div className="flex flex-col items-center px-5 gap-1">
         {lending}
         {message.text.choose === 1 ? (
-          <SpecificsTradesPopups isCreator={false} drawerOpenTrue={drawerOpenTrue} connectedUser={connectedUser} message={message}/>
+          <SpecificsTradesPopups isCreator={false} drawerOpenTrue={drawerOpenTrue} message={message}/>
         ) : (
-          <SpecificsTradesPopups isCreator={true} drawerOpenTrue={drawerOpenTrue} connectedUser={connectedUser} message={message}/>
+          <SpecificsTradesPopups isCreator={true} drawerOpenTrue={drawerOpenTrue} message={message}/>
         )}
       </div>
     </div>

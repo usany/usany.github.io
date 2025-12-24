@@ -9,12 +9,10 @@ import { DocumentData } from 'firebase/firestore'
 interface Props {
   isCreator: boolean
   message: DocumentData
-  connectedUser: object | null
 }
 const SpecificsTradesContent = ({
   isCreator,
   message,
-  connectedUser,
 }: Props) => {
   const profile = useSelectors((state) => state.profile.value)
   const {userProfile, chat} = useTexts()
@@ -24,14 +22,14 @@ const SpecificsTradesContent = ({
       : message.connectedProfileImage,
     defaultProfile: isCreator
       ? message.creatorDefaultProfile
-      : message.connectedDefaultProfile || connectedUser?.connectedUrl,
+      : message.connectedDefaultProfile,
     profileImageUrl: isCreator
-      ? message.creatorProfileImageUrl
-      : message.connectedProfileImageUrl || connectedUser?.connectedUrl,
+      ? message?.creatorProfileImageUrl
+      : message?.connectedProfileImageUrl,
   }
-  const uid = isCreator ? message?.creatorId : connectedUser?.uid
-  const displayName = isCreator ? message.displayName : connectedUser?.displayName
-  const url = isCreator ? message.creatorUrl : connectedUser?.url
+  const uid = isCreator ? message?.creatorId : message?.connectedId
+  const displayName = isCreator ? message.displayName : message?.connectedName
+  const url = isCreator ? message.creatorUrl : message?.connectedUrl
   const conversation = message?.creatorId < profile?.uid ? message?.creatorId.slice(0, 6) + profile?.uid.slice(0, 6) : profile?.uid.slice(0, 6) + message?.creatorId.slice(0, 6)
 
   return (

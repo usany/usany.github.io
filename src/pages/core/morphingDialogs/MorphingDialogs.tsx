@@ -169,7 +169,6 @@ const MorphingDialogs = ({
     }
   }, [])
   console.log(message)
-  console.log(message)
   return (
     <MorphingDialog
       transition={{
@@ -207,7 +206,7 @@ const MorphingDialogs = ({
           handleConfirmingClock={handleConfirmingClock}
           handleReturningClock={handleReturningClock}
           handleConfirmedReturnClock={handleConfirmedReturnClock}
-          changemessage={changemessage}
+          changeMessageValue={changemessage}
         />
       </MorphingDialogContainer>
     </MorphingDialog>

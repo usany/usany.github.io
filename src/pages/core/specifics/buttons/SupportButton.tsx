@@ -71,7 +71,7 @@ const SupportButton = ({
               profile: { uid: profile?.uid, displayName: profile?.displayName },
               profileUrl: sendingProfile,
             })
-            increaseRound()
+            increaseRound(profile)
             changeConnectedUser({
               uid: profile?.uid,
               displayName: profile?.displayName,

@@ -38,11 +38,17 @@ const Cards = ({
       changeLongPressCard('')
     }
   }, [longPressCard])
-  const increaseRound = () => {
+  const increaseRound = (user) => {
     if (messageValue.round === 1) {
-      setMessageValue((prev) => {
-        return {...prev, connectedId: profile.uid, connectedProfileImage: profile.profileImage, connectedProfileImageUrl: profile.profileImageUrl, connectedDefaultProfile: profile.defaultProfile, round: prev.round+1}
-      })
+      if (user?.id) {
+        setMessageValue((prev) => {
+          return {...prev, connectedId: user.id, connectedName: user.connectedName, connectedProfileImage: true, connectedProfileImageUrl: user.connectedUrl, connectedDefaultProfile: user.connectedUrl, round: prev.round+1}
+        })
+      } else {
+        setMessageValue((prev) => {
+          return {...prev, connectedId: user.uid, connectedName: user.displayName, connectedProfileImage: user.profileImage, connectedProfileImageUrl: user.profileImageUrl, connectedDefaultProfile: user.defaultProfile, round: prev.round+1}
+        })
+      }
     } else {
       setMessageValue((prev) => {
         return (
@@ -54,7 +60,7 @@ const Cards = ({
   const decreaseRound = () => {
     if (messageValue.round === 2) {
       setMessageValue((prev) => {
-        return {...prev, connectedId: '', connectedProfileImage: false, connectedProfileImageUrl: '', connectedDefaultProfile: '', round: prev.round-1}
+        return {...prev, connectedId: '', connectedName: '', connectedProfileImage: false, connectedProfileImageUrl: '', connectedDefaultProfile: '', round: prev.round-1}
       })
     } else {
       setMessageValue((prev) => {
