@@ -82,6 +82,10 @@ const ProfileClose = ({
         defaultProfile: changedImage.defaultProfile,
         storageName: uidCurrent
       })
+      const removing = await supabase.storage
+          .from('remake')
+          .remove([profile?.storageName])
+        console.log(removing)
       const { data, error } = await supabase.storage
         .from('remake')
         .update(profile?.uid, 'null', {
