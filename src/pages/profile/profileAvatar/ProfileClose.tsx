@@ -88,7 +88,7 @@ const ProfileClose = ({
         console.log(removing)
       const { data, error } = await supabase.storage
         .from('remake')
-        .update(profile?.uid, 'null', {
+        .update(uidCurrent, 'null', {
           upsert: true,
         })
       if (data) {
