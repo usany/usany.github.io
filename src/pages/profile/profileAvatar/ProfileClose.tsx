@@ -27,13 +27,6 @@ const ProfileClose = ({
     const uidCurrent = profile?.uid+Date.now()
     if (attachment) {
       dispatch(changeProfileUrl(attachment))
-      // dispatch(
-      //   changeProfile({
-      //     ...profile,
-      //     profileImage: true,
-      //     profileImageUrl: attachment,
-      //   }),
-      // )
       localStorage.setItem(
         `${profile.uid}`,
         JSON.stringify({ uid: profile.uid, attachment: attachment }),
