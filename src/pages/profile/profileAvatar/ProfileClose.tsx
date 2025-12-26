@@ -38,14 +38,18 @@ const ProfileClose = ({
         JSON.stringify({ uid: profile.uid, attachment: attachment }),
       )
       if (attachment.slice(0, 5) === 'data:') {
-        updateDoc(docRef, { profileImage: true })
+        const uidCurrent = profile?.uid+Date.now()
+        updateDoc(docRef, { profileImage: true, profileImageUrl: `https://ijsfbngiyhgvolsprxeh.supabase.co/storage/v1/object/public/remake/${uidCurrent}`, storageName: uidCurrent })
         const splitedArray = attachment.split(';base64,')
         const content = splitedArray[0].slice(5)
         const base64 = splitedArray[1]
         console.log(decode(base64))
+        await supabase.storage
+        .from('remake')
+        .remove(profile?.storageName)
         const { data, error } = await supabase.storage
           .from('remake')
-          .update(profile?.uid, decode(base64), {
+          .update(uidCurrent, decode(base64), {
             contentType: content,
             cacheControl: '1',
             upsert: true,
