@@ -34,6 +34,7 @@ const ListsView = ({ elements, userSearch, multiple, handleUser }) => {
     <div className="flex truncate justify-center">
       <div className="w-[1000px]">
         {elements.map((element, index) => {
+          console.log(element)
           if (userSearch) {
             for (let number = 0; number < userSearch.length; number++) {
               if (element?.displayName[number] !== userSearch[number]) {

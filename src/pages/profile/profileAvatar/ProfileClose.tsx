@@ -38,7 +38,7 @@ const ProfileClose = ({
         JSON.stringify({ uid: profile.uid, attachment: attachment }),
       )
       if (attachment.slice(0, 5) === 'data:') {
-        updateDoc(docRef, { profileImage: true })
+        updateDoc(docRef, { profileImage: true, profileImageUrl: `https://ijsfbngiyhgvolsprxeh.supabase.co/storage/v1/object/public/remake/${profile?.uid}` })
         const splitedArray = attachment.split(';base64,')
         const content = splitedArray[0].slice(5)
         const base64 = splitedArray[1]
