@@ -1,5 +1,6 @@
 {
   "ko": {
+    "askTheOwnerToResolveTheIssue": "문제 해결을 위해 주인에게 문의하세요",
     "Welcome to React": "Welcome to React and react-i18next",
     "myProfile": "내 프로필",
     "userProfile": "프로필",
@@ -203,6 +204,7 @@
     "/contact": "신고"
   },
   "en": {
+    "askTheOwnerToResolveTheIssue": "Ask the owner to resolve the issue",
     "Welcome to React": "Welcome to React and react-i18next",
     "myProfile": "My Profile",
     "userProfile": "Profile",
