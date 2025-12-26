@@ -52,11 +52,9 @@ const ProfileClose = ({
         const content = splitedArray[0].slice(5)
         const base64 = splitedArray[1]
         console.log(decode(base64))
-        console.log(profile)
-        const removing = await supabase.storage
+        await supabase.storage
           .from('remake')
           .remove([profile?.storageName])
-        console.log(removing)
         const { data, error } = await supabase.storage
           .from('remake')
           .update(uidCurrent, decode(base64), {
