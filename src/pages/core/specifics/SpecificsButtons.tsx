@@ -46,10 +46,16 @@ function SpecificsButtons({
     }
     getOtherUser()
   }, [issue])
-  if (message?.creatorId !== profile?.uid && message?.issue) {
-    return (
-      <div>{issueOccured}. {askTheOwnerToResolveTheIssue}.</div>
-    )
+  if (message?.issue) {
+    if (message.text.choose === 1 && message.creatorId === profile?.uid) {
+      return (
+        <div>{issueOccured}. {askTheOwnerToResolveTheIssue}.</div>
+      )
+    } else if (message.text.choose === 2 && message.creatorId !== profile?.uid) {
+      return (
+        <div>{issueOccured}. {askTheOwnerToResolveTheIssue}.</div>
+      )
+    }
   }
   if (message.round === 1) {
     if (isOwner) {
