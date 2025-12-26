@@ -127,6 +127,7 @@ function Profile() {
     window.addEventListener('scroll', scrollEffect)
     return () => window.removeEventListener('scroll', scrollEffect)
   }, [])
+  console.log(profile)
   return (
     <div ref={scrollRef}>
       <PageTitle
