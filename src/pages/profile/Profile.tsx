@@ -115,10 +115,10 @@ function Profile() {
       ? userDisplayName.slice(0, 10) + '......'
       : userDisplayName
   const scrollEffect = () => {
-    console.log(document.documentElement.offsetHeight)
-    console.log(window.innerHeight)
-    console.log(document.documentElement.scrollTop)
-    console.log(document.scrollingElement?.scrollTop)
+    // console.log(document.documentElement.offsetHeight)
+    // console.log(window.innerHeight)
+    // console.log(document.documentElement.scrollTop)
+    // console.log(document.scrollingElement?.scrollTop)
     const scrollNumber = 250
     if (
       (document.documentElement.offsetHeight -

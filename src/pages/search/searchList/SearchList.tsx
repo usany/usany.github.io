@@ -111,9 +111,9 @@ function SearchList({multiple}) {
     }
   }, [isLoading, userSearch])
   const handleScroll = () => {
-    console.log(document.documentElement.offsetHeight)
-    console.log(window.innerHeight)
-    console.log(document.documentElement.scrollTop)
+    // console.log(document.documentElement.offsetHeight)
+    // console.log(window.innerHeight)
+    // console.log(document.documentElement.scrollTop)
     if (
       (document.documentElement.offsetHeight -
       (window.innerHeight + Math.round(document.documentElement.scrollTop)) < scrollNumber) 
