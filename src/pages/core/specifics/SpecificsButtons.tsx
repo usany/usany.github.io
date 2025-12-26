@@ -51,7 +51,7 @@ function SpecificsButtons({
       return (
         <div>{issueOccured}. {askTheOwnerToResolveTheIssue}.</div>
       )
-    } else if (message.text.choose === 2 && message.creatorId !== profile?.uid) {
+    } else if (message.text.choose === 2 && message.connectedId !== profile?.uid) {
       return (
         <div>{issueOccured}. {askTheOwnerToResolveTheIssue}.</div>
       )
