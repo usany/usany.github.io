@@ -75,6 +75,15 @@ const ProfileClose = ({
         `${profile.uid}`,
         JSON.stringify({ uid: profile.uid, attachment: '' }),
       )
+      dispatch(
+        changeProfile({
+          ...profile,
+          profileImage: false,
+          defaultProfile: changedImage.defaultProfile,
+          profileImageUrl: changedImage.profileImageUrl,
+          storageName: uidCurrent,
+        }),
+      )
       updateDoc(docRef, {
         profileImage: false,
         profileImageUrl: `https://ijsfbngiyhgvolsprxeh.supabase.co/storage/v1/object/public/remake/${uidCurrent}`,
@@ -96,15 +105,6 @@ const ProfileClose = ({
       } else {
         console.log(error)
       }
-      dispatch(
-        changeProfile({
-          ...profile,
-          profileImage: false,
-          defaultProfile: changedImage.defaultProfile,
-          profileImageUrl: changedImage.profileImageUrl,
-          storageName: uidCurrent,
-        }),
-      )
     }
   }
   
