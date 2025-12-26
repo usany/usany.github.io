@@ -33,6 +33,7 @@ function SpecificsButtons({
   const profile = useSelectors((state) => state.profile.value)
   const {isBorrowing, askingTheOwnerToConfirm, sharingCompleted, issueOccured} = useTexts()
   const isOwner = message.creatorId === profile?.uid
+  const isConnected = message.connectedId === profile?.uid
   const [otherUserProfile, setOtherUserProfile] = useState({uid: ''})
   const {pleaseReportTheIssue, askTheOwnerToResolveTheIssue} = useTexts()
   useEffect(() => {
@@ -47,11 +48,11 @@ function SpecificsButtons({
     getOtherUser()
   }, [issue])
   if (message?.issue) {
-    if (message.text.choose === 1 && message.creatorId === profile?.uid) {
+    if (message.text.choose === 1 && isOwner) {
       return (
         <div>{issueOccured}. {askTheOwnerToResolveTheIssue}.</div>
       )
-    } else if (message.text.choose === 2 && message.connectedId === profile?.uid) {
+    } else if (message.text.choose === 2 && isConnected) {
       return (
         <div>{issueOccured}. {askTheOwnerToResolveTheIssue}.</div>
       )
