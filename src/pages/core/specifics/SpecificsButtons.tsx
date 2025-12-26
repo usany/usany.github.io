@@ -34,7 +34,7 @@ function SpecificsButtons({
   const {isBorrowing, askingTheOwnerToConfirm, sharingCompleted, issueOccured} = useTexts()
   const isOwner = message.creatorId === profile?.uid
   const [otherUserProfile, setOtherUserProfile] = useState({uid: ''})
-  const {pleaseReportTheIssue} = useTexts()
+  const {pleaseReportTheIssue, askTheOwnerToResolveTheIssue} = useTexts()
   useEffect(() => {
     const getOtherUser = async () => {
       if (issue) {
@@ -48,7 +48,7 @@ function SpecificsButtons({
   }, [issue])
   if (message?.creatorId !== profile?.uid && message?.issue) {
     return (
-      <div>{issueOccured}. Ask the owner to resolve the issue</div>
+      <div>{issueOccured}. {askTheOwnerToResolveTheIssue}.</div>
     )
   }
   if (message.round === 1) {
