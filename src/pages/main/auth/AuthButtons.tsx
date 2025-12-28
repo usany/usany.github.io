@@ -10,6 +10,7 @@ import {
 } from 'src/baseApi/serverbase'
 import useSelectors from 'src/hooks/useSelectors'
 import useTexts from 'src/hooks/useTexts'
+import supabase from 'src/baseApi/base'
 
 const AuthButtons = () => {
   const onLine = useSelectors((state) => state.onLine.value)
@@ -34,10 +35,21 @@ const AuthButtons = () => {
       text:continueWithMicrosoft
     },
   ]
+  async function handleSignInWithGoogle(response) {
+    console.log(response)
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+    })
+    console.log(data)
+    console.log(error)
+  }
+
+
+
   return (
     <div className="flex justify-center">
       <div className="flex flex-col">
-        <Button>practice</Button>
+        <Button onClick={handleSignInWithGoogle}>practice</Button>
         {buttons.map((value) => {
           return (
             <Button
