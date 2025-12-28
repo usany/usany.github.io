@@ -11,6 +11,7 @@ import {
 import useSelectors from 'src/hooks/useSelectors'
 import useTexts from 'src/hooks/useTexts'
 import supabase from 'src/baseApi/base'
+import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/clerk-react';
 
 const AuthButtons = () => {
   const onLine = useSelectors((state) => state.onLine.value)
@@ -49,6 +50,12 @@ const AuthButtons = () => {
   return (
     <div className="flex justify-center">
       <div className="flex flex-col">
+        <SignedOut>
+        <SignInButton />
+      </SignedOut>
+      <SignedIn>
+        <UserButton />
+      </SignedIn>
         <Button onClick={handleSignInWithGoogle}>practice</Button>
         {buttons.map((value) => {
           return (
