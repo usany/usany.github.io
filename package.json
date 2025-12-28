@@ -16,7 +16,7 @@
     "deploy": "vite build && firebase deploy",
     "pagedeploy": "gh-pages -d dist",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build",
+    "build-storybook": "storybook build -o ./docs",
     "web-push": "web-push",
     "nextdev": "concurrently \"node --watch src/server.cjs\" \"vite\"",
     "generate-pwa-assets": "pwa-assets-generator --preset minimal public/umbrella512.png",
