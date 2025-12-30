@@ -11,7 +11,7 @@ import {
 import useSelectors from 'src/hooks/useSelectors'
 import useTexts from 'src/hooks/useTexts'
 import supabase from 'src/baseApi/base'
-import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/clerk-react';
+// import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/clerk-react';
 
 const AuthButtons = () => {
   const onLine = useSelectors((state) => state.onLine.value)
