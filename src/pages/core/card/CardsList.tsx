@@ -26,7 +26,7 @@ const CardsList = ({ choose, messages }: Props) => {
       {onLine ? (
         <>
           {chosenMessages.length ? (
-            <AnimatedGroup className="grid grid-cols-[repeat(auto-fit,minmax(180px,1fr))] place-items-center col-span-full w-full">
+            <AnimatedGroup preset="slide" className="grid grid-cols-[repeat(auto-fit,minmax(180px,1fr))] place-items-center col-span-full w-full">
               {chosenMessages}
             </AnimatedGroup>
           ) : (

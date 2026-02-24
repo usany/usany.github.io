@@ -100,7 +100,7 @@ const ProfileConnects = ({ alliesCollection, handleFollowers }: Props) => {
       }
     }
   }
-  const conversation = user.uid < profile?.uid ? user.uid.slice(0, 5)+profile?.uid.slice(0, 5) : profile?.uid.slice(0, 5)+user.uid.slice(0, 5)
+  const conversation = user.uid < profile?.uid ? user.uid.slice(0, 6)+profile?.uid.slice(0, 6) : profile?.uid.slice(0, 6)+user.uid.slice(0, 6)
   return (
     <div className="flex justify-center pt-10">
       <Button
