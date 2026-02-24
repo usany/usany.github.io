@@ -27,11 +27,6 @@ if (typeof window !== 'undefined') { // Check if we're running in the browser.
     }
   }
 }
-const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
-
-if (!PUBLISHABLE_KEY) {
-  throw new Error('Missing Publishable Key')
-}
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -53,9 +48,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
           }
         >
           <Suspense fallback={<Lotties />}>
-      <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
             <App />
-          </ClerkProvider>
           </Suspense>
         </QueryClientProvider>
       </Provider>
