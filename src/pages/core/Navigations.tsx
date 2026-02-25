@@ -80,7 +80,7 @@ function Navigations() {
                 bgcolor: alpha(colorTwo, 0.8),
                 borderRadius: isLargeScreen ? '20px' : '10px',
                 ...(isLargeScreen ? {} : { borderTop: '1px solid' }),
-                width: isLargeScreen ? (dockPosition === 'right' ? 'auto' : 'auto') : '100%',
+                width: isLargeScreen ? (dockPosition === 'right' ? '30px' : 'auto') : '100%',
                 maxWidth: isLargeScreen ? (dockPosition === 'right' ? '60px' : '300px') : 'none'
               }}
               showLabels={!isLargeScreen}
