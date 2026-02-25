@@ -1,7 +1,6 @@
 import { alpha } from '@mui/material'
 import BottomNavigation from '@mui/material/BottomNavigation'
 import BottomNavigationAction from '@mui/material/BottomNavigationAction'
-import IconButton from '@mui/material/IconButton'
 import { Pencil, Presentation, Umbrella, ChevronRight, ChevronLeft } from 'lucide-react'
 import { useEffect, useLayoutEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
