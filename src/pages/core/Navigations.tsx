@@ -86,6 +86,7 @@ function Navigations() {
       <div className="w-full z-50 fixed bottom-0 start-0 end-0">
         {(!piazzaForm || location.pathname !== '/piazza') && (
           <div className={isLargeScreen ? `z-50 fixed bottom-4 transition-all duration-300 ${dockPosition === 'center' ? 'left-1/2 transform -translate-x-1/2' : 'right-4'}` : "w-full z-50 fixed bottom-0 start-0 end-0"} style={isLargeScreen ? { display: 'flex', alignItems: 'center', gap: '8px' } : {}}>
+            {isLargeScreen && dockPosition === 'right' && <IconButton onClick={() => setDockPosition('center')}><ChevronLeft /></IconButton>}
             <BottomNavigation
               sx={{
                 bgcolor: alpha(colorTwo, 0.8),
@@ -125,7 +126,6 @@ function Navigations() {
               />
             </BottomNavigation>
             {isLargeScreen && dockPosition === 'center' && <IconButton onClick={() => setDockPosition('right')}><ChevronRight /></IconButton>}
-            {isLargeScreen && dockPosition === 'right' && <IconButton onClick={() => setDockPosition('center')}><ChevronLeft /></IconButton>}
           </div>)
         }
       </div>
