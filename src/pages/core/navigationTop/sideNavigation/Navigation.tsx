@@ -123,7 +123,9 @@ function Navigation() {
                     </DrawerClose>
                   )
                   if (
-                    (!['/contact', '/'].includes(value.href) &&
+                    (!['/contact', '/', 'https://begin.khusan.co.kr'].includes(
+                      value.href,
+                    ) &&
                       profile?.certificated) ||
                     (value.href === '/' && profile) ||
                     value.href === '/contact'
