@@ -6,6 +6,7 @@ import {
   SearchCheck,
   Siren,
   UserRound,
+  SquareArrowOutUpRight
 } from 'lucide-react'
 import { useId, useState } from 'react'
 import { createPortal } from 'react-dom'
@@ -76,7 +77,7 @@ function Navigation() {
       href: 'https://begin.khusan.co.kr',
       passingState: null,
       icon: <Globe />,
-      description: `${instructions} ↗`,
+      description: `${instructions} ${<SquareArrowOutUpRight />}`,
     },
     {
       href: '/',
