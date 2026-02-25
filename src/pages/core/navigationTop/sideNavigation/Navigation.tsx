@@ -77,7 +77,7 @@ function Navigation() {
       href: 'https://begin.khusan.co.kr',
       passingState: null,
       icon: <Globe />,
-      description: `${instructions} ${<SquareArrowOutUpRight />}`,
+      description: `${instructions}`,
     },
     {
       href: '/',
