@@ -27,7 +27,16 @@ import NavigationSignedOut from './navigationSignedOut/NavigationSignedOut'
 function Navigation() {
   const linkId = useId()
   const [open, setOpen] = useState(false)
-  const { myProfile, userSearch, groupChat, report, exhibition, signOut, needNetworkConnection, instructions } = useTexts()
+  const {
+    myProfile,
+    userSearch,
+    groupChat,
+    report,
+    exhibition,
+    signOut,
+    needNetworkConnection,
+    instructions,
+  } = useTexts()
   const profile = useSelectors((state) => state.profile.value)
   const onLine = useSelectors((state) => state.onLine.value)
   const showPlaylist = profile?.certificated && onLine
@@ -64,16 +73,16 @@ function Navigation() {
       description: exhibition,
     },
     {
-      href: '/',
-      passingState: { multiple: true },
-      icon: <DoorOpen />,
-      description: signOut,
-    },
-    {
       href: 'https://begin.khusan.co.kr',
       passingState: null,
       icon: <Globe />,
       description: `${instructions} ↗`,
+    },
+    {
+      href: '/',
+      passingState: { multiple: true },
+      icon: <DoorOpen />,
+      description: signOut,
     },
   ]
   return (
