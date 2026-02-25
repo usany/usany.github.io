@@ -19,6 +19,7 @@ function Navigations() {
   const profile = useSelectors((state) => state.profile.value)
   const tabs = useSelectors((state) => state.tabs.value)
   const dispatch = useDispatch()
+  const [isLargeScreen, setIsLargeScreen] = useState(false)
   // const [backgroundColor, setBackgroundColor] = useState('#e2e8f0')
   // const theme = useSelectors((state) => state.theme.value)
   // useEffect(() => {
@@ -29,6 +30,12 @@ function Navigations() {
   //   }
   // }, [theme])
   const location = useLocation()
+  useEffect(() => {
+    const checkSize = () => setIsLargeScreen(window.innerWidth >= 768)
+    checkSize()
+    window.addEventListener('resize', checkSize)
+    return () => window.removeEventListener('resize', checkSize)
+  }, [])
   useEffect(() => {
     if (location.pathname === '/add') {
       dispatch(changeBottomNavigation(0))
@@ -76,10 +83,16 @@ function Navigations() {
     <>
       <div className="w-full z-50 fixed bottom-0 start-0 end-0">
         {(!piazzaForm || location.pathname !== '/piazza') && (
-          <div className="w-full z-50 fixed bottom-0 start-0 end-0">
+          <div className={isLargeScreen ? "z-50 fixed bottom-4 left-1/2 transform -translate-x-1/2" : "w-full z-50 fixed bottom-0 start-0 end-0"}>
             <BottomNavigation
-              sx={{ bgcolor: alpha(colorTwo, 0.8), borderRadius: '10px', borderTop: '1px solid' }}
-              showLabels
+              sx={{
+                bgcolor: alpha(colorTwo, 0.8),
+                borderRadius: isLargeScreen ? '20px' : '10px',
+                ...(isLargeScreen ? {} : { borderTop: '1px solid' }),
+                width: isLargeScreen ? 'auto' : '100%',
+                maxWidth: isLargeScreen ? '300px' : 'none'
+              }}
+              showLabels={!isLargeScreen}
               value={bottomNavigation}
               onChange={(event, newValue) => {
                 dispatch(changeBottomNavigation(newValue))
