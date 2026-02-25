@@ -87,7 +87,7 @@ function Navigations() {
         {(!piazzaForm || location.pathname !== '/piazza') && (
           <div className={isLargeScreen ? `z-50 fixed bottom-4 transition-all duration-300 ${dockPosition === 'center' ? 'left-1/2 transform -translate-x-1/2' : 'right-4'}` : "w-full z-50 fixed bottom-0 start-0 end-0"} style={isLargeScreen ? { display: 'flex', alignItems: 'center', gap: '8px' } : {}}>
             {isLargeScreen && dockPosition === 'right' && <IconButton onClick={() => setDockPosition('center')}><ChevronLeft /></IconButton>}
-            <BottomNavigation
+            {dockPosition === 'center' && <BottomNavigation
               sx={{
                 bgcolor: alpha(colorTwo, 0.8),
                 borderRadius: isLargeScreen ? '20px' : '10px',
@@ -124,7 +124,7 @@ function Navigations() {
                 label={texts[languages as keyof typeof texts]['board']}
                 icon={<Presentation />}
               />
-            </BottomNavigation>
+            </BottomNavigation>}
             {isLargeScreen && dockPosition === 'center' && <IconButton onClick={() => setDockPosition('right')}><ChevronRight /></IconButton>}
           </div>)
         }
