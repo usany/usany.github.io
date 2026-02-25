@@ -101,7 +101,7 @@ function Navigation() {
               <NavigationSignedOut />
             )}
             {onLine ? (
-              <div className="flex flex-col justify-between pt-5 gap-5">
+              <div className="flex flex-col justify-between pt-5 gap-4">
                 {links.map((value) => {
                   const drawerLinks = (
                     <DrawerClose key={`${linkId}-${value.href}`}>
