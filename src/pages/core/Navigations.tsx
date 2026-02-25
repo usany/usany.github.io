@@ -84,7 +84,7 @@ function Navigations() {
                 maxWidth: isLargeScreen ? '300px' : 'none'
               }}
               showLabels={!isLargeScreen}
-              value={bottomNavigation}
+              value={dockPosition === 'center' && bottomNavigation}
               onChange={(event, newValue) => {
                 dispatch(changeBottomNavigation(newValue))
               }}
@@ -121,25 +121,27 @@ function Navigations() {
                     label={texts[languages as keyof typeof texts]['board']}
                     icon={<Presentation />}
                   />,
-                  <BottomNavigationAction
-                    key="move-right"
-                    onClick={() => {
-                      if (location.pathname === '/add') {
-                        dispatch(changeBottomNavigation(0))
-                      }
-                      else if (location.pathname === '/') {
-                        dispatch(changeBottomNavigation(1))
-                      }
-                      else {
-                        dispatch(changeBottomNavigation(2))
-                      }
-                      setDockPosition('right')
-                    }}
-                    label=""
-                    icon={<ChevronRight />}
-                  />
+                  isLargeScreen && (
+                    <BottomNavigationAction
+                      key="move-right"
+                      onClick={() => {
+                        if (location.pathname === '/add') {
+                          dispatch(changeBottomNavigation(0))
+                        }
+                        else if (location.pathname === '/') {
+                          dispatch(changeBottomNavigation(1))
+                        }
+                        else {
+                          dispatch(changeBottomNavigation(2))
+                        }
+                        setDockPosition('right')
+                      }}
+                      label=""
+                      icon={<ChevronRight />}
+                    />
+                  )
               ]}
-              {dockPosition === 'right' && (
+              {dockPosition === 'right' && isLargeScreen && (
                 <BottomNavigationAction
                   onClick={() => setDockPosition('center')}
                   label=""
