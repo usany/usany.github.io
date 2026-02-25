@@ -100,16 +100,17 @@ function Navigations() {
                 dispatch(changeBottomNavigation(newValue))
               }}
             >
-              {dockPosition === 'center' && (
-                <>
+              {dockPosition === 'center' && [
                   <BottomNavigationAction
+                    key="register"
                     onClick={() =>
                       navigate(`/add?action=${tabs ? 'lend' : 'borrow'}`)
                     }
                     label={texts[languages as keyof typeof texts]['register']}
                     icon={<Pencil />}
-                  />
+                  />,
                   <BottomNavigationAction
+                    key="home"
                     onClick={() => navigate('/')}
                     label={
                       profile?.certificated
@@ -117,21 +118,22 @@ function Navigations() {
                         : texts[languages as keyof typeof texts]['logIn']
                     }
                     icon={<Umbrella />}
-                  />
+                  />,
                   <BottomNavigationAction
+                    key="board"
                     onClick={() =>
                       navigate(`/board?action=${tabs ? 'lend' : 'borrow'}`)
                     }
                     label={texts[languages as keyof typeof texts]['board']}
                     icon={<Presentation />}
-                  />
+                  />,
                   <BottomNavigationAction
+                    key="move-right"
                     onClick={() => setDockPosition('right')}
                     label=""
                     icon={<ChevronRight />}
                   />
-                </>
-              )}
+              ]}
               {dockPosition === 'right' && (
                 <BottomNavigationAction
                   onClick={() => setDockPosition('center')}
