@@ -93,6 +93,7 @@ function Navigation() {
         onOpenChange={(value) =>
           value ? setTimeout(() => setOpen(value), 250) : setOpen(value)
         }
+        shouldScaleBackground={false}
       >
         <DrawerTrigger className="px-5">
           <Avatars
@@ -103,7 +104,7 @@ function Navigation() {
             profile={false}
           />
         </DrawerTrigger>
-        <DrawerContent className="border-none bg-light-2 dark:bg-dark-2 right-auto top-0 mt-0 w-[355px] overflow-hidden rounded-[10px]">
+        <DrawerContent className="border-none bg-light-2 dark:bg-dark-2 top-0 m-0 w-[355px] overflow-hidden rounded-[10px]">
           <nav className="flex flex-col justify-between w-[350px]">
             {profile?.certificated ? (
               <NavigationSignedIn />
