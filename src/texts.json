@@ -205,7 +205,8 @@
     "/profile": "프로필",
     "/ranking": "검색",
     "/piazza": "채팅",
-    "/contact": "신고"
+    "/contact": "신고",
+    "instructions": "설명서"
   },
   "en": {
     "Welcome to React": "Welcome to React and react-i18next",
@@ -413,6 +414,7 @@
     "/profile": "User Profile",
     "/ranking": "User Search",
     "/piazza": "Chats",
-    "/contact": "Report"
+    "/contact": "Report",
+    "instructions": "Instructions"
   }
 }
