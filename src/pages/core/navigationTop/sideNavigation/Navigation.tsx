@@ -122,17 +122,28 @@ function Navigation() {
                       />
                     </DrawerClose>
                   )
+                  // if (
+                  //   (!['/contact', '/', 'https://begin.khusan.co.kr'].includes(
+                  //     value.href,
+                  //   ) &&
+                  //     profile?.certificated) ||
+                  //   (value.href === '/' && profile) ||
+                  //   value.href === '/contact' ||
+                  //   value.href === 'https://begin.khusan.co.kr'
+                  // ) {
+                  //   return drawerLinks
+                  // }
+                  // return null
                   if (
                     (!['/contact', '/', 'https://begin.khusan.co.kr'].includes(
                       value.href,
                     ) &&
-                      profile?.certificated) ||
-                    (value.href === '/' && profile) ||
-                    value.href === '/contact'
-                  ) {
-                    return drawerLinks
+                      !profile?.certificated)) {
+                    return null
+                  } else if (value.href === '/' && !profile) {
+                    return null
                   }
-                  return null
+                  return drawerLinks
                 })}
               </div>
             ) : (
