@@ -19,7 +19,6 @@ const NavigationTop = () => {
   const scrollLocation =
     ['/', '/add', '/board'].indexOf(location.pathname) === -1
   const piazzaForm = useSelectors((state) => state.piazzaForm.value)
-  // if (piazzaForm && location.pathname === '/piazza') return null
   return (
     <>
       <nav className={`${(piazzaForm && location.pathname === '/piazza') && 'opacity-0 pointer-events-none'} shadow-md fixed z-50 bg-light-2 dark:bg-dark-2 rounded truncate w-full`}>
@@ -50,8 +49,6 @@ const NavigationTop = () => {
           )}
         </div>
       </nav>
-      {/* {(!piazzaForm || location.pathname !== '/piazza') &&
-      } */}
     </>
   )
 }
