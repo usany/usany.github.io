@@ -38,18 +38,7 @@ function Navigations() {
     window.addEventListener('resize', checkSize)
     return () => window.removeEventListener('resize', checkSize)
   }, [])
-  useEffect(() => {
-    if (location.pathname === '/add') {
-      dispatch(changeBottomNavigation(0))
-    } else if (location.pathname === '/') {
-      dispatch(changeBottomNavigation(1))
-    } else if (location.pathname === '/board') {
-      dispatch(changeBottomNavigation(2))
-    } else {
-      dispatch(changeBottomNavigation(5))
-    }
-  })
-  useEffect(() => {
+    useEffect(() => {
     const listener = (event) => {
       const minKeyboardHeight = 400
       const newState = window.screen.height - minKeyboardHeight > (window.visualViewport?.height || window.screen.height)
@@ -103,15 +92,19 @@ function Navigations() {
               {dockPosition === 'center' && [
                   <BottomNavigationAction
                     key="register"
-                    onClick={() =>
+                    onClick={() => {
+                      dispatch(changeBottomNavigation(0))
                       navigate(`/add?action=${tabs ? 'lend' : 'borrow'}`)
-                    }
+                    }}
                     label={texts[languages as keyof typeof texts]['register']}
                     icon={<Pencil />}
                   />,
                   <BottomNavigationAction
                     key="home"
-                    onClick={() => navigate('/')}
+                    onClick={() => {
+                      dispatch(changeBottomNavigation(1))
+                      navigate('/')
+                    }}
                     label={
                       profile?.certificated
                         ? texts[languages as keyof typeof texts]['myStatus']
@@ -121,15 +114,27 @@ function Navigations() {
                   />,
                   <BottomNavigationAction
                     key="board"
-                    onClick={() =>
+                    onClick={() => {
+                      dispatch(changeBottomNavigation(2))
                       navigate(`/board?action=${tabs ? 'lend' : 'borrow'}`)
-                    }
+                    }}
                     label={texts[languages as keyof typeof texts]['board']}
                     icon={<Presentation />}
                   />,
                   <BottomNavigationAction
                     key="move-right"
-                    onClick={() => setDockPosition('right')}
+                    onClick={() => {
+                      if (location.pathname === '/add') {
+                        dispatch(changeBottomNavigation(0))
+                      }
+                      else if (location.pathname === '/') {
+                        dispatch(changeBottomNavigation(1))
+                      }
+                      else {
+                        dispatch(changeBottomNavigation(2))
+                      }
+                      setDockPosition('right')
+                    }}
                     label=""
                     icon={<ChevronRight />}
                   />
