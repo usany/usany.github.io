@@ -5,9 +5,26 @@ interface bottomNavigationState {
   value: number
 }
 
-const initialState: bottomNavigationState = {
-  value: 1
+const getInitialValue = (): number => {
+  if (typeof window !== 'undefined') {
+    const pathname = window.location.pathname
+    if (pathname === '/add') {
+      return 0
+    } else if (pathname === '/') {
+      return 1
+    } else if (pathname === '/board') {
+      return 2
+    } else {
+      return 5
+    }
+  }
+  return 1 // fallback for server-side rendering
 }
+
+const initialState: bottomNavigationState = {
+  value: getInitialValue()
+}
+
 const bottomNavigationSlice = createSlice({
   name: 'bottomNavigation',
   initialState,
