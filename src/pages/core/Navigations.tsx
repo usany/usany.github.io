@@ -1,7 +1,8 @@
 import { alpha } from '@mui/material'
 import BottomNavigation from '@mui/material/BottomNavigation'
 import BottomNavigationAction from '@mui/material/BottomNavigationAction'
-import { Pencil, Presentation, Umbrella } from 'lucide-react'
+import IconButton from '@mui/material/IconButton'
+import { Pencil, Presentation, Umbrella, ChevronRight, ChevronLeft } from 'lucide-react'
 import { useEffect, useLayoutEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useLocation, useNavigate } from 'react-router-dom'
@@ -20,6 +21,7 @@ function Navigations() {
   const tabs = useSelectors((state) => state.tabs.value)
   const dispatch = useDispatch()
   const [isLargeScreen, setIsLargeScreen] = useState(false)
+  const [dockPosition, setDockPosition] = useState('center')
   // const [backgroundColor, setBackgroundColor] = useState('#e2e8f0')
   // const theme = useSelectors((state) => state.theme.value)
   // useEffect(() => {
@@ -83,7 +85,7 @@ function Navigations() {
     <>
       <div className="w-full z-50 fixed bottom-0 start-0 end-0">
         {(!piazzaForm || location.pathname !== '/piazza') && (
-          <div className={isLargeScreen ? "z-50 fixed bottom-4 left-1/2 transform -translate-x-1/2" : "w-full z-50 fixed bottom-0 start-0 end-0"}>
+          <div className={isLargeScreen ? `z-50 fixed bottom-4 transition-all duration-300 ${dockPosition === 'center' ? 'left-1/2 transform -translate-x-1/2' : 'right-4'}` : "w-full z-50 fixed bottom-0 start-0 end-0"} style={isLargeScreen ? { display: 'flex', alignItems: 'center', gap: '8px' } : {}}>
             <BottomNavigation
               sx={{
                 bgcolor: alpha(colorTwo, 0.8),
@@ -122,6 +124,8 @@ function Navigations() {
                 icon={<Presentation />}
               />
             </BottomNavigation>
+            {isLargeScreen && dockPosition === 'center' && <IconButton onClick={() => setDockPosition('right')}><ChevronRight /></IconButton>}
+            {isLargeScreen && dockPosition === 'right' && <IconButton onClick={() => setDockPosition('center')}><ChevronLeft /></IconButton>}
           </div>)
         }
       </div>
