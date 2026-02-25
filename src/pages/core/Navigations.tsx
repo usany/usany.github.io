@@ -121,7 +121,7 @@ function Navigations() {
                     label={texts[languages as keyof typeof texts]['board']}
                     icon={<Presentation />}
                   />,
-                  isLargeScreen && (
+                  isLargeScreen && [
                     <BottomNavigationAction
                       key="move-right"
                       onClick={() => {
@@ -139,7 +139,7 @@ function Navigations() {
                       label=""
                       icon={<ChevronRight />}
                     />
-                  )
+                  ]
               ]}
               {dockPosition === 'right' && isLargeScreen && (
                 <BottomNavigationAction
