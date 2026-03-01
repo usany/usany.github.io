@@ -1,7 +1,7 @@
 import { alpha } from '@mui/material'
 import BottomNavigation from '@mui/material/BottomNavigation'
 import BottomNavigationAction from '@mui/material/BottomNavigationAction'
-import { Pencil, Presentation, Umbrella } from 'lucide-react'
+import { Pencil, Presentation, Umbrella, ChevronRight, ChevronLeft } from 'lucide-react'
 import { useEffect, useLayoutEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useLocation, useNavigate } from 'react-router-dom'
@@ -19,6 +19,8 @@ function Navigations() {
   const profile = useSelectors((state) => state.profile.value)
   const tabs = useSelectors((state) => state.tabs.value)
   const dispatch = useDispatch()
+  const [isLargeScreen, setIsLargeScreen] = useState(false)
+  const [dockPosition, setDockPosition] = useState('center')
   // const [backgroundColor, setBackgroundColor] = useState('#e2e8f0')
   // const theme = useSelectors((state) => state.theme.value)
   // useEffect(() => {
@@ -30,17 +32,12 @@ function Navigations() {
   // }, [theme])
   const location = useLocation()
   useEffect(() => {
-    if (location.pathname === '/add') {
-      dispatch(changeBottomNavigation(0))
-    } else if (location.pathname === '/') {
-      dispatch(changeBottomNavigation(1))
-    } else if (location.pathname === '/board') {
-      dispatch(changeBottomNavigation(2))
-    } else {
-      dispatch(changeBottomNavigation(5))
-    }
-  })
-  useEffect(() => {
+    const checkSize = () => setIsLargeScreen(window.innerWidth >= 768)
+    checkSize()
+    window.addEventListener('resize', checkSize)
+    return () => window.removeEventListener('resize', checkSize)
+  }, [])
+    useEffect(() => {
     const listener = (event) => {
       const minKeyboardHeight = 400
       const newState = window.screen.height - minKeyboardHeight > (window.visualViewport?.height || window.screen.height)
@@ -76,41 +73,83 @@ function Navigations() {
     <>
       <div className="w-full z-50 fixed bottom-0 start-0 end-0">
         {(!piazzaForm || location.pathname !== '/piazza') && (
-          <div className="w-full z-50 fixed bottom-0 start-0 end-0">
+          <div className={isLargeScreen ? `z-50 fixed bottom-4 transition-all duration-300 ${dockPosition === 'center' ? 'left-1/2 transform -translate-x-1/2' : 'right-4'}` : "w-full z-50 fixed bottom-0 start-0 end-0"} style={isLargeScreen ? { display: 'flex', alignItems: 'center', gap: '8px' } : {}}>
             <BottomNavigation
-              sx={{ bgcolor: alpha(colorTwo, 0.8), borderRadius: '10px', borderTop: '1px solid' }}
-              showLabels
-              value={bottomNavigation}
+              sx={{
+                bgcolor: alpha(colorTwo, 0.8),
+                borderRadius: isLargeScreen ? '20px' : '10px',
+                ...(isLargeScreen ? {} : { borderTop: '1px solid' }),
+                width: isLargeScreen ? (dockPosition === 'right' ? '30px' : '350px') : '100%',
+                // maxWidth: isLargeScreen ? (dockPosition === 'right' ? '60px' : '350px') : 'none'
+              }}
+              showLabels={!isLargeScreen}
+              value={dockPosition === 'center' && bottomNavigation}
               onChange={(event, newValue) => {
                 dispatch(changeBottomNavigation(newValue))
               }}
             >
-              <BottomNavigationAction
-                onClick={() =>
-                  navigate(`/add?action=${tabs ? 'lend' : 'borrow'}`)
-                }
-                label={texts[languages as keyof typeof texts]['register']}
-                icon={<Pencil />}
-              />
-              <BottomNavigationAction
-                onClick={() => navigate('/')}
-                label={
-                  profile?.certificated
-                    ? texts[languages as keyof typeof texts]['myStatus']
-                    : texts[languages as keyof typeof texts]['logIn']
-                }
-                icon={<Umbrella />}
-              />
-              <BottomNavigationAction
-                onClick={() =>
-                  navigate(`/board?action=${tabs ? 'lend' : 'borrow'}`)
-                }
-                label={texts[languages as keyof typeof texts]['board']}
-                icon={<Presentation />}
-              />
+              {dockPosition === 'center' && [
+                  <BottomNavigationAction
+                    key="register"
+                    onClick={() => {
+                      dispatch(changeBottomNavigation(0))
+                      navigate(`/add?action=${tabs ? 'lend' : 'borrow'}`)
+                    }}
+                    label={texts[languages as keyof typeof texts]['register']}
+                    icon={<Pencil />}
+                  />,
+                  <BottomNavigationAction
+                    key="home"
+                    onClick={() => {
+                      dispatch(changeBottomNavigation(1))
+                      navigate('/')
+                    }}
+                    label={
+                      profile?.certificated
+                        ? texts[languages as keyof typeof texts]['myStatus']
+                        : texts[languages as keyof typeof texts]['logIn']
+                    }
+                    icon={<Umbrella />}
+                  />,
+                  <BottomNavigationAction
+                    key="board"
+                    onClick={() => {
+                      dispatch(changeBottomNavigation(2))
+                      navigate(`/board?action=${tabs ? 'lend' : 'borrow'}`)
+                    }}
+                    label={texts[languages as keyof typeof texts]['board']}
+                    icon={<Presentation />}
+                  />,
+                  isLargeScreen && [
+                    <BottomNavigationAction
+                      key="move-right"
+                      onClick={() => {
+                        if (location.pathname === '/add') {
+                          dispatch(changeBottomNavigation(0))
+                        }
+                        else if (location.pathname === '/') {
+                          dispatch(changeBottomNavigation(1))
+                        }
+                        else {
+                          dispatch(changeBottomNavigation(2))
+                        }
+                        setDockPosition('right')
+                      }}
+                      label=""
+                      icon={<ChevronRight />}
+                    />
+                  ]
+              ]}
+              {dockPosition === 'right' && isLargeScreen && (
+                <BottomNavigationAction
+                  onClick={() => setDockPosition('center')}
+                  label=""
+                  icon={<ChevronLeft />}
+                />
+              )}
             </BottomNavigation>
-          </div>)
-        }
+          </div>
+        )}
       </div>
     </>
   )

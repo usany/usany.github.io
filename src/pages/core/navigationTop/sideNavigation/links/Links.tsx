@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { auth } from "src/baseApi/serverbase";
 import { DrawerClose } from "src/components/ui/drawer";
 import { changeLoading } from "src/stateSlices/loadingSlice";
+import { SquareArrowOutUpRight } from "lucide-react";
 
 const Links = ({ href, passingState, icon, description }) => {
   const dispatch = useDispatch()
@@ -19,7 +20,7 @@ const Links = ({ href, passingState, icon, description }) => {
       >
         <DrawerClose className="flex px-3">
           {icon}
-          <div className="px-3">{description}</div>
+          <div className="flex items-center gap-1 px-3">{description} {href === 'https://begin.khusan.co.kr' && <SquareArrowOutUpRight />}</div>
         </DrawerClose>
       </Link>
     </h1>

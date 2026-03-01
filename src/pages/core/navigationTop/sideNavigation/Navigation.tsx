@@ -1,32 +1,43 @@
 import {
   DoorOpen,
   Film,
+  Globe,
   MessagesSquare,
   SearchCheck,
   Siren,
   UserRound,
-} from 'lucide-react';
-import { useId, useState } from 'react';
-import { createPortal } from 'react-dom';
-import staticImage from 'src/assets/blue.png';
+  SquareArrowOutUpRight
+} from 'lucide-react'
+import { useId, useState } from 'react'
+import { createPortal } from 'react-dom'
+import staticImage from 'src/assets/blue.png'
 import {
   Drawer,
   DrawerClose,
   DrawerContent,
   DrawerTrigger,
-} from 'src/components/ui/drawer';
-import useSelectors from 'src/hooks/useSelectors';
-import useTexts from 'src/hooks/useTexts';
-import Avatars from '../../Avatars';
-import Playlist from '../../Playlist';
-import Links from './links/Links';
-import NavigationSignedIn from './navigationSignedIn/NavigationSignedIn';
-import NavigationSignedOut from './navigationSignedOut/NavigationSignedOut';
+} from 'src/components/ui/drawer'
+import useSelectors from 'src/hooks/useSelectors'
+import useTexts from 'src/hooks/useTexts'
+import Avatars from '../../Avatars'
+import Playlist from '../../Playlist'
+import Links from './links/Links'
+import NavigationSignedIn from './navigationSignedIn/NavigationSignedIn'
+import NavigationSignedOut from './navigationSignedOut/NavigationSignedOut'
 
 function Navigation() {
-  const linkId = useId();
-  const [open, setOpen] = useState(false);
-  const { myProfile, userSearch, groupChat, report, exhibition, signOut, needNetworkConnection } = useTexts()
+  const linkId = useId()
+  const [open, setOpen] = useState(false)
+  const {
+    myProfile,
+    userSearch,
+    groupChat,
+    report,
+    exhibition,
+    signOut,
+    needNetworkConnection,
+    instructions,
+  } = useTexts()
   const profile = useSelectors((state) => state.profile.value)
   const onLine = useSelectors((state) => state.onLine.value)
   const showPlaylist = profile?.certificated && onLine
@@ -63,6 +74,12 @@ function Navigation() {
       description: exhibition,
     },
     {
+      href: 'https://begin.khusan.co.kr',
+      passingState: null,
+      icon: <Globe />,
+      description: `${instructions}`,
+    },
+    {
       href: '/',
       passingState: { multiple: true },
       icon: <DoorOpen />,
@@ -71,15 +88,31 @@ function Navigation() {
   ]
   return (
     <>
-      <Drawer direction="left" onOpenChange={(value) => value ? setTimeout(() => setOpen(value), 250) : setOpen(value)}>
+      <Drawer
+        direction="left"
+        onOpenChange={(value) =>
+          value ? setTimeout(() => setOpen(value), 250) : setOpen(value)
+        }
+        shouldScaleBackground={false}
+      >
         <DrawerTrigger className="px-5">
-          <Avatars element={profile?.certificated ? profile : { defaultProfile: staticImage }} piazza={() => {}} profile={false} />
+          <Avatars
+            element={
+              profile?.certificated ? profile : { defaultProfile: staticImage }
+            }
+            piazza={() => {}}
+            profile={false}
+          />
         </DrawerTrigger>
-        <DrawerContent className="border-none bg-light-2 dark:bg-dark-2 right-auto top-0 mt-0 w-[355px] overflow-hidden rounded-[10px]">
+        <DrawerContent className="border-none bg-light-2 dark:bg-dark-2 top-0 m-0 w-[355px] overflow-hidden rounded-[10px]">
           <nav className="flex flex-col justify-between w-[350px]">
-            {profile?.certificated ? <NavigationSignedIn /> : <NavigationSignedOut />}
+            {profile?.certificated ? (
+              <NavigationSignedIn />
+            ) : (
+              <NavigationSignedOut />
+            )}
             {onLine ? (
-              <div className="flex flex-col justify-between pt-5 gap-5">
+              <div className="flex flex-col justify-between pt-5 gap-4">
                 {links.map((value) => {
                   const drawerLinks = (
                     <DrawerClose key={`${linkId}-${value.href}`}>
@@ -91,12 +124,28 @@ function Navigation() {
                       />
                     </DrawerClose>
                   )
-                  if ((!['/contact', '/'].includes(value.href) && profile?.certificated) ||
-                      (value.href === '/' && profile) ||
-                      value.href === '/contact') {
-                    return drawerLinks;
+                  // if (
+                  //   (!['/contact', '/', 'https://begin.khusan.co.kr'].includes(
+                  //     value.href,
+                  //   ) &&
+                  //     profile?.certificated) ||
+                  //   (value.href === '/' && profile) ||
+                  //   value.href === '/contact' ||
+                  //   value.href === 'https://begin.khusan.co.kr'
+                  // ) {
+                  //   return drawerLinks
+                  // }
+                  // return null
+                  if (
+                    (!['/contact', '/', 'https://begin.khusan.co.kr'].includes(
+                      value.href,
+                    ) &&
+                      !profile?.certificated)) {
+                    return null
+                  } else if (value.href === '/' && !profile) {
+                    return null
                   }
-                  return null
+                  return drawerLinks
                 })}
               </div>
             ) : (
@@ -107,10 +156,7 @@ function Navigation() {
           </nav>
         </DrawerContent>
       </Drawer>
-      {showPlaylist && createPortal(
-        <Playlist open={open} />,
-        document.body
-      )}
+      {showPlaylist && createPortal(<Playlist open={open} />, document.body)}
     </>
   )
 }

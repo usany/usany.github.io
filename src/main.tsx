@@ -7,7 +7,6 @@ import App from 'src/App.tsx'
 import Lotties from 'src/lottiesAnimation/Lotties'
 import { store } from 'src/store'
 // import './i18n'
-import { ClerkProvider } from '@clerk/clerk-react'
 
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker
@@ -19,18 +18,14 @@ if ('serviceWorker' in navigator) {
       console.error('Service Worker registration failed:', error)
     })
 }
-if (typeof window !== 'undefined') { // Check if we're running in the browser.
+if (typeof window !== 'undefined') {
+  // Check if we're running in the browser.
   const mq = window.matchMedia('(prefers-color-scheme: dark)')
   if (!localStorage.getItem('theme')) {
     if (mq.matches) {
       document.documentElement.classList.add('dark')
     }
   }
-}
-const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
-
-if (!PUBLISHABLE_KEY) {
-  throw new Error('Missing Publishable Key')
 }
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
@@ -53,9 +48,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
           }
         >
           <Suspense fallback={<Lotties />}>
-      <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
             <App />
-          </ClerkProvider>
           </Suspense>
         </QueryClientProvider>
       </Provider>
