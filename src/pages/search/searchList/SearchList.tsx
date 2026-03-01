@@ -81,6 +81,7 @@ function SearchList({multiple}) {
       })
       setRank([...rank, ...newArray])
       setIsLoading(false)
+      console.log('practices')
     }
     const searchingMembersList = async () => {
       const collectionQuery = query(
@@ -120,8 +121,15 @@ function SearchList({multiple}) {
       || (document.documentElement?.scrollTop &&
       document.documentElement?.scrollTop > scrollNumber)
     ) {
+      console.log('practice')
       setIsLoading(true)
+    } else if (
+      document.documentElement.offsetHeight -
+      (window.innerHeight + Math.round(document.documentElement.scrollTop)) <= 0
+    ) {
+      setIsLoading(false)
     }
+    
     // if (
     //   (document.documentElement.offsetHeight -
     //     (window.innerHeight + Math.round(document.documentElement.scrollTop)) >
