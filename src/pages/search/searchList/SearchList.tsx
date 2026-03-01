@@ -81,7 +81,6 @@ function SearchList({multiple}) {
       })
       setRank([...rank, ...newArray])
       setIsLoading(false)
-      console.log('practices')
     }
     const searchingMembersList = async () => {
       const collectionQuery = query(
@@ -112,36 +111,15 @@ function SearchList({multiple}) {
     }
   }, [isLoading, userSearch])
   const handleScroll = () => {
-    // console.log(document.documentElement.offsetHeight)
-    // console.log(window.innerHeight)
-    // console.log(document.documentElement.scrollTop)
-    if (
-      (document.documentElement.offsetHeight -
-      (window.innerHeight + Math.round(document.documentElement.scrollTop)) < scrollNumber) 
-      || (document.documentElement?.scrollTop &&
-      document.documentElement?.scrollTop > scrollNumber)
-    ) {
-      console.log('practice')
-      setIsLoading(true)
-    } else if (
-      document.documentElement.offsetHeight -
-      (window.innerHeight + Math.round(document.documentElement.scrollTop)) < 10
-    ) {
-      setIsLoading(false)
-    }
+    if (isLoading) return
     
-    // if (
-    //   (document.documentElement.offsetHeight -
-    //     (window.innerHeight + Math.round(document.documentElement.scrollTop)) >
-    //     scrollNumber) ||
-    //   isLoading
-    // ) {
-    //   console.log(document.documentElement.offsetHeight)
-    //   return
-    // } else {
-    //   console.log('scroll')
-    //   setIsLoading(true)
-    // }
+    const scrolledFromTop = window.innerHeight + document.documentElement.scrollTop
+    const totalHeight = document.documentElement.offsetHeight
+    const remainingScroll = totalHeight - scrolledFromTop
+    
+    if (remainingScroll < 20 && remainingScroll > 0) {
+      setIsLoading(true)
+    }
   }
   useEffect(() => {
     window.addEventListener('scroll', handleScroll)
