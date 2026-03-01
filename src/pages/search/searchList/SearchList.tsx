@@ -125,7 +125,7 @@ function SearchList({multiple}) {
       setIsLoading(true)
     } else if (
       document.documentElement.offsetHeight -
-      (window.innerHeight + Math.round(document.documentElement.scrollTop)) <= 0
+      (window.innerHeight + Math.round(document.documentElement.scrollTop)) < 10
     ) {
       setIsLoading(false)
     }
