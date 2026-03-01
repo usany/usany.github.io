@@ -111,29 +111,15 @@ function SearchList({multiple}) {
     }
   }, [isLoading, userSearch])
   const handleScroll = () => {
-    // console.log(document.documentElement.offsetHeight)
-    // console.log(window.innerHeight)
-    // console.log(document.documentElement.scrollTop)
-    if (
-      (document.documentElement.offsetHeight -
-      (window.innerHeight + Math.round(document.documentElement.scrollTop)) < scrollNumber) 
-      || (document.documentElement?.scrollTop &&
-      document.documentElement?.scrollTop > scrollNumber)
-    ) {
+    if (isLoading) return
+    
+    const scrolledFromTop = window.innerHeight + document.documentElement.scrollTop
+    const totalHeight = document.documentElement.offsetHeight
+    const remainingScroll = totalHeight - scrolledFromTop
+    
+    if (remainingScroll < 20 && remainingScroll > 0) {
       setIsLoading(true)
     }
-    // if (
-    //   (document.documentElement.offsetHeight -
-    //     (window.innerHeight + Math.round(document.documentElement.scrollTop)) >
-    //     scrollNumber) ||
-    //   isLoading
-    // ) {
-    //   console.log(document.documentElement.offsetHeight)
-    //   return
-    // } else {
-    //   console.log('scroll')
-    //   setIsLoading(true)
-    // }
   }
   useEffect(() => {
     window.addEventListener('scroll', handleScroll)
