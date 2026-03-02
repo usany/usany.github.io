@@ -37,7 +37,7 @@ function Navigations() {
     window.addEventListener('resize', checkSize)
     return () => window.removeEventListener('resize', checkSize)
   }, [])
-    useEffect(() => {
+  useEffect(() => {
     const listener = (event) => {
       const minKeyboardHeight = 400
       const newState = window.screen.height - minKeyboardHeight > (window.visualViewport?.height || window.screen.height)
@@ -66,6 +66,17 @@ function Navigations() {
       }
     }
   }, [piazzaForm])
+  useEffect(() => {
+    if (location.pathname === '/add') {
+      dispatch(changeBottomNavigation(0))
+    } else if (location.pathname === '/') {
+      dispatch(changeBottomNavigation(1))
+    } else if (location.pathname === '/board') {
+      dispatch(changeBottomNavigation(2))
+    } else {
+      dispatch(changeBottomNavigation(5))
+    }
+  }, [location.pathname])
   const navigate = useNavigate()
   // console.log(window.screen.height)
   // console.log(window.visualViewport?.height)
