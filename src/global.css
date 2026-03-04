@@ -6,9 +6,9 @@
   font-family: 'maruburi';
   src: url('src/assets/fonts/OTF/MaruBuri-Light.otf') format('opentype');
 }
-/* html {
+html {
   overflow-y: scroll;
-} */
+}
 ::selection {
   background: #cfcfcf;
 }
